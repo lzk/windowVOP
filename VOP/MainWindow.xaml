@@ -1,7 +1,12 @@
 ﻿<Window x:Class="VOP.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="677" Width="906">
+        Title="MainWindow" Height="677" Width="906"
+        AllowsTransparency="true"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None" >
+
     <Grid ShowGridLines="true" >
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
