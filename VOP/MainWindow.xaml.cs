@@ -22,6 +22,14 @@ namespace VOP
         public MainWindow()
         {
             InitializeComponent();
+            this.MouseLeftButtonDown += MyMouseButtonEventHandler;
+        }
+
+        public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
+        {
+            Point position = Mouse.GetPosition(this);
+            if ( position.Y < 40 && position.Y > 0 )
+                this.DragMove();
         }
     }
 }
