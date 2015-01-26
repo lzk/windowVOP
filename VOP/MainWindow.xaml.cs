@@ -31,5 +31,15 @@ namespace VOP
             if ( position.Y < 40 && position.Y > 0 )
                 this.DragMove();
         }
+
+        private void ControlBtnClick(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+
+            if ( "btnClose" == btn.Name )
+            {
+                this.Close();
+            }
+        }
     }
 }
