@@ -30,6 +30,11 @@ namespace VOP
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;
         }
 
+        public void LoadedMainWindow( object sender, RoutedEventArgs e )
+        {
+            this.subPageView.Child = winPrintPage;
+        }
+
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
         {
             Point position = Mouse.GetPosition(this);

@@ -5,9 +5,10 @@
         AllowsTransparency="true"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
+        Loaded="LoadedMainWindow"
         WindowStyle="None" >
 
-    <Grid ShowGridLines="true" >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="240"/>
