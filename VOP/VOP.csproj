@@ -49,6 +49,16 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+
+      <Page Include    = "CopyPage.xaml"    />
+      <Page Include    = "PrintPage.xaml"   />
+      <Page Include    = "ScanPage.xaml"    />
+      <Page Include    = "SettingPage.xaml" />
+      <Compile Include = "CopyPage.cs"      />
+      <Compile Include = "PrintPage.cs"     />
+      <Compile Include = "ScanPage.cs"      />
+      <Compile Include = "SettingPage.cs"   />
+
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -99,6 +109,12 @@
   </Target>
   -->
   <ItemGroup>
-      <Resource Include=".\Images\background.png" />
+
+      <Resource Include=".\Images\background.png"  />
+      <Resource Include=".\Images\PageCopy.png"    />
+      <Resource Include=".\Images\PagePrint.png"   />
+      <Resource Include=".\Images\PageScan.png"    />
+      <Resource Include=".\Images\PageSetting.png" />
+
   </ItemGroup>
 </Project>

@@ -19,6 +19,11 @@ namespace VOP
     /// </summary>
     public partial class MainWindow : Window
     {
+        CopyPage    winCopyPage   = new CopyPage   ();
+        PrintPage   winPrintPage  = new PrintPage  ();
+        ScanPage    winScanPage   = new ScanPage   ();
+        SettingPage winSettingPage= new SettingPage();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -53,15 +58,19 @@ namespace VOP
             {
                 if ( "btnPrint" == btn.Name )
                 {
+                    this.subPageView.Child = winPrintPage;
                 }
                 else if ( "btnCopy" == btn.Name )
                 {
+                    this.subPageView.Child = winCopyPage;
                 }
                 else if ( "btnScan" == btn.Name )
                 {
+                    this.subPageView.Child = winScanPage;
                 }
                 else if ( "btnSetting" == btn.Name )
                 {
+                    this.subPageView.Child = winSettingPage;
                 }
             }
 

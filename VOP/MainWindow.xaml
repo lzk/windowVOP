@@ -33,5 +33,7 @@
             <Button Name="btnSetting" Click="NvgBtnClick" Width="100" Height="100" Margin="5,0,0,0" > Setting </Button>
         </StackPanel>
         
+        <Border VerticalAlignment="Top" Name="subPageView" Grid.Row="3" />
+
     </Grid>
 </Window>
