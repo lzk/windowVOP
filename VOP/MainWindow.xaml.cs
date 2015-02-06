@@ -36,10 +36,35 @@ namespace VOP
         {
             Button btn = sender as Button;
 
-            if ( "btnClose" == btn.Name )
+            if ( null != btn )
             {
-                this.Close();
+                if ( "btnClose" == btn.Name )
+                {
+                    this.Close();
+                }
             }
+        }
+
+        private void NvgBtnClick(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+
+            if ( null != btn )
+            {
+                if ( "btnPrint" == btn.Name )
+                {
+                }
+                else if ( "btnCopy" == btn.Name )
+                {
+                }
+                else if ( "btnScan" == btn.Name )
+                {
+                }
+                else if ( "btnSetting" == btn.Name )
+                {
+                }
+            }
+
         }
     }
 }

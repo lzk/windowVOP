@@ -27,10 +27,10 @@
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Row="1">
             <TextBlock FontSize="80"> Print </TextBlock>
-            <Button Width="100" Height="100" Margin="5,0,0,0" > Print </Button>
-            <Button Width="100" Height="100" Margin="5,0,0,0" > Copy </Button>
-            <Button Width="100" Height="100" Margin="5,0,0,0" > Scan </Button>
-            <Button Width="100" Height="100" Margin="5,0,0,0" > Setting </Button>
+            <Button Name="btnPrint"   Click="NvgBtnClick" Width="100" Height="100" Margin="5,0,0,0" > Print </Button>
+            <Button Name="btnCopy"    Click="NvgBtnClick" Width="100" Height="100" Margin="5,0,0,0" > Copy </Button>
+            <Button Name="btnScan"    Click="NvgBtnClick" Width="100" Height="100" Margin="5,0,0,0" > Scan </Button>
+            <Button Name="btnSetting" Click="NvgBtnClick" Width="100" Height="100" Margin="5,0,0,0" > Setting </Button>
         </StackPanel>
         
     </Grid>
