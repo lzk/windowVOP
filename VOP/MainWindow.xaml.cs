@@ -77,6 +77,10 @@ namespace VOP
                 {
                     this.subPageView.Child = winSettingPage;
                 }
+                else if ( "btnLogin" == btn.Name )
+                {
+                    // TODO: add login dialog.
+                }
             }
 
         }

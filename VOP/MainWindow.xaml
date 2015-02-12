@@ -32,6 +32,7 @@
             <Button Name="btnCopy"    Click="NvgBtnClick" Width="100" Height="100" Margin="5,0,0,0" > Copy </Button>
             <Button Name="btnScan"    Click="NvgBtnClick" Width="100" Height="100" Margin="5,0,0,0" > Scan </Button>
             <Button Name="btnSetting" Click="NvgBtnClick" Width="100" Height="100" Margin="5,0,0,0" > Setting </Button>
+            <Button Name="btnLogin"   Click="NvgBtnClick" Width="100" Height="100" Margin="5,0,0,0" > Login </Button>
         </StackPanel>
         
         <Border VerticalAlignment="Top" Name="subPageView" Grid.Row="3" />
