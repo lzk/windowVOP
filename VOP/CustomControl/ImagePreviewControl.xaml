@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="VOP.ImagePreviewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mycontrol="clr-namespace:VOP" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid >
+        <Grid.Background>
+            <ImageBrush ImageSource="customImages\ImagePreview_Background.png"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="190*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="92*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="93*"/>
+            <RowDefinition Height="40*"/>
+        </Grid.RowDefinitions>
+
+
+
+
+
+        <Rectangle Grid.RowSpan="1" Grid.ColumnSpan="9" >
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="customImages\ImagePreview_Title.png"/>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <mycontrol:ScrollTextBox x:Name="textBox"  Grid.Row="0"  Grid.Column="3" Background="{x:Null}"
+                 AcceptsTab="False"  SelectionOpacity="0" BorderThickness="0"
+                 Cursor="Arrow"
+                 IsReadOnly="True" ForceCursor="False"
+                 HorizontalAlignment="Left" 
+                           VerticalAlignment="Center"                          
+                           FontSize="20"
+                           TextAlignment="Center"
+                           
+                           Foreground="White"
+               
+                 />
+       
+
+        <Button Grid.Row="0"  Grid.Column="5" Grid.ColumnSpan="2" Click="Button_Click">
+            <Button.Template>
+                <ControlTemplate >
+                    <Rectangle >
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="customImages\ImagePreview_SelectPath.png" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </ControlTemplate >
+            </Button.Template>
+
+        </Button>
+
+
+
+        <Rectangle Name="imagePreviewRegon" Grid.Row="2" Grid.Column="3"  Grid.RowSpan="3" Grid.ColumnSpan="3">
+            <!--<Rectangle.Fill>
+                <ImageBrush ImageSource="C:\Users\ben\Desktop\WPF\SliderStudy_技术交流_2013_09_06\SliderStudy\ICON\ImagePreview_Title.png"/>
+            </Rectangle.Fill>-->
+        </Rectangle>
+
+        <Button Name="btnLeft" Grid.Row="3" Grid.Column="1"
+                Click="btnLeft_Click">
+            <Button.Template>
+                <ControlTemplate >
+                    <Rectangle Name="myRectangle">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="customImages\ImagePreview_Left.png" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsPressed" Value="True">
+                            <Setter TargetName="myRectangle" Property="Fill">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="customImages\ImagePreview_Left_Pressed.png" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate >
+            </Button.Template>
+        </Button>
+
+        <Button Name="btnRight" Grid.Row="3" Grid.Column="7"
+                Click="btnRight_Click"
+                >
+            <Button.Template>
+                <ControlTemplate >
+                    <Rectangle Name="myRectangle" >
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="customImages\ImagePreview_Right.png" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Button.IsPressed" Value="True">
+                            <Setter TargetName="myRectangle" Property="Fill">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="customImages\ImagePreview_Right_Pressed.png" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate >
+            </Button.Template>
+
+        </Button>
+
+
+
+    </Grid>
+</UserControl>
