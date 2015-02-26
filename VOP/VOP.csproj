@@ -50,6 +50,9 @@
   </ItemGroup>
   <ItemGroup>
 
+      <Page Include    = "Density.xaml"    />
+      <Compile Include = "Density.cs"      />
+
       <Page Include    = "CopyPage.xaml"    />
       <Page Include    = "PrintPage.xaml"   />
       <Page Include    = "ScanPage.xaml"    />
