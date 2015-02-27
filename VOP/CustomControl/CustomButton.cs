@@ -51,7 +51,8 @@ namespace VOP
             rect.SetValue(Rectangle.WidthProperty, this.RenderSize.Width);
             {
                 ImageBrush imgBrush = new ImageBrush();
-                imgBrush.ImageSource = new BitmapImage(new Uri(BackgroundImagePath, UriKind.RelativeOrAbsolute));
+
+                imgBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,,/" + BackgroundImagePath, UriKind.RelativeOrAbsolute));
                 rect.SetValue(Rectangle.FillProperty, imgBrush);
             }
 

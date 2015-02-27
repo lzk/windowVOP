@@ -22,11 +22,11 @@ namespace VOP
     /// </summary>
     public partial class SliderChangeControl : UserControl
     {
-        // ImageBrush 
-        private ImageBrush ImageBrush_10_Percent_Normal = new ImageBrush();
-        private ImageBrush ImageBrush_Twinkle = new ImageBrush();
-        private ImageBrush ImageBrush_30_Percent_Normal = new ImageBrush();
-        private ImageBrush ImageBrush_Normal = new ImageBrush();
+        // Brush 
+        SolidColorBrush Brush_10_Percent_Normal = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+        SolidColorBrush Brush_Twinkle = new SolidColorBrush(Color.FromRgb(194, 194, 194));
+        SolidColorBrush Brush_30_Percent_Normal = new SolidColorBrush(Color.FromRgb(155, 250, 156));
+        SolidColorBrush Brush_Normal = new SolidColorBrush(Color.FromRgb(0, 215, 0));
 
         private DispatcherTimer timer = new DispatcherTimer();
 
@@ -44,22 +44,8 @@ namespace VOP
         {
             InitializeComponent();
 
-            timer.Interval = TimeSpan.FromMilliseconds(250);
+            timer.Interval = TimeSpan.FromMilliseconds(400);
             timer.Tick += new EventHandler(timer_Tick);
-
-
-            ImageBrush_10_Percent_Normal.ImageSource = new BitmapImage(
-                     new Uri(@"C:\Users\ben\Desktop\WPF\SliderStudy_技术交流_2013_09_06\SliderStudy\ICON\10_Percent_Normal.png", UriKind.RelativeOrAbsolute));
-
-            ImageBrush_Twinkle.ImageSource = new BitmapImage(
-                   new Uri(@"C:\Users\ben\Desktop\WPF\SliderStudy_技术交流_2013_09_06\SliderStudy\ICON\10_Percent_Twinkle.png", UriKind.RelativeOrAbsolute));
-
-            ImageBrush_30_Percent_Normal.ImageSource = new BitmapImage(
-                   new Uri(@"C:\Users\ben\Desktop\WPF\SliderStudy_技术交流_2013_09_06\SliderStudy\ICON\30_Percent_Normal.png", UriKind.RelativeOrAbsolute));
-
-            ImageBrush_Normal.ImageSource = new BitmapImage(
-                   new Uri(@"C:\Users\ben\Desktop\WPF\SliderStudy_技术交流_2013_09_06\SliderStudy\ICON\Normal.png", UriKind.RelativeOrAbsolute));
-
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -70,16 +56,16 @@ namespace VOP
             {
                 if ((currentValue > 10) && (currentValue <= 30))
                 {
-                    rect.Fill = ImageBrush_30_Percent_Normal;
+                    rect.Fill = Brush_30_Percent_Normal;
                 }
                 else if ((currentValue >= 0) && (currentValue <= 10))
                 {
-                    rect.Fill = ImageBrush_10_Percent_Normal;
+                    rect.Fill = Brush_10_Percent_Normal;   
                 }
             }
             else
             {
-                rect.Fill = ImageBrush_Twinkle;
+                rect.Fill = Brush_Twinkle;
             }
         }
 
@@ -91,34 +77,29 @@ namespace VOP
 
         void PaintControl()
         {
-            // rect.RadiusX = rect.RadiusY = (rect.Width > rect.Height) ? (rect.Height / 2) : (rect.Width / 2);
             rect2.RadiusX = rect2.RadiusY = (rect2.Width > rect2.Height) ? (rect2.Height / 2) : (rect2.Width / 2);
 
-
             rect.Width = rect2.Width * currentValue / maximum;
-
-
             {
                 if (currentValue > 30)
                 {
-                    rect.Fill = ImageBrush_Normal;
+                    rect.Fill = Brush_Normal;
 
                     timer.Stop();
                 }
                 else if ((currentValue > 10) && (currentValue <= 30))
                 {
-                    rect.Fill = ImageBrush_30_Percent_Normal;
+                    rect.Fill = Brush_30_Percent_Normal;
 
                     timer.Start();
 
                 }
                 else if ((currentValue >= 0) && (currentValue <= 10))
                 {
-                    rect.Fill = ImageBrush_10_Percent_Normal;
+                    rect.Fill = Brush_10_Percent_Normal;
 
                     timer.Start();
                 }
-
             }
 
             clipRectangle(rect);
@@ -129,7 +110,6 @@ namespace VOP
         {
             double BackRadius = (rect2.Width > rect2.Height) ? rect2.Height / 2 : rect2.Width / 2;
             double actualWidth = rect.Width;
-
 
             if (actualWidth < 2 * BackRadius)
             {

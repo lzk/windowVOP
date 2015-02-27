@@ -1,14 +1,417 @@
-<UserControl x:Class="VOP.PrintPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Width="666"
-    Height="333"
->
-<Grid>
+﻿<UserControl x:Class="VOP.PrintPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mycontrol="clr-namespace:VOP"
+             Width="666"
+             Height="333">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="switch" TargetType="{x:Type CheckBox}">
+            <Grid Name="grid"
+                  Width="{TemplateBinding Width}"
+                  Height="{TemplateBinding Height}">
+                <Rectangle Name="Off"
+                           Width="{Binding ElementName=grid, Path=Width}"
+                           Height="{Binding ElementName=grid, Path=Height}">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Images\ToggleLeft.png" />
+                    </Rectangle.Fill>
+                </Rectangle>
 
-    <Canvas Grid.Row="0" Width="666" Height="333" >
-        <Image Source="Images\PagePrint.png" />
-    </Canvas>
+                <Rectangle Name="On"
+                           Width="{Binding ElementName=grid, Path=Width}"
+                           Height="{Binding ElementName=grid, Path=Height}"
+                           Visibility="Hidden" >
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Images/ToggleRight.png" />
+                    </Rectangle.Fill>
+                </Rectangle>
 
-</Grid>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter TargetName="Off" Property="Visibility" Value="Hidden" />
+                    <Setter TargetName="On" Property="Visibility" Value="Visible" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="TextBoxStyle1" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label Background="{TemplateBinding Background}" />
+
+                            <Border x:Name="Bd"
+                                    Grid.Column="1"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    SnapsToDevicePixels="true">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="Images\status_imageTextbox_Right.png" />
+                                </Border.Background>
+                                <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <!--=====================================================================-->
+    <!--=====================================================================-->
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Images\PagePrint.png" />
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*" />
+            <ColumnDefinition Width="535*" />
+            <ColumnDefinition Width="15*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*" />
+            <RowDefinition Height="285*" />
+            <RowDefinition Height="15*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <!--<Grid.Background>
+                <ImageBrush ImageSource="Images\PagePrint_Bk_2.png" />
+            </Grid.Background>-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="215*" />
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="350*" />
+                <ColumnDefinition Width="15*" />
+                <ColumnDefinition Width="255*" />
+                <ColumnDefinition Width="25*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35*" />
+                <RowDefinition Height="340*" />
+                <RowDefinition Height="40*" />
+            </Grid.RowDefinitions>
+
+            <Rectangle Grid.Row="1" Grid.Column="1">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="Images\PagePrint_Bk_Left.png" />
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*" />
+                    <RowDefinition Height="75*" />
+                    <RowDefinition Height="15*" />
+                    <RowDefinition Height="60*" />
+                    <RowDefinition Height="15*" />
+                    <RowDefinition Height="30*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="35*" />
+                    <RowDefinition Height="140*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15*" />
+                    <ColumnDefinition Width="240*" />
+                    <ColumnDefinition Width="15*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15*" />
+                        <ColumnDefinition Width="220*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Name="textBox"
+                               Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Background="{x:Null}"
+                               FontSize="15"
+                               Foreground="#888888"
+                               Text="机型："
+                               TextAlignment="Center" />
+                </Grid>
+
+                <!--
+                    <Rectangle Grid.Column="1" Grid.Row="1">
+                    <Rectangle.Fill>
+                    <ImageBrush ImageSource="C:\Users\ben\Desktop\WPF\SliderStudy_技术交流_2013_09_06\SliderStudy\ICON\demo.png"></ImageBrush>
+                    </Rectangle.Fill>
+                    </Rectangle>
+                -->
+
+                <TextBox Grid.Row="3"
+                         Grid.Column="1"
+                         VerticalContentAlignment="Center"
+                         ClipToBounds="True"
+                         FontSize="20"
+                         Foreground="White"
+                         IsEnabled="False"
+                         Padding="5"
+                         Style="{StaticResource TextBoxStyle1}"
+                         Text="待机"
+                         TextAlignment="Center"
+                         TextWrapping="WrapWithOverflow">
+                    <TextBox.Background>
+                        <ImageBrush ImageSource="Images\status_imageTextbox.png" />
+                    </TextBox.Background>
+                </TextBox>
+
+                <TextBlock Grid.Row="5"
+                           Grid.Column="1"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Background="{x:Null}"
+                           FontSize="15"
+                           Foreground="#888888"
+                           Text="碳粉容量 ： 30%"
+                           TextAlignment="Center" />
+
+                <Grid Grid.Row="7" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25*" />
+                        <ColumnDefinition Width="87*"/>
+                        <ColumnDefinition Width="19*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="7*" />
+                        <RowDefinition Height="21*" />
+                        <RowDefinition Height="7*" />
+                    </Grid.RowDefinitions>
+
+                    <mycontrol:SliderChangeControl x:Name="mySlider"
+                                                   Grid.Row="1"
+                                                   Grid.Column="0"
+                                                   Maximum="100"
+                                                   Slider_ValueChanged="slider_ValueChanged"
+                                                   Value="30" Grid.ColumnSpan="2"/>
+
+                    <Rectangle Grid.Row="0"
+                               Grid.RowSpan="3"
+                               Grid.Column="2" Margin="0,0,0.2,0">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="Images\shoppingCart.png" />
+                        </Rectangle.Fill>
+                        <!--
+                            <Rectangle.BitmapEffect>
+                            <DropShadowBitmapEffect>
+                            
+                            </DropShadowBitmapEffect>
+                            </Rectangle.BitmapEffect>
+                        -->
+                    </Rectangle>
+                </Grid>
+            </Grid>
+
+
+            <mycontrol:ImagePreviewControl x:Name="imagePreviewCtrl" Grid.Row="1"
+                                           Grid.Column="3" 
+                                           Path="F:\ben"
+                                           >
+            </mycontrol:ImagePreviewControl>
+
+
+            <Grid Grid.Row="1"
+                  Grid.Column="5"
+                  Background="{x:Null}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="225*" />
+                    <RowDefinition Height="15*" />
+                    <RowDefinition Height="40*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="45*" />
+                </Grid.RowDefinitions>
+
+                <Rectangle>
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Images/PagePrint_Bk_Right.png" />
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="15*" />
+                        <RowDefinition Height="45*" />
+                        <RowDefinition Height="5*" />
+                        <RowDefinition Height="45*" />
+                        <RowDefinition Height="5*" />
+                        <RowDefinition Height="40*" />
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="40*" />
+                        <RowDefinition Height="20*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="22*" />
+                        <ColumnDefinition Width="42*" />
+                        <ColumnDefinition Width="92*" />
+                        <ColumnDefinition Width="42*" />
+                        <ColumnDefinition Width="22*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Background="{x:Null}"
+                               FontSize="15"
+                               Foreground="#999999"
+                               Text="横向"
+                               TextAlignment="Center" />
+
+                    <CheckBox Grid.Row="1"
+                              Grid.Column="2"
+                              Template="{StaticResource switch}" />
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="3"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Background="{x:Null}"
+                               FontSize="15"
+                               Foreground="#999999"
+                               Text="纵向"
+                               TextAlignment="Center" />
+
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="1"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Background="{x:Null}"
+                               FontSize="15"
+                               Foreground="#999999"
+                               Text="彩色"
+                               TextAlignment="Center" />
+
+                    <CheckBox Grid.Row="3"
+                              Grid.Column="2"
+                              Template="{StaticResource switch}" />
+
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="3"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Background="{x:Null}"
+                               FontSize="15"
+                               Foreground="#999999"
+                               Text="黑白"
+                               TextAlignment="Center" />
+
+                    <mycontrol:AdjustValueEx_Ctrl x:Name="adjustValueExCtrl"
+                                                  Grid.Row="5"
+                                                  Grid.Column="1"
+                                                  Grid.ColumnSpan="3"
+                                                  DecFunction="DecFuncCallbackEx"
+                                                  IncFunction="IncFuncCallbackEx"
+                                                  LeftText="比例"
+                                                  LeftText_FontSize="12"
+                                                  Text="0%" />
+
+                    <mycontrol:AdjustValueEx_Ctrl x:Name="AmountOfPage"
+                                                  Grid.Row="7"
+                                                  Grid.Column="1"
+                                                  Grid.ColumnSpan="3"
+                                                  DecFunction="DecCallback_AmountOfPage"
+                                                  IncFunction="IncCallback_AmountOfPage"
+                                                  LeftText="份数"
+                                                  LeftText_FontSize="12"
+                                                  Text="0" />
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60*" />
+                        <ColumnDefinition Width="265*" />
+                        <ColumnDefinition Width="60*" />
+                    </Grid.ColumnDefinitions>
+
+                    
+                        <!--<mycontrol:CustomButton Grid.Column="1"
+                        Content ="高级设置"   FontSize="15"
+                        TextColor="#999999"
+                        BackgroundImagePath="Images\Button_Gray.png"
+                        />-->
+                    
+                    <Button FontSize="15" Name="HighLevel_Setup" Grid.ColumnSpan="2" 
+                            Height="30" Margin="27,0,0.2,-0.4" VerticalAlignment="Bottom"
+                            Click="Button_Click">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Rectangle>
+                                        <Rectangle.Fill>
+                                            <ImageBrush ImageSource="Images\Button_Gray.png" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <TextBlock Name="textBox"
+                                               Grid.Row="1"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Background="{x:Null}"
+                                               FontSize="15"
+                                               Foreground="#999999"
+                                               Text="高级设置"
+                                               TextAlignment="Center" />
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="27*" />
+                        <ColumnDefinition Width="77*" />
+                        <ColumnDefinition Width="43*"/>
+                        <ColumnDefinition Width="27*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <!--<mycontrol:CustomButton x:Name="btn_Print" Grid.Column="1" 
+                        Content ="打   印"   FontSize="15"
+                        TextColor="White"
+                        BackgroundImagePath="Images/Btn_Green.png">                        
+                    </mycontrol:CustomButton>-->
+
+
+                    <Button x:Name="btn_Print"
+                            FontSize="15" Grid.ColumnSpan="3" Margin="27,0,0.2,-0.2">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Rectangle>
+                                        <Rectangle.Fill>
+                                            <ImageBrush ImageSource="Images\Button_Green.png" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <TextBlock Name="textBox"
+                                               Grid.Row="1"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Background="{x:Null}"
+                                               FontSize="15"
+                                               Foreground="White"
+                                               Text="打   印"
+                                               TextAlignment="Center" />
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
 </UserControl>

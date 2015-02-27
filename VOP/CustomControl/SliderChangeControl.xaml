@@ -13,7 +13,7 @@
         <Rectangle Name="rect2" Loaded="rect2_Loaded"
                    Width="{Binding ElementName=Container,Path=ActualWidth}"
             Height="{Binding ElementName=Container,Path=ActualHeight}"
-                   Stroke="Blue">
+                   >
 
             <Rectangle.Fill>
                 <ImageBrush ImageSource="customImages\sliderChange_bk.png"></ImageBrush>
@@ -25,14 +25,7 @@
                    Height="{Binding ElementName=Container,Path=ActualHeight}"
                   Width="{Binding ElementName=Container,Path=ActualWidth}"
                    >
-                <!--<Rectangle.Fill>
-                    <ImageBrush ImageSource="C:\Users\ben\Desktop\WPF\SliderStudy_技术交流_2013_09_06\SliderStudy\ICON\foreColor.png"></ImageBrush>                    
-                </Rectangle.Fill>-->
-
-
-
-
-            </Rectangle>
+                </Rectangle>
         </Grid>
     </Canvas>
 </UserControl>
