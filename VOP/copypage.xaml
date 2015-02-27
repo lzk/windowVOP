@@ -6,14 +6,79 @@
     Height="333"
 >
 <Grid>
+    <Grid.Resources>
+        <ControlTemplate x:Key="radiobtn" TargetType="{x:Type RadioButton}" >
+            <Grid>
+
+                <Rectangle 
+                    Width="{TemplateBinding Width}"
+                    Height="{TemplateBinding Height}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" 
+                    RadiusX="15"
+                    RadiusY="15">
+                    <UIElement.Effect>
+                        <DropShadowEffect BlurRadius="2" Opacity="0.5" Direction="270"/>
+                    </UIElement.Effect>
+
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <LinearGradientBrush.GradientStops>
+                                <GradientStop Color="#ffebebeb" Offset="0"/>
+                                <GradientStop Color="#ffc6c6c6" Offset="0.5"/>
+                                <GradientStop Color="#ffa0a0a0" Offset="1"/>
+                            </LinearGradientBrush.GradientStops>
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <StackPanel Orientation="Horizontal" >
+                    <Ellipse x:Name="ellipse1" VerticalAlignment="Center"
+                        HorizontalAlignment="Left" Width="15" Height="15"
+                        Fill="White"
+                        Margin="10,0" />
+
+                    <TextBlock VerticalAlignment="Center" 
+                        HorizontalAlignment="Left" 
+                        Text="{TemplateBinding Content}"
+                        FontSize="{TemplateBinding FontSize}" 
+                        Foreground="{TemplateBinding Foreground}" /> 
+                </StackPanel>
+
+            </Grid>
+
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsChecked" Value="true">
+                    <Setter TargetName="ellipse1" Property="Fill">
+                        <Setter.Value>
+                            <SolidColorBrush Color="Black" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
+
+        </ControlTemplate>
+    </Grid.Resources>
 
     <Canvas Grid.Row="0" Width="666" Height="333" >
         <Image Source="Images\PageCopy.png" />
     </Canvas>
 
+    <UniformGrid>
     <vop:Density
         HorizontalAlignment="Center"
         VerticalAlignment="Center"
         />
+
+    <StackPanel VerticalAlignment="Center" >
+        <RadioButton Margin="10" Width="200" Height="30" Name="btn1" FontSize="16"
+            Foreground="#ff646464"
+            GroupName="scanningmode" Content="Option One" IsChecked="true" Template="{StaticResource radiobtn}" />
+        <RadioButton Margin="10" Width="200" Height="30" Name="btn2" FontSize="16"
+            Foreground="#ff646464"
+            GroupName="scanningmode" Content="Option Two" IsChecked="false" Template="{StaticResource radiobtn}" />
+    </StackPanel>
+    </UniformGrid>
+
 </Grid>
 </UserControl>
