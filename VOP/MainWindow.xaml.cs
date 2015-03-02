@@ -20,6 +20,7 @@ namespace VOP
     public partial class MainWindow : Window
     {
         CopyPage    winCopyPage   = new CopyPage   ();
+        FileSelectionPage winFileSelectionPage = new FileSelectionPage();
         PrintPage   winPrintPage  = new PrintPage  ();
         ScanPage    winScanPage   = new ScanPage   ();
         SettingPage winSettingPage= new SettingPage();
@@ -32,7 +33,7 @@ namespace VOP
 
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
         {
-            this.subPageView.Child = winPrintPage;
+            this.subPageView.Child = winFileSelectionPage;
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -63,7 +64,7 @@ namespace VOP
             {
                 if ( "btnPrint" == btn.Name )
                 {
-                    this.subPageView.Child = winPrintPage;
+                    this.subPageView.Child = winFileSelectionPage;
                 }
                 else if ( "btnCopy" == btn.Name )
                 {

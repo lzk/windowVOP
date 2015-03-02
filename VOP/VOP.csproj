@@ -51,10 +51,25 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-
-      <Page Include    = "Density.xaml"    />
-      <Compile Include = "Density.cs"      />
-<Compile Include="CustomControl\ScrollTextBox.cs" />
+    <Page Include="Controls\GroupBoxDecorator\GroupBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ImageButton\ImageButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ImageButton\ImageButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Density.xaml" />
+    <Compile Include="Controls\GroupBoxDecorator\GroupBoxDecorator.cs" />
+    <Compile Include="Controls\ImageButton\ImageButton.xaml.cs">
+      <DependentUpon>ImageButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Density.cs" />
+    <Compile Include="CustomControl\ScrollTextBox.cs" />
     <Compile Include="CustomControl\SliderChangeControl.xaml.cs">
       <DependentUpon>SliderChangeControl.xaml</DependentUpon>
     </Compile>
@@ -74,6 +89,10 @@
     <Page Include="CustomControl\ImagePreviewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileSelectionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
@@ -96,6 +115,7 @@
     <Compile Include="CustomControl\ImagePreviewControl.xaml.cs">
       <DependentUpon>ImagePreviewControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileSelectionPage.cs" />
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -221,5 +241,9 @@
   <ItemGroup>
     <Resource Include="Images\Switch_Off.png" />
     <Resource Include="Images\Switch_On.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ButtonFileSelect.png" />
+    <Resource Include="Images\ButtonIdCardSelect.png" />
   </ItemGroup>
 </Project>
