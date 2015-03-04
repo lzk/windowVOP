@@ -78,6 +78,8 @@
             Foreground="#ff646464"
             GroupName="scanningmode" Content="Option Two" IsChecked="false" Template="{StaticResource radiobtn}" />
     </StackPanel>
+
+        <vop:OriginalPaperSize></vop:OriginalPaperSize>
     </UniformGrid>
 
 </Grid>

@@ -50,6 +50,13 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
+
+  <ItemGroup>
+      <Compile Include="Converter.cs"/>
+      <Compile Include="OriginalPaperSize.cs"/>
+      <Page Include="OriginalPaperSize.xaml"/>
+  </ItemGroup>
+
   <ItemGroup>
     <Page Include="Controls\GroupBoxDecorator\GroupBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
