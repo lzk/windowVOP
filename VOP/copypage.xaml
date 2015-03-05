@@ -7,6 +7,49 @@
 >
 <Grid>
     <Grid.Resources>
+        <Style x:Key="3dbutton" TargetType="{x:Type Button}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Rectangle StrokeThickness="2" 
+                                    Width="50"
+                                    Height="30"
+                                    RadiusX="15"
+                                    RadiusY="15"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    >
+
+                                    <Rectangle.Stroke>
+                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <LinearGradientBrush.GradientStops>
+                                                <GradientStop Color="#ff8c8c8c" Offset="0"/>
+                                                <GradientStop Color="#ffc6c6c6" Offset="0.5"/>
+                                                <GradientStop Color="#fffbfbfb" Offset="1"/>
+                                            </LinearGradientBrush.GradientStops>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Stroke>
+
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <LinearGradientBrush.GradientStops>
+                                                <GradientStop Color="#ffcccccc" Offset="0"/>
+                                                <GradientStop Color="#ffeaeaea" Offset="1"/>
+                                            </LinearGradientBrush.GradientStops>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+
+                                </Rectangle>
+
+                                <ContentPresenter Width="40" Height="40"
+                                    Margin="0,0,0,3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+        </Style>
+
         <ControlTemplate x:Key="radiobtn" TargetType="{x:Type RadioButton}" >
             <Grid>
 
@@ -80,6 +123,11 @@
     </StackPanel>
 
         <vop:OriginalPaperSize></vop:OriginalPaperSize>
+
+    <Button Style="{StaticResource 3dbutton}" >
+        <Image Source="Images\Turn.png"/>
+    </Button>
+
     </UniformGrid>
 
 </Grid>

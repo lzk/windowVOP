@@ -188,6 +188,7 @@
   -->
   <ItemGroup>
     <Resource Include=".\Images\background.png" />
+    <Resource Include=".\Images\turn.png" />
     <Resource Include=".\Images\PageCopy.png" />
     <Resource Include=".\Images\PagePrint.png" />
     <Resource Include=".\Images\PageScan.png" />
