@@ -7,6 +7,15 @@
 >
 <Grid>
     <Grid.Resources>
+        <Color x:Key="clr0">#ff646464</Color>
+        <Color x:Key="clr1">#ffa0a0a0</Color>
+        <Color x:Key="clr2">#ffebebeb</Color>
+        <Color x:Key="clr3">#ffeaeaea</Color>
+        <Color x:Key="clr4">#ffcccccc</Color>
+        <Color x:Key="clr5">#fffbfbfb</Color>
+        <Color x:Key="clr6">#ffc6c6c6</Color>
+        <Color x:Key="clr7">#ff8c8c8c</Color>
+
         <Style x:Key="3dbutton" TargetType="{x:Type Button}">
                 <Setter Property="Template">
                     <Setter.Value>
@@ -24,9 +33,12 @@
                                     <Rectangle.Stroke>
                                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                             <LinearGradientBrush.GradientStops>
-                                                <GradientStop Color="#ff8c8c8c" Offset="0"/>
-                                                <GradientStop Color="#ffc6c6c6" Offset="0.5"/>
-                                                <GradientStop Color="#fffbfbfb" Offset="1"/>
+                                                <GradientStop
+                                                    Color="{StaticResource clr7}" Offset="0"/>
+                                                <GradientStop
+                                                    Color="{StaticResource clr6}" Offset="0.5"/>
+                                                <GradientStop
+                                                    Color="{StaticResource clr5}" Offset="1"/>
                                             </LinearGradientBrush.GradientStops>
                                         </LinearGradientBrush>
                                     </Rectangle.Stroke>
@@ -34,8 +46,10 @@
                                     <Rectangle.Fill>
                                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                             <LinearGradientBrush.GradientStops>
-                                                <GradientStop Color="#ffcccccc" Offset="0"/>
-                                                <GradientStop Color="#ffeaeaea" Offset="1"/>
+                                                <GradientStop
+                                                    Color="{StaticResource clr4}" Offset="0"/>
+                                                <GradientStop
+                                                    Color="{StaticResource clr3}" Offset="1"/>
                                             </LinearGradientBrush.GradientStops>
                                         </LinearGradientBrush>
                                     </Rectangle.Fill>
@@ -67,9 +81,9 @@
                     <Rectangle.Fill>
                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                             <LinearGradientBrush.GradientStops>
-                                <GradientStop Color="#ffebebeb" Offset="0"/>
-                                <GradientStop Color="#ffc6c6c6" Offset="0.5"/>
-                                <GradientStop Color="#ffa0a0a0" Offset="1"/>
+                                <GradientStop Color="{StaticResource clr2}" Offset="0"/>
+                                <GradientStop Color="{StaticResource clr6}" Offset="0.5"/>
+                                <GradientStop Color="{StaticResource clr1}" Offset="1"/>
                             </LinearGradientBrush.GradientStops>
                         </LinearGradientBrush>
                     </Rectangle.Fill>
