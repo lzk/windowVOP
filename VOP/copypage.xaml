@@ -127,13 +127,23 @@
         VerticalAlignment="Center"
         />
 
+
     <StackPanel VerticalAlignment="Center" >
         <RadioButton Margin="10" Width="200" Height="30" Name="btn1" FontSize="16"
-            Foreground="#ff646464"
-            GroupName="scanningmode" Content="Option One" IsChecked="true" Template="{StaticResource radiobtn}" />
+            GroupName="scanningmode" Content="Option One" IsChecked="true" Template="{StaticResource radiobtn}" 
+            >
+            <RadioButton.Foreground>
+                <SolidColorBrush Color="{StaticResource clr0}" />
+            </RadioButton.Foreground>
+        </RadioButton>
+
         <RadioButton Margin="10" Width="200" Height="30" Name="btn2" FontSize="16"
-            Foreground="#ff646464"
-            GroupName="scanningmode" Content="Option Two" IsChecked="false" Template="{StaticResource radiobtn}" />
+            GroupName="scanningmode" Content="Option Two" IsChecked="false" Template="{StaticResource radiobtn}" 
+            >
+            <RadioButton.Foreground>
+                <SolidColorBrush Color="{StaticResource clr0}" />
+            </RadioButton.Foreground>
+        </RadioButton>
     </StackPanel>
 
         <vop:OriginalPaperSize></vop:OriginalPaperSize>
