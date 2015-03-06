@@ -16,24 +16,42 @@ namespace VOP
 {   
     public class CustomButton : Button
     {
-        private string backgroundImagePath;
-        public string BackgroundImagePath
+        public static readonly DependencyProperty ImagePathProperty;
+        public static readonly DependencyProperty TextColorProperty;
+        public ImageSource ImagePath
         {
-            set { backgroundImagePath = value; }
-            get { return backgroundImagePath; }
+            get { return (ImageSource)GetValue(ImagePathProperty); }
+            set { SetValue(ImagePathProperty, value); }
         }
-
-        private Color textColor = Colors.Black;
         public Color TextColor
         {
-            set { textColor = value; }
-            get { return textColor; }
+            get { return (Color)GetValue(TextColorProperty); }
+            set { SetValue(TextColorProperty, value); }
+        }
+
+
+        static CustomButton()
+        {
+            ImagePathProperty =
+                DependencyProperty.Register("ImagePath", 
+                typeof(ImageSource), 
+                typeof(CustomButton)
+                );
+
+            TextColorProperty =
+                 DependencyProperty.Register("TextColor",
+                 typeof(Color),
+                 typeof(CustomButton)
+                 );
         }
 
         public CustomButton()
         {   
             this.Loaded += new RoutedEventHandler(CustomButton_Loaded);
+
         }
+
+  
 
         void CustomButton_Loaded(object sender, RoutedEventArgs e)
         {
@@ -52,7 +70,7 @@ namespace VOP
             {
                 ImageBrush imgBrush = new ImageBrush();
 
-                imgBrush.ImageSource = new BitmapImage(new Uri("pack://application:,,,/" + BackgroundImagePath, UriKind.RelativeOrAbsolute));
+                imgBrush.ImageSource = ImagePath;
                 rect.SetValue(Rectangle.FillProperty, imgBrush);
             }
 
@@ -62,7 +80,7 @@ namespace VOP
             text.SetValue(TextBlock.TextAlignmentProperty, TextAlignment.Center);
             text.SetValue(TextBlock.TextProperty, this.Content);
             text.SetValue(TextBlock.FontSizeProperty, this.FontSize);          
-            text.SetValue(TextBlock.ForegroundProperty, new SolidColorBrush(textColor));
+            text.SetValue(TextBlock.ForegroundProperty, new SolidColorBrush(TextColor));
             text.SetValue(TextBlock.ForceCursorProperty, true);            
 
             rootGrid.AppendChild(rect);

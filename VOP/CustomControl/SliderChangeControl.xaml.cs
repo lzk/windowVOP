@@ -35,14 +35,106 @@ namespace VOP
         double maximum = 100;
         double currentValue = 0;
 
-        public delegate void dele_slider_ValueChanged(double oldValue, double newValue);
+      //  public delegate void dele_slider_ValueChanged(double oldValue, double newValue);
+     //   dele_slider_ValueChanged slider_ValueChanged = null;
 
-        dele_slider_ValueChanged slider_ValueChanged = null;
+
+
+
+        public double Maximum
+        {
+            get { return (double)GetValue(MaximumProperty); }
+            set { SetValue(MaximumProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty MaximumProperty;
+
+
+
+        public double Minimum
+        {
+            get { return ( double)GetValue(MinimumProperty); }
+            set { SetValue(MinimumProperty, value); }
+        }
+
+        
+        public static readonly DependencyProperty MinimumProperty;
+
+        
+
+        
+
+
+ 
+        public static readonly DependencyProperty CurValueProperty;
+        public double CurValue
+        {
+            get { return (double)GetValue(CurValueProperty); }
+            set { SetValue(CurValueProperty, value); }
+        }
+        static SliderChangeControl()
+        {
+            CurValueProperty =
+                DependencyProperty.Register("CurValue",
+                typeof(double),
+                typeof(SliderChangeControl),
+                new FrameworkPropertyMetadata(new PropertyChangedCallback(OnCurValue_Changed)));
+
+            MaximumProperty =
+                DependencyProperty.Register("Maximum",
+                typeof(double),
+                typeof(SliderChangeControl),
+                 new FrameworkPropertyMetadata(new PropertyChangedCallback(OnCurValue_Changed)));
+
+
+            MinimumProperty =
+                DependencyProperty.Register("Minimum", 
+                typeof(double),
+                typeof(SliderChangeControl),
+                 new FrameworkPropertyMetadata(new PropertyChangedCallback(OnCurValue_Changed)));
+
+        }
+        private static void OnCurValue_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            VOP.SliderChangeControl _This = (VOP.SliderChangeControl)sender;
+
+            double newValue = (double)e.NewValue;
+
+            if (e.Property == CurValueProperty)
+            {
+                if ((newValue >= 0) && (newValue <= _This.maximum))
+                {
+                    _This.currentValue = newValue;
+                    _This.PaintControl();
+                }
+            }
+            else if (e.Property == MaximumProperty)
+            {
+                if (newValue >= _This.Minimum)
+                {
+                    _This.maximum = newValue;
+                    _This.PaintControl();
+                }
+            }
+            else if (e.Property == MinimumProperty)
+            {
+                if(newValue <= _This.maximum)
+                {
+                    _This.Minimum = newValue;
+                    _This.PaintControl();
+                }
+
+            }
+        }   
 
 
         public SliderChangeControl()
         {
             InitializeComponent();
+
+            maximum = 100;
+            currentValue = 0;
 
             timer.Interval = TimeSpan.FromMilliseconds(400);
             timer.Tick += new EventHandler(timer_Tick);
@@ -150,58 +242,9 @@ namespace VOP
                 rectGeometry.Rect = new Rect(0, 0, rect.Width, rect.Height);
 
                 clipGeometry3.Children.Add(rectGeometry);
-
                 rect.Clip = clipGeometry3;
             }
         }
-
-
-        public double Value
-        {
-            set
-            {
-                if ((value >= 0) && (value <= maximum))
-                {
-                    double oldValue = currentValue;
-
-                    currentValue = value;
-
-                    PaintControl();
-
-                    if (null != slider_ValueChanged)
-                        slider_ValueChanged(oldValue, currentValue);
-                }
-            }
-            get { return currentValue; }
-        }
-
-
-        public double Maximum
-        {
-            set
-            {
-                if (value >= 0)
-                {
-                    maximum = value;
-
-                }
-            }
-            get { return maximum; }
-        }
-
-
-        public dele_slider_ValueChanged Slider_ValueChanged
-        {
-            set
-            {
-                if (null != value)
-                {
-                    slider_ValueChanged = value;
-
-                }
-            }
-        }
-
         private void rect2_Loaded(object sender, RoutedEventArgs e)
         {
             rect2.RadiusX = rect2.RadiusY = (rect2.Width > rect2.Height) ? (rect2.Height / 2) : (rect2.Width / 2);

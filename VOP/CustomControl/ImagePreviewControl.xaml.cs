@@ -23,23 +23,32 @@ namespace VOP
     /// </summary>
     public partial class ImagePreviewControl : UserControl
     {
+        public static readonly DependencyProperty ImgSetPathProperty;
+        public string ImgSetPath
+        {
+            get { return (string)GetValue(ImgSetPathProperty); }
+            set { SetValue(ImgSetPathProperty, value); }
+        }
+
+        static ImagePreviewControl()
+        {
+            ImgSetPathProperty =
+                DependencyProperty.Register("ImgSetPath",
+                typeof(string),
+                typeof(ImagePreviewControl),
+                new FrameworkPropertyMetadata(new PropertyChangedCallback(OnImgSetPath_Changed)));
+        }
+        
+        
+        private static void OnImgSetPath_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            VOP.ImagePreviewControl imgPreviewCtrl = (VOP.ImagePreviewControl)sender;
+            imgPreviewCtrl.EnumPathAllFiles();
+        }   
+
         private ImageBrush imgBrush = new ImageBrush();
         private FileInfo[] fiList;
         private long CurrentImageIndex = 0;
-
-        private string path;
-        public string Path
-        {
-            get
-            {
-                return path;
-            }
-            set
-            {
-                path = value;
-                EnumPathAllFiles();
-            }
-        }
 
         public ImagePreviewControl()
         {
@@ -53,7 +62,7 @@ namespace VOP
             if (0 != fileCnts)
             {
                 CurrentImageIndex = 0;
-                string currentImagePath = path + @"\" + fiList[CurrentImageIndex];
+                string currentImagePath = ImgSetPath + @"\" + fiList[CurrentImageIndex];
 
                 updateImage(currentImagePath);
             }
@@ -76,7 +85,7 @@ namespace VOP
                     CurrentImageIndex -= 1;
                 }
 
-                string imagePath = path + @"\" + fiList[CurrentImageIndex];
+                string imagePath = ImgSetPath + @"\" + fiList[CurrentImageIndex];
 
                 updateImage(imagePath);
             }
@@ -99,7 +108,7 @@ namespace VOP
                     CurrentImageIndex += 1;
                 }
 
-                string imagePath = path + @"\" + fiList[CurrentImageIndex];
+                string imagePath = ImgSetPath + @"\" + fiList[CurrentImageIndex];
 
                 updateImage(imagePath);
             }
@@ -107,7 +116,7 @@ namespace VOP
 
         bool updateImage(string _imagePath)
         {
-            string pathTest = path + @"\" + fiList[CurrentImageIndex];
+            string pathTest = ImgSetPath + @"\" + fiList[CurrentImageIndex];
 
             imgBrush.ImageSource = new BitmapImage(
                   new Uri(_imagePath, UriKind.RelativeOrAbsolute));
@@ -122,7 +131,7 @@ namespace VOP
         void EnumPathAllFiles()
         {
             // path = @"F:\百度相册_ben";//文件夹路径
-            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(path);
+            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(ImgSetPath);
             if (dir.Exists)
             {
                 fiList = dir.GetFiles();

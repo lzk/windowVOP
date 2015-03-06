@@ -7,25 +7,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-
     <Canvas Name="myCanvas" Loaded="Loaded" >
-
         <Rectangle Name="rect2" Loaded="rect2_Loaded"
                    Width="{Binding ElementName=Container,Path=ActualWidth}"
-            Height="{Binding ElementName=Container,Path=ActualHeight}"
-                   >
-
+            Height="{Binding ElementName=Container,Path=ActualHeight}">
             <Rectangle.Fill>
-                <ImageBrush ImageSource="customImages\sliderChange_bk.png"></ImageBrush>
+                <ImageBrush ImageSource="customImages\sliderChange_bk.png" />
             </Rectangle.Fill>
         </Rectangle>
 
         <Grid x:Name="foreGrid">
             <Rectangle Name="rect" 
                    Height="{Binding ElementName=Container,Path=ActualHeight}"
-                  Width="{Binding ElementName=Container,Path=ActualWidth}"
-                   >
-                </Rectangle>
+                  Width="{Binding ElementName=Container,Path=ActualWidth}">
+             </Rectangle>
         </Grid>
     </Canvas>
 </UserControl>

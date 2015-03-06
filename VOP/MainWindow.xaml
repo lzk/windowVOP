@@ -6,35 +6,138 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Loaded="LoadedMainWindow"
-        WindowStyle="None" >
+        WindowStyle="None" 
+        xmlns:mycontrol="clr-namespace:VOP">
+    <Window.Resources>
+        <ControlTemplate x:Key="pageSwitch" TargetType="{x:Type CheckBox}">
+            <Grid Name="grid"
+                  Width="{TemplateBinding Width}"
+                  Height="{TemplateBinding Height}">
+                
+                <Grid  Name="Off" Width="{Binding ElementName=grid, Path=Width}"
+                       Height="{Binding ElementName=grid, Path=Height}"
+                       Background="White">
+                    <TextBlock 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{x:Null}"
+                        Foreground="#737373"
+                        Text="{TemplateBinding  Content}"
+                        FontSize="{TemplateBinding FontSize}"
+                        TextAlignment="Center">                        
+                    </TextBlock>
+                </Grid>
+
+                <Grid  Name="On" Width="{Binding ElementName=grid, Path=Width}"
+                       Height="{Binding ElementName=grid, Path=Height}"
+                       Background="#737373">
+                    <TextBlock                                  
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{x:Null}"
+                        Foreground="White"
+                        Text="{TemplateBinding  Content}"
+                        FontSize="{TemplateBinding FontSize}"
+                        TextAlignment="Center">
+                    </TextBlock>
+                </Grid>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter TargetName="Off" Property="Visibility" Value="Hidden" />                 
+                    <Setter TargetName="On" Property="Visibility" Value="Visible" />
+                </Trigger>
+                <Trigger Property="IsChecked" Value="False">
+                    <Setter TargetName="Off" Property="Visibility" Value="Visible" />
+                    <Setter TargetName="On" Property="Visibility" Value="Hidden" />
+                </Trigger>
+
+                <Trigger Property="IsPressed" Value="False"></Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
 
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Images\background.png" />
+        </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="240"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="163*"/>
+            <RowDefinition Height="200*"/>
+            <RowDefinition Height="490*"/>
         </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="2" Width="636">
+            <Grid.RowDefinitions >
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="5" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="178*" />
+                <ColumnDefinition Width="91*" />
+                <ColumnDefinition Width="92*" />
+                <ColumnDefinition Width="92*" />
+                <ColumnDefinition Width="92*" />
+                <ColumnDefinition Width="91*" />
+            </Grid.ColumnDefinitions>
 
-        <Canvas Grid.Row="0" Width="906" Height="667" >
-            <Image Source="Images\background.png" />
-        </Canvas>
+            <TextBlock  FontSize="48" Foreground="#676767"> 打印</TextBlock>
+            <mycontrol:CustomButton x:Name="btnPrint" Grid.Column="1"   Click="NvgBtnClick"  ImagePath="Images\btnPrint.png" />
+            <mycontrol:CustomButton x:Name="btnCopy"   Grid.Column="2" Click="NvgBtnClick" ImagePath="Images\btnCopy.png" />
+            <mycontrol:CustomButton x:Name="btnScan"   Grid.Column="3" Click="NvgBtnClick"  ImagePath="Images\btnScan.png" />
+            <mycontrol:CustomButton x:Name="btnSetting" Grid.Column="4" Click="NvgBtnClick"  ImagePath="Images\btnSetting.png" />
+            <mycontrol:LoginButton  x:Name="btnLogin"  Grid.Column="5" bottomText="123456798" btnClick="NvgBtnClick" ImageSource="Images\btnLogin.png" />
 
+            <Border Grid.Row="1"  Grid.ColumnSpan="6" CornerRadius="5" BorderThickness="1" Background="White" BorderBrush="Black">
+                <UIElement.Effect>
+                    <DropShadowEffect BlurRadius="5" Opacity="0.8" Direction="270"/>
+                </UIElement.Effect>
+            </Border>
+
+
+            <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="Black">
+                <mycontrol:customTabItem x:Name="tabItem_Printer"                                      
+                                     IsSelect="False" 
+                                     FontSize="20" 
+                                     Text="打印">
+                </mycontrol:customTabItem>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="Black">               
+                    <mycontrol:customTabItem x:Name="tabItem_Copy"                                      
+                                     IsSelect="False" 
+                                     FontSize="20" 
+                                     Text="复印">
+                    </mycontrol:customTabItem>                
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="3" BorderThickness="1" BorderBrush="Black">
+                <mycontrol:customTabItem x:Name="tabItem_Scan"                                      
+                                     IsSelect="False" 
+                                     FontSize="20" 
+                                     Text="扫描">
+                </mycontrol:customTabItem>
+            </Border>
+
+            <Border Grid.Row="1" Grid.Column="4" BorderThickness="1" BorderBrush="Black">
+                <mycontrol:customTabItem x:Name="tabItem_Setting"                                      
+                                     IsSelect="False" 
+                                     FontSize="20" 
+                                     Text="设置">
+                </mycontrol:customTabItem>
+            </Border>
+
+        </Grid>
+       
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Row="0">
             <Button Name="btnMinimize" Click="ControlBtnClick" Width="30" Height="30" Margin="0,0,2,0" > -  </Button>
             <Button Name="btnClose"    Click="ControlBtnClick" Width="30" Height="30" Margin="0,0,5,0" > X  </Button>
-        </StackPanel>
-
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Row="1">
-            <TextBlock FontSize="80"> Print </TextBlock>
-            <Button Name="btnPrint"   Click="NvgBtnClick" Width="100" Height="100" Margin="5,0,0,0" > Print </Button>
-            <Button Name="btnCopy"    Click="NvgBtnClick" Width="100" Height="100" Margin="5,0,0,0" > Copy </Button>
-            <Button Name="btnScan"    Click="NvgBtnClick" Width="100" Height="100" Margin="5,0,0,0" > Scan </Button>
-            <Button Name="btnSetting" Click="NvgBtnClick" Width="100" Height="100" Margin="5,0,0,0" > Setting </Button>
-            <Button Name="btnLogin"   Click="NvgBtnClick" Width="100" Height="100" Margin="5,0,0,0" > Login </Button>
-        </StackPanel>
+        </StackPanel>        
         
-        <Border VerticalAlignment="Top" Name="subPageView" Grid.Row="3" />
+        <Border VerticalAlignment="Top" Name="subPageView" Grid.Row="3">
+        </Border>
 
     </Grid>
 </Window>
