@@ -43,6 +43,14 @@ namespace VOP.Controls
         public static readonly DependencyProperty BottomTextProperty =
             DependencyProperty.Register("BottomText", typeof(string), typeof(ImageButton));
 
+
+        protected override void OnPreviewMouseLeftButtonDown( MouseButtonEventArgs e )
+        {
+            if(e.OriginalSource.GetType() == typeof(TextBlock))
+            {
+                e.Handled = true;
+            }
+        }
     }
 
     public class EyeCandy

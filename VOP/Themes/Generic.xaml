@@ -4,8 +4,8 @@
     xmlns:local="clr-namespace:VOP.Controls">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Vop;component/Controls/GroupBoxDecorator/GroupBoxStyle.xaml" />
+        <ResourceDictionary Source="/VOP;component/Controls/MinimizeCloseButton/MinimizeCloseButtonStyle.xaml" />
+        <ResourceDictionary Source="/VOP;component/Controls/GroupBoxDecorator/GroupBoxStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-   
 </ResourceDictionary>

@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <ExpressionBlendVersion>12.0.41002.1</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -62,6 +63,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\IdCardPrint\IdCardTypeSelectWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\IdCardPrint\IdCardTypeSelectWindowStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ImageButton\ImageButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,11 +79,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\MinimizeCloseButton\MinimizeCloseButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Density.xaml" />
     <Compile Include="Controls\GroupBoxDecorator\GroupBoxDecorator.cs" />
+    <Compile Include="Controls\IdCardPrint\IdCardTypeItem.cs" />
+    <Compile Include="Controls\IdCardPrint\IdCardTypeSelectWindow.xaml.cs">
+      <DependentUpon>IdCardTypeSelectWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ImageButton\ImageButton.xaml.cs">
       <DependentUpon>ImageButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MinimizeCloseButton\MinimizeCloseButton.cs" />
     <Compile Include="Density.cs" />
     <Compile Include="CustomControl\ScrollTextBox.cs" />
     <Compile Include="CustomControl\SliderChangeControl.xaml.cs">
@@ -254,4 +272,5 @@
     <Resource Include="Images\ButtonFileSelect.png" />
     <Resource Include="Images\ButtonIdCardSelect.png" />
   </ItemGroup>
+  <ItemGroup />
 </Project>
