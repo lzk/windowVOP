@@ -48,8 +48,8 @@
                         </DockPanel>
 
                     </Grid>
-                    <ControlTemplate.Triggers>                  
-                    </ControlTemplate.Triggers>
+                    <!--<ControlTemplate.Triggers>                  
+                    </ControlTemplate.Triggers>-->
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

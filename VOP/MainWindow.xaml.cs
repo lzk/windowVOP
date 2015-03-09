@@ -24,7 +24,6 @@ namespace VOP
         PrintPage   winPrintPage  = new PrintPage  ();
         ScanPage    winScanPage   = new ScanPage   ();
         SettingPage winSettingPage= new SettingPage();
-        DemoCtrl winDemo = new DemoCtrl();
 
         public MainWindow()
         {
@@ -34,8 +33,8 @@ namespace VOP
 
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
         {
-            this.subPageView.Child = winPrintPage;
-            setTabItemFromIndex(0);
+            this.subPageView.Child = winScanPage;
+            setTabItemFromIndex(2);
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)

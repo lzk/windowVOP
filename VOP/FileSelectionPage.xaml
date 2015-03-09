@@ -8,11 +8,11 @@
 
         <Canvas Grid.Row="0" Width="666" Height="333" >
             <Image Source="Images\PagePrint.png" />
-            <local:GroupBoxDecorator Header="纸张大小" Canvas.Top="92" Height="151" Width="210" Canvas.Left="93">
-                <Button Margin="62,38,37.6,28.8"/>
+            <local:GroupBoxDecorator Header="纸张大小" Canvas.Left="87" Canvas.Top="134" Height="127" Width="190">
+                <Label Content="Letter" Width="100" Height="25"/>
             </local:GroupBoxDecorator>
-            <local:ImageButton ImagePath="Images/ButtonFileSelect.png" BottomText="文件打印" Canvas.Left="248" Canvas.Top="42" Height="77" Width="113" />
-            <local:ImageButton ImagePath="Images/ButtonIdCardSelect.png" BottomText="证件印1234567890123456789" Canvas.Left="422" Canvas.Top="42" Height="170" Width="208"/>
+            <local:ImageButton ImagePath="Images/ButtonFileSelect.png" BottomText="文件打印" Canvas.Left="320" Canvas.Top="92" Height="83" Width="79"/>
+            <local:ImageButton PreviewMouseLeftButtonDown="OnClickIdCardPrint" ImagePath="Images/ButtonIdCardSelect.png" BottomText="证件打印" Canvas.Left="433" Canvas.Top="92" Height="83" Width="79"/>
         </Canvas>
 
     </Grid>

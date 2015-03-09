@@ -245,11 +245,10 @@
 
     </UserControl.Resources>
 
-    <!--  =====================================================================  -->
-    <!--  =====================================================================  -->
+    <!--=====================================================================-->
+    <!--=====================================================================-->
 
     <Grid>
-     
         <Grid.Background>
             <ImageBrush ImageSource="Images\PagePrint.png" />
         </Grid.Background>
@@ -267,11 +266,9 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1" Grid.Column="1">
-            <!--
-                 <Grid.Background>
-                 <ImageBrush ImageSource="Images\PagePrint_Bk_2.png" />
-                 </Grid.Background>
-            -->
+            <!--<Grid.Background>
+                <ImageBrush ImageSource="Images\PagePrint_Bk_2.png" />
+            </Grid.Background>-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30*" />
                 <ColumnDefinition Width="215*" />
@@ -318,7 +315,7 @@
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            Background="{x:Null}"
-                           FontSize="15"
+                           FontSize="12"
                            Foreground="#555555"
                            Text="机型："
                            TextAlignment="Center">                    
@@ -334,29 +331,19 @@
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            Background="{x:Null}"
-                           FontSize="15"
+                           FontSize="12"
                            Foreground="#555555"
                            Text="设备状态:"
                            TextAlignment="Center" />
 
-                <TextBox Grid.Row="5" 
+                <mycontrol:StatusTextBlock Grid.Row="5" 
                          Grid.Column="1" 
                          Margin="0, 5, 0, 0"
-                         VerticalContentAlignment="Center"
-                         ClipToBounds="True"
-                         FontSize="12"
-                         Foreground="#555555"
-                         IsEnabled="False"
-                         Padding="5"                       
-                         Text="待机"
-                         TextAlignment="Center"
-                         TextWrapping="WrapWithOverflow">
-                    <!--<TextBox.Background>
-                         <ImageBrush ImageSource="Images\status_imageTextbox.png" />
-                         </TextBox.Background>-->
-                </TextBox>
+                    FontSize="12" Text="待机">
 
-                <TextBlock Grid.Row="7"
+                </mycontrol:StatusTextBlock>
+
+               <TextBlock Grid.Row="7"
                            Grid.Column="1"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"

@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <ExpressionBlendVersion>12.0.41002.1</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,17 +51,26 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
-
   <ItemGroup>
-      <Compile Include="Converter.cs"/>
-      <Compile Include="OriginalPaperSize.cs"/>
-      <Page Include="OriginalPaperSize.xaml"/>
+    <Compile Include="Converter.cs" />
+    <Compile Include="OriginalPaperSize.cs" />
+    <Compile Include="CustomControl\StatusTextBlock.xaml.cs">
+      <DependentUpon>StatusTextBlock.xaml</DependentUpon>
+    </Compile>
+    <Page Include="OriginalPaperSize.xaml" />
   </ItemGroup>
-
   <ItemGroup>
     <Page Include="Controls\GroupBoxDecorator\GroupBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\IdCardPrint\IdCardTypeSelectWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\IdCardPrint\IdCardTypeSelectWindowStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ImageButton\ImageButton.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -70,24 +80,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CustomControl\customTabItem.xaml">
+    <Page Include="Controls\MinimizeCloseButton\MinimizeCloseButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DemoCtrl.xaml">
+    <Page Include="CustomControl\customTabItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Density.xaml" />
     <Compile Include="Controls\GroupBoxDecorator\GroupBoxDecorator.cs" />
+    <Compile Include="Controls\IdCardPrint\IdCardTypeItem.cs" />
+    <Compile Include="Controls\IdCardPrint\IdCardTypeSelectWindow.xaml.cs">
+      <DependentUpon>IdCardTypeSelectWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ImageButton\ImageButton.xaml.cs">
       <DependentUpon>ImageButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MinimizeCloseButton\MinimizeCloseButton.cs" />
     <Compile Include="CustomControl\customTabItem.xaml.cs">
       <DependentUpon>customTabItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="DemoCtrl.xaml.cs">
-      <DependentUpon>DemoCtrl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Density.cs" />
     <Compile Include="CustomControl\ScrollTextBox.cs" />
@@ -167,6 +179,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="CustomControl\SliderChangeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControl\StatusTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
