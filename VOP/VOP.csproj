@@ -53,11 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converter.cs" />
-    <Compile Include="OriginalPaperSize.cs" />
     <Compile Include="CustomControl\StatusTextBlock.xaml.cs">
       <DependentUpon>StatusTextBlock.xaml</DependentUpon>
     </Compile>
-    <Page Include="OriginalPaperSize.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\GroupBoxDecorator\GroupBoxStyle.xaml">

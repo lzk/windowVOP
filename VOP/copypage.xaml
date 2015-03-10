@@ -2,6 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:vop="clr-namespace:VOP"
+    xmlns:local="clr-namespace:VOP.Controls"
     Width="666"
     Height="333"
 >
@@ -15,6 +16,183 @@
         <Color x:Key="clr5">#fffbfbfb</Color>
         <Color x:Key="clr6">#ffc6c6c6</Color>
         <Color x:Key="clr7">#ff8c8c8c</Color>
+
+        <Style x:Key="customToggle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Grid>
+
+                            <Border Name="border1" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+
+                                <Path 
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    x:Name="BtnArrow" Height="10" Width="10" 
+                                    Stretch="Uniform" Margin="0,0,6,0"
+                                    Fill="#ff818181"
+                                    Data="F1 M 300,-190L 310,-190L 305,-183L 301,-190 Z " />
+
+                                <Path 
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    x:Name="BtnArrow2" Height="10" Width="10" 
+                                    Stretch="Uniform" Margin="0,0,6,0"
+                                    Fill="#ff818181"
+                                    Visibility="Hidden"
+                                    Data="F1 M 300,-183L 310,-183L 305,-190L
+                                    301,-183 Z " />
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="BtnArrow2"
+                                    Property="Visibility" Value="Visible"/>
+
+                                <Setter TargetName="BtnArrow"
+                                    Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="customComboBoxItem"
+            TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels"
+                Value="true" />
+            <Setter Property="OverridesDefaultStyle"
+                Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border x:Name="Border"
+                            Padding="15,0"
+                            SnapsToDevicePixels="true"
+                            Background="Transparent">
+                            <ContentPresenter />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#ffa8a6a6"/>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background"
+                                    Value="Green"/>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Border" Property="Background"
+                                    Value="Blue"/>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground"
+                                    Value="Yellow"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <vop:ScrollViewerWidthConverter x:Key="objScrollViewerWidthConverter"/>
+
+        <Style x:Key="customComboBox" TargetType="{x:Type ComboBox}">
+            <Setter Property="Foreground" Value="#ff494949" />
+            <Setter Property="FontSize" Value="13px" />
+            <Setter Property="FontFamily" Value="Microsoft YaHei" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid Name="root">
+
+                            <ToggleButton x:Name="DropDownToggle"
+                                Style="{StaticResource customToggle}"
+                                BorderBrush="Transparent"
+                                Background="{TemplateBinding Background}"
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
+                                Margin="-1" HorizontalContentAlignment="Right"
+                                IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,
+                                RelativeSource={RelativeSource TemplatedParent}}"
+                                >
+                            </ToggleButton>
+
+                            <Grid 
+                                Background="{TemplateBinding Background}"
+                                IsHitTestVisible="False"
+                                HorizontalAlignment="Left"
+                                Name="grid1"
+                                >
+                                <FrameworkElement.Width>
+                                    <MultiBinding Converter="{StaticResource objScrollViewerWidthConverter}">
+                                        <Binding ElementName="root" Path="ActualWidth"/>
+                                        <Binding ElementName="DropDownToggle" Path="ActualHeight"/>                                         
+                                    </MultiBinding>
+                                </FrameworkElement.Width>
+
+                                <ContentPresenter x:Name="ContentPresenter" 
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding SelectionBoxItem}"
+                                    ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                    ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}">
+                                </ContentPresenter>
+                            </Grid>
+
+                            <Popup x:Name="PART_Popup"
+                                AllowsTransparency="True"
+                                IsOpen="{TemplateBinding IsDropDownOpen}">
+                                <Border x:Name="PopupBorder" Margin="16">
+
+                                    <UIElement.Effect>
+                                        <DropShadowEffect Color="Black" ShadowDepth="0"
+                                            BlurRadius="16" Opacity="0.75" Direction="90"/>
+                                    </UIElement.Effect>
+
+                                    <StackPanel>
+                                        <Path 
+                                            Panel.ZIndex="1"
+                                            HorizontalAlignment="Center"
+                                            Fill="White"
+                                            Data="F1 M0,10 L10,0 L20,10z" />
+
+                                        <Border 
+                                            BorderBrush="Transparent"
+                                            Background="White"
+                                            Panel.ZIndex="0"
+                                            CornerRadius="5">
+                                            <ItemsPresenter/>
+                                        </Border>
+
+                                    </StackPanel>
+
+                                </Border>
+                            </Popup>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="Red"/>
+                                <Setter TargetName="DropDownToggle" Property="Background" Value="Yellow"/>
+                                <Setter TargetName="grid1" Property="Background" Value="Yellow"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <Style x:Key="3dbutton" TargetType="{x:Type Button}">
                 <Setter Property="Template">
@@ -146,7 +324,21 @@
         </RadioButton>
     </StackPanel>
 
-        <vop:OriginalPaperSize></vop:OriginalPaperSize>
+            <local:GroupBoxDecorator Header="纸张大小" Canvas.Left="87" Canvas.Top="134" Height="127" Width="190">
+                <ComboBox
+                    Style="{StaticResource customComboBox}"
+                    Background="White"
+                    Width="145" Height="30"
+                    >
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"  Content="ComboBox Item" /> 
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="Disalbe Item" IsEnabled="false" > 
+                    </ComboBoxItem>
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="Selected Item" >
+                    </ComboBoxItem>
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
+                </ComboBox>
+            </local:GroupBoxDecorator>
 
     <Button Style="{StaticResource 3dbutton}" >
         <Image Source="Images\Turn.png"/>
