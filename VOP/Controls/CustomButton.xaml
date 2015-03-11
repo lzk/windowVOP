@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:VOP.Controls">
+                    >
     <ControlTemplate x:Key="custombtn" TargetType="{x:Type Button}" >
         <Grid
                 Width="{TemplateBinding Width}"
@@ -24,10 +24,7 @@
                      Margin="2"
                 >
                 <Rectangle.Fill>
-                    <LinearGradientBrush StartPoint="0.501,0" EndPoint="0.5,1" >
-                        <GradientStop Color="#FFE5E5E5" Offset="0"/>
-                        <GradientStop Color="#FFE5E5E5" Offset="1"/>
-                    </LinearGradientBrush>
+                    <SolidColorBrush Color="#FFE5E5E5"/>
                 </Rectangle.Fill>
             </Rectangle>
             <StackPanel Orientation="Horizontal" >
@@ -92,10 +89,7 @@
                 </Setter>
                 <Setter TargetName="rect1" Property="Fill">
                     <Setter.Value>
-                        <LinearGradientBrush StartPoint="0.501,0" EndPoint="0.5,1" >
-                            <GradientStop Color="#FFE5E5E5" Offset="0"/>
-                            <GradientStop Color="#FFE5E5E5" Offset="1"/>
-                        </LinearGradientBrush>
+                        <SolidColorBrush Color="#FFE5E5E5"/>
                     </Setter.Value>
                 </Setter>
                 <Setter TargetName="tb" Property="Foreground" Value="#FF4F4F4F"/>
@@ -118,10 +112,7 @@
                 </Setter>
                 <Setter TargetName="rect1" Property="Fill">
                     <Setter.Value>
-                        <LinearGradientBrush StartPoint="0.501,0" EndPoint="0.5,1" >
-                            <GradientStop Color="#FFE5E5E5" Offset="0"/>
-                            <GradientStop Color="#FFE5E5E5" Offset="1"/>
-                        </LinearGradientBrush>
+                        <SolidColorBrush Color="#FFE5E5E5"/>
                     </Setter.Value>
                 </Setter>
                 <Setter TargetName="tb" Property="Foreground" Value="#FF4C9310"/>
@@ -203,10 +194,7 @@
                 </Setter>
                 <Setter TargetName="rect1" Property="Fill">
                     <Setter.Value>
-                        <LinearGradientBrush StartPoint="0.501,0" EndPoint="0.5,1" >
-                            <GradientStop Color="#FFE5E5E5" Offset="0"/>
-                            <GradientStop Color="#FFE5E5E5" Offset="1"/>
-                        </LinearGradientBrush>
+                        <SolidColorBrush Color="#FFE5E5E5"/>
                     </Setter.Value>
                 </Setter>
                 <Setter TargetName="tb" Property="Foreground" Value="#FFC6C6C6"/>
