@@ -11,13 +11,12 @@
                 <ResourceDictionary Source="Controls/CustomButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomTextBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
     </UserControl.Resources>
     <Grid >
-
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
@@ -31,6 +30,10 @@
         <CheckBox Name="cb" Grid.Column="0" Template="{StaticResource customCheckBox}" IsChecked="true" Content="Text d" Height="50" Margin="75,142,32,141"/>
         <TextBox IsEnabled="{Binding ElementName=cb, Path=IsChecked}" Template="{StaticResource customTextBox}" TextWrapping="NoWrap"  Text="TextBox" Margin="75,208,10,96"/>
         <TextBox IsEnabled="{Binding ElementName=cb, Path=IsChecked}" Template="{StaticResource customTextBox1}" TextWrapping="NoWrap"  Text="TextBox" Margin="75,254,10,53"/>
+
+        <RadioButton GroupName="Goup1" IsChecked="True" Content="RadioButton 1" Template="{StaticResource customRadioButton}" Width="169" Height="20" Grid.Column="1" Margin="98,130,148,183"/>
+        <RadioButton GroupName="Goup1" Content="RadioButton 2" Width="169"  Template="{StaticResource customRadioButton}" Height="20" Grid.Column="1" Margin="98,155,148,158"/>
+        <RadioButton GroupName="Goup1" Content="RadioButton 3" Width="169"  Template="{StaticResource customRadioButton}" Height="20" Grid.Column="1" Margin="98,180,148,133"/>
 
     </Grid>
 </UserControl>
