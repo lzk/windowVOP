@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Color x:Key="clrReadOnly">#ff080808</Color>
-    
+    <Color x:Key="clrDisableBK_TextBox">#FFB0B0B0</Color>
+    <Color x:Key="clrDisableText_TextBox">#FFEFEFEF</Color>
+    <Color x:Key="clrEnableBK_TextBox">#FFF7F7F7</Color>
+
     <ControlTemplate x:Key="customTextBox" TargetType="{x:Type TextBox}" >             
         <Grid Width="{TemplateBinding Width}"
                       Height="{TemplateBinding Height}">
@@ -23,7 +25,7 @@
                      Margin="2"
                 >
                 <Rectangle.Fill>
-                    <SolidColorBrush Color="#FFEFEFEF"></SolidColorBrush>                  
+                    <SolidColorBrush Color="{StaticResource clrEnableBK_TextBox}"></SolidColorBrush>                  
                 </Rectangle.Fill>
             </Rectangle>
             <ScrollViewer 
@@ -38,6 +40,11 @@
         
         <ControlTemplate.Triggers>          
             <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{StaticResource clrEnableBK_TextBox}" />
+                    </Setter.Value>
+                </Setter>
                 <Setter TargetName="Border" Property="Fill">
                     <Setter.Value>
                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" >
@@ -48,9 +55,58 @@
                 </Setter>
                 <Setter TargetName="rect" Property="Fill">
                     <Setter.Value>
-                        <SolidColorBrush Color="#FFB0B0B0"></SolidColorBrush>
+                        <SolidColorBrush Color="{StaticResource clrDisableBK_TextBox}"></SolidColorBrush>
                     </Setter.Value>
                 </Setter>                
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+   
+    <ControlTemplate x:Key="customTextBox1" TargetType="{x:Type TextBox}" >
+        <Grid Width="{TemplateBinding Width}"
+                      Height="{TemplateBinding Height}">
+            <Rectangle Name="Border"
+            >
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="#FF8FC863"/>
+                </Rectangle.Fill>
+
+            </Rectangle>
+
+            <Rectangle Name="rect"
+                     Margin="1"
+                >
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="{StaticResource clrEnableBK_TextBox}"></SolidColorBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <ScrollViewer 
+                Margin="2" 
+                x:Name="PART_ContentHost" 
+                VerticalAlignment="Center"            
+                FontSize="{TemplateBinding FontSize}"
+                Foreground="{TemplateBinding Foreground}" 
+                IsEnabled="{TemplateBinding IsEnabled}"
+                />
+        </Grid>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{StaticResource clrDisableText_TextBox}" />
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="Border" Property="Fill">
+                    <Setter.Value>
+                        <SolidColorBrush Color="#FF8FC863"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="rect" Property="Fill">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{StaticResource clrDisableBK_TextBox}"></SolidColorBrush>
+                    </Setter.Value>
+                </Setter>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
