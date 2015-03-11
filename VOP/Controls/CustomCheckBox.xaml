@@ -30,17 +30,11 @@
                          VerticalAlignment="Center" 
                          StrokeThickness="4" 
                          Stroke="#FF449C00" 
-                         Height="10" 
-                         Width="10">
+                         Height="9" 
+                         Width="9">
                 <Ellipse.Effect>
                     <BlurEffect Radius="3" />
                 </Ellipse.Effect>
-                <Ellipse.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#FF60D808" Offset="0.05"/>
-                        <GradientStop Color="#FFFFFFFF" Offset="1"/>
-                    </RadialGradientBrush>
-                </Ellipse.Fill>
             </Ellipse>
 
             <TextBlock Grid.Column="1"
@@ -62,15 +56,6 @@
                     </Setter.Value>
                 </Setter>
                 <Setter TargetName="elp2" Property="Stroke" Value="#FF4D4D4D" />
-                <Setter TargetName="elp2" Property="Fill">
-                    <Setter.Value>
-                        <RadialGradientBrush>
-                            <GradientStop Color="#FF4D4D4D" Offset="0.134"/>
-                            <GradientStop Color="#FF4D4D4D" Offset="0.5"/>
-                            <GradientStop Color="#FFFFFFFF" Offset="1"/>
-                        </RadialGradientBrush>
-                    </Setter.Value>
-                </Setter>
             </Trigger>
 
             <Trigger Property="IsChecked" Value="True">
@@ -83,15 +68,7 @@
                     </Setter.Value>
                 </Setter>
                 <Setter TargetName="elp2" Property="Stroke" Value="#FF4BAD00" />
-                <Setter TargetName="elp2" Property="Fill">
-                    <Setter.Value>
-                        <RadialGradientBrush>
-                            <GradientStop Color="#FF60D808" Offset="0.1"/>
-                            <GradientStop Color="#FF60D808" Offset="0.5"/>
-                            <GradientStop Color="#FFFFFFFF" Offset="1"/>
-                        </RadialGradientBrush>
-                    </Setter.Value>
-                </Setter>
+              
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
