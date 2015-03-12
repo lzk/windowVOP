@@ -26,8 +26,10 @@
             <Image Source="Images\PageSetting.png" />
         </Canvas>
 
-        <Button IsDefault="False" IsEnabled="True" Grid.Column="0"  Content="Wireless" Template="{StaticResource custombtn}"  Name="btnWireless" Width="150" Margin="79,61,21,240"/>
+        <Button  IsEnabled="True" Grid.Column="0"  Content="Wireless" Template="{StaticResource custombtn}"  Name="btnWireless" Width="150" Margin="79,61,21,240"/>
         <CheckBox Name="cb" Grid.Column="0" Template="{StaticResource customCheckBox}" IsChecked="true" Content="Text d" Height="50" Margin="75,142,32,141"/>
+
+        <CheckBox Name="cb12" Grid.Column="1" Template="{StaticResource switchBox}" IsChecked="False" Margin="79,43,288,266"/>
         <TextBox IsEnabled="{Binding ElementName=cb, Path=IsChecked}" Template="{StaticResource customTextBox}" TextWrapping="NoWrap"  Text="TextBox" Margin="75,208,10,96"/>
         <TextBox IsEnabled="{Binding ElementName=cb, Path=IsChecked}" Template="{StaticResource customTextBox1}" TextWrapping="NoWrap"  Text="TextBox" Margin="75,254,10,53"/>
 
