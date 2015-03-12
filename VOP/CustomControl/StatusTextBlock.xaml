@@ -24,10 +24,11 @@
         <Grid Margin="3">
             <Rectangle  RadiusX="3" RadiusY="3">
                 <Rectangle.Fill>
-                    <LinearGradientBrush StartPoint="0, 0" EndPoint="0, 1">
-                        <GradientStop Color="#6EA326" Offset="0.0" />
-                        <GradientStop Color="#76AF29" Offset="0.5" />
-                        <GradientStop Color="#6EA326" Offset="1.0" />
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF449600" Offset="0.054"/>
+                        <GradientStop Color="#FF4AA200" Offset="0.272"/>
+                        <GradientStop Color="#FF4C9606" Offset="0.891"/>
+                        <GradientStop Color="#FFC6CFC1" Offset="1"/>
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>

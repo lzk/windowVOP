@@ -19,7 +19,6 @@ namespace VOP
     /// </summary>
     public partial class StatusTextBlock : UserControl
     {
-
         public string Text
         {
             get { return (string)GetValue(TextProperty); }

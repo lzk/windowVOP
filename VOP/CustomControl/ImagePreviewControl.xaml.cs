@@ -36,7 +36,7 @@ namespace VOP
                 DependencyProperty.Register("ImgSetPath",
                 typeof(string),
                 typeof(ImagePreviewControl),
-                new FrameworkPropertyMetadata(new PropertyChangedCallback(OnImgSetPath_Changed)));
+                new FrameworkPropertyMetadata(new PropertyChangedCallback(OnImgSetPath_Changed)));            
         }
         
         
@@ -44,7 +44,8 @@ namespace VOP
         {
             VOP.ImagePreviewControl imgPreviewCtrl = (VOP.ImagePreviewControl)sender;
             imgPreviewCtrl.EnumPathAllFiles();
-        }   
+        }
+ 
 
         private ImageBrush imgBrush = new ImageBrush();
         private FileInfo[] fiList;
@@ -88,6 +89,7 @@ namespace VOP
                 string imagePath = ImgSetPath + @"\" + fiList[CurrentImageIndex];
 
                 updateImage(imagePath);
+
             }
         }
 
@@ -111,6 +113,7 @@ namespace VOP
                 string imagePath = ImgSetPath + @"\" + fiList[CurrentImageIndex];
 
                 updateImage(imagePath);
+
             }
         }
 
@@ -124,6 +127,10 @@ namespace VOP
             imagePreviewRegon.Fill = imgBrush;
 
             textBox.Text = fiList[CurrentImageIndex].ToString();
+
+            
+
+            
 
             return true;
         }

@@ -5,124 +5,188 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mycontrol="clr-namespace:VOP" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid >
-        <Grid.Background>
-            <ImageBrush ImageSource="customImages\ImagePreview_Background.png"/>
-        </Grid.Background>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="25*"/>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="190*"/>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="25*"/>
-            <ColumnDefinition Width="10*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="92*"/>
-            <RowDefinition Height="25*"/>
-            <RowDefinition Height="93*"/>
-            <RowDefinition Height="40*"/>
-        </Grid.RowDefinitions>
+             d:DesignHeight="300" d:DesignWidth="300"
+             Name="container">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="border_Brush">#878787</SolidColorBrush>
+        <SolidColorBrush x:Key="mainBackground_Brush">White</SolidColorBrush>
+
+        <LinearGradientBrush x:Key="clr0" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFA5D183" Offset="0"/>
+            <GradientStop Color="#FF69A52B" Offset="0.111"/>
+            <GradientStop Color="#FF56A00D" Offset="0.222"/>
+            <GradientStop Color="#FF58A50C" Offset="0.778"/>
+            <GradientStop Color="#FF68A528" Offset="0.889"/>
+            <GradientStop Color="#FF9FCB7A" Offset="1"/>
+        </LinearGradientBrush>
 
 
+        <ControlTemplate x:Key ="myButtonTemplate"  TargetType ="{x:Type Button}" >
+            <Grid>
+                <Rectangle Fill="White" Opacity="0.0"/>
+                
+                <Polygon Points="0,8 10,16 10,0" 
+                         HorizontalAlignment="Left" 
+                         VerticalAlignment="Center"
+                         Fill="{StaticResource clr0}">                   
+                </Polygon>
 
+                <Polygon Name="rect" Points="11,0 11,16 12,16 12,0" 
+                         Fill="{StaticResource clr0}"
+                         HorizontalAlignment="Left" 
+                         VerticalAlignment="Center"
+                         Opacity="0.0">
+                </Polygon>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsPressed" Value="True">
+                    <Setter TargetName="rect" Property="Opacity" Value="1.0"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
 
+        <ControlTemplate x:Key ="btn_SelectTemplate"  TargetType ="{x:Type Button}" >
+            <Grid>
+                <Rectangle Fill="White" Opacity="0" />
+                <Polygon Name="myPolygon" Points="0,7 6,0 10,0 5,5 19,5 19,8 5,8 10,14 6,14" 
+                         HorizontalAlignment="Left" 
+                         VerticalAlignment="Center"                            
+                         >
+                    <Polygon.Fill>
+                        <LinearGradientBrush EndPoint="0,0" StartPoint="1,1">
+                            <GradientStop Color="#DDDDDD" Offset="0.0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Polygon.Fill>
+                </Polygon>
+            </Grid>
 
-        <Rectangle Grid.RowSpan="1" Grid.ColumnSpan="9" >
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="customImages\ImagePreview_Title.png"/>
-            </Rectangle.Fill>
-        </Rectangle>
+            <ControlTemplate.Triggers>
+                <Trigger  Property ="UIElement.IsMouseOver" Value ="True">
+                    <Setter TargetName="myPolygon" Property="Fill" >
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0,0" StartPoint="1,1">
+                                <GradientStop Color="#86AD40" Offset="0.0"/>
+                                <GradientStop Color="#A8D880" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
 
-        <mycontrol:ScrollTextBox x:Name="textBox"  Grid.Row="0"  Grid.Column="3" Background="{x:Null}"
-                 AcceptsTab="False"  SelectionOpacity="0" BorderThickness="0"
-                 Cursor="Arrow"
-                 IsReadOnly="True" ForceCursor="False"
-                 HorizontalAlignment="Left" 
-                           VerticalAlignment="Center"                          
-                           FontSize="20"
-                           TextAlignment="Center"
-                           
-                           Foreground="White"
-               
-                 />
-       
+                </Trigger>
+                <Trigger Property="Button.IsPressed" Value="True">
+                    <Setter TargetName="myPolygon" Property="Fill">
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0,0" StartPoint="1,1">
+                                <GradientStop Color="#165400" Offset="0.0"/>
+                                <GradientStop Color="#1C6800" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Resources>
+    
+    <Grid >       
+        <Grid Background="{x:Null}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="190*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="92*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="93*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            
+            
+            
 
-        <Button Grid.Row="0"  Grid.Column="5" Grid.ColumnSpan="2" Click="Button_Click">
-            <Button.Template>
-                <ControlTemplate >
-                    <Rectangle >
-                        <Rectangle.Fill>
-                            <ImageBrush ImageSource="customImages\ImagePreview_SelectPath.png" />
-                        </Rectangle.Fill>
-                    </Rectangle>
-                </ControlTemplate >
-            </Button.Template>
+            <Border Name="mainRegion"  Grid.Row="1" Grid.RowSpan="7" Grid.ColumnSpan="9"
+                    Background="{StaticResource mainBackground_Brush}" BorderBrush="{StaticResource border_Brush}" 
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    />                   
 
-        </Button>
+            <Grid Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="9" 
+                  Background="{StaticResource mainBackground_Brush}"  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="1" />
+                </Grid.ColumnDefinitions>                
+                <Rectangle Grid.ColumnSpan="3" Fill="{StaticResource border_Brush}" />
+                <Rectangle Grid.Row="1" Fill="{StaticResource border_Brush}" />
+                <Rectangle Grid.Row="1" Grid.Column="2" Fill="{StaticResource border_Brush}" />                
+            </Grid>
 
+            <Rectangle Grid.ColumnSpan="9" Grid.RowSpan="2"  RadiusX="10" RadiusY="10">  
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD5FF94" Offset="0"/>
+                        <GradientStop Color="#FFB3EA7B" Offset="0.106"/>
+                        <GradientStop Color="#FF81D835" Offset="0.212"/>
+                        <GradientStop Color="#FF61CA08" Offset="0.341"/>
+                        <GradientStop Color="#FF288504" Offset="0.894"/>
+                        <GradientStop Color="#FF3E5F2E" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
 
+            <mycontrol:ScrollTextBox x:Name="textBox"  Grid.Row="0"  Grid.Column="1" 
+                                     Grid.ColumnSpan="3" Grid.RowSpan="2" Margin="10,2,10,2"
+                                     Background="{x:Null}"
+                                     AcceptsTab="False"  SelectionOpacity="0" BorderThickness="0"
+                                     Cursor="Arrow"
+                                     IsReadOnly="True" ForceCursor="False" 
+                                     VerticalAlignment="Center"                          
+                                     FontSize="12"
+                                     TextAlignment="Center"      
+                                     Foreground="White" >
+            </mycontrol:ScrollTextBox>
 
-        <Rectangle Name="imagePreviewRegon" Grid.Row="2" Grid.Column="3"  Grid.RowSpan="3" Grid.ColumnSpan="3">
-            <!--<Rectangle.Fill>
-                <ImageBrush ImageSource="C:\Users\ben\Desktop\WPF\SliderStudy_技术交流_2013_09_06\SliderStudy\ICON\ImagePreview_Title.png"/>
-            </Rectangle.Fill>-->
-        </Rectangle>
+            <Button Grid.Row="0"  Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="2" 
+                    Template="{StaticResource btn_SelectTemplate}"
+                    Click="Button_Click">                
+            </Button>
 
-        <Button Name="btnLeft" Grid.Row="3" Grid.Column="1"
-                Click="btnLeft_Click">
-            <Button.Template>
-                <ControlTemplate >
-                    <Rectangle Name="myRectangle">
-                        <Rectangle.Fill>
-                            <ImageBrush ImageSource="customImages\ImagePreview_Left.png" />
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="Button.IsPressed" Value="True">
-                            <Setter TargetName="myRectangle" Property="Fill">
-                                <Setter.Value>
-                                    <ImageBrush ImageSource="customImages\ImagePreview_Left_Pressed.png" />
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
+            <Rectangle Name="imagePreviewRegon" Grid.Row="3" Grid.Column="3"  Grid.RowSpan="3" Grid.ColumnSpan="3" 
+                       Stroke="#999999" StrokeThickness="1">
+            </Rectangle>
 
-                </ControlTemplate >
-            </Button.Template>
-        </Button>
+            <Button Name="btnLeft" Grid.Row="4" Grid.Column="1"
+                    Click="btnLeft_Click" Template="{StaticResource myButtonTemplate}">
+            </Button>
 
-        <Button Name="btnRight" Grid.Row="3" Grid.Column="7"
-                Click="btnRight_Click"
-                >
-            <Button.Template>
-                <ControlTemplate >
-                    <Rectangle Name="myRectangle" >
-                        <Rectangle.Fill>
-                            <ImageBrush ImageSource="customImages\ImagePreview_Right.png" />
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="Button.IsPressed" Value="True">
-                            <Setter TargetName="myRectangle" Property="Fill">
-                                <Setter.Value>
-                                    <ImageBrush ImageSource="customImages\ImagePreview_Right_Pressed.png" />
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate >
-            </Button.Template>
-
-        </Button>
-
-
-
+            <Button Name="btnRight" Grid.Row="4" Grid.Column="7"
+                    Click="btnRight_Click" Template="{StaticResource myButtonTemplate}"
+                    RenderTransformOrigin="0.5,0.5" >
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="180"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+   
+        </Grid>
     </Grid>
 </UserControl>

@@ -284,23 +284,22 @@
                 <RowDefinition Height="40*" />
             </Grid.RowDefinitions>
 
-            <Rectangle Grid.Row="1" Grid.Column="1">
+            <!--<Rectangle Grid.Row="1" Grid.Column="1">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="Images\PagePrint_Bk_Left.png" />
                 </Rectangle.Fill>
-            </Rectangle>
+            </Rectangle>-->
 
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="23*" />
-                    <RowDefinition Height="23*" />
+                    <!--<RowDefinition Height="23*" />-->
+                    <RowDefinition Height="46*" />
                     <RowDefinition Height="45*" />
                     <RowDefinition Height="17*" />
-                    <RowDefinition Height="22*" />                    
+                    <RowDefinition Height="22*" />
                     <RowDefinition Height="45*" />
                     <RowDefinition Height="15*" />
-                    <RowDefinition Height="17*" />
-                    <RowDefinition Height="25*" />
+                    <RowDefinition Height="42*" />
                     <RowDefinition Height="123*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -309,8 +308,17 @@
                     <ColumnDefinition Width="10*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Name="textBox"
-                           Grid.Column="1"
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Name="textBox"
                            Grid.Row="1"                         
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
@@ -318,16 +326,30 @@
                            FontSize="12"
                            Foreground="#555555"
                            Text="机型："
-                           TextAlignment="Center">                    
-                </TextBlock>
+                           TextAlignment="Center">
+                    </TextBlock>
 
-                <ComboBox Grid.Row="2" Grid.Column="1"
+                    <mycontrol:RefreshButton Margin="-5, 0, 0, -2"
+                        Grid.Column="1" Grid.RowSpan="2"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Left"
+                        Width="22.4" Height="22.4"                                          
+                       
+                      >
+                    </mycontrol:RefreshButton>
+
+
+                </Grid>
+
+
+
+                <ComboBox Grid.Row="1" Grid.Column="1"
                           Foreground="#555555"
                           Style="{StaticResource CboCommomStyle}" Margin="0,8,0,0">
                     <ComboBoxItem>联想多功能一体机-----123456789</ComboBoxItem>
                 </ComboBox>
 
-                <TextBlock Grid.Row="4" Grid.Column="1"
+                <TextBlock Grid.Row="3" Grid.Column="1"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            Background="{x:Null}"
@@ -336,42 +358,25 @@
                            Text="设备状态:"
                            TextAlignment="Center" />
 
-                <mycontrol:StatusTextBlock Grid.Row="5" 
+                <mycontrol:StatusTextBlock Grid.Row="4" 
                          Grid.Column="1" 
                          Margin="0, 5, 0, 0"
                     FontSize="12" Text="待机">
-
                 </mycontrol:StatusTextBlock>
+                
+                <mycontrol:TonerBar Grid.Row="6" Grid.Column="1" CurValue="{Binding ElementName=slider, Path=Value}"></mycontrol:TonerBar>
 
-               <TextBlock Grid.Row="7"
+
+
+                <Slider Name="slider" Grid.Row="9"
                            Grid.Column="1"
                            HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Background="{x:Null}"
-                           FontSize="12"
-                           Foreground="#555555"
-                           Text="碳粉容量 ： 30%"
-                           TextAlignment="Center" />
-                <Grid  Grid.Row="8" Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="130*" />
-                        <ColumnDefinition Width="30*" />
-                    </Grid.ColumnDefinitions>
-
-                    <mycontrol:SliderChangeControl x:Name="mySlider"   
-                                                   Margin="0, 8, 0, 0"
-                                                   Maximum="100"
-                                                   CurValue="30"
-                                                   >
-                    </mycontrol:SliderChangeControl>
-       
-                    <Rectangle Grid.Column="1" Margin="5, 0, 0, 0">
-                        <Rectangle.Fill>
-                            <ImageBrush ImageSource="Images\shoppingCart.png" />
-                        </Rectangle.Fill>
-                    </Rectangle>
-                </Grid>              
+                           Maximum="100"
+                        Width="100"                     
+                       
+                           ></Slider>
             </Grid>
+
 
 
 
@@ -379,7 +384,7 @@
             <mycontrol:ImagePreviewControl x:Name="imagePreviewCtrl"
                                            Grid.Row="1"
                                            Grid.Column="3"
-                                           ImgSetPath="F:\ben">                
+                                           ImgSetPath="F:\ben">
             </mycontrol:ImagePreviewControl>
 
             <Grid Grid.Row="1"
@@ -470,25 +475,7 @@
                                Text="黑白"
                                TextAlignment="Center" />
 
-                    <mycontrol:AdjustValueEx_Ctrl x:Name="adjustValueExCtrl"
-                                                  Grid.Row="5"
-                                                  Grid.Column="1"
-                                                  Grid.ColumnSpan="3"
-                                                  DecFunction="DecFuncCallbackEx"
-                                                  IncFunction="IncFuncCallbackEx"
-                                                  LeftText="比例"
-                                                  LeftText_FontSize="12"
-                                                  Text="0%" />
-
-                    <mycontrol:AdjustValueEx_Ctrl x:Name="AmountOfPage"
-                                                  Grid.Row="7"
-                                                  Grid.Column="1"
-                                                  Grid.ColumnSpan="3"
-                                                  DecFunction="DecCallback_AmountOfPage"
-                                                  IncFunction="IncCallback_AmountOfPage"
-                                                  LeftText="份数"
-                                                  LeftText_FontSize="12"
-                                                  Text="0" />
+                 
                 </Grid>
 
                 <Grid Grid.Row="2">
@@ -503,7 +490,7 @@
                         <RowDefinition Height="45*" />
                     </Grid.RowDefinitions>
 
-                    <Button Name="HighLevel_Setup"
+                    <!--<Button Name="HighLevel_Setup"
                             Grid.Row="0"
                             Grid.Column="1"
                             Height="30"
@@ -560,8 +547,8 @@
                                 </Grid>
                             </ControlTemplate>
                         </Button.Template>
-                    </Button>
-                </Grid>              
+                    </Button>-->
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

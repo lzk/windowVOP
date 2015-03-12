@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Controls" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -117,18 +118,10 @@
     </Compile>
     <Compile Include="Density.cs" />
     <Compile Include="CustomControl\ScrollTextBox.cs" />
-    <Compile Include="CustomControl\SliderChangeControl.xaml.cs">
-      <DependentUpon>SliderChangeControl.xaml</DependentUpon>
+    <Compile Include="CustomControl\TonerBar.xaml.cs">
+      <DependentUpon>TonerBar.xaml</DependentUpon>
     </Compile>
-    <Page Include="CustomControl\AdjustValueEx_Ctrl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="CopyPage.xaml" />
-    <Page Include="CustomControl\AdjustValue_Ctrl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="CustomControl\CustomTextbox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,16 +143,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PrintPage.xaml" />
+    <Page Include="CustomControl\RefreshButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ScanPage.xaml" />
     <Page Include="SettingPage.xaml" />
     <Compile Include="CustomControl\CustomButton.cs" />
-    <Compile Include="CustomControl\AdjustValueEx_Ctrl.xaml.cs">
-      <DependentUpon>AdjustValueEx_Ctrl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CopyPage.cs" />
-    <Compile Include="CustomControl\AdjustValue_Ctrl.xaml.cs">
-      <DependentUpon>AdjustValue_Ctrl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CustomControl\CustomTextbox.xaml.cs">
       <DependentUpon>CustomTextbox.xaml</DependentUpon>
     </Compile>
@@ -174,6 +165,9 @@
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="PrintPage.cs" />
+    <Compile Include="CustomControl\RefreshButton.xaml.cs">
+      <DependentUpon>RefreshButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ScanPage.cs" />
     <Compile Include="SettingPage.cs" />
     <ApplicationDefinition Include="App.xaml">
@@ -192,7 +186,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="CustomControl\SliderChangeControl.xaml">
+    <Page Include="CustomControl\TonerBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -253,35 +247,6 @@
     <Resource Include="Images\PagePrint_Bk_Right.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Button_Gray.png" />
-    <Resource Include="Images\Button_Green.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="CustomControl\customImages\AdjustValue_Bk.png" />
-    <Resource Include="CustomControl\customImages\AdjustValue_Bk_2.png" />
-    <Resource Include="CustomControl\customImages\AdjustValue_Decrease.png" />
-    <Resource Include="CustomControl\customImages\AdjustValue_Increase.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="CustomControl\customImages\ImagePreview_Background.png" />
-    <Resource Include="CustomControl\customImages\ImagePreview_Left.png" />
-    <Resource Include="CustomControl\customImages\ImagePreview_Left_Pressed.png" />
-    <Resource Include="CustomControl\customImages\ImagePreview_Right.png" />
-    <Resource Include="CustomControl\customImages\ImagePreview_Right_Pressed.png" />
-    <Resource Include="CustomControl\customImages\ImagePreview_SelectPath.png" />
-    <Resource Include="CustomControl\customImages\ImagePreview_Title.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="CustomControl\customImages\textboxStyle_2_Right.png" />
-    <Resource Include="CustomControl\customImages\TextBox_Background.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="CustomControl\customImages\sliderChange_bk.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="CustomControl\customImages\button_bk_green.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\ToggleLeft.png" />
     <Resource Include="Images\ToggleRight.png" />
   </ItemGroup>
@@ -293,9 +258,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\shoppingCart.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\TextBox_Background.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Switch_Off.png" />
@@ -311,5 +273,11 @@
     <Resource Include="Images\btnPrint.png" />
     <Resource Include="Images\btnScan.png" />
     <Resource Include="Images\btnSetting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\shopCart_Warn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\shopCart_Normal.png" />
   </ItemGroup>
 </Project>
