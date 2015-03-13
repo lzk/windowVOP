@@ -6,6 +6,18 @@
     Width="666"
     Height="333"
 >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomTextBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
 <Grid>
     <Grid.Resources>
         <Color x:Key="clr0">#ff646464</Color>
@@ -302,7 +314,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="310" />
+            <ColumnDefinition Width="210" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -312,78 +324,84 @@
                 <vop:Density
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
+                    Margin="0,40,0,10" 
                     />
+
+                <local:GroupBoxDecorator Header="Copies" Height="80" Width="300"
+                    Margin="0,20" >
+
+                    <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                        <Button>
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Ellipse
+                                            Width="30"
+                                            Height="30"
+                                            Fill="#ffc6c6c6"
+                                            >
+                                            <UIElement.Effect>
+                                                <DropShadowEffect BlurRadius="2" Opacity="0.5" Direction="270"/>
+                                            </UIElement.Effect>
+                                        </Ellipse>
+
+                                        <TextBlock 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" 
+                                            Margin="0,0,0,2"
+                                            FontSize="20">
+                                            -
+                                        </TextBlock>
+                                    </Grid>
+                                </ControlTemplate>
+
+                            </Button.Template>
+                        </Button>
+
+                        <TextBlock 
+                            VerticalAlignment="Center" 
+                            Margin="40,0"
+                            FontSize="30"
+                            >
+                            99
+                        </TextBlock>
+
+                        <Button>
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Grid>
+                                        <Ellipse
+                                            Width="30"
+                                            Height="30"
+                                            Fill="#ffc6c6c6"
+                                            >
+                                            <UIElement.Effect>
+                                                <DropShadowEffect BlurRadius="2" Opacity="0.5" Direction="270"/>
+                                            </UIElement.Effect>
+                                        </Ellipse>
+
+                                        <TextBlock 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" 
+                                            Margin="0,0,0,2"
+                                            FontSize="20">
+                                            +
+                                        </TextBlock>
+                                    </Grid>
+                                </ControlTemplate>
+
+                            </Button.Template>
+                        </Button>
+
+                    </StackPanel>
+                </local:GroupBoxDecorator>
+
+                <Button IsDefault="False" IsEnabled="True" Content="Advance Settings" Template="{StaticResource custombtn}"
+                    Name="btnWireless" Width="120" Height="30" Margin="0,20"/>
 
             </StackPanel>
 
-            <local:GroupBoxDecorator Header="Copies" Height="80" Width="300">
-
-                <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center">
-                    <Button>
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Grid>
-                                    <Ellipse
-                                        Width="30"
-                                        Height="30"
-                                        Fill="#ffc6c6c6"
-                                        >
-                                        <UIElement.Effect>
-                                            <DropShadowEffect BlurRadius="2" Opacity="0.5" Direction="270"/>
-                                        </UIElement.Effect>
-                                    </Ellipse>
-
-                                    <TextBlock 
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center" 
-                                        Margin="0,0,0,2"
-                                        FontSize="20">
-                                        -
-                                    </TextBlock>
-                                </Grid>
-                            </ControlTemplate>
-
-                        </Button.Template>
-                    </Button>
-
-                    <TextBlock 
-                        VerticalAlignment="Center" 
-                        Margin="40,0"
-                        FontSize="30"
-                        >
-                        99
-                    </TextBlock>
-
-                    <Button>
-                        <Button.Template>
-                            <ControlTemplate>
-                                <Grid>
-                                    <Ellipse
-                                        Width="30"
-                                        Height="30"
-                                        Fill="#ffc6c6c6"
-                                        >
-                                        <UIElement.Effect>
-                                            <DropShadowEffect BlurRadius="2" Opacity="0.5" Direction="270"/>
-                                        </UIElement.Effect>
-                                    </Ellipse>
-
-                                    <TextBlock 
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center" 
-                                        Margin="0,0,0,2"
-                                        FontSize="20">
-                                        +
-                                    </TextBlock>
-                                </Grid>
-                            </ControlTemplate>
-
-                        </Button.Template>
-                    </Button>
-
-                </StackPanel>
-            </local:GroupBoxDecorator>
 
         </Grid>
 
