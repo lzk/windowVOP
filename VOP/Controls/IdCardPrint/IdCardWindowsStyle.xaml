@@ -6,16 +6,16 @@
 
     <!--Data for default Id card type-->
     <x:Array x:Key="IdCardTypeNameList" Type="local:IdCardTypeItem">
-        <local:IdCardTypeItem TypeId="HouseholdRegister" Name="户口本" PrintSides="OneSide"/>
-        <local:IdCardTypeItem TypeId="IdCard" Name="身份证" PrintSides="TwoSides"/>
-        <local:IdCardTypeItem TypeId="MarriageCertificate" Name="结婚证" PrintSides="OneSide"/>
-        <local:IdCardTypeItem TypeId="Passport" Name="护照" PrintSides="OneSide"/>
-        <local:IdCardTypeItem TypeId="RealEstateEvaluator" Name="房产证" PrintSides="OneSide"/>
-        <local:IdCardTypeItem TypeId="DriverLicense" Name="驾照" PrintSides="OneSide"/>
-        <local:IdCardTypeItem TypeId="Diploma" Name="毕业证" PrintSides="OneSide"/>
-        <local:IdCardTypeItem TypeId="StudentIDcard" Name="学生证" PrintSides="OneSide"/>
-        <local:IdCardTypeItem TypeId="BirthCertificate" Name="出生证明" PrintSides="OneSide"/>
-        <local:IdCardTypeItem TypeId="BankCards" Name="银行卡/社保卡" PrintSides="OneSide"/>
+        <local:IdCardTypeItem TypeId="HouseholdRegister" Name="户口本" PrintSides="OneSide" Width="21" Height="14"/>
+        <local:IdCardTypeItem TypeId="IdCard" Name="身份证" PrintSides="TwoSides" Width="8.5" Height="5.4"/>
+        <local:IdCardTypeItem TypeId="MarriageCertificate" Name="结婚证" PrintSides="OneSide" Width="18.7" Height="12.8"/>
+        <local:IdCardTypeItem TypeId="Passport" Name="护照" PrintSides="OneSide" Width="12.5" Height="17.6"/>
+        <local:IdCardTypeItem TypeId="RealEstateEvaluator" Name="房产证" PrintSides="OneSide" Width="23.9" Height="16.6"/>
+        <local:IdCardTypeItem TypeId="DriverLicense" Name="驾照" PrintSides="OneSide" Width="20.6" Height="7.4"/>
+        <local:IdCardTypeItem TypeId="Diploma" Name="毕业证" PrintSides="OneSide" Width="23.5" Height="16.4"/>
+        <local:IdCardTypeItem TypeId="StudentIDcard" Name="学生证" PrintSides="OneSide" Width="10.5" Height="7.3"/>
+        <local:IdCardTypeItem TypeId="BirthCertificate" Name="出生证明" PrintSides="OneSide" Width="18.9" Height="13"/>
+        <local:IdCardTypeItem TypeId="BankCards" Name="银行卡/社保卡" PrintSides="OneSide" Width="8.5" Height="5.4"/>
     </x:Array>
 
 

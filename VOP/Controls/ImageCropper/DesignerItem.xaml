@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:VOP.Controls">
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="ResizeRotateChrome.xaml"/>
+  </ResourceDictionary.MergedDictionaries>
+
+  <ControlTemplate x:Key="MoveThumbTemplate"  TargetType="{x:Type s:MoveThumb}">
+    <Rectangle Fill="Transparent"/>
+  </ControlTemplate>
+
+  <Style x:Key="DesignerItemStyle" TargetType="ContentControl">
+    <Setter Property="MinHeight" Value="50"/>
+    <Setter Property="MinWidth" Value="50"/>
+    <Setter Property="SnapsToDevicePixels" Value="true"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ContentControl">
+          <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+            <s:MoveThumb Cursor="SizeAll" Template="{StaticResource MoveThumbTemplate}" />
+            <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
+                              Margin="{TemplateBinding Padding}"/>
+            <s:ResizeRotateChrome x:Name="ItemDecorator" Style="{StaticResource ResizeRotateChromeStyle}" />
+          </Grid>
+         </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+
+</ResourceDictionary>

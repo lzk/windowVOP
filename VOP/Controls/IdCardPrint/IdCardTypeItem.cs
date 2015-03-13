@@ -38,6 +38,12 @@ namespace VOP.Controls
         public static readonly DependencyProperty PrintSidesProperty =
          DependencyProperty.Register("PrintSides", typeof(enumIdCardPrintSides), typeof(IdCardTypeItem));
 
+        public static readonly DependencyProperty WidthProperty =
+         DependencyProperty.Register("Width", typeof(double), typeof(IdCardTypeItem));
+
+        public static readonly DependencyProperty HeightProperty =
+         DependencyProperty.Register("Height", typeof(double), typeof(IdCardTypeItem));
+
         public enumIdCardType TypeId
         {
             get { return (enumIdCardType)GetValue(TypeIdProperty); }
@@ -54,6 +60,18 @@ namespace VOP.Controls
         {
             get { return (enumIdCardPrintSides)GetValue(PrintSidesProperty); }
             set { SetValue(PrintSidesProperty, value); }
+        }
+
+        public double Width
+        {
+            get { return (double)GetValue(WidthProperty); }
+            set { SetValue(WidthProperty, value); }
+        }
+
+        public double Height
+        {
+            get { return (double)GetValue(HeightProperty); }
+            set { SetValue(HeightProperty, value); }
         }
     }
 }

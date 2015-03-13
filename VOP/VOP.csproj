@@ -53,10 +53,42 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converter.cs" />
+
+
     <Compile Include="CustomControl\StatusTextBlock.xaml.cs">
       <DependentUpon>StatusTextBlock.xaml</DependentUpon>
     </Compile>
+
+    <Compile Include="Controls\IdCardPrint\IdCardEditWindow.xaml.cs">
+      <DependentUpon>IdCardEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageCropper\ImageCropper.xaml.cs">
+      <DependentUpon>ImageCropper.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageCropper\MoveThumb.cs" />
+    <Compile Include="Controls\ImageCropper\ResizeRotateChrome.cs" />
+    <Compile Include="Controls\ImageCropper\ResizeThumb.cs" />
+    <Compile Include="Controls\ImageCropper\RotateThumb.cs" />
+    <Compile Include="Converter.cs" />
+    <Compile Include="OriginalPaperSize.cs" />
+    <Page Include="Controls\IdCardPrint\IdCardEditWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ImageCropper\DesignerItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ImageCropper\ImageCropper.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ImageCropper\ResizeRotateChrome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OriginalPaperSize.xaml" />
+
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\CustomButton.xaml">
@@ -83,7 +115,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\IdCardPrint\IdCardTypeSelectWindowStyle.xaml">
+    <Page Include="Controls\IdCardPrint\IdCardWindowsStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

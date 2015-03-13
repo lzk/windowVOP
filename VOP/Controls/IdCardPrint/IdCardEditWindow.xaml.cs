@@ -16,11 +16,22 @@ namespace VOP.Controls
     /// <summary>
     /// Interaction logic for IdCardTypeSelectWindow.xaml
     /// </summary>
-    public partial class IdCardTypeSelectWindow : Window
+    public partial class IdCardEditWindow : Window
     {
         public IdCardTypeItem SelectedTypeItem { get; set; }
 
-        public IdCardTypeSelectWindow()
+        public Uri ImageUri
+        {
+            set
+            {
+                if(myCropper != null)
+                {
+                    myCropper.ImagePath = value;
+                }
+            }
+        }
+
+        public IdCardEditWindow()
         {
             InitializeComponent();
         }
@@ -35,11 +46,5 @@ namespace VOP.Controls
             DragMove();
         }
 
-        private void verticalListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ListBox lb = e.Source as ListBox;
-            SelectedTypeItem = lb.SelectedItem as IdCardTypeItem;
-            this.DialogResult = true;
-        }
     }
 }
