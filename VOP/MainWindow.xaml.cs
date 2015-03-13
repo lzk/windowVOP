@@ -33,8 +33,8 @@ namespace VOP
 
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
         {
-            this.subPageView.Child = winScanPage;
-            setTabItemFromIndex(2);
+            this.subPageView.Child = winFileSelectionPage;
+            setTabItemFromIndex(0);
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -64,8 +64,8 @@ namespace VOP
             if ( null != btn )
             {
                 if ( "btnPrint" == btn.Name )
-                {                  
-                     this.subPageView.Child = winPrintPage;
+                {
+                    this.subPageView.Child = winPrintPage;
 
                      setTabItemFromIndex(0);
 
@@ -91,8 +91,10 @@ namespace VOP
                 }
                 else if ( "btnLogin" == btn.Name )
                 {
+
                     LoginWindow loginWnd = new LoginWindow();
                     loginWnd.ShowDialog();
+
                 }
             }
 

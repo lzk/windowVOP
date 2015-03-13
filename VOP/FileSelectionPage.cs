@@ -18,6 +18,11 @@ namespace VOP
             InitializeComponent();
         }
 
+        private void OnClickFilePrint(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+           
+        }
+
         private void OnClickIdCardPrint(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             bool? result = null;
