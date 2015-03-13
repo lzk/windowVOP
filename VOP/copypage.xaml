@@ -316,6 +316,75 @@
 
             </StackPanel>
 
+            <local:GroupBoxDecorator Header="Copies" Height="80" Width="300">
+
+                <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <Button>
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Ellipse
+                                        Width="30"
+                                        Height="30"
+                                        Fill="#ffc6c6c6"
+                                        >
+                                        <UIElement.Effect>
+                                            <DropShadowEffect BlurRadius="2" Opacity="0.5" Direction="270"/>
+                                        </UIElement.Effect>
+                                    </Ellipse>
+
+                                    <TextBlock 
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center" 
+                                        Margin="0,0,0,2"
+                                        FontSize="20">
+                                        -
+                                    </TextBlock>
+                                </Grid>
+                            </ControlTemplate>
+
+                        </Button.Template>
+                    </Button>
+
+                    <TextBlock 
+                        VerticalAlignment="Center" 
+                        Margin="40,0"
+                        FontSize="30"
+                        >
+                        99
+                    </TextBlock>
+
+                    <Button>
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid>
+                                    <Ellipse
+                                        Width="30"
+                                        Height="30"
+                                        Fill="#ffc6c6c6"
+                                        >
+                                        <UIElement.Effect>
+                                            <DropShadowEffect BlurRadius="2" Opacity="0.5" Direction="270"/>
+                                        </UIElement.Effect>
+                                    </Ellipse>
+
+                                    <TextBlock 
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center" 
+                                        Margin="0,0,0,2"
+                                        FontSize="20">
+                                        +
+                                    </TextBlock>
+                                </Grid>
+                            </ControlTemplate>
+
+                        </Button.Template>
+                    </Button>
+
+                </StackPanel>
+            </local:GroupBoxDecorator>
+
         </Grid>
 
     </Grid>
