@@ -295,56 +295,31 @@
         </ControlTemplate>
     </Grid.Resources>
 
+
     <Canvas Grid.Row="0" Width="666" Height="333" >
         <Image Source="Images\PageCopy.png" />
     </Canvas>
 
-    <UniformGrid>
-    <vop:Density
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        />
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="310" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
+        <Grid Grid.Column="1">
 
-    <StackPanel VerticalAlignment="Center" >
-        <RadioButton Margin="10" Width="200" Height="30" Name="btn1" FontSize="16"
-            GroupName="scanningmode" Content="Option One" IsChecked="true" Template="{StaticResource radiobtn}" 
-            >
-            <RadioButton.Foreground>
-                <SolidColorBrush Color="{StaticResource clr0}" />
-            </RadioButton.Foreground>
-        </RadioButton>
+            <StackPanel>
+                <vop:Density
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    />
 
-        <RadioButton Margin="10" Width="200" Height="30" Name="btn2" FontSize="16"
-            GroupName="scanningmode" Content="Option Two" IsChecked="false" Template="{StaticResource radiobtn}" 
-            >
-            <RadioButton.Foreground>
-                <SolidColorBrush Color="{StaticResource clr0}" />
-            </RadioButton.Foreground>
-        </RadioButton>
-    </StackPanel>
+            </StackPanel>
 
-            <local:GroupBoxDecorator Header="纸张大小" Canvas.Left="87" Canvas.Top="134" Height="127" Width="190">
-                <ComboBox
-                    Style="{StaticResource customComboBox}"
-                    Background="White"
-                    Width="145" Height="30"
-                    >
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"  Content="ComboBox Item" /> 
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="Disalbe Item" IsEnabled="false" > 
-                    </ComboBoxItem>
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="Selected Item" >
-                    </ComboBoxItem>
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
-                </ComboBox>
-            </local:GroupBoxDecorator>
+        </Grid>
 
-    <Button Style="{StaticResource 3dbutton}" >
-        <Image Source="Images\Turn.png"/>
-    </Button>
+    </Grid>
 
-    </UniformGrid>
 
 </Grid>
 </UserControl>
