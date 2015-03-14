@@ -29,7 +29,7 @@
                 </Rectangle.Fill>
             </Rectangle>
             <ScrollViewer 
-                Margin="5" 
+                Margin="8" 
                 x:Name="PART_ContentHost" 
                 VerticalAlignment="Center"            
                 FontSize="{TemplateBinding FontSize}"

@@ -91,7 +91,8 @@ namespace VOP
                 }
                 else if ( "btnLogin" == btn.Name )
                 {
-                    this.subPageView.Child = winFileSelectionPage;
+                    LoginWindow loginWnd = new LoginWindow();
+                    loginWnd.ShowDialog();
                 }
             }
 
