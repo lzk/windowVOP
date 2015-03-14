@@ -27,15 +27,18 @@
                     <SolidColorBrush Color="#FFE5E5E5"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <StackPanel Orientation="Horizontal" >
-                <TextBlock Name="tb" 
+            <Grid>
+                <TextBlock 
+                        Name="tb" 
                         VerticalAlignment="Center"
-                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                         Text="{TemplateBinding Content}"
                         FontSize="{TemplateBinding FontSize}"
                         Foreground="{TemplateBinding Foreground}" 
-                        Margin="15,0"/>
-            </StackPanel>
+                        Margin="15,0"
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        TextAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        TextWrapping="NoWrap"/>
+            </Grid>
 
         </Grid>
 
@@ -259,5 +262,71 @@
 
         </ControlTemplate.Triggers>
 
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="btnpwd" TargetType="{x:Type Button}">
+        <Border  Name="validate"  BorderThickness="1"   CornerRadius="0,13,13,0"  >
+            <Border.Background>
+                <LinearGradientBrush  StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#FFE6E6E6" Offset="0.09"/>
+                    <GradientStop Color="LightGray" Offset="0.575"/>
+                    <GradientStop Color="#FFAFAFAF" Offset="0.951"/>
+                    <GradientStop Color="Gray" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <ContentPresenter  Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+
+        <ControlTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="false" />
+                    <Condition Property="IsEnabled" Value="true" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="validate" Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" >
+                            <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                            <GradientStop Color="#FF4D4D4D" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </MultiTrigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="true" />
+                    <Condition Property="IsEnabled" Value="true" />
+                </MultiTrigger.Conditions>
+
+                <Setter TargetName="validate" Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" >
+                            <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                            <GradientStop Color="#FF8D8D8D" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter TargetName="validate" Property="Cursor">
+                    <Setter.Value>Hand</Setter.Value>
+                </Setter>
+            </MultiTrigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsEnabled" Value="false" />
+                </MultiTrigger.Conditions>
+
+                <Setter TargetName="validate" Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" >
+                            <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                            <GradientStop Color="#FF4D4D4D" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </MultiTrigger>
+            
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>
