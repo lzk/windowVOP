@@ -4,7 +4,7 @@
 
   <Style TargetType="{x:Type Shape}" x:Key="ThumbCorner">
     <Setter Property="SnapsToDevicePixels" Value="False" />
-    <Setter Property="Stroke" Value="White" />
+    <Setter Property="Stroke" Value="Green" />
     <Setter Property="StrokeThickness" Value="1.5" />
     <Setter Property="Opacity" Value="0.9" />
     <!--<Setter Property="Width" Value="10" />
@@ -84,7 +84,7 @@
                       Margin="0"
                       Stretch="Fill"
                       Opacity="0.7"
-					  Stroke="White" 
+					  Stroke="Green" 
                       StrokeStartLineCap="Square" 
                       StrokeEndLineCap="Square"/>
                 <Path Data="M239.5,99.5 L319.5,99.5"
@@ -95,7 +95,7 @@
                       Margin="0"
                       Stretch="Fill"
                       Opacity="0.7"
-					  Stroke="White"  
+					  Stroke="Green"  
                       StrokeStartLineCap="Square" 
                       StrokeEndLineCap="Square"/>
                 <Path Data="M379.5,99.5 L379.5,159.5"
@@ -106,7 +106,7 @@
                       Margin="0"
                       Stretch="Fill"
                       Opacity="0.7"
-					  Stroke="White"
+					  Stroke="Green"
                       StrokeStartLineCap="Square" 
                       StrokeEndLineCap="Square"/>
                 <Path Data="M379.5,99.5 L379.5,159.5"
@@ -117,7 +117,7 @@
                       Margin="0"
                       Stretch="Fill"
                       Opacity="0.7"
-					  Stroke="White"
+					  Stroke="Green"
                       StrokeStartLineCap="Square" 
                       StrokeEndLineCap="Square"/>
 

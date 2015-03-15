@@ -25,7 +25,7 @@
                             Canvas.Top="15" Canvas.Left="15" 
                             Style="{StaticResource DesignerItemStyle}">
                 <Path Data="M0.5,20.5 L60.5,20.5 M0.5,40.5 L60.5,40.5 M20.5,0.5 L20.5,60.5 M40.5,0.5 L40.5,60.5"  
-                      Stretch="Fill" Stroke="#FFDADADA" 
+                      Stretch="Fill" Stroke="Green" 
                       StrokeDashArray="2" 
                       StrokeDashCap="Square" 
                       StrokeDashOffset="35"

@@ -310,4 +310,5 @@
   <ItemGroup>
     <Resource Include="Images\shopCart_Normal.png" />
   </ItemGroup>
+  <ItemGroup />
 </Project>

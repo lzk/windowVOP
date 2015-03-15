@@ -20,7 +20,7 @@ namespace VOP.Controls
 	/// </summary>
 	public partial class ImageCropper : UserControl
 	{
-		public static double thumbCornerWidth = 8;
+		public static double thumbCornerWidth = 6;
         public static double designerItemWHRatio = 1;
         bool IsFitted = false;
         public static double imageToTop = 0;
@@ -118,7 +118,7 @@ namespace VOP.Controls
                 {
                     designerItem.Height = imageHeight - thumbCornerWidth * 2;
                     designerItem.Width = designerItem.Height * designerItemWHRatio;
-                    designerItemToLeft = (imageWidth - designerItem.Width) / 2 + thumbCornerWidth;
+                    designerItemToLeft = (imageWidth - designerItem.Width) / 2;
                     Canvas.SetLeft(designerItem, imageToLeft + designerItemToLeft);
                     Canvas.SetTop(designerItem, imageToTop + thumbCornerWidth);
                   
@@ -126,8 +126,8 @@ namespace VOP.Controls
                 else if(whRatio < designerItemWHRatio)
                 {
                     designerItem.Width = imageWidth - thumbCornerWidth * 2;
-                    designerItem.Height = imageWidth / designerItemWHRatio;
-                    designerItemToTop = (imageHeight - designerItem.Height) / 2 + thumbCornerWidth;
+                    designerItem.Height = designerItem.Width / designerItemWHRatio;
+                    designerItemToTop = (imageHeight - designerItem.Height) / 2;
                     Canvas.SetTop(designerItem, imageToTop + designerItemToTop);
                     Canvas.SetLeft(designerItem, imageToLeft + thumbCornerWidth);
                 }
