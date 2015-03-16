@@ -3,6 +3,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:VOP.Controls"
 >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomTextBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomButton2.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
 <Grid>
 
     <local:GroupBoxDecorator Header="Density" Height="80" Width="300">
@@ -13,66 +26,19 @@
             >
 
 
-            <Button Name="btnDecrease" Click="BtnClick" >
-            <Button.Template>
-                <ControlTemplate>
-                    <Grid>
-                        <Ellipse
-                            Width="30"
-                            Height="30"
-                            Fill="#ffc6c6c6"
-                            >
-                            <UIElement.Effect>
-                                <DropShadowEffect BlurRadius="2" Opacity="0.5" Direction="270"/>
-                            </UIElement.Effect>
-                        </Ellipse>
-
-                        <TextBlock 
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Top" 
-                            FontSize="20">
-                            -
-                        </TextBlock>
-                    </Grid>
-                </ControlTemplate>
-
-            </Button.Template>
-            </Button>
+            <Button Name="btnDecrease" Click="BtnClick" Style="{StaticResource
+                CustomButton2}" Content="-" Margin="10,0" />
 
 
-            <Rectangle Name="rect1" VerticalAlignment="Bottom" Margin="5,0,0,0" Fill="Black" Width="10" Height="5" />
-            <Rectangle Name="rect2" VerticalAlignment="Bottom" Margin="5,0,0,0" Fill="Black" Width="10" Height="8" />
-            <Rectangle Name="rect3" VerticalAlignment="Bottom" Margin="5,0,0,0" Fill="Black" Width="10" Height="11" />
-            <Rectangle Name="rect4" VerticalAlignment="Bottom" Margin="5,0,0,0" Fill="Black" Width="10" Height="14" />
-            <Rectangle Name="rect5" VerticalAlignment="Bottom" Margin="5,0,0,0" Fill="Black" Width="10" Height="17" />
-            <Rectangle Name="rect6" VerticalAlignment="Bottom" Margin="5,0,5,0" Fill="Black" Width="10" Height="20" />
+            <Rectangle Name="rect1" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="10" Height="5" />
+            <Rectangle Name="rect2" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="10" Height="8" />
+            <Rectangle Name="rect3" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="10" Height="11" />
+            <Rectangle Name="rect4" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="10" Height="14" />
+            <Rectangle Name="rect5" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="10" Height="17" />
+            <Rectangle Name="rect6" VerticalAlignment="Bottom" Margin="5,0,5,5" Fill="Black" Width="10" Height="20" />
 
-            <Button Name="btnIncrease" Click="BtnClick" >
-
-            <Button.Template>
-                <ControlTemplate>
-                    <Grid>
-                        <Ellipse
-                            Width="30"
-                            Height="30"
-                            Fill="#ffc6c6c6"
-                            >
-                            <UIElement.Effect>
-                                <DropShadowEffect BlurRadius="2" Opacity="0.5" Direction="270"/>
-                            </UIElement.Effect>
-                        </Ellipse>
-
-                        <TextBlock 
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Top" 
-                            FontSize="20">
-                            +
-                        </TextBlock>
-                    </Grid>
-                </ControlTemplate>
-
-            </Button.Template>
-            </Button>
+            <Button Name="btnIncrease" Click="BtnClick" Style="{StaticResource CustomButton2}" Content="+" 
+                Margin="10,0" />
 
         </StackPanel>
     </local:GroupBoxDecorator>
