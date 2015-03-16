@@ -118,33 +118,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SID_BankCards" xml:space="preserve">
-    <value>银行卡/社保卡</value>
+    <value>Bank Cards</value>
   </data>
   <data name="SID_BirthCertificate" xml:space="preserve">
-    <value>出生证明</value>
+    <value>Birth Certificate</value>
   </data>
   <data name="SID_Diploma" xml:space="preserve">
-    <value>毕业证</value>
+    <value>Diploma</value>
   </data>
   <data name="SID_DriverLicense" xml:space="preserve">
-    <value>驾照</value>
+    <value>Driver License</value>
   </data>
   <data name="SID_HouseholdRegister" xml:space="preserve">
-    <value>户口本</value>
+    <value>Household Register</value>
   </data>
   <data name="SID_IdCard" xml:space="preserve">
-    <value>身份证</value>
+    <value>Id Card</value>
   </data>
   <data name="SID_MarriageCertificate" xml:space="preserve">
-    <value>结婚证</value>
+    <value>Marriage Certificate</value>
   </data>
   <data name="SID_Passport" xml:space="preserve">
-    <value>护照</value>
+    <value>Passport</value>
   </data>
   <data name="SID_RealEstateEvaluator" xml:space="preserve">
-    <value>房产证</value>
+    <value>RealEstate Evaluator</value>
   </data>
   <data name="SID_StudentIDcard" xml:space="preserve">
-    <value>学生证</value>
+    <value>Student ID Card</value>
   </data>
 </root>
