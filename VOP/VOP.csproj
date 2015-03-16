@@ -287,6 +287,9 @@
   </Target>
   -->
   <ItemGroup>
+    <Resource Include=".\Images\IDCardCopyIconDisable.tif" />
+    <Resource Include=".\Images\IDCardCopyIconEnable.tif" />
+
     <Resource Include=".\Images\background.png" />
     <Resource Include=".\Images\turn.png" />
     <Resource Include=".\Images\PageCopy.png" />

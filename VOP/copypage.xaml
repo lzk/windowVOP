@@ -331,7 +331,7 @@
                     />
 
                 <local:GroupBoxDecorator Header="Copies" Height="80" Width="300"
-                    Margin="0,20" >
+                    Margin="0,5,0,15" >
 
                     <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
@@ -353,8 +353,25 @@
                     </StackPanel>
                 </local:GroupBoxDecorator>
 
-                <Button IsDefault="False" IsEnabled="True" Content="Advance Settings" Template="{StaticResource custombtn}"
-                    Name="btnWireless" Width="120" Height="30" Margin="0,20"/>
+                <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <Image Source="Images/IDCardCopyIconEnable.tif"
+                        Stretch="Fill" Width="43" Height="28" > </Image>
+                    <TextBlock Margin="20,0" VerticalAlignment="Center"> ID Card Copy </TextBlock>
+                    <CheckBox Template="{StaticResource switchBox}"
+                        IsChecked="False" Width="50" Height="25" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <Button IsDefault="False" IsEnabled="True" Content="Advance Settings" Template="{StaticResource custombtn}"
+                        Name="btnWireless" Width="120" Height="25"
+                        Margin="20,10"/>
+
+                    <Button HorizontalContentAlignment="Center"
+                        IsDefault="True" Content="ID Card Copy"
+                        Template="{StaticResource custombtn}"  Height="35" Width="150" />
+                </StackPanel>
 
             </StackPanel>
 
