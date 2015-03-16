@@ -133,6 +133,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\CustomButton2.xaml" />
+
     <Page Include="Density.xaml" />
     <Compile Include="Controls\GroupBoxDecorator\GroupBoxDecorator.cs" />
     <Compile Include="Controls\IdCardPrint\IdCardTypeItem.cs" />

@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomTextBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomButton2.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
@@ -21,94 +22,6 @@
 <Grid>
     <Grid.Resources>
 
-        <Style x:Key="customButton1" TargetType="{x:Type Button}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid>
-                            <Ellipse Name="e1" Width="30" Height="30"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                >
-                                <Ellipse.Fill>
-                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                            <LinearGradientBrush.GradientStops>
-                                                <GradientStop
-                                                    Color="#ffffffff" Offset="0"/>
-                                                <GradientStop
-                                                    Color="#ff707070" Offset="1"/>
-                                            </LinearGradientBrush.GradientStops>
-                                        </LinearGradientBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-
-
-                            <Ellipse Name="e2" Width="25" Height="25"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                >
-                                <Ellipse.Fill>
-                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                        <LinearGradientBrush.GradientStops>
-                                            <GradientStop
-                                                Color="#ffe9e9e9" Offset="0"/>
-                                            <GradientStop
-                                                Color="#ffc8c8c8" Offset="1"/>
-                                        </LinearGradientBrush.GradientStops>
-                                    </LinearGradientBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-
-                            <TextBlock> </TextBlock>
-
-                            <TextBlock Name="txt1" Foreground="#ff838383"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                FontSize="28.37px" FontFamily="Microsoft
-                                YaHei" Margin="0,0,0,1" Text="{TemplateBinding
-                                Content}" />
-
-                        </Grid>
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="e1" Property="Fill" >
-                                    <Setter.Value>
-                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                            <LinearGradientBrush.GradientStops>
-                                                <GradientStop
-                                                    Color="#ffd4d4d4" Offset="0"/>
-                                                <GradientStop
-                                                    Color="#ff222222" Offset="1"/>
-                                            </LinearGradientBrush.GradientStops>
-                                        </LinearGradientBrush>
-                                    </Setter.Value>
-                                </Setter>
-
-
-                                <Setter TargetName="e2" Property="Fill" >
-                                    <Setter.Value>
-                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                            <LinearGradientBrush.GradientStops>
-                                                <GradientStop
-                                                    Color="#ff959595" Offset="0"/>
-                                                <GradientStop
-                                                    Color="#ff434343" Offset="1"/>
-                                            </LinearGradientBrush.GradientStops>
-                                        </LinearGradientBrush>
-                                    </Setter.Value>
-                                </Setter>
-
-                                <Setter TargetName="txt1"
-                                    Property="Foreground" Value="White" />
-
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
 
         <Color x:Key="clr0">#ff646464</Color>
         <Color x:Key="clr1">#ffa0a0a0</Color>
@@ -423,7 +336,7 @@
                     <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
 
-                        <Button Style="{StaticResource customButton1}"
+                        <Button Style="{StaticResource CustomButton2}"
                             Content="-" />
 
                         <TextBlock 
@@ -434,7 +347,7 @@
                             99
                         </TextBlock>
 
-                        <Button Style="{StaticResource customButton1}"
+                        <Button Style="{StaticResource CustomButton2}"
                             Content="+" />
 
                     </StackPanel>
