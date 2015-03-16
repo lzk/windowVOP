@@ -1,15 +1,130 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    >
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <LinearGradientBrush x:Key="GreenButtonStrokeNormal" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FFA1DA46"/>
+                <GradientStop Color="#FF484F3F" Offset="1"/>
+                <GradientStop Color="#FF96D038" Offset="0.217"/>
+                <GradientStop Color="#FF89BF40" Offset="0.45"/>
+                <GradientStop Color="#FF309201" Offset="0.725"/>
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GreenButtonFillNormal" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FFDDFDAB" Offset="0.009"/>
+                <GradientStop Color="#FF288209" Offset="0.893"/>
+                <GradientStop Color="#FF4BAE00" Offset="0.571"/>
+                <GradientStop Color="#FFCFF49B" Offset="0.143"/>
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GreenButtonStrokePressed" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FF3C8509"/>
+                <GradientStop Color="#FF1F2B17" Offset="1"/>
+                <GradientStop Color="#FF417921" Offset="0.217"/>
+                <GradientStop Color="#FF285D1B" Offset="0.45"/>
+                <GradientStop Color="#FF1B4309" Offset="0.725"/>
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GreenButtonFillPressed" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FF4BA113" Offset="0.009"/>
+                <GradientStop Color="#FF034200" Offset="0.893"/>
+                <GradientStop Color="#FF094900" Offset="0.528"/>
+                <GradientStop Color="#FF378D09" Offset="0.143"/>
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GreenButtonStrokeDisable" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FFD5D5D4"/>
+                <GradientStop Color="#FF919191" Offset="1"/>
+                <GradientStop Color="#FFC6C6C6" Offset="0.217"/>
+                <GradientStop Color="#FFBABABA" Offset="0.45"/>
+                <GradientStop Color="#FF9E9E9E" Offset="0.725"/>
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GreenButtonFillDisable" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FFE8E3E3" Offset="0.009"/>
+                <GradientStop Color="#FF939090" Offset="0.893"/>
+                <GradientStop Color="#FFA6A5A5" Offset="0.528"/>
+                <GradientStop Color="#FFE0DEDE" Offset="0.143"/>
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <Style x:Key="CustomGreenButtonStyle"
+       TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Rectangle Name="innerRect" RadiusY="16.75" RadiusX="16.75" StrokeThickness="2"
+                                   Stroke="{StaticResource GreenButtonStrokeNormal}" 
+                                   Fill="{StaticResource GreenButtonFillNormal}"/>
+
+                        <ContentPresenter x:Name="myContentPresenter" 
+                                           Content="{TemplateBinding  Content}"  
+                                           Margin="{TemplateBinding   Padding}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           TextBlock.Foreground="White" 
+                                           TextBlock.FontSize="{TemplateBinding FontSize}"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="innerRect" Property="Stroke" Value="{StaticResource GreenButtonStrokePressed}" />
+                            <Setter TargetName="innerRect" Property="Fill" Value="{StaticResource GreenButtonFillPressed}" />
+                            <Setter TargetName="myContentPresenter" Property="TextBlock.Foreground" Value="White"/>
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="true"/>
+                                <Condition Property="IsPressed" Value="false"/>
+                            </MultiTrigger.Conditions>
+
+                            <Setter TargetName="innerRect" Property="Stroke" Value="{StaticResource GreenButtonStrokeNormal}" />
+                            <Setter TargetName="innerRect" Property="Fill" Value="{StaticResource GreenButtonFillNormal}" />
+                            <Setter TargetName="myContentPresenter" Property="TextBlock.Foreground" Value="Black"/>
+                        </MultiTrigger>
+
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="innerRect" Property="Stroke" Value="{StaticResource GreenButtonStrokeDisable}" />
+                            <Setter TargetName="innerRect" Property="Fill" Value="{StaticResource GreenButtonFillDisable}" />
+                            <Setter TargetName="myContentPresenter" Property="TextBlock.Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <ControlTemplate x:Key="custombtn" TargetType="{x:Type Button}" >
         <Grid
-                Width="{TemplateBinding Width}"
-                Height="{TemplateBinding Height}"          
-            >
+            Width="{TemplateBinding Width}"
+            Height="{TemplateBinding Height}">
             <Rectangle Name="rect"
-                           RadiusY="15"
-                           RadiusX="15"           
-                >
+                       RadiusY="15"
+                       RadiusX="15">
                 <Rectangle.Fill>
                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" >
                         <GradientStop Color="#FFFFFFFF" Offset="0"/>

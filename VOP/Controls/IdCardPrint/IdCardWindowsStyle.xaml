@@ -27,7 +27,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
-                    <Border  Name="Border" Padding="2.5" SnapsToDevicePixels="true">
+                    <Border  Name="Border" Padding="0,2.5,0,2.5" SnapsToDevicePixels="true">
                         <ContentPresenter />
                     </Border>
                     <ControlTemplate.Triggers>                       
@@ -44,7 +44,7 @@
     
     <DataTemplate DataType="{x:Type local:IdCardTypeItem}">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Name="textBlock"  Text="{Binding Path=Name}" FontSize="14" 
+            <TextBlock Name="textBlock"  Text="{Binding Path=Name}" FontSize="14" SnapsToDevicePixels="True"
                        Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}}"
                        VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" />
         </StackPanel>
@@ -82,9 +82,9 @@
                                             <ColumnDefinition Width="0"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="0"/>
+                                            <RowDefinition Height="2.5"/>
                                             <RowDefinition Height="*"/>
-                                            <RowDefinition Height="15"/>
+                                            <RowDefinition Height="0"/>
                                         </Grid.RowDefinitions>
                                         
                                         <ScrollBar  
@@ -383,4 +383,5 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
 </ResourceDictionary>

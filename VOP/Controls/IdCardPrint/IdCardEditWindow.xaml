@@ -15,6 +15,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="IdCardWindowsStyle.xaml"/>
+                <ResourceDictionary Source="../CustomButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -53,6 +54,13 @@
                     </Border.Effect>
                     <local:ImageCropper x:Name="myCropper" Margin="20"/>
                 </Border>
+                <Button Grid.Row="1" Name="GreenOkButton" 
+                        Width="125" Height="35" 
+                        Margin="0, -22, 0, 0" 
+                        Padding="0, 0, 0, 0"
+                        FontSize="16"
+                        Style="{StaticResource CustomGreenButtonStyle}"
+                        Content="确    定"/>
             </Grid>
         </Grid>
     </Border>

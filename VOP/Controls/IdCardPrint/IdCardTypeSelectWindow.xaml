@@ -19,7 +19,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Border Height="270" Width="250">
+    <Border Height="265" Width="250">
         <Border.Effect>
             <DropShadowEffect BlurRadius="10" Color="#FF858484" Direction="292" ShadowDepth="1"/>
         </Border.Effect>
