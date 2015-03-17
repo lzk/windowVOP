@@ -91,10 +91,13 @@ namespace VOP
                 }
                 else if ( "btnLogin" == btn.Name )
                 {
-
                     LoginWindow loginWnd = new LoginWindow();
-                    loginWnd.ShowDialog();
+                    loginWnd.ShowActivated = true;
+                    Nullable<bool> dialogResult = loginWnd.ShowDialog();
 
+                    string strPhoneNumber;
+                    if(dialogResult == true)
+                        strPhoneNumber = loginWnd.m_strPhoneNumber;
                 }
             }
 
