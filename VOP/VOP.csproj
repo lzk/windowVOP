@@ -40,6 +40,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -69,6 +70,8 @@
     <Compile Include="Controls\ImageCropper\ResizeThumb.cs" />
     <Compile Include="Controls\ImageCropper\RotateThumb.cs" />
     <Compile Include="Converter.cs" />
+    <Compile Include="dll.cs" />
+    <Compile Include="type_define.cs" />
     <Page Include="Controls\IdCardPrint\IdCardEditWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

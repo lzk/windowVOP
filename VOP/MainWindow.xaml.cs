@@ -11,12 +11,33 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Printing;
+using System.Drawing.Printing;
 
 namespace VOP
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    ///    
+    public class PrinterInfo
+    {
+        public string m_name;   // Name of the printer driver
+        public bool m_isSFP;    // true for SFP printer
+        public bool m_isWiFi;   // true for wifi printer 
+
+        public PrinterInfo(
+                string strDrvName,
+                bool isSFP,
+                bool isWiFi 
+                )
+        {
+            m_name   = strDrvName; 
+            m_isSFP  = isSFP;      
+            m_isWiFi = isWiFi;     
+        }
+    }
+
     public partial class MainWindow : Window
     {
         CopyPage    winCopyPage   = new CopyPage   ();
@@ -24,6 +45,169 @@ namespace VOP
         PrintPage   winPrintPage  = new PrintPage  ();
         ScanPage    winScanPage   = new ScanPage   ();
         SettingPage winSettingPage= new SettingPage();
+
+        public static PrinterInfo[] printerInfos = 
+        {
+            new PrinterInfo("Lenovo ABC M001"   , false , false ) ,
+            new PrinterInfo("Lenovo ABC M001 w" , false , true  ) ,
+            new PrinterInfo("Lenovo ABC P001"   , true  , false ) ,
+            new PrinterInfo("Lenovo ABC P001 w" , true  , true  ) ,
+        };
+
+        private bool PrinterExist(string strPrinterName)
+        {
+            bool bExist = false;
+            List<string> list_printers = new List<string>();
+
+            get_printer_list(list_printers);
+
+            foreach (string printername in list_printers)
+            {
+                if (null != strPrinterName && printername == strPrinterName)
+                {
+                    bExist = true;
+                    break;
+                }
+            }
+
+            return bExist;
+        }
+
+        public static string GetPrinterDrvName(
+                string strPrinterName
+                )
+        {
+            string strDrvName = "";
+
+            try
+            {
+                PrintServer myPrintServer = new PrintServer(null);
+                PrintQueueCollection myPrintQueues = myPrintServer.GetPrintQueues();
+                foreach (PrintQueue pq in myPrintQueues)
+                {
+                    if (strPrinterName == pq.Name)
+                    {
+                        strDrvName = pq.QueueDriver.Name;
+                        break;
+                    }
+                }
+            }
+            catch
+            {
+            }
+
+            return strDrvName;
+        }
+
+        // return default printer name
+        private string get_printer_list(List<string> list_printers)
+        {
+            string strDefPrinter = null;
+
+            list_printers.Clear();
+
+            try
+            {
+                // If spooler was stopped, new PrintServer( null ) will throw
+                // a exception.
+                PrintServer myPrintServer = new PrintServer(null);
+                PrintQueueCollection myPrintQueues = myPrintServer.GetPrintQueues();
+                foreach (PrintQueue pq in myPrintQueues)
+                {
+                    PrintDriver queuedrv = pq.QueueDriver;
+                    if (IsSupportPrinter(queuedrv.Name) == true &&
+                            EnumPortType.PT_UNKNOWN != (EnumPortType)dll.CheckPortAPI(pq.Name))
+                        list_printers.Add(pq.Name);
+                }
+
+                PrinterSettings settings = new PrinterSettings();
+                foreach (string printer in PrinterSettings.InstalledPrinters)
+                {
+                    settings.PrinterName = printer;
+
+                    //Add by KevinYin for BMS Bug 56108 begin
+                    bool isSupportPrinter = false;
+                    foreach (string strPrinterName in list_printers)
+                    {
+                        if (printer == strPrinterName)
+                        {
+                            isSupportPrinter = true;
+                        }
+                    }
+                    //Add by KevinYin for BMS Bug 56108 end
+
+                    if (settings.IsDefaultPrinter)
+                    {
+                        if (isSupportPrinter)
+                        {
+                            strDefPrinter = printer;
+                        }
+
+                        break;
+                    }
+                }
+            }
+            catch
+            {
+                strDefPrinter = null;
+            }
+
+            return strDefPrinter;
+        }
+
+        public static bool IsSFPPrinter(
+                string strDrvName       // Name of printer driver
+                )
+        {
+            bool bResult = false;
+
+            foreach (PrinterInfo el in printerInfos)
+            {
+                if (el.m_name == strDrvName)
+                {
+                    bResult = el.m_isSFP;
+                    break;
+                }
+            }
+
+            return bResult;
+        }
+
+        public static bool IsSupportWifi(
+        string strDrvName       // Name of printer driver
+        )
+        {
+            bool bResult = false;
+
+            foreach (PrinterInfo el in printerInfos)
+            {
+                if (el.m_name == strDrvName)
+                {
+                    bResult = el.m_isWiFi;
+                    break;
+                }
+            }
+
+            return bResult;
+        }
+
+        public static bool IsSupportPrinter(
+                string strDrvName       // Name of printer driver
+                )
+        {
+            bool isSupport = false;
+
+            foreach (PrinterInfo el in printerInfos)
+            {
+                if (el.m_name == strDrvName)
+                {
+                    isSupport = true;
+                    break;
+                }
+            }
+
+            return isSupport;
+        }
 
         public MainWindow()
         {

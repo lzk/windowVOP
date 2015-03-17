@@ -1,0 +1,280 @@
+namespace VOP
+{
+    public class ScanFiles
+    {
+        public string m_pathOrig;
+        public string m_pathView;
+        public string m_pathThumb;
+        
+        public int m_rotate = 0;
+        public enum_color m_colorMode = 0;
+    }
+
+    public enum EnumCmdResult : int
+    {
+        _ACK                          = 0,
+        _CMD_invalid                  = 1,
+        _Parameter_invalid            = 2,
+        _Do_not_support_this_function = 3,
+        _Printer_busy                 = 4,
+        _Printer_error                = 5,
+        _Set_parameter_error          = 6,
+        _Get_parameter_error          = 7,
+        _Printer_is_Sleeping          = 8,
+        _SW_USB_OPEN_FAIL             = 11,
+        _SW_USB_ERROR_OTHER           = 12,
+        _SW_USB_WRITE_TIMEOUT         = 13,
+        _SW_USB_READ_TIMEOUT          = 14,
+        _SW_USB_DATA_FORMAT_ERROR     = 15,
+        _SW_NET_DLL_LOAD_FAIL         = 21,
+        _SW_NET_DATA_FORMAT_ERROR     = 22,
+        _SW_UNKNOWN_PORT              = 31,
+        _SW_INVALID_PARAMETER         = 32,
+        _SW_INVALID_RETURN_VALUE      = 33,
+    }
+
+    public enum EnumStatus: byte
+    {
+        Ready                      = 0x00,
+        Printing                   = 0x01,
+        PowerSaving                = 0x02,
+        WarmingUp                  = 0x03,
+        PrintCanceling             = 0x04,
+        Processing                 = 0x07,
+        CopyScanning               = 0x60,
+        CopyScanNextPage           = 0x61,
+        CopyPrinting               = 0x62,
+        CopyCanceling              = 0x63,
+        IDCardMode                 = 0x64,
+        ScanScanning               = 0x6A,
+        ScanSending                = 0x6B,
+        ScanCanceling              = 0x6C,
+        ScannerBusy                = 0x6D,
+        TonerEnd1                  = 0x7F,//For china maket
+        TonerEnd2                  = 0x80,
+        TonerNearEnd               = 0x81,
+        ManualFeedRequired         = 0x85,
+        InitializeJam              = 0xBC,
+        NofeedJam                  = 0xBD,
+        JamAtRegistStayOn          = 0xBE,
+        JamAtExitNotReach          = 0xBF,
+        JamAtExitStayOn            = 0xC0,
+        CoverOpen                  = 0xC1,
+        NoTonerCartridge           = 0xC5,
+        WasteTonerFull             = 0xC6,
+        FWUpdate                   = 0xC7,
+        OverHeat                   = 0xC8,
+        PolygomotorOnTimeoutError  = 0xCD,
+        PolygomotorOffTimeoutError = 0xCE,
+        PolygomotorLockSignalError = 0xCF,
+        BeamSynchronizeError       = 0xD1,
+        BiasLeak                   = 0xD2,
+        PlateActionError           = 0xD3,
+        MainmotorError             = 0xD4,
+        MainFanMotorEorror         = 0xD5,
+        FuserThermistorError       = 0xD6,
+        FuserReloadError           = 0xD7,
+        HighTemperatureErrorSoft   = 0xD8,
+        HighTemperatureErrorHard   = 0xD9,
+        FuserFullHeaterError       = 0xDA,
+        Fuser3timesJamError        = 0xDB,
+        LowVoltageFuserReloadError = 0xDC,
+        MotorThermistorError       = 0xDD,
+        EEPROMCommunicationError   = 0xDE,
+        CTL_PRREQ_NSignalNoCome    = 0xDF,
+        ScanPCUnkownCommandUSB     = 0xE0,
+        SCANUSBDisconnect          = 0xE1,
+        ScanPCUnkownCommandNET     = 0xE3,
+        ScanNETDisconnect          = 0xE4,
+        ScanMotorError             = 0xE5,
+        NetWirelessConnectFail     = 0xE6,
+        NetWirelessDisable         = 0xE7,
+        NetWirelessDongleCfgFail   = 0xE8,
+        FWUpdateError              = 0xEB,
+        DSPError                   = 0xEC,
+        CodecError                 = 0xED,
+        PrinterDataError           = 0xEF,
+        Unknown                    = 0xF0, // status added by SW
+        Offline                    = 0xF1, // status added by SW
+        PowerOff                   = 0xF2, // status added by SW
+    }
+
+    public enum DllMethodType : byte
+    {
+        SetPowerSaveTime        = 0,
+        GetPowerSaveTime        = 1,
+        GetSoftAp               = 2,
+        SetSoftAp               = 3,
+        GetApList               = 4,
+        GetIpInfo               = 5,
+        SetIpInfo               = 6,
+        GetWiFiInfo             = 7,
+        SetWiFiInfo             = 8,
+        GetUserConfig           = 9,
+        SetUserConfig           = 10,
+        Scan                    = 11,
+        SendCopyCmd             = 12,
+        SetFusingResetCmd       = 13,
+    }
+
+    public enum enum_resln : byte
+    {
+        _300x300   = 0,
+        _600x600   = 1,
+        _1200x1200 = 2,
+    }
+
+    public enum enum_color : byte
+    {
+        black_white    = 0,
+        grayscale_8bit = 1,
+        color_24bit    = 2,
+        preview        = 3,
+        color_48bit    = 4,
+    }
+
+    public enum enum_docutype : byte
+    {
+        docutype_photo   = 2,
+        docutype_graphic = 3,
+        docutype_text    = 4,
+        // 2: VOP Photo scan
+        // 3: VOP Graphic scan
+        // 4: VOP Text scan.
+    }
+
+    public enum enum_addr_mode : byte
+    {
+        AutoIP = 0, 
+        BOOTP  = 1, 
+        RARP   = 2, 
+        DHCP   = 3, 
+        Manual = 4,
+    }
+
+    // add byte to aviod 'System.InvalidCastException' 
+    public enum EnumEncryptType : byte
+    {
+        NoSecurity   = 0,
+        WEP          = 1,
+        WPA2_PSK_AES = 3,
+        MixedModePSK = 4
+    }
+
+    public enum EnumIPType : byte
+    {
+        AutoIP = 0,
+        BOOTP  = 1,
+        RARP   = 2,
+        DHCP   = 3,
+        Manual = 4,
+    }
+
+    public enum EnumDocType :byte
+    {
+        _Plain  = 0,
+        _Recycled = 1,
+        _Thick = 2,
+        _Thin = 3,
+        _Label = 4,
+    }
+
+    public enum EnumPaperSizeScan : byte
+    {
+        _A4         = 0 ,
+        _A5         = 1 ,
+        _B5         = 2 ,
+        _Letter     = 3 ,
+        _Executive  = 4 ,
+        _7inchPhoto = 5 ,
+    }
+    
+    public enum EnumPaperSizeInput : byte
+    {
+        _A4         = 0 ,
+        _A5         = 1 ,
+        _B5         = 2 ,
+        _Letter     = 3 ,
+        _Executive  = 4 ,
+    }
+
+    public enum EnumPaperSizeOutput : byte
+    {
+        _Letter    = 0 , 
+        _A4        = 1 , 
+        _A5        = 2 , 
+        _A6        = 3 , 
+        _B5        = 4 , 
+        _B6        = 5 , 
+        _Executive = 6 , 
+        _16K       = 7 , 
+    }
+
+    public enum EnumNin1 : byte
+    {
+        _1up = 0,
+        _2up = 1,
+        _4up = 2,
+        _9up = 3,
+    }
+
+    public enum EnumStatusType : byte
+    {
+        info    = 0,
+        warning = 1,
+        error   = 2,
+        normal  = 3,
+    }
+
+    public enum EnumTask : byte
+    {
+        Copying       = 0 ,
+        IDCardCopying = 1 ,
+        Scanning      = 2 ,
+        Printing      = 3 ,
+        Other         = 4 ,
+        Idle          = 5 ,
+        NoConnection  = 6 ,
+    }
+
+
+
+    public enum EnumMachineJob : byte
+    {
+        UnknowJob     = 0,
+        PrintJob      = 1,
+        NormalCopyJob = 2,
+        ScanJob       = 3,
+        FaxJob        = 4,
+        FaxJob2       = 5,
+        ReportJob     = 6,
+        Nin1CopyJob   = 7,
+        IDCardCopyJob = 8,
+    }
+
+    // auto machine state
+    public enum EnumState : byte
+    {
+        init          = 0,
+        doingJob      = 1,
+        stopWorking   = 2,
+        waitCmdBegin  = 3,
+    }
+
+    public enum EnumMediaType : byte
+    {
+        Plain    = 0, 
+        Recycled = 1, 
+        Thick    = 2, 
+        Thin     = 3, 
+        Label    = 4, 
+    }
+
+    public enum EnumPortType : int
+    {
+        PT_UNKNOWN = 0,
+        PT_TCPIP   = 1,
+        PT_USB     = 2,
+        PT_WSD     = 3,
+    }
+}
