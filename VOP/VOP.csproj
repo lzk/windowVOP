@@ -329,5 +329,21 @@
   <ItemGroup>
     <Resource Include="Images\shopCart_Normal.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Wifi.png" />
+    <Resource Include="Images\About.png" />
+    <Resource Include="Images\About_Active.png" />
+    <Resource Include="Images\Password.png" />
+    <Resource Include="Images\Password_Active.png" />
+    <Resource Include="Images\PowerSave.png" />
+    <Resource Include="Images\PowerSave_Active.png" />
+    <Resource Include="Images\SoftAP.png" />
+    <Resource Include="Images\SoftAP_Active.png" />
+    <Resource Include="Images\TCPIP.png" />
+    <Resource Include="Images\TCPIP_Active.png" />
+    <Resource Include="Images\UserConfig.png" />
+    <Resource Include="Images\UserConfig_Active.png" />
+    <Resource Include="Images\Wireless.png" />
+    <Resource Include="Images\Wireless_Active.png" />
+  </ItemGroup>
 </Project>
