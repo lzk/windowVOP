@@ -56,6 +56,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CopySetting.xaml.cs">
+      <DependentUpon>CopySetting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControl\StatusTextBlock.xaml.cs">
       <DependentUpon>StatusTextBlock.xaml</DependentUpon>
     </Compile>
@@ -133,6 +136,14 @@
     <Page Include="Controls\MinimizeCloseButton\MinimizeCloseButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CopySetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControl\CustomComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="CustomControl\customTabItem.xaml">
       <SubType>Designer</SubType>
@@ -287,9 +298,13 @@
   </Target>
   -->
   <ItemGroup>
+    <Resource Include=".\Images\Nin1_1.tif" />
+    <Resource Include=".\Images\Nin1_2.tif" />
+    <Resource Include=".\Images\Nin1_4.tif" />
+    <Resource Include=".\Images\Nin1_9.tif" />
+
     <Resource Include=".\Images\IDCardCopyIconDisable.tif" />
     <Resource Include=".\Images\IDCardCopyIconEnable.tif" />
-
     <Resource Include=".\Images\background.png" />
     <Resource Include=".\Images\turn.png" />
     <Resource Include=".\Images\PageCopy.png" />

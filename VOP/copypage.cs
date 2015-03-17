@@ -16,5 +16,14 @@ namespace VOP
             InitializeComponent();
 
         }
+
+        private void SettingBtnClick(object sender, RoutedEventArgs e)
+        {
+            CopySetting win = new CopySetting();
+            
+            win.Owner = App.Current.MainWindow;
+            win.ShowDialog();
+        }
+
     }
 }
