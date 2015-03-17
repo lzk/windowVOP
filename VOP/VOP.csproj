@@ -136,7 +136,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\CustomButton2.xaml" />
-
     <Page Include="Density.xaml" />
     <Compile Include="Controls\GroupBoxDecorator\GroupBoxDecorator.cs" />
     <Compile Include="Controls\IdCardPrint\IdCardTypeItem.cs" />
@@ -305,9 +304,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\status_imageTextbox_Right.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\status_imageTextbox.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\shoppingCart.png" />
