@@ -24,16 +24,25 @@ namespace VOP
             objScan.m_pathThumb  = @"F:\VOP\VOP\Images\image1.bmp";
             objScan.m_colorMode  = enum_color.color_24bit;
             scanFileList.Add( objScan );
+            scanFileList.Add( objScan );
+            scanFileList.Add( objScan );
+            scanFileList.Add( objScan );
+            scanFileList.Add( objScan );
+            scanFileList.Add( objScan );
+            scanFileList.Add( objScan );
+            scanFileList.Add( objScan );
+            scanFileList.Add( objScan );
 
             foreach( ScanFiles obj in scanFileList )
             {
                 ImageItem img  = new ImageItem();
                 img.m_images = obj;
                 img.CheckImage( false );
+                img.Margin = new Thickness( 5 );
 
                 if ( null != img.m_source )
                 {
-                    this.grid1.Children.Insert(1, img );
+                    this.image_wrappanel.Children.Insert(0, img );
                 }
             }
         }

@@ -398,6 +398,8 @@
   </Target>
   -->
   <ItemGroup>
+    <Resource Include=".\Images\RepeatButtonBackground.tif" />
+
     <Resource Include=".\Images\close.png" />
     <Resource Include=".\Images\check.png" />
     <Resource Include=".\Images\Nin1_1.tif" />
