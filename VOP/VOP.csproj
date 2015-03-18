@@ -351,7 +351,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\btnCopy.png" />
-    <Resource Include="Images\btnLogin.png" />
     <Resource Include="Images\btnPrint.png" />
     <Resource Include="Images\btnScan.png" />
     <Resource Include="Images\btnSetting.png" />
@@ -378,5 +377,8 @@
     <Resource Include="Images\UserConfig_Active.png" />
     <Resource Include="Images\Wireless.png" />
     <Resource Include="Images\Wireless_Active.png" />
+    <Resource Include="Images\Login.tif" />
+    <Resource Include="Images\LoginPressed.tif" />
+    <Resource Include="Images\NotLogin.tif" />
   </ItemGroup>
 </Project>

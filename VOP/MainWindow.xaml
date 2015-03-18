@@ -88,9 +88,10 @@
             <mycontrol:CustomButton x:Name="btnCopy"   Margin="10" Grid.Column="2" Click="NvgBtnClick" ImagePath="Images\btnCopy.png" />
             <mycontrol:CustomButton x:Name="btnScan"   Margin="10" Grid.Column="3" Click="NvgBtnClick"  ImagePath="Images\btnScan.png" />
             <mycontrol:CustomButton x:Name="btnSetting" Margin="10" Grid.Column="4" Click="NvgBtnClick"  ImagePath="Images\btnSetting.png" />
-            <mycontrol:LoginButton  x:Name="btnLogin"  Margin="10" Grid.Column="5" bottomText="123456798" 
+            <mycontrol:LogonButton  x:Name="btnLogin"  Margin="10" Grid.Column="5" 
                                     btnClick="NvgBtnClick" 
-                                    ImageSource="Images\btnLogin.png"/>
+                                    IsLogon="True"
+                                    bottomText="123456798" />
 
             <Border Grid.Row="1"  Grid.ColumnSpan="6" CornerRadius="5" BorderThickness="1" Background="White" BorderBrush="Black">
                 <UIElement.Effect>

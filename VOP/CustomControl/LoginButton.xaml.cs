@@ -17,12 +17,23 @@ namespace VOP
     /// <summary>
     /// Interaction logic for LoginButton.xaml
     /// </summary>
-    public partial class LoginButton : UserControl
+    public partial class LogonButton : UserControl
     {
         bool isMouseReallyOver;
         public static readonly RoutedEvent btnClickEvent;
-        public static readonly DependencyProperty ImageSourceProperty;
         public static readonly DependencyProperty bottomTextProperty;
+        public static readonly DependencyProperty IsLogonProperty;
+
+        private ImageBrush tmpImg = null;
+        private ImageBrush imgNotLogon = null;
+        private ImageBrush imgLogon = null;
+        private ImageBrush imgLogonPressed = null;
+
+        public bool IsLogon
+        {
+            get { return (bool)GetValue(IsLogonProperty); }
+            set { SetValue(IsLogonProperty, value); }
+        }
 
         public string bottomText
         {
@@ -30,29 +41,51 @@ namespace VOP
             set { SetValue(bottomTextProperty, value); }
         }
 
-
-        public ImageSource ImageSource
-        {
-            get { return (ImageSource)GetValue(ImageSourceProperty); }
-            set { SetValue(ImageSourceProperty, value); }
-        }
-
-        public LoginButton()
+        public LogonButton()
         {
             InitializeComponent();
+            Init();
         }
 
-        static LoginButton()
+        void Init()
+        {
+            imgNotLogon = (ImageBrush)this.FindResource("imgNotLogon");
+            imgLogon = (ImageBrush)this.FindResource("imgLogon");
+            imgLogonPressed = (ImageBrush)this.FindResource("imgLogonPressed");
+        }
+
+        static LogonButton()
         {
             btnClickEvent =
                 EventManager.RegisterRoutedEvent("btnClick", RoutingStrategy.Bubble,
-                        typeof(RoutedEventHandler), typeof(LoginButton));
-
-            ImageSourceProperty =
-                DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(LoginButton));
+                        typeof(RoutedEventHandler), typeof(LogonButton));
 
             bottomTextProperty =
-                DependencyProperty.Register("bottomText", typeof(string), typeof(LoginButton));
+                DependencyProperty.Register("bottomText", typeof(string), typeof(LogonButton));
+
+            IsLogonProperty =
+                DependencyProperty.Register("IsLogon", typeof(bool), typeof(LogonButton),
+                new FrameworkPropertyMetadata(new PropertyChangedCallback(OnIsLogon_Changed)));
+        }
+
+
+        private static void OnIsLogon_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            VOP.LogonButton _this = (VOP.LogonButton)sender;
+
+            _this.LoginStatus_Changed();
+        }
+
+        private void LoginStatus_Changed()
+        {
+            if (IsLogon)
+            {
+                rect_Image.Fill = imgLogon;
+            }
+            else
+            {
+                rect_Image.Fill = imgNotLogon;
+            }
         }
 
 
@@ -92,6 +125,9 @@ namespace VOP
             CaptureMouse();
             InvalidateVisual();
             args.Handled = true;
+
+            tmpImg = (ImageBrush)rect_Image.Fill;
+            rect_Image.Fill = imgLogonPressed;
         }
 
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs args)
@@ -107,6 +143,8 @@ namespace VOP
                 args.Handled = true;
                 Mouse.Capture(null);
             }
+
+            rect_Image.Fill = tmpImg;
         }
 
         protected override void OnLostMouseCapture(MouseEventArgs args)
@@ -135,7 +173,7 @@ namespace VOP
         protected virtual void OnYclick()
         {
             RoutedEventArgs argsEvent = new RoutedEventArgs();
-            argsEvent.RoutedEvent = LoginButton.btnClickEvent;
+            argsEvent.RoutedEvent = LogonButton.btnClickEvent;
             argsEvent.Source = this;
             RaiseEvent(argsEvent);
         }

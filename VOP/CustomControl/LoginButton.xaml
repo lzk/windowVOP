@@ -1,14 +1,20 @@
-﻿<UserControl x:Class="VOP.LoginButton"
+﻿<UserControl x:Class="VOP.LogonButton"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-                        Name="container"
+             Name="container"
              d:DesignHeight="100"
              d:DesignWidth="100"
-             mc:Ignorable="d">
+             mc:Ignorable="d">    
+    <UserControl.Resources>
+        <ImageBrush x:Key="imgNotLogon" ImageSource="..\Images\NotLogin.tif" />
+        <ImageBrush x:Key="imgLogon" ImageSource="..\Images\Login.tif" />
+        <ImageBrush x:Key="imgLogonPressed" ImageSource="..\Images\LoginPressed.tif" />
+    </UserControl.Resources>       
+    
     <Grid>
-        <Rectangle Fill="Beige" Opacity="0" />
+        <Rectangle Fill="White" Opacity="0" />
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="75*" />
@@ -24,10 +30,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Rectangle Grid.Column="1">
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="{Binding ElementName=container, Path=ImageSource}" />
-                    </Rectangle.Fill>
+                <Rectangle Name="rect_Image" Grid.Column="1" Fill="{StaticResource imgNotLogon}">
                 </Rectangle>
             </Grid>
 
@@ -35,8 +38,10 @@
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Text="{Binding ElementName=container,
-                                      Path=bottomText}"
+                       Path=bottomText}"
                        TextAlignment="Center" />
+            
+            <!--<Button Grid.ColumnSpan="3" Grid.RowSpan="5" Opacity="0"></Button>-->
         </Grid>
 
     </Grid>
