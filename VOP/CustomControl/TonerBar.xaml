@@ -71,12 +71,7 @@
                    Foreground="#555555"                   
                    TextAlignment="Center" />
 
-        <Rectangle Name="shopCart_Img" Grid.Column="2" Grid.RowSpan="3" Width="20" Height="15" VerticalAlignment="Bottom">
-            <!--<Rectangle.Fill>
-                <ImageBrush ImageSource="C:\Users\ben\Desktop\VOP_ICON\shopCart_10percent.png" />
-            </Rectangle.Fill>-->
-        </Rectangle>
-
+        <Rectangle Name="shopCart_Img" Grid.Column="2" Grid.RowSpan="3" Width="20" Height="15" VerticalAlignment="Bottom" />
 
         <Grid Grid.Row="2" >   
             <Grid.RowDefinitions>

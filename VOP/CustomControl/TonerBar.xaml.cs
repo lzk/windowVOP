@@ -21,6 +21,7 @@ namespace VOP
     /// </summary>
     public partial class TonerBar : UserControl
     {
+        #region Data_Member
         private const double minValue = 0;
         private const int defaultMilliseconds = 300;
         private double curPercet = 0.0;
@@ -31,8 +32,13 @@ namespace VOP
         private ImageBrush imgBrush_Warn = null;
         private ImageBrush imgBrush_Normal = null;
 
+        DispatcherTimer timer = new DispatcherTimer();
+        private int shrinkCnts = 0;
+        #endregion //Data_Member
+
+        #region Event
         public static readonly RoutedEvent valueChangedEvent
-            =EventManager.RegisterRoutedEvent("valueChanged", RoutingStrategy.Bubble,
+            = EventManager.RegisterRoutedEvent("valueChanged", RoutingStrategy.Bubble,
                         typeof(RoutedEventHandler), typeof(TonerBar));
 
         public event RoutedEventHandler valueChanged
@@ -40,31 +46,10 @@ namespace VOP
             add { AddHandler(valueChangedEvent, value); }
             remove { RemoveHandler(valueChangedEvent, value); }
         }
-
-        protected virtual void OnCurValueChanged()
-        {
-            textblock_Tip.Text = string.Format("碳粉容量 ： {0:P0}", CurValue / 100.0);
-
-            // Draw ShopCart Image
-            if (curPercet <= 10)
-            {
-                shopCart_Img.Fill = imgBrush_Warn;
-            }
-            else
-            {
-                shopCart_Img.Fill = imgBrush_Normal;
-            }           
+        #endregion // Event
 
 
-            RoutedEventArgs argsEvent = new RoutedEventArgs();
-            argsEvent.RoutedEvent = TonerBar.valueChangedEvent;
-            argsEvent.Source = this;
-            RaiseEvent(argsEvent);
-        }
-
-
-        DispatcherTimer timer = new DispatcherTimer();
-
+        #region Property
         public double MaxValue
         {
             get { return (double)GetValue(MaxValueProperty); }
@@ -73,7 +58,6 @@ namespace VOP
         public static readonly DependencyProperty MaxValueProperty =
             DependencyProperty.Register("MaxValue", typeof(double), typeof(TonerBar),
             new FrameworkPropertyMetadata(100.0, new PropertyChangedCallback(OnValue_Changed)));
-
 
         public double CurValue
         {
@@ -84,25 +68,26 @@ namespace VOP
             DependencyProperty.Register("CurValue", typeof(double), typeof(TonerBar),
             new FrameworkPropertyMetadata(0.0, new PropertyChangedCallback(OnValue_Changed)));
 
-
-
         private static void OnValue_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             VOP.TonerBar _this = (VOP.TonerBar)sender;
-
-            _this.curPercet = _this.CurValue * 100.0 / _this.MaxValue;
-
-            _this.PaintControl();
-
-            if(e.Property == CurValueProperty)
-            {
-                _this.OnCurValueChanged();
-            }
+            _this.ValueChanged();
         }
 
+        protected virtual void ValueChanged()
+        {
+            curPercet = CurValue * 100.0 / MaxValue;
+            PaintControl();
+
+            RoutedEventArgs argsEvent = new RoutedEventArgs();
+            argsEvent.RoutedEvent = TonerBar.valueChangedEvent;
+            argsEvent.Source = this;
+            RaiseEvent(argsEvent);
+        }
+        #endregion // Property
+
         void PaintControl()
-        {           
-  
+        {
             double totalWidth = TonerBackground.RenderSize.Width;
             double percentWidth = totalWidth * curPercet / 100.0;
 
@@ -112,39 +97,43 @@ namespace VOP
             {
                 TonerPercent.Background = Brush_10_percent;
 
+                shrinkCnts = 0;
                 timer.Start();
             }
             else if (curPercet <= 30)
             {
                 TonerPercent.Background = Brush_30_percent;
 
+                shrinkCnts = 0;
                 timer.Start();
             }
             else if (curPercet <= 60)
             {
                 TonerPercent.Background = Brush_Normal;
-            }            
+            }
+
+            textblock_Tip.Text = string.Format("碳粉容量 ： {0:P0}", CurValue / 100.0);
+
+            // Draw ShopCart Image
+            if (curPercet <= 10)
+            {
+                shopCart_Img.Fill = imgBrush_Warn;
+            }
+            else
+            {
+                shopCart_Img.Fill = imgBrush_Normal;
+            }
         }
-
-
         public TonerBar()
         {
             InitializeComponent();
             Init();
-
-           // this.Loaded += TonerBar_Loaded;
-
-            timer.Interval = new TimeSpan(0, 0, 0, 0, defaultMilliseconds);
-            timer.Tick += new EventHandler(timer_Tick);
         }
-
-
-        private int shrinkCnts = 0;
         void timer_Tick(object sender, EventArgs e)
         {
             ++shrinkCnts;
 
-            if(0 == shrinkCnts%2)
+            if (0 == shrinkCnts % 2)
             {
                 if (curPercet <= 10)
                 {
@@ -153,16 +142,14 @@ namespace VOP
                 else if (curPercet <= 30)
                 {
                     TonerPercent.Background = Brush_30_percent;
-                }     
+                }
             }
             else
             {
                 TonerPercent.Background = Brush_Normal;
             }
-
         }
 
-   
         public void Init()
         {
             Brush_10_percent = (LinearGradientBrush)this.FindResource("Brush_10");
@@ -172,7 +159,15 @@ namespace VOP
             imgBrush_Warn = (ImageBrush)this.FindResource("imgBrush_Warn"); ;
             imgBrush_Normal = (ImageBrush)this.FindResource("imgBrush_Normal"); ;
 
-            OnCurValueChanged();
+            timer.Interval = new TimeSpan(0, 0, 0, 0, defaultMilliseconds);
+            timer.Tick += new EventHandler(timer_Tick);
+
+            this.Loaded += TonerBar_Loaded;
+        }
+
+        void TonerBar_Loaded(object sender, RoutedEventArgs e)
+        {
+            PaintControl();
         }
     }
 }
