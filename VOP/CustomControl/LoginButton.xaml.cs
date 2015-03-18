@@ -134,6 +134,8 @@ namespace VOP
         {
             base.OnMouseLeftButtonUp(args);
 
+            rect_Image.Fill = tmpImg;
+
             if (IsMouseCaptured)
             {
                 if (isMouseReallyOver)
@@ -142,9 +144,7 @@ namespace VOP
                 }
                 args.Handled = true;
                 Mouse.Capture(null);
-            }
-
-            rect_Image.Fill = tmpImg;
+            }           
         }
 
         protected override void OnLostMouseCapture(MouseEventArgs args)

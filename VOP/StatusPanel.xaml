@@ -1,0 +1,176 @@
+﻿<UserControl x:Class="VOP.StatusPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             Width="666"
+             Height="333"
+             xmlns:mycontrol="clr-namespace:VOP">    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/CheckBox_Template.xaml"/>
+                <ResourceDictionary Source="Controls/ComboBox_Template.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush x:Key="border_Brush">#9B9B9B</SolidColorBrush>
+
+            <LinearGradientBrush x:Key="mainBackground_Brush" EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFEEEDED" Offset="0"/>
+                <GradientStop Color="#FFEBEAEA" Offset="0.436"/>
+                <GradientStop Color="#FFE4E3E3" Offset="1"/>
+            </LinearGradientBrush>
+        </ResourceDictionary>    
+    </UserControl.Resources>
+
+
+    <Grid Background="{x:Null}">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*" />
+            <ColumnDefinition Width="535*" />
+            <ColumnDefinition Width="15*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*" />
+            <RowDefinition Height="285*" />
+            <RowDefinition Height="15*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="215*" />
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="350*" />
+                <ColumnDefinition Width="15*" />
+                <ColumnDefinition Width="255*" />
+                <ColumnDefinition Width="25*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35*" />
+                <RowDefinition Height="340*" />
+                <RowDefinition Height="40*" />
+            </Grid.RowDefinitions>
+
+
+            <Border Grid.Row="1" Grid.Column="1"
+                    Background="{StaticResource mainBackground_Brush}" BorderBrush="{StaticResource border_Brush}" 
+                    BorderThickness="1"
+                    CornerRadius="6"/>
+
+
+            <!--<Border Grid.Row="1" Grid.Column="1" BorderThickness="0" BorderBrush="Black">
+                <UIElement.Effect>
+                    <DropShadowEffect BlurRadius="5" Opacity="0.8" Direction="270"/>
+                </UIElement.Effect>             
+            </Border>-->
+
+            <Grid Grid.Row="1" Grid.Column="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="46*" />
+                    <RowDefinition Height="45*" />
+                    <RowDefinition Height="17*" />
+                    <RowDefinition Height="22*" />
+                    <RowDefinition Height="45*" />
+                    <RowDefinition Height="15*" />
+                    <RowDefinition Height="42*" />
+                    <RowDefinition Height="123*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="150*" />
+                    <ColumnDefinition Width="10*" />
+                </Grid.ColumnDefinitions>
+
+               
+
+                <Grid Grid.Column="1" Grid.Row="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Name="textBox"
+                       Grid.Row="1"                         
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Background="{x:Null}"
+                       FontSize="12"
+                       Foreground="#555555"
+                       Text="机型："
+                       TextAlignment="Center">
+                    </TextBlock>
+
+                    <mycontrol:RefreshButton Margin="-5, 0, 0, -2"
+                                     Grid.Column="1" Grid.RowSpan="2"
+                                     VerticalAlignment="Bottom"
+                                     HorizontalAlignment="Left"
+                                     Width="22.4" Height="22.4"                                                          
+                                     >
+                    </mycontrol:RefreshButton>
+                </Grid>
+
+                <ComboBox Grid.Row="1" Grid.Column="1"
+                  Foreground="#555555"
+                  Style="{StaticResource CboCommomStyle}" Margin="0,8,0,0">
+                    <ComboBoxItem>联想多功能一体机-----123456789</ComboBoxItem>
+                    <ComboBoxItem>联想多功能一体机-----abfdkfj</ComboBoxItem>
+                    <ComboBoxItem>联想多功能一体机-----test...</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Grid.Row="3" Grid.Column="1"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Background="{x:Null}"
+                   FontSize="12"
+                   Foreground="#555555"
+                   Text="设备状态:"
+                   TextAlignment="Center" />
+
+                <mycontrol:StatusTextBlock x:Name="status" Grid.Row="4" 
+                                   Grid.Column="1" 
+                                   Margin="0, 5, 0, 0"
+                                   FontSize="12"                                           
+                                   TypeId="Error"  >
+                </mycontrol:StatusTextBlock>
+
+                <mycontrol:TonerBar Grid.Row="6" Grid.Column="1" 
+                            CurValue="25">
+                </mycontrol:TonerBar>
+
+                <Grid Grid.Column="1" Grid.Row="9">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="15" />
+                        <RowDefinition Height="1" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="1" Background="White" BorderThickness="0" Opacity="0.4"></Border>
+
+                    <TextBlock Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Red"
+                       FontSize="10" TextWrapping="Wrap"
+                       Text="{Binding ElementName=status, Path=TipInfo}">
+                    </TextBlock>
+                </Grid>
+
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+
+
+
+
+
+
+
+
+
+
+    
+</UserControl>

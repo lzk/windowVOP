@@ -45,6 +45,7 @@ namespace VOP
         PrintPage   winPrintPage  = new PrintPage  ();
         ScanPage    winScanPage   = new ScanPage   ();
         SettingPage winSettingPage= new SettingPage();
+        StatusPanel statusPanelPage = new StatusPanel();
 
         public static PrinterInfo[] printerInfos = 
         {
@@ -217,8 +218,12 @@ namespace VOP
 
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
         {
-            this.subPageView.Child = winFileSelectionPage;
+            statusPageView.Child = statusPanelPage;
+
             setTabItemFromIndex(0);
+
+            this.subPageView.Child = winFileSelectionPage;      // for test  
+            this.statusPanelPage.Opacity = 0.0; 
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -248,28 +253,23 @@ namespace VOP
             if ( null != btn )
             {
                 if ( "btnPrint" == btn.Name )
-                {
-                    this.subPageView.Child = winPrintPage;
+                {                
 
                      setTabItemFromIndex(0);
 
                 }
                 else if ( "btnCopy" == btn.Name )
-                {
-                    this.subPageView.Child = winCopyPage;
+                {                   
 
                     setTabItemFromIndex(1);
-
                 }
                 else if ( "btnScan" == btn.Name )
-                {
-                    this.subPageView.Child = winScanPage;
+                {                    
 
                     setTabItemFromIndex(2);
                 }
                 else if ( "btnSetting" == btn.Name )
-                {
-                    this.subPageView.Child = winSettingPage;
+                {                
 
                     setTabItemFromIndex(3);
                 }
@@ -329,6 +329,9 @@ namespace VOP
         {
             if (0 == index)
             {
+                this.subPageView.Child = winPrintPage;
+                this.statusPanelPage.Opacity = 1.0;
+
                 tabItem_Printer.IsSelect = true;
                 tabItem_Copy.IsSelect = false;
                 tabItem_Scan.IsSelect = false;
@@ -336,6 +339,9 @@ namespace VOP
             }
             else if (1 == index)
             {
+                this.subPageView.Child = winCopyPage;
+                this.statusPanelPage.Opacity = 1.0;
+
                 tabItem_Printer.IsSelect = false;
                 tabItem_Copy.IsSelect = true;
                 tabItem_Scan.IsSelect = false;
@@ -343,6 +349,9 @@ namespace VOP
             }
             else if (2 == index)
             {
+                this.subPageView.Child = winScanPage;
+                this.statusPanelPage.Opacity = 1.0;
+
                 tabItem_Printer.IsSelect = false;
                 tabItem_Copy.IsSelect = false;
                 tabItem_Scan.IsSelect = true;
@@ -350,6 +359,9 @@ namespace VOP
             }
             else if (3 == index)
             {
+                this.subPageView.Child = winSettingPage;
+                this.statusPanelPage.Opacity = 0.0;
+
                 tabItem_Printer.IsSelect = false;
                 tabItem_Copy.IsSelect = false;
                 tabItem_Scan.IsSelect = false;

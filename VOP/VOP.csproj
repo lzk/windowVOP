@@ -56,7 +56,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-
     <Compile Include="CopySetting.xaml.cs">
       <DependentUpon>CopySetting.xaml</DependentUpon>
     </Compile>
@@ -78,6 +77,9 @@
     <Compile Include="Controls\ImageCropper\RotateThumb.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="dll.cs" />
+    <Compile Include="StatusPanel.xaml.cs">
+      <DependentUpon>StatusPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="type_define.cs" />
     <Page Include="Controls\CheckBox_Template.xaml">
       <SubType>Designer</SubType>
@@ -269,6 +271,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CustomControl\StatusTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StatusPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
