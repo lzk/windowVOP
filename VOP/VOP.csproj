@@ -79,6 +79,14 @@
     <Compile Include="Converter.cs" />
     <Compile Include="dll.cs" />
     <Compile Include="type_define.cs" />
+    <Page Include="Controls\CheckBox_Template.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ComboBox_Template.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\IdCardPrint\IdCardEditWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -314,7 +322,6 @@
     <Resource Include=".\Images\Nin1_2.tif" />
     <Resource Include=".\Images\Nin1_4.tif" />
     <Resource Include=".\Images\Nin1_9.tif" />
-
     <Resource Include=".\Images\IDCardCopyIconDisable.tif" />
     <Resource Include=".\Images\IDCardCopyIconEnable.tif" />
     <Resource Include=".\Images\background.png" />

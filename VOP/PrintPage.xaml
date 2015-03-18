@@ -4,274 +4,14 @@
              xmlns:mycontrol="clr-namespace:VOP"
              Width="666"
              Height="333">
-    <UserControl.Resources>
-        <ControlTemplate x:Key="switch" TargetType="{x:Type CheckBox}">
-            <Grid Name="grid"
-                  Width="{TemplateBinding Width}"
-                  Height="{TemplateBinding Height}">
-                <Rectangle Name="Off"
-                           Width="{Binding ElementName=grid, Path=Width}"
-                           Height="{Binding ElementName=grid, Path=Height}">
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="Images\ToggleLeft.png" />
-                    </Rectangle.Fill>
-                </Rectangle>
-
-                <Rectangle Name="On"
-                           Width="{Binding ElementName=grid, Path=Width}"
-                           Height="{Binding ElementName=grid, Path=Height}"
-                           Visibility="Hidden" >
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="Images/ToggleRight.png" />
-                    </Rectangle.Fill>
-                </Rectangle>
-
-            </Grid>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsChecked" Value="True">
-                    <Setter TargetName="Off" Property="Visibility" Value="Hidden" />
-                    <Setter TargetName="On" Property="Visibility" Value="Visible" />
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-
-        <Style x:Key="TextBoxStyle1" TargetType="{x:Type TextBox}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Label Background="{TemplateBinding Background}" />
-
-                            <Border x:Name="Bd"
-                                    Grid.Column="1"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    SnapsToDevicePixels="true">
-                                <Border.Background>
-                                    <ImageBrush ImageSource="Images\status_imageTextbox_Right.png" />
-                                </Border.Background>
-                                <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                            </Border>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Begin ComboBox Style **************************************************** -->
-        <Style x:Key="ComboBoxFocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle Margin="4,4,21,4"
-                                   SnapsToDevicePixels="true"
-                                   Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-                                   StrokeDashArray="1 2"
-                                   StrokeThickness="1" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <LinearGradientBrush x:Key="ButtonNormalBackground" StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Offset="0" Color="#F3F3F3" />
-            <GradientStop Offset="0.5" Color="#EBEBEB" />
-            <GradientStop Offset="0.5" Color="#DDDDDD" />
-            <GradientStop Offset="1" Color="#CDCDCD" />
-        </LinearGradientBrush>
-        <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070" />
-        <Geometry x:Key="DownArrowGeometry">M 0 0 L 3.5 4 L 7 0 Z</Geometry>
-
-        <LinearGradientBrush x:Key="toggleButtonBackground_Normal" EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFE4E4E4" Offset="0"/>
-            <GradientStop Color="#FFFBFBFB" Offset="0.017"/>
-            <GradientStop Color="#FFCDCDCD" Offset="0.95"/>
-            <GradientStop Color="#FF9F9F9F" Offset="1"/>
-        </LinearGradientBrush>
-
-        <LinearGradientBrush x:Key="toggleButtonBackground_Pressed" EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFEFEFEF" Offset="0"/>
-            <GradientStop Color="#FFCBCBCB" Offset="0.05"/>
-            <GradientStop Color="#FFFAFAFA" Offset="0.933"/>
-            <GradientStop Color="#FFA7A7A7" Offset="0.983"/>
-        </LinearGradientBrush>
-
-        <Style x:Key="ComboBoxReadonlyToggleButton" TargetType="{x:Type ToggleButton}">
-            <Setter Property="OverridesDefaultStyle" Value="true" />
-            <Setter Property="IsTabStop" Value="false" />
-            <Setter Property="Focusable" Value="false" />
-            <Setter Property="ClickMode" Value="Press" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ToggleButton}">
-                        <Border x:Name="Chrome"
-                                Background="{StaticResource toggleButtonBackground_Normal}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="5"
-                                SnapsToDevicePixels="true">
-                            <Grid Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" HorizontalAlignment="Right">
-                                <Path x:Name="Arrow"
-                                      Margin="1,1,0,0"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      Data="{StaticResource DownArrowGeometry}"
-                                      Fill="#808080" />
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter TargetName="Arrow" Property="Fill" Value="#AFAFAF" />
-                            </Trigger>                            
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="Chrome"
-                                    Property="Background" Value="{StaticResource toggleButtonBackground_Pressed}"/>
-
-                            </Trigger>
-                          
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="CboCommomStyle" TargetType="{x:Type ComboBox}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource ComboBoxFocusVisual}" />
-            <Setter Property="Foreground" Value="Red" />
-            <Setter Property="Background" Value="{StaticResource ButtonNormalBackground}" />
-            <Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-            <Setter Property="Padding" Value="4,3" />
-            <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
-            <Setter Property="ScrollViewer.PanningMode" Value="Both" />
-            <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ComboBox}">
-                        <Grid x:Name="MainGrid"                              
-                              Margin="0"
-                              SnapsToDevicePixels="true">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="0" MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" />
-                            </Grid.ColumnDefinitions>
-                            <Popup x:Name="PART_Popup"
-                                   Grid.ColumnSpan="2"
-                                   Margin="1"
-                                   AllowsTransparency="true"
-                                   IsOpen="{Binding IsDropDownOpen,
-                                   RelativeSource={RelativeSource TemplatedParent}}"
-                                   Placement="Bottom"
-                                   PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                                <Border x:Name="Shdw"
-                                        MinWidth="{Binding ActualWidth,ElementName=MainGrid}"
-                                        MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                                    <Border x:Name="DropDownBorder"
-                                            Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
-                                            BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}"
-                                            BorderThickness="1">
-                                        <ScrollViewer x:Name="DropDownScrollViewer">
-                                            <Grid RenderOptions.ClearTypeHint="Enabled">
-                                                <Canvas Width="0"
-                                                        Height="0"
-                                                        HorizontalAlignment="Left"
-                                                        VerticalAlignment="Top">
-                                                    <Rectangle x:Name="OpaqueRect"
-                                                               Width="{Binding ActualWidth,
-                                                               ElementName=DropDownBorder}"
-                                                               Height="{Binding ActualHeight,
-                                                               ElementName=DropDownBorder}"
-                                                               Fill="{Binding Background,
-                                                               ElementName=DropDownBorder}" />
-                                                </Canvas>
-                                                <ItemsPresenter x:Name="ItemsPresenter"
-                                                                KeyboardNavigation.DirectionalNavigation="Contained"
-                                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                            </Grid>
-                                        </ScrollViewer>
-                                    </Border>
-                                </Border>
-                            </Popup>
-
-                            <ToggleButton Name="toggleButton" Grid.ColumnSpan="2" 
-                                          Background="{TemplateBinding Background}"
-                                          BorderBrush="{TemplateBinding BorderBrush}"
-                                          BorderThickness="{TemplateBinding BorderThickness}"
-                                          IsChecked="{Binding IsDropDownOpen,
-                                          Mode=TwoWay,
-                                          RelativeSource={RelativeSource TemplatedParent}}"
-                                          Style="{StaticResource ComboBoxReadonlyToggleButton}" />
-
-                            <!--
-                                 Margin="{TemplateBinding Padding}"
-                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            -->
-                            <mycontrol:ScrollTextBox Margin="5,5,5,5"
-                                                     HorizontalAlignment="Left"
-                                                     VerticalAlignment="Center"
-                                                     AcceptsTab="False"
-                                                     Background="{x:Null}"
-                                                     BorderThickness="0"
-                                                     Cursor="Arrow"
-                                                     FontSize="12"
-                                                     Foreground="{Binding ElementName=DropDownScrollViewer,
-                                                     Path=Foreground}"
-                                                     IsHitTestVisible="false"
-                                                     SelectionOpacity="0"
-                                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                                     Text="{TemplateBinding SelectionBoxItem}" />
-
-
-                        </Grid>
-
-                        <ControlTemplate.Triggers>
-
-                            <!--<Trigger  Property="IsDropDownOpen " Value="true">
-                                <Setter  Property="Background" Value="Red" />
-                            </Trigger>-->
-
-                            <Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="true">
-                                <Setter TargetName="Shdw" Property="Margin" Value="0,0,5,5" />
-
-                            </Trigger>
-                            <Trigger Property="HasItems" Value="false">
-                                <Setter TargetName="DropDownBorder" Property="Height" Value="95" />
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
-                                <Setter Property="Background" Value="#FFF4F4F4" />
-                            </Trigger>
-                            <Trigger Property="IsGrouping" Value="true">
-                                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
-                            </Trigger>
-                            <Trigger SourceName="DropDownScrollViewer" Property="ScrollViewer.CanContentScroll" Value="false">
-                                <Setter TargetName="OpaqueRect" Property="Canvas.Top" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}" />
-                                <Setter TargetName="OpaqueRect" Property="Canvas.Left" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsEditable" Value="true">
-                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
-                    <Setter Property="IsTabStop" Value="false" />
-                    <Setter Property="Padding" Value="3" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <!-- End ComboBox Style **************************************************** -->
-
+    <UserControl.Resources>       
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/CheckBox_Template.xaml"/>
+                <ResourceDictionary Source="Controls/ComboBox_Template.xaml"/>    
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>      
     </UserControl.Resources>
-
-    <!--=====================================================================-->
-    <!--=====================================================================-->
 
     <Grid>
         <Grid.Background>
@@ -291,9 +31,6 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1" Grid.Column="1">
-            <!--<Grid.Background>
-                 <ImageBrush ImageSource="Images\PagePrint_Bk_2.png" />
-                 </Grid.Background>-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30*" />
                 <ColumnDefinition Width="215*" />
@@ -309,15 +46,8 @@
                 <RowDefinition Height="40*" />
             </Grid.RowDefinitions>
 
-            <!--<Rectangle Grid.Row="1" Grid.Column="1">
-                 <Rectangle.Fill>
-                 <ImageBrush ImageSource="Images\PagePrint_Bk_Left.png" />
-                 </Rectangle.Fill>
-                 </Rectangle>-->
-
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <!--<RowDefinition Height="23*" />-->
                     <RowDefinition Height="46*" />
                     <RowDefinition Height="45*" />
                     <RowDefinition Height="17*" />
@@ -361,11 +91,7 @@
                                              Width="22.4" Height="22.4"                                                          
                                              >
                     </mycontrol:RefreshButton>
-
-
                 </Grid>
-
-
 
                 <ComboBox Grid.Row="1" Grid.Column="1"
                           Foreground="#555555"
@@ -387,11 +113,8 @@
                 <mycontrol:StatusTextBlock x:Name="status" Grid.Row="4" 
                                            Grid.Column="1" 
                                            Margin="0, 5, 0, 0"
-                                           FontSize="12" 
-                                          
-                                           TypeId="Error"
-                                         
-                                           >
+                                           FontSize="12"                                           
+                                           TypeId="Error"  >
                 </mycontrol:StatusTextBlock>
                 
                 <mycontrol:TonerBar Grid.Row="6" Grid.Column="1" 
@@ -408,20 +131,10 @@
                     
                     <TextBlock Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Red"
                                FontSize="10" TextWrapping="Wrap"
-                               Text="{Binding ElementName=status, Path=TipInfo}"
-                              >
-                        
-                    </TextBlock>
-                    
-                                       
-                    
-                    
+                               Text="{Binding ElementName=status, Path=TipInfo}">                        
+                    </TextBlock>                 
                 </Grid>
-
-
-
             </Grid>
-
 
             <mycontrol:ImagePreviewControl x:Name="imagePreviewCtrl"
                                            Grid.Row="1"
@@ -436,11 +149,6 @@
                     <RowDefinition Height="225*" />
                     <RowDefinition Height="15*" />
                     <RowDefinition Height="95*" />
-                    <!--
-                         <RowDefinition Height="40*" />
-                         <RowDefinition Height="10*" />
-                         <RowDefinition Height="45*" />
-                    -->
                 </Grid.RowDefinitions>
 
                 <Rectangle>
@@ -515,9 +223,8 @@
                                FontSize="15"
                                Foreground="#999999"
                                Text="黑白"
-                               TextAlignment="Center" />
-
-                 
+                               TextAlignment="Center">                        
+                    </TextBlock>                
                 </Grid>
 
                 <Grid Grid.Row="2">
@@ -530,66 +237,7 @@
                         <RowDefinition Height="40*" />
                         <RowDefinition Height="10*" />
                         <RowDefinition Height="45*" />
-                    </Grid.RowDefinitions>
-
-                    <!--<Button Name="HighLevel_Setup"
-                         Grid.Row="0"
-                         Grid.Column="1"
-                         Height="30"
-                         VerticalAlignment="Bottom"
-                         Click="Button_Click"
-                         FontSize="15">
-                         <Button.Template>
-                         <ControlTemplate>
-                         <Grid>
-                         <Rectangle>
-                         <Rectangle.Fill>
-                         <ImageBrush ImageSource="Images\Button_Gray.png" />
-                         </Rectangle.Fill>
-                         </Rectangle>
-                         <TextBlock Name="textBox"
-                         Grid.Row="1"
-                         Grid.Column="1"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Background="{x:Null}"
-                         FontSize="15"
-                         Foreground="#999999"
-                         Text="高级设置"
-                         TextAlignment="Center">                                        
-                         </TextBlock>
-                         </Grid>
-                         </ControlTemplate>
-                         </Button.Template>
-                         </Button>
-                         
-                         <Button x:Name="btn_Print"
-                         Grid.Row="2"
-                         Grid.Column="1"
-                         FontSize="15">
-                         <Button.Template>
-                         <ControlTemplate>
-                         <Grid>
-                         <Rectangle>
-                         <Rectangle.Fill>
-                         <ImageBrush ImageSource="Images\Button_Green.png" />
-                         </Rectangle.Fill>
-                         </Rectangle>
-                         <TextBlock Name="textBox"
-                         Grid.Row="1"
-                         Grid.Column="1"
-                         HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Background="{x:Null}"
-                         FontSize="15"
-                         Foreground="White"
-                         Text="打   印"
-                         TextAlignment="Center">                                        
-                         </TextBlock>
-                         </Grid>
-                         </ControlTemplate>
-                         </Button.Template>
-                         </Button>-->
+                    </Grid.RowDefinitions>            
                 </Grid>
             </Grid>
         </Grid>
