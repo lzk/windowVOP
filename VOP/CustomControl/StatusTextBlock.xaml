@@ -6,6 +6,54 @@
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="200"
              Name="container">
+    <UserControl.Resources>
+        
+   
+        <LinearGradientBrush x:Key="Pend" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF95B36D" Offset="0"/>
+            <GradientStop Color="#FF608E21" Offset="0.019"/>
+            <GradientStop Color="#FF6EA326" Offset="0.687"/>
+            <GradientStop Color="#FF679824" Offset="0.974"/>
+            <GradientStop Color="#FF9CB47B" Offset="1"/>
+        </LinearGradientBrush>
+
+
+        <LinearGradientBrush x:Key="Sleeping" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF7AA046" Offset="0"/>
+            <GradientStop Color="#FF608E21" Offset="0.013"/>
+            <GradientStop Color="#FF6EA326" Offset="0.694"/>
+            <GradientStop Color="#FF679824" Offset="0.987"/>
+            <GradientStop Color="#FF84A754" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="Pending" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF7FA44D" Offset="0"/>
+            <GradientStop Color="#FF608E21" Offset="0.013"/>
+            <GradientStop Color="#FF6EA326" Offset="0.69"/>
+            <GradientStop Color="#FF679824" Offset="0.98"/>
+            <GradientStop Color="#FF90AD67" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="Preheat" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF93B169" Offset="0"/>
+            <GradientStop Color="#FF608E21" Offset="0.02"/>
+            <GradientStop Color="#FF6EA326" Offset="0.696"/>
+            <GradientStop Color="#FF679824" Offset="0.987"/>
+            <GradientStop Color="#FF7FA44B" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="Error" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFCB7676" Offset="0"/>
+            <GradientStop Color="#FFB12C2C" Offset="0.02"/>
+            <GradientStop Color="#FFCB3131" Offset="0.693"/>
+            <GradientStop Color="#FFBF3434" Offset="0.98"/>
+            <GradientStop Color="#FFC67D7D" Offset="1"/>
+        </LinearGradientBrush>
+
+    </UserControl.Resources>
+    
+    
+    
     <Grid>
             <Rectangle RadiusX="6" RadiusY="6">
                 <UIElement.Effect>
@@ -22,28 +70,18 @@
 
 
         <Grid Margin="3">
-            <Rectangle  RadiusX="3" RadiusY="3">
-                <Rectangle.Fill>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF449600" Offset="0.054"/>
-                        <GradientStop Color="#FF4AA200" Offset="0.272"/>
-                        <GradientStop Color="#FF4C9606" Offset="0.891"/>
-                        <GradientStop Color="#FFC6CFC1" Offset="1"/>
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
+            <Rectangle Name="rect_Background"  RadiusX="3" RadiusY="3"                      
+                        >
             </Rectangle>
 
-            <TextBlock Text="{Binding ElementName=container, Path=Text}" 
+            <TextBlock Name="textblock"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        TextAlignment="Center"
                        Foreground="White" 
                        >               
             </TextBlock>
-        </Grid>
-  
-
-
+        </Grid>      
 
     </Grid>
 </UserControl>
