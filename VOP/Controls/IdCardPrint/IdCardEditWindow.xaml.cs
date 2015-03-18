@@ -54,7 +54,7 @@ namespace VOP.Controls
         }
 
         private void GreenOkButton_Click(object sender, RoutedEventArgs e)
-        {          
+        {
             switch (currentState)
             {
                 case EditWindowState.Edit:
@@ -82,13 +82,13 @@ namespace VOP.Controls
                         else
                         {
                             borderContainer.Child = printPreview;
-                            printPreview.Update(); 
+                            printPreview.Update();
                             TitleBarText.Text = "打印预览";
                         }
                     }
                     currentState = EditWindowState.Preview;
                     break;
-                case EditWindowState.Preview: 
+                case EditWindowState.Preview:
                     this.DialogResult = true;
                     break;
                 default:

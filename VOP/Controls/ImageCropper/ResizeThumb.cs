@@ -110,7 +110,7 @@ namespace VOP.Controls
                     }
                     else
                     {
-                        this.designerItem.Height -= deltaHorizontal / ImageCropper.designerItemWHRatio;                  
+                        this.designerItem.Height -= deltaHorizontal / ImageCropper.designerItemWHRatio;                 
                     }
 
                     if ((Canvas.GetTop(this.designerItem) - ImageCropper.imageToTop + this.designerItem.Height + ImageCropper.thumbCornerWidth) > ImageCropper.imageHeight)

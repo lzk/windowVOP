@@ -60,7 +60,7 @@
                         Padding="0, 0, 0, 0"
                         FontSize="16"
                         Style="{StaticResource CustomGreenButtonStyle}"
-                        Content="确    定" 
+                        Content="确    定"
                         Click="GreenOkButton_Click" />
             </Grid>
         </Grid>
