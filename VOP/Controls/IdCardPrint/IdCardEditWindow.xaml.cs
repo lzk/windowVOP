@@ -18,7 +18,13 @@ namespace VOP.Controls
     /// </summary>
     public partial class IdCardEditWindow : Window
     {
+        public static Size A4Size = new Size(21, 29.7); //unit cm
+        public static List<BitmapSource> croppedImageList = new List<BitmapSource>();
+
         public IdCardTypeItem SelectedTypeItem { get; set; }
+
+        private enum EditWindowState { Edit, Preview}
+        EditWindowState currentState;
 
         public Uri ImageUri
         {
@@ -34,6 +40,7 @@ namespace VOP.Controls
         public IdCardEditWindow()
         {
             InitializeComponent();
+            currentState = EditWindowState.Edit;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -46,5 +53,47 @@ namespace VOP.Controls
             DragMove();
         }
 
+        private void GreenOkButton_Click(object sender, RoutedEventArgs e)
+        {          
+            switch (currentState)
+            {
+                case EditWindowState.Edit:
+
+                    croppedImageList.Add(myCropper.GetCroppedImage());
+
+                    PrintPreview printPreview = new PrintPreview();
+                    printPreview.PaperWidth = A4Size.Width; //A4
+                    printPreview.PaperHeight = A4Size.Height;
+                    printPreview.SelectedTypeItem = this.SelectedTypeItem;
+
+                    if (SelectedTypeItem.PrintSides == enumIdCardPrintSides.OneSide)
+                    {
+
+                        borderContainer.Child = printPreview;
+                        printPreview.Update(); //update after being a child
+                        TitleBarText.Text = "打印预览";
+                    }
+                    else
+                    {
+                        if (FileSelectionPage.imageFileCount < 1)
+                        {
+                            this.DialogResult = true;
+                        }
+                        else
+                        {
+                            borderContainer.Child = printPreview;
+                            printPreview.Update(); 
+                            TitleBarText.Text = "打印预览";
+                        }
+                    }
+                    currentState = EditWindowState.Preview;
+                    break;
+                case EditWindowState.Preview: 
+                    this.DialogResult = true;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

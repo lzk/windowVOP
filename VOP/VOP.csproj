@@ -56,8 +56,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+
     <Compile Include="CopySetting.xaml.cs">
       <DependentUpon>CopySetting.xaml</DependentUpon>
+
+    <Compile Include="Controls\PrintPreview\PrintPreview.xaml.cs">
+      <DependentUpon>PrintPreview.xaml</DependentUpon>
+
     </Compile>
     <Compile Include="CustomControl\StatusTextBlock.xaml.cs">
       <DependentUpon>StatusTextBlock.xaml</DependentUpon>
@@ -132,6 +137,14 @@
     <Page Include="Controls\ImageButton\ImageButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PrintPreview\PrintPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PrintPreview\PrintPreviewStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MinimizeCloseButton\MinimizeCloseButtonStyle.xaml">
       <SubType>Designer</SubType>

@@ -114,6 +114,9 @@ namespace VOP.Controls
                 ContentControl designerItem = imageCropperContent;
                 Canvas canvas = VisualTreeHelper.GetParent(designerItem) as Canvas;
 
+                designerItem.MinWidth = 50;
+                designerItem.MinHeight = 50 / designerItemWHRatio;
+
                 if(whRatio > designerItemWHRatio)
                 {
                     designerItem.Height = imageHeight - thumbCornerWidth * 2;
@@ -141,14 +144,12 @@ namespace VOP.Controls
             }
         }
 
-
         private static void ImagePathProperty_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ImageCropper cropper = d as ImageCropper;
             Uri newUri = (Uri)e.NewValue;
 
             BitmapImage myBitmapImage = new BitmapImage();
-       
             myBitmapImage.BeginInit();
             myBitmapImage.UriSource = newUri;
             myBitmapImage.EndInit();
@@ -185,7 +186,7 @@ namespace VOP.Controls
                 && intRect.X + intRect.Width <= src.PixelWidth 
                 && intRect.Y + intRect.Height <= src.PixelHeight)
             {
-                croppedImage = new CroppedBitmap((BitmapSource)backgroundImage.Source, intRect);
+                croppedImage = new CroppedBitmap(src, intRect);
             }
        
             return croppedImage;

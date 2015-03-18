@@ -35,7 +35,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
-                <TextBlock Text="证件编辑" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Name="TitleBarText" Text="证件编辑" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
 
             <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
@@ -48,19 +48,20 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="70"/>
                 </Grid.RowDefinitions>
-                <Border Grid.Row="0" Background="White" Margin="20" CornerRadius="15">
+                <Border Name="borderContainer" Grid.Row="0" Background="White" Margin="20" CornerRadius="15">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="10" Color="#FF858484" Direction="292" ShadowDepth="1" Opacity="0.3"/>
                     </Border.Effect>
                     <local:ImageCropper x:Name="myCropper" Margin="20"/>
                 </Border>
-                <Button Grid.Row="1" Name="GreenOkButton" 
+                <Button Grid.Row="1" Name="GreenOkButton"
                         Width="125" Height="35" 
                         Margin="0, -22, 0, 0" 
                         Padding="0, 0, 0, 0"
                         FontSize="16"
                         Style="{StaticResource CustomGreenButtonStyle}"
-                        Content="确    定"/>
+                        Content="确    定" 
+                        Click="GreenOkButton_Click" />
             </Grid>
         </Grid>
     </Border>

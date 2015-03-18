@@ -13,6 +13,10 @@ namespace VOP
 {
     public partial class FileSelectionPage : UserControl
     {
+        private enum FileSelectionState { SelectWindow, OpenFile, EditWindow, GoPrint, Exit }
+        FileSelectionState currentState;
+        public static int imageFileCount = 0;
+
         public FileSelectionPage()
         {
             InitializeComponent();
@@ -26,34 +30,84 @@ namespace VOP
         private void OnClickIdCardPrint(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             bool? result = null;
-            IdCardTypeItem selectedItem = null;
+            IdCardTypeSelectWindow selectWin = null;
+            OpenFileDialog open = null;
+            imageFileCount = 0;
 
-            IdCardTypeSelectWindow selectWin = new IdCardTypeSelectWindow();
-            selectWin.Owner = App.Current.MainWindow;
+            currentState = FileSelectionState.SelectWindow;
+            IdCardEditWindow.croppedImageList.Clear();
 
-            result = selectWin.ShowDialog();
-
-            if (result == true)
+            while(currentState != FileSelectionState.Exit)
             {
-                selectedItem = selectWin.SelectedTypeItem;
-
-                OpenFileDialog open = new OpenFileDialog();
-                open.Filter = "JPEG|*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
-
-                result = open.ShowDialog();
-
-                if (result == true)
+                switch(currentState)
                 {
-                    IdCardEditWindow editWin = new IdCardEditWindow();
-                    editWin.Owner = App.Current.MainWindow;
-                    editWin.ImageUri = new Uri(open.FileName);
-                    editWin.SelectedTypeItem = selectedItem;
-                    ImageCropper.designerItemWHRatio = selectedItem.Width / selectedItem.Height;
-                    result = editWin.ShowDialog();
+                    case FileSelectionState.SelectWindow:
+
+                        selectWin = new IdCardTypeSelectWindow();
+                        selectWin.Owner = App.Current.MainWindow;
+                        result = selectWin.ShowDialog();
+
+                        if(result == true)
+                        {
+                            currentState = FileSelectionState.OpenFile;
+                        }
+                        else
+                        {
+                            currentState = FileSelectionState.Exit;
+                        }
+
+                        break;
+                    case FileSelectionState.OpenFile:
+
+                        open = new OpenFileDialog();
+                        open.Filter = "JPEG|*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
+
+                        result = open.ShowDialog();
+                        if (result == true)
+                        {
+                            currentState = FileSelectionState.EditWindow;
+                        }
+                        else
+                        {
+                            currentState = FileSelectionState.Exit;
+                        }
+
+                        break;
+                    case FileSelectionState.EditWindow:
+
+                        IdCardEditWindow editWin = new IdCardEditWindow();
+                        editWin.Owner = App.Current.MainWindow;
+                        editWin.ImageUri = new Uri(open.FileName);
+                        editWin.SelectedTypeItem = selectWin.SelectedTypeItem;
+                        ImageCropper.designerItemWHRatio = selectWin.SelectedTypeItem.Width / selectWin.SelectedTypeItem.Height;
+
+                        result = editWin.ShowDialog();
+                        if (result == true)
+                        {
+                            currentState = FileSelectionState.GoPrint;
+
+                            if(selectWin.SelectedTypeItem.PrintSides == enumIdCardPrintSides.TwoSides)
+                            {
+                                if (++imageFileCount < 2)
+                                {
+                                    currentState = FileSelectionState.OpenFile;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            currentState = FileSelectionState.Exit;
+                        }
+
+                        break;
+                    case FileSelectionState.GoPrint:
+                        currentState = FileSelectionState.Exit;
+                        break;
+                    default:
+                        currentState = FileSelectionState.Exit;
+                        break;
                 }
             }
-
-
         }
     }
 }

@@ -73,7 +73,7 @@ namespace VOP.Controls
                 {
                     deltaVertical = Math.Min(-e.VerticalChange, designerItem.ActualHeight - designerItem.MinHeight);
                     this.designerItem.Height -= deltaVertical;
-                    this.designerItem.Width -= deltaVertical;
+                    this.designerItem.Width -= deltaVertical * ImageCropper.designerItemWHRatio;
 
                     if ((Canvas.GetLeft(this.designerItem) - ImageCropper.imageToLeft + this.designerItem.Width + ImageCropper.thumbCornerWidth) > ImageCropper.imageWidth)
                     {
@@ -109,8 +109,8 @@ namespace VOP.Controls
                         this.designerItem.Width = maxWidthToLeft;
                     }
                     else
-                    {     
-                        this.designerItem.Height -= deltaHorizontal;                  
+                    {
+                        this.designerItem.Height -= deltaHorizontal / ImageCropper.designerItemWHRatio;                  
                     }
 
                     if ((Canvas.GetTop(this.designerItem) - ImageCropper.imageToTop + this.designerItem.Height + ImageCropper.thumbCornerWidth) > ImageCropper.imageHeight)
@@ -130,7 +130,7 @@ namespace VOP.Controls
                     deltaVertical = Math.Min(e.VerticalChange, this.designerItem.ActualHeight - this.designerItem.MinHeight);
 
                     double setX = Canvas.GetLeft(this.designerItem) + deltaVertical;
-                    double setY = Canvas.GetTop(this.designerItem) + deltaVertical;
+                    double setY = Canvas.GetTop(this.designerItem) + deltaVertical / ImageCropper.designerItemWHRatio;
 
                     if (setX < ImageCropper.thumbCornerWidth + ImageCropper.imageToLeft)
                     {
@@ -157,12 +157,12 @@ namespace VOP.Controls
                     if(this.designerItem.Height < maxHeightToTop && this.designerItem.Width < maxWidthToLeft)
                     {
                         this.designerItem.Width -= deltaVertical;
-                        this.designerItem.Height -= deltaVertical;
+                        this.designerItem.Height -= deltaVertical / ImageCropper.designerItemWHRatio;
                     }
                     else if (deltaVertical > 0)
                     {
                         this.designerItem.Width -= deltaVertical;
-                        this.designerItem.Height -= deltaVertical;
+                        this.designerItem.Height -= deltaVertical / ImageCropper.designerItemWHRatio;
                     }
                 }
 
@@ -187,7 +187,7 @@ namespace VOP.Controls
                     }
                     else
                     {
-                        this.designerItem.Width -= deltaVertical;
+                        this.designerItem.Width -= deltaVertical * ImageCropper.designerItemWHRatio;
                     }
 
                     if ((Canvas.GetLeft(this.designerItem) - ImageCropper.imageToLeft + this.designerItem.Width + ImageCropper.thumbCornerWidth) > ImageCropper.imageWidth)
