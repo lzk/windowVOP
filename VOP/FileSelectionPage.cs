@@ -16,10 +16,17 @@ namespace VOP
         private enum FileSelectionState { SelectWindow, OpenFile, EditWindow, GoPrint, Exit }
         FileSelectionState currentState;
         public static int imageFileCount = 0;
+        MainWindow mainWin = null;
 
         public FileSelectionPage()
         {
             InitializeComponent();
+        }
+
+        public FileSelectionPage(MainWindow win)
+        {
+            InitializeComponent();
+            this.mainWin = win;
         }
 
         private void OnClickFilePrint(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -101,6 +108,7 @@ namespace VOP
 
                         break;
                     case FileSelectionState.GoPrint:
+                        this.mainWin.subPageView.Child = this.mainWin.winPrintPage;
                         currentState = FileSelectionState.Exit;
                         break;
                     default:

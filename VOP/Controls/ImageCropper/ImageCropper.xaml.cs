@@ -29,6 +29,8 @@ namespace VOP.Controls
         public static double imageHeight = 0;
         double scaleRatioApply = 1.0;
 
+        BitmapImage imageSource = null;
+
 		public ImageCropper()
 		{
 			this.InitializeComponent();
@@ -59,7 +61,7 @@ namespace VOP.Controls
             imageWidth = 0;
             imageHeight = 0;
 
-            BitmapSource src = this.backgroundImage.Source as BitmapSource;
+            BitmapSource src = imageSource as BitmapSource;
 
             if(src != null)
             {
@@ -141,6 +143,19 @@ namespace VOP.Controls
                     Canvas.SetTop(designerItem, imageToTop + thumbCornerWidth);
                     Canvas.SetLeft(designerItem, imageToLeft + thumbCornerWidth);
                 }
+
+                //scale down image
+                ScaleTransform scaleTransform = new ScaleTransform();
+                scaleTransform.ScaleX = imageWidth / (double)src.Width;
+                scaleTransform.ScaleY = imageHeight / (double)src.Height;
+
+                TransformedBitmap tb = new TransformedBitmap();
+                tb.BeginInit();
+                tb.Source = src;
+                tb.Transform = scaleTransform;
+                tb.EndInit();
+
+                this.backgroundImage.Source = tb;
             }
         }
 
@@ -154,14 +169,15 @@ namespace VOP.Controls
             myBitmapImage.UriSource = newUri;
             myBitmapImage.EndInit();
 
-            cropper.backgroundImage.Source = myBitmapImage;
+            cropper.imageSource = myBitmapImage;
         }
 
         public BitmapSource GetCroppedImage()
         {
             CroppedBitmap croppedImage = null;
 
-            BitmapSource src = this.backgroundImage.Source as BitmapSource;
+           // BitmapSource src = this.backgroundImage.Source as BitmapSource;
+            BitmapSource src = this.imageSource as BitmapSource;
 
             if (src == null)
                 return null;        
@@ -169,7 +185,7 @@ namespace VOP.Controls
             ContentControl designerItem = imageCropperContent;
             Canvas canvas = VisualTreeHelper.GetParent(designerItem) as Canvas;
  
-            double toLeft = Canvas.GetLeft(designerItem); 
+            double toLeft = Canvas.GetLeft(designerItem);
             double toTop = Canvas.GetTop(designerItem);
 
             Rect rect = new Rect(toLeft - imageToLeft, toTop - imageToTop, designerItem.ActualWidth, designerItem.ActualHeight);
