@@ -58,14 +58,6 @@
                     Background="{StaticResource mainBackground_Brush}" BorderBrush="{StaticResource border_Brush}" 
                     BorderThickness="1"
                     CornerRadius="6"/>
-
-
-            <!--<Border Grid.Row="1" Grid.Column="1" BorderThickness="0" BorderBrush="Black">
-                <UIElement.Effect>
-                    <DropShadowEffect BlurRadius="5" Opacity="0.8" Direction="270"/>
-                </UIElement.Effect>             
-            </Border>-->
-
             <Grid Grid.Row="1" Grid.Column="1" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="46*" />
@@ -81,9 +73,7 @@
                     <ColumnDefinition Width="10*" />
                     <ColumnDefinition Width="150*" />
                     <ColumnDefinition Width="10*" />
-                </Grid.ColumnDefinitions>
-
-               
+                </Grid.ColumnDefinitions>               
 
                 <Grid Grid.Column="1" Grid.Row="0" >
                     <Grid.RowDefinitions>
