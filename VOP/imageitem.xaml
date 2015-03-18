@@ -1,0 +1,16 @@
+<UserControl x:Class="VOP.ImageItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Name="img_element"
+    Loaded="Window_Loaded"
+    MouseDown="MyMouseDownHandler" 
+    >
+<Grid >
+    <Grid>
+        <Image Width="64" Height="64" Source="{Binding ElementName=img_element, Path=src}"/>
+        <Image HorizontalAlignment="Right" VerticalAlignment="Top" Width="12"
+            Height="12" Source="{Binding ElementName=img_element, Path=marker}"/>
+    </Grid>
+</Grid>
+
+</UserControl>

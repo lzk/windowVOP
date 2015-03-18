@@ -1,14 +1,70 @@
-<UserControl x:Class="VOP.ScanPage"
+﻿<UserControl x:Class="VOP.ScanPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Width="638"
              Height="367"
              >
-    <Grid>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomTextBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomButton2.xaml"/>
+                <ResourceDictionary Source="CustomControl/CustomComboBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+<Grid Name="grid1">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="170" />
+        <RowDefinition Height="45" />
+        <RowDefinition Height="60" />
+        <RowDefinition/>
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="200" />
+        <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    
         <Grid.Background>
             <ImageBrush ImageSource="Images\PageScan.tif" />
         </Grid.Background>
+        
+    <Canvas Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="4" >
+        <Image Source="Images\PageScan.png" Canvas.Left="10" Canvas.Top="-0.047" />
 
+    <Rectangle Grid.Column="1" Width="420" Height="127.5" Fill="White"
+        HorizontalAlignment="Left" Margin="0,0,0,2.5" VerticalAlignment="Bottom"/>
+
+    <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal"
+        HorizontalAlignment="Left" >
+        <Button HorizontalContentAlignment="Center" Margin="5,0" IsDefault="False"
+            Content="Print" Template="{StaticResource custombtn}" Height="25" Width="75" HorizontalAlignment="Center" />
+        <Button HorizontalContentAlignment="Center" Margin="5,0" IsDefault="False"
+            Content="Save" Template="{StaticResource custombtn}" Height="25" Width="75" HorizontalAlignment="Center" />
+        <Button HorizontalContentAlignment="Center" Margin="5,10" IsDefault="False"
+            Content="More Setting" Template="{StaticResource custombtn}" Height="25" Width="105" HorizontalAlignment="Center" />
+        <Button HorizontalContentAlignment="Center" Margin="59,0,12,0" IsDefault="True"
+            Content="Scan" Template="{StaticResource custombtn}" Height="25" Width="75" />
+    </StackPanel>
+
+    <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal"
+        HorizontalAlignment="Left">
+        <TextBlock VerticalAlignment="Center"> Scanning Size: </TextBlock>
+        <TextBlock VerticalAlignment="Center" Text="                              "> </TextBlock>
+        <Button HorizontalContentAlignment="Center" Margin="166,0,5,0"
+            IsDefault="false"
+            Content="Cancel" Template="{StaticResource custombtn}" Height="25" Width="75" />
+    </StackPanel>
+
+    <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal"
+        HorizontalAlignment="Left" Width="62.107">
+        <TextBlock VerticalAlignment="Top"> Process: 0% </TextBlock>
+    </StackPanel>
 
     </Grid>
 </UserControl>
