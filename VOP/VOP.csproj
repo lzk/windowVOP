@@ -59,10 +59,9 @@
 
     <Compile Include="CopySetting.xaml.cs">
       <DependentUpon>CopySetting.xaml</DependentUpon>
-
+    </Compile>
     <Compile Include="Controls\PrintPreview\PrintPreview.xaml.cs">
       <DependentUpon>PrintPreview.xaml</DependentUpon>
-
     </Compile>
     <Compile Include="CustomControl\StatusTextBlock.xaml.cs">
       <DependentUpon>StatusTextBlock.xaml</DependentUpon>
