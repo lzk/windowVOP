@@ -41,8 +41,8 @@ namespace VOP
     public partial class MainWindow : Window
     {
         CopyPage    winCopyPage   = new CopyPage   ();
-        FileSelectionPage winFileSelectionPage = new FileSelectionPage();
-        PrintPage   winPrintPage  = new PrintPage  ();
+        public FileSelectionPage winFileSelectionPage = null;
+        public PrintPage   winPrintPage  = new PrintPage  ();
         ScanPage    winScanPage   = new ScanPage   ();
         SettingPage winSettingPage= new SettingPage();
 
@@ -217,6 +217,8 @@ namespace VOP
 
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
         {
+            winFileSelectionPage = new FileSelectionPage(this);
+
             this.subPageView.Child = winFileSelectionPage;
             setTabItemFromIndex(0);
         }
