@@ -14,28 +14,24 @@
                 <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-
     </UserControl.Resources>
     <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="220"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="40"/>
         </Grid.ColumnDefinitions>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
+        </Grid.RowDefinitions>
         <Canvas Grid.Row="0" Width="666" Height="333" >
             <Image Source="Images\PageSetting.png" />
         </Canvas>
 
-        <Button IsDefault="True" HorizontalContentAlignment="Center" IsEnabled="True" Grid.Column="0"  Content="Wireless" Template="{StaticResource custombtn}"  Name="btnWireless" Width="150" Margin="40,43,60,258"/>
-        <CheckBox Name="cb" Grid.Column="0" Template="{StaticResource customCheckBox}" IsChecked="true" Content="Text d" Margin="40,104,67,194"/>
-
-        <CheckBox Name="cb12" Grid.Column="1" Template="{StaticResource switchBox}" IsChecked="False" Margin="30,43,337,266"/>
-        <TextBox IsEnabled="{Binding ElementName=cb, Path=IsChecked}" Template="{StaticResource customTextBox}" TextWrapping="NoWrap"  Text="TextBox" Margin="42,154,43,150"/>
-        <TextBox IsEnabled="{Binding ElementName=cb, Path=IsChecked}" Template="{StaticResource customTextBox1}" TextWrapping="NoWrap"  Text="TextBox" Margin="42,200,43,107"/>
-
-        <RadioButton GroupName="Goup1" IsChecked="True" Content="RadioButton 1" Template="{StaticResource customRadioButton}" Width="169" Height="20" Grid.Column="1" Margin="121,77,126,236"/>
-        <RadioButton GroupName="Goup1" Content="RadioButton 2" Width="169"  Template="{StaticResource customRadioButton}" Height="20" Grid.Column="1" Margin="121,102,126,211"/>
-        <RadioButton GroupName="Goup1" Content="RadioButton 3" Width="169"  Template="{StaticResource customRadioButton}" Height="20" Grid.Column="1" Margin="121,127,126,186"/>
-
+        <StackPanel Grid.Row="1" Grid.Column="1" Name="setting_tab_btn" Orientation="Vertical"/>
+        <Border Margin="10,0,0,0" Name="settingView" Grid.Row="1" Grid.Column="2" />
     </Grid>
 </UserControl>
