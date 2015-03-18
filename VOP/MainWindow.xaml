@@ -90,8 +90,8 @@
             <mycontrol:CustomButton x:Name="btnSetting" Margin="10" Grid.Column="4" Click="NvgBtnClick"  ImagePath="Images\btnSetting.png" />
             <mycontrol:LogonButton  x:Name="btnLogin"  Margin="10" Grid.Column="5" 
                                     btnClick="NvgBtnClick" 
-                                    IsLogon="True"
-                                    bottomText="123456798" />
+                                    IsLogon="False"
+                                    bottomText="登录/注册" />
 
             <Border Grid.Row="1"  Grid.ColumnSpan="6" CornerRadius="5" BorderThickness="1" Background="White" BorderBrush="Black">
                 <UIElement.Effect>
@@ -102,33 +102,33 @@
 
             <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="Black">
                 <mycontrol:customTabItem x:Name="tabItem_Printer"                                      
-                                     IsSelect="False" 
-                                     FontSize="20" 
-                                     Text="打印">
+                                         IsSelect="False" 
+                                         FontSize="20" 
+                                         Text="打印">
                 </mycontrol:customTabItem>
             </Border>
 
             <Border Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="Black">               
-                    <mycontrol:customTabItem x:Name="tabItem_Copy"                                      
-                                     IsSelect="False" 
-                                     FontSize="20" 
-                                     Text="复印">
-                    </mycontrol:customTabItem>                
+                <mycontrol:customTabItem x:Name="tabItem_Copy"                                      
+                                         IsSelect="False" 
+                                         FontSize="20" 
+                                         Text="复印">
+                </mycontrol:customTabItem>                
             </Border>
 
             <Border Grid.Row="1" Grid.Column="3" BorderThickness="1" BorderBrush="Black">
                 <mycontrol:customTabItem x:Name="tabItem_Scan"                                      
-                                     IsSelect="False" 
-                                     FontSize="20" 
-                                     Text="扫描">
+                                         IsSelect="False" 
+                                         FontSize="20" 
+                                         Text="扫描">
                 </mycontrol:customTabItem>
             </Border>
 
             <Border Grid.Row="1" Grid.Column="4" BorderThickness="1" BorderBrush="Black">
                 <mycontrol:customTabItem x:Name="tabItem_Setting"                                      
-                                     IsSelect="False" 
-                                     FontSize="20" 
-                                     Text="设置">
+                                         IsSelect="False" 
+                                         FontSize="20" 
+                                         Text="设置">
                 </mycontrol:customTabItem>
             </Border>
 
