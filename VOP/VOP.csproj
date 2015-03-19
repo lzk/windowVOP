@@ -406,4 +406,10 @@
     <Resource Include="Images\LoginPressed.tif" />
     <Resource Include="Images\NotLogin.tif" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\triangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SettingViewBackground.png" />
+  </ItemGroup>
 </Project>

@@ -77,14 +77,16 @@ namespace VOP
         {
             VOP.Controls.ButtonEx btn = e.Source as VOP.Controls.ButtonEx;
             if (btn.IsActiveEx)
-            {
+            {          
                 imgInactive.Visibility = Visibility.Hidden;
+                imgTriangle.Visibility = Visibility.Visible;
                 imgActive.Visibility = Visibility.Visible;
             }
             else
             {
-                imgInactive.Visibility = Visibility.Visible;
+                imgTriangle.Visibility = Visibility.Hidden;
                 imgActive.Visibility = Visibility.Hidden;
+                imgInactive.Visibility = Visibility.Visible;
             }
         }
     }

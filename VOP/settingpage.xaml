@@ -16,10 +16,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid >
+    <Grid Name="mainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40"/>
-            <ColumnDefinition Width="210"/>
+            <ColumnDefinition Width="172"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="40"/>
         </Grid.ColumnDefinitions>
@@ -32,7 +32,11 @@
             <Image Source="Images\PageSetting.png" />
         </Canvas>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Name="setting_tab_btn" Orientation="Vertical"/>
-        <Border Margin="10,0,0,0" Name="settingView" Grid.Row="1" Grid.Column="2" />
+        <StackPanel Grid.Row="1" Grid.Column="1" Name="setting_tab_btn" Orientation="Vertical" Panel.ZIndex="100"/>
+        <Rectangle Name="settingView" Grid.Row="1" Grid.Column="2">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="Images\SettingViewBackground.png"></ImageBrush>
+            </Rectangle.Fill>
+        </Rectangle>
     </Grid>
 </UserControl>

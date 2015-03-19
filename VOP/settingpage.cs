@@ -26,7 +26,7 @@ namespace VOP
             InitializeComponent();
             m_listSettingButton.Clear();
 
-            int tabbtn_width = 160;
+            int tabbtn_width = 188;
             int tabbtn_height = 27;
 
             btnwifi.btn.Content = "Wi-Fi";
@@ -35,7 +35,7 @@ namespace VOP
             btnwifi.Height = tabbtn_height;
             btnwifi.HorizontalAlignment = HorizontalAlignment.Left;
             btnwifi.btn.Name = "btnwifi";
-            btnwifi.btn.Click += SettingBtnClick;
+            btnwifi.btn.Click += SettingBtnClick;           
             m_listSettingButton.Add(btnwifi);
 
             btnSoftAp.btn.Content = "SoftAP";
@@ -111,6 +111,7 @@ namespace VOP
         public void handler_loaded_settingpage( object sender, RoutedEventArgs e )
         {
             setting_tab_btn.Children.Clear();
+            Grid.SetColumnSpan(setting_tab_btn, 2);
 
             string strPrinterDrvName = VOP.MainWindow.GetPrinterDrvName(VOP.MainWindow.selectedprinter);
             if (VOP.MainWindow.IsSupportWifi(strPrinterDrvName))
