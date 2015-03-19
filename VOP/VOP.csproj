@@ -62,6 +62,7 @@
     <Compile Include="Controls\PrintPreview\PrintPreview.xaml.cs">
       <DependentUpon>PrintPreview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ButtonEx.cs" />
     <Compile Include="CustomControl\StatusTextBlock.xaml.cs">
       <DependentUpon>StatusTextBlock.xaml</DependentUpon>
     </Compile>
@@ -79,6 +80,8 @@
     <Compile Include="dll.cs" />
     <Compile Include="StatusPanel.xaml.cs">
       <DependentUpon>StatusPanel.xaml</DependentUpon>
+    <Compile Include="SettingButton.xaml.cs">
+      <DependentUpon>SettingButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="type_define.cs" />
     <Page Include="Controls\CheckBox_Template.xaml">
@@ -86,6 +89,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ComboBox_Template.xaml">
+    <Page Include="Controls\ButtonEx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -217,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ScanPage.xaml" />
+    <Page Include="SettingButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SettingPage.xaml" />
     <Compile Include="CustomControl\CustomButton.cs" />
     <Compile Include="CopyPage.cs" />

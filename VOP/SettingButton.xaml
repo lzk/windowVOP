@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="VOP.SettingButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local ="clr-namespace:VOP.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="200"
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition Width="2"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <Image Name="imgActive" Grid.Column="0" Height="20" Width="20" Visibility="Hidden"></Image>
+        <Image Name="imgInactive" Grid.Column="0" Height="20" Width="20"></Image>
+        <local:ButtonEx x:Name="btn" IsActiveEx="False" Grid.Column="2" IsActiveExPropertyChanged="btn_ActiveExPropertyChanged">           
+        </local:ButtonEx>
+        
+    </Grid>
+
+</UserControl>

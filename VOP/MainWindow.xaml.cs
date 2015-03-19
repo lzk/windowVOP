@@ -40,6 +40,8 @@ namespace VOP
 
     public partial class MainWindow : Window
     {
+        public static string selectedprinter = null; 
+
         CopyPage    winCopyPage   = new CopyPage   ();
         public FileSelectionPage winFileSelectionPage = null;
         public PrintPage   winPrintPage  = new PrintPage  ();
@@ -178,6 +180,8 @@ namespace VOP
         string strDrvName       // Name of printer driver
         )
         {
+            return true;
+
             bool bResult = false;
 
             foreach (PrinterInfo el in printerInfos)
