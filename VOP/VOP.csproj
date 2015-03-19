@@ -80,6 +80,7 @@
     <Compile Include="dll.cs" />
     <Compile Include="StatusPanel.xaml.cs">
       <DependentUpon>StatusPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SettingButton.xaml.cs">
       <DependentUpon>SettingButton.xaml</DependentUpon>
     </Compile>
@@ -89,6 +90,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ComboBox_Template.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ButtonEx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
