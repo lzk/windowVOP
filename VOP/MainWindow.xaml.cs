@@ -222,14 +222,14 @@ namespace VOP
 
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
         {
+
             winFileSelectionPage = new FileSelectionPage(this);
 
-            statusPageView.Child = statusPanelPage;  
-
+            statusPageView.Child = statusPanelPage;
             setTabItemFromIndex(0);
 
             this.subPageView.Child = winFileSelectionPage;      // for test  
-            this.statusPanelPage.Opacity = 0.0; 
+            this.statusPanelPage.Visibility = Visibility.Hidden;
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -298,31 +298,19 @@ namespace VOP
         {
             if (0 == String.Compare(tabItemName, "printer", true))
             {
-                tabItem_Printer.IsSelect = true;
-                tabItem_Copy.IsSelect = false;
-                tabItem_Scan.IsSelect = false;
-                tabItem_Setting.IsSelect = false;    
+                setTabItemFromIndex(0);   
             }
             else if (0 == String.Compare(tabItemName, "copy", true))
             {
-                tabItem_Printer.IsSelect = false;
-                tabItem_Copy.IsSelect = true;
-                tabItem_Scan.IsSelect = false;
-                tabItem_Setting.IsSelect = false;
+                setTabItemFromIndex(1);
             }
             else if (0 == String.Compare(tabItemName, "scan", true))
             {
-                tabItem_Printer.IsSelect = false;
-                tabItem_Copy.IsSelect = false;
-                tabItem_Scan.IsSelect = true;
-                tabItem_Setting.IsSelect = false;
+                setTabItemFromIndex(2);
             }
             else if (0 == String.Compare(tabItemName, "setting", true))
             {
-                tabItem_Printer.IsSelect = false;
-                tabItem_Copy.IsSelect = false;
-                tabItem_Scan.IsSelect = false;
-                tabItem_Setting.IsSelect = true;
+                setTabItemFromIndex(3);
             } 
             else
             {
@@ -336,7 +324,7 @@ namespace VOP
             if (0 == index)
             {
                 this.subPageView.Child = winPrintPage;
-                this.statusPanelPage.Opacity = 1.0;
+                this.statusPanelPage.Visibility = Visibility.Visible;
 
                 tabItem_Printer.IsSelect = true;
                 tabItem_Copy.IsSelect = false;
@@ -346,7 +334,7 @@ namespace VOP
             else if (1 == index)
             {
                 this.subPageView.Child = winCopyPage;
-                this.statusPanelPage.Opacity = 1.0;
+                this.statusPanelPage.Visibility = Visibility.Visible;
 
                 tabItem_Printer.IsSelect = false;
                 tabItem_Copy.IsSelect = true;
@@ -356,7 +344,7 @@ namespace VOP
             else if (2 == index)
             {
                 this.subPageView.Child = winScanPage;
-                this.statusPanelPage.Opacity = 1.0;
+                this.statusPanelPage.Visibility = Visibility.Visible;
 
                 tabItem_Printer.IsSelect = false;
                 tabItem_Copy.IsSelect = false;
@@ -366,7 +354,7 @@ namespace VOP
             else if (3 == index)
             {
                 this.subPageView.Child = winSettingPage;
-                this.statusPanelPage.Opacity = 0.0;
+                this.statusPanelPage.Visibility = Visibility.Hidden;
 
                 tabItem_Printer.IsSelect = false;
                 tabItem_Copy.IsSelect = false;
