@@ -16,32 +16,24 @@
     <Grid>
         <Rectangle Fill="White" Opacity="0" />
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="75*" />
-                <RowDefinition Height="70*" />
+            <Grid.RowDefinitions>               
+                <RowDefinition Height="145*" />
                 <RowDefinition Height="15*" />
-                <RowDefinition Height="40*" />
-                <RowDefinition Height="80*" />
+                <RowDefinition Height="120*" />               
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Rectangle Name="rect_Image" Grid.Column="1" Fill="{StaticResource imgNotLogon}">
-                </Rectangle>
-            </Grid>
+            <Rectangle Name="rect_Image" Width="25" Height="23" Fill="{StaticResource imgNotLogon}">
+            </Rectangle>
 
-            <TextBlock Grid.Row="3"
+            <!--<Image Name="Image" Grid.Row="0" Width="26" Height="24" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                   Source="..\Images\NotLogin.tif" />-->
+ 
+            <TextBlock Grid.Row="2"
                        HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
+                       VerticalAlignment="Top"
                        Text="{Binding ElementName=container,
                        Path=bottomText}"
                        TextAlignment="Center" />
-            
-            <!--<Button Grid.ColumnSpan="3" Grid.RowSpan="5" Opacity="0"></Button>-->
         </Grid>
 
     </Grid>

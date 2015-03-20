@@ -71,7 +71,8 @@ namespace VOP
 
         private static void OnIsLogon_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            VOP.LogonButton _this = (VOP.LogonButton)sender;
+            VOP.LogonButton _this = sender as VOP.LogonButton;
+            if (null == _this) return;
 
             _this.LoginStatus_Changed();
         }

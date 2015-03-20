@@ -35,7 +35,8 @@ namespace VOP
 
         private static void OnIsSelect_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            VOP.customTabItem _this = (VOP.customTabItem)sender;
+            VOP.customTabItem _this = sender as VOP.customTabItem;
+            if (null == _this) return;
 
             if (_this.IsSelect) // On
             {

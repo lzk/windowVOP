@@ -34,7 +34,8 @@ namespace VOP
 
         private static void OnIsRefresh_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            VOP.RefreshButton _This = (VOP.RefreshButton)sender;
+            VOP.RefreshButton _This = sender as VOP.RefreshButton;
+            if (null == _This) return;
 
             // refresh: color:#51B000
             // Normal: color: #888888

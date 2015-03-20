@@ -42,8 +42,10 @@ namespace VOP
         
         private static void OnImgSetPath_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            VOP.ImagePreviewControl imgPreviewCtrl = (VOP.ImagePreviewControl)sender;
-            imgPreviewCtrl.EnumPathAllFiles();
+            VOP.ImagePreviewControl _this = sender as VOP.ImagePreviewControl;
+            if (null == _this) return;
+
+            _this.EnumPathAllFiles();
         }
  
 
