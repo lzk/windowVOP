@@ -1,0 +1,186 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:VOP.Controls"
+	x:Class="VOP.ScanSetting"
+	x:Name="Window"
+	Title="ScanSetting"
+    Width="530" Height="445"
+
+    AllowsTransparency="true"
+    WindowStartupLocation="CenterOwner"
+    ResizeMode="NoResize"
+    WindowStyle="None" 
+    >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomTextBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomButton2.xaml"/>
+                <ResourceDictionary Source="CustomControl/CustomComboBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+    </Window.Effect>
+
+	<Grid x:Name="LayoutRoot">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="90" />
+            <RowDefinition Height="240" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="265" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0"
+            Grid.ColumnSpan="2" >
+            <TextBlock Text="More Settings" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+
+        <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"
+            Grid.ColumnSpan="2"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True"/>
+
+            <local:GroupBoxDecorator Grid.ColumnSpan="2" Grid.Row="1"
+                Header="Document Type" Height="70" Width="485" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                    <CheckBox Template="{StaticResource customCheckBox}"
+                        IsChecked="true" Content="Photo" Margin="10,0" />
+
+                    <CheckBox Template="{StaticResource customCheckBox}"
+                        IsChecked="false" Content="Text and Photo" Margin="10,0"/>
+
+                    <CheckBox Template="{StaticResource customCheckBox}"
+                        IsChecked="false" Content="Text" Margin="10,0"/>
+                </StackPanel>
+            </local:GroupBoxDecorator>
+
+            <StackPanel VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" >
+                <local:GroupBoxDecorator Header="Resolution" Height="70"
+                    Width="220" >
+                <ComboBox
+                    Style="{StaticResource customComboBox}"
+                    Background="White"
+                    Width="145" Height="25"
+                    VerticalAlignment="Center"
+                    >
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"  Content="ComboBox Item" /> 
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="Disalbe Item" IsEnabled="false" > 
+                    </ComboBoxItem>
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="Selected Item" >
+                    </ComboBoxItem>
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
+                </ComboBox>
+                </local:GroupBoxDecorator>
+                <local:GroupBoxDecorator Header="Color Mode" Height="70"
+                    Width="220" Margin="0,10" >
+                <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <CheckBox Template="{StaticResource customCheckBox}"
+                        IsChecked="true" Content="Photo" Margin="5,0" />
+
+                    <CheckBox Template="{StaticResource customCheckBox}"
+                        IsChecked="false" Content="Photo" Margin="5,0"/>
+
+                    <CheckBox Template="{StaticResource customCheckBox}"
+                        IsChecked="false" Content="Photo" Margin="5,0"/>
+
+                </StackPanel>
+                </local:GroupBoxDecorator>
+                <local:GroupBoxDecorator Header="Scan Size" Height="70"
+                    Width="220" >
+                <ComboBox
+                    Style="{StaticResource customComboBox}"
+                    Background="White"
+                    Width="145" Height="25"
+                    VerticalAlignment="Center"
+                    >
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"  Content="ComboBox Item" /> 
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="Disalbe Item" IsEnabled="false" > 
+                    </ComboBoxItem>
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="Selected Item" >
+                    </ComboBoxItem>
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
+                </ComboBox>
+                </local:GroupBoxDecorator>
+            </StackPanel>
+
+            <StackPanel  VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" >
+                <local:GroupBoxDecorator Header="Brightness" Height="100"
+                    Width="220" Margin="0,0,0,15"  >
+                    <Grid>
+                        <Image Stretch="None" VerticalAlignment="Top"
+                            Margin="0,5" Source="Images/Brightness.tif" />
+
+                        <StackPanel Margin="0,5" Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom" >
+                            <Button Style="{StaticResource CustomButton2}"
+                                Content="-" />
+
+                            <TextBlock 
+                                VerticalAlignment="Center" 
+                                Margin="40,0"
+                                FontSize="30"
+                                >
+                                50
+                            </TextBlock>
+
+                            <Button Style="{StaticResource CustomButton2}"
+                                Content="+" />
+
+                        </StackPanel>
+
+                    </Grid>
+                </local:GroupBoxDecorator>
+                <local:GroupBoxDecorator Header="Constrast" Height="100"
+                    Width="220" >
+                    <Grid>
+                        <Image Stretch="None" VerticalAlignment="Top" Margin="0,5" Source="Images/Constrast.tif" />
+
+                        <StackPanel Margin="0,5" Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom" >
+                            <Button Style="{StaticResource CustomButton2}"
+                                Content="-" />
+
+                            <TextBlock 
+                                VerticalAlignment="Center" 
+                                Margin="40,0"
+                                FontSize="30"
+                                >
+                                50
+                            </TextBlock>
+
+                            <Button Style="{StaticResource CustomButton2}"
+                                Content="+" />
+
+                        </StackPanel>
+
+                    </Grid>
+                </local:GroupBoxDecorator>
+            </StackPanel>
+
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="3" Orientation="Horizontal"
+            HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Button HorizontalContentAlignment="Center" IsDefault="False"
+                Content="Default" Template="{StaticResource custombtn}"
+                Height="35" Width="150" Margin="0,0,20,0" />
+            <Button HorizontalContentAlignment="Center" IsDefault="True"
+                Content="Apply" Template="{StaticResource custombtn}"  Height="35" Width="150" />
+        </StackPanel>
+
+    </Grid>
+</Window>

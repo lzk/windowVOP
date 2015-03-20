@@ -46,5 +46,13 @@ namespace VOP
                 }
             }
         }
+
+        private void SettingBtnClick(object sender, RoutedEventArgs e)
+        {
+            ScanSetting win = new ScanSetting();
+            
+            win.Owner = App.Current.MainWindow;
+            win.ShowDialog();
+        }
     }
 }

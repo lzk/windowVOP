@@ -13,11 +13,11 @@ using System.Windows.Shapes;
 namespace VOP
 {
 	/// <summary>
-	/// Interaction logic for ScanSetting.xaml
+	/// Interaction logic for CopySetting.xaml
 	/// </summary>
-	public partial class ScanSetting : Window
+	public partial class CopySetting : Window
 	{
-		public ScanSetting()
+		public CopySetting()
 		{
 			this.InitializeComponent();
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;

@@ -60,6 +60,9 @@
     <Compile Include="CustomControl\BusyRefresh.xaml.cs">
       <DependentUpon>BusyRefresh.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ScanSetting.xaml.cs">
+      <DependentUpon>ScanSetting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CopySetting.xaml.cs">
       <DependentUpon>CopySetting.xaml</DependentUpon>
     </Compile>
@@ -225,6 +228,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+
+    <Page Include="ScanSetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+
     <Page Include="CopySetting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -402,6 +411,9 @@
   </Target>
   -->
   <ItemGroup>
+    <Resource Include=".\Images\Brightness.tif" />
+    <Resource Include=".\Images\Constrast.tif" />
+
     <Resource Include=".\Images\RepeatButtonBackground.tif" />
     <Resource Include=".\Images\close.png" />
     <Resource Include=".\Images\check.png" />
