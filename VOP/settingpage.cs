@@ -35,11 +35,11 @@ namespace VOP
             InitializeComponent();
             m_listSettingButton.Clear();
 
-            int tabbtn_width = 150;
-            int tabbtn_height = 20;
+            int tabbtn_width = 157;
+            int tabbtn_height = 22;
 
             btnwifi.btn.Content = "Wi-Fi";
-            btnwifi.Margin = new Thickness(0, 10, 0, 4);
+            btnwifi.Margin = new Thickness(0, 0, 0, 4);
             btnwifi.Width = tabbtn_width;
             btnwifi.Height = tabbtn_height;
             btnwifi.HorizontalAlignment = HorizontalAlignment.Left;
