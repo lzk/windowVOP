@@ -3,9 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:vop="clr-namespace:VOP"
     xmlns:local="clr-namespace:VOP.Controls"
-    Width="666"
-    Height="333"
->
+             Width="510"
+             Height="294"
+             >
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -19,9 +19,12 @@
         </ResourceDictionary>
 
     </UserControl.Resources>
-<Grid>
-    <Grid.Resources>
-
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Images\PageCopy.tif" />
+        </Grid.Background>
+        
+        <Grid.Resources>
 
         <Color x:Key="clr0">#ff646464</Color>
         <Color x:Key="clr1">#ffa0a0a0</Color>
@@ -135,15 +138,11 @@
     </Grid.Resources>
 
 
-    <Canvas Grid.Row="0" Width="666" Height="333" >
-        <Image Source="Images\PageCopy.png" />
-    </Canvas>
-
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="210" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="1">
 

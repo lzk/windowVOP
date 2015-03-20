@@ -17,6 +17,9 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Name="mainGrid">
+        <Grid.Background>
+            <ImageBrush ImageSource="Images\PageSetting.tif" />
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40"/>
             <ColumnDefinition Width="172"/>
@@ -28,9 +31,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="35"></RowDefinition>
         </Grid.RowDefinitions>
-        <Canvas Grid.Row="0" Width="666" Height="333" >
-            <Image Source="Images\PageSetting.png" />
-        </Canvas>
+
 
         <StackPanel Grid.Row="1" Grid.Column="1" Name="setting_tab_btn" Orientation="Vertical" Panel.ZIndex="100"/>
         <Rectangle Name="settingView" Grid.Row="1" Grid.Column="2">
