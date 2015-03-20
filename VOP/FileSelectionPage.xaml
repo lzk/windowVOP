@@ -5,9 +5,12 @@
     Width="666"
     Height="333">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Images\PagePrint.tif" />
+        </Grid.Background>
 
         <Canvas Grid.Row="0" Width="666" Height="333" >
-            <Image Source="Images\PagePrint.png" />
+            
             <!--<local:GroupBoxDecorator Header="纸张大小" Canvas.Left="87" Canvas.Top="134" Height="127" Width="190">
                 <Label Content="Letter" Width="100" Height="25"/>
             </local:GroupBoxDecorator>-->
