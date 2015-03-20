@@ -20,7 +20,7 @@
             <ColumnDefinition Width="30"></ColumnDefinition>
             <ColumnDefinition Width="2"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition Width="25"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         
         <Image Name="imgActive" Grid.Column="0" Height="20" Width="20" Visibility="Hidden"></Image>

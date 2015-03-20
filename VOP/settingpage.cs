@@ -26,7 +26,7 @@ namespace VOP
             InitializeComponent();
             m_listSettingButton.Clear();
 
-            int tabbtn_width = 188;
+            int tabbtn_width = 183;
             int tabbtn_height = 27;
 
             btnwifi.btn.Content = "Wi-Fi";
