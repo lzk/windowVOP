@@ -1,11 +1,11 @@
 <UserControl x:Class="VOP.SettingPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Width="510"
-    Height="294"
-    x:Name="Control1" 
-    Loaded="handler_loaded_settingpage"
->
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="638"
+             Height="367"
+             x:Name="Control1" 
+             Loaded="handler_loaded_settingpage"
+             >
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

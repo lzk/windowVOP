@@ -1,9 +1,9 @@
 ﻿<UserControl x:Class="VOP.FileSelectionPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:VOP.Controls"
-   Width="510"
-     Height="294">
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:VOP.Controls"
+             Width="638"
+             Height="367">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="Images\PagePrint.tif" />
@@ -12,8 +12,8 @@
         <Canvas Grid.Row="0" >
 
             <!--<local:GroupBoxDecorator Header="纸张大小" Canvas.Left="87" Canvas.Top="134" Height="127" Width="190">
-                <Label Content="Letter" Width="100" Height="25"/>
-            </local:GroupBoxDecorator>-->
+                 <Label Content="Letter" Width="100" Height="25"/>
+                 </local:GroupBoxDecorator>-->
             <local:ImageButton PreviewMouseLeftButtonDown="OnClickFilePrint" ImagePath="Images/ButtonFileSelect.png" BottomText="文件打印" Canvas.Left="158" Canvas.Top="116" Height="83" Width="79"/>
             <local:ImageButton PreviewMouseLeftButtonDown="OnClickIdCardPrint" ImagePath="Images/ButtonIdCardSelect.png" BottomText="证件打印" Canvas.Left="303" Canvas.Top="116" Height="83" Width="79"/>
         </Canvas>
