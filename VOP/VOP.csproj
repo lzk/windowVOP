@@ -233,6 +233,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CustomControl\CustomScrollView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CustomControl\customTabItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -399,7 +403,6 @@
   -->
   <ItemGroup>
     <Resource Include=".\Images\RepeatButtonBackground.tif" />
-
     <Resource Include=".\Images\close.png" />
     <Resource Include=".\Images\check.png" />
     <Resource Include=".\Images\Nin1_1.tif" />
