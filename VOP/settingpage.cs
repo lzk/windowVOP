@@ -21,6 +21,15 @@ namespace VOP
         SettingButton btnAbout = new SettingButton(IconType.About);
 
         List<SettingButton> m_listSettingButton = new List<SettingButton>();
+
+        WifiView    wifiView = new WifiView();
+        SoftapView  softapView = new SoftapView();
+        TcpipView   tcpipView = new TcpipView();
+        PowerSaveView powersaveView = new PowerSaveView();
+        UserConfigView userconfigView = new UserConfigView();
+        PasswordView passwordView = new PasswordView();
+        AboutView aboutView = new AboutView();
+
         public SettingPage()
         {
             InitializeComponent();
@@ -108,6 +117,21 @@ namespace VOP
             }
         }
 
+        private void ClickSettingButton(IconType iconType)
+        {
+            foreach (SettingButton btn in m_listSettingButton)
+            {
+                if (btn.m_nIconType == iconType)
+                {
+                    RoutedEventArgs argsEvent = new RoutedEventArgs();
+                    argsEvent.RoutedEvent = Button.ClickEvent;
+                    argsEvent.Source = this;
+                    btn.btn.RaiseEvent(argsEvent);
+                    break;
+                }
+            }
+        }
+
         public void handler_loaded_settingpage( object sender, RoutedEventArgs e )
         {
             setting_tab_btn.Children.Clear();
@@ -125,6 +149,11 @@ namespace VOP
             setting_tab_btn.Children.Add(btnUserConfig);
             setting_tab_btn.Children.Add(btnPwd);
             setting_tab_btn.Children.Add(btnAbout);
+
+            if(VOP.MainWindow.IsSupportWifi(strPrinterDrvName))
+            {
+                ClickSettingButton(IconType.Wireless);
+            }
         }
 
         private void SettingBtnClick(object sender, RoutedEventArgs e)
@@ -134,30 +163,37 @@ namespace VOP
             {
                 srcButton.IsActiveEx = true;
                 SetActiveButton(IconType.Wireless);
+                this.settingView.Child = wifiView;
             }
             else if ("btnSoftAp" == srcButton.Name)
             {
                 SetActiveButton(IconType.SoftAP);
+                this.settingView.Child = softapView;
             }
             else if ("btnTCPIP" == srcButton.Name)
             {
                 SetActiveButton(IconType.TCPIP);
+                this.settingView.Child = tcpipView;
             }
             else if ("btnPowerSave" == srcButton.Name)
             {
                 SetActiveButton(IconType.PowerSave);
+                this.settingView.Child = powersaveView;
             }
             else if ("btnUserConfig" == srcButton.Name)
             {
                 SetActiveButton(IconType.UserConfig);
+                this.settingView.Child = userconfigView;
             }
             else if ("btnPassword" == srcButton.Name)
             {
                 SetActiveButton(IconType.Password);
+                this.settingView.Child = passwordView;
             }
             else if ("btnAbout" == srcButton.Name)
             {
                 SetActiveButton(IconType.About);
+                this.settingView.Child = aboutView;
             }
         }
 

@@ -21,23 +21,20 @@
             <ImageBrush ImageSource="Images\PageSetting.tif" />
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40"/>
-            <ColumnDefinition Width="172"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="172*"/>
+            <ColumnDefinition Width="408*"/>
+            <ColumnDefinition Width="40*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="35*"></RowDefinition>
+            <RowDefinition Height="263*"></RowDefinition>
+            <RowDefinition Height="35*"></RowDefinition>
         </Grid.RowDefinitions>
 
 
         <StackPanel Grid.Row="1" Grid.Column="1" Name="setting_tab_btn" Orientation="Vertical" Panel.ZIndex="100"/>
-        <Rectangle Name="settingView" Grid.Row="1" Grid.Column="2">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="Images\SettingViewBackground.png"></ImageBrush>
-            </Rectangle.Fill>
-        </Rectangle>
+        <Border Name="settingView" Grid.Row="1" Grid.Column="2"/>
+
     </Grid>
 </UserControl>
