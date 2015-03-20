@@ -56,6 +56,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomControl\BusyRefresh.xaml.cs">
+      <DependentUpon>BusyRefresh.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CopySetting.xaml.cs">
       <DependentUpon>CopySetting.xaml</DependentUpon>
     </Compile>
@@ -85,6 +88,10 @@
       <DependentUpon>SettingButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="type_define.cs" />
+        <Page Include="CustomControl\BusyRefresh.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\CheckBox_Template.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -344,10 +351,6 @@
     <Resource Include=".\Images\IDCardCopyIconEnable.tif" />
     <Resource Include=".\Images\background.png" />
     <Resource Include=".\Images\turn.png" />
-    <Resource Include=".\Images\PageCopy.png" />
-    <Resource Include=".\Images\PagePrint.png" />
-    <Resource Include=".\Images\PageScan.png" />
-    <Resource Include=".\Images\PageSetting.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\PagePrint_Bk_2.png" />
@@ -361,9 +364,6 @@
     <Resource Include="Images\ToggleRight.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\status_imageTextbox_Right.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\shoppingCart.png" />
   </ItemGroup>
   <ItemGroup>
@@ -373,12 +373,6 @@
   <ItemGroup>
     <Resource Include="Images\ButtonFileSelect.png" />
     <Resource Include="Images\ButtonIdCardSelect.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\btnCopy.png" />
-    <Resource Include="Images\btnPrint.png" />
-    <Resource Include="Images\btnScan.png" />
-    <Resource Include="Images\btnSetting.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\shopCart_Warn.png" />
@@ -407,9 +401,24 @@
     <Resource Include="Images\NotLogin.tif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\triangle.png" />
+    <Resource Include="Images\btnCopy.tif" />
+    <Resource Include="Images\btnPrint.tif" />
+    <Resource Include="Images\btnScan.tif" />
+    <Resource Include="Images\btnSetting.tif" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\busyRefresh.tif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\background.tif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PagePrint.tif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PageCopy.tif" />
+    <Resource Include="Images\PageScan.tif" />
+    <Resource Include="Images\PageSetting.tif" />
     <Resource Include="Images\SettingViewBackground.png" />
   </ItemGroup>
 </Project>
