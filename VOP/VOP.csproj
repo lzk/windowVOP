@@ -59,9 +59,6 @@
     <Compile Include="CustomControl\BusyRefresh.xaml.cs">
       <DependentUpon>BusyRefresh.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AboutView.xaml.cs">
-      <DependentUpon>AboutView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CopySetting.xaml.cs">
       <DependentUpon>CopySetting.xaml</DependentUpon>
     </Compile>
@@ -84,6 +81,9 @@
     <Compile Include="Controls\ImageCropper\RotateThumb.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="dll.cs" />
+    <Compile Include="AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PasswordView.xaml.cs">
       <DependentUpon>PasswordView.xaml</DependentUpon>
     </Compile>
@@ -93,25 +93,23 @@
     <Compile Include="SoftapView.xaml.cs">
       <DependentUpon>SoftapView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StatusPanel.xaml.cs">
-      <DependentUpon>StatusPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SettingButton.xaml.cs">
-      <DependentUpon>SettingButton.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TcpipView.xaml.cs">
-      <DependentUpon>TcpipView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="type_define.cs" />
-        <Page Include="CustomControl\BusyRefresh.xaml">
-    </Compile>
     <Compile Include="UserConfigView.xaml.cs">
       <DependentUpon>UserConfigView.xaml</DependentUpon>
     </Compile>
     <Compile Include="WifiView.xaml.cs">
       <DependentUpon>WifiView.xaml</DependentUpon>
     </Compile>
-    <Page Include="AboutView.xaml">
+    <Compile Include="TcpipView.xaml.cs">
+      <DependentUpon>TcpipView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StatusPanel.xaml.cs">
+      <DependentUpon>StatusPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SettingButton.xaml.cs">
+      <DependentUpon>SettingButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="type_define.cs" />
+    <Page Include="CustomControl\BusyRefresh.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -156,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WifiView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -467,5 +469,8 @@
     <Resource Include="Images\PageScan.tif" />
     <Resource Include="Images\PageSetting.tif" />
     <Resource Include="Images\SettingViewBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\triangle.png" />
   </ItemGroup>
 </Project>
