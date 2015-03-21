@@ -178,8 +178,8 @@
 
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
-                        <Image Source="Images/IDCardCopyIconEnable.tif"
-                               Stretch="Fill" Width="43" Height="28" > </Image>
+                        <Image Source="Images/IDCardCopyIconEnable.png"
+                               Stretch="None" > </Image>
                         <TextBlock Margin="20,0" VerticalAlignment="Center"> ID Card Copy </TextBlock>
                         <CheckBox Template="{StaticResource switchBox}"
                                   IsChecked="False" Width="50" Height="25" />

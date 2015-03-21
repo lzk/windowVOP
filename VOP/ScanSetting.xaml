@@ -122,7 +122,7 @@
                     Width="220" Margin="0,0,0,15"  >
                     <Grid>
                         <Image Stretch="None" VerticalAlignment="Top"
-                            Margin="0,5" Source="Images/Brightness.tif" />
+                            Margin="0,5" Source="Images/Brightness.png" />
 
                         <StackPanel Margin="0,5" Orientation="Horizontal"
                             HorizontalAlignment="Center"
@@ -148,7 +148,8 @@
                 <local:GroupBoxDecorator Header="Constrast" Height="100"
                     Width="220" >
                     <Grid>
-                        <Image Stretch="None" VerticalAlignment="Top" Margin="0,5" Source="Images/Constrast.tif" />
+                        <Image Stretch="None" VerticalAlignment="Top"
+                            Margin="0,5" Source="Images/Constrast.png" />
 
                         <StackPanel Margin="0,5" Orientation="Horizontal"
                             HorizontalAlignment="Center"

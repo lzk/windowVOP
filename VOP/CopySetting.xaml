@@ -176,10 +176,14 @@
                     <Rectangle Grid.Column="2" Width="80" Height="56" Fill="Gray" RadiusX="5" RadiusY="5" Margin="5,0"/>
                     <Rectangle Grid.Column="3" Width="80" Height="56" Fill="Gray" RadiusX="5" RadiusY="5" Margin="5,0"/>
 
-                    <Image Grid.Column="0" Stretch="None" Source="Images\Nin1_1.tif" />
-                    <Image Grid.Column="1" Stretch="None" Source="Images\Nin1_2.tif" />
-                    <Image Grid.Column="2" Stretch="None" Source="Images\Nin1_4.tif" />
-                    <Image Grid.Column="3" Stretch="None" Source="Images\Nin1_9.tif" />
+                    <Image Grid.Column="0" Stretch="None"
+                        Source="Images\Nin1_1.png" />
+                    <Image Grid.Column="1" Stretch="None"
+                        Source="Images\Nin1_2.png" />
+                    <Image Grid.Column="2" Stretch="None"
+                        Source="Images\Nin1_4.png" />
+                    <Image Grid.Column="3" Stretch="None"
+                        Source="Images\Nin1_9.png" />
                 </Grid>
 
             </Grid>

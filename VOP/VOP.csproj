@@ -429,17 +429,17 @@
   </Target>
   -->
   <ItemGroup>
-    <Resource Include=".\Images\Brightness.tif" />
-    <Resource Include=".\Images\Constrast.tif" />
-    <Resource Include=".\Images\RepeatButtonBackground.tif" />
+    <Resource Include=".\Images\Brightness.png" />
+    <Resource Include=".\Images\Constrast.png" />
+    <Resource Include=".\Images\RepeatButtonBackground.png" />
     <Resource Include=".\Images\close.png" />
     <Resource Include=".\Images\check.png" />
-    <Resource Include=".\Images\Nin1_1.tif" />
-    <Resource Include=".\Images\Nin1_2.tif" />
-    <Resource Include=".\Images\Nin1_4.tif" />
-    <Resource Include=".\Images\Nin1_9.tif" />
-    <Resource Include=".\Images\IDCardCopyIconDisable.tif" />
-    <Resource Include=".\Images\IDCardCopyIconEnable.tif" />
+    <Resource Include=".\Images\Nin1_1.png" />
+    <Resource Include=".\Images\Nin1_2.png" />
+    <Resource Include=".\Images\Nin1_4.png" />
+    <Resource Include=".\Images\Nin1_9.png" />
+    <Resource Include=".\Images\IDCardCopyIconDisable.png" />
+    <Resource Include=".\Images\IDCardCopyIconEnable.png" />
     <Resource Include=".\Images\background.png" />
     <Resource Include=".\Images\turn.png" />
   </ItemGroup>
