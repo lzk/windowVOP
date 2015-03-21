@@ -150,7 +150,7 @@
                     <vop:Density
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Margin="0,40,0,10" 
+                        Margin="0,60,0,10" 
                         />
 
                     <local:GroupBoxDecorator Header="Copies" Height="80" Width="300"

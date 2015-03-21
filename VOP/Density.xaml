@@ -30,12 +30,12 @@
                 CustomButton2}" Content="-" Margin="10,0" />
 
 
-            <Rectangle Name="rect1" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="10" Height="5" />
-            <Rectangle Name="rect2" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="10" Height="8" />
-            <Rectangle Name="rect3" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="10" Height="11" />
-            <Rectangle Name="rect4" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="10" Height="14" />
-            <Rectangle Name="rect5" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="10" Height="17" />
-            <Rectangle Name="rect6" VerticalAlignment="Bottom" Margin="5,0,5,5" Fill="Black" Width="10" Height="20" />
+            <Rectangle Name="rect1" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="12" Height="8" />
+            <Rectangle Name="rect2" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="12" Height="11" />
+            <Rectangle Name="rect3" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="12" Height="14" />
+            <Rectangle Name="rect4" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="12" Height="17" />
+            <Rectangle Name="rect5" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="12" Height="20" />
+            <Rectangle Name="rect6" VerticalAlignment="Bottom" Margin="5,0,5,5" Fill="Black" Width="12" Height="23" />
 
             <Button Name="btnIncrease" Click="BtnClick" Style="{StaticResource CustomButton2}" Content="+" 
                 Margin="10,0" />
