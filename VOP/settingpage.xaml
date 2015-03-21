@@ -21,15 +21,15 @@
             <ImageBrush ImageSource="Images\PageSetting.tif" />
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="15*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="160*"/>
+            <ColumnDefinition Width="408*"/>
+            <ColumnDefinition Width="25*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="5*"></RowDefinition>
-            <RowDefinition Height="25*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="55*"></RowDefinition>
+            <RowDefinition Height="263*"></RowDefinition>
+            <RowDefinition Height="28*"></RowDefinition>
         </Grid.RowDefinitions>
 
 

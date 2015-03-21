@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,9 @@ using System.IO;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Timers;
+using System.Management;
+using System.Configuration;
 
 namespace VOP
 {
@@ -111,6 +115,146 @@ namespace VOP
         public Int32    m_nResponse;
         public string   m_strMessage;
         public bool     m_bSuccess;
+    }
+
+    class SystemInfo
+    {
+        public static string GetMacAddress()
+        {
+            try
+            {
+                //获取网卡硬件地址 
+                string mac = "";
+                ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+                ManagementObjectCollection moc = mc.GetInstances();
+                foreach (ManagementObject mo in moc)
+                {
+                    if ((bool)mo["IPEnabled"] == true)
+                    {
+                        mac = mo["MacAddress"].ToString();
+                        break;
+                    }
+                }
+                moc = null;
+                mc = null;
+                return mac;
+            }
+            catch
+            {
+                return "";
+            }
+        }
+    }
+    class MD5
+    {
+        public static string MD5_Encrypt(string str)
+        {
+            return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(str, "MD5");
+        }
+    }
+    class CRM_PrintInfo
+    {
+        private readonly string m_strSignKey = "86c02972fba047b0b0a9adb8123029fb";
+
+        public string m_strMobileCode;    //Net card ID
+        public string m_strMobileNumber;  //can not upload
+        public string m_strDeviceBrand;
+        public string m_strDeviceModel;
+        private string m_strPrintType;   //always "VOP-WIN"
+        private string m_strPrintMode;    //alway "VOP-WIN"
+        public string m_strPrintDocType;
+        public string m_strPrintCopys;
+        public string m_strPrintPages;
+        public string m_strPrinterModel;
+        public string m_strPrinterName;
+        public string m_strPrinterType;
+        public string m_strPrintSuccess;   //alway true
+        public DateTime m_time;   //yyyyMMddHHmmss, for example:20140219092408
+        public string m_strSign; //MobileCode+time+key using MD5
+
+        public CRM_PrintInfo()
+        {
+            m_strMobileCode = SystemInfo.GetMacAddress();
+            m_strMobileNumber = "";
+            m_strDeviceBrand = "";
+            m_strDeviceModel = "";
+            m_strPrintType = "VOP-WIN";
+            m_strPrintMode = "VOP-WIN";
+            m_strPrintDocType = "doc";
+            m_strPrintCopys = "1";
+            m_strPrintPages = "1";
+            m_strPrinterModel = "Lenovo ABC";
+            m_strPrinterName = "Lenovo ABC Printer";
+            m_strPrinterType = "SFP";
+            m_strPrintSuccess = "true";
+
+            m_time = System.DateTime.Now.ToLocalTime();
+        }
+
+        public string ConvertToWebParams()
+        {
+            string str = "";
+            try
+            {
+                m_strSign = MD5.MD5_Encrypt(m_strMobileCode + m_time.ToString("yyyyMMddHHmmss") + m_strSignKey);
+
+                str = String.Format("MobileCode={0}&Mobile={1}&DeviceBrand={2}&DeviceModel={3}&PrintType={4}&PrintMode={5}&PrintDocType={6}&PrintCopys={7}&PrintPages={8}&PrinterModel={9}&PrinterName={10}&PrinterType={11}&IsSuccess={12}&time={13}&sign={14}"
+                    , m_strMobileCode, m_strMobileNumber, m_strDeviceBrand, m_strDeviceModel, m_strPrintType, m_strPrintMode, m_strPrintDocType,
+                    m_strPrintCopys, m_strPrintPages, m_strPrinterModel, m_strPrinterName, m_strPrinterType, m_strPrintSuccess, m_time.ToString("yyyyMMddHHmmss"), m_strSign
+                    );  
+            }
+            catch
+            {
+
+            }
+
+            return str;
+        }
+    }
+
+    class CRM_LocalInfo
+    {
+        private readonly string m_strSignKey = "86c02972fba047b0b0a9adb8123029fb";
+
+        public string m_strMobileCode;    //Net card ID
+        public string m_strMobileNumber;  //can not upload
+        public string m_strDeviceBrand;
+        public string m_strDeviceModel;
+        public string m_strAppFrom; //always "VOP-WIN"
+        public string m_strAppVersion;
+        public DateTime m_time;   //yyyyMMddHHmmss, for example:20140219092408
+        public string m_strSign; //MobileCode+time+key using MD5
+
+        public CRM_LocalInfo()
+        {
+            m_strMobileCode = SystemInfo.GetMacAddress();
+            m_strMobileNumber = "";
+            m_strDeviceBrand = "";
+            m_strDeviceModel = "";
+            m_strAppFrom = "VOP-WIN";
+            m_strAppVersion = "0.001";
+            m_strSign = "";
+            m_time = System.DateTime.Now.ToLocalTime();
+        }
+
+        public string ConvertToWebParams()
+        {
+            string str = "";
+            try
+            {
+                m_strSign = MD5.MD5_Encrypt(m_strMobileCode + m_time.ToString("yyyyMMddHHmmss") + m_strSignKey);
+
+                str = String.Format("MobileCode={0}&Mobile={1}&DeviceBrand={2}&DeviceModel={3}&appFrom={4}&version={5}&time={6}&sign={7}"
+                    , m_strMobileCode, m_strMobileNumber, m_strDeviceBrand, m_strDeviceModel, m_strAppFrom, m_strAppVersion,
+                    m_time.ToString("yyyyMMddHHmmss"), m_strSign);
+            }
+            catch
+            {
+
+            }
+
+            return str;
+        }
     }
     class RequestManager
     {
@@ -442,6 +586,41 @@ namespace VOP
 
             return bSuccess;
         }
-        
+
+        public bool UploadCRM_PrintInfoToServer(ref CRM_PrintInfo _PrintInfo, ref JSONResultFormat2 rtValue)
+        {
+            bool bSuccess = false;
+            //http://crm.iprintworks.cn/api/app_print
+            string url = "http://123.57.255.92/api/app_print";//debug 
+            string strCMD = _PrintInfo.ConvertToWebParams();
+
+            if (SendHttpWebRequest<JSONResultFormat2>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat2, ref rtValue))
+            {
+                if (rtValue.m_bSuccess)
+                {
+                    bSuccess = true;
+                }
+            }
+
+            return bSuccess;
+        }
+
+        public bool UploadCRM_LocalInfoToServer(ref CRM_LocalInfo _lci, ref JSONResultFormat2 rtValue)
+        {
+            bool bSuccess = false;
+            //http://crm.iprintworks.cn/api/app_open
+            string url = "http://123.57.255.92/api/app_open";//debug 
+            string strCMD = _lci.ConvertToWebParams();
+
+            if (SendHttpWebRequest<JSONResultFormat2>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat2, ref rtValue))
+            {
+                if (rtValue.m_bSuccess)
+                {
+                    bSuccess = true;
+                }
+            }
+
+            return bSuccess;
+        }
     }
 }
