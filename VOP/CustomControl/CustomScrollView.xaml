@@ -202,7 +202,6 @@
       <RowDefinition MaxHeight="18" />
     </Grid.RowDefinitions>
     <Border Grid.RowSpan="3"
-            CornerRadius="2"
             Background="#F0F0F0" />
     <RepeatButton Grid.Row="0"
                   Style="{StaticResource ScrollBarLineButton}"
