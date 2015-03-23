@@ -88,6 +88,13 @@
                 Margin="1"
                 >
 
+
+          <Border.Background>
+              <ImageBrush
+                  ImageSource="/VOP;component/Images/RepeatButtonBackground.png"
+                  Stretch="Fill"/>
+          </Border.Background>
+
           <Path x:Name="Arrow"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
