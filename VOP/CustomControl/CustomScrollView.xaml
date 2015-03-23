@@ -146,11 +146,11 @@
 
           <Grid>
 
-			<Ellipse HorizontalAlignment="Center" 
-                Margin="0,2"
-				Height="16" 
-                Width="{TemplateBinding ActualWidth}"
-				VerticalAlignment="Bottom"
+			<Ellipse HorizontalAlignment="Left" 
+                Margin="2,0"
+				Width="16" 
+                Height="{TemplateBinding ActualHeight}"
+				VerticalAlignment="Center"
       >
 
 				<Ellipse.Fill>
@@ -161,11 +161,11 @@
 				</Ellipse.Fill>
 			</Ellipse>
 
-			<Ellipse HorizontalAlignment="Center" 
-                Margin="0,2"
-				Height="16" 
-                Width="{TemplateBinding ActualWidth}"
-				VerticalAlignment="Top"
+			<Ellipse HorizontalAlignment="Right" 
+                Margin="2,0"
+				Width="16" 
+                Height="{TemplateBinding ActualHeight}"
+				VerticalAlignment="Center"
       >
 
 				<Ellipse.Fill>
@@ -176,7 +176,7 @@
 				</Ellipse.Fill>
 			</Ellipse>
 
-			<Rectangle Margin="0,10">
+			<Rectangle Margin="10,0">
 
 				<Rectangle.Fill>
 					<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
