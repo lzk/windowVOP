@@ -158,7 +158,7 @@
                                      VerticalAlignment="Center"                          
                                      FontSize="12"
                                      TextAlignment="Center"      
-                                     Foreground="White" >
+                                     Foreground="White" Text="">
             </mycontrol:ScrollTextBox>
 
             <Button Grid.Row="0"  Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="2" 
