@@ -321,7 +321,7 @@
   </Grid>
 </ControlTemplate>
 
-<Style x:Key="{x:Type ScrollBar}"
+<Style x:Key="MyScrollBar"
        TargetType="{x:Type ScrollBar}">
   <Setter Property="SnapsToDevicePixels"
           Value="True" />
@@ -373,6 +373,7 @@
           </Border>
 
           <ScrollBar Grid.Column="1" x:Name="PART_VerticalScrollBar"
+              Style="{StaticResource MyScrollBar}"
                      Value="{TemplateBinding VerticalOffset}"
                      Maximum="{TemplateBinding ScrollableHeight}"
                      ViewportSize="{TemplateBinding ViewportHeight}"
