@@ -374,6 +374,11 @@
             <ColumnDefinition Width="Auto" />
           </Grid.ColumnDefinitions>
 
+          <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+
           <Border Grid.Column="0"
                   BorderThickness="0,1,1,1">
             <ScrollContentPresenter />
@@ -387,6 +392,15 @@
                      Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
                      Background="Black"
                      />
+
+                 <ScrollBar x:Name="PART_HorizontalScrollBar"
+                     Orientation="Horizontal"
+                     Grid.Row="1"
+                     Grid.Column="0"
+                     Value="{TemplateBinding HorizontalOffset}"
+                     Maximum="{TemplateBinding ScrollableWidth}"
+                     ViewportSize="{TemplateBinding ViewportWidth}"
+                     Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
 
         </Grid>
       </ControlTemplate>
