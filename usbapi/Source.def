@@ -1,0 +1,25 @@
+LIBRARY      "usbdll"
+
+EXPORTS
+    SendCopyCmd
+    SetIPInfo
+    GetIPInfo
+    GetApList
+    GetPrinterStatus
+    SetUserCfg
+    SetSoftAp
+    GetSoftAp
+    SetWiFiInfo
+    GetWiFiInfo
+    GetUserCfg
+    GetPowerSaveTime
+    SetPowerSaveTime
+    ScanEx
+	PrintInit
+	AddImagePath
+	DoPrint
+	OutputDebugStringToFileA
+	OutputDebugStringToFile
+	OutputDebugStringToFile_
+    CheckPortAPI
+	SetFusingSCReset

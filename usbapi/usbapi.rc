@@ -1,0 +1,3 @@
+#include "afxres.h"
+
+#include "../VersionInfo.rc"

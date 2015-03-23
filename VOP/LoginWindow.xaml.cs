@@ -45,12 +45,12 @@ namespace VOP
                 }
                 else
                 {
-                    MessageBox.Show("Send verify code fail.");
+                    MessageBox.Show("验证码校验错误");
                 }
             }
             else
             {
-                MessageBox.Show("Please input correct phone number.");
+                MessageBox.Show("请输入正确的手机号码");
                 tbPhoneNumber.Focus();
             }
         }
@@ -70,19 +70,19 @@ namespace VOP
                 }
                 else
                 {
-                    MessageBox.Show("Send identifying code fail.");
+                    MessageBox.Show("验证码发送失败");
                 }
             }
             else
             {
                 if (tbPhoneNumber.Text.Length != 11)
                 {
-                    MessageBox.Show("Please input correct phone number.");
+                    MessageBox.Show("请输入正确的手机号码");
                     tbPhoneNumber.Focus();
                 }
                 else if (pbPwd.Password.Length != 6)
                 {
-                    MessageBox.Show("Please input correct identifying code.");
+                    MessageBox.Show("请输入正确的验证码");
                     pbPwd.Focus();
                 }
             }
