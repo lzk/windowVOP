@@ -179,7 +179,7 @@
 			<Rectangle Margin="10,0">
 
 				<Rectangle.Fill>
-					<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+					<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
 						<LinearGradientBrush.GradientStops>
 							<GradientStopCollection>
 								<GradientStop Color="#ffababab" Offset="0.0" />
