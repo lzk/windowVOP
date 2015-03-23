@@ -17,10 +17,10 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition Width="2"></ColumnDefinition>
             <ColumnDefinition Width="143*"></ColumnDefinition>
-            <ColumnDefinition Width="25*"></ColumnDefinition>
+            <ColumnDefinition Width="15"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Image Name="imgActive" Grid.Column="0" Height="15" Width="15" Visibility="Hidden"></Image>

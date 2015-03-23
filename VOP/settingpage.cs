@@ -35,11 +35,11 @@ namespace VOP
             InitializeComponent();
             m_listSettingButton.Clear();
 
-            int tabbtn_width = 157;
-            int tabbtn_height = 22;
+            int tabbtn_width = 174;
+            int tabbtn_height = 27;
 
             btnwifi.btn.Content = "Wi-Fi";
-            btnwifi.Margin = new Thickness(0, 0, 0, 4);
+            btnwifi.Margin = new Thickness(0, 0, 0, 6);
             btnwifi.Width = tabbtn_width;
             btnwifi.Height = tabbtn_height;
             btnwifi.HorizontalAlignment = HorizontalAlignment.Left;
@@ -48,7 +48,7 @@ namespace VOP
             m_listSettingButton.Add(btnwifi);
 
             btnSoftAp.btn.Content = "SoftAP";
-            btnSoftAp.Margin = new Thickness(0, 0, 0, 4);
+            btnSoftAp.Margin = new Thickness(0, 0, 0, 6);
             btnSoftAp.Width = tabbtn_width;
             btnSoftAp.Height = tabbtn_height;
             btnSoftAp.HorizontalAlignment = HorizontalAlignment.Left;
@@ -57,7 +57,7 @@ namespace VOP
             m_listSettingButton.Add(btnSoftAp);
 
             btnTCPIP.btn.Content = "TCPIP";
-            btnTCPIP.Margin = new Thickness(0, 0, 0, 4);
+            btnTCPIP.Margin = new Thickness(0, 0, 0, 6);
             btnTCPIP.Width = tabbtn_width;
             btnTCPIP.Height = tabbtn_height;
             btnTCPIP.HorizontalAlignment = HorizontalAlignment.Left;
@@ -66,7 +66,7 @@ namespace VOP
             m_listSettingButton.Add(btnTCPIP);
 
             btnPowerSave.btn.Content = "Power Save";
-            btnPowerSave.Margin = new Thickness(0, 0, 0, 4);
+            btnPowerSave.Margin = new Thickness(0, 0, 0, 6);
             btnPowerSave.Width = tabbtn_width;
             btnPowerSave.Height = tabbtn_height;
             btnPowerSave.HorizontalAlignment = HorizontalAlignment.Left;
@@ -75,7 +75,7 @@ namespace VOP
             m_listSettingButton.Add(btnPowerSave);
 
             btnUserConfig.btn.Content = "User Config";
-            btnUserConfig.Margin = new Thickness(0, 0, 0, 4);
+            btnUserConfig.Margin = new Thickness(0, 0, 0, 6);
             btnUserConfig.Width = tabbtn_width;
             btnUserConfig.Height = tabbtn_height;
             btnUserConfig.HorizontalAlignment = HorizontalAlignment.Left;
@@ -84,7 +84,7 @@ namespace VOP
             m_listSettingButton.Add(btnUserConfig);
 
             btnPwd.btn.Content = "Password";
-            btnPwd.Margin = new Thickness(0, 0, 0, 4);
+            btnPwd.Margin = new Thickness(0, 0, 0, 6);
             btnPwd.Width = tabbtn_width;
             btnPwd.Height = tabbtn_height;
             btnPwd.HorizontalAlignment = HorizontalAlignment.Left;
@@ -93,7 +93,7 @@ namespace VOP
             m_listSettingButton.Add(btnPwd);
 
             btnAbout.btn.Content = "About";
-            btnAbout.Margin = new Thickness(0, 0, 0, 4);
+            btnAbout.Margin = new Thickness(0, 0, 0, 6);
             btnAbout.Width = tabbtn_width;
             btnAbout.Height = tabbtn_height;
             btnAbout.HorizontalAlignment = HorizontalAlignment.Left;
