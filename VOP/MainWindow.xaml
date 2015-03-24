@@ -58,13 +58,8 @@
         
         <SolidColorBrush x:Key="lineColor_1" Color="#AAAAAA" />
         <SolidColorBrush x:Key="lineColor_2" Color="#555555" />
-
-        <Image x:Key="print_Bk" HorizontalAlignment="Center" VerticalAlignment="Center" Source="Images\PagePrint.tif" />
-        <Image x:Key="copy_Bk" HorizontalAlignment="Center" VerticalAlignment="Center" Source="Images\PageCopy.tif" />
-        <Image x:Key="scan_Bk" HorizontalAlignment="Center" VerticalAlignment="Center" Source="Images\PageScan.tif" />
-        <Image x:Key="setting_Bk" HorizontalAlignment="Center" VerticalAlignment="Center" Source="Images\PageSetting.tif" />
-
-
+        <ImageBrush x:Key="imgBk_Brush_1"  ImageSource="Images\PageCopy.tif" />
+        <ImageBrush x:Key="imgBk_Brush_2"  ImageSource="Images\PageSetting.tif" />        
     </Window.Resources>
 
     <Grid>
@@ -126,7 +121,6 @@
 
 
         <Grid Name="contentGrid" Grid.Row="4" Grid.ColumnSpan="14" Margin="0, -20, 0, 0"  Width="638" Height="367">
-            <Border Name="subPageView_background" Width="{Binding ElementName=contentGrid, Path=Width}" Height="{Binding ElementName=contentGrid, Path=Height}"/>
             <Border VerticalAlignment="Top" Name="subPageView" Width="{Binding ElementName=contentGrid, Path=Width}" Height="{Binding ElementName=contentGrid, Path=Height}"/>
             <Border VerticalAlignment="Top" Name="statusPageView" Grid.Row="4" Grid.ColumnSpan="14"  Width="{Binding ElementName=contentGrid, Path=Width}" Height="{Binding ElementName=contentGrid, Path=Height}" />
         </Grid>

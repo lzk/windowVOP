@@ -49,6 +49,9 @@ namespace VOP
         SettingPage winSettingPage= new SettingPage();
         StatusPanel statusPanelPage = new StatusPanel();
 
+        private ImageBrush imgBk_Brush_1 = null;
+        private ImageBrush imgBk_Brush_2 = null;
+
         public static PrinterInfo[] printerInfos = 
         {
             new PrinterInfo("Lenovo ABC M001"   , false , false ) ,
@@ -218,6 +221,9 @@ namespace VOP
         {
             InitializeComponent();
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;
+
+            imgBk_Brush_1 = (ImageBrush)this.FindResource("imgBk_Brush_1");
+            imgBk_Brush_2 = (ImageBrush)this.FindResource("imgBk_Brush_2");
         }
 
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
@@ -230,6 +236,8 @@ namespace VOP
 
             this.subPageView.Child = winFileSelectionPage;      // for test  
             this.statusPanelPage.Visibility = Visibility.Hidden;
+
+            IsScanCopy_Usable = true;
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -294,6 +302,60 @@ namespace VOP
         }
 
         #region Set_TabItemIndex
+
+        private bool isScanCopy_Usable = true;
+        private bool IsScanCopy_Usable
+        {
+            get { return isScanCopy_Usable; }
+            set
+            {
+                isScanCopy_Usable = value;
+
+                if (isScanCopy_Usable)
+                {
+                    line4.Visibility = Visibility.Visible;
+                    line5.Visibility = Visibility.Visible;
+                    line9.Visibility = Visibility.Visible;
+                    line10.Visibility = Visibility.Visible;
+
+                    Scan_Grid.Visibility = Visibility.Visible;
+                    Copy_Grid.Visibility = Visibility.Visible;
+                    Grid.SetColumn(Setting_Grid, 9);
+                    Grid.SetRow(Setting_Grid, 2);
+
+                    tabItem_Copy.Visibility = Visibility.Visible;
+                    tabItem_Scan.Visibility = Visibility.Visible;
+
+                    Grid.SetColumn(tabItem_Setting, 9);
+                    Grid.SetRow(tabItem_Setting, 3);
+
+                    winSettingPage.mainGrid.Background = imgBk_Brush_2;
+
+                }
+                else
+                {
+                    line4.Visibility = Visibility.Hidden;
+                    line5.Visibility = Visibility.Hidden;
+                    line9.Visibility = Visibility.Hidden;
+                    line10.Visibility = Visibility.Hidden;
+
+                    Scan_Grid.Visibility = Visibility.Hidden;
+                    Copy_Grid.Visibility = Visibility.Hidden;
+                    Grid.SetColumn(Setting_Grid, 5);
+                    Grid.SetRow(Setting_Grid, 2);
+
+                    tabItem_Copy.Visibility = Visibility.Hidden;
+                    tabItem_Scan.Visibility = Visibility.Hidden;
+
+                    Grid.SetColumn(tabItem_Setting, 5);
+                    Grid.SetRow(tabItem_Setting, 3);
+
+                    winSettingPage.mainGrid.Background = imgBk_Brush_1;
+                }
+            }
+        }
+
+
         private bool setTabItemFromName(string tabItemName)
         {
             if (0 == String.Compare(tabItemName, "printer", true))
@@ -321,10 +383,12 @@ namespace VOP
         }
         private bool setTabItemFromIndex(int index)
         {
-            if (0 == index)
+            if (IsScanCopy_Usable)
             {
-                this.subPageView.Child = winPrintPage;
-                this.statusPanelPage.Visibility = Visibility.Visible;
+                if (0 == index)
+                {
+                    this.subPageView.Child = winPrintPage;
+                    this.statusPanelPage.Visibility = Visibility.Visible;
 
                 tabItem_Printer.IsSelect = true;
                 tabItem_Copy.IsSelect = false;
@@ -364,6 +428,30 @@ namespace VOP
             else
             {
                 return false;
+            }
+            }
+            else
+            {
+                if (0 == index)
+                {
+                    this.subPageView.Child = winPrintPage;
+                    this.statusPanelPage.Visibility = Visibility.Visible;
+
+                    tabItem_Printer.IsSelect = true;
+                    tabItem_Setting.IsSelect = false;
+                }
+                else if (3 == index)
+                {
+                    this.subPageView.Child = winSettingPage;
+                    this.statusPanelPage.Visibility = Visibility.Hidden;
+
+                    tabItem_Printer.IsSelect = false;
+                    tabItem_Setting.IsSelect = true;
+                }
+                else
+                {
+                    return false;
+                }
             }
 
             return true;
