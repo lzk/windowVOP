@@ -40,11 +40,26 @@ namespace VOP
                 img.CheckImage( false );
                 img.Margin = new Thickness( 5 );
 
+                img.ImageSingleClick += ImageItemSingleClick;
+                img.ImageDoubleClick += ImageItemDoubleClick;
+
                 if ( null != img.m_source )
                 {
                     this.image_wrappanel.Children.Insert(0, img );
                 }
             }
+        }
+
+        private void ImageItemSingleClick(object sender, RoutedEventArgs e)
+        {
+            ImageItem img = (ImageItem)sender;
+
+            img.m_ischeck = !img.m_ischeck;
+            img.CheckImage( img.m_ischeck );
+        }
+
+        private void ImageItemDoubleClick(object sender, RoutedEventArgs e)
+        {
         }
 
         private void SettingBtnClick(object sender, RoutedEventArgs e)
