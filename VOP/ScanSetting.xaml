@@ -5,12 +5,13 @@
 	x:Class="VOP.ScanSetting"
 	x:Name="Window"
 	Title="ScanSetting"
-    Width="530" Height="445"
+    Width="578" Height="493"
 
     AllowsTransparency="true"
     WindowStartupLocation="CenterOwner"
     ResizeMode="NoResize"
     WindowStyle="None" 
+    BorderThickness="24"
     >
     <Window.Resources>
         <ResourceDictionary>
