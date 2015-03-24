@@ -13,11 +13,11 @@ using System.Windows.Shapes;
 namespace VOP
 {
 	/// <summary>
-	/// Interaction logic for CopySetting.xaml
+	/// Interaction logic for ScanSetting.xaml
 	/// </summary>
-	public partial class CopySetting : Window
+	public partial class ScanSetting : Window
 	{
-		public CopySetting()
+		public ScanSetting()
 		{
 			this.InitializeComponent();
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;
@@ -25,7 +25,7 @@ namespace VOP
 		}
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
-        {
+        {    
             double y = e.GetPosition(LayoutRoot).Y;
             bool isAtTitle = false;
 
