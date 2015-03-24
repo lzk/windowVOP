@@ -115,7 +115,18 @@ namespace VOP
             }
         }
 
+        public void MouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
+        {
+            if ( false == m_ischeck && CloseIconClick != null )
+            {
+                this.CloseIconClick((object) this, (RoutedEventArgs) null);
+                e.Handled = true;
+            }
+        }
+
+
         public event RoutedEventHandler ImageSingleClick;
         public event RoutedEventHandler ImageDoubleClick;
+        public event RoutedEventHandler CloseIconClick;
     }
 }

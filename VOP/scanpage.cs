@@ -12,11 +12,11 @@ namespace VOP
 {
     public partial class ScanPage : UserControl
     {
+        List<ScanFiles> scanFileList = new List<ScanFiles>();
+
         public ScanPage()
         {
             InitializeComponent();
-
-            List<ScanFiles> scanFileList = new List<ScanFiles>();
 
             ScanFiles objScan   = new ScanFiles();
             objScan.m_pathOrig  = @"F:\VOP\VOP\Images\image1.bmp";
@@ -42,12 +42,30 @@ namespace VOP
 
                 img.ImageSingleClick += ImageItemSingleClick;
                 img.ImageDoubleClick += ImageItemDoubleClick;
+                img.CloseIconClick += ImageItemCloseIconClick;
 
                 if ( null != img.m_source )
                 {
                     this.image_wrappanel.Children.Insert(0, img );
                 }
             }
+        }
+
+        private void ImageItemCloseIconClick(object sender, RoutedEventArgs e)
+        {
+            ImageItem img = (ImageItem)sender;
+
+            int index = 0;
+            foreach ( object obj in image_wrappanel.Children )
+            {
+                if ( obj == img )
+                {
+                    image_wrappanel.Children.RemoveAt( index );
+                    break;
+                }
+                index++;
+            }
+
         }
 
         private void ImageItemSingleClick(object sender, RoutedEventArgs e)
