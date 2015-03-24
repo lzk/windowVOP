@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Printing;
 using System.Drawing.Printing;
+using System.Windows.Forms;
 
 namespace VOP
 {
@@ -222,9 +223,48 @@ namespace VOP
             InitializeComponent();
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;
 
+            InitTrayMenu();
+
             imgBk_Brush_1 = (ImageBrush)this.FindResource("imgBk_Brush_1");
             imgBk_Brush_2 = (ImageBrush)this.FindResource("imgBk_Brush_2");
         }
+
+
+        #region TrayMenu
+        NotifyIcon notifyIcon;
+        void InitTrayMenu()
+        {    
+            this.notifyIcon = new NotifyIcon();
+            this.notifyIcon.BalloonTipText = System.Windows.Forms.Application.ProductName;
+            this.notifyIcon.Text = System.Windows.Forms.Application.ProductName;
+            this.notifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
+            this.notifyIcon.Visible = false;
+            notifyIcon.MouseDoubleClick += OnNotifyIconDoubleClick;
+            this.notifyIcon.ShowBalloonTip(500);
+
+            System.Windows.Forms.ContextMenuStrip contextMenu = new System.Windows.Forms.ContextMenuStrip();
+            System.Windows.Forms.ToolStripMenuItem item1 = new System.Windows.Forms.ToolStripMenuItem();
+            item1.Click += item1_Click;
+            item1.Text = "退出";
+           
+            contextMenu.Items.Add(item1);
+            this.notifyIcon.ContextMenuStrip = contextMenu;
+        }
+
+        void item1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void OnNotifyIconDoubleClick(object sender, EventArgs e)
+        {
+            this.Visibility = Visibility.Visible;
+            this.ShowInTaskbar = true;
+            this.WindowState = WindowState.Normal;
+            this.notifyIcon.Visible = false;
+        }
+
+        #endregion  // TrayMenu
 
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
         {
@@ -249,7 +289,7 @@ namespace VOP
 
         private void ControlBtnClick(object sender, RoutedEventArgs e)
         {
-            Button btn = sender as Button;
+            System.Windows.Controls.Button btn = sender as System.Windows.Controls.Button;
 
             if ( null != btn )
             {
@@ -257,12 +297,19 @@ namespace VOP
                 {
                     this.Close();
                 }
+                else if ("btnMinimize" == btn.Name)
+                {
+                    this.ShowInTaskbar = false;
+                    this.notifyIcon.Visible = true;
+
+                    this.WindowState = WindowState.Minimized;
+                }
             }
         }
 
         private void NvgBtnClick(object sender, RoutedEventArgs e)
         {
-            Control btn = sender as Control;
+            System.Windows.Controls.Control btn = sender as System.Windows.Controls.Control;
 
             if ( null != btn )
             {
