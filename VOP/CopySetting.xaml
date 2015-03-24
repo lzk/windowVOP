@@ -5,13 +5,15 @@
 	x:Class="VOP.CopySetting"
 	x:Name="Window"
 	Title="CopySetting"
-    Width="554" Height="522"
+    Width="600" Height="570"
 
     AllowsTransparency="true"
     WindowStartupLocation="CenterOwner"
     ResizeMode="NoResize"
     WindowStyle="None" 
+    BorderThickness="24"
     >
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

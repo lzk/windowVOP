@@ -25,9 +25,21 @@ namespace VOP
 		}
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
-        {
-            Point position = Mouse.GetPosition(this);
-            if ( position.Y < 30 && position.Y > 0 )
+        {    
+            double y = e.GetPosition(LayoutRoot).Y;
+            bool isAtTitle = false;
+
+            foreach(RowDefinition rd in LayoutRoot.RowDefinitions)
+            {
+                if ( y <= rd.ActualHeight )
+                {
+                    isAtTitle = true;
+                }
+
+                break; // Only check the 1st row.
+            }
+
+            if ( true == isAtTitle )
                 this.DragMove();
         }
 	}
