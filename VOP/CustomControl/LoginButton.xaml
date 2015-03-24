@@ -17,12 +17,12 @@
         <Rectangle Fill="White" Opacity="0" />
         <Grid>
             <Grid.RowDefinitions>               
-                <RowDefinition Height="145*" />
+                <RowDefinition Height="142*" />
                 <RowDefinition Height="15*" />
-                <RowDefinition Height="120*" />               
+                <RowDefinition Height="123*" />               
             </Grid.RowDefinitions>
 
-            <Rectangle Name="rect_Image" Width="25" Height="23" Fill="{StaticResource imgNotLogon}">
+            <Rectangle Name="rect_Image" Width="25" Height="24"  Fill="{StaticResource imgNotLogon}" VerticalAlignment="Bottom">
             </Rectangle>
 
             <!--<Image Name="Image" Grid.Row="0" Width="26" Height="24" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
@@ -33,7 +33,8 @@
                        VerticalAlignment="Top"
                        Text="{Binding ElementName=container,
                        Path=bottomText}"
-                       TextAlignment="Center" />
+                       TextAlignment="Center" 
+                       FontSize="12"/>
         </Grid>
 
     </Grid>
