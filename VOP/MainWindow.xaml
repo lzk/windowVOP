@@ -107,7 +107,7 @@
 
         <Grid Name="Print_Grid" Grid.Column="3" Grid.Row="2">
             <Image Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Margin="0,0,0, 7" Source="Images\btnPrint.tif" />
-            <!--<Button x:Name="btnPrint"   Click="NvgBtnClick" Opacity="0.0" />-->
+            <Button x:Name="btnPrint"   Click="NvgBtnClick" Opacity="0.0" />
         </Grid>
         <Grid Name="Scan_Grid" Grid.Column="5" Grid.Row="2">
             <Image  Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnCopy.tif" />
