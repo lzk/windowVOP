@@ -537,4 +537,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Line.png" />
+  </ItemGroup>
 </Project>
