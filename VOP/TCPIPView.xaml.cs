@@ -28,5 +28,42 @@ namespace VOP
         {
 
         }
+
+        private void btn_click(object sender, RoutedEventArgs e)
+        {
+            RadioButton btn = sender as RadioButton;
+
+            //if (null != btn)
+            //{
+            //    if (btn.Name == "rdbtn_dhcp")
+            //    {
+            //        tb_ip.IsEnabled = false;
+            //        tb_gate.IsEnabled = false;
+            //        tb_mask.IsEnabled = false;
+            //    }
+            //    else if (btn.Name == "rdbtn_static")
+            //    {
+            //        tb_ip.IsEnabled = true;
+            //        tb_gate.IsEnabled = true;
+            //        tb_mask.IsEnabled = true;
+            //    }
+            //}
+
+
+            //if (null != event_config_dirty)
+            //    event_config_dirty(is_dirty());
+        }
+
+
+        public void handler_text_changed(object sender, TextChangedEventArgs e)
+        {
+            //if (null != event_config_dirty)
+            //    event_config_dirty(is_dirty());
+        }
+
+        private void btnApply_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

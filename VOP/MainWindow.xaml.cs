@@ -474,7 +474,7 @@ namespace VOP
             else if (3 == index)
             {
                 this.subPageView.Child = winSettingPage;
-                this.statusPanelPage.Visibility = Visibility.Hidden;
+               // this.statusPanelPage.Visibility = Visibility.Hidden;
 
                 tabItem_Printer.IsSelect = false;
                 tabItem_Copy.IsSelect = false;

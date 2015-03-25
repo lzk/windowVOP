@@ -4,11 +4,69 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             xmlns:vop="clr-namespace:VOP"
+             xmlns:local="clr-namespace:VOP.Controls"
              Loaded="OnLoadedTcpipView"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomTextBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomButton2.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="Images\SettingViewBackground.png" />
         </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.4*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="1.4*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="2.4*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="获取方式" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <RadioButton Click="btn_click" Name="rdbtn_dhcp" GroupName="ipaddress" Grid.Column="0" Content="自动获取" IsChecked="true" Template="{StaticResource customRadioButton}" />
+                <RadioButton Click="btn_click" Name="rdbtn_static" GroupName="ipaddress" Grid.Column="1"  Content="固定"  IsChecked="False"  Template="{StaticResource customRadioButton}" />
+            </Grid>
+
+            <TextBlock Text="IP 地址" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
+            <TextBox TextChanged="handler_text_changed" Name="tb_ip" Template="{StaticResource customTextBox}" Grid.Row="1" Grid.Column="1" Height="28" VerticalAlignment="Center" MaxLength="15"></TextBox>
+
+            <TextBlock Text="网   关" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
+            <TextBox TextChanged="handler_text_changed" Name="tb_gate" Template="{StaticResource customTextBox}" Grid.Row="2" Grid.Column="1" Height="28" VerticalAlignment="Center" MaxLength="15"></TextBox>
+
+            <TextBlock Text="子网掩码" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
+            <TextBox TextChanged="handler_text_changed" Name="tb_mask" Template="{StaticResource customTextBox}" Grid.Row="3" Grid.Column="1" Height="28" VerticalAlignment="Center" MaxLength="15"></TextBox>
+
+            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="应 用" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
+        </Grid>
     </Grid>
 </UserControl>

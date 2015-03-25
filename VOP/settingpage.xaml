@@ -22,8 +22,9 @@
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*"/>
-            <ColumnDefinition Width="160*"/>
-            <ColumnDefinition Width="408*"/>
+            <ColumnDefinition Width="180*"/>
+            <ColumnDefinition Width="155*"/>
+            <ColumnDefinition Width="250*"/>
             <ColumnDefinition Width="25*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -33,8 +34,8 @@
         </Grid.RowDefinitions>
 
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Name="setting_tab_btn" Orientation="Vertical" Panel.ZIndex="100"/>
-        <Border Name="settingView" Grid.Row="1" Grid.Column="2"/>
+        <StackPanel Grid.Row="1" Grid.Column="2" Name="setting_tab_btn" Orientation="Vertical" Panel.ZIndex="100"/>
+        <Border Name="settingView" Grid.Row="1" Grid.Column="3"/>
 
     </Grid>
 </UserControl>

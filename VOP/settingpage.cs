@@ -35,11 +35,11 @@ namespace VOP
             InitializeComponent();
             m_listSettingButton.Clear();
 
-            int tabbtn_width = 174;
-            int tabbtn_height = 27;
+            int tabbtn_width = 165;
+            int tabbtn_height = 30;
 
-            btnwifi.btn.Content = "Wi-Fi";
-            btnwifi.Margin = new Thickness(0, 0, 0, 6);
+            btnwifi.btn.Content = "打印机Wi-Fi";
+            btnwifi.Margin = new Thickness(0, 0, 0, 10);
             btnwifi.Width = tabbtn_width;
             btnwifi.Height = tabbtn_height;
             btnwifi.HorizontalAlignment = HorizontalAlignment.Left;
@@ -47,8 +47,8 @@ namespace VOP
             btnwifi.btn.Click += SettingBtnClick;           
             m_listSettingButton.Add(btnwifi);
 
-            btnSoftAp.btn.Content = "SoftAP";
-            btnSoftAp.Margin = new Thickness(0, 0, 0, 6);
+            btnSoftAp.btn.Content = "打印机自主热点";
+            btnSoftAp.Margin = new Thickness(0, 0, 0, 10);
             btnSoftAp.Width = tabbtn_width;
             btnSoftAp.Height = tabbtn_height;
             btnSoftAp.HorizontalAlignment = HorizontalAlignment.Left;
@@ -56,8 +56,8 @@ namespace VOP
             btnSoftAp.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnSoftAp);
 
-            btnTCPIP.btn.Content = "TCPIP";
-            btnTCPIP.Margin = new Thickness(0, 0, 0, 6);
+            btnTCPIP.btn.Content = "打印机网络设置";
+            btnTCPIP.Margin = new Thickness(0, 0, 0, 10);
             btnTCPIP.Width = tabbtn_width;
             btnTCPIP.Height = tabbtn_height;
             btnTCPIP.HorizontalAlignment = HorizontalAlignment.Left;
@@ -65,8 +65,8 @@ namespace VOP
             btnTCPIP.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnTCPIP);
 
-            btnPowerSave.btn.Content = "Power Save";
-            btnPowerSave.Margin = new Thickness(0, 0, 0, 6);
+            btnPowerSave.btn.Content = "休眠";
+            btnPowerSave.Margin = new Thickness(0, 0, 0, 10);
             btnPowerSave.Width = tabbtn_width;
             btnPowerSave.Height = tabbtn_height;
             btnPowerSave.HorizontalAlignment = HorizontalAlignment.Left;
@@ -74,8 +74,8 @@ namespace VOP
             btnPowerSave.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnPowerSave);
 
-            btnUserConfig.btn.Content = "User Config";
-            btnUserConfig.Margin = new Thickness(0, 0, 0, 6);
+            btnUserConfig.btn.Content = "用户设置";
+            btnUserConfig.Margin = new Thickness(0, 0, 0, 10);
             btnUserConfig.Width = tabbtn_width;
             btnUserConfig.Height = tabbtn_height;
             btnUserConfig.HorizontalAlignment = HorizontalAlignment.Left;
@@ -83,8 +83,8 @@ namespace VOP
             btnUserConfig.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnUserConfig);
 
-            btnPwd.btn.Content = "Password";
-            btnPwd.Margin = new Thickness(0, 0, 0, 6);
+            btnPwd.btn.Content = "密码修改";
+            btnPwd.Margin = new Thickness(0, 0, 0, 10);
             btnPwd.Width = tabbtn_width;
             btnPwd.Height = tabbtn_height;
             btnPwd.HorizontalAlignment = HorizontalAlignment.Left;
@@ -92,8 +92,8 @@ namespace VOP
             btnPwd.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnPwd);
 
-            btnAbout.btn.Content = "About";
-            btnAbout.Margin = new Thickness(0, 0, 0, 6);
+            btnAbout.btn.Content = "关于";
+            btnAbout.Margin = new Thickness(0, 0, 0, 10);
             btnAbout.Width = tabbtn_width;
             btnAbout.Height = tabbtn_height;
             btnAbout.HorizontalAlignment = HorizontalAlignment.Left;
@@ -135,7 +135,7 @@ namespace VOP
         public void handler_loaded_settingpage( object sender, RoutedEventArgs e )
         {
             setting_tab_btn.Children.Clear();
-            Grid.SetColumnSpan(setting_tab_btn, 2);
+            Grid.SetColumnSpan(setting_tab_btn, 3);
 
             string strPrinterDrvName = VOP.MainWindow.GetPrinterDrvName(VOP.MainWindow.selectedprinter);
             if (VOP.MainWindow.IsSupportWifi(strPrinterDrvName))

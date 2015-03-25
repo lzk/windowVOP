@@ -22,14 +22,14 @@
             <Rectangle Name="rect"
                      RadiusY="15"
                      RadiusX="15" 
-                     Margin="2"
+                     Margin="1"
                 >
                 <Rectangle.Fill>
                     <SolidColorBrush Color="{StaticResource clrEnableBK_TextBox}"></SolidColorBrush>                  
                 </Rectangle.Fill>
             </Rectangle>
             <ScrollViewer 
-                Margin="8" 
+                Margin="6" 
                 x:Name="PART_ContentHost" 
                 VerticalAlignment="Center"            
                 FontSize="{TemplateBinding FontSize}"
@@ -76,14 +76,13 @@
             </Rectangle>
 
             <Rectangle Name="rect"
-                     Margin="1"
                 >
                 <Rectangle.Fill>
                     <SolidColorBrush Color="{StaticResource clrEnableBK_TextBox}"></SolidColorBrush>
                 </Rectangle.Fill>
             </Rectangle>
             <ScrollViewer 
-                Margin="2" 
+               
                 x:Name="PART_ContentHost" 
                 VerticalAlignment="Center"            
                 FontSize="{TemplateBinding FontSize}"

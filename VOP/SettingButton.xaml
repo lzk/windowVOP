@@ -23,8 +23,8 @@
             <ColumnDefinition Width="15"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Image Name="imgActive" Grid.Column="0" Height="15" Width="15" Visibility="Hidden"></Image>
-        <Image Name="imgInactive" Grid.Column="0" Height="15" Width="15"></Image>
+        <Image Name="imgActive" Grid.Column="0" Height="20" Width="20" Visibility="Hidden"></Image>
+        <Image Name="imgInactive" Grid.Column="0" Height="20" Width="20"></Image>
         <local:ButtonEx x:Name="btn" IsActiveEx="False" Grid.Column="2" IsActiveExPropertyChanged="btn_ActiveExPropertyChanged">
         </local:ButtonEx>
         <Image Name="imgTriangle" Grid.Column="3" Source="Images\triangle.png"  Visibility="Hidden" HorizontalAlignment="Right"></Image>
