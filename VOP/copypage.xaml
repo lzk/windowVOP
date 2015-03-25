@@ -147,14 +147,9 @@
             <Grid Grid.Column="1">
 
                 <StackPanel>
-                    <vop:Density
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Margin="0,60,0,10" 
-                        />
-
                     <local:GroupBoxDecorator Header="Copies" Height="80" Width="300"
-                                             Margin="0,5,0,15" >
+                        Margin="0,60,0,10" 
+                        >
 
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Center">
@@ -175,6 +170,12 @@
 
                         </StackPanel>
                     </local:GroupBoxDecorator>
+
+                    <vop:Density
+                        Margin="0,5,0,15" 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        />
 
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
