@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             xmlns:local="clr-namespace:VOP.Controls"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -22,5 +23,75 @@
         <Grid.Background>
             <ImageBrush ImageSource="Images\SettingViewBackground.png" />
         </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*"></RowDefinition>
+                <RowDefinition Height="1.3*"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="6"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Text="顶端偏移量" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"> </TextBlock>
+                <Grid Grid.Row="0" Grid.Column="2" Width="120">
+                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="-" HorizontalAlignment="Left"/>
+                    <TextBox Grid.Column="1" Height="28" Width="50" Template="{StaticResource customTextBox}" HorizontalContentAlignment="Center" Text="-1" MaxLength="2"></TextBox>
+                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="+" HorizontalAlignment="Right"/>
+                </Grid>
+
+                <TextBlock Text="左端偏移量" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                <Grid Grid.Row="1" Grid.Column="2" Width="120">
+                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="-" HorizontalAlignment="Left"/>
+                    <TextBox Grid.Column="1" Height="28" Width="50" Template="{StaticResource customTextBox}" HorizontalContentAlignment="Center" Text="-1" MaxLength="2"></TextBox>
+                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="+" HorizontalAlignment="Right"/>
+                </Grid>
+
+                <TextBlock Text="画像浓度" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                <Grid Grid.Row="2" Grid.Column="2" Width="120">
+                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="-" HorizontalAlignment="Left"/>
+                    <TextBox Grid.Column="1" Height="28" Width="50" Template="{StaticResource customTextBox}" HorizontalContentAlignment="Center" Text="-1" MaxLength="2"></TextBox>
+                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="+" HorizontalAlignment="Right"/>
+                </Grid>
+
+                <TextBlock Text="低湿度模式" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                <Grid Grid.Row="3" Grid.Column="2" Width="120">
+                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="-" HorizontalAlignment="Left"/>
+                    <TextBox Grid.Column="1" Height="28" Width="50" Template="{StaticResource customTextBox}" HorizontalContentAlignment="Center" Text="-1" MaxLength="2"></TextBox>
+                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="+" HorizontalAlignment="Right"/>
+                </Grid>
+                <Image Source="Images/line.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom"></Image>
+                <Image Source="Images/line.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom"></Image>
+                <Image Source="Images/line.png" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom"></Image>
+                <Image Source="Images/line.png" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom"></Image>
+                <Image Source="Images/line.png" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom"></Image>
+            </Grid>
+            <local:ButtonEx x:Name="btnFusing" Content="解除定影单元错误" FontSize="18"  IsActiveEx="False" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="35"></local:ButtonEx>
+            <Image Source="Images/line.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom"></Image>
+
+            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="应 用" FontSize="18"  IsActiveEx="True" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
+        </Grid>
     </Grid>
 </UserControl>

@@ -23,5 +23,10 @@ namespace VOP
         {
             InitializeComponent();
         }
+
+        private void btnApply_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
