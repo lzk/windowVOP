@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             xmlns:local="clr-namespace:VOP.Controls"
+             Loaded="OnLoadedPowerSaveView">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,25 +21,48 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid>
-            <Grid.Background>
-                <ImageBrush ImageSource="Images\SettingViewBackground.png" />
-            </Grid.Background>
-            <ScrollViewer Grid.Column="1" Name="scrollview" CanContentScroll="true"
-        SelectiveScrollingGrid.SelectiveScrollingOrientation="Both"
-        VerticalScrollBarVisibility="Auto"
-        HorizontalScrollBarVisibility="Disabled"
-        HorizontalAlignment="Left"
-        VerticalAlignment="Bottom"
-        Background="White"
-        Style="{StaticResource LeftScrollViewer}"
-        Margin="2,2,2,3"
-        >
+        <Grid.Background>
+            <ImageBrush ImageSource="Images\SettingViewBackground.png" />
+        </Grid.Background>
 
-                <WrapPanel Name="image_wrappanel" Width="420">
-                </WrapPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
-            </ScrollViewer>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="80"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="进入休眠时间" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="140"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="-" HorizontalAlignment="Left"/>
+                    <TextBox Grid.Column="1" Height="28" Width="60" Template="{StaticResource customTextBox}" HorizontalContentAlignment="Center" Text="5" MaxLength="3"></TextBox>
+                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="+" HorizontalAlignment="Right"/>
+                </Grid>
+                <TextBlock Text="（1-30分钟）" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"> </TextBlock>
+            </Grid>
+            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="应 用" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
         </Grid>
     </Grid>
 </UserControl>

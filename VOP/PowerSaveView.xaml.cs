@@ -23,5 +23,14 @@ namespace VOP
         {
             InitializeComponent();
         }
+
+        private void OnLoadedPowerSaveView(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btnApply_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
