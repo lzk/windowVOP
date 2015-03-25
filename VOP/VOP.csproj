@@ -76,6 +76,9 @@
     <Compile Include="CustomControl\BusyRefresh.xaml.cs">
       <DependentUpon>BusyRefresh.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ScanPreview.xaml.cs">
+      <DependentUpon>ScanPreview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ScanSetting.xaml.cs">
       <DependentUpon>ScanSetting.xaml</DependentUpon>
     </Compile>
@@ -167,6 +170,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PowerSaveView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ScanPreview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

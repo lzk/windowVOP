@@ -78,6 +78,9 @@ namespace VOP
 
         private void ImageItemDoubleClick(object sender, RoutedEventArgs e)
         {
+            ScanPreview win = new ScanPreview();
+            win.Owner = App.Current.MainWindow;
+            win.ShowDialog();
         }
 
         private void SettingBtnClick(object sender, RoutedEventArgs e)
