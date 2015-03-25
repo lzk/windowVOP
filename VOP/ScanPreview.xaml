@@ -100,25 +100,29 @@
         <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True"/>
         <ScrollViewer Margin="0" Grid.Row="1"/>
         <StackPanel HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal">
-        	<Button HorizontalAlignment="Left" Height="25"
+        	<Button HorizontalAlignment="Left"
                 VerticalAlignment="Top" Width="55" Style="{DynamicResource 3dbutton}">
-        		<Image Height="17" Width="17" Stretch="Fill" Source="Images/Fit.tif"/>
+        		<Image Height="17" Width="17" Stretch="Fill"
+                    Source="Images/Fit.tif"/>
         	</Button>
-        	<Button HorizontalAlignment="Left" Height="25"
+        	<Button HorizontalAlignment="Left"
                 VerticalAlignment="Top" Width="55" Style="{DynamicResource 3dbutton}">
-        		<Image Height="17" Width="17" Stretch="Fill" Source="Images/Fit.tif"/>
+        		<Image Height="17" Width="17" Stretch="Fill"
+                    Source="Images/ZoomIn.tif"/>
         	</Button>
-        	<Button HorizontalAlignment="Left" Height="25" Margin="0"
+        	<Button HorizontalAlignment="Left" Margin="0"
                 VerticalAlignment="Top" Width="55" Style="{DynamicResource 3dbutton}">
-        		<Image Height="17" Width="17" Stretch="Fill" Source="Images/Fit.tif"/>
+        		<Image Height="17" Width="17" Stretch="Fill"
+                    Source="Images/ZoomOut.tif"/>
         	</Button>
-        	<Button HorizontalAlignment="Left" Height="25"
+        	<Button HorizontalAlignment="Left"
                 VerticalAlignment="Top" Width="55" Style="{DynamicResource 3dbutton}">
-        		<Image Height="17" Width="17" Stretch="Fill" Source="Images/Fit.tif"/>
+        		<Image Height="17" Width="17" Stretch="Fill"
+                    Source="Images/Turn.tif"/>
         	</Button>
         </StackPanel>
 
-        <StackPanel HorizontalAlignment="Center" Height="45" Margin="0" Grid.Row="3" VerticalAlignment="Center" Width="240" Orientation="Horizontal">
+        <StackPanel Margin="0" Grid.Row="3" Width="240" Orientation="Horizontal">
         	<Button Content="确定" HorizontalAlignment="Center" Height="40"
                 Margin="25,0,0,0" Width="75" Template="{DynamicResource custombtn}" VerticalAlignment="Center"/>
         	<Button Content="打印" HorizontalAlignment="Center" Height="40"
