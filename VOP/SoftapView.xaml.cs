@@ -28,5 +28,15 @@ namespace VOP
         {
 
         }
+
+        public void HandleCheck(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnApply_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
