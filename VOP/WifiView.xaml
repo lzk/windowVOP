@@ -25,13 +25,15 @@
             </Grid.Background>            
         </Grid>
         <ScrollViewer Grid.Column="1" Name="scrollview" CanContentScroll="true"
-        SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" VerticalScrollBarVisibility="Auto"
-        HorizontalScrollBarVisibility="Auto"
+        SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
+        VerticalScrollBarVisibility="Auto"
+        HorizontalScrollBarVisibility="Disabled"
         HorizontalAlignment="Left"
         VerticalAlignment="Bottom"
         Background="White"
         Style="{StaticResource LeftScrollViewer}"
         Margin="2,2,2,3"
+                     
         >
 
             <WrapPanel Name="image_wrappanel" Width="420">

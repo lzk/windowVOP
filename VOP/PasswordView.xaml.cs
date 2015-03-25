@@ -23,5 +23,13 @@ namespace VOP
         {
             InitializeComponent();
         }
+        private void OnLoadedPasswordView(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btnApply_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
