@@ -46,28 +46,28 @@
 
         <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0"
             Grid.ColumnSpan="2" >
-            <TextBlock Text="More Settings" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Text="更多设置" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
 
         <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"
             Grid.ColumnSpan="2"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True"/>
 
             <local:GroupBoxDecorator Grid.ColumnSpan="2" Grid.Row="1"
-                Header="Document Type" Height="70" Width="485" >
+                Header="文档类型" Height="70" Width="485" >
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                     <CheckBox Template="{StaticResource customCheckBox}"
-                        IsChecked="true" Content="Photo" Margin="10,0" />
+                        IsChecked="true" Content="图片" Margin="10,0" />
 
                     <CheckBox Template="{StaticResource customCheckBox}"
-                        IsChecked="false" Content="Text and Photo" Margin="10,0"/>
+                        IsChecked="false" Content="图文" Margin="10,0"/>
 
                     <CheckBox Template="{StaticResource customCheckBox}"
-                        IsChecked="false" Content="Text" Margin="10,0"/>
+                        IsChecked="false" Content="文本" Margin="10,0"/>
                 </StackPanel>
             </local:GroupBoxDecorator>
 
             <StackPanel VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" >
-                <local:GroupBoxDecorator Header="Resolution" Height="70"
+                <local:GroupBoxDecorator Header="分辨率" Height="70"
                     Width="220" >
                 <ComboBox
                     Style="{StaticResource customComboBox}"
@@ -84,22 +84,22 @@
                     <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
                 </ComboBox>
                 </local:GroupBoxDecorator>
-                <local:GroupBoxDecorator Header="Color Mode" Height="70"
+                <local:GroupBoxDecorator Header="色彩模式" Height="70"
                     Width="220" Margin="0,10" >
                 <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center">
                     <CheckBox Template="{StaticResource customCheckBox}"
-                        IsChecked="true" Content="Photo" Margin="5,0" />
+                        IsChecked="true" Content="彩色" Margin="5,0" />
 
                     <CheckBox Template="{StaticResource customCheckBox}"
-                        IsChecked="false" Content="Photo" Margin="5,0"/>
+                        IsChecked="false" Content="灰阶" Margin="5,0"/>
 
                     <CheckBox Template="{StaticResource customCheckBox}"
-                        IsChecked="false" Content="Photo" Margin="5,0"/>
+                        IsChecked="false" Content="黑白" Margin="5,0"/>
 
                 </StackPanel>
                 </local:GroupBoxDecorator>
-                <local:GroupBoxDecorator Header="Scan Size" Height="70"
+                <local:GroupBoxDecorator Header="扫描区域大小" Height="70"
                     Width="220" >
                 <ComboBox
                     Style="{StaticResource customComboBox}"
@@ -119,7 +119,7 @@
             </StackPanel>
 
             <StackPanel  VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" >
-                <local:GroupBoxDecorator Header="Brightness" Height="100"
+                <local:GroupBoxDecorator Header="亮度" Height="100"
                     Width="220" Margin="0,0,0,15"  >
                     <Grid>
                         <Image Stretch="None" VerticalAlignment="Top"
@@ -146,7 +146,7 @@
 
                     </Grid>
                 </local:GroupBoxDecorator>
-                <local:GroupBoxDecorator Header="Constrast" Height="100"
+                <local:GroupBoxDecorator Header="对比度" Height="100"
                     Width="220" >
                     <Grid>
                         <Image Stretch="None" VerticalAlignment="Top"
@@ -178,10 +178,10 @@
         <StackPanel Grid.ColumnSpan="2" Grid.Row="3" Orientation="Horizontal"
             HorizontalAlignment="Center" VerticalAlignment="Center" >
             <Button HorizontalContentAlignment="Center" IsDefault="False"
-                Content="Default" Template="{StaticResource custombtn}"
+                Content="默认" Template="{StaticResource custombtn}"
                 Height="35" Width="150" Margin="0,0,20,0" />
             <Button HorizontalContentAlignment="Center" IsDefault="True"
-                Content="Apply" Template="{StaticResource custombtn}"  Height="35" Width="150" />
+                Content="确定" Template="{StaticResource custombtn}"  Height="35" Width="150" />
         </StackPanel>
 
     </Grid>
