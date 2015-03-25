@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:local="clr-namespace:VOP.Controls"
+             d:DesignHeight="500" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -22,18 +23,100 @@
             <ImageBrush ImageSource="Images\SettingViewBackground.png" />
         </Grid.Background>
         <ScrollViewer Grid.Column="1" Name="scrollview" CanContentScroll="true"
-        SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" VerticalScrollBarVisibility="Auto"
-        HorizontalScrollBarVisibility="Auto"
+        SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
+        VerticalScrollBarVisibility="Auto"
+        HorizontalScrollBarVisibility="Disabled"
         HorizontalAlignment="Left"
         VerticalAlignment="Bottom"
         Background="White"
         Style="{StaticResource LeftScrollViewer}"
         Margin="2,2,2,3"
         >
+        <WrapPanel Name="image_wrappanel" >
+                <Grid Width="250" Height="480">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="20"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
+                        <local:GroupBoxDecorator Header="耗材购买渠道" Height="110" Width="210" Margin="0,0,0,8" HorizontalAlignment="Center">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="8"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="8"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="25"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="25"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="1" Grid.Row="1" Source="Images\HotLine.png" />
+                            </Grid>
+                        </local:GroupBoxDecorator>
+                        <local:GroupBoxDecorator Header="打印机升级方式" Height="80" Width="210" Margin="0,0,0,8" HorizontalAlignment="Center">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="8"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="8"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="25"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="25"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="1" Grid.Row="1" Source="Images\Update.png" />
+                            </Grid>
+                        </local:GroupBoxDecorator>
+                        <local:GroupBoxDecorator Header="打印机推广" Height="120" Width="210" Margin="0,0,0,8" HorizontalAlignment="Center">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="8"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="8"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="25"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="25"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="1" Grid.Row="1" Source="Images\Promotion.png" />
+                            </Grid>
 
-            <WrapPanel Name="image_wrappanel" Width="420">
-            </WrapPanel>
+                        </local:GroupBoxDecorator>
+                        <local:GroupBoxDecorator Header="版本和版权" Height="120" Width="210" Margin="0,0,0,8" HorizontalAlignment="Center">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="8"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="13"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="13"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Row="1" Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="7*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Grid.Row="1" Source="Images\Logo.png" />
+                                </Grid>
+                            </Grid>
+                        </local:GroupBoxDecorator>
+                    </StackPanel>
 
+                </Grid>
+        </WrapPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>

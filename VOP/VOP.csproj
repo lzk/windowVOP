@@ -540,4 +540,10 @@
   <ItemGroup>
     <Resource Include="Images\Line.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\HotLine.png" />
+    <Resource Include="Images\Logo.png" />
+    <Resource Include="Images\Promotion.png" />
+    <Resource Include="Images\Update.png" />
+  </ItemGroup>
 </Project>
