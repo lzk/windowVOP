@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              xmlns:local="clr-namespace:VOP.Controls"
+             Loaded="onLoadAboutView"
              d:DesignHeight="500" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -32,7 +33,7 @@
         Style="{StaticResource LeftScrollViewer}"
         Margin="2,2,2,3"
         >
-        <WrapPanel Name="image_wrappanel" >
+        <WrapPanel Name="wrappanelView" >
                 <Grid Width="250" Height="480">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10"></ColumnDefinition>

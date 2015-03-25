@@ -23,5 +23,10 @@ namespace VOP
         {
             InitializeComponent();
         }
+
+        private void onLoadAboutView(object sender, RoutedEventArgs e)
+        {
+            scrollview.ScrollToTop();
+        }
     }
 }
