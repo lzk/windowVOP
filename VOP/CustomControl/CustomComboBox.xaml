@@ -59,7 +59,7 @@
                             Padding="15,0"
                             SnapsToDevicePixels="true"
                             Background="Transparent">
-                            <ContentPresenter />
+                            <ContentPresenter HorizontalAlignment="Center" />
                         </Border>
 
                         <ControlTemplate.Triggers>
@@ -129,6 +129,7 @@
 
                                 <ContentPresenter x:Name="ContentPresenter" 
                                     VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
                                     Content="{TemplateBinding SelectionBoxItem}"
                                     ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                     ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}">

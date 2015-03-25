@@ -109,15 +109,12 @@
                 <ComboBox
                     Style="{StaticResource customComboBox}"
                     Background="White"
-                    Width="145" Height="30"
+                    Height="30"
+                    Width="145"
+                    HorizontalAlignment="Center"
                     >
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"  Content="ComboBox Item" /> 
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="Disalbe Item" IsEnabled="false" > 
-                    </ComboBoxItem>
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="Selected Item" >
-                    </ComboBoxItem>
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="300*300" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="600*600" MinWidth="145" /> 
                 </ComboBox>
             </local:GroupBoxDecorator>
         </StackPanel>
