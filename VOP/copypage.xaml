@@ -147,7 +147,7 @@
             <Grid Grid.Column="1">
 
                 <StackPanel>
-                    <local:GroupBoxDecorator Header="Copies" Height="80" Width="300"
+                    <local:GroupBoxDecorator Header="复印份数" Height="80" Width="300"
                         Margin="0,60,0,10" 
                         >
 
@@ -181,19 +181,19 @@
                                 HorizontalAlignment="Center">
                         <Image Source="Images/IDCardCopyIconEnable.png"
                                Stretch="None" > </Image>
-                        <TextBlock Margin="20,0" VerticalAlignment="Center"> ID Card Copy </TextBlock>
+                           <TextBlock Margin="20,0" VerticalAlignment="Center">身份证复印</TextBlock>
                         <CheckBox Template="{StaticResource switchBox}"
                                   IsChecked="False" Width="50" Height="25" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
-                        <Button IsDefault="False" IsEnabled="True" Content="Advance Settings" Template="{StaticResource custombtn}"
+                        <Button IsDefault="False" IsEnabled="True" Content="更多设置" Template="{StaticResource custombtn}"
                                 Name="btnSetting" Width="120" Height="25"
                                 Margin="20,10" Click="SettingBtnClick"/>
 
                         <Button HorizontalContentAlignment="Center"
-                                IsDefault="True" Content="ID Card Copy"
+                                IsDefault="True" Content="复印"
                                 Template="{StaticResource custombtn}"  Height="35" Width="150" />
                     </StackPanel>
 
