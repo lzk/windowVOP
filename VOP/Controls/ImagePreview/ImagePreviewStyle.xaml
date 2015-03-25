@@ -1,7 +1,115 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                     xmlns:local="clr-namespace:VOP.Controls">
-    
-    
 
+    <SolidColorBrush x:Key="PreNextImageButtonBrushNormal" Color="#FF4BA400" Opacity="1"/>
+    <SolidColorBrush x:Key="PreNextImageButtonBrushOver" Color="#FF9BB883" Opacity="1"/>
+    <SolidColorBrush x:Key="PreNextImageButtonBrushPress" Color="#FF497C1F" Opacity="1"/>
+    
+    <Style x:Key="PreImageButtonStyle"
+       TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Path Name="innerPath" 
+                              Data="M240,160 L199.5,179.5 239.5,199.5 z" 
+                              Fill="{StaticResource PreNextImageButtonBrushNormal}" 
+                              Stretch="Fill"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="innerPath" Property="Fill" Value="{StaticResource PreNextImageButtonBrushPress}" />                     
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="true"/>
+                                <Condition Property="IsPressed" Value="false"/>
+                            </MultiTrigger.Conditions>
+
+                            <Setter TargetName="innerPath" Property="Fill" Value="{StaticResource PreNextImageButtonBrushOver}" />
+                        </MultiTrigger>        
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="NextImageButtonStyle"
+       TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Path Name="innerPath" 
+                              Data="M640,240 L680,260 640,280 z" 
+                              Fill="{StaticResource PreNextImageButtonBrushNormal}" 
+                              Stretch="Fill"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="innerPath" Property="Fill" Value="{StaticResource PreNextImageButtonBrushPress}" />
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="true"/>
+                                <Condition Property="IsPressed" Value="false"/>
+                            </MultiTrigger.Conditions>
+
+                            <Setter TargetName="innerPath" Property="Fill" Value="{StaticResource PreNextImageButtonBrushOver}" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ImageUnvalidStyle"
+       TargetType="{x:Type ContentControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContentControl}">
+                    <Grid Background="#FFD4EAC3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="15" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="15" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="15" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle Grid.Row="1" Grid.Column="1" Fill="#FF71726F" Width="10" Height="10" Margin="-30,0,0,0"  />
+                        <Rectangle Grid.Row="1" Grid.Column="1" Fill="#FF71726F" Width="10" Height="10" Margin="30,0,0,0"/>
+                        <Rectangle Grid.Row="2" Grid.Column="1" Fill="#FF71726F" Width="8" Height="18" />
+                        <Path Grid.Row="3" Grid.Column="1" 
+			            Data="M230,360 C230,360 295,295 390,360 L390,399.99984 C390,399.99984 310,315.00017 230,399.99984 z" 
+			            Fill="#FF71726F" Width="70" Height="20" Stretch="Fill" />
+                        <Ellipse Grid.Row="4" Grid.Column="1" Width="80" Height="20" Opacity="0.3">
+                            <Ellipse.Fill>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="#FF837F7F" Offset="0"/>
+                                    <GradientStop Color="#FFD4EAC3" Offset="1"/>
+                                </RadialGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <TextBlock Grid.Row="5" Grid.Column="1" Text="暂时无法显示"
+                         Foreground="#FF71726F"
+			             FontSize="16" 
+			             HorizontalAlignment="Center" 
+			             VerticalAlignment="Top"/>  
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

@@ -4,15 +4,34 @@
              xmlns:local="clr-namespace:VOP.Controls"
              Width="638"
              Height="367">
+
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="Images\PagePrint.tif" />
         </Grid.Background>
 
-        <Canvas Grid.Row="0" >
-            <local:ImageButton PreviewMouseLeftButtonDown="OnClickFilePrint" ImagePath="Images/ButtonFileSelect.png" BottomText="文件打印" Canvas.Left="320" Canvas.Top="150" Height="83" Width="79"/>
-            <local:ImageButton PreviewMouseLeftButtonDown="OnClickIdCardPrint" ImagePath="Images/ButtonIdCardSelect.png" BottomText="证件打印" Canvas.Left="433" Canvas.Top="150" Height="83" Width="79"/>
+        <Canvas>
+            <local:ImageButton PreviewMouseLeftButtonDown="OnClickFilePrint" 
+                               ImagePath="Images/ButtonFileSelect.png" 
+                               BottomText="文件打印" 
+                               Canvas.Left="320" 
+                               Canvas.Top="150" 
+                               Height="83" Width="79"/>
+            <local:ImageButton PreviewMouseLeftButtonDown="OnClickIdCardPrint" 
+                               ImagePath="Images/ButtonIdCardSelect.png" 
+                               BottomText="证件打印" 
+                               Canvas.Left="433" 
+                               Canvas.Top="150" 
+                               Height="83" Width="79"/>
+            <local:ScrollTextControl 
+                ScrollText="Scrolling is enabled when it is necessary. Resize the window, making it larger and smaller"
+                ScrollForeground="White"
+                ScrollFontSize="16"
+                Canvas.Left="26" 
+                Canvas.Top="150" 
+                Height="30" 
+                Width="179"/>
+            <local:ImagePreview Width="199" Height="207" Canvas.Left="219" Canvas.Top="98"/>
         </Canvas>
-
     </Grid>
 </UserControl>

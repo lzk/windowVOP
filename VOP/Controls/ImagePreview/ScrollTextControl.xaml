@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="VOP.Controls.ScrollTextControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VOP.Controls"
+             mc:Ignorable="d" 
+             x:Name="myControl"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <local:ScrollableWidthConverter x:Key="ScrollableWidthConverter" />
+        <local:ScrollableDurationConverter x:Key="ScrollableDurationConverter" />
+        <Storyboard x:Key="TextMoveStoryboard">
+            <DoubleAnimation 
+				Storyboard.TargetName="textBlock"
+			    Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(TranslateTransform.X)"
+			    From="0" 
+				To="{Binding ElementName=myViewer, Path=ScrollableWidth, Converter={StaticResource ScrollableWidthConverter}}"
+				Duration="{Binding ElementName=myViewer, Path=ScrollableWidth, Converter={StaticResource ScrollableDurationConverter}}" 
+                FillBehavior="HoldEnd" AccelerationRatio="0.5" DecelerationRatio="0.5"/>
+        </Storyboard>
+    </UserControl.Resources>
+    
+    <Grid>
+        <ScrollViewer Name="myViewer" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+            <TextBlock x:Name="textBlock" 
+                       Text="{Binding ElementName=myControl, Path=ScrollText}" 
+                       Foreground="{Binding ElementName=myControl, Path=ScrollForeground}" 
+                       FontSize="{Binding ElementName=myControl, Path=ScrollFontSize}" 
+                       TextWrapping="NoWrap" 
+                       RenderTransformOrigin="0.5,0.5" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform X="0"/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <ScrollViewer.Triggers>
+                <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                    <BeginStoryboard Name="MyBeginStoryboard" Storyboard="{StaticResource TextMoveStoryboard}"/>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                    <StopStoryboard BeginStoryboardName="MyBeginStoryboard" />
+                </EventTrigger>
+            </ScrollViewer.Triggers>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -73,6 +73,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="common.cs" />
+
+    <Compile Include="Controls\ImagePreview\ImagePreview.xaml.cs">
+      <DependentUpon>ImagePreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImagePreview\ScrollableDurationConverter.cs" />
+    <Compile Include="Controls\ImagePreview\ScrollableWidthConverter.cs" />
+    <Compile Include="Controls\ImagePreview\ScrollTextControl.xaml.cs">
+      <DependentUpon>ScrollTextControl.xaml</DependentUpon>
+    </Compile>
+
     <Compile Include="CustomControl\BusyRefresh.xaml.cs">
       <DependentUpon>BusyRefresh.xaml</DependentUpon>
     </Compile>
@@ -133,6 +143,14 @@
       <DependentUpon>SettingButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="type_define.cs" />
+    <Page Include="Controls\ImagePreview\ImagePreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ImagePreview\ScrollTextControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomControl\BusyRefresh.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -436,9 +454,11 @@
   </Target>
   -->
   <ItemGroup>
+
     <Resource Include=".\Images\Brightness.png" />
     <Resource Include=".\Images\Constrast.png" />
     <Resource Include=".\Images\RepeatButtonBackground.png" />
+
     <Resource Include=".\Images\close.png" />
     <Resource Include=".\Images\check.png" />
     <Resource Include=".\Images\Nin1_1.png" />
@@ -521,6 +541,7 @@
   <ItemGroup>
     <Resource Include="Images\triangle.png" />
   </ItemGroup>
+
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
@@ -558,4 +579,5 @@
     <Resource Include="Images\Promotion.png" />
     <Resource Include="Images\Update.png" />
   </ItemGroup>
+
 </Project>
