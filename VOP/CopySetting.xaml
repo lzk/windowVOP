@@ -94,13 +94,17 @@
                     Background="White"
                     Width="145" Height="30"
                     >
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"  Content="ComboBox Item" /> 
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="Disalbe Item" IsEnabled="false" > 
-                    </ComboBoxItem>
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="Selected Item" >
-                    </ComboBoxItem>
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
+
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="A4 (210*297mm)" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
+                        IsSelected="false" Content="A5 (148*210mm)" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
+                        IsSelected="false" Content="B5 (182*257mm)" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
+                        IsSelected="false" Content="Letter (8.5*11&quot;)" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
+                        IsSelected="false" Content="Executive (7.25*10.5&quot;)" MinWidth="145" /> 
+
                 </ComboBox>
             </local:GroupBoxDecorator>
 
@@ -127,13 +131,23 @@
                     Background="White"
                     Width="145" Height="30"
                     >
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"  Content="ComboBox Item" /> 
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="Disalbe Item" IsEnabled="false" > 
-                    </ComboBoxItem>
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="Selected Item" >
-                    </ComboBoxItem>
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
+
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="Letter" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
+                        IsSelected="false" Content="A4" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
+                        IsSelected="false" Content="A5" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
+                        IsSelected="false" Content="A6" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
+                        IsSelected="false" Content="B5" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
+                        IsSelected="false" Content="B6" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
+                        IsSelected="false" Content="Executive" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
+                        IsSelected="false" Content="16K" MinWidth="145" /> 
+
                 </ComboBox>
             </local:GroupBoxDecorator>
 
@@ -144,13 +158,13 @@
                     Background="White"
                     Width="145" Height="30"
                     >
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"  Content="ComboBox Item" /> 
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="Disalbe Item" IsEnabled="false" > 
-                    </ComboBoxItem>
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="Selected Item" >
-                    </ComboBoxItem>
-                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="ComboBox Item" /> 
+
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="Plain Paper" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="Recycled Paper" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="Thick Paper" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="Thin Paper" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="Label" MinWidth="145" /> 
+
                 </ComboBox>
             </local:GroupBoxDecorator>
         </StackPanel>

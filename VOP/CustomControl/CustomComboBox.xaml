@@ -59,7 +59,7 @@
                             Padding="15,0"
                             SnapsToDevicePixels="true"
                             Background="Transparent">
-                            <ContentPresenter HorizontalAlignment="Center" />
+                            <ContentPresenter HorizontalAlignment="Left" />
                         </Border>
 
                         <ControlTemplate.Triggers>
