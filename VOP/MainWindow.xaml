@@ -67,8 +67,8 @@
             <ImageBrush ImageSource="Images\background.tif" />
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="42*"/>
-            <RowDefinition Height="102*"/>
+            <RowDefinition Height="44*"/>
+            <RowDefinition Height="100*"/>
             <RowDefinition Height="96*"/>
             <RowDefinition Height="25*"/>
             <RowDefinition Height="335*"/>
@@ -125,13 +125,10 @@
             <Border VerticalAlignment="Top" Name="statusPageView" Grid.Row="4" Grid.ColumnSpan="14"  Width="{Binding ElementName=contentGrid, Path=Width}" Height="{Binding ElementName=contentGrid, Path=Height}" />
         </Grid>
 
-
-        <Border Grid.Column="1" Grid.Row="3"  Grid.ColumnSpan="11" CornerRadius="5" BorderThickness="1" Background="White" BorderBrush="Black">
-            <UIElement.Effect>
-                <DropShadowEffect BlurRadius="5" Opacity="0.8" Direction="270"/>
-            </UIElement.Effect>
-        </Border>
-
+        <Grid Grid.Column="1" Grid.Row="3"  Grid.ColumnSpan="11" Margin="0,0,0,-2"> 
+            <Rectangle  RadiusX="7" RadiusY="7" Fill="Black" />
+            <Rectangle RadiusX="7" RadiusY="7" Fill="White" Margin="1,1,1,3"/>                   
+        </Grid>
 
         <Rectangle Name="line6" Grid.Column="2" Grid.Row="3" Fill="{StaticResource lineColor_2}" />
         <Rectangle Name="line7" Grid.Column="4" Grid.Row="3" Fill="{StaticResource lineColor_2}" />
@@ -139,9 +136,6 @@
         <Rectangle Name="line9" Grid.Column="8" Grid.Row="3" Fill="{StaticResource lineColor_2}" />
         <Rectangle Name="line10" Grid.Column="10" Grid.Row="3" Fill="{StaticResource lineColor_2}" />
 
-
-
-        
 
         <mycontrol:customTabItem x:Name="tabItem_Printer"   Grid.Column="3" Grid.Row="3"  Margin="0,1"                             
                                  IsSelect="False" 
@@ -173,19 +167,10 @@
                                 IsLogon="False"
                                 bottomText="登录/注册" />
 
-
-
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.ColumnSpan="13">
             <Button Name="btnMinimize" Click="ControlBtnClick" Width="30" Height="30" Margin="0,0,2,0" >-</Button>
             <Button Name="btnClose"    Click="ControlBtnClick" Width="30" Height="30" Margin="0,0,5,0" >X</Button>
         </StackPanel>
-
-
-      
-
-   
-
-
 
     </Grid>
 </Window>

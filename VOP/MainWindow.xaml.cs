@@ -221,12 +221,21 @@ namespace VOP
         public MainWindow()
         {
             InitializeComponent();
-            this.MouseLeftButtonDown += MyMouseButtonEventHandler;
 
+            Init();
+        }
+
+        void Init()
+        {
+            this.MouseLeftButtonDown += MyMouseButtonEventHandler;
             InitTrayMenu();
 
             imgBk_Brush_1 = (ImageBrush)this.FindResource("imgBk_Brush_1");
             imgBk_Brush_2 = (ImageBrush)this.FindResource("imgBk_Brush_2");
+
+
+
+
         }
 
 
