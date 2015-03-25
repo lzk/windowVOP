@@ -26,63 +26,6 @@
         
         <Grid.Resources>
 
-            <Color x:Key="clr0">#ff646464</Color>
-            <Color x:Key="clr1">#ffa0a0a0</Color>
-            <Color x:Key="clr2">#ffebebeb</Color>
-            <Color x:Key="clr3">#ffeaeaea</Color>
-            <Color x:Key="clr4">#ffcccccc</Color>
-            <Color x:Key="clr5">#fffbfbfb</Color>
-            <Color x:Key="clr6">#ffc6c6c6</Color>
-            <Color x:Key="clr7">#ff8c8c8c</Color>
-
-
-            <Style x:Key="3dbutton" TargetType="{x:Type Button}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Grid>
-                                <Rectangle StrokeThickness="2" 
-                                           Width="50"
-                                           Height="30"
-                                           RadiusX="15"
-                                           RadiusY="15"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           >
-
-                                    <Rectangle.Stroke>
-                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                            <LinearGradientBrush.GradientStops>
-                                                <GradientStop
-                                                    Color="{StaticResource clr7}" Offset="0"/>
-                                                <GradientStop
-                                                    Color="{StaticResource clr6}" Offset="0.5"/>
-                                                <GradientStop
-                                                    Color="{StaticResource clr5}" Offset="1"/>
-                                            </LinearGradientBrush.GradientStops>
-                                        </LinearGradientBrush>
-                                    </Rectangle.Stroke>
-
-                                    <Rectangle.Fill>
-                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                            <LinearGradientBrush.GradientStops>
-                                                <GradientStop
-                                                    Color="{StaticResource clr4}" Offset="0"/>
-                                                <GradientStop
-                                                    Color="{StaticResource clr3}" Offset="1"/>
-                                            </LinearGradientBrush.GradientStops>
-                                        </LinearGradientBrush>
-                                    </Rectangle.Fill>
-
-                                </Rectangle>
-
-                                <ContentPresenter Width="40" Height="40"
-                                                  Margin="0,0,0,3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Grid>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
 
             <ControlTemplate x:Key="radiobtn" TargetType="{x:Type RadioButton}" >
                 <Grid>

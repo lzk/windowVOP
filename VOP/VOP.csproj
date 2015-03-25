@@ -448,7 +448,6 @@
     <Resource Include=".\Images\IDCardCopyIconDisable.png" />
     <Resource Include=".\Images\IDCardCopyIconEnable.png" />
     <Resource Include=".\Images\background.png" />
-    <Resource Include=".\Images\turn.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\PagePrint_Bk_2.png" />
@@ -543,6 +542,12 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Fit.tif" />
+    <Resource Include="Images\Turn.tif" />
+    <Resource Include="Images\ZoomIn.tif" />
+    <Resource Include="Images\ZoomOut.tif" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Line.png" />
