@@ -8,6 +8,7 @@
         <ResourceDictionary Source="/VOP;component/Controls/GroupBoxDecorator/GroupBoxStyle.xaml" />
         <ResourceDictionary Source="/VOP;component/Controls/ButtonEx.xaml" />
         <ResourceDictionary Source="/VOP;component/Controls/ToggleButtonEx.xaml" />
+        <ResourceDictionary Source="/VOP;component/Controls/CustomExpander.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

@@ -37,15 +37,23 @@
         Margin="2,2,2,3"
                      
         >
+            <StackPanel>
+                
+                    <local:CustomExpander SSIDText="HJ-WLAN" EncryptionText="通过WPA2进行保护" EncryptType="NoSecurity" WifiSignalLevel="Weak">
+                        <TextBlock Text="jkljkljkl" Height="100"/>
+                    </local:CustomExpander>
 
-            <WrapPanel Name="image_wrappanel" Width="200" >
-                <local:ToggleButtonEx Height="50" Width="200" SSIDText="HJ-WLAN" EncryptionText="通过WPA2进行保护" EncryptType="NoSecurity">
-                    <TextBlock Text="jkljkljkl"></TextBlock>
-                </local:ToggleButtonEx>
-                <local:ToggleButtonEx Height="50" Width="200" SSIDText="HJ-WLAN" EncryptionText="通过WPA2进行保护">
-                    <TextBlock Text="jkljkljkl"></TextBlock>
-                </local:ToggleButtonEx>
-            </WrapPanel>
+                    <local:CustomExpander SSIDText="HJ-WLAN" EncryptionText="通过WPA2进行保护" EncryptType="NoSecurity" WifiSignalLevel="Weak">
+                        <TextBlock Text="jkljkljkl" Height="100"/>
+                    </local:CustomExpander>
+  
+            </StackPanel>
+
+            <!--<WrapPanel Name="image_wrappanel" Width="200" Height="200">
+        
+
+
+            </WrapPanel>-->
 
         </ScrollViewer>
     </Grid>
