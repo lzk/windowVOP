@@ -14,6 +14,63 @@
                 <ResourceDictionary Source="Controls/CustomButton2.xaml"/>
                 <ResourceDictionary Source="CustomControl/CustomScrollView.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+        <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#aaa" Offset="0.0"/>
+                    <GradientStop Color="#bbb" Offset="0.1"/>
+                    <GradientStop Color="#bbb" Offset="0.9"/>
+                    <GradientStop Color="#ccc" Offset="1.0"/>
+                </GradientStopCollection>
+            </GradientBrush.GradientStops>
+        </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="OutsideBorderBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientBrush.GradientStops>
+           <GradientStopCollection>
+                <GradientStop Color="#e3e3e3" Offset="0.0"/>
+                <GradientStop Color="#fdfdfd" Offset="1.0"/>
+            </GradientStopCollection>
+        </GradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="DarkBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#ddd" Offset="0.0"/>
+                    <GradientStop Color="#888" Offset="1.0"/>
+                </GradientStopCollection>
+            </GradientBrush.GradientStops>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="NormalBorderBrush" StartPoint="0,0" EndPoint="0,1">
+            <GradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#CCC" Offset="0.0"/>
+                    <GradientStop Color="#444" Offset="1.0"/>
+                </GradientStopCollection>
+            </GradientBrush.GradientStops>
+        </LinearGradientBrush>
+
+    <Style x:Key="RoundedProgressBar" TargetType="{x:Type ProgressBar}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ProgressBar}">
+                    <Grid MinHeight="14" MinWidth="200">
+                        <Border Name="PART_Track" CornerRadius="8" Background="{StaticResource PressedBrush}" BorderBrush="{StaticResource OutsideBorderBrush}" BorderThickness="5">
+                        </Border>
+                        <Border Name="PART_Indicator" CornerRadius="8" Background="{StaticResource DarkBrush}" BorderBrush="Transparent"  BorderThickness="5" HorizontalAlignment="Left" >
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="10" ShadowDepth="5" />
+                            </Border.Effect>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
         </ResourceDictionary>
 
     </UserControl.Resources>
@@ -74,8 +131,9 @@
     </StackPanel>
 
     <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal"
-        HorizontalAlignment="Left" Width="62.107">
-        <TextBlock VerticalAlignment="Top"> 扫描进度: 0% </TextBlock>
+        HorizontalAlignment="Left" VerticalAlignment="Top">
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left"> 扫描进度: 0% </TextBlock>
+        <ProgressBar Style="{StaticResource RoundedProgressBar}" Width="319.823" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="18.02" Value="50"/>
     </StackPanel>
 
     </Grid>
