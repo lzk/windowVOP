@@ -583,4 +583,11 @@
     <Resource Include="Images\Promotion.png" />
     <Resource Include="Images\Update.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\mainWindow_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MainWindow_Close.PNG" />
+    <Resource Include="Images\MainWindow_Min.PNG" />
+  </ItemGroup>
 </Project>
