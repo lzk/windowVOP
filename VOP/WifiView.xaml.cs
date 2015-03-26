@@ -23,5 +23,10 @@ namespace VOP
         {
             InitializeComponent();
         }
+
+        private void OnLoadWifiView(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

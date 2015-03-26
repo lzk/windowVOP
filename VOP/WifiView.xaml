@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             xmlns:local="clr-namespace:VOP.Controls"
+             Loaded="OnLoadWifiView"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -36,7 +38,13 @@
                      
         >
 
-            <WrapPanel Name="image_wrappanel" Width="420">
+            <WrapPanel Name="image_wrappanel" Width="200" >
+                <local:ToggleButtonEx Height="50" Width="200" SSIDText="HJ-WLAN" EncryptionText="通过WPA2进行保护" EncryptType="NoSecurity">
+                    <TextBlock Text="jkljkljkl"></TextBlock>
+                </local:ToggleButtonEx>
+                <local:ToggleButtonEx Height="50" Width="200" SSIDText="HJ-WLAN" EncryptionText="通过WPA2进行保护">
+                    <TextBlock Text="jkljkljkl"></TextBlock>
+                </local:ToggleButtonEx>
             </WrapPanel>
 
         </ScrollViewer>

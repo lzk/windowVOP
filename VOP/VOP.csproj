@@ -73,7 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="common.cs" />
-
     <Compile Include="Controls\ImagePreview\ImagePreview.xaml.cs">
       <DependentUpon>ImagePreview.xaml</DependentUpon>
     </Compile>
@@ -82,7 +81,7 @@
     <Compile Include="Controls\ImagePreview\ScrollTextControl.xaml.cs">
       <DependentUpon>ScrollTextControl.xaml</DependentUpon>
     </Compile>
-
+    <Compile Include="Controls\ToggleButtonEx.cs" />
     <Compile Include="CustomControl\BusyRefresh.xaml.cs">
       <DependentUpon>BusyRefresh.xaml</DependentUpon>
     </Compile>
@@ -153,6 +152,10 @@
     <Page Include="Controls\ImagePreview\ScrollTextControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ToggleButtonEx.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="CustomControl\BusyRefresh.xaml">
       <SubType>Designer</SubType>
@@ -585,9 +588,8 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\mainWindow_Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\MainWindow_Close.PNG" />
     <Resource Include="Images\MainWindow_Min.PNG" />
+    <Resource Include="Images\signal.png" />
   </ItemGroup>
 </Project>
