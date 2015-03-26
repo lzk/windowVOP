@@ -86,6 +86,9 @@
     <Compile Include="CustomControl\BusyRefresh.xaml.cs">
       <DependentUpon>BusyRefresh.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomControl\ValidateTip_TextBox.xaml.cs">
+      <DependentUpon>ValidateTip_TextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ScanPreview.xaml.cs">
       <DependentUpon>ScanPreview.xaml</DependentUpon>
     </Compile>
@@ -180,6 +183,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ImageCropper\ResizeRotateChrome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControl\ValidateTip_TextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -454,11 +461,9 @@
   </Target>
   -->
   <ItemGroup>
-
     <Resource Include=".\Images\Brightness.png" />
     <Resource Include=".\Images\Constrast.png" />
     <Resource Include=".\Images\RepeatButtonBackground.png" />
-
     <Resource Include=".\Images\close.png" />
     <Resource Include=".\Images\check.png" />
     <Resource Include=".\Images\Nin1_1.png" />
@@ -541,7 +546,6 @@
   <ItemGroup>
     <Resource Include="Images\triangle.png" />
   </ItemGroup>
-
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
@@ -579,5 +583,4 @@
     <Resource Include="Images\Promotion.png" />
     <Resource Include="Images\Update.png" />
   </ItemGroup>
-
 </Project>

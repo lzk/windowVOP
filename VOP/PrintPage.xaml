@@ -44,9 +44,9 @@
                 <RowDefinition Height="26*" />
             </Grid.RowDefinitions>
 
-            <mycontrol:ImagePreviewControl x:Name="imagePreviewCtrl"
+            <!--<mycontrol:ImagePreviewControl x:Name="imagePreviewCtrl"
                                            Grid.Column="3" Grid.Row="1"
-                                           ImgSetPath="F:\ben"  />
+                                           ImgSetPath="F:\ben"  />-->
 
             <Grid 
                 Grid.Column="4"
@@ -133,6 +133,7 @@
                     </TextBlock>
                 </Grid>-->
 
+                <mycontrol:ValidateTip_TextBox Margin="70,179,53.6,0" Grid.RowSpan="2" stayTime="3000" Text="12" TipTextInfo="有效值输入范围为0-100，请确认后再次输入。" ValidateText="ValidateText" />
                 <mycontrol:BusyRefresh Grid.Row="3" />
 
 
