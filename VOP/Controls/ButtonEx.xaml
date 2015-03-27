@@ -24,19 +24,29 @@
                                 <SolidColorBrush Color="#FFE5E5E5"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Grid>
-                            <TextBlock 
-                        Name="tb" 
-                        VerticalAlignment="Center"
-                        Text="{TemplateBinding Content}"
-                        FontSize="{TemplateBinding FontSize}"
-                        Foreground="{TemplateBinding Foreground}" 
-                        Margin="15,0"
-                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                        TextAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        TextWrapping="NoWrap"/>
+                        <Grid Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="2"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="10"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="1" Grid.Column="1" 
+                                Name="tb" 
+                                VerticalAlignment="Center"
+                                Text="{TemplateBinding Content}"
+                                FontSize="{TemplateBinding FontSize}"
+                                Foreground="{TemplateBinding Foreground}"                                
+                                  
+                                HorizontalAlignment="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource TemplatedParent}}"     
+                                TextWrapping="NoWrap"/>
                         </Grid>
-
+                        <!--TextAlignment="{TemplateBinding }"-->
                     </Grid>
 
                     <ControlTemplate.Triggers>
