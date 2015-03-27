@@ -88,10 +88,10 @@
                 <Image Source="Images/line.png" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom"></Image>
                 <Image Source="Images/line.png" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom"></Image>
             </Grid>
-            <local:ButtonEx x:Name="btnFusing" Content="解除定影单元错误" FontSize="18"  IsActiveEx="False" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="35"></local:ButtonEx>
+            <local:ButtonEx x:Name="btnFusing" Content="解除定影单元错误" FontSize="18"  IsActiveEx="False" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="35"></local:ButtonEx>
             <Image Source="Images/line.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom"></Image>
 
-            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="应 用" FontSize="18"  IsActiveEx="True" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
+            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="应 用" FontSize="18"  IsActiveEx="True" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
         </Grid>
     </Grid>
 </UserControl>

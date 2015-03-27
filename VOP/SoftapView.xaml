@@ -60,7 +60,7 @@
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="使用" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                 <CheckBox Name="chkbtn_wifi_enable" Template="{StaticResource switchBox}" Grid.Row="3" Grid.Column="2" IsChecked="False"  Checked="HandleCheck" Unchecked="HandleCheck"  Width="40" Height="22" HorizontalAlignment="Left"/>
             </Grid>
-            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="应 用" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
+            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="应 用" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
         </Grid>
     </Grid>
 </UserControl>
