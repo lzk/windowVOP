@@ -15,7 +15,8 @@
                 <ResourceDictionary Source="CustomControl/CustomScrollView.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-        <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
+
+       <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
             <GradientBrush.GradientStops>
                 <GradientStopCollection>
                     <GradientStop Color="#aaa" Offset="0.0"/>
@@ -25,25 +26,32 @@
                 </GradientStopCollection>
             </GradientBrush.GradientStops>
         </LinearGradientBrush>
-
     <LinearGradientBrush x:Key="OutsideBorderBrush" StartPoint="0,0" EndPoint="0,1">
         <GradientBrush.GradientStops>
-           <GradientStopCollection>
+            <GradientStopCollection>
                 <GradientStop Color="#e3e3e3" Offset="0.0"/>
                 <GradientStop Color="#fdfdfd" Offset="1.0"/>
             </GradientStopCollection>
         </GradientBrush.GradientStops>
     </LinearGradientBrush>
-
     <LinearGradientBrush x:Key="DarkBrush" StartPoint="0,0" EndPoint="0,1">
             <GradientBrush.GradientStops>
                 <GradientStopCollection>
+                    <!--
                     <GradientStop Color="#ddd" Offset="0.0"/>
                     <GradientStop Color="#888" Offset="1.0"/>
-                </GradientStopCollection>
+                    -->
+            
+                    <GradientStop Color="#FFAFEB38" Offset="0.03"/>
+                    <GradientStop Color="#FFE3FBAE" Offset="0.061"/>
+                    <GradientStop Color="#FFE7FBBD" Offset="0.102"/>
+                    <GradientStop Color="#FF93D142" Offset="0.388"/>
+                    <GradientStop Color="#FF7EB52A" Offset="0.531"/>
+                    <GradientStop Color="#FF76AD29" Offset="0.531"/>
+                    <GradientStop Color="#FF52861F" Offset="1"/>
+            </GradientStopCollection>
             </GradientBrush.GradientStops>
         </LinearGradientBrush>
-
         <LinearGradientBrush x:Key="NormalBorderBrush" StartPoint="0,0" EndPoint="0,1">
             <GradientBrush.GradientStops>
                 <GradientStopCollection>
@@ -52,7 +60,6 @@
                 </GradientStopCollection>
             </GradientBrush.GradientStops>
         </LinearGradientBrush>
-
     <Style x:Key="RoundedProgressBar" TargetType="{x:Type ProgressBar}">
         <Setter Property="Template">
             <Setter.Value>
@@ -70,6 +77,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
 
         </ResourceDictionary>
 

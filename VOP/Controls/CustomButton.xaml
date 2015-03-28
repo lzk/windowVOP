@@ -118,6 +118,153 @@
         </Setter>
     </Style>
     
+    <!-- Slider Style Begin -->
+
+    <Style x:Key="SliderButtonStyle"
+       TargetType="{x:Type RepeatButton}">
+        <Setter Property="SnapsToDevicePixels"
+          Value="true" />
+        <Setter Property="OverridesDefaultStyle"
+          Value="true" />
+        <Setter Property="IsTabStop"
+          Value="false" />
+        <Setter Property="Focusable"
+          Value="false" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border Background="Transparent" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="SliderThumbStyle"
+       TargetType="{x:Type Thumb}">
+        <Setter Property="SnapsToDevicePixels"
+          Value="true" />
+        <Setter Property="OverridesDefaultStyle"
+          Value="true" />
+        <Setter Property="Height"
+          Value="16" />
+        <Setter Property="Width"
+          Value="9" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Grid>
+                        <Rectangle RadiusX="5" RadiusY="5" >
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFD9D9D9" Offset="0.087"/>
+                                    <GradientStop Color="Gray" Offset="0.957"/>
+                                    <GradientStop Color="#FF979797" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Ellipse Height="5" Width="5"  HorizontalAlignment="Center" >
+                            <Ellipse.Fill>
+                                <LinearGradientBrush EndPoint="0,1" StartPoint="0, 0">
+                                    <GradientStop Color="#777" Offset="0"/>
+                                    <GradientStop Color="#ddd" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <ControlTemplate x:Key="HorizontalSlider"
+                 TargetType="{x:Type Slider}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"
+                     MinHeight="{TemplateBinding MinHeight}" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TickBar x:Name="TopTick"
+             SnapsToDevicePixels="True"
+             Placement="Top"
+             Height="4"
+             Visibility="Collapsed">
+                <TickBar.Fill>
+                    <SolidColorBrush Color="{DynamicResource GlyphColor}" />
+                </TickBar.Fill>
+            </TickBar>
+            <Border x:Name="TrackBackground"
+            Margin="0"
+            CornerRadius="2"
+            Height="2"
+            Grid.Row="1"
+            BorderThickness="0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStopCollection>
+                                <GradientStop Color="#999" Offset="0.0" />
+                                <GradientStop Color="#ddd" Offset="1.0" />
+                            </GradientStopCollection>
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            <Track Grid.Row="1"
+           x:Name="PART_Track">
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton Style="{StaticResource SliderButtonStyle}"
+                      Command="Slider.DecreaseLarge" />
+                </Track.DecreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb Style="{StaticResource SliderThumbStyle}" />
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton Style="{StaticResource SliderButtonStyle}"
+                      Command="Slider.IncreaseLarge" />
+                </Track.IncreaseRepeatButton>
+            </Track>
+            <TickBar x:Name="BottomTick"
+             SnapsToDevicePixels="True"
+             Grid.Row="2"
+             Fill="{TemplateBinding Foreground}"
+             Placement="Bottom"
+             Height="4"
+             Visibility="Collapsed" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="TickPlacement"
+             Value="TopLeft">
+                <Setter TargetName="TopTick"
+              Property="Visibility"
+              Value="Visible" />
+            </Trigger>
+            <Trigger Property="TickPlacement"
+             Value="BottomRight">
+                <Setter TargetName="BottomTick"
+              Property="Visibility"
+              Value="Visible" />
+            </Trigger>
+            <Trigger Property="TickPlacement"
+             Value="Both">
+                <Setter TargetName="TopTick"
+              Property="Visibility"
+              Value="Visible" />
+                <Setter TargetName="BottomTick"
+              Property="Visibility"
+              Value="Visible" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+<!-- Slider Style End -->
+
+
+
+
     <ControlTemplate x:Key="custombtn" TargetType="{x:Type Button}" >
         <Grid
             Width="{TemplateBinding Width}"
