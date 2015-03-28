@@ -35,7 +35,6 @@
             <Rectangle Name="rect3" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="12" Height="14" />
             <Rectangle Name="rect4" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="12" Height="17" />
             <Rectangle Name="rect5" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="12" Height="20" />
-            <Rectangle Name="rect6" VerticalAlignment="Bottom" Margin="5,0,5,5" Fill="Black" Width="12" Height="23" />
 
             <Button Name="btnIncrease" Click="BtnClick" Style="{StaticResource CustomButton2}" Content="+" 
                 Margin="10,0" />

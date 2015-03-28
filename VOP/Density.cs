@@ -12,7 +12,7 @@ namespace VOP
 
     public partial class Density : UserControl
     {
-        // Density value, from 1 to 6.
+        // Density value, from 1 to 5.
         private int _density;
         public int m_density
         {
@@ -22,7 +22,7 @@ namespace VOP
             }
             set
             {
-                if ( value >= 1 && value <= 6 )
+                if ( value >= 1 && value <= 5 )
                 {
                     _density = value;
 
@@ -36,7 +36,6 @@ namespace VOP
                     rect3.Fill = br2;
                     rect4.Fill = br2;
                     rect5.Fill = br2;
-                    rect6.Fill = br2;
                     
                     switch ( _density )
                     {
@@ -64,14 +63,6 @@ namespace VOP
                             rect3.Fill = br1;
                             rect4.Fill = br1;
                             rect5.Fill = br1;
-                            break;
-                        case 6:
-                            rect1.Fill = br1;
-                            rect2.Fill = br1;
-                            rect3.Fill = br1;
-                            rect4.Fill = br1;
-                            rect5.Fill = br1;
-                            rect6.Fill = br1;
                             break;
                     }
                 }
