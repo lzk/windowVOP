@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:VOP.Controls">
 
     <SolidColorBrush x:Key="PreNextImageButtonBrushNormal" Color="#FF4BA400" Opacity="1"/>
-    <SolidColorBrush x:Key="PreNextImageButtonBrushOver" Color="#FF9BB883" Opacity="1"/>
+    <SolidColorBrush x:Key="PreNextImageButtonBrushOver" Color="#FF6BDE0A" Opacity="1"/>
     <SolidColorBrush x:Key="PreNextImageButtonBrushPress" Color="#FF497C1F" Opacity="1"/>
     
     <Style x:Key="PreImageButtonStyle"
@@ -102,12 +102,47 @@
                                 </RadialGradientBrush>
                             </Ellipse.Fill>
                         </Ellipse>
-                        <TextBlock Grid.Row="5" Grid.Column="1" Text="暂时无法显示"
+                        <TextBlock Grid.Row="5" Grid.Column="1" Text="暂时无法浏览"
                          Foreground="#FF71726F"
 			             FontSize="16" 
 			             HorizontalAlignment="Center" 
 			             VerticalAlignment="Top"/>  
                     </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <SolidColorBrush x:Key="BackArrowButtonBrushNormal" Color="White" Opacity="1"/>
+    <SolidColorBrush x:Key="BackArrowButtonBrushOver" Color="#FF73E061" Opacity="1"/>
+    <SolidColorBrush x:Key="BackArrowButtonBrushPress" Color="#FF005C00" Opacity="1"/>
+
+    <Style x:Key="BackArrowButtonStyle"
+       TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Path Name="innerPath" 
+                              Data="M645,415.0009 L640,421.50069 640,423.50063 645,430.00041 650,430.00041 647.375,425.00058 665,425 665,420.00073 647.25,420.00073 650,415.0009 z"
+                              Fill="{StaticResource BackArrowButtonBrushNormal}" 
+                              Stretch="Fill"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="innerPath" Property="Fill" Value="{StaticResource BackArrowButtonBrushPress}" />
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="true"/>
+                                <Condition Property="IsPressed" Value="false"/>
+                            </MultiTrigger.Conditions>
+
+                            <Setter TargetName="innerPath" Property="Fill" Value="{StaticResource BackArrowButtonBrushOver}" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

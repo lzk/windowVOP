@@ -36,6 +36,14 @@
                         <TranslateTransform X="0"/>
                     </TransformGroup>
                 </TextBlock.RenderTransform>
+                <TextBlock.Effect>
+                    <DropShadowEffect
+			          Direction="304"
+			          Color="Black"
+			          Opacity="0.5"
+			          BlurRadius="4" 
+                      ShadowDepth="4"/>
+                </TextBlock.Effect>
             </TextBlock>
             <ScrollViewer.Triggers>
                 <EventTrigger RoutedEvent="Mouse.MouseEnter">

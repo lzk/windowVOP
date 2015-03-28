@@ -14,6 +14,7 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <ExpressionBlendVersion>12.0.41002.1</ExpressionBlendVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -73,16 +73,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="common.cs" />
+
     <Compile Include="Controls\CustomExpander.cs" />
+
     <Compile Include="Controls\ImagePreview\ImagePreview.xaml.cs">
       <DependentUpon>ImagePreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImagePreview\ImagePreviewPanel.xaml.cs">
+      <DependentUpon>ImagePreviewPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ImagePreview\ScrollableDurationConverter.cs" />
     <Compile Include="Controls\ImagePreview\ScrollableWidthConverter.cs" />
     <Compile Include="Controls\ImagePreview\ScrollTextControl.xaml.cs">
       <DependentUpon>ScrollTextControl.xaml</DependentUpon>
     </Compile>
+
     <Compile Include="Controls\ToggleButtonEx.cs" />
+
     <Compile Include="CustomControl\BusyRefresh.xaml.cs">
       <DependentUpon>BusyRefresh.xaml</DependentUpon>
     </Compile>
@@ -151,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ImagePreview\ImagePreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ImagePreview\ImagePreviewPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -591,10 +602,12 @@
     <Resource Include="Images\Promotion.png" />
     <Resource Include="Images\Update.png" />
   </ItemGroup>
+
   <ItemGroup>
     <Resource Include="Images\mainWindow_Logo.png" />
     <Resource Include="Images\MainWindow_Close.PNG" />
     <Resource Include="Images\MainWindow_Min.PNG" />
     <Resource Include="Images\signal.png" />
   </ItemGroup>
+
 </Project>

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:VOP.Controls"
              mc:Ignorable="d" 
              x:Name="myControl"
-             d:DesignHeight="250" d:DesignWidth="200">
+             d:DesignHeight="250" d:DesignWidth="200" Loaded="myControl_Loaded">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,9 +14,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
+    <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="10" />
+            <RowDefinition Height="20" />
             <RowDefinition Height="*" />
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
@@ -30,6 +30,7 @@
                         Style="{StaticResource ImageUnvalidStyle}" 
                         Grid.Row="1" Grid.Column="1" />
         <Button Name="PreImageButton" 
+                Click="OnButtonClick"
                 Grid.Row="1" 
                 Grid.Column="0" 
                 Style="{StaticResource PreImageButtonStyle}" 
@@ -37,6 +38,7 @@
                 Height="15" 
                 HorizontalAlignment="Left"/>
         <Button Name="NextImageButton" 
+                Click="OnButtonClick"
                 Grid.Row="1" 
                 Grid.Column="2" 
                 Style="{StaticResource NextImageButtonStyle}" 
@@ -46,16 +48,18 @@
         <Grid  Grid.Row="2" 
                Grid.Column="1" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="55" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="55" />
             </Grid.ColumnDefinitions>
             <Button Name="PreTiffButton"
+                Click="OnButtonClick"
                 Grid.Column="1"
                 Style="{StaticResource PreImageButtonStyle}" 
                 Width="10"
                 Height="15" HorizontalAlignment="Left"/>
             <Button Name="NextTiffButton"  
+                Click="OnButtonClick"
                 Grid.Column="1" 
                 Style="{StaticResource NextImageButtonStyle}" 
                 Width="10" 

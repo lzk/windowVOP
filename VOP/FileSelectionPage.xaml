@@ -2,6 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:VOP.Controls"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:Name="myControl"
              Width="638"
              Height="367">
 
@@ -23,15 +25,7 @@
                                Canvas.Left="433" 
                                Canvas.Top="150" 
                                Height="83" Width="79"/>
-            <local:ScrollTextControl 
-                ScrollText="Scrolling is enabled when it is necessary. Resize the window, making it larger and smaller"
-                ScrollForeground="White"
-                ScrollFontSize="16"
-                Canvas.Left="26" 
-                Canvas.Top="150" 
-                Height="30" 
-                Width="179"/>
-            <local:ImagePreview Width="199" Height="207" Canvas.Left="219" Canvas.Top="98"/>
+           
         </Canvas>
     </Grid>
 </UserControl>
