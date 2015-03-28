@@ -66,7 +66,7 @@ namespace VOP
             bool bExist = false;
             List<string> list_printers = new List<string>();
 
-            get_printer_list(list_printers);
+            GetSupportPrinters(list_printers);
 
             foreach (string printername in list_printers)
             {
@@ -106,17 +106,25 @@ namespace VOP
             return strDrvName;
         }
 
-        // return default printer name
-        private string get_printer_list(List<string> list_printers)
+        /// <summary> Get the support printer list.  </summary>
+        /// <param name="listPrinters">Used to store the supported printers.</param>
+        /// <returns> None. </returns>
+        /// <remarks> If the port of printer isn't support, the printer will
+        /// not store in the list. The printer in the list were sorted by
+        /// name. The default printer will be the 1st element, if it is in the
+        /// list.  </remarks>
+        private void GetSupportPrinters(List<string> listPrinters)
         {
-            string strDefPrinter = null;
-
-            list_printers.Clear();
+            listPrinters.Clear();
 
             try
             {
                 // If spooler was stopped, new PrintServer( null ) will throw
                 // a exception.
+
+                string strDefPrinter = "";
+
+                PrinterSettings settings = new PrinterSettings();
                 PrintServer myPrintServer = new PrintServer(null);
                 PrintQueueCollection myPrintQueues = myPrintServer.GetPrintQueues();
                 foreach (PrintQueue pq in myPrintQueues)
@@ -124,42 +132,50 @@ namespace VOP
                     PrintDriver queuedrv = pq.QueueDriver;
                     if (IsSupportPrinter(queuedrv.Name) == true &&
                             EnumPortType.PT_UNKNOWN != (EnumPortType)dll.CheckPortAPI(pq.Name))
-                        list_printers.Add(pq.Name);
-                }
-
-                PrinterSettings settings = new PrinterSettings();
-                foreach (string printer in PrinterSettings.InstalledPrinters)
-                {
-                    settings.PrinterName = printer;
-
-                    //Add by KevinYin for BMS Bug 56108 begin
-                    bool isSupportPrinter = false;
-                    foreach (string strPrinterName in list_printers)
                     {
-                        if (printer == strPrinterName)
-                        {
-                            isSupportPrinter = true;
-                        }
+                        listPrinters.Add(pq.Name);
                     }
-                    //Add by KevinYin for BMS Bug 56108 end
-
+                    settings.PrinterName = pq.Name;
                     if (settings.IsDefaultPrinter)
                     {
-                        if (isSupportPrinter)
-                        {
-                            strDefPrinter = printer;
-                        }
-
-                        break;
+                        strDefPrinter = pq.Name;
                     }
+                }
+
+                // Store the printer name list
+                for ( int i=0; i<listPrinters.Count; i++ )
+                {
+                    for ( int j=i+1; j<listPrinters.Count; j++ )
+                    {
+                        if ( -1 == string.Compare( listPrinters[j] , listPrinters[i] ) )
+                        {
+                            // swrap the value 
+                            string t = listPrinters[i];
+                            listPrinters[i] = listPrinters[j];
+                            listPrinters[j] = t;
+                        }
+                    }
+                }
+
+                // If the default printer is in the support list, make it the
+                // 1st item.
+                int index = listPrinters.FindIndex( 
+                        delegate( string s )
+                        {
+                        return s == strDefPrinter;
+                        }
+                        );
+
+                if ( index != -1 && index != 0 )
+                {
+                    listPrinters.RemoveAt( index );
+                    listPrinters.Insert( 0, strDefPrinter );
                 }
             }
             catch
             {
-                strDefPrinter = null;
             }
 
-            return strDefPrinter;
         }
 
         public static bool IsSFPPrinter(
