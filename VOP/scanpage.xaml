@@ -104,7 +104,7 @@
             <DropShadowEffect BlurRadius="24" Color="#FF808080" Direction="90" ShadowDepth="2"/>
         </ScrollViewer.Effect>
 
-        <WrapPanel Name="image_wrappanel" Width="420">
+        <WrapPanel Name="image_wrappanel" Width="377" HorizontalAlignment="Center">
         </WrapPanel>
 
     </ScrollViewer>

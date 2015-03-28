@@ -32,6 +32,11 @@ namespace VOP
             scanFileList.Add( objScan );
             scanFileList.Add( objScan );
             scanFileList.Add( objScan );
+            scanFileList.Add( objScan );
+            scanFileList.Add( objScan );
+            scanFileList.Add( objScan );
+            scanFileList.Add( objScan );
+            scanFileList.Add( objScan );
 
             foreach( ScanFiles obj in scanFileList )
             {
