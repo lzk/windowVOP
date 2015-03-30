@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Printing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace VOP
 {
@@ -24,17 +25,20 @@ namespace VOP
 
     public partial class MainWindow : Window
     {
-        public static string selectedprinter = null; 
-
         CopyPage    winCopyPage   = new CopyPage   ();
         public FileSelectionPage winFileSelectionPage = null;
         public PrintPage   winPrintPage  = new PrintPage  ();
         ScanPage    winScanPage   = new ScanPage   ();
         SettingPage winSettingPage= new SettingPage();
-        StatusPanel statusPanelPage = new StatusPanel();
+        public StatusPanel statusPanelPage = new StatusPanel();
 
         private ImageBrush imgBk_Brush_1 = null;
         private ImageBrush imgBk_Brush_2 = null;
+
+        /// <summary>
+        /// Thread used to update status of current printer.
+        /// </summary>
+        public Thread statusUpdater = null;
 
         private bool PrinterExist(string strPrinterName)
         {
@@ -153,6 +157,9 @@ namespace VOP
             this.statusPanelPage.Visibility = Visibility.Hidden;
 
             IsScanCopy_Usable = true;
+            
+            statusUpdater = new Thread(UpdateStatusCaller);
+            statusUpdater.Start();
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -386,5 +393,39 @@ namespace VOP
         {
 
         }
+
+        bool bExit = true;
+        public void UpdateStatusCaller()
+        {
+            byte toner  = 0;
+            byte status = (byte)EnumStatus.Offline; 
+            byte job    = (byte)EnumMachineJob.UnknowJob;
+
+            int nFailCnt = 0;
+
+            while ( bExit )
+            {
+                if (false == dll.GetPrinterStatus( statusPanelPage.m_selectedPrinter, ref status, ref toner, ref job) )
+                {
+                    nFailCnt++;
+                    
+                    // If status getting fail more than 3 times, reset the status
+                    if ( nFailCnt >= 3 )
+                    {
+                        toner  = 0;
+                        status = (byte)EnumStatus.Offline; 
+                        job    = (byte)EnumMachineJob.UnknowJob;
+                    }
+                }            
+                else
+                {
+                    nFailCnt = 0;
+                }
+
+                // TODO: post the status message to the main window
+                System.Threading.Thread.Sleep(3000);
+            }
+        }
+
     }
 }

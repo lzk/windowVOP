@@ -667,8 +667,6 @@ namespace VOP
         string strDrvName       // Name of printer driver
         )
         {
-            return true;
-
             bool bResult = false;
 
             foreach (PrinterInfo el in printerInfos)

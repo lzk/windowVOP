@@ -30,9 +30,18 @@ namespace VOP
         PasswordView passwordView = new PasswordView();
         AboutView aboutView = new AboutView();
 
+        /// <summary>
+        /// Point to the Main Window, in order to use data from Main Window
+        /// more conviently and avoid declare global variable.
+        /// </summary>
+        MainWindow m_MainWin = null;
+
         public SettingPage()
         {
             InitializeComponent();
+
+            m_MainWin = ( MainWindow )App.Current.MainWindow;
+
             m_listSettingButton.Clear();
 
             int tabbtn_width = 165;
@@ -137,7 +146,8 @@ namespace VOP
             setting_tab_btn.Children.Clear();
             Grid.SetColumnSpan(setting_tab_btn, 3);
 
-            string strPrinterDrvName = VOP.MainWindow.GetPrinterDrvName(VOP.MainWindow.selectedprinter);
+            string strPrinterDrvName = VOP.MainWindow.GetPrinterDrvName( m_MainWin.statusPanelPage.m_selectedPrinter );
+
             if (VOP.common.IsSupportWifi(strPrinterDrvName))
             {
                 setting_tab_btn.Children.Add(btnwifi);

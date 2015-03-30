@@ -24,6 +24,10 @@ namespace VOP
         /// </summary>
         public string m_selectedPrinter = "";
 
+        public byte m_toner = 0;
+        public EnumStatus m_currentStatus = EnumStatus.Offline;
+        public EnumMachineJob m_job = EnumMachineJob.UnknowJob;
+
         public StatusPanel()
         {
             InitializeComponent();
