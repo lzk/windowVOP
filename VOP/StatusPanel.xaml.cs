@@ -19,6 +19,11 @@ namespace VOP
     /// </summary>
     public partial class StatusPanel : UserControl
     {
+        /// <summary>
+        /// Current selected printer name. Assign empty, if nothing selected.
+        /// </summary>
+        public string m_selectedPrinter = "";
+
         public StatusPanel()
         {
             InitializeComponent();
@@ -36,6 +41,11 @@ namespace VOP
 
             if ( cboPrinters.Items.Count > 0 )
                 cboPrinters.SelectedIndex = 0;
+        }
+
+        private void cboPrinters_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            m_selectedPrinter = this.cboPrinters.SelectedItem.ToString();
         }
     }
 }
