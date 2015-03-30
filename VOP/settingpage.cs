@@ -138,7 +138,7 @@ namespace VOP
             Grid.SetColumnSpan(setting_tab_btn, 3);
 
             string strPrinterDrvName = VOP.MainWindow.GetPrinterDrvName(VOP.MainWindow.selectedprinter);
-            if (VOP.MainWindow.IsSupportWifi(strPrinterDrvName))
+            if (VOP.common.IsSupportWifi(strPrinterDrvName))
             {
                 setting_tab_btn.Children.Add(btnwifi);
                 setting_tab_btn.Children.Add(btnSoftAp);
@@ -150,7 +150,7 @@ namespace VOP
             setting_tab_btn.Children.Add(btnPwd);
             setting_tab_btn.Children.Add(btnAbout);
 
-            if(VOP.MainWindow.IsSupportWifi(strPrinterDrvName))
+            if(VOP.common.IsSupportWifi(strPrinterDrvName))
             {
                 ClickSettingButton(IconType.Wireless);
             }

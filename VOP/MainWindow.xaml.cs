@@ -36,14 +36,6 @@ namespace VOP
         private ImageBrush imgBk_Brush_1 = null;
         private ImageBrush imgBk_Brush_2 = null;
 
-        public static PrinterInfo[] printerInfos = 
-        {
-            new PrinterInfo("Lenovo ABC M001"   , false , false ) ,
-            new PrinterInfo("Lenovo ABC M001 w" , false , true  ) ,
-            new PrinterInfo("Lenovo ABC P001"   , true  , false ) ,
-            new PrinterInfo("Lenovo ABC P001 w" , true  , true  ) ,
-        };
-
         private bool PrinterExist(string strPrinterName)
         {
             bool bExist = false;
@@ -90,43 +82,6 @@ namespace VOP
         }
 
 
-        public static bool IsSFPPrinter(
-                string strDrvName       // Name of printer driver
-                )
-        {
-            bool bResult = false;
-
-            foreach (PrinterInfo el in printerInfos)
-            {
-                if (el.m_name == strDrvName)
-                {
-                    bResult = el.m_isSFP;
-                    break;
-                }
-            }
-
-            return bResult;
-        }
-
-        public static bool IsSupportWifi(
-        string strDrvName       // Name of printer driver
-        )
-        {
-            return true;
-
-            bool bResult = false;
-
-            foreach (PrinterInfo el in printerInfos)
-            {
-                if (el.m_name == strDrvName)
-                {
-                    bResult = el.m_isWiFi;
-                    break;
-                }
-            }
-
-            return bResult;
-        }
 
 
         public MainWindow()

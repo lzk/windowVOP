@@ -579,10 +579,10 @@ namespace VOP
                 foreach (PrintQueue pq in myPrintQueues)
                 {
                     PrintDriver queuedrv = pq.QueueDriver;
-                    if (IsSupportPrinter(queuedrv.Name) == true &&
-                            EnumPortType.PT_UNKNOWN != (EnumPortType)dll.CheckPortAPI(pq.Name))
+                    if (IsSupportPrinter(queuedrv.Name) == true )
                     {
-                        listPrinters.Add(pq.Name);
+                        if ( EnumPortType.PT_UNKNOWN != (EnumPortType)dll.CheckPortAPI(pq.Name))
+                            listPrinters.Add(pq.Name);
                     }
                     settings.PrinterName = pq.Name;
                     if (settings.IsDefaultPrinter)
@@ -643,6 +643,44 @@ namespace VOP
             }
 
             return isSupport;
+        }
+
+        public static bool IsSFPPrinter(
+                string strDrvName       // Name of printer driver
+                )
+        {
+            bool bResult = false;
+
+            foreach (PrinterInfo el in printerInfos)
+            {
+                if (el.m_name == strDrvName)
+                {
+                    bResult = el.m_isSFP;
+                    break;
+                }
+            }
+
+            return bResult;
+        }
+
+        public static bool IsSupportWifi(
+        string strDrvName       // Name of printer driver
+        )
+        {
+            return true;
+
+            bool bResult = false;
+
+            foreach (PrinterInfo el in printerInfos)
+            {
+                if (el.m_name == strDrvName)
+                {
+                    bResult = el.m_isWiFi;
+                    break;
+                }
+            }
+
+            return bResult;
         }
     }
 
