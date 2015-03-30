@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              xmlns:local="clr-namespace:VOP.Controls"
+             xmlns:mycontrol="clr-namespace:VOP"
              Loaded="OnLoadWifiView"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -31,22 +32,54 @@
         VerticalScrollBarVisibility="Auto"
         HorizontalScrollBarVisibility="Disabled"
         HorizontalAlignment="Left"
-        VerticalAlignment="Bottom"
+        VerticalAlignment="Top"
         Background="White"
         Style="{StaticResource LeftScrollViewer}"
-        Margin="2,2,2,3"
+        Margin="4"
                      
         >
-            <StackPanel>
+            <StackPanel Name="wifiPanel" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Grid Height="45"  Background="#FFD1D1D1" Margin="6,2,6,2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="8"></ColumnDefinition>
+                        <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Text="WLAN" FontWeight="Bold" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+                    <CheckBox Grid.Row="1" Grid.Column="2" Template="{StaticResource switchBox}" Height="22" Width="45"></CheckBox>
+                    <local:ButtonEx Grid.Row="1" Grid.Column="3" Width="100" Content="加入其它网络" HorizontalContentAlignment="Center"></local:ButtonEx>
+                </Grid>
                 
-                    <local:CustomExpander SSIDText="HJ-WLAN" EncryptionText="通过WPA2进行保护" EncryptType="NoSecurity" WifiSignalLevel="Weak">
-                        <TextBlock Text="jkljkljkl" Height="100"/>
-                    </local:CustomExpander>
-
-                    <local:CustomExpander SSIDText="HJ-WLAN" EncryptionText="通过WPA2进行保护" EncryptType="NoSecurity" WifiSignalLevel="Weak">
-                        <TextBlock Text="jkljkljkl" Height="100"/>
-                    </local:CustomExpander>
-  
+                <Grid Margin="6,5,6,5" Height="30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="20"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="2"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Text="WLAN网络" FontSize="16"></TextBlock>
+                    <mycontrol:RefreshButton 
+                                        Grid.Column="1" 
+                                        VerticalAlignment="Bottom"
+                                        HorizontalAlignment="Left"
+                                        Width="22.4" Height="22.4"                                                          
+                                        >
+                    </mycontrol:RefreshButton>
+                    <Image Source="Images/GreenLine.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Stretch="Fill"></Image>
+                </Grid>
+                
+                <Grid>                    
+                    <local:WiFiItem SSIDText="BIANBIAN" EncryptionText="通过WEP进行保护" WifiSignalLevel="Normal" EncryptType="WEP"> </local:WiFiItem>
+                </Grid>
             </StackPanel>
 
             <!--<WrapPanel Name="image_wrappanel" Width="200" Height="200">

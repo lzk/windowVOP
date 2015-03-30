@@ -14,7 +14,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Name="ContentRow" Height="0"/>
-                            <RowDefinition Name="rowBottom" Height="1"/>
+                            <RowDefinition Name="rowBottom" Height="2"/>
                         </Grid.RowDefinitions>
                         <Grid >
                             <s:ToggleButtonEx Grid.Row="0"                                    

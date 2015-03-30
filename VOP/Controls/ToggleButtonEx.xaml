@@ -8,12 +8,12 @@
                 <ControlTemplate TargetType="{x:Type s:ToggleButtonEx}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="5"></ColumnDefinition>
+                            <ColumnDefinition Width="6"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="5"></ColumnDefinition>
+                            <ColumnDefinition Width="6"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="1"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="1"></RowDefinition>
                         </Grid.RowDefinitions>
@@ -26,17 +26,20 @@
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="6"></RowDefinition>
+                                <RowDefinition Height="4"></RowDefinition>
                                 <RowDefinition Height="2"></RowDefinition>
                             </Grid.RowDefinitions>
                             <Grid Grid.Column="0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="2"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <TextBlock  FontWeight="Bold" Text="{TemplateBinding  SSIDText}"  Grid.Row="0" TextTrimming="CharacterEllipsis" TextAlignment="Left"></TextBlock>
-                                <TextBlock  Grid.Row="1" Text="{TemplateBinding  EncryptionText}" TextTrimming="CharacterEllipsis" TextAlignment="Left"></TextBlock>
+                                <TextBlock  FontSize="16" Text="{TemplateBinding  SSIDText}"  Grid.Row="0" TextTrimming="CharacterEllipsis" TextAlignment="Left"></TextBlock>
+                                <Rectangle Grid.Row="1" Fill="White"></Rectangle>
+                                <TextBlock  Grid.Row="2" Text="{TemplateBinding  EncryptionText}" TextTrimming="CharacterEllipsis" TextAlignment="Left"></TextBlock>
                             </Grid>
+                            <Rectangle Grid.Column="1" Grid.ColumnSpan="3" Fill="White"></Rectangle>
                             <Image Name="imgSignal"  Source="..\Images\signal.png" Grid.Column="1" VerticalAlignment="Bottom" Height="20" Width="20"></Image>
                             <Image Name="imgLine"  Source="..\Images\Line.png" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Stretch="UniformToFill"></Image>
                         </Grid>

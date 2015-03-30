@@ -106,6 +106,9 @@
     </Compile>
     <Compile Include="Controls\SpinnerControl\SpinnerControl.cs" />
     <Compile Include="Controls\ToggleButtonEx.cs" />
+    <Compile Include="Controls\WiFiItem.xaml.cs">
+      <DependentUpon>WiFiItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControl\BusyRefresh.xaml.cs">
       <DependentUpon>BusyRefresh.xaml</DependentUpon>
     </Compile>
@@ -192,6 +195,10 @@
     <Page Include="Controls\ToggleButtonEx.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\WiFiItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CustomControl\BusyRefresh.xaml">
       <SubType>Designer</SubType>
@@ -612,21 +619,15 @@
     <Resource Include="Images\Turn.tif" />
     <Resource Include="Images\ZoomIn.tif" />
     <Resource Include="Images\ZoomOut.tif" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Line.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\HotLine.png" />
     <Resource Include="Images\Logo.png" />
     <Resource Include="Images\Promotion.png" />
     <Resource Include="Images\Update.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\mainWindow_Logo.png" />
     <Resource Include="Images\MainWindow_Close.PNG" />
     <Resource Include="Images\MainWindow_Min.PNG" />
     <Resource Include="Images\signal.png" />
+    <Resource Include="Images\GreenLine.png" />
   </ItemGroup>
-  <ItemGroup />
 </Project>

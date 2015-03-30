@@ -4,7 +4,7 @@ using System.Windows.Controls.Primitives;
 
 namespace VOP.Controls
 {
-    enum EnumEncryptType
+    public enum EnumEncryptType
     {
         NoSecurity = 0,
         WEP = 1,
@@ -12,7 +12,7 @@ namespace VOP.Controls
         MixedModePSK = 4
     };
 
-    enum EnumWifiSignalLevel
+    public enum EnumWifiSignalLevel
     {
         Weakness =0,
         Weak = 1,

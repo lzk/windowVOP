@@ -66,7 +66,7 @@
             <TextBlock Text="子网掩码" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
             <TextBox TextChanged="handler_text_changed" Name="tb_mask" Template="{StaticResource customTextBox}" Grid.Row="3" Grid.Column="1" Height="28" VerticalAlignment="Center" MaxLength="15"></TextBox>
 
-            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="应 用" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
+            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="应 用" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
         </Grid>
     </Grid>
 </UserControl>

@@ -22,10 +22,18 @@ namespace VOP
         public WifiView()
         {
             InitializeComponent();
+           
         }
 
         private void OnLoadWifiView(object sender, RoutedEventArgs e)
         {
+            VOP.Controls.WiFiItem wifiitem = new VOP.Controls.WiFiItem();
+            wifiitem.SSIDText = "HJ-WLAN";
+            wifiitem.EncryptionText = "通过WPA2进行保护";
+            wifiitem.EncryptType = VOP.Controls.EnumEncryptType.MixedModePSK;
+            wifiitem.WifiSignalLevel = VOP.Controls.EnumWifiSignalLevel.stronger;
+
+            wifiPanel.Children.Add(wifiitem);
 
         }
     }
