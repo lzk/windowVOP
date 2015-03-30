@@ -33,6 +33,9 @@ namespace VOP
             {
                 cboPrinters.Items.Add( printers[i] );
             }
+
+            if ( cboPrinters.Items.Count > 0 )
+                cboPrinters.SelectedIndex = 0;
         }
     }
 }
