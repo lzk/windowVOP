@@ -7,6 +7,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -16,6 +17,28 @@
             <ImageBrush ImageSource="Images\PagePrint.tif" />
         </Canvas.Background>
         <local:ImagePreviewPanel Width="240" Height="271" Canvas.Left="216" Canvas.Top="62" />
+        <local:SpinnerControl x:Name="spinnerControl1"
+                            Width="162"
+                            Background="Transparent"
+                            Change="1"
+                            DecimalPlaces="0"
+                            Maximum="99"
+                            Minimum="1"  
+                            Value="1" Canvas.Left="456" Canvas.Top="174" Height="46" />
+        <Button Grid.Row="1" Name="MoreSettingsButton"
+                        Width="125" Height="28" 
+                        Padding="0, 0, 0, 0"
+                        FontSize="15"
+                        Style="{StaticResource CustomGrayButtonStyle}"
+                        Content="更多设置"
+                        Canvas.Left="475" Canvas.Top="248" />
+        <Button Grid.Row="1" Name="PrintButton"
+                        Width="125" Height="35" 
+                        Padding="0, 0, 0, 0"
+                        FontSize="17"
+                        Style="{StaticResource CustomGreenButtonStyle}"
+                        Content="打    印"
+                        Canvas.Left="475" Canvas.Top="298" />
     </Canvas>
 
 </UserControl>

@@ -104,6 +104,7 @@
     <Compile Include="Controls\ImagePreview\ScrollTextControl.xaml.cs">
       <DependentUpon>ScrollTextControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SpinnerControl\SpinnerControl.cs" />
     <Compile Include="Controls\ToggleButtonEx.cs" />
     <Compile Include="CustomControl\BusyRefresh.xaml.cs">
       <DependentUpon>BusyRefresh.xaml</DependentUpon>
@@ -183,6 +184,10 @@
     <Page Include="Controls\ImagePreview\ScrollTextControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SpinnerControl\SpinnerControlStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ToggleButtonEx.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -623,4 +628,5 @@
     <Resource Include="Images\MainWindow_Min.PNG" />
     <Resource Include="Images\signal.png" />
   </ItemGroup>
+  <ItemGroup />
 </Project>
