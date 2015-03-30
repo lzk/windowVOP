@@ -23,5 +23,16 @@ namespace VOP
         {
             InitializeComponent();
         }
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            List<string> printers = new List<string>();
+            common.GetSupportPrinters( printers );
+
+            for ( int i=0; i<printers.Count; i++ )
+            {
+                cboPrinters.Items.Add( printers[i] );
+            }
+        }
     }
 }

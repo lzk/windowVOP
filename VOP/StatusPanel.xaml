@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              Width="638"
              Height="367"
-             xmlns:mycontrol="clr-namespace:VOP">    
+             xmlns:mycontrol="clr-namespace:VOP" Loaded="UserControl_Loaded">    
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -91,10 +91,8 @@
 
                     <ComboBox Grid.Row="1" Grid.Column="1"
                               Foreground="#555555"
+                              Name="cboPrinters"
                               Style="{StaticResource CboCommomStyle}" Margin="0,8,0,0">
-                        <ComboBoxItem>联想多功能一体机-----123456789</ComboBoxItem>
-                        <ComboBoxItem>联想多功能一体机-----abfdkfj</ComboBoxItem>
-                        <ComboBoxItem>联想多功能一体机-----test...</ComboBoxItem>
                     </ComboBox>
 
                     <TextBlock Grid.Row="3" Grid.Column="1"

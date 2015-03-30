@@ -21,23 +21,6 @@ namespace VOP
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     ///    
-    public class PrinterInfo
-    {
-        public string m_name;   // Name of the printer driver
-        public bool m_isSFP;    // true for SFP printer
-        public bool m_isWiFi;   // true for wifi printer 
-
-        public PrinterInfo(
-                string strDrvName,
-                bool isSFP,
-                bool isWiFi 
-                )
-        {
-            m_name   = strDrvName; 
-            m_isSFP  = isSFP;      
-            m_isWiFi = isWiFi;     
-        }
-    }
 
     public partial class MainWindow : Window
     {
@@ -66,7 +49,7 @@ namespace VOP
             bool bExist = false;
             List<string> list_printers = new List<string>();
 
-            GetSupportPrinters(list_printers);
+            common.GetSupportPrinters(list_printers);
 
             foreach (string printername in list_printers)
             {
@@ -106,77 +89,6 @@ namespace VOP
             return strDrvName;
         }
 
-        /// <summary> Get the support printer list.  </summary>
-        /// <param name="listPrinters">Used to store the supported printers.</param>
-        /// <returns> None. </returns>
-        /// <remarks> If the port of printer isn't support, the printer will
-        /// not store in the list. The printer in the list were sorted by
-        /// name. The default printer will be the 1st element, if it is in the
-        /// list.  </remarks>
-        private void GetSupportPrinters(List<string> listPrinters)
-        {
-            listPrinters.Clear();
-
-            try
-            {
-                // If spooler was stopped, new PrintServer( null ) will throw
-                // a exception.
-
-                string strDefPrinter = "";
-
-                PrinterSettings settings = new PrinterSettings();
-                PrintServer myPrintServer = new PrintServer(null);
-                PrintQueueCollection myPrintQueues = myPrintServer.GetPrintQueues();
-                foreach (PrintQueue pq in myPrintQueues)
-                {
-                    PrintDriver queuedrv = pq.QueueDriver;
-                    if (IsSupportPrinter(queuedrv.Name) == true &&
-                            EnumPortType.PT_UNKNOWN != (EnumPortType)dll.CheckPortAPI(pq.Name))
-                    {
-                        listPrinters.Add(pq.Name);
-                    }
-                    settings.PrinterName = pq.Name;
-                    if (settings.IsDefaultPrinter)
-                    {
-                        strDefPrinter = pq.Name;
-                    }
-                }
-
-                // Store the printer name list
-                for ( int i=0; i<listPrinters.Count; i++ )
-                {
-                    for ( int j=i+1; j<listPrinters.Count; j++ )
-                    {
-                        if ( -1 == string.Compare( listPrinters[j] , listPrinters[i] ) )
-                        {
-                            // swrap the value 
-                            string t = listPrinters[i];
-                            listPrinters[i] = listPrinters[j];
-                            listPrinters[j] = t;
-                        }
-                    }
-                }
-
-                // If the default printer is in the support list, make it the
-                // 1st item.
-                int index = listPrinters.FindIndex( 
-                        delegate( string s )
-                        {
-                        return s == strDefPrinter;
-                        }
-                        );
-
-                if ( index != -1 && index != 0 )
-                {
-                    listPrinters.RemoveAt( index );
-                    listPrinters.Insert( 0, strDefPrinter );
-                }
-            }
-            catch
-            {
-            }
-
-        }
 
         public static bool IsSFPPrinter(
                 string strDrvName       // Name of printer driver
@@ -216,23 +128,6 @@ namespace VOP
             return bResult;
         }
 
-        public static bool IsSupportPrinter(
-                string strDrvName       // Name of printer driver
-                )
-        {
-            bool isSupport = false;
-
-            foreach (PrinterInfo el in printerInfos)
-            {
-                if (el.m_name == strDrvName)
-                {
-                    isSupport = true;
-                    break;
-                }
-            }
-
-            return isSupport;
-        }
 
         public MainWindow()
         {
