@@ -34,6 +34,16 @@ namespace VOP
         private LinearGradientBrush Brush_Preheat = null;
         private LinearGradientBrush Brush_Error = null;
 
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register("Text", typeof(string), typeof(StatusTextBlock));
+       
+
         public StatusType TypeId
         {
             get { return (StatusType)GetValue(TypeIdProperty); }
@@ -54,33 +64,33 @@ namespace VOP
 
         private void TypeId_Changed()
         {
-            StatusType typeId = TypeId;
+            StatusType typeId = TypeId;           
 
             if (StatusType.Pend == typeId)
             {
                 rect_Background.Fill = Brush_Pend;
-                textblock.Text = "等待";
+               // textblock.Text = "等待";
             }
             else if (StatusType.Pending == typeId)
             {
                 rect_Background.Fill = Brush_Pending;
-                textblock.Text = "等待中";
+               // textblock.Text = "等待中";
             }
             else if (StatusType.Error == typeId)
             {
                 rect_Background.Fill = Brush_Error;
-                textblock.Text = "错误";
+               // textblock.Text = "错误";
             }
             else if (StatusType.Preheat == typeId)
             {
                 rect_Background.Fill = Brush_Preheat;
-                textblock.Text = "预热";
+              //  textblock.Text = "预热";
             }
 
             else if (StatusType.Sleeping == typeId)
             {
                 rect_Background.Fill = Brush_Sleeping;
-                textblock.Text = "休眠中";
+               // textblock.Text = "休眠中";
             }
 
             if (StatusType.Error == typeId)

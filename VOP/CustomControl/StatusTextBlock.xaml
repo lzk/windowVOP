@@ -79,6 +79,7 @@
                        HorizontalAlignment="Center"
                        TextAlignment="Center"
                        Foreground="White" 
+                       Text="{Binding ElementName=container, Path=Text}"
                        >               
             </TextBlock>
         </Grid>      

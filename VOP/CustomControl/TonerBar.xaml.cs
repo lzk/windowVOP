@@ -33,7 +33,7 @@ namespace VOP
         private ImageBrush imgBrush_Normal = null;
 
         DispatcherTimer timer = new DispatcherTimer();
-        private int shrinkCnts = 0;
+       
         #endregion //Data_Member
 
         #region Event
@@ -95,22 +95,18 @@ namespace VOP
 
             if (curPercet <= 10)
             {
-                TonerPercent.Background = Brush_10_percent;
-
-                shrinkCnts = 0;
-                timer.Start();
+                TonerPercent.Background = Brush_10_percent;           
             }
             else if (curPercet <= 30)
             {
                 TonerPercent.Background = Brush_30_percent;
-
-                shrinkCnts = 0;
-                timer.Start();
+          
             }
             else if (curPercet <= 60)
             {
                 TonerPercent.Background = Brush_Normal;
             }
+           
 
             textblock_Tip.Text = string.Format("碳粉容量 ： {0:P0}", CurValue / 100.0);
 
@@ -123,6 +119,15 @@ namespace VOP
             {
                 shopCart_Img.Fill = imgBrush_Normal;
             }
+
+            if (curPercet <= 30)
+            {
+                timer.Start();
+            }
+            else
+            {
+                timer.Stop();
+            }
         }
         public TonerBar()
         {
@@ -131,23 +136,14 @@ namespace VOP
         }
         void timer_Tick(object sender, EventArgs e)
         {
-            ++shrinkCnts;
-
-            if (0 == shrinkCnts % 2)
+            if(Visibility.Hidden == shopCart_Img.Visibility)
             {
-                if (curPercet <= 10)
-                {
-                    TonerPercent.Background = Brush_10_percent;
-                }
-                else if (curPercet <= 30)
-                {
-                    TonerPercent.Background = Brush_30_percent;
-                }
+                shopCart_Img.Visibility = Visibility.Visible;
             }
             else
             {
-                TonerPercent.Background = Brush_Normal;
-            }
+                shopCart_Img.Visibility = Visibility.Hidden;
+            }         
         }
 
         public void Init()
