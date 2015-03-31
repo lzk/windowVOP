@@ -24,7 +24,24 @@ namespace VOP
         /// </summary>
         public string m_selectedPrinter = "";
 
-        public byte m_toner = 0;
+        private byte _toner = 0; 
+        public byte m_toner 
+        {
+            set
+            {
+                if ( value >=0 && value <= 100 )
+                {
+                    _toner = value;
+                    lbTonerBar.CurValue = _toner;
+                }
+            }
+
+            get
+            {
+                return _toner;
+            }
+        }
+
         public EnumStatus m_currentStatus = EnumStatus.Offline;
         public EnumMachineJob m_job = EnumMachineJob.UnknowJob;
 

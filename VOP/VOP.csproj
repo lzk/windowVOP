@@ -172,6 +172,7 @@
       <DependentUpon>SettingButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="type_define.cs" />
+    <Compile Include="Win32.cs" />
     <Page Include="Controls\CustomExpander.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

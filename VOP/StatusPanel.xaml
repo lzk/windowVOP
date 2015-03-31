@@ -113,6 +113,7 @@
                     </mycontrol:StatusTextBlock>
 
                     <mycontrol:TonerBar Grid.Row="6" Grid.Column="1" 
+                        x:Name="lbTonerBar"
                                         CurValue="25">
                     </mycontrol:TonerBar>
 

@@ -15,6 +15,7 @@ using System.Printing;
 using System.Drawing.Printing;
 using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Interop;
 
 namespace VOP
 {
@@ -163,6 +164,8 @@ namespace VOP
 
             IsScanCopy_Usable = true;
             
+            AddMessageHook();
+
             statusUpdater = new Thread(UpdateStatusCaller);
             statusUpdater.Start();
         }
@@ -404,12 +407,14 @@ namespace VOP
         /// </summary>
         bool bExitUpdater = false;
 
+        // Those variable were used for post WM_STATUS_UPDATE message, do not
+        // for other usage.
+        private byte _toner  = 0;
+        private byte _status = (byte)EnumStatus.Offline; 
+        private byte _job    = (byte)EnumMachineJob.UnknowJob;
+
         public void UpdateStatusCaller()
         {
-            byte toner  = 0;
-            byte status = (byte)EnumStatus.Offline; 
-            byte job    = (byte)EnumMachineJob.UnknowJob;
-
             int nFailCnt = 0;
 
             m_updaterAndUIEvent.Reset();
@@ -419,16 +424,16 @@ namespace VOP
 
             while ( !bExitUpdater )
             {
-                if (false == dll.GetPrinterStatus( statusPanelPage.m_selectedPrinter, ref status, ref toner, ref job) )
+                if (false == dll.GetPrinterStatus( statusPanelPage.m_selectedPrinter, ref _status, ref _toner, ref _job) )
                 {
                     nFailCnt++;
                     
                     // If status getting fail more than 3 times, reset the status
                     if ( nFailCnt >= 3 )
                     {
-                        toner  = 0;
-                        status = (byte)EnumStatus.Offline; 
-                        job    = (byte)EnumMachineJob.UnknowJob;
+                        _toner  = 0;
+                        _status = (byte)EnumStatus.Offline; 
+                        _job    = (byte)EnumMachineJob.UnknowJob;
                     }
                 }            
                 else
@@ -437,6 +442,8 @@ namespace VOP
                 }
 
                 // TODO: post the status message to the main window
+                Win32.PostMessage( (IntPtr)0xffff, App.WM_STATUS_UPDATE, IntPtr.Zero , IntPtr.Zero );
+
                 System.Threading.Thread.Sleep(3000);
             }
 
@@ -451,5 +458,53 @@ namespace VOP
             this.Close();
         }
 
+        private System.IntPtr _handle = IntPtr.Zero;
+        public System.IntPtr WindowHandle
+        {
+            get
+            {
+                if (_handle == IntPtr.Zero)
+                    _handle = (new WindowInteropHelper(App.Current.MainWindow)).Handle;
+                return _handle;
+            }
+        }
+
+        private void AddMessageHook()
+        {
+            HwndSource src = HwndSource.FromHwnd(WindowHandle);
+            src.AddHook(new HwndSourceHook(this.WndProc));
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            System.Windows.Forms.Message m = new System.Windows.Forms.Message();
+            m.HWnd = hwnd;
+            m.Msg = msg;
+            m.WParam = wParam;
+            m.LParam = lParam;
+
+            if (handled)
+                return IntPtr.Zero;
+
+           if (msg == App.WM_STATUS_UPDATE )
+           {
+               byte toner  = 0;
+               byte status = (byte)EnumStatus.Offline; 
+               byte job    = (byte)EnumMachineJob.UnknowJob;
+
+               // TODO: add sync mechanism 
+               toner  = _toner ;
+               status = _status;
+               job    = _job   ;
+
+               this.statusPanelPage.m_toner         = toner;
+               this.statusPanelPage.m_currentStatus = (EnumStatus)status;
+               this.statusPanelPage.m_job           = (EnumMachineJob)job;
+
+
+           }
+
+            return IntPtr.Zero;
+        }
     }
 }
