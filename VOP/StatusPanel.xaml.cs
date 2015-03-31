@@ -20,7 +20,7 @@ namespace VOP
     public partial class StatusPanel : UserControl
     {
         /// <summary>
-        /// Current selected printer name. Assign empty, if nothing selected.
+        /// Current selected printer name. Assign empty ( NOTE: no null ), if nothing selected.
         /// </summary>
         public string m_selectedPrinter = "";
 

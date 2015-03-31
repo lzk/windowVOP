@@ -444,7 +444,14 @@ namespace VOP
                 // TODO: post the status message to the main window
                 Win32.PostMessage( (IntPtr)0xffff, App.WM_STATUS_UPDATE, IntPtr.Zero , IntPtr.Zero );
 
-                System.Threading.Thread.Sleep(3000);
+
+                for ( int i=0; i<6; i++ )
+                {
+                    if ( bExitUpdater )
+                        break;
+
+                    System.Threading.Thread.Sleep(500);
+                }
             }
 
             m_updaterAndUIEvent.Set();
