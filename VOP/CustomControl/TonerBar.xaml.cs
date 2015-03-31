@@ -23,7 +23,6 @@ namespace VOP
     {
         #region Data_Member
         private const double minValue = 0;
-        private const int defaultMilliseconds = 300;
         private double curPercet = 0.0;
 
         private LinearGradientBrush Brush_10_percent = null;
@@ -50,6 +49,23 @@ namespace VOP
 
 
         #region Property
+        public int MilliSeconds
+        {
+            get { return (int)GetValue(MilliSecondsProperty); }
+            set { SetValue(MilliSecondsProperty, value); }
+        }
+
+        public static readonly DependencyProperty MilliSecondsProperty =
+            DependencyProperty.Register("MilliSeconds", typeof(int), typeof(TonerBar),
+           new FrameworkPropertyMetadata(600, new PropertyChangedCallback(OnMilliSeconds_Changed)));
+
+        private static void OnMilliSeconds_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            VOP.TonerBar _this = (VOP.TonerBar)sender;
+            _this.timer.Interval = new TimeSpan(0, 0, 0, 0, _this.MilliSeconds);
+        }
+
+        
         public double MaxValue
         {
             get { return (double)GetValue(MaxValueProperty); }
@@ -136,13 +152,15 @@ namespace VOP
         }
         void timer_Tick(object sender, EventArgs e)
         {
-            if(Visibility.Hidden == shopCart_Img.Visibility)
+            const double opacity = 0.1;
+
+            if (opacity == shopCart_Img.Opacity)
             {
-                shopCart_Img.Visibility = Visibility.Visible;
+                shopCart_Img.Opacity = 1.0;
             }
             else
             {
-                shopCart_Img.Visibility = Visibility.Hidden;
+                shopCart_Img.Opacity = opacity;
             }         
         }
 
@@ -155,7 +173,7 @@ namespace VOP
             imgBrush_Warn = (ImageBrush)this.FindResource("imgBrush_Warn"); ;
             imgBrush_Normal = (ImageBrush)this.FindResource("imgBrush_Normal"); ;
 
-            timer.Interval = new TimeSpan(0, 0, 0, 0, defaultMilliseconds);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, MilliSeconds);
             timer.Tick += new EventHandler(timer_Tick);
 
             this.Loaded += TonerBar_Loaded;
