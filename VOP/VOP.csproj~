@@ -649,9 +649,19 @@
     <Resource Include="Images\MainWindow_Min.PNG" />
     <Resource Include="Images\signal.png" />
     <Resource Include="Images\GreenLine.png" />
+  </ItemGroup>
+  <ItemGroup>
+<<<<<<< HEAD
     <Resource Include="Images\printer.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Images\ButtonPicSelect.png" />
+  </ItemGroup>
+</Project>
+
+=======
     <Resource Include="Images\Checked.png" />
     <Resource Include="Images\Uncheck.png" />
   </ItemGroup>
 </Project>
+>>>>>>> Modify custom checkbox and radio button.
