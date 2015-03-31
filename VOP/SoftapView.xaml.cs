@@ -37,16 +37,15 @@ namespace VOP
 
         private void OnLoadedSoftapView(object sender, RoutedEventArgs e)
         {
-            EnableApplyButton();
-
+            UpdateApplyBtnStatus();
         }
 
         public void HandleCheck(object sender, RoutedEventArgs e)
         {
-            EnableApplyButton();
+            UpdateApplyBtnStatus();
         }
 
-        private void EnableApplyButton()
+        private void UpdateApplyBtnStatus()
         {
             if(is_InputVailible())
             {
@@ -78,10 +77,10 @@ namespace VOP
 
             if (is_InputVailible())
             {
-                SoftApRecord m_rec = new SoftApRecord(VOP.MainWindow.selectedprinter, str_ssid, str_pwd, isEnableSoftAp);
+                SoftApRecord m_rec = new SoftApRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, str_ssid, str_pwd, isEnableSoftAp);
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-                if (worker.InvokeMethod<SoftApRecord>(VOP.MainWindow.selectedprinter, ref m_rec, DllMethodType.SetSoftAp))
+                if (worker.InvokeMethod<SoftApRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetSoftAp))
                 {
                     if (m_rec.CmdResult == EnumCmdResult._ACK)
                     {
@@ -110,7 +109,7 @@ namespace VOP
                 }
             }
 
-            EnableApplyButton();
+            UpdateApplyBtnStatus();
         }
 
         public bool is_InputVailible()
@@ -177,7 +176,7 @@ namespace VOP
 
             softAPSetting.m_pwd = pwd.Password;
 
-            EnableApplyButton();
+            UpdateApplyBtnStatus();
         }
 
         private void handler_text_changed(object sender, TextChangedEventArgs e)
@@ -192,7 +191,7 @@ namespace VOP
             }
 
             softAPSetting.m_ssid = strText;
-            EnableApplyButton();
+            UpdateApplyBtnStatus();
         }
     }
 }

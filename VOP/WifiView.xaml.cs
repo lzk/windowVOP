@@ -31,8 +31,8 @@ namespace VOP
 
             VOP.Controls.WiFiItem wifiitem = new VOP.Controls.WiFiItem();
             wifiitem.SSIDText = "HJ-WLAN";
-            wifiitem.EncryptionText = "通过WPA2进行保护";
-            wifiitem.EncryptType = VOP.Controls.EnumEncryptType.MixedModePSK;
+            wifiitem.EncryptionText = "通过WEP进行保护";
+            wifiitem.EncryptType = VOP.Controls.EnumEncryptType.WEP;
             wifiitem.WifiSignalLevel = VOP.Controls.EnumWifiSignalLevel.stronger;
 
             wifilist.Children.Add(wifiitem);

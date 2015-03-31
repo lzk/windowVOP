@@ -111,8 +111,14 @@
                                     <TextBlock Grid.Row="1" Text="密码：" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
                                     <PasswordBox Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" MaxLength="64"></PasswordBox>
                                 </Grid>
-
-                                <Grid Grid.Row="2">
+                                
+                                <StackPanel Grid.Row="2">
+                                    <Grid Height="30">
+                                        <CheckBox Content="显示密码" IsChecked="True" Template="{StaticResource customCheckBox}"></CheckBox>
+                                    </Grid>
+                                </StackPanel>
+                                
+                                <Grid Grid.Row="3">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                         <ColumnDefinition Width="4"></ColumnDefinition>
@@ -127,7 +133,7 @@
                                     </ComboBox>
                                 </Grid>
 
-                                <StackPanel Grid.Row="3" Name="wepGrid">
+                                <StackPanel Grid.Row="4" Name="wepGrid">
                                     <Grid Grid.Row="1" Height="50">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"></RowDefinition>
@@ -148,12 +154,6 @@
                                             <RadioButton GroupName="WepKeyRadio" Grid.Column="2" Template="{StaticResource customRadioButton}" Content="Key3" VerticalAlignment="Center"></RadioButton>
                                             <RadioButton GroupName="WepKeyRadio" Grid.Column="3" Template="{StaticResource customRadioButton}" Content="Key4" VerticalAlignment="Center"></RadioButton>
                                         </Grid>
-                                    </Grid>
-                                </StackPanel>
-
-                                <StackPanel Grid.Row="4">
-                                    <Grid Height="30">
-                                        <CheckBox Margin="20,0" Content="显示密码" IsChecked="True" Template="{StaticResource customCheckBox}"></CheckBox>
                                     </Grid>
                                 </StackPanel>
 

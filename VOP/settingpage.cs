@@ -156,6 +156,10 @@ namespace VOP
             {
                 ClickSettingButton(IconType.Wireless);
             }
+            else
+            {
+                ClickSettingButton(IconType.PowerSave);
+            }
         }
 
         private void SettingBtnClick(object sender, RoutedEventArgs e)
