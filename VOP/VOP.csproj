@@ -95,6 +95,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncWorker.cs" />
     <Compile Include="common.cs" />
     <Compile Include="Controls\CustomExpander.cs" />
     <Compile Include="Controls\ImagePreview\ImagePreview.xaml.cs">
@@ -121,6 +122,9 @@
       <DependentUpon>ValidateTip_TextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="PdfHelper.cs" />
+    <Compile Include="ProgressBarWindow.xaml.cs">
+      <DependentUpon>ProgressBarWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ScanPreview.xaml.cs">
       <DependentUpon>ScanPreview.xaml</DependentUpon>
     </Compile>
@@ -252,6 +256,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PowerSaveView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProgressBarWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
