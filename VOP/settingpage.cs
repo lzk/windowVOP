@@ -40,8 +40,6 @@ namespace VOP
         {
             InitializeComponent();
 
-            m_MainWin = ( MainWindow )App.Current.MainWindow;
-
             m_listSettingButton.Clear();
 
             int tabbtn_width = 165;
@@ -143,6 +141,10 @@ namespace VOP
 
         public void handler_loaded_settingpage( object sender, RoutedEventArgs e )
         {
+            // App.Current.MainWindow was not ready yet in SettingPage
+            // constructor function. So assign in here.
+            m_MainWin = ( MainWindow )App.Current.MainWindow;
+
             setting_tab_btn.Children.Clear();
             Grid.SetColumnSpan(setting_tab_btn, 3);
 
