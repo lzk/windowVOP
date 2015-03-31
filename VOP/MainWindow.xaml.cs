@@ -508,6 +508,8 @@ namespace VOP
                this.statusPanelPage.m_currentStatus = (EnumStatus)status;
                this.statusPanelPage.m_job           = (EnumMachineJob)job;
 
+               App.g_autoMachine.TranferState((EnumMachineJob)job);
+               App.g_autoMachine.TranferState((EnumStatus)status);
 
            }
 

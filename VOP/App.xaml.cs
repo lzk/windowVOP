@@ -12,6 +12,7 @@ namespace VOP
     /// </summary>
     public partial class App : Application
     {
+        public static AutoMachine g_autoMachine = new AutoMachine();
         public static uint WM_STATUS_UPDATE = Win32.RegisterWindowMessage("35abddc8c9f59ddfebcf8a3bfdd8ea9b4ef9dfd8");
 
         App()
