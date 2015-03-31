@@ -10,6 +10,7 @@
         ResizeMode="NoResize"
         WindowStyle="None" 
         BorderThickness="24"
+        Loaded="Window_Loaded"
         >
     <Window.Resources>
         <ResourceDictionary>
@@ -36,7 +37,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid>
-                            <Rectangle StrokeThickness="2" 
+                            <Rectangle StrokeThickness="2" Name="rect"
                                 Width="50"
                                 Height="30"
                                 RadiusX="15"
@@ -74,7 +75,39 @@
                             <ContentPresenter Width="40" Height="40"
                                 Margin="0,0,0,3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Grid>
-                    </ControlTemplate>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="rect" Property="Stroke" >
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                <LinearGradientBrush.GradientStops>
+                                                    <GradientStop
+                                                    Color="#ffd4d4d4" Offset="0"/>
+                                                    <GradientStop
+                                                    Color="#ff222222" Offset="1"/>
+                                                </LinearGradientBrush.GradientStops>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+
+
+                                    <Setter TargetName="rect" Property="Fill" >
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                <LinearGradientBrush.GradientStops>
+                                                    <GradientStop
+                                                    Color="#ff959595" Offset="0"/>
+                                                    <GradientStop
+                                                    Color="#ff434343" Offset="1"/>
+                                                </LinearGradientBrush.GradientStops>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -98,24 +131,29 @@
         </Border>
 
         <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True"/>
-        <ScrollViewer Margin="0" Grid.Row="1"/>
+        
+        <!--<ScrollViewer Margin="0" Grid.Row="1"/>-->
+        <ScrollViewer Name="scrollPreview" Margin="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Style="{StaticResource LeftScrollViewer}">
+            <Image VerticalAlignment="Center" HorizontalAlignment="Center" Name="previewImg" Height="100" />
+        </ScrollViewer>
+
         <StackPanel HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal">
-        	<Button HorizontalAlignment="Left"
+            <Button HorizontalAlignment="Left" Name="btn_normal" Click="imagebtn_click"
                 VerticalAlignment="Top" Width="55" Style="{DynamicResource 3dbutton}">
         		<Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/Fit.tif"/>
         	</Button>
-        	<Button HorizontalAlignment="Left"
+            <Button HorizontalAlignment="Left" Name="btn_zoomin" Click="imagebtn_click"
                 VerticalAlignment="Top" Width="55" Style="{DynamicResource 3dbutton}">
         		<Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/ZoomIn.tif"/>
         	</Button>
-        	<Button HorizontalAlignment="Left" Margin="0"
+            <Button HorizontalAlignment="Left" Margin="0"  Name="btn_zoomout" Click="imagebtn_click"
                 VerticalAlignment="Top" Width="55" Style="{DynamicResource 3dbutton}">
         		<Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/ZoomOut.tif"/>
         	</Button>
-        	<Button HorizontalAlignment="Left"
+            <Button HorizontalAlignment="Left" Name="btn_turn" Click="imagebtn_click"
                 VerticalAlignment="Top" Width="55" Style="{DynamicResource 3dbutton}">
         		<Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/Turn.tif"/>
@@ -123,9 +161,9 @@
         </StackPanel>
 
         <StackPanel Margin="0" Grid.Row="3" Width="240" Orientation="Horizontal">
-        	<Button Content="确定" HorizontalAlignment="Center" Height="40"
+            <Button Click="save_btn_click" Content="确定" HorizontalAlignment="Center" Height="40"
                 Margin="25,0,0,0" Width="75" Template="{DynamicResource custombtn}" VerticalAlignment="Center"/>
-        	<Button Content="打印" HorizontalAlignment="Center" Height="40"
+            <Button Click="print_btn_click" Content="打印" HorizontalAlignment="Center" Height="40"
                 Margin="25,0,0,0" Width="75" Template="{DynamicResource custombtn}" IsDefault="true" VerticalAlignment="Center" />
         </StackPanel>
         

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+
+<assemblyIdentity
+	type="win32"
+	name="PdfEncoder.X"
+	version="1.0.0.0" />
+
+<file name = "PdfEncoder.dll">
+
+<comClass
+    clsid="{7A438DD5-34F3-443E-9697-DEAFD1CA1688}"
+    threadingModel = "Apartment" />
+
+<typelib tlbid="{E0D5B93E-9B1B-4115-88A7-08E5BC97966C}"
+       version="1.0" helpdir=""/>
+
+</file>
+
+<comInterfaceExternalProxyStub 
+    name="IPdfEncoderClass" 
+    iid="{FFE0AC14-517E-4BB7-B061-56D4F995B4FA}"
+    proxyStubClsid32="{00020424-0000-0000-C000-000000000046}"
+    baseInterface="{00000000-0000-0000-C000-000000000046}"
+    tlbid = "{E0D5B93E-9B1B-4115-88A7-08E5BC97966C}" />
+
+</assembly>

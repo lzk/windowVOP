@@ -69,6 +69,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+	<Reference Include="Interop.PdfEncoderLib">
+      <HintPath>..\PdfDll\32bit\Interop.PdfEncoderLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.Expression.Controls" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -115,6 +119,7 @@
     <Compile Include="CustomControl\ValidateTip_TextBox.xaml.cs">
       <DependentUpon>ValidateTip_TextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PdfHelper.cs" />
     <Compile Include="ScanPreview.xaml.cs">
       <DependentUpon>ScanPreview.xaml</DependentUpon>
     </Compile>

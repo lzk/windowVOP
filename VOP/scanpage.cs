@@ -85,6 +85,7 @@ namespace VOP
         {
             ScanPreview win = new ScanPreview();
             win.Owner = App.Current.MainWindow;
+			win.m_images = scanFileList[0];
             win.ShowDialog();
         }
 
