@@ -40,6 +40,11 @@ namespace VOP
         /// </summary>
         public Thread statusUpdater = null;
 
+        /// <summary>
+        /// Event used to sync between status update thread and main UI.
+        /// </summary>
+        public ManualResetEvent m_updaterAndUIEvent = new ManualResetEvent(true);
+
         private bool PrinterExist(string strPrinterName)
         {
             bool bExist = false;
@@ -132,7 +137,7 @@ namespace VOP
 
         void item1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.MainWindowExitPoint();
         }
 
         private void OnNotifyIconDoubleClick(object sender, EventArgs e)
@@ -177,7 +182,7 @@ namespace VOP
             {
                 if ( "btnClose" == btn.Name )
                 {
-                    this.Close();
+                    this.MainWindowExitPoint();
                 }
                 else if ("btnMinimize" == btn.Name)
                 {
@@ -394,7 +399,11 @@ namespace VOP
 
         }
 
-        bool bExit = true;
+        /// <summary>
+        /// Exit falg. True if need to exit thread statusUpdater.
+        /// </summary>
+        bool bExitUpdater = false;
+
         public void UpdateStatusCaller()
         {
             byte toner  = 0;
@@ -403,7 +412,12 @@ namespace VOP
 
             int nFailCnt = 0;
 
-            while ( bExit )
+            m_updaterAndUIEvent.Reset();
+
+            // TODO: Add Thread Sync mechanism for share variable
+            bExitUpdater = false;
+
+            while ( !bExitUpdater )
             {
                 if (false == dll.GetPrinterStatus( statusPanelPage.m_selectedPrinter, ref status, ref toner, ref job) )
                 {
@@ -425,6 +439,16 @@ namespace VOP
                 // TODO: post the status message to the main window
                 System.Threading.Thread.Sleep(3000);
             }
+
+            m_updaterAndUIEvent.Set();
+        }
+
+        private void MainWindowExitPoint()
+        {
+            bExitUpdater = true;
+            m_updaterAndUIEvent.WaitOne();
+
+            this.Close();
         }
 
     }
