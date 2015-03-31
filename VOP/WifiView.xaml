@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:VOP.Controls"
              xmlns:mycontrol="clr-namespace:VOP"
              Loaded="OnLoadWifiView"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="500" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,7 +16,9 @@
                 <ResourceDictionary Source="Controls/CustomTextBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomButton2.xaml"/>
+                <ResourceDictionary Source="CustomControl/CustomComboBox.xaml"/>
                 <ResourceDictionary Source="CustomControl/CustomScrollView.xaml"/>
+                <ResourceDictionary Source="Controls/ComboBox_Template.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -39,55 +41,162 @@
                      
         >
             <StackPanel Name="wifiPanel" Margin="3" HorizontalAlignment="Center" VerticalAlignment="Top">
-                <Grid Height="45"  Background="#FFD1D1D1" Margin="6,2,6,2">
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="10"></RowDefinition>
+                        <RowDefinition Height="45"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="10"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="8"></ColumnDefinition>
-                        <ColumnDefinition Width="1.2*"></ColumnDefinition>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition Width="2.5*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
                     
-                    <TextBlock Text="WLAN" FontWeight="Bold" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
-                    <CheckBox Grid.Row="1" Grid.Column="2" Template="{StaticResource switchBox}" Height="22" Width="45"></CheckBox>
-                    <local:ButtonEx Grid.Row="1" Grid.Column="3" Width="100" Content="加入其它网络" HorizontalContentAlignment="Center"></local:ButtonEx>
-                </Grid>
-                
-                <Grid Margin="6,5,6,5" Height="30">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="2"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Column="0" Text="WLAN网络" FontSize="16"></TextBlock>
-                    <mycontrol:RefreshButton 
+                    <Grid Height="45"  Background="#FFD1D1D1" Margin="6,2,6,2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="8"></ColumnDefinition>
+                            <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="WLAN" FontWeight="Bold" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+                        <CheckBox Grid.Row="1" Grid.Column="2" Template="{StaticResource switchBox}" Height="22" Width="45"></CheckBox>
+                        <local:ButtonEx x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="1" Grid.Column="3" Width="100" Content="加入其它网络" HorizontalContentAlignment="Center"></local:ButtonEx>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Name="rowManual" Height="0"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Name="manualConnect" Margin="6,5,6,5" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                    <RowDefinition Height="70"></RowDefinition>
+                                    <RowDefinition Height="35"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="4*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="Images/wifi.png" Height="28" Width="28"></Image>
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock FontSize="15" Text="查找并加入WiFi网络"></TextBlock>
+                                        <TextBlock Text="输入您想要加入的网络名称和安全类型。" Grid.Row="1" TextWrapping="Wrap"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="4"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="网络名称：" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                                    <TextBox Grid.Column="2" VerticalAlignment="Center" MaxLength="32"></TextBox>
+                                    <TextBlock Grid.Row="1" Text="密码：" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                                    <PasswordBox Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" MaxLength="64"></PasswordBox>
+                                </Grid>
+
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="4"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="加密方式：" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                                    <ComboBox Grid.Column="2" Background="White" Foreground="Black" VerticalAlignment="Center" Height="24" Style="{StaticResource CboCommomStyle}" >
+                                        <ComboBoxItem Content="不加密" Background="White" Foreground="Black" ></ComboBoxItem>
+                                        <ComboBoxItem Content="WEP" Background="White" Foreground="Black"></ComboBoxItem>
+                                        <ComboBoxItem Content="WPA2-PSK-AES" Background="White" Foreground="Black" IsSelected="True"></ComboBoxItem>
+                                        <ComboBoxItem Content="Mixed Mode PSK" Background="White" Foreground="Black"></ComboBoxItem>
+                                    </ComboBox>
+                                </Grid>
+
+                                <StackPanel Grid.Row="3" Name="wepGrid">
+                                    <Grid Grid.Row="1" Height="50">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Name="tkWEPKeyID" Text="WEP KeyID" VerticalAlignment="Center"></TextBlock>
+                                        <Grid Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <RadioButton GroupName="WepKeyRadio" IsChecked="True" Template="{StaticResource customRadioButton}" Content="Key1" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton GroupName="WepKeyRadio" Grid.Column="1" Template="{StaticResource customRadioButton}" Content="Key2" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton GroupName="WepKeyRadio" Grid.Column="2" Template="{StaticResource customRadioButton}" Content="Key3" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton GroupName="WepKeyRadio" Grid.Column="3" Template="{StaticResource customRadioButton}" Content="Key4" VerticalAlignment="Center"></RadioButton>
+                                        </Grid>
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="4">
+                                    <Grid Height="30">
+                                        <CheckBox Margin="20,0" Content="显示密码" IsChecked="True" Template="{StaticResource customCheckBox}"></CheckBox>
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="5" Margin="0,10,0,0">
+                                    <Grid Height="30" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="6"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <local:ButtonEx x:Name="btnCancel" Click="btn_Click" IsActiveEx="False" Content="取   消" HorizontalContentAlignment="Center"></local:ButtonEx>
+                                        <local:ButtonEx x:Name="btnConnect" Click="btn_Click" Grid.Column="2" IsActiveEx="True" Content="连   接" HorizontalContentAlignment="Center"></local:ButtonEx>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Name="autoConnect">
+                            <Grid  Height="30" Margin="6,5,6,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="20"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="2"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Column="0" Text="WLAN网络" FontSize="16"></TextBlock>
+                                <mycontrol:RefreshButton 
                                         Grid.Column="1" 
                                         VerticalAlignment="Bottom"
                                         HorizontalAlignment="Left"
-                                        Width="22.4" Height="22.4"                                                          
+                                        Width="22.4" Height="22.4"
                                         >
-                    </mycontrol:RefreshButton>
-                    <Image Source="Images/GreenLine.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Stretch="Fill"></Image>
-                </Grid>
-                
-                <Grid>                    
-                    <local:WiFiItem SSIDText="BIANBIAN" EncryptionText="通过WEP进行保护" WifiSignalLevel="Normal" EncryptType="WEP"> </local:WiFiItem>
+                                </mycontrol:RefreshButton>
+                                <Image Source="Images/GreenLine.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Stretch="Fill"></Image>
+                            </Grid>
+                            <StackPanel Name="wifilist">
+                                <local:WiFiItem SSIDText="BIANBIAN" EncryptionText="通过WEP进行保护" WifiSignalLevel="Normal" EncryptType="WEP"></local:WiFiItem>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </StackPanel>
-
-            <!--<WrapPanel Name="image_wrappanel" Width="200" Height="200">
-        
-
-
-            </WrapPanel>-->
-
         </ScrollViewer>
     </Grid>
 </UserControl>
