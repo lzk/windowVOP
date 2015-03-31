@@ -116,29 +116,57 @@ namespace VOP
 
 
         #region TrayMenu
-        NotifyIcon notifyIcon;
+        NotifyIcon notifyIcon1;
         void InitTrayMenu()
-        {    
-            this.notifyIcon = new NotifyIcon();
-            this.notifyIcon.BalloonTipText = System.Windows.Forms.Application.ProductName;
-            this.notifyIcon.Text = System.Windows.Forms.Application.ProductName;
-            this.notifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Windows.Forms.Application.ExecutablePath);
-            this.notifyIcon.Visible = false;
-            notifyIcon.MouseDoubleClick += OnNotifyIconDoubleClick;
-            this.notifyIcon.ShowBalloonTip(500);
+        {
+            // Create the NotifyIcon. 
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon();
 
-            System.Windows.Forms.ContextMenuStrip contextMenu = new System.Windows.Forms.ContextMenuStrip();
-            System.Windows.Forms.ToolStripMenuItem item1 = new System.Windows.Forms.ToolStripMenuItem();
-            item1.Click += item1_Click;
-            item1.Text = "退出";
-           
-            contextMenu.Items.Add(item1);
-            this.notifyIcon.ContextMenuStrip = contextMenu;
+            // The Icon property sets the icon that will appear 
+            // in the systray for this application.
+            System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,, /Images/printer.ico")).Stream;
+            notifyIcon1.Icon = new System.Drawing.Icon(iconStream);
+
+            // The ContextMenu property sets the menu that will 
+            // appear when the systray icon is right clicked.
+            System.Windows.Forms.ContextMenu contextMenu1 = new System.Windows.Forms.ContextMenu();
+            System.Windows.Forms.MenuItem menuItem1 = new System.Windows.Forms.MenuItem("退出");
+            menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
+            contextMenu1.MenuItems.Clear();
+            contextMenu1.MenuItems.Add(menuItem1);
+
+            notifyIcon1.ContextMenu = contextMenu1;
+
+            notifyIcon1.Text = "ABC Virtual Panel";
+            notifyIcon1.Visible = true;
+
+            // Handle the Click event to activate the form.
+            notifyIcon1.MouseUp += NotifyIcon1_MouseUp;
+
+            notifyIcon1.DoubleClick += notifyIcon1_DoubleClick;
         }
 
-        void item1_Click(object sender, EventArgs e)
+        void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            this.WindowState = WindowState.Normal;
+        }
+
+
+        private void menuItem1_Click(object sender, System.EventArgs e)
         {
             this.MainWindowExitPoint();
+        }
+
+        public void NotifyIcon1_MouseUp(Object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                this.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                // MessageBox.Show( "right button click" );
+            }
         }
 
         private void OnNotifyIconDoubleClick(object sender, EventArgs e)
@@ -146,10 +174,17 @@ namespace VOP
             this.Visibility = Visibility.Visible;
             this.ShowInTaskbar = true;
             this.WindowState = WindowState.Normal;
-            this.notifyIcon.Visible = false;
+            this.notifyIcon1.Visible = false;
         }
 
         #endregion  // TrayMenu
+
+        public void handler_closed(Object sender, EventArgs e)
+        {
+           // dispatcherTimer.Stop();
+            notifyIcon1.Visible = false;
+           // bExit = false;
+        }
 
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
         {
@@ -190,7 +225,7 @@ namespace VOP
                 else if ("btnMinimize" == btn.Name)
                 {
                     this.ShowInTaskbar = false;
-                    this.notifyIcon.Visible = true;
+                    this.notifyIcon1.Visible = true;
 
                     this.WindowState = WindowState.Minimized;
                 }

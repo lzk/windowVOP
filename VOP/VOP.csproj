@@ -636,4 +636,7 @@
     <Resource Include="Images\signal.png" />
     <Resource Include="Images\GreenLine.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\printer.ico" />
+  </ItemGroup>
 </Project>

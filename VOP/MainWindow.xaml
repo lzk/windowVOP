@@ -5,6 +5,7 @@
         AllowsTransparency="true"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
+        Closed="handler_closed"
         Loaded="LoadedMainWindow"
         WindowStyle="None" 
         xmlns:mycontrol="clr-namespace:VOP">
