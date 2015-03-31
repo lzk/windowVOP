@@ -26,8 +26,10 @@ namespace VOP.Controls
     /// </summary>
     public class SpinnerControl : Control
     {
+        public bool IsPercentFormat { get; set; }
         public SpinnerControl()
         {
+            IsPercentFormat = false;
         }
 
         static SpinnerControl()
@@ -44,21 +46,36 @@ namespace VOP.Controls
         /// write access to the underlying read-only dependency property:  we
         /// can only use SetValue on this, not on the property itself.
         /// </summary>
-        private static readonly DependencyPropertyKey FormattedValuePropertyKey =
-            DependencyProperty.RegisterAttachedReadOnly("FormattedValue", typeof(string), typeof(SpinnerControl),
-            new PropertyMetadata(DefaultValue.ToString()));
+        private static readonly DependencyProperty FormattedValueProperty =
+            DependencyProperty.Register("FormattedValue", typeof(string), typeof(SpinnerControl),
+            new PropertyMetadata(DefaultValue.ToString(), OnFormattedValueChanged));
 
-        /// <summary>
-        /// The dependency property for the formatted value.
-        /// </summary>
-        private static readonly DependencyProperty FormattedValueProperty = FormattedValuePropertyKey.DependencyProperty;
+        private static void OnFormattedValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+        {
+            SpinnerControl control = obj as SpinnerControl;
+            Decimal number;
+            if (control != null)
+            {
+                string newValue = (string)args.NewValue;
+                string oldValue = (string)args.OldValue;
 
+                if(Decimal.TryParse(newValue, out number))
+                {
+                    control.Value = number;
+                }
+            }
+        }
         /// <summary>
         /// Returns the formatted version of the value, with the specified
         /// number of DecimalPlaces.
         /// </summary>
         public string FormattedValue
         {
+
+            set 
+            { 
+                SetValue(FormattedValueProperty, value); 
+            }
             get
             {
                 return (string)GetValue(FormattedValueProperty);
@@ -74,10 +91,20 @@ namespace VOP.Controls
             NumberFormatInfo numberFormatInfo = new NumberFormatInfo() { NumberDecimalDigits = DecimalPlaces };
             //  use fixed point, and the built-in NumberFormatInfo
             //  implementation of IFormatProvider
-            var formattedValue = newValue.ToString("f", numberFormatInfo);
+
+            var formattedValue = "";
+            if(IsPercentFormat)
+            {
+                formattedValue = newValue.ToString("f", numberFormatInfo) + "%"; 
+            }
+            else
+            {
+                formattedValue = newValue.ToString("f", numberFormatInfo);   
+            }
+          
 
             //  Set the value of the FormattedValue property via its property key
-            SetValue(FormattedValuePropertyKey, formattedValue);
+            SetValue(FormattedValueProperty, formattedValue);
         }
         #endregion
 

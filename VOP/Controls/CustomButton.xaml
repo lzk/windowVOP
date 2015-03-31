@@ -178,7 +178,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
-                        <Rectangle Name="innerRect" RadiusY="14" RadiusX="14" StrokeThickness="2"
+                        <Rectangle Name="innerRect" RadiusY="16.75" RadiusX="16.75" StrokeThickness="2"
                                    Stroke="{StaticResource GrayButtonStrokeNormal}" 
                                    Fill="{StaticResource GrayButtonFillNormal}"/>
 
@@ -206,7 +206,7 @@
 
                             <Setter TargetName="innerRect" Property="Stroke" Value="{StaticResource GrayButtonStrokeNormal}" />
                             <Setter TargetName="innerRect" Property="Fill" Value="{StaticResource GrayButtonFillNormal}" />
-                            <Setter TargetName="myContentPresenter" Property="TextBlock.Foreground" Value="#FF5A9C23"/>
+                            <Setter TargetName="myContentPresenter" Property="TextBlock.Foreground" Value="#FF0AAA0A"/>
                         </MultiTrigger>
 
                         <Trigger Property="IsEnabled" Value="false">

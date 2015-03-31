@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="TextBoxErrorTemplateStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <StackPanel>
+                        <Popup IsOpen="True" 
+                               AllowsTransparency="True"
+                               PlacementTarget="{Binding ElementName=MyAdorner}"
+                               Placement="Top"
+                               VerticalOffset="-5"
+                               HorizontalOffset="-50">
+                            <Border Background="#FFD3EAC3" BorderBrush="#FF727272" BorderThickness="0.5">
+                                <TextBlock 
+								Foreground="#FF727272"
+								Margin="5" 
+								FontSize="12"
+								Text="{Binding ElementName=MyAdorner, 
+                                Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                                </TextBlock>
+                            </Border>
+                        </Popup>
+                      
+                        <Border BorderBrush="Red" BorderThickness="2">
+                            <AdornedElementPlaceholder Name="MyAdorner"/>
+                        </Border>           
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <!--<Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip"
+						Value="{Binding RelativeSource={RelativeSource Self},
+                       Path=(Validation.Errors)[0].ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>-->
+    </Style>
+
+
+</ResourceDictionary>
