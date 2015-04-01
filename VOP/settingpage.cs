@@ -30,12 +30,6 @@ namespace VOP
         PasswordView passwordView = new PasswordView();
         AboutView aboutView = new AboutView();
 
-        /// <summary>
-        /// Point to the Main Window, in order to use data from Main Window
-        /// more conviently and avoid declare global variable.
-        /// </summary>
-        MainWindow m_MainWin = null;
-
         public SettingPage()
         {
             InitializeComponent();
@@ -141,10 +135,6 @@ namespace VOP
 
         public void handler_loaded_settingpage( object sender, RoutedEventArgs e )
         {
-            // App.Current.MainWindow was not ready yet in SettingPage
-            // constructor function. So assign in here.
-            m_MainWin = ( MainWindow )App.Current.MainWindow;
-
             setting_tab_btn.Children.Clear();
             Grid.SetColumnSpan(setting_tab_btn, 3);
 
@@ -206,6 +196,31 @@ namespace VOP
             {
                 SetActiveButton(IconType.About);
                 this.settingView.Child = aboutView;
+            }
+        }
+
+        ///<summary>
+        /// Pointer to the MainWindow, in order to use global data more
+        /// conveniently 
+        ///</summary>
+        private MainWindow _MainWin = null;
+        public MainWindow m_MainWin
+        {
+            set
+            {
+                _MainWin = value;
+            }
+
+            get
+            {
+                if ( null == _MainWin )
+                {
+                    return ( MainWindow )App.Current.MainWindow;
+                }
+                else
+                {
+                    return _MainWin;
+                }
             }
         }
 

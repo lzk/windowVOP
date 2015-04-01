@@ -96,5 +96,30 @@ namespace VOP
             win.Owner = App.Current.MainWindow;
             win.ShowDialog();
         }
+
+        ///<summary>
+        /// Pointer to the MainWindow, in order to use global data more
+        /// conveniently 
+        ///</summary>
+        private MainWindow _MainWin = null;
+        public MainWindow m_MainWin
+        {
+            set
+            {
+                _MainWin = value;
+            }
+
+            get
+            {
+                if ( null == _MainWin )
+                {
+                    return ( MainWindow )App.Current.MainWindow;
+                }
+                else
+                {
+                    return _MainWin;
+                }
+            }
+        }
     }
 }

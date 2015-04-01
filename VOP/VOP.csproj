@@ -413,7 +413,11 @@
     </Page>
     <Page Include="SettingPage.xaml" />
     <Compile Include="CustomControl\CustomButton.cs" />
-    <Compile Include="CopyPage.cs" />
+
+    <Compile Include="CopyPage.cs">
+      <DependentUpon>CopyPage.xaml</DependentUpon>
+    </Compile>
+
     <Compile Include="CustomControl\CustomTextbox.xaml.cs">
       <DependentUpon>CustomTextbox.xaml</DependentUpon>
     </Compile>

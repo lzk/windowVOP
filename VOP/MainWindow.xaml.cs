@@ -26,12 +26,13 @@ namespace VOP
 
     public partial class MainWindow : Window
     {
-        CopyPage    winCopyPage   = new CopyPage   ();
         public FileSelectionPage winFileSelectionPage = null;
         public PrintPage   winPrintPage  = new PrintPage  ();
-        ScanPage    winScanPage   = new ScanPage   ();
-        SettingPage winSettingPage= new SettingPage();
         public StatusPanel statusPanelPage = new StatusPanel();
+
+        CopyPage    winCopyPage    = new CopyPage   ();
+        ScanPage    winScanPage    = new ScanPage   ();
+        SettingPage winSettingPage = new SettingPage();
 
         private ImageBrush imgBk_Brush_1 = null;
         private ImageBrush imgBk_Brush_2 = null;
@@ -97,6 +98,10 @@ namespace VOP
         public MainWindow()
         {
             InitializeComponent();
+
+            winCopyPage    .m_MainWin = this;
+            winScanPage    .m_MainWin = this;
+            winSettingPage .m_MainWin = this;
 
             Init();
         }

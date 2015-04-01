@@ -137,7 +137,7 @@
 
                         <Button HorizontalContentAlignment="Center"
                                 IsDefault="True" Content="复印"
-                                Template="{StaticResource custombtn}"  Height="35" Width="150" />
+                                Template="{StaticResource custombtn}"  Height="35" Width="150" Click="Button_Click" />
                     </StackPanel>
 
                 </StackPanel>
