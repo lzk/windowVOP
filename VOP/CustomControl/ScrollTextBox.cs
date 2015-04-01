@@ -24,11 +24,15 @@ namespace VOP
         private double maxScrollOffset = 0;
         private int scrollStep = 1;
 
-        private const int defaultMilliseconds = 50;
+        private int defaultMilliseconds = 100;
+
+       
+
         public int ScrollTextBox_milliseconds
         {
             set
             {
+                defaultMilliseconds = value;
                 timer.Interval = new TimeSpan(0, 0, 0, 0, value);
             }
         }
@@ -104,6 +108,11 @@ namespace VOP
 
         void timer_Tick(object sender, EventArgs e)
         {
+            if (0 == curSetOffset)
+            {
+                timer.Interval = new TimeSpan(0, 0, 0, 0, defaultMilliseconds);
+            }
+
             if (maxScrollOffset <= 0.0)
             {
                 timer.Stop();
@@ -114,7 +123,11 @@ namespace VOP
             double CurSetOffset = curSetOffset;
 
             if (curSetOffset >= maxScrollOffset)
+            {
                 curSetOffset = 0;
+
+                timer.Interval = new TimeSpan(0, 0, 0, 0, 2000);
+            }               
             else
                 curSetOffset += scrollStep;
         }
