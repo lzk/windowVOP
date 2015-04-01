@@ -12,7 +12,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Controls/CustomButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
-                <ResourceDictionary Source="Controls/CustomTextBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
                 <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomButton2.xaml"/>
             </ResourceDictionary.MergedDictionaries>

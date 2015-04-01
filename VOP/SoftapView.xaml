@@ -12,10 +12,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Controls/CustomPasswordBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
-                <ResourceDictionary Source="Controls/CustomTextBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
                 <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomButton2.xaml"/>
-                <ResourceDictionary Source="CustomControl/CustomScrollView.xaml"/>
+                <ResourceDictionary Source="Controls/CustomScrollView.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>

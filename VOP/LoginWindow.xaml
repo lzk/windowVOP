@@ -11,7 +11,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Controls/CustomButton.xaml"/>
-                <ResourceDictionary Source="Controls/CustomTextBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
                 <ResourceDictionary Source="Controls/CustomPasswordBox.xaml"/>
                 <ResourceDictionary Source="Controls/IdCardPrint/IdCardWindowsStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
