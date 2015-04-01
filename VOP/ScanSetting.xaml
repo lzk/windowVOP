@@ -54,14 +54,22 @@
             <local:GroupBoxDecorator Grid.ColumnSpan="2" Grid.Row="1"
                 Header="文档类型" Margin="22.5,10" >
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                    <CheckBox Template="{StaticResource customCheckBox}"
-                        IsChecked="true" Content="图片" Margin="10,0" />
 
-                    <CheckBox Template="{StaticResource customCheckBox}"
-                        IsChecked="false" Content="图文" Margin="10,0"/>
+                    <RadioButton GroupName="docType" IsChecked="true"
+                        Template="{StaticResource customRadioButton}"
+                        Content="图片" VerticalAlignment="Center"
+                        Margin="10,0" ></RadioButton>
 
-                    <CheckBox Template="{StaticResource customCheckBox}"
-                        IsChecked="false" Content="文本" Margin="10,0"/>
+                    <RadioButton GroupName="docType" IsChecked="false"
+                        Template="{StaticResource customRadioButton}"
+                        Content="图文" VerticalAlignment="Center"
+                        Margin="10,0" ></RadioButton>
+
+                    <RadioButton GroupName="docType" IsChecked="false"
+                        Template="{StaticResource customRadioButton}"
+                        Content="文本" VerticalAlignment="Center"
+                        Margin="10,0" ></RadioButton>
+
                 </StackPanel>
             </local:GroupBoxDecorator>
 
@@ -92,14 +100,21 @@
                     Width="220" Margin="0,20" >
                 <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center">
-                    <CheckBox Template="{StaticResource customCheckBox}"
-                        IsChecked="true" Content="彩色" Margin="5,0" />
 
-                    <CheckBox Template="{StaticResource customCheckBox}"
-                        IsChecked="false" Content="灰阶" Margin="5,0"/>
+                    <RadioButton GroupName="colorMode" IsChecked="True"
+                        Template="{StaticResource customRadioButton}"
+                        Content="彩色" VerticalAlignment="Center"
+                        Margin="5,0" ></RadioButton>
 
-                    <CheckBox Template="{StaticResource customCheckBox}"
-                        IsChecked="false" Content="黑白" Margin="5,0"/>
+                    <RadioButton GroupName="colorMode" IsChecked="false"
+                        Template="{StaticResource customRadioButton}"
+                        Content="灰阶" VerticalAlignment="Center"
+                        Margin="5,0" ></RadioButton>
+
+                    <RadioButton GroupName="colorMode" IsChecked="false"
+                        Template="{StaticResource customRadioButton}"
+                        Content="黑白" VerticalAlignment="Center"
+                        Margin="5,0" ></RadioButton>
 
                 </StackPanel>
                 </local:GroupBoxDecorator>

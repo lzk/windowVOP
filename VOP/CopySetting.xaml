@@ -76,10 +76,16 @@
 
                 <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center">
-                    <CheckBox Template="{StaticResource customCheckBox}"
-                        IsChecked="true" Content="照片" Margin="10,0" />
-                    <CheckBox Template="{StaticResource customCheckBox}"
-                        IsChecked="false" Content="文本" Margin="10,0"/>
+
+                    <RadioButton GroupName="ScanMode" IsChecked="True"
+                        Template="{StaticResource customRadioButton}"
+                        Content="照片" VerticalAlignment="Center"
+                        Margin="10,0" ></RadioButton>
+                    <RadioButton GroupName="ScanMode" IsChecked="False"
+                        Template="{StaticResource customRadioButton}"
+                        Content="文本" VerticalAlignment="Center"
+                        Margin="10,0" ></RadioButton>
+ 
                 </StackPanel>
 
             </local:GroupBoxDecorator>
