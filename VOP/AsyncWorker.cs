@@ -201,6 +201,12 @@ namespace VOP
                     case DllMethodType.SetFusingResetCmd:
                            record = (T)(dynamic)SetFusingReset((FusingResetRecord)(dynamic)record);
                            break;
+                    case DllMethodType.SetPassword:
+                           record = (T)(dynamic)SetPassword((PasswordRecord)(dynamic)record);
+                           break;
+                    case DllMethodType.ConfirmPassword:
+                           record = (T)(dynamic)ConfirmPassword((PasswordRecord)(dynamic)record);
+                           break;
                     default: break;
                 }
 
@@ -297,6 +303,41 @@ namespace VOP
             return rec;
         }
 
+        public PasswordRecord SetPassword(PasswordRecord rec)
+        {
+            string printerName = "";
+            string pwd = "";
+
+            if (rec != null)
+            {
+                printerName = rec.PrinterName;
+                pwd = rec.PWD;
+                int result = dll.SetPassword(printerName, pwd);
+
+                rec.CmdResult = (EnumCmdResult)result;
+
+            }
+
+            return rec;
+        }
+
+        public PasswordRecord ConfirmPassword(PasswordRecord rec)
+        {
+            string printerName = "";
+            string pwd = "";
+
+            if (rec != null)
+            {
+                printerName = rec.PrinterName;
+                pwd = rec.PWD;
+                int result = dll.ConfirmPassword(printerName, pwd);
+
+                rec.CmdResult = (EnumCmdResult)result;
+
+            }
+
+            return rec;
+        }
         public WiFiInfoRecord GetWiFiInfo(string printerName)
         {
             WiFiInfoRecord rec = new WiFiInfoRecord();
@@ -884,6 +925,64 @@ namespace VOP
         }
 
     }
+    public class PasswordRecord : INotifyPropertyChanged
+    {
+        private string printerName;
+        private string pwd;
+        private EnumCmdResult cmdResult;
+        public string PrinterName
+        {
+            get { return this.printerName; }
+            set
+            {
+                this.printerName = value;
+                OnPropertyChanged("PrinterName");
+            }
+        }
+
+        public string PWD
+        {
+            get { return this.pwd; }
+            set
+            {
+                this.pwd = value;
+                //OnPropertyChanged("PWD");
+            }
+        }
+        public PasswordRecord()
+        {
+            printerName = "";
+            pwd = "";
+            cmdResult = EnumCmdResult._CMD_invalid;
+        }
+
+        public PasswordRecord(string printerName, string pwd)
+        {
+            this.printerName = printerName;
+            this.pwd = pwd;
+            cmdResult = EnumCmdResult._CMD_invalid;
+        }
+
+        public EnumCmdResult CmdResult
+        {
+            get { return this.cmdResult; }
+            set
+            {
+                this.cmdResult = value;
+                OnPropertyChanged("CmdResult");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+    }
+
     public class FusingResetRecord : INotifyPropertyChanged
     {
         private string printerName;

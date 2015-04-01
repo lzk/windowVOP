@@ -23,3 +23,8 @@ EXPORTS
 	OutputDebugStringToFile_
     CheckPortAPI
 	SetFusingSCReset
+	ConfirmPassword
+	SetPassword
+	GetPassword
+
+

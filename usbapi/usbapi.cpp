@@ -42,6 +42,9 @@
 #define _PSAVE_TIME_SET     0x01
 #define _USER_CONFIG_GET    0x02
 #define _USER_CONFIG_SET    0x03
+#define _PRN_PASSWD_SET		0x06
+#define _PRN_PASSWD_GET		0x07
+#define _PRN_PASSWD_COMFIRM	0x08
 #define _Fusing_SC_Reset    0x0B
 
 #define     MAGIC_NUM           0x1A2B3C4D
@@ -450,7 +453,9 @@ USBAPI_API int __stdcall SetIPInfo(
         BYTE* ptr_gate2,
         BYTE* ptr_gate3);
 
-
+USBAPI_API int __stdcall ConfirmPassword(const wchar_t* szPrinter, const wchar_t* ws_pwd);
+USBAPI_API int __stdcall GetPassword(const wchar_t* szPrinter, char* pwd);
+USBAPI_API int __stdcall SetPassword(const wchar_t* szPrinter, const wchar_t* ws_pwd);
 //--------------------------------global--------------------------------------
 static const char INIT_VALUE = 0xfe;
 
@@ -1593,7 +1598,7 @@ USBAPI_API int __stdcall SetSoftAp( const wchar_t* szPrinter, const wchar_t* ws_
 
 	OutputDebugStringToFileA("\r\n####VP:SetSoftAp() begin");
 	int nResult = _ACK;
-    wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = {0};
     int nPortType = CheckPort( szPrinter, szIP );
 
     if ( PT_UNKNOWN == nPortType ) 
@@ -1656,6 +1661,190 @@ USBAPI_API int __stdcall SetSoftAp( const wchar_t* szPrinter, const wchar_t* ws_
 
 	OutputDebugStringToFileA("\r\n####VP:SetSoftAp(): nResult == 0x%x", nResult);
 	OutputDebugStringToFileA("\r\n####VP:SetSoftAp() end");
+	return nResult;
+}
+
+USBAPI_API int __stdcall ConfirmPassword(const wchar_t* szPrinter, const wchar_t* ws_pwd)
+{
+	if (NULL == szPrinter)
+		return _SW_INVALID_PARAMETER;
+
+	OutputDebugStringToFileA("\r\n####VP:ConfirmPassword() begin");
+	int nResult = _ACK;
+	wchar_t szIP[MAX_PATH] = {0};
+	int nPortType = CheckPort(szPrinter, szIP);
+
+	if (PT_UNKNOWN == nPortType)
+	{
+		nResult = _SW_UNKNOWN_PORT;
+	}
+	else
+	{
+		char* buffer = new char[sizeof(COMM_HEADER)+32];
+		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+32);
+
+		COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>(buffer);
+
+		ppkg->magic = MAGIC_NUM;
+		ppkg->id = _LS_PRNCMD;
+		ppkg->len = 3 + 32;
+
+		// For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+		// it just stand for the sub id. The real data length is defined by the lib
+		ppkg->subid = 0x13;
+		ppkg->len2 = 1;
+		ppkg->subcmd = _PRN_PASSWD_COMFIRM;
+
+		char pwd[32] = { 0 };
+		// TODO: ws_pwd length vailidate
+		::WideCharToMultiByte(CP_ACP, 0, ws_pwd, -1, pwd, 32, NULL, NULL);
+
+		BYTE* pData = reinterpret_cast<BYTE*>(buffer + sizeof(COMM_HEADER));
+		memcpy(pData, pwd, 32);
+
+		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
+		{
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER)+32, NULL, 0);
+		}
+		else if (PT_USB == nPortType)
+		{
+			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER)+32, NULL, 0);
+		}
+
+		if (_ACK == nResult)
+		{
+			
+		}
+
+		if (buffer)
+		{
+			delete[] buffer;
+			buffer = NULL;
+		}
+	}
+
+	OutputDebugStringToFileA("\r\n####VP:ConfirmPassword(): nResult == 0x%x", nResult);
+	OutputDebugStringToFileA("\r\n####VP:ConfirmPassword() end");
+	return nResult;
+}
+
+USBAPI_API int __stdcall GetPassword(const wchar_t* szPrinter, char* pwd)
+{
+	if (NULL == szPrinter)
+		return _SW_INVALID_PARAMETER;
+	OutputDebugStringToFileA("\r\n####VP:GetPassword() begin");
+
+	int nResult = _ACK;
+	wchar_t szIP[MAX_PATH] = { 0 };
+	int nPortType = CheckPort(szPrinter, szIP);
+
+	if (PT_UNKNOWN == nPortType)
+	{
+		nResult = _SW_UNKNOWN_PORT;
+	}
+	else
+	{
+		char* buffer = new char[sizeof(COMM_HEADER)+32];
+		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+32);
+		COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>(buffer);
+
+		ppkg->magic = MAGIC_NUM;
+		ppkg->id = _LS_PRNCMD;
+		ppkg->len = 3;
+
+		// For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+		// it just stand for the sub id. The real data length is defined by the lib
+		ppkg->subid = 0x13;
+		ppkg->len2 = 1;
+		ppkg->subcmd = _PRN_PASSWD_GET;
+
+		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
+		{
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+32);
+		}
+		else if (PT_USB == nPortType)
+		{
+			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+32);
+		}
+
+		if (_ACK == nResult)
+		{
+			memcpy(pwd, buffer + sizeof(COMM_HEADER), 32); pwd[32] = 0;
+		}
+
+		if (buffer)
+		{
+			delete[] buffer;
+			buffer = NULL;
+		}
+	}
+
+	OutputDebugStringToFileA("\r\n####VP:GetPassword(): nResult == 0x%x", nResult);
+	OutputDebugStringToFileA("\r\n####VP:GetPassword() end");
+	return nResult;
+}
+
+
+USBAPI_API int __stdcall SetPassword(const wchar_t* szPrinter, const wchar_t* ws_pwd)
+{
+	if (NULL == szPrinter)
+		return _SW_INVALID_PARAMETER;
+	OutputDebugStringToFileA("\r\n####VP:SetPassword() begin");
+
+	int nResult = _ACK;
+	wchar_t szIP[MAX_PATH] = {0};
+	int nPortType = CheckPort(szPrinter, szIP);
+
+	if (PT_UNKNOWN == nPortType)
+	{
+		nResult = _SW_UNKNOWN_PORT;
+	}
+	else
+	{
+		char* buffer = new char[sizeof(COMM_HEADER)+32];
+		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+32);
+		COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>(buffer);
+
+		ppkg->magic = MAGIC_NUM;
+		ppkg->id = _LS_PRNCMD;
+		ppkg->len = 3 + 32;
+
+		// For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+		// it just stand for the sub id. The real data length is defined by the lib
+		ppkg->subid = 0x13;
+		ppkg->len2 = 1;
+		ppkg->subcmd = _PRN_PASSWD_SET;
+
+		char pwd[32] = { 0 };
+		// TODO: ws_pwd length vailidate
+		::WideCharToMultiByte(CP_ACP, 0, ws_pwd, -1, pwd, 32, NULL, NULL);
+		
+		BYTE* pData = reinterpret_cast<BYTE*>(buffer + sizeof(COMM_HEADER));
+		memcpy(pData, pwd, 32);
+
+		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
+		{
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER)+32, NULL, 0);
+		}
+		else if (PT_USB == nPortType)
+		{
+			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER)+32, NULL, 0);
+		}
+
+		if (_ACK == nResult)
+		{
+
+		}
+
+		if (buffer)
+		{
+			delete[] buffer;
+			buffer = NULL;
+		}
+	}
+
+	OutputDebugStringToFileA("\r\n####VP:SetPassword(): nResult == 0x%x", nResult);
+	OutputDebugStringToFileA("\r\n####VP:SetPassword() end");
 	return nResult;
 }
 

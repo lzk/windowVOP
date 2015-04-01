@@ -23,11 +23,39 @@ namespace VOP
         {
             InitializeComponent();
         }
+
         private void OnLoadedPasswordView(object sender, RoutedEventArgs e)
+        {
+            //Lenovo M7208W-00000
+            int nResult = dll.SetPassword("Lenovo M7208", "654321");
+            
+           StringBuilder pwd = new StringBuilder(32);
+           nResult = dll.GetPassword("Lenovo M7208", pwd);
+           nResult = dll.ConfirmPassword("Lenovo M7208",
+                "654321");
+        }
+
+        public bool apply()
+        {
+            bool isApplySuccess = false;
+
+            string strPWD = pbnewPWD.Password;
+            string strCfPWD = pbConfirmPWD.Password;
+
+            if(strPWD == strCfPWD)
+            {
+
+            }
+
+            return isApplySuccess;
+        }
+
+        private void btnApply_Click(object sender, RoutedEventArgs e)
         {
 
         }
-        private void btnApply_Click(object sender, RoutedEventArgs e)
+
+        private void OnPasswordChanged(object sender, RoutedEventArgs e)
         {
 
         }

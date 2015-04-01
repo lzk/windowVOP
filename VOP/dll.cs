@@ -162,6 +162,21 @@ namespace VOP
                 ref byte job );
 
         [DllImport("usbapi.dll")]
+        public static extern int ConfirmPassword(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                [MarshalAs(UnmanagedType.LPWStr)]String pwd);
+
+        [DllImport("usbapi.dll")]
+        public static extern int GetPassword(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                StringBuilder pwd);
+
+        [DllImport("usbapi.dll")]
+        public static extern int SetPassword(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                [MarshalAs(UnmanagedType.LPWStr)]String pwd);
+
+        [DllImport("usbapi.dll")]
         public static extern bool PrintInit(
                 [MarshalAs(UnmanagedType.LPWStr)]string jobDescription,
                 IntPtr hwnd);

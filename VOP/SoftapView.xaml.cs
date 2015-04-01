@@ -66,7 +66,7 @@ namespace VOP
             }
         }
 
-        private void btnApply_Click(object sender, RoutedEventArgs e)
+        public bool apply()
         {
             bool isApplySuccess = false;
 
@@ -99,16 +99,19 @@ namespace VOP
                 if (str_ssid.Length <= 0)
                 {
                     MessageBox.Show("The SSID input error! The SSID must be 1-32 characters.");
-                    return;
                 }
-
-                if (str_pwd.Length < 8 || str_pwd.Length >= 64)
+                else if (str_pwd.Length < 8 || str_pwd.Length >= 64)
                 {
                     MessageBox.Show("The passphrase input error! The least length will be 8 words and the max length will be 63 in ASCII or 64 in HEX.");
-                    return;
                 }
             }
+            
+            return isApplySuccess;
+        }
 
+        private void btnApply_Click(object sender, RoutedEventArgs e)
+        {
+            apply();
             UpdateApplyBtnStatus();
         }
 

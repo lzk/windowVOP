@@ -115,6 +115,8 @@ namespace VOP
         Scan                    = 11,
         SendCopyCmd             = 12,
         SetFusingResetCmd       = 13,
+        SetPassword             = 14,
+        ConfirmPassword         = 15,
     }
 
     public enum enum_resln : byte
