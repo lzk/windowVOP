@@ -412,8 +412,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SettingPage.xaml" />
-    <Compile Include="CustomControl\CustomButton.cs" />
-
     <Compile Include="CopyPage.cs">
       <DependentUpon>CopyPage.xaml</DependentUpon>
     </Compile>
