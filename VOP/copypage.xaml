@@ -65,11 +65,14 @@
 
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
-                        <Image Source="Images/IDCardCopyIconEnable.png"
+                        <Image x:Name="imgIDCard"
+                            Source="Images/IDCardCopyIconDisable.png"
                                Stretch="None" > </Image>
                            <TextBlock Margin="20,0" VerticalAlignment="Center">身份证复印</TextBlock>
-                        <CheckBox Template="{StaticResource switchBox}"
-                                  IsChecked="False" Width="50" Height="25" />
+                        <CheckBox x:Name="chkBtnIDCardCopy" Template="{StaticResource switchBox}"
+                                  IsChecked="False" Width="50" Height="25"
+                                  Checked="CheckBox_Checked"
+                                  Unchecked="CheckBox_Checked" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal"

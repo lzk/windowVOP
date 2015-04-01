@@ -1,4 +1,4 @@
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Media;
 using System;
@@ -74,6 +74,21 @@ namespace VOP
                     scaling,
                     mediaType );
 
+        }
+
+        private void CheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+
+            if ( true == chkBtnIDCardCopy.IsChecked ) 
+                bi.UriSource = new Uri("Images/IDCardCopyIconEnable.png", UriKind.Relative);
+            else
+                bi.UriSource = new Uri("Images/IDCardCopyIconDisable.png", UriKind.Relative);
+
+            bi.EndInit();
+
+            imgIDCard.Source = bi;
         }
 
     }
