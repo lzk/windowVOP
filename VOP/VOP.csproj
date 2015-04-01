@@ -69,7 +69,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-	<Reference Include="Interop.PdfEncoderLib">
+    <Reference Include="Interop.PdfEncoderLib">
       <HintPath>..\PdfDll\32bit\Interop.PdfEncoderLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -114,10 +114,10 @@
     <Compile Include="Controls\WiFiItem.xaml.cs">
       <DependentUpon>WiFiItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomControl\BusyRefresh.xaml.cs">
+    <Compile Include="Controls\BusyRefresh.xaml.cs">
       <DependentUpon>BusyRefresh.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomControl\ValidateTip_TextBox.xaml.cs">
+    <Compile Include="Controls\ValidateTip_TextBox.xaml.cs">
       <DependentUpon>ValidateTip_TextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="PdfHelper.cs" />
@@ -134,7 +134,7 @@
       <DependentUpon>PrintPreview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ButtonEx.cs" />
-    <Compile Include="CustomControl\StatusTextBlock.xaml.cs">
+    <Compile Include="Controls\StatusTextBlock.xaml.cs">
       <DependentUpon>StatusTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\IdCardPrint\IdCardEditWindow.xaml.cs">
@@ -211,7 +211,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomControl\BusyRefresh.xaml">
+    <Page Include="Controls\BusyRefresh.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,7 +243,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CustomControl\ValidateTip_TextBox.xaml">
+    <Page Include="Controls\ValidateTip_TextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -297,7 +297,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\CustomTextBox.xaml">
+    <Page Include="Controls\CustomTextBoxRes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -345,15 +345,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CustomControl\CustomComboBox.xaml">
+    <Page Include="Controls\CustomComboBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CustomControl\CustomScrollView.xaml">
+    <Page Include="Controls\CustomScrollView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CustomControl\customTabItem.xaml">
+    <Page Include="Controls\customTabItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -368,20 +368,20 @@
       <DependentUpon>ImageButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MinimizeCloseButton\MinimizeCloseButton.cs" />
-    <Compile Include="CustomControl\customTabItem.xaml.cs">
+    <Compile Include="Controls\customTabItem.xaml.cs">
       <DependentUpon>customTabItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Density.cs" />
-    <Compile Include="CustomControl\ScrollTextBox.cs" />
-    <Compile Include="CustomControl\TonerBar.xaml.cs">
+    <Compile Include="Controls\ScrollTextBox.cs" />
+    <Compile Include="Controls\TonerBar.xaml.cs">
       <DependentUpon>TonerBar.xaml</DependentUpon>
     </Compile>
     <Page Include="CopyPage.xaml" />
-    <Page Include="CustomControl\CustomTextbox.xaml">
+    <Page Include="Controls\CustomTextbox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomControl\ImagePreviewControl.xaml">
+    <Page Include="Controls\ImagePreviewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -389,7 +389,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CustomControl\LoginButton.xaml">
+    <Page Include="Controls\LoginButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -402,7 +402,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PrintPage.xaml" />
-    <Page Include="CustomControl\RefreshButton.xaml">
+    <Page Include="Controls\RefreshButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -415,22 +415,21 @@
     <Compile Include="CopyPage.cs">
       <DependentUpon>CopyPage.xaml</DependentUpon>
     </Compile>
-
-    <Compile Include="CustomControl\CustomTextbox.xaml.cs">
+    <Compile Include="Controls\CustomTextbox.xaml.cs">
       <DependentUpon>CustomTextbox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomControl\ImagePreviewControl.xaml.cs">
+    <Compile Include="Controls\ImagePreviewControl.xaml.cs">
       <DependentUpon>ImagePreviewControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileSelectionPage.cs" />
-    <Compile Include="CustomControl\LoginButton.xaml.cs">
+    <Compile Include="Controls\LoginButton.xaml.cs">
       <DependentUpon>LoginButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="PrintPage.cs" />
-    <Compile Include="CustomControl\RefreshButton.xaml.cs">
+    <Compile Include="Controls\RefreshButton.xaml.cs">
       <DependentUpon>RefreshButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.zh-CN.Designer.cs">
@@ -462,11 +461,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="CustomControl\TonerBar.xaml">
+    <Page Include="Controls\TonerBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CustomControl\StatusTextBlock.xaml">
+    <Page Include="Controls\StatusTextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -645,5 +644,8 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\printer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomControl\" />
   </ItemGroup>
 </Project>
