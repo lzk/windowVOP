@@ -62,7 +62,10 @@
                 </Grid>
             </Grid>
 
-            <Button Name="btnLogin" Click="btnLogin_Click" Grid.Row="2" Grid.Column="2" Template="{StaticResource custombtn}" IsDefault="True" Content="登 录" FontSize="18" HorizontalAlignment="Center" Height="30" Width="100" VerticalAlignment="Center"></Button>
+            <local:ButtonEx x:Name="btnLogin" Click="btnLogin_Click"
+                Grid.Row="2" Grid.Column="2" IsDefault="True" Content="登 录"
+                FontSize="18" HorizontalAlignment="Center" Height="30"
+                Width="100" VerticalAlignment="Center"/>
         </Grid>
     </Grid>
 </Window>

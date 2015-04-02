@@ -161,10 +161,10 @@
         </StackPanel>
 
         <StackPanel Margin="0" Grid.Row="3" Width="240" Orientation="Horizontal">
-            <Button Click="save_btn_click" Content="确定" HorizontalAlignment="Center" Height="40"
-                Margin="25,0,0,0" Width="75" Template="{DynamicResource custombtn}" VerticalAlignment="Center"/>
-            <Button Click="print_btn_click" Content="打印" HorizontalAlignment="Center" Height="40"
-                Margin="25,0,0,0" Width="75" Template="{DynamicResource custombtn}" IsDefault="true" VerticalAlignment="Center" />
+            <local:ButtonEx Click="save_btn_click" Content="确定" HorizontalAlignment="Center" Height="40"
+                Margin="25,0,0,0" Width="75" VerticalAlignment="Center"/>
+            <local:ButtonEx Click="print_btn_click" Content="打印" HorizontalAlignment="Center" Height="40"
+                Margin="25,0,0,0" Width="75" IsDefault="true" VerticalAlignment="Center" />
         </StackPanel>
         
     </Grid>

@@ -210,11 +210,11 @@
 
         <StackPanel Grid.Row="5" Orientation="Horizontal"
             HorizontalAlignment="Center">
-            <Button HorizontalContentAlignment="Center" IsDefault="False"
-                Content="默认" Template="{StaticResource custombtn}"
+            <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="False"
+                Content="默认" 
                 Height="35" Width="150" Margin="0,0,20,0" />
-            <Button HorizontalContentAlignment="Center" IsDefault="True"
-                Content="确认" Template="{StaticResource custombtn}"  Height="35" Width="150" />
+            <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="True"
+                Content="确认"  Height="35" Width="150" />
         </StackPanel>
 
     </Grid>
