@@ -16,8 +16,8 @@ namespace VOP
         /// Copies set by in UI. Default value is 1. Value range [1,99].
         /// Update UI when the property was assigned a valibale value.
         ///</summary>
-        private int _copies = 1;
-        public int m_copies
+        private byte _copies = 1;
+        public byte m_copies
         {
             set
             {
@@ -76,8 +76,8 @@ namespace VOP
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            byte density     = 1;
-            byte nCopy       = 1;
+            byte density     = ctrlDensity.m_density;
+            byte nCopy       = m_copies;
             byte scan_mode   = 1;
             byte doc_size    = 1;
             byte output_size = 1;

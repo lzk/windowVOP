@@ -13,8 +13,8 @@ namespace VOP
     public partial class Density : UserControl
     {
         // Density value, from 1 to 5.
-        private int _density;
-        public int m_density
+        private byte _density;
+        public byte m_density
         {
             get
             {
