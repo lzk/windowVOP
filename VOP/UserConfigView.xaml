@@ -13,7 +13,7 @@
                 <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
                 <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
-                <ResourceDictionary Source="Controls/CustomButton2.xaml"/>
+                <ResourceDictionary Source="Controls/AdjustButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomScrollView.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -57,30 +57,38 @@
                 
                 <TextBlock Text="顶端偏移量" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"> </TextBlock>
                 <Grid Grid.Row="0" Grid.Column="2" Width="120">
-                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="-" HorizontalAlignment="Left"/>
+                    <Button Grid.Column="1" Style="{StaticResource
+                        AdjustButton}" Content="-" HorizontalAlignment="Left"/>
                     <TextBox Grid.Column="1" Height="28" Width="50" Template="{StaticResource customTextBox}" HorizontalContentAlignment="Center" Text="-1" MaxLength="2"></TextBox>
-                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="+" HorizontalAlignment="Right"/>
+                    <Button Grid.Column="1" Style="{StaticResource
+                        AdjustButton}" Content="+" HorizontalAlignment="Right"/>
                 </Grid>
 
                 <TextBlock Text="左端偏移量" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                 <Grid Grid.Row="1" Grid.Column="2" Width="120">
-                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="-" HorizontalAlignment="Left"/>
+                    <Button Grid.Column="1" Style="{StaticResource
+                        AdjustButton}" Content="-" HorizontalAlignment="Left"/>
                     <TextBox Grid.Column="1" Height="28" Width="50" Template="{StaticResource customTextBox}" HorizontalContentAlignment="Center" Text="-1" MaxLength="2"></TextBox>
-                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="+" HorizontalAlignment="Right"/>
+                    <Button Grid.Column="1" Style="{StaticResource
+                        AdjustButton}" Content="+" HorizontalAlignment="Right"/>
                 </Grid>
 
                 <TextBlock Text="画像浓度" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                 <Grid Grid.Row="2" Grid.Column="2" Width="120">
-                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="-" HorizontalAlignment="Left"/>
+                    <Button Grid.Column="1" Style="{StaticResource
+                        AdjustButton}" Content="-" HorizontalAlignment="Left"/>
                     <TextBox Grid.Column="1" Height="28" Width="50" Template="{StaticResource customTextBox}" HorizontalContentAlignment="Center" Text="-1" MaxLength="2"></TextBox>
-                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="+" HorizontalAlignment="Right"/>
+                    <Button Grid.Column="1" Style="{StaticResource
+                        AdjustButton}" Content="+" HorizontalAlignment="Right"/>
                 </Grid>
 
                 <TextBlock Text="低湿度模式" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                 <Grid Grid.Row="3" Grid.Column="2" Width="120">
-                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="-" HorizontalAlignment="Left"/>
+                    <Button Grid.Column="1" Style="{StaticResource
+                        AdjustButton}" Content="-" HorizontalAlignment="Left"/>
                     <TextBox Grid.Column="1" Height="28" Width="50" Template="{StaticResource customTextBox}" HorizontalContentAlignment="Center" Text="-1" MaxLength="2"></TextBox>
-                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="+" HorizontalAlignment="Right"/>
+                    <Button Grid.Column="1" Style="{StaticResource
+                        AdjustButton}" Content="+" HorizontalAlignment="Right"/>
                 </Grid>
                 <Image Source="Images/line.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom"></Image>
                 <Image Source="Images/line.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom"></Image>

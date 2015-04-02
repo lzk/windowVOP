@@ -10,7 +10,7 @@
                 <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
                 <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
-                <ResourceDictionary Source="Controls/CustomButton2.xaml"/>
+                <ResourceDictionary Source="Controls/AdjustButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
@@ -27,7 +27,7 @@
 
 
             <Button Name="btnDecrease" Click="BtnClick" Style="{StaticResource
-                CustomButton2}" Content="-" Margin="10,0" />
+                AdjustButton}" Content="-" Margin="10,0" />
 
 
             <Rectangle Name="rect1" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="12" Height="8" />
@@ -36,7 +36,8 @@
             <Rectangle Name="rect4" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="12" Height="17" />
             <Rectangle Name="rect5" VerticalAlignment="Bottom" Margin="5,0,0,5" Fill="Black" Width="12" Height="20" />
 
-            <Button Name="btnIncrease" Click="BtnClick" Style="{StaticResource CustomButton2}" Content="+" 
+            <Button Name="btnIncrease" Click="BtnClick" Style="{StaticResource
+                AdjustButton}" Content="+" 
                 Margin="10,0" />
 
         </StackPanel>

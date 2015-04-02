@@ -15,7 +15,7 @@
                 <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
                 <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
-                <ResourceDictionary Source="Controls/CustomButton2.xaml"/>
+                <ResourceDictionary Source="Controls/AdjustButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomComboBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomScrollView.xaml"/>
                 <ResourceDictionary Source="Controls/ComboBox_Template.xaml"/>

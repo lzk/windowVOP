@@ -14,7 +14,7 @@
                 <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
                 <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
-                <ResourceDictionary Source="Controls/CustomButton2.xaml"/>
+                <ResourceDictionary Source="Controls/AdjustButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomScrollView.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -56,9 +56,11 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="-" HorizontalAlignment="Left"/>
+                    <Button Grid.Column="1" Style="{StaticResource
+                        AdjustButton}" Content="-" HorizontalAlignment="Left"/>
                     <TextBox Grid.Column="1" Height="28" Width="60" Template="{StaticResource customTextBox}" HorizontalContentAlignment="Center" Text="5" MaxLength="3"></TextBox>
-                    <Button Grid.Column="1" Style="{StaticResource CustomButton2}" Content="+" HorizontalAlignment="Right"/>
+                    <Button Grid.Column="1" Style="{StaticResource
+                        AdjustButton}" Content="+" HorizontalAlignment="Right"/>
                 </Grid>
                 <TextBlock Text="（1-30分钟）" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"> </TextBlock>
             </Grid>

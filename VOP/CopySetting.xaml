@@ -21,7 +21,7 @@
                 <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
                 <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
-                <ResourceDictionary Source="Controls/CustomButton2.xaml"/>
+                <ResourceDictionary Source="Controls/AdjustButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomComboBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -54,7 +54,7 @@
                 <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center">
 
-                    <Button Style="{StaticResource CustomButton2}"
+                    <Button Style="{StaticResource AdjustButton}"
                         Content="-" />
 
                     <TextBlock 
@@ -65,7 +65,7 @@
                         100%
                     </TextBlock>
 
-                    <Button Style="{StaticResource CustomButton2}"
+                    <Button Style="{StaticResource AdjustButton}"
                         Content="+" />
 
                 </StackPanel>
