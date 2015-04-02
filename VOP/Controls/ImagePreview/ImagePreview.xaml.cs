@@ -76,6 +76,7 @@ namespace VOP.Controls
             set
             {              
                 imagePaths = value;
+                currentState = ImagePreviewState.Init;
                 Update();
             }
             get
@@ -122,15 +123,22 @@ namespace VOP.Controls
                          TiffCount = 0;
                          currentTiffIndex = 0;
 
-                         listCount = imagePaths.Count();
-
-                         if (listCount == 0)
+                         if (imagePaths != null)
                          {
-                             currentState = ImagePreviewState.Unvalid;
+                             listCount = imagePaths.Count();
+
+                             if (listCount == 0)
+                             {
+                                 currentState = ImagePreviewState.Unvalid;
+                             }
+                             else
+                             {
+                                 currentState = ImagePreviewState.Ready;
+                             }
                          }
                          else
                          {
-                             currentState = ImagePreviewState.Ready;
+                             currentState = ImagePreviewState.Unvalid;
                          }
 
                         break;
@@ -357,18 +365,6 @@ namespace VOP.Controls
                         break;
                 }
             }
-        }
-
-        private void myControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            imagePaths.Add(@"F:\IdcardPrintTest\1200dpiOrig.bmp");
-            imagePaths.Add(@"F:\IdcardPrintTest\3page.tifxx");
-            imagePaths.Add(@"F:\IdcardPrintTest\3page.tif");
-            imagePaths.Add(@"F:\IdcardPrintTest\300dpiOrig.bmp");
-            imagePaths.Add(@"F:\IdcardPrintTest\1200dpiThum.bmp");
-            imagePaths.Add(@"F:\IdcardPrintTest\facebook-icon_small123456789.png");
-            imagePaths.Add(@"F:\IdcardPrintTest\scan1.tif");
-            Update();
         }
 
     }

@@ -8,6 +8,7 @@ using System.Windows.Input; // for MouseButtonEventArgs
 using System.Windows.Media.Imaging; // for BitmapImage
 using VOP.Controls;
 using Microsoft.Win32;
+using System.Collections.Generic;
 
 namespace VOP
 {
@@ -29,9 +30,37 @@ namespace VOP
             this.mainWin = win;
         }
 
+        private void OnClickImagePrint(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            OpenFileDialog open = null;
+            bool? result = null;
+            open = new OpenFileDialog();
+            open.Filter = "JPEG|*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif|All Images|*.jpg;*.bmp;*.png;*.tif";
+            open.Multiselect = true;
+
+            result = open.ShowDialog();
+            if (result == true)
+            {
+                this.mainWin.winPrintPage.FilePaths = new List<string>(open.FileNames);
+                this.mainWin.subPageView.Child = this.mainWin.winPrintPage;
+            }
+        }
+
         private void OnClickFilePrint(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-           
+            OpenFileDialog open = null;
+            bool? result = null;
+            open = new OpenFileDialog();
+            open.Filter = "All Files|*.*";
+
+            result = open.ShowDialog();
+            if (result == true)
+            {
+                List<string> strls = new List<string>();
+                strls.Add(open.FileName);
+                this.mainWin.winPrintPage.FilePaths = strls;
+                this.mainWin.subPageView.Child = this.mainWin.winPrintPage;
+            }
         }
 
         private void OnClickIdCardPrint(object sender, System.Windows.Input.MouseButtonEventArgs e)

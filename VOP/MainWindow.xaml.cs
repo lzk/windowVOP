@@ -33,7 +33,9 @@ namespace VOP
     public partial class MainWindow : Window
     {
         public FileSelectionPage winFileSelectionPage = null;
-        public PrintPage   winPrintPage  = new PrintPage  ();
+        public PrintPage winPrintPage = null;
+        ScanPage    winScanPage   = new ScanPage   ();
+        SettingPage winSettingPage= new SettingPage();
         public StatusPanel statusPanelPage = new StatusPanel();
 
         CopyPage    winCopyPage    = new CopyPage   ();
@@ -204,12 +206,17 @@ namespace VOP
         {
 
             winFileSelectionPage = new FileSelectionPage(this);
+            winPrintPage = new PrintPage(this);
 
             statusPageView.Child = statusPanelPage;
             setTabItemFromIndex(0);
 
             this.subPageView.Child = winFileSelectionPage;      // for test  
-          
+
+            this.statusPanelPage.Visibility = Visibility.Visible;
+
+            IsScanCopy_Usable = true;
+            
             AddMessageHook();
 
             statusUpdater = new Thread(UpdateStatusCaller);

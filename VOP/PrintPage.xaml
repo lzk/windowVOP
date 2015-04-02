@@ -12,11 +12,25 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Canvas>
-        <Canvas.Background>
+    <Grid>
+        <Grid.Background>
             <ImageBrush ImageSource="Images\PagePrint.tif" />
-        </Canvas.Background>
-        <local:ImagePreviewPanel Width="240" Height="271" Canvas.Left="216" Canvas.Top="62" />
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230" />
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="85"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <local:ImagePreviewPanel x:Name="myImagePreviewPanel" Width="240" Height="271" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4"/>
         <local:SpinnerControl x:Name="spinnerControl1"
                             Width="163"
                             Background="Transparent"
@@ -25,21 +39,21 @@
                             Maximum="99"
                             Minimum="1"  
                             IsPercentFormat="False"
-                            Value="1" Canvas.Left="456" Canvas.Top="172" Height="46" />
-        <Button Grid.Row="1" Name="MoreSettingsButton"
+                            Value="1" Grid.Row="2" Grid.Column="2" />
+        <Button Name="MoreSettingsButton"
                         Width="125" Height="35" 
                         Padding="0, 0, 0, 0"
                         FontSize="17"
                         Style="{StaticResource CustomGrayButtonStyle}"
                         Content="更多设置"
-                        Canvas.Left="475" Canvas.Top="248" />
-        <Button Grid.Row="1" Name="PrintButton"
+                        Grid.Row="3" Grid.Column="2" />
+        <Button Name="PrintButton"
                         Width="125" Height="35" 
                         Padding="0, 0, 0, 0"
                         FontSize="17"
                         Style="{StaticResource CustomGreenButtonStyle}"
                         Content="打    印"
-                        Canvas.Left="475" Canvas.Top="298" />
-    </Canvas>
+                        Grid.Row="4" Grid.Column="2" />
+    </Grid>
 
 </UserControl>

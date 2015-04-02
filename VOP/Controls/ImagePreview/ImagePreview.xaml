@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:VOP.Controls"
              mc:Ignorable="d" 
              x:Name="myControl"
-             d:DesignHeight="250" d:DesignWidth="200" Loaded="myControl_Loaded">
+             d:DesignHeight="250" d:DesignWidth="200">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

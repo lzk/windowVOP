@@ -13,9 +13,7 @@ using System.Windows.Shapes;
 
 using Microsoft.Win32;              // for SaveFileDialog
 using System.IO;                    // for File.Create
-using Microsoft.Win32;              // for SaveFileDialog
 using PdfEncoderClient;
-using System.Windows.Documents;
 using System.Windows.Interop;
 
 

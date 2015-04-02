@@ -11,21 +11,40 @@
         <Grid.Background>
             <ImageBrush ImageSource="Images\PagePrint.tif" />
         </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="80" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <Canvas>
-            <local:ImageButton PreviewMouseLeftButtonDown="OnClickFilePrint" 
-                               ImagePath="Images/ButtonFileSelect.png" 
-                               BottomText="文件打印" 
-                               Canvas.Left="320" 
-                               Canvas.Top="150" 
-                               Height="83" Width="79"/>
-            <local:ImageButton PreviewMouseLeftButtonDown="OnClickIdCardPrint" 
-                               ImagePath="Images/ButtonIdCardSelect.png" 
-                               BottomText="证件打印" 
-                               Canvas.Left="433" 
-                               Canvas.Top="150" 
-                               Height="83" Width="79"/>
-           
-        </Canvas>
+        <local:ImageButton  Grid.Row="1"
+                            Grid.Column="1"
+                            PreviewMouseLeftButtonDown="OnClickImagePrint" 
+                            ImagePath="Images/ButtonPicSelect.png" 
+                            BottomText="图片打印" 
+                            Height="83" Width="79"/>
+
+        <local:ImageButton  Grid.Row="1"
+                            Grid.Column="2"
+                            PreviewMouseLeftButtonDown="OnClickFilePrint" 
+                            ImagePath="Images/ButtonFileSelect.png" 
+                            BottomText="文件打印" 
+                            Height="83" Width="79"/>
+
+        <local:ImageButton  Grid.Row="1"
+                            Grid.Column="3"
+                            PreviewMouseLeftButtonDown="OnClickIdCardPrint" 
+                            ImagePath="Images/ButtonIdCardSelect.png" 
+                            BottomText="证件打印" 
+                            Height="83" Width="79"/>
+      
+       
     </Grid>
 </UserControl>

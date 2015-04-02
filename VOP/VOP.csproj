@@ -646,6 +646,7 @@
     <Resource Include="Images\printer.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CustomControl\" />
+    <Resource Include="Images\ButtonPicSelect.png" />
   </ItemGroup>
 </Project>
+
