@@ -131,6 +131,7 @@ namespace VOP
 
                         break;
                     case FileSelectionState.GoPrint:
+                        this.m_MainWin.winPrintPage.myImagePreviewPanel.myImagePreview.IdCardPreviewSource = PrintPreview.PreviewImageSource;
                         this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
                         currentState = FileSelectionState.Exit;
                         break;

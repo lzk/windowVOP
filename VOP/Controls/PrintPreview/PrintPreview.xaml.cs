@@ -23,6 +23,8 @@ namespace VOP.Controls
         public double PaperWidth { get; set; }
         public double PaperHeight { get; set; }
 
+        public static BitmapSource PreviewImageSource = null;
+
         double PaperToTop = 10;
 
         public PrintPreview()
@@ -30,6 +32,24 @@ namespace VOP.Controls
             InitializeComponent();
             PaperWidth = IdCardEditWindow.A4Size.Width;
             PaperHeight = IdCardEditWindow.A4Size.Height;
+        }
+
+        private void ConvertCanvasToImageSource()
+        {
+            Size size = new Size(backgroundPaper.Width, backgroundPaper.Height);
+            backgroundPaper.Measure(size);
+            backgroundPaper.Arrange(new Rect(size));
+
+            // Create a render bitmap and push the surface to it
+            RenderTargetBitmap renderBitmap =
+              new RenderTargetBitmap(
+                (int)size.Width,
+                (int)size.Height,
+                96d,
+                96d,
+                PixelFormats.Pbgra32);
+            renderBitmap.Render(backgroundPaper);
+            PreviewImageSource = renderBitmap;
         }
 
         public void Update()
@@ -46,15 +66,20 @@ namespace VOP.Controls
 
                 if(SelectedTypeItem != null)
                 {
+                    double imageWidth = 0;
+                    double imageHeight = 0;
+                    double imageToLeft = 0;
+                    double imageToTop = 0;
+
                     switch(SelectedTypeItem.TypeId)
                     {
                         case enumIdCardType.IdCard:
                             if (IdCardEditWindow.croppedImageList.Count == 2)
                             {
-                                double imageWidth = 0;
-                                double imageHeight = 0;
-                                double imageToLeft = 0;
-                                double imageToTop = 0;
+                                imageWidth = 0;
+                                imageHeight = 0;
+                                imageToLeft = 0;
+                                imageToTop = 0;
 
                                 imageWidth = backgroundPaper.Width * (SelectedTypeItem.Width / IdCardEditWindow.A4Size.Width);
                                 imageHeight = backgroundPaper.Height * (SelectedTypeItem.Height / IdCardEditWindow.A4Size.Height);
@@ -106,10 +131,10 @@ namespace VOP.Controls
                         case enumIdCardType.MarriageCertificate:
                             if (IdCardEditWindow.croppedImageList.Count == 1)
                             {
-                                double imageWidth = 0;
-                                double imageHeight = 0;
-                                double imageToLeft = 0;
-                                double imageToTop = 0;
+                                imageWidth = 0;
+                                imageHeight = 0;
+                                imageToLeft = 0;
+                                imageToTop = 0;
 
                                 imageWidth = backgroundPaper.Width * (SelectedTypeItem.Width / IdCardEditWindow.A4Size.Width);
                                 imageHeight = backgroundPaper.Height * (SelectedTypeItem.Height / IdCardEditWindow.A4Size.Height);
@@ -148,10 +173,10 @@ namespace VOP.Controls
                         case enumIdCardType.Diploma:
                             if (IdCardEditWindow.croppedImageList.Count == 1)
                             {
-                                double imageWidth = 0;
-                                double imageHeight = 0;
-                                double imageToLeft = 0;
-                                double imageToTop = 0;
+                                imageWidth = 0;
+                                imageHeight = 0;
+                                imageToLeft = 0;
+                                imageToTop = 0;
 
                                 imageWidth = backgroundPaper.Width * (SelectedTypeItem.Width / IdCardEditWindow.A4Size.Width);
                                 imageHeight = backgroundPaper.Height * (SelectedTypeItem.Height / IdCardEditWindow.A4Size.Height);
@@ -192,6 +217,8 @@ namespace VOP.Controls
                         default:
                             break;
                     }
+
+                    ConvertCanvasToImageSource();
                 }
             }
         }

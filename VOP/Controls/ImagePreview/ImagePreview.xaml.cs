@@ -85,6 +85,27 @@ namespace VOP.Controls
             }
         }
 
+        public BitmapSource IdCardPreviewSource
+        {
+            set
+            {
+                if(value != null)
+                {
+                    PreImageButton.Visibility = System.Windows.Visibility.Hidden;
+                    NextImageButton.Visibility = System.Windows.Visibility.Hidden;
+                    PreTiffButton.Visibility = System.Windows.Visibility.Hidden;
+                    NextTiffButton.Visibility = System.Windows.Visibility.Hidden;
+
+                    CurrentFileName = null;
+                    ImageView.Visibility = System.Windows.Visibility.Visible;
+                    ImageUnvalid.Visibility = System.Windows.Visibility.Hidden;
+
+                    FormatConvertedBitmap fcb = new FormatConvertedBitmap(value, PixelFormats.Gray8, null, 0);
+                    ImageView.Source = fcb;
+                }
+            }
+        }
+
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
