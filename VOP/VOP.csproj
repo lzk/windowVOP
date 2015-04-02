@@ -109,6 +109,9 @@
     <Compile Include="Controls\ImagePreview\ScrollTextControl.xaml.cs">
       <DependentUpon>ScrollTextControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ScrollTextNoShadow.xaml.cs">
+      <DependentUpon>ScrollTextNoShadow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SpinnerControl\SpinnerControl.cs" />
     <Compile Include="Controls\TextBoxValidation\PrintCopysValidationRule.cs" />
     <Compile Include="Controls\ToggleButtonEx.cs" />
@@ -199,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ImagePreview\ScrollTextControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ScrollTextNoShadow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
