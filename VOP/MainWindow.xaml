@@ -59,8 +59,10 @@
         
         <SolidColorBrush x:Key="lineColor_1" Color="#AAAAAA" />
         <SolidColorBrush x:Key="lineColor_2" Color="#555555" />
-        <ImageBrush x:Key="imgBk_Brush_1"  ImageSource="Images\PageCopy.tif" />
-        <ImageBrush x:Key="imgBk_Brush_2"  ImageSource="Images\PageSetting.tif" />        
+        <ImageBrush x:Key="imgBk_Brush_1"  ImageSource="Images\PagePrint.tif" />
+        <ImageBrush x:Key="imgBk_Brush_2"  ImageSource="Images\PageCopy.tif" />
+        <ImageBrush x:Key="imgBk_Brush_3"  ImageSource="Images\PageScan.tif" />
+        <ImageBrush x:Key="imgBk_Brush_4"  ImageSource="Images\PageSetting.tif" />        
     </Window.Resources>
 
     <Grid>
@@ -182,7 +184,7 @@
         <Rectangle Name="line10" Grid.Column="10" Grid.Row="3" Fill="{StaticResource lineColor_2}" />
 
 
-        <mycontrol:customTabItem x:Name="tabItem_Printer"   Grid.Column="3" Grid.Row="3"  Margin="0,1"                             
+        <mycontrol:customTabItem x:Name="tabItem_Print"   Grid.Column="3" Grid.Row="3"  Margin="0,1"                             
                                  IsSelect="False" 
                                  FontSize="16.99" 
                                  Text="打印">

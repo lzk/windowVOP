@@ -24,6 +24,12 @@ namespace VOP
     /// </summary>
     ///    
 
+    public enum PrinterModel
+    {
+        SFP,
+        MFP
+    }
+
     public partial class MainWindow : Window
     {
         public FileSelectionPage winFileSelectionPage = null;
@@ -36,6 +42,8 @@ namespace VOP
 
         private ImageBrush imgBk_Brush_1 = null;
         private ImageBrush imgBk_Brush_2 = null;
+        private ImageBrush imgBk_Brush_3 = null;
+        private ImageBrush imgBk_Brush_4 = null;
 
         /// <summary>
         /// Thread used to update status of current printer.
@@ -113,10 +121,11 @@ namespace VOP
 
             imgBk_Brush_1 = (ImageBrush)this.FindResource("imgBk_Brush_1");
             imgBk_Brush_2 = (ImageBrush)this.FindResource("imgBk_Brush_2");
+            imgBk_Brush_3 = (ImageBrush)this.FindResource("imgBk_Brush_3");
+            imgBk_Brush_4 = (ImageBrush)this.FindResource("imgBk_Brush_4");
 
-
-
-
+            IsOnLine = true;
+            PrinterModelName = PrinterModel.MFP;
         }
 
 
@@ -200,10 +209,7 @@ namespace VOP
             setTabItemFromIndex(0);
 
             this.subPageView.Child = winFileSelectionPage;      // for test  
-            this.statusPanelPage.Visibility = Visibility.Hidden;
-
-            IsScanCopy_Usable = true;
-            
+          
             AddMessageHook();
 
             statusUpdater = new Thread(UpdateStatusCaller);
@@ -280,15 +286,43 @@ namespace VOP
 
         #region Set_TabItemIndex
 
-        private bool isScanCopy_Usable = true;
-        private bool IsScanCopy_Usable
+        public bool IsOnLine
         {
-            get { return isScanCopy_Usable; }
+            get { return (bool)GetValue(IsOnLineProperty); }
             set
             {
-                isScanCopy_Usable = value;
+                SetValue(IsOnLineProperty, value);
+                UpdateNavigation();
+            }
+        }
 
-                if (isScanCopy_Usable)
+        public static readonly DependencyProperty IsOnLineProperty =
+            DependencyProperty.Register("IsOnLine", typeof(bool), typeof(MainWindow));
+
+        public PrinterModel PrinterModelName
+        {
+            get { return (PrinterModel)GetValue(PrinterModelNameProperty); }
+            set
+            {
+                SetValue(PrinterModelNameProperty, value);
+                UpdateNavigation();
+            }
+        }
+
+        public static readonly DependencyProperty PrinterModelNameProperty =
+            DependencyProperty.Register("PrinterModelName", typeof(PrinterModel), typeof(MainWindow));
+
+        private void UpdateNavigation()
+        {
+            if (IsOnLine)
+            {
+                line3.Visibility = Visibility.Visible;
+                line8.Visibility = Visibility.Visible;
+                Print_Grid.Visibility = Visibility.Visible;
+                tabItem_Print.Visibility = Visibility.Visible;
+                setTabItemFromIndex(0);
+
+                if (PrinterModel.MFP == PrinterModelName)
                 {
                     line4.Visibility = Visibility.Visible;
                     line5.Visibility = Visibility.Visible;
@@ -306,10 +340,10 @@ namespace VOP
                     Grid.SetColumn(tabItem_Setting, 9);
                     Grid.SetRow(tabItem_Setting, 3);
 
-                    winSettingPage.mainGrid.Background = imgBk_Brush_2;
+                    winSettingPage.mainGrid.Background = imgBk_Brush_4;
 
                 }
-                else
+                else if (PrinterModel.SFP == PrinterModelName)
                 {
                     line4.Visibility = Visibility.Hidden;
                     line5.Visibility = Visibility.Hidden;
@@ -327,9 +361,37 @@ namespace VOP
                     Grid.SetColumn(tabItem_Setting, 5);
                     Grid.SetRow(tabItem_Setting, 3);
 
-                    winSettingPage.mainGrid.Background = imgBk_Brush_1;
+                    winSettingPage.mainGrid.Background = imgBk_Brush_2;
                 }
             }
+            else
+            {
+                line3.Visibility = Visibility.Hidden;
+                line4.Visibility = Visibility.Hidden;
+                line5.Visibility = Visibility.Hidden;
+                line8.Visibility = Visibility.Hidden;
+                line9.Visibility = Visibility.Hidden;
+                line10.Visibility = Visibility.Hidden;
+
+
+                Print_Grid.Visibility = Visibility.Hidden;
+                Scan_Grid.Visibility = Visibility.Hidden;
+                Copy_Grid.Visibility = Visibility.Hidden;
+                Grid.SetColumn(Setting_Grid, 3);
+                Grid.SetRow(Setting_Grid, 2);
+
+                tabItem_Print.Visibility = Visibility.Hidden;
+                tabItem_Copy.Visibility = Visibility.Hidden;
+                tabItem_Scan.Visibility = Visibility.Hidden;
+
+                Grid.SetColumn(tabItem_Setting, 3);
+                Grid.SetRow(tabItem_Setting, 3);
+
+                winSettingPage.mainGrid.Background = imgBk_Brush_1;
+
+                setTabItemFromIndex(3);
+            }
+
         }
 
 
@@ -360,69 +422,63 @@ namespace VOP
         }
         private bool setTabItemFromIndex(int index)
         {
-            if (IsScanCopy_Usable)
+            if (PrinterModel.MFP == PrinterModelName)
             {
                 if (0 == index)
                 {
                     this.subPageView.Child = winPrintPage;
-                    this.statusPanelPage.Visibility = Visibility.Visible;
-
-                tabItem_Printer.IsSelect = true;
-                tabItem_Copy.IsSelect = false;
-                tabItem_Scan.IsSelect = false;
-                tabItem_Setting.IsSelect = false;
-            }
-            else if (1 == index)
-            {
-                this.subPageView.Child = winCopyPage;
-                this.statusPanelPage.Visibility = Visibility.Visible;
-
-                tabItem_Printer.IsSelect = false;
-                tabItem_Copy.IsSelect = true;
-                tabItem_Scan.IsSelect = false;
-                tabItem_Setting.IsSelect = false;
-            }
-            else if (2 == index)
-            {
-                this.subPageView.Child = winScanPage;
-                this.statusPanelPage.Visibility = Visibility.Visible;
-
-                tabItem_Printer.IsSelect = false;
-                tabItem_Copy.IsSelect = false;
-                tabItem_Scan.IsSelect = true;
-                tabItem_Setting.IsSelect = false;
-            }
-            else if (3 == index)
-            {
-                this.subPageView.Child = winSettingPage;
-               // this.statusPanelPage.Visibility = Visibility.Hidden;
-
-                tabItem_Printer.IsSelect = false;
-                tabItem_Copy.IsSelect = false;
-                tabItem_Scan.IsSelect = false;
-                tabItem_Setting.IsSelect = true;
-            }
-            else
-            {
-                return false;
-            }
-            }
-            else
-            {
-                if (0 == index)
+                
+                    tabItem_Print.IsSelect = true;
+                    tabItem_Copy.IsSelect = false;
+                    tabItem_Scan.IsSelect = false;
+                    tabItem_Setting.IsSelect = false;
+                }
+                else if (1 == index)
                 {
-                    this.subPageView.Child = winPrintPage;
-                    this.statusPanelPage.Visibility = Visibility.Visible;
-
-                    tabItem_Printer.IsSelect = true;
+                    this.subPageView.Child = winCopyPage;
+                 
+                    tabItem_Print.IsSelect = false;
+                    tabItem_Copy.IsSelect = true;
+                    tabItem_Scan.IsSelect = false;
+                    tabItem_Setting.IsSelect = false;
+                }
+                else if (2 == index)
+                {
+                    this.subPageView.Child = winScanPage;
+                 
+                    tabItem_Print.IsSelect = false;
+                    tabItem_Copy.IsSelect = false;
+                    tabItem_Scan.IsSelect = true;
                     tabItem_Setting.IsSelect = false;
                 }
                 else if (3 == index)
                 {
                     this.subPageView.Child = winSettingPage;
-                    this.statusPanelPage.Visibility = Visibility.Hidden;
-
-                    tabItem_Printer.IsSelect = false;
+                  
+                    tabItem_Print.IsSelect = false;
+                    tabItem_Copy.IsSelect = false;
+                    tabItem_Scan.IsSelect = false;
+                    tabItem_Setting.IsSelect = true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (0 == index)
+                {
+                    this.subPageView.Child = winPrintPage;
+                   
+                    tabItem_Print.IsSelect = true;
+                    tabItem_Setting.IsSelect = false;
+                }
+                else if (3 == index)
+                {
+                    this.subPageView.Child = winSettingPage;
+                    
+                    tabItem_Print.IsSelect = false;
                     tabItem_Setting.IsSelect = true;
                 }
                 else
@@ -437,10 +493,6 @@ namespace VOP
 
         #endregion // end Set_TabItemIndex
 
-        private void btnLogin_btnClick(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         /// <summary>
         /// Exit falg. True if need to exit thread statusUpdater.
