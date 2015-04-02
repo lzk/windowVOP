@@ -169,6 +169,9 @@
     <Compile Include="UserConfigView.xaml.cs">
       <DependentUpon>UserConfigView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WarmingWnd.xaml.cs">
+      <DependentUpon>WarmingWnd.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WifiView.xaml.cs">
       <DependentUpon>WifiView.xaml</DependentUpon>
     </Compile>
@@ -268,6 +271,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserConfigView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WarmingWnd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -653,5 +660,13 @@
     <Resource Include="Images\ButtonPicSelect.png" />
     <Resource Include="Images\Checked.png" />
     <Resource Include="Images\Uncheck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Warming.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Media\FlickAnimation.avi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>
