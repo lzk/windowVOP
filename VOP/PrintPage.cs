@@ -13,7 +13,7 @@ namespace VOP
 {
     public partial class PrintPage : UserControl
     {
-        MainWindow mainWin = null;
+        public MainWindow m_MainWin { get; set; }
         List<string> filePaths = new List<string>();
 
         public List<string> FilePaths
@@ -32,18 +32,12 @@ namespace VOP
         public PrintPage()
         {
             InitializeComponent();
-        }
-
-        public PrintPage(MainWindow win)
-        {
-            InitializeComponent();
-            this.mainWin = win;
             myImagePreviewPanel.BackArrowButton.Click += new RoutedEventHandler(OnBackArrowButtonClick);
         }
 
         private void OnBackArrowButtonClick(object sender, RoutedEventArgs e)
         {
-            this.mainWin.subPageView.Child = this.mainWin.winFileSelectionPage;
+            this.m_MainWin.subPageView.Child = this.m_MainWin.winFileSelectionPage;
         }
     }
 }

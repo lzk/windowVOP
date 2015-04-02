@@ -32,10 +32,8 @@ namespace VOP
 
     public partial class MainWindow : Window
     {
-        public FileSelectionPage winFileSelectionPage = null;
-        public PrintPage winPrintPage = null;
-        ScanPage    winScanPage   = new ScanPage   ();
-        SettingPage winSettingPage= new SettingPage();
+        public FileSelectionPage winFileSelectionPage = new FileSelectionPage();
+        public PrintPage winPrintPage = new PrintPage();
         public StatusPanel statusPanelPage = new StatusPanel();
 
         CopyPage    winCopyPage    = new CopyPage   ();
@@ -112,7 +110,8 @@ namespace VOP
             winCopyPage    .m_MainWin = this;
             winScanPage    .m_MainWin = this;
             winSettingPage .m_MainWin = this;
-
+            winFileSelectionPage.m_MainWin = this;
+            winPrintPage.m_MainWin = this;
             Init();
         }
 
@@ -205,18 +204,12 @@ namespace VOP
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
         {
 
-            winFileSelectionPage = new FileSelectionPage(this);
-            winPrintPage = new PrintPage(this);
-
             statusPageView.Child = statusPanelPage;
             setTabItemFromIndex(0);
 
             this.subPageView.Child = winFileSelectionPage;      // for test  
-
             this.statusPanelPage.Visibility = Visibility.Visible;
-
-            IsScanCopy_Usable = true;
-            
+           
             AddMessageHook();
 
             statusUpdater = new Thread(UpdateStatusCaller);

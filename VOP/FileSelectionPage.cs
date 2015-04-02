@@ -17,17 +17,11 @@ namespace VOP
         private enum FileSelectionState { SelectWindow, OpenFile, EditWindow, GoPrint, Exit }
         FileSelectionState currentState;
         public static int imageFileCount = 0;
-        MainWindow mainWin = null;
+        public MainWindow m_MainWin { get; set; }
 
         public FileSelectionPage()
         {
             InitializeComponent();
-        }
-
-        public FileSelectionPage(MainWindow win)
-        {
-            InitializeComponent();
-            this.mainWin = win;
         }
 
         private void OnClickImagePrint(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -41,8 +35,8 @@ namespace VOP
             result = open.ShowDialog();
             if (result == true)
             {
-                this.mainWin.winPrintPage.FilePaths = new List<string>(open.FileNames);
-                this.mainWin.subPageView.Child = this.mainWin.winPrintPage;
+                this.m_MainWin.winPrintPage.FilePaths = new List<string>(open.FileNames);
+                this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
             }
         }
 
@@ -58,8 +52,8 @@ namespace VOP
             {
                 List<string> strls = new List<string>();
                 strls.Add(open.FileName);
-                this.mainWin.winPrintPage.FilePaths = strls;
-                this.mainWin.subPageView.Child = this.mainWin.winPrintPage;
+                this.m_MainWin.winPrintPage.FilePaths = strls;
+                this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
             }
         }
 
@@ -137,7 +131,7 @@ namespace VOP
 
                         break;
                     case FileSelectionState.GoPrint:
-                        this.mainWin.subPageView.Child = this.mainWin.winPrintPage;
+                        this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
                         currentState = FileSelectionState.Exit;
                         break;
                     default:
