@@ -40,19 +40,20 @@
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Center">
 
-                            <Button Style="{StaticResource AdjustButton}"
-                                    Content="-" />
+                            <Button x:Name="btnDecCopies" Style="{StaticResource AdjustButton}"
+                                    Content="-" Click="btnDecCopies_Click" />
 
-                            <TextBlock 
+                            <TextBlock x:Name="txtblkCopies" 
                                 VerticalAlignment="Center" 
-                                Margin="40,0"
+                                Margin="35,0"
                                 FontSize="30"
+                                Width="35"
                                 >
-                                99
+                                1
                             </TextBlock>
 
-                            <Button Style="{StaticResource AdjustButton}"
-                                    Content="+" />
+                            <Button x:Name="btnIncCopies" Style="{StaticResource AdjustButton}"
+                                    Content="+" Click="btnIncCopies_Click" />
 
                         </StackPanel>
                     </local:GroupBoxDecorator>

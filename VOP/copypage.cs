@@ -11,6 +11,30 @@ namespace VOP
 {
     public partial class CopyPage : UserControl
     {
+
+        ///<summary>
+        /// Copies set by in UI. Default value is 1. Value range [1,99].
+        /// Update UI when the property was assigned a valibale value.
+        ///</summary>
+        private int _copies = 1;
+        public int m_copies
+        {
+            set
+            {
+                if ( value >= 1 && value <= 99 )
+                {
+                    _copies = value;
+                    
+                    this.txtblkCopies.Text = _copies.ToString();
+                }
+            }
+
+            get
+            {
+                return _copies;
+            }
+        }
+
         ///<summary>
         /// Pointer to the MainWindow, in order to use global data more
         /// conveniently 
@@ -89,6 +113,16 @@ namespace VOP
             bi.EndInit();
 
             imgIDCard.Source = bi;
+        }
+
+        private void btnIncCopies_Click(object sender, RoutedEventArgs e)
+        {
+            m_copies++;
+        }
+
+        private void btnDecCopies_Click(object sender, RoutedEventArgs e)
+        {
+            m_copies--;
         }
 
     }
