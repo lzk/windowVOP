@@ -82,7 +82,7 @@
                                 Name="btnSetting" Width="120" Height="25"
                                 Margin="20,10" Click="SettingBtnClick" HorizontalAlignment="Center"/>
 
-                        <Button HorizontalContentAlignment="Center"
+                        <Button x:Name="btnCopy" HorizontalContentAlignment="Center"
                                 IsDefault="True" Content="复印"
                                 Template="{StaticResource custombtn}"  Height="35" Width="150" Click="Button_Click" HorizontalAlignment="Center" />
                     </StackPanel>

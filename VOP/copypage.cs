@@ -106,9 +106,15 @@ namespace VOP
             bi.BeginInit();
 
             if ( true == chkBtnIDCardCopy.IsChecked ) 
+            {
+                this.btnCopy.Content = "身份证复印";
                 bi.UriSource = new Uri("Images/IDCardCopyIconEnable.png", UriKind.Relative);
+            }
             else
+            {
+                this.btnCopy.Content = "复印";
                 bi.UriSource = new Uri("Images/IDCardCopyIconDisable.png", UriKind.Relative);
+            }
 
             bi.EndInit();
 
