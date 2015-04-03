@@ -388,5 +388,15 @@ namespace VOP.Controls
             }
         }
 
+        private void myControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            //PreImageButton.Visibility = System.Windows.Visibility.Hidden;
+            //NextImageButton.Visibility = System.Windows.Visibility.Hidden;
+            //PreTiffButton.Visibility = System.Windows.Visibility.Hidden;
+            //NextTiffButton.Visibility = System.Windows.Visibility.Hidden;
+            //currentState = ImagePreviewState.Init;
+            //Update();
+        }
+
     }
 }

@@ -82,8 +82,8 @@ namespace VOP.Controls
 
                 if (IsFitted == true)
                 {
-                    imageWidth = (double)src.Width;
-                    imageHeight = (double)src.Height;
+                    imageWidth = (double)src.PixelWidth;
+                    imageHeight = (double)src.PixelHeight;
                     imageToTop = (this.ActualHeight - imageHeight) / 2;
                     imageToLeft = (this.ActualWidth - imageWidth) / 2;
                 }
@@ -167,6 +167,7 @@ namespace VOP.Controls
             BitmapImage myBitmapImage = new BitmapImage();
             myBitmapImage.BeginInit();
             myBitmapImage.UriSource = newUri;
+            myBitmapImage.CacheOption = BitmapCacheOption.None;
             myBitmapImage.EndInit();
 
             cropper.imageSource = myBitmapImage;
@@ -197,9 +198,9 @@ namespace VOP.Controls
          
             Int32Rect intRect = new Int32Rect((int)(rect.X), (int)(rect.Y), (int)rect.Width, (int)rect.Height);
 
-            if (   intRect.X >= 0 
-                && intRect.Y >= 0 
-                && intRect.X + intRect.Width <= src.PixelWidth 
+            if (   intRect.X >= 0
+                && intRect.Y >= 0
+                && intRect.X + intRect.Width <= src.PixelWidth
                 && intRect.Y + intRect.Height <= src.PixelHeight)
             {
                 croppedImage = new CroppedBitmap(src, intRect);

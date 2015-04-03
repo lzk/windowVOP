@@ -426,7 +426,7 @@ namespace VOP
             {
                 if (0 == index)
                 {
-                    this.subPageView.Child = winPrintPage;
+                    this.subPageView.Child = winFileSelectionPage;
                 
                     tabItem_Print.IsSelect = true;
                     tabItem_Copy.IsSelect = false;
@@ -469,7 +469,7 @@ namespace VOP
             {
                 if (0 == index)
                 {
-                    this.subPageView.Child = winPrintPage;
+                    this.subPageView.Child = winFileSelectionPage;
                    
                     tabItem_Print.IsSelect = true;
                     tabItem_Setting.IsSelect = false;
