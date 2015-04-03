@@ -399,10 +399,6 @@
       <DependentUpon>TonerBar.xaml</DependentUpon>
     </Compile>
     <Page Include="CopyPage.xaml" />
-    <Page Include="Controls\CustomTextbox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\ImagePreviewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -436,9 +432,6 @@
     <Page Include="SettingPage.xaml" />
     <Compile Include="CopyPage.cs">
       <DependentUpon>CopyPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CustomTextbox.xaml.cs">
-      <DependentUpon>CustomTextbox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ImagePreviewControl.xaml.cs">
       <DependentUpon>ImagePreviewControl.xaml</DependentUpon>

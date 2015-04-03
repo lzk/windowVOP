@@ -28,7 +28,7 @@ namespace VOP
 
         public void init_config(bool _bDisplayProgressBar = true)
         {
-            m_psavetime = 1;
+            m_psavetime = 11;
 
             PowerSaveTimeRecord m_rec = null;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
@@ -47,7 +47,7 @@ namespace VOP
                 m_psavetime = m_rec.Time;
             }
 
-            tb_powersave.Text = m_psavetime.ToString();
+            spinnerControl1.Value = m_psavetime;
 
             UpdateApplyBtnStatus();
         }
@@ -63,7 +63,7 @@ namespace VOP
 
             try
             {
-                psavetime = Convert.ToByte(tb_powersave.Text);
+                psavetime = Convert.ToByte(spinnerControl1.Value);
             }
             catch
             {
@@ -87,7 +87,7 @@ namespace VOP
         {
             bool isApplySuccess = false;
 
-            byte psavetime = Convert.ToByte(tb_powersave.Text);
+            byte psavetime = Convert.ToByte(spinnerControl1.Value);
             if (psavetime < 1 || 30 < psavetime)
                 psavetime = 1;
 
@@ -110,43 +110,6 @@ namespace VOP
         private void btnApply_Click(object sender, RoutedEventArgs e)
         {
             apply();
-
-            UpdateApplyBtnStatus();
-        }
-
-        private void btn_Click(object sender, RoutedEventArgs e)
-        {
-            Button btn = sender as Button;
-            byte psavetime = 1;
-            try
-            {
-                psavetime = Convert.ToByte(tb_powersave.Text);
-            }
-            catch
-            {
-                if (psavetime < 1)
-                    psavetime = 1;
-
-                if (psavetime > 30)
-                    psavetime = 30;
-            };
-
-            if (btn.Name == "btnDecrease")
-            {
-                psavetime--;
-            }
-            else if (btn.Name == "btnIncrease")
-            {
-                psavetime++;
-            }
-
-            if (psavetime < 1)
-                psavetime = 1;
-
-            if (psavetime > 30)
-                psavetime = 30;
-
-            tb_powersave.Text = psavetime.ToString();
 
             UpdateApplyBtnStatus();
         }

@@ -16,7 +16,110 @@
                 <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
                 <ResourceDictionary Source="Controls/AdjustButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomScrollView.xaml"/>
+                <ResourceDictionary Source="Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="TextBoxErrorTemplateStyle1" TargetType="{x:Type TextBox}">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                               <Popup IsOpen="True" 
+                               AllowsTransparency="True"
+                               PlacementTarget="{Binding ElementName=MyAdorner}"
+                               Placement="Top"
+                               VerticalOffset="-5"
+                               HorizontalOffset="-50"
+                               >
+                                    <Border Background="#FFD3EAC3" BorderBrush="#FF727272" BorderThickness="0.5">
+                                        <TextBlock 
+								            Foreground="#FF727272"
+								            Margin="5" 
+								            FontSize="12"
+								            Text="{Binding ElementName=MyAdorner, 
+                                            Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                                            </TextBlock>
+                                    </Border>
+                                </Popup>
+
+                                <Border BorderBrush="Red" BorderThickness="2.5" CornerRadius="16">
+                                    <AdornedElementPlaceholder Name="MyAdorner"/>
+                                </Border>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <!--<Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip"
+						Value="{Binding RelativeSource={RelativeSource Self},
+                       Path=(Validation.Errors)[0].ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>-->
+            </Style>
+            <Style x:Key ="SpinnerControl1"  TargetType="{x:Type local:SpinnerControl}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:SpinnerControl}">
+
+                            <Grid Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <TextBox Grid.Row="0"
+                                 Grid.Column="1"
+                                 Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                 BorderBrush="{StaticResource TextBoxBorderBrush}"
+                                 Foreground="#FF707070"
+                                 TextAlignment="Center"
+                                 IsReadOnly="False"
+                                 BorderThickness="0"
+                                 FontSize="18" 
+                                 MaxLength="2"                                 
+                                 Height="30"
+                                 Style="{StaticResource TextBoxErrorTemplateStyle1}"
+                                 Template="{StaticResource customTextBox}">
+                                    <TextBox.Text>
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" 
+                                         Mode="TwoWay"
+                                         Path="FormattedValue" 
+                                         UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <local:PrintCopysValidationRule MinimumValue="1" MaximumValue="30" 
+										ErrorMessage="有效值输入范围为1-30, 请确认后再次输入." />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+
+                                <RepeatButton Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
+
+
+                                <RepeatButton Grid.Row="0"
+                                      Grid.Column="2"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomPlusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -55,12 +158,16 @@
                         <ColumnDefinition Width="140"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
+                    <local:SpinnerControl x:Name="spinnerControl1" Grid.Column="1" Style="{StaticResource SpinnerControl1}"
+                            Width="160" 
+                            Background="Transparent"
+                            Change="1"
+                            DecimalPlaces="0"
+                            Maximum="30"
+                            Minimum="1"  
+                            IsPercentFormat="False">
 
-                    <Button Name="btnDecrease" Click="btn_Click"
-                        Grid.Column="1" Style="{StaticResource AdjustButton}" Content="-" HorizontalAlignment="Left"/>
-                    <TextBox Name="tb_powersave" TextChanged="handler_text_changed" Grid.Column="1" Height="28" Width="60" Template="{StaticResource customTextBox}" HorizontalContentAlignment="Center" Text="1" MaxLength="3"></TextBox>
-                    <Button Name="btnIncrease" Click="btn_Click"
-                        Grid.Column="1" Style="{StaticResource AdjustButton}" Content="+" HorizontalAlignment="Right"/>
+                    </local:SpinnerControl>
                 </Grid>
                 <TextBlock Text="（1-30分钟）" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"> </TextBlock>
             </Grid>
