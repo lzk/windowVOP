@@ -71,7 +71,11 @@ namespace VOP
             CopySetting win = new CopySetting();
             
             win.Owner = m_MainWin;
-            win.ShowDialog();
+
+            if ( true == win.ShowDialog() )
+            {
+                MessageBox.Show( "Apply" );
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

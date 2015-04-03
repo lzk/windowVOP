@@ -213,8 +213,8 @@
             <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="False"
                 Content="默认" 
                 Height="35" Width="150" Margin="0,0,20,0" />
-            <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="True"
-                Content="确认"  Height="35" Width="150" />
+            <local:ButtonEx x:Name="btnApply" HorizontalContentAlignment="Center" IsDefault="True"
+                Content="确认"  Height="35" Width="150" Click="btnApply_Click" />
         </StackPanel>
 
     </Grid>
