@@ -8,6 +8,7 @@
         Closed="handler_closed"
         Loaded="LoadedMainWindow"
         WindowStyle="None" 
+        xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP">
     <Window.Resources>
         <ControlTemplate x:Key="pageSwitch" TargetType="{x:Type CheckBox}">
@@ -97,13 +98,10 @@
         <!-- Title Bar Layout --> 
         <Grid Grid.ColumnSpan="100" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20*" />
-                <ColumnDefinition Width="100*" />
-                <ColumnDefinition Width="675*" />                
-                <ColumnDefinition Width="15*" />
-                <ColumnDefinition Width="10*" />
-                <ColumnDefinition Width="15*" />
-                <ColumnDefinition Width="15*" />
+                <ColumnDefinition Width="21*" />
+                <ColumnDefinition Width="105*" />
+                <ColumnDefinition Width="649*" />                
+                <ColumnDefinition Width="75*" />
             </Grid.ColumnDefinitions>            
             <Grid.RowDefinitions>
                 <RowDefinition Height="14*" />
@@ -111,30 +109,15 @@
                 <RowDefinition Height="13*" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.ColumnSpan="100" Grid.RowSpan="100" Text="ABC打印机" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="23.75"></TextBlock>
+            <TextBlock Grid.RowSpan="3" Text="ABC打印机" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="23.75" Grid.Column="2" Height="31.59" Margin="211.557,6.205,322.557,6.205" Width="114.886"/>
 
-            <Image Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Source="Images\mainWindow_Logo.png" />
+            <Image Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Source="Images\mainWindow_Logo.png" Height="15.75" Margin="0,14.125" Width="105" />
 
-            <Button Name="btnMinimize" Grid.Column="3" Grid.Row="1" Click="ControlBtnClick">               
-                <Button.Template>
-                    <ControlTemplate>
-                        <Grid Background="{x:Null}">
-                            <Image Source="Images\MainWindow_Min.PNG" ></Image>
-                        </Grid>
-                                         
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+            <StackPanel Orientation="Horizontal" Grid.RowSpan="3" Grid.Column="3">
+                <local:MinimizeCloseButton x:Name="btnMinimize" Height="30" Width="30" Click="ControlBtnClick" MinimizeOrCloseStyle="Minimize" />
+                <local:MinimizeCloseButton x:Name="btnClose"    Height="30" Width="30" Click="ControlBtnClick" MinimizeOrCloseStyle="Close" />
+            </StackPanel>
 
-            <Button Name="btnClose" Grid.Column="5" Grid.Row="1" Click="ControlBtnClick">
-                <Button.Template>
-                    <ControlTemplate>
-                        <Grid Background="{x:Null}">                            
-                            <Image Source="Images\MainWindow_Close.PNG" ></Image>
-                        </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>  
         </Grid>
 
       
