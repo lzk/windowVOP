@@ -191,6 +191,9 @@ namespace VOP
         _7inchPhoto = 5 ,
     }
     
+    /// <summary>
+    /// Paper size for copy setting page original document size.
+    /// </summary>
     public enum EnumPaperSizeInput : byte
     {
         _A4         = 0 ,

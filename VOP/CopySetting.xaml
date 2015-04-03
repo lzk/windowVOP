@@ -101,16 +101,6 @@
                     Width="145" Height="30" SelectionChanged="cboDocSize_SelectionChanged"
                     >
 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="A4 (210*297mm)" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
-                        IsSelected="false" Content="A5 (148*210mm)" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
-                        IsSelected="false" Content="B5 (182*257mm)" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
-                        IsSelected="false" Content="Letter (8.5*11&quot;)" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
-                        IsSelected="false" Content="Executive (7.25*10.5&quot;)" MinWidth="145" /> 
-
                 </ComboBox>
             </local:GroupBoxDecorator>
 

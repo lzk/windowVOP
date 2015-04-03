@@ -150,7 +150,58 @@ namespace VOP
 
 
             txtblkScaling.Text = m_scaling.ToString();
+
+            InitCboDocSize();
             
+        }
+
+
+        /// <summary>
+        /// Initialize original document size combobox.
+        /// </summary>
+        private void InitCboDocSize()
+        {
+            ComboBoxItem cboItem = null;
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "A4 (210*297mm)" ;
+            cboItem.IsSelected = true;
+            cboItem.DataContext = EnumPaperSizeInput._A4; 
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboDocSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "A5 (148*210mm)" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumPaperSizeInput._A5; 
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboDocSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "B5 (182*257mm)" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumPaperSizeInput._B5; 
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboDocSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "Letter (8.5*11\")" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumPaperSizeInput._Letter; 
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboDocSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "Executive (7.25*10.5\")" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumPaperSizeInput._Executive; 
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboDocSize.Items.Add( cboItem );
         }
 	}
 }
