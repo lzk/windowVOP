@@ -18,15 +18,33 @@ namespace VOP
 	public partial class CopySetting : Window
 	{
 
-#region Properties
+#region Fields
         public EnumCopyScanMode m_scanMode = EnumCopyScanMode.Photo; 
-
         public byte   m_docSize    = 1;
         public byte   m_outputSize = 1;
         public byte   m_nin1       = 1;
         public byte   m_dpi        = 1;
-        public ushort m_scaling    = 1;
         public byte   m_mediaType  = 1;
+#endregion
+
+#region Properties
+        private ushort _scaling = 100;
+        public ushort m_scaling
+        {
+            set
+            {
+                if ( value >= 25 && value <= 400 )
+                {
+                    _scaling = value;
+                }
+            }
+
+            get
+            {
+                return _scaling;
+            }
+        }
+
 #endregion
 
 		public CopySetting()
@@ -82,12 +100,14 @@ namespace VOP
 
         private void btnScalingDec_Click(object sender, RoutedEventArgs e)
         {
-
+            m_scaling--;
+            txtblkScaling.Text = m_scaling.ToString();
         }
 
         private void btnScalingInc_Click(object sender, RoutedEventArgs e)
         {
-
+            m_scaling++;
+            txtblkScaling.Text = m_scaling.ToString();
         }
 
         private void chkNin1_Checked(object sender, RoutedEventArgs e)
@@ -127,6 +147,10 @@ namespace VOP
                 rdBtnScanModeTxt.IsChecked = false;
                 rdBtnScanModePhoto.IsChecked = true;
             }
+
+
+            txtblkScaling.Text = m_scaling.ToString();
+            
         }
 	}
 }

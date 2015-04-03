@@ -57,13 +57,13 @@
                     <Button x:Name="btnScalingDec" Style="{StaticResource AdjustButton}"
                         Content="-" Click="btnScalingDec_Click" />
 
-                    <TextBlock 
-                        VerticalAlignment="Center" 
-                        Margin="40,0"
-                        FontSize="30"
-                        >
-                        100%
-                    </TextBlock>
+                    <Grid Width="120" >
+                        <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center" >
+                            <TextBlock x:Name="txtblkScaling" TextAlignment="Center" FontSize="30" > 100 </TextBlock>
+                            <TextBlock FontSize="30" > % </TextBlock>
+                        </StackPanel>
+                    </Grid>
 
                     <Button x:Name="btnScalingInc" Style="{StaticResource AdjustButton}"
                         Content="+" Click="btnScalingInc_Click" />

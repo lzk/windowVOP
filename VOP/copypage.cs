@@ -73,6 +73,7 @@ namespace VOP
             win.Owner = m_MainWin;
 
             win.m_scanMode = EnumCopyScanMode.Photo;
+            win.m_scaling = 100;
 
             if ( true == win.ShowDialog() )
             {
