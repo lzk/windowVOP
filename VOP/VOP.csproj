@@ -109,6 +109,15 @@
     <Compile Include="Controls\ImagePreview\ScrollTextControl.xaml.cs">
       <DependentUpon>ScrollTextControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MessageBoxEx\MessageBoxEx_Video.xaml.cs">
+      <DependentUpon>MessageBoxEx_Video.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MessageBoxEx\MessageBoxEx_Simple.xaml.cs">
+      <DependentUpon>MessageBoxEx_Simple.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MessageBoxEx\MessageBoxEx_YesNo.xaml.cs">
+      <DependentUpon>MessageBoxEx_YesNo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ScrollTextNoShadow.xaml.cs">
       <DependentUpon>ScrollTextNoShadow.xaml</DependentUpon>
     </Compile>
@@ -172,9 +181,6 @@
     <Compile Include="UserConfigView.xaml.cs">
       <DependentUpon>UserConfigView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WarmingWnd.xaml.cs">
-      <DependentUpon>WarmingWnd.xaml</DependentUpon>
-    </Compile>
     <Compile Include="WifiView.xaml.cs">
       <DependentUpon>WifiView.xaml</DependentUpon>
     </Compile>
@@ -202,6 +208,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ImagePreview\ScrollTextControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MessageBoxEx\MessageBoxEx_Video.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MessageBoxEx\MessageBoxEx_Simple.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MessageBoxEx\MessageBoxEx_YesNo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -278,10 +296,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserConfigView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="WarmingWnd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -662,11 +676,10 @@
     <Resource Include="Images\Uncheck.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Warming.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="Images\Warning.tif" />
     <Content Include="Media\FlickAnimation.avi">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
 </Project>
