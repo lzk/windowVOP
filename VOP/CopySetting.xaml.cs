@@ -18,7 +18,7 @@ namespace VOP
 	public partial class CopySetting : Window
 	{
 
-#region Property
+#region Properties
         public byte   m_scanMode   = 1;
         public byte   m_docSize    = 1;
         public byte   m_outputSize = 1;
@@ -57,6 +57,51 @@ namespace VOP
         private void btnApply_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
+        }
+
+        private void cboDocSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void cboResolution_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void cboOutputSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void cboMediaType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void btnScalingDec_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnScalingInc_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void chkNin1_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void chkNin1_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDefault_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 	}
 }

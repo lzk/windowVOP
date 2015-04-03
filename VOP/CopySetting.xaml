@@ -54,8 +54,8 @@
                 <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center">
 
-                    <Button Style="{StaticResource AdjustButton}"
-                        Content="-" />
+                    <Button x:Name="btnScalingDec" Style="{StaticResource AdjustButton}"
+                        Content="-" Click="btnScalingDec_Click" />
 
                     <TextBlock 
                         VerticalAlignment="Center" 
@@ -65,8 +65,8 @@
                         100%
                     </TextBlock>
 
-                    <Button Style="{StaticResource AdjustButton}"
-                        Content="+" />
+                    <Button x:Name="btnScalingInc" Style="{StaticResource AdjustButton}"
+                        Content="+" Click="btnScalingInc_Click" />
 
                 </StackPanel>
             </local:GroupBoxDecorator>
@@ -77,11 +77,11 @@
                 <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center">
 
-                    <RadioButton GroupName="ScanMode" IsChecked="True"
+                    <RadioButton x:Name="rdBtnScanModePhoto" GroupName="ScanMode" IsChecked="True"
                         Template="{StaticResource customRadioButton}"
                         Content="照片" VerticalAlignment="Center"
                         Margin="10,0" ></RadioButton>
-                    <RadioButton GroupName="ScanMode" IsChecked="False"
+                    <RadioButton x:Name="rdBtnScanModeTxt" GroupName="ScanMode" IsChecked="False"
                         Template="{StaticResource customRadioButton}"
                         Content="文本" VerticalAlignment="Center"
                         Margin="10,0" ></RadioButton>
@@ -95,10 +95,10 @@
         <StackPanel Orientation="Horizontal" Grid.Row="2"
             HorizontalAlignment="Center">
             <local:GroupBoxDecorator Header="原稿尺寸" Height="75" Width="240" >
-                <ComboBox
+                <ComboBox x:Name="cboDocSize"
                     Style="{StaticResource customComboBox}"
                     Background="White"
-                    Width="145" Height="30"
+                    Width="145" Height="30" SelectionChanged="cboDocSize_SelectionChanged"
                     >
 
                     <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="A4 (210*297mm)" MinWidth="145" /> 
@@ -116,12 +116,12 @@
 
             <local:GroupBoxDecorator Header="分辨率" Height="75"
                 Width="240" Margin="30,0,0,0">
-                <ComboBox
+                <ComboBox x:Name="cboResolution"
                     Style="{StaticResource customComboBox}"
                     Background="White"
                     Height="30"
                     Width="145"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Center" SelectionChanged="cboResolution_SelectionChanged"
                     >
                     <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="300*300" MinWidth="145" /> 
                     <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="600*600" MinWidth="145" /> 
@@ -132,10 +132,10 @@
         <StackPanel Orientation="Horizontal" Grid.Row="3"
             HorizontalAlignment="Center">
             <local:GroupBoxDecorator Header="输出纸张大小" Height="75" Width="240" >
-                <ComboBox
+                <ComboBox x:Name="cboOutputSize"
                     Style="{StaticResource customComboBox}"
                     Background="White"
-                    Width="145" Height="30"
+                    Width="145" Height="30" SelectionChanged="cboOutputSize_SelectionChanged"
                     >
 
                     <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="Letter" MinWidth="145" /> 
@@ -159,10 +159,10 @@
 
             <local:GroupBoxDecorator Header="介质类型" Height="75"
                 Width="240" Margin="30,0,0,0">
-                <ComboBox
+                <ComboBox x:Name="cboMediaType"
                     Style="{StaticResource customComboBox}"
                     Background="White"
-                    Width="145" Height="30"
+                    Width="145" Height="30" SelectionChanged="cboMediaType_SelectionChanged"
                     >
 
                     <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="Plain Paper" MinWidth="145" /> 
@@ -179,8 +179,8 @@
             Width="500" >
 
             <Grid>
-                <CheckBox Template="{StaticResource customCheckBox}"
-                    IsChecked="true" Content="多页打印" Margin="10,0" />
+                <CheckBox x:Name="chkNin1" Template="{StaticResource customCheckBox}"
+                    IsChecked="true" Content="多页打印" Margin="10,0" Checked="chkNin1_Checked" Unchecked="chkNin1_Unchecked" />
 
                 <Grid HorizontalAlignment="Right">
                     <Grid.ColumnDefinitions>
@@ -210,9 +210,9 @@
 
         <StackPanel Grid.Row="5" Orientation="Horizontal"
             HorizontalAlignment="Center">
-            <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="False"
+            <local:ButtonEx x:Name="btnDefault" HorizontalContentAlignment="Center" IsDefault="False"
                 Content="默认" 
-                Height="35" Width="150" Margin="0,0,20,0" />
+                Height="35" Width="150" Margin="0,0,20,0" Click="btnDefault_Click" />
             <local:ButtonEx x:Name="btnApply" HorizontalContentAlignment="Center" IsDefault="True"
                 Content="确认"  Height="35" Width="150" Click="btnApply_Click" />
         </StackPanel>
