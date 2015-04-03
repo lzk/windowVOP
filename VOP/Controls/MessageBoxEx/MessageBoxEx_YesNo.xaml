@@ -1,0 +1,82 @@
+﻿<Window x:Class="VOP.Controls.MessageBoxEx_YesNo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MessageBoxEx_YesNo" 
+        Height="180" Width="430"
+        WindowStyle="None"
+        BorderThickness="0"
+        ResizeMode="NoResize"        
+        xmlns:local="clr-namespace:VOP.Controls"
+        xmlns:mycontrol="clr-namespace:VOP" 
+        ShowInTaskbar="False"
+        VerticalAlignment="Center"
+        WindowStartupLocation="CenterOwner" 
+        >
+
+    <Grid Background="#FFEDEDED">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27*" />
+            <RowDefinition Height="70*" />
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="35*" />
+            <RowDefinition Height="30*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*" />
+            <ColumnDefinition Width="350*" />
+            <ColumnDefinition Width="40*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.ColumnSpan="3" Background="#213244" MouseLeftButtonDown="Title_MouseButtonEventHandler">
+            <TextBlock Name="captionTextBlock" FontSize="16" Text="" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+            <local:MinimizeCloseButton x:Name="btnClose" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" 
+                                       VerticalAlignment="Center" HorizontalAlignment="Right" Click="Click"/>
+
+            <!--<Button Name="btnClose"  Click="Click" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Grid Background="{x:Null}">
+                            <Image Source="..\..\Images\MainWindow_Close.PNG" ></Image>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>-->
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="6*" />
+                <RowDefinition Height="58*" />
+                <RowDefinition Height="6*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="54*" />
+                <ColumnDefinition Width="296*" />
+            </Grid.ColumnDefinitions>
+
+            <Image Source="..\..\Images\Warning.tif" Grid.Row="1"></Image>
+            <TextBlock Name="messageBoxTextBlock" Grid.RowSpan="3" Grid.Column="1" FontSize="14" Width="230" Margin="20,0"
+                       Text="VOP关闭后，扫描图片将会被删除，是否关闭，请确认。"                        
+                       VerticalAlignment="Center" HorizontalAlignment="Left"               
+                       TextWrapping="Wrap"
+                       Foreground="#555555" >                
+            </TextBlock>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.ColumnSpan="3" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*" />
+                <ColumnDefinition Width="110*" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="110*" />
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+
+            <local:ButtonEx Grid.Column="1" IsActiveEx="False" x:Name="btn_No"  Content="否" FontSize="16" HorizontalContentAlignment="Center" Click="Click"/>
+            <local:ButtonEx Grid.Column="3" IsActiveEx="True" x:Name="btn_Yes"  Content="是" FontSize="16" HorizontalContentAlignment="Center" Click="Click"/>
+
+        </Grid>
+
+    </Grid>
+</Window>
