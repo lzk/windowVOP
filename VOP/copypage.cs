@@ -72,6 +72,8 @@ namespace VOP
             
             win.Owner = m_MainWin;
 
+            win.m_scanMode = EnumCopyScanMode.Photo;
+
             if ( true == win.ShowDialog() )
             {
                 MessageBox.Show( "Apply" );

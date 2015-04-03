@@ -11,7 +11,7 @@
     WindowStartupLocation="CenterOwner"
     ResizeMode="NoResize"
     WindowStyle="None" 
-    BorderThickness="24"
+    BorderThickness="24" Loaded="Window_Loaded"
     >
 
     <Window.Resources>
@@ -80,11 +80,11 @@
                     <RadioButton x:Name="rdBtnScanModePhoto" GroupName="ScanMode" IsChecked="True"
                         Template="{StaticResource customRadioButton}"
                         Content="照片" VerticalAlignment="Center"
-                        Margin="10,0" ></RadioButton>
+                        Margin="10,0" Checked="rdBtnScanModePhoto_Checked" ></RadioButton>
                     <RadioButton x:Name="rdBtnScanModeTxt" GroupName="ScanMode" IsChecked="False"
                         Template="{StaticResource customRadioButton}"
                         Content="文本" VerticalAlignment="Center"
-                        Margin="10,0" ></RadioButton>
+                        Margin="10,0" Checked="rdBtnScanModeTxt_Checked" ></RadioButton>
  
                 </StackPanel>
 

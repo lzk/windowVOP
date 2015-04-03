@@ -19,30 +19,7 @@ namespace VOP
 	{
 
 #region Properties
-        private EnumCopyScanMode  _scanMode = EnumCopyScanMode.Photo; 
-        public  EnumCopyScanMode  m_scanMode 
-        {
-            get
-            {
-                return _scanMode;
-            }
-
-            set
-            {
-                if ( EnumCopyScanMode.Photo == value )
-                {
-                    rdBtnScanModePhoto.IsChecked = true;
-                    rdBtnScanModeTxt.IsChecked = false;
-                }
-                else if ( EnumCopyScanMode.Text == value )
-                {
-                    rdBtnScanModePhoto.IsChecked = false;
-                    rdBtnScanModeTxt.IsChecked = true;
-                }
-
-                _scanMode = value;
-            }
-        }
+        public EnumCopyScanMode m_scanMode = EnumCopyScanMode.Photo; 
 
         public byte   m_docSize    = 1;
         public byte   m_outputSize = 1;
@@ -126,6 +103,30 @@ namespace VOP
         private void btnDefault_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void rdBtnScanModePhoto_Checked(object sender, RoutedEventArgs e)
+        {
+            m_scanMode = EnumCopyScanMode.Photo;
+        }
+
+        private void rdBtnScanModeTxt_Checked(object sender, RoutedEventArgs e)
+        {
+            m_scanMode = EnumCopyScanMode.Text;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if ( EnumCopyScanMode.Text == m_scanMode )
+            {
+                rdBtnScanModeTxt.IsChecked = true;
+                rdBtnScanModePhoto.IsChecked = false;
+            }
+            else if ( EnumCopyScanMode.Photo == m_scanMode )
+            {
+                rdBtnScanModeTxt.IsChecked = false;
+                rdBtnScanModePhoto.IsChecked = true;
+            }
         }
 	}
 }
