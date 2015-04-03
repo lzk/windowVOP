@@ -154,6 +154,7 @@ namespace VOP
             InitCboDocSize();
             InitCboResolution();
             InitCboOutputSize();
+            InitCboMediaType();
 
         }
 
@@ -302,10 +303,54 @@ namespace VOP
             cboOutputSize.Items.Add( cboItem );
         }
 
+        /// <summary>
+        /// Initialize media type combobox.
+        /// </summary>
+        private void InitCboMediaType()
+        {
+            ComboBoxItem cboItem = null;
 
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "Plain Paper" ;
+            cboItem.IsSelected = true;
+            cboItem.DataContext = EnumMediaType.Plain;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboMediaType.Items.Add( cboItem );
 
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "Recycled Paper" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumMediaType.Recycled;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboMediaType.Items.Add( cboItem );
 
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "Thick Paper" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumMediaType.Thick;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboMediaType.Items.Add( cboItem );
 
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "Thin Paper" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumMediaType.Thin;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboMediaType.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "Label" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumMediaType.Label;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboMediaType.Items.Add( cboItem );
+
+        }
 
 	}
 }

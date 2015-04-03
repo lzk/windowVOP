@@ -137,12 +137,6 @@
                     Width="145" Height="30" SelectionChanged="cboMediaType_SelectionChanged"
                     >
 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="Plain Paper" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="Recycled Paper" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="Thick Paper" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="Thin Paper" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="Label" MinWidth="145" /> 
-
                 </ComboBox>
             </local:GroupBoxDecorator>
         </StackPanel>

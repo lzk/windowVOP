@@ -274,6 +274,10 @@ namespace VOP
         waitCmdBegin  = 3,
     }
 
+
+    /// <summary>
+    /// Enumerate type used for copying parameter -- media type 
+    /// </summary>
     public enum EnumMediaType : byte
     {
         Plain    = 0, 
