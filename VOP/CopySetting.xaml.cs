@@ -19,7 +19,31 @@ namespace VOP
 	{
 
 #region Properties
-        public byte   m_scanMode   = 1;
+        private EnumCopyScanMode  _scanMode = EnumCopyScanMode.Photo; 
+        public  EnumCopyScanMode  m_scanMode 
+        {
+            get
+            {
+                return _scanMode;
+            }
+
+            set
+            {
+                if ( EnumCopyScanMode.Photo == value )
+                {
+                    rdBtnScanModePhoto.IsChecked = true;
+                    rdBtnScanModeTxt.IsChecked = false;
+                }
+                else if ( EnumCopyScanMode.Text == value )
+                {
+                    rdBtnScanModePhoto.IsChecked = false;
+                    rdBtnScanModeTxt.IsChecked = true;
+                }
+
+                _scanMode = value;
+            }
+        }
+
         public byte   m_docSize    = 1;
         public byte   m_outputSize = 1;
         public byte   m_nin1       = 1;

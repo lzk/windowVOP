@@ -279,4 +279,15 @@ namespace VOP
         PT_USB     = 2,
         PT_WSD     = 3,
     }
+
+
+    /// <summary>
+    /// Enumerate type used for copying parameter -- scan mode
+    /// </summary>
+    public enum EnumCopyScanMode
+    {
+        Photo = 0,
+        Text  = 1,
+    }
+
 }
