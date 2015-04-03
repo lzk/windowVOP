@@ -119,6 +119,9 @@ namespace VOP
         ConfirmPassword         = 15,
     }
 
+    /// <summary>
+    ///  Enumerate type for copy setting resolution option
+    /// </summary>
     public enum enum_resln : byte
     {
         _300x300   = 0,

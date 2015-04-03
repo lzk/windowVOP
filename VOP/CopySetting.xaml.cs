@@ -152,7 +152,8 @@ namespace VOP
             txtblkScaling.Text = m_scaling.ToString();
 
             InitCboDocSize();
-            
+            InitCboResolution();
+
         }
 
 
@@ -202,6 +203,30 @@ namespace VOP
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboDocSize.Items.Add( cboItem );
+        }
+
+        /// <summary>
+        /// Initialize resolution combobox.
+        /// </summary>
+        private void InitCboResolution()
+        {
+            ComboBoxItem cboItem = null;
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "300*300" ;
+            cboItem.IsSelected = true;
+            cboItem.DataContext = enum_resln._300x300;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboResolution.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "600*600" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = enum_resln._600x600;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboResolution.Items.Add( cboItem );
         }
 	}
 }
