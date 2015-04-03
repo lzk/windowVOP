@@ -153,6 +153,7 @@ namespace VOP
 
             InitCboDocSize();
             InitCboResolution();
+            InitCboOutputSize();
 
         }
 
@@ -228,5 +229,83 @@ namespace VOP
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboResolution.Items.Add( cboItem );
         }
+
+        /// <summary>
+        /// Initialize output paper size combobox.
+        /// </summary>
+        private void InitCboOutputSize()
+        {
+            ComboBoxItem cboItem = null;
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content="Letter" ;
+            cboItem.IsSelected = true;
+            cboItem.DataContext = EnumPaperSizeOutput._Letter;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboOutputSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content="A4" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumPaperSizeOutput._A4;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboOutputSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content="A5" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumPaperSizeOutput._A5;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboOutputSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content="A6" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumPaperSizeOutput._A6;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboOutputSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content="B5" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumPaperSizeOutput._B5;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboOutputSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content="B6" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumPaperSizeOutput._B6;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboOutputSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content="Executive" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumPaperSizeOutput._Executive;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboOutputSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content="16K" ;
+            cboItem.IsSelected = false;
+            cboItem.DataContext = EnumPaperSizeOutput._16K;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboOutputSize.Items.Add( cboItem );
+        }
+
+
+
+
+
+
 	}
 }

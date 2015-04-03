@@ -194,6 +194,7 @@ namespace VOP
         _7inchPhoto = 5 ,
     }
     
+
     /// <summary>
     /// Paper size for copy setting page original document size.
     /// </summary>
@@ -206,6 +207,10 @@ namespace VOP
         _Executive  = 4 ,
     }
 
+
+    /// <summary>
+    /// Paper size for copy setting page output paper size.
+    /// </summary>
     public enum EnumPaperSizeOutput : byte
     {
         _Letter    = 0 , 
