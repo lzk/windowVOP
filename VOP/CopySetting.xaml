@@ -154,14 +154,14 @@
                         <ColumnDefinition Width="130" />
                         <ColumnDefinition Width="130" />
                     </Grid.ColumnDefinitions>
-                    <Rectangle Grid.Column="0" Fill="Gray" RadiusX="5" RadiusY="5" Width="80" Margin="7"/>
-                    <Rectangle Grid.Column="1" Fill="Gray" RadiusX="5" RadiusY="5" Width="80" Margin="7"/>
-                    <Rectangle Grid.Column="2" Fill="Gray" RadiusX="5" RadiusY="5" Width="80" Margin="7"/>
-                    <Image Grid.Column="0" Stretch="None"
+                    <Rectangle x:Name="rectNin1_2" Grid.Column="0" Fill="Gray" RadiusX="5" RadiusY="5" Width="80" Margin="7"/>
+                    <Rectangle x:Name="rectNin1_4" Grid.Column="1" Fill="Gray" RadiusX="5" RadiusY="5" Width="80" Margin="7"/>
+                    <Rectangle x:Name="rectNin1_9" Grid.Column="2" Fill="Gray" RadiusX="5" RadiusY="5" Width="80" Margin="7"/>
+                    <Image x:Name="imgNin1_2" Grid.Column="0" Stretch="None"
                         Source="Images\Nin1_2.png" />
-                    <Image Grid.Column="1" Stretch="None"
+                    <Image x:Name="imgNin1_4" Grid.Column="1" Stretch="None"
                         Source="Images\Nin1_4.png" />
-                    <Image Grid.Column="2" Stretch="None"
+                    <Image x:Name="imgNin1_9" Grid.Column="2" Stretch="None"
                         Source="Images\Nin1_9.png" />
                 </Grid>
 

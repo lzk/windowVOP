@@ -155,6 +155,7 @@ namespace VOP
             InitCboResolution();
             InitCboOutputSize();
             InitCboMediaType();
+            InitNin1();
 
         }
 
@@ -352,5 +353,42 @@ namespace VOP
 
         }
 
+        /// <summary>
+        /// Initialize items for n in 1.
+        /// </summary>
+        private void InitNin1()
+        {
+            SolidColorBrush brSelected = new SolidColorBrush();
+            SolidColorBrush brUnselected = new SolidColorBrush();
+
+            brSelected.Color = Colors.Gray;
+            brUnselected.Color = Color.FromArgb(255, 168, 168, 168);
+
+            rectNin1_2.Fill = brUnselected;
+            rectNin1_4.Fill = brUnselected;
+            rectNin1_9.Fill = brUnselected;
+
+            if ( 1 == m_nin1 )
+            {
+                chkNin1.IsChecked = false;
+            }
+            else
+            {
+                chkNin1.IsChecked = true;
+
+                if ( 2 == m_nin1 )
+                {
+                    rectNin1_2.Fill = brSelected;
+                }
+                else if ( 4 == m_nin1 )
+                {
+                    rectNin1_4.Fill = brSelected;
+                }
+                else if ( 9 == m_nin1 )
+                {
+                    rectNin1_9.Fill = brSelected;
+                }
+            }
+        }
 	}
 }
