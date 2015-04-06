@@ -101,17 +101,33 @@ namespace VOP
 
         private void cboResolution_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ComboBoxItem selItem = cboResolution.SelectedItem as ComboBoxItem;
 
+            if ( null != selItem && null != selItem.DataContext )
+            {
+                m_dpi = (EnumResln)selItem.DataContext;
+            }
         }
 
         private void cboOutputSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ComboBoxItem selItem = cboOutputSize.SelectedItem as ComboBoxItem;
+
+            if ( null != selItem && null != selItem.DataContext )
+            {
+                m_outputSize = (EnumPaperSizeOutput)selItem.DataContext;
+            }
 
         }
 
         private void cboMediaType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ComboBoxItem selItem = cboMediaType.SelectedItem as ComboBoxItem;
 
+            if ( null != selItem && null != selItem.DataContext )
+            {
+                m_mediaType = (EnumMediaType)selItem.DataContext;
+            }
         }
 
         private void btnScalingDec_Click(object sender, RoutedEventArgs e)
