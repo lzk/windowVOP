@@ -11,6 +11,15 @@ namespace VOP
 {
     public partial class CopyPage : UserControl
     {
+#region parameter from copy setting dialog
+        private ushort              m_scaling    = 100;
+        private EnumCopyScanMode    m_scanMode   = EnumCopyScanMode.Photo;
+        private EnumPaperSizeInput  m_docSize    = EnumPaperSizeInput._A4;
+        private EnumPaperSizeOutput m_outputSize = EnumPaperSizeOutput._Letter;
+        private EnumNin1            m_nin1       = EnumNin1._1up;
+        private EnumResln           m_dpi        = EnumResln._300x300;
+        private EnumMediaType       m_mediaType  = EnumMediaType.Plain;
+#endregion
 
         ///<summary>
         /// Copies set by in UI. Default value is 1. Value range [1,99].
@@ -72,13 +81,23 @@ namespace VOP
             
             win.Owner = m_MainWin;
 
-            win.m_scanMode = EnumCopyScanMode.Photo;
-            win.m_scaling = 100;
-            win.m_nin1 = EnumNin1._4up;
+            win.m_scaling    = m_scaling    ;
+            win.m_scanMode   = m_scanMode   ;
+            win.m_docSize    = m_docSize    ;
+            win.m_outputSize = m_outputSize ;
+            win.m_nin1       = m_nin1       ;
+            win.m_dpi        = m_dpi        ;
+            win.m_mediaType  = m_mediaType  ;
 
             if ( true == win.ShowDialog() )
             {
-                MessageBox.Show( "Apply" );
+                m_scaling     = win.m_scaling    ;
+                m_scanMode    = win.m_scanMode   ;
+                m_docSize     = win.m_docSize    ;
+                m_outputSize  = win.m_outputSize ;
+                m_nin1        = win.m_nin1       ;
+                m_dpi         = win.m_dpi        ;
+                m_mediaType   = win.m_mediaType  ;
             }
         }
 
@@ -86,26 +105,18 @@ namespace VOP
         {
             byte density     = ctrlDensity.m_density;
             byte nCopy       = m_copies;
-            byte scan_mode   = 1;
-            byte doc_size    = 1;
-            byte output_size = 1;
-            byte nin1        = 1;
-            byte dpi         = 1;
-            ushort scaling   = 1;
-            byte mediaType   = 1;
 
             dll.SendCopyCmd( 
                     m_MainWin.statusPanelPage.m_selectedPrinter,
                     (byte)density,
                     nCopy,
-                    scan_mode,
-                    doc_size,
-                    output_size,
-                    nin1,
-                    dpi,
-                    scaling,
-                    mediaType );
-
+                    (byte)m_scanMode,
+                    (byte)m_docSize,
+                    (byte)m_outputSize,
+                    (byte)m_nin1,
+                    (byte)m_dpi,
+                    (byte)m_scaling,
+                    (byte)m_mediaType );
         }
 
         private void CheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
