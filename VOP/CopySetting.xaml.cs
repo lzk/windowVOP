@@ -19,12 +19,12 @@ namespace VOP
 	{
 
 #region Fields
-        public EnumCopyScanMode m_scanMode = EnumCopyScanMode.Photo; 
-        public byte   m_docSize    = 1;
-        public byte   m_outputSize = 1;
-        public byte   m_nin1       = 1;
-        public byte   m_dpi        = 1;
-        public byte   m_mediaType  = 1;
+        public EnumCopyScanMode    m_scanMode   = EnumCopyScanMode.Photo;
+        public EnumPaperSizeInput  m_docSize    = EnumPaperSizeInput._A4;
+        public EnumPaperSizeOutput m_outputSize = EnumPaperSizeOutput._Letter;
+        public EnumNin1            m_nin1       = EnumNin1._1up;
+        public EnumResln           m_dpi        = EnumResln._300x300;
+        public EnumMediaType       m_mediaType  = EnumMediaType.Plain;
 
         /// <summary>
         /// Flag used to specify the CopySetting has been loaded or not.
@@ -35,7 +35,7 @@ namespace VOP
         /// Previous N in 1 value, used to recovery the selected item when N in 1 check box was rechecked.
         /// This value only change during copy setting window loading and N in 1 images selecting.
         /// </summary>
-        private byte m_preNin1 = 1;
+        private EnumNin1 m_preNin1 = EnumNin1._1up;
 #endregion
 
 #region Properties
@@ -91,7 +91,12 @@ namespace VOP
 
         private void cboDocSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ComboBoxItem selItem = cboDocSize.SelectedItem as ComboBoxItem;
 
+            if ( null != selItem && null != selItem.DataContext )
+            {
+                m_docSize = (EnumPaperSizeInput)selItem.DataContext;
+            }
         }
 
         private void cboResolution_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -125,10 +130,10 @@ namespace VOP
         {
             if ( isWindowLoaded )
             {
-                if ( 4 == m_preNin1 || 9 == m_preNin1 )
+                if ( EnumNin1._4up == m_preNin1 || EnumNin1._9up == m_preNin1 )
                     m_nin1 = m_preNin1;
                 else
-                    m_nin1 = 2;
+                    m_nin1 = EnumNin1._2up;
 
                 InitNin1();
             }
@@ -138,7 +143,7 @@ namespace VOP
         {
             if ( isWindowLoaded )
             {
-                m_nin1 = 1;
+                m_nin1 = EnumNin1._1up;
                 InitNin1();
             }
         }
@@ -244,7 +249,7 @@ namespace VOP
             cboItem = new ComboBoxItem();
             cboItem.Content = "300*300" ;
             cboItem.IsSelected = true;
-            cboItem.DataContext = enum_resln._300x300;
+            cboItem.DataContext = EnumResln._300x300;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboResolution.Items.Add( cboItem );
@@ -252,7 +257,7 @@ namespace VOP
             cboItem = new ComboBoxItem();
             cboItem.Content = "600*600" ;
             cboItem.IsSelected = false;
-            cboItem.DataContext = enum_resln._600x600;
+            cboItem.DataContext = EnumResln._600x600;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboResolution.Items.Add( cboItem );
@@ -394,7 +399,7 @@ namespace VOP
             rectNin1_4.Fill = brUnselected;
             rectNin1_9.Fill = brUnselected;
 
-            if ( 1 == m_nin1 )
+            if ( EnumNin1._1up == m_nin1 )
             {
                 chkNin1.IsChecked = false;
             }
@@ -402,15 +407,15 @@ namespace VOP
             {
                 chkNin1.IsChecked = true;
 
-                if ( 2 == m_nin1 )
+                if ( EnumNin1._2up == m_nin1 )
                 {
                     rectNin1_2.Fill = brSelected;
                 }
-                else if ( 4 == m_nin1 )
+                else if ( EnumNin1._4up == m_nin1 )
                 {
                     rectNin1_4.Fill = brSelected;
                 }
-                else if ( 9 == m_nin1 )
+                else if ( EnumNin1._9up == m_nin1 )
                 {
                     rectNin1_9.Fill = brSelected;
                 }
@@ -421,8 +426,8 @@ namespace VOP
         {
             if ( true == chkNin1.IsChecked ) 
             {
-                m_preNin1 = 2;
-                m_nin1 = 2;
+                m_preNin1 = EnumNin1._2up;
+                m_nin1 = EnumNin1._2up;
                 InitNin1();
             }
         }
@@ -431,8 +436,8 @@ namespace VOP
         {
             if ( true == chkNin1.IsChecked ) 
             {
-                m_preNin1 = 4;
-                m_nin1 = 4;
+                m_preNin1 = EnumNin1._4up;
+                m_nin1 = EnumNin1._4up;
                 InitNin1();
             }
         }
@@ -441,8 +446,8 @@ namespace VOP
         {
             if ( true == chkNin1.IsChecked ) 
             {
-                m_preNin1 = 9;
-                m_nin1 = 9;
+                m_preNin1 = EnumNin1._9up;
+                m_nin1 = EnumNin1._9up;
                 InitNin1();
             }
         }

@@ -74,7 +74,7 @@ namespace VOP
 
             win.m_scanMode = EnumCopyScanMode.Photo;
             win.m_scaling = 100;
-            win.m_nin1 = 4;
+            win.m_nin1 = EnumNin1._4up;
 
             if ( true == win.ShowDialog() )
             {

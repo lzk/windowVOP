@@ -122,7 +122,7 @@ namespace VOP
     /// <summary>
     ///  Enumerate type for copy setting resolution option
     /// </summary>
-    public enum enum_resln : byte
+    public enum EnumResln : byte
     {
         _300x300   = 0,
         _600x600   = 1,
@@ -223,6 +223,9 @@ namespace VOP
         _16K       = 7 , 
     }
 
+    /// <summary>
+    /// Enumerate type for copy comand
+    /// </summary>
     public enum EnumNin1 : byte
     {
         _1up = 0,
