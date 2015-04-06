@@ -25,6 +25,11 @@ namespace VOP
         public byte   m_nin1       = 1;
         public byte   m_dpi        = 1;
         public byte   m_mediaType  = 1;
+
+        /// <summary>
+        /// Flag used to specify the CopySetting has been loaded or not.
+        /// </summary>
+        private bool isWindowLoaded = false;
 #endregion
 
 #region Properties
@@ -112,12 +117,20 @@ namespace VOP
 
         private void chkNin1_Checked(object sender, RoutedEventArgs e)
         {
-
+            if ( isWindowLoaded )
+            {
+                m_nin1 = 2;
+                InitNin1();
+            }
         }
 
         private void chkNin1_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            if ( isWindowLoaded )
+            {
+                m_nin1 = 1;
+                InitNin1();
+            }
         }
 
         private void btnDefault_Click(object sender, RoutedEventArgs e)
@@ -156,6 +169,8 @@ namespace VOP
             InitCboOutputSize();
             InitCboMediaType();
             InitNin1();
+
+            isWindowLoaded = true;
 
         }
 
