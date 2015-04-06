@@ -158,11 +158,11 @@
                     <Rectangle x:Name="rectNin1_4" Grid.Column="1" Fill="Gray" RadiusX="5" RadiusY="5" Width="80" Margin="7"/>
                     <Rectangle x:Name="rectNin1_9" Grid.Column="2" Fill="Gray" RadiusX="5" RadiusY="5" Width="80" Margin="7"/>
                     <Image x:Name="imgNin1_2" Grid.Column="0" Stretch="None"
-                        Source="Images\Nin1_2.png" />
+                        Source="Images\Nin1_2.png" MouseDown="imgNin1_2_MouseDown" />
                     <Image x:Name="imgNin1_4" Grid.Column="1" Stretch="None"
-                        Source="Images\Nin1_4.png" />
+                        Source="Images\Nin1_4.png" MouseDown="imgNin1_4_MouseDown" />
                     <Image x:Name="imgNin1_9" Grid.Column="2" Stretch="None"
-                        Source="Images\Nin1_9.png" />
+                        Source="Images\Nin1_9.png" MouseDown="imgNin1_9_MouseDown" />
                 </Grid>
 
             </Grid>

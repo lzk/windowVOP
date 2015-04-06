@@ -30,6 +30,12 @@ namespace VOP
         /// Flag used to specify the CopySetting has been loaded or not.
         /// </summary>
         private bool isWindowLoaded = false;
+
+        /// <summary>
+        /// Previous N in 1 value, used to recovery the selected item when N in 1 check box was rechecked.
+        /// This value only change during copy setting window loading and N in 1 images selecting.
+        /// </summary>
+        private byte m_preNin1 = 1;
 #endregion
 
 #region Properties
@@ -119,7 +125,11 @@ namespace VOP
         {
             if ( isWindowLoaded )
             {
-                m_nin1 = 2;
+                if ( 4 == m_preNin1 || 9 == m_preNin1 )
+                    m_nin1 = m_preNin1;
+                else
+                    m_nin1 = 2;
+
                 InitNin1();
             }
         }
@@ -169,6 +179,7 @@ namespace VOP
             InitCboOutputSize();
             InitCboMediaType();
             InitNin1();
+            m_preNin1 = m_nin1;
 
             isWindowLoaded = true;
 
@@ -403,6 +414,36 @@ namespace VOP
                 {
                     rectNin1_9.Fill = brSelected;
                 }
+            }
+        }
+
+        private void imgNin1_2_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if ( true == chkNin1.IsChecked ) 
+            {
+                m_preNin1 = 2;
+                m_nin1 = 2;
+                InitNin1();
+            }
+        }
+
+        private void imgNin1_4_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if ( true == chkNin1.IsChecked ) 
+            {
+                m_preNin1 = 4;
+                m_nin1 = 4;
+                InitNin1();
+            }
+        }
+
+        private void imgNin1_9_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if ( true == chkNin1.IsChecked ) 
+            {
+                m_preNin1 = 9;
+                m_nin1 = 9;
+                InitNin1();
             }
         }
 	}
