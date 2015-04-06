@@ -166,7 +166,32 @@ namespace VOP
 
         private void btnDefault_Click(object sender, RoutedEventArgs e)
         {
+            m_scaling    = 100;
+            m_scanMode   = EnumCopyScanMode.Photo;
+            m_docSize    = EnumPaperSizeInput._A4;
+            m_outputSize = EnumPaperSizeOutput._Letter;
+            m_nin1       = EnumNin1._1up;
+            m_dpi        = EnumResln._300x300;
+            m_mediaType  = EnumMediaType.Plain;
 
+            InitCboDocSize();
+            InitCboResolution();
+            InitCboOutputSize();
+            InitCboMediaType();
+            InitNin1();
+
+            if ( EnumCopyScanMode.Text == m_scanMode )
+            {
+                rdBtnScanModeTxt.IsChecked = true;
+                rdBtnScanModePhoto.IsChecked = false;
+            }
+            else if ( EnumCopyScanMode.Photo == m_scanMode )
+            {
+                rdBtnScanModeTxt.IsChecked = false;
+                rdBtnScanModePhoto.IsChecked = true;
+            }
+
+            txtblkScaling.Text = m_scaling.ToString();
         }
 
         private void rdBtnScanModePhoto_Checked(object sender, RoutedEventArgs e)
