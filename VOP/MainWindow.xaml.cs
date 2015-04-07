@@ -278,117 +278,17 @@ namespace VOP
 
         #region Set_TabItemIndex
 
-        public bool IsOnLine
-        {
-            get { return (bool)GetValue(IsOnLineProperty); }
-            set
-            {
-                SetValue(IsOnLineProperty, value);
-                UpdateNavigation();
-            }
-        }
-
-        public static readonly DependencyProperty IsOnLineProperty =
-            DependencyProperty.Register("IsOnLine", typeof(bool), typeof(MainWindow));
-
-        public PrinterModel PrinterModelName
-        {
-            get { return (PrinterModel)GetValue(PrinterModelNameProperty); }
-            set
-            {
-                SetValue(PrinterModelNameProperty, value);
-                UpdateNavigation();
-            }
-        }
-
-        public static readonly DependencyProperty PrinterModelNameProperty =
-            DependencyProperty.Register("PrinterModelName", typeof(PrinterModel), typeof(MainWindow));
-
         private void UpdateNavigation()
         {
-            if (IsOnLine)
-            {
-                line3.Visibility = Visibility.Visible;
-                line8.Visibility = Visibility.Visible;
-                Print_Grid.Visibility = Visibility.Visible;
-                tabItem_Print.Visibility = Visibility.Visible;
-                setTabItemFromIndex(0);
-
-                if (PrinterModel.MFP == PrinterModelName)
-                {
-                    line4.Visibility = Visibility.Visible;
-                    line5.Visibility = Visibility.Visible;
-                    line9.Visibility = Visibility.Visible;
-                    line10.Visibility = Visibility.Visible;
-
-                    Scan_Grid.Visibility = Visibility.Visible;
-                    Copy_Grid.Visibility = Visibility.Visible;
-                    Grid.SetColumn(Setting_Grid, 9);
-                    Grid.SetRow(Setting_Grid, 2);
-
-                    tabItem_Copy.Visibility = Visibility.Visible;
-                    tabItem_Scan.Visibility = Visibility.Visible;
-
-                    Grid.SetColumn(tabItem_Setting, 9);
-                    Grid.SetRow(tabItem_Setting, 3);
-
-                    winSettingPage.mainGrid.Background = imgBk_Brush_4;
-
-                }
-                else if (PrinterModel.SFP == PrinterModelName)
-                {
-                    line4.Visibility = Visibility.Hidden;
-                    line5.Visibility = Visibility.Hidden;
-                    line9.Visibility = Visibility.Hidden;
-                    line10.Visibility = Visibility.Hidden;
-
-                    Scan_Grid.Visibility = Visibility.Hidden;
-                    Copy_Grid.Visibility = Visibility.Hidden;
-                    Grid.SetColumn(Setting_Grid, 5);
-                    Grid.SetRow(Setting_Grid, 2);
-
-                    tabItem_Copy.Visibility = Visibility.Hidden;
-                    tabItem_Scan.Visibility = Visibility.Hidden;
-
-                    Grid.SetColumn(tabItem_Setting, 5);
-                    Grid.SetRow(tabItem_Setting, 3);
-
-                    winSettingPage.mainGrid.Background = imgBk_Brush_2;
-                }
-            }
-            else
-            {
-                line3.Visibility = Visibility.Hidden;
-                line4.Visibility = Visibility.Hidden;
-                line5.Visibility = Visibility.Hidden;
-                line8.Visibility = Visibility.Hidden;
-                line9.Visibility = Visibility.Hidden;
-                line10.Visibility = Visibility.Hidden;
-
-
-                Print_Grid.Visibility = Visibility.Hidden;
-                Scan_Grid.Visibility = Visibility.Hidden;
-                Copy_Grid.Visibility = Visibility.Hidden;
-                Grid.SetColumn(Setting_Grid, 3);
-                Grid.SetRow(Setting_Grid, 2);
-
-                tabItem_Print.Visibility = Visibility.Hidden;
-                tabItem_Copy.Visibility = Visibility.Hidden;
-                tabItem_Scan.Visibility = Visibility.Hidden;
-
-                Grid.SetColumn(tabItem_Setting, 3);
-                Grid.SetRow(tabItem_Setting, 3);
-
-                winSettingPage.mainGrid.Background = imgBk_Brush_1;
-
-                setTabItemFromIndex(3);
-            }
 
         }
 
         private bool setTabItemFromIndex(int index)
         {
-            if (PrinterModel.MFP == PrinterModelName)
+            // TODO: Improve the performance.
+            bool bIsSFP = common.IsSFPPrinter( GetPrinterDrvName(statusPanelPage.m_selectedPrinter) );
+
+            if ( false == bIsSFP )
             {
                 if (0 == index)
                 {
@@ -601,14 +501,6 @@ namespace VOP
 
             App.g_autoMachine.ResetAutoMachine();
 
-            if ( common.IsSFPPrinter( GetPrinterDrvName(statusPanelPage.m_selectedPrinter) ) )
-            {
-                PrinterModelName = PrinterModel.SFP;
-            }
-            else
-            {
-                PrinterModelName = PrinterModel.MFP;
-            }
 
             byte toner  = 0;
             byte status = (byte)EnumStatus.Offline; 
@@ -620,14 +512,89 @@ namespace VOP
                 job    = (byte)EnumMachineJob.UnknowJob;
             }
 
-            if ( (byte)EnumStatus.Offline == status )
+            bool bIsSFP = common.IsSFPPrinter( GetPrinterDrvName(statusPanelPage.m_selectedPrinter) );
+            bool bIsOffline = ( ( (byte)EnumStatus.Offline == status ) );
+
+            if ( false == bIsOffline )
             {
-                IsOnLine = false;
+                line3.Visibility = Visibility.Visible;
+                line8.Visibility = Visibility.Visible;
+                Print_Grid.Visibility = Visibility.Visible;
+                tabItem_Print.Visibility = Visibility.Visible;
+                setTabItemFromIndex(0);
+
+                if ( false == bIsSFP )
+                {
+                    line4.Visibility = Visibility.Visible;
+                    line5.Visibility = Visibility.Visible;
+                    line9.Visibility = Visibility.Visible;
+                    line10.Visibility = Visibility.Visible;
+
+                    Scan_Grid.Visibility = Visibility.Visible;
+                    Copy_Grid.Visibility = Visibility.Visible;
+                    Grid.SetColumn(Setting_Grid, 9);
+                    Grid.SetRow(Setting_Grid, 2);
+
+                    tabItem_Copy.Visibility = Visibility.Visible;
+                    tabItem_Scan.Visibility = Visibility.Visible;
+
+                    Grid.SetColumn(tabItem_Setting, 9);
+                    Grid.SetRow(tabItem_Setting, 3);
+
+                    winSettingPage.mainGrid.Background = imgBk_Brush_4;
+
+                }
+                else
+                {
+                    line4.Visibility = Visibility.Hidden;
+                    line5.Visibility = Visibility.Hidden;
+                    line9.Visibility = Visibility.Hidden;
+                    line10.Visibility = Visibility.Hidden;
+
+                    Scan_Grid.Visibility = Visibility.Hidden;
+                    Copy_Grid.Visibility = Visibility.Hidden;
+                    Grid.SetColumn(Setting_Grid, 5);
+                    Grid.SetRow(Setting_Grid, 2);
+
+                    tabItem_Copy.Visibility = Visibility.Hidden;
+                    tabItem_Scan.Visibility = Visibility.Hidden;
+
+                    Grid.SetColumn(tabItem_Setting, 5);
+                    Grid.SetRow(tabItem_Setting, 3);
+
+                    winSettingPage.mainGrid.Background = imgBk_Brush_2;
+                }
             }
             else
             {
-                IsOnLine = true;
+                line3.Visibility = Visibility.Hidden;
+                line4.Visibility = Visibility.Hidden;
+                line5.Visibility = Visibility.Hidden;
+                line8.Visibility = Visibility.Hidden;
+                line9.Visibility = Visibility.Hidden;
+                line10.Visibility = Visibility.Hidden;
+
+
+                Print_Grid.Visibility = Visibility.Hidden;
+                Scan_Grid.Visibility = Visibility.Hidden;
+                Copy_Grid.Visibility = Visibility.Hidden;
+                Grid.SetColumn(Setting_Grid, 3);
+                Grid.SetRow(Setting_Grid, 2);
+
+                tabItem_Print.Visibility = Visibility.Hidden;
+                tabItem_Copy.Visibility = Visibility.Hidden;
+                tabItem_Scan.Visibility = Visibility.Hidden;
+
+                Grid.SetColumn(tabItem_Setting, 3);
+                Grid.SetRow(tabItem_Setting, 3);
+
+                winSettingPage.mainGrid.Background = imgBk_Brush_1;
+
+                setTabItemFromIndex(3);
             }
+
+
+
 
             statusUpdater = new Thread(UpdateStatusCaller);
             statusUpdater.Start();
