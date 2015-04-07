@@ -35,6 +35,12 @@ namespace VOP
             myImagePreviewPanel.BackArrowButton.Click += new RoutedEventHandler(OnBackArrowButtonClick);
         }
 
+        private void PrintPageOnLoaded(object sender, RoutedEventArgs e)
+        {
+            spinnerControl1.FormattedValue = "";
+            spinnerControl1.FormattedValue = "1";
+        }
+
         private void OnBackArrowButtonClick(object sender, RoutedEventArgs e)
         {
             this.m_MainWin.subPageView.Child = this.m_MainWin.winFileSelectionPage;

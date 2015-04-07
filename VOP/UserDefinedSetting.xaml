@@ -11,7 +11,8 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Controls/CustomButton.xaml"/>
-                <ResourceDictionary Source="Controls/CustomTextBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
+                       <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="customComboBoxItem"
         		TargetType="{x:Type ComboBoxItem}">
@@ -319,8 +320,8 @@
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
-            <RowDefinition Height="25*"></RowDefinition>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="25*"/>
             <RowDefinition Height="85*"/>
             <RowDefinition Height="70*"/>
             <RowDefinition Height="138*"/>
@@ -341,7 +342,7 @@
                 <RowDefinition Height="4*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <Button Name="btnOK" Grid.Row="2" Template="{StaticResource custombtn}" IsDefault="True" Content="确 定" FontSize="18" HorizontalAlignment="Center" Height="34" Width="110" VerticalAlignment="Center" RenderTransformOrigin="0.55,1.833" Margin="115,93,104.889,10"/>
+            <Button Name="btnOK" Grid.Row="2" Style="{StaticResource CustomGreenButtonStyle}" IsDefault="True" Content="确 定" FontSize="18" HorizontalAlignment="Center" Height="34" Width="110" VerticalAlignment="Center" RenderTransformOrigin="0.55,1.833" Margin="115,93,104.889,10"/>
         </Grid>
         <local:GroupBoxDecorator Header="自定义纸张大小名称" Margin="0.444,2,0.556,4" Grid.Row="2" Grid.Column="1">
             <local:GroupBoxDecorator.Foreground>
@@ -371,13 +372,13 @@
         <TextBlock Text="高度（116.0-355.6）" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="146" FontSize="18" Foreground="#FF7A7A7A" Margin="0.444,92,122.556,22" Height="24"/>
         <TextBox x:Name="tbHeight" Template="{StaticResource customTextBox}" Grid.Column="1" VerticalAlignment="Center" Grid.Row="4" Margin="160.444,86,1,22" Height="30" MaxLength="11" />
         <Button HorizontalContentAlignment="Center" IsDefault="False"
-        	Content="删 除" Template="{StaticResource custombtn}"
+        	Content="删 除" Style="{StaticResource CustomGrayButtonStyle}"
         	Height="34" Width="110" FontSize="18" Margin="149.444,11,20.111,117" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" />
         <Button HorizontalContentAlignment="Center" VerticalAlignment="Bottom" IsDefault="False"
-        	Content="保 存" Template="{StaticResource custombtn}"
+        	Content="保 存" Style="{StaticResource CustomGrayButtonStyle}"
         	Height="34" Width="110" FontSize="18" Margin="1.444,0,137.556,118" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" />
         <Button HorizontalContentAlignment="Center" IsDefault="False"
-        	Content="取 消" Template="{StaticResource custombtn}"
+        	Content="取 消" Style="{StaticResource CustomGrayButtonStyle}"
         	Height="34" Width="110" FontSize="18" Margin="74.444,62,64.556,66" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <RadioButton GroupName="Goup1" IsChecked="True" Content="毫米" Template="{StaticResource customRadioButton}" Margin="95.444,29,109.556,22" Grid.Column="1" Grid.Row="3">
             <RadioButton.Foreground>

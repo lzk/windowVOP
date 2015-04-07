@@ -71,7 +71,6 @@ namespace VOP.Controls
         /// </summary>
         public string FormattedValue
         {
-
             set 
             { 
                 SetValue(FormattedValueProperty, value); 
