@@ -64,9 +64,18 @@ namespace VOP
                 cboPrinters.SelectedIndex = 0;
         }
 
+        /// <summary>
+        /// event when printer switch, MainWindow will subscribe this event.
+        /// </summary>
+        public delegate void HandlerPrinterSwitch();
+        public event HandlerPrinterSwitch eventPrinterSwitch;
+
         private void cboPrinters_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             m_selectedPrinter = this.cboPrinters.SelectedItem.ToString();
+
+            if ( null != eventPrinterSwitch )
+                eventPrinterSwitch();
         }
     }
 }

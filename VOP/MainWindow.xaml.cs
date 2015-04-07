@@ -107,6 +107,8 @@ namespace VOP
 
         public MainWindow()
         {
+            statusPanelPage.eventPrinterSwitch += PrinterSwitch;
+
             InitializeComponent();
 
             winCopyPage    .m_MainWin = this;
@@ -217,8 +219,6 @@ namespace VOP
            
             AddMessageHook();
 
-            statusUpdater = new Thread(UpdateStatusCaller);
-            statusUpdater.Start();
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -615,5 +615,28 @@ namespace VOP
 
             return IntPtr.Zero;
         }
+
+        /// <summary>
+        /// Handle printer switch event
+        /// </summary>
+        private void PrinterSwitch()
+        {
+            // Stop statusUpdater first before get printer status directly.
+            if ( null != statusUpdater && true == statusUpdater.IsAlive )
+            {
+                bExitUpdater = true;
+                m_updaterAndUIEvent.WaitOne();
+                statusUpdater.Abort();
+            }
+
+            App.g_autoMachine.ResetAutoMachine();
+
+            // TODO:
+            // * Get Printer Status
+            // * Init other sub pages
+            statusUpdater = new Thread(UpdateStatusCaller);
+            statusUpdater.Start();
+        }
+
     }
 }
