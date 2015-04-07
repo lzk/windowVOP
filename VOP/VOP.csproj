@@ -133,6 +133,12 @@
     <Compile Include="Controls\ValidateTip_TextBox.xaml.cs">
       <DependentUpon>ValidateTip_TextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MaintainInfo.xaml.cs">
+      <DependentUpon>MaintainInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainWindow.xaml.cs">
+      <DependentUpon>MaintainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PdfHelper.cs" />
     <Compile Include="PrintSettingPage.cs" />
     <Compile Include="ProgressBarWindow.xaml.cs">
@@ -175,6 +181,9 @@
     </Compile>
     <Compile Include="PowerSaveView.xaml.cs">
       <DependentUpon>PowerSaveView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PurchaseWindow.xaml.cs">
+      <DependentUpon>PurchaseWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SoftapView.xaml.cs">
       <DependentUpon>SoftapView.xaml</DependentUpon>
@@ -287,6 +296,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MaintainInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PasswordView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -304,6 +321,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ScanPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PurchaseWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -692,11 +713,7 @@
     <Resource Include="Images\ButtonPicSelect.png" />
     <Resource Include="Images\Checked.png" />
     <Resource Include="Images\Uncheck.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Warning.tif" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\112233.png" />
     <Resource Include="Images\123.png" />
     <Resource Include="Images\123123.png" />
@@ -710,6 +727,8 @@
     <Resource Include="Images\9in1.png" />
     <Resource Include="Images\FlipOnLongEdge.png" />
     <Resource Include="Images\FlipOnShortEdge.png" />
+    <Resource Include="Index.png" />
+    <Resource Include="Images\Index.png" />
     <Content Include="Media\FlickAnimation.avi">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

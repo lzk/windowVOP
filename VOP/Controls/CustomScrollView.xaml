@@ -442,7 +442,7 @@
 
 
       <ControlTemplate TargetType="{x:Type ScrollViewer}">
-        <Grid Background="White">
+          <Grid Background="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}}">
           <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="Auto" />

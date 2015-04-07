@@ -29,7 +29,7 @@
                 </Rectangle.Fill>
             </Rectangle>
             <ScrollViewer 
-                Margin="2" 
+                Margin="6,2,6,2" 
                 x:Name="PART_ContentHost" 
                 VerticalAlignment="Center"            
                 FontSize="{TemplateBinding FontSize}"
@@ -111,4 +111,28 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
+    <ControlTemplate x:Key="customTextBox2" TargetType="{x:Type TextBox}" >
+        <Grid Width="{TemplateBinding Width}"
+                      Height="{TemplateBinding Height}">
+            <Rectangle Name="rect"
+                       RadiusX="15"
+                       RadiusY="15"
+                >
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="#FFBFBFBF"></SolidColorBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            
+            <ScrollViewer                
+                x:Name="PART_ContentHost" 
+                VerticalAlignment="Center"            
+                FontSize="{TemplateBinding FontSize}"
+                Foreground="{TemplateBinding Foreground}" 
+                IsEnabled="{TemplateBinding IsEnabled}"
+                />
+        </Grid>
+
+    </ControlTemplate>
+
 </ResourceDictionary>

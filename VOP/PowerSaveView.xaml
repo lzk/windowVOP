@@ -165,7 +165,9 @@
                             DecimalPlaces="0"
                             Maximum="30"
                             Minimum="1"  
-                            IsPercentFormat="False">
+                            IsPercentFormat="False"
+                            ValueChanged="spinnerControl1_ValueChanged"                            
+                            >
 
                     </local:SpinnerControl>
                 </Grid>

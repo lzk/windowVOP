@@ -32,6 +32,8 @@ namespace VOP
 
     public partial class MainWindow : Window
     {
+        public static RequestManager m_RequestManager = new RequestManager();
+
         public FileSelectionPage winFileSelectionPage = new FileSelectionPage();
         public PrintPage winPrintPage = new PrintPage();
         public StatusPanel statusPanelPage = new StatusPanel();
@@ -113,6 +115,9 @@ namespace VOP
             winFileSelectionPage.m_MainWin = this;
             winPrintPage.m_MainWin = this;
             Init();
+
+            SessionInfo session = new SessionInfo();
+            m_RequestManager.GetSession(ref session);
         }
 
         void Init()
@@ -272,6 +277,9 @@ namespace VOP
                 }
                 else if ( "btnLogin" == btn.Name )
                 {
+                    MaintainWindow mw = new MaintainWindow();
+                    mw.ShowDialog();
+
                     LoginWindow loginWnd = new LoginWindow();
                     loginWnd.ShowActivated = true;
                     Nullable<bool> dialogResult = loginWnd.ShowDialog();

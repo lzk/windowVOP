@@ -14,16 +14,16 @@ using System.Configuration;
 
 namespace VOP
 {
-    enum JSONReturnFormat
+    public enum JSONReturnFormat
     {
         JSONResultFormat1 = 1,
         JSONResultFormat2,
         MerchantInfoSet,
-        ServiceStationInfoSet,
+        MaintainInfoSet,
         SessionInfo,
     };
 
-    class SessionInfo
+    public class SessionInfo
     {
         public Int32    m_nTotalCount;
         public string   m_strDetail;
@@ -33,7 +33,7 @@ namespace VOP
         public Int32    m_nMerchantID;
     }
 
-    class MerchantInfo
+    public class MerchantInfo
     {
         public Int32    m_nID;
         public Int32    m_nUserID;
@@ -63,7 +63,7 @@ namespace VOP
         public string   m_strTimeLastModify;
     };
 
-    class MerchantInfoSet
+    public class MerchantInfoSet
     {
         public string   m_strItems;
         public Int32    m_nTotalCount;
@@ -75,7 +75,7 @@ namespace VOP
         public List<MerchantInfo> m_listMerchantInfo = new List<MerchantInfo>();
     }
 
-    class ServiceStationInfo
+    public class MaintainInfoItem
     {
         public Int32    m_nID;
         public Int32    m_nUserID;
@@ -93,7 +93,7 @@ namespace VOP
         public string   m_strTimeCreate;
     };
 
-    class ServiceStationInfoSet
+    public class MaintainInfoSet
     {
         public string   m_strItems;
         public Int32    m_nTotalCount;
@@ -102,22 +102,22 @@ namespace VOP
         public bool     m_bSuccess;
         public string   m_strAddon;
 
-        public List<ServiceStationInfo> m_listServiceStationInfo = new List<ServiceStationInfo>();
+        public List<MaintainInfoItem> m_listMaintainInfo = new List<MaintainInfoItem>();
     }
-    class JSONResultFormat2
+    public class JSONResultFormat2
     {
         public string   m_strMessage;
         public bool     m_bSuccess;
     }
 
-    class JSONResultFormat1 //Normal
+    public class JSONResultFormat1 //Normal
     {
         public Int32    m_nResponse;
         public string   m_strMessage;
         public bool     m_bSuccess;
     }
 
-    class SystemInfo
+    public class SystemInfo
     {
         public static string GetMacAddress()
         {
@@ -145,14 +145,14 @@ namespace VOP
             }
         }
     }
-    class MD5
+    public class MD5
     {
         public static string MD5_Encrypt(string str)
         {
             return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(str, "MD5");
         }
     }
-    class CRM_PrintInfo
+    public class CRM_PrintInfo
     {
         private readonly string m_strSignKey = "86c02972fba047b0b0a9adb8123029fb";
 
@@ -212,7 +212,7 @@ namespace VOP
         }
     }
 
-    class CRM_LocalInfo
+    public class CRM_LocalInfo
     {
         private readonly string m_strSignKey = "86c02972fba047b0b0a9adb8123029fb";
 
@@ -256,11 +256,11 @@ namespace VOP
             return str;
         }
     }
-    class RequestManager
+    public class RequestManager
     {
         public static CookieContainer m_CookieContainer = new CookieContainer();
 
-        bool ParseJsonData<T>(string strSrc, JSONReturnFormat rtFormat, ref T record)
+        public bool  ParseJsonData<T>(string strSrc, JSONReturnFormat rtFormat, ref T record)
         {
             bool bSuccess = false;
             try
@@ -364,59 +364,60 @@ namespace VOP
                                 ((MerchantInfoSet)(dynamic)record).m_listMerchantInfo.Add(merchantInfo);
                             }
 
-                            bSuccess = true;
+                            if (((MaintainInfoSet)(dynamic)record).m_nTotalCount > 0)
+                                bSuccess = true;
                             break;
-                        case JSONReturnFormat.ServiceStationInfoSet:
+                        case JSONReturnFormat.MaintainInfoSet:
                             strValue = o.GetValue("totalCount").ToString();
-                            ((ServiceStationInfoSet)(dynamic)record).m_nTotalCount = Convert.ToInt32(strValue);
+                            ((MaintainInfoSet)(dynamic)record).m_nTotalCount = Convert.ToInt32(strValue);
 
                             strValue = o.GetValue("detail").ToString();
-                            ((ServiceStationInfoSet)(dynamic)record).m_strDetail = strValue;
+                            ((MaintainInfoSet)(dynamic)record).m_strDetail = strValue;
 
                             strValue = o.GetValue("code").ToString();
-                            ((ServiceStationInfoSet)(dynamic)record).m_nErrorCode = Convert.ToInt32(strValue);
+                            ((MaintainInfoSet)(dynamic)record).m_nErrorCode = Convert.ToInt32(strValue);
 
                             strValue = o.GetValue("success").ToString();
                             if ("true" == strValue || "True" == strValue)
-                                ((ServiceStationInfoSet)(dynamic)record).m_bSuccess = true;
+                                ((MaintainInfoSet)(dynamic)record).m_bSuccess = true;
                             else
-                                ((ServiceStationInfoSet)(dynamic)record).m_bSuccess = false;
+                                ((MaintainInfoSet)(dynamic)record).m_bSuccess = false;
 
                             strValue = o.GetValue("addon").ToString();
-                            ((ServiceStationInfoSet)(dynamic)record).m_strAddon = strValue;
+                            ((MaintainInfoSet)(dynamic)record).m_strAddon = strValue;
 
                             strValue = o.GetValue("items").ToString();
-                            ((ServiceStationInfoSet)(dynamic)record).m_strItems = strValue;
+                            ((MaintainInfoSet)(dynamic)record).m_strItems = strValue;
 
-                            for (Int32 nIdx = 0; nIdx < ((ServiceStationInfoSet)(dynamic)record).m_nTotalCount; nIdx++)
+                            for (Int32 nIdx = 0; nIdx < ((MaintainInfoSet)(dynamic)record).m_nTotalCount; nIdx++)
                             {
-                                ServiceStationInfo serviceStationInfo = new ServiceStationInfo();
+                                MaintainInfoItem maintainInfoItem = new MaintainInfoItem();
                                 JArray ja = (JArray)JsonConvert.DeserializeObject(strValue);
 
                                 string strItemValue = ja[nIdx]["service_station_id"].ToString();
-                                serviceStationInfo.m_nID = Convert.ToInt32(strItemValue);
+                                maintainInfoItem.m_nID = Convert.ToInt32(strItemValue);
 
                                 strItemValue = ja[nIdx]["user_id"].ToString();
-                                serviceStationInfo.m_nUserID = Convert.ToInt32(strItemValue);
-                                serviceStationInfo.m_strName = ja[nIdx]["service_station_name"].ToString();
-                                serviceStationInfo.m_strProvince = ja[nIdx]["service_station_province"].ToString();
-                                serviceStationInfo.m_strCity = ja[nIdx]["service_station_city"].ToString();
+                                maintainInfoItem.m_nUserID = Convert.ToInt32(strItemValue);
+                                maintainInfoItem.m_strName = ja[nIdx]["service_station_name"].ToString();
+                                maintainInfoItem.m_strProvince = ja[nIdx]["service_station_province"].ToString();
+                                maintainInfoItem.m_strCity = ja[nIdx]["service_station_city"].ToString();
 
-                                serviceStationInfo.m_strAddress = ja[nIdx]["service_station_address"].ToString();
-                                serviceStationInfo.m_strProductLine = ja[nIdx]["service_station_product_line"].ToString();
-                                serviceStationInfo.m_strPhone = ja[nIdx]["service_station_phone"].ToString();
-                                serviceStationInfo.m_strHours = ja[nIdx]["service_station_hours"].ToString();
-                                serviceStationInfo.m_strRemark = ja[nIdx]["service_station_remark"].ToString();
-                                serviceStationInfo.m_strLongitude = ja[nIdx]["service_station_longitude"].ToString();
-                                serviceStationInfo.m_strLatitude = ja[nIdx]["service_station_latitude"].ToString();
+                                maintainInfoItem.m_strAddress = ja[nIdx]["service_station_address"].ToString();
+                                maintainInfoItem.m_strProductLine = ja[nIdx]["service_station_product_line"].ToString();
+                                maintainInfoItem.m_strPhone = ja[nIdx]["service_station_phone"].ToString();
+                                maintainInfoItem.m_strHours = ja[nIdx]["service_station_hours"].ToString();
+                                maintainInfoItem.m_strRemark = ja[nIdx]["service_station_remark"].ToString();
+                                maintainInfoItem.m_strLongitude = ja[nIdx]["service_station_longitude"].ToString();
+                                maintainInfoItem.m_strLatitude = ja[nIdx]["service_station_latitude"].ToString();
 
-                                serviceStationInfo.m_strStatus = ja[nIdx]["service_station_status"].ToString();
-                                serviceStationInfo.m_strTimeCreate = ja[nIdx]["service_station_time_create"].ToString();
+                                maintainInfoItem.m_strStatus = ja[nIdx]["service_station_status"].ToString();
+                                maintainInfoItem.m_strTimeCreate = ja[nIdx]["service_station_time_create"].ToString();
 
-                                ((ServiceStationInfoSet)(dynamic)record).m_listServiceStationInfo.Add(serviceStationInfo);
+                                ((MaintainInfoSet)(dynamic)record).m_listMaintainInfo.Add(maintainInfoItem);
                             }
-
-                            bSuccess = true;
+                            if (((MaintainInfoSet)(dynamic)record).m_nTotalCount > 0)
+                                bSuccess = true;
                             break;
                         case JSONReturnFormat.SessionInfo:
                             strValue = o.GetValue("totalCount").ToString();
@@ -455,13 +456,13 @@ namespace VOP
             }
             catch
             {
-
+                
             }
 
             return bSuccess;
         }
 
-        bool SendHttpWebRequest<T>(string url, string httpRequestMtd, string strBuf, JSONReturnFormat rtFormat, ref T record)
+        public bool SendHttpWebRequest<T>(string url, string httpRequestMtd, string strBuf, JSONReturnFormat rtFormat, ref T record)
         {
             bool bSuccess = false;
             try
@@ -525,7 +526,7 @@ namespace VOP
             string url = "http://function.iprintworks.cn:8001/smsauth/authCode.php";
             string strCMD = "phoneNum=" + strPhoneNumber + "&authCode=" + strVerifyCode;
 
-            if (SendHttpWebRequest<JSONResultFormat1>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat1, ref rtValue))
+            if (SendHttpWebRequest<JSONResultFormat1>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat1, ref rtValue) || rtValue.m_bSuccess)
             {
                 if (rtValue.m_bSuccess)
                 {
@@ -570,19 +571,31 @@ namespace VOP
             return bSuccess;
         }
 
-        public bool GetServiceStationSet(Int32 nStart, Int32 nLimit, ref ServiceStationInfoSet rtValue)
+        public bool GetMaintainInfoSet(Int32 nStart, Int32 nLimit, ref MaintainInfoSet rtValue)
         {
             bool bSuccess = false;
             string url = "http://o2o.iprintworks.cn/api/data/getServiceStationList";//请求登录的URL
             string strCMD = String.Format("start={0}&limit={1}", nStart, nLimit);
-
-            if (SendHttpWebRequest<ServiceStationInfoSet>(url, "POST", strCMD, JSONReturnFormat.ServiceStationInfoSet, ref rtValue))
+            int nCount = 2;
+            while(nCount-- > 0)
             {
-                if (rtValue.m_bSuccess)
+                rtValue.m_bSuccess = bSuccess = false;
+                if (SendHttpWebRequest<MaintainInfoSet>(url, "POST", strCMD, JSONReturnFormat.MaintainInfoSet, ref rtValue) || rtValue.m_bSuccess)
                 {
                     bSuccess = true;
                 }
+
+                if ((!bSuccess) && (!rtValue.m_bSuccess) && rtValue.m_nErrorCode == 401)
+                {
+                    SessionInfo session = new SessionInfo();
+                    GetSession(ref session);
+                }
+                else
+                {
+                    break;
+                }
             }
+            
 
             return bSuccess;
         }

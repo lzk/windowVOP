@@ -200,8 +200,8 @@
                         <ColumnDefinition Width="20"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <local:ButtonEx x:Name="btn1" Content="*****" FontSize="18"  IsActiveEx="False" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="80" Height="35"></local:ButtonEx>
-                    <local:ButtonEx x:Name="btn2" Content="*****" FontSize="18"  IsActiveEx="False" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="80" Height="35"></local:ButtonEx>
+                    <local:ButtonEx x:Name="btn1" Content="*****" FontSize="18"  IsActiveEx="False" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="90" Height="35"></local:ButtonEx>
+                    <local:ButtonEx x:Name="btn2" Content="*****" FontSize="18"  IsActiveEx="False" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="90" Height="35"></local:ButtonEx>
 
                 </Grid>
             </Grid>

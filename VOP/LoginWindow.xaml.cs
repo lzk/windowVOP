@@ -57,12 +57,11 @@ namespace VOP
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            RequestManager rm = new RequestManager();
             JSONResultFormat1 js = new JSONResultFormat1();
 
             if (tbPhoneNumber.Text.Length == 11 && pbPwd.Password.Length == 6)
             {
-                if (rm.CheckVerifyCode(tbPhoneNumber.Text, pbPwd.Password, ref js))
+                if (VOP.MainWindow.m_RequestManager.CheckVerifyCode(tbPhoneNumber.Text, pbPwd.Password, ref js))
                 {
                     m_strPhoneNumber = tbPhoneNumber.Text;
                     this.DialogResult = true;

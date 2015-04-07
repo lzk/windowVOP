@@ -147,5 +147,10 @@ namespace VOP
                 UpdateApplyBtnStatus();
             }
         }
+
+        private void spinnerControl1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> e)
+        {
+            UpdateApplyBtnStatus();
+        }
     }
 }
