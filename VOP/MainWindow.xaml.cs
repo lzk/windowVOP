@@ -212,7 +212,6 @@ namespace VOP
         {
 
             statusPageView.Child = statusPanelPage;
-            setTabItemFromIndex(0);
 
             this.subPageView.Child = winFileSelectionPage;      // for test  
             this.statusPanelPage.Visibility = Visibility.Visible;
@@ -631,9 +630,25 @@ namespace VOP
 
             App.g_autoMachine.ResetAutoMachine();
 
-            // TODO:
-            // * Get Printer Status
-            // * Init other sub pages
+            if ( common.IsSFPPrinter( GetPrinterDrvName(statusPanelPage.m_selectedPrinter) ) )
+            {
+            }
+            else
+            {
+            }
+
+            byte toner  = 0;
+            byte status = (byte)EnumStatus.Offline; 
+            byte job    = (byte)EnumMachineJob.UnknowJob;
+            if (false == dll.GetPrinterStatus( statusPanelPage.m_selectedPrinter, ref status, ref toner, ref job) )
+            {
+                toner  = 0;
+                status = (byte)EnumStatus.Offline; 
+                job    = (byte)EnumMachineJob.UnknowJob;
+            }
+
+            // TODO: Init other sub pages according status
+
             statusUpdater = new Thread(UpdateStatusCaller);
             statusUpdater.Start();
         }

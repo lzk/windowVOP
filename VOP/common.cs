@@ -680,6 +680,38 @@ namespace VOP
 
             return bResult;
         }
+
+        /// <summary>
+        /// Get the model name of printer. 
+        /// </summary>
+        /// <returns> 
+        /// If success, return the name of printer driver, otherwise, return empty string.
+        /// </returns>
+        public static string GetPrinterDrvName( 
+                string strPrinterName
+                )
+        {
+            string strDrvName = "";
+
+            try
+            {
+                PrintServer myPrintServer = new PrintServer( null );
+                PrintQueueCollection myPrintQueues = myPrintServer.GetPrintQueues();
+                foreach (PrintQueue pq in myPrintQueues)
+                {
+                    if ( strPrinterName == pq.Name )
+                    {
+                        strDrvName = pq.QueueDriver.Name;
+                        break;
+                    }
+                }
+            }
+            catch
+            {
+            }
+
+            return strDrvName;
+        }
     }
 
 
