@@ -168,10 +168,10 @@ namespace VOP
     {
         private static PrinterInfo[] printerInfos = 
         {
-            new PrinterInfo("Lenovo ABC M001"   , false , false ) ,
-            new PrinterInfo("Lenovo ABC M001 w" , false , true  ) ,
-            new PrinterInfo("Lenovo ABC P001"   , true  , false ) ,
-            new PrinterInfo("Lenovo ABC P001 w" , true  , true  ) ,
+            new PrinterInfo("Lenovo M7208", false, false) ,
+            new PrinterInfo("Lenovo M7208W", false, true) ,
+            new PrinterInfo("Lenovo LJ2208", true, false) ,
+            new PrinterInfo("Lenovo LJ2208W", true, true) ,
         };
 
         public static BitmapSource GetOrigBitmapSource( ScanFiles obj  )
