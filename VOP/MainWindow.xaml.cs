@@ -131,9 +131,6 @@ namespace VOP
             imgBk_Brush_2 = (ImageBrush)this.FindResource("imgBk_Brush_2");
             imgBk_Brush_3 = (ImageBrush)this.FindResource("imgBk_Brush_3");
             imgBk_Brush_4 = (ImageBrush)this.FindResource("imgBk_Brush_4");
-
-            IsOnLine = true;
-            PrinterModelName = PrinterModel.MFP;
         }
 
 
@@ -401,32 +398,6 @@ namespace VOP
 
         }
 
-
-        private bool setTabItemFromName(string tabItemName)
-        {
-            if (0 == String.Compare(tabItemName, "printer", true))
-            {
-                setTabItemFromIndex(0);   
-            }
-            else if (0 == String.Compare(tabItemName, "copy", true))
-            {
-                setTabItemFromIndex(1);
-            }
-            else if (0 == String.Compare(tabItemName, "scan", true))
-            {
-                setTabItemFromIndex(2);
-            }
-            else if (0 == String.Compare(tabItemName, "setting", true))
-            {
-                setTabItemFromIndex(3);
-            } 
-            else
-            {
-                return false;
-            }
-
-            return true;
-        }
         private bool setTabItemFromIndex(int index)
         {
             if (PrinterModel.MFP == PrinterModelName)
@@ -632,9 +603,11 @@ namespace VOP
 
             if ( common.IsSFPPrinter( GetPrinterDrvName(statusPanelPage.m_selectedPrinter) ) )
             {
+                PrinterModelName = PrinterModel.SFP;
             }
             else
             {
+                PrinterModelName = PrinterModel.MFP;
             }
 
             byte toner  = 0;
@@ -647,7 +620,14 @@ namespace VOP
                 job    = (byte)EnumMachineJob.UnknowJob;
             }
 
-            // TODO: Init other sub pages according status
+            if ( (byte)EnumStatus.Offline == status )
+            {
+                IsOnLine = false;
+            }
+            else
+            {
+                IsOnLine = true;
+            }
 
             statusUpdater = new Thread(UpdateStatusCaller);
             statusUpdater.Start();
