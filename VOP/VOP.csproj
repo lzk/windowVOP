@@ -134,6 +134,7 @@
       <DependentUpon>ValidateTip_TextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="PdfHelper.cs" />
+    <Compile Include="PrintSettingPage.cs" />
     <Compile Include="ProgressBarWindow.xaml.cs">
       <DependentUpon>ProgressBarWindow.xaml</DependentUpon>
     </Compile>
@@ -181,6 +182,9 @@
     <Compile Include="UserConfigView.xaml.cs">
       <DependentUpon>UserConfigView.xaml</DependentUpon>
     </Compile>
+
+    <Compile Include="UserDefinedSetting.cs" />
+
     <Compile Include="WifiView.xaml.cs">
       <DependentUpon>WifiView.xaml</DependentUpon>
     </Compile>
@@ -198,6 +202,10 @@
     <Page Include="Controls\CustomExpander.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CustomRadioButtonEx.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ImagePreview\ImagePreview.xaml">
       <SubType>Designer</SubType>
@@ -287,6 +295,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PrintSettingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ProgressBarWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -299,6 +311,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+
+    <Page Include="UserDefinedSetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+
     <Page Include="WifiView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -677,6 +695,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Warning.tif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\112233.png" />
+    <Resource Include="Images\123.png" />
+    <Resource Include="Images\123123.png" />
+    <Resource Include="Images\16in1.png" />
+    <Resource Include="Images\1in2x2.png" />
+    <Resource Include="Images\1in3x3.png" />
+    <Resource Include="Images\1in4x4.png" />
+    <Resource Include="Images\2in1.png" />
+    <Resource Include="Images\321.png" />
+    <Resource Include="Images\4in1.png" />
+    <Resource Include="Images\9in1.png" />
+    <Resource Include="Images\FlipOnLongEdge.png" />
+    <Resource Include="Images\FlipOnShortEdge.png" />
     <Content Include="Media\FlickAnimation.avi">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

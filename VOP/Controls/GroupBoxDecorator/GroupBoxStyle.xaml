@@ -94,24 +94,26 @@
 
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="28"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Rectangle Height="30" VerticalAlignment="Top" RadiusY="15" RadiusX="15" StrokeThickness="2">
+                            <Rectangle Height="28" VerticalAlignment="Top" RadiusY="12" RadiusX="12" StrokeThickness="2">
                                 <Rectangle.Stroke>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="White" Offset="0"/>
-                                        <GradientStop Color="#FF646363" Offset="1"/>
-                                        <GradientStop Color="#FFDEDEDE" Offset="0.15"/>
-                                        <GradientStop Color="#FFAEAEAE" Offset="0.617"/>
+                                        <GradientStop Color="#FFFEFEFE" Offset="0"/>
+                                        <GradientStop Color="#FF727272" Offset="1"/>
+                                        <GradientStop Color="#FFE5E5E5" Offset="0.2"/>
+                                        <GradientStop Color="#FFC8C8C8" Offset="0.471"/>
+                                        <GradientStop Color="#FF9C9C9C" Offset="0.729"/>
                                     </LinearGradientBrush>
                                 </Rectangle.Stroke>
                                 <Rectangle.Fill>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.501,-0.007">
-                                        <GradientStop Color="#FFEAEAEA" Offset="0"/>
-                                        <GradientStop Color="#FF938D8D" Offset="1"/>
-                                        <GradientStop Color="#FFD6D3D3" Offset="0.587"/>
-                                        <GradientStop Color="#FEE2E1E1" Offset="0.276"/>
+                                        <GradientStop Color="#FFF1F1F1"/>
+                                        <GradientStop Color="#FFA4A4A4" Offset="1"/>
+                                        <GradientStop Color="#FFEBEBEB" Offset="0.214"/>
+                                        <GradientStop Color="#FFDADADA" Offset="0.461"/>
+                                        <GradientStop Color="#FFB8B8B8" Offset="0.764"/>
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
                             </Rectangle>

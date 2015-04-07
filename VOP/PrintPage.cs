@@ -39,5 +39,18 @@ namespace VOP
         {
             this.m_MainWin.subPageView.Child = this.m_MainWin.winFileSelectionPage;
         }
+
+        private void AdvancedSettingButtonClick(object sender, RoutedEventArgs e)
+        {
+            bool? result = null;
+            PrintSettingPage printWin = new PrintSettingPage();
+            printWin.Owner = App.Current.MainWindow;
+
+            result = printWin.ShowDialog();
+            if (result == true)
+            {
+               
+            }
+        }
     }
 }
