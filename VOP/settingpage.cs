@@ -138,7 +138,7 @@ namespace VOP
             setting_tab_btn.Children.Clear();
             Grid.SetColumnSpan(setting_tab_btn, 3);
 
-            string strPrinterDrvName = VOP.MainWindow.GetPrinterDrvName( m_MainWin.statusPanelPage.m_selectedPrinter );
+            string strPrinterDrvName = common.GetPrinterDrvName( m_MainWin.statusPanelPage.m_selectedPrinter );
 
             if (VOP.common.IsSupportWifi(strPrinterDrvName))
             {

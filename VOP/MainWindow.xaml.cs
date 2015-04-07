@@ -76,33 +76,6 @@ namespace VOP
             return bExist;
         }
 
-        public static string GetPrinterDrvName(
-                string strPrinterName
-                )
-        {
-            string strDrvName = "";
-
-            try
-            {
-                PrintServer myPrintServer = new PrintServer(null);
-                PrintQueueCollection myPrintQueues = myPrintServer.GetPrintQueues();
-                foreach (PrintQueue pq in myPrintQueues)
-                {
-                    if (strPrinterName == pq.Name)
-                    {
-                        strDrvName = pq.QueueDriver.Name;
-                        break;
-                    }
-                }
-            }
-            catch
-            {
-            }
-
-            return strDrvName;
-        }
-
-
 
 
         public MainWindow()
@@ -278,17 +251,9 @@ namespace VOP
 
         #region Set_TabItemIndex
 
-        private void UpdateNavigation()
-        {
-
-        }
-
         private bool setTabItemFromIndex(int index)
         {
-            // TODO: Improve the performance.
-            bool bIsSFP = common.IsSFPPrinter( GetPrinterDrvName(statusPanelPage.m_selectedPrinter) );
-
-            if ( false == bIsSFP )
+            if ( false == statusPanelPage.m_isSFP )
             {
                 if (0 == index)
                 {
@@ -512,7 +477,6 @@ namespace VOP
                 job    = (byte)EnumMachineJob.UnknowJob;
             }
 
-            bool bIsSFP = common.IsSFPPrinter( GetPrinterDrvName(statusPanelPage.m_selectedPrinter) );
             bool bIsOffline = ( ( (byte)EnumStatus.Offline == status ) );
 
             if ( false == bIsOffline )
@@ -523,7 +487,7 @@ namespace VOP
                 tabItem_Print.Visibility = Visibility.Visible;
                 setTabItemFromIndex(0);
 
-                if ( false == bIsSFP )
+                if ( false == statusPanelPage.m_isSFP )
                 {
                     line4.Visibility = Visibility.Visible;
                     line5.Visibility = Visibility.Visible;

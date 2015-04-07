@@ -23,6 +23,7 @@ namespace VOP
         /// Current selected printer name. Assign empty ( NOTE: no null ), if nothing selected.
         /// </summary>
         public string m_selectedPrinter = "";
+        public bool m_isSFP = false; // true if the m_selectedPrinter is a SFP model.
 
         private byte _toner = 0; 
         public byte m_toner 
@@ -73,6 +74,7 @@ namespace VOP
         private void cboPrinters_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             m_selectedPrinter = this.cboPrinters.SelectedItem.ToString();
+            m_isSFP = common.IsSFPPrinter( common.GetPrinterDrvName( m_selectedPrinter ) );
 
             if ( null != eventPrinterSwitch )
                 eventPrinterSwitch();
