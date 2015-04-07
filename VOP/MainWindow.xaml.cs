@@ -38,9 +38,9 @@ namespace VOP
         public PrintPage winPrintPage = new PrintPage();
         public StatusPanel statusPanelPage = new StatusPanel();
 
-        CopyPage    winCopyPage    = new CopyPage   ();
-        ScanPage    winScanPage    = new ScanPage   ();
-        SettingPage winSettingPage = new SettingPage();
+        private CopyPage    winCopyPage    = new CopyPage   ();
+        private ScanPage    winScanPage    = new ScanPage   ();
+        private SettingPage winSettingPage = new SettingPage();
 
         private ImageBrush imgBk_Brush_1 = null;
         private ImageBrush imgBk_Brush_2 = null;
@@ -50,12 +50,12 @@ namespace VOP
         /// <summary>
         /// Thread used to update status of current printer.
         /// </summary>
-        public Thread statusUpdater = null;
+        private Thread statusUpdater = null;
 
         /// <summary>
         /// Event used to sync between status update thread and main UI.
         /// </summary>
-        public ManualResetEvent m_updaterAndUIEvent = new ManualResetEvent(true);
+        private ManualResetEvent m_updaterAndUIEvent = new ManualResetEvent(true);
 
         private bool m_isOnlineDetected = false;    // true is one online printer has been seleted.
 
