@@ -82,10 +82,10 @@ namespace VOP
 
         private void refreshBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (IsRefresh)
-                IsRefresh = false;
-            else
-                IsRefresh = true;
+            //if (IsRefresh)
+            //    IsRefresh = false;
+            //else
+            //    IsRefresh = true;
         }
     }
 

@@ -167,18 +167,23 @@
                              SelectionOpacity="0"
                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                              Text="{TemplateBinding SelectionBoxItem}" />-->
-                        <local:ScrollTextNoShadow
-                            ScrollText="{TemplateBinding SelectionBoxItem}"
-                            ScrollForeground="{Binding ElementName=DropDownScrollViewer, Path=Foreground}"
-                            ScrollFontSize="12" Margin="5"/>
-
+                        <local:ScrollTextNoShadow x:Name="scrollText"
+                                                  ScrollText="{TemplateBinding SelectionBoxItem}"
+                                                  ScrollForeground="{Binding ElementName=DropDownScrollViewer, Path=Foreground}"
+                                                  IsHitTestVisible="False"
+                                                  ScrollFontSize="12" Margin="5"/>
                     </Grid>
 
                     <ControlTemplate.Triggers>
-
-                        <!--<Trigger  Property="IsDropDownOpen " Value="true">
-                             <Setter  Property="Background" Value="Red" />
-                             </Trigger>-->
+                     
+                        <Trigger  Property ="Grid.IsMouseOver" Value ="True">
+                            <Setter TargetName="scrollText" Property="IsScrollText" Value="true"/>
+                        </Trigger>
+                        <Trigger  Property ="Grid.IsMouseOver" Value ="false">
+                            <Setter TargetName="scrollText" Property="IsScrollText" Value="false"/>
+                        </Trigger>
+                        
+              
 
                         <Trigger SourceName="PART_Popup" Property="HasDropShadow" Value="true">
                             <Setter TargetName="Shdw" Property="Margin" Value="0,0,5,5" />

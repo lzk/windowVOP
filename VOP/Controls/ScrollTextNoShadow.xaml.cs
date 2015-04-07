@@ -19,9 +19,53 @@ namespace VOP.Controls
     /// </summary>
     public partial class ScrollTextNoShadow : UserControl
     {
+        private System.Windows.Media.Animation.Storyboard BeginStory = null; 
+
+        public bool IsScrollText
+        {
+            get { return (bool)GetValue(IsScrollTextProperty); }
+            set { SetValue(IsScrollTextProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsScrollTextProperty =
+            DependencyProperty.Register("IsScrollText", typeof(bool), typeof(ScrollTextNoShadow),
+          new FrameworkPropertyMetadata(new PropertyChangedCallback(OnIsScrollText_Changed)));
+
+        private static void OnIsScrollText_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            VOP.Controls.ScrollTextNoShadow _this = sender as VOP.Controls.ScrollTextNoShadow;
+
+            if(_this.IsScrollText)
+            {
+                _this.BeginStroyboard();
+            }
+            else
+            {
+                _this.EndStroyboard();
+            }         
+        }
+
+        void EndStroyboard()
+        {
+            if(null != BeginStory)
+            {
+                this.BeginStory.Stop();
+            }
+        }
+
+        void BeginStroyboard()
+        {          
+            if (null != BeginStory)
+            {
+                this.BeginStory.Begin();
+            }               
+        }
+
         public ScrollTextNoShadow()
         {
             InitializeComponent();
+
+            BeginStory = FindResource("TextMoveStoryboard") as System.Windows.Media.Animation.Storyboard;
         }
         public string ScrollText
         {
