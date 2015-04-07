@@ -200,21 +200,14 @@ namespace VOP
 
         public void handler_closed(Object sender, EventArgs e)
         {
-           // dispatcherTimer.Stop();
-            notifyIcon1.Visible = false;
-           // bExit = false;
+            MainWindowExitPoint();
         }
 
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
         {
-
             statusPageView.Child = statusPanelPage;
-
-            this.subPageView.Child = winFileSelectionPage;      // for test  
             this.statusPanelPage.Visibility = Visibility.Visible;
-           
             AddMessageHook();
-
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -252,23 +245,18 @@ namespace VOP
             {
                 if ( "btnPrint" == btn.Name )
                 {                
-
                      setTabItemFromIndex(0);
-
                 }
                 else if ( "btnCopy" == btn.Name )
                 {                   
-
                     setTabItemFromIndex(1);
                 }
                 else if ( "btnScan" == btn.Name )
                 {                    
-
                     setTabItemFromIndex(2);
                 }
                 else if ( "btnSetting" == btn.Name )
                 {                
-
                     setTabItemFromIndex(3);
                 }
                 else if ( "btnLogin" == btn.Name )
@@ -527,10 +515,14 @@ namespace VOP
             m_updaterAndUIEvent.Set();
         }
 
+        /// <summary>
+        /// MainWindow unit exit point.
+        /// </summary>
         private void MainWindowExitPoint()
         {
             bExitUpdater = true;
             m_updaterAndUIEvent.WaitOne();
+            notifyIcon1.Visible = false;
 
             this.Close();
         }
@@ -587,8 +579,16 @@ namespace VOP
         }
 
         /// <summary>
-        /// Handle printer switch event
+        /// Handle printer switch event.
         /// </summary>
+        /// <remarks>
+        /// Execute the following logic:
+        /// * Stop status update thread
+        /// * Update Auto Machine
+        /// * Get Printer Status
+        /// * Init other sub pages
+        /// * Start Status Update Thread
+        /// </remarks>
         private void PrinterSwitch()
         {
             // Stop statusUpdater first before get printer status directly.
