@@ -5,8 +5,10 @@
         WindowStartupLocation="CenterScreen"  
         ResizeMode="NoResize"
         WindowStyle="None"
-        Height="300" 
-        Width="400"
+        Height="448" 
+        Width="398"
+        BorderThickness="24"
+        AllowsTransparency="True"
         ShowInTaskbar="False"
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" 
@@ -25,6 +27,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+    </Window.Effect>
     <Grid>
         <Grid>
             <Grid.RowDefinitions>

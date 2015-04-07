@@ -73,6 +73,17 @@ namespace VOP
         public string   m_strAddon;
 
         public List<MerchantInfo> m_listMerchantInfo = new List<MerchantInfo>();
+
+        public void Clear()
+        {
+            m_strItems = "";
+            m_nTotalCount = 0;
+            m_strDetail = "";
+            m_nErrorCode = 0;
+            m_bSuccess = false;
+            m_strAddon = "";
+            m_listMerchantInfo.Clear();
+        }
     }
 
     public class MaintainInfoItem
@@ -103,6 +114,17 @@ namespace VOP
         public string   m_strAddon;
 
         public List<MaintainInfoItem> m_listMaintainInfo = new List<MaintainInfoItem>();
+
+        public void Clear()
+        {
+            m_strItems = "";
+            m_nTotalCount = 0;
+            m_strDetail = "";
+            m_nErrorCode = 0;
+            m_bSuccess = false;
+            m_strAddon = "";
+            m_listMaintainInfo.Clear();
+        }
     }
     public class JSONResultFormat2
     {
