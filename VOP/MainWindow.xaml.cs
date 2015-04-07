@@ -485,7 +485,8 @@ namespace VOP
                 m_isOnlineDetected = true;
 
 
-            if ( m_isOnlineDetected )
+            // TODO: uncomment this statement: if ( m_isOnlineDetected )
+            if ( true )
             {
                 line3.Visibility = Visibility.Visible;
                 line8.Visibility = Visibility.Visible;
