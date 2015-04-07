@@ -57,6 +57,8 @@ namespace VOP
         /// </summary>
         public ManualResetEvent m_updaterAndUIEvent = new ManualResetEvent(true);
 
+        private bool m_isOnlineDetected = false;    // true is one online printer has been seleted.
+
         private bool PrinterExist(string strPrinterName)
         {
             bool bExist = false;
@@ -479,7 +481,11 @@ namespace VOP
 
             bool bIsOffline = ( ( (byte)EnumStatus.Offline == status ) );
 
-            if ( false == bIsOffline )
+            if ( bIsOffline == false )
+                m_isOnlineDetected = true;
+
+
+            if ( m_isOnlineDetected )
             {
                 line3.Visibility = Visibility.Visible;
                 line8.Visibility = Visibility.Visible;
