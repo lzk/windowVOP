@@ -28,5 +28,10 @@ namespace VOP
         {
             scrollview.ScrollToTop();
         }
+
+        private void OnOpenWebsite(object sender, MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"http://www.lenovo.com.cn");
+        }
     }
 }
