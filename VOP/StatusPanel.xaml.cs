@@ -54,8 +54,7 @@ namespace VOP
                 // Update UI
                 if ( null != this.status && null != txtErrMsg )
                 {
-                    this.status.TypeId = StatusType.Error;
-                    this.status.Text = common.GetStatusMsg( value );
+                    this.status.TypeId = common.GetStatusTypeForUI( value );
                     this.txtErrMsg.Text = common.GetErrorMsg( value, m_job );
                 }
             }

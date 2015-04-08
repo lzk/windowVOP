@@ -14,13 +14,14 @@ using System.Windows.Shapes;
 
 namespace VOP
 {
-    public enum StatusType
+    public enum StatusDisplayType
     {
-        Pend,
-        Sleeping,
-        Pending,
-        Preheat,
-        Error
+        Ready,
+        Sleep,
+        Offline,
+        Warning,
+        Busy,
+        Error,
     }
 
     /// <summary>
@@ -44,15 +45,15 @@ namespace VOP
             DependencyProperty.Register("Text", typeof(string), typeof(StatusTextBlock));
        
 
-        public StatusType TypeId
+        public StatusDisplayType TypeId
         {
-            get { return (StatusType)GetValue(TypeIdProperty); }
+            get { return (StatusDisplayType)GetValue(TypeIdProperty); }
             set { SetValue(TypeIdProperty, value); }
         }
 
         public static readonly DependencyProperty TypeIdProperty =
             DependencyProperty.Register("TypeId",
-            typeof(StatusType),
+            typeof(StatusDisplayType),
             typeof(StatusTextBlock),
             new FrameworkPropertyMetadata(new PropertyChangedCallback(OnTypeId_Changed)));
       
@@ -64,57 +65,44 @@ namespace VOP
 
         private void TypeId_Changed()
         {
-            StatusType typeId = TypeId;           
-
-            if (StatusType.Pend == typeId)
+            string strStatus = "";
+            LinearGradientBrush br = null;
+            
+            switch ( TypeId )
             {
-                rect_Background.Fill = Brush_Pend;
-               // textblock.Text = "等待";
-            }
-            else if (StatusType.Pending == typeId)
-            {
-                rect_Background.Fill = Brush_Pending;
-               // textblock.Text = "等待中";
-            }
-            else if (StatusType.Error == typeId)
-            {
-                rect_Background.Fill = Brush_Error;
-               // textblock.Text = "错误";
-            }
-            else if (StatusType.Preheat == typeId)
-            {
-                rect_Background.Fill = Brush_Preheat;
-              //  textblock.Text = "预热";
-            }
-
-            else if (StatusType.Sleeping == typeId)
-            {
-                rect_Background.Fill = Brush_Sleeping;
-               // textblock.Text = "休眠中";
-            }
-
-            if (StatusType.Error == typeId)
-            {
-               TipInfo = "故障 ： 请复位机器，如果故障依旧，请与服务人员联系";
-            }
-            else
-            {
-               TipInfo = "";
+                case StatusDisplayType.Ready   :
+                    strStatus = "";
+                    br = Brush_Error;
+                    break;
+                case StatusDisplayType.Sleep   :
+                    strStatus = "";
+                    br = Brush_Error;
+                    break;
+                case StatusDisplayType.Offline :
+                    strStatus = "";
+                    br = Brush_Error;
+                    break;
+                case StatusDisplayType.Warning :
+                    strStatus = "";
+                    br = Brush_Error;
+                    break;
+                case StatusDisplayType.Busy    :
+                    strStatus = "";
+                    br = Brush_Error;
+                    break;
+                case StatusDisplayType.Error   :
+                    strStatus = "";
+                    br = Brush_Error;
+                    break;
+                default:
+                    strStatus = "";
+                    br = Brush_Error;
+                    break;
             }
 
+            textblock.Text = strStatus;
+            rect_Background.Fill = br;
         }
-
-
-
-        public string TipInfo
-        {
-            get { return (string)GetValue(TipInfoProperty); }
-            set { SetValue(TipInfoProperty, value); }
-        }
-
-        public static readonly DependencyProperty TipInfoProperty =
-            DependencyProperty.Register("TipInfo", typeof(string), typeof(StatusTextBlock));
-
 
         public StatusTextBlock()
         {
