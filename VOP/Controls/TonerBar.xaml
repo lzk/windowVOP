@@ -75,19 +75,20 @@
 
         <Grid Grid.Row="2" >   
             <Grid.RowDefinitions>
-                <RowDefinition Height="3" />
+                <RowDefinition Height="4" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="3" />
+                <RowDefinition Height="5" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1" />
+                <ColumnDefinition Width="2" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2" />
             </Grid.ColumnDefinitions>
 
-            <Border Grid.ColumnSpan="3" Grid.RowSpan="2" CornerRadius="3" BorderThickness="1" Background="{StaticResource Brush_bk}"/>
+            <Border Grid.ColumnSpan="3" Grid.RowSpan="3" CornerRadius="3" BorderThickness="1" Background="{StaticResource Brush_bk}" Opacity="0.3"/>
 
             <Border Name="TonerBackground" Grid.Column="1" Grid.Row="1" CornerRadius="3" 
-                    BorderThickness="1" 
+                    BorderThickness="0" 
                     BorderBrush="#FFFFFF"
                     Background="{StaticResource Brush_bk2}">
             </Border>
@@ -96,7 +97,7 @@
                 <Border Name="TonerPercent" CornerRadius="3"
                         Background="{StaticResource Brush_Normal}">
                     <UIElement.Effect>
-                        <DropShadowEffect ShadowDepth="1" BlurRadius="3" Opacity="0.6" Direction="270"/>
+                        <DropShadowEffect ShadowDepth="1" BlurRadius="3" Opacity="0.6" Direction="235"/>
                     </UIElement.Effect>
                 </Border>     
             </Grid>
