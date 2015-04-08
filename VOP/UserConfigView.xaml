@@ -86,6 +86,138 @@
                 </Setter>
             </Style>
 
+            <Style x:Key ="SpinnerControl2"  TargetType="{x:Type local:SpinnerControl}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:SpinnerControl}">
+
+                            <Grid Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <!--
+                                    we use the TemplatedParent binding to get a reference to the control
+                                    this template has been applied to, so we can access the property on it
+                                -->
+                                <TextBox Grid.Row="0"
+                                 Grid.Column="1"
+                                 Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                 BorderBrush="{StaticResource TextBoxBorderBrush}"
+                                 Foreground="#FF707070"
+                                 TextAlignment="Center"
+                                 IsReadOnly="False"
+                                 BorderThickness="0"
+                                 FontSize="18" 
+                                 Margin="0,0,0,2"
+                                 MaxLength="2"
+                                 Style="{StaticResource TextBoxErrorTemplateStyle}">
+                                    <TextBox.Text>
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" 
+                                         Mode="TwoWay"
+                                         Path="FormattedValue" 
+                                         UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <local:PrintCopysValidationRule MinimumValue="-6" MaximumValue="6" 
+										ErrorMessage="有效值输入范围为-3到3, 请确认后再次输入." />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+
+                                <RepeatButton Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
+
+
+                                <RepeatButton Grid.Row="0"
+                                      Grid.Column="2"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomPlusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key ="SpinnerControl3"  TargetType="{x:Type local:SpinnerControl}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:SpinnerControl}">
+
+                            <Grid Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <!--
+                                    we use the TemplatedParent binding to get a reference to the control
+                                    this template has been applied to, so we can access the property on it
+                                -->
+                                <TextBox Grid.Row="0"
+                                 Grid.Column="1"
+                                 Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                 BorderBrush="{StaticResource TextBoxBorderBrush}"
+                                 Foreground="#FF707070"
+                                 TextAlignment="Center"
+                                 IsReadOnly="False"
+                                 BorderThickness="0"
+                                 FontSize="18" 
+                                 Margin="0,0,0,2"
+                                 MaxLength="2"
+                                 Style="{StaticResource TextBoxErrorTemplateStyle}">
+                                    <TextBox.Text>
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" 
+                                         Mode="TwoWay"
+                                         Path="FormattedValue" 
+                                         UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <local:PrintCopysValidationRule MinimumValue="-6" MaximumValue="6" 
+										ErrorMessage="有效值输入范围为0到1, 请确认后再次输入." />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+
+                                <RepeatButton Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
+
+
+                                <RepeatButton Grid.Row="0"
+                                      Grid.Column="2"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomPlusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -154,13 +286,13 @@
 
                 <TextBlock Text="画像浓度" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                 <Grid Grid.Row="2" Grid.Column="2" Width="120">
-                    <local:SpinnerControl x:Name="spinCtlDensity" Style="{StaticResource SpinnerControl1}"
+                    <local:SpinnerControl x:Name="spinCtlDensity" Style="{StaticResource SpinnerControl2}"
                             Width="120" 
                             Background="Transparent"
                             Change="1"
                             DecimalPlaces="0"
-                            Maximum="6"
-                            Minimum="-6"  
+                            Maximum="3"
+                            Minimum="-3"  
                             IsPercentFormat="False">
 
                     </local:SpinnerControl>
@@ -168,13 +300,13 @@
 
                 <TextBlock Text="低湿度模式" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                 <Grid Grid.Row="3" Grid.Column="2" Width="120">
-                    <local:SpinnerControl x:Name="spinCtlHumidity" Style="{StaticResource SpinnerControl1}"
+                    <local:SpinnerControl x:Name="spinCtlHumidity" Style="{StaticResource SpinnerControl3}"
                             Width="120" 
                             Background="Transparent"
                             Change="1"
                             DecimalPlaces="0"
-                            Maximum="6"
-                            Minimum="-6"  
+                            Maximum="1"
+                            Minimum="0"  
                             IsPercentFormat="False">
                     </local:SpinnerControl>
                 </Grid>

@@ -31,18 +31,17 @@ namespace VOP
 
         private void btnGetVerifyCode_Click(object sender, RoutedEventArgs e)
         {
-            RequestManager rm = new RequestManager();
             JSONResultFormat1 js = new JSONResultFormat1();
 
             if (tbPhoneNumber.Text.Length == 11)
             {
-                if (rm.SendVerifyCode(tbPhoneNumber.Text, ref js))
+                if (VOP.MainWindow.m_RequestManager.SendVerifyCode(tbPhoneNumber.Text, ref js))
                 {
-                    //  MessageBox.Show("Send verify code ok.");
+                    MessageBox.Show("验证码发送成功");
                 }
                 else
                 {
-                    MessageBox.Show("验证码校验错误");
+                    MessageBox.Show("验证码发送失败");
                 }
             }
             else
@@ -66,7 +65,7 @@ namespace VOP
                 }
                 else
                 {
-                    MessageBox.Show("验证码发送失败");
+                    MessageBox.Show("验证码错误，请重新输入。");
                 }
             }
             else

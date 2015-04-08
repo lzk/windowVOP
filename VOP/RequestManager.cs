@@ -512,6 +512,7 @@ namespace VOP
                 StreamReader sr2 = new StreamReader(response2.GetResponseStream(), Encoding.UTF8);
 
                 string text2 = sr2.ReadToEnd();
+                dll.OutputDebugStringToFile_(text2);
                 if (ParseJsonData<T>(text2, rtFormat, ref record))
                 {
                     bSuccess = true;
