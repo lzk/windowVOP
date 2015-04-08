@@ -63,13 +63,15 @@
         <Grid Name="MediaGrid" Grid.Row="2" Grid.Column="1" >
             <!--Background="#FFCDCDCD"-->
             <Rectangle Stroke="Black" StrokeThickness="1" />
-            <MediaElement Name="mediaElement" LoadedBehavior="Play" Stretch="Fill" Margin="1">
+            <MediaElement Name="mediaElement" LoadedBehavior="Play" Stretch="Fill" Margin="1" Loaded="mediaElement_Loaded">
                 <MediaElement.Triggers>
                     <EventTrigger RoutedEvent="MediaElement.Loaded">
                         <EventTrigger.Actions>
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <MediaTimeline  Source="pack://siteoforigin:,,,/../../Media/FlickAnimation.avi" Storyboard.TargetName="mediaElement"  
+                                    <!--<MediaTimeline  Source="pack://siteoforigin:,,,/../../Media/FlickAnimation.avi" Storyboard.TargetName="mediaElement"  
+                                                    RepeatBehavior="Forever" />-->
+                                    <MediaTimeline Name="media" Source="pack://siteoforigin:,,,/../../Media/FlickAnimation.avi" Storyboard.TargetName="mediaElement"  
                                                     RepeatBehavior="Forever" />
                                 </Storyboard>
                             </BeginStoryboard>

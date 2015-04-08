@@ -14,28 +14,26 @@ using System.Windows.Shapes;
 namespace VOP.Controls
 {
     /// <summary>
-    /// Interaction logic for MessageBoxEx_1.xaml
+    /// Interaction logic for MessageBoxEx_Simple.xaml
     /// </summary>
-    public partial class MessageBoxEx_Video : Window
+    public partial class MessageBoxEx_Simple : Window
     {
-        public MessageBoxEx_Video(string messageBoxText ="", string caption="")
+        public MessageBoxEx_Simple(string messageBoxText = "", string caption = "")
         {
             InitializeComponent();
 
             messageBoxTextBlock.Text = messageBoxText;
             captionTextBlock.Text = caption;
-            
         }
+
         public void Title_MouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
 
-
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-
         }
     }
 }

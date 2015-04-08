@@ -13,13 +13,6 @@ using System.Windows.Shapes;
 
 namespace VOP.Controls
 {
-    public enum MessageBoxExResult
-    {
-        None,
-        Yes,
-        No,
-    }
-
     /// <summary>
     /// Interaction logic for MessageBoxEx_YesNo.xaml
     /// </summary>
@@ -39,7 +32,6 @@ namespace VOP.Controls
         {
             this.DragMove();
         }
-
 
         private void Click(object sender, RoutedEventArgs e)
         {

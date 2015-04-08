@@ -14,28 +14,34 @@ using System.Windows.Shapes;
 namespace VOP.Controls
 {
     /// <summary>
-    /// Interaction logic for MessageBoxEx_Simple.xaml
+    /// Interaction logic for MessageBoxEx_1.xaml
     /// </summary>
-    public partial class MessageBoxEx_Simple : Window
+    public partial class MessageBoxEx_Video : Window
     {
-        public MessageBoxEx_Simple(string messageBoxText = "", string caption = "")
+        private Uri m_uri = null;
+        public MessageBoxEx_Video(Uri uri, string messageBoxText, string caption)
         {
             InitializeComponent();
 
+            m_uri = uri;
             messageBoxTextBlock.Text = messageBoxText;
             captionTextBlock.Text = caption;
         }
-
         public void Title_MouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
 
-
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
 
+        private void mediaElement_Loaded(object sender, RoutedEventArgs e)
+        {
+            // media.Source = new Uri(@"pack://siteoforigin:,,,/../../Media/FlickAnimation.avi");
+            if (null != m_uri)
+                media.Source = m_uri;
         }
     }
 }
