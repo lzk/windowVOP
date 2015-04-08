@@ -19,14 +19,136 @@ namespace VOP
     /// </summary>
     public partial class UserConfigView : UserControl
     {
+        public bool m_is_init = false;
+
+        sbyte m_leadingedge = 0;
+        sbyte m_sidetoside = 0;
+        sbyte m_imagedensity = 0;
+        sbyte m_lowhumiditymode = 0;
+
         public UserConfigView()
         {
             InitializeComponent();
         }
+        public bool init_config(bool _bDisplayProgressBar = true)
+        {
+            bool isInitSuccess = false;
+
+            m_is_init = true;
+
+            m_leadingedge = 0;
+            m_sidetoside = 0;
+            m_imagedensity = 0;
+            m_lowhumiditymode = 0;
+
+            UserCfgRecord m_rec = null;
+            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+            string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
+
+            if (_bDisplayProgressBar)
+            {
+                worker.InvokeMethod<UserCfgRecord>(strPrinterName, ref m_rec, DllMethodType.GetUserConfig);
+            }
+            else
+            {
+                m_rec = worker.GetUserCfg(strPrinterName);
+            }
+
+            if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+            {
+                m_leadingedge = m_rec.LeadingEdge;
+                m_sidetoside = m_rec.SideToSide;
+                m_imagedensity = m_rec.ImageDensity;
+                m_lowhumiditymode = m_rec.LowHumidityMode;
+                isInitSuccess = true;
+            }
+
+            spinCtlEdge.Value = m_leadingedge;
+            spinCtlSide2Side.Value = m_sidetoside;
+            spinCtlHumidity.Value = m_lowhumiditymode;
+            spinCtlDensity.Value = m_imagedensity;
+
+            return isInitSuccess;
+        }
+
+        private void OnLoadedUserConfigView(object sender, RoutedEventArgs e)
+        {
+            init_config();
+        }
+        private void GetUIValues(
+        out sbyte leadingedge,
+        out sbyte sidetoside,
+        out sbyte imagedensity,
+        out sbyte lowhumiditymode)
+        {
+            leadingedge = 0;
+            sidetoside = 0;
+            imagedensity = 0;
+            lowhumiditymode = 0;
+            if (null != spinCtlEdge &&
+                null != spinCtlSide2Side &&
+                null != spinCtlDensity &&
+                null != spinCtlHumidity)
+            {
+                leadingedge = (sbyte)spinCtlEdge.Value;
+                sidetoside = (sbyte)spinCtlSide2Side.Value;
+                imagedensity = (sbyte)spinCtlDensity.Value;
+                lowhumiditymode = (sbyte)spinCtlHumidity.Value;
+            }
+        }
+
+        public bool apply()
+        {
+            bool isApplySuccess = false;
+
+            sbyte leadingedge = 1;
+            sbyte sidetoside = 1;
+            sbyte imagedensity = 0;
+            sbyte lowhumiditymode = 0;
+
+            GetUIValues(out leadingedge, out sidetoside, out imagedensity, out lowhumiditymode);
+
+            string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
+            UserCfgRecord m_rec = new UserCfgRecord(strPrinterName, leadingedge, sidetoside, imagedensity, lowhumiditymode);
+            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+
+            if (worker.InvokeMethod<UserCfgRecord>(strPrinterName, ref m_rec, DllMethodType.SetUserConfig))
+            {
+                if (m_rec.CmdResult == EnumCmdResult._ACK)
+                {
+                    m_leadingedge = leadingedge;
+                    m_sidetoside = sidetoside;
+                    m_imagedensity = imagedensity;
+                    m_lowhumiditymode = lowhumiditymode;
+
+                    isApplySuccess = true;
+                }
+
+            }
+
+            return isApplySuccess;
+        }
 
         private void btnApply_Click(object sender, RoutedEventArgs e)
         {
+            apply();
+        }
 
+        private void btnFusing_Click(object sender, RoutedEventArgs e)
+        {
+            bool isApplySuccess = false;
+
+            string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
+            FusingResetRecord m_rec = new FusingResetRecord(strPrinterName);
+            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+
+            if (worker.InvokeMethod<FusingResetRecord>(strPrinterName, ref m_rec, DllMethodType.SetFusingResetCmd))
+            {
+                if (m_rec.CmdResult == EnumCmdResult._ACK)
+                {
+                    isApplySuccess = true;
+                }
+            }     
         }
     }
 }
