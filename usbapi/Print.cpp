@@ -4,6 +4,13 @@
 #include "dibhelp.h"
 #include <vector>
 
+enum PrintError
+{
+	Print_Memomry_Fail,
+	Print_File_Not_Support,
+	Print_Get_Default_Printer_Fail,
+	Print_OK,
+};
 
 enum PrintShowMode
 {
@@ -19,6 +26,7 @@ typedef struct _PrintItem
 	int rotation;
 }PrintItem;
 
+USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName);
 USBAPI_API BOOL __stdcall PrintInit(const TCHAR * jobDescription, HWND hwnd);
 USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName, int rotation);
 USBAPI_API BOOL __stdcall DoPrint();
@@ -33,6 +41,43 @@ static int DisplayDib(HDC hdc, HBITMAP hBitmap, int x, int y,
 	WORD wShow, BOOL fHalftonePalette);
 
 static HDIB DibRotateRight(HDIB hdibSrc);
+
+
+USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName)
+{
+	PrintError error = Print_OK;
+	DWORD bufferSize = 500;
+	TCHAR defaultPrinterName[500];
+	int shellExeRes = 0;
+
+	if (GetDefaultPrinter(defaultPrinterName, &bufferSize))
+	{
+		::SetDefaultPrinter(strPrinterName);
+		CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
+
+		if ((shellExeRes = (int)::ShellExecute(NULL, L"print", strFileName, NULL, NULL, SW_SHOW)) > 32)
+		{
+			::SetDefaultPrinter(defaultPrinterName);
+		}
+		else
+		{
+			if (shellExeRes == SE_ERR_OOM || shellExeRes == 0)
+			{
+				error = Print_Memomry_Fail;
+			}
+			else
+			{
+				error = Print_File_Not_Support;
+			}
+		}
+	}
+	else
+	{
+		error = Print_Get_Default_Printer_Fail;
+	}
+
+	return error;
+}
 
 USBAPI_API BOOL __stdcall PrintInit(const TCHAR * jobDescription, HWND hwnd)
 {

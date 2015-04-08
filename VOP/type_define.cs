@@ -308,4 +308,9 @@ namespace VOP
         Text  = 1,
     }
 
+    public enum PrintError
+    {
+        Print_Memomry_Fail,
+        Print_File_Not_Support,
+    }
 }
