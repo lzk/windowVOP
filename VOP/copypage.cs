@@ -77,6 +77,9 @@ namespace VOP
 
         private void SettingBtnClick(object sender, RoutedEventArgs e)
         {
+            if ( true == chkBtnIDCardCopy.IsChecked )
+                ResetValueForIDCardCopy();
+
             CopySetting win = new CopySetting();
             
             win.Owner = m_MainWin;
@@ -103,6 +106,9 @@ namespace VOP
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if ( true == chkBtnIDCardCopy.IsChecked )
+                ResetValueForIDCardCopy();
+
             byte density     = ctrlDensity.m_density;
             byte nCopy       = m_copies;
 
@@ -153,6 +159,20 @@ namespace VOP
         public void HandlerStateUpdate( EnumState state )
         {
             // TODO: update UI when auto machine state change.
+        }
+
+        /// <summary>
+        /// Reset value of constrained items for id card copy.
+        /// </summary>
+        private void ResetValueForIDCardCopy()
+        {
+            m_scaling    = 100;
+            m_nin1       = EnumNin1._1up;
+            m_dpi        = EnumResln._300x300;
+
+            if ( EnumPaperSizeOutput._A6 == m_outputSize || EnumPaperSizeOutput._B6 == m_outputSize )
+                m_outputSize = EnumPaperSizeOutput._Letter; 
+
         }
     }
 }
