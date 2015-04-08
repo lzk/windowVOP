@@ -241,7 +241,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "A4 (210*297mm)" ;
-            cboItem.IsSelected = true;
             cboItem.DataContext = EnumPaperSizeInput._A4; 
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -249,7 +248,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "A5 (148*210mm)" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumPaperSizeInput._A5; 
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -257,7 +255,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "B5 (182*257mm)" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumPaperSizeInput._B5; 
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -265,7 +262,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "Letter (8.5*11\")" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumPaperSizeInput._Letter; 
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -273,11 +269,20 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "Executive (7.25*10.5\")" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumPaperSizeInput._Executive; 
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboDocSize.Items.Add( cboItem );
+
+            foreach ( ComboBoxItem obj in cboDocSize.Items )
+            {
+                if ( null != obj.DataContext 
+                        && (EnumPaperSizeInput)obj.DataContext == m_docSize )
+                {
+                    obj.IsSelected = true;
+                }
+            }
+
         }
 
         /// <summary>
@@ -289,7 +294,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "300*300" ;
-            cboItem.IsSelected = true;
             cboItem.DataContext = EnumResln._300x300;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -297,11 +301,19 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "600*600" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumResln._600x600;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboResolution.Items.Add( cboItem );
+
+            foreach ( ComboBoxItem obj in cboResolution.Items )
+            {
+                if ( null != obj.DataContext 
+                        && (EnumResln)obj.DataContext == m_dpi )
+                {
+                    obj.IsSelected = true;
+                }
+            }
         }
 
         /// <summary>
@@ -313,7 +325,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content="Letter" ;
-            cboItem.IsSelected = true;
             cboItem.DataContext = EnumPaperSizeOutput._Letter;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -321,7 +332,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content="A4" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumPaperSizeOutput._A4;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -329,7 +339,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content="A5" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumPaperSizeOutput._A5;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -337,7 +346,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content="A6" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumPaperSizeOutput._A6;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -345,7 +353,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content="B5" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumPaperSizeOutput._B5;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -353,7 +360,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content="B6" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumPaperSizeOutput._B6;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -361,7 +367,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content="Executive" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumPaperSizeOutput._Executive;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -369,11 +374,19 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content="16K" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumPaperSizeOutput._16K;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboOutputSize.Items.Add( cboItem );
+
+            foreach ( ComboBoxItem obj in cboOutputSize.Items )
+            {
+                if ( null != obj.DataContext 
+                        && (EnumPaperSizeOutput)obj.DataContext == m_outputSize )
+                {
+                    obj.IsSelected = true;
+                }
+            }
         }
 
         /// <summary>
@@ -385,7 +398,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "Plain Paper" ;
-            cboItem.IsSelected = true;
             cboItem.DataContext = EnumMediaType.Plain;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -393,7 +405,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "Recycled Paper" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumMediaType.Recycled;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -401,7 +412,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "Thick Paper" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumMediaType.Thick;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -409,7 +419,6 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "Thin Paper" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumMediaType.Thin;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -417,12 +426,19 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "Label" ;
-            cboItem.IsSelected = false;
             cboItem.DataContext = EnumMediaType.Label;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboMediaType.Items.Add( cboItem );
 
+            foreach ( ComboBoxItem obj in cboMediaType.Items )
+            {
+                if ( null != obj.DataContext 
+                        && (EnumMediaType)obj.DataContext == m_mediaType )
+                {
+                    obj.IsSelected = true;
+                }
+            }
         }
 
         /// <summary>
