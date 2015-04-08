@@ -564,8 +564,9 @@ namespace VOP
                 setTabItemFromIndex(3);
             }
 
-
-
+            // After UI already loaded, tranfer auto machine. 
+            App.g_autoMachine.TranferState( (EnumMachineJob)job );
+            App.g_autoMachine.TranferState( (EnumStatus)status );
 
             statusUpdater = new Thread(UpdateStatusCaller);
             statusUpdater.Start();

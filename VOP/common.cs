@@ -128,6 +128,9 @@ namespace VOP
             m_autoMachineState = EnumState.init;
         }
 
+        /// <summary>
+        /// Tranfer status using job 1st, then using status.
+        /// </summary>
         public void TranferState( EnumMachineJob job )
         {
             if ( IsIdle(job) )
