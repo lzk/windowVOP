@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net;
+using System.Net.Sockets;
 
 namespace VOP
 {
@@ -73,14 +75,15 @@ namespace VOP
 
             IpInfoRecord m_rec = null;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-
+            string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
+            
             if (_bDisplayProgressBar)
             {
-                worker.InvokeMethod<IpInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetIpInfo);
+                worker.InvokeMethod<IpInfoRecord>(strPrinterName, ref m_rec, DllMethodType.GetIpInfo);
             }
             else
             {
-                m_rec = worker.GetIpInfo(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
+                m_rec = worker.GetIpInfo(strPrinterName);
             }
 
             if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
@@ -159,6 +162,95 @@ namespace VOP
             }
         }
 
+        private bool ParseNetworkMask(string strIP)
+        {
+            bool isSuccess = false;
+            byte ip0 = 0;
+            byte ip1 = 0;
+            byte ip2 = 0;
+            byte ip3 = 0;
+
+            Int32 nIP;
+            if (ParseIP(strIP, ref ip0, ref ip1, ref ip2, ref ip3))
+            {
+                nIP = ip3 | (ip2 << 8) | (ip1 << 16) | (ip0 << 24);
+                int nIdx = 0;
+                for (; nIdx < 32; nIdx++)
+                {
+                    if (0 != (nIP & (0x80000000 >> nIdx)))
+                        continue;
+                    else
+                        break;
+                }
+
+                for (int nIdx1 = 0; nIdx1 < (32 - nIdx); nIdx1++)
+                {
+                    if (0 != (nIP & (0x80000000 >> (nIdx + nIdx1))))
+                        isSuccess = false;
+                    else
+                        isSuccess = true;
+
+                    if (!isSuccess)
+                        break;
+                }
+
+            }
+
+            return isSuccess;
+        }
+        
+        private bool ParseIP(string strIP, ref byte ip0, ref byte ip1, ref byte ip2, ref byte ip3)
+        {
+            bool isSuccess = false;
+
+            int nVal0 = -1;
+            int nVal1 = -1;
+            int nVal2 = -1;
+            int nVal3 = -1;
+            if (null != strIP)
+            {
+                IPAddress ipAddress;
+                IPAddress.TryParse(strIP, out ipAddress);
+                if (null != ipAddress)
+                {
+                    if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        strIP = ipAddress.ToString();
+                    }
+                }
+            }
+
+            if (null != strIP && 0 < strIP.Length)
+            {
+                var parts_ip = strIP.Split('.');
+                try
+                {
+                    nVal0 = Convert.ToInt32(parts_ip[0]);
+                    nVal1 = Convert.ToInt32(parts_ip[1]);
+                    nVal2 = Convert.ToInt32(parts_ip[2]);
+                    nVal3 = Convert.ToInt32(parts_ip[3]);
+
+                    if (0 <= nVal0 && 255 >= nVal0
+                            && 0 <= nVal1 && 255 >= nVal1
+                            && 0 <= nVal2 && 255 >= nVal2
+                            && 0 <= nVal3 && 255 >= nVal3)
+                    {
+                        ip0 = (byte)nVal0;
+                        ip1 = (byte)nVal1;
+                        ip2 = (byte)nVal2;
+                        ip3 = (byte)nVal3;
+                        isSuccess = true;
+                    }
+                }
+                catch
+                {
+                    isSuccess = false;
+                }
+            }
+
+            return isSuccess;
+        }
+
         private void btn_click(object sender, RoutedEventArgs e)
         {
             RadioButton btn = sender as RadioButton;
@@ -191,9 +283,194 @@ namespace VOP
             //    event_config_dirty(is_dirty());
         }
 
+        public bool apply()
+        {
+            bool isSuccess = false;
+            // get network info
+            string addr_ip = tb_ip.Text;
+            string addr_mask = tb_mask.Text;
+            string addr_gate = tb_gate.Text;
+
+            enum_addr_mode addr_mode = enum_addr_mode.Manual;
+            addr_mode = rdbtn_dhcp.IsChecked == true ? enum_addr_mode.DHCP : enum_addr_mode.Manual;
+
+            byte mode_ipversion = 0;  // 0-ipv4,1-ipv6
+            byte mode_ipaddress = (byte)EnumIPType.DHCP;
+            byte ip0 = 0;
+            byte ip1 = 0;
+            byte ip2 = 0;
+            byte ip3 = 0;
+            byte mask0 = 0;
+            byte mask1 = 0;
+            byte mask2 = 0;
+            byte mask3 = 0;
+            byte gate0 = 0;
+            byte gate1 = 0;
+            byte gate2 = 0;
+            byte gate3 = 0;
+            mode_ipaddress = (byte)addr_mode;
+
+            bool isIPOK = ParseIP(addr_ip, ref ip0, ref ip1, ref ip2, ref ip3);
+            bool isGateOK = ParseIP(addr_gate, ref gate0, ref gate1, ref gate2, ref gate3);
+            bool isMaskOK = ParseIP(addr_mask, ref mask0, ref mask1, ref mask2, ref mask3) && ParseNetworkMask(addr_mask);
+
+            if (mode_ipaddress == (byte)enum_addr_mode.Manual)
+            {
+                if ((ip0 >= 224 || ip0 == 127))
+                    isIPOK = false;
+
+                if ((ip0 == 192 && ip0 == 168 && ip0 == 186 && ip0 == 1) || 
+                    (ip0 == 169 && ip0 == 254))
+                {
+                    isIPOK = false;
+                }
+            }
+
+            if (isGateOK)
+            {
+                if ((gate0 >= 224 || gate0 == 127))
+                    isGateOK = false;
+            }
+
+            if (mode_ipaddress == (byte)enum_addr_mode.Manual)
+            {
+                if (false == isIPOK)
+                {
+                    MessageBox.Show("IP地址输入有误，请确认后再次输入。");
+                    tb_ip.Focus();
+                    return false;
+                }
+                else if (false == isGateOK)
+                {
+                    MessageBox.Show("网关输入有误，请确认后再次输入。");
+                    tb_gate.Focus();
+                    return false;
+                }
+                else if (false == isMaskOK)
+                {
+                    MessageBox.Show("子网掩码输入有误，请确认后再次输入。");
+                    tb_mask.Focus();
+                    return false;
+                }
+
+                if (isIPOK && isMaskOK)
+                {
+                    Int32 nIP = ip3 | (ip2 << 8) | (ip1 << 16) | (ip0 << 24);
+                    Int32 nSubMask = mask3 | (mask2 << 8) | (mask1 << 16) | (mask0 << 24);
+                    if (isIPOK && (nIP != 0x00000000 && nSubMask != 0x00000000) && (0xffffffff == ((nIP | nSubMask) & 0xffffffff) || (0x00000000 == ((~nSubMask) & nIP))))
+                    {
+                        isIPOK = false;
+                        if (0xffffffff == ((nIP | nSubMask) & 0xffffffff))
+                        {
+                            MessageBox.Show("IP地址与子网掩码组合无效。已将IP地址的主机地址部分的所有位都设置为1.请输入一个有效的IP地址和子网掩码组合。");
+                            tb_ip.Focus();
+                            return false;
+                        }
+                        else if ((0x00000000 == ((~nSubMask) & nIP)))
+                        {
+                            MessageBox.Show("IP地址与子网掩码组合无效。已将IP地址的主机地址部分的所有位都设置为0.请输入一个有效的IP地址和子网掩码组合。");
+                            tb_ip.Focus();
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            if ((mode_ipaddress == (byte)enum_addr_mode.Manual && true == isIPOK
+                    && true == isMaskOK
+                    && true == isGateOK) || mode_ipaddress == (byte)enum_addr_mode.DHCP)
+            {
+                IpInfoRecord m_rec = new IpInfoRecord();
+                byte[] arr = new byte[4];
+
+                string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
+                m_rec.PrinterName = strPrinterName;
+                m_rec.IpVersion = mode_ipversion;
+                m_rec.IpAddressMode = (EnumIPType)mode_ipaddress;
+
+                arr[0] = ip0;
+                arr[1] = ip1;
+                arr[2] = ip2;
+                arr[3] = ip3;
+                m_rec.Ip = new IPAddress(arr);
+
+                arr[0] = mask0;
+                arr[1] = mask1;
+                arr[2] = mask2;
+                arr[3] = mask3;
+                m_rec.Mask = new IPAddress(arr);
+
+                arr[0] = gate0;
+                arr[1] = gate1;
+                arr[2] = gate2;
+                arr[3] = gate3;
+                m_rec.Gate = new IPAddress(arr);
+
+                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+                if (worker.InvokeMethod<IpInfoRecord>(strPrinterName, ref m_rec, DllMethodType.SetIpInfo))
+                {
+                    if (m_rec.CmdResult == EnumCmdResult._ACK)
+                    {
+                        TcpIpSettingInit.m_mode_ipversion = TcpIpSetting.m_mode_ipversion = mode_ipversion;
+                        TcpIpSettingInit.m_mode_ipaddress = TcpIpSetting.m_mode_ipaddress = mode_ipaddress;
+                        TcpIpSettingInit.m_ip0 = TcpIpSetting.m_ip0 = ip0;
+                        TcpIpSettingInit.m_ip1 = TcpIpSetting.m_ip1 = ip1;
+                        TcpIpSettingInit.m_ip2 = TcpIpSetting.m_ip2 = ip2;
+                        TcpIpSettingInit.m_ip3 = TcpIpSetting.m_ip3 = ip3;
+                        TcpIpSettingInit.m_mask0 = TcpIpSetting.m_mask0 = mask0;
+                        TcpIpSettingInit.m_mask1 = TcpIpSetting.m_mask1 = mask1;
+                        TcpIpSettingInit.m_mask2 = TcpIpSetting.m_mask2 = mask2;
+                        TcpIpSettingInit.m_mask3 = TcpIpSetting.m_mask3 = mask3;
+                        TcpIpSettingInit.m_gate0 = TcpIpSetting.m_gate0 = gate0;
+                        TcpIpSettingInit.m_gate1 = TcpIpSetting.m_gate1 = gate1;
+                        TcpIpSettingInit.m_gate2 = TcpIpSetting.m_gate2 = gate2;
+                        TcpIpSettingInit.m_gate3 = TcpIpSetting.m_gate3 = gate3;
+
+                        //Add by KevinYin for BMS Bug 55147 begin
+                        IPAddress ipAddress;
+                        IPAddress.TryParse(addr_ip, out ipAddress);
+                        if (null != ipAddress)
+                        {
+                            if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
+                            {
+                                tb_ip.Text = ipAddress.ToString();
+                            }
+                        }
+
+                        IPAddress.TryParse(addr_mask, out ipAddress);
+                        if (null != ipAddress)
+                        {
+                            if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
+                            {
+                                tb_mask.Text = ipAddress.ToString();
+                            }
+                        }
+
+                        IPAddress.TryParse(addr_gate, out ipAddress);
+                        if (null != ipAddress)
+                        {
+                            if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
+                            {
+                                tb_gate.Text = ipAddress.ToString();
+                            }
+                        }
+                        //Add by KevinYin for BMS Bug 55147 end
+                        isSuccess = true;
+                    }
+
+                }
+
+                //if (null != event_config_dirty)
+                //    event_config_dirty(is_dirty());
+            }
+
+            return isSuccess;
+        }
+
+
         private void btnApply_Click(object sender, RoutedEventArgs e)
         {
-
+            apply();
         }
     }
 }
