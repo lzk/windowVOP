@@ -310,7 +310,9 @@ namespace VOP
 
     public enum PrintError
     {
-        Print_Memomry_Fail,
+        Print_Memory_Fail,
         Print_File_Not_Support,
+        Print_Get_Default_Printer_Fail,
+        Print_OK,
     }
 }

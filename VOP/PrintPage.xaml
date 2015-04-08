@@ -55,7 +55,8 @@
                         FontSize="17"
                         Style="{StaticResource CustomGreenButtonStyle}"
                         Content="打    印"
-                        Grid.Row="4" Grid.Column="2" />
+                        Grid.Row="4" Grid.Column="2" 
+                        Click="ApplyButtonClick"/>
     </Grid>
 
 </UserControl>

@@ -23,7 +23,7 @@ namespace VOP
     public delegate int ScanDelegate(string printerName, string szOrig, string szView, string szThumb,
                                         int scanMode, int resolution, int width, int height,
                                         int contrast, int brightness, int docuType, uint uMsg );
-
+    public delegate int PrintFileDelegate(string printerName, string fileName);
     //public delegate int GetIpInfoDelegate(string printerName, ref byte mode_ipversion, ref byte mode_ipaddress, ref byte ip0, ref byte ip1, ref byte ip2, ref byte ip3,
     //                                ref byte mask0, ref byte mask1, ref byte mask2, ref byte mask3, ref byte gate0, ref byte gate1, ref byte gate2, ref byte gate3);
     
@@ -128,6 +128,32 @@ namespace VOP
             }
 
             return 1;
+        }
+
+        public PrintError InvokePrintFileMethod(PrintFileDelegate method, string printerName, string fileName)
+        {
+
+            if (method != null)
+            {
+                PrintFileDelegate caller = method;
+
+                IAsyncResult result = caller.BeginInvoke(printerName, fileName, new AsyncCallback(CallbackMethod), null);
+
+                if (!result.AsyncWaitHandle.WaitOne(100, false))
+                {
+                    pbw = new ProgressBarWindow();
+                    pbw.Owner = this.owner;
+                    pbw.ShowDialog();
+                }
+
+                if (result.AsyncWaitHandle.WaitOne(100, false))
+                {
+                    return (PrintError)caller.EndInvoke(result);
+                }
+
+            }
+
+            return PrintError.Print_File_Not_Support;
         }
 
         public bool InvokeDoWorkMethod(DoWorkDelegate method)

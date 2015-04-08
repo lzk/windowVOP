@@ -3,10 +3,13 @@
 #include <windows.h>
 #include "dibhelp.h"
 #include <vector>
+#include <gdiplus.h>
+
+using namespace Gdiplus;
 
 enum PrintError
 {
-	Print_Memomry_Fail,
+	Print_Memory_Fail,
 	Print_File_Not_Support,
 	Print_Get_Default_Printer_Fail,
 	Print_OK,
@@ -23,18 +26,22 @@ enum PrintShowMode
 typedef struct _PrintItem
 {
 	const TCHAR * imagePath;
-	int rotation;
+	//int rotation;
 }PrintItem;
 
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName);
-USBAPI_API BOOL __stdcall PrintInit(const TCHAR * jobDescription, HWND hwnd);
-USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName, int rotation);
-USBAPI_API BOOL __stdcall DoPrint();
+USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription);
+USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName);
+USBAPI_API int __stdcall DoPrint();
 
 static std::vector<PrintItem> g_vecImagePaths;
-static PRINTDLGEX pdx;
+//static PRINTDLGEX pdx;
 static DOCINFO  di = { sizeof (DOCINFO) };
-LPPRINTPAGERANGE pPageRanges = NULL;
+static HDC dc = NULL;
+//LPPRINTPAGERANGE pPageRanges = NULL;
+
+static GdiplusStartupInput gdiplusStartupInput;
+static ULONG_PTR gdiplusToken;
 
 static int DisplayDib(HDC hdc, HBITMAP hBitmap, int x, int y,
 	int cxClient, int cyClient,
@@ -55,21 +62,23 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 		::SetDefaultPrinter(strPrinterName);
 		CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
 
-		if ((shellExeRes = (int)::ShellExecute(NULL, L"print", strFileName, NULL, NULL, SW_SHOW)) > 32)
+		if ((shellExeRes = (int)::ShellExecute(NULL, L"print", strFileName, NULL, NULL, SW_HIDE)) > 32)
 		{
-			::SetDefaultPrinter(defaultPrinterName);
+			
 		}
 		else
 		{
 			if (shellExeRes == SE_ERR_OOM || shellExeRes == 0)
 			{
-				error = Print_Memomry_Fail;
+				error = Print_Memory_Fail;
 			}
 			else
 			{
 				error = Print_File_Not_Support;
 			}
 		}
+
+		::SetDefaultPrinter(defaultPrinterName);
 	}
 	else
 	{
@@ -79,60 +88,36 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	return error;
 }
 
-USBAPI_API BOOL __stdcall PrintInit(const TCHAR * jobDescription, HWND hwnd)
+USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription)
 {
 	g_vecImagePaths.clear();
 	di.lpszDocName = jobDescription;
 
-	// Allocate an array of PRINTPAGERANGE structures.
-	pPageRanges = (LPPRINTPAGERANGE)GlobalAlloc(GPTR, 10 * sizeof(PRINTPAGERANGE));
-	if (!pPageRanges)
-		return E_OUTOFMEMORY;
+	dc = CreateDCW(L"WINSPOOL", strPrinterName, NULL, NULL);
 
-	pdx.lStructSize = sizeof (PRINTDLGEX);
-	pdx.hwndOwner = hwnd;
-	pdx.hDevMode = NULL;
-	pdx.hDevNames = NULL;
-	pdx.hDC = NULL;
-	pdx.Flags = PD_RETURNDC | PD_COLLATE;
-	pdx.Flags2 = 0;
-	pdx.ExclusionFlags = 0;
-	pdx.nPageRanges = 0;
-	pdx.nMaxPageRanges = 10;
-	pdx.lpPageRanges = pPageRanges;
-	pdx.nMinPage = 1;
-	pdx.nMaxPage = 1000;
-	pdx.nCopies = 1;
-	pdx.hInstance = 0;
-	pdx.lpPrintTemplateName = NULL;
-	pdx.lpCallback = NULL;
-	pdx.nPropertyPages = 0;
-	pdx.lphPropertyPages = NULL;
-	pdx.nStartPage = START_PAGE_GENERAL;
-	pdx.dwResultAction = 0;
-	
-
-	if (PrintDlgEx(&pdx) != S_OK || pdx.dwResultAction != PD_RESULT_PRINT)
+	if (dc == NULL)
 		return FALSE;
-	
-	if (NULL == pdx.hDC)
+
+	Status status = GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+
+	if (status != Ok)
 		return FALSE;
 
 	return TRUE;
 }
 
-USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName, int rotation)
+USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName)
 {
-	PrintItem item = { fileName, rotation };
+	PrintItem item = { fileName };
 	g_vecImagePaths.push_back(item);
 }
 
-USBAPI_API BOOL __stdcall DoPrint()
+USBAPI_API int __stdcall DoPrint()
 {
 	BOOL  bSuccess = TRUE;
 	HDIB  hdib, hdibNew;
 	HBITMAP hBitmap;
-	HDC   hdcPrn = pdx.hDC;
+	HDC   hdcPrn = dc;
 	int   cxPage;
 	int	  cyPage;
 

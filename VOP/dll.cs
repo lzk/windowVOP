@@ -178,12 +178,12 @@ namespace VOP
 
         [DllImport("usbapi.dll")]
         public static extern bool PrintInit(
-                [MarshalAs(UnmanagedType.LPWStr)]string jobDescription,
-                IntPtr hwnd);
+                [MarshalAs(UnmanagedType.LPWStr)]string printerName,
+                [MarshalAs(UnmanagedType.LPWStr)]string jobDescription);
 
         [DllImport("usbapi.dll")]
         public static extern void AddImagePath(
-               [MarshalAs(UnmanagedType.LPWStr)]string fileName, int rotation);
+               [MarshalAs(UnmanagedType.LPWStr)]string fileName);
 
         [DllImport("usbapi.dll")]
         public static extern bool DoPrint();

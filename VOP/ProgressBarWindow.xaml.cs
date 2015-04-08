@@ -23,6 +23,11 @@ namespace VOP
     {
         DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
+        public ProgressBarWindow()
+        {
+            InitializeComponent();
+        }
+
         public ProgressBarWindow(int timeOutSeconds)
         {
             InitializeComponent();
