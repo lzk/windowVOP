@@ -83,6 +83,10 @@ namespace VOP
         public MainWindow()
         {
             statusPanelPage.eventPrinterSwitch += PrinterSwitch;
+            App.g_autoMachine.eventStateUpdate += winCopyPage.HandlerStateUpdate;
+            App.g_autoMachine.eventStateUpdate += winScanPage.HandlerStateUpdate;
+            App.g_autoMachine.eventStateUpdate += winSettingPage.HandlerStateUpdate;
+            App.g_autoMachine.eventStateUpdate += winPrintPage.HandlerStateUpdate;
 
             InitializeComponent();
 

@@ -226,5 +226,9 @@ namespace VOP
             }
         }
 
+        public void HandlerStateUpdate( EnumState state )
+        {
+            // TODO: update UI when auto machine state change.
+        }
     }
 }

@@ -150,5 +150,9 @@ namespace VOP
             m_copies--;
         }
 
+        public void HandlerStateUpdate( EnumState state )
+        {
+            // TODO: update UI when auto machine state change.
+        }
     }
 }
