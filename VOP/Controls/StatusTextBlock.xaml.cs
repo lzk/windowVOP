@@ -29,11 +29,12 @@ namespace VOP
     /// </summary>
     public partial class StatusTextBlock : UserControl
     {
-        private LinearGradientBrush Brush_Pend = null;
-        private LinearGradientBrush Brush_Sleeping = null;
-        private LinearGradientBrush Brush_Pending = null;
-        private LinearGradientBrush Brush_Preheat = null;
-        private LinearGradientBrush Brush_Error = null;
+        private LinearGradientBrush Brush_Ready   = null;
+        private LinearGradientBrush Brush_Sleep   = null;
+        private LinearGradientBrush Brush_Offline = null;
+        private LinearGradientBrush Brush_Warning = null;
+        private LinearGradientBrush Brush_Busy    = null;
+        private LinearGradientBrush Brush_Error   = null;
 
         public string Text
         {
@@ -71,32 +72,32 @@ namespace VOP
             switch ( TypeId )
             {
                 case StatusDisplayType.Ready   :
-                    strStatus = "";
-                    br = Brush_Error;
+                    strStatus = "待机";
+                    br = Brush_Ready;
                     break;
                 case StatusDisplayType.Sleep   :
-                    strStatus = "";
-                    br = Brush_Error;
+                    strStatus = "休眠";
+                    br = Brush_Sleep;
                     break;
                 case StatusDisplayType.Offline :
-                    strStatus = "";
-                    br = Brush_Error;
+                    strStatus = "离线";
+                    br = Brush_Offline;
                     break;
                 case StatusDisplayType.Warning :
-                    strStatus = "";
-                    br = Brush_Error;
+                    strStatus = "告警";
+                    br = Brush_Warning;
                     break;
                 case StatusDisplayType.Busy    :
-                    strStatus = "";
-                    br = Brush_Error;
+                    strStatus = "工作中";
+                    br = Brush_Busy;
                     break;
                 case StatusDisplayType.Error   :
-                    strStatus = "";
+                    strStatus = "错误";
                     br = Brush_Error;
                     break;
                 default:
-                    strStatus = "";
-                    br = Brush_Error;
+                    strStatus = "离线";
+                    br = Brush_Offline;
                     break;
             }
 
@@ -112,11 +113,12 @@ namespace VOP
 
         void Init()
         {
-            Brush_Pend      = (LinearGradientBrush)this.FindResource("Pend");
-            Brush_Sleeping  = (LinearGradientBrush)this.FindResource("Sleeping");
-            Brush_Pending = (LinearGradientBrush)this.FindResource("Pending");
-            Brush_Preheat = (LinearGradientBrush)this.FindResource("Preheat");
-            Brush_Error = (LinearGradientBrush)this.FindResource("Error");            
+            Brush_Ready   = (LinearGradientBrush)this.FindResource("Ready");
+            Brush_Sleep   = (LinearGradientBrush)this.FindResource("Sleep");
+            Brush_Offline = (LinearGradientBrush)this.FindResource("Offline");
+            Brush_Warning = (LinearGradientBrush)this.FindResource("Warning");
+            Brush_Busy    = (LinearGradientBrush)this.FindResource("Busy");
+            Brush_Error   = (LinearGradientBrush)this.FindResource("Error");
         }
     }
 }
