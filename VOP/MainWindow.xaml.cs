@@ -483,6 +483,10 @@ namespace VOP
                 job    = (byte)EnumMachineJob.UnknowJob;
             }
 
+            statusPanelPage.m_job = (EnumMachineJob)job;
+            statusPanelPage.m_toner = toner;
+            statusPanelPage.m_currentStatus = (EnumStatus)status;
+
             bool bIsOffline = ( ( (byte)EnumStatus.Offline == status ) );
 
             if ( bIsOffline == false )
