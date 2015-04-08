@@ -143,6 +143,7 @@ namespace VOP
             else
             {
                 timer.Stop();
+                shopCart_Img.Opacity = 1.0;
             }
         }
         public TonerBar()
