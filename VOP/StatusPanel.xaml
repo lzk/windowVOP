@@ -125,7 +125,7 @@
                         </Grid.RowDefinitions>
                         <Border Grid.Row="1" Background="White" BorderThickness="0" Opacity="0.4"></Border>
 
-                        <TextBlock Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Red"
+                        <TextBlock x:Name="txtErrMsg" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Red"
                                    FontSize="10" TextWrapping="Wrap"
                                    Text="{Binding ElementName=status, Path=TipInfo}">
                         </TextBlock>

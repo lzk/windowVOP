@@ -44,7 +44,28 @@ namespace VOP
             }
         }
 
-        public EnumStatus m_currentStatus = EnumStatus.Offline;
+        private EnumStatus _currentStatus = EnumStatus.Offline;
+        public EnumStatus m_currentStatus
+        {
+            set
+            {
+                _currentStatus = value;
+
+                // Update UI
+                if ( null != this.status && null != txtErrMsg )
+                {
+                    this.status.TypeId = StatusType.Error;
+                    this.status.Text = common.GetStatusMsg( value );
+                    this.txtErrMsg.Text = common.GetErrorMsg( value, m_job );
+                }
+            }
+
+            get
+            {
+                return _currentStatus;
+            }
+        }
+
         public EnumMachineJob m_job = EnumMachineJob.UnknowJob;
 
         public StatusPanel()

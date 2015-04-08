@@ -196,6 +196,9 @@ namespace VOP
             return origSource;
         }
 
+        /// <summary>
+        /// Status Type use to monitor device status, no for UI.
+        /// </summary>
         public static EnumStatusType GetStatusType( EnumStatus status )
         {
             EnumStatusType statusType = EnumStatusType.info;
@@ -395,6 +398,9 @@ namespace VOP
             return ret;
         }
 
+        /// <summary>
+        /// Message of status show in bottom of status panel.
+        /// </summary>
         public static string GetErrorMsg(EnumStatus status, EnumMachineJob job )
         {
             string errMsg = "";
@@ -479,6 +485,9 @@ namespace VOP
             return errMsg;
         }
 
+        /// <summary>
+        /// Message of status show in middle of status panel.
+        /// </summary>
         public static string GetStatusMsg( EnumStatus status )
         {
             string strStatus = "Unknown";
