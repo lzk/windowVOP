@@ -165,6 +165,7 @@ namespace VOP.Controls
             {
                 wepGrid.Visibility = Visibility.Visible;
                 rowWep.Height = GridLength.Auto;
+                wepKey0.IsChecked = true;
             }
             else
             {

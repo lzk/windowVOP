@@ -37,12 +37,45 @@ namespace VOP
 
         private void OnLoadedSoftapView(object sender, RoutedEventArgs e)
         {
-            UpdateApplyBtnStatus();
+            //UpdateApplyBtnStatus();
+
+            init_config();
         }
+
+        public void init_config(bool _bDisplayProgressBar = true)
+        {
+            softAPSettingInit.m_bEnableSoftAp = false; // disable
+            softAPSettingInit.m_ssid = "";
+            softAPSettingInit.m_pwd = "";
+
+            SoftApRecord m_rec = null;
+            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+
+            if (_bDisplayProgressBar)
+            {
+                worker.InvokeMethod<SoftApRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetSoftAp);
+            }
+            else
+            {
+                m_rec = worker.GetSoftAp(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
+            }
+
+            if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+            {
+                softAPSetting.m_ssid = softAPSettingInit.m_ssid = m_rec.SSID;
+                softAPSetting.m_pwd = softAPSettingInit.m_pwd = m_rec.PWD;
+                softAPSetting.m_bEnableSoftAp = softAPSettingInit.m_bEnableSoftAp = m_rec.WifiEnable;
+            }
+
+            tbSSID.Text = softAPSettingInit.m_ssid;
+            pbPWD.Password = softAPSettingInit.m_pwd;
+            chkbtn_wifi_enable.IsChecked = softAPSettingInit.m_bEnableSoftAp;
+        }
+
 
         public void HandleCheck(object sender, RoutedEventArgs e)
         {
-            UpdateApplyBtnStatus();
+            //UpdateApplyBtnStatus();
         }
 
         private void UpdateApplyBtnStatus()
@@ -112,7 +145,7 @@ namespace VOP
         private void btnApply_Click(object sender, RoutedEventArgs e)
         {
             apply();
-            UpdateApplyBtnStatus();
+            //UpdateApplyBtnStatus();
         }
 
         public bool is_InputVailible()
@@ -179,7 +212,7 @@ namespace VOP
 
             softAPSetting.m_pwd = pwd.Password;
 
-            UpdateApplyBtnStatus();
+            //UpdateApplyBtnStatus();
         }
 
         private void handler_text_changed(object sender, TextChangedEventArgs e)
@@ -194,7 +227,7 @@ namespace VOP
             }
 
             softAPSetting.m_ssid = strText;
-            UpdateApplyBtnStatus();
+            //UpdateApplyBtnStatus();
         }
     }
 }

@@ -19,23 +19,104 @@ namespace VOP
     /// </summary>
     public partial class WifiView : UserControl
     {
+        VOP.Controls.WifiSetting wifiSettingInit = new VOP.Controls.WifiSetting();
+        VOP.Controls.WifiSetting wifiSetting = new VOP.Controls.WifiSetting();
+
         public WifiView()
         {
-            InitializeComponent();
-           
+            InitializeComponent();           
         }
 
         private void OnLoadWifiView(object sender, RoutedEventArgs e)
         {
-            wifilist.Children.Clear();
+            cbo_ssid_refresh();
+            scrollview.ScrollToTop();
+        }
 
-            VOP.Controls.WiFiItem wifiitem = new VOP.Controls.WiFiItem();
-            wifiitem.SSIDText = "HJ-WLAN";
-            wifiitem.EncryptionText = "通过WEP进行保护";
-            wifiitem.EncryptType = VOP.Controls.EnumEncryptType.WEP;
-            wifiitem.WifiSignalLevel = VOP.Controls.EnumWifiSignalLevel.stronger;
+        public bool is_InputVailible()
+        {
+            // wifi config
+            string ssid = "";
+            string pwd = "";
+            byte encryption = (byte)EnumEncryptType.WPA2_PSK_AES;
+            byte wepKeyId = 0;
 
-            wifilist.Children.Add(wifiitem);
+            GetUIValues(out ssid, out pwd, out encryption, out wepKeyId);
+
+            bool bValidatePassWord = true;
+            int nCharCount = pwd.Length;
+
+            if (encryption == (byte)EnumEncryptType.NoSecurity)
+            {
+                return (ssid.Length > 0 && ssid.Length <= 32);
+            }
+            else if (encryption == (byte)EnumEncryptType.WEP)
+            {
+                switch (nCharCount)
+                {
+                    case 5:
+                    case 13:
+                        break;
+                    case 10:
+                    case 26:
+                        foreach (char ch in pwd)
+                        {
+                            if (Char.IsDigit(ch) || (ch >= 'A' && ch <= 'F') || (ch >= 'a' && ch <= 'f'))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                bValidatePassWord = false;
+                                break;
+                            }
+                        }
+                        break;
+                    default:
+                        bValidatePassWord = false;
+                        break;
+                }
+
+                return (ssid.Length > 0 && ssid.Length <= 32) && bValidatePassWord;
+            }
+            else if (encryption == (byte)EnumEncryptType.WPA2_PSK_AES || encryption == (byte)EnumEncryptType.MixedModePSK)
+            {
+                if (nCharCount >= 8 && nCharCount <= 63)
+                {
+                    foreach (char ch in pwd)
+                    {
+                        if (((UInt16)ch) > 128)
+                        {
+                            return false;
+                        }
+                    }
+                    bValidatePassWord = true;
+                }
+                else if (nCharCount == 64)
+                {
+                    foreach (char ch in pwd)
+                    {
+                        if (Char.IsDigit(ch) || (ch >= 'A' && ch <= 'F') || (ch >= 'a' && ch <= 'f'))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            bValidatePassWord = false;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    bValidatePassWord = false;
+                }
+                return ((ssid.Length > 0 && ssid.Length <= 32) && bValidatePassWord);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void btn_Click(object sender, RoutedEventArgs e)
@@ -48,6 +129,9 @@ namespace VOP
                 manualConnect.Visibility = Visibility.Visible;
                 rowManual.Height = GridLength.Auto;
                 autoConnect.Visibility = Visibility.Hidden;
+                rowAuto.Height = new GridLength(0);
+                scrollview.ScrollToTop();
+                wepKey0.IsChecked = true;
             }
             else if (btn.Name == "btnCancel")
             {
@@ -55,8 +139,236 @@ namespace VOP
                 manualConnect.Visibility = Visibility.Hidden;
                 rowManual.Height = new GridLength(0); 
                 autoConnect.Visibility = Visibility.Visible;
+                rowAuto.Height = GridLength.Auto;
+                scrollview.ScrollToTop();
+            }
+            else if(btn.Name == "btnConnect")
+            {
+                apply();
+            }
+        }
+
+        public bool apply()
+        {
+            bool isApplySuccess = false;
+
+            string ssid = "";
+            string pwd = "";
+            byte encryption = (byte)EnumEncryptType.WPA2_PSK_AES;
+            byte wepKeyId = 1;
+
+            GetUIValues(out ssid, out pwd, out encryption, out wepKeyId);
+
+            if (is_InputVailible())
+            {
+                if (encryption == (byte)EnumEncryptType.NoSecurity)
+                {
+                    pwd = "";
+                }
+                else if (encryption == (byte)EnumEncryptType.WEP)
+                {
+                    if (pwd.Length > 26)
+                    {
+                        pwd = pwd.Substring(1, 26);
+                    }
+                }
+                else
+                {
+
+                }
+
+                WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ssid, (encryption != (byte)EnumEncryptType.NoSecurity) ? pwd : "", (EnumEncryptType)encryption, wepKeyId);
+                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+
+                if (worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetWiFiInfo))
+                {
+                    if (m_rec.CmdResult == EnumCmdResult._ACK)
+                    {
+                        wifiSettingInit.m_ssid = wifiSetting.m_ssid = ssid;
+                        wifiSettingInit.m_pwd = wifiSetting.m_pwd = pwd;
+                        wifiSettingInit.m_encryption = wifiSetting.m_encryption = encryption;
+                        wifiSettingInit.m_wepKeyId = wifiSetting.m_wepKeyId = wepKeyId;
+                        isApplySuccess = true;
+                    }
+
+                }
             }
 
+            //if (isApplySuccess && encryption == (byte)EnumEncryptType.NoSecurity)
+            //    tb_pwd.Text = pwd;
+
+            return isApplySuccess;
+        }
+
+
+        public void cbo_ssid_refresh(bool _bDisplayProgressBar = true)
+        {
+            wifilist.Children.Clear();
+
+            ApListRecord m_rec = null;
+            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+
+            if (_bDisplayProgressBar)
+            {
+                worker.InvokeMethod<ApListRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetApList);
+            }
+            else
+            {
+                m_rec = worker.GetApList(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
+            }
+
+            if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+            {
+                for (int i = 0; i < m_rec.SsidList.Count; i++)
+                {
+                    if (!String.IsNullOrEmpty(m_rec.SsidList[i]))
+                    {
+                        VOP.Controls.WiFiItem wifiitem = new VOP.Controls.WiFiItem();
+                        wifiitem.SSIDText = m_rec.SsidList[i];
+                        if ((byte)EnumEncryptType.NoSecurity == m_rec.EncryptionList[i])    //No Security
+                        {
+                            wifiitem.EncryptionText = "网络未加密";
+                            wifiitem.EncryptType = VOP.Controls.EnumEncryptType.NoSecurity;
+                        }
+                        else if ((byte)EnumEncryptType.WEP == m_rec.EncryptionList[i]) //WEP
+                        {
+                            wifiitem.EncryptionText = "通过WEP进行保护";
+                            wifiitem.EncryptType = VOP.Controls.EnumEncryptType.WEP;
+                        }
+                        else if ((byte)EnumEncryptType.WPA2_PSK_AES == m_rec.EncryptionList[i])   //3. WPA2-PSK-AES 
+                        {
+                            wifiitem.EncryptionText = "通过WPA2-PSK-AES进行保护";
+                            wifiitem.EncryptType = VOP.Controls.EnumEncryptType.WPA2_PSK_AES;
+                        }
+                        else if ((byte)EnumEncryptType.MixedModePSK == m_rec.EncryptionList[i])   //4.Mixed Mode PSK
+                        {
+                            wifiitem.EncryptionText = "通过Mixed Mode PSK进行保护";
+                            wifiitem.EncryptType = VOP.Controls.EnumEncryptType.MixedModePSK;
+                        }
+                        wifiitem.WifiSignalLevel = VOP.Controls.EnumWifiSignalLevel.stronger;
+
+                        wifilist.Children.Add(wifiitem);
+                    }
+                }
+            }
+        }
+
+        private void RefreshButton_MouseLeftButtonDown(object sender, RoutedEventArgs e)
+        {
+            cbo_ssid_refresh();
+        }
+
+        private void OncboEncrytionSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateControlsStatus();
+        }
+
+        private void GetUIValues(out string ssid, out string pwd, out byte encryption, out byte wepKeyId)
+        {
+            ssid = "";
+            pwd = "";
+            encryption = (byte)EnumEncryptType.WPA2_PSK_AES;
+            wepKeyId = 0;
+
+            ComboBoxItem cbo_item_encrypt = cboEncrytion.SelectedItem as ComboBoxItem;
+
+            if (null != cbo_item_encrypt
+                    && null != cbo_item_encrypt.DataContext)
+            {
+                ssid = tbSSID.Text;
+                encryption = (byte)cbo_item_encrypt.DataContext;
+               
+                if (true == wepKey0.IsChecked)
+                {
+                    wepKeyId = 0x00;
+                }
+                else if (true == wepKey1.IsChecked)
+                {
+                    wepKeyId = 0x01;
+                }
+                else if (true == wepKey2.IsChecked)
+                {
+                    wepKeyId = 0x02;
+                }
+                else if (true == wepKey3.IsChecked)
+                {
+                    wepKeyId = 0x03;
+                }
+
+                if (true == chkDisplayPwd.IsChecked)
+                {
+                    pwd = pbPwd.Password;
+                }
+                else
+                {
+                    pwd = tbPwd.Text;
+                }
+
+                if (null == ssid)
+                    ssid = "";
+
+                if (null == pwd)
+                    pwd = "";
+            }
+        }
+
+        private void OnClickDisplayPWD(object sender, RoutedEventArgs e)
+        {
+            if (true == chkDisplayPwd.IsChecked)
+            {
+                pbPwd.Visibility = Visibility.Hidden;
+                tbPwd.Visibility = Visibility.Visible;
+                tbPwd.Text = pbPwd.Password;
+            }
+            else
+            {
+                pbPwd.Visibility = Visibility.Visible;
+                tbPwd.Visibility = Visibility.Hidden;
+                pbPwd.Password = tbPwd.Text;
+            }
+        }
+        public void UpdateControlsStatus()
+        {
+            string ssid = "";
+            string pwd = "";
+            byte encryption = (byte)EnumEncryptType.WPA2_PSK_AES;
+            byte wepKeyId = 0;
+
+            GetUIValues(out ssid, out pwd, out encryption, out wepKeyId);
+
+            if (encryption == (byte)EnumEncryptType.NoSecurity)
+            {
+                //tbkPwd.Text = "Passphrase";            
+                chkDisplayPwd.IsEnabled = false;
+                tbPwd.MaxLength = 26;
+                tbPwd.IsEnabled = false;
+                pbPwd.MaxLength = 26;
+                pbPwd.IsEnabled = false;
+                if (null != wepGrid)
+                    wepGrid.Visibility = Visibility.Hidden;
+            }
+            else if (encryption == (byte)EnumEncryptType.WEP)
+            {
+              //  tbkPwd.Text = "WEP Key";
+                chkDisplayPwd.IsEnabled = true;
+                tbPwd.MaxLength = 26;
+                tbPwd.IsEnabled = true;
+                pbPwd.MaxLength = 26;
+                pbPwd.IsEnabled = true;
+                if (null != wepGrid)
+                    wepGrid.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                //tbkPwd.Text = "Passphrase";                
+                chkDisplayPwd.IsEnabled = true;
+                tbPwd.MaxLength = 64;
+                tbPwd.IsEnabled = true;
+                pbPwd.MaxLength = 64;
+                pbPwd.IsEnabled = true;
+                if (null != wepGrid)
+                    wepGrid.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

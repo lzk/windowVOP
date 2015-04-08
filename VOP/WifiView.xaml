@@ -68,7 +68,7 @@
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Name="rowManual" Height="0"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto" Name="rowAuto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <StackPanel Name="manualConnect" Margin="6,5,6,5" >
                             <Grid>
@@ -107,14 +107,15 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="网络名称：" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                                    <TextBox Grid.Column="2" VerticalAlignment="Center" MaxLength="32"></TextBox>
-                                    <TextBlock Grid.Row="1" Text="密码：" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                                    <PasswordBox Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" MaxLength="64"></PasswordBox>
+                                    <TextBox Name="tbSSID" Grid.Column="2" VerticalAlignment="Center" MaxLength="32"></TextBox>
+                                    <TextBlock Name="tbkPwd" Grid.Row="1" Text="密码：" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                                    <TextBox Name="tbPwd" Grid.Row="1" Grid.Column="2" Visibility="Hidden" VerticalAlignment="Center" MaxLength="64"></TextBox>
+                                    <PasswordBox Name="pbPwd" Grid.Row="1"  Grid.Column="2"  VerticalAlignment="Center" MaxLength="64"></PasswordBox>
                                 </Grid>
                                 
                                 <StackPanel Grid.Row="2">
                                     <Grid Height="30">
-                                        <CheckBox Content="显示密码" IsChecked="True" Template="{StaticResource customCheckBox}"></CheckBox>
+                                        <CheckBox Name="chkDisplayPwd" Content="显示密码" IsChecked="False" Template="{StaticResource customCheckBox}"  Checked="OnClickDisplayPWD" Unchecked="OnClickDisplayPWD"></CheckBox>
                                     </Grid>
                                 </StackPanel>
                                 
@@ -125,11 +126,27 @@
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="加密方式：" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                                    <ComboBox Grid.Column="2" Background="White" Foreground="Black" VerticalAlignment="Center" Height="24" Style="{StaticResource CboCommomStyle}" >
-                                        <ComboBoxItem Content="不加密" Background="White" Foreground="Black" ></ComboBoxItem>
-                                        <ComboBoxItem Content="WEP" Background="White" Foreground="Black"></ComboBoxItem>
-                                        <ComboBoxItem Content="WPA2-PSK-AES" Background="White" Foreground="Black" IsSelected="True"></ComboBoxItem>
-                                        <ComboBoxItem Content="Mixed Mode PSK" Background="White" Foreground="Black"></ComboBoxItem>
+                                    <ComboBox Name="cboEncrytion" Grid.Column="2" Background="White" Foreground="Black" VerticalAlignment="Center" Height="24" Style="{StaticResource CboCommomStyle}" SelectionChanged="OncboEncrytionSelectionChanged">
+                                        <ComboBoxItem IsSelected="false" Content="不加密" >
+                                            <ComboBoxItem.DataContext>
+                                                <mycontrol:EnumEncryptType>NoSecurity</mycontrol:EnumEncryptType>
+                                            </ComboBoxItem.DataContext>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem IsSelected="True" Content="WEP" >
+                                            <ComboBoxItem.DataContext>
+                                                <mycontrol:EnumEncryptType>WEP</mycontrol:EnumEncryptType>
+                                            </ComboBoxItem.DataContext>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem IsSelected="false" Content="WPA2-PSK-AES" >
+                                            <ComboBoxItem.DataContext>
+                                                <mycontrol:EnumEncryptType>WPA2_PSK_AES</mycontrol:EnumEncryptType>
+                                            </ComboBoxItem.DataContext>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem IsSelected="false" Content="Mixed Mode PSK" >
+                                            <ComboBoxItem.DataContext>
+                                                <mycontrol:EnumEncryptType>MixedModePSK</mycontrol:EnumEncryptType>
+                                            </ComboBoxItem.DataContext>
+                                        </ComboBoxItem>
                                     </ComboBox>
                                 </Grid>
 
@@ -149,10 +166,10 @@
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
 
-                                            <RadioButton GroupName="WepKeyRadio" IsChecked="True" Template="{StaticResource customRadioButton}" Content="Key1" VerticalAlignment="Center"></RadioButton>
-                                            <RadioButton GroupName="WepKeyRadio" Grid.Column="1" Template="{StaticResource customRadioButton}" Content="Key2" VerticalAlignment="Center"></RadioButton>
-                                            <RadioButton GroupName="WepKeyRadio" Grid.Column="2" Template="{StaticResource customRadioButton}" Content="Key3" VerticalAlignment="Center"></RadioButton>
-                                            <RadioButton GroupName="WepKeyRadio" Grid.Column="3" Template="{StaticResource customRadioButton}" Content="Key4" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton Name="wepKey0" GroupName="WepKeyRadio" IsChecked="False" Template="{StaticResource customRadioButton}" Content="Key1" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton Name="wepKey1" GroupName="WepKeyRadio" IsChecked="False" Grid.Column="1" Template="{StaticResource customRadioButton}" Content="Key2" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton Name="wepKey2" GroupName="WepKeyRadio" IsChecked="False" Grid.Column="2" Template="{StaticResource customRadioButton}" Content="Key3" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton Name="wepKey3" GroupName="WepKeyRadio"  IsChecked="False" Grid.Column="3" Template="{StaticResource customRadioButton}" Content="Key4" VerticalAlignment="Center"></RadioButton>
                                         </Grid>
                                     </Grid>
                                 </StackPanel>
@@ -185,14 +202,13 @@
                                         Grid.Column="1" 
                                         VerticalAlignment="Bottom"
                                         HorizontalAlignment="Left"
-                                        Width="22.4" Height="22.4"
-                                        >
+                                        Width="22.4" 
+                                        Height="22.4"
+                                        Button.Click="RefreshButton_MouseLeftButtonDown">
                                 </mycontrol:RefreshButton>
                                 <Image Source="Images/GreenLine.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Stretch="Fill"></Image>
                             </Grid>
-                            <StackPanel Name="wifilist">
-                                <local:WiFiItem SSIDText="BIANBIAN" EncryptionText="通过WEP进行保护" WifiSignalLevel="Normal" EncryptType="WEP"></local:WiFiItem>
-                            </StackPanel>
+                            <StackPanel Name="wifilist"/>
                         </StackPanel>
                     </Grid>
                 </Grid>

@@ -49,7 +49,7 @@ namespace VOP
 
             spinnerControl1.Value = m_psavetime;
 
-            UpdateApplyBtnStatus();
+           // UpdateApplyBtnStatus();
         }
 
         private void OnLoadedPowerSaveView(object sender, RoutedEventArgs e)
@@ -111,7 +111,7 @@ namespace VOP
         {
             apply();
 
-            UpdateApplyBtnStatus();
+            //UpdateApplyBtnStatus();
         }
 
         private void handler_text_changed(object sender, TextChangedEventArgs e)
@@ -144,13 +144,13 @@ namespace VOP
                     tb.CaretIndex = tb.Text.Length;
                 }
 
-                UpdateApplyBtnStatus();
+                //UpdateApplyBtnStatus();
             }
         }
 
         private void spinnerControl1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> e)
         {
-            UpdateApplyBtnStatus();
+         //   UpdateApplyBtnStatus();
         }
     }
 }
