@@ -27,6 +27,9 @@ namespace VOP
         private void onLoadAboutView(object sender, RoutedEventArgs e)
         {
             scrollview.ScrollToTop();
+            
+            string strVersionInfo = String.Format("Printer Driver Version {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            tbkVersionInfo.Text = strVersionInfo;
         }
 
         private void OnOpenWebsite(object sender, MouseButtonEventArgs e)

@@ -34,7 +34,7 @@
         Margin="2,2,2,3"
         >
         <WrapPanel Name="wrappanelView" >
-                <Grid Width="250" Height="480">
+                <Grid Width="250" Height="auto">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -92,7 +92,7 @@
                             </Grid>
 
                         </local:GroupBoxDecorator>
-                        <local:GroupBoxDecorator Header="版本和版权" Height="120" Width="210" Margin="0,0,0,8" HorizontalAlignment="Center">
+                        <local:GroupBoxDecorator Header="版本和版权" Height="135" Width="210" Margin="0,0,0,8" HorizontalAlignment="Center">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="2"></RowDefinition>
@@ -111,6 +111,10 @@
                                         <ColumnDefinition Width="7*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Image Grid.Column="0" Grid.Row="1" Source="Images\Logo.png" />
+                                    <StackPanel Grid.Column="2" Orientation="Vertical">
+                                        <TextBlock Name="tbkVersionInfo" Text="Printer Driver Version ****" TextWrapping="Wrap"></TextBlock>
+                                        <TextBlock Text="Copyright (C) (2014-2015) Lenovo (Beijing) Limited.All Right Reserved." TextWrapping="Wrap"></TextBlock>
+                                    </StackPanel>
                                 </Grid>
                             </Grid>
                         </local:GroupBoxDecorator>
