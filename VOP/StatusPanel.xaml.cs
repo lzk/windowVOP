@@ -19,6 +19,16 @@ namespace VOP
     /// </summary>
     public partial class StatusPanel : UserControl
     {
+
+#region member used to manage error message in the bottom
+        private EnumStatus m_preStatus = EnumStatus.Offline;
+        private string m_errorMsg = "";
+        private System.Windows.Threading.DispatcherTimer m_infoTimer = new System.Windows.Threading.DispatcherTimer();
+            // m_infoTimer.Interval = new TimeSpan(0,0,m_infoTimeOut);
+            // m_infoTimer.Tick += new EventHandler( HandlerInfoTimer );
+            // m_infoTimer.Stop();
+            // m_infoTimer.Start();
+#endregion
         /// <summary>
         /// Current selected printer name. Assign empty ( NOTE: no null ), if nothing selected.
         /// </summary>

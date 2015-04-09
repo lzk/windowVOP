@@ -27,67 +27,6 @@ namespace VOP
         }
     }
 
-    public class ErrorMsgManager
-    {
-        private string m_strError = "";
-        private string m_strInfo  = "";
-        private int m_infoTimeOut  = 30; // sec
-        private System.Windows.Threading.DispatcherTimer m_infoTimer = new System.Windows.Threading.DispatcherTimer();
-
-        public delegate void HandlerMsgUpdate( string msg );
-        public event HandlerMsgUpdate eventMsgUpdate = null;
-
-        private string _strShow;
-        private string m_strShow
-        {
-            set
-            {
-                _strShow = value;
-
-                if ( null != eventMsgUpdate )
-                    eventMsgUpdate( value );
-            }
-        }
-
-        public ErrorMsgManager()
-        {
-            m_infoTimer.Interval = new TimeSpan(0,0,m_infoTimeOut);
-            m_infoTimer.Tick += new EventHandler( HandlerInfoTimer );
-        }
-
-        private void HandlerInfoTimer(object sender, EventArgs e)
-        {
-            m_infoTimer.Stop();
-//          m_strInfo = "";
-//          m_strShow = m_strError;
-        }
-
-        // use MessageHandler( "", EnumStatusType.error ) to clear message
-        public void MessageHandler( string msg, EnumStatusType emerge )
-        {
-            if ( EnumStatusType.error == emerge )
-            {
-                if ((msg != m_strError && msg == "Device Offline"))
-                {
-                    m_infoTimer.Start();
-                }
-                else if (m_strInfo.Length == 0 || (msg != m_strError && msg != ""))
-                {
-                    m_infoTimer.Stop();
-                }
-                
-                m_strInfo = msg;
-                m_strShow = msg;
-            }
-            else
-            {
-                m_infoTimer.Start();
-                m_strInfo = msg;
-                m_strShow = msg;
-            }
-        }
-    }
-
     public class AutoMachine
     {
         public delegate void HandlerStateUpdate( EnumState state );
