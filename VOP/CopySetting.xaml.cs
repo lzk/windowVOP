@@ -236,6 +236,11 @@ namespace VOP
 
         private void btnDefault_Click(object sender, RoutedEventArgs e)
         {
+            cboDocSize.Items.Clear();
+            cboResolution.Items.Clear();
+            cboOutputSize.Items.Clear();
+            cboMediaType.Items.Clear();
+
             m_scaling    = 100;
             m_scanMode   = EnumCopyScanMode.Photo;
             m_docSize    = EnumPaperSizeInput._A4;
