@@ -22,14 +22,13 @@ namespace VOP
         public EnumCopyScanMode    m_scanMode   = EnumCopyScanMode.Photo;
         public EnumPaperSizeInput  m_docSize    = EnumPaperSizeInput._A4;
         public EnumPaperSizeOutput m_outputSize = EnumPaperSizeOutput._Letter;
-        public EnumNin1            m_nin1       = EnumNin1._1up;
         public EnumResln           m_dpi        = EnumResln._300x300;
         public EnumMediaType       m_mediaType  = EnumMediaType.Plain;
 
         /// <summary>
         /// Flag used to specify the CopySetting has been loaded or not.
         /// </summary>
-        private bool isWindowLoaded = false;
+        private bool m_isWindowLoaded = false;
 
         /// <summary>
         /// Previous N in 1 value, used to recovery the selected item when N in 1 check box was rechecked.
@@ -41,6 +40,75 @@ namespace VOP
 #endregion
 
 #region Properties
+        private EnumNin1 _nin1 = EnumNin1._1up;
+        public EnumNin1 m_nin1
+        {
+            get
+            {
+                return _nin1;
+            }
+
+            set
+            {
+                _nin1 = value;
+
+                // Make sure the cboOutputSize is ready.
+                if ( m_isWindowLoaded && false == m_isIDCardCopy )
+                {
+                    bool isNeedReselect = false;
+                    foreach ( ComboBoxItem obj in cboOutputSize.Items )
+                    {
+                        if ( null != obj.DataContext )
+                        {
+                            EnumPaperSizeOutput s = (EnumPaperSizeOutput)obj.DataContext;
+
+                            switch ( s )
+                            {
+                                case EnumPaperSizeOutput._Letter    :
+                                    obj.IsEnabled = true;
+                                    break;
+                                case EnumPaperSizeOutput._A4        :
+                                    obj.IsEnabled = true;
+                                    break;
+                                case EnumPaperSizeOutput._A5        :
+                                    obj.IsEnabled = (_nin1 == EnumNin1._1up || _nin1 == EnumNin1._2up);
+                                    break;
+                                case EnumPaperSizeOutput._A6        :
+                                    obj.IsEnabled = (_nin1 == EnumNin1._1up);
+                                    break;
+                                case EnumPaperSizeOutput._B5        :
+                                    obj.IsEnabled = (_nin1 == EnumNin1._1up || _nin1 == EnumNin1._2up);
+                                    break;
+                                case EnumPaperSizeOutput._B6        :
+                                    obj.IsEnabled = (_nin1 == EnumNin1._1up);
+                                    break;
+                                case EnumPaperSizeOutput._Executive :
+                                    obj.IsEnabled = (_nin1 == EnumNin1._1up || _nin1 == EnumNin1._2up);
+                                    break;
+                                case EnumPaperSizeOutput._16K       :
+                                    obj.IsEnabled = (_nin1 == EnumNin1._1up || _nin1 == EnumNin1._2up);
+                                    break;
+                                default:
+                                    obj.IsEnabled = true;
+                                    break;
+                            }
+
+                            if ( true == obj.IsSelected && false == obj.IsEnabled )
+                            {
+                                isNeedReselect = true;
+                            }
+                        }
+                    }
+
+                    if ( isNeedReselect )
+                    {
+                        // select default item.
+                        cboOutputSize.SelectedIndex = 0;
+                    }
+                }
+            }
+        }
+
         private ushort _scaling = 100;
         public ushort m_scaling
         {
@@ -146,7 +214,7 @@ namespace VOP
 
         private void chkNin1_Checked(object sender, RoutedEventArgs e)
         {
-            if ( isWindowLoaded )
+            if ( m_isWindowLoaded )
             {
                 if ( EnumNin1._4up == m_preNin1 || EnumNin1._9up == m_preNin1 )
                     m_nin1 = m_preNin1;
@@ -159,7 +227,7 @@ namespace VOP
 
         private void chkNin1_Unchecked(object sender, RoutedEventArgs e)
         {
-            if ( isWindowLoaded )
+            if ( m_isWindowLoaded )
             {
                 m_nin1 = EnumNin1._1up;
                 InitNin1();
@@ -237,7 +305,7 @@ namespace VOP
             InitNin1();
             m_preNin1 = m_nin1;
 
-            isWindowLoaded = true;
+            m_isWindowLoaded = true;
 
         }
 
@@ -413,11 +481,11 @@ namespace VOP
 
                         if ( EnumPaperSizeOutput._A6 == s || EnumPaperSizeOutput._B6 == s )
                         {
-                            obj.IsEnabled = true;
+                            obj.IsEnabled = false;
                         }
                         else
                         {
-                            obj.IsEnabled = false;
+                            obj.IsEnabled = true;
                         }
                     }
 
