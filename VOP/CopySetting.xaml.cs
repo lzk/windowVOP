@@ -36,6 +36,8 @@ namespace VOP
         /// This value only change during copy setting window loading and N in 1 images selecting.
         /// </summary>
         private EnumNin1 m_preNin1 = EnumNin1._1up;
+
+        public bool m_isIDCardCopy = false; // flag present is id card copy mode or not.
 #endregion
 
 #region Properties
@@ -220,6 +222,14 @@ namespace VOP
 
             txtblkScaling.Text = m_scaling.ToString();
 
+            if ( m_isIDCardCopy )
+            {
+                txtblkScaling.IsEnabled = false;
+                btnScalingDec.IsEnabled = false;
+                btnScalingInc.IsEnabled = false;
+            }
+                
+
             InitCboDocSize();
             InitCboResolution();
             InitCboOutputSize();
@@ -283,6 +293,8 @@ namespace VOP
                 }
             }
 
+            if ( m_isIDCardCopy )
+                cboDocSize.IsEnabled = false;
         }
 
         /// <summary>
@@ -314,6 +326,9 @@ namespace VOP
                     obj.IsSelected = true;
                 }
             }
+
+            if ( m_isIDCardCopy )
+                cboResolution.IsEnabled = false;
         }
 
         /// <summary>
@@ -385,6 +400,27 @@ namespace VOP
                         && (EnumPaperSizeOutput)obj.DataContext == m_outputSize )
                 {
                     obj.IsSelected = true;
+                }
+            }
+
+            if ( m_isIDCardCopy )
+            {
+                foreach ( ComboBoxItem obj in cboOutputSize.Items )
+                {
+                    if ( null != obj.DataContext )
+                    {
+                        EnumPaperSizeOutput s = (EnumPaperSizeOutput)obj.DataContext;
+
+                        if ( EnumPaperSizeOutput._A6 == s || EnumPaperSizeOutput._B6 == s )
+                        {
+                            obj.IsEnabled = true;
+                        }
+                        else
+                        {
+                            obj.IsEnabled = false;
+                        }
+                    }
+
                 }
             }
         }
@@ -477,6 +513,9 @@ namespace VOP
                     rectNin1_9.Fill = brSelected;
                 }
             }
+
+            if ( m_isIDCardCopy )
+                chkNin1.IsEnabled = false;
         }
 
         private void imgNin1_2_MouseDown(object sender, MouseButtonEventArgs e)

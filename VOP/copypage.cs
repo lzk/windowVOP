@@ -77,10 +77,13 @@ namespace VOP
 
         private void SettingBtnClick(object sender, RoutedEventArgs e)
         {
-            if ( true == chkBtnIDCardCopy.IsChecked )
-                ResetValueForIDCardCopy();
-
             CopySetting win = new CopySetting();
+
+            if ( true == chkBtnIDCardCopy.IsChecked )
+            {
+                win.m_isIDCardCopy = true;
+                ResetValueForIDCardCopy();
+            }
             
             win.Owner = m_MainWin;
 
