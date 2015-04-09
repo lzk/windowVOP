@@ -108,13 +108,7 @@ namespace VOP
         private void print_btn_click(object sender, RoutedEventArgs e)
         {
 
-            if (dll.PrintInit("Vop Print", (new WindowInteropHelper(App.Current.MainWindow)).Handle))
-            {
-
-                dll.AddImagePath(m_images.m_pathView, m_images.m_rotate);
-                dll.DoPrint();
-
-            }
+          
         }
 
 
