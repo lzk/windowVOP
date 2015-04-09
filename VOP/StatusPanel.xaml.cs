@@ -40,8 +40,8 @@ namespace VOP
         private void TimerHandler(object sender, EventArgs e)
         {
             m_showTimeCnter.Stop();
-            m_currentStatus = _currentStatus; // Update the message with current status.
             m_errorMsg = "";
+            m_currentStatus = _currentStatus; // Update the message with current status.
         }
 
 #endregion
