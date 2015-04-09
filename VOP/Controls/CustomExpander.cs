@@ -6,6 +6,7 @@ namespace VOP.Controls
 {
     class CustomExpander : Expander
     {
+        #region SSIDText property
         public static readonly DependencyProperty SSIDTextProperty =
                                             DependencyProperty.Register("SSIDText",
                                             typeof(string),
@@ -17,6 +18,28 @@ namespace VOP.Controls
                                             typeof(RoutedEventHandler),
                                             typeof(CustomExpander));
 
+        public string SSIDText
+        {
+            get { return (string)GetValue(SSIDTextProperty); }
+            set { SetValue(SSIDTextProperty, value); }
+        }
+
+        public event RoutedEventHandler SSIDTextPropertyChanged
+        {
+            add { AddHandler(SSIDTextPropertyEvent, value); }
+            remove { RemoveHandler(SSIDTextPropertyEvent, value); }
+        }
+
+        private static void OnSSIDTextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            VOP.Controls.CustomExpander btn = sender as VOP.Controls.CustomExpander;
+            RoutedEventArgs routedEventArgs = new RoutedEventArgs(CustomExpander.SSIDTextPropertyEvent);
+            btn.RaiseEvent(routedEventArgs);
+        }
+
+        #endregion
+
+        #region EncryptionText property
         public static readonly DependencyProperty EncryptionTextProperty =
                                     DependencyProperty.Register("EncryptionText",
                                     typeof(string),
@@ -28,6 +51,27 @@ namespace VOP.Controls
                                            typeof(RoutedEventHandler),
                                            typeof(CustomExpander));
 
+        public string EncryptionText
+        {
+            get { return (string)GetValue(EncryptionTextProperty); }
+            set { SetValue(EncryptionTextProperty, value); }
+        }
+
+        public event RoutedEventHandler EncryptionTextPropertyChanged
+        {
+            add { AddHandler(EncryptionTextPropertyEvent, value); }
+            remove { RemoveHandler(EncryptionTextPropertyEvent, value); }
+        }
+
+        private static void OnEncryptionTextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            VOP.Controls.CustomExpander btn = sender as VOP.Controls.CustomExpander;
+            RoutedEventArgs routedEventArgs = new RoutedEventArgs(CustomExpander.EncryptionTextPropertyEvent);
+            btn.RaiseEvent(routedEventArgs);
+        }
+        #endregion
+
+        #region EncryptType property
         public static readonly DependencyProperty EncryptTypeProperty =
                                     DependencyProperty.Register("EncryptType",
                                     typeof(EnumEncryptType),
@@ -39,6 +83,26 @@ namespace VOP.Controls
                                            typeof(RoutedEventHandler),
                                            typeof(CustomExpander));
 
+        public EnumEncryptType EncryptType
+        {
+            get { return (EnumEncryptType)GetValue(EncryptTypeProperty); }
+            set { SetValue(EncryptTypeProperty, value); }
+        }
+
+        public event RoutedEventHandler EncryptTypePropertyChanged
+        {
+            add { AddHandler(EncryptTypePropertyEvent, value); }
+            remove { RemoveHandler(EncryptTypePropertyEvent, value); }
+        }
+        private static void OnEncryptTypePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            VOP.Controls.CustomExpander btn = sender as VOP.Controls.CustomExpander;
+            RoutedEventArgs routedEventArgs = new RoutedEventArgs(CustomExpander.EncryptTypePropertyEvent);
+            btn.RaiseEvent(routedEventArgs);
+        }
+        #endregion
+
+        #region WifiSignalLevel property
         public static readonly DependencyProperty WifiSignalLevelProperty =
                             DependencyProperty.Register("WifiSignalLevel",
                             typeof(EnumWifiSignalLevel),
@@ -50,51 +114,11 @@ namespace VOP.Controls
                                            typeof(RoutedEventHandler),
                                            typeof(CustomExpander));
 
-        static CustomExpander()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomExpander), new FrameworkPropertyMetadata(typeof(CustomExpander)));
-        }
-
-        public string SSIDText
-        {
-            get { return (string)GetValue(SSIDTextProperty); }
-            set { SetValue(SSIDTextProperty, value); }
-        }
-
-        public string EncryptionText
-        {
-            get { return (string)GetValue(EncryptionTextProperty); }
-            set { SetValue(EncryptionTextProperty, value); }
-        }
-
-        public EnumEncryptType EncryptType
-        {
-            get { return (EnumEncryptType)GetValue(EncryptTypeProperty); }
-            set { SetValue(EncryptTypeProperty, value); }
-        }
 
         public EnumWifiSignalLevel WifiSignalLevel
         {
             get { return (EnumWifiSignalLevel)GetValue(WifiSignalLevelProperty); }
             set { SetValue(WifiSignalLevelProperty, value); }
-        }
-        
-        public event RoutedEventHandler SSIDTextPropertyChanged
-        {
-            add { AddHandler(SSIDTextPropertyEvent, value); }
-            remove { RemoveHandler(SSIDTextPropertyEvent, value); }
-        }
-
-        public event RoutedEventHandler EncryptionTextPropertyChanged
-        {
-            add { AddHandler(EncryptionTextPropertyEvent, value); }
-            remove { RemoveHandler(EncryptionTextPropertyEvent, value); }
-        }
-
-        public event RoutedEventHandler EncryptTypePropertyChanged
-        {
-            add { AddHandler(EncryptTypePropertyEvent, value); }
-            remove { RemoveHandler(EncryptTypePropertyEvent, value); }
         }
 
         public event RoutedEventHandler WifiSignalLevelPropertyChanged
@@ -102,32 +126,18 @@ namespace VOP.Controls
             add { AddHandler(WifiSignalLevelPropertyEvent, value); }
             remove { RemoveHandler(WifiSignalLevelPropertyEvent, value); }
         }
-        private static void OnSSIDTextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            VOP.Controls.CustomExpander btn = sender as VOP.Controls.CustomExpander;
-            RoutedEventArgs routedEventArgs = new RoutedEventArgs(CustomExpander.SSIDTextPropertyEvent);
-            btn.RaiseEvent(routedEventArgs);
-        }
-
-        private static void OnEncryptionTextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            VOP.Controls.CustomExpander btn = sender as VOP.Controls.CustomExpander;
-            RoutedEventArgs routedEventArgs = new RoutedEventArgs(CustomExpander.EncryptionTextPropertyEvent);
-            btn.RaiseEvent(routedEventArgs);
-        }
-
-        private static void OnEncryptTypePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            VOP.Controls.CustomExpander btn = sender as VOP.Controls.CustomExpander;
-            RoutedEventArgs routedEventArgs = new RoutedEventArgs(CustomExpander.EncryptTypePropertyEvent);
-            btn.RaiseEvent(routedEventArgs);
-        }
 
         private static void OnWifiSignalLevelPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             VOP.Controls.CustomExpander btn = sender as VOP.Controls.CustomExpander;
             RoutedEventArgs routedEventArgs = new RoutedEventArgs(CustomExpander.WifiSignalLevelPropertyEvent);
             btn.RaiseEvent(routedEventArgs);
+        }
+        #endregion
+
+        static CustomExpander()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomExpander), new FrameworkPropertyMetadata(typeof(CustomExpander)));
         }
     }
 }

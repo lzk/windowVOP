@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VOP.Controls;
 
 namespace VOP
 {
@@ -19,6 +20,8 @@ namespace VOP
     /// </summary>
     public partial class WifiView : UserControl
     {
+        public WifiItemInfo SelectedWifiItemInfo { get; set; }
+
         VOP.Controls.WifiSetting wifiSettingInit = new VOP.Controls.WifiSetting();
         VOP.Controls.WifiSetting wifiSetting = new VOP.Controls.WifiSetting();
 
@@ -223,7 +226,8 @@ namespace VOP
                 {
                     if (!String.IsNullOrEmpty(m_rec.SsidList[i]))
                     {
-                        VOP.Controls.WiFiItem wifiitem = new VOP.Controls.WiFiItem();
+
+                        VOP.Controls.WifiItemInfo wifiitem = new VOP.Controls.WifiItemInfo();
                         wifiitem.SSIDText = m_rec.SsidList[i];
                         if ((byte)EnumEncryptType.NoSecurity == m_rec.EncryptionList[i])    //No Security
                         {
@@ -247,7 +251,8 @@ namespace VOP
                         }
                         wifiitem.WifiSignalLevel = VOP.Controls.EnumWifiSignalLevel.stronger;
 
-                        wifilist.Children.Add(wifiitem);
+                     //   wifiListBox.Items.Add(wifiitem);
+                     //   wifilist.Children.Add(wifiitem);
                     }
                 }
             }
@@ -369,6 +374,13 @@ namespace VOP
                 if (null != wepGrid)
                     wepGrid.Visibility = Visibility.Hidden;
             }
+        }
+
+        private void wifiListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox lb = e.Source as ListBox;
+            SelectedWifiItemInfo = lb.SelectedItem as WifiItemInfo;
+            
         }
     }
 }

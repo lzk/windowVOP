@@ -134,6 +134,7 @@
     <Compile Include="Controls\ValidateTip_TextBox.xaml.cs">
       <DependentUpon>ValidateTip_TextBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\WifiItemInfo.cs" />
     <Compile Include="MaintainInfo.xaml.cs">
       <DependentUpon>MaintainInfo.xaml</DependentUpon>
     </Compile>
@@ -229,6 +230,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ImagePreview\ScrollTextControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ListBoxEx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -19,6 +19,7 @@
                 <ResourceDictionary Source="Controls/CustomComboBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomScrollView.xaml"/>
                 <ResourceDictionary Source="Controls/ComboBox_Template.xaml"/>
+                <ResourceDictionary Source="Controls/ListBoxEx.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -208,7 +209,20 @@
                                 </mycontrol:RefreshButton>
                                 <Image Source="Images/GreenLine.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Stretch="Fill"></Image>
                             </Grid>
-                            <StackPanel Name="wifilist"/>
+                            <StackPanel >
+                                <ListBox 
+                                    Name="wifiListBox"
+                                    Style="{ StaticResource ListBoxForWifi }" 
+                                    ItemsSource="{StaticResource WifiItemInfoList}"
+                                    SelectionMode="Single"
+                                    Selector.SelectionChanged="wifiListBox_SelectionChanged">
+
+                                </ListBox>
+                            </StackPanel>
+                            <StackPanel Name="wifilist">
+                                
+                            </StackPanel>
+
                         </StackPanel>
                     </Grid>
                 </Grid>

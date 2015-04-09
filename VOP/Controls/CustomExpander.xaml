@@ -7,6 +7,7 @@
     </ResourceDictionary.MergedDictionaries>
     
     <Style TargetType="{x:Type s:CustomExpander}">
+        <Setter Property="IsExpanded" Value="False"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type s:CustomExpander}">
@@ -23,7 +24,7 @@
                                     EncryptionText="{Binding Path=EncryptionText, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                     EncryptType="{Binding Path=EncryptType, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                     WifiSignalLevel="{Binding Path=WifiSignalLevel, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                              >
+                                    >
                             </s:ToggleButtonEx>
                         </Grid>
                         <Border 

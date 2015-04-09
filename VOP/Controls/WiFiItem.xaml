@@ -30,8 +30,8 @@
                 EncryptionText="{Binding ElementName=WifiIten_Name, Path=EncryptionText, Mode=TwoWay}"
                 EncryptType="{Binding ElementName=WifiIten_Name, Path=EncryptType, Mode=TwoWay}"
                 WifiSignalLevel="{Binding ElementName=WifiIten_Name, Path=WifiSignalLevel, Mode=TwoWay}"
-                EncryptTypePropertyChanged="OnEncryptTypePropertyChanged"
-                Background="Red">
+                IsExpanded="{Binding ElementName=WifiIten_Name, Path=IsExpanded, Mode=TwoWay}"
+                >
      
                 <StackPanel VerticalAlignment="Top">
                     <Grid>

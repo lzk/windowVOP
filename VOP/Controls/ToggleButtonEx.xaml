@@ -3,7 +3,8 @@
                     xmlns:s="clr-namespace:VOP.Controls">
     
         <Style  TargetType="{x:Type s:ToggleButtonEx}">
-            <Setter Property="Template">
+        <Setter Property="IsChecked" Value="False"></Setter>
+        <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type s:ToggleButtonEx}">
                     <Grid>
