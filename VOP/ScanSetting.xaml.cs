@@ -258,5 +258,53 @@ namespace VOP
             this.DialogResult = true;
             this.Close();
         }
+
+        private void Adjust_Click(object sender, RoutedEventArgs e)
+        {
+             Button btn = sender as Button;
+
+             int brightnesstMin = (int)sldr_brightness.Minimum;
+             int brightnessMax = (int)sldr_brightness.Maximum;
+             int brightnessCurValue = (int)sldr_brightness.Value;
+
+             int contrastMin = (int)sldr_contrast.Minimum;
+             int contrastMax = (int)sldr_contrast.Maximum;
+             int contrastCurValue = (int)sldr_contrast.Value;
+
+
+
+
+             if (null != btn)
+             {
+                 if ("btnReduce_Brightness" == btn.Name)
+                 {
+                     if( (brightnessCurValue-1) >= brightnesstMin )
+                     {
+                         sldr_brightness.Value = brightnessCurValue - 1;
+                     }
+                 }
+                 else if ("btnAdd_Brightness" == btn.Name)
+                 {
+                     if ((brightnessCurValue + 1) <= brightnessMax)
+                     {
+                         sldr_brightness.Value = brightnessCurValue + 1;
+                     }
+                 }
+                 else if ("btnReduce_Constrast" == btn.Name)
+                 {
+                     if ((contrastCurValue - 1) >= contrastMin)
+                     {
+                         sldr_contrast.Value = contrastCurValue - 1;
+                     }
+                 }
+                 else if ("btnAdd_Constrast" == btn.Name)
+                 {
+                     if ((contrastCurValue + 1) <= contrastMax)
+                     {
+                         sldr_contrast.Value = contrastCurValue + 1;
+                     }
+                 }
+             }
+        }
     }
 }

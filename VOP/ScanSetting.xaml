@@ -195,27 +195,29 @@
                         <Slider HorizontalAlignment="Center"  Minimum="0" Name="sldr_brightness" ValueChanged="sldr_value_change"
                                 Maximum="100" Value="50" Height="18" Width="154" Template="{StaticResource HorizontalSlider}"/>
 
-                            <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center">
-                                <Button Style="{StaticResource AdjustButton}"
+                        <Grid Width="170" Height="40">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30*" />
+                                <ColumnDefinition Width="110*" />
+                                <ColumnDefinition Width="30*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource AdjustButton}" 
+			    		Name="btnReduce_Brightness" Click="Adjust_Click"
                                     FontSize="45"
                                     Content="-" />
 
-                            <TextBox TextChanged="TextValueChanged" Name="tb_brightness"
-                                    VerticalAlignment="Center" 
-                                    Margin="40,0"
-                                    FontSize="30"
-                                    Text="{Binding ElementName=sldr_brightness, Path=Value}"
-                                    >
-                                    
-                                </TextBox>
+                            <TextBox TextChanged="TextValueChanged" x:Name="tb_brightness" 
+                                     Grid.Column="1" TextAlignment="Center" Width="60"
+                        		VerticalAlignment="Center"                         		
+                        		FontSize="30"
+                                Text="{Binding ElementName=sldr_brightness, Path=Value}"
+                        		/>
 
-                                <Button Style="{StaticResource AdjustButton}"
+                            <Button Style="{StaticResource AdjustButton}" Grid.Column="2" Name="btnAdd_Brightness" Click="Adjust_Click"
                                     FontSize="30"
-                                    Content="+" />
-
-                            </StackPanel>  
-                        </StackPanel>
+                                    Content="+" />                       
+                        </Grid>
+                    </StackPanel>
 
                     </Grid>
                 </local:GroupBoxDecorator>
@@ -229,25 +231,31 @@
                         <Slider HorizontalAlignment="Center"  Minimum="0" Name="sldr_contrast" ValueChanged="sldr_value_change"
                                 Maximum="100" Value="50" Height="18" Width="154" Template="{StaticResource HorizontalSlider}"/>
 
-                            <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center">
-                                <Button Style="{StaticResource AdjustButton}"
-                                    FontSize="45"
+                        <Grid Width="170" Height="40">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30*" />
+                                <ColumnDefinition Width="110*" />
+                                <ColumnDefinition Width="30*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Style="{StaticResource AdjustButton}"
+                                    Name="btnReduce_Constrast" Click="Adjust_Click"
+				     FontSize="45"
                                     Content="-" />
 
-                            <TextBox TextChanged="TextValueChanged" Name="tb_contrast"
+                            <TextBox TextChanged="TextValueChanged" Name="tb_contrast" 
+                                     Grid.Column="1" TextAlignment="Center" Width="60"
                                     VerticalAlignment="Center" 
-                                    Margin="40,0"
                                     FontSize="30"
                                     Text="{Binding ElementName=sldr_contrast, Path=Value}"    
                                     >                                    
                                 </TextBox>
 
-                                <Button Style="{StaticResource AdjustButton}"
+                            <Button Style="{StaticResource AdjustButton}" Grid.Column="2" 
+                                    Name="btnAdd_Constrast" Click="Adjust_Click"
                                     FontSize="30"
                                     Content="+" />
 
-                            </StackPanel>
+                            </Grid>
                         </StackPanel>
 
                     </Grid>
