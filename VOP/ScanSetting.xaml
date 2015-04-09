@@ -12,6 +12,7 @@
     ResizeMode="NoResize"
     WindowStyle="None" 
     BorderThickness="24"
+    xmlns:vop="clr-namespace:VOP"
     >
     <Window.Resources>
         <ResourceDictionary>
@@ -55,17 +56,20 @@
                 Header="文档类型" Margin="22.5,10" >
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
 
-                    <RadioButton GroupName="docType" IsChecked="true"
+                <RadioButton GroupName="docType" IsChecked="true"
+                             Name="docutype_photo" Click="docutype_click"
                         Template="{StaticResource customRadioButton}"
                         Content="图片" VerticalAlignment="Center"
                         Margin="10,0" ></RadioButton>
 
-                    <RadioButton GroupName="docType" IsChecked="false"
+                <RadioButton GroupName="docType" IsChecked="false"
+                             Name="docutype_graphic" Click="docutype_click"
                         Template="{StaticResource customRadioButton}"
                         Content="图文" VerticalAlignment="Center"
                         Margin="10,0" ></RadioButton>
 
-                    <RadioButton GroupName="docType" IsChecked="false"
+                <RadioButton GroupName="docType" IsChecked="false"
+                             Name="docutype_text" Click="docutype_click"
                         Template="{StaticResource customRadioButton}"
                         Content="文本" VerticalAlignment="Center"
                         Margin="10,0" ></RadioButton>
@@ -75,15 +79,25 @@
 
             <StackPanel VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="0" HorizontalAlignment="Center" >
                 <local:GroupBoxDecorator Header="分辨率" Height="70"
-                    Width="220" >
-                <ComboBox
+                    Width="220" >                    
+                <ComboBox Name="combo_dpi" SelectionChanged="combo_sel_change"
                     Style="{StaticResource customComboBox}"
                     Background="White"
                     Width="145" Height="25"
                     VerticalAlignment="Center"
                     >
 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
+                    <ComboBoxItem Content="300 x 300" IsSelected="true" >
+                        <ComboBoxItem.DataContext>0</ComboBoxItem.DataContext>
+                    </ComboBoxItem>
+                    <ComboBoxItem Content="600 x 600" >
+                        <ComboBoxItem.DataContext>1</ComboBoxItem.DataContext>
+                    </ComboBoxItem>
+                    <ComboBoxItem Content="1200 x 1200" >
+                        <ComboBoxItem.DataContext>2</ComboBoxItem.DataContext>
+                    </ComboBoxItem>
+
+                    <!--<ComboBoxItem Style="{StaticResource customComboBoxItem}"
                         IsSelected="false" Content="100*100" MinWidth="145" /> 
                     <ComboBoxItem Style="{StaticResource customComboBoxItem}"
                         IsSelected="false" Content="200*200" MinWidth="145" /> 
@@ -92,7 +106,7 @@
                     <ComboBoxItem Style="{StaticResource customComboBoxItem}"
                         IsSelected="false" Content="600*600" MinWidth="145" /> 
                     <ComboBoxItem Style="{StaticResource customComboBoxItem}"
-                        IsSelected="false" Content="1200*1200" MinWidth="145" /> 
+                        IsSelected="false" Content="1200*1200" MinWidth="145" />--> 
 
                 </ComboBox>
                 </local:GroupBoxDecorator>
@@ -102,16 +116,19 @@
                     HorizontalAlignment="Center">
 
                     <RadioButton GroupName="colorMode" IsChecked="True"
+                                 Name="Color" Click="colorMode_Click"
                         Template="{StaticResource customRadioButton}"
                         Content="彩色" VerticalAlignment="Center"
                         Margin="5,0" ></RadioButton>
 
                     <RadioButton GroupName="colorMode" IsChecked="false"
+                                 Name="Grayscale" Click="colorMode_Click"
                         Template="{StaticResource customRadioButton}"
                         Content="灰阶" VerticalAlignment="Center"
                         Margin="5,0" ></RadioButton>
 
                     <RadioButton GroupName="colorMode" IsChecked="false"
+                                 Name="BlackAndWhite" Click="colorMode_Click"
                         Template="{StaticResource customRadioButton}"
                         Content="黑白" VerticalAlignment="Center"
                         Margin="5,0" ></RadioButton>
@@ -120,18 +137,48 @@
                 </local:GroupBoxDecorator>
                 <local:GroupBoxDecorator Header="扫描区域大小" Height="70"
                     Width="220" >
-                <ComboBox
+                <ComboBox Name="cbo_scansize" SelectionChanged="cbo_selchg_scansize"
                     Style="{StaticResource customComboBox}"
                     Background="White"
                     Width="145" Height="25"
                     VerticalAlignment="Center"
                     >
 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"  IsSelected="true" Content="A4(210*297mm)" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="A5(148 x 210mm)" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="B5(182 x 257mm)" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="Letter(8.5 x 11&quot;)" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="(4 x 6&quot;)" MinWidth="145" /> 
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"  IsSelected="true" Content="A4(210*297mm)" MinWidth="145">
+                        <ComboBoxItem.DataContext>
+                            <vop:EnumPaperSizeScan>_A4</vop:EnumPaperSizeScan>
+                        </ComboBoxItem.DataContext>
+                    </ComboBoxItem>
+                    
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="A5(148 x 210mm)" MinWidth="145" >
+                        <ComboBoxItem.DataContext>
+                            <vop:EnumPaperSizeScan>_A5</vop:EnumPaperSizeScan>
+                        </ComboBoxItem.DataContext>
+                    </ComboBoxItem> 
+                    
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="B5(182 x 257mm)" MinWidth="145" >
+                        <ComboBoxItem.DataContext>
+                            <vop:EnumPaperSizeScan>_B5</vop:EnumPaperSizeScan>
+                        </ComboBoxItem.DataContext>
+                    </ComboBoxItem> 
+                    
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="Letter(8.5 x 11&quot;)" MinWidth="145" >
+                        <ComboBoxItem.DataContext>
+                            <vop:EnumPaperSizeScan>_Letter</vop:EnumPaperSizeScan>
+                        </ComboBoxItem.DataContext>
+                    </ComboBoxItem>
+
+                    <ComboBoxItem Content="Executive (7.25 x 10.5&quot;)" >
+                        <ComboBoxItem.DataContext>
+                            <vop:EnumPaperSizeScan>_Executive</vop:EnumPaperSizeScan>
+                        </ComboBoxItem.DataContext>
+                    </ComboBoxItem>
+
+                    <ComboBoxItem Content="7 inch photo (7 x 6&quot;)" >
+                        <ComboBoxItem.DataContext>
+                            <vop:EnumPaperSizeScan>_7inchPhoto</vop:EnumPaperSizeScan>
+                        </ComboBoxItem.DataContext>
+                    </ComboBoxItem>                  
 
                 </ComboBox>
                 </local:GroupBoxDecorator>
@@ -145,7 +192,7 @@
                         <StackPanel>  
                             <Image Stretch="None" VerticalAlignment="Top"
                                 Margin="0,5" Source="Images/Brightness.png" />
-                            <Slider HorizontalAlignment="Center"  Minimum="0"
+                        <Slider HorizontalAlignment="Center"  Minimum="0" Name="sldr_brightness" ValueChanged="sldr_value_change"
                                 Maximum="100" Value="50" Height="18" Width="154" Template="{StaticResource HorizontalSlider}"/>
 
                             <StackPanel Orientation="Horizontal"
@@ -153,13 +200,14 @@
                                 <Button Style="{StaticResource AdjustButton}"
                                     Content="-" />
 
-                                <TextBlock 
+                            <TextBox TextChanged="TextValueChanged" Name="tb_brightness"
                                     VerticalAlignment="Center" 
                                     Margin="40,0"
                                     FontSize="30"
+                                    Text="{Binding ElementName=sldr_brightness, Path=Value}"
                                     >
-                                    50
-                                </TextBlock>
+                                    
+                                </TextBox>
 
                                 <Button Style="{StaticResource AdjustButton}"
                                     Content="+" />
@@ -176,7 +224,7 @@
                         <StackPanel>
                             <Image Stretch="None" VerticalAlignment="Top"
                                 Margin="0,5" Source="Images/Constrast.png" />
-                            <Slider HorizontalAlignment="Center"  Minimum="0"
+                        <Slider HorizontalAlignment="Center"  Minimum="0" Name="sldr_contrast" ValueChanged="sldr_value_change"
                                 Maximum="100" Value="50" Height="18" Width="154" Template="{StaticResource HorizontalSlider}"/>
 
                             <StackPanel Orientation="Horizontal"
@@ -184,13 +232,13 @@
                                 <Button Style="{StaticResource AdjustButton}"
                                     Content="-" />
 
-                                <TextBlock 
+                            <TextBox TextChanged="TextValueChanged" Name="tb_contrast"
                                     VerticalAlignment="Center" 
                                     Margin="40,0"
                                     FontSize="30"
-                                    >
-                                    50
-                                </TextBlock>
+                                    Text="{Binding ElementName=sldr_contrast, Path=Value}"    
+                                    >                                    
+                                </TextBox>
 
                                 <Button Style="{StaticResource AdjustButton}"
                                     Content="+" />
@@ -204,10 +252,10 @@
 
         <StackPanel Grid.ColumnSpan="2" Grid.Row="3" Orientation="Horizontal"
             HorizontalAlignment="Center" VerticalAlignment="Top" Height="35" Margin="105,0" Width="320" >
-            <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="False"
+            <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="False" x:Name="btnDefault" Click="btnDefault_Click"
                 Content="默认" 
                 Height="35" Width="150" Margin="0,0,20,0" />
-            <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="True"
+            <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="True" x:Name="btnOk" Click="btnOk_Click"
                 Content="确定"  Height="35" Width="150" />
         </StackPanel>
 
