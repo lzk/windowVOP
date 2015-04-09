@@ -22,12 +22,28 @@ namespace VOP
 
 #region member used to manage error message in the bottom
         private EnumStatus m_preStatus = EnumStatus.Offline;
-        private string m_errorMsg = "";
-        private System.Windows.Threading.DispatcherTimer m_infoTimer = new System.Windows.Threading.DispatcherTimer();
-            // m_infoTimer.Interval = new TimeSpan(0,0,m_infoTimeOut);
-            // m_infoTimer.Tick += new EventHandler( HandlerInfoTimer );
-            // m_infoTimer.Stop();
-            // m_infoTimer.Start();
+        private string m_errorMsg = ""; // If isn't empty present the requiring message is showing.
+        private System.Windows.Threading.DispatcherTimer m_showTimeCnter = new System.Windows.Threading.DispatcherTimer();
+
+        public void ShowMessage( string s ) // TODO: Add message type.
+        {
+            if ( null != txtErrMsg )
+            {
+                m_showTimeCnter.Stop();
+                m_preStatus = m_currentStatus;
+                m_errorMsg = s;
+                this.txtErrMsg.Text = s;
+                m_showTimeCnter.Start();
+            }
+        }
+
+        private void TimerHandler(object sender, EventArgs e)
+        {
+            m_showTimeCnter.Stop();
+            m_currentStatus = _currentStatus; // Update the message with current status.
+            m_errorMsg = "";
+        }
+
 #endregion
         /// <summary>
         /// Current selected printer name. Assign empty ( NOTE: no null ), if nothing selected.
@@ -65,7 +81,18 @@ namespace VOP
                 if ( null != this.status && null != txtErrMsg )
                 {
                     this.status.TypeId = common.GetStatusTypeForUI( value );
-                    this.txtErrMsg.Text = common.GetErrorMsg( value, m_job );
+
+                    if ( "" == m_errorMsg )
+                    {
+                        this.txtErrMsg.Text = common.GetErrorMsg( value, m_job );
+                    }
+                    else if (  value != m_preStatus )
+                    {
+                        // If the status change, show current status first.
+                        m_showTimeCnter.Stop();
+                        this.txtErrMsg.Text = common.GetErrorMsg( value, m_job );
+                        m_errorMsg = "";
+                    }
                 }
             }
 
@@ -80,6 +107,9 @@ namespace VOP
         public StatusPanel()
         {
             InitializeComponent();
+
+            m_showTimeCnter.Interval = new TimeSpan( 0, 0, 3 );
+            m_showTimeCnter.Tick += new EventHandler( TimerHandler );
         }
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
