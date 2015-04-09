@@ -45,14 +45,23 @@
                             <TextBlock Name="txt1" Foreground="#ff838383"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                FontSize="28.37px" FontFamily="Microsoft
-                                YaHei" Margin="0,0,0,1" Text="{TemplateBinding
-                                Content}" />
+                                FontSize="{TemplateBinding FontSize}" 
+                                FontFamily="Microsoft
+                                YaHei" Margin="0,0,0,1" 
+                                Text="{TemplateBinding Content}" 
+                                />
 
                         </Grid>
 
                         <ControlTemplate.Triggers>
+
                             <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="txt1"
+                                    Property="Foreground" Value="#FF49A900" />
+
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
                                 <Setter TargetName="e1" Property="Fill" >
                                     <Setter.Value>
                                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
@@ -84,6 +93,7 @@
                                     Property="Foreground" Value="White" />
 
                             </Trigger>
+
                         </ControlTemplate.Triggers>
 
                     </ControlTemplate>
