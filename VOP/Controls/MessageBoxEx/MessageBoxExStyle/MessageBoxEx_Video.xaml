@@ -54,7 +54,7 @@
                 <!--<ColumnDefinition Width="37*"/>-->
             </Grid.ColumnDefinitions>
 
-            <Image Source="..\..\Images\Warning.tif" Grid.Row="1"></Image>
+            <Image Source="..\..\..\Images\Warning.tif" Grid.Row="1"></Image>
             <TextBlock Name="messageBoxTextBlock" Grid.Row="1" Grid.Column="1" FontSize="14"  Margin="20" Text="打印机卡纸，请按照提示操作!" Foreground="#555555" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
 
         </Grid>

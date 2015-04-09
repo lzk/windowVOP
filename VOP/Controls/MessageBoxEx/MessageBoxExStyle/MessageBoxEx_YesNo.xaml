@@ -55,7 +55,7 @@
                 <ColumnDefinition Width="296*" />
             </Grid.ColumnDefinitions>
 
-            <Image Source="..\..\Images\Warning.tif" Grid.Row="1"></Image>
+            <Image Source="..\..\..\Images\Warning.tif" Grid.Row="1"></Image>
             <TextBlock Name="messageBoxTextBlock" Grid.RowSpan="3" Grid.Column="1" FontSize="14" Width="230" Margin="20,0"
                        Text="VOP关闭后，扫描图片将会被删除，是否关闭，请确认。"                        
                        VerticalAlignment="Center" HorizontalAlignment="Left"               
