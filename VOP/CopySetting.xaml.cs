@@ -367,7 +367,12 @@ namespace VOP
             }
 
             if ( m_isIDCardCopy )
-                cboDocSize.IsEnabled = false;
+            {
+                foreach ( ComboBoxItem obj in cboDocSize.Items )
+                {
+                    obj.IsEnabled = false;
+                }
+            }
         }
 
         /// <summary>
@@ -401,7 +406,12 @@ namespace VOP
             }
 
             if ( m_isIDCardCopy )
-                cboResolution.IsEnabled = false;
+            {
+                foreach ( ComboBoxItem obj in cboResolution.Items )
+                {
+                    obj.IsEnabled = false;
+                }
+            }
         }
 
         /// <summary>

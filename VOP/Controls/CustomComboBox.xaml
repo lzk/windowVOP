@@ -69,17 +69,13 @@
 
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="Border" Property="Background"
-                                    Value="Green"/>
-                            </Trigger>
-
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter TargetName="Border" Property="Background"
-                                    Value="Blue"/>
+                                    Value="#FFA8A7A7"/>
+                                <Setter Property="Foreground" Value="White"/>
                             </Trigger>
 
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Foreground"
-                                    Value="Yellow"/>
+                                    Value="#FF9E9E9E"/>
                             </Trigger>
 
                         </ControlTemplate.Triggers>
@@ -170,9 +166,8 @@
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Foreground" Value="Red"/>
-                                <Setter TargetName="DropDownToggle" Property="Background" Value="Yellow"/>
-                                <Setter TargetName="grid1" Property="Background" Value="Yellow"/>
+                                <Setter TargetName="DropDownToggle" Property="Background" Value="Transparent"/>
+                                <Setter TargetName="grid1" Property="Background" Value="Transparent"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
