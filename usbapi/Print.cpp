@@ -3,6 +3,7 @@
 #include <windows.h>
 #include "dibhelp.h"
 #include <vector>
+<<<<<<< HEAD
 #include <gdiplus.h>
 #include <Shlwapi.h>
 #include <tchar.h>
@@ -23,6 +24,10 @@ enum PrintError
 	Print_OK,
 };
 
+#include "print.h"
+#include <winspool.h>
+
+
 enum PrintShowMode
 {
 	IDM_SHOW_NORMAL,
@@ -37,10 +42,28 @@ typedef struct _PrintItem
 	//int rotation;
 }PrintItem;
 
+
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName);
 USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription);
 USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName);
 USBAPI_API int __stdcall DoPrint();
+
+USBAPI_API void __stdcall SetPrinterInof(const TCHAR * strPrinterName,
+	short sPaperSize,
+	short sPaperOrientation,
+	short sMediaType,
+	short sPaperOrder,
+	short sPrintQuality,
+	short sScalingType,
+	short sScalingRatio,
+	short sNupNum,
+	short sTypeofPB,
+	short sPosterType,
+	short sDensity,
+	short sDuplexPrint,
+	short sReversePrint,
+	short sTonerSaving);
+
 
 static std::vector<PrintItem> g_vecImagePaths;
 //static PRINTDLGEX pdx;
@@ -279,138 +302,119 @@ static void EndDrawImage(HDC hdc)
 	RestoreDC(hdc, -1);
 }
 
-//static int DisplayDib(HDC hdc, HBITMAP hBitmap, int x, int y,
-//	int cxClient, int cyClient,
-//	WORD wShow, BOOL fHalftonePalette)
-//{
-//	BITMAP bitmap;
-//	HDC    hdcMem;
-//	int    cxBitmap, cyBitmap, iReturn;
-//
-//	GetObject(hBitmap, sizeof (BITMAP), &bitmap);
-//	cxBitmap = bitmap.bmWidth;
-//	cyBitmap = bitmap.bmHeight;
-//
-//	SaveDC(hdc);
-//
-//	if (fHalftonePalette)
-//		SetStretchBltMode(hdc, HALFTONE);
-//	else
-//		SetStretchBltMode(hdc, COLORONCOLOR);
-//
-//	hdcMem = CreateCompatibleDC(hdc);
-//	SelectObject(hdcMem, hBitmap);
-//
-//	switch (wShow)
-//	{
-//	case IDM_SHOW_NORMAL:
-//		if (fHalftonePalette)
-//			iReturn = StretchBlt(hdc, 0, 0,
-//			min(cxClient, cxBitmap - x),
-//			min(cyClient, cyBitmap - y),
-//			hdcMem, x, y,
-//			min(cxClient, cxBitmap - x),
-//			min(cyClient, cyBitmap - y),
-//			SRCCOPY);
-//		else
-//			iReturn = BitBlt(hdc, 0, 0,
-//			min(cxClient, cxBitmap - x),
-//			min(cyClient, cyBitmap - y),
-//			hdcMem, x, y, SRCCOPY);
-//		break;
-//
-//	case IDM_SHOW_CENTER:
-//		if (fHalftonePalette)
-//			iReturn = StretchBlt(hdc, (cxClient - cxBitmap) / 2,
-//			(cyClient - cyBitmap) / 2,
-//			cxBitmap, cyBitmap,
-//			hdcMem, 0, 0, cxBitmap, cyBitmap, SRCCOPY);
-//		else
-//			iReturn = BitBlt(hdc, (cxClient - cxBitmap) / 2,
-//			(cyClient - cyBitmap) / 2,
-//			cxBitmap, cyBitmap,
-//			hdcMem, 0, 0, SRCCOPY);
-//		break;
-//
-//	case IDM_SHOW_STRETCH:
-//		iReturn = StretchBlt(hdc, 0, 0, cxClient, cyClient,
-//			hdcMem, 0, 0, cxBitmap, cyBitmap, SRCCOPY);
-//		break;
-//
-//	case IDM_SHOW_ISOSTRETCH:
-//		SetMapMode(hdc, MM_ISOTROPIC);
-//		SetWindowExtEx(hdc, cxBitmap, cyBitmap, NULL);
-//		SetViewportExtEx(hdc, cxClient, cyClient, NULL);
-//		SetWindowOrgEx(hdc, cxBitmap / 2, cyBitmap / 2, NULL);
-//		SetViewportOrgEx(hdc, cxClient / 2, cyClient / 2, NULL);
-//
-//		iReturn = StretchBlt(hdc, 0, 0, cxBitmap, cyBitmap,
-//			hdcMem, 0, 0, cxBitmap, cyBitmap, SRCCOPY);
-//		break;
-//	}
-//	DeleteDC(hdcMem);
-//	RestoreDC(hdc, -1);
-//	return iReturn;
-//}
-//
-//
-//static HDIB DibRotateRight(HDIB hdibSrc)
-//{
-//	HDIB hdibDst;
-//	int  cx, cy, x, y;
-//
-//	if (!DibIsAddressable(hdibSrc))
-//		return NULL;
-//
-//	if (NULL == (hdibDst = DibCopy(hdibSrc, TRUE)))
-//		return NULL;
-//
-//	cx = DibWidth(hdibSrc);
-//	cy = DibHeight(hdibSrc);
-//
-//	switch (DibBitCount(hdibSrc))
-//	{
-//	case  1:
-//		for (x = 0; x < cx; x++)
-//		for (y = 0; y < cy; y++)
-//			DibSetPixel1(hdibDst, cy - y - 1, x,
-//			DibGetPixel1(hdibSrc, x, y));
-//		break;
-//
-//	case  4:
-//		for (x = 0; x < cx; x++)
-//		for (y = 0; y < cy; y++)
-//			DibSetPixel4(hdibDst, cy - y - 1, x,
-//			DibGetPixel4(hdibSrc, x, y));
-//		break;
-//
-//	case  8:
-//		for (x = 0; x < cx; x++)
-//		for (y = 0; y < cy; y++)
-//			DibSetPixel8(hdibDst, cy - y - 1, x,
-//			DibGetPixel8(hdibSrc, x, y));
-//		break;
-//
-//	case 16:
-//		for (x = 0; x < cx; x++)
-//		for (y = 0; y < cy; y++)
-//			DibSetPixel16(hdibDst, cy - y - 1, x,
-//			DibGetPixel16(hdibSrc, x, y));
-//		break;
-//
-//	case 24:
-//		for (x = 0; x < cx; x++)
-//		for (y = 0; y < cy; y++)
-//			DibSetPixel24(hdibDst, cy - y - 1, x,
-//			DibGetPixel24(hdibSrc, x, y));
-//		break;
-//
-//	case 32:
-//		for (x = 0; x < cx; x++)
-//		for (y = 0; y < cy; y++)
-//			DibSetPixel32(hdibDst, cy - y - 1, x,
-//			DibGetPixel32(hdibSrc, x, y));
-//		break;
-//	}
-//	return hdibDst;
-//}
+
+USBAPI_API void __stdcall SetPrinterInof(const TCHAR * strPrinterName,
+	short sPaperSize,
+	short sPaperOrientation,
+	short sMediaType,
+	short sPaperOrder,
+	short sPrintQuality,
+	short sScalingType,
+	short sScalingRatio,
+	short sNupNum,
+	short sTypeofPB,
+	short sPosterType,
+	short sDensity,
+	short sDuplexPrint,
+	short sReversePrint,
+	short sTonerSaving)
+{
+	HANDLE   phandle;
+	DWORD dmsize;
+
+	phandle = NULL;
+	wchar_t szprintername[MAX_PATH] = { 0 };
+	wcscpy_s(szprintername, MAX_PATH, strPrinterName);
+
+	if (OpenPrinter(szprintername, &phandle, NULL))
+	{
+
+		LPPRINTER_INFO_2 printer_info;
+
+		GetPrinter(phandle, 2, (LPBYTE)NULL, 0, &dmsize);
+
+		printer_info = (LPPRINTER_INFO_2)malloc(dmsize);
+
+		if (printer_info != NULL)
+		{
+			if (GetPrinter(phandle, 2, (LPBYTE)printer_info, dmsize, &dmsize))
+			{
+				PCLDEVMODE devmode;
+
+				devmode = *(LPPCLDEVMODE)printer_info->pDevMode;
+				switch (sPaperSize)
+				{
+				case 0:
+					devmode.dmPublic.dmPaperSize = DMPAPER_A4;
+					break;
+				case 1:
+					devmode.dmPublic.dmPaperSize = DMPAPER_LETTER;
+					break;
+				case 2:
+					devmode.dmPublic.dmPaperSize = DMPAPER_B5;
+					break;
+				case 3:
+					devmode.dmPublic.dmPaperSize = DMPAPER_A5;
+					break;
+				case 4:
+					devmode.dmPublic.dmPaperSize = DMPAPER_A5LEF;
+					break;
+				case 5:
+					devmode.dmPublic.dmPaperSize = DMPAPER_B6_JIS;
+					break;
+				case 6:
+					devmode.dmPublic.dmPaperSize = DMPAPER_B6LEF;
+					break;
+				case 7:
+					devmode.dmPublic.dmPaperSize = DMPAPER_A6;
+					break;
+				case 8:
+					devmode.dmPublic.dmPaperSize = DMPAPER_EXECUTIVE;
+					break;
+				case 9:
+					devmode.dmPublic.dmPaperSize = DMPAPER_P16K;
+					break;
+				case 10:
+					devmode.dmPublic.dmPaperSize = DMPAPER_USER;
+					break;
+				default:
+					devmode.dmPublic.dmPaperSize = DMPAPER_LETTER;
+					break;
+				}
+				
+				devmode.dmPublic.dmOrientation = sPaperOrientation;
+				devmode.dmPublic.dmMediaType = sMediaType + DMMEDIA_USER;
+				devmode.dmPrivate.par.wMediaType = sMediaType;
+				devmode.dmPublic.dmCollate = sPaperOrder;
+				//devmode.dmPublic.dmPrintQuality = sPrintQuality;
+				devmode.dmPrivate.PrintQuality = sPrintQuality;
+				devmode.dmPrivate.nup.bNupNum = sNupNum;//multiple-page 2in1: 2, 4in1: 4, 6in1: 6, 9in1: 9, 16 in1: 16
+
+				devmode.dmPrivate.bpmrdata.TypeofPB = sTypeofPB;//multiple-page, 1in nxn pages
+				devmode.dmPrivate.poster.wPosterType = sPosterType;// 0: 1 in 2x2, 1: 1 in 3x3, 2: 1 in 4x4 pages.
+
+				devmode.dmPrivate.sfp.ISFSet = sScalingType;// scale 
+				devmode.dmPrivate.sfp.SRatio = sScalingRatio;//scale 25~400
+
+				devmode.dmPrivate.graphics.ColorBalanceIndex[0][0] = sDensity;
+
+				devmode.dmPublic.dmDuplex = sDuplexPrint; //DUPLEX£¬ DMDUP_VERTICAL: ³¤±ß DMDUP_HORIZONTAL£¬¶Ì±ß
+
+				devmode.dmPrivate.bPaperReverseOrder = sReversePrint;
+				devmode.dmPrivate.graphics.TonerSaving = sTonerSaving;
+
+
+				*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
+
+				SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
+			}
+			free(printer_info);
+		}
+	}
+	if (phandle != NULL)
+	{
+		ClosePrinter(phandle);
+		phandle = NULL;
+	}
+}
+

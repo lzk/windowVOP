@@ -195,6 +195,24 @@ namespace VOP
 
         [DllImport("usbapi.dll")]
         public static extern int OutputDebugStringToFile_([MarshalAs(UnmanagedType.LPWStr)]string _lpFormat);
+
+        [DllImport("usbapi.dll")]
+        public static extern void SetPrinterInof(
+            [MarshalAs(UnmanagedType.LPWStr)]string strPrinterName, 
+            short sPaperSize,
+            short sPaperOrientation,
+            short sMediaType,
+            short sPaperOrder,
+            short sPrintQuality,
+            short sScalingType,
+            short sScalingRatio,
+            short sNupNum,
+            short sTypeofPB,
+            short sPosterType,
+            short sDensity,
+            short sDuplexPrint,
+            short sReversePrint,
+            short sTonerSaving);
     }
 
 }

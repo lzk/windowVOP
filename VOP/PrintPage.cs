@@ -55,6 +55,7 @@ namespace VOP
             bool? result = null;
             PrintSettingPage printWin = new PrintSettingPage();
             printWin.Owner = App.Current.MainWindow;
+            printWin.m_MainWin = m_MainWin;
 
             result = printWin.ShowDialog();
             if (result == true)

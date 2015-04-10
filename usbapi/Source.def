@@ -19,6 +19,7 @@ EXPORTS
 	AddImagePath
 	DoPrint
     PrintFile
+	SetPrinterInof
 	OutputDebugStringToFileA
 	OutputDebugStringToFile
 	OutputDebugStringToFile_
