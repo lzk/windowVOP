@@ -151,5 +151,35 @@ namespace VOP
         {
             // TODO: update UI when auto machine state change.
         }
+
+        private void btnScan_Click(object sender, RoutedEventArgs e)
+        {
+            string szOrig  = "";
+            string szView  = "";
+            string szThumb = "";
+
+            int scanMode   = 0;
+            int resolution = 0;
+            int width      = 0;
+            int height     = 0;
+            int contrast   = 0;
+            int brightness = 0;
+            int docutype   = 0;
+            uint uMsg      = 0;
+
+            dll.ScanEx(
+                    m_MainWin.statusPanelPage.m_selectedPrinter,
+                    szOrig,
+                    szView,
+                    szThumb,
+                    scanMode,
+                    resolution,
+                    width,
+                    height,
+                    contrast,
+                    brightness,
+                    docutype,
+                    uMsg );
+        }
     }
 }

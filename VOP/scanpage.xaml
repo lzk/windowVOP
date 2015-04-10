@@ -126,8 +126,8 @@
             Content="保存" Height="25" Width="75" HorizontalAlignment="Center" />
         <local:ButtonEx Click="SettingBtnClick" HorizontalContentAlignment="Center" Margin="5,10" IsDefault="False"
             Content="更多设置" Height="25" Width="105" HorizontalAlignment="Center" />
-        <local:ButtonEx HorizontalContentAlignment="Center" Margin="38,0,12,0" IsDefault="True"
-            Content="扫描" Height="25" Width="75" />
+        <local:ButtonEx x:Name="btnScan" HorizontalContentAlignment="Center" Margin="38,0,12,0" IsDefault="True"
+            Content="扫描" Height="25" Width="75" Click="btnScan_Click" />
     </StackPanel>
 
     <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal"

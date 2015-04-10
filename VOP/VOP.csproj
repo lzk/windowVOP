@@ -513,7 +513,11 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="RequestManager.cs" />
-    <Compile Include="ScanPage.cs" />
+
+    <Compile Include="ScanPage.cs">
+      <DependentUpon>ScanPage.xaml</DependentUpon>
+    </Compile>
+
     <Compile Include="SettingPage.cs" />
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
