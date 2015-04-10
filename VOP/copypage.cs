@@ -17,7 +17,7 @@ namespace VOP
         private EnumPaperSizeInput  m_docSize    = EnumPaperSizeInput._A4;
         private EnumPaperSizeOutput m_outputSize = EnumPaperSizeOutput._Letter;
         private EnumNin1            m_nin1       = EnumNin1._1up;
-        private EnumResln           m_dpi        = EnumResln._300x300;
+        private EnumCopyResln           m_dpi        = EnumCopyResln._300x300;
         private EnumMediaType       m_mediaType  = EnumMediaType.Plain;
 #endregion
 
@@ -171,7 +171,7 @@ namespace VOP
         {
             m_scaling    = 100;
             m_nin1       = EnumNin1._1up;
-            m_dpi        = EnumResln._300x300;
+            m_dpi        = EnumCopyResln._300x300;
 
             if ( EnumPaperSizeOutput._A6 == m_outputSize || EnumPaperSizeOutput._B6 == m_outputSize )
                 m_outputSize = EnumPaperSizeOutput._Letter; 

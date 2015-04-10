@@ -15,7 +15,7 @@ namespace VOP
         List<ScanFiles> scanFileList = new List<ScanFiles>();
 
         enum_docutype m_docutype = enum_docutype.docutype_photo;
-        public EnumResln m_resln = EnumResln._300x300;
+        public EnumScanResln m_resln = EnumScanResln._300x300;
         public enum_color m_color = enum_color.color_24bit;
         public int m_brightness = 50;
         public int m_contrast = 50;

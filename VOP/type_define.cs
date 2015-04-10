@@ -122,11 +122,23 @@ namespace VOP
     /// <summary>
     ///  Enumerate type for copy setting resolution option
     /// </summary>
-    public enum EnumResln : byte
+    public enum EnumCopyResln : byte
     {
         _300x300   = 0,
         _600x600   = 1,
         _1200x1200 = 2,
+    }
+
+    /// <summary> 
+    /// Enumerate type for scan setting resolution option.
+    /// </summary> 
+    public enum EnumScanResln : int
+    {
+        _100x100   = 100,
+        _200x200   = 200,
+        _300x300   = 300,
+        _600x600   = 600,
+        _1200x1200 = 1200,
     }
 
     public enum enum_color : byte

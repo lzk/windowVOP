@@ -22,7 +22,7 @@ namespace VOP
         public EnumCopyScanMode    m_scanMode   = EnumCopyScanMode.Photo;
         public EnumPaperSizeInput  m_docSize    = EnumPaperSizeInput._A4;
         public EnumPaperSizeOutput m_outputSize = EnumPaperSizeOutput._Letter;
-        public EnumResln           m_dpi        = EnumResln._300x300;
+        public EnumCopyResln           m_dpi        = EnumCopyResln._300x300;
         public EnumMediaType       m_mediaType  = EnumMediaType.Plain;
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace VOP
 
             if ( null != selItem && null != selItem.DataContext )
             {
-                m_dpi = (EnumResln)selItem.DataContext;
+                m_dpi = (EnumCopyResln)selItem.DataContext;
             }
         }
 
@@ -246,7 +246,7 @@ namespace VOP
             m_docSize    = EnumPaperSizeInput._A4;
             m_outputSize = EnumPaperSizeOutput._Letter;
             m_nin1       = EnumNin1._1up;
-            m_dpi        = EnumResln._300x300;
+            m_dpi        = EnumCopyResln._300x300;
             m_mediaType  = EnumMediaType.Plain;
 
             InitCboDocSize();
@@ -384,14 +384,14 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "300*300" ;
-            cboItem.DataContext = EnumResln._300x300;
+            cboItem.DataContext = EnumCopyResln._300x300;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboResolution.Items.Add( cboItem );
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "600*600" ;
-            cboItem.DataContext = EnumResln._600x600;
+            cboItem.DataContext = EnumCopyResln._600x600;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboResolution.Items.Add( cboItem );
@@ -399,7 +399,7 @@ namespace VOP
             foreach ( ComboBoxItem obj in cboResolution.Items )
             {
                 if ( null != obj.DataContext 
-                        && (EnumResln)obj.DataContext == m_dpi )
+                        && (EnumCopyResln)obj.DataContext == m_dpi )
                 {
                     obj.IsSelected = true;
                 }

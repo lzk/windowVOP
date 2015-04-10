@@ -18,7 +18,7 @@ namespace VOP
     public partial class ScanSetting : Window
     {
         public enum_docutype m_docutype = enum_docutype.docutype_photo;
-        public EnumResln m_resln = EnumResln._300x300;
+        public EnumScanResln m_resln = EnumScanResln._300x300;
         public EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._A4;
         public enum_color m_color = enum_color.color_24bit;
         public int m_brightness = 50;
@@ -40,13 +40,13 @@ namespace VOP
         {
             switch (m_resln)
             {
-                case EnumResln._300x300:
+                case EnumScanResln._300x300:
                     combo_dpi.SelectedIndex = 0;
                     break;
-                case EnumResln._600x600:
+                case EnumScanResln._600x600:
                     combo_dpi.SelectedIndex = 1;
                     break;
-                case EnumResln._1200x1200:
+                case EnumScanResln._1200x1200:
                     combo_dpi.SelectedIndex = 2;
                     break;
             }
@@ -135,7 +135,7 @@ namespace VOP
                     {
                         //txtblk_dpi.Text = "300x300 dpi";
                         //txtblk_color.Text = "Color";
-                        m_resln = EnumResln._300x300;
+                        m_resln = EnumScanResln._300x300;
                         m_color = enum_color.color_24bit;
                     }
                     m_docutype = enum_docutype.docutype_photo;
@@ -146,7 +146,7 @@ namespace VOP
                     {
                         //txtblk_dpi.Text = "300x300 dpi";
                         //txtblk_color.Text = "Grayscale";
-                        m_resln = EnumResln._300x300;
+                        m_resln = EnumScanResln._300x300;
                         m_color = enum_color.grayscale_8bit;
                     }
                     m_docutype = enum_docutype.docutype_text;
@@ -157,7 +157,7 @@ namespace VOP
                     {
                         //txtblk_dpi.Text = "300x300 dpi";
                         //txtblk_color.Text = "Color";
-                        m_resln = EnumResln._300x300;
+                        m_resln = EnumScanResln._300x300;
                         m_color = enum_color.color_24bit;
                     }
                     m_docutype = enum_docutype.docutype_graphic;
@@ -194,13 +194,13 @@ namespace VOP
                         switch (txt_data)
                         {
                             case "0":
-                                m_resln = EnumResln._300x300;
+                                m_resln = EnumScanResln._300x300;
                                 break;
                             case "1":
-                                m_resln = EnumResln._600x600;
+                                m_resln = EnumScanResln._600x600;
                                 break;
                             case "2":
-                                m_resln = EnumResln._1200x1200;
+                                m_resln = EnumScanResln._1200x1200;
                                 break;
                         }
                     }
@@ -310,7 +310,7 @@ namespace VOP
         private void btnDefault_Click(object sender, RoutedEventArgs e)
         {
             m_docutype = enum_docutype.docutype_photo;
-            m_resln = EnumResln._300x300;
+            m_resln = EnumScanResln._300x300;
             m_paperSize = EnumPaperSizeScan._A4;
             m_color = enum_color.color_24bit;
             m_brightness = 50;
