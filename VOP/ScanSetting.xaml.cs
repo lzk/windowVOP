@@ -17,13 +17,6 @@ namespace VOP
     /// </summary>
     public partial class ScanSetting : Window
     {
-        private enum_docutype m_default_docutype = enum_docutype.docutype_photo;
-        private EnumResln m_default_resln = EnumResln._300x300;
-        private EnumPaperSizeScan m_default_paperSize = EnumPaperSizeScan._A4;
-        private enum_color m_default_color = enum_color.color_24bit;
-        private int m_default_brightness = 50;
-        private int m_default_contrast = 100;
-
         public enum_docutype m_docutype = enum_docutype.docutype_photo;
         public EnumResln m_resln = EnumResln._300x300;
         public EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._A4;
@@ -40,14 +33,6 @@ namespace VOP
 
         public void handler_loaded( object sender, RoutedEventArgs e )
         {
-            // Save default Value
-            m_default_docutype = m_docutype;
-            m_default_resln = m_resln;
-            m_default_paperSize = m_paperSize;
-            m_default_color = m_color;
-            m_default_brightness = m_brightness;
-            m_default_contrast = m_contrast;
-
             updateWindow();
         }
 
@@ -310,15 +295,13 @@ namespace VOP
             // after sldr in xaml.
             if (null != sldr)
             {
-                int val = (int)sldr.Value;
-                if (sldr.Name == "sldr_brightness" && null != tb_brightness)
+                int val = (int)(sldr.Value+0.5);
+                if (sldr.Name == "sldr_brightness")
                 {
-                    tb_brightness.Text = val.ToString();
                     m_brightness = val;
                 }
-                else if (sldr.Name == "sldr_contrast" && null != tb_contrast)
+                else if (sldr.Name == "sldr_contrast")
                 {
-                    tb_contrast.Text = val.ToString();
                     m_contrast = val;
                 }
             }
@@ -326,13 +309,12 @@ namespace VOP
 
         private void btnDefault_Click(object sender, RoutedEventArgs e)
         {
-            // Restore default Value
-            m_docutype = m_default_docutype;
-            m_resln = m_default_resln;
-            m_paperSize = m_default_paperSize;
-            m_color = m_default_color;
-            m_brightness = m_default_brightness;
-            m_contrast = m_default_contrast;
+            m_docutype = enum_docutype.docutype_photo;
+            m_resln = EnumResln._300x300;
+            m_paperSize = EnumPaperSizeScan._A4;
+            m_color = enum_color.color_24bit;
+            m_brightness = 50;
+            m_contrast = 50;
 
             updateWindow();
         }
@@ -354,9 +336,6 @@ namespace VOP
              int contrastMin = (int)sldr_contrast.Minimum;
              int contrastMax = (int)sldr_contrast.Maximum;
              int contrastCurValue = (int)sldr_contrast.Value;
-
-
-
 
              if (null != btn)
              {
