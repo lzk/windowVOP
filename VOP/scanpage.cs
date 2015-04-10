@@ -14,6 +14,14 @@ namespace VOP
     {
         List<ScanFiles> scanFileList = new List<ScanFiles>();
 
+        enum_docutype m_docutype = enum_docutype.docutype_photo;
+        public EnumResln m_resln = EnumResln._300x300;
+        public enum_color m_color = enum_color.color_24bit;
+        public int m_brightness = 50;
+        public int m_contrast = 50;
+        private int mScanDpi = 300;
+        private EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._A4;
+
         public ScanPage()
         {
             InitializeComponent();
@@ -92,9 +100,25 @@ namespace VOP
         private void SettingBtnClick(object sender, RoutedEventArgs e)
         {
             ScanSetting win = new ScanSetting();
-            
+
+            win.m_docutype = m_docutype;
+            win.m_resln = m_resln;
+            win.m_paperSize = m_paperSize;
+            win.m_color = m_color;
+            win.m_brightness = m_brightness;
+            win.m_contrast = m_contrast;
+
             win.Owner = App.Current.MainWindow;
-            win.ShowDialog();
+         
+            if (true == win.ShowDialog())
+            {
+                m_docutype = win.m_docutype;
+                m_resln = win.m_resln;
+                m_paperSize = win.m_paperSize;
+                m_color = win.m_color;
+                m_brightness = win.m_brightness;
+                m_contrast = win.m_contrast;
+            }
         }
 
         ///<summary>

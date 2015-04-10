@@ -13,6 +13,8 @@
     WindowStyle="None" 
     BorderThickness="24"
     xmlns:vop="clr-namespace:VOP"
+    ShowInTaskbar="False" 
+    Loaded="handler_loaded"
     >
     <Window.Resources>
         <ResourceDictionary>

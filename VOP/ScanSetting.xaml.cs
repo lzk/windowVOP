@@ -17,9 +17,16 @@ namespace VOP
     /// </summary>
     public partial class ScanSetting : Window
     {
-        enum_docutype m_docutype = enum_docutype.docutype_photo;
+        private enum_docutype m_default_docutype = enum_docutype.docutype_photo;
+        private EnumResln m_default_resln = EnumResln._300x300;
+        private EnumPaperSizeScan m_default_paperSize = EnumPaperSizeScan._A4;
+        private enum_color m_default_color = enum_color.color_24bit;
+        private int m_default_brightness = 50;
+        private int m_default_contrast = 100;
+
+        public enum_docutype m_docutype = enum_docutype.docutype_photo;
         public EnumResln m_resln = EnumResln._300x300;
-        private EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._A4;
+        public EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._A4;
         public enum_color m_color = enum_color.color_24bit;
         public int m_brightness = 50;
         public int m_contrast = 50;
@@ -29,6 +36,86 @@ namespace VOP
             this.InitializeComponent();
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;
             // Insert code required on object creation below this point.
+        }
+
+        public void handler_loaded( object sender, RoutedEventArgs e )
+        {
+            // Save default Value
+            m_default_docutype = m_docutype;
+            m_default_resln = m_resln;
+            m_default_paperSize = m_paperSize;
+            m_default_color = m_color;
+            m_default_brightness = m_brightness;
+            m_default_contrast = m_contrast;
+
+            updateWindow();
+        }
+
+        private void updateWindow()
+        {
+            switch (m_resln)
+            {
+                case EnumResln._300x300:
+                    combo_dpi.SelectedIndex = 0;
+                    break;
+                case EnumResln._600x600:
+                    combo_dpi.SelectedIndex = 1;
+                    break;
+                case EnumResln._1200x1200:
+                    combo_dpi.SelectedIndex = 2;
+                    break;
+            }
+
+            switch(m_docutype)
+            {
+                case enum_docutype.docutype_photo:
+                    docutype_photo.IsChecked = true;
+                    break;
+                case enum_docutype.docutype_text:
+                    docutype_text.IsChecked = true;
+                    break;
+                case enum_docutype.docutype_graphic:
+                    docutype_graphic.IsChecked = true;
+                    break;                   
+            }
+
+            switch(m_color)
+            {
+                case enum_color.color_24bit:
+                    Color.IsChecked = true;
+                    break;
+                case enum_color.grayscale_8bit:
+                    Grayscale.IsChecked = true;
+                    break;
+                case enum_color.black_white:
+                    BlackAndWhite.IsChecked = true;
+                    break;     
+            }
+
+            switch(m_paperSize)
+            {
+                case EnumPaperSizeScan._A4:
+                    cbo_scansize.SelectedIndex = 0;
+                    break;
+                case EnumPaperSizeScan._A5:
+                    cbo_scansize.SelectedIndex = 1;
+                    break;
+                case EnumPaperSizeScan._B5:
+                    cbo_scansize.SelectedIndex = 2;
+                    break;
+                case EnumPaperSizeScan._Letter:
+                    cbo_scansize.SelectedIndex = 3;
+                    break;
+                case EnumPaperSizeScan._Executive:
+                    cbo_scansize.SelectedIndex = 4;
+                    break;
+                case EnumPaperSizeScan._7inchPhoto:
+                    cbo_scansize.SelectedIndex = 5;
+                    break;
+            }
+
+            sldr_brightness.Value = m_brightness;
+            sldr_contrast.Value = m_contrast;
         }
 
         public void MyMouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
@@ -239,18 +326,15 @@ namespace VOP
 
         private void btnDefault_Click(object sender, RoutedEventArgs e)
         {
-            SetupDefault();
-        }
+            // Restore default Value
+            m_docutype = m_default_docutype;
+            m_resln = m_default_resln;
+            m_paperSize = m_default_paperSize;
+            m_color = m_default_color;
+            m_brightness = m_default_brightness;
+            m_contrast = m_default_contrast;
 
-        private void SetupDefault()
-        {
-            docutype_photo.IsChecked = true;
-            combo_dpi.SelectedIndex = 0;
-            Color.IsChecked = true;
-            cbo_scansize.SelectedIndex = 0;
-
-            sldr_brightness.Value = 50;
-            sldr_contrast.Value = 50;
+            updateWindow();
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
