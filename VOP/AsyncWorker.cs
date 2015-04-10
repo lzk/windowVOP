@@ -19,13 +19,11 @@ using System.ComponentModel;
 
 namespace VOP
 {
-    public delegate bool DoWorkDelegate();
+    public delegate int DoWorkDelegate();
     public delegate int ScanDelegate(string printerName, string szOrig, string szView, string szThumb,
                                         int scanMode, int resolution, int width, int height,
                                         int contrast, int brightness, int docuType, uint uMsg );
     public delegate int PrintFileDelegate(string printerName, string fileName);
-    //public delegate int GetIpInfoDelegate(string printerName, ref byte mode_ipversion, ref byte mode_ipaddress, ref byte ip0, ref byte ip1, ref byte ip2, ref byte ip3,
-    //                                ref byte mask0, ref byte mask1, ref byte mask2, ref byte mask3, ref byte gate0, ref byte gate1, ref byte gate2, ref byte gate3);
     
     class AsyncWorker
     {
@@ -68,37 +66,6 @@ namespace VOP
             }
 
         }
-
-        //public int InvokeGetIpInfoMethod(GetIpInfoDelegate method, string printerName, ref byte mode_ipversion, ref byte mode_ipaddress, ref byte ip0, ref byte ip1, ref byte ip2, ref byte ip3,
-        //                            ref byte mask0, ref byte mask1, ref byte mask2, ref byte mask3, ref byte gate0, ref byte gate1, ref byte gate2, ref byte gate3)
-        //{
-
-        //    if (method != null)
-        //    {
-        //        GetIpInfoDelegate caller = method;
-
-
-        //        IAsyncResult result = caller.BeginInvoke(printerName, ref mode_ipversion, ref mode_ipaddress, ref ip0, ref ip1, ref ip2, ref ip3,
-        //                            ref mask0, ref mask1, ref mask2, ref mask3, ref gate0, ref gate1, ref gate2, ref gate3,
-        //                                new AsyncCallback(ScanCallbackMethod), null);
-
-        //      //  if (!result.AsyncWaitHandle.WaitOne(0, false))
-        //        {
-        //            scanPbw = new ScanProgressBarWindow();
-        //            scanPbw.Owner = this.owner;
-        //            scanPbw.ShowDialog();
-        //        }
-
-        //        if (result.AsyncWaitHandle.WaitOne(100, false))
-        //        {
-        //            return caller.EndInvoke(ref mode_ipversion, ref mode_ipaddress, ref ip0, ref ip1, ref ip2, ref ip3,
-        //                            ref mask0, ref mask1, ref mask2, ref mask3, ref gate0, ref gate1, ref gate2, ref gate3,result);
-        //        }
-
-        //    }
-
-        //    return (int)EnumCmdResult._Do_not_support_this_function;
-        //}
 
         public int InvokeScanMethod(ScanDelegate method, string printerName, string szOrig, string szView, string szThumb,
                                                                       int scanMode, int resolution, int width, int height,
@@ -156,7 +123,7 @@ namespace VOP
             return PrintError.Print_File_Not_Support;
         }
 
-        public bool InvokeDoWorkMethod(DoWorkDelegate method)
+        public int InvokeDoWorkMethod(DoWorkDelegate method)
         {
 
             if (method != null)
@@ -168,7 +135,7 @@ namespace VOP
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
-//                    pbw = new ProgressBarWindow(30);
+                    pbw = new ProgressBarWindow();
                     pbw.Owner = this.owner;
                     pbw.ShowDialog();
                 }
@@ -180,7 +147,7 @@ namespace VOP
 
             }
 
-            return false;
+            return 1;
         }
 
         public bool InvokeMethod<T>(string printerName, ref T rec,  DllMethodType methodType) where T : class

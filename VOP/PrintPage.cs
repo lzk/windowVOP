@@ -65,29 +65,51 @@ namespace VOP
 
         private void ApplyButtonClick(object sender, RoutedEventArgs e)
         {
+            PrintError printRes = PrintError.Print_OK;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+
             if (CurrentPrintType == PrintType.PrintFile)
             {
                 if(FilePaths.Count == 1)
                 {
-                    PrintError printRes = worker.InvokePrintFileMethod(dll.PrintFile,
-                                  m_MainWin.statusPanelPage.m_selectedPrinter,
-                                  FilePaths[0]);
-
-                    if(printRes == PrintError.Print_File_Not_Support)
-                    {
-                        MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("暂不支持该文件打印， 请重新选择。", "错误");
-                        messageBox.Owner = App.Current.MainWindow;
-                        messageBox.ShowDialog();
-                        this.m_MainWin.subPageView.Child = this.m_MainWin.winFileSelectionPage;
-                    }
-                    else if (printRes == PrintError.Print_Memory_Fail)
-                    {
-                        MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("打印文件内存分配失败！", "错误");
-                        messageBox.Owner = App.Current.MainWindow;
-                        messageBox.ShowDialog();
-                    }
+                     printRes = worker.InvokePrintFileMethod(dll.PrintFile,
+                            m_MainWin.statusPanelPage.m_selectedPrinter,
+                            FilePaths[0]);                 
                 }
+            }
+            else if (CurrentPrintType == PrintType.PrintImages)
+            {
+                if(dll.PrintInit( m_MainWin.statusPanelPage.m_selectedPrinter, "Print Images"))
+                {
+                    foreach(string path in FilePaths)
+                    {
+                        dll.AddImagePath(path);
+                    }
+
+                    printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrint);
+                }
+                else
+                {
+                    printRes = PrintError.Print_Operation_Fail;
+                }
+            }
+
+            if (printRes == PrintError.Print_File_Not_Support)
+            {
+                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("暂不支持该文件打印， 请重新选择。", "错误");
+                messageBox.Owner = App.Current.MainWindow;
+                messageBox.ShowDialog();
+                this.m_MainWin.subPageView.Child = this.m_MainWin.winFileSelectionPage;
+            }
+            else if (printRes == PrintError.Print_Memory_Fail)
+            {
+                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("打印文件内存分配失败！", "错误");
+                messageBox.Owner = App.Current.MainWindow;
+                messageBox.ShowDialog();
+            }
+            else if (printRes == PrintError.Print_Operation_Fail)
+            {
+
             }
         }
 

@@ -186,7 +186,7 @@ namespace VOP
                [MarshalAs(UnmanagedType.LPWStr)]string fileName);
 
         [DllImport("usbapi.dll")]
-        public static extern bool DoPrint();
+        public static extern int DoPrint();
 
         [DllImport("usbapi.dll")]
         public static extern int PrintFile(
