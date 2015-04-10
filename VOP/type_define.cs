@@ -7,7 +7,7 @@ namespace VOP
         public string m_pathThumb;
         
         public int m_rotate = 0;
-        public enum_color m_colorMode = 0;
+        public EnumColorType m_colorMode = 0;
     }
 
     public enum EnumCmdResult : int
@@ -141,7 +141,7 @@ namespace VOP
         _1200x1200 = 1200,
     }
 
-    public enum enum_color : byte
+    public enum EnumColorType : byte
     {
         black_white    = 0,
         grayscale_8bit = 1,
@@ -150,11 +150,11 @@ namespace VOP
         color_48bit    = 4,
     }
 
-    public enum enum_docutype : byte
+    public enum EnumScanDocType : byte
     {
-        docutype_photo   = 2,
-        docutype_graphic = 3,
-        docutype_text    = 4,
+        Photo   = 2,
+        Graphic = 3,
+        Text    = 4,
         // 2: VOP Photo scan
         // 3: VOP Graphic scan
         // 4: VOP Text scan.

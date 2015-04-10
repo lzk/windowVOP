@@ -44,7 +44,7 @@ namespace VOP
                 BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
                 BitmapSource bmpSrc = decoder.Frames[0];
 
-                if (m_images.m_colorMode == enum_color.black_white)
+                if (m_images.m_colorMode == EnumColorType.black_white)
                 {
                     bmpSrc = BitmapFrame.Create(new TransformedBitmap(bmpSrc, new ScaleTransform(0.4, 0.4)));
                 }

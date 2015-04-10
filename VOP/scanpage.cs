@@ -14,9 +14,9 @@ namespace VOP
     {
         List<ScanFiles> scanFileList = new List<ScanFiles>();
 
-        enum_docutype m_docutype = enum_docutype.docutype_photo;
+        private EnumScanDocType m_docutype = EnumScanDocType.Photo;
         public EnumScanResln m_scanResln = EnumScanResln._300x300;
-        public enum_color m_color = enum_color.color_24bit;
+        public EnumColorType m_color = EnumColorType.color_24bit;
         public int m_brightness = 50;
         public int m_contrast = 50;
         private int mScanDpi = 300;
@@ -30,7 +30,7 @@ namespace VOP
             objScan.m_pathOrig  = @"F:\VOP\VOP\Images\image1.bmp";
             objScan.m_pathView  = @"F:\VOP\VOP\Images\image1.bmp";
             objScan.m_pathThumb  = @"F:\VOP\VOP\Images\image1.bmp";
-            objScan.m_colorMode  = enum_color.color_24bit;
+            objScan.m_colorMode  = EnumColorType.color_24bit;
             scanFileList.Add( objScan );
             scanFileList.Add( objScan );
             scanFileList.Add( objScan );

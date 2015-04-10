@@ -17,12 +17,15 @@ namespace VOP
     /// </summary>
     public partial class ScanSetting : Window
     {
-        public enum_docutype m_docutype = enum_docutype.docutype_photo;
+
+#region scan parameters
+        public EnumScanDocType m_docutype = EnumScanDocType.Photo;
         public EnumScanResln m_scanResln = EnumScanResln._300x300;
         public EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._A4;
-        public enum_color m_color = enum_color.color_24bit;
+        public EnumColorType m_color = EnumColorType.color_24bit;
         public int m_brightness = 50;
         public int m_contrast = 50;
+#endregion
 
         public ScanSetting()
         {
@@ -41,62 +44,30 @@ namespace VOP
 
         private void updateWindow()
         {
-            switch (m_scanResln)
-            {
-                case EnumScanResln._300x300:
-                    cboScanResln.SelectedIndex = 0;
-                    break;
-                case EnumScanResln._600x600:
-                    cboScanResln.SelectedIndex = 1;
-                    break;
-                case EnumScanResln._1200x1200:
-                    cboScanResln.SelectedIndex = 2;
-                    break;
-            }
-
             switch(m_docutype)
             {
-                case enum_docutype.docutype_photo:
+                case EnumScanDocType.Photo:
                     docutype_photo.IsChecked = true;
                     break;
-                case enum_docutype.docutype_text:
+                case EnumScanDocType.Text:
                     docutype_text.IsChecked = true;
                     break;
-                case enum_docutype.docutype_graphic:
+                case EnumScanDocType.Graphic:
                     docutype_graphic.IsChecked = true;
                     break;                   
             }
 
             switch(m_color)
             {
-                case enum_color.color_24bit:
+                case EnumColorType.color_24bit:
                     Color.IsChecked = true;
                     break;
-                case enum_color.grayscale_8bit:
+                case EnumColorType.grayscale_8bit:
                     Grayscale.IsChecked = true;
                     break;
-                case enum_color.black_white:
+                case EnumColorType.black_white:
                     BlackAndWhite.IsChecked = true;
                     break;     
-            }
-
-            switch(m_paperSize)
-            {
-                case EnumPaperSizeScan._A4:
-                    cboScanSize.SelectedIndex = 0;
-                    break;
-                case EnumPaperSizeScan._A5:
-                    cboScanSize.SelectedIndex = 1;
-                    break;
-                case EnumPaperSizeScan._B5:
-                    cboScanSize.SelectedIndex = 2;
-                    break;
-                case EnumPaperSizeScan._Letter:
-                    cboScanSize.SelectedIndex = 3;
-                    break;
-                case EnumPaperSizeScan._4x6Inch:
-                    cboScanSize.SelectedIndex = 4;
-                    break;
             }
 
             sldr_brightness.Value = m_brightness;
@@ -136,9 +107,9 @@ namespace VOP
                         //txtblk_dpi.Text = "300x300 dpi";
                         //txtblk_color.Text = "Color";
                         m_scanResln = EnumScanResln._300x300;
-                        m_color = enum_color.color_24bit;
+                        m_color = EnumColorType.color_24bit;
                     }
-                    m_docutype = enum_docutype.docutype_photo;
+                    m_docutype = EnumScanDocType.Photo;
                 }
                 else if (rdbtn.Name == "docutype_text")
                 {
@@ -147,9 +118,9 @@ namespace VOP
                         //txtblk_dpi.Text = "300x300 dpi";
                         //txtblk_color.Text = "Grayscale";
                         m_scanResln = EnumScanResln._300x300;
-                        m_color = enum_color.grayscale_8bit;
+                        m_color = EnumColorType.grayscale_8bit;
                     }
-                    m_docutype = enum_docutype.docutype_text;
+                    m_docutype = EnumScanDocType.Text;
                 }
                 else if (rdbtn.Name == "docutype_graphic")
                 {
@@ -158,9 +129,9 @@ namespace VOP
                         //txtblk_dpi.Text = "300x300 dpi";
                         //txtblk_color.Text = "Color";
                         m_scanResln = EnumScanResln._300x300;
-                        m_color = enum_color.color_24bit;
+                        m_color = EnumColorType.color_24bit;
                     }
-                    m_docutype = enum_docutype.docutype_graphic;
+                    m_docutype = EnumScanDocType.Graphic;
                 }
             }
         }
@@ -168,12 +139,11 @@ namespace VOP
 
         private void cbo_selchg_scansize(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox cbo = sender as ComboBox;
-            ComboBoxItem item = cbo.SelectedItem as ComboBoxItem;
+            ComboBoxItem selItem = cboScanSize.SelectedItem as ComboBoxItem;
 
-            if (null != item && null != item.DataContext)
+            if ( null != selItem && null != selItem.DataContext )
             {
-                m_paperSize = (EnumPaperSizeScan)item.DataContext;
+                m_paperSize = (EnumPaperSizeScan)selItem.DataContext;
             }
         }
 
@@ -196,15 +166,15 @@ namespace VOP
             {
                 if (rdbtn.Name == "Color")
                 {
-                    m_color = enum_color.color_24bit;
+                    m_color = EnumColorType.color_24bit;
                 }
                 else if (rdbtn.Name == "Grayscale")
                 {
-                    m_color = enum_color.grayscale_8bit;
+                    m_color = EnumColorType.grayscale_8bit;
                 }
                 else if (rdbtn.Name == "BlackAndWhite")
                 {
-                    m_color = enum_color.black_white;
+                    m_color = EnumColorType.black_white;
                 }
             }
         }
@@ -289,10 +259,10 @@ namespace VOP
 
         private void btnDefault_Click(object sender, RoutedEventArgs e)
         {
-            m_docutype = enum_docutype.docutype_photo;
+            m_docutype = EnumScanDocType.Photo;
             m_scanResln = EnumScanResln._300x300;
             m_paperSize = EnumPaperSizeScan._A4;
-            m_color = enum_color.color_24bit;
+            m_color = EnumColorType.color_24bit;
             m_brightness = 50;
             m_contrast = 50;
 
