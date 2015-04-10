@@ -42,17 +42,31 @@ namespace VOP
             string strPWD = pbnewPWD.Password;
             string strCfPWD = pbConfirmPWD.Password;
 
-            if(strPWD == strCfPWD)
+            if(strPWD.Length > 0 && strPWD == strCfPWD)
             {
+                if (strPWD.Length > 0)
+                {
+                    string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
+                    PasswordRecord m_rec = new PasswordRecord(strPrinterName, strPWD);
+                    AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
+                    if (worker.InvokeMethod<PasswordRecord>(strPrinterName, ref m_rec, DllMethodType.SetPassword))
+                    {
+                        if (m_rec.CmdResult == EnumCmdResult._ACK)
+                        {
+                            isApplySuccess = true;
+                        }
+                    }
+                }     
             }
 
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功" : "设置失败");
             return isApplySuccess;
         }
 
         private void btnApply_Click(object sender, RoutedEventArgs e)
         {
-
+            apply();
         }
 
         private void OnPasswordChanged(object sender, RoutedEventArgs e)

@@ -141,6 +141,9 @@
     <Compile Include="MaintainWindow.xaml.cs">
       <DependentUpon>MaintainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PasswordWindow.xaml.cs">
+      <DependentUpon>PasswordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PdfHelper.cs" />
     <Compile Include="PrintSettingPage.cs" />
     <Compile Include="ProgressBarWindow.xaml.cs">
@@ -314,6 +317,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PasswordView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

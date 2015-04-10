@@ -464,6 +464,7 @@ namespace VOP
                 //    event_config_dirty(is_dirty());
             }
 
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isSuccess ? "设置成功" : "设置失败");
             return isSuccess;
         }
 

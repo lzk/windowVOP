@@ -138,7 +138,9 @@ namespace VOP
                     MessageBox.Show("The passphrase input error! The least length will be 8 words and the max length will be 63 in ASCII or 64 in HEX.");
                 }
             }
-            
+
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功" : "设置失败");
+
             return isApplySuccess;
         }
 
