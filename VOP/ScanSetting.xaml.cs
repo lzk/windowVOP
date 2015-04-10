@@ -19,12 +19,12 @@ namespace VOP
     {
 
 #region scan parameters
-        public EnumScanDocType m_docutype = EnumScanDocType.Photo;
-        public EnumScanResln m_scanResln = EnumScanResln._300x300;
-        public EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._A4;
-        public EnumColorType m_color = EnumColorType.color_24bit;
-        public int m_brightness = 50;
-        public int m_contrast = 50;
+        public EnumScanDocType   m_docutype   = EnumScanDocType.Photo;
+        public EnumScanResln     m_scanResln  = EnumScanResln._300x300;
+        public EnumPaperSizeScan m_paperSize  = EnumPaperSizeScan._A4;
+        public EnumColorType     m_color      = EnumColorType.color_24bit;
+        public int               m_brightness = 50;
+        public int               m_contrast   = 50;
 #endregion
 
         public ScanSetting()
@@ -104,29 +104,14 @@ namespace VOP
             {
                 if (rdbtn.Name == "docutype_photo")
                 {
-                    //if (true == is_default)
-                    {
-                        m_scanResln = EnumScanResln._300x300;
-                        m_color = EnumColorType.color_24bit;
-                    }
                     m_docutype = EnumScanDocType.Photo;
                 }
                 else if (rdbtn.Name == "docutype_text")
                 {
-                    //if (true == is_default)
-                    {
-                        m_scanResln = EnumScanResln._300x300;
-                        m_color = EnumColorType.grayscale_8bit;
-                    }
                     m_docutype = EnumScanDocType.Text;
                 }
                 else if (rdbtn.Name == "docutype_graphic")
                 {
-                    //if (true == is_default)
-                    {
-                        m_scanResln = EnumScanResln._300x300;
-                        m_color = EnumColorType.color_24bit;
-                    }
                     m_docutype = EnumScanDocType.Graphic;
                 }
             }

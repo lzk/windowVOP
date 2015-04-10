@@ -14,13 +14,14 @@ namespace VOP
     {
         List<ScanFiles> scanFileList = new List<ScanFiles>();
 
-        private EnumScanDocType m_docutype = EnumScanDocType.Photo;
-        public EnumScanResln m_scanResln = EnumScanResln._300x300;
-        public EnumColorType m_color = EnumColorType.color_24bit;
-        public int m_brightness = 50;
-        public int m_contrast = 50;
-        private int mScanDpi = 300;
-        private EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._A4;
+#region scan parameters
+        private EnumScanDocType   m_docutype   = EnumScanDocType.Photo;
+        private EnumScanResln     m_scanResln  = EnumScanResln._300x300;
+        private EnumPaperSizeScan m_paperSize  = EnumPaperSizeScan._A4;
+        private EnumColorType     m_color      = EnumColorType.color_24bit;
+        private int               m_brightness = 50;
+        private int               m_contrast   = 50;
+#endregion
 
         public ScanPage()
         {
@@ -101,23 +102,23 @@ namespace VOP
         {
             ScanSetting win = new ScanSetting();
 
-            win.m_docutype = m_docutype;
-            win.m_scanResln = m_scanResln;
-            win.m_paperSize = m_paperSize;
-            win.m_color = m_color;
+            win.m_docutype   = m_docutype;
+            win.m_scanResln  = m_scanResln;
+            win.m_paperSize  = m_paperSize;
+            win.m_color      = m_color;
             win.m_brightness = m_brightness;
-            win.m_contrast = m_contrast;
+            win.m_contrast   = m_contrast;
 
-            win.Owner = App.Current.MainWindow;
+            win.Owner = m_MainWin;
          
             if (true == win.ShowDialog())
             {
-                m_docutype = win.m_docutype;
-                m_scanResln = win.m_scanResln;
-                m_paperSize = win.m_paperSize;
-                m_color = win.m_color;
+                m_docutype   = win.m_docutype;
+                m_scanResln  = win.m_scanResln;
+                m_paperSize  = win.m_paperSize;
+                m_color      = win.m_color;
                 m_brightness = win.m_brightness;
-                m_contrast = win.m_contrast;
+                m_contrast   = win.m_contrast;
             }
         }
 
@@ -158,14 +159,42 @@ namespace VOP
             string szView  = "";
             string szThumb = "";
 
-            int scanMode   = 0;
-            int resolution = 0;
+            int scanMode   = (int)m_color;
+            int resolution = (int)m_scanResln;
             int width      = 0;
             int height     = 0;
-            int contrast   = 0;
-            int brightness = 0;
-            int docutype   = 0;
+            int contrast   = m_contrast;
+            int brightness = m_brightness;
+            int docutype   = (int)m_docutype;
             uint uMsg      = 0;
+
+            switch ( m_paperSize )
+            { 
+                case EnumPaperSizeScan._A4         :
+                    width  = 8268;
+                    height = 11693;
+                    break;
+                case EnumPaperSizeScan._A5         :
+                    width  = 5827;
+                    height = 8268;
+                    break;
+                case EnumPaperSizeScan._B5         :
+                    width  = 7165;
+                    height = 10118;
+                    break;
+                case EnumPaperSizeScan._Letter     :
+                    width  = 8504;
+                    height = 10984;
+                    break;
+                case EnumPaperSizeScan._4x6Inch :
+                    width  = 4000;
+                    height = 6000;
+                    break;
+                default:
+                    width  = 8268;
+                    height = 11693;
+                    break;
+            }
 
             dll.ScanEx(
                     m_MainWin.statusPanelPage.m_selectedPrinter,
