@@ -36,13 +36,15 @@ namespace VOP
 
         public void handler_loaded( object sender, RoutedEventArgs e )
         {
-            updateWindow();
+            InitControls();
             InitScanResln();
             InitScanSize();
-
         }
 
-        private void updateWindow()
+        /// <summary>
+        /// Init document type, color type, brightness and contrast.
+        /// </summary>
+        private void InitControls()
         {
             switch(m_docutype)
             {
@@ -104,8 +106,6 @@ namespace VOP
                 {
                     //if (true == is_default)
                     {
-                        //txtblk_dpi.Text = "300x300 dpi";
-                        //txtblk_color.Text = "Color";
                         m_scanResln = EnumScanResln._300x300;
                         m_color = EnumColorType.color_24bit;
                     }
@@ -115,8 +115,6 @@ namespace VOP
                 {
                     //if (true == is_default)
                     {
-                        //txtblk_dpi.Text = "300x300 dpi";
-                        //txtblk_color.Text = "Grayscale";
                         m_scanResln = EnumScanResln._300x300;
                         m_color = EnumColorType.grayscale_8bit;
                     }
@@ -126,8 +124,6 @@ namespace VOP
                 {
                     //if (true == is_default)
                     {
-                        //txtblk_dpi.Text = "300x300 dpi";
-                        //txtblk_color.Text = "Color";
                         m_scanResln = EnumScanResln._300x300;
                         m_color = EnumColorType.color_24bit;
                     }
@@ -259,14 +255,16 @@ namespace VOP
 
         private void btnDefault_Click(object sender, RoutedEventArgs e)
         {
-            m_docutype = EnumScanDocType.Photo;
-            m_scanResln = EnumScanResln._300x300;
-            m_paperSize = EnumPaperSizeScan._A4;
-            m_color = EnumColorType.color_24bit;
+            m_docutype   = EnumScanDocType.Photo;
+            m_scanResln  = EnumScanResln._300x300;
+            m_paperSize  = EnumPaperSizeScan._A4;
+            m_color      = EnumColorType.color_24bit;
             m_brightness = 50;
-            m_contrast = 50;
+            m_contrast   = 50;
 
-            updateWindow();
+            InitControls();
+            InitScanResln();
+            InitScanSize();
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
