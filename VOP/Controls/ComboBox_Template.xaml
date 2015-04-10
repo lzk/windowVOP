@@ -119,7 +119,7 @@
                                RelativeSource={RelativeSource TemplatedParent}}"
                                Placement="Bottom"
                                PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">                  
-                            <Border x:Name="Shdw"  Margin="10"
+                            <Border x:Name="Shdw" BorderBrush="#555555" BorderThickness="1"
                                     MinWidth="{Binding ActualWidth,ElementName=MainGrid}"
                                     MaxHeight="{TemplateBinding MaxDropDownHeight}">
 

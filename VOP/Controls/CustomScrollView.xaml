@@ -81,34 +81,37 @@
           Value="true" />
   <Setter Property="Focusable"
           Value="false" />
-  <Setter Property="Template">
-    <Setter.Value>
-      <ControlTemplate TargetType="{x:Type RepeatButton}">
-        <Border x:Name="Border"
-                Margin="1"
-                >
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Grid>
+                        <Rectangle Fill="Black" Opacity="0"></Rectangle>
+                        <Border x:Name="Border"
+                                Margin="1"  
+                                BorderBrush="#E4E4E4"
+                                BorderThickness="1"                                
+                                >
+                            <Path x:Name="Arrow"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="{Binding Content, 
+                                  RelativeSource={RelativeSource TemplatedParent}}" >
+                            </Path>
+                        </Border>
+                    </Grid>
 
-
-          <Border.Background>
-              <ImageBrush
-                  ImageSource="/VOP;component/Images/RepeatButtonBackground.png"
-                  Stretch="Fill"/>
-          </Border.Background>
-
-          <Path x:Name="Arrow"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Data="{Binding Content, 
-            RelativeSource={RelativeSource TemplatedParent}}" >
-              <Path.Fill>
-                  <SolidColorBrush Color="{DynamicResource GlyphColor}"/>
-              </Path.Fill>
-          </Path>
-        </Border>
-      </ControlTemplate>
-    </Setter.Value>
-  </Setter>
-</Style>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="UIElement.IsMouseOver" Value="False">
+                            <Setter TargetName="Arrow" Property="Fill" Value="#868999"></Setter>
+                        </Trigger>
+                        <Trigger Property="UIElement.IsMouseOver" Value="True">
+                            <Setter TargetName="Arrow" Property="Fill" Value="#1C97EA"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 <Style x:Key="ScrollBarPageButton"
        TargetType="{x:Type RepeatButton}">
