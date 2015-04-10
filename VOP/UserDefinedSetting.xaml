@@ -4,6 +4,7 @@
         Title="UserDefinedSetting" Height="520" Width="330"        
         WindowStartupLocation="CenterScreen"  
         ResizeMode="NoResize"
+        ShowInTaskbar="False"
         WindowStyle="None"
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" >

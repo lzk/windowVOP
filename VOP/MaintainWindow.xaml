@@ -7,6 +7,7 @@
         WindowStyle="None"
         Height="448" 
         Width="398"
+        ShowInTaskbar="False" 
         BorderThickness="24"
         AllowsTransparency="True"
         xmlns:local="clr-namespace:VOP.Controls"

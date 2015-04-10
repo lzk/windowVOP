@@ -33,7 +33,7 @@
         <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
     </Window.Effect>
 
-	<Grid x:Name="LayoutRoot">
+	<Grid x:Name="LayoutRoot" Background="#FFE7E7E7" >
 
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />

@@ -4,7 +4,7 @@
         Title="ScanPreview" Height="494" Width="472"
 
         xmlns:local="clr-namespace:VOP.Controls"
-
+        ShowInTaskbar="False" 
         AllowsTransparency="true"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
