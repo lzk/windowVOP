@@ -118,10 +118,16 @@
                                IsOpen="{Binding IsDropDownOpen,
                                RelativeSource={RelativeSource TemplatedParent}}"
                                Placement="Bottom"
-                               PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                            <Border x:Name="Shdw"
+                               PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">                  
+                            <Border x:Name="Shdw"  Margin="10"
                                     MinWidth="{Binding ActualWidth,ElementName=MainGrid}"
                                     MaxHeight="{TemplateBinding MaxDropDownHeight}">
+
+                                <UIElement.Effect>
+                                    <DropShadowEffect Color="Black" ShadowDepth="0"
+                                            BlurRadius="10" Opacity="0.75" Direction="90"/>
+                                </UIElement.Effect>
+
                                 <Border x:Name="DropDownBorder"
                                         Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
                                         BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}"
