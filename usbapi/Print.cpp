@@ -4,6 +4,13 @@
 #include "dibhelp.h"
 #include <vector>
 #include <gdiplus.h>
+#include <Shlwapi.h>
+#include <tchar.h>
+#include <algorithm>
+#include <string>
+
+#pragma comment(lib, "Shlwapi.lib")
+#pragma comment(lib, "gdiplus.lib")
 
 using namespace Gdiplus;
 
@@ -12,6 +19,7 @@ enum PrintError
 	Print_Memory_Fail,
 	Print_File_Not_Support,
 	Print_Get_Default_Printer_Fail,
+	Print_Operation_Fail,
 	Print_OK,
 };
 
@@ -43,12 +51,13 @@ static HDC dc = NULL;
 static GdiplusStartupInput gdiplusStartupInput;
 static ULONG_PTR gdiplusToken;
 
-static int DisplayDib(HDC hdc, HBITMAP hBitmap, int x, int y,
-	int cxClient, int cyClient,
-	WORD wShow, BOOL fHalftonePalette);
+//static int DisplayDib(HDC hdc, HBITMAP hBitmap, int x, int y,
+//	int cxClient, int cyClient,
+//	WORD wShow, BOOL fHalftonePalette);
+//static HDIB DibRotateRight(HDIB hdibSrc);
 
-static HDIB DibRotateRight(HDIB hdibSrc);
-
+static void BeginDrawImage(HDC hdc, int cxClient, int cyClient, int cxImage, int cyImage);
+static void EndDrawImage(HDC hdc);
 
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName)
 {
@@ -91,6 +100,9 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription)
 {
 	g_vecImagePaths.clear();
+
+	ZeroMemory(&di, sizeof(di));
+	di.cbSize = sizeof(di);
 	di.lpszDocName = jobDescription;
 
 	dc = CreateDCW(L"WINSPOOL", strPrinterName, NULL, NULL);
@@ -114,75 +126,157 @@ USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName)
 
 USBAPI_API int __stdcall DoPrint()
 {
-	BOOL  bSuccess = TRUE;
-	HDIB  hdib, hdibNew;
-	HBITMAP hBitmap;
+	PrintError error = Print_OK;
 	HDC   hdcPrn = dc;
+	const TCHAR *fileExt = NULL;
 	int   cxPage;
 	int	  cyPage;
 
-	//if (StartDoc(hdcPrn, &di) > 0)
-	//{
-	//	// Start the page
-	//	for (int i = 0; i < g_vecImagePaths.size(); i++)
-	//	{
-	//		cxPage = GetDeviceCaps(hdcPrn, HORZRES);
-	//		cyPage = GetDeviceCaps(hdcPrn, VERTRES);
+	GUID* pDimensionIDs;
+	UINT frameCount = 0;
 
-	//		hdib = DibFileLoad(g_vecImagePaths[i].imagePath);
+	UINT count = 0;
+	UINT fIndex = 0;
+	BOOL IsFitted = FALSE;
 
-	//		if (!hdib)
-	//			return FALSE;
+	if (StartDoc(hdcPrn, &di) > 0)
+	{
+		cxPage = GetDeviceCaps(hdcPrn, HORZRES);
+		cyPage = GetDeviceCaps(hdcPrn, VERTRES);
 
-	//		if (StartPage(hdcPrn) < 0)
-	//		{
-	//			bSuccess = FALSE;
-	//			DibDelete(hdib);
-	//			break;
-	//		}
-	//		
-	//		int times = (g_vecImagePaths[i].rotation % 360) / 90;
-	//		for (int j = 0; j < times; j++)
-	//		{
-	//			if (hdibNew = DibRotateRight(hdib))
-	//			{
-	//				DibDelete(hdib);
-	//				hdib = hdibNew;
-	//			}
+		// Start the page
+		for (UINT i = 0; i < g_vecImagePaths.size(); i++)
+		{
+			fileExt = PathFindExtension(g_vecImagePaths[i].imagePath);
+			std::wstring strExt(fileExt);
+			std::transform(strExt.begin(), strExt.end(), strExt.begin(), ::tolower);
+		
+			if ( strExt.compare(L".bmp") == 0
+			  || strExt.compare(L".ico") == 0
+			  || strExt.compare(L".gif") == 0
+			  || strExt.compare(L".jpg") == 0
+			  || strExt.compare(L".exif") == 0
+			  || strExt.compare(L".png") == 0
+			  || strExt.compare(L".tif") == 0
+			  || strExt.compare(L".wmf") == 0
+			  || strExt.compare(L".emf") == 0)
+			{
+				Image img(g_vecImagePaths[i].imagePath);
+				count = img.GetFrameDimensionsCount();
 
-	//		}
-	//		
-	//		DisplayDib(hdcPrn, DibBitmapHandle(hdib), 0, 0,
-	//			cxPage, cyPage, IDM_SHOW_ISOSTRETCH, FALSE);
+				if (count > 0)
+				{
+					pDimensionIDs = (GUID*)malloc(sizeof(GUID)*count);
+					img.GetFrameDimensionsList(pDimensionIDs, count);
+					frameCount = img.GetFrameCount(&pDimensionIDs[0]);
 
-	//		if (EndPage(hdcPrn) < 0)
-	//		{
-	//			bSuccess = FALSE;
-	//			DibDelete(hdib);
-	//			break;
-	//		}
+					fIndex = 0;
+					while (fIndex < frameCount)
+					{
+						img.SelectActiveFrame(&pDimensionIDs[0], fIndex);
+						if (StartPage(hdcPrn) < 0)
+						{
+							error = Print_Operation_Fail;
+							break;
+						}
 
-	//		DibDelete(hdib);
-	//	}
-	//
-	//}
-	//else
-	//	bSuccess = FALSE;
+						int x = 0;
+						int y = 0;
+						int w = img.GetWidth();
+						int h = img.GetHeight();
 
-	//if (bSuccess)
-	//	EndDoc(hdcPrn);
+						double whRatio = (double)w / h;
+						double scaleRatioX = (double)w / cxPage;
+						double scaleRatioY = (double)h / cyPage;
 
-	//if (pdx.hDevMode != NULL)
-	//	GlobalFree(pdx.hDevMode);
-	//if (pdx.hDevNames != NULL)
-	//	GlobalFree(pdx.hDevNames);
-	//if (pdx.lpPageRanges != NULL)
-	//	GlobalFree(pPageRanges);
+						if (w < cxPage && h < cyPage)
+						{
+							IsFitted = TRUE;
+						}
+						else
+						{
+							IsFitted = FALSE;
+						}
 
-	//if (hdcPrn != NULL)
-	//	DeleteDC(hdcPrn);
+						if (IsFitted == TRUE)
+						{
+							w = img.GetWidth();
+							h = img.GetHeight();
+							x = (cxPage - w) / 2;
+							y = (cyPage - h) / 2;
+						}
+						else
+						{
+							if (scaleRatioX > scaleRatioY)
+							{
+								w = cxPage;
+								h = (int)((double)cxPage / whRatio);
+								y = (cyPage - h) / 2;
+							}
+							else if (scaleRatioX < scaleRatioY)
+							{
+								w = (int)((double)cyPage * whRatio);
+								h = cyPage;
+								x = (cxPage - w) / 2;
+							}
+							else
+							{
+								w = cxPage;
+								h = cyPage;
+							}
+						}
 
-	return bSuccess;
+						Graphics graphics(hdcPrn);
+						graphics.SetPageUnit(UnitPixel);
+						graphics.DrawImage(&img, x, y, w, h);
+					
+						fIndex++;
+
+						if (EndPage(hdcPrn) < 0)
+						{
+							error = Print_Operation_Fail;
+							break;
+						}
+					}
+
+					free(pDimensionIDs);
+				}
+				
+			}
+			else
+			{
+				error = Print_File_Not_Support;
+				break;
+			}
+		}
+	}
+	else
+		error = Print_Operation_Fail;
+
+	GdiplusShutdown(gdiplusToken);
+
+	if (error == Print_OK)
+		EndDoc(hdcPrn);
+
+	if (hdcPrn != NULL)
+		DeleteDC(hdcPrn);
+
+	return error;
+}
+
+static void BeginDrawImage(HDC hdc, int cxClient, int cyClient, int cxImage, int cyImage)
+{
+	SaveDC(hdc);
+	SetMapMode(hdc, MM_ISOTROPIC);
+	/*SetWindowExtEx(hdc, cxImage, cyImage, NULL);
+	SetViewportExtEx(hdc, cxClient, cyClient, NULL);
+	SetWindowOrgEx(hdc, cxImage / 2, cyImage / 2, NULL);
+	SetViewportOrgEx(hdc, cxClient / 2, cyClient / 2, NULL);*/
+}
+
+static void EndDrawImage(HDC hdc)
+{
+	RestoreDC(hdc, -1);
 }
 
 //static int DisplayDib(HDC hdc, HBITMAP hBitmap, int x, int y,
