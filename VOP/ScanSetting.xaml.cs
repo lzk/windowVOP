@@ -35,6 +35,7 @@ namespace VOP
         {
             updateWindow();
             InitScanResln();
+            InitScanSize();
 
         }
 
@@ -392,6 +393,55 @@ namespace VOP
             {
                 if ( null != obj.DataContext 
                         && (EnumScanResln)obj.DataContext == m_scanResln )
+                {
+                    obj.IsSelected = true;
+                }
+            }
+        }
+
+        private void InitScanSize()
+        {
+            ComboBoxItem cboItem = null;
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "A4 (210 x 297mm)";
+            cboItem.DataContext = EnumPaperSizeScan._A4;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "A5 (148 x 210mm)";
+            cboItem.DataContext = EnumPaperSizeScan._A5;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "B5 (182 x 257mm)";
+            cboItem.DataContext = EnumPaperSizeScan._B5;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "Letter (8.5 x 11\")";
+            cboItem.DataContext = EnumPaperSizeScan._Letter;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanSize.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "(4 x 6\")";
+            cboItem.DataContext = EnumPaperSizeScan._4x6Inch;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanSize.Items.Add( cboItem );
+
+            foreach ( ComboBoxItem obj in cboScanSize.Items )
+            {
+                if ( null != obj.DataContext 
+                        && (EnumPaperSizeScan)obj.DataContext == m_paperSize )
                 {
                     obj.IsSelected = true;
                 }

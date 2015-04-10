@@ -119,50 +119,15 @@
                 </local:GroupBoxDecorator>
                 <local:GroupBoxDecorator Header="扫描区域大小" Height="70"
                     Width="220" >
+
                 <ComboBox Name="cboScanSize" SelectionChanged="cbo_selchg_scansize"
                     Style="{StaticResource customComboBox}"
                     Background="White"
                     Width="145" Height="25"
                     VerticalAlignment="Center"
                     >
-
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"  IsSelected="true" Content="A4(210*297mm)" MinWidth="145">
-                        <ComboBoxItem.DataContext>
-                            <vop:EnumPaperSizeScan>_A4</vop:EnumPaperSizeScan>
-                        </ComboBoxItem.DataContext>
-                    </ComboBoxItem>
-                    
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="A5(148 x 210mm)" MinWidth="145" >
-                        <ComboBoxItem.DataContext>
-                            <vop:EnumPaperSizeScan>_A5</vop:EnumPaperSizeScan>
-                        </ComboBoxItem.DataContext>
-                    </ComboBoxItem> 
-                    
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="B5(182 x 257mm)" MinWidth="145" >
-                        <ComboBoxItem.DataContext>
-                            <vop:EnumPaperSizeScan>_B5</vop:EnumPaperSizeScan>
-                        </ComboBoxItem.DataContext>
-                    </ComboBoxItem> 
-                    
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}" IsSelected="false" Content="Letter(8.5 x 11&quot;)" MinWidth="145" >
-                        <ComboBoxItem.DataContext>
-                            <vop:EnumPaperSizeScan>_Letter</vop:EnumPaperSizeScan>
-                        </ComboBoxItem.DataContext>
-                    </ComboBoxItem>
-
-                    <ComboBoxItem Content="Executive (7.25 x 10.5&quot;)" >
-                        <ComboBoxItem.DataContext>
-                            <vop:EnumPaperSizeScan>_Executive</vop:EnumPaperSizeScan>
-                        </ComboBoxItem.DataContext>
-                    </ComboBoxItem>
-
-                    <ComboBoxItem Content="7 inch photo (7 x 6&quot;)" >
-                        <ComboBoxItem.DataContext>
-                            <vop:EnumPaperSizeScan>_7inchPhoto</vop:EnumPaperSizeScan>
-                        </ComboBoxItem.DataContext>
-                    </ComboBoxItem>                  
-
                 </ComboBox>
+
                 </local:GroupBoxDecorator>
             </StackPanel>
 
