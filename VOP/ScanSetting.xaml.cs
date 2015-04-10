@@ -82,22 +82,19 @@ namespace VOP
             switch(m_paperSize)
             {
                 case EnumPaperSizeScan._A4:
-                    cbo_scansize.SelectedIndex = 0;
+                    cboScanSize.SelectedIndex = 0;
                     break;
                 case EnumPaperSizeScan._A5:
-                    cbo_scansize.SelectedIndex = 1;
+                    cboScanSize.SelectedIndex = 1;
                     break;
                 case EnumPaperSizeScan._B5:
-                    cbo_scansize.SelectedIndex = 2;
+                    cboScanSize.SelectedIndex = 2;
                     break;
                 case EnumPaperSizeScan._Letter:
-                    cbo_scansize.SelectedIndex = 3;
+                    cboScanSize.SelectedIndex = 3;
                     break;
-                case EnumPaperSizeScan._Executive:
-                    cbo_scansize.SelectedIndex = 4;
-                    break;
-                case EnumPaperSizeScan._7inchPhoto:
-                    cbo_scansize.SelectedIndex = 5;
+                case EnumPaperSizeScan._4x6Inch:
+                    cboScanSize.SelectedIndex = 4;
                     break;
             }
 

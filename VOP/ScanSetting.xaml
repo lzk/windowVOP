@@ -119,7 +119,7 @@
                 </local:GroupBoxDecorator>
                 <local:GroupBoxDecorator Header="扫描区域大小" Height="70"
                     Width="220" >
-                <ComboBox Name="cbo_scansize" SelectionChanged="cbo_selchg_scansize"
+                <ComboBox Name="cboScanSize" SelectionChanged="cbo_selchg_scansize"
                     Style="{StaticResource customComboBox}"
                     Background="White"
                     Width="145" Height="25"

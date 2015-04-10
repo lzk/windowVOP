@@ -196,14 +196,17 @@ namespace VOP
         _Label = 4,
     }
 
-    public enum EnumPaperSizeScan : byte
-    {
-        _A4         = 0 ,
-        _A5         = 1 ,
-        _B5         = 2 ,
-        _Letter     = 3 ,
-        _Executive  = 4 ,
-        _7inchPhoto = 5 ,
+
+    /// <summary>
+    /// Enumerate type for scan size.
+    /// </summary>
+    public enum EnumPaperSizeScan
+    { 
+        _A4      ,
+        _A5      ,
+        _B5      ,
+        _Letter  ,
+        _4x6Inch ,
     }
     
 
