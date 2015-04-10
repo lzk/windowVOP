@@ -82,33 +82,13 @@
             <StackPanel VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="0" HorizontalAlignment="Center" >
                 <local:GroupBoxDecorator Header="分辨率" Height="70"
                     Width="220" >                    
-                <ComboBox Name="combo_dpi" SelectionChanged="combo_sel_change"
+                <ComboBox Name="cboScanResln" SelectionChanged="combo_sel_change"
                     Style="{StaticResource customComboBox}"
                     Background="White"
                     Width="145" Height="25"
                     VerticalAlignment="Center"
                     >
 
-                    <ComboBoxItem Content="300 x 300" IsSelected="true" >
-                        <ComboBoxItem.DataContext>0</ComboBoxItem.DataContext>
-                    </ComboBoxItem>
-                    <ComboBoxItem Content="600 x 600" >
-                        <ComboBoxItem.DataContext>1</ComboBoxItem.DataContext>
-                    </ComboBoxItem>
-                    <ComboBoxItem Content="1200 x 1200" >
-                        <ComboBoxItem.DataContext>2</ComboBoxItem.DataContext>
-                    </ComboBoxItem>
-
-                    <!--<ComboBoxItem Style="{StaticResource customComboBoxItem}"
-                        IsSelected="false" Content="100*100" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
-                        IsSelected="false" Content="200*200" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
-                        IsSelected="true" Content="300*300" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
-                        IsSelected="false" Content="600*600" MinWidth="145" /> 
-                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"
-                        IsSelected="false" Content="1200*1200" MinWidth="145" />--> 
 
                 </ComboBox>
                 </local:GroupBoxDecorator>

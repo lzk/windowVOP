@@ -18,7 +18,7 @@ namespace VOP
     public partial class ScanSetting : Window
     {
         public enum_docutype m_docutype = enum_docutype.docutype_photo;
-        public EnumScanResln m_resln = EnumScanResln._300x300;
+        public EnumScanResln m_scanResln = EnumScanResln._300x300;
         public EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._A4;
         public enum_color m_color = enum_color.color_24bit;
         public int m_brightness = 50;
@@ -34,20 +34,22 @@ namespace VOP
         public void handler_loaded( object sender, RoutedEventArgs e )
         {
             updateWindow();
+            InitScanResln();
+
         }
 
         private void updateWindow()
         {
-            switch (m_resln)
+            switch (m_scanResln)
             {
                 case EnumScanResln._300x300:
-                    combo_dpi.SelectedIndex = 0;
+                    cboScanResln.SelectedIndex = 0;
                     break;
                 case EnumScanResln._600x600:
-                    combo_dpi.SelectedIndex = 1;
+                    cboScanResln.SelectedIndex = 1;
                     break;
                 case EnumScanResln._1200x1200:
-                    combo_dpi.SelectedIndex = 2;
+                    cboScanResln.SelectedIndex = 2;
                     break;
             }
 
@@ -135,7 +137,7 @@ namespace VOP
                     {
                         //txtblk_dpi.Text = "300x300 dpi";
                         //txtblk_color.Text = "Color";
-                        m_resln = EnumScanResln._300x300;
+                        m_scanResln = EnumScanResln._300x300;
                         m_color = enum_color.color_24bit;
                     }
                     m_docutype = enum_docutype.docutype_photo;
@@ -146,7 +148,7 @@ namespace VOP
                     {
                         //txtblk_dpi.Text = "300x300 dpi";
                         //txtblk_color.Text = "Grayscale";
-                        m_resln = EnumScanResln._300x300;
+                        m_scanResln = EnumScanResln._300x300;
                         m_color = enum_color.grayscale_8bit;
                     }
                     m_docutype = enum_docutype.docutype_text;
@@ -157,7 +159,7 @@ namespace VOP
                     {
                         //txtblk_dpi.Text = "300x300 dpi";
                         //txtblk_color.Text = "Color";
-                        m_resln = EnumScanResln._300x300;
+                        m_scanResln = EnumScanResln._300x300;
                         m_color = enum_color.color_24bit;
                     }
                     m_docutype = enum_docutype.docutype_graphic;
@@ -178,34 +180,14 @@ namespace VOP
         }
 
         private void combo_sel_change(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox combo = sender as ComboBox;
+        {    
+            ComboBoxItem selItem = cboScanResln.SelectedItem as ComboBoxItem;
 
-            if (null != combo)
+            if ( null != selItem && null != selItem.DataContext )
             {
-                ComboBoxItem item = combo.SelectedItem as ComboBoxItem;
-
-                if (null != item)
-                {
-                    string txt_data = (string)item.DataContext;
-
-                    if (combo.Name == "combo_dpi")
-                    {
-                        switch (txt_data)
-                        {
-                            case "0":
-                                m_resln = EnumScanResln._300x300;
-                                break;
-                            case "1":
-                                m_resln = EnumScanResln._600x600;
-                                break;
-                            case "2":
-                                m_resln = EnumScanResln._1200x1200;
-                                break;
-                        }
-                    }
-                }
+                m_scanResln = (EnumScanResln)selItem.DataContext;
             }
+
         }
 
         private void colorMode_Click(object sender, RoutedEventArgs e)
@@ -310,7 +292,7 @@ namespace VOP
         private void btnDefault_Click(object sender, RoutedEventArgs e)
         {
             m_docutype = enum_docutype.docutype_photo;
-            m_resln = EnumScanResln._300x300;
+            m_scanResln = EnumScanResln._300x300;
             m_paperSize = EnumPaperSizeScan._A4;
             m_color = enum_color.color_24bit;
             m_brightness = 50;
@@ -368,6 +350,55 @@ namespace VOP
                      }
                  }
              }
+        }
+
+        private void InitScanResln()
+        {
+            ComboBoxItem cboItem = null;
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "100 x 100" ;
+            cboItem.DataContext = EnumScanResln._100x100;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanResln.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "200 x 200" ;
+            cboItem.DataContext = EnumScanResln._200x200;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanResln.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "300 x 300" ;
+            cboItem.DataContext = EnumScanResln._300x300;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanResln.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "600 x 600" ;
+            cboItem.DataContext = EnumScanResln._600x600;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanResln.Items.Add( cboItem );
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "1200 x 1200" ;
+            cboItem.DataContext = EnumScanResln._1200x1200;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanResln.Items.Add( cboItem );
+
+            foreach ( ComboBoxItem obj in cboScanResln.Items )
+            {
+                if ( null != obj.DataContext 
+                        && (EnumScanResln)obj.DataContext == m_scanResln )
+                {
+                    obj.IsSelected = true;
+                }
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace VOP
         List<ScanFiles> scanFileList = new List<ScanFiles>();
 
         enum_docutype m_docutype = enum_docutype.docutype_photo;
-        public EnumScanResln m_resln = EnumScanResln._300x300;
+        public EnumScanResln m_scanResln = EnumScanResln._300x300;
         public enum_color m_color = enum_color.color_24bit;
         public int m_brightness = 50;
         public int m_contrast = 50;
@@ -102,7 +102,7 @@ namespace VOP
             ScanSetting win = new ScanSetting();
 
             win.m_docutype = m_docutype;
-            win.m_resln = m_resln;
+            win.m_scanResln = m_scanResln;
             win.m_paperSize = m_paperSize;
             win.m_color = m_color;
             win.m_brightness = m_brightness;
@@ -113,7 +113,7 @@ namespace VOP
             if (true == win.ShowDialog())
             {
                 m_docutype = win.m_docutype;
-                m_resln = win.m_resln;
+                m_scanResln = win.m_scanResln;
                 m_paperSize = win.m_paperSize;
                 m_color = win.m_color;
                 m_brightness = win.m_brightness;
