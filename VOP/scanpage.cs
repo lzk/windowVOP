@@ -1,4 +1,4 @@
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Media;
 using System;
@@ -217,5 +217,10 @@ namespace VOP
                     docutype,
                     uMsg );
         }
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+        }
+
     }
 }
