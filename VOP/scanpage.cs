@@ -159,6 +159,13 @@ namespace VOP
             string szView  = "";
             string szThumb = "";
 
+            string strFolder = System.IO.Path.GetTempPath()+"VOPCache\\";
+            string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString( "D10" );
+
+            szOrig  = strFolder + "vopOrig" + strSuffix + ".bmp";
+            szView  = strFolder + "vopView" + strSuffix + ".bmp";
+            szThumb = strFolder + "vopThum" + strSuffix + ".bmp";
+
             int scanMode   = (int)m_color;
             int resolution = (int)m_scanResln;
             int width      = 0;
