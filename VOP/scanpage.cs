@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Input; // for MouseButtonEventArgs
@@ -161,6 +162,11 @@ namespace VOP
 
             string strFolder = System.IO.Path.GetTempPath()+"VOPCache\\";
             string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString( "D10" );
+
+            if ( false == Directory.Exists(strFolder) ) 
+            {
+                Directory.CreateDirectory( strFolder );
+            }
 
             szOrig  = strFolder + "vopOrig" + strSuffix + ".bmp";
             szView  = strFolder + "vopView" + strSuffix + ".bmp";
