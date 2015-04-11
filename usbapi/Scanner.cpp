@@ -124,8 +124,7 @@ bool CScanner::FindDevice(bool bLocal, char **ppszDevicePathList)
 	}
 	else
 	{
-		char szDevIP[100][64];
-
+		// char szDevIP[100][64];
 		//DevMon_BroadcastMFP(, );
 	}
 

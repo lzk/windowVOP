@@ -18,7 +18,7 @@
 #include <Iphlpapi.h>
 
 #pragma comment(lib, "Ws2_32.lib")
-#pragma comment(lib, "Iphlpapi.lib");
+#pragma comment(lib, "Iphlpapi.lib")
 //--------------------------------macro---------------------------------------
 
 #define _UnknowJob        0
@@ -457,7 +457,7 @@ USBAPI_API int __stdcall ConfirmPassword(const wchar_t* szPrinter, const wchar_t
 USBAPI_API int __stdcall GetPassword(const wchar_t* szPrinter, char* pwd);
 USBAPI_API int __stdcall SetPassword(const wchar_t* szPrinter, const wchar_t* ws_pwd);
 //--------------------------------global--------------------------------------
-static const char INIT_VALUE = 0xfe;
+static const unsigned char INIT_VALUE = 0xfe;
 
 //BOOL CheckIPReachable(LPCSTR _szIPAddress)
 //{//only for IPV4
@@ -505,7 +505,6 @@ static BOOL USBGetSymbolicNameByPortEx(wchar_t *pPortName, WORD wVid, WORD wPid,
 	wchar_t	tempKey2[512];	
 	wchar_t	keyPrefix[64];
 	DWORD	nKeyPrefixLen;
-	wchar_t	RegPortName[256];
 
 	int	nPortNum=-1;
 
@@ -871,8 +870,8 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 					HANDLE hAccessMutex = CreateMutex(NULL, TRUE, szMutexName);
 					if (hAccessMutex != NULL && GetLastError() != ERROR_ALREADY_EXISTS)
 					{
-						char inBuffer[522] = { 0 };
-						char outBuffer[12] = { 0 };
+						unsigned char inBuffer[522] = { 0 };
+						unsigned char outBuffer[12] = { 0 };
 
 						DWORD dwWritten = 0;
 
@@ -2806,8 +2805,8 @@ static void FillBitmapHeader(BYTE* pBuffer, int nScanMode, int nWidth, int nHeig
             break;
     }
 
-    int nActualWidth  = nWidth*rate;
-    int nActualHeight = nHeight*rate; 
+    int nActualWidth  = static_cast<int>(nWidth*rate);
+    int nActualHeight = static_cast<int>(nHeight*rate); 
 
     int nBytesPerLine = (nActualWidth*nBitCount+31)/32 * 4;
 

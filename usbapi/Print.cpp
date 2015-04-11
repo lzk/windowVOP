@@ -3,7 +3,6 @@
 #include <windows.h>
 #include "dibhelp.h"
 #include <vector>
-<<<<<<< HEAD
 #include <gdiplus.h>
 #include <Shlwapi.h>
 #include <tchar.h>
