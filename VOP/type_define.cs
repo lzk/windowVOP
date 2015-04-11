@@ -141,6 +141,9 @@ namespace VOP
         _1200x1200 = 1200,
     }
 
+    /// <summary>
+    /// The value of value types are defined with low level drive. Don't change the value.
+    /// </summary>
     public enum EnumColorType : byte
     {
         black_white    = 0,

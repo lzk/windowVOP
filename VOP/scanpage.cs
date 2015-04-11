@@ -168,59 +168,34 @@ namespace VOP
 
             int scanMode   = (int)m_color;
             int resolution = (int)m_scanResln;
-            int width      = 0;
-            int height     = 0;
+            int nWidth      = 0;
+            int nHeight     = 0;
             int contrast   = m_contrast;
             int brightness = m_brightness;
             int docutype   = (int)m_docutype;
             uint uMsg      = 0;
 
-            switch ( m_paperSize )
-            { 
-                case EnumPaperSizeScan._A4         :
-                    width  = 8268;
-                    height = 11693;
-                    break;
-                case EnumPaperSizeScan._A5         :
-                    width  = 5827;
-                    height = 8268;
-                    break;
-                case EnumPaperSizeScan._B5         :
-                    width  = 7165;
-                    height = 10118;
-                    break;
-                case EnumPaperSizeScan._Letter     :
-                    width  = 8504;
-                    height = 10984;
-                    break;
-                case EnumPaperSizeScan._4x6Inch :
-                    width  = 4000;
-                    height = 6000;
-                    break;
-                default:
-                    width  = 8268;
-                    height = 11693;
-                    break;
-            }
+            common.GetPaperSize( m_paperSize, ref nWidth, ref nHeight );
 
             dll.ScanEx(
-                    m_MainWin.statusPanelPage.m_selectedPrinter,
-                    szOrig,
-                    szView,
-                    szThumb,
-                    scanMode,
-                    resolution,
-                    width,
-                    height,
-                    contrast,
-                    brightness,
-                    docutype,
-                    uMsg );
+                    m_MainWin.statusPanelPage.m_selectedPrinter ,
+                    szOrig     ,
+                    szView     ,
+                    szThumb    ,
+                    scanMode   ,
+                    resolution ,
+                    nWidth     ,
+                    nHeight    ,
+                    contrast   ,
+                    brightness ,
+                    docutype   ,
+                    uMsg       );
         }
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
         }
+
 
     }
 }

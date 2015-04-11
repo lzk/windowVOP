@@ -659,6 +659,40 @@ namespace VOP
 
             return strDrvName;
         }
+
+        /// <summary>
+        /// Get the value in milli-inch of width and height from paper size.
+        /// </summary>
+        public static void GetPaperSize( EnumPaperSizeScan s, ref int nWidth, ref int nHeight )
+        {
+            switch ( s )
+            { 
+                case EnumPaperSizeScan._A4         :
+                    nWidth  = 8268;
+                    nHeight = 11693;
+                    break;
+                case EnumPaperSizeScan._A5         :
+                    nWidth  = 5827;
+                    nHeight = 8268;
+                    break;
+                case EnumPaperSizeScan._B5         :
+                    nWidth  = 7165;
+                    nHeight = 10118;
+                    break;
+                case EnumPaperSizeScan._Letter     :
+                    nWidth  = 8504;
+                    nHeight = 10984;
+                    break;
+                case EnumPaperSizeScan._4x6Inch :
+                    nWidth  = 4000;
+                    nHeight = 6000;
+                    break;
+                default:
+                    nWidth  = 8268;
+                    nHeight = 11693;
+                    break;
+            }
+        }
     }
 
 
