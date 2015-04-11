@@ -194,8 +194,48 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+            int s = GetScanSize();
+
+            txtBlkImgSize.Text = s.ToString()+" bytes";
         }
 
 
+        /// <summary>
+        /// Scaning Image size in byte.
+        /// </summary>
+        private int GetScanSize()
+        {
+            double size = 0;
+
+            int nWidth = 0;
+            int nHeight = 0;
+            int dpi = (int)m_scanResln;
+            double fClrDeep = 1;
+
+            common.GetPaperSize( m_paperSize, ref nWidth, ref nHeight );
+
+            switch ( m_color )
+            {
+                case EnumColorType.black_white :
+                    fClrDeep = 1/8;
+                    break;
+                case EnumColorType.grayscale_8bit :
+                    fClrDeep = 1;
+                    break;
+                case EnumColorType.color_24bit :
+                    fClrDeep = 3;
+                    break;
+                case EnumColorType.color_48bit :
+                    fClrDeep = 6;
+                    break;
+                default:
+                    fClrDeep = 1;
+                    break;
+            }
+
+            size = nWidth/1000*nHeight/1000*dpi*dpi*fClrDeep;
+
+            return (int)size;
+        }
     }
 }
