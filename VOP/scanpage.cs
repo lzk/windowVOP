@@ -13,8 +13,6 @@ namespace VOP
 {
     public partial class ScanPage : UserControl
     {
-        List<ScanFiles> scanFileList = new List<ScanFiles>();
-
 #region scan parameters
         private EnumScanDocType   m_docutype   = EnumScanDocType.Photo;
         private EnumScanResln     m_scanResln  = EnumScanResln._300x300;
@@ -33,22 +31,22 @@ namespace VOP
             objScan.m_pathView  = @"F:\VOP\VOP\Images\image1.bmp";
             objScan.m_pathThumb  = @"F:\VOP\VOP\Images\image1.bmp";
             objScan.m_colorMode  = EnumColorType.color_24bit;
-            scanFileList.Add( objScan );
-            scanFileList.Add( objScan );
-            scanFileList.Add( objScan );
-            scanFileList.Add( objScan );
-            scanFileList.Add( objScan );
-            scanFileList.Add( objScan );
-            scanFileList.Add( objScan );
-            scanFileList.Add( objScan );
-            scanFileList.Add( objScan );
-            scanFileList.Add( objScan );
-            scanFileList.Add( objScan );
-            scanFileList.Add( objScan );
-            scanFileList.Add( objScan );
-            scanFileList.Add( objScan );
+            App.scanFileList.Add( objScan );
+            App.scanFileList.Add( objScan );
+            App.scanFileList.Add( objScan );
+            App.scanFileList.Add( objScan );
+            App.scanFileList.Add( objScan );
+            App.scanFileList.Add( objScan );
+            App.scanFileList.Add( objScan );
+            App.scanFileList.Add( objScan );
+            App.scanFileList.Add( objScan );
+            App.scanFileList.Add( objScan );
+            App.scanFileList.Add( objScan );
+            App.scanFileList.Add( objScan );
+            App.scanFileList.Add( objScan );
+            App.scanFileList.Add( objScan );
 
-            foreach( ScanFiles obj in scanFileList )
+            foreach( ScanFiles obj in App.scanFileList )
             {
                 ImageItem img  = new ImageItem();
                 img.m_images = obj;
@@ -95,7 +93,7 @@ namespace VOP
         {
             ScanPreview win = new ScanPreview();
             win.Owner = App.Current.MainWindow;
-			win.m_images = scanFileList[0];
+			win.m_images = App.scanFileList[0];
             win.ShowDialog();
         }
 

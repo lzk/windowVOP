@@ -12,6 +12,12 @@ namespace VOP
     /// </summary>
     public partial class App : Application
     {
+        /// <summary>
+        /// Scanned images file list. The files in list need to be cleared, so
+        /// define in App.
+        /// </summary>
+        public static List<ScanFiles> scanFileList = new List<ScanFiles>(); 
+
         public static AutoMachine g_autoMachine = new AutoMachine();
         public static uint WM_STATUS_UPDATE = Win32.RegisterWindowMessage("35abddc8c9f59ddfebcf8a3bfdd8ea9b4ef9dfd8");
 
@@ -31,6 +37,20 @@ namespace VOP
             VOP.App app = new VOP.App();
             app.InitializeComponent();
             app.Run();
+
+            foreach( ScanFiles obj in App.scanFileList )
+            {
+                try
+                {
+                    // TODO: clear cache.
+                    // File.Delete(obj.m_pathOrig);
+                    // File.Delete(obj.m_pathView);
+                    // File.Delete(obj.m_pathThumb);
+                }
+                catch
+                {
+                }
+            }
         }
     }
 }
