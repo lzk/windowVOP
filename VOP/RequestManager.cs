@@ -33,12 +33,12 @@ namespace VOP
         public Int32    m_nMerchantID;
     }
 
-    public class MerchantInfo
+    public class MerchantInfoItem
     {
         public Int32    m_nID;
         public Int32    m_nUserID;
         public string   m_strCode;
-        public string   m_strName;
+        public string   m_strCompanyName;
         public string   m_strMail;
         public string   m_strImagePath;
         public string   m_strPassword;
@@ -72,7 +72,7 @@ namespace VOP
         public bool     m_bSuccess;
         public string   m_strAddon;
 
-        public List<MerchantInfo> m_listMerchantInfo = new List<MerchantInfo>();
+        public List<MerchantInfoItem> m_listMerchantInfo = new List<MerchantInfoItem>();
 
         public void Clear()
         {
@@ -345,7 +345,7 @@ namespace VOP
 
                             for (Int32 nIdx = 0; nIdx < ((MerchantInfoSet)(dynamic)record).m_nTotalCount; nIdx++)
                             {
-                                MerchantInfo merchantInfo = new MerchantInfo();
+                                MerchantInfoItem merchantInfo = new MerchantInfoItem();
                                 JArray ja = (JArray)JsonConvert.DeserializeObject(strValue);
 
                                 string strItemValue = ja[nIdx]["merchant_id"].ToString();
@@ -355,7 +355,7 @@ namespace VOP
                                 merchantInfo.m_nUserID = Convert.ToInt32(strItemValue);
 
                                 merchantInfo.m_strCode = ja[nIdx]["merchant_code"].ToString();
-                                merchantInfo.m_strName = ja[nIdx]["merchant_name"].ToString();
+                                merchantInfo.m_strCompanyName = ja[nIdx]["merchant_name"].ToString();
                                 merchantInfo.m_strMail = ja[nIdx]["merchant_email"].ToString();
                                 merchantInfo.m_strImagePath = ja[nIdx]["merchant_image"].ToString();
                                 merchantInfo.m_strPassword = ja[nIdx]["merchant_password"].ToString();
@@ -386,7 +386,7 @@ namespace VOP
                                 ((MerchantInfoSet)(dynamic)record).m_listMerchantInfo.Add(merchantInfo);
                             }
 
-                            if (((MaintainInfoSet)(dynamic)record).m_nTotalCount > 0)
+                            if (((MerchantInfoSet)(dynamic)record).m_nTotalCount > 0)
                                 bSuccess = true;
                             break;
                         case JSONReturnFormat.MaintainInfoSet:
@@ -478,7 +478,19 @@ namespace VOP
             }
             catch
             {
-                
+              switch (rtFormat)
+              {
+                  case JSONReturnFormat.MerchantInfoSet:
+                      if (((MerchantInfoSet)(dynamic)record).m_bSuccess)
+                          bSuccess = true;
+                      break;
+                  case JSONReturnFormat.MaintainInfoSet:
+                      if (((MaintainInfoSet)(dynamic)record).m_bSuccess)
+                          bSuccess = true;
+                      break;
+                  default:
+                      break;
+              }
             }
 
             return bSuccess;

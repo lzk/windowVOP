@@ -1,4 +1,4 @@
-using System.Windows.Controls;
+ï»¿using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Media;
 using System;
@@ -39,7 +39,7 @@ namespace VOP
             int tabbtn_width = 165;
             int tabbtn_height = 30;
 
-            btnwifi.btn.Content = "´òÓ¡»úWi-Fi";
+            btnwifi.btn.Content = "æ‰“å°æœºWi-Fi";
             btnwifi.Margin = new Thickness(0, 0, 0, 10);
             btnwifi.Width = tabbtn_width;
             btnwifi.Height = tabbtn_height;
@@ -48,7 +48,7 @@ namespace VOP
             btnwifi.btn.Click += SettingBtnClick;           
             m_listSettingButton.Add(btnwifi);
 
-            btnSoftAp.btn.Content = "´òÓ¡»ú×ÔÖ÷ÈÈµã";
+            btnSoftAp.btn.Content = "æ‰“å°æœºè‡ªä¸»çƒ­ç‚¹";
             btnSoftAp.Margin = new Thickness(0, 0, 0, 10);
             btnSoftAp.Width = tabbtn_width;
             btnSoftAp.Height = tabbtn_height;
@@ -57,7 +57,7 @@ namespace VOP
             btnSoftAp.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnSoftAp);
 
-            btnTCPIP.btn.Content = "´òÓ¡»úÍøÂçÉèÖÃ";
+            btnTCPIP.btn.Content = "æ‰“å°æœºç½‘ç»œè®¾ç½®";
             btnTCPIP.Margin = new Thickness(0, 0, 0, 10);
             btnTCPIP.Width = tabbtn_width;
             btnTCPIP.Height = tabbtn_height;
@@ -66,7 +66,7 @@ namespace VOP
             btnTCPIP.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnTCPIP);
 
-            btnPowerSave.btn.Content = "ĞİÃß";
+            btnPowerSave.btn.Content = "ä¼‘çœ ";
             btnPowerSave.Margin = new Thickness(0, 0, 0, 10);
             btnPowerSave.Width = tabbtn_width;
             btnPowerSave.Height = tabbtn_height;
@@ -75,7 +75,7 @@ namespace VOP
             btnPowerSave.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnPowerSave);
 
-            btnUserConfig.btn.Content = "ÓÃ»§ÉèÖÃ";
+            btnUserConfig.btn.Content = "ç”¨æˆ·è®¾ç½®";
             btnUserConfig.Margin = new Thickness(0, 0, 0, 10);
             btnUserConfig.Width = tabbtn_width;
             btnUserConfig.Height = tabbtn_height;
@@ -84,7 +84,7 @@ namespace VOP
             btnUserConfig.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnUserConfig);
 
-            btnPwd.btn.Content = "ÃÜÂëĞŞ¸Ä";
+            btnPwd.btn.Content = "å¯†ç ä¿®æ”¹";
             btnPwd.Margin = new Thickness(0, 0, 0, 10);
             btnPwd.Width = tabbtn_width;
             btnPwd.Height = tabbtn_height;
@@ -93,7 +93,7 @@ namespace VOP
             btnPwd.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnPwd);
 
-            btnAbout.btn.Content = "¹ØÓÚ";
+            btnAbout.btn.Content = "å…³äº";
             btnAbout.Margin = new Thickness(0, 0, 0, 10);
             btnAbout.Width = tabbtn_width;
             btnAbout.Height = tabbtn_height;

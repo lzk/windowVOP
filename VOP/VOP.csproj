@@ -134,12 +134,14 @@
     <Compile Include="Controls\ValidateTip_TextBox.xaml.cs">
       <DependentUpon>ValidateTip_TextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\WifiItemInfo.cs" />
     <Compile Include="MaintainInfo.xaml.cs">
       <DependentUpon>MaintainInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="MaintainWindow.xaml.cs">
       <DependentUpon>MaintainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MerchantInfo.xaml.cs">
+      <DependentUpon>MerchantInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="PasswordWindow.xaml.cs">
       <DependentUpon>PasswordWindow.xaml</DependentUpon>
@@ -236,10 +238,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ListBoxEx.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Video.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -313,6 +311,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MaintainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MerchantInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -752,6 +754,7 @@
     <Resource Include="Images\FlipOnShortEdge.png" />
     <Resource Include="Index.png" />
     <Resource Include="Images\Index.png" />
+    <Resource Include="Images\Printer.png" />
     <Content Include="Media\FlickAnimation.avi">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

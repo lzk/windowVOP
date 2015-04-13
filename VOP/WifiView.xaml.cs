@@ -20,8 +20,6 @@ namespace VOP
     /// </summary>
     public partial class WifiView : UserControl
     {
-        public WifiItemInfo SelectedWifiItemInfo { get; set; }
-
         VOP.Controls.WifiSetting wifiSettingInit = new VOP.Controls.WifiSetting();
         VOP.Controls.WifiSetting wifiSetting = new VOP.Controls.WifiSetting();
 
@@ -227,7 +225,7 @@ namespace VOP
                     if (!String.IsNullOrEmpty(m_rec.SsidList[i]))
                     {
 
-                        VOP.Controls.WifiItemInfo wifiitem = new VOP.Controls.WifiItemInfo();
+                        VOP.Controls.WiFiItem wifiitem = new VOP.Controls.WiFiItem();
                         wifiitem.SSIDText = m_rec.SsidList[i];
                         if ((byte)EnumEncryptType.NoSecurity == m_rec.EncryptionList[i])    //No Security
                         {
@@ -251,8 +249,7 @@ namespace VOP
                         }
                         wifiitem.WifiSignalLevel = VOP.Controls.EnumWifiSignalLevel.stronger;
 
-                     //   wifiListBox.Items.Add(wifiitem);
-                     //   wifilist.Children.Add(wifiitem);
+                        wifilist.Children.Add(wifiitem);
                     }
                 }
             }
@@ -332,6 +329,7 @@ namespace VOP
                 pbPwd.Password = tbPwd.Text;
             }
         }
+
         public void UpdateControlsStatus()
         {
             string ssid = "";
@@ -376,11 +374,5 @@ namespace VOP
             }
         }
 
-        private void wifiListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ListBox lb = e.Source as ListBox;
-            SelectedWifiItemInfo = lb.SelectedItem as WifiItemInfo;
-            
-        }
     }
 }
