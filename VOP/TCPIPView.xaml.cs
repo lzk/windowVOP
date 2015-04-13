@@ -41,7 +41,6 @@ namespace VOP
     {
         public bool m_is_init = false;
 
-        TCPIPSetting TcpIpSettingInit = new TCPIPSetting();
         TCPIPSetting TcpIpSetting = new TCPIPSetting();
 
         public TcpipView()
@@ -58,20 +57,20 @@ namespace VOP
         {
             m_is_init = true;
 
-            TcpIpSettingInit.m_mode_ipversion = 0;
-            TcpIpSettingInit.m_mode_ipaddress = (byte)EnumIPType.DHCP;
-            TcpIpSettingInit.m_ip0 = 0;
-            TcpIpSettingInit.m_ip1 = 0;
-            TcpIpSettingInit.m_ip2 = 0;
-            TcpIpSettingInit.m_ip3 = 0;
-            TcpIpSettingInit.m_mask0 = 0;
-            TcpIpSettingInit.m_mask1 = 0;
-            TcpIpSettingInit.m_mask2 = 0;
-            TcpIpSettingInit.m_mask3 = 0;
-            TcpIpSettingInit.m_gate0 = 0;
-            TcpIpSettingInit.m_gate1 = 0;
-            TcpIpSettingInit.m_gate2 = 0;
-            TcpIpSettingInit.m_gate3 = 0;
+            TcpIpSetting.m_mode_ipversion = 0;
+            TcpIpSetting.m_mode_ipaddress = (byte)EnumIPType.DHCP;
+            TcpIpSetting.m_ip0 = 0;
+            TcpIpSetting.m_ip1 = 0;
+            TcpIpSetting.m_ip2 = 0;
+            TcpIpSetting.m_ip3 = 0;
+            TcpIpSetting.m_mask0 = 0;
+            TcpIpSetting.m_mask1 = 0;
+            TcpIpSetting.m_mask2 = 0;
+            TcpIpSetting.m_mask3 = 0;
+            TcpIpSetting.m_gate0 = 0;
+            TcpIpSetting.m_gate1 = 0;
+            TcpIpSetting.m_gate2 = 0;
+            TcpIpSetting.m_gate3 = 0;
 
             IpInfoRecord m_rec = null;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
@@ -88,62 +87,58 @@ namespace VOP
 
             if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
             {
-                TcpIpSettingInit.m_mode_ipversion = m_rec.IpVersion;
-                TcpIpSettingInit.m_mode_ipaddress = (byte)m_rec.IpAddressMode;
-
                 byte[] arr = m_rec.Ip.GetAddressBytes();
-                TcpIpSettingInit.m_ip0 = arr[0];
-                TcpIpSettingInit.m_ip1 = arr[1];
-                TcpIpSettingInit.m_ip2 = arr[2];
-                TcpIpSettingInit.m_ip3 = arr[3];
+                TcpIpSetting.m_ip0 = arr[0];
+                TcpIpSetting.m_ip1 = arr[1];
+                TcpIpSetting.m_ip2 = arr[2];
+                TcpIpSetting.m_ip3 = arr[3];
 
                 arr = m_rec.Mask.GetAddressBytes();
-                TcpIpSettingInit.m_mask0 = arr[0];
-                TcpIpSettingInit.m_mask1 = arr[1];
-                TcpIpSettingInit.m_mask2 = arr[2];
-                TcpIpSettingInit.m_mask3 = arr[3];
+                TcpIpSetting.m_mask0 = arr[0];
+                TcpIpSetting.m_mask1 = arr[1];
+                TcpIpSetting.m_mask2 = arr[2];
+                TcpIpSetting.m_mask3 = arr[3];
 
                 arr = m_rec.Gate.GetAddressBytes();
-                TcpIpSettingInit.m_gate0 = arr[0];
-                TcpIpSettingInit.m_gate1 = arr[1];
-                TcpIpSettingInit.m_gate2 = arr[2];
-                TcpIpSettingInit.m_gate3 = arr[3];
-
+                TcpIpSetting.m_gate0 = arr[0];
+                TcpIpSetting.m_gate1 = arr[1];
+                TcpIpSetting.m_gate2 = arr[2];
+                TcpIpSetting.m_gate3 = arr[3];
             }
 
             string addr_ip = "";
             string addr_mask = "";
             string addr_gate = "";
 
-            addr_ip += TcpIpSettingInit.m_ip0.ToString();
+            addr_ip += TcpIpSetting.m_ip0.ToString();
             addr_ip += ".";
-            addr_ip += TcpIpSettingInit.m_ip1.ToString();
+            addr_ip += TcpIpSetting.m_ip1.ToString();
             addr_ip += ".";
-            addr_ip += TcpIpSettingInit.m_ip2.ToString();
+            addr_ip += TcpIpSetting.m_ip2.ToString();
             addr_ip += ".";
-            addr_ip += TcpIpSettingInit.m_ip3.ToString();
+            addr_ip += TcpIpSetting.m_ip3.ToString();
 
-            addr_mask += TcpIpSettingInit.m_mask0.ToString();
+            addr_mask += TcpIpSetting.m_mask0.ToString();
             addr_mask += ".";
-            addr_mask += TcpIpSettingInit.m_mask1.ToString();
+            addr_mask += TcpIpSetting.m_mask1.ToString();
             addr_mask += ".";
-            addr_mask += TcpIpSettingInit.m_mask2.ToString();
+            addr_mask += TcpIpSetting.m_mask2.ToString();
             addr_mask += ".";
-            addr_mask += TcpIpSettingInit.m_mask3.ToString();
+            addr_mask += TcpIpSetting.m_mask3.ToString();
 
-            addr_gate += TcpIpSettingInit.m_gate0.ToString();
+            addr_gate += TcpIpSetting.m_gate0.ToString();
             addr_gate += ".";
-            addr_gate += TcpIpSettingInit.m_gate1.ToString();
+            addr_gate += TcpIpSetting.m_gate1.ToString();
             addr_gate += ".";
-            addr_gate += TcpIpSettingInit.m_gate2.ToString();
+            addr_gate += TcpIpSetting.m_gate2.ToString();
             addr_gate += ".";
-            addr_gate += TcpIpSettingInit.m_gate3.ToString();
+            addr_gate += TcpIpSetting.m_gate3.ToString();
 
             tb_ip.Text = addr_ip;
             tb_mask.Text = addr_mask;
             tb_gate.Text = addr_gate;
 
-            rdbtn_dhcp.IsChecked = ((byte)EnumIPType.DHCP == TcpIpSettingInit.m_mode_ipaddress);
+            rdbtn_dhcp.IsChecked = ((byte)EnumIPType.DHCP == TcpIpSetting.m_mode_ipaddress);
             //Add by KevinYin for BMS Bug 56149 begin
             rdbtn_static.IsChecked = !rdbtn_dhcp.IsChecked;
             //Add by KevinYin for BMS Bug 56149 end
@@ -270,12 +265,7 @@ namespace VOP
                     tb_mask.IsEnabled = true;
                 }
             }
-
-
-            //if (null != event_config_dirty)
-            //    event_config_dirty(is_dirty());
         }
-
 
         public void handler_text_changed(object sender, TextChangedEventArgs e)
         {
@@ -411,20 +401,20 @@ namespace VOP
                 {
                     if (m_rec.CmdResult == EnumCmdResult._ACK)
                     {
-                        TcpIpSettingInit.m_mode_ipversion = TcpIpSetting.m_mode_ipversion = mode_ipversion;
-                        TcpIpSettingInit.m_mode_ipaddress = TcpIpSetting.m_mode_ipaddress = mode_ipaddress;
-                        TcpIpSettingInit.m_ip0 = TcpIpSetting.m_ip0 = ip0;
-                        TcpIpSettingInit.m_ip1 = TcpIpSetting.m_ip1 = ip1;
-                        TcpIpSettingInit.m_ip2 = TcpIpSetting.m_ip2 = ip2;
-                        TcpIpSettingInit.m_ip3 = TcpIpSetting.m_ip3 = ip3;
-                        TcpIpSettingInit.m_mask0 = TcpIpSetting.m_mask0 = mask0;
-                        TcpIpSettingInit.m_mask1 = TcpIpSetting.m_mask1 = mask1;
-                        TcpIpSettingInit.m_mask2 = TcpIpSetting.m_mask2 = mask2;
-                        TcpIpSettingInit.m_mask3 = TcpIpSetting.m_mask3 = mask3;
-                        TcpIpSettingInit.m_gate0 = TcpIpSetting.m_gate0 = gate0;
-                        TcpIpSettingInit.m_gate1 = TcpIpSetting.m_gate1 = gate1;
-                        TcpIpSettingInit.m_gate2 = TcpIpSetting.m_gate2 = gate2;
-                        TcpIpSettingInit.m_gate3 = TcpIpSetting.m_gate3 = gate3;
+                        TcpIpSetting.m_mode_ipversion = mode_ipversion;
+                        TcpIpSetting.m_mode_ipaddress = mode_ipaddress;
+                        TcpIpSetting.m_ip0 = ip0;
+                        TcpIpSetting.m_ip1 = ip1;
+                        TcpIpSetting.m_ip2 = ip2;
+                        TcpIpSetting.m_ip3 = ip3;
+                        TcpIpSetting.m_mask0 = mask0;
+                        TcpIpSetting.m_mask1 = mask1;
+                        TcpIpSetting.m_mask2 = mask2;
+                        TcpIpSetting.m_mask3 = mask3;
+                        TcpIpSetting.m_gate0 = gate0;
+                        TcpIpSetting.m_gate1 = gate1;
+                        TcpIpSetting.m_gate2 = gate2;
+                        TcpIpSetting.m_gate3 = gate3;
 
                         //Add by KevinYin for BMS Bug 55147 begin
                         IPAddress ipAddress;
@@ -459,9 +449,6 @@ namespace VOP
                     }
 
                 }
-
-                //if (null != event_config_dirty)
-                //    event_config_dirty(is_dirty());
             }
 
             ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isSuccess ? "设置成功" : "设置失败");

@@ -92,7 +92,7 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <local:ButtonEx Click="OnClickCancelButton" IsActiveEx="False" Content="取消" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="30"></local:ButtonEx>
-                                <local:ButtonEx IsActiveEx="True" Content="连接" Grid.Column="2" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="30"></local:ButtonEx>
+                                <local:ButtonEx Click="OnClickConnectBtn" x:Name="btnConnect" IsActiveEx="True" Content="连接" Grid.Column="2" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="30"></local:ButtonEx>
                             </Grid>
                         </StackPanel>
 

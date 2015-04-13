@@ -197,6 +197,8 @@ namespace VOP
 
             //if (isApplySuccess && encryption == (byte)EnumEncryptType.NoSecurity)
             //    tb_pwd.Text = pwd;
+            
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功" : "设置失败");
 
             return isApplySuccess;
         }
@@ -230,22 +232,22 @@ namespace VOP
                         if ((byte)EnumEncryptType.NoSecurity == m_rec.EncryptionList[i])    //No Security
                         {
                             wifiitem.EncryptionText = "网络未加密";
-                            wifiitem.EncryptType = VOP.Controls.EnumEncryptType.NoSecurity;
+                            wifiitem.EncryptType = VOP.EnumEncryptType.NoSecurity;
                         }
                         else if ((byte)EnumEncryptType.WEP == m_rec.EncryptionList[i]) //WEP
                         {
                             wifiitem.EncryptionText = "通过WEP进行保护";
-                            wifiitem.EncryptType = VOP.Controls.EnumEncryptType.WEP;
+                            wifiitem.EncryptType = VOP.EnumEncryptType.WEP;
                         }
                         else if ((byte)EnumEncryptType.WPA2_PSK_AES == m_rec.EncryptionList[i])   //3. WPA2-PSK-AES 
                         {
                             wifiitem.EncryptionText = "通过WPA2-PSK-AES进行保护";
-                            wifiitem.EncryptType = VOP.Controls.EnumEncryptType.WPA2_PSK_AES;
+                            wifiitem.EncryptType = VOP.EnumEncryptType.WPA2_PSK_AES;
                         }
                         else if ((byte)EnumEncryptType.MixedModePSK == m_rec.EncryptionList[i])   //4.Mixed Mode PSK
                         {
                             wifiitem.EncryptionText = "通过Mixed Mode PSK进行保护";
-                            wifiitem.EncryptType = VOP.Controls.EnumEncryptType.MixedModePSK;
+                            wifiitem.EncryptType = VOP.EnumEncryptType.MixedModePSK;
                         }
                         wifiitem.WifiSignalLevel = VOP.Controls.EnumWifiSignalLevel.stronger;
 

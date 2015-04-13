@@ -240,9 +240,6 @@ namespace VOP
                 }
                 else if ( "btnLogin" == btn.Name )
                 {
-                    PurchaseWindow pw1 = new PurchaseWindow();
-                    pw1.ShowDialog();
-
                     PasswordWindow pw = new PasswordWindow();
                     pw.ShowDialog();
 

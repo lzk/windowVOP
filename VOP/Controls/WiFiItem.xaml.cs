@@ -203,23 +203,26 @@ namespace VOP.Controls
 
         private void OnLoadWifiItem(object sender, RoutedEventArgs e)
         {
-            if(wifiExpander.EncryptType == EnumEncryptType.WEP)
+            if (EncryptType == EnumEncryptType.WEP)
             {
                 wepGrid.Visibility = Visibility.Visible;
                 rowWep.Height = GridLength.Auto;
                 wepKey0.IsChecked = true;
             }
-            else
+            else 
             {
+                if (EncryptType == EnumEncryptType.NoSecurity)
+                {
+                    cbDisplayPwd.IsEnabled = false;
+                    tbPwd.IsEnabled = false;
+                    pbPwd.IsEnabled = false;
+                    btnConnect.IsEnabled = true;
+                }
                 wepGrid.Visibility = Visibility.Hidden;
             }
-            //wifiExpander.SSIDText = SSIDText;
-            //wifiExpander.EncryptionText = EncryptionText;
-            //wifiExpander.EncryptType = EncryptType;
 
             wifiSetting.m_ssid = wifiExpander.SSIDText;
             wifiSetting.m_encryption = (byte)wifiExpander.EncryptType;
-
         }
 
         private void OnClickCancelButton(object sender, RoutedEventArgs e)
@@ -245,12 +248,31 @@ namespace VOP.Controls
 
         private void tbPwd_TextChanged(object sender, TextChangedEventArgs e)
         {
-  
+         //   PasswordChanged();
         }
 
         private void pbPwd_PasswordChanged(object sender, RoutedEventArgs e)
         {
+            // PasswordChanged();
+        }
 
+        private void PasswordChanged()
+        {
+            if (EncryptType != EnumEncryptType.NoSecurity)
+            {
+                if(is_InputVailible())
+                {
+                    btnConnect.IsEnabled = true;
+                } 
+                else
+                {
+                    btnConnect.IsEnabled = false;
+                }
+            }
+            else
+            {
+                btnConnect.IsEnabled = true;
+            }
         }
 
         private void wifiExpander_IsExpandedPropertyChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -258,6 +280,182 @@ namespace VOP.Controls
             VOP.Controls.CustomExpander ce = sender as VOP.Controls.CustomExpander;
         }
 
-      
+        public bool is_InputVailible()
+        {
+            string pwd = "";
+            byte wepKeyId = 0;
+
+            GetUIValues(out pwd, out wepKeyId);
+
+            bool bValidatePassWord = true;
+            int nCharCount = pwd.Length;
+
+            if (EncryptType == EnumEncryptType.NoSecurity)
+            {
+                return true;
+            }
+            else if (EncryptType == EnumEncryptType.WEP)
+            {
+                switch (nCharCount)
+                {
+                    case 5:
+                    case 13:
+                        break;
+                    case 10:
+                    case 26:
+                        foreach (char ch in pwd)
+                        {
+                            if (Char.IsDigit(ch) || (ch >= 'A' && ch <= 'F') || (ch >= 'a' && ch <= 'f'))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                bValidatePassWord = false;
+                                break;
+                            }
+                        }
+                        break;
+                    default:
+                        bValidatePassWord = false;
+                        break;
+                }
+
+                return bValidatePassWord;
+            }
+            else if (EncryptType == EnumEncryptType.WPA2_PSK_AES || EncryptType == EnumEncryptType.MixedModePSK)
+            {
+                if (nCharCount >= 8 && nCharCount <= 63)
+                {
+                    foreach (char ch in pwd)
+                    {
+                        if (((UInt16)ch) > 128)
+                        {
+                            return false;
+                        }
+                    }
+                    bValidatePassWord = true;
+                }
+                else if (nCharCount == 64)
+                {
+                    foreach (char ch in pwd)
+                    {
+                        if (Char.IsDigit(ch) || (ch >= 'A' && ch <= 'F') || (ch >= 'a' && ch <= 'f'))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            bValidatePassWord = false;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    bValidatePassWord = false;
+                }
+                return bValidatePassWord;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void GetUIValues(out string pwd,out byte wepKeyId)
+        {
+            pwd = "";
+            wepKeyId = 1;
+            
+            pwd = (true == cbDisplayPwd.IsChecked) ? tbPwd.Text : pbPwd.Password;
+            
+            if (true == wepKey0.IsChecked)
+            {
+                wepKeyId = 0x00;
+            }
+            else if (true == wepKey1.IsChecked)
+            {
+                wepKeyId = 0x01;
+            }
+            else if (true == wepKey2.IsChecked)
+            {
+                wepKeyId = 0x02;
+            }
+            else if (true == wepKey3.IsChecked)
+            {
+                wepKeyId = 0x03;
+            }
+        }
+
+        public bool apply()
+        {
+            bool isApplySuccess = false;
+
+            string pwd = "";
+            byte wepKeyId = 1;
+
+            GetUIValues(out pwd, out wepKeyId);
+
+            if (is_InputVailible())
+            {
+                if (EncryptType == EnumEncryptType.NoSecurity)
+                {
+                    pwd = "";
+                }
+                else if (EncryptType == EnumEncryptType.WEP)
+                {
+                    if (pwd.Length > 26)
+                    {
+                        pwd = pwd.Substring(1, 26);
+                    }
+                }
+                else
+                {
+
+                }
+
+                WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter,
+                    SSIDText, 
+                    (EncryptType != EnumEncryptType.NoSecurity) ? pwd : "", 
+                    EncryptType, 
+                    wepKeyId);
+                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+
+                if (worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetWiFiInfo))
+                {
+                    if (m_rec.CmdResult == EnumCmdResult._ACK)
+                    {
+
+                        isApplySuccess = true;
+                    }
+
+                }
+            }
+
+            if (isApplySuccess)
+            {
+                tbPwd.Text = pwd;
+                pbPwd.Password = pwd;
+                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功" : "设置失败");
+            }
+ 
+            return isApplySuccess;
+        }
+
+        private void OnClickConnectBtn(object sender, RoutedEventArgs e)
+        {
+            if(is_InputVailible())
+            {
+                apply();
+            }
+            else
+            {
+                if(EncryptType == EnumEncryptType.WEP)
+                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码输入不正确(5/13个ASCII字符或者10/26个二进制字符)，请重新输入。", "错误");
+                else
+                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码输入不正确(8-63个ASCII字符或者64个二进制字符)，请重新输入。", "错误");
+            }
+        }
     }
 }

@@ -2,17 +2,9 @@
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-
+using VOP;
 namespace VOP.Controls
 {
-    public enum EnumEncryptType
-    {
-        NoSecurity = 0,
-        WEP = 1,
-        WPA2_PSK_AES = 3,
-        MixedModePSK = 4
-    };
-
     public enum EnumWifiSignalLevel
     {
         Weakness =0,
