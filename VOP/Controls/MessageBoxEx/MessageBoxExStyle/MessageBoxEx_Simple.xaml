@@ -12,6 +12,9 @@
         VerticalAlignment="Center"
         WindowStartupLocation="CenterOwner" 
         >
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+    </Window.Effect>
 
     <Grid Background="#FFEDEDED">
         <Grid.RowDefinitions>
