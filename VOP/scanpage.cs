@@ -22,6 +22,16 @@ namespace VOP
         private int               m_contrast   = 50;
 #endregion
 
+#region Return value of dll.ScanEx
+        private const int RETSCAN_OK             = 0;
+        private const int RETSCAN_ERRORDLL       = 1;
+        private const int RETSCAN_OPENFAIL       = 2;
+        private const int RETSCAN_ERRORPARAMETER = 3;
+        private const int RETSCAN_CMDFAIL        = 4;
+        private const int RETSCAN_NO_ENOUGH_SPACE= 5;
+        private const int RETSCAN_ERROR_PORT     = 6;
+#endregion
+
         public ScanPage()
         {
             InitializeComponent();
@@ -154,9 +164,9 @@ namespace VOP
 
         private void btnScan_Click(object sender, RoutedEventArgs e)
         {
-            string szOrig  = "";
-            string szView  = "";
-            string szThumb = "";
+
+            ScanFiles objScan = new ScanFiles();
+            objScan.m_colorMode = m_color;
 
             string strFolder = System.IO.Path.GetTempPath()+"VOPCache\\";
             string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString( "D10" );
@@ -166,9 +176,9 @@ namespace VOP
                 Directory.CreateDirectory( strFolder );
             }
 
-            szOrig  = strFolder + "vopOrig" + strSuffix + ".bmp";
-            szView  = strFolder + "vopView" + strSuffix + ".bmp";
-            szThumb = strFolder + "vopThum" + strSuffix + ".bmp";
+            objScan.m_pathOrig  = strFolder + "vopOrig" + strSuffix + ".bmp";
+            objScan.m_pathView  = strFolder + "vopView" + strSuffix + ".bmp";
+            objScan.m_pathThumb = strFolder + "vopThum" + strSuffix + ".bmp";
 
             int scanMode   = (int)m_color;
             int resolution = (int)m_scanResln;
@@ -181,11 +191,11 @@ namespace VOP
 
             common.GetPaperSize( m_paperSize, ref nWidth, ref nHeight );
 
-            dll.ScanEx(
+            int nResult = dll.ScanEx(
                     m_MainWin.statusPanelPage.m_selectedPrinter ,
-                    szOrig     ,
-                    szView     ,
-                    szThumb    ,
+                    objScan.m_pathOrig     ,
+                    objScan.m_pathView     ,
+                    objScan.m_pathThumb    ,
                     scanMode   ,
                     resolution ,
                     nWidth     ,
@@ -194,6 +204,25 @@ namespace VOP
                     brightness ,
                     docutype   ,
                     uMsg       );
+
+
+            if ( RETSCAN_OK == nResult )
+            {
+                ImageItem img  = new ImageItem();
+                img.m_images = objScan;
+
+                if ( null != img.m_source )
+                {
+                    img.ImageSingleClick += ImageItemSingleClick;
+                    img.ImageDoubleClick += ImageItemDoubleClick;
+                    this.image_wrappanel.Children.Insert(0, img );
+                    App.scanFileList.Add( objScan );
+                }
+            }
+            else
+            {
+                m_MainWin.statusPanelPage.ShowMessage( "Scan Fail" );
+            }
         }
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
