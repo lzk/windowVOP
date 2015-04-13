@@ -141,5 +141,15 @@ namespace VOP
             if ( null != eventPrinterSwitch )
                 eventPrinterSwitch();
         }
+
+        private void btnPurchaseWindow_Click(object sender, RoutedEventArgs e)
+        {
+            PurchaseWindow win = new PurchaseWindow();
+
+            if (true == win.ShowDialog())
+            {
+
+            }
+        }
     }
 }

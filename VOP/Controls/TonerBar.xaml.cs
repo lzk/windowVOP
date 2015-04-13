@@ -45,6 +45,16 @@ namespace VOP
             add { AddHandler(valueChangedEvent, value); }
             remove { RemoveHandler(valueChangedEvent, value); }
         }
+
+        public static readonly RoutedEvent ClickEvent
+            = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble,
+                typeof(RoutedEventHandler), typeof(TonerBar));
+
+        public event RoutedEventHandler Click
+        {
+            add { AddHandler(ClickEvent, value); }
+            remove { RemoveHandler(ClickEvent, value); }
+        }
         #endregion // Event
 
 
@@ -90,6 +100,7 @@ namespace VOP
             _this.ValueChanged();
         }
 
+        private double oldValue = 0.0;
         protected virtual void ValueChanged()
         {
             curPercet = CurValue * 100.0 / MaxValue;
@@ -99,6 +110,16 @@ namespace VOP
             argsEvent.RoutedEvent = TonerBar.valueChangedEvent;
             argsEvent.Source = this;
             RaiseEvent(argsEvent);
+
+            if ((oldValue > 30.0 & curPercet <= 30.0) || (oldValue > 10.0 & curPercet <= 10.0))
+            {
+                RoutedEventArgs clickEventArgs = new RoutedEventArgs();
+                clickEventArgs.RoutedEvent = TonerBar.ClickEvent;
+                clickEventArgs.Source = this;
+                RaiseEvent(clickEventArgs);
+            }
+
+            oldValue = curPercet;
         }
         #endregion // Property
 
@@ -183,6 +204,14 @@ namespace VOP
         void TonerBar_Loaded(object sender, RoutedEventArgs e)
         {
             PaintControl();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            RoutedEventArgs clickEventArgs = new RoutedEventArgs();
+            clickEventArgs.RoutedEvent = TonerBar.ClickEvent;
+            clickEventArgs.Source = this;
+            RaiseEvent(clickEventArgs);
         }
     }
 }

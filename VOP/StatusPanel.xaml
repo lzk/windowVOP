@@ -113,8 +113,8 @@
                     </mycontrol:StatusTextBlock>
 
                     <mycontrol:TonerBar Grid.Row="6" Grid.Column="1" 
-                        x:Name="lbTonerBar"
-                                        CurValue="25">
+                        x:Name="lbTonerBar" Click="btnPurchaseWindow_Click"
+                                        CurValue="0">
                     </mycontrol:TonerBar>
 
                     <Grid Grid.Column="1" Grid.Row="9">
