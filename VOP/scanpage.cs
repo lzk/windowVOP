@@ -10,6 +10,8 @@ using System.Windows.Media.Imaging; // for BitmapImage
 using System.Collections.Generic;
 using System.Windows.Interop; // for HwndSource
 using System.Threading;
+using Microsoft.Win32; // for SaveFileDialog
+using PdfEncoderClient;
 
 namespace VOP
 {
@@ -396,7 +398,115 @@ namespace VOP
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            SaveFileDialog save = new SaveFileDialog();
 
+            if ( 1 < GetSelectedItemCount() )
+                save.Filter = "TIF|*.tif|PDF|*.pdf";
+            else 
+                save.Filter = "TIF|*.tif|PDF|*.pdf|JPG|*.jpg";
+
+            bool? result = save.ShowDialog();
+
+            if (result == true)
+            {
+                // This index is 1-based, not 0-based
+                if (3 == save.FilterIndex)
+                {
+                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+
+                    foreach (object obj in image_wrappanel.Children)
+                    {
+                        ImageItem img = obj as ImageItem;
+
+                        if ( null != img && true == img.m_ischeck )
+                        {
+                            Uri myUri = new Uri(img.m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
+                            BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
+                            BitmapSource origSource = decoder.Frames[0];
+
+                            if (null != origSource)
+                            {
+                                switch (img.m_images.m_rotate)
+                                {
+                                    case 0:
+                                        encoder.Rotation = Rotation.Rotate0;
+                                        break;
+                                    case 90:
+                                        encoder.Rotation = Rotation.Rotate90;
+                                        break;
+                                    case 180:
+                                        encoder.Rotation = Rotation.Rotate180;
+                                        break;
+                                    case 270:
+                                        encoder.Rotation = Rotation.Rotate270;
+                                        break;
+
+                                }
+                                encoder.Frames.Add(BitmapFrame.Create(origSource));
+                            }
+                        }
+                    }  
+
+                    FileStream fs = File.Open(save.FileName, FileMode.Create);
+                    encoder.Save(fs);
+                    fs.Close();
+                }
+                else if (1 == save.FilterIndex)
+                {
+                    TiffBitmapEncoder encoder = new TiffBitmapEncoder();
+
+                    foreach (object obj in image_wrappanel.Children)
+                    {
+                        ImageItem img = obj as ImageItem;
+
+                        if (null != img && true == img.m_ischeck)
+                        {
+                            BitmapSource origSource = common.GetOrigBitmapSource( img.m_images );
+
+                            if ( null != origSource )
+                                encoder.Frames.Add(BitmapFrame.Create(origSource));
+                        }
+                    }  
+
+                    FileStream fs = File.Open(save.FileName, FileMode.Create);
+                    encoder.Save(fs);
+                    fs.Close();
+                }
+                else if (2 == save.FilterIndex)
+                {
+
+                    try
+                    {
+                        using (PdfHelper help = new PdfHelper())
+                        {
+                            help.Open(save.FileName);
+
+                            foreach (object obj in image_wrappanel.Children)
+                            {
+                                ImageItem img = obj as ImageItem;
+
+                                if (null != img && true == img.m_ischeck)
+                                {
+                                    Uri myUri = new Uri(img.m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
+                                    BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
+                                    BitmapSource origSource = decoder.Frames[0];
+
+                                    if ( null != origSource )
+                                        help.AddImage(origSource, img.m_images.m_rotate);
+                                }
+                            }  
+
+                            help.Close();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    }
+
+                }
+            }
+            
         }
     }
 }
