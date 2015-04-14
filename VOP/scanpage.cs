@@ -332,5 +332,13 @@ namespace VOP
         {
             dll.CancelScanning();
         }
+
+        private void btnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> files = new List<string>();
+            files.Add( "F:\\VOP\\VOP\\Images\\background.png" );
+
+            m_MainWin.SwitchToPrintingPage( files );
+        }
     }
 }

@@ -601,5 +601,18 @@ namespace VOP
             statusUpdater.Start();
         }
 
+        /// <summary>
+        /// Switch to print page.
+        /// </summary>
+        /// <param name="files"> file list need to preview in print page.</param>
+        public void SwitchToPrintingPage( List<string> files )
+        {
+            setTabItemFromIndex(0);
+
+            winPrintPage.FilePaths = files;
+            winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintImages;
+            subPageView.Child = winPrintPage;
+        }
+        
     }
 }
