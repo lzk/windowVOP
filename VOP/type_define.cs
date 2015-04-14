@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+
 namespace VOP
 {
     public class ScanFiles
@@ -376,18 +378,23 @@ namespace VOP
         DMCOLLATE_TRUE = 1,
     }
 
- 
     public enum EnumReversePrint : byte
     {
         NORMAL_PRINT = 0,
         REVERSE_PRINT = 1,
     }
+
     public enum EnumScaling : byte
     {
         ISF_DISABLE = 0,
         ISF_SCALING = 1,
         ISF_FITTOPAPER = 2,
     }
-  
 
+    [StructLayout(LayoutKind.Sequential)]
+    public class IdCardSize
+    {
+        public double Width;
+        public double Height;
+    }
 }

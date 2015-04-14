@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace VOP
 {
@@ -183,14 +184,22 @@ namespace VOP
         [DllImport("usbapi.dll")]
         public static extern bool PrintInit(
                 [MarshalAs(UnmanagedType.LPWStr)]string printerName,
-                [MarshalAs(UnmanagedType.LPWStr)]string jobDescription);
+                [MarshalAs(UnmanagedType.LPWStr)]string jobDescription,
+                int idCardType,
+                [In, MarshalAs(UnmanagedType.LPStruct)]IdCardSize size);
 
         [DllImport("usbapi.dll")]
         public static extern void AddImagePath(
                [MarshalAs(UnmanagedType.LPWStr)]string fileName);
 
         [DllImport("usbapi.dll")]
-        public static extern int DoPrint();
+        public static extern void AddImageSource(IStream imageSource);
+
+        [DllImport("usbapi.dll")]
+        public static extern int DoPrintImage();
+
+        [DllImport("usbapi.dll")]
+        public static extern int DoPrintIdCard();
 
         [DllImport("usbapi.dll")]
         public static extern int PrintFile(
@@ -201,7 +210,7 @@ namespace VOP
         public static extern int OutputDebugStringToFile_([MarshalAs(UnmanagedType.LPWStr)]string _lpFormat);
 
         [DllImport("usbapi.dll")]
-        public static extern void SetPrinterInof(
+        public static extern void SetPrinterInfo(
             [MarshalAs(UnmanagedType.LPWStr)]string strPrinterName, 
             short sPaperSize,
             short sPaperOrientation,

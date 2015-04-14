@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace VOP
 {
@@ -25,6 +26,11 @@ namespace VOP
 
         [DllImport("kernel32.dll", ExactSpelling = true)]
         public static extern IntPtr GlobalFree(IntPtr handle);
+
+        [System.Runtime.InteropServices.DllImport("OLE32.DLL", EntryPoint = "CreateStreamOnHGlobal")] // Create a COM stream from a pointer in unmanaged memory
+        public extern static int CreateStreamOnHGlobal(IntPtr ptr, bool delete, out System.Runtime.InteropServices.ComTypes.IStream pOutStm);
+        [System.Runtime.InteropServices.DllImport("OLE32.DLL", EntryPoint = "GetHGlobalFromStream")]
+        public extern static void GetHGlobalFromStream(IStream stm, ref IntPtr hGlobal);
     }
 
 }

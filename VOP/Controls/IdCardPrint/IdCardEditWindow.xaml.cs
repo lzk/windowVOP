@@ -64,7 +64,7 @@ namespace VOP.Controls
                     PrintPreview printPreview = new PrintPreview();
                     printPreview.PaperWidth = A4Size.Width; //A4
                     printPreview.PaperHeight = A4Size.Height;
-                    printPreview.SelectedTypeItem = this.SelectedTypeItem;
+                    printPreview.SelectedTypeItem = SelectedTypeItem;
 
                     if (SelectedTypeItem.PrintSides == enumIdCardPrintSides.OneSide)
                     {

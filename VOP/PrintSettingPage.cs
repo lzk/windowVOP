@@ -374,7 +374,9 @@ namespace VOP
 
             if (printerName != null && printerName.Length > 0)
             {
-                dll.SetPrinterInof(m_MainWin.statusPanelPage.m_selectedPrinter, (short)m_paperSize, (short)m_paperOrientation, (short)m_mediaType, (short)m_paperOrder, (short)m_printQuality, (short)m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_colorBalanceTo,m_densityValue, (short)m_duplexPrint, (short)m_reversePrint, m_tonerSaving);
+
+                dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (short)m_paperSize, (short)m_paperOrientation, (short)m_mediaType, (short)m_paperOrder, (short)m_printQuality, (short)m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_colorBalanceTo,m_densityValue, (short)m_duplexPrint, (short)m_reversePrint, m_tonerSaving);
+
                 IntPtr pPrinter = IntPtr.Zero;
                 IntPtr pDevModeOutput = IntPtr.Zero;
                 IntPtr pDevModeInput = IntPtr.Zero;

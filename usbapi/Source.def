@@ -17,9 +17,11 @@ EXPORTS
     ScanEx
 	PrintInit
 	AddImagePath
-	DoPrint
+    AddImageSource
+	DoPrintImage
+	DoPrintIdCard
     PrintFile
-	SetPrinterInof
+	SetPrinterInfo
 	OutputDebugStringToFileA
 	OutputDebugStringToFile
 	OutputDebugStringToFile_

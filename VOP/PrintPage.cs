@@ -9,6 +9,8 @@ using System.Windows.Media.Imaging; // for BitmapImage
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using VOP.Controls;
+using System.IO;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace VOP
 {
@@ -18,6 +20,7 @@ namespace VOP
         List<string> filePaths = new List<string>();
         public enum PrintType { PrintFile, PrintImages, PrintIdCard }
         public PrintType CurrentPrintType { get; set; }
+        public IdCardTypeItem SelectedTypeItem { get; set; }
 
         public List<string> FilePaths
         {
@@ -69,30 +72,58 @@ namespace VOP
             PrintError printRes = PrintError.Print_OK;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-            if (CurrentPrintType == PrintType.PrintFile)
+            switch(CurrentPrintType)
             {
-                if(FilePaths.Count == 1)
-                {
-                     printRes = worker.InvokePrintFileMethod(dll.PrintFile,
-                            m_MainWin.statusPanelPage.m_selectedPrinter,
-                            FilePaths[0]);                 
-                }
-            }
-            else if (CurrentPrintType == PrintType.PrintImages)
-            {
-                if(dll.PrintInit( m_MainWin.statusPanelPage.m_selectedPrinter, "Print Images"))
-                {
-                    foreach(string path in FilePaths)
+                case PrintType.PrintFile:
+
+                    if (FilePaths.Count == 1)
                     {
-                        dll.AddImagePath(path);
+                        printRes = worker.InvokePrintFileMethod(dll.PrintFile,
+                               m_MainWin.statusPanelPage.m_selectedPrinter,
+                               FilePaths[0]);
                     }
 
-                    printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrint);
-                }
-                else
-                {
-                    printRes = PrintError.Print_Operation_Fail;
-                }
+                    break;
+                case PrintType.PrintImages:
+
+                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "Print Images", (int)enumIdCardType.NonIdCard, new IdCardSize()))
+                    {
+                        foreach (string path in FilePaths)
+                        {
+                            dll.AddImagePath(path);
+                        }
+
+                        printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintImage);
+                    }
+                    else
+                    {
+                        printRes = PrintError.Print_Operation_Fail;
+                    }
+
+                    break;
+                case PrintType.PrintIdCard:
+                    IdCardSize idCardSize = new IdCardSize();
+                    idCardSize.Width = SelectedTypeItem.Width;
+                    idCardSize.Height = SelectedTypeItem.Height;
+
+                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "Print Id Card", (int)SelectedTypeItem.TypeId, idCardSize))
+                    {
+                        using(IdCardPrintHelper helper = new IdCardPrintHelper())
+                        {
+                            foreach (BitmapSource src in IdCardEditWindow.croppedImageList)
+                            {
+                                helper.AddImage(src);
+                            }
+
+                            printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintIdCard);
+                        }
+                    }
+                    else
+                    {
+                        printRes = PrintError.Print_Operation_Fail;
+                    }
+
+                    break;
             }
 
             if (printRes == PrintError.Print_File_Not_Support)
@@ -117,6 +148,83 @@ namespace VOP
         public void HandlerStateUpdate( EnumState state )
         {
             // TODO: update UI when auto machine state change.
+        }
+    }
+
+    public class IdCardPrintHelper : IDisposable
+    {
+        List<IntPtr>  hGlobalList = new List<IntPtr>();
+        List<IStream> iStreamList = new List<IStream>();
+
+        bool disposed = false;
+
+        public IdCardPrintHelper()
+        {
+            
+        }
+
+        ~IdCardPrintHelper()
+        {
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                // Free any other managed objects here. 
+                //
+            }
+
+            foreach (IStream istream in iStreamList)
+            {
+                Marshal.ReleaseComObject(istream);
+            }
+
+            foreach(IntPtr handle in hGlobalList)
+            {
+                Marshal.FreeHGlobal(handle);
+            }
+
+            // Free any unmanaged objects here. 
+            //
+            disposed = true;
+        }
+
+        public void AddImage(BitmapSource bs)
+        {
+            byte[] data;
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bs));
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                data = ms.ToArray();
+            }
+
+            IStream iis;
+            IntPtr hGlobal = IntPtr.Zero;
+
+            if (Win32.CreateStreamOnHGlobal((IntPtr)null, false, out iis) == 0)
+            {
+                Win32.GetHGlobalFromStream(iis, ref hGlobal);
+
+                hGlobalList.Add(hGlobal);
+                iStreamList.Add(iis);
+
+                iis.Write(data, data.GetLength(0), IntPtr.Zero);
+                dll.AddImageSource((IStream)iis);
+            }
         }
     }
 }

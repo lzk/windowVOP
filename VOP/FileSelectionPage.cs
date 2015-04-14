@@ -35,9 +35,9 @@ namespace VOP
             result = open.ShowDialog();
             if (result == true)
             {
+                this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
                 this.m_MainWin.winPrintPage.FilePaths = new List<string>(open.FileNames);
                 this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintImages;
-                this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
             }
         }
 
@@ -53,9 +53,9 @@ namespace VOP
             {
                 List<string> strls = new List<string>();
                 strls.Add(open.FileName);
+                this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
                 this.m_MainWin.winPrintPage.FilePaths = strls;
                 this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile;
-                this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
             }
         }
 
@@ -133,9 +133,10 @@ namespace VOP
 
                         break;
                     case FileSelectionState.GoPrint:
+                        this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
                         this.m_MainWin.winPrintPage.myImagePreviewPanel.myImagePreview.IdCardPreviewSource = PrintPreview.PreviewImageSource;
                         this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintIdCard;
-                        this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
+                        this.m_MainWin.winPrintPage.SelectedTypeItem = selectWin.SelectedTypeItem;
                         currentState = FileSelectionState.Exit;
                         break;
                     default:

@@ -9,6 +9,7 @@ namespace VOP.Controls
 {
     public enum enumIdCardType
     {
+        NonIdCard,
         HouseholdRegister,
         IdCard,
         MarriageCertificate,

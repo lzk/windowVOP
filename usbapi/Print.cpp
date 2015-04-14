@@ -8,11 +8,28 @@
 #include <tchar.h>
 #include <algorithm>
 #include <string>
+#include "print.h"
+#include <winspool.h>
 
 #pragma comment(lib, "Shlwapi.lib")
 #pragma comment(lib, "gdiplus.lib")
 
 using namespace Gdiplus;
+
+enum IdCardType
+{
+	NonIdCard,
+	HouseholdRegister,
+	IdCard,
+	MarriageCertificate,
+	Passport,
+	RealEstateEvaluator,
+	DriverLicense,
+	Diploma,
+	StudentIDcard,
+	BirthCertificate,
+	BankCards
+};
 
 enum PrintError
 {
@@ -22,10 +39,6 @@ enum PrintError
 	Print_Operation_Fail,
 	Print_OK,
 };
-
-#include "print.h"
-#include <winspool.h>
-
 
 enum PrintShowMode
 {
@@ -41,13 +54,21 @@ typedef struct _PrintItem
 	//int rotation;
 }PrintItem;
 
+typedef struct _IdCardSize
+{
+	double Width;
+	double Height;
+}IdCardSize;
+
 
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName);
-USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription);
+USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType = 0, IdCardSize *size = NULL);
 USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName);
-USBAPI_API int __stdcall DoPrint();
+USBAPI_API void __stdcall AddImageSource(IStream * imageSource);
+USBAPI_API int __stdcall DoPrintImage();
+USBAPI_API int __stdcall DoPrintIdCard();
 
-USBAPI_API void __stdcall SetPrinterInof(const TCHAR * strPrinterName,
+USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
 	short sPaperSize,
 	short sPaperOrientation,
 	short sMediaType,
@@ -66,21 +87,15 @@ USBAPI_API void __stdcall SetPrinterInof(const TCHAR * strPrinterName,
 
 
 static std::vector<PrintItem> g_vecImagePaths;
-//static PRINTDLGEX pdx;
+static std::vector<IStream*>  g_vecIdCardImageSources;
 static DOCINFO  di = { sizeof (DOCINFO) };
 static HDC dc = NULL;
-//LPPRINTPAGERANGE pPageRanges = NULL;
 
 static GdiplusStartupInput gdiplusStartupInput;
 static ULONG_PTR gdiplusToken;
-
-//static int DisplayDib(HDC hdc, HBITMAP hBitmap, int x, int y,
-//	int cxClient, int cyClient,
-//	WORD wShow, BOOL fHalftonePalette);
-//static HDIB DibRotateRight(HDIB hdibSrc);
-
-static void BeginDrawImage(HDC hdc, int cxClient, int cyClient, int cxImage, int cyImage);
-static void EndDrawImage(HDC hdc);
+static int currentIdCardType = 0;
+static IdCardSize currentIdCardSize = { 0 };
+Size A4Size( 21, 29.7 ); //unit cm
 
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName)
 {
@@ -88,41 +103,75 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	DWORD bufferSize = 500;
 	TCHAR defaultPrinterName[500];
 	int shellExeRes = 0;
+	const TCHAR *fileExt = NULL;
 
-	if (GetDefaultPrinter(defaultPrinterName, &bufferSize))
+	fileExt = PathFindExtension(strFileName);
+	std::wstring strExt(fileExt);
+	std::transform(strExt.begin(), strExt.end(), strExt.begin(), ::tolower);
+
+	if (strExt.compare(L".bmp") == 0
+		|| strExt.compare(L".ico") == 0
+		|| strExt.compare(L".gif") == 0
+		|| strExt.compare(L".jpg") == 0
+		|| strExt.compare(L".exif") == 0
+		|| strExt.compare(L".png") == 0
+		|| strExt.compare(L".tif") == 0
+		|| strExt.compare(L".wmf") == 0
+		|| strExt.compare(L".emf") == 0)
 	{
-		::SetDefaultPrinter(strPrinterName);
-		CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
-
-		if ((shellExeRes = (int)::ShellExecute(NULL, L"print", strFileName, NULL, NULL, SW_HIDE)) > 32)
+		if (PrintInit(strPrinterName, L"Print Image Files"))
 		{
-			
+			AddImagePath(strFileName);
+			DoPrintImage();
 		}
 		else
 		{
-			if (shellExeRes == SE_ERR_OOM || shellExeRes == 0)
-			{
-				error = Print_Memory_Fail;
-			}
-			else
-			{
-				error = Print_File_Not_Support;
-			}
+			error = Print_Operation_Fail;
 		}
-
-		::SetDefaultPrinter(defaultPrinterName);
 	}
 	else
 	{
-		error = Print_Get_Default_Printer_Fail;
+		if (GetDefaultPrinter(defaultPrinterName, &bufferSize))
+		{
+			::SetDefaultPrinter(strPrinterName);
+			CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
+
+			if ((shellExeRes = (int)::ShellExecute(NULL, L"print", strFileName, NULL, NULL, SW_HIDE)) > 32)
+			{
+
+			}
+			else
+			{
+				if (shellExeRes == SE_ERR_OOM || shellExeRes == 0)
+				{
+					error = Print_Memory_Fail;
+				}
+				else
+				{
+					error = Print_File_Not_Support;
+				}
+			}
+
+			::SetDefaultPrinter(defaultPrinterName);
+		}
+		else
+		{
+			error = Print_Get_Default_Printer_Fail;
+		}
 	}
 
 	return error;
 }
 
-USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription)
+USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size)
 {
 	g_vecImagePaths.clear();
+	g_vecIdCardImageSources.clear();
+
+	currentIdCardType = idCardType;
+
+	if (size != NULL)
+		currentIdCardSize = *size;
 
 	ZeroMemory(&di, sizeof(di));
 	di.cbSize = sizeof(di);
@@ -133,10 +182,11 @@ USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * 
 	if (dc == NULL)
 		return FALSE;
 
-	Status status = GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
-
-	if (status != Ok)
+	Status status;
+	if ((status = Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL)) != Ok)
+	{
 		return FALSE;
+	}
 
 	return TRUE;
 }
@@ -147,9 +197,15 @@ USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName)
 	g_vecImagePaths.push_back(item);
 }
 
-USBAPI_API int __stdcall DoPrint()
+USBAPI_API void __stdcall AddImageSource(IStream * imageSource)
+{
+	g_vecIdCardImageSources.push_back(imageSource);
+}
+
+USBAPI_API int __stdcall DoPrintImage()
 {
 	PrintError error = Print_OK;
+	Status status;
 	HDC   hdcPrn = dc;
 	const TCHAR *fileExt = NULL;
 	int   cxPage;
@@ -225,8 +281,8 @@ USBAPI_API int __stdcall DoPrint()
 						{
 							w = img.GetWidth();
 							h = img.GetHeight();
-							x = (cxPage - w) / 2;
-							y = (cyPage - h) / 2;
+							x = 0; //Align Top left
+							y = 0;
 						}
 						else
 						{
@@ -251,7 +307,19 @@ USBAPI_API int __stdcall DoPrint()
 
 						Graphics graphics(hdcPrn);
 						graphics.SetPageUnit(UnitPixel);
-						graphics.DrawImage(&img, x, y, w, h);
+
+						if ((status = graphics.DrawImage(&img, x, y, w, h)) != Ok)
+						{
+							if (status == OutOfMemory)
+							{
+								error = Print_Memory_Fail;
+							}
+							else
+							{
+								error = Print_Operation_Fail;
+							}
+							break;
+						}
 					
 						fIndex++;
 
@@ -276,7 +344,7 @@ USBAPI_API int __stdcall DoPrint()
 	else
 		error = Print_Operation_Fail;
 
-	GdiplusShutdown(gdiplusToken);
+	Gdiplus::GdiplusShutdown(gdiplusToken);
 
 	if (error == Print_OK)
 		EndDoc(hdcPrn);
@@ -287,23 +355,233 @@ USBAPI_API int __stdcall DoPrint()
 	return error;
 }
 
-static void BeginDrawImage(HDC hdc, int cxClient, int cyClient, int cxImage, int cyImage)
+USBAPI_API int __stdcall DoPrintIdCard()
 {
-	SaveDC(hdc);
-	SetMapMode(hdc, MM_ISOTROPIC);
-	/*SetWindowExtEx(hdc, cxImage, cyImage, NULL);
-	SetViewportExtEx(hdc, cxClient, cyClient, NULL);
-	SetWindowOrgEx(hdc, cxImage / 2, cyImage / 2, NULL);
-	SetViewportOrgEx(hdc, cxClient / 2, cyClient / 2, NULL);*/
+	PrintError error = Print_OK;
+	HDC   hdcPrn = dc;
+	int   cxPage;
+	int	  cyPage;
+	double imageWidth = 0;
+	double imageHeight = 0;
+	double imageToLeft = 0;
+	double imageToTop = 0;
+	Status status;
+
+	if (StartDoc(hdcPrn, &di) > 0)
+	{
+		cxPage = GetDeviceCaps(hdcPrn, HORZRES);
+		cyPage = GetDeviceCaps(hdcPrn, VERTRES);
+
+		switch (currentIdCardType)
+		{
+		case IdCard:
+			if (g_vecIdCardImageSources.size() == 2)
+			{
+				imageWidth = 0;
+				imageHeight = 0;
+				imageToLeft = 0;
+				imageToTop = 0;
+
+				imageWidth = cxPage * (currentIdCardSize.Width / A4Size.Width);
+				imageHeight = cyPage * (currentIdCardSize.Height / A4Size.Height);
+
+				imageToLeft = (cxPage - imageWidth) / 2;
+				imageToTop = (cyPage / 2 - imageHeight) / 2;
+
+				Image img1(g_vecIdCardImageSources[0]);
+				Image img2(g_vecIdCardImageSources[1]);
+
+				if (StartPage(hdcPrn) < 0)
+				{
+					error = Print_Operation_Fail;
+					break;
+				}
+			
+				Graphics graphics(hdcPrn);
+				graphics.SetPageUnit(UnitPixel);
+
+				if ((status = graphics.DrawImage(&img1, (int)imageToLeft, (int)imageToTop, (int)imageWidth, (int)imageHeight)) != Ok)
+				{
+					if (status == OutOfMemory)
+					{
+						error = Print_Memory_Fail;
+					}
+					else
+					{
+						error = Print_Operation_Fail;
+					}
+					break;
+				}
+
+				if ((status = graphics.DrawImage(&img2, (int)imageToLeft, (int)imageToTop + cyPage / 2, (int)imageWidth, (int)imageHeight)) != Ok)
+				{
+					if (status == OutOfMemory)
+					{
+						error = Print_Memory_Fail;
+					}
+					else
+					{
+						error = Print_Operation_Fail;
+					}
+					break;
+				}
+
+				if (EndPage(hdcPrn) < 0)
+				{
+					error = Print_Operation_Fail;
+					break;
+				}
+
+			}
+			break;
+		case MarriageCertificate:
+			if (g_vecIdCardImageSources.size() == 1)
+			{
+				imageWidth = 0;
+				imageHeight = 0;
+				imageToLeft = 0;
+				imageToTop = 0;
+
+				imageWidth = cxPage * (currentIdCardSize.Width / A4Size.Width);
+				imageHeight = cyPage * (currentIdCardSize.Height / A4Size.Height);
+
+				imageToLeft = (cxPage - imageWidth) / 2;
+				imageToTop = (cyPage - imageHeight) / 2;
+
+				Image img1(g_vecIdCardImageSources[0]);
+
+				if (StartPage(hdcPrn) < 0)
+				{
+					error = Print_Operation_Fail;
+					break;
+				}
+
+				Graphics graphics(hdcPrn);
+				graphics.SetPageUnit(UnitPixel);
+
+				if ((status = graphics.DrawImage(&img1, (int)imageToLeft, (int)imageToTop, (int)imageWidth, (int)imageHeight)) != Ok)
+				{
+					if (status == OutOfMemory)
+					{
+						error = Print_Memory_Fail;
+					}
+					else
+					{
+						error = Print_Operation_Fail;
+					}
+					break;
+				}
+
+				if (EndPage(hdcPrn) < 0)
+				{
+					error = Print_Operation_Fail;
+					break;
+				}
+			}
+			break;
+		case HouseholdRegister:
+		case Passport:
+		case RealEstateEvaluator:
+		case DriverLicense:
+		case StudentIDcard:
+		case BirthCertificate:
+		case BankCards:
+		case Diploma:
+			if (g_vecIdCardImageSources.size() == 1)
+			{
+				imageWidth = 0;
+				imageHeight = 0;
+				imageToLeft = 0;
+				imageToTop = 0;
+
+				imageWidth = cyPage * (currentIdCardSize.Width / A4Size.Height);
+				imageHeight = cxPage * (currentIdCardSize.Height / A4Size.Width);
+
+				imageToLeft = (cxPage - imageHeight) / 2;
+				imageToTop = (cyPage - imageWidth) / 2 + imageWidth;
+
+				Image *pImg1 = NULL;
+				pImg1 = Image::FromStream(g_vecIdCardImageSources[0]);
+
+				status = pImg1->GetLastStatus();
+				if (status != Ok)
+				{
+					if (pImg1)
+						delete pImg1;
+
+					if (status == OutOfMemory)
+					{
+						error = Print_Memory_Fail;
+					}
+					else
+					{
+						error = Print_Operation_Fail;
+					}
+					break;
+				}
+
+				if (StartPage(hdcPrn) < 0)
+				{
+					if (pImg1)
+						delete pImg1;
+
+					error = Print_Operation_Fail;
+					break;
+				}
+
+				Graphics graphics(hdcPrn);
+				graphics.SetPageUnit(UnitPixel);
+				graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+				graphics.RotateTransform(270.0f);
+
+				if ((status = graphics.DrawImage(pImg1, 0, 0, (int)imageWidth, (int)imageHeight)) != Ok)
+				{
+					if (pImg1)
+						delete pImg1;
+
+					if (status == OutOfMemory)
+					{
+						error = Print_Memory_Fail;
+					}
+					else
+					{
+						error = Print_Operation_Fail;
+					}
+					break;
+				}
+
+				if (EndPage(hdcPrn) < 0)
+				{
+					if (pImg1)
+						delete pImg1;
+
+					error = Print_Operation_Fail;
+					break;
+				}
+
+				if (pImg1)
+					delete pImg1;
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	else
+		error = Print_Operation_Fail;
+
+    Gdiplus::GdiplusShutdown(gdiplusToken);
+
+	if (error == Print_OK)
+		EndDoc(hdcPrn);
+
+	if (hdcPrn != NULL)
+		DeleteDC(hdcPrn);
+
+	return error;
 }
 
-static void EndDrawImage(HDC hdc)
-{
-	RestoreDC(hdc, -1);
-}
-
-
-USBAPI_API void __stdcall SetPrinterInof(const TCHAR * strPrinterName,
+USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
 	short sPaperSize,
 	short sPaperOrientation,
 	short sMediaType,
