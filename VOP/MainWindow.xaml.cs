@@ -260,9 +260,6 @@ namespace VOP
                 }
                 else if ( "btnLogin" == btn.Name )
                 {
-                    PasswordWindow pw = new PasswordWindow();
-                    pw.ShowDialog();
-
                     MaintainWindow mw = new MaintainWindow();
                     mw.ShowDialog();
 

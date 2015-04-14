@@ -139,7 +139,8 @@ namespace VOP
         {
             setting_tab_btn.Children.Clear();
             Grid.SetColumnSpan(setting_tab_btn, 3);
-            
+            ((MainWindow)App.Current.MainWindow).m_strPassword = "";
+
             if (false == m_bOnlyDispalyAboutView)
             {
                 if (m_MainWin.statusPanelPage.m_isWiFiModel)

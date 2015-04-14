@@ -153,6 +153,28 @@ namespace VOP
         public bool InvokeMethod<T>(string printerName, ref T rec,  DllMethodType methodType) where T : class
         {
             T record = rec;
+            
+            switch(methodType)
+            {
+                case DllMethodType.SetIpInfo:
+                case DllMethodType.SetPowerSaveTime:
+                case DllMethodType.SetSoftAp:
+                case DllMethodType.SetWiFiInfo:
+                case DllMethodType.SetUserConfig:
+                case DllMethodType.SetPassword:
+                case DllMethodType.SetFusingResetCmd:
+                    if (!((MainWindow)App.Current.MainWindow).PasswordCorrect())
+                    {
+                        PasswordWindow pw = new PasswordWindow();
+                        Nullable<bool> dialogResult = pw.ShowDialog();
+
+                        if (dialogResult != true)
+                        {
+                            return false;
+                        }
+                    }
+                    break;
+            }
 
             Thread thread = new Thread(() =>
             {

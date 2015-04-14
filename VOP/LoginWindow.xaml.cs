@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,16 +37,16 @@ namespace VOP
             {
                 if (VOP.MainWindow.m_RequestManager.SendVerifyCode(tbPhoneNumber.Text, ref js))
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "éªŒè¯ç å‘é€æˆåŠŸã€‚", "é”™è¯¯");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "ÑéÖ¤Âë·¢ËÍ³É¹¦¡£", "´íÎó");
                 }
                 else
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "éªŒè¯ç å‘é€å¤±è´¥ã€‚", "é”™è¯¯");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "ÑéÖ¤Âë·¢ËÍÊ§°Ü¡£", "´íÎó");
                 }
             }
             else
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "æ‰‹æœºå·ç é”™è¯¯ï¼Œè¯·ç¡®è®¤åå†æ¬¡è¾“å…¥ã€‚", "é”™è¯¯");
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "ÊÖ»úºÅÂë´íÎó£¬ÇëÈ·ÈÏºóÔÙ´ÎÊäÈë¡£", "´íÎó");
                 tbPhoneNumber.Focus();
             }
         }
@@ -65,19 +65,19 @@ namespace VOP
                 }
                 else
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "éªŒè¯ç é”™è¯¯ï¼Œè¯·ç¡®è®¤åå†æ¬¡è¾“å…¥ã€‚", "é”™è¯¯");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "ÑéÖ¤Âë´íÎó£¬ÇëÈ·ÈÏºóÔÙ´ÎÊäÈë¡£", "´íÎó");
                 }
             }
             else
             {
                 if (tbPhoneNumber.Text.Length != 11)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "æ‰‹æœºå·ç é”™è¯¯ï¼Œè¯·ç¡®è®¤åå†æ¬¡è¾“å…¥ã€‚", "é”™è¯¯");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "ÊÖ»úºÅÂë´íÎó£¬ÇëÈ·ÈÏºóÔÙ´ÎÊäÈë¡£", "´íÎó");
                     tbPhoneNumber.Focus();
                 }
                 else if (pbPwd.Password.Length != 6)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "éªŒè¯ç æ ¼å¼é”™è¯¯ï¼Œè¯·ç¡®è®¤åå†æ¬¡è¾“å…¥ã€‚", "é”™è¯¯");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "ÑéÖ¤Âë¸ñÊ½´íÎó£¬ÇëÈ·ÈÏºóÔÙ´ÎÊäÈë¡£", "´íÎó");
                     pbPwd.Focus();
                 }
             }

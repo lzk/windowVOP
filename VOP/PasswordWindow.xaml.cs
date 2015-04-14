@@ -51,10 +51,11 @@ namespace VOP
       
             if(!isApplySuccess)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码错误，请重新输入。", "错误");
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "密码错误，请重新输入。", "错误");
             }
             else
             {
+                this.DialogResult = true;
                 this.Close();
             }
         }

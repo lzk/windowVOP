@@ -26,13 +26,7 @@ namespace VOP
 
         private void OnLoadedPasswordView(object sender, RoutedEventArgs e)
         {
-            //Lenovo M7208W-00000
-            int nResult = dll.SetPassword("Lenovo M7208", "654321");
-            
-           StringBuilder pwd = new StringBuilder(32);
-           nResult = dll.GetPassword("Lenovo M7208", pwd);
-           nResult = dll.ConfirmPassword("Lenovo M7208",
-                "654321");
+        
         }
 
         public bool apply()
@@ -54,13 +48,26 @@ namespace VOP
                     {
                         if (m_rec.CmdResult == EnumCmdResult._ACK)
                         {
+                            ((MainWindow)App.Current.MainWindow).m_strPassword = strCfPWD;
                             isApplySuccess = true;
                         }
                     }
-                }     
+                }
+                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功" : "设置失败");
+            }
+            else
+            {
+                if (strPWD.Length == 0)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码不能为空，请确认后再次输入。", "错误");
+                }
+                else if(strPWD != strCfPWD)
+                {
+                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码输入不一致，请确认后再次输入。", "错误");
+
+                }
             }
 
-            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功" : "设置失败");
             return isApplySuccess;
         }
 
