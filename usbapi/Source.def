@@ -30,6 +30,4 @@ EXPORTS
 	ConfirmPassword
 	SetPassword
 	GetPassword
-
-
-
+    CancelScanning

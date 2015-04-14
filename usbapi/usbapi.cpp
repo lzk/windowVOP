@@ -458,21 +458,12 @@ USBAPI_API int __stdcall SetIPInfo(
 USBAPI_API int __stdcall ConfirmPassword(const wchar_t* szPrinter, const wchar_t* ws_pwd);
 USBAPI_API int __stdcall GetPassword(const wchar_t* szPrinter, char* pwd);
 USBAPI_API int __stdcall SetPassword(const wchar_t* szPrinter, const wchar_t* ws_pwd);
+
+USBAPI_API void __stdcall CancelScanning();
 //--------------------------------global--------------------------------------
 static const unsigned char INIT_VALUE = 0xfe;
+static bool bCancelScanning = false; // Scanning cancel falg, only use in ScanEx(). 
 
-//BOOL CheckIPReachable(LPCSTR _szIPAddress)
-//{//only for IPV4
-//	return true;
-//	ULONG ulHopCount, ulRTT;
-//	IPAddr ipaddr = inet_addr(_szIPAddress);
-//	BYTE ip1 = (BYTE)ipaddr;
-//
-//	if (ip1 <= 0 || ip1 >= 224 || ip1 == 127)
-//		return false;
-//	
-//	return (BOOL)GetRTTAndHopCount(ipaddr, &ulHopCount, 1, &ulRTT);
-//}
 //--------------------------------implement-----------------------------------
 static BOOL GetPrinterPortName(wchar_t *pPrinterName, wchar_t* portName, size_t portName_len)
 {
@@ -2587,6 +2578,7 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
     static const int RETSCAN_CMDFAIL        = 4;
     static const int RETSCAN_NO_ENOUGH_SPACE= 5;
     static const int RETSCAN_ERROR_PORT     = 6;
+    static const int RETSCAN_CANCEL         = 7;
 
     if ( false == DoseHasEnoughSpace( szOrig, width, height ) )
     {
@@ -2715,6 +2707,7 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
 
                     int nMod = nColPixelNumOrig/100;
                     int nPercent = 0;
+                    bCancelScanning = false;
 					while (obj.ReadData(strideOrig, cbStridePadOrig, &ulBytesRead, &lPercentComplete) == DEVMON_STATUS_OK)
                     {
                         if ( 0 == ++nRowsCnt%nMod )
@@ -2723,6 +2716,9 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                             ::SendNotifyMessage( HWND_BROADCAST, uMsg, nPercent, 0); 
                         }
 
+                        if ( true == bCancelScanning )
+                            break;
+
                         lWroteOrig += cbStridePadOrig;
                         SetFilePointer( hFileOrig, 0-lWroteOrig, NULL, FILE_END );
                         WriteFile( hFileOrig, strideOrig, cbStridePadOrig, &ulBytesRead, NULL);
@@ -2730,25 +2726,33 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
 
                     CloseHandle( hFileOrig  );
 
-                    if ( 0 == scanMode )
+                    if ( false == bCancelScanning )
                     {
-						if (0 != obj.m_dwTotalLinesRead)
-						{
-							ScalingBitmap( szOrig, szView, 1 );
-							ScalingBitmap( szOrig, szThumb, 1 );
-						}
+                        if ( 0 == scanMode )
+                        {
+                            if (0 != obj.m_dwTotalLinesRead)
+                            {
+                                ScalingBitmap( szOrig, szView, 1 );
+                                ScalingBitmap( szOrig, szThumb, 1 );
+                            }
+                        }
+                        else
+                        {
+                            // calculate scaling rate
+                            if (0 != obj.m_dwTotalLinesRead)
+                            {
+                                unsigned int uPixelNumber = (width*resolution / 1000) * (height*resolution / 1000);
+                                double rView = GetScalingRate(MAX_PIXEL_PREVIEW, uPixelNumber);
+                                double rThumb = GetScalingRate(MAX_PIXEL_THUMB, uPixelNumber);
+                                ScalingBitmap(szOrig, szView, rView);
+                                ScalingBitmap(szOrig, szThumb, rThumb);
+                            }
+                        }
                     }
                     else
                     {
-                        // calculate scaling rate
-						if (0 != obj.m_dwTotalLinesRead)
-						{
-							unsigned int uPixelNumber = (width*resolution / 1000) * (height*resolution / 1000);
-							double rView = GetScalingRate(MAX_PIXEL_PREVIEW, uPixelNumber);
-							double rThumb = GetScalingRate(MAX_PIXEL_THUMB, uPixelNumber);
-							ScalingBitmap(szOrig, szView, rView);
-							ScalingBitmap(szOrig, szThumb, rThumb);
-						}
+                        // TODO: clear cache file. add sync mechanism.
+                        nResult = RETSCAN_CANCEL;
                     }
 
                     ::SendNotifyMessage( HWND_BROADCAST, uMsg, 100, 0); 
@@ -2976,4 +2980,9 @@ static bool DoseHasEnoughSpace(
 USBAPI_API int __stdcall CheckPortAPI( const wchar_t* szPrinter )
 {
     return CheckPort( szPrinter, NULL );
+}
+
+USBAPI_API void __stdcall CancelScanning()
+{
+    bCancelScanning = true;
 }

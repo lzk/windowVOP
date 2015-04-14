@@ -32,6 +32,7 @@ namespace VOP
         private const int RETSCAN_CMDFAIL        = 4;
         private const int RETSCAN_NO_ENOUGH_SPACE= 5;
         private const int RETSCAN_ERROR_PORT     = 6;
+        private const int RETSCAN_CANCEL         = 7;
 #endregion
         private Thread scanningThread = null;
         private uint WM_VOPSCAN_PROGRESS = Win32.RegisterWindowMessage("vop_scan_progress2");
@@ -286,12 +287,15 @@ namespace VOP
         {
             if ( WM_VOPSCAN_PROGRESS == msg )
             {                        
+                 handled = true;
+
                  progressBar1.Value = wParam.ToInt32();
                  txtProgressPercent.Text = wParam.ToString();
-                 handled = true;
             } 
             else if ( WM_VOPSCAN_COMPLETED == msg )
             {
+                 handled = true;
+
                  if ( RETSCAN_OK == (int)wParam )
                  {
                      ImageItem img  = new ImageItem();
@@ -307,6 +311,14 @@ namespace VOP
                          App.scanFileList.Add( objScan );
                      }
                  }
+                 else if ( RETSCAN_CANCEL == msg )
+                 {
+                     // TODO: Clear this message in release version.
+                     m_MainWin.statusPanelPage.ShowMessage( "Scan cancel" );
+
+                     progressBar1.Value = 0;
+                     txtProgressPercent.Text = "0";
+                 }
                  else
                  {
                      m_MainWin.statusPanelPage.ShowMessage( "Scan Fail" );
@@ -314,6 +326,11 @@ namespace VOP
             }
 
             return IntPtr.Zero;
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            dll.CancelScanning();
         }
     }
 }
