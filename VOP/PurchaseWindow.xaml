@@ -12,6 +12,7 @@
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" 
         Loaded="OnLoadWindow"
+        ShowInTaskbar="False" 
         >
     <Window.Resources>
         <ResourceDictionary>
