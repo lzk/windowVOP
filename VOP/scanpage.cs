@@ -139,6 +139,8 @@ namespace VOP
                 m_color      = win.m_color;
                 m_brightness = win.m_brightness;
                 m_contrast   = win.m_contrast;
+
+                txtBlkImgSize.Text = GetScanSize().ToString()+" bytes";
             }
         }
 
@@ -258,7 +260,7 @@ namespace VOP
             switch ( m_color )
             {
                 case EnumColorType.black_white :
-                    fClrDeep = 1/8;
+                    fClrDeep = 1.0/8;
                     break;
                 case EnumColorType.grayscale_8bit :
                     fClrDeep = 1;
@@ -298,6 +300,8 @@ namespace VOP
                      {
                          img.ImageSingleClick += ImageItemSingleClick;
                          img.ImageDoubleClick += ImageItemDoubleClick;
+                         img.CheckImage( false );
+                         img.Margin = new Thickness( 5 );
                          this.image_wrappanel.Children.Insert(0, img );
                          App.scanFileList.Add( objScan );
                      }
