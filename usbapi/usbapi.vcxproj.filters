@@ -39,7 +39,10 @@
     <ClInclude Include="Global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Print.h">
+    <ClInclude Include="DEVMODE.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DM2OEM.H">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

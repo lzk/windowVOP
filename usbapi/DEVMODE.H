@@ -1,134 +1,103 @@
+#ifndef		_DEVMODE2_H_
+#define		_DEVMODE2_H_
 
-<<<<<<< HEAD
-#pragma pack(1)
-=======
-#pragma pack(32)
->>>>>>> Modify print setting
+#pragma pack(8)
 
-typedef struct _NUPDLG{
-	DWORD	bNupFlags;
-	BYTE	bNupNum;
-	BYTE	bNupPageOrder;
-}NUPDLG, FAR * LPNUPDLG;
+#define	DPI_600		600
 
-#define DMPAPER_A5LEF 146
-#define DMPAPER_B6LEF 147
+#define		STILL_IMAGE_70	0
+#if	_WIN32
+#define		DM_DRIVERVERSION_40		0x0500
+#else
+#define		DM_DRIVERVERSION_40		0x0400
+#endif
 
-#define		TTRASTER_AUTO			0	// UI: must match with screen position
-#define		TTRASTER_ASOUTLINE		1
-#define		TTRASTER_ASBMP			2
-typedef struct _ADVANCE_DLG{
- 	BYTE	bAdvanceTrueType;			// 0: Auto   1:Outline  2:Bitmap	
-	int		nAdvancePrintMode;  		// We do *NOT* modify dmPublic.dmColor
-}ADVANCE_DLG, FAR * LPADVANCE_DLG;
+#define		PIXEL_TO_MM10(x)		(int)(((double)x*254/(DPI_600*10)+0.5))//(int)(((DWORD)x*254/(DPI_600*10)))
+#define		MM100_TO_PIXEL(x)		(int)(((double)x*DPI_600/254+0.5))
+#if FLAG_1200DPI
+#define		PIXEL_TO_MM100(x, Resolution)		(int)(((double)x*254/Resolution)+0.5)//(int)(((DWORD)x*254/DPI_600))
+#define		MMToPaperSize(mm, Resolution)  ((int)((double)(mm)/254*DPI_600+0.5))
+#else
+#define		PIXEL_TO_MM100(x, Resolution)		(int)(((double)x*254/DPI_600)+0.5)//(int)(((DWORD)x*254/DPI_600))
+#define		MMToPaperSize(mm, Resolution)   ((int)((double)(mm)/254*DPI_600+0.5))
+#endif
 
-//scaling:sfp
-#define		ISF_DISABLE		0
-#define		ISF_SCALING		1
-#define		ISF_FITTOPAPER	2
+#define		DEV_NAME_LEN			32
+#define		PAPER_STR_LEN			64
+//#define		MAX_DEVMODE_SAVE		20
+#define		MAX_DEFAULT_NUM			5
 
-typedef struct _SCAL_DLG{
-   BYTE		ISFSet;
-   short	SRatio;
-   short	FtoPaper;
-   BYTE		byFullPage;
-}SCAL_DLG, FAR * LPSCAL_DLG;
+#define CPAPER_NAME_MAX_20 20
 
-//Overlays:ovy
-#define		OVERLAY_DEFAULT_FILENAME	(LPTSTR)TEXT("form.dfd")
+#ifdef XR6020
+#define XEROX
+#endif
 
-#define		OVERLAY_NONE_0		0
-#define		OVERLAY_PRINT_1		1
-#define		OVERLAY_CREATE_2	2
-#define		WM_CREATE_4			4
-#define		WM_PRINT_5			5
-typedef struct _OVERLAY_DLG{
-	BYTE	bOverlay;	// 0:Off	1:Print Overlay	 2:Create Overlay
-	TCHAR	folder[256];
-	TCHAR	OverlayFile[256];	
-}OVERLAY_DATA, FAR * LPOVERLAY_DATA;
+#ifdef XR6025
+#define XEROX
+#endif
 
-//Job Handling:job
-#define		JOBHANDLE_OFF_0				0
-#define		JOBHANDLE_PROOF_1			1
-#define		JOBHANDLE_CONFIDENTIAL_2	2
-#define		JOBHANDLE_SECURITY_3		3
-typedef struct _JOB_HANDLE_DLG{
-	BYTE	byJobHandle;		//0: off 1: Proof 2: Confidential 3: Security
-	TCHAR	cPin[11];		//Pin number
-}JOB_HANDLE_DLG, FAR * LPJOB_HANDLE_DLG;
+typedef struct _NTCUSTOMDATA {
+	short	Index;
+	TCHAR	Name[CPAPER_NAME_MAX_20+1];
+	long	Width;  //300 dpi
+	long	Height;  //300 dpi
+	short	Modify; //0; cannot be modified; 1: can be modified
+	short	Type;  //0 : ; 1: Inch
+	HGLOBAL handle;
+}  NTCUSTOMDATA, FAR *LPNTCUSTOMDATA;
 
-//Paper:par
+typedef struct _CUSTOMPAPERDATA {
+	char	Name[30];
+	char	Width[8];
+	char	Height[8];
+	WORD	type;  /* 0 : MM ; 1: Inch */
+	HGLOBAL handle;
+}  CUSTOMPAPERDATA, FAR  *LPCUSTOMPAPERDATA;
 
-typedef struct _PAPER_DLG{
-	short   dmPaperSize;		//save current paper size;
-	BYTE	dmOrientation;		//B001 save current UI orientation;//add by yunying 2006-04-28 for dcs 1194
-	WORD	wMediaType;		    // 0: Plain  1: Envelope 2: Banner 3: Coated paper
-			                    // 4. Photo/Glossy 5. Transparency 6. Iron-on Transfer
-			                    // 7. Card Stock
-							
-}PAPER_DLG, FAR * LPPAPER_DLG;
+#define		PAPERSTRLEN_64 64
 
-//Different Paper Source:dif
-#define	PAPERSOURCE_GENERAL_0		0
-#define	PAPERSOURCE_DIFFIRST_1		1
-#define	PAPERSOURCE_DIFOTHER_2		2
-typedef struct _DIFF_DLG{
-	int		nDiffPSource;		//0: General 1: Diff first page 2: Diff last page
-								//3: Diff for special
-	int		nAddPSource;		//the same as the paper source
-	int		wFromPage;			//1~999
-	int		wToPage;			//1~999
-}DIFF_DLG, FAR * LPDIFF_DLG;
+#define DMPAPER_INDEX_CARD			119 /* PRC Envelope #10 Rotated 3 x 5 in */
+#define DMPAPER_POSTCARD			120 /* PRC Envelope #10 Rotated 4 x 6 in */
+#define DMPAPER_A6_CARD			    121 /* PRC Envelope #10 Rotated 105 x 148 mm */
+#define DMPAPER_HAGAKI				122 /* PRC Envelope #10 Rotated 100 x 148 mm */
+#define DMPAPER_CUSTOM_PAPER_SIZE   123
+#define DMPAPER_ENVELOPE_6          124
+#define DMPAPER_ENVELOPE_9			125
+#define DMPAPER_ENVELOPE_10			126
+#define	DMPAPER_ENVELOPE_C6			129	
+#define	DMPAPER_ENVELOPE_B5			130	
+#define	DMPAPER_ENVELOPE_7			131	
+#define	DMPAPER_ENVELOPE_A2			132	
+#define	DMPAPER_ENVELOPE_CHOKEI3	133		
+#define	DMPAPER_ENVELOPE_CHOKEI4	134	
+#define	DMPAPER_ENVELOPE_CHOKEI40	135
+#define	DMPAPER_ENVELOPE_KAKUGATA3	136	
+#define	DMPAPER_ENVELOPE_KAKUGATA4	137	
+#define	DMPAPER_ENVELOPE_KAKUGATA5	138               
+#define	DMPAPER_ENVELOPE_KAKUGATA6	139	
+#define DMPAPER_BANNER_LETTER	    140
+#define DMPAPER_BANNER_A4			141
+#define DMPAPER_A1                  142
+#define DMPAPER_11X15               143
+#define DMPAPER_YOUKEI2		        144
+#define DMPAPER_YOUKEI3		        145
+#define DMPAPER_A5LEF				146
+#define DMPAPER_B6LEF				147
+#define	DMPAPER_START_257	257
+#define DMPAPER_USER1	  257
+#define DMPAPER_USER2	  258
+#define DMPAPER_USER3	  259
+#define DMPAPER_USER4	  260
+#define DMPAPER_USER5	  261
+#define DMPAPER_USER6	  262
+#define DMPAPER_USER7	  263
+#define DMPAPER_USER8	  264
+#define DMPAPER_USER9	  265
+#define DMPAPER_USER10	  266
 
-//Transparency:tra
-typedef struct _TRANS_DLG{
-	BYTE	bTransInsert;		// 0: off 1: on
-	DWORD	dwPSource;		//paper source
-}TRANS_DLG, FAR * LPTRANS_DLG;
-
-// DEBUG_DLG:dbg_dlg
-#define		DEBUGF2_PRINTTIME		0
-#define		DEBUGF2_PRINTTEXT		1
-#define		DEBUGF2_PRINTGRAPHICS	2
-#define		DEBUGF2_PRINTIMAGE		3
-#define		DEBUGF2_SHOWTEXTCLIP	4
-#define		DEBUGF2_SHOWIMAGECLIP	5
-#define		DEBUGF2_SHOWGXCLIP		6
-#define		DEBUGF2_DUMPUISETTING	7
-#define		DEBUGF2_DUMPTX			8
-#define		DEBUGF2_DUMPERRMSG		9
-#define		DEBUGF2_DUMPIMG			11
-
-typedef struct _DEBUG_DLG
-{
-	DWORD	dwDbgFlags;
-	WORD	wFontSize;
-	WORD	wEditA;
-	WORD	wEditB;
-	TCHAR	UIDumpFile[_MAX_FNAME];
-	TCHAR	TXDumpFolder[_MAX_FNAME];
-}DEBUG_DLG, FAR *LPDEBUG_DLG;
-
-// PERFORM_DLG::perf_dlg
-#define		PERF2_CLRFONTCACHBYPAGE	0
-#define		PERF2_REMOVECLIPS		1
-#define		PERF2_COMPRESSIMAGE		2
-#define		PERF2_STEALIMGOFF		3
-#define		PERF2_STEALIMGFIXED		4
-#define		PERF2_STEALIMGAUTO		5
-#define		PERF2_STEALIMGDEBUG		6
-#define		PERF2_LITEONFIRMWARE	7
-
-typedef struct _PERFORM_DLG
-{
-	DWORD	dwPrmFlags;
-	int		nImgScaleX;	// 1~100
-	int		nImgScaleY;	// 1~100
-	int		nThreshold;
-} PERFORM_DLG, FAR *LPPERFORM_DLG;
-
-
+#define DMPAPER_CUSTOM_MIN DMPAPER_USER1
+#define DMPAPER_CUSTOM_MAX DMPAPER_USER10
 
 #define DM_SIGNATURE 0x56495250
 
@@ -176,6 +145,12 @@ typedef struct {
    TCHAR     LtcColorFile[MAX_PATH]; // Color watermark file (color PDL)
 }WMARK_DATA, FAR *LPWMARK_DATA;
 
+typedef struct{
+	short dmPaperSize;
+	short dmPaperLength;
+	short dmPaperWidth;
+	short FtoPaper;
+}WM_INFO;
 
 typedef struct {
 	short xOffset;  	/* printing offset in x direction */
@@ -210,7 +185,7 @@ typedef struct
 #ifdef XEROX
 	MARGIN_OFFSET  marginsOffset[31];
 #else
-	MARGIN_OFFSET  marginsOffset[38];
+	MARGIN_OFFSET  marginsOffset[49];//38
 #endif
 #endif
 }MARGIN_DATA, FAR *LPMARGIN_DATA;
@@ -236,84 +211,18 @@ typedef struct _BPMR_DATA {//Booklet/Poster/Mixed Document/Rotation
 	BYTE	ImgRotate;
 	BYTE  Mixorientation;
 }BPMR_DATA, FAR * LPBPMR_DATA;
-
-#define		CPAPERTYPE_INCH		1
-#define		CPAPERTYPE_MM		0
-
-#define		CPAPER_NAME_LEN		24
-#define		CPAPER_NAME_MAX_20	20
-
-#define		MARGIN_VALUE		99
-
-typedef struct _CPAPERSIZE {
-	int		width;
-	int		height;
-	int		cp_MiterType;  /* 0 : MM ; 1: Inch */
-	TCHAR	cp_szName[CPAPER_NAME_LEN + 1];
-	BOOL	cp_Modify;
-	short	paperSizeID;
-}  CPAPERSIZE, FAR * LPCPAPERSIZE;
-
-typedef struct _COLORTRACK {
-	int		nType;
-	TCHAR	cPassWord[13];
-}  COLORTRACK, FAR * LPCOLORTRACK;
-
-typedef struct _CPAPER_DLG{
-	WORD	cpd_Enabled;				// 0 for standard, 1 for custom
-	int		cpd_CustomCount;			//user defined size number
-	int		cpd_dmPaperSize;			// paper size
-	int		cpd_dmPaperLength;			// paper length, overrides dmPaperSize
-	int		cpd_dmPaperWidth;			// paper width, overrides dmPaperSize
-	CPAPERSIZE		cCustomPaperSize[CPAPER_NAME_MAX_20];		//save user defined custom paper size
-} CPAPER_DLG, FAR *LPCPAPER_DLG;
-
-
-
-typedef struct _TRAY_DATA{
-	BYTE tray1;	//0 not availiable 1:  250 feed 2: 500 feed
-	WORD PaperSRC;
-//	BOOL isInsert;//Insert Paper between Transparencies
-//	BYTE PrintOnSep;//Print On Separators
-//	BYTE FeedSepFrom;//Feed Separators from :BYTE
-	BYTE trayOrient;	//0: landscape, 1: portrait
-	BYTE bEnalbeFeed;	//0: disable 1:enable
-}TRAY_DATA,FAR *LPTRAY_DATA;
-
-typedef struct _PRINT_ITEMS{
-	BOOL	print;		//0: off 1: print
-	BYTE	position;	//0: top left, 1: top center 2: top right 
-						//3: bottom left 4: bottom center 5: bottom right
-}PRINT_ITEMS, FAR *LPPRINT_ITEMS;
-
-#define PRINT_ITEMS_MAX	6
-
-typedef struct _DEVICEFONT_DATA{
-	TCHAR		strSoftFontName[256];
-	short		sUseFont;	//0 softfont 1: device font
-	TCHAR		strDeviceFontName[256];
-}DEVICEFONT, *LPDEVICEFONT;
-
-typedef struct _FONT_DATA{
-	LPDEVICEFONT	lpDeviceFont;
-	DWORD			dwFont;
-}FONT_DATA, *LPFONT_DATA;
-
-typedef struct _HEADER_FOOTER_DATA{
-	TCHAR	typeface[512];	
-	LONG	fontSize;	
-	COLORREF colorref;	 //0: red, 1: orange, 2: yellow 3: green, 4: blue 5: purple, 6:black
-						//default: 6:black
-	BOOL	bold;		
-	BOOL	italic;
-	PRINT_ITEMS	printItems[PRINT_ITEMS_MAX];
-	int	index;
-	int bEnable; //yunying shang for lenovo
-}HEADER_DATA, FAR *LPHEADER_DATA;
+/*
+typedef struct _GRAPHIC_DATA {//Booklet/Poster/Mixed Document/Rotation
+	BYTE	printMode;
+	BYTE	ApplyItem;	//0:selected 1;all
+	BYTE	bApplyTo;		//apply index 0:text, 1: graphic 3:photo
+	short	brightness[4];	//-100~100
+	short	contrast[4];	//-100~100
+}GRAPHIC_DATA, FAR * LPGRAPHIC_DATA;*/
 typedef struct _GRAPHIC_DATA {//Booklet/Poster/Mixed Document/Rotation
 
 			BYTE		printMode;
-           BOOL          OutputRGN;               //TRUE if Output recognition is checked.
+           BOOL          OutputRGN;                                          //TRUE if Output recognition is checked.
 
                                                                                                 //FALSE otherwise.                                                   
 		   BYTE bImgType[3];		//index for different image adjustment mode
@@ -424,6 +333,7 @@ typedef struct _GRAPHIC_DATA {//Booklet/Poster/Mixed Document/Rotation
 		   BYTE  barcodeMode;
 }GRAPHIC_DATA, FAR * LPGRAPHIC_DATA;
 
+
 #define JOBOWNER_MAX_LEN  33
 typedef struct _CONFIG_DATA{
 	short	sAccountMode;		
@@ -442,6 +352,63 @@ typedef struct _CONFIG_DATA{
 	TCHAR	strLoginName[MAX_PATH];
 	*/
 }CONFIG_DATA,FAR *LPCONFIG_DATA;
+
+typedef struct _TRAY_DATA{
+	BYTE tray1;	//0 not availiable 1:  250 feed 2: 500 feed
+	WORD PaperSRC;
+//	BOOL isInsert;//Insert Paper between Transparencies
+//	BYTE PrintOnSep;//Print On Separators
+//	BYTE FeedSepFrom;//Feed Separators from :BYTE
+	BYTE trayOrient;	//0: landscape, 1: portrait
+	BYTE bEnalbeFeed;	//0: disable 1:enable
+}TRAY_DATA,FAR *LPTRAY_DATA;
+
+typedef struct _PRINT_ITEMS{
+	BOOL	print;		//0: off 1: print
+	BYTE	position;	//0: top left, 1: top center 2: top right 
+						//3: bottom left 4: bottom center 5: bottom right
+}PRINT_ITEMS, FAR *LPPRINT_ITEMS;
+
+#define PRINT_ITEMS_MAX	6
+
+typedef struct _DEVICEFONT_DATA{
+	TCHAR		strSoftFontName[256];
+	short		sUseFont;	//0 softfont 1: device font
+	TCHAR		strDeviceFontName[256];
+}DEVICEFONT, *LPDEVICEFONT;
+
+typedef struct _FONT_DATA{
+	LPDEVICEFONT	lpDeviceFont;
+	DWORD			dwFont;
+}FONT_DATA, *LPFONT_DATA;
+
+typedef struct _HEADER_FOOTER_DATA{
+	TCHAR	typeface[512];	
+	LONG	fontSize;	
+	COLORREF colorref;	 //0: red, 1: orange, 2: yellow 3: green, 4: blue 5: purple, 6:black
+						//default: 6:black
+	BOOL	bold;		
+	BOOL	italic;
+	PRINT_ITEMS	printItems[PRINT_ITEMS_MAX];
+	int	index;
+	int bEnable; //yunying shang for lenovo
+}HEADER_DATA, FAR *LPHEADER_DATA;
+
+typedef struct _HEADER_INFO{
+	int  nPos;			//0 top, 1 bottom
+	int	 fontHeight;		//string height;
+	int	 fontWidth;
+}HEADER_INFO, FAR *LPHEADER_INFO;
+
+typedef struct _WMARK_INFO{
+	SIZE frame;
+	int x, y;
+	int originX;
+	int originY;
+	int borderWidth;
+	int borderHeight;
+	int nInfactBorderWidth;
+}WMARK_INFO, FAR *LPWMARK_INFO;
 
 typedef struct _NODE_INFO {
 	char		ip[80];
@@ -506,9 +473,15 @@ typedef struct _DEVMODEPRIVATE
 	PERFORM_DLG		perf_dlg;	
 	BYTE			PrintQuality;	//0: 600dpi, 1: 1200dpi
 	BYTE			byReverse[1024];
+//	BOOL			bAdmin;
 } DEVMODEPRIVATE, FAR *LPDEVMODEPRIVATE;
 
 typedef struct {
 	DEVMODE			dmPublic; 		  /* standard Device Mode structure		*/
 	DEVMODEPRIVATE	dmPrivate;
 } PCLDEVMODE, FAR *LPPCLDEVMODE;
+
+
+#define PCLDM_PRIV_SIZE (sizeof(PCLDEVMODE) - sizeof(DEVMODE))
+#endif	// _DEVMODE2_H_
+

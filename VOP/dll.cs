@@ -215,23 +215,67 @@ namespace VOP
         public static extern int OutputDebugStringToFile_([MarshalAs(UnmanagedType.LPWStr)]string _lpFormat);
 
         [DllImport("usbapi.dll")]
+
         public static extern void SetPrinterInfo(
-            [MarshalAs(UnmanagedType.LPWStr)]string strPrinterName, 
-            short sPaperSize,
-            short sPaperOrientation,
-            short sMediaType,
-            short sPaperOrder,
-            short sPrintQuality,
-            short sScalingType,
-            short sScalingRatio,
-            short sNupNum,
-            short sTypeofPB,
-            short sPosterType,
-            short sColorBalanceTo,
-            short sDensity,
-            short sDuplexPrint,
-            short sReversePrint,
-            short sTonerSaving);
+            [MarshalAs(UnmanagedType.LPWStr)]string strPrinterName,
+            sbyte PaperSize,
+            sbyte PaperOrientation,
+            sbyte MediaType,
+            sbyte PaperOrder,
+            sbyte PrintQuality,
+            sbyte ScalingType,
+            sbyte ScalingRatio,
+            sbyte NupNum,
+            sbyte TypeofPB,
+            sbyte PosterType,
+            sbyte ADJColorBalance,
+            sbyte ColorBalanceTo,
+            sbyte Density,
+            sbyte DuplexPrint,
+            sbyte ReversePrint,
+            sbyte TonerSaving);
+
+        [DllImport("usbapi.dll")]
+        public static extern int GetPrinterInfo(
+            [MarshalAs(UnmanagedType.LPWStr)]string strPrinterName,
+            ref sbyte PaperSize,
+            ref sbyte PaperOrientation,
+            ref sbyte MediaType,
+            ref sbyte PaperOrder,
+            ref sbyte PrintQuality,
+            ref sbyte ScalingType,
+            ref sbyte ScalingRatio,
+            ref sbyte NupNum,
+            ref sbyte TypeofPB,
+            ref sbyte PosterType,
+            ref sbyte ADJColorBalance,
+            ref sbyte ColorBalanceTo,
+            ref sbyte Density,
+            ref sbyte DuplexPrint,
+            ref sbyte ReversePrint,
+            ref sbyte TonerSaving);
+        [DllImport("usbapi.dll")]
+        public static extern int OpenDocumentProperties(
+            [MarshalAs(UnmanagedType.LPWStr)]string strPrinterName,
+            ref sbyte PaperSize,
+            ref sbyte PaperOrientation,
+            ref sbyte MediaType,
+            ref sbyte PaperOrder,
+            ref sbyte PrintQuality,
+            ref sbyte ScalingType,
+            ref sbyte ScalingRatio,
+            ref sbyte NupNum,
+            ref sbyte TypeofPB,
+            ref sbyte PosterType,
+            ref sbyte ADJColorBalance,
+            ref sbyte ColorBalanceTo,
+            ref sbyte Density,
+            ref sbyte DuplexPrint,
+            ref sbyte ReversePrint,
+            ref sbyte TonerSaving);
+        [DllImport("usbapi.dll")]
+        public static extern void SetCopies([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName, sbyte Copies);
+
     }
 
 }

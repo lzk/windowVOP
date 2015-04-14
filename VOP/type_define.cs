@@ -336,64 +336,12 @@ namespace VOP
         Print_Operation_Fail,
         Print_OK,
     }
-
-    public enum EnumPrintSettingsPaperSize
-    {
-        _A4 = 0,
-        _Letter = 1,
-        _B5 = 2,
-        _A5 = 3,
-        _A5LEF = 4,
-        _B6 = 5,
-        _B6LEF = 6,
-        _A6 = 7,
-        _Executive = 8,
-        _16K = 9, 
-        _User_Defined_Size = 10,
-    }
-
-    public enum EnumPaperOrientation
-    {   
-        Portrait = 1,
-        Landscape = 2,
-    }
-
-    public enum EnumDuplexPrint
-    {
-        DMDUP_SIMPLEX = 1,
-        DMDUP_VERTICAL = 2, //LongEdge
-        DMDUP_HORIZONTAL = 3,//ShortEdge
-    }
-
-    public enum EnumPrintQuality
-    {
-        _600x600 = 0,
-        _1200x600 = 1,
-    }
-
-    public enum EnumPagerOrder
-    {
-        DMCOLLATE_FALSE = 0,
-        DMCOLLATE_TRUE = 1,
-    }
-
-    public enum EnumReversePrint : byte
-    {
-        NORMAL_PRINT = 0,
-        REVERSE_PRINT = 1,
-    }
-
-    public enum EnumScaling : byte
-    {
-        ISF_DISABLE = 0,
-        ISF_SCALING = 1,
-        ISF_FITTOPAPER = 2,
-    }
-
+ 
     [StructLayout(LayoutKind.Sequential)]
     public class IdCardSize
     {
         public double Width;
         public double Height;
     }
+
 }

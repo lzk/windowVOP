@@ -80,9 +80,7 @@
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="B6(LEF)" />
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="A6" />                 
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="Executive" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="16K" />
-                
-                
+                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="16K" />                
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="User Defined Size" />
             </ComboBox>
         </Controls:GroupBoxDecorator>
@@ -455,22 +453,25 @@
                 Click="AdvancedSettingButtonClick"/>
 
             <Button IsDefault="False"
+                 Name="DefaultButton"
         	    Content="默  认" 
                 Style="{StaticResource CustomGrayButtonStyle}"
         	    Height="34" 
                 Width="130" 
                 Margin="10,0,0,0"
-                FontSize="18"/>
+                FontSize="18"
+                Click="DefaultButtonClick"/>
 
             <Button 
                 IsDefault="True"
+                Name="OKButton"
         	    Content="确  定" 
                 Style="{StaticResource CustomGreenButtonStyle}"  
                 Height="34" 
                 Width="130" 
                 Margin="10,0,0,0"
                 FontSize="18"
-                Click="acceptButton_Click"/>
+                Click="OKButtonClick"/>
         </StackPanel>
 
     </Grid>

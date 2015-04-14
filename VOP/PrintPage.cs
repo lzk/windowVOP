@@ -18,7 +18,7 @@ namespace VOP
     {
         public MainWindow m_MainWin { get; set; }
         List<string> filePaths = new List<string>();
-        public enum PrintType { PrintFile, PrintImages, PrintIdCard }
+        public enum PrintType{PrintFile,PrintImages,PrintIdCard,PrintFile_Image}
         public PrintType CurrentPrintType { get; set; }
         public IdCardTypeItem SelectedTypeItem { get; set; }
 
@@ -56,9 +56,11 @@ namespace VOP
         private void AdvancedSettingButtonClick(object sender, RoutedEventArgs e)
         {
             bool? result = null;
+            dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
             PrintSettingPage printWin = new PrintSettingPage();
             printWin.Owner = App.Current.MainWindow;
             printWin.m_MainWin = m_MainWin;
+            printWin.m_CurrentPrintType = CurrentPrintType;
 
             result = printWin.ShowDialog();
             if (result == true)
@@ -71,7 +73,7 @@ namespace VOP
         {
             PrintError printRes = PrintError.Print_OK;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-
+            dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
             switch(CurrentPrintType)
             {
                 case PrintType.PrintFile:
