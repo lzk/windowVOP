@@ -234,9 +234,10 @@ namespace VOP
             txtBlkImgSize.Text = s.ToString()+" bytes";
 
 			//Configure the ProgressBar
-			progressBar1.Minimum = 0;
-			progressBar1.Maximum = 100;
-			progressBar1.Value = 0;
+            progressBar1.Minimum = 0;
+            progressBar1.Maximum = 100;
+            progressBar1.Value = 0;
+            txtProgressPercent.Text = "0";
 
             HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
             source.AddHook(WndProc);
