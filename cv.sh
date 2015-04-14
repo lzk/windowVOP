@@ -69,9 +69,9 @@ using System.Windows;\n\
 \n\
 [assembly: AssemblyConfiguration(\"\")]\n\
 [assembly: AssemblyProduct(\"Lenovo virtual panel\")]\n\
-" > VOP/Properties/AssemblyInfo.cs
+" > VOP/Properties/VersionInfo.cs
 
-git log --format="[assembly: AssemblyDescription(\"%H\")]" -1 >> VOP/Properties/AssemblyInfo.cs
+git log --format="[assembly: AssemblyDescription(\"%H\")]" -1 >> VOP/Properties/VersionInfo.cs
 
 printf "\
 [assembly: AssemblyFileVersion(\"%d.%d.%d.%d\")]\n\
@@ -85,4 +85,4 @@ printf "\
 " \
 $v1 $v2 $v3 $v4 \
 $v1 $v2 $v3 $v4 \
->> VOP/Properties/AssemblyInfo.cs
+>> VOP/Properties/VersionInfo.cs
