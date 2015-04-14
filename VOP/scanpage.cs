@@ -9,6 +9,7 @@ using System.Windows.Input; // for MouseButtonEventArgs
 using System.Windows.Media.Imaging; // for BitmapImage
 using System.Collections.Generic;
 using System.Windows.Interop; // for HwndSource
+using System.Threading;
 
 namespace VOP
 {
@@ -32,6 +33,7 @@ namespace VOP
         private const int RETSCAN_NO_ENOUGH_SPACE= 5;
         private const int RETSCAN_ERROR_PORT     = 6;
 #endregion
+        private Thread scanningThread = null;
 
         public ScanPage()
         {
@@ -166,9 +168,8 @@ namespace VOP
             // TODO: update UI when auto machine state change.
         }
 
-        private void btnScan_Click(object sender, RoutedEventArgs e)
+        public void DoScanning()
         {
-
             ScanFiles objScan = new ScanFiles();
             objScan.m_colorMode = m_color;
 
@@ -210,23 +211,30 @@ namespace VOP
                     uMsg       );
 
 
-            if ( RETSCAN_OK == nResult )
-            {
-                ImageItem img  = new ImageItem();
-                img.m_images = objScan;
+        }
 
-                if ( null != img.m_source )
-                {
-                    img.ImageSingleClick += ImageItemSingleClick;
-                    img.ImageDoubleClick += ImageItemDoubleClick;
-                    this.image_wrappanel.Children.Insert(0, img );
-                    App.scanFileList.Add( objScan );
-                }
-            }
-            else
-            {
-                m_MainWin.statusPanelPage.ShowMessage( "Scan Fail" );
-            }
+        private void btnScan_Click(object sender, RoutedEventArgs e)
+        {
+            scanningThread = new Thread(DoScanning);
+            scanningThread.Start();
+
+            // if ( RETSCAN_OK == nResult )
+            // {
+            //     ImageItem img  = new ImageItem();
+            //     img.m_images = objScan;
+
+            //     if ( null != img.m_source )
+            //     {
+            //         img.ImageSingleClick += ImageItemSingleClick;
+            //         img.ImageDoubleClick += ImageItemDoubleClick;
+            //         this.image_wrappanel.Children.Insert(0, img );
+            //         App.scanFileList.Add( objScan );
+            //     }
+            // }
+            // else
+            // {
+            //     m_MainWin.statusPanelPage.ShowMessage( "Scan Fail" );
+            // }
         }
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
@@ -234,6 +242,11 @@ namespace VOP
             int s = GetScanSize();
 
             txtBlkImgSize.Text = s.ToString()+" bytes";
+
+			//Configure the ProgressBar
+			progressBar1.Minimum = 0;
+			progressBar1.Maximum = 100;
+			progressBar1.Value = 0;
 
             HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
             source.AddHook(WndProc);
@@ -283,6 +296,8 @@ namespace VOP
             if ( App.progressMsg == msg )
             {                        
                  progressBar1.Value = wParam.ToInt32();
+                 txtProgressPercent.Text = wParam.ToString();
+                 handled = true;
             }
 
             return IntPtr.Zero;

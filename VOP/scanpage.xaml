@@ -142,7 +142,7 @@
 
     <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal"
         HorizontalAlignment="Left" VerticalAlignment="Top">
-        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left"> 扫描进度: 0% </TextBlock>
+        <TextBlock x:Name="txtProgressPercent" VerticalAlignment="Top" HorizontalAlignment="Left"> 扫描进度: 0% </TextBlock>
         <ProgressBar x:Name="progressBar1" Style="{StaticResource RoundedProgressBar}" Width="319.823" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="18.02" Value="50"/>
     </StackPanel>
 
