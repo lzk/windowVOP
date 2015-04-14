@@ -336,9 +336,29 @@ namespace VOP
         private void btnPrint_Click(object sender, RoutedEventArgs e)
         {
             List<string> files = new List<string>();
-            files.Add( "F:\\VOP\\VOP\\Images\\background.png" );
+            GetSelectedFile( files );
 
             m_MainWin.SwitchToPrintingPage( files );
         }
+
+        /// <summary>
+        /// Get the file paths of selected image item.
+        /// </summary>
+        /// <param name="files"> Container used to store the file name.  </param>
+        private void GetSelectedFile( List<string> files )
+        {
+            files.Clear();
+
+            foreach (object obj in image_wrappanel.Children)
+            {
+                ImageItem img = obj as ImageItem;
+
+                if ( null != img && true == img.m_ischeck )
+                {
+                    files.Add( img.m_images.m_pathOrig );
+                }
+            }  
+        }
+
     }
 }
