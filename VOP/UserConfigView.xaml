@@ -227,21 +227,23 @@
         </Grid.Background>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="15"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="5*"></RowDefinition>
-                <RowDefinition Height="3*"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="4*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="1.2*"></RowDefinition>
+                <RowDefinition Height="45"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
@@ -251,8 +253,8 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="6"></ColumnDefinition>
+                    <ColumnDefinition Width="1.8*"></ColumnDefinition>
+                    <ColumnDefinition Width="2"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="20"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
@@ -260,7 +262,7 @@
                 <TextBlock Text="顶端偏移量" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                 <Grid Grid.Row="0" Grid.Column="2" Width="120">
                     <local:SpinnerControl x:Name="spinCtlEdge" Style="{StaticResource SpinnerControl1}"
-                            Width="120" 
+                            Width="110" 
                             Background="Transparent"
                             Change="1"
                             DecimalPlaces="0"
@@ -274,7 +276,7 @@
                 <TextBlock Text="左端偏移量" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                 <Grid Grid.Row="1" Grid.Column="2" Width="120">
                     <local:SpinnerControl x:Name="spinCtlSide2Side"  Style="{StaticResource SpinnerControl1}"
-                            Width="120" 
+                            Width="110" 
                             Background="Transparent"
                             Change="1"
                             DecimalPlaces="0"
@@ -287,7 +289,7 @@
                 <TextBlock Text="画像浓度" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                 <Grid Grid.Row="2" Grid.Column="2" Width="120">
                     <local:SpinnerControl x:Name="spinCtlDensity" Style="{StaticResource SpinnerControl2}"
-                            Width="120" 
+                            Width="110" 
                             Background="Transparent"
                             Change="1"
                             DecimalPlaces="0"
@@ -301,7 +303,7 @@
                 <TextBlock Text="低湿度模式" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                 <Grid Grid.Row="3" Grid.Column="2" Width="120">
                     <local:SpinnerControl x:Name="spinCtlHumidity" Style="{StaticResource SpinnerControl3}"
-                            Width="120" 
+                            Width="110" 
                             Background="Transparent"
                             Change="1"
                             DecimalPlaces="0"
@@ -316,32 +318,36 @@
                 <Image Source="Images/line.png" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom"></Image>
                 <Image Source="Images/line.png" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom"></Image>
             </Grid>
-            
             <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="200"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="1.8*"></ColumnDefinition>
+                    <ColumnDefinition Width="2"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <local:ButtonEx x:Name="btnFusing" Content="解除定影单元错误" FontSize="18"  IsActiveEx="False" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="35" Click="btnFusing_Click"></local:ButtonEx>
-                <Grid Grid.Row="1" Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <local:ButtonEx x:Name="btn1" Content="*****" FontSize="18"  IsActiveEx="False" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="90" Height="35"></local:ButtonEx>
-                    <local:ButtonEx x:Name="btn2" Content="*****" FontSize="18"  IsActiveEx="False" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="90" Height="35"></local:ButtonEx>
-
-                </Grid>
+                <!--Setting of Plate Control Mode-->
+                <TextBlock Text="防止背面脏污模式" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                <CheckBox Name="chkPlateControlMode" Grid.Column="2" Template="{StaticResource switchBox}" Height="22" Width="45" IsChecked="False"></CheckBox>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.8*"></ColumnDefinition>
+                    <ColumnDefinition Width="2"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--Primary Cooling Mode-->
+                <TextBlock Text="强制降温模式" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                <CheckBox Name="chkCoolingMode" Grid.Column="2" Template="{StaticResource switchBox}" Height="22" Width="45" IsChecked="False"></CheckBox>
+            </Grid>
+            <Grid Grid.Row="3">   
+                <local:ButtonEx x:Name="btnFusing" Content="解除定影单元错误" FontSize="18"  IsActiveEx="False" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="30" Click="btnFusing_Click"></local:ButtonEx>
             </Grid>
             <Image Source="Images/line.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom"></Image>
+            <Image Source="Images/line.png" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom"></Image>
+            <Image Source="Images/line.png" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom"></Image>
 
-            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="应 用" FontSize="18"  IsActiveEx="True" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
+            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="应 用" FontSize="18"  IsActiveEx="True" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="200" Height="35"></local:ButtonEx>
         </Grid>
     </Grid>
 </UserControl>
