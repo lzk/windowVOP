@@ -37,16 +37,16 @@ namespace VOP
             {
                 if (VOP.MainWindow.m_RequestManager.SendVerifyCode(tbPhoneNumber.Text, ref js))
                 {
-                    MessageBox.Show("验证码发送成功");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "验证码发送成功。", "错误");
                 }
                 else
                 {
-                    MessageBox.Show("验证码发送失败");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "验证码发送失败。", "错误");
                 }
             }
             else
             {
-                MessageBox.Show("请输入正确的手机号码");
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "手机号码错误，请确认后再次输入。", "错误");
                 tbPhoneNumber.Focus();
             }
         }
@@ -65,19 +65,19 @@ namespace VOP
                 }
                 else
                 {
-                    MessageBox.Show("验证码错误，请重新输入。");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "验证码错误，请确认后再次输入。", "错误");
                 }
             }
             else
             {
                 if (tbPhoneNumber.Text.Length != 11)
                 {
-                    MessageBox.Show("请输入正确的手机号码");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "手机号码错误，请确认后再次输入。", "错误");
                     tbPhoneNumber.Focus();
                 }
                 else if (pbPwd.Password.Length != 6)
                 {
-                    MessageBox.Show("请输入正确的验证码");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "验证码格式错误，请确认后再次输入。", "错误");
                     pbPwd.Focus();
                 }
             }

@@ -326,19 +326,19 @@ namespace VOP
             {
                 if (false == isIPOK)
                 {
-                    MessageBox.Show("IP地址输入有误，请确认后再次输入。");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP地址输入有误，请确认后再次输入。", "错误");
                     tb_ip.Focus();
                     return false;
                 }
                 else if (false == isGateOK)
                 {
-                    MessageBox.Show("网关输入有误，请确认后再次输入。");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP网关输入有误，请确认后再次输入。", "错误");
                     tb_gate.Focus();
                     return false;
                 }
                 else if (false == isMaskOK)
                 {
-                    MessageBox.Show("子网掩码输入有误，请确认后再次输入。");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP子网掩码输入有误，请确认后再次输入。", "错误");
                     tb_mask.Focus();
                     return false;
                 }
@@ -352,13 +352,13 @@ namespace VOP
                         isIPOK = false;
                         if (0xffffffff == ((nIP | nSubMask) & 0xffffffff))
                         {
-                            MessageBox.Show("IP地址与子网掩码组合无效。已将IP地址的主机地址部分的所有位都设置为1.请输入一个有效的IP地址和子网掩码组合。");
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP地址与子网掩码组合无效。已将IP地址的主机地址部分的所有位都设置为1.请输入一个有效的IP地址和子网掩码组合。", "错误");
                             tb_ip.Focus();
                             return false;
                         }
                         else if ((0x00000000 == ((~nSubMask) & nIP)))
                         {
-                            MessageBox.Show("IP地址与子网掩码组合无效。已将IP地址的主机地址部分的所有位都设置为0.请输入一个有效的IP地址和子网掩码组合。");
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP地址与子网掩码组合无效。已将IP地址的主机地址部分的所有位都设置为0.请输入一个有效的IP地址和子网掩码组合。", "错误");
                             tb_ip.Focus();
                             return false;
                         }

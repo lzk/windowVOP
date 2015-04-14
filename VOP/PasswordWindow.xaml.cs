@@ -43,6 +43,7 @@ namespace VOP
                 {
                     if (m_rec.CmdResult == EnumCmdResult._ACK)
                     {
+                        ((MainWindow)App.Current.MainWindow).m_strPassword = strpwd;
                         isApplySuccess = true;
                     }
                 }
@@ -50,7 +51,7 @@ namespace VOP
       
             if(!isApplySuccess)
             {
-                MessageBox.Show("密码错误，请重新输入。");
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码错误，请重新输入。", "错误");
             }
             else
             {

@@ -452,9 +452,9 @@ namespace VOP.Controls
             else
             {
                 if(EncryptType == EnumEncryptType.WEP)
-                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码输入不正确(5/13个ASCII字符或者10/26个二进制字符)，请重新输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码必须是5/13个ASCII字符或者10/26个二进制字符，请确认后再次输入。", "错误");
                 else
-                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码输入不正确(8-63个ASCII字符或者64个二进制字符)，请重新输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码必须是8到63个ASCII字符或者64个二进制字符，请确认后再次输入。", "错误");
             }
         }
     }

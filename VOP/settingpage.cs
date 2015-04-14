@@ -168,9 +168,7 @@ namespace VOP
                 //Only display about view when no printer online.
                 setting_tab_btn.Children.Add(btnAbout);
                 ClickSettingButton(IconType.About);
-
             }
-
         }
 
         private void SettingBtnClick(object sender, RoutedEventArgs e)

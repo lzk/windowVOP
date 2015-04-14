@@ -59,6 +59,28 @@ namespace VOP
 
         private bool m_isOnlineDetected = false;    // true is one online printer has been seleted.
 
+        public string m_strPassword = "";
+        
+        public bool PasswordCorrect()
+        {
+            bool bCorrect = false;
+            if (m_strPassword.Length > 0)
+            {
+                string strPrinterName = statusPanelPage.m_selectedPrinter;
+                PasswordRecord m_rec = new PasswordRecord(strPrinterName, m_strPassword);
+                AsyncWorker worker = new AsyncWorker(this);
+
+                m_rec = worker.ConfirmPassword(m_rec);
+
+                if (m_rec.CmdResult == EnumCmdResult._ACK)
+                {
+                    bCorrect = true;
+                }
+
+            }     
+            return bCorrect;
+        }
+
         private bool PrinterExist(string strPrinterName)
         {
             bool bExist = false;
@@ -77,8 +99,6 @@ namespace VOP
 
             return bExist;
         }
-
-
 
         public MainWindow()
         {

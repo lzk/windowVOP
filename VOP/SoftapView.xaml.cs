@@ -131,11 +131,11 @@ namespace VOP
             {
                 if (str_ssid.Length <= 0)
                 {
-                    MessageBox.Show("The SSID input error! The SSID must be 1-32 characters.");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "网络名称必须是1到32个字符，请确认后再次输入。", "错误");
                 }
                 else if (str_pwd.Length < 8 || str_pwd.Length >= 64)
                 {
-                    MessageBox.Show("The passphrase input error! The least length will be 8 words and the max length will be 63 in ASCII or 64 in HEX.");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码必须是8到63个ASCII字符或者64个二进制字符，手机号码错误，请确认后再次输入。", "错误");
                 }
             }
 
