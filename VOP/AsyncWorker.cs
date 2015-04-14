@@ -260,8 +260,10 @@ namespace VOP
             sbyte sideToSide = 1;
             sbyte imageDensity = 0;
             sbyte lowHumidityMode = 0;
+            sbyte platecontrolmode = 2;
+            sbyte primarycoolingmode = 0;
 
-            int result = dll.GetUserCfg(printerName, ref leadingEdge, ref sideToSide, ref imageDensity, ref lowHumidityMode);
+            int result = dll.GetUserCfg(printerName, ref leadingEdge, ref sideToSide, ref imageDensity, ref lowHumidityMode, ref platecontrolmode, ref primarycoolingmode);
 
             rec.PrinterName = printerName;
 
@@ -282,6 +284,8 @@ namespace VOP
             sbyte sideToSide = 1;
             sbyte imageDensity = 0;
             sbyte lowHumidityMode = 0;
+            sbyte platecontrolmode = 2;
+            sbyte primarycoolingmode = 0;
 
             if (rec != null)
             {
@@ -291,8 +295,10 @@ namespace VOP
                 sideToSide = rec.SideToSide;
                 imageDensity = rec.ImageDensity;
                 lowHumidityMode = rec.LowHumidityMode;
+                platecontrolmode = rec.PlateControlMode;
+                primarycoolingmode = rec.PrimaryCoolingMode;
 
-                int result = dll.SetUserCfg(printerName, leadingEdge, sideToSide, imageDensity, lowHumidityMode);
+                int result = dll.SetUserCfg(printerName, leadingEdge, sideToSide, imageDensity, lowHumidityMode, platecontrolmode, primarycoolingmode);
 
                 rec.CmdResult = (EnumCmdResult)result;
 
@@ -1050,6 +1056,9 @@ namespace VOP
         private sbyte sideToSide;
         private sbyte imageDensity;
         private sbyte lowHumidityMode;
+        private sbyte platecontrolmode;
+        private sbyte primarycoolingmode;
+ 
         private EnumCmdResult cmdResult;
 
         public string PrinterName
@@ -1102,6 +1111,26 @@ namespace VOP
             }
         }
 
+        public sbyte PlateControlMode
+        {
+            get { return this.platecontrolmode; }
+            set
+            {
+                this.platecontrolmode = value;
+                OnPropertyChanged("PlateControlMode");
+            }
+        }
+
+        public sbyte PrimaryCoolingMode
+        {
+            get { return this.primarycoolingmode; }
+            set
+            {
+                this.primarycoolingmode = value;
+                OnPropertyChanged("PrimaryCoolingMode");
+            }
+        }
+
         public EnumCmdResult CmdResult
         {
             get { return this.cmdResult; }
@@ -1119,16 +1148,26 @@ namespace VOP
             sideToSide = 1;
             imageDensity = 0;
             lowHumidityMode = 0;
+            platecontrolmode = 2;
+            primarycoolingmode = 0;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public UserCfgRecord(string printerName, sbyte leadingEdge, sbyte sideToSide, sbyte imageDensity, sbyte lowHumidityMode)
+        public UserCfgRecord(string printerName, 
+                            sbyte leadingEdge, 
+                            sbyte sideToSide, 
+                            sbyte imageDensity, 
+                            sbyte lowHumidityMode, 
+                            sbyte platecontrolmode,
+                            sbyte primarycoolingmode)
         {
             this.printerName = printerName;
             this.leadingEdge = leadingEdge;
             this.sideToSide = sideToSide;
             this.imageDensity = imageDensity;
             this.lowHumidityMode = lowHumidityMode;
+            this.platecontrolmode = platecontrolmode;
+            this.primarycoolingmode = primarycoolingmode;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 

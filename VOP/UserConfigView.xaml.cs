@@ -25,7 +25,9 @@ namespace VOP
         sbyte m_sidetoside = 0;
         sbyte m_imagedensity = 0;
         sbyte m_lowhumiditymode = 0;
-
+        sbyte m_platecontrolmode = 0;
+        sbyte m_primarycoolingmode = 0;
+        
         public UserConfigView()
         {
             InitializeComponent();
@@ -75,25 +77,43 @@ namespace VOP
         {
             init_config();
         }
+
         private void GetUIValues(
-        out sbyte leadingedge,
-        out sbyte sidetoside,
-        out sbyte imagedensity,
-        out sbyte lowhumiditymode)
+            out sbyte leadingedge,
+            out sbyte sidetoside,
+            out sbyte imagedensity,
+            out sbyte lowhumiditymode,
+            out sbyte platecontrolmode,
+            out sbyte primarycoolingmode)
         {
             leadingedge = 0;
             sidetoside = 0;
             imagedensity = 0;
             lowhumiditymode = 0;
+            platecontrolmode = 2;
+            primarycoolingmode = 0;
             if (null != spinCtlEdge &&
                 null != spinCtlSide2Side &&
                 null != spinCtlDensity &&
-                null != spinCtlHumidity)
+                null != spinCtlHumidity &&
+                null != chkPlateControlMode &&
+                null != chkCoolingMode)
             {
                 leadingedge = (sbyte)spinCtlEdge.Value;
                 sidetoside = (sbyte)spinCtlSide2Side.Value;
                 imagedensity = (sbyte)spinCtlDensity.Value;
                 lowhumiditymode = (sbyte)spinCtlHumidity.Value;
+                
+                if(true == chkPlateControlMode.IsChecked)
+                    platecontrolmode = 0;
+                else
+                    platecontrolmode = 2;
+
+                if (true == chkCoolingMode.IsChecked)
+                    primarycoolingmode = 1;
+                else
+                    primarycoolingmode = 0;
+
             }
         }
 
@@ -105,11 +125,13 @@ namespace VOP
             sbyte sidetoside = 1;
             sbyte imagedensity = 0;
             sbyte lowhumiditymode = 0;
+            sbyte platecontrolmode = 2;
+            sbyte primarycoolingmode = 0;
 
-            GetUIValues(out leadingedge, out sidetoside, out imagedensity, out lowhumiditymode);
+            GetUIValues(out leadingedge, out sidetoside, out imagedensity, out lowhumiditymode, out platecontrolmode, out primarycoolingmode);
 
             string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
-            UserCfgRecord m_rec = new UserCfgRecord(strPrinterName, leadingedge, sidetoside, imagedensity, lowhumiditymode);
+            UserCfgRecord m_rec = new UserCfgRecord(strPrinterName, leadingedge, sidetoside, imagedensity, lowhumiditymode, platecontrolmode, primarycoolingmode);
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
             if (worker.InvokeMethod<UserCfgRecord>(strPrinterName, ref m_rec, DllMethodType.SetUserConfig))
@@ -120,6 +142,8 @@ namespace VOP
                     m_sidetoside = sidetoside;
                     m_imagedensity = imagedensity;
                     m_lowhumiditymode = lowhumiditymode;
+                    m_platecontrolmode = platecontrolmode;
+                    m_primarycoolingmode = primarycoolingmode;
 
                     isApplySuccess = true;
                 }

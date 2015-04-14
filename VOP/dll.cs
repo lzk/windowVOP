@@ -127,7 +127,9 @@ namespace VOP
                 ref sbyte leadingedge,
                 ref sbyte sidetoside,
                 ref sbyte imagedensity,
-                ref sbyte lowhumiditymode);
+                ref sbyte lowhumiditymode,
+                ref sbyte platecontrolmode,
+                ref sbyte primarycoolingmode);
 
         [DllImport("usbapi.dll")]
         public static extern int SetUserCfg(
@@ -135,7 +137,9 @@ namespace VOP
                 sbyte LeadingEdge,
                 sbyte SideToSide,
                 sbyte ImageDensity,
-                sbyte LowHumidityMode);
+                sbyte LowHumidityMode,
+                sbyte platecontrolmode,
+                sbyte primarycoolingmode);
         
 		[DllImport("usbapi.dll")]
         public static extern int SetFusingSCReset(

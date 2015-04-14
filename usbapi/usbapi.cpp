@@ -299,7 +299,9 @@ typedef struct cmdst_userconfig
     INT8 LeadingEdge     ; // Leading Edge Registration 
     INT8 SideToSide      ; // Side-to-size Registration 
     INT8 ImageDensity    ; // Image Desity              
-    INT8 LowHumidityMode ; // Low Humidity Mode         
+    INT8 LowHumidityMode ; // Low Humidity Mode     
+	INT8 PlateControlMode;
+	INT8 PrimaryCoolingMode;
 } cmdst_userconfig;
 
 typedef struct cmdst_softap
@@ -429,9 +431,9 @@ USBAPI_API int __stdcall SendCopyCmd( const wchar_t* szPrinter, UINT8 Density, U
 USBAPI_API int __stdcall SetWiFiInfo( const wchar_t* szPrinter, const wchar_t* ws_ssid, const wchar_t* ws_pwd, UINT8 encryption, UINT8 wepKeyId );
 USBAPI_API int __stdcall SetSoftAp( const wchar_t* szPrinter, const wchar_t* ws_ssid, const wchar_t* ws_pwd, bool isEnableSoftAp );
 USBAPI_API int __stdcall GetSoftAp( const wchar_t* szPrinter, char* ssid, char* pwd, BYTE* ptr_wifi_enable  );
-USBAPI_API int __stdcall GetUserCfg( const wchar_t* szPrinter, BYTE* ptr_leadingedge, BYTE* ptr_sidetoside, BYTE* ptr_imagedensity, BYTE* ptr_lowhumiditymode);
+USBAPI_API int __stdcall GetUserCfg(const wchar_t* szPrinter, BYTE* ptr_leadingedge, BYTE* ptr_sidetoside, BYTE* ptr_imagedensity, BYTE* ptr_lowhumiditymode, BYTE* ptr_platecontrolmode, BYTE* ptr_primarycoolingmode);
 USBAPI_API int __stdcall SetFusingSCReset(const wchar_t* szPrinter);
-USBAPI_API int __stdcall SetUserCfg( const wchar_t* szPrinter, UINT8 LeadingEdge, UINT8 SideToSide, UINT8 ImageDensity, UINT8 LowHumidityMode );
+USBAPI_API int __stdcall SetUserCfg(const wchar_t* szPrinter, UINT8 LeadingEdge, UINT8 SideToSide, UINT8 ImageDensity, UINT8 LowHumidityMode, UINT8 PlateControlMode, UINT8 PrimaryCoolingMode);
 USBAPI_API bool __stdcall GetPrinterStatus( const wchar_t* szPrinter, BYTE* ptr_status, BYTE* ptr_toner, BYTE* pJob );
 USBAPI_API int __stdcall SetIPInfo( 
         const wchar_t* szPrinter,
@@ -1466,7 +1468,7 @@ static int _base64_char_value(char base64char)
     return -1;
 } 
 
-USBAPI_API int __stdcall SetUserCfg( const wchar_t* szPrinter, UINT8 LeadingEdge, UINT8 SideToSide, UINT8 ImageDensity, UINT8 LowHumidityMode )
+USBAPI_API int __stdcall SetUserCfg(const wchar_t* szPrinter, UINT8 LeadingEdge, UINT8 SideToSide, UINT8 ImageDensity, UINT8 LowHumidityMode, UINT8 PlateControlMode, UINT8 PrimaryCoolingMode)
 {
     if ( NULL == szPrinter )
         return _SW_INVALID_PARAMETER;
@@ -1502,6 +1504,8 @@ USBAPI_API int __stdcall SetUserCfg( const wchar_t* szPrinter, UINT8 LeadingEdge
         pcmd_usercfg->SideToSide      = SideToSide      ;
         pcmd_usercfg->ImageDensity    = ImageDensity    ;
         pcmd_usercfg->LowHumidityMode = LowHumidityMode ;
+		pcmd_usercfg->PlateControlMode = PlateControlMode;
+		pcmd_usercfg->PrimaryCoolingMode = PrimaryCoolingMode;
 
         if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
         {
@@ -2033,7 +2037,7 @@ USBAPI_API int __stdcall GetApList( const wchar_t* szPrinter,
     return nResult;
 }
 
-USBAPI_API int __stdcall GetUserCfg( const wchar_t* szPrinter, BYTE* ptr_leadingedge, BYTE* ptr_sidetoside, BYTE* ptr_imagedensity, BYTE* ptr_lowhumiditymode)
+USBAPI_API int __stdcall GetUserCfg(const wchar_t* szPrinter, BYTE* ptr_leadingedge, BYTE* ptr_sidetoside, BYTE* ptr_imagedensity, BYTE* ptr_lowhumiditymode, BYTE* ptr_platecontrolmode, BYTE* ptr_primarycoolingmode)
 {
     if ( NULL == szPrinter )
         return _SW_INVALID_PARAMETER;
@@ -2080,12 +2084,17 @@ USBAPI_API int __stdcall GetUserCfg( const wchar_t* szPrinter, BYTE* ptr_leading
             if ( -6 <= pcmd_usercfg->LeadingEdge    && 6 >= pcmd_usercfg->LeadingEdge
                     && -6 <= pcmd_usercfg->SideToSide     && 6 >= pcmd_usercfg->SideToSide
                     && -3 <= pcmd_usercfg->ImageDensity   && 3 >= pcmd_usercfg->ImageDensity
-                    && 0 <= pcmd_usercfg->LowHumidityMode && 1 >= pcmd_usercfg->LowHumidityMode )
+                    && 0 <= pcmd_usercfg->LowHumidityMode && 1 >= pcmd_usercfg->LowHumidityMode
+					&& 0 <= pcmd_usercfg->PlateControlMode && 2 >= pcmd_usercfg->PlateControlMode
+					&& 0 <= pcmd_usercfg->PrimaryCoolingMode && 1 >= pcmd_usercfg->PrimaryCoolingMode)
             {
                 *ptr_leadingedge     = pcmd_usercfg->LeadingEdge     ;
                 *ptr_sidetoside      = pcmd_usercfg->SideToSide      ;
                 *ptr_imagedensity    = pcmd_usercfg->ImageDensity    ;
                 *ptr_lowhumiditymode = pcmd_usercfg->LowHumidityMode ;
+				*ptr_platecontrolmode = pcmd_usercfg->PlateControlMode;
+				*ptr_primarycoolingmode = pcmd_usercfg->PrimaryCoolingMode;
+
                 nResult = _ACK;
             }
             else
