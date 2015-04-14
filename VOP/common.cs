@@ -159,6 +159,7 @@ namespace VOP
                 case EnumStatus.TonerNearEnd               : // Warning
                 case EnumStatus.TonerEnd1                  : // Warning  
                 case EnumStatus.PrinterDataError           : // Warning  
+                case EnumStatus.NoTonerCartridge           : // Warning  
                     statusType = EnumStatusType.warning;
                     break;
                 case EnumStatus.CopyCanceling              : // Busy   
@@ -197,7 +198,6 @@ namespace VOP
                 case EnumStatus.LowVoltageJoinerReloadError : // Error  
                 case EnumStatus.MainmotorError             : // Error  
                 case EnumStatus.MotorThermistorError       : // Error  
-                case EnumStatus.NoTonerCartridge           : // Error  
                 case EnumStatus.NofeedJam                  : // Error  
                 case EnumStatus.PolygomotorLockSignalError : // Error  
                 case EnumStatus.PolygomotorOffTimeoutError : // Error  
@@ -401,7 +401,7 @@ namespace VOP
                 case EnumStatus.EEPROMCommunicationError   : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC669" ; break;
                 case EnumStatus.CTL_PRREQ_NSignalNoCome    : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC688" ; break;
                 case EnumStatus.ScanPCUnkownCommandUSB     : errMsg = "Scan PC Unknown Command USB"; break;
-                case EnumStatus.SCANUSBDisconnect          : errMsg = "SCAN USB Disconnect"; break;
+                case EnumStatus.SCANUSBDisconnect          : errMsg = "Scan USB Disconnect"; break;
                 case EnumStatus.ScanPCUnkownCommandNET     : errMsg = "Scan PC Unknown Command NET"; break;
                 case EnumStatus.ScanNETDisconnect          : errMsg = "Scan NET Disconnect"; break;
                 case EnumStatus.ScanMotorError             : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC800" ; break;
@@ -411,7 +411,7 @@ namespace VOP
                 case EnumStatus.FWUpdateError              : errMsg = "FW download Error;Turn off the printer, and turn it on again.Contact customer support if this failure is repeated"; break;
                 case EnumStatus.DSPError                   : errMsg = "DSP Error;Turn off the printer, and turn it on again.Contact customer support if this failure is repeated"; break;
                 case EnumStatus.CodecError                 : errMsg = "CODEC Error;Turn off the printer, and turn it on again.Contact customer support if this failure is repeated"; break;
-                case EnumStatus.PrinterDataError           : errMsg = "Print Data Error;"; break;               
+                case EnumStatus.PrinterDataError           : errMsg = "Print Data Error"; break;               
                 case EnumStatus.Unknown                    : 
                 case EnumStatus.PowerOff                   :
                 case EnumStatus.Offline                    : errMsg = "Device Offline"; break;
@@ -457,7 +457,7 @@ namespace VOP
                 case EnumStatus.JamAtExitNotReach           : st = StatusDisplayType.Error   ; break ;
                 case EnumStatus.JamAtExitStayOn             : st = StatusDisplayType.Error   ; break ;
                 case EnumStatus.CoverOpen                   : st = StatusDisplayType.Error   ; break ;
-                case EnumStatus.NoTonerCartridge            : st = StatusDisplayType.Error   ; break ;
+                case EnumStatus.NoTonerCartridge            : st = StatusDisplayType.Warning ; break ;
                 case EnumStatus.WasteTonerFull              : st = StatusDisplayType.Error   ; break ;
                 case EnumStatus.FWUpdate                    : st = StatusDisplayType.Warning ; break ;
                 case EnumStatus.OverHeat                    : st = StatusDisplayType.Warning ; break ;
