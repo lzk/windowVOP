@@ -2704,10 +2704,15 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
 
                     WriteFile( hFileOrig , headOrig , dwHeadSizeOrig , &dwHeadSizeOrig , NULL);
 
+                    int nMod = nColPixelNumOrig/100;
+                    int nPercent = 0;
 					while (obj.ReadData(strideOrig, cbStridePadOrig, &ulBytesRead, &lPercentComplete) == DEVMON_STATUS_OK)
                     {
-                        if ( 0 == ++nRowsCnt%10 )
-                            ::SendNotifyMessage( HWND_BROADCAST, uMsg, 100*nRowsCnt/nColPixelNumOrig, 0); 
+                        if ( 0 == ++nRowsCnt%nMod )
+                        {
+                            nPercent++;
+                            ::SendNotifyMessage( HWND_BROADCAST, uMsg, nPercent, 0); 
+                        }
 
                         lWroteOrig += cbStridePadOrig;
                         SetFilePointer( hFileOrig, 0-lWroteOrig, NULL, FILE_END );
