@@ -83,7 +83,7 @@
 
                         <local:ButtonEx IsDefault="False" IsEnabled="True" Content="更多设置" 
                                 x:Name="btnSetting" Width="120" Height="25"
-                                Margin="20,10" Click="SettingBtnClick" HorizontalAlignment="Center"/>
+                                Margin="20,10" Click="SettingBtnClick" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
 
                         <local:ButtonEx x:Name="btnCopy" HorizontalContentAlignment="Center"
                                 IsDefault="True" Content="复印"

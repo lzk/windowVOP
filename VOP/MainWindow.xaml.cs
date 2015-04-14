@@ -283,6 +283,7 @@ namespace VOP
             {
                 if (0 == index)
                 {
+                    txtPageName.Text = "打印";
                     this.subPageView.Child = winFileSelectionPage;
                 
                     tabItem_Print.IsSelect = true;
@@ -292,6 +293,7 @@ namespace VOP
                 }
                 else if (1 == index)
                 {
+                    txtPageName.Text = "复印";
                     this.subPageView.Child = winCopyPage;
                  
                     tabItem_Print.IsSelect = false;
@@ -301,6 +303,7 @@ namespace VOP
                 }
                 else if (2 == index)
                 {
+                    txtPageName.Text = "扫描";
                     this.subPageView.Child = winScanPage;
                  
                     tabItem_Print.IsSelect = false;
@@ -310,6 +313,7 @@ namespace VOP
                 }
                 else if (3 == index)
                 {
+                    txtPageName.Text = "设置";
                     this.subPageView.Child = winSettingPage;
                   
                     tabItem_Print.IsSelect = false;

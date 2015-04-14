@@ -161,9 +161,11 @@
         </StackPanel>
 
         <StackPanel Margin="0" Grid.Row="3" Width="240" Orientation="Horizontal">
-            <local:ButtonEx Click="save_btn_click" Content="确定" HorizontalAlignment="Center" Height="40"
+            <local:ButtonEx Click="save_btn_click" Content="确定" HorizontalAlignment="Center" Height="30"
+                HorizontalContentAlignment="Center"
                 Margin="25,0,0,0" Width="75" VerticalAlignment="Center"/>
-            <local:ButtonEx Click="print_btn_click" Content="打印" HorizontalAlignment="Center" Height="40"
+            <local:ButtonEx Click="print_btn_click" Content="打印" HorizontalAlignment="Center" Height="30"
+                HorizontalContentAlignment="Center"
                 Margin="25,0,0,0" Width="75" IsDefault="true" VerticalAlignment="Center" />
         </StackPanel>
         
