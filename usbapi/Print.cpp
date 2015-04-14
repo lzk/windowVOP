@@ -58,6 +58,7 @@ USBAPI_API void __stdcall SetPrinterInof(const TCHAR * strPrinterName,
 	short sNupNum,
 	short sTypeofPB,
 	short sPosterType,
+	short sColorBalanceTo,
 	short sDensity,
 	short sDuplexPrint,
 	short sReversePrint,
@@ -307,16 +308,17 @@ USBAPI_API void __stdcall SetPrinterInof(const TCHAR * strPrinterName,
 	short sPaperOrientation,
 	short sMediaType,
 	short sPaperOrder,
-	short sPrintQuality,
-	short sScalingType,
+	short sPrintQuality,//byte
+	short sScalingType,//byte
 	short sScalingRatio,
-	short sNupNum,
-	short sTypeofPB,
+	short sNupNum,//byte
+	short sTypeofPB,//byte
 	short sPosterType,
+	short sColorBalanceTo,
 	short sDensity,
 	short sDuplexPrint,
-	short sReversePrint,
-	short sTonerSaving)
+	short sReversePrint,//byte
+	short sTonerSaving)//byte
 {
 	HANDLE   phandle;
 	DWORD dmsize;
@@ -386,21 +388,22 @@ USBAPI_API void __stdcall SetPrinterInof(const TCHAR * strPrinterName,
 				devmode.dmPrivate.par.wMediaType = sMediaType;
 				devmode.dmPublic.dmCollate = sPaperOrder;
 				//devmode.dmPublic.dmPrintQuality = sPrintQuality;
-				devmode.dmPrivate.PrintQuality = sPrintQuality;
-				devmode.dmPrivate.nup.bNupNum = sNupNum;//multiple-page 2in1: 2, 4in1: 4, 6in1: 6, 9in1: 9, 16 in1: 16
+				devmode.dmPrivate.PrintQuality = static_cast<BYTE>(sPrintQuality);
+				devmode.dmPrivate.nup.bNupNum = static_cast<BYTE>(sNupNum);//multiple-page 2in1: 2, 4in1: 4, 6in1: 6, 9in1: 9, 16 in1: 16
 
-				devmode.dmPrivate.bpmrdata.TypeofPB = sTypeofPB;//multiple-page, 1in nxn pages
+				devmode.dmPrivate.bpmrdata.TypeofPB = static_cast<BYTE>(sTypeofPB);//multiple-page, 1in nxn pages
 				devmode.dmPrivate.poster.wPosterType = sPosterType;// 0: 1 in 2x2, 1: 1 in 3x3, 2: 1 in 4x4 pages.
 
-				devmode.dmPrivate.sfp.ISFSet = sScalingType;// scale 
+				devmode.dmPrivate.sfp.ISFSet = static_cast<BYTE>(sScalingType);// scale 
 				devmode.dmPrivate.sfp.SRatio = sScalingRatio;//scale 25~400
+				devmode.dmPrivate.graphics.bColorBalanceTo = static_cast<BYTE>(sColorBalanceTo);
 
-				devmode.dmPrivate.graphics.ColorBalanceIndex[0][0] = sDensity;
+				devmode.dmPrivate.graphics.ColorBalanceIndex[0][0] = static_cast<signed char>(sDensity);
 
 				devmode.dmPublic.dmDuplex = sDuplexPrint; //DUPLEX£¬ DMDUP_VERTICAL: ³¤±ß DMDUP_HORIZONTAL£¬¶Ì±ß
 
-				devmode.dmPrivate.bPaperReverseOrder = sReversePrint;
-				devmode.dmPrivate.graphics.TonerSaving = sTonerSaving;
+				devmode.dmPrivate.bPaperReverseOrder = static_cast<BYTE>(sReversePrint);
+				devmode.dmPrivate.graphics.TonerSaving = static_cast<BYTE>(sTonerSaving);
 
 
 				*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;

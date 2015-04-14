@@ -1,3 +1,6 @@
+
+#pragma pack(1)
+
 typedef struct _NUPDLG{
 	DWORD	bNupFlags;
 	BYTE	bNupNum;

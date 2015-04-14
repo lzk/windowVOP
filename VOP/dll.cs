@@ -209,6 +209,7 @@ namespace VOP
             short sNupNum,
             short sTypeofPB,
             short sPosterType,
+            short sColorBalanceTo,
             short sDensity,
             short sDuplexPrint,
             short sReversePrint,

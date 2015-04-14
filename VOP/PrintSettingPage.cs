@@ -28,7 +28,7 @@ namespace VOP
         public short m_mediaType = 0;
         public short m_printQuality = 0;
         public short m_scalingRatio = 100;
-        public short m_densityValue = 4;
+        public short m_densityValue = 0;
         public short m_tonerSaving = 1;
         public short m_posterType = 0;//0: 1 in 2x2, 1: 1 in 3x3, 2: 1 in 4x4 pages.
         public short m_typeofPB = 0;//0:multiple-page,1: 1in nxn pages
@@ -37,6 +37,7 @@ namespace VOP
         private short m_preNin1 = 2;//multiple-page 2in1: 2, 4in1: 4, 6in1: 6, 9in1: 9, 16 in1:16
 
         private short m_preduplexPrint = 3;
+        public short m_colorBalanceTo = 1;
 
         #endregion
         public MainWindow m_MainWin { get; set; }
@@ -327,7 +328,7 @@ namespace VOP
         {
             if (null != spinnerDensityAdjustment)
             {
-                m_densityValue = (sbyte)spinnerDensityAdjustment.Value;
+                m_densityValue = (sbyte)(spinnerDensityAdjustment.Value - 4);
             }
         }
         private void chkBtnPaperOrientation_Checked(object sender, RoutedEventArgs e)
@@ -366,11 +367,14 @@ namespace VOP
         const int DM_PROMPT = 4;
         private void AdvancedSettingButtonClick(object sender, RoutedEventArgs e)
         {
-            string printerName = m_MainWin.statusPanelPage.m_selectedPrinter;           
+            string printerName = m_MainWin.statusPanelPage.m_selectedPrinter;
+
+            GetDensityValues();
+            GetScalingValues();
 
             if (printerName != null && printerName.Length > 0)
             {
-                dll.SetPrinterInof(m_MainWin.statusPanelPage.m_selectedPrinter, (short)m_paperSize, (short)m_paperOrientation, (short)m_mediaType, (short)m_paperOrder, (short)m_printQuality, (short)m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_densityValue, (short)m_duplexPrint, (short)m_reversePrint, m_tonerSaving);
+                dll.SetPrinterInof(m_MainWin.statusPanelPage.m_selectedPrinter, (short)m_paperSize, (short)m_paperOrientation, (short)m_mediaType, (short)m_paperOrder, (short)m_printQuality, (short)m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_colorBalanceTo,m_densityValue, (short)m_duplexPrint, (short)m_reversePrint, m_tonerSaving);
                 IntPtr pPrinter = IntPtr.Zero;
                 IntPtr pDevModeOutput = IntPtr.Zero;
                 IntPtr pDevModeInput = IntPtr.Zero;
