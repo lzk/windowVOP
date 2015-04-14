@@ -36,6 +36,9 @@ namespace VOP
         private Thread scanningThread = null;
         private uint WM_VOPSCAN_PROGRESS = Win32.RegisterWindowMessage("vop_scan_progress2");
         private uint WM_VOPSCAN_COMPLETED = Win32.RegisterWindowMessage("vop_scan_completed");
+        // share data between UI thread and scanning thread. TODO: add sync
+        // for objScan
+        private ScanFiles objScan = null; 
 
         public ScanPage()
         {
@@ -172,7 +175,7 @@ namespace VOP
 
         public void DoScanning()
         {
-            ScanFiles objScan = new ScanFiles();
+            objScan = new ScanFiles();
             objScan.m_colorMode = m_color;
 
             string strFolder = System.IO.Path.GetTempPath()+"VOPCache\\";
@@ -211,7 +214,7 @@ namespace VOP
                     docutype   ,
                     WM_VOPSCAN_PROGRESS);
 
-            Win32.PostMessage( (IntPtr)0xffff, WM_VOPSCAN_COMPLETED, IntPtr.Zero , IntPtr.Zero );
+            Win32.PostMessage( (IntPtr)0xffff, WM_VOPSCAN_COMPLETED, (IntPtr)nResult, IntPtr.Zero );
 
         }
 
@@ -220,23 +223,6 @@ namespace VOP
             scanningThread = new Thread(DoScanning);
             scanningThread.Start();
 
-            // if ( RETSCAN_OK == nResult )
-            // {
-            //     ImageItem img  = new ImageItem();
-            //     img.m_images = objScan;
-
-            //     if ( null != img.m_source )
-            //     {
-            //         img.ImageSingleClick += ImageItemSingleClick;
-            //         img.ImageDoubleClick += ImageItemDoubleClick;
-            //         this.image_wrappanel.Children.Insert(0, img );
-            //         App.scanFileList.Add( objScan );
-            //     }
-            // }
-            // else
-            // {
-            //     m_MainWin.statusPanelPage.ShowMessage( "Scan Fail" );
-            // }
         }
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
@@ -303,6 +289,23 @@ namespace VOP
             } 
             else if ( WM_VOPSCAN_COMPLETED == msg )
             {
+                 if ( RETSCAN_OK == (int)wParam )
+                 {
+                     ImageItem img  = new ImageItem();
+                     img.m_images = objScan;
+
+                     if ( null != img.m_source )
+                     {
+                         img.ImageSingleClick += ImageItemSingleClick;
+                         img.ImageDoubleClick += ImageItemDoubleClick;
+                         this.image_wrappanel.Children.Insert(0, img );
+                         App.scanFileList.Add( objScan );
+                     }
+                 }
+                 else
+                 {
+                     m_MainWin.statusPanelPage.ShowMessage( "Scan Fail" );
+                 }
             }
 
             return IntPtr.Zero;
