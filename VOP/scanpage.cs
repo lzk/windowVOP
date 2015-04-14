@@ -106,6 +106,17 @@ namespace VOP
 
             img.m_ischeck = !img.m_ischeck;
             img.CheckImage( img.m_ischeck );
+
+            if ( 0 < GetSelectedItemCount() )
+            {
+                btnPrint.IsEnabled = true;
+                btnSave.IsEnabled = true;
+            }
+            else
+            {
+                btnPrint.IsEnabled = false;
+                btnSave.IsEnabled = false;
+            }
         }
 
         private void ImageItemDoubleClick(object sender, RoutedEventArgs e)
@@ -223,6 +234,7 @@ namespace VOP
 
         private void btnScan_Click(object sender, RoutedEventArgs e)
         {
+            btnCancel.IsEnabled = true;
             scanningThread = new Thread(DoScanning);
             scanningThread.Start();
 
@@ -233,6 +245,10 @@ namespace VOP
             int s = GetScanSize();
 
             txtBlkImgSize.Text = s.ToString()+" bytes";
+
+            btnPrint.IsEnabled = false;
+            btnSave.IsEnabled = false;
+            btnCancel.IsEnabled = false;
 
 			//Configure the ProgressBar
             progressBar1.Minimum = 0;
@@ -295,6 +311,7 @@ namespace VOP
             else if ( WM_VOPSCAN_COMPLETED == msg )
             {
                  handled = true;
+                 btnCancel.IsEnabled = false;
 
                  if ( RETSCAN_OK == (int)wParam )
                  {
@@ -360,5 +377,26 @@ namespace VOP
             }  
         }
 
+        /// <summary>
+        /// Get the amount of selected items.
+        /// </summary>
+        private int GetSelectedItemCount()
+        {
+            int nCount = 0;
+            foreach ( object obj in image_wrappanel.Children )
+            {
+                ImageItem img = obj as ImageItem;
+
+                if ( null != img && true == img.m_ischeck )
+                    nCount++;
+            }
+
+            return nCount;
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
