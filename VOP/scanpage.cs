@@ -311,7 +311,7 @@ namespace VOP
                          App.scanFileList.Add( objScan );
                      }
                  }
-                 else if ( RETSCAN_CANCEL == msg )
+                 else if ( RETSCAN_CANCEL == (int)wParam )
                  {
                      // TODO: Clear this message in release version.
                      m_MainWin.statusPanelPage.ShowMessage( "Scan cancel" );

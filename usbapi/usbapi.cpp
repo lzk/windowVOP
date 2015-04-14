@@ -2748,6 +2748,8 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                                 ScalingBitmap(szOrig, szThumb, rThumb);
                             }
                         }
+
+                        ::SendNotifyMessage( HWND_BROADCAST, uMsg, 100, 0); 
                     }
                     else
                     {
@@ -2755,7 +2757,6 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                         nResult = RETSCAN_CANCEL;
                     }
 
-                    ::SendNotifyMessage( HWND_BROADCAST, uMsg, 100, 0); 
                     obj.StopScan();
                 }
                 else
