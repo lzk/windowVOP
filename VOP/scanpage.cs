@@ -34,6 +34,8 @@ namespace VOP
         private const int RETSCAN_ERROR_PORT     = 6;
 #endregion
         private Thread scanningThread = null;
+        private uint WM_VOPSCAN_PROGRESS = Win32.RegisterWindowMessage("vop_scan_progress2");
+        private uint WM_VOPSCAN_COMPLETED = Win32.RegisterWindowMessage("vop_scan_completed");
 
         public ScanPage()
         {
@@ -192,7 +194,6 @@ namespace VOP
             int contrast   = m_contrast;
             int brightness = m_brightness;
             int docutype   = (int)m_docutype;
-            uint uMsg      = App.progressMsg;
 
             common.GetPaperSize( m_paperSize, ref nWidth, ref nHeight );
 
@@ -208,8 +209,9 @@ namespace VOP
                     contrast   ,
                     brightness ,
                     docutype   ,
-                    uMsg       );
+                    WM_VOPSCAN_PROGRESS);
 
+            Win32.PostMessage( (IntPtr)0xffff, WM_VOPSCAN_COMPLETED, IntPtr.Zero , IntPtr.Zero );
 
         }
 
@@ -293,11 +295,14 @@ namespace VOP
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            if ( App.progressMsg == msg )
+            if ( WM_VOPSCAN_PROGRESS == msg )
             {                        
                  progressBar1.Value = wParam.ToInt32();
                  txtProgressPercent.Text = wParam.ToString();
                  handled = true;
+            } 
+            else if ( WM_VOPSCAN_COMPLETED == msg )
+            {
             }
 
             return IntPtr.Zero;
