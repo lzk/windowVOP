@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Input; // for MouseButtonEventArgs
 using System.Windows.Media.Imaging; // for BitmapImage
 using System.Collections.Generic;
+using System.Windows.Interop; // for HwndSource
 
 namespace VOP
 {
@@ -101,9 +102,12 @@ namespace VOP
 
         private void ImageItemDoubleClick(object sender, RoutedEventArgs e)
         {
+
+            ImageItem img = (ImageItem)sender;
+
             ScanPreview win = new ScanPreview();
             win.Owner = App.Current.MainWindow;
-			win.m_images = App.scanFileList[0];
+			win.m_images = img.m_images;
             win.ShowDialog();
         }
 
@@ -182,12 +186,12 @@ namespace VOP
 
             int scanMode   = (int)m_color;
             int resolution = (int)m_scanResln;
-            int nWidth      = 0;
-            int nHeight     = 0;
+            int nWidth     = 0;
+            int nHeight    = 0;
             int contrast   = m_contrast;
             int brightness = m_brightness;
             int docutype   = (int)m_docutype;
-            uint uMsg      = 0;
+            uint uMsg      = App.progressMsg;
 
             common.GetPaperSize( m_paperSize, ref nWidth, ref nHeight );
 
@@ -230,6 +234,9 @@ namespace VOP
             int s = GetScanSize();
 
             txtBlkImgSize.Text = s.ToString()+" bytes";
+
+            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
+            source.AddHook(WndProc);
         }
 
 
@@ -269,6 +276,16 @@ namespace VOP
             size = nWidth/1000*nHeight/1000*dpi*dpi*fClrDeep;
 
             return (int)size;
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if ( App.progressMsg == msg )
+            {                        
+                 progressBar1.Value = wParam.ToInt32();
+            }
+
+            return IntPtr.Zero;
         }
     }
 }

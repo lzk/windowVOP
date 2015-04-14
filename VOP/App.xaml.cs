@@ -17,9 +17,9 @@ namespace VOP
         /// define in App.
         /// </summary>
         public static List<ScanFiles> scanFileList = new List<ScanFiles>(); 
-
         public static AutoMachine g_autoMachine = new AutoMachine();
         public static uint WM_STATUS_UPDATE = Win32.RegisterWindowMessage("35abddc8c9f59ddfebcf8a3bfdd8ea9b4ef9dfd8");
+        public static uint progressMsg = Win32.RegisterWindowMessage("vop_scan_progress2");
 
         App()
         {
