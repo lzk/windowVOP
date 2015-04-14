@@ -50,11 +50,11 @@
                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                         <LinearGradientBrush.GradientStops>
                                             <GradientStop
-                                                Color="{StaticResource clr7}" Offset="0"/>
+                                                Color="{StaticResource clr7}" Offset="1"/>
                                             <GradientStop
                                                 Color="{StaticResource clr6}" Offset="0.5"/>
                                             <GradientStop
-                                                Color="{StaticResource clr5}" Offset="1"/>
+                                                Color="{StaticResource clr5}" Offset="0"/>
                                         </LinearGradientBrush.GradientStops>
                                     </LinearGradientBrush>
                                 </Rectangle.Stroke>
@@ -63,9 +63,9 @@
                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                         <LinearGradientBrush.GradientStops>
                                             <GradientStop
-                                                Color="{StaticResource clr4}" Offset="0"/>
+                                                Color="{StaticResource clr4}" Offset="1"/>
                                             <GradientStop
-                                                Color="{StaticResource clr3}" Offset="1"/>
+                                                Color="{StaticResource clr3}" Offset="0"/>
                                         </LinearGradientBrush.GradientStops>
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
@@ -83,9 +83,9 @@
                                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                 <LinearGradientBrush.GradientStops>
                                                     <GradientStop
-                                                    Color="#ffd4d4d4" Offset="0"/>
+                                                    Color="#ffd4d4d4" Offset="1"/>
                                                     <GradientStop
-                                                    Color="#ff222222" Offset="1"/>
+                                                    Color="#ff222222" Offset="0"/>
                                                 </LinearGradientBrush.GradientStops>
                                             </LinearGradientBrush>
                                         </Setter.Value>
@@ -97,9 +97,9 @@
                                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                 <LinearGradientBrush.GradientStops>
                                                     <GradientStop
-                                                    Color="#ff959595" Offset="0"/>
+                                                    Color="#ff959595" Offset="1"/>
                                                     <GradientStop
-                                                    Color="#ff434343" Offset="1"/>
+                                                    Color="#ff434343" Offset="0"/>
                                                 </LinearGradientBrush.GradientStops>
                                             </LinearGradientBrush>
                                         </Setter.Value>
@@ -139,22 +139,22 @@
 
         <StackPanel HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal">
             <Button HorizontalAlignment="Left" Name="btn_normal" Click="imagebtn_click"
-                VerticalAlignment="Top" Width="55" Style="{DynamicResource 3dbutton}">
+                VerticalAlignment="Center" Width="55" Style="{DynamicResource 3dbutton}">
         		<Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/Fit.tif"/>
         	</Button>
             <Button HorizontalAlignment="Left" Name="btn_zoomin" Click="imagebtn_click"
-                VerticalAlignment="Top" Width="55" Style="{DynamicResource 3dbutton}">
+                VerticalAlignment="Center" Width="55" Style="{DynamicResource 3dbutton}">
         		<Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/ZoomIn.tif"/>
         	</Button>
             <Button HorizontalAlignment="Left" Margin="0"  Name="btn_zoomout" Click="imagebtn_click"
-                VerticalAlignment="Top" Width="55" Style="{DynamicResource 3dbutton}">
+                VerticalAlignment="Center" Width="55" Style="{DynamicResource 3dbutton}">
         		<Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/ZoomOut.tif"/>
         	</Button>
             <Button HorizontalAlignment="Left" Name="btn_turn" Click="imagebtn_click"
-                VerticalAlignment="Top" Width="55" Style="{DynamicResource 3dbutton}">
+                VerticalAlignment="Center" Width="55" Style="{DynamicResource 3dbutton}">
         		<Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/Turn.tif"/>
         	</Button>
