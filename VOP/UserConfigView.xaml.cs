@@ -42,7 +42,9 @@ namespace VOP
             m_sidetoside = 0;
             m_imagedensity = 0;
             m_lowhumiditymode = 0;
-
+            m_platecontrolmode = 2;
+            m_primarycoolingmode = 0;
+ 
             UserCfgRecord m_rec = null;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
             string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
@@ -62,6 +64,9 @@ namespace VOP
                 m_sidetoside = m_rec.SideToSide;
                 m_imagedensity = m_rec.ImageDensity;
                 m_lowhumiditymode = m_rec.LowHumidityMode;
+                m_platecontrolmode = m_rec.PlateControlMode;
+                m_primarycoolingmode = m_rec.PrimaryCoolingMode;
+
                 isInitSuccess = true;
             }
 
@@ -69,6 +74,16 @@ namespace VOP
             spinCtlSide2Side.Value = m_sidetoside;
             spinCtlHumidity.Value = m_lowhumiditymode;
             spinCtlDensity.Value = m_imagedensity;
+
+            if (0 == m_platecontrolmode)
+                chkPlateControlMode.IsChecked = true;
+            else
+                chkPlateControlMode.IsChecked = false;
+
+            if (1 == m_primarycoolingmode)
+                chkCoolingMode.IsChecked = true;
+            else
+                chkCoolingMode.IsChecked = false;
 
             return isInitSuccess;
         }
