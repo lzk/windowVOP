@@ -56,7 +56,7 @@
 
                             <Setter TargetName="innerRect" Property="Stroke" Value="{StaticResource GreenButtonStrokeNormal}" />
                             <Setter TargetName="innerRect" Property="Fill" Value="{StaticResource GreenButtonFillNormal}" />
-                            <Setter TargetName="myContentPresenter" Property="Foreground" Value="Black"/>
+                            <Setter TargetName="myContentPresenter" Property="Foreground" Value="White"/>
                         </MultiTrigger>
 
                         <MultiTrigger>
@@ -88,7 +88,7 @@
 
                             <Setter TargetName="innerRect" Property="Stroke" Value="{StaticResource GrayButtonStrokeNormal}" />
                             <Setter TargetName="innerRect" Property="Fill" Value="{StaticResource GrayButtonFillNormal}" />
-                            <Setter TargetName="myContentPresenter" Property="Foreground" Value="Black"/>
+                            <Setter TargetName="myContentPresenter" Property="Foreground" Value="#FF0AAA0A"/>
                         </MultiTrigger>
 
                         <MultiTrigger>
