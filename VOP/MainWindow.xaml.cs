@@ -571,6 +571,7 @@ namespace VOP
                 Grid.SetRow(tabItem_Setting, 3);
 
                 winSettingPage.mainGrid.Background = imgBk_Brush_1;
+                winSettingPage.m_bOnlyDispalyAboutView = true;
 
                 setTabItemFromIndex(3);
             }

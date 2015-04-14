@@ -30,6 +30,8 @@ namespace VOP
         PasswordView passwordView = new PasswordView();
         AboutView aboutView = new AboutView();
 
+        public bool m_bOnlyDispalyAboutView = false;
+
         public SettingPage()
         {
             InitializeComponent();
@@ -137,27 +139,38 @@ namespace VOP
         {
             setting_tab_btn.Children.Clear();
             Grid.SetColumnSpan(setting_tab_btn, 3);
-
-            if ( m_MainWin.statusPanelPage.m_isWiFiModel )
+            
+            if (false == m_bOnlyDispalyAboutView)
             {
-                setting_tab_btn.Children.Add(btnwifi);
-                setting_tab_btn.Children.Add(btnSoftAp);
-                setting_tab_btn.Children.Add(btnTCPIP);
-            }
+                if (m_MainWin.statusPanelPage.m_isWiFiModel)
+                {
+                    setting_tab_btn.Children.Add(btnwifi);
+                    setting_tab_btn.Children.Add(btnSoftAp);
+                    setting_tab_btn.Children.Add(btnTCPIP);
+                }
 
-            setting_tab_btn.Children.Add(btnPowerSave);
-            setting_tab_btn.Children.Add(btnUserConfig);
-            setting_tab_btn.Children.Add(btnPwd);
-            setting_tab_btn.Children.Add(btnAbout);
+                setting_tab_btn.Children.Add(btnPowerSave);
+                setting_tab_btn.Children.Add(btnUserConfig);
+                setting_tab_btn.Children.Add(btnPwd);
+                setting_tab_btn.Children.Add(btnAbout);
 
-            if ( m_MainWin.statusPanelPage.m_isWiFiModel )
-            {
-                ClickSettingButton(IconType.Wireless);
+                if (m_MainWin.statusPanelPage.m_isWiFiModel)
+                {
+                    ClickSettingButton(IconType.Wireless);
+                }
+                else
+                {
+                    ClickSettingButton(IconType.PowerSave);
+                }
             }
             else
             {
-                ClickSettingButton(IconType.PowerSave);
+                //Only display about view when no printer online.
+                setting_tab_btn.Children.Add(btnAbout);
+                ClickSettingButton(IconType.About);
+
             }
+
         }
 
         private void SettingBtnClick(object sender, RoutedEventArgs e)
