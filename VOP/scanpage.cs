@@ -48,9 +48,11 @@ namespace VOP
             InitializeComponent();
 
             ScanFiles objScan   = new ScanFiles();
-            objScan.m_pathOrig  = @"F:\VOP\VOP\Images\image1.bmp";
-            objScan.m_pathView  = @"F:\VOP\VOP\Images\image1.bmp";
-            objScan.m_pathThumb  = @"F:\VOP\VOP\Images\image1.bmp";
+
+            objScan.m_pathOrig  = @"G:\TestImages\image1.bmp";
+            objScan.m_pathView  = @"G:\TestImages\image2.bmp";
+            objScan.m_pathThumb = @"G:\TestImages\image3.bmp";
+             
             objScan.m_colorMode  = EnumColorType.color_24bit;
             App.scanFileList.Add( objScan );
             App.scanFileList.Add( objScan );
@@ -140,9 +142,20 @@ namespace VOP
                 m_MainWin.SwitchToPrintingPage( files );
             }
 
-            if ( 0 != win.m_rotatedAngle%360 )
+            if ( 0 != win.m_rotatedAngle%360 && null != win.m_rotatedObj )
             {
-                img.UpdateImage();
+                ImageItem tmp  = new ImageItem();
+                tmp.m_images = win.m_rotatedObj;
+
+                if ( null != tmp.m_source )
+                {
+                    tmp.ImageSingleClick += ImageItemSingleClick;
+                    tmp.ImageDoubleClick += ImageItemDoubleClick;
+                    tmp.CheckImage( false );
+                    tmp.Margin = new Thickness( 5 );
+                    this.image_wrappanel.Children.Insert(0, tmp );
+                    App.scanFileList.Add( objScan );
+                }
             }
         }
 

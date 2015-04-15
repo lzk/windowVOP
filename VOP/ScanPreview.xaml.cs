@@ -28,9 +28,10 @@ namespace VOP
         private BitmapSource m_src        = null; // image object for preview image.
         private double m_scale            = 1;    // scaling rate of preview image.
 
-        public ScanFiles m_images  = null;
-        public bool isPrint        = false;    // turn if user click print.
-        public int m_rotatedAngle  = 0;        // rotated angle of preview image.
+        public ScanFiles m_images     = null;
+        public bool isPrint           = false;    // turn if user click print.
+        public int m_rotatedAngle     = 0;        // rotated angle of preview image.
+        public ScanFiles m_rotatedObj = null;     
 
         public ScanPreview()
         {
@@ -177,9 +178,16 @@ namespace VOP
                 if ( VOP.Controls.MessageBoxExResult.Yes == 
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, "扫描图片已被更改，是否保存，请确认。", "提示") )
                 {
-                    SaveRotatedImage( m_images.m_pathOrig , m_images.m_pathOrig , m_rotatedAngle );
-                    SaveRotatedImage( m_images.m_pathView , m_images.m_pathView , m_rotatedAngle );
-                    SaveRotatedImage( m_images.m_pathThumb, m_images.m_pathThumb, m_rotatedAngle );
+                    m_rotatedObj = new ScanFiles();
+                    m_rotatedObj.m_colorMode = EnumColorType.color_24bit;
+
+                    m_rotatedObj.m_pathOrig  = m_images.m_pathOrig.Insert( m_images.m_pathOrig.Length-4   , "90" );
+                    m_rotatedObj.m_pathView  = m_images.m_pathView.Insert( m_images.m_pathView.Length-4   , "90" );
+                    m_rotatedObj.m_pathThumb = m_images.m_pathThumb.Insert( m_images.m_pathThumb.Length-4 , "90" );
+
+                    SaveRotatedImage( m_images.m_pathOrig , m_rotatedObj.m_pathOrig , m_rotatedAngle );
+                    SaveRotatedImage( m_images.m_pathView , m_rotatedObj.m_pathView , m_rotatedAngle );
+                    SaveRotatedImage( m_images.m_pathThumb, m_rotatedObj.m_pathThumb, m_rotatedAngle );
                 }
                 else
                 {
