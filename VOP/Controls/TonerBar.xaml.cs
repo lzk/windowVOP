@@ -30,6 +30,7 @@ namespace VOP
         private LinearGradientBrush Brush_Normal = null;
         private ImageBrush imgBrush_Warn = null;
         private ImageBrush imgBrush_Normal = null;
+        private ImageBrush imgBrush_Disable = null;
 
         DispatcherTimer timer = new DispatcherTimer();
        
@@ -121,6 +122,22 @@ namespace VOP
 
             oldValue = curPercet;
         }
+
+        public bool IsEnabled
+        {
+            get { return (bool)GetValue(IsEnabledProperty); }
+            set { SetValue(IsEnabledProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsEnabledProperty =
+            DependencyProperty.Register("IsEnabled", typeof(bool), typeof(TonerBar),
+             new FrameworkPropertyMetadata(false, new PropertyChangedCallback(OnIsEnable_Changed)));
+
+        private static void OnIsEnable_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            VOP.TonerBar _this = (VOP.TonerBar)sender;
+            _this.PaintControl();
+        }      
         #endregion // Property
 
         void PaintControl()
@@ -148,24 +165,41 @@ namespace VOP
             textblock_Tip.Text = string.Format("碳粉容量 ： {0:P0}", CurValue / 100.0);
 
             // Draw ShopCart Image
-            if (curPercet <= 10)
+            if(IsEnabled)
             {
-                shopCart_Img.Fill = imgBrush_Warn;
-            }
-            else
-            {
-                shopCart_Img.Fill = imgBrush_Normal;
-            }
+                if (0 == curPercet)
+                {
+                    shopCart_Img.Fill = imgBrush_Disable;
+                }
+                else if (curPercet <= 10)
+                {
+                    shopCart_Img.Fill = imgBrush_Warn;
+                }
+                else
+                {
+                    shopCart_Img.Fill = imgBrush_Normal;
+                }
 
-            if (curPercet <= 30)
-            {
-                timer.Start();
+                if (0 == curPercet)
+                {
+                    timer.Stop();
+                    shopCart_Img.Opacity = 1.0;                 
+                }
+                else if (curPercet <= 30)
+                {
+                    timer.Start();               
+                }
+                else
+                {
+                    timer.Stop();
+                    shopCart_Img.Opacity = 1.0;               
+                }
             }
             else
             {
-                timer.Stop();
-                shopCart_Img.Opacity = 1.0;
-            }
+                shopCart_Img.Fill = imgBrush_Disable;
+                timer.Stop();            
+            }         
         }
         public TonerBar()
         {
@@ -192,8 +226,9 @@ namespace VOP
             Brush_30_percent = (LinearGradientBrush)this.FindResource("Brush_30");
             Brush_Normal = (LinearGradientBrush)this.FindResource("Brush_Normal");
 
-            imgBrush_Warn = (ImageBrush)this.FindResource("imgBrush_Warn"); ;
-            imgBrush_Normal = (ImageBrush)this.FindResource("imgBrush_Normal"); ;
+            imgBrush_Warn = (ImageBrush)this.FindResource("imgBrush_Warn");
+            imgBrush_Normal = (ImageBrush)this.FindResource("imgBrush_Normal");
+            imgBrush_Disable = (ImageBrush)this.FindResource("imgBrush_Disable");
 
             timer.Interval = new TimeSpan(0, 0, 0, 0, MilliSeconds);
             timer.Tick += new EventHandler(timer_Tick);
@@ -208,10 +243,15 @@ namespace VOP
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            RoutedEventArgs clickEventArgs = new RoutedEventArgs();
-            clickEventArgs.RoutedEvent = TonerBar.ClickEvent;
-            clickEventArgs.Source = this;
-            RaiseEvent(clickEventArgs);
+            if(IsEnabled && (0 != curPercet))
+            {
+                shopCart_Img.Opacity = 1.0;
+
+                RoutedEventArgs clickEventArgs = new RoutedEventArgs();
+                clickEventArgs.RoutedEvent = TonerBar.ClickEvent;
+                clickEventArgs.Source = this;
+                RaiseEvent(clickEventArgs);
+            }           
         }
     }
 }

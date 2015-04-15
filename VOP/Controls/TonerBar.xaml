@@ -45,6 +45,7 @@
 
         <ImageBrush x:Key="imgBrush_Warn" ImageSource="..\Images\shopCart_Warn.png" />
         <ImageBrush x:Key="imgBrush_Normal" ImageSource="..\Images\shopCart_Normal.png" />
+        <ImageBrush x:Key="imgBrush_Disable" ImageSource="..\Images\shopCart_Disable.tif" />
 
     </UserControl.Resources>
     
