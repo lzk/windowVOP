@@ -105,93 +105,6 @@ namespace VOP
             this.Close();
         }
 
-        private void print_btn_click(object sender, RoutedEventArgs e)
-        {
-
-          
-        }
-
-
-        private void save_btn_click(object sender, RoutedEventArgs e)
-        {
-
-            SaveFileDialog save = new SaveFileDialog();
-            save.Filter = "TIF|*.tif|PDF|*.pdf|JPG|*.jpg";
-            bool? result = save.ShowDialog();
-
-            if (result == true)
-            {
-
-                // This index is 1-based, not 0-based
-                if (3 == save.FilterIndex)
-                {
-                    Uri myUri = new Uri(m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
-                    BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
-                    BitmapSource origSource = decoder.Frames[0];
-
-                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                    switch (m_images.m_rotate)
-                    {
-                        case 0:
-                            encoder.Rotation = Rotation.Rotate0;
-                            break;
-                        case 90:
-                            encoder.Rotation = Rotation.Rotate90;
-                            break;
-                        case 180:
-                            encoder.Rotation = Rotation.Rotate180;
-                            break;
-                        case 270:
-                            encoder.Rotation = Rotation.Rotate270;
-                            break;
-
-                    }
-
-                    if (null != origSource)
-                        encoder.Frames.Add(BitmapFrame.Create(origSource));
-
-                    FileStream fs = File.Open(save.FileName, FileMode.Create);
-                    encoder.Save(fs);
-                    fs.Close();
-                }
-                else if (1 == save.FilterIndex)
-                {
-                    BitmapSource origSource = common.GetOrigBitmapSource(m_images);
-                    TiffBitmapEncoder encoder = new TiffBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(origSource));
-
-                    FileStream fs = File.Open(save.FileName, FileMode.Create);
-                    encoder.Save(fs);
-                    fs.Close();
-                }
-                else if (2 == save.FilterIndex)
-                {
-                    try
-                    {
-                        using (PdfHelper help = new PdfHelper())
-                        {
-                            help.Open(save.FileName);
-
-                            Uri myUri = new Uri(m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
-                            BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
-                            BitmapSource origSource = decoder.Frames[0];
-
-                            if (null != origSource)
-                                help.AddImage(origSource, m_images.m_rotate);
-
-                            help.Close();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                    }
-
-                }
-
-            }
-        }
-
         private void imagebtn_click(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
@@ -243,6 +156,38 @@ namespace VOP
             }
 
             CenterImage();
+        }
+
+        private void btnOK_Click(object sender, RoutedEventArgs e)
+        {
+            ClosePreviewWin();
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            ClosePreviewWin();
+        }
+
+        private void btnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            ClosePreviewWin();
+        }
+
+        /// <summary>
+        /// Close preview window. Popup MessageBox to user if the image has rotated.
+        /// </summary>
+        private void ClosePreviewWin()
+        {
+            if ( 0 != m_images.m_rotate % 360 )
+            {
+                if ( VOP.Controls.MessageBoxExResult.Yes == 
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, "扫描图片已被更改，是否保存，请确认。", "提示") )
+                {
+                    // TODO: rotate image
+                }
+            }
+
+            this.Close();
         }
 
     }

@@ -130,7 +130,7 @@
             <TextBlock Text="Preview" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
 
-        <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True"/>
+        <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" />
         
         <!--<ScrollViewer Margin="0" Grid.Row="1"/>-->
         <ScrollViewer Name="scrollPreview" Margin="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Style="{StaticResource LeftScrollViewer}">
@@ -161,12 +161,12 @@
         </StackPanel>
 
         <StackPanel Margin="0" Grid.Row="3" Width="240" Orientation="Horizontal">
-            <local:ButtonEx Click="save_btn_click" Content="确定" HorizontalAlignment="Center" Height="30"
+            <local:ButtonEx x:Name="btnOK" Content="确定" HorizontalAlignment="Center" Height="30"
                 HorizontalContentAlignment="Center"
-                Margin="25,0,0,0" Width="75" VerticalAlignment="Center"/>
-            <local:ButtonEx Click="print_btn_click" Content="打印" HorizontalAlignment="Center" Height="30"
+                Margin="25,0,0,0" Width="75" VerticalAlignment="Center" Click="btnOK_Click"/>
+            <local:ButtonEx x:Name="btnPrint"  Content="打印" HorizontalAlignment="Center" Height="30"
                 HorizontalContentAlignment="Center"
-                Margin="25,0,0,0" Width="75" IsDefault="true" VerticalAlignment="Center" />
+                Margin="25,0,0,0" Width="75" IsDefault="true" VerticalAlignment="Center" Click="btnPrint_Click" />
         </StackPanel>
         
     </Grid>
