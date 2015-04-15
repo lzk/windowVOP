@@ -8,7 +8,6 @@ namespace VOP
         public string m_pathView;
         public string m_pathThumb;
         
-        public int m_rotate = 0;
         public EnumColorType m_colorMode = 0;
     }
 

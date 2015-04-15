@@ -48,7 +48,7 @@ namespace VOP
                     this.Background = Brushes.White;
                     this.Width = 64;
                     this.Height = 64;
-                    src = common.RotateBitmap(m_source, value.m_rotate);
+                    src = bmpSrc;
                 }
                 catch
                 {

@@ -425,25 +425,7 @@ namespace VOP
                             BitmapSource origSource = decoder.Frames[0];
 
                             if (null != origSource)
-                            {
-                                switch (img.m_images.m_rotate)
-                                {
-                                    case 0:
-                                        encoder.Rotation = Rotation.Rotate0;
-                                        break;
-                                    case 90:
-                                        encoder.Rotation = Rotation.Rotate90;
-                                        break;
-                                    case 180:
-                                        encoder.Rotation = Rotation.Rotate180;
-                                        break;
-                                    case 270:
-                                        encoder.Rotation = Rotation.Rotate270;
-                                        break;
-
-                                }
                                 encoder.Frames.Add(BitmapFrame.Create(origSource));
-                            }
                         }
                     }  
 
@@ -492,7 +474,7 @@ namespace VOP
                                     BitmapSource origSource = decoder.Frames[0];
 
                                     if ( null != origSource )
-                                        help.AddImage(origSource, img.m_images.m_rotate);
+                                        help.AddImage(origSource, 0);
                                 }
                             }  
 

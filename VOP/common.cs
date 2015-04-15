@@ -123,9 +123,7 @@ namespace VOP
             {
                 Uri myUri = new Uri(obj.m_pathOrig, UriKind.RelativeOrAbsolute);
                 BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
-                BitmapSource bitmapSource = decoder.Frames[0];
-
-                origSource = common.RotateBitmap(bitmapSource, obj.m_rotate);
+                origSource = decoder.Frames[0];
             }
             catch
             {

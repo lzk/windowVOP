@@ -25,8 +25,10 @@ namespace VOP
     public partial class ScanPreview : Window
     {
         public BitmapSource m_src = null;
-        public double m_scale = 1;
         public double m_scaleFitToWindow = 1;
+        
+        private double m_scale = 1;     // scaling rate of preview image.
+        private int m_rotatedAngle = 0; // rotated angle of preview image. 
 
         public ScanFiles m_images;
 
@@ -75,7 +77,7 @@ namespace VOP
 
                 m_scale = (scaling1 < scaling2) ? scaling1 : scaling2;
                 m_scaleFitToWindow = m_scale;
-                this.previewImg.Source = common.RotateBitmap(m_src, m_images.m_rotate);
+                this.previewImg.Source = m_src;
 
                 CenterImage();
             }
@@ -100,11 +102,6 @@ namespace VOP
                 this.DragMove();
         }
 
-        private void CloseBtnClick(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
         private void imagebtn_click(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
@@ -123,10 +120,10 @@ namespace VOP
             else if (name == "btn_turn")
             {
                 m_scale = m_scaleFitToWindow;
-                m_images.m_rotate += 90;
-                m_images.m_rotate = m_images.m_rotate % 360;
+                m_rotatedAngle += 90;
+                m_rotatedAngle = m_rotatedAngle % 360;
 
-                previewImg.Source = common.RotateBitmap(m_src, m_images.m_rotate);
+                previewImg.Source = common.RotateBitmap(m_src, m_rotatedAngle);
                 GC.Collect();
             }
             else if (name == "btn_normal")
@@ -144,7 +141,7 @@ namespace VOP
             else if (m_scale >= 4)
                 m_scale = 4;
 
-            if (-90 == m_images.m_rotate || -270 == m_images.m_rotate)
+            if (-90 == m_rotatedAngle || -270 == m_rotatedAngle)
             {
                 previewImg.Height = m_src.Width * m_scale;
                 previewImg.Width = m_src.Height * m_scale;
@@ -178,7 +175,7 @@ namespace VOP
         /// </summary>
         private void ClosePreviewWin()
         {
-            if ( 0 != m_images.m_rotate % 360 )
+            if ( 0 != m_rotatedAngle % 360 )
             {
                 if ( VOP.Controls.MessageBoxExResult.Yes == 
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, "扫描图片已被更改，是否保存，请确认。", "提示") )
