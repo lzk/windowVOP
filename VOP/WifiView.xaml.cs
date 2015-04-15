@@ -414,14 +414,20 @@ namespace VOP
                     btnConnectOthAp.Visibility = Visibility.Hidden;
                     autoConnect.Visibility = Visibility.Hidden;
                     manualConnect.Visibility = Visibility.Visible;
+                    rowManual.Height = GridLength.Auto;
+                    rowAuto.Height = new GridLength(0);
                 }
                 else
                 {
                     btnConnectOthAp.Visibility = Visibility.Visible;
                     autoConnect.Visibility = Visibility.Visible;
                     manualConnect.Visibility = Visibility.Hidden;
+                    rowManual.Height = new GridLength(0);
+                    rowAuto.Height = GridLength.Auto;
                 }
             }
+
+            scrollview.ScrollToTop();
         }
 
         private void OnchkWifiUnchecked(object sender, RoutedEventArgs e)
@@ -429,6 +435,11 @@ namespace VOP
             btnConnectOthAp.Visibility = Visibility.Hidden;
             autoConnect.Visibility = Visibility.Hidden;
             manualConnect.Visibility = Visibility.Hidden;
+            rowManual.Height = new GridLength(0);
+            rowAuto.Height = new GridLength(0);
+            wifilist.Children.Clear();
+
+            scrollview.ScrollToTop();
         }
 
         private void OnClickWifiCheckBox(object sender, RoutedEventArgs e)
