@@ -22,7 +22,7 @@ namespace VOP
     {
         VOP.Controls.WifiSetting wifiSettingInit = new VOP.Controls.WifiSetting();
         VOP.Controls.WifiSetting wifiSetting = new VOP.Controls.WifiSetting();
-
+        private bool m_bConnectOthApMode = false;
         public WifiView()
         {
             InitializeComponent();           
@@ -133,6 +133,7 @@ namespace VOP
                 rowAuto.Height = new GridLength(0);
                 scrollview.ScrollToTop();
                 wepKey0.IsChecked = true;
+                m_bConnectOthApMode = true;
             }
             else if (btn.Name == "btnCancel")
             {
@@ -142,6 +143,7 @@ namespace VOP
                 autoConnect.Visibility = Visibility.Visible;
                 rowAuto.Height = GridLength.Auto;
                 scrollview.ScrollToTop();
+                m_bConnectOthApMode = false;
             }
             else if(btn.Name == "btnConnect")
             {
@@ -375,6 +377,33 @@ namespace VOP
                     wepGrid.Visibility = Visibility.Hidden;
             }
         }
+        
+        private void OnchkWifiChecked(object sender, RoutedEventArgs e)
+        {
+            if (null != btnConnectOthAp &&
+                null != autoConnect &&
+                null != manualConnect)
+            {
+                if (m_bConnectOthApMode)
+                {
+                    btnConnectOthAp.Visibility = Visibility.Hidden;
+                    autoConnect.Visibility = Visibility.Hidden;
+                    manualConnect.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    btnConnectOthAp.Visibility = Visibility.Visible;
+                    autoConnect.Visibility = Visibility.Visible;
+                    manualConnect.Visibility = Visibility.Hidden;
+                }
+            }
+        }
 
+        private void OnchkWifiUnchecked(object sender, RoutedEventArgs e)
+        {
+            btnConnectOthAp.Visibility = Visibility.Hidden;
+            autoConnect.Visibility = Visibility.Hidden;
+            manualConnect.Visibility = Visibility.Hidden;
+        }
     }
 }
