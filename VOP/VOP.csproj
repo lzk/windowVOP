@@ -68,6 +68,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.PdfEncoderLib">
       <HintPath>..\PdfDll\32bit\Interop.PdfEncoderLib.dll</HintPath>
@@ -527,11 +530,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="RequestManager.cs" />
-
     <Compile Include="ScanPage.cs">
       <DependentUpon>ScanPage.xaml</DependentUpon>
     </Compile>
-
     <Compile Include="SettingPage.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -597,6 +598,7 @@
       <LastGenOutput>LocalData.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
