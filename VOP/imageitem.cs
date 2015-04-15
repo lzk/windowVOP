@@ -31,30 +31,7 @@ namespace VOP
             set
             {
                 _files = value;
-
-                try
-                {
-                    Uri myUri = new Uri(m_images.m_pathThumb, UriKind.RelativeOrAbsolute);
-                    BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
-                    BitmapSource bmpSrc = decoder.Frames[0];
-
-                    if (m_images.m_colorMode == EnumColorType.black_white)
-                    {
-                        bmpSrc = BitmapFrame.Create(new TransformedBitmap(bmpSrc, new ScaleTransform(0.1, 0.1)));
-                    }
-
-                    m_source = bmpSrc;
-                  
-                    this.Background = Brushes.White;
-                    this.Width = 64;
-                    this.Height = 64;
-                    src = bmpSrc;
-                }
-                catch
-                {
-                    m_source = null;
-                }
-
+                UpdateImage();
             }
         }
 
@@ -128,5 +105,31 @@ namespace VOP
         public event RoutedEventHandler ImageSingleClick;
         public event RoutedEventHandler ImageDoubleClick;
         public event RoutedEventHandler CloseIconClick;
+
+        public void UpdateImage()
+        {
+            try
+            {
+                Uri myUri = new Uri(m_images.m_pathThumb, UriKind.RelativeOrAbsolute);
+                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
+                BitmapSource bmpSrc = decoder.Frames[0];
+
+                if (m_images.m_colorMode == EnumColorType.black_white)
+                {
+                    bmpSrc = BitmapFrame.Create(new TransformedBitmap(bmpSrc, new ScaleTransform(0.1, 0.1)));
+                }
+
+                m_source = bmpSrc;
+
+                this.Background = Brushes.White;
+                this.Width = 64;
+                this.Height = 64;
+                src = bmpSrc;
+            }
+            catch
+            {
+                m_source = null;
+            }
+        }
     }
 }

@@ -143,7 +143,7 @@ namespace VOP
 
             if ( true == win.isRotated )
             {
-                // TODO: img.UpdateImage();
+                img.UpdateImage();
             }
         }
 
