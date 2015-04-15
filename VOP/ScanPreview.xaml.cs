@@ -30,6 +30,7 @@ namespace VOP
         private int m_rotatedAngle        = 0;    // rotated angle of preview image.
 
         public ScanFiles m_images;
+        public bool isPrint = false;    // turn if user click print.
 
         public ScanPreview()
         {
@@ -162,6 +163,7 @@ namespace VOP
 
         private void btnPrint_Click(object sender, RoutedEventArgs e)
         {
+            isPrint = true;    
             ClosePreviewWin();
         }
 

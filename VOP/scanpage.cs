@@ -127,9 +127,18 @@ namespace VOP
             ImageItem img = (ImageItem)sender;
 
             ScanPreview win = new ScanPreview();
-            win.Owner = App.Current.MainWindow;
-			win.m_images = img.m_images;
+            win.Owner       = m_MainWin;
+			win.m_images    = img.m_images;
+            win.isPrint     = false;
+
             win.ShowDialog();
+
+            if ( true == win.isPrint )
+            {
+                List<string> files = new List<string>();
+                files.Add( img.m_images.m_pathOrig );
+                m_MainWin.SwitchToPrintingPage( files );
+            }
         }
 
         private void SettingBtnClick(object sender, RoutedEventArgs e)
