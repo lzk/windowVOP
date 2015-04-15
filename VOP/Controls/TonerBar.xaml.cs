@@ -156,7 +156,11 @@ namespace VOP
                 TonerPercent.Background = Brush_30_percent;
           
             }
-            else if (curPercet <= 60)
+            //else if (curPercet <= 60)
+            //{
+            //    TonerPercent.Background = Brush_Normal;
+            //}
+            else
             {
                 TonerPercent.Background = Brush_Normal;
             }
@@ -176,12 +180,7 @@ namespace VOP
                     shopCart_Img.Fill = imgBrush_Normal;
                 }
 
-                if (0 == curPercet)
-                {
-                    timer.Stop();
-                    shopCart_Img.Opacity = 1.0;                 
-                }
-                else if (curPercet <= 30)
+                if (curPercet <= 30)
                 {
                     timer.Start();               
                 }
