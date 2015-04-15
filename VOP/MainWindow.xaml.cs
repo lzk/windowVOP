@@ -377,7 +377,8 @@ namespace VOP
 
             while ( !bExitUpdater )
             {
-                if (false == dll.GetPrinterStatus( statusPanelPage.m_selectedPrinter, ref _status, ref _toner, ref _job) )
+                //if (false == dll.GetPrinterStatus( statusPanelPage.m_selectedPrinter, ref _status, ref _toner, ref _job) )
+                if (false == GetPrinterStatusEx(statusPanelPage.m_selectedPrinter, ref _status, ref _toner, ref _job))
                 {
                     nFailCnt++;
                     
@@ -473,6 +474,42 @@ namespace VOP
             return IntPtr.Zero;
         }
 
+
+
+        /// <summary>
+        /// If the DeviceStatus.xml file exists, then read the file to simulate the status of device,
+        /// or read the device status information
+        /// </summary>
+        /// <param name="printername"></param>
+        /// <param name="status"></param>
+        /// <param name="toner"></param>
+        /// <param name="job"></param>
+        /// <returns></returns>
+        public  bool GetPrinterStatusEx(
+                String printername,
+                ref byte status,
+                ref byte toner,
+                ref byte job)
+        {
+            string deviceStatus = "";
+            string machineJob = "";
+            string tonerCapacity = "";
+
+            // simulate Device status Info.
+            if (StatusXmlHelper.GetPrinterInfo(statusPanelPage.m_selectedPrinter, out deviceStatus, out machineJob, out tonerCapacity, "DeviceStatus.xml"))
+            {
+                toner = (byte)(int)double.Parse(tonerCapacity);
+                status = (byte)StatusXmlHelper.GetStatusTypeFormString(deviceStatus);
+                job = (byte)StatusXmlHelper.GetJobTypeFormString(machineJob);
+
+                return true;
+            }
+            else 
+            {
+                return dll.GetPrinterStatus(statusPanelPage.m_selectedPrinter, ref _status, ref _toner, ref _job);
+            }
+        }
+
         /// <summary>
         /// Handle printer switch event.
         /// </summary>
@@ -500,7 +537,8 @@ namespace VOP
             byte toner  = 0;
             byte status = (byte)EnumStatus.Offline; 
             byte job    = (byte)EnumMachineJob.UnknowJob;
-            if (false == dll.GetPrinterStatus( statusPanelPage.m_selectedPrinter, ref status, ref toner, ref job) )
+            //if (false == dll.GetPrinterStatus( statusPanelPage.m_selectedPrinter, ref status, ref toner, ref job) )
+            if (false == GetPrinterStatusEx(statusPanelPage.m_selectedPrinter, ref status, ref toner, ref job))
             {
                 toner  = 0;
                 status = (byte)EnumStatus.Offline; 

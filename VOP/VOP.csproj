@@ -203,6 +203,7 @@
     <Compile Include="SoftapView.xaml.cs">
       <DependentUpon>SoftapView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StatusXmlHelper.cs" />
     <Compile Include="UserConfigView.xaml.cs">
       <DependentUpon>UserConfigView.xaml</DependentUpon>
     </Compile>
