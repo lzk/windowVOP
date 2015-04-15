@@ -221,7 +221,7 @@ namespace VOP
 
                 }
 
-                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功" : "设置失败");
+                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功，机器重启后生效。" : "设置失败");
             }
             else
             {
@@ -463,6 +463,7 @@ namespace VOP
         private void OnClickWifiCheckBox(object sender, RoutedEventArgs e)
         {
             byte wifiEnable = 0;
+            bool bSuccess = false;
             Nullable<bool> bEnable = chkWifi.IsChecked;
             if (true == bEnable)
                 wifiEnable = 1;
@@ -470,12 +471,21 @@ namespace VOP
             WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, wifiEnable, "", "", EnumEncryptType.WPA2_PSK_AES, 0);
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-            worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetWiFiInfo);
+            if (worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetWiFiInfo))
+            {
+                if (m_rec.CmdResult == EnumCmdResult._ACK)
+                {
+                    bSuccess = true;
+                }
+
+            }
 
             if (true == bEnable)
             {
                 cbo_ssid_refresh();
             }
+
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(bSuccess ? "设置成功，机器重启后生效。" : "设置失败");
         }
     }
 }
