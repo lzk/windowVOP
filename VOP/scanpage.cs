@@ -144,17 +144,35 @@ namespace VOP
 
             if ( 0 != win.m_rotatedAngle%360 && null != win.m_rotatedObj )
             {
-                ImageItem tmp  = new ImageItem();
-                tmp.m_images = win.m_rotatedObj;
-
-                if ( null != tmp.m_source )
+                int index = -1;
+                for ( int i=0; i<image_wrappanel.Children.Count; i++ )
                 {
-                    tmp.ImageSingleClick += ImageItemSingleClick;
-                    tmp.ImageDoubleClick += ImageItemDoubleClick;
-                    tmp.CheckImage( false );
-                    tmp.Margin = new Thickness( 5 );
-                    this.image_wrappanel.Children.Insert(0, tmp );
-                    App.scanFileList.Add( objScan );
+                    if ( image_wrappanel.Children[i] == img )
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+
+                if ( -1 != index )
+                {
+                    this.image_wrappanel.Children.RemoveAt( index );
+
+                    ImageItem tmp  = new ImageItem();
+                    tmp.m_images = win.m_rotatedObj;
+
+                    if ( null != tmp.m_source )
+                    {
+                        tmp.ImageSingleClick += ImageItemSingleClick;
+                        tmp.ImageDoubleClick += ImageItemDoubleClick;
+                        tmp.CheckImage( false );
+                        tmp.Margin = new Thickness( 5 );
+                        this.image_wrappanel.Children.Insert(index, tmp );
+                        App.scanFileList.Add( objScan );
+                    }
+
+
+                    // TODO: remove original cache file.
                 }
             }
         }
