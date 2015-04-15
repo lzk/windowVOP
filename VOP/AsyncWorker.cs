@@ -359,6 +359,7 @@ namespace VOP
 
             return rec;
         }
+
         public WiFiInfoRecord GetWiFiInfo(string printerName)
         {
             WiFiInfoRecord rec = new WiFiInfoRecord();
@@ -367,10 +368,12 @@ namespace VOP
             StringBuilder pwd = new StringBuilder(128);
             byte encryption = (byte)EnumEncryptType.WPA2_PSK_AES;
             byte wepKeyId = 1;
+            byte wifiEnabel = 0;
 
-            int result = dll.GetWiFiInfo(printerName, ssid, pwd, ref encryption, ref wepKeyId);
+            int result = dll.GetWiFiInfo(printerName, ref wifiEnabel, ssid, pwd, ref encryption, ref wepKeyId);
 
             rec.PrinterName = printerName;
+            rec.WifiEnable = wifiEnabel;
             rec.SSID = ssid.ToString();
             rec.PWD = pwd.ToString();
             rec.Encryption = (EnumEncryptType)encryption;
@@ -388,6 +391,7 @@ namespace VOP
             string pwd = "";
             byte encryption = (byte)EnumEncryptType.WPA2_PSK_AES;
             byte wepKeyId = 1;
+            byte wifiEnabel = 0;
 
             if (rec != null)
             {
@@ -396,8 +400,9 @@ namespace VOP
                 pwd = rec.PWD;
                 encryption = (byte)rec.Encryption;
                 wepKeyId = rec.WepKeyId;
+                wifiEnabel = rec.WifiEnable;
 
-                int result = dll.SetWiFiInfo(printerName, ssid, pwd, encryption, wepKeyId);
+                int result = dll.SetWiFiInfo(printerName, wifiEnabel, ssid, pwd, encryption, wepKeyId);
 
                 rec.CmdResult = (EnumCmdResult)result;
 
@@ -850,11 +855,22 @@ namespace VOP
     public class WiFiInfoRecord : INotifyPropertyChanged
     {
         private string printerName;
+        private byte wifiEnable;    // bit0: Wi-Fi Enable, bit1: GO Enable, bit2: P2P Enable
         private string ssid;
         private string pwd;
         private EnumEncryptType encryption;
         private byte wepKeyId;
         private EnumCmdResult cmdResult;
+
+        public byte WifiEnable
+        {
+            get { return this.wifiEnable; }
+            set
+            {
+                this.wifiEnable = value;
+                OnPropertyChanged("WifiEnable");
+            }
+        }
 
         public string PrinterName
         {
@@ -923,11 +939,13 @@ namespace VOP
             pwd = "";
             encryption = EnumEncryptType.WPA2_PSK_AES;
             wepKeyId = 1;
+            wifiEnable = 1;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public WiFiInfoRecord(string printerName, string ssid, string pwd, EnumEncryptType encryption, byte wepKeyId)
+        public WiFiInfoRecord(string printerName, byte wifiEnable, string ssid, string pwd, EnumEncryptType encryption, byte wepKeyId)
         {
+            this.wifiEnable = wifiEnable;
             this.printerName = printerName;
             this.ssid = ssid;
             this.pwd = pwd;

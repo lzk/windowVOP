@@ -19,6 +19,7 @@ namespace VOP.Controls
     /// </summary>
     public class WifiSetting
     {
+        public byte wifiEnable = 0;
         public string m_ssid = "";
         public string m_pwd = "";
         public byte m_encryption = (byte)EnumEncryptType.WPA2_PSK_AES;
@@ -394,6 +395,7 @@ namespace VOP.Controls
 
             string pwd = "";
             byte wepKeyId = 1;
+            byte wifiEnable = 1;
 
             GetUIValues(out pwd, out wepKeyId);
 
@@ -416,6 +418,7 @@ namespace VOP.Controls
                 }
 
                 WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter,
+                    wifiEnable,
                     SSIDText, 
                     (EncryptType != EnumEncryptType.NoSecurity) ? pwd : "", 
                     EncryptType, 

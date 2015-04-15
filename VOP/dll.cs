@@ -90,6 +90,7 @@ namespace VOP
         [DllImport("usbapi.dll")]
             public static extern int GetWiFiInfo(
                     [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                    ref byte bWifiEnable,
                     StringBuilder ssid,
                     StringBuilder pwd,
                     ref byte encryption,
@@ -98,6 +99,7 @@ namespace VOP
         [DllImport("usbapi.dll")]
         public static extern int SetWiFiInfo(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                byte bWifiEnable,
                 [MarshalAs(UnmanagedType.LPWStr)]String ssid,
                 [MarshalAs(UnmanagedType.LPWStr)]String pwd,
                 byte encryption, 
