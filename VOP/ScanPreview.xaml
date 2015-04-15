@@ -121,7 +121,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
-            <RowDefinition Height="290" />
+            <RowDefinition Height="298" />
             <RowDefinition Height="50" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -133,7 +133,7 @@
         <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" />
         
         <!--<ScrollViewer Margin="0" Grid.Row="1"/>-->
-        <ScrollViewer Name="scrollPreview" Margin="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Style="{StaticResource LeftScrollViewer}">
+        <ScrollViewer Name="scrollPreview" Width="470" Height="268" HorizontalAlignment="Center" Margin="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Style="{StaticResource LeftScrollViewer}">
             <Image VerticalAlignment="Center" HorizontalAlignment="Center" Name="previewImg" Height="100" />
         </ScrollViewer>
 

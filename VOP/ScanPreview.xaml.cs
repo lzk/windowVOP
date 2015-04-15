@@ -24,11 +24,10 @@ namespace VOP
     /// </summary>
     public partial class ScanPreview : Window
     {
-        public BitmapSource m_src = null;
-        public double m_scaleFitToWindow = 1;
-        
-        private double m_scale = 1;     // scaling rate of preview image.
-        private int m_rotatedAngle = 0; // rotated angle of preview image. 
+        private double m_scaleFitToWindow = 1;    // scaling rate when image fit to preview window.
+        private BitmapSource m_src        = null; // image object for preview image.
+        private double m_scale            = 1;    // scaling rate of preview image.
+        private int m_rotatedAngle        = 0;    // rotated angle of preview image.
 
         public ScanFiles m_images;
 
@@ -61,22 +60,18 @@ namespace VOP
 
             if (m_src != null)
             {
-
-                if (m_src.Width > 800)
-                    this.previewImg.Width = 800;
-                else
-                    this.previewImg.Width = 800;
-
-                if (m_src.Height > 500)
-                    this.previewImg.Height = 500;
-                else
-                    this.previewImg.Height = 500;
-
-                double scaling1 = this.previewImg.Width / m_src.Width;
-                double scaling2 = this.previewImg.Height / m_src.Height;
+                double scaling1 = this.scrollPreview.Width / m_src.Width;
+                double scaling2 = this.scrollPreview.Height / m_src.Height;
 
                 m_scale = (scaling1 < scaling2) ? scaling1 : scaling2;
+
+                if ( m_scale > 1 )
+                    m_scale = 1;
+
                 m_scaleFitToWindow = m_scale;
+
+                this.previewImg.Width  = m_src.Width *m_scale;
+                this.previewImg.Height = m_src.Height*m_scale;
                 this.previewImg.Source = m_src;
 
                 CenterImage();
