@@ -78,7 +78,9 @@ namespace VOP
                 _currentStatus = value;
 
                 // Update UI
-                if ( null != this.status && null != txtErrMsg )
+                if ( null != this.status 
+                        && null != txtErrMsg 
+                        && null != lbTonerBar )
                 {
                     this.status.TypeId = common.GetStatusTypeForUI( value );
 
@@ -92,6 +94,15 @@ namespace VOP
                         m_showTimeCnter.Stop();
                         this.txtErrMsg.Text = common.GetErrorMsg( value, m_job );
                         m_errorMsg = "";
+                    }
+
+                    if ( EnumStatus.Offline == value )
+                    {
+                        lbTonerBar.IsEnabled = false;
+                    }
+                    else
+                    {
+                        lbTonerBar.IsEnabled = true;
                     }
                 }
             }

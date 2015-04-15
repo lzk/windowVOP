@@ -639,7 +639,7 @@
     <Resource Include="Images\ToggleRight.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\shoppingCart.png" />
+    <Resource Include="Images\shopCart_Disable.tif" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Switch_Off.png" />
