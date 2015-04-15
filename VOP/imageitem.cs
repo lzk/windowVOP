@@ -111,7 +111,7 @@ namespace VOP
             try
             {
                 Uri myUri = new Uri(m_images.m_pathThumb, UriKind.RelativeOrAbsolute);
-                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
+                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad );
                 BitmapSource bmpSrc = decoder.Frames[0];
 
                 if (m_images.m_colorMode == EnumColorType.black_white)

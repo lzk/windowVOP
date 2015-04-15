@@ -130,7 +130,6 @@ namespace VOP
             win.Owner       = m_MainWin;
 			win.m_images    = img.m_images;
             win.isPrint     = false;
-            win.isRotated   = false;
 
             win.ShowDialog();
 
@@ -141,7 +140,7 @@ namespace VOP
                 m_MainWin.SwitchToPrintingPage( files );
             }
 
-            if ( true == win.isRotated )
+            if ( 0 != win.m_rotatedAngle%360 )
             {
                 img.UpdateImage();
             }
@@ -436,7 +435,7 @@ namespace VOP
                         if ( null != img && true == img.m_ischeck )
                         {
                             Uri myUri = new Uri(img.m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
-                            BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
+                            BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
                             BitmapSource origSource = decoder.Frames[0];
 
                             if (null != origSource)
@@ -485,7 +484,7 @@ namespace VOP
                                 if (null != img && true == img.m_ischeck)
                                 {
                                     Uri myUri = new Uri(img.m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
-                                    BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
+                                    BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
                                     BitmapSource origSource = decoder.Frames[0];
 
                                     if ( null != origSource )

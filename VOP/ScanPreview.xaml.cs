@@ -27,11 +27,10 @@ namespace VOP
         private double m_scaleFitToWindow = 1;    // scaling rate when image fit to preview window.
         private BitmapSource m_src        = null; // image object for preview image.
         private double m_scale            = 1;    // scaling rate of preview image.
-        private int m_rotatedAngle        = 0;    // rotated angle of preview image.
 
-        public ScanFiles m_images;
-        public bool isPrint = false;    // turn if user click print.
-        public bool isRotated = false;    // turn if user have rotate image.
+        public ScanFiles m_images  = null;
+        public bool isPrint        = false;    // turn if user click print.
+        public int m_rotatedAngle  = 0;        // rotated angle of preview image.
 
         public ScanPreview()
         {
@@ -44,7 +43,7 @@ namespace VOP
             try
             {
                 Uri myUri = new Uri(m_images.m_pathView, UriKind.RelativeOrAbsolute);
-                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
+                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad  );
                 BitmapSource bmpSrc = decoder.Frames[0];
 
                 if (m_images.m_colorMode == EnumColorType.black_white)
@@ -178,11 +177,13 @@ namespace VOP
                 if ( VOP.Controls.MessageBoxExResult.Yes == 
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, "扫描图片已被更改，是否保存，请确认。", "提示") )
                 {
-                    isRotated = true;
-
                     SaveRotatedImage( m_images.m_pathOrig , m_images.m_pathOrig , m_rotatedAngle );
                     SaveRotatedImage( m_images.m_pathView , m_images.m_pathView , m_rotatedAngle );
                     SaveRotatedImage( m_images.m_pathThumb, m_images.m_pathThumb, m_rotatedAngle );
+                }
+                else
+                {
+                    m_rotatedAngle = 0;
                 }
             }
 
@@ -195,7 +196,7 @@ namespace VOP
         private void SaveRotatedImage( string pathSrc, string pathDst, int angle )
         {
             Uri myUri = new Uri( pathSrc, UriKind.RelativeOrAbsolute);
-            BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
+            BmpBitmapDecoder decoder = new BmpBitmapDecoder( myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad   );
             BitmapSource bmpSrc = decoder.Frames[0];
 
             bmpSrc = common.RotateBitmap( bmpSrc, angle );
