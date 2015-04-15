@@ -167,11 +167,7 @@ namespace VOP
             // Draw ShopCart Image
             if(IsEnabled)
             {
-                if (0 == curPercet)
-                {
-                    shopCart_Img.Fill = imgBrush_Disable;
-                }
-                else if (curPercet <= 10)
+                if (curPercet <= 10)
                 {
                     shopCart_Img.Fill = imgBrush_Warn;
                 }
@@ -243,7 +239,7 @@ namespace VOP
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(IsEnabled && (0 != curPercet))
+            if(IsEnabled)
             {
                 shopCart_Img.Opacity = 1.0;
 
