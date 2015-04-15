@@ -31,6 +31,7 @@ namespace VOP
 
         public ScanFiles m_images;
         public bool isPrint = false;    // turn if user click print.
+        public bool isRotated = false;    // turn if user have rotate image.
 
         public ScanPreview()
         {
@@ -177,12 +178,37 @@ namespace VOP
                 if ( VOP.Controls.MessageBoxExResult.Yes == 
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, "扫描图片已被更改，是否保存，请确认。", "提示") )
                 {
-                    // TODO: rotate image
+                    isRotated = true;
+
+                    SaveRotatedImage( m_images.m_pathOrig , m_images.m_pathOrig , m_rotatedAngle );
+                    SaveRotatedImage( m_images.m_pathView , m_images.m_pathView , m_rotatedAngle );
+                    SaveRotatedImage( m_images.m_pathThumb, m_images.m_pathThumb, m_rotatedAngle );
                 }
             }
 
             this.Close();
         }
 
+        /// <summary>
+        /// Rotate bitmap file pathSrc and save to pathDst.
+        /// </summary>
+        private void SaveRotatedImage( string pathSrc, string pathDst, int angle )
+        {
+            Uri myUri = new Uri( pathSrc, UriKind.RelativeOrAbsolute);
+            BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
+            BitmapSource bmpSrc = decoder.Frames[0];
+
+            bmpSrc = common.RotateBitmap( bmpSrc, angle );
+
+            FileStream fs = File.Open( pathDst, FileMode.Create);
+
+            BmpBitmapEncoder encoder = new BmpBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bmpSrc));
+
+            encoder.Save(fs);
+            fs.Close();
+        }
     }
+
+
 }

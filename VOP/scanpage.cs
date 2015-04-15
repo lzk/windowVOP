@@ -130,6 +130,7 @@ namespace VOP
             win.Owner       = m_MainWin;
 			win.m_images    = img.m_images;
             win.isPrint     = false;
+            win.isRotated   = false;
 
             win.ShowDialog();
 
@@ -138,6 +139,11 @@ namespace VOP
                 List<string> files = new List<string>();
                 files.Add( img.m_images.m_pathOrig );
                 m_MainWin.SwitchToPrintingPage( files );
+            }
+
+            if ( true == win.isRotated )
+            {
+                // TODO: img.UpdateImage();
             }
         }
 
