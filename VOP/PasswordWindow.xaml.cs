@@ -22,6 +22,7 @@ namespace VOP
         {
             InitializeComponent();
         }
+
         public void MyMouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
@@ -47,17 +48,26 @@ namespace VOP
                         isApplySuccess = true;
                     }
                 }
-            }     
-      
-            if(!isApplySuccess)
-            {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "认证错误，请重新输入密码。", "错误");
-            }
+
+                if (!isApplySuccess)
+                {
+                    tbkErrorInfo.Text = "认证错误，请重新输入密码。";
+                }
+                else
+                {
+                    this.DialogResult = true;
+                    this.Close();
+                }
+            }   
             else
             {
-                this.DialogResult = true;
-                this.Close();
+                tbkErrorInfo.Text = "新密码不能为空,请输入密码。";
             }
+        }
+
+        private void pbPwd_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            tbkErrorInfo.Text = "";
         }
     }
 }
