@@ -220,12 +220,30 @@ namespace VOP
                     }
 
                 }
+
+                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功" : "设置失败");
+            }
+            else
+            {
+                if (ssid.Length <= 0 || ssid.Length > 32)
+                {
+                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "网络名称必须是1到32个字符，请确认后再次输入。", "警告");
+                }
+                else
+                {
+                    if (encryption == (byte)EnumEncryptType.WEP)
+                    {
+                        VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码必须是5/13个ASCII字符或者10/26个二进制字符，请确认后再次输入。", "警告");
+                    }
+                    else
+                    {
+                        VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码必须是8到63个ASCII字符或者64个二进制字符，请确认后再次输入。", "警告");
+                    }
+                }
             }
 
             //if (isApplySuccess && encryption == (byte)EnumEncryptType.NoSecurity)
             //    tb_pwd.Text = pwd;
-            
-            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功" : "设置失败");
 
             return isApplySuccess;
         }
