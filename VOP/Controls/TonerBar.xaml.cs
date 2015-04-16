@@ -112,7 +112,7 @@ namespace VOP
             argsEvent.Source = this;
             RaiseEvent(argsEvent);
 
-            if ((oldValue > 30.0 & curPercet <= 30.0) || (oldValue > 10.0 & curPercet <= 10.0))
+            if ((IsEnabled) && ((oldValue > 30.0 & curPercet <= 30.0) || (oldValue > 10.0 & curPercet <= 10.0)) )
             {
                 RoutedEventArgs clickEventArgs = new RoutedEventArgs();
                 clickEventArgs.RoutedEvent = TonerBar.ClickEvent;
@@ -193,6 +193,7 @@ namespace VOP
             else
             {
                 shopCart_Img.Fill = imgBrush_Disable;
+                shopCart_Img.Opacity = 1.0;
                 timer.Stop();            
             }         
         }
