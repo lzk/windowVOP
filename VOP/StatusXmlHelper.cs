@@ -10,13 +10,12 @@ namespace VOP
 {
     class StatusXmlHelper
     {
-        private static string root = "DeviceStatus";
-        private static string strPrinter = "Printer";
+        private static string root             = "DeviceStatus";
+        private static string strPrinter       = "Printer";
         private static string strTonerCapacity = "TonerCapacity";
-        private static string strStatus = "status";
-        private static string strMachineJob = "machineJob";
-        private static string strName = "Name";
-
+        private static string strStatus        = "status";
+        private static string strMachineJob    = "machineJob";
+        private static string strName          = "Name";
 
         private string xmlFileName;
         private XmlDocument xmlDoc = new XmlDocument();
@@ -279,69 +278,69 @@ namespace VOP
             EnumStatus retStatus = EnumStatus.Offline;
             switch (strSatus)
             {
-                case "Ready": retStatus = EnumStatus.Ready; break;
-                case "Printing": retStatus = EnumStatus.Printing; break;
-                case "PowerSaving": retStatus = EnumStatus.PowerSaving; break;
-                case "WarmingUp": retStatus = EnumStatus.WarmingUp; break;
-                case "PrintCanceling": retStatus = EnumStatus.PrintCanceling; break;
-                case "Processing": retStatus = EnumStatus.Processing; break;
-                case "CopyScanning": retStatus = EnumStatus.CopyScanning; break;
-                case "CopyScanNextPage": retStatus = EnumStatus.CopyScanNextPage; break;
-                case "CopyPrinting": retStatus = EnumStatus.CopyPrinting; break;
-                case "CopyCanceling": retStatus = EnumStatus.CopyCanceling; break;
-                case "IDCardMode": retStatus = EnumStatus.IDCardMode; break;
-                case "ScanScanning": retStatus = EnumStatus.ScanScanning; break;
-                case "ScanSending": retStatus = EnumStatus.ScanSending; break;
-                case "ScanCanceling": retStatus = EnumStatus.ScanCanceling; break;
-                case "ScannerBusy": retStatus = EnumStatus.ScannerBusy; break;
-                case "TonerEnd1": retStatus = EnumStatus.TonerEnd1; break;
-                case "TonerEnd2": retStatus = EnumStatus.TonerEnd2; break;
-                case "TonerNearEnd": retStatus = EnumStatus.TonerNearEnd; break;
-                case "ManualFeedRequired": retStatus = EnumStatus.ManualFeedRequired; break;
-                case "InitializeJam": retStatus = EnumStatus.InitializeJam; break;
-                case "NofeedJam": retStatus = EnumStatus.NofeedJam; break;
-                case "JamAtRegistStayOn": retStatus = EnumStatus.JamAtRegistStayOn; break;
-                case "JamAtExitNotReach": retStatus = EnumStatus.JamAtExitNotReach; break;
-                case "JamAtExitStayOn": retStatus = EnumStatus.JamAtExitStayOn; break;
-                case "CoverOpen": retStatus = EnumStatus.CoverOpen; break;
-                case "NoTonerCartridge": retStatus = EnumStatus.NoTonerCartridge; break;
-                case "WasteTonerFull": retStatus = EnumStatus.WasteTonerFull; break;
-                case "FWUpdate": retStatus = EnumStatus.FWUpdate; break;
-                case "OverHeat": retStatus = EnumStatus.OverHeat; break;
-                case "PolygomotorOnTimeoutError": retStatus = EnumStatus.PolygomotorOnTimeoutError; break;
-                case "PolygomotorOffTimeoutError": retStatus = EnumStatus.PolygomotorOffTimeoutError; break;
-                case "PolygomotorLockSignalError": retStatus = EnumStatus.PolygomotorLockSignalError; break;
-                case "BeamSynchronizeError": retStatus = EnumStatus.BeamSynchronizeError; break;
-                case "BiasLeak": retStatus = EnumStatus.BiasLeak; break;
-                case "PlateActionError": retStatus = EnumStatus.PlateActionError; break;
-                case "MainmotorError": retStatus = EnumStatus.MainmotorError; break;
-                case "MainFanMotorEorror": retStatus = EnumStatus.MainFanMotorEorror; break;
-                case "JoinerThermistorError": retStatus = EnumStatus.JoinerThermistorError; break;
-                case "JoinerReloadError": retStatus = EnumStatus.JoinerReloadError; break;
-                case "HighTemperatureErrorSoft": retStatus = EnumStatus.HighTemperatureErrorSoft; break;
-                case "HighTemperatureErrorHard": retStatus = EnumStatus.HighTemperatureErrorHard; break;
-                case "JoinerFullHeaterError": retStatus = EnumStatus.JoinerFullHeaterError; break;
-                case "Joiner3timesJamError": retStatus = EnumStatus.Joiner3timesJamError; break;
-                case "LowVoltageJoinerReloadError": retStatus = EnumStatus.LowVoltageJoinerReloadError; break;
-                case "MotorThermistorError": retStatus = EnumStatus.MotorThermistorError; break;
-                case "EEPROMCommunicationError": retStatus = EnumStatus.EEPROMCommunicationError; break;
-                case "CTL_PRREQ_NSignalNoCome": retStatus = EnumStatus.CTL_PRREQ_NSignalNoCome; break;
-                case "ScanPCUnkownCommandUSB": retStatus = EnumStatus.ScanPCUnkownCommandUSB; break;
-                case "SCANUSBDisconnect": retStatus = EnumStatus.SCANUSBDisconnect; break;
-                case "ScanPCUnkownCommandNET": retStatus = EnumStatus.ScanPCUnkownCommandNET; break;
-                case "ScanNETDisconnect": retStatus = EnumStatus.ScanNETDisconnect; break;
-                case "ScanMotorError": retStatus = EnumStatus.ScanMotorError; break;
-                case "NetWirelessConnectFail": retStatus = EnumStatus.NetWirelessConnectFail; break;
-                case "NetWirelessDisable": retStatus = EnumStatus.NetWirelessDisable; break;
-                case "NetWirelessDongleCfgFail": retStatus = EnumStatus.NetWirelessDongleCfgFail; break;
-                case "FWUpdateError": retStatus = EnumStatus.FWUpdateError; break;
-                case "DSPError": retStatus = EnumStatus.DSPError; break;
-                case "CodecError": retStatus = EnumStatus.CodecError; break;
-                case "PrinterDataError": retStatus = EnumStatus.PrinterDataError; break;
-                case "Unknown": retStatus = EnumStatus.Unknown; break;
-                case "Offline": retStatus = EnumStatus.Offline; break;
-                case "PowerOff": retStatus = EnumStatus.PowerOff; break;                
-                default:
+                case "Ready"                       : retStatus = EnumStatus.Ready;                       break;
+                case "Printing"                    : retStatus = EnumStatus.Printing;                    break;
+                case "PowerSaving"                 : retStatus = EnumStatus.PowerSaving;                 break;
+                case "WarmingUp"                   : retStatus = EnumStatus.WarmingUp;                   break;
+                case "PrintCanceling"              : retStatus = EnumStatus.PrintCanceling;              break;
+                case "Processing"                  : retStatus = EnumStatus.Processing;                  break;
+                case "CopyScanning"                : retStatus = EnumStatus.CopyScanning;                break;
+                case "CopyScanNextPage"            : retStatus = EnumStatus.CopyScanNextPage;            break;
+                case "CopyPrinting"                : retStatus = EnumStatus.CopyPrinting;                break;
+                case "CopyCanceling"               : retStatus = EnumStatus.CopyCanceling;               break;
+                case "IDCardMode"                  : retStatus = EnumStatus.IDCardMode;                  break;
+                case "ScanScanning"                : retStatus = EnumStatus.ScanScanning;                break;
+                case "ScanSending"                 : retStatus = EnumStatus.ScanSending;                 break;
+                case "ScanCanceling"               : retStatus = EnumStatus.ScanCanceling;               break;
+                case "ScannerBusy"                 : retStatus = EnumStatus.ScannerBusy;                 break;
+                case "TonerEnd1"                   : retStatus = EnumStatus.TonerEnd1;                   break;
+                case "TonerEnd2"                   : retStatus = EnumStatus.TonerEnd2;                   break;
+                case "TonerNearEnd"                : retStatus = EnumStatus.TonerNearEnd;                break;
+                case "ManualFeedRequired"          : retStatus = EnumStatus.ManualFeedRequired;          break;
+                case "InitializeJam"               : retStatus = EnumStatus.InitializeJam;               break;
+                case "NofeedJam"                   : retStatus = EnumStatus.NofeedJam;                   break;
+                case "JamAtRegistStayOn"           : retStatus = EnumStatus.JamAtRegistStayOn;           break;
+                case "JamAtExitNotReach"           : retStatus = EnumStatus.JamAtExitNotReach;           break;
+                case "JamAtExitStayOn"             : retStatus = EnumStatus.JamAtExitStayOn;             break;
+                case "CoverOpen"                   : retStatus = EnumStatus.CoverOpen;                   break;
+                case "NoTonerCartridge"            : retStatus = EnumStatus.NoTonerCartridge;            break;
+                case "WasteTonerFull"              : retStatus = EnumStatus.WasteTonerFull;              break;
+                case "FWUpdate"                    : retStatus = EnumStatus.FWUpdate;                    break;
+                case "OverHeat"                    : retStatus = EnumStatus.OverHeat;                    break;
+                case "PolygomotorOnTimeoutError"   : retStatus = EnumStatus.PolygomotorOnTimeoutError;   break;
+                case "PolygomotorOffTimeoutError"  : retStatus = EnumStatus.PolygomotorOffTimeoutError;  break;
+                case "PolygomotorLockSignalError"  : retStatus = EnumStatus.PolygomotorLockSignalError;  break;
+                case "BeamSynchronizeError"        : retStatus = EnumStatus.BeamSynchronizeError;        break;
+                case "BiasLeak"                    : retStatus = EnumStatus.BiasLeak;                    break;
+                case "PlateActionError"            : retStatus = EnumStatus.PlateActionError;            break;
+                case "MainmotorError"              : retStatus = EnumStatus.MainmotorError;              break;
+                case "MainFanMotorEorror"          : retStatus = EnumStatus.MainFanMotorEorror;          break;
+                case "JoinerThermistorError"       : retStatus = EnumStatus.JoinerThermistorError;       break;
+                case "JoinerReloadError"           : retStatus = EnumStatus.JoinerReloadError;           break;
+                case "HighTemperatureErrorSoft"    : retStatus = EnumStatus.HighTemperatureErrorSoft;    break;
+                case "HighTemperatureErrorHard"    : retStatus = EnumStatus.HighTemperatureErrorHard;    break;
+                case "JoinerFullHeaterError"       : retStatus = EnumStatus.JoinerFullHeaterError;       break;
+                case "Joiner3timesJamError"        : retStatus = EnumStatus.Joiner3timesJamError;        break;
+                case "LowVoltageJoinerReloadError" : retStatus = EnumStatus.LowVoltageJoinerReloadError; break;
+                case "MotorThermistorError"        : retStatus = EnumStatus.MotorThermistorError;        break;
+                case "EEPROMCommunicationError"    : retStatus = EnumStatus.EEPROMCommunicationError;    break;
+                case "CTL_PRREQ_NSignalNoCome"     : retStatus = EnumStatus.CTL_PRREQ_NSignalNoCome;     break;
+                case "ScanPCUnkownCommandUSB"      : retStatus = EnumStatus.ScanPCUnkownCommandUSB;      break;
+                case "SCANUSBDisconnect"           : retStatus = EnumStatus.SCANUSBDisconnect;           break;
+                case "ScanPCUnkownCommandNET"      : retStatus = EnumStatus.ScanPCUnkownCommandNET;      break;
+                case "ScanNETDisconnect"           : retStatus = EnumStatus.ScanNETDisconnect;           break;
+                case "ScanMotorError"              : retStatus = EnumStatus.ScanMotorError;              break;
+                case "NetWirelessConnectFail"      : retStatus = EnumStatus.NetWirelessConnectFail;      break;
+                case "NetWirelessDisable"          : retStatus = EnumStatus.NetWirelessDisable;          break;
+                case "NetWirelessDongleCfgFail"    : retStatus = EnumStatus.NetWirelessDongleCfgFail;    break;
+                case "FWUpdateError"               : retStatus = EnumStatus.FWUpdateError;               break;
+                case "DSPError"                    : retStatus = EnumStatus.DSPError;                    break;
+                case "CodecError"                  : retStatus = EnumStatus.CodecError;                  break;
+                case "PrinterDataError"            : retStatus = EnumStatus.PrinterDataError;            break;
+                case "Unknown"                     : retStatus = EnumStatus.Unknown;                     break;
+                case "Offline"                     : retStatus = EnumStatus.Offline;                     break;
+                case "PowerOff"                    : retStatus = EnumStatus.PowerOff;                    break;
+                default                            :
                     retStatus = EnumStatus.Unknown;                  
                     break;
             }
@@ -353,16 +352,16 @@ namespace VOP
             EnumMachineJob retJob = EnumMachineJob.UnknowJob;
             switch (strJob)
             {
-                case "UnknowJob": retJob = EnumMachineJob.UnknowJob; break;
-                case "PrintJob": retJob = EnumMachineJob.PrintJob; break;
-                case "NormalCopyJob": retJob = EnumMachineJob.NormalCopyJob; break;
-                case "ScanJob": retJob = EnumMachineJob.ScanJob; break;
-                case "FaxJob": retJob = EnumMachineJob.FaxJob; break;
-                case "FaxJob2": retJob = EnumMachineJob.FaxJob2; break;
-                case "ReportJob": retJob = EnumMachineJob.ReportJob; break;
-                case "Nin1CopyJob": retJob = EnumMachineJob.Nin1CopyJob; break;
-                case "IDCardCopyJob": retJob = EnumMachineJob.IDCardCopyJob; break;
-                default:
+                case "UnknowJob"     : retJob = EnumMachineJob.UnknowJob;     break;
+                case "PrintJob"      : retJob = EnumMachineJob.PrintJob;      break;
+                case "NormalCopyJob" : retJob = EnumMachineJob.NormalCopyJob; break;
+                case "ScanJob"       : retJob = EnumMachineJob.ScanJob;       break;
+                case "FaxJob"        : retJob = EnumMachineJob.FaxJob;        break;
+                case "FaxJob2"       : retJob = EnumMachineJob.FaxJob2;       break;
+                case "ReportJob"     : retJob = EnumMachineJob.ReportJob;     break;
+                case "Nin1CopyJob"   : retJob = EnumMachineJob.Nin1CopyJob;   break;
+                case "IDCardCopyJob" : retJob = EnumMachineJob.IDCardCopyJob; break;
+                default              :
                     retJob = EnumMachineJob.UnknowJob;
                     break;
             }

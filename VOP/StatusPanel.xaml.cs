@@ -96,7 +96,9 @@ namespace VOP
                         m_errorMsg = "";
                     }
 
-                    if ( EnumStatus.Offline == value )
+                    if ( EnumStatus.Offline == value 
+                            || EnumStatus.PowerOff == value 
+                            || EnumStatus.Unknown == value )
                     {
                         lbTonerBar.IsEnabled = false;
                     }

@@ -209,9 +209,9 @@ namespace VOP
                 case EnumStatus.CodecError                 : // Error  
                     statusType = EnumStatusType.error;
                     break;
-                case EnumStatus.Unknown             : // Error  
                 case EnumStatus.Offline             : // Error  
                 case EnumStatus.PowerOff            :
+                case EnumStatus.Unknown             : // Error  
                     statusType = EnumStatusType.error;
                     break;
             }
@@ -410,10 +410,10 @@ namespace VOP
                 case EnumStatus.DSPError                   : errMsg = "DSP Error;Turn off the printer, and turn it on again.Contact customer support if this failure is repeated"; break;
                 case EnumStatus.CodecError                 : errMsg = "CODEC Error;Turn off the printer, and turn it on again.Contact customer support if this failure is repeated"; break;
                 case EnumStatus.PrinterDataError           : errMsg = "Print Data Error"; break;               
-                case EnumStatus.Unknown                    : 
-                case EnumStatus.PowerOff                   :
-                case EnumStatus.Offline                    : errMsg = "Device Offline"; break;
 
+                case EnumStatus.Offline                    : 
+                case EnumStatus.PowerOff                   :
+                case EnumStatus.Unknown                    : errMsg = "Device Offline"; break;
                 default:
                                                              errMsg = "";
                                                              break;
@@ -489,8 +489,11 @@ namespace VOP
                 case EnumStatus.DSPError                    : st = StatusDisplayType.Error   ; break ;
                 case EnumStatus.CodecError                  : st = StatusDisplayType.Error   ; break ;
                 case EnumStatus.PrinterDataError            : st = StatusDisplayType.Warning ; break ;
-                case EnumStatus.Offline                     : st = StatusDisplayType.Offline ; break ;
-                case EnumStatus.PowerOff                    : st = StatusDisplayType.Offline ; break ;
+
+                case EnumStatus.Offline                     : 
+                case EnumStatus.PowerOff                    : 
+                case EnumStatus.Unknown                     : st = StatusDisplayType.Offline ; break ;
+
                 default                                     :
                                                              st = StatusDisplayType.Offline;
                                                              break;       

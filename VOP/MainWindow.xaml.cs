@@ -549,7 +549,9 @@ namespace VOP
             statusPanelPage.m_toner = toner;
             statusPanelPage.m_currentStatus = (EnumStatus)status;
 
-            bool bIsOffline = ( ( (byte)EnumStatus.Offline == status ) );
+            bool bIsOffline = ( (byte)EnumStatus.Offline == status 
+                    || (byte)EnumStatus.PowerOff == status 
+                    || (byte)EnumStatus.Unknown == status );
 
             if ( bIsOffline == false )
                 m_isOnlineDetected = true;
