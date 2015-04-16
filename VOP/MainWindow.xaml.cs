@@ -466,6 +466,19 @@ namespace VOP
                this.statusPanelPage.m_currentStatus = (EnumStatus)status;
                this.statusPanelPage.m_job           = (EnumMachineJob)job;
 
+               if ( false == m_isOnlineDetected )
+               {
+                   bool bIsOnline = !( (byte)EnumStatus.Offline == status 
+                           || (byte)EnumStatus.PowerOff == status 
+                           || (byte)EnumStatus.Unknown == status );
+
+                   if ( true == bIsOnline )
+                   {
+                       m_isOnlineDetected = true;
+                       ExpandSubpage();
+                   }
+               }
+
                App.g_autoMachine.TranferState((EnumMachineJob)job);
                App.g_autoMachine.TranferState((EnumStatus)status);
 
@@ -549,64 +562,15 @@ namespace VOP
             statusPanelPage.m_toner = toner;
             statusPanelPage.m_currentStatus = (EnumStatus)status;
 
-            bool bIsOffline = ( (byte)EnumStatus.Offline == status 
+            bool bIsOnline = !( (byte)EnumStatus.Offline == status 
                     || (byte)EnumStatus.PowerOff == status 
                     || (byte)EnumStatus.Unknown == status );
 
-            if ( bIsOffline == false )
-                m_isOnlineDetected = true;
-
-
-            // TODO: uncomment this statement: if ( m_isOnlineDetected )
+            // TODO: uncomment this statement: if ( bIsOnline )
             if ( true )
             {
-                line3.Visibility = Visibility.Visible;
-                line8.Visibility = Visibility.Visible;
-                Print_Grid.Visibility = Visibility.Visible;
-                tabItem_Print.Visibility = Visibility.Visible;
-                setTabItemFromIndex(0);
-
-                if ( false == statusPanelPage.m_isSFP )
-                {
-                    line4.Visibility = Visibility.Visible;
-                    line5.Visibility = Visibility.Visible;
-                    line9.Visibility = Visibility.Visible;
-                    line10.Visibility = Visibility.Visible;
-
-                    Scan_Grid.Visibility = Visibility.Visible;
-                    Copy_Grid.Visibility = Visibility.Visible;
-                    Grid.SetColumn(Setting_Grid, 9);
-                    Grid.SetRow(Setting_Grid, 2);
-
-                    tabItem_Copy.Visibility = Visibility.Visible;
-                    tabItem_Scan.Visibility = Visibility.Visible;
-
-                    Grid.SetColumn(tabItem_Setting, 9);
-                    Grid.SetRow(tabItem_Setting, 3);
-
-                    winSettingPage.mainGrid.Background = imgBk_Brush_4;
-
-                }
-                else
-                {
-                    line4.Visibility = Visibility.Hidden;
-                    line5.Visibility = Visibility.Hidden;
-                    line9.Visibility = Visibility.Hidden;
-                    line10.Visibility = Visibility.Hidden;
-
-                    Scan_Grid.Visibility = Visibility.Hidden;
-                    Copy_Grid.Visibility = Visibility.Hidden;
-                    Grid.SetColumn(Setting_Grid, 5);
-                    Grid.SetRow(Setting_Grid, 2);
-
-                    tabItem_Copy.Visibility = Visibility.Hidden;
-                    tabItem_Scan.Visibility = Visibility.Hidden;
-
-                    Grid.SetColumn(tabItem_Setting, 5);
-                    Grid.SetRow(tabItem_Setting, 3);
-
-                    winSettingPage.mainGrid.Background = imgBk_Brush_2;
-                }
+                m_isOnlineDetected = true;
+                ExpandSubpage();
             }
             else
             {
@@ -634,7 +598,6 @@ namespace VOP
                 winSettingPage.mainGrid.Background = imgBk_Brush_1;
                 winSettingPage.m_bOnlyDispalyAboutView = true;
 
-                setTabItemFromIndex(3);
             }
 
             // After UI already loaded, tranfer auto machine. 
@@ -658,5 +621,55 @@ namespace VOP
             subPageView.Child = winPrintPage;
         }
         
+        private void ExpandSubpage()
+        {
+            line3.Visibility = Visibility.Visible;
+            line8.Visibility = Visibility.Visible;
+            Print_Grid.Visibility = Visibility.Visible;
+            tabItem_Print.Visibility = Visibility.Visible;
+            setTabItemFromIndex(0);
+
+            if ( false == statusPanelPage.m_isSFP )
+            {
+                line4.Visibility = Visibility.Visible;
+                line5.Visibility = Visibility.Visible;
+                line9.Visibility = Visibility.Visible;
+                line10.Visibility = Visibility.Visible;
+
+                Scan_Grid.Visibility = Visibility.Visible;
+                Copy_Grid.Visibility = Visibility.Visible;
+                Grid.SetColumn(Setting_Grid, 9);
+                Grid.SetRow(Setting_Grid, 2);
+
+                tabItem_Copy.Visibility = Visibility.Visible;
+                tabItem_Scan.Visibility = Visibility.Visible;
+
+                Grid.SetColumn(tabItem_Setting, 9);
+                Grid.SetRow(tabItem_Setting, 3);
+
+                winSettingPage.mainGrid.Background = imgBk_Brush_4;
+
+            }
+            else
+            {
+                line4.Visibility = Visibility.Hidden;
+                line5.Visibility = Visibility.Hidden;
+                line9.Visibility = Visibility.Hidden;
+                line10.Visibility = Visibility.Hidden;
+
+                Scan_Grid.Visibility = Visibility.Hidden;
+                Copy_Grid.Visibility = Visibility.Hidden;
+                Grid.SetColumn(Setting_Grid, 5);
+                Grid.SetRow(Setting_Grid, 2);
+
+                tabItem_Copy.Visibility = Visibility.Hidden;
+                tabItem_Scan.Visibility = Visibility.Hidden;
+
+                Grid.SetColumn(tabItem_Setting, 5);
+                Grid.SetRow(tabItem_Setting, 3);
+
+                winSettingPage.mainGrid.Background = imgBk_Brush_2;
+            }
+       }
     }
 }
