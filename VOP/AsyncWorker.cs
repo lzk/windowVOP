@@ -392,6 +392,7 @@ namespace VOP
             byte encryption = (byte)EnumEncryptType.WPA2_PSK_AES;
             byte wepKeyId = 1;
             byte wifiEnabel = 0;
+            byte wifiChangeFlag = 0;
 
             if (rec != null)
             {
@@ -401,8 +402,9 @@ namespace VOP
                 encryption = (byte)rec.Encryption;
                 wepKeyId = rec.WepKeyId;
                 wifiEnabel = rec.WifiEnable;
+                wifiChangeFlag = rec.WifiChangeFlag;
 
-                int result = dll.SetWiFiInfo(printerName, wifiEnabel, ssid, pwd, encryption, wepKeyId);
+                int result = dll.SetWiFiInfo(printerName, wifiEnabel, wifiChangeFlag, ssid, pwd, encryption, wepKeyId);
 
                 rec.CmdResult = (EnumCmdResult)result;
 
@@ -856,6 +858,7 @@ namespace VOP
     {
         private string printerName;
         private byte wifiEnable;    // bit0: Wi-Fi Enable, bit1: GO Enable, bit2: P2P Enable
+        private byte wifiChangeFlag; // For fw request enable or disable wifi set 1
         private string ssid;
         private string pwd;
         private EnumEncryptType encryption;
@@ -869,6 +872,16 @@ namespace VOP
             {
                 this.wifiEnable = value;
                 OnPropertyChanged("WifiEnable");
+            }
+        }
+
+        public byte WifiChangeFlag
+        {
+            get { return this.wifiChangeFlag; }
+            set
+            {
+                this.wifiChangeFlag = value;
+                OnPropertyChanged("WifiChangeFlag");
             }
         }
 
@@ -940,10 +953,11 @@ namespace VOP
             encryption = EnumEncryptType.WPA2_PSK_AES;
             wepKeyId = 1;
             wifiEnable = 1;
+            wifiChangeFlag = 0;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public WiFiInfoRecord(string printerName, byte wifiEnable, string ssid, string pwd, EnumEncryptType encryption, byte wepKeyId)
+        public WiFiInfoRecord(string printerName, byte wifiEnable, byte wifiEnableFlag, string ssid, string pwd, EnumEncryptType encryption, byte wepKeyId)
         {
             this.wifiEnable = wifiEnable;
             this.printerName = printerName;
@@ -951,6 +965,7 @@ namespace VOP
             this.pwd = pwd;
             this.encryption = encryption;
             this.wepKeyId = wepKeyId;
+            this.wifiChangeFlag = wifiEnableFlag;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 

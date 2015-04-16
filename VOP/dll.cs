@@ -100,6 +100,7 @@ namespace VOP
         public static extern int SetWiFiInfo(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
                 byte bWifiEnable,
+                byte wifiChangeFlag,
                 [MarshalAs(UnmanagedType.LPWStr)]String ssid,
                 [MarshalAs(UnmanagedType.LPWStr)]String pwd,
                 byte encryption, 

@@ -419,6 +419,7 @@ namespace VOP.Controls
 
                 WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter,
                     wifiEnable,
+                    0,
                     SSIDText, 
                     (EncryptType != EnumEncryptType.NoSecurity) ? pwd : "", 
                     EncryptType, 

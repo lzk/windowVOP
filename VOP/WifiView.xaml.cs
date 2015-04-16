@@ -204,7 +204,7 @@ namespace VOP
 
                 }
 
-                WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, wifiEnable, ssid, (encryption != (byte)EnumEncryptType.NoSecurity) ? pwd : "", (EnumEncryptType)encryption, wepKeyId);
+                WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, wifiEnable, 0, ssid, (encryption != (byte)EnumEncryptType.NoSecurity) ? pwd : "", (EnumEncryptType)encryption, wepKeyId);
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
                 if (worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetWiFiInfo))
@@ -346,11 +346,11 @@ namespace VOP
 
                 if (true == chkDisplayPwd.IsChecked)
                 {
-                    pwd = pbPwd.Password;
+                    pwd = tbPwd.Text;
                 }
                 else
                 {
-                    pwd = tbPwd.Text;
+                    pwd = pbPwd.Password;
                 }
 
                 if (null == ssid)
@@ -468,7 +468,7 @@ namespace VOP
             if (true == bEnable)
                 wifiEnable = 1;
 
-            WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, wifiEnable, "", "", EnumEncryptType.WPA2_PSK_AES, 0);
+            WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, wifiEnable, 1, "", "", EnumEncryptType.WPA2_PSK_AES, 0);
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
             if (worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetWiFiInfo))

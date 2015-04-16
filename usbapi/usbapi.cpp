@@ -336,8 +336,9 @@ typedef struct cmdst_wifi_set
     UINT8 netType    ; //
     UINT8 encryption ; //
     UINT8 wepKeyId   ; //
-    UINT8 reserved1[2]; //
-    char  ssid[32]   ; // used by both Legacy WiFi SSID and Wi-Fi Direct GO SSID
+	UINT8 reserved1; //
+	UINT8 channel; //
+	char  ssid[32]; // used by both Legacy WiFi SSID and Wi-Fi Direct GO SSID
     char  pwd[64]    ; // used by both Legacy WiFi Passphrase & WEPKey and Wi-Fi Direct GO Passphrase
 }cmdst_wifi_set;
 
@@ -428,7 +429,7 @@ USBAPI_API int __stdcall GetApList( const wchar_t* szPrinter,
         char* pssid9,  BYTE* ptr_encryption9 );
 
 USBAPI_API int __stdcall SendCopyCmd( const wchar_t* szPrinter, UINT8 Density, UINT8 copyNum, UINT8 scanMode, UINT8 orgSize, UINT8 paperSize, UINT8 nUp, UINT8 dpi, UINT16 scale, UINT8 mediaType );
-USBAPI_API int __stdcall SetWiFiInfo(const wchar_t* szPrinter, UINT8 wifiEnable, const wchar_t* ws_ssid, const wchar_t* ws_pwd, UINT8 encryption, UINT8 wepKeyId);
+USBAPI_API int __stdcall SetWiFiInfo(const wchar_t* szPrinter, UINT8 wifiEnable, UINT8 wifichangeflag, const wchar_t* ws_ssid, const wchar_t* ws_pwd, UINT8 encryption, UINT8 wepKeyId);
 USBAPI_API int __stdcall SetSoftAp( const wchar_t* szPrinter, const wchar_t* ws_ssid, const wchar_t* ws_pwd, bool isEnableSoftAp );
 USBAPI_API int __stdcall GetSoftAp( const wchar_t* szPrinter, char* ssid, char* pwd, BYTE* ptr_wifi_enable  );
 USBAPI_API int __stdcall GetUserCfg(const wchar_t* szPrinter, BYTE* ptr_leadingedge, BYTE* ptr_sidetoside, BYTE* ptr_imagedensity, BYTE* ptr_lowhumiditymode, BYTE* ptr_platecontrolmode, BYTE* ptr_primarycoolingmode);
@@ -1842,7 +1843,7 @@ USBAPI_API int __stdcall SetPassword(const wchar_t* szPrinter, const wchar_t* ws
 	return nResult;
 }
 
-USBAPI_API int __stdcall SetWiFiInfo(const wchar_t* szPrinter, UINT8 wifiEnable, const wchar_t* ws_ssid, const wchar_t* ws_pwd, UINT8 encryption, UINT8 wepKeyId)
+USBAPI_API int __stdcall SetWiFiInfo(const wchar_t* szPrinter, UINT8 wifiEnable, UINT8 wifichangeflag, const wchar_t* ws_ssid, const wchar_t* ws_pwd, UINT8 encryption, UINT8 wepKeyId)
 {
     if ( NULL == szPrinter )
         return _SW_INVALID_PARAMETER;
@@ -1883,6 +1884,7 @@ USBAPI_API int __stdcall SetWiFiInfo(const wchar_t* szPrinter, UINT8 wifiEnable,
         ::WideCharToMultiByte( CP_ACP, 0, ws_pwd, -1, pwd, 64, NULL, NULL );
 
 		pcmd_wifi_set->wifiEnable = wifiEnable;      // bit0: Wi-Fi Enable, bit1: GO Enable, bit2: P2P Enable
+		pcmd_wifi_set->channel = wifichangeflag;	//For fw request enable or disable wifi set 1
         pcmd_wifi_set->encryption = encryption; //
         pcmd_wifi_set->wepKeyId = wepKeyId;     //
 
