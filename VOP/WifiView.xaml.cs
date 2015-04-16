@@ -480,9 +480,24 @@ namespace VOP
 
             }
 
-            if (true == bEnable)
+            if (!bSuccess)
             {
-                cbo_ssid_refresh();
+                if(((MainWindow)App.Current.MainWindow).m_strPassword.Length == 0)
+                {
+                    bEnable = !chkWifi.IsChecked;
+                    chkWifi.IsChecked = bEnable;
+                    if (true == bEnable)
+                    {
+                        cbo_ssid_refresh();
+                    }
+                }
+            }
+            else
+            {
+                if (true == bEnable)
+                {
+                    cbo_ssid_refresh();
+                }
             }
 
             ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(bSuccess ? "设置成功，机器重启后生效。" : "设置失败");
