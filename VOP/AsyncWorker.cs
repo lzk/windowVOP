@@ -271,7 +271,9 @@ namespace VOP
             rec.SideToSide = sideToSide;
             rec.ImageDensity = imageDensity;
             rec.LowHumidityMode = lowHumidityMode;
-         
+            rec.PlateControlMode = platecontrolmode;
+            rec.PrimaryCoolingMode = primarycoolingmode;
+
             rec.CmdResult = (EnumCmdResult)result;
 
             return rec;
