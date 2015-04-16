@@ -37,10 +37,6 @@ namespace VOP
             {
                 if (VOP.MainWindow.m_RequestManager.SendVerifyCode(tbPhoneNumber.Text, ref js))
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "验证码发送成功。", "错误");
-                }
-                else
-                {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "验证码发送失败。", "错误");
                 }
             }

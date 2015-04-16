@@ -60,7 +60,8 @@ namespace VOP
         private bool m_isOnlineDetected = false;    // true is one online printer has been seleted.
 
         public string m_strPassword = "";
-        
+        public string m_strPhoneNumber = "";
+
         public bool PasswordCorrect()
         {
             bool bCorrect = false;
@@ -260,16 +261,16 @@ namespace VOP
                 }
                 else if ( "btnLogin" == btn.Name )
                 {
-                    MaintainWindow mw = new MaintainWindow();
-                    mw.ShowDialog();
-
                     LoginWindow loginWnd = new LoginWindow();
                     loginWnd.ShowActivated = true;
                     Nullable<bool> dialogResult = loginWnd.ShowDialog();
 
-                    string strPhoneNumber;
                     if(dialogResult == true)
-                        strPhoneNumber = loginWnd.m_strPhoneNumber;
+                    {
+                        m_strPhoneNumber = loginWnd.m_strPhoneNumber;
+                        btnLogin.IsLogon = true;
+                        btnLogin.bottomText = m_strPhoneNumber;
+                    }
                 }
             }
 
