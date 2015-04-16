@@ -207,6 +207,9 @@ namespace VOP
         {
             statusPageView.Child = statusPanelPage;
             this.statusPanelPage.Visibility = Visibility.Visible;
+
+            ShowAboutPageOnly();
+
             AddMessageHook();
         }
 
@@ -245,19 +248,19 @@ namespace VOP
             {
                 if ( "btnPrint" == btn.Name )
                 {                
-                     setTabItemFromIndex(0);
+                     SetTabItemFromIndex( EnumSubPage.Print );
                 }
                 else if ( "btnCopy" == btn.Name )
                 {                   
-                    setTabItemFromIndex(1);
+                    SetTabItemFromIndex( EnumSubPage.Copy );
                 }
                 else if ( "btnScan" == btn.Name )
                 {                    
-                    setTabItemFromIndex(2);
+                    SetTabItemFromIndex( EnumSubPage.Scan );
                 }
                 else if ( "btnSetting" == btn.Name )
                 {                
-                    setTabItemFromIndex(3);
+                    SetTabItemFromIndex( EnumSubPage.Setting );
                 }
                 else if ( "btnLogin" == btn.Name )
                 {
@@ -278,11 +281,14 @@ namespace VOP
 
         #region Set_TabItemIndex
 
-        private bool setTabItemFromIndex(int index)
+        /// <summary>
+        /// Switch sub page. 
+        /// </summary>
+        private bool SetTabItemFromIndex( EnumSubPage subpage )
         {
             if ( false == statusPanelPage.m_isSFP )
             {
-                if (0 == index)
+                if ( EnumSubPage.Print == subpage )
                 {
                     txtPageName.Text = "打印";
                     this.subPageView.Child = winFileSelectionPage;
@@ -292,7 +298,7 @@ namespace VOP
                     tabItem_Scan.IsSelect = false;
                     tabItem_Setting.IsSelect = false;
                 }
-                else if (1 == index)
+                else if ( EnumSubPage.Copy == subpage )
                 {
                     txtPageName.Text = "复印";
                     this.subPageView.Child = winCopyPage;
@@ -302,7 +308,7 @@ namespace VOP
                     tabItem_Scan.IsSelect = false;
                     tabItem_Setting.IsSelect = false;
                 }
-                else if (2 == index)
+                else if ( EnumSubPage.Scan == subpage )
                 {
                     txtPageName.Text = "扫描";
                     this.subPageView.Child = winScanPage;
@@ -312,7 +318,7 @@ namespace VOP
                     tabItem_Scan.IsSelect = true;
                     tabItem_Setting.IsSelect = false;
                 }
-                else if (3 == index)
+                else if ( EnumSubPage.Setting == subpage )
                 {
                     txtPageName.Text = "设置";
                     this.subPageView.Child = winSettingPage;
@@ -329,14 +335,14 @@ namespace VOP
             }
             else
             {
-                if (0 == index)
+                if ( EnumSubPage.Print == subpage )
                 {
                     this.subPageView.Child = winFileSelectionPage;
                    
                     tabItem_Print.IsSelect = true;
                     tabItem_Setting.IsSelect = false;
                 }
-                else if (3 == index)
+                else if ( EnumSubPage.Setting == subpage )
                 {
                     this.subPageView.Child = winSettingPage;
                     
@@ -573,33 +579,6 @@ namespace VOP
                 m_isOnlineDetected = true;
                 ExpandSubpage();
             }
-            else
-            {
-                line3.Visibility = Visibility.Hidden;
-                line4.Visibility = Visibility.Hidden;
-                line5.Visibility = Visibility.Hidden;
-                line8.Visibility = Visibility.Hidden;
-                line9.Visibility = Visibility.Hidden;
-                line10.Visibility = Visibility.Hidden;
-
-
-                Print_Grid.Visibility = Visibility.Hidden;
-                Scan_Grid.Visibility = Visibility.Hidden;
-                Copy_Grid.Visibility = Visibility.Hidden;
-                Grid.SetColumn(Setting_Grid, 3);
-                Grid.SetRow(Setting_Grid, 2);
-
-                tabItem_Print.Visibility = Visibility.Hidden;
-                tabItem_Copy.Visibility = Visibility.Hidden;
-                tabItem_Scan.Visibility = Visibility.Hidden;
-
-                Grid.SetColumn(tabItem_Setting, 3);
-                Grid.SetRow(tabItem_Setting, 3);
-
-                winSettingPage.mainGrid.Background = imgBk_Brush_1;
-                winSettingPage.m_bOnlyDispalyAboutView = true;
-
-            }
 
             // After UI already loaded, tranfer auto machine. 
             App.g_autoMachine.TranferState( (EnumMachineJob)job );
@@ -615,7 +594,7 @@ namespace VOP
         /// <param name="files"> file list need to preview in print page.</param>
         public void SwitchToPrintingPage( List<string> files )
         {
-            setTabItemFromIndex(0);
+            SetTabItemFromIndex( EnumSubPage.Print );
 
             winPrintPage.FilePaths = files;
             winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintImages;
@@ -631,7 +610,7 @@ namespace VOP
             line8.Visibility = Visibility.Visible;
             Print_Grid.Visibility = Visibility.Visible;
             tabItem_Print.Visibility = Visibility.Visible;
-            setTabItemFromIndex(0);
+            SetTabItemFromIndex( EnumSubPage.Print );
 
             if ( false == statusPanelPage.m_isSFP )
             {
@@ -675,5 +654,43 @@ namespace VOP
                 winSettingPage.mainGrid.Background = imgBk_Brush_2;
             }
        }
+
+        private void ShowAboutPageOnly()
+        {
+            SetTabItemFromIndex( EnumSubPage.Setting );
+
+            line3.Visibility = Visibility.Hidden;
+            line4.Visibility = Visibility.Hidden;
+            line5.Visibility = Visibility.Hidden;
+            line8.Visibility = Visibility.Hidden;
+            line9.Visibility = Visibility.Hidden;
+            line10.Visibility = Visibility.Hidden;
+
+
+            Print_Grid.Visibility = Visibility.Hidden;
+            Scan_Grid.Visibility = Visibility.Hidden;
+            Copy_Grid.Visibility = Visibility.Hidden;
+            Grid.SetColumn(Setting_Grid, 3);
+            Grid.SetRow(Setting_Grid, 2);
+
+            tabItem_Print.Visibility = Visibility.Hidden;
+            tabItem_Copy.Visibility = Visibility.Hidden;
+            tabItem_Scan.Visibility = Visibility.Hidden;
+
+            Grid.SetColumn(tabItem_Setting, 3);
+            Grid.SetRow(tabItem_Setting, 3);
+
+            winSettingPage.mainGrid.Background = imgBk_Brush_1;
+            winSettingPage.m_bOnlyDispalyAboutView = true;
+        }
+
+        public enum EnumSubPage
+        {
+            Print   ,
+            Copy    ,
+            Scan    ,
+            Setting ,
+        }
+
     }
 }
