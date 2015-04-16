@@ -6,10 +6,8 @@
     >
 <Grid >
     <Grid>
-        <Image Width="64" Height="64" Source="{Binding ElementName=img_element, Path=src}"/>
-        <Image HorizontalAlignment="Right" VerticalAlignment="Top" Width="12"
-            MouseDown="MouseButtonEventHandler"
-            Height="12" Source="{Binding ElementName=img_element, Path=marker}"/>
+        <Image Name="imgBody" Width="64" Height="64" />
+        <Image Name="imgMark" HorizontalAlignment="Right" VerticalAlignment="Top" Width="12" MouseDown="MouseButtonEventHandler" Height="12" />
     </Grid>
 </Grid>
 

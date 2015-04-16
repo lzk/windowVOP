@@ -32,35 +32,6 @@ namespace VOP
             }
         }
 
-#region property use for xaml
-        public static readonly DependencyProperty srcProperty = DependencyProperty.Register("src", typeof (ImageSource), typeof (ImageItem), (PropertyMetadata) new UIPropertyMetadata((PropertyChangedCallback) null));
-        public static readonly DependencyProperty markerProperty = DependencyProperty.Register("marker", typeof (ImageSource), typeof (ImageItem), (PropertyMetadata) new UIPropertyMetadata((PropertyChangedCallback) null));
-
-        private ImageSource src
-        {
-          get
-          {
-            return (ImageSource) this.GetValue(ImageItem.srcProperty);
-          }
-          set
-          {
-            this.SetValue(ImageItem.srcProperty, (object) value);
-          }
-        }
-
-        public ImageSource marker
-        {
-          get
-          {
-            return (ImageSource) this.GetValue(ImageItem.markerProperty);
-          }
-          set
-          {
-            this.SetValue(ImageItem.markerProperty, (object) value);
-          }
-        }
-#endregion
-
         public void CheckImage( bool ischeck ) 
         {
             BitmapImage bi3 = new BitmapImage();
@@ -72,7 +43,7 @@ namespace VOP
                 bi3.UriSource = new Uri("Images/close.png", UriKind.Relative);
             bi3.EndInit();
 
-            this.marker = bi3;
+            imgMark.Source = bi3;
             m_ischeck = ischeck;
         }
 
@@ -120,13 +91,13 @@ namespace VOP
                 this.Background = Brushes.White;
                 this.Width = 64;
                 this.Height = 64;
-                src = bmpSrc;
+                imgBody.Source = bmpSrc;
             }
             catch
             {
             }
 
-            m_iSimgReady = ( null != src );
+            m_iSimgReady = ( null != imgBody.Source );
         }
     }
 }

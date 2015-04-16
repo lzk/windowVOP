@@ -622,6 +622,9 @@ namespace VOP
             subPageView.Child = winPrintPage;
         }
         
+        /// <summary>
+        /// Expand other subpage according the model type ( 3in1 or SFP )
+        /// </summary>
         private void ExpandSubpage()
         {
             line3.Visibility = Visibility.Visible;
