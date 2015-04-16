@@ -11,17 +11,14 @@ namespace VOP
     public partial class ImageItem : UserControl
     {
         public bool m_ischeck = false;
-        private ScanFiles _files;
-        public BitmapSource m_source = null; // if the file loading fail, m_source remain null
-
-        public static readonly DependencyProperty srcProperty = DependencyProperty.Register("src", typeof (ImageSource), typeof (ImageItem), (PropertyMetadata) new UIPropertyMetadata((PropertyChangedCallback) null));
-        public static readonly DependencyProperty markerProperty = DependencyProperty.Register("marker", typeof (ImageSource), typeof (ImageItem), (PropertyMetadata) new UIPropertyMetadata((PropertyChangedCallback) null));
+        public bool m_iSimgReady = false; // false if image has not loaded.
 
         public ImageItem()
         {
             InitializeComponent();
         }
 
+        private ScanFiles _files;
         public ScanFiles m_images
         {
             get
@@ -35,9 +32,9 @@ namespace VOP
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
+#region property use for xaml
+        public static readonly DependencyProperty srcProperty = DependencyProperty.Register("src", typeof (ImageSource), typeof (ImageItem), (PropertyMetadata) new UIPropertyMetadata((PropertyChangedCallback) null));
+        public static readonly DependencyProperty markerProperty = DependencyProperty.Register("marker", typeof (ImageSource), typeof (ImageItem), (PropertyMetadata) new UIPropertyMetadata((PropertyChangedCallback) null));
 
         private ImageSource src
         {
@@ -62,6 +59,7 @@ namespace VOP
             this.SetValue(ImageItem.markerProperty, (object) value);
           }
         }
+#endregion
 
         public void CheckImage( bool ischeck ) 
         {
@@ -119,8 +117,6 @@ namespace VOP
                     bmpSrc = BitmapFrame.Create(new TransformedBitmap(bmpSrc, new ScaleTransform(0.1, 0.1)));
                 }
 
-                m_source = bmpSrc;
-
                 this.Background = Brushes.White;
                 this.Width = 64;
                 this.Height = 64;
@@ -128,8 +124,9 @@ namespace VOP
             }
             catch
             {
-                m_source = null;
             }
+
+            m_iSimgReady = ( null != src );
         }
     }
 }

@@ -80,7 +80,7 @@ namespace VOP
                 img.ImageDoubleClick += ImageItemDoubleClick;
                 img.CloseIconClick += ImageItemCloseIconClick;
 
-                if ( null != img.m_source )
+                if ( img.m_iSimgReady )
                 {
                     this.image_wrappanel.Children.Insert(0, img );
                 }
@@ -161,7 +161,7 @@ namespace VOP
                     ImageItem tmp  = new ImageItem();
                     tmp.m_images = win.m_rotatedObj;
 
-                    if ( null != tmp.m_source )
+                    if ( tmp.m_iSimgReady )
                     {
                         tmp.ImageSingleClick += ImageItemSingleClick;
                         tmp.ImageDoubleClick += ImageItemDoubleClick;
@@ -365,7 +365,7 @@ namespace VOP
                      ImageItem img  = new ImageItem();
                      img.m_images = objScan;
 
-                     if ( null != img.m_source )
+                     if ( img.m_iSimgReady )
                      {
                          img.ImageSingleClick += ImageItemSingleClick;
                          img.ImageDoubleClick += ImageItemDoubleClick;
