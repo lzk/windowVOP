@@ -195,6 +195,7 @@ namespace VOP
                 shopCart_Img.Fill = imgBrush_Disable;
                 shopCart_Img.Opacity = 1.0;
                 timer.Stop();            
+                textblock_Tip.Text = "碳粉容量 ：";
             }         
         }
         public TonerBar()
