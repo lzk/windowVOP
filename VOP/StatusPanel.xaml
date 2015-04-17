@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             Width="638"
-             Height="367"
+            Height="638" 
+	        Width="850"
              xmlns:mycontrol="clr-namespace:VOP" Loaded="UserControl_Loaded">    
     <UserControl.Resources>
         <ResourceDictionary>
@@ -12,7 +12,7 @@
                 <ResourceDictionary Source="Controls/ComboBox_Template.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <SolidColorBrush x:Key="border_Brush">#9B9B9B</SolidColorBrush>
+            <SolidColorBrush x:Key="border_Brush">#999999</SolidColorBrush>
 
             <LinearGradientBrush x:Key="mainBackground_Brush" EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FFEEEDED" Offset="0"/>
@@ -26,32 +26,52 @@
     <Grid Background="{x:Null}">
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="27*" />
-            <ColumnDefinition Width="171*" />
-            <ColumnDefinition Width="440*" />
+            <ColumnDefinition Width="135*" />
+            <ColumnDefinition Width="170*" />
+            <ColumnDefinition Width="545*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60*" />
-            <RowDefinition Height="280*" />
-            <RowDefinition Height="27*" />
+            <RowDefinition Height="302*" />
+            <RowDefinition Height="277*" />
+            <RowDefinition Height="59*" />
         </Grid.RowDefinitions>
 
-            <Grid Grid.Row="1" Grid.Column="1">
-                <Border 
+
+        <Grid Grid.Row="1" Grid.Column="1" >
+
+            <Border 
                     Background="{StaticResource mainBackground_Brush}" BorderBrush="{StaticResource border_Brush}" 
-                    BorderThickness="1"
-                    CornerRadius="6"/>
+                    BorderThickness="0"
+                    CornerRadius="16">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="14" Color="#FFA1A0A0" Direction="270"  ShadowDepth="1" Opacity="0.9"/>
+                </Border.Effect>
+            </Border>
+
+
+
+            <Border 
+                    Background="{StaticResource mainBackground_Brush}" BorderBrush="{StaticResource border_Brush}" 
+                     BorderThickness="0"
+                    CornerRadius="6">         
+            </Border>
+           
+         
+                
                 <Grid  >
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="46*" />
-                        <RowDefinition Height="45*" />
-                        <RowDefinition Height="17*" />
-                        <RowDefinition Height="22*" />
-                        <RowDefinition Height="45*" />
+                    
+         
+                <Grid.RowDefinitions>
+                        <RowDefinition Height="41*" />
+                        <RowDefinition Height="24*" />
+                        <RowDefinition Height="16*" />
+                        <RowDefinition Height="16*" />                    
+                        <RowDefinition Height="37*" />
                         <RowDefinition Height="15*" />
-                        <RowDefinition Height="42*" />
-                        <RowDefinition Height="123*" />
-                    </Grid.RowDefinitions>
+                        <RowDefinition Height="37*" />
+                        <RowDefinition Height="9*" />
+                        <RowDefinition Height="92*" />                   
+                </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10*" />
                         <ColumnDefinition Width="150*" />
@@ -79,7 +99,7 @@
                                    TextAlignment="Center">
                         </TextBlock>
 
-                        <mycontrol:RefreshButton Margin="-5, 0, 0, -2"
+                        <mycontrol:RefreshButton Margin="-10,0,0, 4"
                                                  Grid.Column="1" Grid.RowSpan="2"
                                                  VerticalAlignment="Bottom"
                                                  HorizontalAlignment="Left"
@@ -91,7 +111,7 @@
                     <ComboBox Grid.Row="1" Grid.Column="1"
                               Foreground="#555555"
                               Name="cboPrinters"
-                              Style="{StaticResource CboCommomStyle}" Margin="0,8,0,0" SelectionChanged="cboPrinters_SelectionChanged">
+                              Style="{StaticResource CboCommomStyle}" SelectionChanged="cboPrinters_SelectionChanged">
                     </ComboBox>
 
                     <TextBlock Grid.Row="3" Grid.Column="1"
@@ -115,12 +135,13 @@
                         x:Name="lbTonerBar" Click="btnPurchaseWindow_Click"
                                         CurValue="0">
                     </mycontrol:TonerBar>
+                              
 
                     <Grid Grid.Column="1" Grid.Row="9">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="15" />
-                            <RowDefinition Height="1" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="5*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="86*" />
                         </Grid.RowDefinitions>
                         <Border Grid.Row="1" Background="White" BorderThickness="0" Opacity="0.4"></Border>
 

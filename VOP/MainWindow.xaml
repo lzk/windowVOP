@@ -11,6 +11,7 @@
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP"
         UseLayoutRounding="True"
+        Name="mainWindow"
         >
     <Window.Resources>
         <ControlTemplate x:Key="pageSwitch" TargetType="{x:Type CheckBox}">
@@ -142,8 +143,7 @@
 
 
         <Grid Name="contentGrid" Grid.Row="4" Grid.ColumnSpan="14" Margin="0, -20, 0, 0"  Width="638" Height="367">
-            <Border VerticalAlignment="Top" Name="subPageView" Width="{Binding ElementName=contentGrid, Path=Width}" Height="{Binding ElementName=contentGrid, Path=Height}"/>
-            <Border VerticalAlignment="Top" Name="statusPageView" Grid.Row="4" Grid.ColumnSpan="14"  Width="{Binding ElementName=contentGrid, Path=Width}" Height="{Binding ElementName=contentGrid, Path=Height}" />
+            <Border VerticalAlignment="Top" Name="subPageView" Width="{Binding ElementName=contentGrid, Path=Width}" Height="{Binding ElementName=contentGrid, Path=Height}"/>            
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="3"  Grid.ColumnSpan="11" Margin="0,0,0,-2"> 
@@ -192,6 +192,11 @@
              <Button Name="btnMinimize" Click="ControlBtnClick" Width="30" Height="30" Margin="0,0,2,0" >-</Button>
              <Button Name="btnClose"    Click="ControlBtnClick" Width="30" Height="30" Margin="0,0,5,0" >X</Button>
              </StackPanel>-->
+
+       <Border VerticalAlignment="Center" HorizontalAlignment="Center" Name="statusPageView" Grid.ColumnSpan="100" Grid.RowSpan="100" 
+                Height="638" Width="850"
+                />
+        
 
     </Grid>
 </Window>
