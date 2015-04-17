@@ -9,7 +9,6 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Controls/CheckBox_Template.xaml"/>
                 <ResourceDictionary Source="Controls/ComboBox_Template.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 

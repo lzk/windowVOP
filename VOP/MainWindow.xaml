@@ -73,7 +73,7 @@
             <ImageBrush ImageSource="Images\background.tif" />
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="44*"/>
+            <RowDefinition Height="40*"/>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="96*"/>
             <RowDefinition Height="25*"/>
@@ -98,24 +98,13 @@
 
 
         <!-- Title Bar Layout --> 
-        <Grid Grid.ColumnSpan="100" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="21*" />
-                <ColumnDefinition Width="105*" />
-                <ColumnDefinition Width="649*" />                
-                <ColumnDefinition Width="75*" />
-            </Grid.ColumnDefinitions>            
-            <Grid.RowDefinitions>
-                <RowDefinition Height="14*" />
-                <RowDefinition Height="13*" />
-                <RowDefinition Height="13*" />
-            </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="13">
 
-            <TextBlock Grid.RowSpan="3" Text="ABC打印机" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="23.75" Grid.Column="2" Height="31.59" Margin="211.557,6.205,322.557,6.205" Width="114.886"/>
+            <TextBlock Text="ABC打印机" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="24" Height="35" />
 
-            <Image Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Source="Images\mainWindow_Logo.png" Height="15" Margin="0,14" Width="100" />
+            <Image HorizontalAlignment="Left" VerticalAlignment="Center"  Source="Images\mainWindow_Logo.png" Height="15" Margin="20,0" Width="100" />
 
-            <StackPanel HorizontalAlignment="Right" Margin="0,0,4,0" Orientation="Horizontal" Grid.RowSpan="3" Grid.Column="3">
+            <StackPanel HorizontalAlignment="Right" Margin="0,0,4,0" Orientation="Horizontal" >
                 <local:MinimizeCloseButton x:Name="btnMinimize" Height="30" Width="30" Click="ControlBtnClick" MinimizeOrCloseStyle="Minimize" />
                 <local:MinimizeCloseButton x:Name="btnClose"    Height="30" Width="30" Click="ControlBtnClick" MinimizeOrCloseStyle="Close" />
             </StackPanel>

@@ -282,10 +282,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\CheckBox_Template.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\ComboBox_Template.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -628,38 +624,11 @@
     <Resource Include=".\Images\Nin1_9.png" />
     <Resource Include=".\Images\IDCardCopyIconDisable.png" />
     <Resource Include=".\Images\IDCardCopyIconEnable.png" />
-    <Resource Include=".\Images\background.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\PagePrint_Bk_2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\PagePrint_Bk_Left.png" />
-    <Resource Include="Images\PagePrint_Bk_Right.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ToggleLeft.png" />
-    <Resource Include="Images\ToggleRight.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\shopCart_Disable.tif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Switch_Off.png" />
-    <Resource Include="Images\Switch_On.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\ButtonFileSelect.png" />
     <Resource Include="Images\ButtonIdCardSelect.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\shopCart_Warn.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\shopCart_Normal.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Wifi.png" />
     <Resource Include="Images\About.png" />
     <Resource Include="Images\About_Active.png" />
     <Resource Include="Images\Password.png" />
@@ -677,54 +646,18 @@
     <Resource Include="Images\Login.tif" />
     <Resource Include="Images\LoginPressed.tif" />
     <Resource Include="Images\NotLogin.tif" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\btnCopy.tif" />
     <Resource Include="Images\btnPrint.tif" />
     <Resource Include="Images\btnScan.tif" />
     <Resource Include="Images\btnSetting.tif" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\busyRefresh.tif" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\background.tif" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\PagePrint.tif" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\PageCopy.tif" />
     <Resource Include="Images\PageScan.tif" />
     <Resource Include="Images\PageSetting.tif" />
     <Resource Include="Images\SettingViewBackground.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\triangle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 4.5</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Fit.tif" />
     <Resource Include="Images\Turn.tif" />
     <Resource Include="Images\ZoomIn.tif" />
@@ -764,5 +697,27 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
 </Project>
