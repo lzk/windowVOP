@@ -51,6 +51,7 @@ namespace VOP
 
                 if (!isApplySuccess)
                 {
+                    ((MainWindow)App.Current.MainWindow).m_strPassword = "";
                     tbkErrorInfo.Text = "认证错误，请重新输入密码。";
                 }
                 else
