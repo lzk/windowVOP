@@ -121,13 +121,13 @@
     <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal"
         HorizontalAlignment="Left" Width="431" Margin="0,0,-8,0" >
         <local:ButtonEx x:Name="btnPrint" HorizontalContentAlignment="Center" Margin="0,0,5,0" IsDefault="False"
-            Content="打印" Height="25" Width="75" HorizontalAlignment="Center" Click="btnPrint_Click" />
+            Content="打印" Height="35" Width="75" HorizontalAlignment="Center" Click="btnPrint_Click" />
         <local:ButtonEx x:Name="btnSave" HorizontalContentAlignment="Center" Margin="5,0" IsDefault="False"
-            Content="保存" Height="25" Width="75" HorizontalAlignment="Center" Click="btnSave_Click" />
+            Content="保存" Height="35" Width="75" HorizontalAlignment="Center" Click="btnSave_Click" />
         <local:ButtonEx Click="SettingBtnClick" HorizontalContentAlignment="Center" Margin="5,10" IsDefault="False"
-            Content="更多设置" Height="25" Width="105" HorizontalAlignment="Center" />
-        <local:ButtonEx x:Name="btnScan" HorizontalContentAlignment="Center" Margin="38,0,12,0" IsDefault="True"
-            Content="扫描" Height="25" Width="75" Click="btnScan_Click" />
+            Content="更多设置" Height="35" Width="105" HorizontalAlignment="Center" />
+        <local:ButtonEx x:Name="btnScan" HorizontalContentAlignment="Center" Margin="10,0" IsDefault="True"
+            Content="扫描" Height="35" Width="105" Click="btnScan_Click" />
     </StackPanel>
     <Grid Grid.Column="1" Margin="0" Grid.Row="2">
     	<Grid.ColumnDefinitions>
@@ -136,8 +136,8 @@
     		<ColumnDefinition Width="103*"/>
     	</Grid.ColumnDefinitions>
     	<TextBlock VerticalAlignment="Center" Grid.Column="0" Height="15.96" Margin="0,14.52" >待扫描图片大小:</TextBlock>
-    	<TextBlock x:Name="txtBlkImgSize" VerticalAlignment="Center" Grid.Column="1" Height="15.96" Margin="0,14.52" >TODO</TextBlock>
-    	<local:ButtonEx x:Name="btnCancel" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="75" Margin="0,10" IsDefault="false" Content="取消" Grid.Column="2" Click="btnCancel_Click" />
+    	<TextBlock x:Name="txtBlkImgSize" VerticalAlignment="Center" Grid.Column="1" Height="15.96" Margin="0,14.52" ></TextBlock>
+    	<local:ButtonEx x:Name="btnCancel" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="75" Height="35" IsDefault="false" Content="取消" Grid.Column="2" Click="btnCancel_Click" />
     </Grid>
 
     <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal"
