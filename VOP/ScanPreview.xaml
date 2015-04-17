@@ -137,36 +137,36 @@
             <Image VerticalAlignment="Center" HorizontalAlignment="Center" Name="previewImg" Height="100" />
         </ScrollViewer>
 
-        <StackPanel HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal">
+        <StackPanel HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal">
             <Button HorizontalAlignment="Left" Name="btn_normal" Click="imagebtn_click"
-                VerticalAlignment="Center" Width="55" Style="{DynamicResource 3dbutton}">
+                VerticalAlignment="Center" Width="60" Style="{DynamicResource 3dbutton}">
         		<Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/Fit.tif"/>
         	</Button>
             <Button HorizontalAlignment="Left" Name="btn_zoomin" Click="imagebtn_click"
-                VerticalAlignment="Center" Width="55" Style="{DynamicResource 3dbutton}">
+                VerticalAlignment="Center" Width="60" Style="{DynamicResource 3dbutton}">
         		<Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/ZoomIn.tif"/>
         	</Button>
             <Button HorizontalAlignment="Left" Margin="0"  Name="btn_zoomout" Click="imagebtn_click"
-                VerticalAlignment="Center" Width="55" Style="{DynamicResource 3dbutton}">
+                VerticalAlignment="Center" Width="60" Style="{DynamicResource 3dbutton}">
         		<Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/ZoomOut.tif"/>
         	</Button>
             <Button HorizontalAlignment="Left" Name="btn_turn" Click="imagebtn_click"
-                VerticalAlignment="Center" Width="55" Style="{DynamicResource 3dbutton}">
+                VerticalAlignment="Center" Width="60" Style="{DynamicResource 3dbutton}">
         		<Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/Turn.tif"/>
         	</Button>
         </StackPanel>
 
-        <StackPanel Margin="0" Grid.Row="3" Width="240" Orientation="Horizontal">
-            <local:ButtonEx x:Name="btnOK" Content="确定" HorizontalAlignment="Center" Height="30"
+        <StackPanel Margin="0" Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top" >
+            <local:ButtonEx x:Name="btnOK" Content="确定" HorizontalAlignment="Center" Height="35"
                 HorizontalContentAlignment="Center"
-                Margin="25,0,0,0" Width="75" VerticalAlignment="Center" Click="btnOK_Click"/>
-            <local:ButtonEx x:Name="btnPrint"  Content="打印" HorizontalAlignment="Center" Height="30"
+                Width="100" VerticalAlignment="Center" Click="btnOK_Click"/>
+            <local:ButtonEx x:Name="btnPrint"  Content="打印" HorizontalAlignment="Center" Height="35"
                 HorizontalContentAlignment="Center"
-                Margin="25,0,0,0" Width="75" IsDefault="true" VerticalAlignment="Center" Click="btnPrint_Click" />
+                Margin="25,0,0,0" Width="100" IsActiveEx="true" VerticalAlignment="Center" Click="btnPrint_Click" />
         </StackPanel>
         
     </Grid>
