@@ -486,6 +486,8 @@ namespace VOP
                    }
                }
 
+               statusPanelPage.IsEnableSetValue = true;
+
                App.g_autoMachine.TranferState((EnumMachineJob)job);
                App.g_autoMachine.TranferState((EnumStatus)status);
 

@@ -44,6 +44,13 @@ namespace SimulateDeviceStatus
                 cboPrinters.Items.Add(printers[i]);
             }
 
+            if (cboPrinters.Items.Count <= 2)
+            {
+                cboPrinters.Items.Add("Lenovo test...");
+            }
+
+
+
             if (cboPrinters.Items.Count > 0)
                 cboPrinters.SelectedIndex = 0;
 

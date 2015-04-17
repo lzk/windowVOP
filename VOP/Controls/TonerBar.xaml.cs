@@ -112,15 +112,9 @@ namespace VOP
             argsEvent.Source = this;
             RaiseEvent(argsEvent);
 
-            if ((IsEnabled) && ((oldValue > 30.0 & curPercet <= 30.0) || (oldValue > 10.0 & curPercet <= 10.0)) )
-            {
-                RoutedEventArgs clickEventArgs = new RoutedEventArgs();
-                clickEventArgs.RoutedEvent = TonerBar.ClickEvent;
-                clickEventArgs.Source = this;
-                RaiseEvent(clickEventArgs);
-            }
+          
 
-            oldValue = curPercet;
+           
         }
 
         public bool IsEnabled
@@ -137,7 +131,42 @@ namespace VOP
         {
             VOP.TonerBar _this = (VOP.TonerBar)sender;
             _this.PaintControl();
-        }      
+        }
+
+
+
+
+        public bool IsShinkle
+        {
+            get { return (bool)GetValue(IsShinkleProperty); }
+            set { SetValue(IsShinkleProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsShinkle.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsShinkleProperty =
+            DependencyProperty.Register("IsShinkle", typeof(bool), typeof(TonerBar),
+            new FrameworkPropertyMetadata(false, new PropertyChangedCallback(OnIsShinkle_Changed)));
+
+        private static void OnIsShinkle_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            VOP.TonerBar _this = (VOP.TonerBar)sender;
+            _this.IsShinkle_Changed();
+        }
+
+        private void IsShinkle_Changed()
+        {
+            if(IsShinkle)
+            {
+                timer.Start();     
+            }
+            else
+            {
+                shopCart_Img.Opacity = 1.0;
+                timer.Stop();     
+            }
+        }
+        
+
         #endregion // Property
 
         void PaintControl()
@@ -153,13 +182,8 @@ namespace VOP
             }
             else if (curPercet <= 30)
             {
-                TonerPercent.Background = Brush_30_percent;
-          
+                TonerPercent.Background = Brush_30_percent;          
             }
-            //else if (curPercet <= 60)
-            //{
-            //    TonerPercent.Background = Brush_Normal;
-            //}
             else
             {
                 TonerPercent.Background = Brush_Normal;
@@ -180,21 +204,21 @@ namespace VOP
                     shopCart_Img.Fill = imgBrush_Normal;
                 }
 
-                if (curPercet <= 30)
+                if ((oldValue != curPercet) && ((10.0 == curPercet) || (20.0 == curPercet) || (30.0 == curPercet)))
                 {
-                    timer.Start();               
+                    IsShinkle = true;
+
+                    RaiseClickEvent();                    
                 }
-                else
-                {
-                    timer.Stop();
-                    shopCart_Img.Opacity = 1.0;               
-                }
+
+                oldValue = curPercet;
+       
             }
             else
             {
                 shopCart_Img.Fill = imgBrush_Disable;
-                shopCart_Img.Opacity = 1.0;
-                timer.Stop();            
+
+                IsShinkle = false;
                 textblock_Tip.Text = "碳粉容量 ：";
             }         
         }
@@ -244,11 +268,21 @@ namespace VOP
             {
                 shopCart_Img.Opacity = 1.0;
 
-                RoutedEventArgs clickEventArgs = new RoutedEventArgs();
-                clickEventArgs.RoutedEvent = TonerBar.ClickEvent;
-                clickEventArgs.Source = this;
-                RaiseEvent(clickEventArgs);
+                RaiseClickEvent();
+               
+
+               
             }           
+        }
+
+        private void RaiseClickEvent()
+        {
+            RoutedEventArgs clickEventArgs = new RoutedEventArgs();
+            clickEventArgs.RoutedEvent = TonerBar.ClickEvent;
+            clickEventArgs.Source = this;
+            RaiseEvent(clickEventArgs);
+
+            IsShinkle = false;
         }
     }
 }
