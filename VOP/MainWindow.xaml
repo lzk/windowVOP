@@ -9,7 +9,9 @@
         Loaded="LoadedMainWindow"
         WindowStyle="None" 
         xmlns:local="clr-namespace:VOP.Controls"
-        xmlns:mycontrol="clr-namespace:VOP">
+        xmlns:mycontrol="clr-namespace:VOP"
+        UseLayoutRounding="True"
+        >
     <Window.Resources>
         <ControlTemplate x:Key="pageSwitch" TargetType="{x:Type CheckBox}">
             <Grid Name="grid"
@@ -111,7 +113,7 @@
 
             <TextBlock Grid.RowSpan="3" Text="ABC打印机" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="23.75" Grid.Column="2" Height="31.59" Margin="211.557,6.205,322.557,6.205" Width="114.886"/>
 
-            <Image Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Source="Images\mainWindow_Logo.png" Height="15.75" Margin="0,14.125" Width="105" />
+            <Image Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Source="Images\mainWindow_Logo.png" Height="15" Margin="0,14" Width="100" />
 
             <StackPanel HorizontalAlignment="Right" Margin="0,0,4,0" Orientation="Horizontal" Grid.RowSpan="3" Grid.Column="3">
                 <local:MinimizeCloseButton x:Name="btnMinimize" Height="30" Width="30" Click="ControlBtnClick" MinimizeOrCloseStyle="Minimize" />
