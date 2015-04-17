@@ -5,7 +5,7 @@
 	x:Class="VOP.ScanSetting"
 	x:Name="Window"
 	Title="ScanSetting"
-    Width="578" Height="493"
+    Width="585" Height="493"
 
     AllowsTransparency="true"
     WindowStartupLocation="CenterOwner"
@@ -33,55 +33,50 @@
         <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
     </Window.Effect>
 
-	<Grid x:Name="LayoutRoot" Background="#FFE7E7E7" >
+    <Grid x:Name="LayoutRoot" Background="#FFE7E7E7" >
 
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
-            <RowDefinition Height="90" />
-            <RowDefinition Height="270" />
+            <RowDefinition Height="110" />
+            <RowDefinition Height="240" />
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="265" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
-        <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0"
-            Grid.ColumnSpan="2" >
+        <!-- Title bar begin -->
+        <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0">
             <TextBlock Text="更多设置" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
 
-        <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Grid.Column="1"/>
+        <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" />
+        <!-- Title bar end -->
 
-            <local:GroupBoxDecorator Grid.ColumnSpan="2" Grid.Row="1"
-                Header="文档类型" Margin="22.5,10" >
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+
+        <local:GroupBoxDecorator Grid.Row="1" Header="文档类型" HorizontalAlignment="Center" VerticalAlignment="Center" Width="450" Height="75" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
 
                 <RadioButton GroupName="docType" IsChecked="true"
-                             Name="docutype_photo" Click="docutype_click"
-                        Template="{StaticResource customRadioButton}"
-                        Content="图片" VerticalAlignment="Center"
-                        Margin="10,0" ></RadioButton>
+                    Name="docutype_photo" Click="docutype_click"
+                    Template="{StaticResource customRadioButton}"
+                    Content="图片" VerticalAlignment="Center"
+                    Margin="10,0" ></RadioButton>
 
                 <RadioButton GroupName="docType" IsChecked="false"
-                             Name="docutype_graphic" Click="docutype_click"
-                        Template="{StaticResource customRadioButton}"
-                        Content="图文" VerticalAlignment="Center"
-                        Margin="10,0" ></RadioButton>
+                    Name="docutype_graphic" Click="docutype_click"
+                    Template="{StaticResource customRadioButton}"
+                    Content="图文" VerticalAlignment="Center"
+                    Margin="10,0" ></RadioButton>
 
                 <RadioButton GroupName="docType" IsChecked="false"
-                             Name="docutype_text" Click="docutype_click"
-                        Template="{StaticResource customRadioButton}"
-                        Content="文本" VerticalAlignment="Center"
-                        Margin="10,0" ></RadioButton>
+                    Name="docutype_text" Click="docutype_click"
+                    Template="{StaticResource customRadioButton}"
+                    Content="文本" VerticalAlignment="Center"
+                    Margin="10,0" ></RadioButton>
 
-                </StackPanel>
-            </local:GroupBoxDecorator>
+            </StackPanel>
+        </local:GroupBoxDecorator>
 
-            <StackPanel VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="0" HorizontalAlignment="Center" >
-                <local:GroupBoxDecorator Header="分辨率" Height="70"
-                    Width="220" >                    
+        <Grid Grid.Row="2" >
+            <local:GroupBoxDecorator Margin="40,0,0,0" Header="分辨率" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
                 <ComboBox Name="cboScanResln" SelectionChanged="combo_sel_change"
                     Style="{StaticResource customComboBox}"
                     Background="White"
@@ -91,35 +86,34 @@
 
 
                 </ComboBox>
-                </local:GroupBoxDecorator>
-                <local:GroupBoxDecorator Header="色彩模式" Height="70"
-                    Width="220" Margin="0,20" >
+            </local:GroupBoxDecorator>
+
+            <local:GroupBoxDecorator Margin="40,0,0,0" Header="色彩模式" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center">
 
                     <RadioButton GroupName="colorMode" IsChecked="True"
-                                 Name="Color" Click="colorMode_Click"
+                        Name="Color" Click="colorMode_Click"
                         Template="{StaticResource customRadioButton}"
                         Content="彩色" VerticalAlignment="Center"
                         Margin="5,0" ></RadioButton>
 
                     <RadioButton GroupName="colorMode" IsChecked="false"
-                                 Name="Grayscale" Click="colorMode_Click"
+                        Name="Grayscale" Click="colorMode_Click"
                         Template="{StaticResource customRadioButton}"
                         Content="灰阶" VerticalAlignment="Center"
                         Margin="5,0" ></RadioButton>
 
                     <RadioButton GroupName="colorMode" IsChecked="false"
-                                 Name="BlackAndWhite" Click="colorMode_Click"
+                        Name="BlackAndWhite" Click="colorMode_Click"
                         Template="{StaticResource customRadioButton}"
                         Content="黑白" VerticalAlignment="Center"
                         Margin="5,0" ></RadioButton>
 
                 </StackPanel>
-                </local:GroupBoxDecorator>
-                <local:GroupBoxDecorator Header="扫描区域大小" Height="70"
-                    Width="220" >
+            </local:GroupBoxDecorator>
 
+            <local:GroupBoxDecorator Margin="40,0,0,0" Header="扫描区域大小" Height="70" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="220" >
                 <ComboBox Name="cboScanSize" SelectionChanged="cbo_selchg_scansize"
                     Style="{StaticResource customComboBox}"
                     Background="White"
@@ -127,95 +121,92 @@
                     VerticalAlignment="Center"
                     >
                 </ComboBox>
+            </local:GroupBoxDecorator>
 
-                </local:GroupBoxDecorator>
-            </StackPanel>
 
-            <StackPanel  VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Margin="0,5,0,10" Height="255" >
-                <local:GroupBoxDecorator Header="亮度" Height="120"
-                    Width="220" Margin="0,0,0,15"  >
-                    <Grid>
 
-                        <StackPanel>  
-                            <Image Stretch="None" VerticalAlignment="Top"
-                                Margin="0,5" Source="Images/Brightness.png" />
-                        <Slider HorizontalAlignment="Center"  Minimum="0" Name="sldr_brightness" ValueChanged="sldr_value_change"
-                                Maximum="100" Value="50" Height="18" Width="154" Template="{StaticResource HorizontalSlider}"/>
+            <!-- Right side -->
+            <local:GroupBoxDecorator Margin="0,0,40,0" Header="亮度" Height="115" Width="220" HorizontalAlignment="Right" VerticalAlignment="Top" >
+                <StackPanel>
+                    <Image Stretch="None" VerticalAlignment="Top"
+                        Margin="0,5" Source="Images/Brightness.png" />
+                    <Slider HorizontalAlignment="Center"  Minimum="0" Name="sldr_brightness" ValueChanged="sldr_value_change"
+                        Maximum="100" Value="50" Height="18" Width="154" Template="{StaticResource HorizontalSlider}"/>
 
-                        <Grid Width="170" Height="40">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30*" />
-                                <ColumnDefinition Width="110*" />
-                                <ColumnDefinition Width="30*" />
-                            </Grid.ColumnDefinitions>
-                            <Button Style="{StaticResource AdjustButton}" 
-			    		Name="btnReduce_Brightness" Click="Adjust_Click"
-                                    FontSize="45"
-                                    Content="-" />
+                    <Grid Width="170" Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*" />
+                            <ColumnDefinition Width="110*" />
+                            <ColumnDefinition Width="30*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Style="{StaticResource AdjustButton}" 
+                            Name="btnReduce_Brightness" Click="Adjust_Click"
+                            FontSize="45"
+                            Content="-"
+                            Grid.Column="0"
+                            />
 
-                            <TextBox TextChanged="TextValueChanged" x:Name="tb_brightness" 
-                                     Grid.Column="1" TextAlignment="Center" Width="60"
-                        		VerticalAlignment="Center"                         		
-                        		FontSize="30"
-                                Text="{Binding ElementName=sldr_brightness, Path=Value}"
-                        		/>
+                        <TextBox TextChanged="TextValueChanged" x:Name="tb_brightness" 
+                            TextAlignment="Center" Width="60"
+                            VerticalAlignment="Center"                         		
+                            FontSize="30"
+                            Text="{Binding ElementName=sldr_brightness, Path=Value}"
+                            Grid.Column="1"
+                            />
 
-                            <Button Style="{StaticResource AdjustButton}" Grid.Column="2" Name="btnAdd_Brightness" Click="Adjust_Click"
-                                    FontSize="30"
-                                    Content="+" />                       
-                        </Grid>
-                    </StackPanel>
+                        <Button Style="{StaticResource AdjustButton}" Name="btnAdd_Brightness" Click="Adjust_Click"
+                            FontSize="30"
+                            Grid.Column="2"
+                            Content="+" />
+                    </Grid>
+                </StackPanel>
+            </local:GroupBoxDecorator>
+
+            <local:GroupBoxDecorator Margin="0,0,40,0" Header="对比度" Height="115" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="220" >
+                <StackPanel>
+                    <Image Stretch="None" VerticalAlignment="Top"
+                        Margin="0,5" Source="Images/Constrast.png" />
+                    <Slider HorizontalAlignment="Center"  Minimum="0" Name="sldr_contrast" ValueChanged="sldr_value_change"
+                        Maximum="100" Value="50" Height="18" Width="154" Template="{StaticResource HorizontalSlider}"/>
+
+                    <Grid Width="170" Height="40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*" />
+                            <ColumnDefinition Width="110*" />
+                            <ColumnDefinition Width="30*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Style="{StaticResource AdjustButton}"
+                            Name="btnReduce_Constrast" Click="Adjust_Click"
+                            FontSize="45"
+                            Grid.Column="0"
+                            Content="-" />
+
+                        <TextBox TextChanged="TextValueChanged" Name="tb_contrast" 
+                            TextAlignment="Center" Width="60"
+                            VerticalAlignment="Center" 
+                            FontSize="30"
+                            Text="{Binding ElementName=sldr_contrast, Path=Value}"    
+                            Grid.Column="1"
+                            >
+                        </TextBox>
+
+                        <Button Style="{StaticResource AdjustButton}" 
+                            Name="btnAdd_Constrast" Click="Adjust_Click"
+                            FontSize="30"
+                            Grid.Column="2"
+                            Content="+" />
 
                     </Grid>
-                </local:GroupBoxDecorator>
-                <local:GroupBoxDecorator Header="对比度" Height="120"
-                    Width="220" >
-                    <Grid>
+                </StackPanel>
+            </local:GroupBoxDecorator>
+        </Grid>
 
-                        <StackPanel>
-                            <Image Stretch="None" VerticalAlignment="Top"
-                                Margin="0,5" Source="Images/Constrast.png" />
-                        <Slider HorizontalAlignment="Center"  Minimum="0" Name="sldr_contrast" ValueChanged="sldr_value_change"
-                                Maximum="100" Value="50" Height="18" Width="154" Template="{StaticResource HorizontalSlider}"/>
-
-                        <Grid Width="170" Height="40">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30*" />
-                                <ColumnDefinition Width="110*" />
-                                <ColumnDefinition Width="30*" />
-                            </Grid.ColumnDefinitions>
-                            <Button Style="{StaticResource AdjustButton}"
-                                    Name="btnReduce_Constrast" Click="Adjust_Click"
-				     FontSize="45"
-                                    Content="-" />
-
-                            <TextBox TextChanged="TextValueChanged" Name="tb_contrast" 
-                                     Grid.Column="1" TextAlignment="Center" Width="60"
-                                    VerticalAlignment="Center" 
-                                    FontSize="30"
-                                    Text="{Binding ElementName=sldr_contrast, Path=Value}"    
-                                    >                                    
-                                </TextBox>
-
-                            <Button Style="{StaticResource AdjustButton}" Grid.Column="2" 
-                                    Name="btnAdd_Constrast" Click="Adjust_Click"
-                                    FontSize="30"
-                                    Content="+" />
-
-                            </Grid>
-                        </StackPanel>
-
-                    </Grid>
-                </local:GroupBoxDecorator>
-            </StackPanel>
-
-        <StackPanel Grid.ColumnSpan="2" Grid.Row="3" Orientation="Horizontal"
-            HorizontalAlignment="Center" VerticalAlignment="Top" Height="35" Margin="105,0" Width="320" >
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="False" x:Name="btnDefault" Click="btnDefault_Click"
                 Content="默认" 
-                Height="35" Width="150" Margin="0,0,20,0" />
+                Height="35" Width="120" Margin="0,0,20,0" />
             <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="True" x:Name="btnOk" Click="btnOk_Click"
-                Content="确定"  Height="35" Width="150" />
+                Content="确定"  Height="35" Width="120" IsActiveEx="True" />
         </StackPanel>
 
     </Grid>
