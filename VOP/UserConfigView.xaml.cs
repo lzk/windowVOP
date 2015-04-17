@@ -191,5 +191,20 @@ namespace VOP
                 }
             }     
         }
+
+        private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            if (true == spinCtlEdge.ValidationHasError ||
+                true == spinCtlSide2Side.ValidationHasError ||
+                true == spinCtlDensity.ValidationHasError ||
+                true == spinCtlHumidity.ValidationHasError)
+            {
+                btnApply.IsEnabled = false;
+            }
+            else
+            {
+                btnApply.IsEnabled = true;
+            }
+        }
     }
 }

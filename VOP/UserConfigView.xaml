@@ -320,7 +320,8 @@
                             DecimalPlaces="0"
                             Maximum="6"
                             Minimum="-6"  
-                            IsPercentFormat="False">
+                            IsPercentFormat="False"
+                            ValidationHasErrorChanged="OnValidationHasErrorChanged">
 
                     </local:SpinnerControl>
                 </Grid>
@@ -334,7 +335,9 @@
                             DecimalPlaces="0"
                             Maximum="6"
                             Minimum="-6"  
-                            IsPercentFormat="False">
+                            IsPercentFormat="False"
+                            ValidationHasErrorChanged="OnValidationHasErrorChanged">
+
                     </local:SpinnerControl>
                 </Grid>
 
@@ -347,7 +350,8 @@
                             DecimalPlaces="0"
                             Maximum="3"
                             Minimum="-3"  
-                            IsPercentFormat="False">
+                            IsPercentFormat="False"
+                            ValidationHasErrorChanged="OnValidationHasErrorChanged">
 
                     </local:SpinnerControl>
                 </Grid>
@@ -361,7 +365,8 @@
                             DecimalPlaces="0"
                             Maximum="1"
                             Minimum="0"  
-                            IsPercentFormat="False">
+                            IsPercentFormat="False"
+                            ValidationHasErrorChanged="OnValidationHasErrorChanged">
                     </local:SpinnerControl>
                 </Grid>
                 <Image Source="Images/line.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom"></Image>
