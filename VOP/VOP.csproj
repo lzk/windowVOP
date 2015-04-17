@@ -453,7 +453,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\AdjustButton.xaml" />
-    <Page Include="Density.xaml" />
     <Compile Include="Controls\GroupBoxDecorator\GroupBoxDecorator.cs" />
     <Compile Include="Controls\IdCardPrint\IdCardTypeItem.cs" />
     <Compile Include="Controls\IdCardPrint\IdCardTypeSelectWindow.xaml.cs">
@@ -466,7 +465,6 @@
     <Compile Include="Controls\customTabItem.xaml.cs">
       <DependentUpon>customTabItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Density.cs" />
     <Compile Include="Controls\ScrollTextBox.cs" />
     <Compile Include="Controls\TonerBar.xaml.cs">
       <DependentUpon>TonerBar.xaml</DependentUpon>

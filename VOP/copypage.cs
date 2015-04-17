@@ -17,9 +17,66 @@ namespace VOP
         private EnumPaperSizeInput  m_docSize    = EnumPaperSizeInput._A4;
         private EnumPaperSizeOutput m_outputSize = EnumPaperSizeOutput._Letter;
         private EnumNin1            m_nin1       = EnumNin1._1up;
-        private EnumCopyResln           m_dpi        = EnumCopyResln._300x300;
+        private EnumCopyResln       m_dpi        = EnumCopyResln._300x300;
         private EnumMediaType       m_mediaType  = EnumMediaType.Plain;
 #endregion
+        private byte _density = 3;
+        public byte m_density
+        {
+            get
+            {
+                return _density;
+            }
+            set
+            {
+                if ( value >= 1 
+                        && value <= 5 
+                        && null != rect5 )
+                {
+                    _density = value;
+
+                    SolidColorBrush br1 = new SolidColorBrush();
+                    SolidColorBrush br2 = new SolidColorBrush();
+                    br1.Color = Color.FromArgb(0xff, 0x88, 0x88, 0x88);
+                    br2.Color = Color.FromArgb(0xff, 0xac, 0xac, 0xac);
+
+                    rect1.Fill = br2;
+                    rect2.Fill = br2;
+                    rect3.Fill = br2;
+                    rect4.Fill = br2;
+                    rect5.Fill = br2;
+                    
+                    switch ( _density )
+                    {
+                        case 1:
+                            rect1.Fill = br1;
+                            break;
+                        case 2:
+                            rect1.Fill = br1;
+                            rect2.Fill = br1;
+                            break;
+                        case 3:
+                            rect1.Fill = br1;
+                            rect2.Fill = br1;
+                            rect3.Fill = br1;
+                            break;
+                        case 4:
+                            rect1.Fill = br1;
+                            rect2.Fill = br1;
+                            rect3.Fill = br1;
+                            rect4.Fill = br1;
+                            break;
+                        case 5:
+                            rect1.Fill = br1;
+                            rect2.Fill = br1;
+                            rect3.Fill = br1;
+                            rect4.Fill = br1;
+                            rect5.Fill = br1;
+                            break;
+                    }
+                }
+            }
+        }
 
         ///<summary>
         /// Copies set by in UI. Default value is 1. Value range [1,99].
@@ -112,13 +169,10 @@ namespace VOP
             if ( true == chkBtnIDCardCopy.IsChecked )
                 ResetValueForIDCardCopy();
 
-            byte density     = ctrlDensity.m_density;
-            byte nCopy       = m_copies;
-
             dll.SendCopyCmd( 
                     m_MainWin.statusPanelPage.m_selectedPrinter,
-                    (byte)density,
-                    nCopy,
+                    m_density,
+                    m_copies,
                     (byte)m_scanMode,
                     (byte)m_docSize,
                     (byte)m_outputSize,
@@ -176,6 +230,16 @@ namespace VOP
             if ( EnumPaperSizeOutput._A6 == m_outputSize || EnumPaperSizeOutput._B6 == m_outputSize )
                 m_outputSize = EnumPaperSizeOutput._Letter; 
 
+        }
+
+        private void btnDecDensity_Click(object sender, RoutedEventArgs e)
+        {
+            m_density--;
+        }
+
+        private void btnIncDensity_Click(object sender, RoutedEventArgs e)
+        {
+            m_density++;
         }
     }
 }

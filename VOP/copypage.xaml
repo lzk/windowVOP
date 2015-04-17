@@ -59,12 +59,31 @@
                         </StackPanel>
                     </local:GroupBoxDecorator>
 
-                    <vop:Density
-                        x:Name="ctrlDensity"
-                        Margin="0,5,0,15" 
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        />
+                    <local:GroupBoxDecorator Header="浓度" Height="80" Width="300">
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" 
+                            Orientation="Horizontal"
+                            >
+
+
+                            <Button x:Name="btnDecDensity" Style="{StaticResource
+                                AdjustButton}" Content="-" Margin="10,0" FontSize="45" Click="btnDecDensity_Click"/>
+
+
+                            <Rectangle Name="rect1" VerticalAlignment="Bottom" Margin="5,0,0,12" Fill="#ff888888" Width="12" Height="8" />
+                            <Rectangle Name="rect2" VerticalAlignment="Bottom" Margin="5,0,0,12" Fill="#ff888888" Width="12" Height="11" />
+                            <Rectangle Name="rect3" VerticalAlignment="Bottom" Margin="5,0,0,12" Fill="#ff888888" Width="12" Height="14" />
+                            <Rectangle Name="rect4" VerticalAlignment="Bottom" Margin="5,0,0,12" Fill="#ffacacac" Width="12" Height="17" />
+                            <Rectangle Name="rect5" VerticalAlignment="Bottom" Margin="5,0,0,12" Fill="#ffacacac" Width="12" Height="20" />
+
+                            <Button x:Name="btnIncDensity" Style="{StaticResource
+                                AdjustButton}" Content="+" 
+                                FontSize="30"
+                                Margin="10,0" Click="btnIncDensity_Click" />
+
+                        </StackPanel>
+                    </local:GroupBoxDecorator>
 
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
