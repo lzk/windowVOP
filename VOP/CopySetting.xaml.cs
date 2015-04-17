@@ -22,7 +22,7 @@ namespace VOP
         public EnumCopyScanMode    m_scanMode   = EnumCopyScanMode.Photo;
         public EnumPaperSizeInput  m_docSize    = EnumPaperSizeInput._A4;
         public EnumPaperSizeOutput m_outputSize = EnumPaperSizeOutput._Letter;
-        public EnumCopyResln           m_dpi        = EnumCopyResln._300x300;
+        public EnumCopyResln       m_dpi        = EnumCopyResln._300x300;
         public EnumMediaType       m_mediaType  = EnumMediaType.Plain;
 
         /// <summary>
@@ -568,8 +568,8 @@ namespace VOP
             SolidColorBrush brSelected = new SolidColorBrush();
             SolidColorBrush brUnselected = new SolidColorBrush();
 
-            brSelected.Color = Colors.Gray;
-            brUnselected.Color = Color.FromArgb(255, 168, 168, 168);
+            brSelected.Color = Color.FromArgb( 255, 168, 168, 168 );
+            brUnselected.Color = Color.FromArgb(255, 235, 235, 235);
 
             rectNin1_2.Fill = brUnselected;
             rectNin1_4.Fill = brUnselected;
