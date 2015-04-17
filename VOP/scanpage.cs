@@ -199,7 +199,7 @@ namespace VOP
                 m_brightness = win.m_brightness;
                 m_contrast   = win.m_contrast;
 
-                txtBlkImgSize.Text = GetScanSize().ToString()+" bytes";
+                txtBlkImgSize.Text = FormatSize( GetScanSize() );
             }
         }
 
@@ -289,9 +289,7 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            int s = GetScanSize();
-
-            txtBlkImgSize.Text = s.ToString()+" bytes";
+            txtBlkImgSize.Text = FormatSize( GetScanSize() );
 
             btnPrint.IsEnabled = false;
             btnSave.IsEnabled = false;
@@ -534,6 +532,43 @@ namespace VOP
                 }
             }
             
+        }
+
+        /// <summary>
+        /// Format size in byte to string, leave two fraction if size large
+        /// than 1 kb.
+        /// </summary>
+        private string FormatSize( int size )
+        {
+            int _1k = 1024;
+            int _1m = _1k*1024;
+            int _1g = _1m*1024;
+
+            double fSize = size;
+
+            string str = "";
+
+            if ( _1k > size )
+            {
+                str = size.ToString()+"B";
+            }
+            else if ( _1m > size )
+            {
+                fSize/=_1k;
+                str = fSize.ToString("F2")+"KB";
+            }
+            else if ( _1g > size )
+            {
+                fSize/=_1m;
+                str = fSize.ToString("F2")+"MB";
+            }
+            else
+            {
+                fSize/=_1g;
+                str = fSize.ToString("F2")+"GB";
+            }
+
+            return str;
         }
     }
 }
