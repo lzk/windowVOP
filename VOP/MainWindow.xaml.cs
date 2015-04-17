@@ -490,6 +490,10 @@ namespace VOP
                App.g_autoMachine.TranferState((EnumStatus)status);
 
            }
+           else if (msg == App.WM_VOP)
+           {
+               PopupWindow();
+           }
 
             return IntPtr.Zero;
         }
@@ -692,5 +696,13 @@ namespace VOP
             Setting ,
         }
 
+        private void PopupWindow()
+        {
+            this.Visibility = Visibility.Visible;
+            this.Activate();
+            this.Topmost = true;  // important
+            this.Topmost = false; // important
+            this.Focus();         // important
+        }
     }
 }

@@ -4,6 +4,8 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
+using System.Threading; // for Mutex
+
 
 namespace VOP
 {
@@ -18,7 +20,10 @@ namespace VOP
         /// </summary>
         public static List<ScanFiles> scanFileList = new List<ScanFiles>(); 
         public static AutoMachine g_autoMachine = new AutoMachine();
-        public static uint WM_STATUS_UPDATE = Win32.RegisterWindowMessage("35abddc8c9f59ddfebcf8a3bfdd8ea9b4ef9dfd8");
+
+        static Mutex mutex = new Mutex(true, "4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_mutex");
+        public static uint WM_STATUS_UPDATE = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_status");
+        public static uint WM_VOP           = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_vop");
 
         App()
         {
@@ -32,24 +37,35 @@ namespace VOP
         [System.STAThreadAttribute()]
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
-        public static void Main() {
-            VOP.App app = new VOP.App();
-            app.InitializeComponent();
-            app.Run();
-
-            foreach( ScanFiles obj in App.scanFileList )
+        public static void Main() 
+        {
+            if(mutex.WaitOne(TimeSpan.Zero, true)) 
             {
-                try
+                VOP.App app = new VOP.App();
+                app.InitializeComponent();
+                app.Run();
+
+                foreach( ScanFiles obj in App.scanFileList )
                 {
-                    // TODO: clear cache.
-                    // File.Delete(obj.m_pathOrig);
-                    // File.Delete(obj.m_pathView);
-                    // File.Delete(obj.m_pathThumb);
+                    try
+                    {
+                        // TODO: clear cache.
+                        // File.Delete(obj.m_pathOrig);
+                        // File.Delete(obj.m_pathView);
+                        // File.Delete(obj.m_pathThumb);
+                    }
+                    catch
+                    {
+                    }
                 }
-                catch
-                {
-                }
+
+                mutex.ReleaseMutex();
             }
+            else
+            {
+                Win32.PostMessage( (IntPtr)0xffff, WM_VOP, IntPtr.Zero , IntPtr.Zero );
+            }
+
         }
     }
 }
