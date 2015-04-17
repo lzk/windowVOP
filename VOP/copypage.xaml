@@ -33,8 +33,8 @@
             <Grid Grid.Column="1">
 
                 <StackPanel>
-                    <local:GroupBoxDecorator Header="复印份数" Height="80" Width="300"
-                        Margin="0,60,0,10" 
+                    <local:GroupBoxDecorator Header="复印份数" Height="80" Width="320"
+                        Margin="0,65,0,10" 
                         >
 
                         <StackPanel Orientation="Horizontal"
@@ -59,7 +59,7 @@
                         </StackPanel>
                     </local:GroupBoxDecorator>
 
-                    <local:GroupBoxDecorator Header="浓度" Height="80" Width="300">
+                    <local:GroupBoxDecorator Header="浓度" Height="80" Width="320">
                         <StackPanel
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" 
@@ -85,8 +85,7 @@
                         </StackPanel>
                     </local:GroupBoxDecorator>
 
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,15" >
                         <Image x:Name="imgIDCard"
                             Source="Images/IDCardCopyIconDisable.png"
                                Stretch="None" > </Image>
@@ -97,15 +96,14 @@
                                   Unchecked="CheckBox_Checked" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
                         <local:ButtonEx IsDefault="False" IsEnabled="True" Content="更多设置" 
-                                x:Name="btnSetting" Width="120" Height="25"
-                                Margin="20,10" Click="SettingBtnClick" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                x:Name="btnSetting" Width="120" Height="35"
+                                Margin="0,0,40,0" Click="SettingBtnClick" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
 
                         <local:ButtonEx x:Name="btnCopy" HorizontalContentAlignment="Center"
-                                IsDefault="True" Content="复印"
+                                IsDefault="True" IsActiveEx="True" Content="复印"
                                 Height="35" Width="150" Click="Button_Click" HorizontalAlignment="Center" />
                     </StackPanel>
 
