@@ -282,7 +282,7 @@ namespace VOP.Controls
                                 bitmapSource = myBitmapImage;
                             }
 
-                            if (bitmapSource.Width < this.ActualWidth - 60 && bitmapSource.Height < this.ActualHeight - 60)
+                            if (bitmapSource.PixelWidth < this.ActualWidth - 60 && bitmapSource.PixelHeight < this.ActualHeight - 60)
                             {
                                 ImageView.Stretch = Stretch.None;
                                 //IsFitted = true;

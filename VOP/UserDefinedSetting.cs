@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace VOP
 {
@@ -18,67 +20,245 @@ namespace VOP
     /// </summary>
     public partial class UserDefinedSetting : Window
     {
+        public ObservableCollection<UserDefinedSizeItem> UserDefinedSizeItems { get; set; }
+
         public UserDefinedSetting()
         {
+
+            UserDefinedSizeItems = new ObservableCollection<UserDefinedSizeItem>()
+            {
+                new UserDefinedSizeItem() { UserDefinedName = "自定义尺寸01", IsMM = true, Width = 76.2, Height = 116.0 },
+                new UserDefinedSizeItem() { UserDefinedName = "自定义尺寸02", IsMM = false, Width = 75.2, Height = 115.0 }
+            };
+
+            DataContext = this;
+
             InitializeComponent();
         }
-        private void SaveButtonClick(object sender, RoutedEventArgs e)
-        {
-            ComboBoxItem selItem = cboPaperSize.SelectedItem as ComboBoxItem;
-           
-            if (null != selItem && null != selItem.DataContext)
-            {
 
-            }
-        }
-        private void cboPaperSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void rdBtnMM_Checked(object sender, RoutedEventArgs e)
         {
-            ComboBoxItem selItem = cboPaperSize.SelectedItem as ComboBoxItem;
-            string s = selItem.Content as string;
-            if (null != selItem && null != selItem.Content as string)
-            {
-                if (null != SaveButton && null != DeleteButton)
-                {
-                    SaveButton.IsEnabled = true;
-                    DeleteButton.IsEnabled = true;
-                }
-            }
-            else
-            {
-                if (null != SaveButton && null != DeleteButton)
-                {
-                    SaveButton.IsEnabled = false;
-                    DeleteButton.IsEnabled = false;
-                }
-            }
-        }
-           
-        private void DeleteButtonClick(object sender, RoutedEventArgs e)
-        {
+            //this.tWidth.Text = "宽度（76.2-216.0）";
+            //this.tHeight.Text = "高度（116.0-355.6）";
+            //this.tbWidth.Text = "210.0";
+            //this.tbHeight.Text = "297.0";
 
         }
-        private void CancelButtonClick(object sender, RoutedEventArgs e)
+
+        private void rdBtnInch_Checked(object sender, RoutedEventArgs e)
+        {
+            //this.tWidth.Text = "宽度（3.00-8.50）";
+            //this.tHeight.Text = "高度（4.57-14.00）";
+            //this.tbWidth.Text = "8.27";
+            //this.tbHeight.Text = "11.69";
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
+        }
+
+        private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(myComboBox.Text.Trim() != "")
+            {
+                double w = 0;
+                double h = 0;
+
+                if(!double.TryParse(tbWidth.Text.Trim(), out w))
+                {
+                    w = 0;
+                }
+
+                if (!double.TryParse(tbHeight.Text.Trim(), out h))
+                {
+                    h = 0;
+                }
+
+                var result = (from item in UserDefinedSizeItems
+                                         where item.UserDefinedName == myComboBox.Text.Trim()
+                                         select item).ToList();
+
+                if (result.Count == 0)
+                {
+                    UserDefinedSizeItems.Add(new UserDefinedSizeItem()
+                    {
+                        UserDefinedName = myComboBox.Text.Trim(),
+                        IsMM = (bool)myRadioButton.IsChecked, 
+                        Width = w, 
+                        Height = h });
+                }
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var result = (from item in UserDefinedSizeItems
+                                     where item.UserDefinedName == myComboBox.Text.Trim()
+                                     select item).ToList();
+
+            if (result.Count != 0)
+            {
+                UserDefinedSizeItems.Remove((UserDefinedSizeItem)result[0]);
+            }
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
         }
-        private void OKButtonClick(object sender, RoutedEventArgs e)
+
+        private void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
         }
-        private void rdBtnMM_Checked(object sender, RoutedEventArgs e)
+    }
+
+ 
+    public class UserDefinedSizeItem : DependencyObject
+    {
+        public string UserDefinedName
         {
-            this.tWidth.Text = "宽度（76.2-216.0）";
-            this.tHeight.Text = "高度（116.0-355.6）";
-            this.tbWidth.Text = "210.0";
-            this.tbHeight.Text = "297.0";
-            
+            get { return (string)GetValue(UserDefinedNameProperty); }
+            set { SetValue(UserDefinedNameProperty, value); }
         }
-        private void rdBtnInch_Checked(object sender, RoutedEventArgs e)
+
+        public static readonly DependencyProperty UserDefinedNameProperty =
+            DependencyProperty.Register("UserDefinedName", typeof(string), typeof(UserDefinedSizeItem));
+
+        public bool IsMM
         {
-            this.tWidth.Text = "宽度（3.00-8.50）";
-            this.tHeight.Text = "高度（4.57-14.00）";
-            this.tbWidth.Text = "8.27";
-            this.tbHeight.Text = "11.69";
+            get { return (bool)GetValue(IsMMProperty); }
+            set { SetValue(IsMMProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsMMProperty =
+                DependencyProperty.Register("IsMM", typeof(bool), typeof(UserDefinedSizeItem));
+
+        public double Width
+        {
+            get { return (double)GetValue(WidthProperty); }
+            set { SetValue(WidthProperty, value); }
+        }
+
+        public static readonly DependencyProperty WidthProperty =
+             DependencyProperty.Register("Width", typeof(double), typeof(UserDefinedSizeItem));
+
+        public double Height
+        {
+            get { return (double)GetValue(HeightProperty); }
+            set { SetValue(HeightProperty, value); }
+        }
+
+        public static readonly DependencyProperty HeightProperty =
+             DependencyProperty.Register("Height", typeof(double), typeof(UserDefinedSizeItem));
+    }
+
+    public class IsInchConverter : IValueConverter
+    {
+        UserDefinedSizeItem element;
+
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            string flag = parameter as string;
+            element = value as UserDefinedSizeItem;
+
+            if (element != null)
+            {
+                return (flag == "flip") ? !element.IsMM : element.IsMM;
+            }
+            else
+            {
+                return (flag == "flip") ? false : true;
+            }
+              
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            string flag = parameter as string;
+
+            if (element != null)
+            {
+                element.IsMM = (bool)value;
+                return element;
+            }
+            else
+            {
+                return null;
+            }
+               
+        }
+    }
+
+    public class WidthConverter : IValueConverter
+    {
+        UserDefinedSizeItem element;
+
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            element = value as UserDefinedSizeItem;
+
+            if (element != null)
+            {
+                return element.Width.ToString();
+            }
+            else
+                return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            double result = 0;
+            if (element != null)
+            {
+                if(double.TryParse(value.ToString(), out result))
+                {
+                    element.Width = result;
+                }
+              
+                return element;
+            }
+            else
+                return null;
+        }
+    }
+
+    public class HeightConverter : IValueConverter
+    {
+        UserDefinedSizeItem element;
+
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            element = value as UserDefinedSizeItem;
+
+            if (element != null)
+            {
+                return element.Height.ToString();
+            }
+            else
+                return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            double result = 0;
+            if (element != null)
+            {
+                if (double.TryParse(value.ToString(), out result))
+                {
+                    element.Height = result;
+                }
+
+                return element;
+            }
+            else
+                return null;
         }
     }
 }

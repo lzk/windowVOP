@@ -270,6 +270,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\UserDefinedComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\WiFiItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

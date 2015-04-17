@@ -65,7 +65,7 @@ namespace VOP.Controls
 
             if(src != null)
             {
-                if (src.Width < this.ActualWidth && src.Height < this.ActualHeight)
+                if (src.PixelWidth < this.ActualWidth && src.PixelHeight < this.ActualHeight)
                 {
                     this.backgroundImage.Stretch = Stretch.None;
                     IsFitted = true;
@@ -146,8 +146,8 @@ namespace VOP.Controls
 
                 //scale down image
                 ScaleTransform scaleTransform = new ScaleTransform();
-                scaleTransform.ScaleX = imageWidth / (double)src.Width;
-                scaleTransform.ScaleY = imageHeight / (double)src.Height;
+                scaleTransform.ScaleX = imageWidth / (double)src.PixelWidth;
+                scaleTransform.ScaleY = imageHeight / (double)src.PixelHeight;
 
                 TransformedBitmap tb = new TransformedBitmap();
                 tb.BeginInit();

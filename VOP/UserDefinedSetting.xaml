@@ -1,254 +1,29 @@
 ﻿<Window x:Class="VOP.UserDefinedSetting"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="UserDefinedSetting" Height="490" Width="330"        
-        WindowStartupLocation="CenterScreen"  
+        xmlns:controls="clr-namespace:VOP.Controls"
+        xmlns:local="clr-namespace:VOP" 
+        Name="myUserDefined" 
+        Height="560"
+        Width="440"        
+        WindowStartupLocation="CenterOwner"  
         ResizeMode="NoResize"
         ShowInTaskbar="False"
         WindowStyle="None"
-        xmlns:local="clr-namespace:VOP.Controls"
-        xmlns:mycontrol="clr-namespace:VOP" >
+        AllowsTransparency="true"
+        Loaded="Window_Loaded" 
+        BorderThickness="50, 50">
+      
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Controls/CustomButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
                 <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="Controls/GroupBoxDecorator/GroupBoxStyle.xaml"/>
+                <ResourceDictionary Source="Controls/UserDefinedComboBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="customComboBoxItem"
-        		TargetType="{x:Type ComboBoxItem}">
-                <Setter Property="SnapsToDevicePixels"
-        			Value="true" />
-                <Setter Property="OverridesDefaultStyle"
-        			Value="true" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ComboBoxItem}">
-                            <Border x:Name="Border"
-        						Padding="15,0"
-        						SnapsToDevicePixels="true"
-        						Background="Transparent">
-                                <ContentPresenter />
-                            </Border>
-
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter TargetName="Border" Property="Background" Value="#ffa8a6a6"/>
-                                </Trigger>
-
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="Border" Property="Background"
-        								Value="Green"/>
-                                </Trigger>
-
-                                <Trigger Property="IsEnabled" Value="false">
-                                    <Setter TargetName="Border" Property="Background"
-        								Value="Blue"/>
-                                </Trigger>
-
-                                <Trigger Property="IsEnabled" Value="false">
-                                    <Setter Property="Foreground"
-        								Value="Yellow"/>
-                                </Trigger>
-
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-
-
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style x:Key="customToggle" TargetType="{x:Type ToggleButton}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type ToggleButton}">
-                            <Grid>
-
-                                <Border x:Name="border1" Background="{TemplateBinding Background}">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-
-                                <Path 
-        							HorizontalAlignment="Right"
-        							VerticalAlignment="Center"
-        							x:Name="BtnArrow" Height="4" Width="8" 
-        							Stretch="Uniform" Margin="0,0,6,0"
-        							Fill="#ff818181"
-        							Data="F1 M 300,-190L 310,-190L 305,-183L 301,-190 Z " />
-                            </Grid>
-
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsChecked" Value="True">
-                                    <Setter TargetName="border1" Property="Background" Value="#fff7f7f7"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-
-            </Style>
-            <mycontrol:ScrollViewerWidthConverter x:Key="objScrollViewerWidthConverter"/>
-            <Style x:Key="customComboBox2" TargetType="{x:Type ComboBox}">
-                <Setter Property="Foreground" Value="#ff494949" />
-                <Setter Property="FontSize" Value="13px" />
-                <Setter Property="FontFamily" Value="Microsoft YaHei" />
-                <Setter Property="IsDropDownOpen" Value="True"/>
-                <Setter Property="IsEditable" Value="True"/>
-                 <Setter Property="Template">
-                    <Setter.Value>
-
-                        <ControlTemplate TargetType="{x:Type ComboBox}">
-                            <Grid x:Name="root">
-
-                                <ToggleButton x:Name="DropDownToggle"
-        							Style="{StaticResource customToggle}"
-        							BorderBrush="Transparent"
-        							Background="{TemplateBinding Background}"
-        							HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
-        							Margin="-1" HorizontalContentAlignment="Right"
-        							IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                />
-
-                                <Grid 
-        							Background="{TemplateBinding Background}"
-        							IsHitTestVisible="False"
-        							HorizontalAlignment="Left"
-        							x:Name="grid1"
-                                >
-                                    <Grid.Width>
-                                        <MultiBinding Converter="{StaticResource objScrollViewerWidthConverter}">
-                                            <Binding ElementName="root" Path="ActualWidth"/>
-                                            <Binding ElementName="DropDownToggle" Path="ActualHeight"/>
-                                        </MultiBinding>
-                                    </Grid.Width>
-
-                                    <ContentPresenter x:Name="ContentPresenter" 
-        								VerticalAlignment="Center"
-        								Content="{TemplateBinding SelectionBoxItem}"
-        								ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-        								ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
-                                </Grid>
-
-                                <Popup x:Name="PART_Popup"
-        							AllowsTransparency="True"
-        							IsOpen="{TemplateBinding IsDropDownOpen}">
-                                    <Border x:Name="PopupBorder" Margin="16">
-
-                                        <Border.Effect>
-                                            <DropShadowEffect Color="Black" ShadowDepth="0"
-        										BlurRadius="16" Opacity="0.75" Direction="90"/>
-                                        </Border.Effect>
-
-                                        <StackPanel>
-                                            <Path 
-        										Panel.ZIndex="1"
-        										HorizontalAlignment="Center"
-        										Fill="White"
-        										Data="F1 M0,10 L10,0 L20,10z" />
-
-                                            <Border 
-        										BorderBrush="Transparent"
-        										Background="White"
-        										Panel.ZIndex="0"
-        										CornerRadius="5">
-                                                <ItemsPresenter/>
-                                            </Border>
-
-                                        </StackPanel>
-
-                                    </Border>
-                                </Popup>
-
-                            </Grid>
-
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsEnabled" Value="false">
-                                    <Setter Property="Foreground" Value="Red"/>
-                                    <Setter TargetName="DropDownToggle" Property="Background" Value="Yellow"/>
-                                    <Setter TargetName="grid1" Property="Background" Value="Yellow"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <SolidColorBrush x:Key="border_Brush">#9B9B9B</SolidColorBrush>
-            <LinearGradientBrush x:Key="mainBackground_Brush" EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFEEEDED" Offset="0"/>
-                <GradientStop Color="#FFEBEAEA" Offset="0.436"/>
-                <GradientStop Color="#FFE4E3E3" Offset="1"/>
-            </LinearGradientBrush>
-            <ControlTemplate x:Key="customCheckBox" TargetType="{x:Type CheckBox}" >
-                <Grid Width="{TemplateBinding Width}"
-            		Height="{TemplateBinding Height}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="27"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Ellipse Grid.Column="0" 
-            			x:Name="elp1" 
-            			HorizontalAlignment="Center" 
-            			VerticalAlignment="Center" 
-            			StrokeThickness="1"  
-            			Height="18" 
-            			Width="18" 
-            			Stroke="#FFA6ACA1">
-                        <Ellipse.Fill>
-                            <RadialGradientBrush>
-                                <GradientStop Color="#FFDCECD0" Offset="0.1"/>
-                                <GradientStop Color="#FFD1E9BE" Offset="1"/>
-                            </RadialGradientBrush>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                    <Ellipse Grid.Column="0" 
-            			x:Name="elp2" 
-            			HorizontalAlignment="Center" 
-            			VerticalAlignment="Center" 
-            			StrokeThickness="4" 
-            			Stroke="#FF449C00" 
-            			Height="9" 
-            			Width="9">
-                        <Ellipse.Effect>
-                            <BlurEffect Radius="3" />
-                        </Ellipse.Effect>
-                    </Ellipse>
-
-                    <TextBlock Grid.Column="1"
-            			VerticalAlignment="Center"
-            			HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-            			Text="{TemplateBinding Content}"
-            			FontSize="{TemplateBinding FontSize}"
-            			Foreground="{TemplateBinding Foreground}" 
-                        />
-                </Grid>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="IsChecked" Value="false">
-                        <Setter TargetName="elp1" Property="Fill">
-                            <Setter.Value>
-                                <RadialGradientBrush>
-                                    <GradientStop Color="#FFFFFFFF" Offset="0.1"/>
-                                    <GradientStop Color="#FFCFCFCF" Offset="1"/>
-                                </RadialGradientBrush>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter TargetName="elp2" Property="Stroke" Value="#FF4D4D4D" />
-                    </Trigger>
-
-                    <Trigger Property="IsChecked" Value="True">
-                        <Setter TargetName="elp1" Property="Fill">
-                            <Setter.Value>
-                                <RadialGradientBrush>
-                                    <GradientStop Color="#FFDCECD0" Offset="0.1"/>
-                                    <GradientStop Color="#FFD1E9BE" Offset="1"/>
-                                </RadialGradientBrush>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter TargetName="elp2" Property="Stroke" Value="#FF4BAD00" />
-
-                    </Trigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
+      
             <ControlTemplate x:Key="customRadioButton" TargetType="{x:Type RadioButton}" >
                 <Grid Width="{TemplateBinding Width}"
             		Height="{TemplateBinding Height}">
@@ -313,168 +88,171 @@
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
+
+            <local:IsInchConverter x:Key="isInchConverter"/>
+            <local:WidthConverter x:Key="widthConverter"/>
+            <local:HeightConverter x:Key="heightConverter"/>
         </ResourceDictionary>
     </Window.Resources>
+
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="30" Color="#FF858484" Direction="292" ShadowDepth="0" Opacity="1"/>
+    </Window.Effect>
+    
     <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightColorKey}}"/>
+        </Grid.Background>
+        
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="44*"/>
-            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
-            <RowDefinition Height="25*"/>
-            <RowDefinition Height="74*"/>
-            <RowDefinition Height="68*"/>
-            <RowDefinition Height="22*"/>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="23*"/>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="22*"/>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="45*"/>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="55*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="#FF1F3345" Grid.ColumnSpan="3" Margin="0,0,0.111,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="30"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="用户自定义设置" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="18" Height="24" Margin="100,8,74,8" Width="126"/>
-        </Grid>
-        <Grid Grid.Row="1" Background="#FFE7E7E7" Grid.ColumnSpan="3" Grid.RowSpan="12" Margin="0,0,0.111,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="4*"></RowDefinition>
-                <RowDefinition Height="6*"></RowDefinition>
-                <RowDefinition Height="4*"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <Button 
-                Name="btnOK" 
-                Grid.Row="2" 
-                Style="{StaticResource CustomGreenButtonStyle}" 
-                IsDefault="True" 
-                Content="确 定" 
-                FontSize="18"
-                Click="OKButtonClick"
-                HorizontalAlignment="Center" Height="34" Width="110" VerticalAlignment="Center" RenderTransformOrigin="0.55,1.833" Margin="115,76,104.889,21"/>
-        </Grid>
-        <local:GroupBoxDecorator Header="自定义纸张大小名称" Margin="0.444,2,0.556,4" Grid.Row="2" Grid.Column="1">
-            <local:GroupBoxDecorator.Foreground>
-                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
-            </local:GroupBoxDecorator.Foreground>
-        </local:GroupBoxDecorator>
-        <ComboBox
-            Name="cboPaperSize"
-            SelectionChanged="cboPaperSize_SelectionChanged"
-        	Style="{StaticResource customComboBox2}"
-        	Background="White"
-        	Margin="30.444,35,12.556,14" Grid.Row="2" Grid.Column="1"
-                    >
-            <ComboBoxItem Style="{StaticResource customComboBoxItem}"  IsSelected="true" Content="自定义尺寸01" />
-            <ComboBoxItem Style="{StaticResource customComboBoxItem}"  IsSelected="False" Content="自定义尺寸02"/>
-
-        </ComboBox>
-        <Border x:Name="borderContainer" Grid.Row="3" Background="White" Margin="0.444,10,0.556,2" CornerRadius="15" Grid.Column="1">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="10" Color="#FF858484" Direction="292" ShadowDepth="1" Opacity="0.3"/>
-            </Border.Effect>
+        <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock Name="TitleBarText" Text="用户自定义设置" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
-        <TextBlock Text="单位：" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" FontSize="13" Margin="34.444,31,194.556,17" Height="20" FontWeight="Bold">
-            <TextBlock.Foreground>
-                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
-            </TextBlock.Foreground>
-        </TextBlock>
-        <TextBlock x:Name="tWidth"
-                   Text="宽度（76.2-216.0）" 
-                   Grid.Row="5" 
-                   Grid.Column="1" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Center" 
-                   Width="155" 
-                   FontSize="18" 
-                   Foreground="#FF7A7A7A" 
-                   Margin="0.444,9,113.556,6" 
-                   Height="24"/>
-        <TextBox x:Name="tbWidth" 
-                 Template="{StaticResource customTextBox}" 
-                 Grid.Column="1" 
-                 VerticalAlignment="Center" 
-                 Grid.Row="5" 
-                 Margin="160.444,4,0.556,6" 
-                 Height="30" 
-                 MaxLength="11" />
-        <TextBlock 
-            x:Name="tHeight" 
-            Text="高度（116.0-355.6）" 
-            Grid.Row="7" 
-            Grid.Column="1" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center" 
-            Width="155" 
-            FontSize="18" 
-            Foreground="#FF7A7A7A" 
-            Margin="0.444,10,113.556,5" 
-            Height="24"/>
-        <TextBox x:Name="tbHeight" 
-                 Template="{StaticResource customTextBox}" 
-                 Grid.Column="1" 
-                 VerticalAlignment="Center" 
-                 Grid.Row="7" 
-                 Margin="160.444,5,0.556,5" 
-                 Height="30" 
-                 MaxLength="11" />
-        <Button 
-            Name="DeleteButton"
-            Style="{StaticResource CustomGrayButtonStyle}"
-            HorizontalContentAlignment="Center" 
-            IsDefault="False"
-            IsEnabled="False"
-        	Content="删 除" 
-            Click="DeleteButtonClick"
-        	Height="34" Width="110" FontSize="18" Margin="158.444,1,0.556,5" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <Button 
-            Name="SaveButton"
-            Style="{StaticResource CustomGrayButtonStyle}"
-            HorizontalContentAlignment="Center"
-            VerticalAlignment="Bottom" 
-            IsDefault="False"
-        	Content="保 存" 
-            IsEnabled="False"
-            Click="SaveButtonClick"
-        	Height="34" Width="110" FontSize="18" Margin="10.444,0,148.556,4" Grid.Row="9" Grid.Column="1" HorizontalAlignment="Center"/>
-        <Button 
-            Name="CancelButton"
-            Style="{StaticResource CustomGrayButtonStyle}"
-            HorizontalContentAlignment="Center"
-            IsDefault="False"
-        	Content="取 消"
-            Click="CancelButtonClick"
-        	Height="34" Width="110" FontSize="18" Margin="84.444,10,74.556,0" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <RadioButton GroupName="Goup1" 
-                     x:Name="rdBtnMM"                 
-                     Checked="rdBtnMM_Checked"
-                     IsChecked="True" 
-                     Content="毫米" 
-                     Template="{StaticResource customRadioButton}" 
-                     Margin="95.444,20,109.556,10" 
-                     Grid.Column="1" Grid.Row="3">
-            <RadioButton.Foreground>
-                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
-            </RadioButton.Foreground>
-        </RadioButton>
-        <RadioButton GroupName="Goup1" 
-                     x:Name="rdBtnInch"                 
-                     Checked="rdBtnInch_Checked"
-                     Content="英寸"  
-                     Template="{StaticResource customRadioButton}" 
-                     Margin="174.444,20,30.556,10" 
-                     Grid.Column="1" Grid.Row="3">
-            <RadioButton.Foreground>
-                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
-            </RadioButton.Foreground>
-        </RadioButton>
+        <controls:MinimizeCloseButton Grid.Row="0" Grid.Column="2" Width="30" Height="30" MinimizeOrCloseStyle="Close" IsCancel="True" HorizontalAlignment="Right" />
+        
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <controls:GroupBoxDecorator Header="自定义纸张大小名称" Grid.Row="0" Padding="15,5,15,10">
+                <ComboBox x:Name="myComboBox"
+                          Style="{StaticResource customComboBox}"
+                          ItemsSource="{Binding UserDefinedSizeItems}"
+                          DisplayMemberPath="UserDefinedName"
+                          SelectedValuePath="UserDefinedName"
+                          SelectedValue="自定义尺寸01"
+                          />
+            </controls:GroupBoxDecorator>
+
+            <controls:GroupBoxDecorator Style="{StaticResource GroupBoxDecoratorNoHeader}" Grid.Row="2" Padding="10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="单位：" 
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"
+                           Width="40"
+                           FontSize="13"
+                           FontWeight="Bold" 
+                           Foreground="DarkSlateGray"
+                           Margin="30,0,0,0"/>
+
+                    <RadioButton Name="myRadioButton"
+                             GroupName="Goup1" 
+                             Checked="rdBtnMM_Checked"
+                             IsChecked="{Binding ElementName=myComboBox, Mode=OneWay, Path=SelectedItem, Converter={StaticResource isInchConverter}}"
+                             Content="毫米" 
+                             Template="{StaticResource customRadioButton}"
+                             Foreground="DarkSlateGray"
+                             Margin="10,0,0,0"/>
+
+                    <RadioButton GroupName="Goup1"
+                             Checked="rdBtnInch_Checked"
+                             IsChecked="{Binding ElementName=myComboBox, Mode=OneWay, Path=SelectedItem, Converter={StaticResource isInchConverter}, ConverterParameter=flip}"
+                             Content="英寸"
+                             Template="{StaticResource customRadioButton}"
+                             Foreground="DarkSlateGray"
+                             Margin="20,0,0,0"/>
+
+                </StackPanel>
+            </controls:GroupBoxDecorator>
+        </Grid>
+
+        <Grid Grid.Row="4" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="tWidth" Text="宽度（76.2-216.0）" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
+                <TextBox x:Name="tbWidth" 
+                         Text="{Binding ElementName=myComboBox, Mode=OneWay, Path=SelectedItem, Converter={StaticResource widthConverter}}"
+                         Template="{StaticResource customTextBox}"
+                         VerticalAlignment="Center"
+                         Width="120" 
+                         Height="30" 
+                         MaxLength="11" 
+                         Margin="10,0,0,0"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <TextBlock x:Name="tHeight" Text="高度（116.0-355.6）" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
+                <TextBox x:Name="tbHeight" 
+                         Text="{Binding ElementName=myComboBox, Mode=OneWay, Path=SelectedItem, Converter={StaticResource heightConverter}}"
+                         Template="{StaticResource customTextBox}" 
+                         VerticalAlignment="Center"
+                         Height="30" 
+                         Width="120" 
+                         MaxLength="11" 
+                         Margin="10,0,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="6" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Button HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+        	            Content="保 存" 
+                        Style="{StaticResource CustomGrayButtonStyle}"
+        	            Height="34" 
+                        Width="110" 
+                        FontSize="18"  
+                        Margin="10,0,0,0"
+                        Click="SaveButton_Click"/>
+                <Button HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+        	            Content="删 除" 
+                        Style="{StaticResource CustomGrayButtonStyle}"
+        	            Height="34" 
+                        Width="110" 
+                        FontSize="18"
+                        Margin="20,0,0,0"
+                        Click="DeleteButton_Click"/>
+            </StackPanel>
+
+            <Button     Grid.Row="2"
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+        	            Content="取 消" 
+                        Style="{StaticResource CustomGrayButtonStyle}"
+        	            Height="34" 
+                        Width="110" 
+                        FontSize="18"
+                        Margin="0,0,0,0"
+                        Click="CancelButton_Click"/>
+            
+            <Button     Grid.Row="4"
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+        	            Content="确 定" 
+                        Style="{StaticResource CustomGreenButtonStyle}"
+        	            Height="34" 
+                        Width="110" 
+                        FontSize="18"
+                        Margin="0,0,0,0"
+                        Click="ApplyButton_Click"/>
+        </Grid>
     </Grid>
 </Window>
