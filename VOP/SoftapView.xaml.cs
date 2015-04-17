@@ -68,7 +68,7 @@ namespace VOP
             }
 
             tbSSID.Text = softAPSettingInit.m_ssid;
-            pbPWD.Password = softAPSettingInit.m_pwd;
+            tbPWD.Text = softAPSettingInit.m_pwd;
             chkbtn_wifi_enable.IsChecked = softAPSettingInit.m_bEnableSoftAp;
         }
 
@@ -105,7 +105,7 @@ namespace VOP
 
             // soft ap config
             string str_ssid = tbSSID.Text;
-            string str_pwd = pbPWD.Password;
+            string str_pwd = tbPWD.Text;
             bool isEnableSoftAp = (chkbtn_wifi_enable.IsChecked == true);
 
             if (is_InputVailible())
@@ -155,7 +155,7 @@ namespace VOP
             bool bValidatePassWord = true;
 
             string str_ssid = tbSSID.Text;
-            string str_pwd = pbPWD.Password;
+            string str_pwd = tbPWD.Text;
             int nCharCount = str_pwd.Length;
 
             if (nCharCount >= 8 && nCharCount <= 63)
@@ -194,8 +194,8 @@ namespace VOP
 
         public void handler_password_changed(object sender, RoutedEventArgs e)
         {
-            PasswordBox pwd = sender as PasswordBox;
-            string strText = pwd.Password;
+            TextBox pwd = sender as TextBox;
+            string strText = pwd.Text;
 
             bool bValidate = true;
             foreach (char ch in strText)
@@ -209,10 +209,10 @@ namespace VOP
 
             if (!bValidate)
             {
-                pwd.Password = softAPSetting.m_pwd;
+                pwd.Text = softAPSetting.m_pwd;
             }
 
-            softAPSetting.m_pwd = pwd.Password;
+            softAPSetting.m_pwd = pwd.Text;
 
             //UpdateApplyBtnStatus();
         }
