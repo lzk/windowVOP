@@ -1,0 +1,175 @@
+﻿<Window x:Class="SimulateDeviceStatus.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DeviceStatus -- Settup"
+        Width="525"
+        Height="350"
+        Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="18"
+                   Text="Printer Model: "
+                   TextAlignment="Center" />
+
+        <ComboBox Name="cboPrinters"
+                  Grid.Row="0"
+                  Grid.Column="1"
+                  Width="200"
+                  Height="30"
+                  SelectedIndex="0"
+                  SelectionChanged="cboPrinters_SelectionChanged" />
+
+
+
+        <TextBlock Grid.Row="1"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="18"
+                   Text="Device Status: "
+                   TextAlignment="Center" />
+        <ComboBox Name="comboStatus"
+                  Grid.Row="1"
+                  Grid.Column="1"
+                  Width="200"
+                  Height="30"
+                  SelectedIndex="0"
+                  SelectionChanged="combo_SelectionChanged">
+            <ComboBoxItem>Ready</ComboBoxItem>
+            <ComboBoxItem>Printing</ComboBoxItem>
+            <ComboBoxItem>PowerSaving</ComboBoxItem>
+            <ComboBoxItem>WarmingUp</ComboBoxItem>
+            <ComboBoxItem>PrintCanceling</ComboBoxItem>
+            <ComboBoxItem>Processing</ComboBoxItem>
+            <ComboBoxItem>CopyScanning</ComboBoxItem>
+            <ComboBoxItem>CopyScanNextPage</ComboBoxItem>
+            <ComboBoxItem>CopyPrinting</ComboBoxItem>
+            <ComboBoxItem>CopyCanceling</ComboBoxItem>
+            <ComboBoxItem>IDCardMode</ComboBoxItem>
+            <ComboBoxItem>ScanScanning</ComboBoxItem>
+            <ComboBoxItem>ScanSending</ComboBoxItem>
+            <ComboBoxItem>ScanCanceling</ComboBoxItem>
+            <ComboBoxItem>ScannerBusy</ComboBoxItem>
+            <ComboBoxItem>TonerEnd1</ComboBoxItem>
+            <ComboBoxItem>TonerEnd2</ComboBoxItem>
+            <ComboBoxItem>TonerNearEnd</ComboBoxItem>
+            <ComboBoxItem>ManualFeedRequired</ComboBoxItem>
+            <ComboBoxItem>InitializeJam</ComboBoxItem>
+            <ComboBoxItem>NofeedJam</ComboBoxItem>
+            <ComboBoxItem>JamAtRegistStayOn</ComboBoxItem>
+            <ComboBoxItem>JamAtExitNotReach</ComboBoxItem>
+            <ComboBoxItem>JamAtExitStayOn</ComboBoxItem>
+            <ComboBoxItem>CoverOpen</ComboBoxItem>
+            <ComboBoxItem>NoTonerCartridge</ComboBoxItem>
+            <ComboBoxItem>WasteTonerFull</ComboBoxItem>
+            <ComboBoxItem>FWUpdate</ComboBoxItem>
+            <ComboBoxItem>OverHeat</ComboBoxItem>
+            <ComboBoxItem>PolygomotorOnTimeoutError</ComboBoxItem>
+            <ComboBoxItem>PolygomotorOffTimeoutError</ComboBoxItem>
+            <ComboBoxItem>PolygomotorLockSignalError</ComboBoxItem>
+            <ComboBoxItem>BeamSynchronizeError</ComboBoxItem>
+            <ComboBoxItem>BiasLeak</ComboBoxItem>
+            <ComboBoxItem>PlateActionError</ComboBoxItem>
+            <ComboBoxItem>MainmotorError</ComboBoxItem>
+            <ComboBoxItem>MainFanMotorEorror</ComboBoxItem>
+            <ComboBoxItem>JoinerThermistorError</ComboBoxItem>
+            <ComboBoxItem>JoinerReloadError</ComboBoxItem>
+            <ComboBoxItem>HighTemperatureErrorSoft</ComboBoxItem>
+            <ComboBoxItem>HighTemperatureErrorHard</ComboBoxItem>
+            <ComboBoxItem>JoinerFullHeaterError</ComboBoxItem>
+            <ComboBoxItem>Joiner3timesJamError</ComboBoxItem>
+            <ComboBoxItem>LowVoltageJoinerReloadError</ComboBoxItem>
+            <ComboBoxItem>MotorThermistorError</ComboBoxItem>
+            <ComboBoxItem>EEPROMCommunicationError</ComboBoxItem>
+            <ComboBoxItem>CTL_PRREQ_NSignalNoCome</ComboBoxItem>
+            <ComboBoxItem>ScanPCUnkownCommandUSB</ComboBoxItem>
+            <ComboBoxItem>SCANUSBDisconnect</ComboBoxItem>
+            <ComboBoxItem>ScanPCUnkownCommandNET</ComboBoxItem>
+            <ComboBoxItem>ScanNETDisconnect</ComboBoxItem>
+            <ComboBoxItem>ScanMotorError</ComboBoxItem>
+            <ComboBoxItem>NetWirelessConnectFail</ComboBoxItem>
+            <ComboBoxItem>NetWirelessDisable</ComboBoxItem>
+            <ComboBoxItem>NetWirelessDongleCfgFail</ComboBoxItem>
+            <ComboBoxItem>FWUpdateError</ComboBoxItem>
+            <ComboBoxItem>DSPError</ComboBoxItem>
+            <ComboBoxItem>CodecError</ComboBoxItem>
+            <ComboBoxItem>PrinterDataError</ComboBoxItem>
+            <ComboBoxItem>Unknown</ComboBoxItem>
+            <ComboBoxItem>Offline</ComboBoxItem>
+            <ComboBoxItem>PowerOff</ComboBoxItem>
+        </ComboBox>
+
+        <TextBlock Grid.Row="2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="18"
+                   Text="Machine Job: "
+                   TextAlignment="Center" />
+        <ComboBox Name="comboJob"
+                  Grid.Row="2"
+                  Grid.Column="1"
+                  Width="200"
+                  Height="30"
+                  SelectedIndex="0"
+                  SelectionChanged="combo_SelectionChanged">
+            <ComboBoxItem>UnknowJob</ComboBoxItem>
+            <ComboBoxItem>PrintJob</ComboBoxItem>
+            <ComboBoxItem>NormalCopyJob</ComboBoxItem>
+            <ComboBoxItem>ScanJob</ComboBoxItem>
+            <ComboBoxItem>FaxJob</ComboBoxItem>
+            <ComboBoxItem>FaxJob2</ComboBoxItem>
+            <ComboBoxItem>ReportJob</ComboBoxItem>
+            <ComboBoxItem>Nin1CopyJob</ComboBoxItem>
+            <ComboBoxItem>IDCardCopyJob</ComboBoxItem>
+        </ComboBox>
+
+
+
+
+
+
+        <TextBlock Grid.Row="3"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="18"
+                   Text="Toner Capacity: "
+                   TextAlignment="Center" />
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Name="txtToner"
+                       VerticalAlignment="Center"
+                       FontSize="18"
+                       Text="0"
+                       TextAlignment="Center" />
+            <Slider Name="sld"
+                    Grid.Column="1"
+                    Margin="20,0"
+                    VerticalAlignment="Center"
+                    Maximum="100"
+                    Minimum="0"
+                    ValueChanged="sld_ValueChanged"
+                    Value="39" />
+        </Grid>
+
+
+
+    </Grid>
+</Window>

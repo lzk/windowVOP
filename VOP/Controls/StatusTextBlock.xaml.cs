@@ -14,16 +14,6 @@ using System.Windows.Shapes;
 
 namespace VOP
 {
-    public enum StatusDisplayType
-    {
-        Ready,
-        Sleep,
-        Offline,
-        Warning,
-        Busy,
-        Error,
-    }
-
     /// <summary>
     /// Interaction logic for StatusTextBox.xaml
     /// </summary>

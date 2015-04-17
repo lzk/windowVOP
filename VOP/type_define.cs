@@ -344,4 +344,14 @@ namespace VOP
         public double Height;
     }
 
+    public enum StatusDisplayType
+    {
+        Ready,
+        Sleep,
+        Offline,
+        Warning,
+        Busy,
+        Error,
+    }
+
 }
