@@ -173,7 +173,8 @@
                             we use the TemplatedParent binding to get a reference to the control
                             this template has been applied to, so we can access the property on it
                         -->
-                        <TextBox Grid.Row="0"
+                        <TextBox Name="tbTextBox"
+                                 Grid.Row="0"
                                  Grid.Column="1"
                                  Background="{StaticResource TextBoxBackground}" 
                                  BorderBrush="{StaticResource TextBoxBorderBrush}"
@@ -197,7 +198,8 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <RepeatButton Grid.Row="0"
+                        <RepeatButton Name="btnDecrease"
+                                      Grid.Row="0"
                                       Grid.Column="0"
                                       Width="25"
                                       Height="25"
@@ -205,7 +207,8 @@
                                       Command="{x:Static btl:SpinnerControl.DecreaseCommand}"/>
 
 
-                        <RepeatButton Grid.Row="0"
+                        <RepeatButton Name="btnIncrease"
+                                      Grid.Row="0"
                                       Grid.Column="2"
                                       Width="25"
                                       Height="25"
@@ -215,6 +218,19 @@
 
 
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="tbTextBox" Property="Validation.HasError"  Value="true">
+                            <Setter Property="ValidationHasError" Value="True"></Setter>
+                            <Setter TargetName="btnDecrease" Property="IsEnabled" Value="False"></Setter>
+                            <Setter TargetName="btnIncrease" Property="IsEnabled" Value="False"></Setter>
+                        </Trigger>
+
+                        <Trigger SourceName="tbTextBox"  Property="Validation.HasError" Value="False">
+                            <Setter Property="ValidationHasError" Value="False"></Setter>
+                            <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"></Setter>
+                            <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -238,7 +254,9 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                       
-                        <TextBox Grid.Row="0"
+                        <TextBox 
+                                 Name="tbTextBox"
+                                 Grid.Row="0"
                                  Grid.Column="1"
                                  Foreground="#FF707070"
                                  TextAlignment="Center"
@@ -261,7 +279,9 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <RepeatButton Grid.Row="0"
+                        <RepeatButton 
+                                      Name="btnDecrease"
+                                      Grid.Row="0"
                                       Grid.Column="0"
                                       Width="25"
                                       Height="25"
@@ -269,7 +289,9 @@
                                       Command="{x:Static btl:SpinnerControl.DecreaseCommand}"/>
 
 
-                        <RepeatButton Grid.Row="0"
+                        <RepeatButton 
+                                      Name="btnIncrease"
+                                      Grid.Row="0"
                                       Grid.Column="2"
                                       Width="25"
                                       Height="25"
@@ -279,6 +301,19 @@
 
 
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="tbTextBox" Property="Validation.HasError"  Value="true">
+                            <Setter Property="ValidationHasError" Value="True"></Setter>
+                            <Setter TargetName="btnDecrease" Property="IsEnabled" Value="False"></Setter>
+                            <Setter TargetName="btnIncrease" Property="IsEnabled" Value="False"></Setter>
+                        </Trigger>
+
+                        <Trigger SourceName="tbTextBox"  Property="Validation.HasError" Value="False">
+                            <Setter Property="ValidationHasError" Value="False"></Setter>
+                            <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"></Setter>
+                            <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

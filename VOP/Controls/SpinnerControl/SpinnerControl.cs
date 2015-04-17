@@ -358,5 +358,51 @@ namespace VOP.Controls
             remove { RemoveHandler(ValueChangedEvent, value); }
         }
         #endregion
+
+        #region ValidationHasError property
+        public static readonly DependencyProperty ValidationHasErrorProperty =
+                            DependencyProperty.Register("ValidationHasError",
+                            typeof(bool),
+                            typeof(SpinnerControl),
+                            new PropertyMetadata(false, new PropertyChangedCallback(OnValidationHasErrorPropertyChanged)));
+
+        public bool ValidationHasError
+        {
+            get { return (bool)GetValue(ValidationHasErrorProperty); }
+            set { SetValue(ValidationHasErrorProperty, value); }
+        }
+
+        private static void OnValidationHasErrorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            SpinnerControl control = sender as SpinnerControl;
+            if (control != null)
+            {
+                var newValue = (bool)args.NewValue;
+                var oldValue = (bool)args.OldValue;
+
+                RoutedPropertyChangedEventArgs<bool> e =
+                    new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue, ValidationHasErrorEvent);
+
+                control.OnValidationHasErrorPropertyChanged(e);
+            }
+        }
+
+        virtual protected void OnValidationHasErrorPropertyChanged(RoutedPropertyChangedEventArgs<bool> e)
+        {
+            RaiseEvent(e);
+        }
+
+        public static readonly RoutedEvent ValidationHasErrorEvent =
+                                   EventManager.RegisterRoutedEvent("ValidationHasErrorChanged",
+                                   RoutingStrategy.Bubble,
+                                   typeof(RoutedPropertyChangedEventHandler<bool>), typeof(SpinnerControl));
+
+
+        public event RoutedPropertyChangedEventHandler<bool> ValidationHasErrorChanged
+        {
+            add { AddHandler(ValidationHasErrorEvent, value); }
+            remove { RemoveHandler(ValidationHasErrorEvent, value); }
+        }
+        #endregion
     }
 }

@@ -59,7 +59,6 @@
             <Style x:Key ="SpinnerControl1"  TargetType="{x:Type local:SpinnerControl}">
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type local:SpinnerControl}">
@@ -74,7 +73,9 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
 
-                                <TextBox Grid.Row="0"
+                                <TextBox 
+                                 Name="tbTextBox"
+                                 Grid.Row="0"
                                  Grid.Column="1"
                                  Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
                                  BorderBrush="{StaticResource TextBoxBorderBrush}"
@@ -83,7 +84,7 @@
                                  IsReadOnly="False"
                                  BorderThickness="0"
                                  FontSize="18" 
-                                 MaxLength="2"                                 
+                                 MaxLength="3"                                 
                                  Height="30"
                                  Style="{StaticResource TextBoxErrorTemplateStyle1}"
                                  Template="{StaticResource customTextBox}">
@@ -100,7 +101,9 @@
                                     </TextBox.Text>
                                 </TextBox>
 
-                                <RepeatButton Grid.Row="0"
+                                <RepeatButton 
+                                      Name="btnDecrease"
+                                      Grid.Row="0"
                                       Grid.Column="0"
                                       Width="25"
                                       Height="25"
@@ -108,13 +111,28 @@
                                       Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
 
 
-                                <RepeatButton Grid.Row="0"
+                                <RepeatButton 
+                                      Name="btnIncrease"
+                                      Grid.Row="0"
                                       Grid.Column="2"
                                       Width="25"
                                       Height="25"
                                       Style="{StaticResource CustomPlusButtonStyle}" 
                                       Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
                             </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger SourceName="tbTextBox" Property="Validation.HasError"  Value="true">
+                                    <Setter Property="ValidationHasError" Value="True"></Setter>
+                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="False"></Setter>
+                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="False"></Setter>
+                                </Trigger>
+
+                                <Trigger SourceName="tbTextBox"  Property="Validation.HasError" Value="False">
+                                    <Setter Property="ValidationHasError" Value="False"></Setter>
+                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"></Setter>
+                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -166,7 +184,8 @@
                             Maximum="30"
                             Minimum="1"  
                             IsPercentFormat="False"
-                            ValueChanged="spinnerControl1_ValueChanged"                            
+                            ValueChanged="spinnerControl1_ValueChanged"     
+                            ValidationHasErrorChanged="spinnerControl1_ValidationHasErrorChanged"
                             >
 
                     </local:SpinnerControl>

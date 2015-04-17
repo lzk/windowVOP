@@ -28,7 +28,7 @@ namespace VOP
 
         public void init_config(bool _bDisplayProgressBar = true)
         {
-            m_psavetime = 11;
+            m_psavetime = 1;
 
             PowerSaveTimeRecord m_rec = null;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
@@ -47,7 +47,7 @@ namespace VOP
                 m_psavetime = m_rec.Time;
             }
 
-            spinnerControl1.Value = m_psavetime;
+            spinnerControl1.FormattedValue = String.Format("{0}", m_psavetime);
 
            // UpdateApplyBtnStatus();
         }
@@ -151,7 +151,16 @@ namespace VOP
 
         private void spinnerControl1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> e)
         {
-         //   UpdateApplyBtnStatus();
+          //  UpdateApplyBtnStatus();
+        }
+
+        private void spinnerControl1_ValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            VOP.Controls.SpinnerControl sc = sender as VOP.Controls.SpinnerControl;
+            if (sc.ValidationHasError == true)
+                btnApply.IsEnabled = false;
+            else
+                btnApply.IsEnabled = true;
         }
     }
 }
