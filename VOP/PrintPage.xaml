@@ -32,6 +32,7 @@
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <local:ImagePreviewPanel x:Name="myImagePreviewPanel" Width="240" Height="271" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="打印份数" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         <local:SpinnerControl x:Name="spinnerControl1"
                             Width="163"
                             Background="Transparent"
@@ -40,7 +41,10 @@
                             Maximum="99"
                             Minimum="1"  
                             IsPercentFormat="False"
-                            Value="1" Grid.Row="2" Grid.Column="2" />
+                            ValueChanged="OnTextValueChanged"
+                            Value="1" 
+                            Grid.Row="2" 
+                            Grid.Column="2" />
         <Button Name="AdvancedSettingsButton"
                         Width="125" Height="35" 
                         Padding="0, 0, 0, 0"

@@ -190,10 +190,10 @@
                                          Mode="TwoWay"
                                          Path="FormattedValue" 
                                          UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
+                                    <!--<Binding.ValidationRules>
                                         <local:PrintCopysValidationRule MinimumValue="1" MaximumValue="99" 
 										ErrorMessage="有效值输入范围为1-99, 请确认后再次输入." />
-                                    </Binding.ValidationRules>
+                                    </Binding.ValidationRules>-->
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>

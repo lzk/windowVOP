@@ -5,7 +5,8 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Name="myControl"
              Width="638"
-             Height="367">
+             Height="367"
+             UseLayoutRounding="True">
 
     <Grid>
         <Grid.Background>

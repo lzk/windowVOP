@@ -10,6 +10,7 @@
         AllowsTransparency="True"
         Background="Transparent" 
         ShowInTaskbar="False" 
+        UseLayoutRounding="True"
         Loaded="Window_Loaded">
     <Window.Resources>
         <ResourceDictionary>

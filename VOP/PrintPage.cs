@@ -53,6 +53,21 @@ namespace VOP
             this.m_MainWin.subPageView.Child = this.m_MainWin.winFileSelectionPage;
         }
 
+        private void OnTextValueChanged(object sender, RoutedPropertyChangedEventArgs<Decimal> e)
+        {
+           if(e.NewValue > 99)
+           {
+               spinnerControl1.FormattedValue = "";
+               spinnerControl1.FormattedValue = "99";
+           }
+
+           if (e.NewValue < 1)
+           {
+               spinnerControl1.FormattedValue = "";
+               spinnerControl1.FormattedValue = "1";
+           }
+        }
+
         private void AdvancedSettingButtonClick(object sender, RoutedEventArgs e)
         {
             bool? result = null;
