@@ -11,7 +11,7 @@ namespace VOP.Controls
                                             DependencyProperty.Register("SSIDText",
                                             typeof(string),
                                             typeof(CustomExpander),
-                                            new FrameworkPropertyMetadata(new PropertyChangedCallback(OnSSIDTextPropertyChanged)));
+                                            new PropertyMetadata("", new PropertyChangedCallback(OnSSIDTextPropertyChanged)));
 
         public static readonly RoutedEvent SSIDTextPropertyEvent =
                                             EventManager.RegisterRoutedEvent("SSIDTextPropertyChanged", RoutingStrategy.Bubble,
@@ -30,11 +30,24 @@ namespace VOP.Controls
             remove { RemoveHandler(SSIDTextPropertyEvent, value); }
         }
 
-        private static void OnSSIDTextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnSSIDTextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            VOP.Controls.CustomExpander btn = sender as VOP.Controls.CustomExpander;
-            RoutedEventArgs routedEventArgs = new RoutedEventArgs(CustomExpander.SSIDTextPropertyEvent);
-            btn.RaiseEvent(routedEventArgs);
+            CustomExpander control = sender as CustomExpander;
+            if (control != null)
+            {
+                var newValue = (string)args.NewValue;
+                var oldValue = (string)args.OldValue;
+
+                RoutedPropertyChangedEventArgs<string> e =
+                    new RoutedPropertyChangedEventArgs<string>(oldValue, newValue, SSIDTextPropertyEvent);
+
+                control.OnSSIDTextPropertyChanged(e);
+            }
+        }
+
+        virtual protected void OnSSIDTextPropertyChanged(RoutedPropertyChangedEventArgs<string> e)
+        {
+            RaiseEvent(e);
         }
 
         #endregion
@@ -44,7 +57,7 @@ namespace VOP.Controls
                                     DependencyProperty.Register("EncryptionText",
                                     typeof(string),
                                     typeof(CustomExpander),
-                                    new FrameworkPropertyMetadata(new PropertyChangedCallback(OnEncryptionTextPropertyChanged)));
+                                    new PropertyMetadata("", new PropertyChangedCallback(OnEncryptionTextPropertyChanged)));
 
         public static readonly RoutedEvent EncryptionTextPropertyEvent =
                                            EventManager.RegisterRoutedEvent("EncryptionTextPropertyChanged", RoutingStrategy.Bubble,
@@ -63,11 +76,24 @@ namespace VOP.Controls
             remove { RemoveHandler(EncryptionTextPropertyEvent, value); }
         }
 
-        private static void OnEncryptionTextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnEncryptionTextPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            VOP.Controls.CustomExpander btn = sender as VOP.Controls.CustomExpander;
-            RoutedEventArgs routedEventArgs = new RoutedEventArgs(CustomExpander.EncryptionTextPropertyEvent);
-            btn.RaiseEvent(routedEventArgs);
+            CustomExpander control = sender as CustomExpander;
+            if (control != null)
+            {
+                var newValue = (string)args.NewValue;
+                var oldValue = (string)args.OldValue;
+
+                RoutedPropertyChangedEventArgs<string> e =
+                    new RoutedPropertyChangedEventArgs<string>(oldValue, newValue, EncryptionTextPropertyEvent);
+
+                control.OnEncryptionTextPropertyChanged(e);
+            }
+        }
+
+        virtual protected void OnEncryptionTextPropertyChanged(RoutedPropertyChangedEventArgs<string> e)
+        {
+            RaiseEvent(e);
         }
         #endregion
 
@@ -76,7 +102,7 @@ namespace VOP.Controls
                                     DependencyProperty.Register("EncryptType",
                                     typeof(EnumEncryptType),
                                     typeof(CustomExpander),
-                                    new FrameworkPropertyMetadata(new PropertyChangedCallback(OnEncryptTypePropertyChanged)));
+                                    new PropertyMetadata(EnumEncryptType.WPA2_PSK_AES, new PropertyChangedCallback(OnEncryptTypePropertyChanged)));
 
         public static readonly RoutedEvent EncryptTypePropertyEvent =
                                            EventManager.RegisterRoutedEvent("EncryptTypePropertyChanged", RoutingStrategy.Bubble,
@@ -94,11 +120,25 @@ namespace VOP.Controls
             add { AddHandler(EncryptTypePropertyEvent, value); }
             remove { RemoveHandler(EncryptTypePropertyEvent, value); }
         }
-        private static void OnEncryptTypePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+
+        private static void OnEncryptTypePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            VOP.Controls.CustomExpander btn = sender as VOP.Controls.CustomExpander;
-            RoutedEventArgs routedEventArgs = new RoutedEventArgs(CustomExpander.EncryptTypePropertyEvent);
-            btn.RaiseEvent(routedEventArgs);
+            CustomExpander control = sender as CustomExpander;
+            if (control != null)
+            {
+                var newValue = (EnumEncryptType)args.NewValue;
+                var oldValue = (EnumEncryptType)args.OldValue;
+
+                RoutedPropertyChangedEventArgs<EnumEncryptType> e =
+                    new RoutedPropertyChangedEventArgs<EnumEncryptType>(oldValue, newValue, EncryptTypePropertyEvent);
+
+                control.OnEncryptTypePropertyChanged(e);
+            }
+        }
+
+        virtual protected void OnEncryptTypePropertyChanged(RoutedPropertyChangedEventArgs<EnumEncryptType> e)
+        {
+            RaiseEvent(e);
         }
         #endregion
 
@@ -107,7 +147,7 @@ namespace VOP.Controls
                             DependencyProperty.Register("WifiSignalLevel",
                             typeof(EnumWifiSignalLevel),
                             typeof(CustomExpander),
-                            new FrameworkPropertyMetadata(new PropertyChangedCallback(OnWifiSignalLevelPropertyChanged)));
+                            new PropertyMetadata(EnumWifiSignalLevel.Normal, new PropertyChangedCallback(OnWifiSignalLevelPropertyChanged)));
 
         public static readonly RoutedEvent WifiSignalLevelPropertyEvent =
                                            EventManager.RegisterRoutedEvent("WifiSignalLevelPropertyChanged", RoutingStrategy.Bubble,
@@ -127,11 +167,24 @@ namespace VOP.Controls
             remove { RemoveHandler(WifiSignalLevelPropertyEvent, value); }
         }
 
-        private static void OnWifiSignalLevelPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnWifiSignalLevelPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            VOP.Controls.CustomExpander btn = sender as VOP.Controls.CustomExpander;
-            RoutedEventArgs routedEventArgs = new RoutedEventArgs(CustomExpander.WifiSignalLevelPropertyEvent);
-            btn.RaiseEvent(routedEventArgs);
+            CustomExpander control = sender as CustomExpander;
+            if (control != null)
+            {
+                var newValue = (EnumWifiSignalLevel)args.NewValue;
+                var oldValue = (EnumWifiSignalLevel)args.OldValue;
+
+                RoutedPropertyChangedEventArgs<EnumWifiSignalLevel> e =
+                    new RoutedPropertyChangedEventArgs<EnumWifiSignalLevel>(oldValue, newValue, WifiSignalLevelPropertyEvent);
+
+                control.OnWifiSignalLevelPropertyChanged(e);
+            }
+        }
+
+        virtual protected void OnWifiSignalLevelPropertyChanged(RoutedPropertyChangedEventArgs<EnumWifiSignalLevel> e)
+        {
+            RaiseEvent(e);
         }
         #endregion
 
