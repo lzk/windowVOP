@@ -12,6 +12,7 @@
         AllowsTransparency="true"
         BorderThickness="65, 60"
         Loaded="Window_Loaded" 
+        UseLayoutRounding="True"
         ShowInTaskbar="False">
 
     <Window.Resources>
@@ -71,8 +72,8 @@
                       Name="cboPaperSize"
                       Background="White" 
                       SelectionChanged="cboPaperSize_SelectionChanged">
-                <ComboBoxItem Style="{StaticResource customComboBoxItem}" Content="A4"/>
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" IsSelected="true" Content="Letter" />
+                <ComboBoxItem Style="{StaticResource customComboBoxItem}" Content="A4" IsSelected="true"/>
+                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="Letter" />
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="B5(ISO)" />
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="A5" />
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="A5(LEF)" />
@@ -87,8 +88,7 @@
 
         <Controls:GroupBoxDecorator Header="页面顺序" Margin="2,2,0,0" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Padding="30,5,30,15">
             <StackPanel Orientation="Horizontal">
-                <RadioButton GroupName="Goup3" 
-                             IsChecked="true" 
+                <RadioButton GroupName="Goup3"                              
                              Cursor="Hand" 
                              x:Name="rdBtnPagerOrder112233" 
                              Checked="rdBtnPagerOrder112233_Checked"
@@ -101,6 +101,7 @@
                     <Image Stretch="None" Source="Images/112233.png" />
                 </RadioButton>
                 <RadioButton GroupName="Goup3" 
+                             IsChecked="true" 
                              Cursor="Hand" 
                              x:Name="rdBtnPagerOrder123123" 
                              Checked="rdBtnPagerOrder123123_Checked"
@@ -323,7 +324,7 @@
 
                 <CheckBox x:Name="chkBtnPaperOrientation" 
                           Template="{StaticResource switchBox}"
-        	              IsChecked="True"
+        	              IsChecked="False"
                           Checked="chkBtnPaperOrientation_Checked"
                           Unchecked="chkBtnPaperOrientation_UnChecked"
                           Width="50"

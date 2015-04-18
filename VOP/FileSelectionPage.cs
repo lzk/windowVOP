@@ -17,6 +17,7 @@ namespace VOP
         private enum FileSelectionState { SelectWindow, OpenFile, EditWindow, GoPrint, Exit }
         FileSelectionState currentState;
         public static int imageFileCount = 0;
+        public static bool IsIniPrintSettingPage = true;
         public MainWindow m_MainWin { get; set; }
 
         public FileSelectionPage()
@@ -31,6 +32,7 @@ namespace VOP
             open = new OpenFileDialog();
             open.Filter = "JPEG|*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif|All Images|*.jpg;*.bmp;*.png;*.tif";
             open.Multiselect = true;
+            IsIniPrintSettingPage = true;
 
             result = open.ShowDialog();
             if (result == true)
@@ -47,6 +49,7 @@ namespace VOP
             bool? result = null;
             open = new OpenFileDialog();
             open.Filter = "All Files|*.*";
+            IsIniPrintSettingPage = true;
 
             result = open.ShowDialog();
             if (result == true)
@@ -65,6 +68,7 @@ namespace VOP
             IdCardTypeSelectWindow selectWin = null;
             OpenFileDialog open = null;
             imageFileCount = 0;
+            IsIniPrintSettingPage = true;
 
             currentState = FileSelectionState.SelectWindow;
             IdCardEditWindow.croppedImageList.Clear();
