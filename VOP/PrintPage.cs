@@ -49,7 +49,18 @@ namespace VOP
 
             TextBox tb = spinnerControl1.Template.FindName("tbTextBox", spinnerControl1) as TextBox;
             tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
+            tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
 
+        }
+
+        private void SpinnerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            int textValue = 0;
+
+            if (!int.TryParse(e.Text, out textValue))
+            {
+                e.Handled = true;  
+            }
         }
 
         private void SpinnerTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -70,6 +81,7 @@ namespace VOP
                     textBox.Text = "1";
                 }
             }
+          
         }
 
         private void OnBackArrowButtonClick(object sender, RoutedEventArgs e)

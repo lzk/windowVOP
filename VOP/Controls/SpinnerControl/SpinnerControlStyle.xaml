@@ -184,6 +184,7 @@
                                  IsReadOnly="False"
                                  BorderThickness="2.5"
                                  FontSize="26" 
+                                 MaxLength="3"
                                  >
                             <TextBox.Text>
                                 <Binding RelativeSource="{RelativeSource TemplatedParent}"
