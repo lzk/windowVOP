@@ -46,6 +46,30 @@ namespace VOP
         {
             spinnerControl1.FormattedValue = "";
             spinnerControl1.FormattedValue = "1";
+
+            TextBox tb = spinnerControl1.Template.FindName("tbTextBox", spinnerControl1) as TextBox;
+            tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
+
+        }
+
+        private void SpinnerTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            int textValue = 0;
+
+            if(int.TryParse(textBox.Text, out textValue))
+            {
+                if(textValue > 99)
+                {
+                    textBox.Text = "99";
+                }
+
+                if (textValue < 1)
+                {
+                    textBox.Text = "1";
+                }
+            }
         }
 
         private void OnBackArrowButtonClick(object sender, RoutedEventArgs e)
@@ -53,19 +77,16 @@ namespace VOP
             this.m_MainWin.subPageView.Child = this.m_MainWin.winFileSelectionPage;
         }
 
-        private void OnTextValueChanged(object sender, RoutedPropertyChangedEventArgs<Decimal> e)
+        private void OnCopysValidationHasError(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
-           if(e.NewValue > 99)
-           {
-               spinnerControl1.FormattedValue = "";
-               spinnerControl1.FormattedValue = "99";
-           }
+            PrintButton.IsEnabled = !e.NewValue;
 
-           if (e.NewValue < 1)
-           {
-               spinnerControl1.FormattedValue = "";
-               spinnerControl1.FormattedValue = "1";
-           }
+            if(e.NewValue)
+            {
+                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("有效值输入范围为1-99，请确认后再次输入。", "错误");
+                messageBox.Owner = App.Current.MainWindow;
+                messageBox.ShowDialog();
+            }
         }
 
         private void AdvancedSettingButtonClick(object sender, RoutedEventArgs e)

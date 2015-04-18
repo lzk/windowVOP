@@ -41,7 +41,7 @@
                             Maximum="99"
                             Minimum="1"  
                             IsPercentFormat="False"
-                            ValueChanged="OnTextValueChanged"
+                            ValidationHasErrorChanged="OnCopysValidationHasError"
                             Value="1" 
                             Grid.Row="2" 
                             Grid.Column="2" />
