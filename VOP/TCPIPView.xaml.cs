@@ -451,7 +451,7 @@ namespace VOP
                 }
             }
 
-            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isSuccess ? "设置成功" : "设置失败");
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isSuccess ? "设置成功" : "设置失败", StatusDisplayType.Ready );
             return isSuccess;
         }
 

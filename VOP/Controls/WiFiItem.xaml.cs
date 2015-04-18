@@ -503,7 +503,7 @@ namespace VOP.Controls
             {
                 tbPwd.Text = pwd;
                 pbPwd.Password = pwd;
-                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功，机器重启后生效。" : "设置失败");
+                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功，机器重启后生效。" : "设置失败", StatusDisplayType.Ready );
             }
  
             return isApplySuccess;

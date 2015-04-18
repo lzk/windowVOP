@@ -25,13 +25,21 @@ namespace VOP
         private string m_errorMsg = ""; // If isn't empty present the requiring message is showing.
         private System.Windows.Threading.DispatcherTimer m_showTimeCnter = new System.Windows.Threading.DispatcherTimer();
 
-        public void ShowMessage( string s ) // TODO: Add message type.
+        public void ShowMessage( string s, StatusDisplayType t ) // TODO: Add message type.
         {
             if ( null != txtErrMsg )
             {
                 m_showTimeCnter.Stop();
                 m_preStatus = m_currentStatus;
                 m_errorMsg = s;
+
+                if ( StatusDisplayType.Error == t || StatusDisplayType.Offline == t )
+                    this.txtErrMsg.Foreground = Brushes.Red;
+                else if ( StatusDisplayType.Warning == t )
+                    this.txtErrMsg.Foreground = Brushes.Orange;
+                else
+                    this.txtErrMsg.Foreground = Brushes.Black;
+
                 this.txtErrMsg.Text = s;
                 m_showTimeCnter.Start();
             }
@@ -104,12 +112,15 @@ namespace VOP
 
                     if ( "" == m_errorMsg )
                     {
+                        this.txtErrMsg.Foreground = GetMessageForegroundBrush( value );
                         this.txtErrMsg.Text = common.GetErrorMsg( value, m_job );
                     }
                     else if (  value != m_preStatus )
                     {
                         // If the status change, show current status first.
                         m_showTimeCnter.Stop();
+
+                        this.txtErrMsg.Foreground = GetMessageForegroundBrush( value );
                         this.txtErrMsg.Text = common.GetErrorMsg( value, m_job );
                         m_errorMsg = "";
                     }
@@ -181,6 +192,32 @@ namespace VOP
             {
 
             }
+        }
+
+
+        /// <summary>
+        /// Get the foreground brush of message for specified status. 
+        /// </summary>
+        private Brush GetMessageForegroundBrush( EnumStatus s )
+        {
+            StatusDisplayType t = common.GetStatusTypeForUI( s );
+
+            Brush br = Brushes.Black;
+
+            if ( StatusDisplayType.Error == t || StatusDisplayType.Offline == t )
+            {
+                br = Brushes.Red;
+            }
+            else if ( StatusDisplayType.Warning == t )
+            {
+                br = Brushes.Orange;
+            }
+            else
+            {
+                br = Brushes.Black;
+            }
+
+            return br;
         }
     }
 }
