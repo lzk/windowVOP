@@ -61,6 +61,7 @@ namespace VOP
 
         public string m_strPassword = "";
         public string m_strPhoneNumber = "";
+        public bool   m_bLocationIsChina = false;
 
         public bool PasswordCorrect()
         {
@@ -103,6 +104,13 @@ namespace VOP
 
         public MainWindow()
         {
+            const int GEOCLASS_NATION = 16;
+            int nGeoID = Win32.GetUserGeoID(GEOCLASS_NATION);
+            if (45 == nGeoID)
+            {
+                m_bLocationIsChina = true;
+            }
+
             statusPanelPage.eventPrinterSwitch += PrinterSwitch;
             App.g_autoMachine.eventStateUpdate += winCopyPage.HandlerStateUpdate;
             App.g_autoMachine.eventStateUpdate += winScanPage.HandlerStateUpdate;
@@ -120,6 +128,8 @@ namespace VOP
 
             SessionInfo session = new SessionInfo();
             m_RequestManager.GetSession(ref session);
+
+            btnLogin.Visibility = m_bLocationIsChina ? Visibility.Visible : Visibility.Hidden;
         }
 
         void Init()

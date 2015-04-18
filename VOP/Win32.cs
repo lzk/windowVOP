@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Text;
 
 namespace VOP
 {
@@ -31,6 +32,9 @@ namespace VOP
         public extern static int CreateStreamOnHGlobal(IntPtr ptr, bool delete, out System.Runtime.InteropServices.ComTypes.IStream pOutStm);
         [System.Runtime.InteropServices.DllImport("OLE32.DLL", EntryPoint = "GetHGlobalFromStream")]
         public extern static void GetHGlobalFromStream(IStream stm, ref IntPtr hGlobal);
+
+        [DllImport("kernel32.dll")]
+        public static extern int GetUserGeoID(int geoId);
     }
 
 }
