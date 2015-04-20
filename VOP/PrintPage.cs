@@ -126,6 +126,7 @@ namespace VOP
             switch(CurrentPrintType)
             {
                 case PrintType.PrintFile:
+                case PrintType.PrintFile_Image:
 
                     if (FilePaths.Count == 1)
                     {
