@@ -35,7 +35,7 @@ namespace VOP
 
             if (tbPhoneNumber.Text.Length == 11)
             {
-                if (VOP.MainWindow.m_RequestManager.SendVerifyCode(tbPhoneNumber.Text, ref js))
+                if (false == VOP.MainWindow.m_RequestManager.SendVerifyCode(tbPhoneNumber.Text, ref js))
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "—È÷§¬Î∑¢ÀÕ ß∞‹°£", "¥ÌŒÛ");
                 }
@@ -53,7 +53,7 @@ namespace VOP
 
             if (tbPhoneNumber.Text.Length == 11 && pbPwd.Password.Length == 6)
             {
-                if (VOP.MainWindow.m_RequestManager.CheckVerifyCode(tbPhoneNumber.Text, pbPwd.Password, ref js))
+                if (true == VOP.MainWindow.m_RequestManager.CheckVerifyCode(tbPhoneNumber.Text, pbPwd.Password, ref js))
                 {
                     m_strPhoneNumber = tbPhoneNumber.Text;
                     this.DialogResult = true;

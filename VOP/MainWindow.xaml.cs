@@ -147,8 +147,18 @@ namespace VOP
                     this.FontFamily = new FontFamily("Arial");
             }
 
-            rsg.Close();                               
-           
+            rsg.Close();
+
+            UploadCRM_LocalInfoToServer();
+        }
+
+        private bool UploadCRM_LocalInfoToServer()
+        {
+            CRM_LocalInfo lci = new CRM_LocalInfo();
+            lci.m_strAppVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            JSONResultFormat2 rtValue = new JSONResultFormat2();
+
+            return m_RequestManager.UploadCRM_LocalInfoToServer(ref lci, ref rtValue);
         }
 
         void Init()

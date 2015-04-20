@@ -44,11 +44,11 @@ namespace VOP
             m_listProvince.Clear();
             m_listProvinceCity.Clear();
 
-            if (VOP.MainWindow.m_RequestManager.GetMerchantSet(0, 5, ref maintainSet))
+            if (true == VOP.MainWindow.m_RequestManager.GetMerchantSet(0, 5, ref maintainSet))
             {
                 int nTotalCount = maintainSet.m_nTotalCount;
 
-                if (VOP.MainWindow.m_RequestManager.GetMerchantSet(0, nTotalCount, ref m_MerchantInfoSet))
+                if (true == VOP.MainWindow.m_RequestManager.GetMerchantSet(0, nTotalCount, ref m_MerchantInfoSet))
                 {
                     bSuccess = true;
                 }

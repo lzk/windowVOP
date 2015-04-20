@@ -126,6 +126,7 @@ namespace VOP
             m_listMaintainInfo.Clear();
         }
     }
+
     public class JSONResultFormat2
     {
         public string   m_strMessage;
@@ -167,6 +168,7 @@ namespace VOP
             }
         }
     }
+
     public class MD5
     {
         public static string MD5_Encrypt(string str)
@@ -174,6 +176,7 @@ namespace VOP
             return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(str, "MD5");
         }
     }
+
     public class CRM_PrintInfo
     {
         private readonly string m_strSignKey = "86c02972fba047b0b0a9adb8123029fb";
@@ -278,6 +281,7 @@ namespace VOP
             return str;
         }
     }
+
     public class RequestManager
     {
         public static CookieContainer m_CookieContainer = new CookieContainer();
@@ -503,25 +507,37 @@ namespace VOP
             {
                 byte[] byteArray = Encoding.UTF8.GetBytes(strBuf); // 转化
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);  //新建一个WebRequest对象用来请求或者响应url
+                dll.OutputDebugStringToFile_("####### SendHttpWebRequest WebRequest.Create(url) ######");
                 IWebProxy webProxy = WebRequest.DefaultWebProxy;
+                dll.OutputDebugStringToFile_("####### WebRequest.DefaultWebProxy ######");
                 webProxy.Credentials = CredentialCache.DefaultNetworkCredentials;
+                dll.OutputDebugStringToFile_("####### DefaultNetworkCredentials ######");
                 request.Proxy = webProxy;
+                dll.OutputDebugStringToFile_("####### webProxy ######");
 
                 request.CookieContainer = m_CookieContainer;
+                dll.OutputDebugStringToFile_("####### m_CookieContainer ######");
 
                 request.Method = httpRequestMtd;                                          //请求方式是POST
+                dll.OutputDebugStringToFile_("####### httpRequestMtd ######");
                 request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";       //请求的内容格式为application/x-www-form-urlencoded
+                dll.OutputDebugStringToFile_("####### request.ContentType ######");
                 request.Credentials = CredentialCache.DefaultCredentials;
+                dll.OutputDebugStringToFile_("####### request.Credentials ######");
                 request.ContentLength = byteArray.Length;
+                dll.OutputDebugStringToFile_("####### request.ContentLength ######");
                 Stream newStream = request.GetRequestStream();           //返回用于将数据写入 Internet 资源的 Stream。
+                dll.OutputDebugStringToFile_("####### request.GetRequestStream() ######");
 
                 newStream.Write(byteArray, 0, byteArray.Length);    //写入参数
                 newStream.Flush();
                 newStream.Close();
+                dll.OutputDebugStringToFile_("####### Stream.Close() ######");
 
-                WebResponse response2 = (WebResponse)request.GetResponse();
+                WebResponse response = (WebResponse)request.GetResponse();
+                dll.OutputDebugStringToFile_("####### request.GetResponse() ######");
 
-                StreamReader sr2 = new StreamReader(response2.GetResponseStream(), Encoding.UTF8);
+                StreamReader sr2 = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
 
                 string text2 = sr2.ReadToEnd();
                 dll.OutputDebugStringToFile_(text2);
@@ -529,6 +545,8 @@ namespace VOP
                 {
                     bSuccess = true;
                 }
+
+                response.Close();
             }
             catch
             {

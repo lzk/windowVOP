@@ -39,11 +39,11 @@ namespace VOP
             m_listProvince.Clear();
             m_listProvinceCity.Clear();
 
-            if (VOP.MainWindow.m_RequestManager.GetMaintainInfoSet(0, 5, ref maintainSet))
+            if (true == VOP.MainWindow.m_RequestManager.GetMaintainInfoSet(0, 5, ref maintainSet))
             {
                 int nTotalCount = maintainSet.m_nTotalCount;
 
-                if (VOP.MainWindow.m_RequestManager.GetMaintainInfoSet(0, nTotalCount, ref m_MaintainSet))
+                if (true == VOP.MainWindow.m_RequestManager.GetMaintainInfoSet(0, nTotalCount, ref m_MaintainSet))
                 {
                     bSuccess = true;         
                 }
