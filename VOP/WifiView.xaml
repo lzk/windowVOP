@@ -132,12 +132,12 @@
                                                 <mycontrol:EnumEncryptType>NoSecurity</mycontrol:EnumEncryptType>
                                             </ComboBoxItem.DataContext>
                                         </ComboBoxItem>
-                                        <ComboBoxItem IsSelected="True" Content="WEP" >
+                                        <ComboBoxItem IsSelected="false" Content="WEP" >
                                             <ComboBoxItem.DataContext>
                                                 <mycontrol:EnumEncryptType>WEP</mycontrol:EnumEncryptType>
                                             </ComboBoxItem.DataContext>
                                         </ComboBoxItem>
-                                        <ComboBoxItem IsSelected="false" Content="WPA2-PSK-AES" >
+                                        <ComboBoxItem IsSelected="True" Content="WPA2-PSK-AES" >
                                             <ComboBoxItem.DataContext>
                                                 <mycontrol:EnumEncryptType>WPA2_PSK_AES</mycontrol:EnumEncryptType>
                                             </ComboBoxItem.DataContext>
@@ -150,7 +150,7 @@
                                     </ComboBox>
                                 </Grid>
 
-                                <StackPanel Grid.Row="4" Name="wepGrid">
+                                <StackPanel Grid.Row="4" Name="wepGrid" Visibility="Hidden">
                                     <Grid Grid.Row="1" Height="50">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"></RowDefinition>
