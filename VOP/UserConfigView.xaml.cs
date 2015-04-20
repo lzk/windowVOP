@@ -240,7 +240,9 @@ namespace VOP
                 {
                     isApplySuccess = true;
                 }
-            }     
+            }
+
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功" : "设置失败", StatusDisplayType.Ready);
         }
 
         private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
