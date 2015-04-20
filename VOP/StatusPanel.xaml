@@ -63,13 +63,13 @@
          
                 <Grid.RowDefinitions>
                         <RowDefinition Height="41*" />
-                        <RowDefinition Height="24*" />
-                        <RowDefinition Height="16*" />
+                        <RowDefinition Height="27*" />
+                        <RowDefinition Height="13*" />
                         <RowDefinition Height="16*" />                    
                         <RowDefinition Height="37*" />
-                        <RowDefinition Height="15*" />
-                        <RowDefinition Height="37*" />
-                        <RowDefinition Height="9*" />
+                        <RowDefinition Height="17*" />
+                        <RowDefinition Height="38*" />
+                        <RowDefinition Height="6*" />
                         <RowDefinition Height="92*" />                   
                 </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -99,7 +99,7 @@
                                    TextAlignment="Center">
                         </TextBlock>
 
-                        <mycontrol:RefreshButton Margin="-10,0,0, 4"
+                        <mycontrol:RefreshButton Margin="-15,5,0, 0"
                                                  Grid.Column="1" Grid.RowSpan="2"
                                                  VerticalAlignment="Bottom"
                                                  HorizontalAlignment="Left"
