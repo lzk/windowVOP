@@ -74,7 +74,8 @@
 
 
 #define MAX_SIZE_BUFF  1460 
-#define REGKEY_UTILITY_LENOVO_3in1  L"SOFTWARE\\Lenovo\\Lenovo ABC M001\\Express Scan Manager"
+#define REGKEY_UTILITY_LENOVO_3in1  L"SOFTWARE\\Lenovo\\Lenovo M7208\\Express Scan Manager"
+#define REGKEY_UTILITY_LENOVO_SFP   L"SOFTWARE\\Lenovo\\Lenovo LJ2208\\Express Scan Manager"
 #define _COMM_ERROR_NUM				0x2D1C
 
 #define DLL_NAME_NET L"NetIO"
@@ -2204,11 +2205,11 @@ static bool GetDevMonPath( const wchar_t* sz_printer, LPTSTR lptstrDevMonPath, i
 {
     struct st_printer_reg map_printer2reg[] = 
     {
-        { L"Lenovo ABC M001"   , REGKEY_UTILITY_LENOVO_3in1 } ,
-        { L"Lenovo ABC M001 w" , REGKEY_UTILITY_LENOVO_3in1 } ,
-        { L"Lenovo ABC P001"   , REGKEY_UTILITY_LENOVO_3in1 } ,
-        { L"Lenovo ABC P001 w" , REGKEY_UTILITY_LENOVO_3in1 } ,
-    };
+        { L"Lenovo M7208"   , REGKEY_UTILITY_LENOVO_3in1 } ,
+        { L"Lenovo M7208W"  , REGKEY_UTILITY_LENOVO_3in1 } ,
+        { L"Lenovo LJ2208"  , REGKEY_UTILITY_LENOVO_SFP  } ,
+        { L"Lenovo LJ2208W" , REGKEY_UTILITY_LENOVO_SFP  } ,
+    } ;
 
     wchar_t sz_driver[1024] = { 0 };
     get_name_driver( sz_printer, sz_driver, _countof(sz_driver) );
@@ -2667,19 +2668,14 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                 LONG  lPercentComplete = 0;
                 static BYTE headOrig [4*1024];           // buffer for bitmap header structure
 
-                DWORD dwHeadSizeOrig  = 0;    // size of bitmap header and color table
-
-                int nColPixelNumOrig  = 0; // number of pixel in one column of orig imgage
-
-                int nLinePixelNumOrig  = 0; // number of pixel in one line of orig imgage
-
-                int cbStrideRawOrig  = 0; // bytes actually needed per line of orig image
-
-                int cbStridePadOrig  = 0; // bytes per line after padding of orig image
-
-                BYTE* strideOrig       = NULL;  // buffer pointer of single line
-                long lWroteOrig = 0;
-                int nRowsCnt = 0;
+                DWORD dwHeadSizeOrig  = 0;    // Size of bitmap header and color table.
+                int nColPixelNumOrig  = 0;    // Number of pixel in one column of orig imgage.
+                int nLinePixelNumOrig = 0;    // Number of pixel in one line of orig imgage.
+                int cbStrideRawOrig   = 0;    // Bytes actually needed per line of orig image.
+                int cbStridePadOrig   = 0;    // Bytes per line after padding of orig image.
+                BYTE* strideOrig      = NULL; // Buffer pointer of single line.
+                long lWroteOrig       = 0;
+                int nRowsCnt          = 0;
 
                 // calculate pixel number
                 nLinePixelNumOrig  = width*resolution/1000;
