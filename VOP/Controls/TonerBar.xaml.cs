@@ -33,6 +33,10 @@ namespace VOP
         private ImageBrush imgBrush_Disable = null;
 
         DispatcherTimer timer = new DispatcherTimer();
+
+        // Field used to flash the shopCart_Img 
+        private const double OPACITY_STRONG = 1.0;
+        private const double OPACITY_WEAK = 0.1;
        
         #endregion //Data_Member
 
@@ -161,7 +165,7 @@ namespace VOP
             }
             else
             {
-                shopCart_Img.Opacity = 1.0;
+                shopCart_Img.Opacity = OPACITY_STRONG;
                 timer.Stop();     
             }
         }
@@ -227,18 +231,11 @@ namespace VOP
             InitializeComponent();
             Init();
         }
+
+
         void timer_Tick(object sender, EventArgs e)
         {
-            const double opacity = 0.1;
-
-            if (opacity == shopCart_Img.Opacity)
-            {
-                shopCart_Img.Opacity = 1.0;
-            }
-            else
-            {
-                shopCart_Img.Opacity = opacity;
-            }         
+            shopCart_Img.Opacity = (OPACITY_WEAK == shopCart_Img.Opacity ? OPACITY_STRONG : OPACITY_WEAK); 
         }
 
         public void Init()
@@ -266,7 +263,7 @@ namespace VOP
         {
             if(IsEnabled)
             {
-                shopCart_Img.Opacity = 1.0;
+                shopCart_Img.Opacity = OPACITY_STRONG;
 
                 RaiseClickEvent();
                
