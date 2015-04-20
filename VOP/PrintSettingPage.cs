@@ -39,12 +39,9 @@ namespace VOP
         private sbyte m_preduplexPrint = 3;
         public sbyte m_colorBalanceTo = 1;
         public sbyte m_ADJColorBalance = 1;
-
-
         #endregion
-        public MainWindow m_MainWin { get; set; }
-      
 
+        public MainWindow m_MainWin { get; set; }
         public PrintPage.PrintType m_CurrentPrintType  { get; set; }
         
         public PrintSettingPage()
@@ -55,14 +52,14 @@ namespace VOP
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
-            if (FileSelectionPage.IsIniPrintSettingPage)
+
+            if (FileSelectionPage.IsInitPrintSettingPage)
             {
                 SetDefaultValue();
-                FileSelectionPage.IsIniPrintSettingPage = false;
+                FileSelectionPage.IsInitPrintSettingPage = false;
             }
             else
-            {
-                
+            {                
                 GetDataFromPrinterInfo();
             }            
         }
@@ -79,16 +76,7 @@ namespace VOP
 
         private void cboPaperSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox b = sender as ComboBox;
-            ComboBoxItem i = b.SelectedItem as ComboBoxItem;
-            string s = i.Content as string;
-            string selItem = cboPaperSize.SelectedValue as string;
- //           m_paperSize = (short)cboPaperSize.Items[cboPaperSize.SelectedIndex];
             m_paperSize = (sbyte)cboPaperSize.SelectedIndex;
-
-            string str = cboPaperSize.SelectionBoxItem.ToString();
-           // string selectedText = selItem.Content.ToString();
-            //string a = selItem.Content.ToString();
 
             if (m_paperSize == 10)
             {
@@ -106,43 +94,47 @@ namespace VOP
 
         private void cboMediaType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBoxItem selItem = cboMediaType.SelectedItem as ComboBoxItem;
             m_mediaType = (sbyte)cboMediaType.SelectedIndex;           
         }
 
         private void cboPrintQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBoxItem selItem = cboPrintQuality.SelectedItem as ComboBoxItem;
             m_printQuality = (sbyte)cboPrintQuality.SelectedIndex;
        
         }
+
         private void rdBtnPagerOrder112233_Checked(object sender, RoutedEventArgs e)
         {
             m_paperOrder = 0;//DMCOLLATE_FALSE = 0, DMCOLLATE_TRUE = 1,
         }
+
         private void rdBtnPagerOrder123123_Checked(object sender, RoutedEventArgs e)
         {
             m_paperOrder = 1;//DMCOLLATE_FALSE = 0, DMCOLLATE_TRUE = 1,
         }
+
         private void rdBtnReversePrint_Checked(object sender, RoutedEventArgs e)
         {
             m_reversePrint = 1;//NORMAL_PRINT = 0,  REVERSE_PRINT = 1,
         }
+
         private void rdBtnNormalPrint_Checked(object sender, RoutedEventArgs e)
         {
             m_reversePrint = 0;//NORMAL_PRINT = 0,  REVERSE_PRINT = 1,
         }
+
         private void rdBtnFlipOnShortEdger_Checked(object sender, RoutedEventArgs e)
         {
             m_duplexPrint = 3;////DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
-            m_preduplexPrint = 3;
-            
+            m_preduplexPrint = 3;       
         }
+
         private void rdBtnFlipOnLongEdger_Checked(object sender, RoutedEventArgs e)
         {
             m_preduplexPrint = 2;
             m_duplexPrint = 2;//DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
         }
+
         private void chk_DuplexPrint_Checked(object sender, RoutedEventArgs e)
         {
             if (3 == m_preduplexPrint)
@@ -158,6 +150,7 @@ namespace VOP
             rdBtnFlipOnLongEdge.IsEnabled = true;
             rdBtnFlipOnShortEdger.IsEnabled = true;
         }
+
         private void chk_DuplexPrint_Unchecked(object sender, RoutedEventArgs e)
         {
             m_duplexPrint = 1;//DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
@@ -166,6 +159,7 @@ namespace VOP
             rdBtnFlipOnShortEdger.IsChecked = false;
             rdBtnFlipOnLongEdge.IsChecked = false;
         }
+
         private void chk_MultiplePagePrint_Checked(object sender, RoutedEventArgs e)
         {
             if (4 == m_preNin1)

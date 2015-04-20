@@ -11,7 +11,6 @@
 #include "DM2OEM.H"
 #include "DEVMODE.H"
 #include <winspool.h>
-#include <winspool.h>
 
 #pragma comment(lib, "Shlwapi.lib")
 #pragma comment(lib, "gdiplus.lib")
@@ -43,11 +42,6 @@ enum PrintError
 	Print_Operation_Fail,
 	Print_OK,
 };
-
-#include "DM2OEM.H"
-#include "DEVMODE.H"
-#include <winspool.h>
-
 
 enum PrintShowMode
 {

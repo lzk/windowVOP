@@ -17,7 +17,7 @@ namespace VOP
         private enum FileSelectionState { SelectWindow, OpenFile, EditWindow, GoPrint, Exit }
         FileSelectionState currentState;
         public static int imageFileCount = 0;
-        public static bool IsIniPrintSettingPage = true;
+        public static bool IsInitPrintSettingPage = true;
         public MainWindow m_MainWin { get; set; }
 
         public FileSelectionPage()
@@ -32,7 +32,7 @@ namespace VOP
             open = new OpenFileDialog();
             open.Filter = "JPEG|*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif|All Images|*.jpg;*.bmp;*.png;*.tif";
             open.Multiselect = true;
-            IsIniPrintSettingPage = true;
+            IsInitPrintSettingPage = true;
 
             result = open.ShowDialog();
             if (result == true)
@@ -49,7 +49,7 @@ namespace VOP
             bool? result = null;
             open = new OpenFileDialog();
             open.Filter = "All Files|*.*";
-            IsIniPrintSettingPage = true;
+            IsInitPrintSettingPage = true;
 
             result = open.ShowDialog();
             if (result == true)
@@ -58,7 +58,25 @@ namespace VOP
                 strls.Add(open.FileName);
                 this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
                 this.m_MainWin.winPrintPage.FilePaths = strls;
-                this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile;
+
+                string fileExt = System.IO.Path.GetExtension(open.FileName).ToLower();
+
+                if (   fileExt == ".bmp" 
+                    || fileExt == ".ico" 
+                    || fileExt == ".gif"
+                    || fileExt == ".jpg"
+                    || fileExt == ".exif"
+                    || fileExt == ".png"
+                    || fileExt == ".tif"
+                    || fileExt == ".wmf"
+                    || fileExt == ".emf")
+                {
+                    this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile_Image;
+                }
+                else
+                {
+                    this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile;
+                }
             }
         }
 
@@ -68,7 +86,7 @@ namespace VOP
             IdCardTypeSelectWindow selectWin = null;
             OpenFileDialog open = null;
             imageFileCount = 0;
-            IsIniPrintSettingPage = true;
+            IsInitPrintSettingPage = true;
 
             currentState = FileSelectionState.SelectWindow;
             IdCardEditWindow.croppedImageList.Clear();

@@ -170,7 +170,7 @@ namespace VOP.Controls
                         NextTiffButton.Visibility = System.Windows.Visibility.Hidden;
                                   
                         CurrentFileName = System.IO.Path.GetFileName(imagePaths[currentListIndex]);
-                        currentFileExt = System.IO.Path.GetExtension(imagePaths[currentListIndex]);
+                        currentFileExt = System.IO.Path.GetExtension(imagePaths[currentListIndex]).ToLower();
                            
                         ImageView.Visibility = System.Windows.Visibility.Visible;
                         ImageUnvalid.Visibility = System.Windows.Visibility.Hidden;

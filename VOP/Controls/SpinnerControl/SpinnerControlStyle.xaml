@@ -185,6 +185,7 @@
                                  BorderThickness="2.5"
                                  FontSize="26" 
                                  MaxLength="3"
+                                 InputMethod.IsInputMethodEnabled="False"
                                  >
                             <TextBox.Text>
                                 <Binding RelativeSource="{RelativeSource TemplatedParent}"
@@ -265,7 +266,8 @@
                                  FontSize="26" 
                                  Style="{StaticResource TextBoxErrorTemplateStyle}" 
                                  BorderThickness="2"
-                                 BorderBrush="{x:Null}">
+                                 BorderBrush="{x:Null}"
+                                 InputMethod.IsInputMethodEnabled="False">
                                 <TextBox.Text>
                                     <Binding RelativeSource="{RelativeSource TemplatedParent}" 
                                          Mode="TwoWay"
