@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Input;
 
 namespace VOP
 {
@@ -48,8 +49,51 @@ namespace VOP
             }
 
             spinnerControl1.FormattedValue = String.Format("{0}", m_psavetime);
-
+            
+            TextBox tb = spinnerControl1.Template.FindName("tbTextBox", spinnerControl1) as TextBox;
+            tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
+            tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
            // UpdateApplyBtnStatus();
+        }
+
+        private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            VOP.Controls.SpinnerControl spinnerCtl = sender as VOP.Controls.SpinnerControl;
+            TextBox tb = spinnerCtl.Template.FindName("tbTextBox", spinnerCtl) as TextBox;
+            int textValue = 0;
+            if (!spinnerCtl.IsFocused)
+            {
+                if (int.TryParse(tb.Text, out textValue))
+                {
+                    if (textValue > 30)
+                        tb.Text = "30";
+                    else if(textValue < 1)
+                        tb.Text = "1";
+                }
+            }
+        }
+
+        private void SpinnerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            int textValue = 0;
+
+            if (!int.TryParse(e.Text, out textValue))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void SpinnerTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            int textValue = 0;
+
+            if (int.TryParse(textBox.Text, out textValue))
+            {
+ 
+            }
+
         }
 
         private void OnLoadedPowerSaveView(object sender, RoutedEventArgs e)

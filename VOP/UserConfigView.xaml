@@ -53,7 +53,9 @@
                                  FontSize="18" 
                                  Margin="0,0,0,2"
                                  MaxLength="2"
-                                 Style="{StaticResource TextBoxErrorTemplateStyle}">
+                                 Style="{StaticResource TextBoxErrorTemplateStyle}"
+                                 InputMethod.IsInputMethodEnabled="False"
+                                 >
                                     <TextBox.Text>
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" 
                                          Mode="TwoWay"
@@ -136,7 +138,9 @@
                                  FontSize="18" 
                                  Margin="0,0,0,2"
                                  MaxLength="2"
-                                 Style="{StaticResource TextBoxErrorTemplateStyle}">
+                                 Style="{StaticResource TextBoxErrorTemplateStyle}"
+                                 InputMethod.IsInputMethodEnabled="False"
+                                 >
                                     <TextBox.Text>
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" 
                                          Mode="TwoWay"
@@ -219,7 +223,9 @@
                                  FontSize="18" 
                                  Margin="0,0,0,2"
                                  MaxLength="2"
-                                 Style="{StaticResource TextBoxErrorTemplateStyle}">
+                                 Style="{StaticResource TextBoxErrorTemplateStyle}"                                 
+                                 InputMethod.IsInputMethodEnabled="False"
+                                 >
                                     <TextBox.Text>
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" 
                                          Mode="TwoWay"
@@ -321,7 +327,8 @@
                             Maximum="6"
                             Minimum="-6"  
                             IsPercentFormat="False"
-                            ValidationHasErrorChanged="OnValidationHasErrorChanged">
+                            ValidationHasErrorChanged="OnValidationHasErrorChanged"
+                            LostFocus="SpinnerTextBox_LostFocus">
 
                     </local:SpinnerControl>
                 </Grid>
@@ -336,7 +343,9 @@
                             Maximum="6"
                             Minimum="-6"  
                             IsPercentFormat="False"
-                            ValidationHasErrorChanged="OnValidationHasErrorChanged">
+                            ValidationHasErrorChanged="OnValidationHasErrorChanged"
+                            LostFocus="SpinnerTextBox_LostFocus">
+
 
                     </local:SpinnerControl>
                 </Grid>
@@ -351,7 +360,9 @@
                             Maximum="3"
                             Minimum="-3"  
                             IsPercentFormat="False"
-                            ValidationHasErrorChanged="OnValidationHasErrorChanged">
+                            ValidationHasErrorChanged="OnValidationHasErrorChanged"
+                            LostFocus="SpinnerTextBox_LostFocus">
+
 
                     </local:SpinnerControl>
                 </Grid>
@@ -366,7 +377,9 @@
                             Maximum="1"
                             Minimum="0"  
                             IsPercentFormat="False"
-                            ValidationHasErrorChanged="OnValidationHasErrorChanged">
+                            ValidationHasErrorChanged="OnValidationHasErrorChanged"
+                            LostFocus="SpinnerTextBox_LostFocus">
+
                     </local:SpinnerControl>
                 </Grid>
                 <Image Source="Images/line.png" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom"></Image>

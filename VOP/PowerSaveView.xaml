@@ -87,7 +87,9 @@
                                  MaxLength="3"                                 
                                  Height="30"
                                  Style="{StaticResource TextBoxErrorTemplateStyle1}"
-                                 Template="{StaticResource customTextBox}">
+                                 Template="{StaticResource customTextBox}"
+                                 InputMethod.IsInputMethodEnabled="False"
+                                 >
                                     <TextBox.Text>
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" 
                                          Mode="TwoWay"
@@ -186,6 +188,7 @@
                             IsPercentFormat="False"
                             ValueChanged="spinnerControl1_ValueChanged"     
                             ValidationHasErrorChanged="spinnerControl1_ValidationHasErrorChanged"
+                            LostFocus="SpinnerTextBox_LostFocus"
                             >
 
                     </local:SpinnerControl>

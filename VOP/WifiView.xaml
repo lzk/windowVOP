@@ -107,9 +107,9 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="网络名称：" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                                    <TextBox Name="tbSSID" Grid.Column="2" VerticalAlignment="Center" MaxLength="32"></TextBox>
+                                    <TextBox Name="tbSSID" Grid.Column="2" VerticalAlignment="Center" MaxLength="32" InputMethod.IsInputMethodEnabled="False"></TextBox>
                                     <TextBlock Name="tbkPwd" Grid.Row="1" Text="密码：" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                                    <TextBox Name="tbPwd" Grid.Row="1" Grid.Column="2" Visibility="Hidden" VerticalAlignment="Center" MaxLength="64"></TextBox>
+                                    <TextBox Name="tbPwd" Grid.Row="1" Grid.Column="2" Visibility="Hidden" VerticalAlignment="Center" MaxLength="64" InputMethod.IsInputMethodEnabled="False"></TextBox>
                                     <PasswordBox Name="pbPwd" Grid.Row="1"  Grid.Column="2"  VerticalAlignment="Center" MaxLength="64"></PasswordBox>
                                 </Grid>
                                 

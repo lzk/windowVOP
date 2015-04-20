@@ -220,15 +220,7 @@ namespace VOP
         private void handler_text_changed(object sender, TextChangedEventArgs e)
         {
             TextBox txtBox = sender as TextBox;
-            string strText = txtBox.Text;
-            int nCaretIndex = txtBox.CaretIndex;
-            if (!common.IsVailibleSSID(strText))
-            {
-                strText = txtBox.Text = softAPSetting.m_ssid;
-                tbSSID.CaretIndex = nCaretIndex;
-            }
-
-            softAPSetting.m_ssid = strText;
+            softAPSetting.m_ssid = txtBox.Text;
             //UpdateApplyBtnStatus();
         }
     }

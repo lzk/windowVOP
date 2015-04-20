@@ -49,7 +49,7 @@
                                     <ColumnDefinition Width="3*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Name="tkPwd" Text="密码" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
-                                <TextBox Name="tbPwd" Grid.Column="1" Visibility="Hidden" VerticalAlignment="Center" MaxLength="64" TextChanged="tbPwd_TextChanged"></TextBox>
+                                <TextBox Name="tbPwd" Grid.Column="1" Visibility="Hidden" VerticalAlignment="Center" MaxLength="64" TextChanged="tbPwd_TextChanged" InputMethod.IsInputMethodEnabled="False"></TextBox>
                                 <PasswordBox Name="pbPwd" Grid.Column="1" VerticalAlignment="Center" MaxLength="64" PasswordChanged="pbPwd_PasswordChanged"></PasswordBox>
                             </Grid>
                         </StackPanel>

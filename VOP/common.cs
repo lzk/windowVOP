@@ -304,20 +304,6 @@ namespace VOP
             }
         }
 
-        public static bool IsVailibleSSID(string text)
-        {
-            if (text == null || text.Length > 32)
-                return false;
-
-            foreach (char ch in text)
-            {
-                if ((int)ch < 0x20 || (int)ch > 0x7e)
-                    return false;
-            }
-
-            return true;
-        }
-
         public static BitmapSource RotateBitmap( BitmapSource bmpSrc, int angle )
         {
             BitmapSource ret = null;

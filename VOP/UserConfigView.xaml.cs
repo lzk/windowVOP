@@ -32,6 +32,7 @@ namespace VOP
         {
             InitializeComponent();
         }
+
         public bool init_config(bool _bDisplayProgressBar = true)
         {
             bool isInitSuccess = false;
@@ -88,9 +89,60 @@ namespace VOP
             return isInitSuccess;
         }
 
+        private void SpinnerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            int textValue = 0;
+
+            if (!int.TryParse(e.Text, out textValue))
+            {
+                if (e.Text != "-")
+                    e.Handled = true;
+            }
+        }
+
+        private void SpinnerTextBox_PreviewTextInput1(object sender, TextCompositionEventArgs e)
+        {
+            int textValue = 0;
+
+            if (!int.TryParse(e.Text, out textValue))
+            {
+                 e.Handled = true;
+            }
+        }
+
+        private void SpinnerTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            string strText = textBox.Text;
+            strText = strText.Replace("--", "-");
+            int textValue = 0;
+
+            if (int.TryParse(strText, out textValue))
+            {
+
+            }
+            textBox.Text = strText;
+        }
+
         private void OnLoadedUserConfigView(object sender, RoutedEventArgs e)
         {
             init_config();
+
+            TextBox tb = spinCtlEdge.Template.FindName("tbTextBox", spinCtlEdge) as TextBox;
+            tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
+            tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+
+            TextBox tb1 = spinCtlSide2Side.Template.FindName("tbTextBox", spinCtlSide2Side) as TextBox;
+            tb1.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
+            tb1.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+
+            TextBox tb2 = spinCtlDensity.Template.FindName("tbTextBox", spinCtlDensity) as TextBox;
+            tb2.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
+            tb2.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+
+            TextBox tb3 = spinCtlHumidity.Template.FindName("tbTextBox", spinCtlHumidity) as TextBox;
+            tb3.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
+            tb3.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput1);
         }
 
         private void GetUIValues(
@@ -128,7 +180,6 @@ namespace VOP
                     primarycoolingmode = 1;
                 else
                     primarycoolingmode = 0;
-
             }
         }
 
@@ -206,5 +257,58 @@ namespace VOP
                 btnApply.IsEnabled = true;
             }
         }
+
+        private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            VOP.Controls.SpinnerControl spinnerCtl = sender as VOP.Controls.SpinnerControl;
+            TextBox tb = spinnerCtl.Template.FindName("tbTextBox", spinnerCtl) as TextBox;
+            int textValue = 0;
+            if (!spinnerCtl.IsFocused)
+            {
+                if ("spinCtlEdge" == spinnerCtl.Name || "spinCtlSide2Side" == spinnerCtl.Name)
+                {
+                    if (int.TryParse(tb.Text, out textValue))
+                    {
+                        if (textValue > 6)
+                            tb.Text = "6";
+                        else if (textValue < -6)
+                            tb.Text = "-6";
+                    }
+                    else
+                    {
+                        tb.Text = "0";
+                    }
+                }
+                else if ("spinCtlDensity" == spinnerCtl.Name)
+                {
+                    if (int.TryParse(tb.Text, out textValue))
+                    {
+                        if (textValue > 3)
+                            tb.Text = "3";
+                        else if (textValue < -3)
+                            tb.Text = "-3";
+                    }
+                    else
+                    {
+                        tb.Text = "0";
+                    }
+                }
+                else if ("spinCtlHumidity" == spinnerCtl.Name)
+                {
+                    if (int.TryParse(tb.Text, out textValue))
+                    {
+                        if (textValue > 1)
+                            tb.Text = "1";
+                        else if (textValue < 0)
+                            tb.Text = "0";
+                    }
+                    else
+                    {
+                        tb.Text = "0";
+                    }
+                }
+            }
+        }
+
     }
 }
