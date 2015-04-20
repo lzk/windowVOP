@@ -253,14 +253,6 @@ namespace VOP
         _9up = 3,
     }
 
-    public enum EnumStatusType : byte
-    {
-        info    = 0,
-        warning = 1,
-        error   = 2,
-        normal  = 3,
-    }
-
     public enum EnumTask : byte
     {
         Copying       = 0 ,

@@ -92,7 +92,7 @@ namespace VOP
 
         public void TranferState( EnumStatus status )
         {
-            if ( EnumStatusType.error == common.GetStatusType( status ) ||
+            if ( StatusDisplayType.Error == common.GetStatusTypeForUI( status ) ||
                EnumStatus.IDCardMode == status)
             {
                 m_autoMachineState = EnumState.stopWorking;
@@ -110,10 +110,10 @@ namespace VOP
     {
         private static PrinterInfo[] printerInfos = 
         {
-            new PrinterInfo("Lenovo M7208", false, false) ,
-            new PrinterInfo("Lenovo M7208W", false, true) ,
-            new PrinterInfo("Lenovo LJ2208", true, false) ,
-            new PrinterInfo("Lenovo LJ2208W", true, true) ,
+            new PrinterInfo("Lenovo M7208"   , false , false) ,
+            new PrinterInfo("Lenovo M7208W"  , false , true)  ,
+            new PrinterInfo("Lenovo LJ2208"  , true  , false) ,
+            new PrinterInfo("Lenovo LJ2208W" , true  , true)  ,
         };
 
         public static BitmapSource GetOrigBitmapSource( ScanFiles obj  )
@@ -132,92 +132,6 @@ namespace VOP
 
             return origSource;
         }
-
-        /// <summary>
-        /// Status Type use to monitor device status, no for UI.
-        /// </summary>
-        public static EnumStatusType GetStatusType( EnumStatus status )
-        {
-            EnumStatusType statusType = EnumStatusType.info;
-
-            switch ( (EnumStatus)status )
-            {
-                case EnumStatus.Ready                      : // Ready  
-                case EnumStatus.PowerSaving                : // Sleep  
-                case EnumStatus.SCANUSBDisconnect          : // --     
-                case EnumStatus.ScanNETDisconnect          : // --     
-                case EnumStatus.ScanPCUnkownCommandNET     : // --     
-                case EnumStatus.ScanPCUnkownCommandUSB     : // --     
-                case EnumStatus.NetWirelessConnectFail     : // --     
-                case EnumStatus.NetWirelessDisable         : // --     
-                    statusType = EnumStatusType.info;
-                    break;
-                case EnumStatus.FWUpdate                   : // Warning
-                case EnumStatus.OverHeat                   : // Warning
-                case EnumStatus.TonerNearEnd               : // Warning
-                case EnumStatus.TonerEnd1                  : // Warning  
-                case EnumStatus.PrinterDataError           : // Warning  
-                case EnumStatus.NoTonerCartridge           : // Warning  
-                    statusType = EnumStatusType.warning;
-                    break;
-                case EnumStatus.CopyCanceling              : // Busy   
-                case EnumStatus.IDCardMode                 : // Busy   
-                case EnumStatus.CopyPrinting               : // Busy   
-                case EnumStatus.CopyScanNextPage           : // Busy   
-                case EnumStatus.CopyScanning               : // Busy   
-                case EnumStatus.ManualFeedRequired         : // Busy   
-                case EnumStatus.PrintCanceling             : // Busy   
-                case EnumStatus.Printing                   : // Busy   
-                case EnumStatus.Processing                 : // Busy   
-                case EnumStatus.ScanCanceling              : // Busy   
-                case EnumStatus.ScannerBusy                : // Busy   
-                case EnumStatus.ScanScanning               : // Busy   
-                case EnumStatus.ScanSending                : // Busy   
-                case EnumStatus.WarmingUp                  : // Busy   
-                    statusType = EnumStatusType.info;
-                    break;
-                case EnumStatus.BeamSynchronizeError       : // Error  
-                case EnumStatus.BiasLeak                   : // Error  
-                case EnumStatus.PlateActionError:// Error
-                case EnumStatus.MainFanMotorEorror:// Error
-                case EnumStatus.CTL_PRREQ_NSignalNoCome: // Error  
-                case EnumStatus.CoverOpen                  : // Error  
-                case EnumStatus.EEPROMCommunicationError   : // Error  
-                case EnumStatus.Joiner3timesJamError        : // Error  
-                case EnumStatus.JoinerFullHeaterError       : // Error  
-                case EnumStatus.JoinerReloadError           : // Error  
-                case EnumStatus.JoinerThermistorError       : // Error  
-                case EnumStatus.HighTemperatureErrorHard   : // Error  
-                case EnumStatus.HighTemperatureErrorSoft   : // Error  
-                case EnumStatus.InitializeJam              : // Error  
-                case EnumStatus.JamAtExitNotReach          : // Error  
-                case EnumStatus.JamAtExitStayOn            : // Error  
-                case EnumStatus.JamAtRegistStayOn          : // Error  
-                case EnumStatus.LowVoltageJoinerReloadError : // Error  
-                case EnumStatus.MainmotorError             : // Error  
-                case EnumStatus.MotorThermistorError       : // Error  
-                case EnumStatus.NofeedJam                  : // Error  
-                case EnumStatus.PolygomotorLockSignalError : // Error  
-                case EnumStatus.PolygomotorOffTimeoutError : // Error  
-                case EnumStatus.PolygomotorOnTimeoutError  : // Error  
-                case EnumStatus.ScanMotorError             : // Error  
-                case EnumStatus.TonerEnd2                  : // Error  
-                case EnumStatus.WasteTonerFull             : // Error  
-                case EnumStatus.NetWirelessDongleCfgFail   : // Error  
-                case EnumStatus.FWUpdateError              : // Error  
-                case EnumStatus.DSPError                   : // Error  
-                case EnumStatus.CodecError                 : // Error  
-                    statusType = EnumStatusType.error;
-                    break;
-                case EnumStatus.Offline             : // Error  
-                case EnumStatus.PowerOff            :
-                case EnumStatus.Unknown             : // Error  
-                    statusType = EnumStatusType.error;
-                    break;
-            }
-
-            return statusType;
-       }
 
         public static void SelectItemByContext( ComboBox cbo, byte context )
         {
