@@ -22,6 +22,8 @@ namespace VOP
         public PrintType CurrentPrintType { get; set; }
         public IdCardTypeItem SelectedTypeItem { get; set; }
 
+        private bool needFitToPage = false;
+
         public List<string> FilePaths
         {
             set
@@ -112,7 +114,7 @@ namespace VOP
             result = printWin.ShowDialog();
             if (result == true)
             {
-               
+                needFitToPage = (bool)printWin.chk_FitToPaperSize.IsChecked;
             }
         }
 
@@ -129,13 +131,15 @@ namespace VOP
                     {
                         printRes = worker.InvokePrintFileMethod(dll.PrintFile,
                                m_MainWin.statusPanelPage.m_selectedPrinter,
-                               FilePaths[0]);
+                               FilePaths[0],
+                               needFitToPage);
                     }
 
                     break;
                 case PrintType.PrintImages:
 
-                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "Print Images", (int)enumIdCardType.NonIdCard, new IdCardSize()))
+                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "Print Images",
+                                     (int)enumIdCardType.NonIdCard, new IdCardSize(), needFitToPage))
                     {
                         foreach (string path in FilePaths)
                         {
@@ -155,7 +159,7 @@ namespace VOP
                     idCardSize.Width = SelectedTypeItem.Width;
                     idCardSize.Height = SelectedTypeItem.Height;
 
-                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "Print Id Card", (int)SelectedTypeItem.TypeId, idCardSize))
+                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "Print Id Card", (int)SelectedTypeItem.TypeId, idCardSize, needFitToPage))
                     {
                         using(IdCardPrintHelper helper = new IdCardPrintHelper())
                         {

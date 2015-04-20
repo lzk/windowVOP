@@ -64,8 +64,9 @@ typedef struct _IdCardSize
 }IdCardSize;
 
 
-USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName);
-USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType = 0, IdCardSize *size = NULL);
+USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage);
+USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, 
+	                                int idCardType = 0, IdCardSize *size = NULL, bool fitToPage = false);
 USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName);
 USBAPI_API void __stdcall AddImageSource(IStream * imageSource);
 USBAPI_API int __stdcall DoPrintImage();
@@ -136,15 +137,18 @@ static GdiplusStartupInput gdiplusStartupInput;
 static ULONG_PTR gdiplusToken;
 static int currentIdCardType = 0;
 static IdCardSize currentIdCardSize = { 0 };
+static bool needFitToPage = false;
 Size A4Size( 21, 29.7 ); //unit cm
 
-USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName)
+USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage)
 {
 	PrintError error = Print_OK;
 	DWORD bufferSize = 500;
 	TCHAR defaultPrinterName[500];
 	int shellExeRes = 0;
 	const TCHAR *fileExt = NULL;
+
+	needFitToPage = fitToPage;
 
 	fileExt = PathFindExtension(strFileName);
 	std::wstring strExt(fileExt);
@@ -204,12 +208,13 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	return error;
 }
 
-USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size)
+USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage)
 {
 	g_vecImagePaths.clear();
 	g_vecIdCardImageSources.clear();
 
 	currentIdCardType = idCardType;
+	needFitToPage = fitToPage;
 
 	if (size != NULL)
 		currentIdCardSize = *size;
@@ -309,15 +314,22 @@ USBAPI_API int __stdcall DoPrintImage()
 						double scaleRatioX = (double)w / cxPage;
 						double scaleRatioY = (double)h / cyPage;
 
-						if (w < cxPage && h < cyPage)
-						{
-							IsFitted = TRUE;
-						}
-						else
+						if (needFitToPage)
 						{
 							IsFitted = FALSE;
 						}
-
+						else
+						{
+							if (w < cxPage && h < cyPage)
+							{
+								IsFitted = TRUE;
+							}
+							else
+							{
+								IsFitted = FALSE;
+							}
+						}
+						
 						if (IsFitted == TRUE)
 						{
 							w = img.GetWidth();
@@ -622,7 +634,6 @@ USBAPI_API int __stdcall DoPrintIdCard()
 	return error;
 }
 
-
 USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
 	UINT8 PaperSize,
 	UINT8 PaperOrientation,
@@ -744,6 +755,7 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
 		phandle = NULL;
 	}
 }
+
 USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies)
 {
 	HANDLE   phandle;
@@ -788,6 +800,7 @@ USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies)
 		phandle = NULL;
 	}
 }
+
 USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 	BYTE* ptr_paperSize,
 	BYTE* ptr_paperOrientation,
@@ -906,6 +919,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 
 	return true;
 }
+
 USBAPI_API int __stdcall OpenDocumentProperties(const TCHAR * strPrinterName,
 	BYTE* ptr_paperSize,
 	BYTE* ptr_paperOrientation,

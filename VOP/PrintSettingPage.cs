@@ -230,6 +230,7 @@ namespace VOP
             rdBtnFlipOnLongEdge.IsEnabled = true;
 
         }
+
         private void rdBtn2in1_Checked(object sender, RoutedEventArgs e)
         {
             m_nupNum = 2;
@@ -241,6 +242,7 @@ namespace VOP
             rdBtnFlipOnShortEdger.IsEnabled = true;
             rdBtnFlipOnLongEdge.IsEnabled = true;
         }
+
         private void rdBtn4in1_Checked(object sender, RoutedEventArgs e)
         {
             m_nupNum = 4;
@@ -253,6 +255,7 @@ namespace VOP
             rdBtnFlipOnLongEdge.IsEnabled = true;
 
         }
+
         private void rdBtn9in1_Checked(object sender, RoutedEventArgs e)
         {
             m_nupNum = 9;
@@ -264,6 +267,7 @@ namespace VOP
             rdBtnFlipOnShortEdger.IsEnabled = true;
             rdBtnFlipOnLongEdge.IsEnabled = true;
         }
+
         private void rdBtn16in1_Checked(object sender, RoutedEventArgs e)
         {
             m_nupNum = 16;
@@ -276,6 +280,7 @@ namespace VOP
             rdBtnFlipOnLongEdge.IsEnabled = true;
 
         }
+
         private void rdBtn1in2x2_Checked(object sender, RoutedEventArgs e)
         {
             m_nupNum = 1;
@@ -292,6 +297,7 @@ namespace VOP
             rdBtnFlipOnLongEdge.IsChecked = false;
 
         }
+
         private void rdBtn1in3x3_Checked(object sender, RoutedEventArgs e)
         {
             m_nupNum = 1;
@@ -307,6 +313,7 @@ namespace VOP
             rdBtnFlipOnShortEdger.IsChecked = false;
             rdBtnFlipOnLongEdge.IsChecked = false;
         }
+
         private void rdBtn1in4x4_Checked(object sender, RoutedEventArgs e)
         {
             m_nupNum = 1;
@@ -322,6 +329,7 @@ namespace VOP
             rdBtnFlipOnShortEdger.IsChecked = false;
             rdBtnFlipOnLongEdge.IsChecked = false;
         }
+
         private void chk_TonerSaving_Checked(object sender, RoutedEventArgs e)
         {
             m_tonerSaving = 1;
@@ -329,10 +337,9 @@ namespace VOP
 
         private void chk_TonerSaving_Unchecked(object sender, RoutedEventArgs e)
         {
-            m_tonerSaving = 0;
-            
-            
+            m_tonerSaving = 0;    
         }
+
         private void chk_FitToPaperSize_Checked(object sender, RoutedEventArgs e)
         {
             m_scalingType = 3;
@@ -345,7 +352,6 @@ namespace VOP
             m_scalingType = 2;
             m_scalingRatio = (sbyte)spinnerScaling.Value;
             spinnerScaling.IsEnabled = true;
-
         }
        
         private void GetScalingValues()
@@ -367,6 +373,7 @@ namespace VOP
                 m_scalingRatio = (sbyte)spinnerScaling.Value;
             }
         }
+
         private void GetDensityValues()
         {
             if (spinnerDensityAdjustment.IsEnabled == false )
@@ -384,6 +391,7 @@ namespace VOP
                 m_densityValue = (sbyte)(spinnerDensityAdjustment.Value - 4);
             }
         }
+
         private void chkBtnPaperOrientation_Checked(object sender, RoutedEventArgs e)
         {
             m_paperOrientation = 2;//Portrait = 1, Landscape = 2,
@@ -409,10 +417,12 @@ namespace VOP
                  SetDataFromPrinterInfo();
             }
         }
+
         private void DefaultButtonClick(object sender, RoutedEventArgs e)
         {
             SetDefaultValue();
         }
+
         private void OKButtonClick(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
@@ -426,6 +436,7 @@ namespace VOP
                 dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo,m_densityValue, m_duplexPrint, m_reversePrint, m_tonerSaving);
             }
         }
+
         private void SetDefaultValue()
         {
             if (m_CurrentPrintType == PrintPage.PrintType.PrintFile)
@@ -547,6 +558,7 @@ namespace VOP
                 spinnerScaling.Value = 100;
             }
         }
+
         private void SetDataFromPrinterInfo()
         {
             cboPaperSize.SelectedIndex = m_paperSize;
@@ -687,6 +699,7 @@ namespace VOP
                 spinnerDensityAdjustment.Value = 4;
             }
         }
+
         private void GetDataFromPrinterInfo()
         {
             string printerName = m_MainWin.statusPanelPage.m_selectedPrinter;

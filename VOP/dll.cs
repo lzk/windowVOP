@@ -192,7 +192,8 @@ namespace VOP
                 [MarshalAs(UnmanagedType.LPWStr)]string printerName,
                 [MarshalAs(UnmanagedType.LPWStr)]string jobDescription,
                 int idCardType,
-                [In, MarshalAs(UnmanagedType.LPStruct)]IdCardSize size);
+                [In, MarshalAs(UnmanagedType.LPStruct)]IdCardSize size,
+                bool fitToPage);
 
         [DllImport("usbapi.dll")]
         public static extern void AddImagePath(
@@ -210,7 +211,8 @@ namespace VOP
         [DllImport("usbapi.dll")]
         public static extern int PrintFile(
                [MarshalAs(UnmanagedType.LPWStr)]string printerName, 
-               [MarshalAs(UnmanagedType.LPWStr)]string fileName);
+               [MarshalAs(UnmanagedType.LPWStr)]string fileName,
+               bool fitToPage);
 
         [DllImport("usbapi.dll")]
         public static extern int OutputDebugStringToFile_([MarshalAs(UnmanagedType.LPWStr)]string _lpFormat);
@@ -255,6 +257,7 @@ namespace VOP
             ref sbyte DuplexPrint,
             ref sbyte ReversePrint,
             ref sbyte TonerSaving);
+
         [DllImport("usbapi.dll")]
         public static extern int OpenDocumentProperties(
             [MarshalAs(UnmanagedType.LPWStr)]string strPrinterName,
@@ -274,6 +277,7 @@ namespace VOP
             ref sbyte DuplexPrint,
             ref sbyte ReversePrint,
             ref sbyte TonerSaving);
+
         [DllImport("usbapi.dll")]
         public static extern void SetCopies([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName, sbyte Copies);
 
