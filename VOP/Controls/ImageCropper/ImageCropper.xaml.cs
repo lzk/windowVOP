@@ -20,7 +20,7 @@ namespace VOP.Controls
 	/// </summary>
 	public partial class ImageCropper : UserControl
 	{
-		public static double thumbCornerWidth = 6;
+		public static double thumbCornerWidth = 0;
         public static double designerItemWHRatio = 1;
         bool IsFitted = false;
         public static double imageToTop = 0;
@@ -116,8 +116,8 @@ namespace VOP.Controls
                 ContentControl designerItem = imageCropperContent;
                 Canvas canvas = VisualTreeHelper.GetParent(designerItem) as Canvas;
 
-                designerItem.MinWidth = 50;
-                designerItem.MinHeight = 50 / designerItemWHRatio;
+                designerItem.MinWidth = 16;
+                designerItem.MinHeight = 16 / designerItemWHRatio;
 
                 if(whRatio > designerItemWHRatio)
                 {

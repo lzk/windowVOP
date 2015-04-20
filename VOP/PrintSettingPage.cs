@@ -53,6 +53,9 @@ namespace VOP
         {
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
 
+            TextBox tb = spinnerScaling.Template.FindName("tbTextBox", spinnerScaling) as TextBox;
+            tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+
             if (FileSelectionPage.IsInitPrintSettingPage)
             {
                 SetDefaultValue();
@@ -67,6 +70,21 @@ namespace VOP
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void SpinnerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            int textValue = 0;
+
+            if (!int.TryParse(e.Text, out textValue))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void OnScalingValidationHasError(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            OKButton.IsEnabled = !e.NewValue;
         }
 
         private void acceptButton_Click(object sender, RoutedEventArgs e)

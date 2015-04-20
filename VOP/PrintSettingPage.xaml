@@ -376,6 +376,7 @@
                             Maximum="400"
                             Minimum="25"  
                             Value="100"
+                            ValidationHasErrorChanged="OnScalingValidationHasError"
                             Margin="0,5,0,0"/>
                 <CheckBox x:Name="chk_FitToPaperSize" 
                           Template="{StaticResource customCheckBox}" 

@@ -267,6 +267,7 @@
                                  Style="{StaticResource TextBoxErrorTemplateStyle}" 
                                  BorderThickness="2"
                                  BorderBrush="{x:Null}"
+                                 MaxLength="4"
                                  InputMethod.IsInputMethodEnabled="False">
                                 <TextBox.Text>
                                     <Binding RelativeSource="{RelativeSource TemplatedParent}" 

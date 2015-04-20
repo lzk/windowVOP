@@ -59,8 +59,11 @@ namespace VOP.Controls
             {
                 case EditWindowState.Edit:
 
-                    croppedImageList.Add(myCropper.GetCroppedImage());
-
+                    if (myCropper.GetCroppedImage() != null)
+                    {
+                        croppedImageList.Add(myCropper.GetCroppedImage());
+                    }
+                       
                     PrintPreview printPreview = new PrintPreview();
                     printPreview.PaperWidth = A4Size.Width; //A4
                     printPreview.PaperHeight = A4Size.Height;
@@ -68,7 +71,6 @@ namespace VOP.Controls
 
                     if (SelectedTypeItem.PrintSides == enumIdCardPrintSides.OneSide)
                     {
-
                         borderContainer.Child = printPreview;
                         printPreview.Update(); //update after being a child
                         TitleBarText.Text = "打印预览";
