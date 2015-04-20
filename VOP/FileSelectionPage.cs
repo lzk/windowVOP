@@ -58,6 +58,7 @@ namespace VOP
                 strls.Add(open.FileName);
                 this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
                 this.m_MainWin.winPrintPage.FilePaths = strls;
+               
 
                 string fileExt = System.IO.Path.GetExtension(open.FileName).ToLower();
 

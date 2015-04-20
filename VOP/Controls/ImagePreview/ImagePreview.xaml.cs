@@ -131,7 +131,7 @@ namespace VOP.Controls
             Update();
         }
 
-        void Update()
+        public void Update()
         {
             while(currentState != ImagePreviewState.Finalize)
             {
@@ -282,16 +282,16 @@ namespace VOP.Controls
                                 bitmapSource = myBitmapImage;
                             }
 
-                            if (bitmapSource.PixelWidth < this.ActualWidth - 60 && bitmapSource.PixelHeight < this.ActualHeight - 60)
-                            {
-                                ImageView.Stretch = Stretch.None;
-                                //IsFitted = true;
-                            }
-                            else
-                            {
+                            //if (bitmapSource.PixelWidth < this.ActualWidth - 60 && bitmapSource.PixelHeight < this.ActualHeight - 60)
+                            //{
+                            //    ImageView.Stretch = Stretch.None;
+                            //    //IsFitted = true;
+                            //}
+                            //else
+                            //{
                                 ImageView.Stretch = Stretch.Uniform;
                                 //IsFitted = false;
-                            }
+                            //}
 
                             FormatConvertedBitmap fcb = new FormatConvertedBitmap(bitmapSource, PixelFormats.Gray8, null, 0);
                             ImageView.Source = fcb;
