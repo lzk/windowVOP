@@ -169,41 +169,20 @@ namespace VOP
             notifyIcon1.Text = "ABC Virtual Panel";
             notifyIcon1.Visible = true;
 
-            // Handle the Click event to activate the form.
-            notifyIcon1.MouseUp += NotifyIcon1_MouseUp;
-
-            notifyIcon1.DoubleClick += notifyIcon1_DoubleClick;
+            // Handle the Click event to activate the form.        
+            notifyIcon1.Click += notifyIcon1_Click;
         }
 
-        void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        void notifyIcon1_Click(object sender, EventArgs e)
         {
-            this.WindowState = WindowState.Normal;
-        }
+             this.Show();
 
+            this.ShowInTaskbar = true;         
+        }
 
         private void menuItem1_Click(object sender, System.EventArgs e)
         {
             this.MainWindowExitPoint();
-        }
-
-        public void NotifyIcon1_MouseUp(Object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                this.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                // MessageBox.Show( "right button click" );
-            }
-        }
-
-        private void OnNotifyIconDoubleClick(object sender, EventArgs e)
-        {
-            this.Visibility = Visibility.Visible;
-            this.ShowInTaskbar = true;
-            this.WindowState = WindowState.Normal;
-            this.notifyIcon1.Visible = false;
         }
 
         #endregion  // TrayMenu
@@ -245,7 +224,8 @@ namespace VOP
                     this.ShowInTaskbar = false;
                     this.notifyIcon1.Visible = true;
 
-                    this.WindowState = WindowState.Minimized;
+                    //this.WindowState = WindowState.Minimized;
+                    this.Hide();
                 }
             }
         }
