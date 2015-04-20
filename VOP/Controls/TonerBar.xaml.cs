@@ -115,10 +115,6 @@ namespace VOP
             argsEvent.RoutedEvent = TonerBar.valueChangedEvent;
             argsEvent.Source = this;
             RaiseEvent(argsEvent);
-
-          
-
-           
         }
 
         public bool IsEnabled
@@ -174,11 +170,6 @@ namespace VOP
                     shopCart_Img.Fill = imgBrush_Normal;
                 }
 
-                if ((oldValue != curPercet) && ((10.0 == curPercet) || (20.0 == curPercet) || (30.0 == curPercet)))
-                {
-                    RaiseClickEvent();                    
-                }
-
                 oldValue = curPercet;
        
             }
@@ -205,10 +196,10 @@ namespace VOP
         {
             Brush_10_percent = (LinearGradientBrush)this.FindResource("Brush_10");
             Brush_30_percent = (LinearGradientBrush)this.FindResource("Brush_30");
-            Brush_Normal = (LinearGradientBrush)this.FindResource("Brush_Normal");
+            Brush_Normal     = (LinearGradientBrush)this.FindResource("Brush_Normal");
 
-            imgBrush_Warn = (ImageBrush)this.FindResource("imgBrush_Warn");
-            imgBrush_Normal = (ImageBrush)this.FindResource("imgBrush_Normal");
+            imgBrush_Warn    = (ImageBrush)this.FindResource("imgBrush_Warn");
+            imgBrush_Normal  = (ImageBrush)this.FindResource("imgBrush_Normal");
             imgBrush_Disable = (ImageBrush)this.FindResource("imgBrush_Disable");
 
             timer.Interval = new TimeSpan(0, 0, 0, 0, MilliSeconds);
@@ -227,11 +218,7 @@ namespace VOP
             if(IsEnabled)
             {
                 shopCart_Img.Opacity = OPACITY_STRONG;
-
                 RaiseClickEvent();
-               
-
-               
             }           
         }
 

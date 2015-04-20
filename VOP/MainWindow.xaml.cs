@@ -374,7 +374,6 @@ namespace VOP
 
             while ( !bExitUpdater )
             {
-                //if (false == dll.GetPrinterStatus( statusPanelPage.m_selectedPrinter, ref _status, ref _toner, ref _job) )
                 if (false == GetPrinterStatusEx(statusPanelPage.m_selectedPrinter, ref _status, ref _toner, ref _job))
                 {
                     nFailCnt++;
@@ -459,9 +458,26 @@ namespace VOP
                status = _status;
                job    = _job   ;
 
-               this.statusPanelPage.m_toner         = toner;
-               this.statusPanelPage.m_currentStatus = (EnumStatus)status;
-               this.statusPanelPage.m_job           = (EnumMachineJob)job;
+               if ( ( 10 == toner || 20 == toner || 30 == toner ) 
+                       && toner != this.statusPanelPage.m_toner )
+               {
+                   this.statusPanelPage.m_toner         = toner;
+                   this.statusPanelPage.m_currentStatus = (EnumStatus)status;
+                   this.statusPanelPage.m_job           = (EnumMachineJob)job;
+
+                   this.statusPanelPage.lbTonerBar.FlashShopCatIcon( true );
+
+                   PurchaseWindow win = new PurchaseWindow();
+                   win.ShowDialog();
+
+                   this.statusPanelPage.lbTonerBar.FlashShopCatIcon( false );
+               }
+               else
+               {
+                   this.statusPanelPage.m_toner         = toner;
+                   this.statusPanelPage.m_currentStatus = (EnumStatus)status;
+                   this.statusPanelPage.m_job           = (EnumMachineJob)job;
+               }
 
                if ( false == m_isOnlineDetected )
                {
@@ -475,8 +491,6 @@ namespace VOP
                        ExpandSubpage();
                    }
                }
-
-               statusPanelPage.IsEnableSetValue = true;
 
                App.g_autoMachine.TranferState((EnumMachineJob)job);
                App.g_autoMachine.TranferState((EnumStatus)status);
@@ -507,23 +521,27 @@ namespace VOP
                 ref byte toner,
                 ref byte job)
         {
-            string deviceStatus = "";
-            string machineJob = "";
+            string deviceStatus  = "";
+            string machineJob    = "";
             string tonerCapacity = "";
+
+            bool bIsOK = false;
 
             // simulate Device status Info.
             if (StatusXmlHelper.GetPrinterInfo(statusPanelPage.m_selectedPrinter, out deviceStatus, out machineJob, out tonerCapacity, "DeviceStatus.xml"))
             {
-                toner = (byte)(int)double.Parse(tonerCapacity);
+                toner  = (byte)(int)double.Parse(tonerCapacity);
                 status = (byte)StatusXmlHelper.GetStatusTypeFormString(deviceStatus);
-                job = (byte)StatusXmlHelper.GetJobTypeFormString(machineJob);
+                job    = (byte)StatusXmlHelper.GetJobTypeFormString(machineJob);
 
-                return true;
+                bIsOK = true;
             }
             else 
             {
-                return dll.GetPrinterStatus(statusPanelPage.m_selectedPrinter, ref _status, ref _toner, ref _job);
+                bIsOK = dll.GetPrinterStatus(statusPanelPage.m_selectedPrinter, ref status, ref toner, ref job);
             }
+
+            return bIsOK;
         }
 
         /// <summary>
@@ -553,13 +571,16 @@ namespace VOP
             byte toner  = 0;
             byte status = (byte)EnumStatus.Offline; 
             byte job    = (byte)EnumMachineJob.UnknowJob;
-            //if (false == dll.GetPrinterStatus( statusPanelPage.m_selectedPrinter, ref status, ref toner, ref job) )
             if (false == GetPrinterStatusEx(statusPanelPage.m_selectedPrinter, ref status, ref toner, ref job))
             {
                 toner  = 0;
                 status = (byte)EnumStatus.Offline; 
                 job    = (byte)EnumMachineJob.UnknowJob;
             }
+
+            // In order to let PurchaseWindow popup properly, don't assign those popup value to statusPanelPage.m_toner.
+            if ( 10 == toner || 20 == toner || 30 == toner ) 
+                toner = 0; 
 
             statusPanelPage.m_job = (EnumMachineJob)job;
             statusPanelPage.m_toner = toner;

@@ -60,20 +60,6 @@ namespace VOP
         public bool m_isSFP             = false; // true if the m_selectedPrinter is a SFP model.
         public bool m_isWiFiModel       = false; // true if the m_selectedPrinter is a WiFi support model.
 
-        private bool isEnableSetValue = false;
-        public bool IsEnableSetValue
-        {
-            set
-            {
-                isEnableSetValue = value;
-
-                if (isEnableSetValue)
-                {
-                    lbTonerBar.CurValue = _toner;
-                }
-            }
-        }
-
         private byte _toner = 0; 
         public byte m_toner 
         {
@@ -82,11 +68,7 @@ namespace VOP
                 if ( value >=0 && value <= 100 )
                 {
                     _toner = value;
-
-                    if (isEnableSetValue)
-                    {
-                        lbTonerBar.CurValue = _toner;
-                    }                    
+                    lbTonerBar.CurValue = value;
                 }
             }
 
