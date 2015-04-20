@@ -80,5 +80,15 @@ namespace VOP
         {
 
         }
+
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            PasswordBox pb = sender as PasswordBox;
+            string strText = e.Text;
+            if (!Char.IsLetterOrDigit(strText, 0))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
