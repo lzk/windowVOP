@@ -50,7 +50,6 @@ namespace VOP
             TextBox tb = spinnerControl1.Template.FindName("tbTextBox", spinnerControl1) as TextBox;
             tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
-
         }
 
         private void SpinnerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

@@ -254,11 +254,10 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                      
-                        <TextBox 
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                            <TextBox 
                                  Name="tbTextBox"
-                                 Grid.Row="0"
-                                 Grid.Column="1"
+                                 Width="55"
                                  Foreground="#FF707070"
                                  TextAlignment="Center"
                                  Padding="0,2,0,2"
@@ -267,19 +266,21 @@
                                  Style="{StaticResource TextBoxErrorTemplateStyle}" 
                                  BorderThickness="2"
                                  BorderBrush="{x:Null}">
-                            <TextBox.Text>
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}" 
+                                <TextBox.Text>
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" 
                                          Mode="TwoWay"
                                          Path="FormattedValue" 
                                          UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <local:PrintCopysValidationRule MinimumValue="25" MaximumValue="400" 
+                                        <Binding.ValidationRules>
+                                            <local:PrintCopysValidationRule MinimumValue="25" MaximumValue="400" 
 										ErrorMessage="有效值输入范围为25-400, 请确认后再次输入." />
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
-
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBlock Foreground="#FF707070" FontSize="26" Text="%" VerticalAlignment="Center"/>
+                        </StackPanel>
+                       
                         <RepeatButton 
                                       Name="btnDecrease"
                                       Grid.Row="0"

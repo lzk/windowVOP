@@ -375,7 +375,6 @@
                             DecimalPlaces="0"
                             Maximum="400"
                             Minimum="25"  
-                            IsPercentFormat="True"
                             Value="100"
                             Margin="0,5,0,0"/>
                 <CheckBox x:Name="chk_FitToPaperSize" 
