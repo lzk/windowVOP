@@ -195,13 +195,26 @@ namespace VOP
             }
             else if (printRes == PrintError.Print_Operation_Fail)
             {
-
+                m_MainWin.statusPanelPage.ShowMessage("打印失败", StatusDisplayType.Ready);
+            }
+            else if (printRes == PrintError.Print_OK)
+            {
+                m_MainWin.statusPanelPage.ShowMessage("打印成功", StatusDisplayType.Ready);
             }
         }
 
         public void HandlerStateUpdate( EnumState state )
         {
             // TODO: update UI when auto machine state change.
+
+            if (EnumState.doingJob == state || EnumState.stopWorking == state)
+            {
+                PrintButton.IsEnabled = false;
+            }
+            else
+            {
+                PrintButton.IsEnabled = true;
+            }
         }
     }
 
