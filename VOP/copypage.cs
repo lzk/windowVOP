@@ -91,7 +91,7 @@ namespace VOP
                 {
                     _copies = value;
                     
-                    this.txtblkCopies.Text = _copies.ToString();
+                    //this.txtblkCopies.Text = _copies.ToString();
                 }
             }
 
@@ -241,5 +241,35 @@ namespace VOP
         {
             m_density++;
         }
+
+        private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            btnCopy.IsEnabled = ( false == spinCtlCopies.ValidationHasError );
+        }
+
+        private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        { 
+            VOP.Controls.SpinnerControl spinnerCtl = sender as VOP.Controls.SpinnerControl;
+            TextBox tb = spinnerCtl.Template.FindName("tbTextBox", spinnerCtl) as TextBox;
+            int textValue = 0;
+            if (!spinnerCtl.IsFocused)
+            {
+                if ( "spinCtlCopies" == spinnerCtl.Name ) 
+                {
+                    if (int.TryParse(tb.Text, out textValue))
+                    {
+                        if ( textValue > 99 )
+                            tb.Text = "99";
+                        else if ( textValue < 1 )
+                            tb.Text = "1";
+                    }
+                    else
+                    {
+                        tb.Text = "1";
+                    }
+                }
+            }
+        }
+
     }
 }

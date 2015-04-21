@@ -10,12 +10,104 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+
                 <ResourceDictionary Source="Controls/CustomButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
                 <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
                 <ResourceDictionary Source="Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomScrollView.xaml"/>
+                <ResourceDictionary Source="Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+
+
+            <Style x:Key ="SpinnerControl1"  TargetType="{x:Type local:SpinnerControl}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:SpinnerControl}">
+
+                            <Grid Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <!--
+                                    we use the TemplatedParent binding to get a reference to the control
+                                    this template has been applied to, so we can access the property on it
+                                -->
+                                <TextBox Name="tbTextBox"
+                                 Grid.Row="0"
+                                 Grid.Column="1"
+                                 Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                 BorderBrush="{StaticResource TextBoxBorderBrush}"
+                                 Foreground="#FF707070"
+                                 TextAlignment="Center"
+                                 IsReadOnly="False"
+                                 BorderThickness="0"
+                                 FontSize="30" 
+                                 Margin="0,0,0,2"
+                                 MaxLength="3"
+                                 Style="{StaticResource TextBoxErrorTemplateStyle}"
+                                 InputMethod.IsInputMethodEnabled="False"
+                                 VerticalAlignment="Center"
+                                 >
+                                    <TextBox.Text>
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" 
+                                         Mode="TwoWay"
+                                         Path="FormattedValue" 
+                                         UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <local:PrintCopysValidationRule MinimumValue="1" MaximumValue="99" 
+										ErrorMessage="有效值输入范围为1到99, 请确认后再次输入." />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+
+                                <RepeatButton Name="btnDecrease"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="30"
+                                      Height="30"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
+
+
+                                <RepeatButton Name="btnIncrease"
+                                      Grid.Row="0"
+                                      Grid.Column="2"
+                                      Width="30"
+                                      Height="30"
+                                      Style="{StaticResource CustomPlusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger SourceName="tbTextBox" Property="Validation.HasError"  Value="true">
+                                    <Setter Property="ValidationHasError" Value="True"></Setter>
+                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="False"></Setter>
+                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="False"></Setter>
+                                </Trigger>
+
+                                <Trigger SourceName="tbTextBox"  Property="Validation.HasError" Value="False">
+                                    <Setter Property="ValidationHasError" Value="False"></Setter>
+                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"></Setter>
+                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
 
     </UserControl.Resources>
@@ -37,26 +129,21 @@
                         Margin="0,65,0,10" 
                         >
 
-                        <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Center">
+                    <local:SpinnerControl x:Name="spinCtlCopies" Style="{StaticResource SpinnerControl1}"
+                            Width="210" 
+                            Background="Transparent"
+                            Change="1"
+                            DecimalPlaces="0"
+                            Maximum="99"
+                            Minimum="1"  
+                            Value="1"
+                            IsPercentFormat="False"
+                            ValidationHasErrorChanged="OnValidationHasErrorChanged"
+                            LostFocus="SpinnerTextBox_LostFocus">
 
-                            <Button x:Name="btnDecCopies" Style="{StaticResource AdjustButton}"
-                                    Content="-" Click="btnDecCopies_Click" FontSize="45" />
+                    </local:SpinnerControl>
 
-                            <TextBlock x:Name="txtblkCopies" 
-                                VerticalAlignment="Center" 
-                                TextAlignment="Center"
-                                Margin="35,0"
-                                FontSize="30"
-                                Width="35"
-                                >
-                                1
-                            </TextBlock>
 
-                            <Button x:Name="btnIncCopies" Style="{StaticResource AdjustButton}"
-                                    Content="+" Click="btnIncCopies_Click" FontSize="30"/>
-
-                        </StackPanel>
                     </local:GroupBoxDecorator>
 
                     <local:GroupBoxDecorator Header="浓度" Height="80" Width="320">
