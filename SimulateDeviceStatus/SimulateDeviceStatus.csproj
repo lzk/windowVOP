@@ -62,10 +62,12 @@
     <Compile Include="..\VOP\dll.cs">
       <Link>dll.cs</Link>
     </Compile>
+    <Compile Include="..\VOP\StatusXmlHelper.cs">
+      <Link>StatusXmlHelper.cs</Link>
+    </Compile>
     <Compile Include="..\VOP\type_define.cs">
       <Link>type_define.cs</Link>
     </Compile>
-    <Compile Include="StatusXmlHelper.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

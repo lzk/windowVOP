@@ -81,7 +81,7 @@ namespace SimulateDeviceStatus
 
                // if (xml.CreateXmlDocument("DeviceStatus", "1.0", "gb2312", "yes"))
                 {
-                    if (StatusXmlHelper.GetPrinterInfo(strSelPrtName, out deviceStatus, out machineJob, out tonerCapacity, fileName))
+                    if (VOP.StatusXmlHelper.GetPrinterInfo(strSelPrtName, out deviceStatus, out machineJob, out tonerCapacity, fileName))
                     {
                         SetComboBoxByContent(comboStatus, deviceStatus);
                         SetComboBoxByContent(comboJob, machineJob);
@@ -129,7 +129,7 @@ namespace SimulateDeviceStatus
                 cboItem = comboJob.SelectedItem as ComboBoxItem;
                 strMachineJob = (string)cboItem.Content;
 
-                if (!StatusXmlHelper.SavePrinterInfo(strSelPrtName, strStatus, strMachineJob, tonerValue.ToString(), fileName))
+                if (!VOP.StatusXmlHelper.SavePrinterInfo(strSelPrtName, strStatus, strMachineJob, tonerValue.ToString(), fileName))
                 {
                     System.Windows.MessageBox.Show("Save xml Document Failed..  ");
                 }
