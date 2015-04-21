@@ -509,12 +509,14 @@ namespace VOP
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);  //新建一个WebRequest对象用来请求或者响应url
                 dll.OutputDebugStringToFile_("####### SendHttpWebRequest WebRequest.Create(url) ######");
                 IWebProxy webProxy = WebRequest.DefaultWebProxy;
-                dll.OutputDebugStringToFile_("####### WebRequest.DefaultWebProxy ######");
-                webProxy.Credentials = CredentialCache.DefaultNetworkCredentials;
-                dll.OutputDebugStringToFile_("####### DefaultNetworkCredentials ######");
-                request.Proxy = webProxy;
-                dll.OutputDebugStringToFile_("####### webProxy ######");
-
+                if (null != webProxy)
+                {
+                    dll.OutputDebugStringToFile_("####### WebRequest.DefaultWebProxy ######");
+                    webProxy.Credentials = CredentialCache.DefaultNetworkCredentials;
+                    dll.OutputDebugStringToFile_("####### DefaultNetworkCredentials ######");
+                    request.Proxy = webProxy;
+                    dll.OutputDebugStringToFile_("####### webProxy ######");
+                }
                 request.CookieContainer = m_CookieContainer;
                 dll.OutputDebugStringToFile_("####### m_CookieContainer ######");
 
@@ -548,8 +550,10 @@ namespace VOP
 
                 response.Close();
             }
-            catch
+            catch (Exception ex)
             {
+
+                dll.OutputDebugStringToFile_(ex.Message);
                 bSuccess = false;
             }
 
