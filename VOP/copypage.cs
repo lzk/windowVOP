@@ -79,29 +79,6 @@ namespace VOP
         }
 
         ///<summary>
-        /// Copies set by in UI. Default value is 1. Value range [1,99].
-        /// Update UI when the property was assigned a valibale value.
-        ///</summary>
-        private byte _copies = 1;
-        public byte m_copies
-        {
-            set
-            {
-                if ( value >= 1 && value <= 99 )
-                {
-                    _copies = value;
-                    
-                    //this.txtblkCopies.Text = _copies.ToString();
-                }
-            }
-
-            get
-            {
-                return _copies;
-            }
-        }
-
-        ///<summary>
         /// Pointer to the MainWindow, in order to use global data more
         /// conveniently 
         ///</summary>
@@ -172,7 +149,7 @@ namespace VOP
             dll.SendCopyCmd( 
                     m_MainWin.statusPanelPage.m_selectedPrinter,
                     m_density,
-                    m_copies,
+                    (byte)spinCtlCopies.Value,
                     (byte)m_scanMode,
                     (byte)m_docSize,
                     (byte)m_outputSize,
@@ -201,16 +178,6 @@ namespace VOP
             bi.EndInit();
 
             imgIDCard.Source = bi;
-        }
-
-        private void btnIncCopies_Click(object sender, RoutedEventArgs e)
-        {
-            m_copies++;
-        }
-
-        private void btnDecCopies_Click(object sender, RoutedEventArgs e)
-        {
-            m_copies--;
         }
 
         public void HandlerStateUpdate( EnumState state )
