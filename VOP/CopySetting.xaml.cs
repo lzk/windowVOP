@@ -203,13 +203,11 @@ namespace VOP
         private void btnScalingDec_Click(object sender, RoutedEventArgs e)
         {
             m_scaling--;
-            txtblkScaling.Text = m_scaling.ToString();
         }
 
         private void btnScalingInc_Click(object sender, RoutedEventArgs e)
         {
             m_scaling++;
-            txtblkScaling.Text = m_scaling.ToString();
         }
 
         private void chkNin1_Checked(object sender, RoutedEventArgs e)
@@ -266,7 +264,6 @@ namespace VOP
                 rdBtnScanModePhoto.IsChecked = true;
             }
 
-            txtblkScaling.Text = m_scaling.ToString();
         }
 
         private void rdBtnScanModePhoto_Checked(object sender, RoutedEventArgs e)
@@ -293,13 +290,9 @@ namespace VOP
             }
 
 
-            txtblkScaling.Text = m_scaling.ToString();
 
             if ( m_isIDCardCopy )
             {
-                txtblkScaling.IsEnabled = false;
-                btnScalingDec.IsEnabled = false;
-                btnScalingInc.IsEnabled = false;
             }
                 
 
@@ -629,6 +622,10 @@ namespace VOP
                 m_nin1 = EnumNin1._9up;
                 InitNin1();
             }
+        }
+
+        private void OnScalingValidationHasError(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
         }
 	}
 }
