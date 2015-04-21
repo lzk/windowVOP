@@ -552,7 +552,6 @@ namespace VOP
             }
             catch (Exception ex)
             {
-
                 dll.OutputDebugStringToFile_(ex.Message);
                 bSuccess = false;
             }

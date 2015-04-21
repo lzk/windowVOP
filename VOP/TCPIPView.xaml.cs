@@ -257,20 +257,39 @@ namespace VOP
                     tb_ip.IsEnabled = false;
                     tb_gate.IsEnabled = false;
                     tb_mask.IsEnabled = false;
+                    btnApply.IsEnabled = true;
                 }
                 else if (btn.Name == "rdbtn_static")
                 {
                     tb_ip.IsEnabled = true;
                     tb_gate.IsEnabled = true;
                     tb_mask.IsEnabled = true;
+                    if (tb_ip.Text.Length == 0 ||
+                        tb_gate.Text.Length == 0 ||
+                        tb_mask.Text.Length == 0)
+                    {
+                        btnApply.IsEnabled = false;
+                    }
+                    else
+                    {
+                        btnApply.IsEnabled = true;
+                    }
                 }
             }
         }
 
         public void handler_text_changed(object sender, TextChangedEventArgs e)
         {
-            //if (null != event_config_dirty)
-            //    event_config_dirty(is_dirty());
+            if (tb_ip.Text.Length == 0 ||
+                tb_gate.Text.Length == 0 ||
+                tb_mask.Text.Length == 0)
+            {
+                btnApply.IsEnabled = false;
+            }
+            else
+            {
+                btnApply.IsEnabled = true;
+            }
         }
 
         public bool apply()
@@ -327,18 +346,21 @@ namespace VOP
                 if (false == isIPOK)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP地址输入有误，请确认后再次输入。", "错误");
+                    tb_ip.Text = "";
                     tb_ip.Focus();
                     return false;
                 }
                 else if (false == isGateOK)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP网关输入有误，请确认后再次输入。", "错误");
+                    tb_gate.Text = "";
                     tb_gate.Focus();
                     return false;
                 }
                 else if (false == isMaskOK)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP子网掩码输入有误，请确认后再次输入。", "错误");
+                    tb_mask.Text = "";
                     tb_mask.Focus();
                     return false;
                 }
