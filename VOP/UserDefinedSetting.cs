@@ -27,8 +27,8 @@ namespace VOP
 
             UserDefinedSizeItems = new ObservableCollection<UserDefinedSizeItem>()
             {
-                new UserDefinedSizeItem() { UserDefinedName = "自定义尺寸01", IsMM = true, Width = 76.2, Height = 116.0 },
-                new UserDefinedSizeItem() { UserDefinedName = "自定义尺寸02", IsMM = false, Width = 75.2, Height = 115.0 }
+                //new UserDefinedSizeItem() { UserDefinedName = "自定义尺寸01", IsMM = true, Width = 76.2, Height = 116.0 },
+                //new UserDefinedSizeItem() { UserDefinedName = "自定义尺寸02", IsMM = false, Width = 75.2, Height = 115.0 }
             };
 
             DataContext = this;
@@ -116,6 +116,22 @@ namespace VOP
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
+        }
+
+        public UserDefinedSizeItem GetSelectedDefinedSizeItem()
+        {
+            var result = (from item in UserDefinedSizeItems
+                          where item.UserDefinedName == myComboBox.Text.Trim()
+                          select item).ToList();
+
+            if (result.Count != 0)
+            {
+               return (UserDefinedSizeItem)result[0];
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 

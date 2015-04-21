@@ -53,7 +53,6 @@
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
                     <Border x:Name="Border"
                             Padding="15,2,0,2"
-                            CornerRadius="5"
                             SnapsToDevicePixels="true"
                             Background="Transparent">
                         <ContentPresenter HorizontalAlignment="Left"/>
@@ -61,6 +60,12 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background"
+                                    Value="#FFA8A7A7"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+
+                        <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="Border" Property="Background"
                                     Value="#FFA8A7A7"/>
                             <Setter Property="Foreground" Value="White"/>
@@ -142,11 +147,11 @@
                                             Fill="White"
                                             Data="F1 M0,10 L10,0 L20,10z" />
 
-                                    <Border 
+                                    <Border Height="20"
                                             BorderBrush="Transparent"
                                             Background="White"
                                             Panel.ZIndex="0"
-                                            CornerRadius="5">
+                                            CornerRadius="2">
                                         <ItemsPresenter/>
                                     </Border>
 

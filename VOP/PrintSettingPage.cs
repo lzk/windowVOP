@@ -11,9 +11,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Interop;
+using Microsoft.Win32;
 
 namespace VOP
 {
+
     /// <summary>
     /// </summary>
     public partial class PrintSettingPage : Window
@@ -40,6 +42,8 @@ namespace VOP
         public sbyte m_colorBalanceTo = 1;
         public sbyte m_ADJColorBalance = 1;
         #endregion
+
+        UserDefinedSizeItem selectedDefinedSizeItem = null;
 
         public MainWindow m_MainWin { get; set; }
         public PrintPage.PrintType m_CurrentPrintType  { get; set; }
@@ -92,6 +96,14 @@ namespace VOP
             this.DialogResult = true;
         }
 
+        private void UpdatePaperSizeCombobox()
+        {
+            if(selectedDefinedSizeItem != null)
+            {
+                //cboPaperSize.Items.
+            }
+        }
+
         private void cboPaperSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             m_paperSize = (sbyte)cboPaperSize.SelectedIndex;
@@ -105,7 +117,7 @@ namespace VOP
                 result = UserDefinedWin.ShowDialog();
                 if (result == true)
                 {
-
+                    selectedDefinedSizeItem = UserDefinedWin.GetSelectedDefinedSizeItem();
                 }
             }
         }
