@@ -218,7 +218,6 @@ namespace VOP
         public static extern int OutputDebugStringToFile_([MarshalAs(UnmanagedType.LPWStr)]string _lpFormat);
 
         [DllImport("usbapi.dll")]
-
         public static extern void SetPrinterInfo(
             [MarshalAs(UnmanagedType.LPWStr)]string strPrinterName,
             sbyte PaperSize,
