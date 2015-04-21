@@ -145,9 +145,9 @@ namespace VOP
                     this.FontFamily = new FontFamily("幼圆");
                 else
                     this.FontFamily = new FontFamily("Arial");
-            }
 
-            rsg.Close();
+                rsg.Close();
+            }
 
             UploadCRM_LocalInfoToServer();
         }

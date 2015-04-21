@@ -154,7 +154,7 @@ namespace VOP
         /// event when printer switch, MainWindow will subscribe this event.
         /// </summary>
         public delegate void HandlerPrinterSwitch();
-        public event HandlerPrinterSwitch eventPrinterSwitch;
+        public event HandlerPrinterSwitch eventPrinterSwitch; // This event only throw when the StatusPanel had been loaded. 
 
         private void cboPrinters_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
