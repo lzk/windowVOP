@@ -65,8 +65,7 @@ typedef struct _IdCardSize
 
 
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage);
-USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, 
-	                                int idCardType = 0, IdCardSize *size = NULL, bool fitToPage = false);
+USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage);
 USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName);
 USBAPI_API void __stdcall AddImageSource(IStream * imageSource);
 USBAPI_API int __stdcall DoPrintImage();
@@ -148,8 +147,6 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	int shellExeRes = 0;
 	const TCHAR *fileExt = NULL;
 
-	needFitToPage = fitToPage;
-
 	fileExt = PathFindExtension(strFileName);
 	std::wstring strExt(fileExt);
 	std::transform(strExt.begin(), strExt.end(), strExt.begin(), ::tolower);
@@ -164,7 +161,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 		|| strExt.compare(L".wmf") == 0
 		|| strExt.compare(L".emf") == 0)
 	{
-		if (PrintInit(strPrinterName, L"Print Image Files"))
+		if (PrintInit(strPrinterName, L"Print Image Files", 0, NULL, fitToPage))
 		{
 			AddImagePath(strFileName);
 			DoPrintImage();
