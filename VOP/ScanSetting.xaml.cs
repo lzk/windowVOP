@@ -258,51 +258,6 @@ namespace VOP
             this.Close();
         }
 
-        private void Adjust_Click(object sender, RoutedEventArgs e)
-        {
-             Button btn = sender as Button;
-
-             int brightnesstMin = (int)sldr_brightness.Minimum;
-             int brightnessMax = (int)sldr_brightness.Maximum;
-             int brightnessCurValue = (int)sldr_brightness.Value;
-
-             int contrastMin = (int)sldr_contrast.Minimum;
-             int contrastMax = (int)sldr_contrast.Maximum;
-             int contrastCurValue = (int)sldr_contrast.Value;
-
-             if (null != btn)
-             {
-                 if ("btnReduce_Brightness" == btn.Name)
-                 {
-                     if( (brightnessCurValue-1) >= brightnesstMin )
-                     {
-                         sldr_brightness.Value = brightnessCurValue - 1;
-                     }
-                 }
-                 else if ("btnAdd_Brightness" == btn.Name)
-                 {
-                     if ((brightnessCurValue + 1) <= brightnessMax)
-                     {
-                         sldr_brightness.Value = brightnessCurValue + 1;
-                     }
-                 }
-                 else if ("btnReduce_Constrast" == btn.Name)
-                 {
-                     if ((contrastCurValue - 1) >= contrastMin)
-                     {
-                         sldr_contrast.Value = contrastCurValue - 1;
-                     }
-                 }
-                 else if ("btnAdd_Constrast" == btn.Name)
-                 {
-                     if ((contrastCurValue + 1) <= contrastMax)
-                     {
-                         sldr_contrast.Value = contrastCurValue + 1;
-                     }
-                 }
-             }
-        }
-
         private void InitScanResln()
         {
             ComboBoxItem cboItem = null;
@@ -400,5 +355,36 @@ namespace VOP
                 }
             }
         }
+
+        private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            // btnCopy.IsEnabled = ( false == spinCtlCopies.ValidationHasError );
+        }
+
+        private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        { 
+            // VOP.Controls.SpinnerControl spinnerCtl = sender as VOP.Controls.SpinnerControl;
+            // TextBox tb = spinnerCtl.Template.FindName("tbTextBox", spinnerCtl) as TextBox;
+            // int textValue = 0;
+            // if (!spinnerCtl.IsFocused)
+            // {
+            //     if ( "spinCtlCopies" == spinnerCtl.Name ) 
+            //     {
+            //         if (int.TryParse(tb.Text, out textValue))
+            //         {
+            //             if ( textValue > 99 )
+            //                 tb.Text = "99";
+            //             else if ( textValue < 1 )
+            //                 tb.Text = "1";
+            //         }
+            //         else
+            //         {
+            //             tb.Text = "1";
+            //         }
+            //     }
+            // }
+        }
+
+
     }
 }
