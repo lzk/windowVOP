@@ -71,8 +71,8 @@
                                          Path="FormattedValue" 
                                          UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
-                                                <local:PrintCopysValidationRule MinimumValue="1" MaximumValue="99" 
-										ErrorMessage="有效值输入范围为1到99, 请确认后再次输入." />
+                                                <local:PrintCopysValidationRule MinimumValue="0" MaximumValue="100" 
+										ErrorMessage="有效值输入范围为0到100, 请确认后再次输入." />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
@@ -221,10 +221,10 @@
                     <Slider HorizontalAlignment="Center"  Minimum="0" Name="sldr_brightness" ValueChanged="sldr_value_change"
                         Maximum="100" Value="50" Height="18" Width="154" Template="{StaticResource HorizontalSlider}"/>
 
-                    <local:SpinnerControl x:Name="spinCtlCopies" Style="{StaticResource SpinnerControl1}"
+                    <local:SpinnerControl x:Name="spinCtlBrightness" Style="{StaticResource SpinnerControl1}"
                         Width="210" 
                         Background="Transparent"
-                        Change="50"
+                        Change="1"
                         DecimalPlaces="0"
                         Maximum="100"
                         Minimum="0"  
@@ -244,34 +244,19 @@
                     <Slider HorizontalAlignment="Center"  Minimum="0" Name="sldr_contrast" ValueChanged="sldr_value_change"
                         Maximum="100" Value="50" Height="18" Width="154" Template="{StaticResource HorizontalSlider}"/>
 
-                    <Grid Width="170" Height="40">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="30*" />
-                            <ColumnDefinition Width="110*" />
-                            <ColumnDefinition Width="30*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Style="{StaticResource AdjustButton}"
-                            Name="btnReduce_Constrast" 
-                            FontSize="45"
-                            Grid.Column="0"
-                            Content="-" />
+                    <local:SpinnerControl x:Name="spinCtlConstrast" Style="{StaticResource SpinnerControl1}"
+                        Width="210" 
+                        Background="Transparent"
+                        Change="1"
+                        DecimalPlaces="0"
+                        Maximum="100"
+                        Minimum="0"  
+                        Value="{Binding ElementName=sldr_contrast, Path=Value}"
+                        IsPercentFormat="False"
+                        ValidationHasErrorChanged="OnValidationHasErrorChanged"
+                        LostFocus="SpinnerTextBox_LostFocus">
+                    </local:SpinnerControl>
 
-                        <TextBox TextChanged="TextValueChanged" Name="tb_contrast" 
-                            TextAlignment="Center" Width="60"
-                            VerticalAlignment="Center" 
-                            FontSize="30"
-                            Text="{Binding ElementName=sldr_contrast, Path=Value}"    
-                            Grid.Column="1"
-                            >
-                        </TextBox>
-
-                        <Button Style="{StaticResource AdjustButton}" 
-                            Name="btnAdd_Constrast" 
-                            FontSize="30"
-                            Grid.Column="2"
-                            Content="+" />
-
-                    </Grid>
                 </StackPanel>
             </local:GroupBoxDecorator>
         </Grid>
