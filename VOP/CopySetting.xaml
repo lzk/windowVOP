@@ -62,6 +62,7 @@
                             Minimum="25"  
                             Value="100"
                             ValidationHasErrorChanged="OnScalingValidationHasError"
+                            LostFocus="SpinnerTextBox_LostFocus"
                             Margin="0,5,0,0"/>
 
             </local:GroupBoxDecorator>

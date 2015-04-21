@@ -109,23 +109,6 @@ namespace VOP
             }
         }
 
-        private ushort _scaling = 100;
-        public ushort m_scaling
-        {
-            set
-            {
-                if ( value >= 25 && value <= 400 )
-                {
-                    _scaling = value;
-                }
-            }
-
-            get
-            {
-                return _scaling;
-            }
-        }
-
 #endregion
 
 		public CopySetting()
@@ -200,16 +183,6 @@ namespace VOP
             }
         }
 
-        private void btnScalingDec_Click(object sender, RoutedEventArgs e)
-        {
-            m_scaling--;
-        }
-
-        private void btnScalingInc_Click(object sender, RoutedEventArgs e)
-        {
-            m_scaling++;
-        }
-
         private void chkNin1_Checked(object sender, RoutedEventArgs e)
         {
             if ( m_isWindowLoaded )
@@ -239,7 +212,7 @@ namespace VOP
             cboOutputSize.Items.Clear();
             cboMediaType.Items.Clear();
 
-            m_scaling    = 100;
+            spinnerScaling.Value = 100;
             m_scanMode   = EnumCopyScanMode.Photo;
             m_docSize    = EnumPaperSizeInput._A4;
             m_outputSize = EnumPaperSizeOutput._Letter;
@@ -626,6 +599,32 @@ namespace VOP
 
         private void OnScalingValidationHasError(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
+            btnApply.IsEnabled = ( false == spinnerScaling.ValidationHasError );
         }
+
+        private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        { 
+            VOP.Controls.SpinnerControl spinnerCtl = sender as VOP.Controls.SpinnerControl;
+            TextBox tb = spinnerCtl.Template.FindName("tbTextBox", spinnerCtl) as TextBox;
+            int textValue = 0;
+            if (!spinnerCtl.IsFocused)
+            {
+                if ( "spinnerScaling" == spinnerCtl.Name ) 
+                {
+                    if (int.TryParse(tb.Text, out textValue))
+                    {
+                        if ( textValue > 400 )
+                            tb.Text = "400";
+                        else if ( textValue < 25 )
+                            tb.Text = "25";
+                    }
+                    else
+                    {
+                        tb.Text = "100";
+                    }
+                }
+            }
+        }
+
 	}
 }

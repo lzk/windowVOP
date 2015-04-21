@@ -121,7 +121,7 @@ namespace VOP
             
             win.Owner = m_MainWin;
 
-            win.m_scaling    = m_scaling    ;
+            win.spinnerScaling.Value    = m_scaling    ;
             win.m_scanMode   = m_scanMode   ;
             win.m_docSize    = m_docSize    ;
             win.m_outputSize = m_outputSize ;
@@ -131,7 +131,7 @@ namespace VOP
 
             if ( true == win.ShowDialog() )
             {
-                m_scaling     = win.m_scaling    ;
+                m_scaling     = (ushort)win.spinnerScaling.Value;
                 m_scanMode    = win.m_scanMode   ;
                 m_docSize     = win.m_docSize    ;
                 m_outputSize  = win.m_outputSize ;
