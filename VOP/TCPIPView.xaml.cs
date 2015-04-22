@@ -482,5 +482,22 @@ namespace VOP
         {
             apply();
         }
+
+        private void OnTextBoxPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            string strText = e.Text;
+            if (Char.IsLetterOrDigit(strText, 0))
+            {
+                if (Char.IsLetter(strText, 0))
+                {
+                   e.Handled = true;
+                }
+            }
+            else
+            {
+                if (e.Text != ".")
+                    e.Handled = true;
+            }
+        }
     }
 }
