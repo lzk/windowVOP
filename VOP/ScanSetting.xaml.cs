@@ -260,6 +260,8 @@ namespace VOP
 
         private void InitScanResln()
         {
+            cboScanResln.Items.Clear();
+
             ComboBoxItem cboItem = null;
 
             cboItem = new ComboBoxItem();
@@ -309,6 +311,8 @@ namespace VOP
 
         private void InitScanSize()
         {
+            cboScanSize.Items.Clear();
+
             ComboBoxItem cboItem = null;
 
             cboItem = new ComboBoxItem();

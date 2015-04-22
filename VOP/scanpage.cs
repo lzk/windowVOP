@@ -43,6 +43,9 @@ namespace VOP
         // for objScan
         private ScanFiles objScan = null; 
 
+        // InitialDirectory for SaveFileDialog.
+        private string strInitalDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+
         public ScanPage()
         {
             InitializeComponent();
@@ -231,7 +234,7 @@ namespace VOP
 
         public void HandlerStateUpdate( EnumState state )
         {
-            // TODO: update UI when auto machine state change.
+            btnScan.IsEnabled = ( EnumState.init == state );
         }
 
         public void DoScanning()
@@ -443,6 +446,8 @@ namespace VOP
         {
             SaveFileDialog save = new SaveFileDialog();
 
+            save.InitialDirectory = strInitalDirectory; 
+
             if ( 1 < GetSelectedItemCount() )
                 save.Filter = "TIF|*.tif|PDF|*.pdf";
             else 
@@ -452,6 +457,12 @@ namespace VOP
 
             if (result == true)
             {
+                strInitalDirectory = save.FileName;
+
+                int position = strInitalDirectory.LastIndexOf('\\'); 
+                if (position > 0)
+                    strInitalDirectory = strInitalDirectory.Substring( 0, position );
+
                 // This index is 1-based, not 0-based
                 if (3 == save.FilterIndex)
                 {
