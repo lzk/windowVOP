@@ -223,5 +223,17 @@ namespace VOP
             softAPSetting.m_ssid = txtBox.Text;
             //UpdateApplyBtnStatus();
         }
+
+        public void HandlerStateUpdate(EnumState state)
+        {
+            if (state == EnumState.stopWorking)
+            {
+                this.IsEnabled = false;
+            }
+            else
+            {
+                this.IsEnabled = true;
+            }
+        }
     }
 }

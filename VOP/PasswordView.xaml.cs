@@ -90,5 +90,17 @@ namespace VOP
                 e.Handled = true;
             }
         }
+
+        public void HandlerStateUpdate(EnumState state)
+        {
+            if (state == EnumState.stopWorking)
+            {
+                this.IsEnabled = false;
+            }
+            else
+            {
+                this.IsEnabled = true;
+            }
+        }
     }
 }

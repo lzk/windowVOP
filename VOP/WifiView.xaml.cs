@@ -248,7 +248,6 @@ namespace VOP
             return isApplySuccess;
         }
 
-
         public void cbo_ssid_refresh(bool _bDisplayProgressBar = true)
         {
             wifilist.Children.Clear();
@@ -501,6 +500,19 @@ namespace VOP
             }
 
             ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(bSuccess ? "设置成功，机器重启后生效。" : "设置失败", Brushes.Black );
+        }
+
+        public void HandlerStateUpdate(EnumState state)
+        {
+            // TODO: update UI when auto machine state change.
+            if (state == EnumState.stopWorking)
+            {
+                this.IsEnabled = false;
+            }
+            else
+            {
+                this.IsEnabled = true;
+            }
         }
     }
 }
