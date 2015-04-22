@@ -78,5 +78,26 @@ namespace VOP
                 }
             }
         }
+
+        private void tbPhoneNumber_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbPhoneNumber.Text == "输入手机号")
+                tbPhoneNumber.Text = "";
+        }
+
+        private void tbPhoneNumber_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if(tbPhoneNumber.Text.Length == 0)
+                tbPhoneNumber.Text = "输入手机号";
+        }
+
+        private void tbPhoneNumber_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            string strText = e.Text;
+            if (!Char.IsDigit(strText, 0))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
