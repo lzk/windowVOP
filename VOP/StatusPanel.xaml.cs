@@ -141,16 +141,7 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            List<string> printers = new List<string>();
-            common.GetSupportPrinters( printers );
-
-            for ( int i=0; i<printers.Count; i++ )
-            {
-                cboPrinters.Items.Add( printers[i] );
-            }
-
-            if ( cboPrinters.Items.Count > 0 )
-                cboPrinters.SelectedIndex = 0;
+            InitPrinterCbo();
         }
 
         /// <summary>
@@ -161,12 +152,15 @@ namespace VOP
 
         private void cboPrinters_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            m_selectedPrinter = this.cboPrinters.SelectedItem.ToString();
-            m_isSFP = common.IsSFPPrinter( common.GetPrinterDrvName( m_selectedPrinter ) );
-            m_isWiFiModel = common.IsSupportWifi( common.GetPrinterDrvName( m_selectedPrinter ) );
+            if ( null != cboPrinters.SelectedItem )
+            {
+                m_selectedPrinter = this.cboPrinters.SelectedItem.ToString();
+                m_isSFP = common.IsSFPPrinter( common.GetPrinterDrvName( m_selectedPrinter ) );
+                m_isWiFiModel = common.IsSupportWifi( common.GetPrinterDrvName( m_selectedPrinter ) );
 
-            if ( null != eventPrinterSwitch )
-                eventPrinterSwitch();
+                if ( null != eventPrinterSwitch )
+                    eventPrinterSwitch();
+            }
         }
 
         private void btnPurchaseWindow_Click(object sender, RoutedEventArgs e)
@@ -259,6 +253,29 @@ namespace VOP
                 mw.Owner = App.Current.MainWindow;
                 mw.ShowDialog();
             }
+        }
+
+        private void RefreshBtnClick(object sender, RoutedEventArgs e)
+        {
+            RefreshBtn.IsRefresh = true;
+            InitPrinterCbo();
+            RefreshBtn.IsRefresh = false;
+        }
+
+        private void InitPrinterCbo()
+        {
+            cboPrinters.Items.Clear();
+
+            List<string> printers = new List<string>();
+            common.GetSupportPrinters( printers );
+
+            for ( int i=0; i<printers.Count; i++ )
+            {
+                cboPrinters.Items.Add( printers[i] );
+            }
+
+            if ( cboPrinters.Items.Count > 0 )
+                cboPrinters.SelectedIndex = 0;
         }
     }
 }
