@@ -133,6 +133,8 @@ namespace VOP
         {
             InitializeComponent();
 
+            this.status.TypeId = StatusDisplayType.Offline;
+
             m_showTimeCnter.Interval = new TimeSpan( 0, 0, 3 );
             m_showTimeCnter.Tick += new EventHandler( TimerHandler );
         }
