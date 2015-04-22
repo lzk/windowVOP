@@ -25,12 +25,6 @@ namespace VOP
         public UserDefinedSetting()
         {
 
-            UserDefinedSizeItems = new ObservableCollection<UserDefinedSizeItem>()
-            {
-                //new UserDefinedSizeItem() { UserDefinedName = "自定义尺寸01", IsMM = true, Width = 76.2, Height = 116.0 },
-                //new UserDefinedSizeItem() { UserDefinedName = "自定义尺寸02", IsMM = false, Width = 75.2, Height = 115.0 }
-            };
-
             DataContext = this;
 
             InitializeComponent();

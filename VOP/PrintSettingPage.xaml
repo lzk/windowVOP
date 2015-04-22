@@ -140,18 +140,19 @@
             <ComboBox Style="{StaticResource customComboBox}"
 				x:Name="cboPaperSize"
 				Background="White" 
+                ItemContainerStyle="{StaticResource customComboBoxItem}"
 				SelectionChanged="cboPaperSize_SelectionChanged">
-                <ComboBoxItem Style="{StaticResource customComboBoxItem}" Content="A4" IsSelected="true"/>
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="Letter" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="B5(ISO)" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="A5" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="A5(LEF)" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="B6" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="B6(LEF)" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="A6" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="Executive" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="16K" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="User Defined Size" />
+                <ComboBoxItem Content="A4" IsSelected="true"/>
+                <ComboBoxItem Content="Letter" />
+                <ComboBoxItem Content="B5(ISO)" />
+                <ComboBoxItem Content="A5" />
+                <ComboBoxItem Content="A5(LEF)" />
+                <ComboBoxItem Content="B6" />
+                <ComboBoxItem Content="B6(LEF)" />
+                <ComboBoxItem Content="A6" />
+                <ComboBoxItem Content="Executive" />
+                <ComboBoxItem Content="16K" />
+                <ComboBoxItem Content="User Defined Size" />
             </ComboBox>
         </Controls:GroupBoxDecorator>
 

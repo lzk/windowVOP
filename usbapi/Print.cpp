@@ -177,7 +177,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 		{
 			::SetDefaultPrinter(strPrinterName);
 			CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
-
+		
 			if ((shellExeRes = (int)::ShellExecute(NULL, L"print", strFileName, NULL, NULL, SW_HIDE)) > 32)
 			{
 
@@ -193,7 +193,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 					error = Print_File_Not_Support;
 				}
 			}
-
+		
 			::SetDefaultPrinter(defaultPrinterName);
 		}
 		else

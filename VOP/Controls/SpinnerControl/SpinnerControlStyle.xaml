@@ -276,7 +276,7 @@
                                          UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>
                                             <local:PrintCopysValidationRule MinimumValue="25" MaximumValue="400" 
-										ErrorMessage="有效值输入范围为25-400, 请确认后再次输入." />
+										ErrorMessage="有效值输入范围为25%-400%, 请确认后再次输入." />
                                         </Binding.ValidationRules>
                                     </Binding>
                                 </TextBox.Text>

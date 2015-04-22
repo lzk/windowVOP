@@ -13,27 +13,167 @@ using System.Windows.Shapes;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
+
 
 
 namespace VOP
 {
-   
 
-    //[StructLayout(LayoutKind.Sequential)]
-    //public class CPAPERSIZE
-    //{
-    //     #define		CPAPER_NAME_LEN		24
-
-    //    int		width;
-    //    int		height;
-    //    int		cp_MiterType;  /* 0 : MM ; 1: Inch */
-    //    TCHAR	cp_szName[CPAPER_NAME_LEN + 1];
-    //    BOOL	cp_Modify;
-    //    short	paperSizeID;
-    //}
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    public struct CPAPERSIZE
+    {
+        public int width;
+        public int height;
+        public int cp_MiterType;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 25)]
+    	public string cp_szName;
+        public int cp_Modify;
+        public short paperSizeID;
+    }
 
     public class UserDefinedSizeRegistry
     {
+        RegistryKey rootKey = Registry.CurrentUser;
+        string openKeyString = @"Software\Lenovo\" + ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter
+                               + @"\Lenovo Printer\PrinterUI\CustomPaperSize";
+
+
+        public bool Open()
+        {
+            try
+            {
+                rootKey = rootKey.OpenSubKey(openKeyString, true);
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public void Close()
+        {      
+            rootKey.Close();       
+        }
+
+        public int GetCount()
+        {
+            int count = 0;
+            try
+            {
+                count = (int)rootKey.GetValue("Count");
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return count;
+        }
+
+        public bool SetCount(int count)
+        {
+            try
+            {
+                rootKey.SetValue("Count", count, RegistryValueKind.DWord);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public int GetCurrent()
+        {
+            int index = int.MaxValue;
+            try
+            {
+                index = (int)rootKey.GetValue("Current");
+            }
+            catch (Exception)
+            {
+               
+            }
+
+            return index;
+        }
+
+        public bool SetCurrent(int index)
+        {
+            try
+            {
+                rootKey.SetValue("Current", index, RegistryValueKind.DWord);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public CPAPERSIZE[] GetCustomPaperBin()
+        {
+            CPAPERSIZE[] blocks = new CPAPERSIZE[20];
+            byte[] buffer = new byte[Marshal.SizeOf(typeof(CPAPERSIZE)) * 20];
+            IntPtr value = IntPtr.Zero;
+
+            try
+            {
+                buffer = (byte[])rootKey.GetValue("CUSTOMPAPERBIN");
+                GCHandle handle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+                value = handle.AddrOfPinnedObject();
+
+                for (int i = 0; i < blocks.Length; i++)
+                {
+                    blocks[i] = (CPAPERSIZE)Marshal.PtrToStructure(value, typeof(CPAPERSIZE));
+                    value += Marshal.SizeOf(typeof(CPAPERSIZE));
+                }
+
+                handle.Free();
+
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+            return blocks;
+        }
+
+        public bool SetCustomPaperBin(CPAPERSIZE[] blocks)
+        {
+            byte[] buffer = new byte[Marshal.SizeOf(typeof(CPAPERSIZE)) * 20];
+            IntPtr value = IntPtr.Zero;
+
+            try
+            {
+                GCHandle handle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
+                value = handle.AddrOfPinnedObject();
+
+                for (int i = 0; i < blocks.Length; i++)
+                {
+                    Marshal.StructureToPtr(blocks[i], value, false);
+                    value += Marshal.SizeOf(typeof(CPAPERSIZE));
+                }
+
+                rootKey.SetValue("CUSTOMPAPERBIN", buffer, RegistryValueKind.Binary);
+                
+                handle.Free();
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
 
     }
     /// <summary>
@@ -63,14 +203,16 @@ namespace VOP
         public sbyte m_ADJColorBalance = 1;
         #endregion
 
-        UserDefinedSizeItem selectedDefinedSizeItem = null;
+        public ObservableCollection<UserDefinedSizeItem> UserDefinedSizeItems { get; set; }
 
         public MainWindow m_MainWin { get; set; }
         public PrintPage.PrintType m_CurrentPrintType  { get; set; }
-        
+        UserDefinedSizeRegistry regHelper = new UserDefinedSizeRegistry();
+
         public PrintSettingPage()
         {
             InitializeComponent();
+            UserDefinedSizeItems = new ObservableCollection<UserDefinedSizeItem>();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -79,6 +221,7 @@ namespace VOP
 
             TextBox tb = spinnerScaling.Template.FindName("tbTextBox", spinnerScaling) as TextBox;
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+            tb.LostFocus += new RoutedEventHandler(SpinnerTextBox_LostFocus);
 
             if (FileSelectionPage.IsInitPrintSettingPage)
             {
@@ -88,7 +231,9 @@ namespace VOP
             else
             {                
                 GetDataFromPrinterInfo();
-            }            
+            }
+
+            UpdatePaperSizeCombobox();
         }
 
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -111,6 +256,24 @@ namespace VOP
             OKButton.IsEnabled = !e.NewValue;
         }
 
+        private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            int textValue = 0;
+
+            if (int.TryParse(tb.Text, out textValue))
+            {
+                if (textValue > 400)
+                    tb.Text = "400";
+                else if (textValue < 25)
+                    tb.Text = "25";
+            }
+            else
+            {
+                tb.Text = "100";
+            }
+        }
+
         private void acceptButton_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
@@ -118,10 +281,23 @@ namespace VOP
 
         private void UpdatePaperSizeCombobox()
         {
-            if(selectedDefinedSizeItem != null)
+            if (regHelper.Open())
             {
-                //cboPaperSize.Items.
-            }
+                int count = regHelper.GetCount();
+
+                CPAPERSIZE[] block = regHelper.GetCustomPaperBin();
+
+                if(block != null)
+                {
+                    for(int i = 0; i < count; i++)
+                    {
+
+                        cboPaperSize.Items.Add(block[0].cp_szName.ToString());
+                    }
+                }
+             
+                regHelper.Close();
+            }  
         }
 
         private void cboPaperSize_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -134,6 +134,7 @@ namespace VOP
                 case PrintType.PrintFile:
                 case PrintType.PrintFile_Image:
 
+                    m_MainWin.Topmost = true;
                     if (FilePaths.Count == 1)
                     {
                         printRes = worker.InvokePrintFileMethod(dll.PrintFile,
@@ -141,7 +142,7 @@ namespace VOP
                                FilePaths[0],
                                needFitToPage);
                     }
-
+                    m_MainWin.Topmost = false;
                     break;
                 case PrintType.PrintImages:
 
