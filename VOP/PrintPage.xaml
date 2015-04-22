@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:VOP.Controls"
              Width="638"
              Height="367"
+             LostFocus="Window_LostFocus"
              Loaded="PrintPageOnLoaded">
     <UserControl.Resources>
         <ResourceDictionary>

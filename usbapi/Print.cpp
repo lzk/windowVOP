@@ -78,7 +78,7 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
 	UINT8 PaperOrder,
 	UINT8 PrintQuality,
 	UINT8 ScalingType,
-	UINT8 ScalingRatio,
+	UINT16 ScalingRatio,
 	UINT8 NupNum,
 	UINT8 TypeofPB,
 	UINT8 PosterType,
@@ -96,7 +96,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 	BYTE* ptr_paperOrder,
 	BYTE* ptr_printQuality,//byte
 	BYTE* ptr_scalingType,//byte
-	BYTE* ptr_scalingRatio,
+	UINT16* ptr_scalingRatio,
 	BYTE* ptr_nupNum,//byte
 	BYTE* ptr_typeofPB,//byte
 	BYTE* ptr_posterType,
@@ -114,7 +114,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(const TCHAR * strPrinterName,
 	BYTE* ptr_paperOrder,
 	BYTE* ptr_printQuality,//byte
 	BYTE* ptr_scalingType,//byte
-	BYTE* ptr_scalingRatio,
+	UINT16* ptr_scalingRatio,
 	BYTE* ptr_nupNum,//byte
 	BYTE* ptr_typeofPB,//byte
 	BYTE* ptr_posterType,
@@ -638,7 +638,7 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
 	UINT8 PaperOrder,
 	UINT8 PrintQuality,//byte
 	UINT8 ScalingType,//byte
-	UINT8 ScalingRatio,
+	UINT16 ScalingRatio,
 	UINT8 NupNum,//byte
 	UINT8 TypeofPB,//byte
 	UINT8 PosterType,
@@ -805,7 +805,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 	BYTE* ptr_paperOrder,
 	BYTE* ptr_printQuality,//byte
 	BYTE* ptr_scalingType,//byte
-	BYTE* ptr_scalingRatio,
+	UINT16* ptr_scalingRatio,
 	BYTE* ptr_nupNum,//byte
 	BYTE* ptr_typeofPB,//byte
 	BYTE* ptr_posterType,
@@ -890,7 +890,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 				*ptr_typeofPB = devmode.dmPrivate.bpmrdata.TypeofPB;
 				*ptr_posterType = static_cast<BYTE>(devmode.dmPrivate.poster.wPosterType);
 				*ptr_scalingType = devmode.dmPrivate.sfp.ISFSet;
-				*ptr_scalingRatio = static_cast<BYTE>(devmode.dmPrivate.sfp.SRatio);
+				*ptr_scalingRatio = static_cast<short>(devmode.dmPrivate.sfp.SRatio);
 				*ptr_ADJColorBalance = devmode.dmPrivate.graphics.isADJColorBalance;
 				*ptr_colorBalanceTo = devmode.dmPrivate.graphics.bColorBalanceTo;
 				*ptr_density = devmode.dmPrivate.graphics.ColorBalanceIndex[0][0];
@@ -924,7 +924,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(const TCHAR * strPrinterName,
 	BYTE* ptr_paperOrder,
 	BYTE* ptr_printQuality,//byte
 	BYTE* ptr_scalingType,//byte
-	BYTE* ptr_scalingRatio,
+	UINT16* ptr_scalingRatio,
 	BYTE* ptr_nupNum,//byte
 	BYTE* ptr_typeofPB,//byte
 	BYTE* ptr_posterType,
@@ -1093,7 +1093,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(const TCHAR * strPrinterName,
 						*ptr_typeofPB = devmode.dmPrivate.bpmrdata.TypeofPB;
 						*ptr_posterType = static_cast<BYTE>(devmode.dmPrivate.poster.wPosterType);
 						*ptr_scalingType = devmode.dmPrivate.sfp.ISFSet;
-						*ptr_scalingRatio = static_cast<BYTE>(devmode.dmPrivate.sfp.SRatio);
+						*ptr_scalingRatio = static_cast<short>(devmode.dmPrivate.sfp.SRatio);
 						*ptr_ADJColorBalance = devmode.dmPrivate.graphics.isADJColorBalance;
 						*ptr_colorBalanceTo = devmode.dmPrivate.graphics.bColorBalanceTo;
 						*ptr_density = devmode.dmPrivate.graphics.ColorBalanceIndex[0][0];

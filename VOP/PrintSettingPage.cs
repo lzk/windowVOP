@@ -29,7 +29,7 @@ namespace VOP
         public sbyte m_paperSize = 0;
         public sbyte m_mediaType = 0;
         public sbyte m_printQuality = 0;// _600x600 = 0, _1200x600 = 1,
-        public sbyte m_scalingRatio = 100;
+        public short m_scalingRatio = 100;
         public sbyte m_densityValue = 0;//-3~3
         public sbyte m_tonerSaving = 0;
         public sbyte m_posterType = 0;//0: 1 in 2x2, 1: 1 in 3x3, 2: 1 in 4x4 pages.
@@ -239,7 +239,7 @@ namespace VOP
             m_nupNum = 1;
             m_typeofPB = 0;
             chk_FitToPaperSize.IsEnabled = true;
-            chk_FitToPaperSize.IsChecked = true;
+            chk_FitToPaperSize.IsChecked = false;
             spinnerScaling.IsEnabled = true;
             rdBtn2in1.IsEnabled = false;
             rdBtn2in1.IsChecked = false;
@@ -380,7 +380,7 @@ namespace VOP
         private void chk_FitToPaperSize_Unchecked(object sender, RoutedEventArgs e)
         {
             m_scalingType = 2;
-            m_scalingRatio = (sbyte)spinnerScaling.Value;
+            m_scalingRatio = (short)spinnerScaling.Value;
             spinnerScaling.IsEnabled = true;
         }
        
@@ -400,7 +400,7 @@ namespace VOP
             }
             if (null != spinnerScaling)
             {
-                m_scalingRatio = (sbyte)spinnerScaling.Value;
+                m_scalingRatio = (short)spinnerScaling.Value;
             }
         }
 
@@ -422,14 +422,14 @@ namespace VOP
             }
         }
 
-        private void chkBtnPaperOrientation_Checked(object sender, RoutedEventArgs e)
+        private void rdBtnPortrait_Checked(object sender, RoutedEventArgs e)
         {
-            m_paperOrientation = 2;//Portrait = 1, Landscape = 2,
+            m_paperOrientation = 1;//Portrait = 1, Landscape = 2,
         }
 
-        private void chkBtnPaperOrientation_UnChecked(object sender, RoutedEventArgs e)
+        private void rdBtnLandscape_Checked(object sender, RoutedEventArgs e)
         {
-            m_paperOrientation = 1;///Portrait = 1, Landscape = 2,
+            m_paperOrientation = 2;///Portrait = 1, Landscape = 2,
         }
       
         private void AdvancedSettingButtonClick(object sender, RoutedEventArgs e)
@@ -472,8 +472,8 @@ namespace VOP
             if (m_CurrentPrintType == PrintPage.PrintType.PrintFile)
             {
                 cboPaperSize.IsEnabled = true;
-                chkBtnPaperOrientation.IsEnabled = true;
-                chkBtnPaperOrientation.IsChecked = false;
+                rdBtnLandscape.IsChecked = false;
+                rdBtnPortrait.IsChecked = true;
                 cboMediaType.IsEnabled = true;
                 rdBtnPagerOrder112233.IsEnabled = true;
                 rdBtnPagerOrder123123.IsEnabled = true;
@@ -511,8 +511,10 @@ namespace VOP
             else if (m_CurrentPrintType == PrintPage.PrintType.PrintIdCard)
             {
                 cboPaperSize.IsEnabled = false;
-                chkBtnPaperOrientation.IsEnabled = false;
-                chkBtnPaperOrientation.IsChecked = false;
+                rdBtnLandscape.IsEnabled = false;
+                rdBtnLandscape.IsChecked = false;
+                rdBtnPortrait.IsEnabled = false;
+                rdBtnPortrait.IsChecked = true;
                 cboMediaType.IsEnabled = true;
                 rdBtnPagerOrder112233.IsEnabled = false;
                 rdBtnPagerOrder112233.IsChecked = false;
@@ -552,15 +554,16 @@ namespace VOP
             else if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
             {
                 cboPaperSize.IsEnabled = true;
-                chkBtnPaperOrientation.IsEnabled = true;
-                chkBtnPaperOrientation.IsChecked = false;
+                rdBtnLandscape.IsChecked = false;
+                rdBtnPortrait.IsChecked = true;
                 cboMediaType.IsEnabled = true;
                 rdBtnPagerOrder112233.IsEnabled = true;
                 rdBtnPagerOrder123123.IsEnabled = true;
                 rdBtnPagerOrder123123.IsChecked = true;
                 cboPrintQuality.IsEnabled = true;
-                spinnerScaling.IsEnabled = true;
+                spinnerScaling.IsEnabled = false;
                 chk_FitToPaperSize.IsEnabled = true;
+                chk_FitToPaperSize.IsChecked = true;
                 chk_MultiplePagePrint.IsEnabled = true;
                 chk_MultiplePagePrint.IsChecked = false;
                 rdBtn2in1.IsEnabled = false;
@@ -596,11 +599,11 @@ namespace VOP
             cboPrintQuality.SelectedIndex = m_printQuality;
             if (1 == m_paperOrientation)
             {
-                chkBtnPaperOrientation.IsChecked = false;
+                rdBtnPortrait.IsChecked = true;
             }
             else
             {
-                 chkBtnPaperOrientation.IsChecked = true;
+                rdBtnLandscape.IsChecked = true;
             }
             if(1 == m_paperOrder)
             {
@@ -657,7 +660,7 @@ namespace VOP
                     chk_MultiplePagePrint.IsChecked = false;
                     break;
             }
-            switch (m_nupNum)
+            switch (m_duplexPrint)
             {
                 case 1:
                     chk_DuplexPrint.IsChecked = false;

@@ -2,6 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:VOP.Controls" 
+        xmlns:local="clr-namespace:VOP" 
         x:Class="VOP.PrintSettingPage"
         Title="PrintSettingPage" 
         Height="680" 
@@ -24,6 +25,74 @@
                 <ResourceDictionary Source="Controls/CustomRadioButtonEx.xaml"/>
                 <ResourceDictionary Source="Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <local:IsInchConverter x:Key="isInchConverter"/>
+
+            <ControlTemplate x:Key="customRadioButton" TargetType="{x:Type RadioButton}" >
+                <Grid Width="{TemplateBinding Width}"
+        			Height="{TemplateBinding Height}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="27"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Ellipse Grid.Column="0" 
+        				x:Name="elp1" 
+        				HorizontalAlignment="Center" 
+        				VerticalAlignment="Center" 
+        				StrokeThickness="1"  
+        				Height="18" 
+        				Width="18" 
+        				Stroke="#FFA6ACA1">
+                        <Ellipse.Fill>
+                            <RadialGradientBrush>
+                                <GradientStop Color="#FFDCECD0" Offset="0.1"/>
+                                <GradientStop Color="#FFD1E9BE" Offset="1"/>
+                            </RadialGradientBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Ellipse Grid.Column="0" 
+        				x:Name="elp2" 
+        				HorizontalAlignment="Center" 
+        				VerticalAlignment="Center" 
+        				StrokeThickness="4" 
+        				Stroke="#FF449C00" 
+        				Height="9" 
+        				Width="9">
+                        <Ellipse.Effect>
+                            <BlurEffect Radius="3" />
+                        </Ellipse.Effect>
+                    </Ellipse>
+
+                    <TextBlock Grid.Column="1"
+        				VerticalAlignment="Center"
+        				HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+        				Text="{TemplateBinding Content}"
+        				FontSize="{TemplateBinding FontSize}"
+        				Foreground="{TemplateBinding Foreground}" 
+                        />
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsChecked" Value="false">
+                        <Setter TargetName="elp1" Property="Fill" Value="#FFEFEFEF"/>
+                        <Setter TargetName="elp2" Property="Visibility" Value="Hidden" />
+                    </Trigger>
+
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter TargetName="elp1" Property="Fill">
+                            <Setter.Value>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="#FFDCECD0" Offset="0.1"/>
+                                    <GradientStop Color="#FFD1E9BE" Offset="1"/>
+                                </RadialGradientBrush>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter TargetName="elp2" Property="Visibility" Value="Visible" />
+
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+
         </ResourceDictionary>
     </Window.Resources>
 
@@ -62,16 +131,16 @@
             <RowDefinition Height="65*"/>
         </Grid.RowDefinitions>
 
-        <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="7">
-            <TextBlock Name="TitleBarText" Text="更多设置" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Border x:Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="7">
+            <TextBlock x:Name="TitleBarText" Text="更多设置" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
         <Controls:MinimizeCloseButton Grid.Row="0" Grid.Column="6" Width="30" Height="30" MinimizeOrCloseStyle="Close" IsCancel="True" HorizontalAlignment="Right" />
 
         <Controls:GroupBoxDecorator Header="纸张大小" Margin="2,2,0,0"  Grid.Row="2" Grid.Column="1" Padding="20,5,30,10" >
             <ComboBox Style="{StaticResource customComboBox}"
-                      Name="cboPaperSize"
-                      Background="White" 
-                      SelectionChanged="cboPaperSize_SelectionChanged">
+				x:Name="cboPaperSize"
+				Background="White" 
+				SelectionChanged="cboPaperSize_SelectionChanged">
                 <ComboBoxItem Style="{StaticResource customComboBoxItem}" Content="A4" IsSelected="true"/>
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="Letter" />
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="B5(ISO)" />
@@ -79,9 +148,9 @@
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="A5(LEF)" />
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="B6" />
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="B6(LEF)" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="A6" />                 
+                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="A6" />
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="Executive" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="16K" />                
+                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="16K" />
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="User Defined Size" />
             </ComboBox>
         </Controls:GroupBoxDecorator>
@@ -89,26 +158,26 @@
         <Controls:GroupBoxDecorator Header="页面顺序" Margin="2,2,0,0" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Padding="30,5,30,15">
             <StackPanel Orientation="Horizontal">
                 <RadioButton GroupName="Goup3"                              
-                             Cursor="Hand" 
-                             x:Name="rdBtnPagerOrder112233" 
-                             Checked="rdBtnPagerOrder112233_Checked"
-        	                 Style="{StaticResource CustomRadioButtonEx}" 
-                             Padding="0,10,0,0"
-                             Width="145">
+					Cursor="Hand" 
+					x:Name="rdBtnPagerOrder112233" 
+					Checked="rdBtnPagerOrder112233_Checked"
+					Style="{StaticResource CustomRadioButtonEx}" 
+					Padding="0,10,0,0"
+					Width="145">
                     <RadioButton.BorderBrush>
                         <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
                     </RadioButton.BorderBrush>
                     <Image Stretch="None" Source="Images/112233.png" />
                 </RadioButton>
                 <RadioButton GroupName="Goup3" 
-                             IsChecked="true" 
-                             Cursor="Hand" 
-                             x:Name="rdBtnPagerOrder123123" 
-                             Checked="rdBtnPagerOrder123123_Checked"
-        	                 Style="{StaticResource CustomRadioButtonEx}" 
-                             Padding="0,10,0,0" 
-                              Width="145"
-                             Margin="20,0,0,0">
+					IsChecked="true" 
+					Cursor="Hand" 
+					x:Name="rdBtnPagerOrder123123" 
+					Checked="rdBtnPagerOrder123123_Checked"
+					Style="{StaticResource CustomRadioButtonEx}" 
+					Padding="0,10,0,0" 
+					Width="145"
+					Margin="20,0,0,0">
                     <Image Stretch="None" Source="Images/123123.png" />
                 </RadioButton>
             </StackPanel>
@@ -134,122 +203,122 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Vertical"
-                            Grid.Column="2" 
-                            Grid.Row="1">
+					Grid.Column="2" 
+					Grid.Row="1">
                     <RadioButton GroupName="Goup4" 
-                             IsChecked="False"  
-                             Cursor="Hand" 
-                             x:Name="rdBtn2in1" 
-                             Checked="rdBtn2in1_Checked"
-        	                 Style="{StaticResource CustomRadioButtonEx}">
+						IsChecked="False"  
+						Cursor="Hand" 
+						x:Name="rdBtn2in1" 
+						Checked="rdBtn2in1_Checked"
+						Style="{StaticResource CustomRadioButtonEx}">
                         <Image Width="51" Height="35" Margin="10,7,0,6" Stretch="None" Source="Images/2in1.png" HorizontalAlignment="Left" />
                     </RadioButton>
                     <TextBlock Text="2合1"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"
-                            Grid.Column="3" 
-                            Grid.Row="1"
-                            Margin="5,0,0,0">
+					Grid.Column="3" 
+					Grid.Row="1"
+					Margin="5,0,0,0">
                     <RadioButton GroupName="Goup4" 
-                             IsChecked="False"  
-                             Cursor="Hand" 
-                             x:Name="rdBtn4in1" 
-                             Checked="rdBtn4in1_Checked"
-        	                 Style="{StaticResource CustomRadioButtonEx}">
+						IsChecked="False"  
+						Cursor="Hand" 
+						x:Name="rdBtn4in1" 
+						Checked="rdBtn4in1_Checked"
+						Style="{StaticResource CustomRadioButtonEx}">
                         <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/4in1.png" HorizontalAlignment="Left" />
                     </RadioButton>
                     <TextBlock Text="4合1"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"
-                            Grid.Column="4" 
-                            Grid.Row="1"
-                            Margin="5,0,0,0">
+					Grid.Column="4" 
+					Grid.Row="1"
+					Margin="5,0,0,0">
                     <RadioButton GroupName="Goup4" 
-                             IsChecked="False"  
-                             Cursor="Hand" 
-                             x:Name="rdBtn9in1"
-                             Checked="rdBtn9in1_Checked"
-        	                 Style="{StaticResource CustomRadioButtonEx}">
+						IsChecked="False"  
+						Cursor="Hand" 
+						x:Name="rdBtn9in1"
+						Checked="rdBtn9in1_Checked"
+						Style="{StaticResource CustomRadioButtonEx}">
                         <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/9in1.png" HorizontalAlignment="Left" />
                     </RadioButton>
                     <TextBlock Text="9合1"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"
-                            Grid.Column="5" 
-                            Grid.Row="1"
-                            Margin="5,0,0,0">
+					Grid.Column="5" 
+					Grid.Row="1"
+					Margin="5,0,0,0">
                     <RadioButton GroupName="Goup4" 
-                             IsChecked="False"  
-                             Cursor="Hand" 
-                             x:Name="rdBtn16in1"
-                             Checked="rdBtn16in1_Checked"
-        	                 Style="{StaticResource CustomRadioButtonEx}">
+						IsChecked="False"  
+						Cursor="Hand" 
+						x:Name="rdBtn16in1"
+						Checked="rdBtn16in1_Checked"
+						Style="{StaticResource CustomRadioButtonEx}">
                         <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/16in1.png" HorizontalAlignment="Left" />
                     </RadioButton>
                     <TextBlock Text="16合1"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="35" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"
-                            Grid.Column="2" 
-                            Grid.Row="3"
-                            Margin="30,0,45,0"
-                            Grid.ColumnSpan="2">
+					Grid.Column="2" 
+					Grid.Row="3"
+					Margin="30,0,45,0"
+					Grid.ColumnSpan="2">
                     <RadioButton GroupName="Goup4" 
-                             IsChecked="False"  
-                             Cursor="Hand" 
-                             x:Name="rdBtn1in2x2" 
-                             Checked="rdBtn1in2x2_Checked"
-        	                 Style="{StaticResource CustomRadioButtonEx}">
+						IsChecked="False"  
+						Cursor="Hand" 
+						x:Name="rdBtn1in2x2" 
+						Checked="rdBtn1in2x2_Checked"
+						Style="{StaticResource CustomRadioButtonEx}">
                         <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/1in2x2.png" HorizontalAlignment="Left" />
                     </RadioButton>
                     <TextBlock Text="1合2x2"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"
-                            Grid.Column="3" 
-                            Grid.Row="3"
-                            Margin="30,0,45,0"
-                            Grid.ColumnSpan="2">
+					Grid.Column="3" 
+					Grid.Row="3"
+					Margin="30,0,45,0"
+					Grid.ColumnSpan="2">
                     <RadioButton GroupName="Goup4" 
-                             IsChecked="False"  
-                             Cursor="Hand" 
-                             x:Name="rdBtn1in3x3" 
-                             Checked="rdBtn1in3x3_Checked"
-        	                 Style="{StaticResource CustomRadioButtonEx}">
+						IsChecked="False"  
+						Cursor="Hand" 
+						x:Name="rdBtn1in3x3" 
+						Checked="rdBtn1in3x3_Checked"
+						Style="{StaticResource CustomRadioButtonEx}">
                         <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/1in3x3.png" HorizontalAlignment="Left" />
                     </RadioButton>
                     <TextBlock Text="1合3x3"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical"
-                            Grid.Column="4" 
-                            Grid.Row="3"
-                            Margin="30,0,45,0"
-                            Grid.ColumnSpan="2">
+					Grid.Column="4" 
+					Grid.Row="3"
+					Margin="30,0,45,0"
+					Grid.ColumnSpan="2">
                     <RadioButton GroupName="Goup4" 
-                             IsChecked="False"  
-                             Cursor="Hand" 
-                             x:Name="rdBtn1in4x4" 
-                             Checked="rdBtn1in4x4_Checked"
-        	                 Style="{StaticResource CustomRadioButtonEx}">
+						IsChecked="False"  
+						Cursor="Hand" 
+						x:Name="rdBtn1in4x4" 
+						Checked="rdBtn1in4x4_Checked"
+						Style="{StaticResource CustomRadioButtonEx}">
                         <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/1in4x4.png" HorizontalAlignment="Left" />
                     </RadioButton>
                     <TextBlock Text="1合4x4"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
                 </StackPanel>
 
                 <CheckBox x:Name="chk_MultiplePagePrint" 
-                          Grid.Row="3"
-                          Grid.Column="1" 
-                          Grid.ColumnSpan="2"
-                          Template="{StaticResource customCheckBox}"
-                          IsChecked="False"
-                          Content="多页打印" 
-                          Margin="0,0,46,0"
-                          Checked="chk_MultiplePagePrint_Checked" 
-                          Unchecked="chk_MultiplePagePrint_Unchecked"/>
+					Grid.Row="3"
+					Grid.Column="1" 
+					Grid.ColumnSpan="2"
+					Template="{StaticResource customCheckBox}"
+					IsChecked="False"
+					Content="多页打印" 
+					Margin="0,0,46,0"
+					Checked="chk_MultiplePagePrint_Checked" 
+					Unchecked="chk_MultiplePagePrint_Unchecked"/>
 
             </Grid>
         </Controls:GroupBoxDecorator>
@@ -266,17 +335,17 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Horizontal" 
-                          Grid.ColumnSpan="3" Margin="93,0,1,0">
+					Grid.ColumnSpan="3" Margin="93,0,1,0">
                     <RadioButton GroupName="Goup2" 
-                             Height="42" 
-                             Width="123" 
-                             IsChecked="False"                           
-                             Cursor="Hand" 
-                             x:Name="rdBtnFlipOnShortEdger"                 
-                             Checked="rdBtnFlipOnShortEdger_Checked"
-        	                 Style="{StaticResource CustomRadioButtonEx}" 
-                             SnapsToDevicePixels="True"
-                             Margin="10,0,0,2">
+						Height="42" 
+						Width="123" 
+						IsChecked="False"                           
+						Cursor="Hand" 
+						x:Name="rdBtnFlipOnShortEdger"                 
+						Checked="rdBtnFlipOnShortEdger_Checked"
+						Style="{StaticResource CustomRadioButtonEx}" 
+						SnapsToDevicePixels="True"
+						Margin="10,0,0,2">
                         <StackPanel Width="120">
                             <Image Height="42" Margin="10,0,66,0" Stretch="None" Source="Images/FlipOnShortEdge.png" HorizontalAlignment="Left" Width="50"/>
                             <TextBlock Text="短边翻页" HorizontalAlignment="Left" VerticalAlignment="Center" Width="56" FontSize="13" Margin="60,-30,0,30" Height="20" FontWeight="Bold" Foreground="DimGray"/>
@@ -284,67 +353,41 @@
                     </RadioButton>
 
                     <RadioButton GroupName="Goup2" 
-                             Width="127"
-                             Height="42" 
-                             Cursor="Hand" 
-                             x:Name="rdBtnFlipOnLongEdge"                 
-                             Checked="rdBtnFlipOnLongEdger_Checked"
-                             Style="{StaticResource CustomRadioButtonEx}" 
-                             SnapsToDevicePixels="True"
-                             Margin="10,0,0,2">
+						Width="127"
+						Height="42" 
+						Cursor="Hand" 
+						x:Name="rdBtnFlipOnLongEdge"                 
+						Checked="rdBtnFlipOnLongEdger_Checked"
+						Style="{StaticResource CustomRadioButtonEx}" 
+						SnapsToDevicePixels="True"
+						Margin="10,0,0,2">
                         <StackPanel Margin="2,0,8,0">
                             <Image Height="42" Margin="10,0,66,0"  Stretch="None" Source="Images/FlipOnLongEdge.png" HorizontalAlignment="Left" Width="50"/>
-                            <TextBlock Text="长边翻页" HorizontalAlignment="Left" VerticalAlignment="Center" Width="56" FontSize="13" Margin="60,-30,0,30" Height="20" FontWeight="Bold">
-                                <TextBlock.Foreground>
-                                    <SolidColorBrush Color="DimGray"/>
-                                </TextBlock.Foreground>
-                            </TextBlock>
+                            <TextBlock Text="长边翻页" HorizontalAlignment="Left" VerticalAlignment="Center" Width="56" FontSize="13" Margin="60,-30,0,30" Height="20" FontWeight="Bold" Foreground="DimGray"/>
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>
                 <CheckBox x:Name="chk_DuplexPrint" 
-                          Template="{StaticResource customCheckBox}" 
-                          IsChecked="False" 
-                          Checked="chk_DuplexPrint_Checked" 
-                          Unchecked="chk_DuplexPrint_Unchecked"
-                          Content="双面打印"
-                          Margin="16,8,0,12"/>
+					Template="{StaticResource customCheckBox}" 
+					IsChecked="False" 
+					Checked="chk_DuplexPrint_Checked" 
+					Unchecked="chk_DuplexPrint_Unchecked"
+					Content="双面打印"
+					Margin="16,8,0,12"/>
 
             </Grid>
         </Controls:GroupBoxDecorator>
 
 
         <Controls:GroupBoxDecorator Header="纸张方向" Margin="2,1,0,1" Grid.Row="2" Grid.Column="3">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock
-        	        FontSize="14"
-        	        Text="横向"
-        	        Height="18" Width="36" 
-                    Margin="20,0,0,0"/>
-
-                <CheckBox x:Name="chkBtnPaperOrientation" 
-                          Template="{StaticResource switchBox}"
-        	              IsChecked="False"
-                          Checked="chkBtnPaperOrientation_Checked"
-                          Unchecked="chkBtnPaperOrientation_UnChecked"
-                          Width="50"
-                          Height="23"
-                          Margin="10,0,0,0"
-                          RenderTransformOrigin="0.5, 0.5"/>
-
-                <TextBlock
-        	        FontSize="14"
-        	        Text="纵向"
-        	        Margin="20,0,0,0" 
-                    Height="20" Width="34"/>
-            </StackPanel>
+            <StackPanel Orientation="Horizontal"/>
         </Controls:GroupBoxDecorator>
 
         <Controls:GroupBoxDecorator Header="介质类型" Margin="1,1,0,1" Grid.Row="2" Grid.Column="5" Padding="20,5,30,10">
             <ComboBox Style="{StaticResource customComboBox}" 
-                      Name="cboMediaType" 
-                      Background="White"
-                      SelectionChanged="cboMediaType_SelectionChanged">
+				x:Name="cboMediaType" 
+				Background="White"
+				SelectionChanged="cboMediaType_SelectionChanged">
                 <ComboBoxItem Style="{StaticResource customComboBoxItem}"  IsSelected="true" Content="普通纸" />
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="再生纸" />
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="厚纸" />
@@ -355,9 +398,9 @@
 
         <Controls:GroupBoxDecorator Header="打印质量" Margin="0,2" Grid.Row="4" Grid.Column="5" Padding="20,5,30,10">
             <ComboBox Style="{StaticResource customComboBox}" 
-                      Name="cboPrintQuality" 
-                      Background="White"
-                      SelectionChanged="cboPrintQuality_SelectionChanged">
+				x:Name="cboPrintQuality" 
+				Background="White"
+				SelectionChanged="cboPrintQuality_SelectionChanged">
                 <ComboBoxItem Style="{StaticResource customComboBoxItem}"  IsSelected="true" Content="标准（600*600）" />
                 <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="精细（1200*600）" />
             </ComboBox>
@@ -367,113 +410,131 @@
         <Controls:GroupBoxDecorator Header="缩放" Margin="0,2,0,0" Grid.Row="6" Grid.Column="5" Grid.RowSpan="3">
             <StackPanel Orientation="Vertical">
                 <Controls:SpinnerControl
-                            x:Name="spinnerScaling"
-                            Style="{StaticResource PrintSettingSpinnerStyle}"
-                            Width="163"
-                            Background="Transparent"
-                            Change="1"
-                            DecimalPlaces="0"
-                            Maximum="400"
-                            Minimum="25"  
-                            Value="100"
-                            ValidationHasErrorChanged="OnScalingValidationHasError"
-                            Margin="0,5,0,0"/>
+					x:Name="spinnerScaling"
+					Style="{StaticResource PrintSettingSpinnerStyle}"
+					Width="163"
+					Background="Transparent"
+					Change="1"
+					DecimalPlaces="0"
+					Maximum="400"
+					Minimum="25"  
+					Value="100"
+					ValidationHasErrorChanged="OnScalingValidationHasError"
+					Margin="0,5,0,0"/>
                 <CheckBox x:Name="chk_FitToPaperSize" 
-                          Template="{StaticResource customCheckBox}" 
-                          IsChecked="False" 
-                          Checked="chk_FitToPaperSize_Checked"
-                          Unchecked="chk_FitToPaperSize_Unchecked"
-                          Content="调整至纸张大小" 
-                          HorizontalAlignment="Center"/>
+					Template="{StaticResource customCheckBox}" 
+					IsChecked="False" 
+					Checked="chk_FitToPaperSize_Checked"
+					Unchecked="chk_FitToPaperSize_Unchecked"
+					Content="调整至纸张大小" 
+					HorizontalAlignment="Center"/>
             </StackPanel>
         </Controls:GroupBoxDecorator>
 
         <Controls:GroupBoxDecorator Header="浓度调整" Margin="1,3,0,1" Grid.Row="10" Grid.Column="5">
             <Controls:SpinnerControl
-                            x:Name="spinnerDensityAdjustment"
-                            Style="{StaticResource PrintSettingSpinnerBarStyle}"
-                            Width="163"
-                            Background="Transparent"
-                            Change="1"
-                            Maximum="7"
-                            Minimum="1"  
-                            Value="4"
-                            Margin="0,0,0,0"/>
+				x:Name="spinnerDensityAdjustment"
+				Style="{StaticResource PrintSettingSpinnerBarStyle}"
+				Width="163"
+				Background="Transparent"
+				Change="1"
+				Maximum="7"
+				Minimum="1"  
+				Value="4"
+				Margin="0,0,0,0"/>
         </Controls:GroupBoxDecorator>
 
 
         <Controls:GroupBoxDecorator Header="反转打印" Margin="0,2,0,0" Grid.Row="12" Grid.Column="5" Grid.RowSpan="1">
             <StackPanel Orientation="Horizontal">
                 <RadioButton GroupName="Goup1" 
-                             Margin="23,0,0,2"  
-                             Cursor="Hand" 
-                             Name="rdBtnNormalPrint"
-                             Checked="rdBtnNormalPrint_Checked"
-                             Style="{StaticResource CustomRadioButtonEx}" 
-                             Width="63" 
-                             Height="37" >
+					Margin="23,0,0,2"  
+					Cursor="Hand" 
+					x:Name="rdBtnNormalPrint"
+					Checked="rdBtnNormalPrint_Checked"
+					Style="{StaticResource CustomRadioButtonEx}" 
+					Width="63" 
+					Height="37" >
                     <Image Height="37"  Stretch="None" Source="Images/123.png" Width="63" />
                 </RadioButton>
                 <RadioButton GroupName="Goup1" 
-                             Margin="10,0,0,2"  
-                             Cursor="Hand" 
-                             Name="rdBtnReversePrint"
-                             Checked="rdBtnReversePrint_Checked"
-        	                 Style="{StaticResource CustomRadioButtonEx}" 
-                             IsChecked="true"  
-                             Width="63" 
-                             Height="37">
+					Margin="10,0,0,2"  
+					Cursor="Hand" 
+					x:Name="rdBtnReversePrint"
+					Checked="rdBtnReversePrint_Checked"
+					Style="{StaticResource CustomRadioButtonEx}" 
+					IsChecked="true"  
+					Width="63" 
+					Height="37">
                     <Image Height="37" Stretch="None" Source="Images/321.png" Width="63" />
                 </RadioButton>
             </StackPanel>
         </Controls:GroupBoxDecorator>
 
         <StackPanel 
-            Orientation="Horizontal"  
-            Grid.Row="13"
-            Grid.Column="1"
-            Grid.ColumnSpan="5">
+			Orientation="Horizontal"  
+			Grid.Row="13"
+			Grid.Column="1"
+			Grid.ColumnSpan="5">
             <CheckBox x:Name="chk_TonerSaving"
-                  Template="{StaticResource customCheckBox}" 
-                  IsChecked="False" 
-                  Checked="chk_TonerSaving_Checked" 
-                  Unchecked="chk_TonerSaving_Unchecked"
-                  Content="省墨打印模式" 
-                  Margin="0,-15,0,0" 
-                  FontSize="14"/>
+				Template="{StaticResource customCheckBox}" 
+				IsChecked="False" 
+				Checked="chk_TonerSaving_Checked" 
+				Unchecked="chk_TonerSaving_Unchecked"
+				Content="省墨打印模式" 
+				Margin="0,-15,0,0" 
+				FontSize="14"/>
 
             <Button 
-                Name="AdvancedSettingsButton"
-                IsDefault="False"
-        	    Content="高级设置" 
-                Style="{StaticResource CustomGrayButtonStyle}"
-        	    Height="34" 
-                Width="130" 
-                Margin="30,0,0,0"
-                FontSize="18"
-                Click="AdvancedSettingButtonClick"/>
+				x:Name="AdvancedSettingsButton"
+				IsDefault="False"
+				Content="高级设置" 
+				Style="{StaticResource CustomGrayButtonStyle}"
+				Height="34" 
+				Width="130" 
+				Margin="30,0,0,0"
+				FontSize="18"
+				Click="AdvancedSettingButtonClick"/>
 
             <Button IsDefault="False"
-                 Name="DefaultButton"
-        	    Content="默  认" 
-                Style="{StaticResource CustomGrayButtonStyle}"
-        	    Height="34" 
-                Width="130" 
-                Margin="10,0,0,0"
-                FontSize="18"
-                Click="DefaultButtonClick"/>
+				x:Name="DefaultButton"
+				Content="默  认" 
+				Style="{StaticResource CustomGrayButtonStyle}"
+				Height="34" 
+				Width="130" 
+				Margin="10,0,0,0"
+				FontSize="18"
+				Click="DefaultButtonClick"/>
 
             <Button 
-                IsDefault="True"
-                Name="OKButton"
-        	    Content="确  定" 
-                Style="{StaticResource CustomGreenButtonStyle}"  
-                Height="34" 
-                Width="130" 
-                Margin="10,0,0,0"
-                FontSize="18"
-                Click="OKButtonClick"/>
+				IsDefault="True"
+				x:Name="OKButton"
+				Content="确  定" 
+				Style="{StaticResource CustomGreenButtonStyle}"  
+				Height="34" 
+				Width="130" 
+				Margin="10,0,0,0"
+				FontSize="18"
+				Click="OKButtonClick"/>
         </StackPanel>
+
+        <RadioButton x:Name="rdBtnPortrait"
+			GroupName="Goup5" 
+			Checked="rdBtnPortrait_Checked"
+			IsChecked="{Binding SelectedItem, Converter={StaticResource isInchConverter}, ElementName=myComboBox, Mode=OneWay}"
+			Content="纵向" 
+			Template="{StaticResource customRadioButton}"
+			Foreground="DarkSlateGray"
+			Margin="30,31,101,7" Grid.Column="3" Grid.Row="2"/>
+
+        <RadioButton x:Name="rdBtnLandscape"
+            GroupName="Goup5"
+			Checked="rdBtnLandscape_Checked"
+			IsChecked="{Binding SelectedItem, ConverterParameter=flip, Converter={StaticResource isInchConverter}, ElementName=myComboBox, Mode=OneWay}"
+			Content="横向"
+			Template="{StaticResource customRadioButton}"
+			Foreground="DarkSlateGray"
+			Margin="101,31,30,7" Grid.Column="3" Grid.Row="2"/>
 
     </Grid>
 </Window>

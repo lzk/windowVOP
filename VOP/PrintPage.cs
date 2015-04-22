@@ -43,6 +43,12 @@ namespace VOP
             CurrentPrintType = PrintType.PrintFile;
             myImagePreviewPanel.BackArrowButton.Click += new RoutedEventHandler(OnBackArrowButtonClick);
         }
+        private void Window_LostFocus(object sender, RoutedEventArgs e)
+        {
+ //           dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, m_paperSize = 0, m_paperOrientation = 1, m_mediaType = 0, m_paperOrder = 1, m_printQuality = 0, m_scalingType = 0, m_scalingRatio = 100, m_nupNum = 1, m_typeofPB = 0, m_posterType = 0, m_ADJColorBalance = 0, m_colorBalanceTo = 1, m_densityValue = 0, m_duplexPrint = 1, m_reversePrint = 1, m_tonerSaving = 0);
+//            dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, 0, 1, 0, 1, 0, 0, 100, 1, 0, 0, 0, 1, 0, 1, 1, 0);
+//            dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, 1);
+        }
 
         private void PrintPageOnLoaded(object sender, RoutedEventArgs e)
         {
