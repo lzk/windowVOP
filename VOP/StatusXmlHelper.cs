@@ -325,17 +325,8 @@ namespace VOP
                 case "MotorThermistorError"        : retStatus = EnumStatus.MotorThermistorError;        break;
                 case "EEPROMCommunicationError"    : retStatus = EnumStatus.EEPROMCommunicationError;    break;
                 case "CTL_PRREQ_NSignalNoCome"     : retStatus = EnumStatus.CTL_PRREQ_NSignalNoCome;     break;
-                case "ScanPCUnkownCommandUSB"      : retStatus = EnumStatus.ScanPCUnkownCommandUSB;      break;
-                case "SCANUSBDisconnect"           : retStatus = EnumStatus.SCANUSBDisconnect;           break;
-                case "ScanPCUnkownCommandNET"      : retStatus = EnumStatus.ScanPCUnkownCommandNET;      break;
-                case "ScanNETDisconnect"           : retStatus = EnumStatus.ScanNETDisconnect;           break;
                 case "ScanMotorError"              : retStatus = EnumStatus.ScanMotorError;              break;
-                case "NetWirelessConnectFail"      : retStatus = EnumStatus.NetWirelessConnectFail;      break;
-                case "NetWirelessDisable"          : retStatus = EnumStatus.NetWirelessDisable;          break;
                 case "NetWirelessDongleCfgFail"    : retStatus = EnumStatus.NetWirelessDongleCfgFail;    break;
-                case "FWUpdateError"               : retStatus = EnumStatus.FWUpdateError;               break;
-                case "DSPError"                    : retStatus = EnumStatus.DSPError;                    break;
-                case "CodecError"                  : retStatus = EnumStatus.CodecError;                  break;
                 case "PrinterDataError"            : retStatus = EnumStatus.PrinterDataError;            break;
                 case "Unknown"                     : retStatus = EnumStatus.Unknown;                     break;
                 case "Offline"                     : retStatus = EnumStatus.Offline;                     break;

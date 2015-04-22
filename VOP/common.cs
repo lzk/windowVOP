@@ -298,17 +298,8 @@ namespace VOP
                 case EnumStatus.MotorThermistorError       : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC587" ; break;
                 case EnumStatus.EEPROMCommunicationError   : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC669" ; break;
                 case EnumStatus.CTL_PRREQ_NSignalNoCome    : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC688" ; break;
-                case EnumStatus.ScanPCUnkownCommandUSB     : errMsg = "Scan PC Unknown Command USB"; break;
-                case EnumStatus.SCANUSBDisconnect          : errMsg = "Scan USB Disconnect"; break;
-                case EnumStatus.ScanPCUnkownCommandNET     : errMsg = "Scan PC Unknown Command NET"; break;
-                case EnumStatus.ScanNETDisconnect          : errMsg = "Scan NET Disconnect"; break;
                 case EnumStatus.ScanMotorError             : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC800" ; break;
-                case EnumStatus.NetWirelessConnectFail     : errMsg = "Wireless Connection Fail"                                                                                ; break;
-                case EnumStatus.NetWirelessDisable         : errMsg = "Wireless Disabled"                                                                                       ; break;
                 case EnumStatus.NetWirelessDongleCfgFail   : errMsg = "Wireless Dongle Config Fail"                                                                             ; break;
-                case EnumStatus.FWUpdateError              : errMsg = "FW download Error;Turn off the printer, and turn it on again.Contact customer support if this failure is repeated"; break;
-                case EnumStatus.DSPError                   : errMsg = "DSP Error;Turn off the printer, and turn it on again.Contact customer support if this failure is repeated"; break;
-                case EnumStatus.CodecError                 : errMsg = "CODEC Error;Turn off the printer, and turn it on again.Contact customer support if this failure is repeated"; break;
                 case EnumStatus.PrinterDataError           : errMsg = "Print Data Error"; break;               
 
                 case EnumStatus.Offline                    : 
@@ -377,17 +368,8 @@ namespace VOP
                 case EnumStatus.MotorThermistorError        : st = StatusDisplayType.Error   ; break ;
                 case EnumStatus.EEPROMCommunicationError    : st = StatusDisplayType.Error   ; break ;
                 case EnumStatus.CTL_PRREQ_NSignalNoCome     : st = StatusDisplayType.Error   ; break ;
-                case EnumStatus.ScanPCUnkownCommandUSB      : st =StatusDisplayType.Error    ; break ; // TODO : type TBD.
-                case EnumStatus.SCANUSBDisconnect           : st =StatusDisplayType.Error    ; break ; // TODO : type TBD.
-                case EnumStatus.ScanPCUnkownCommandNET      : st =StatusDisplayType.Error    ; break ; // TODO : type TBD.
-                case EnumStatus.ScanNETDisconnect           : st =StatusDisplayType.Error    ; break ; // TODO : type TBD.
                 case EnumStatus.ScanMotorError              : st = StatusDisplayType.Error   ; break ;
-                case EnumStatus.NetWirelessConnectFail      : st = StatusDisplayType.Ready   ; break ;
-                case EnumStatus.NetWirelessDisable          : st = StatusDisplayType.Ready   ; break ;
                 case EnumStatus.NetWirelessDongleCfgFail    : st = StatusDisplayType.Error   ; break ;
-                case EnumStatus.FWUpdateError               : st = StatusDisplayType.Error   ; break ;
-                case EnumStatus.DSPError                    : st = StatusDisplayType.Error   ; break ;
-                case EnumStatus.CodecError                  : st = StatusDisplayType.Error   ; break ;
                 case EnumStatus.PrinterDataError            : st = StatusDisplayType.Warning ; break ;
 
                 case EnumStatus.Offline                     : 

@@ -91,57 +91,59 @@
 
 #define MAX_DEVICEID_LEN	2048
 
-#define        __Ready                      0x00
-#define        __Printing                   0x01
-#define        __PowerSaving                0x02
-#define        __WarmingUp                  0x03
-#define        __PrintCanceling             0x04
-#define        __Processing                 0x07
-#define        __CopyScanning               0x60
-#define        __CopyScanNextPage           0x61
-#define        __CopyPrinting               0x62
-#define        __CopyCanceling              0x63
-#define        __IDCardMode                 0x64
-#define        __ScanScanning               0x6A
-#define        __ScanSending                0x6B
-#define        __ScanCanceling              0x6C
-#define        __ScannerBusy				0x6D
-#define        __TonerEnd                   0x7F
-#define        __TonerNearEnd               0x81
-#define        __ManualFeedRequired         0x85
-#define        __InitializeJam              0xBC
-#define        __NofeedJam                  0xBD
-#define        __JamAtRegistStayOn          0xBE
-#define        __JamAtExitNotReach          0xBF
-#define        __JamAtExitStayOn            0xC0
-#define        __CoverOpen                  0xC1
-#define        __NoTonerCartridge           0xC5
-#define        __WasteTonerFull             0xC6
-#define        __FWUpdate                   0xC7
-#define        __PolygomotorOnTimeoutError  0xD0
-#define        __PolygomotorOffTimeoutError 0xD1
-#define        __PolygomotorLockSignalError 0xD2
-#define        __BeamSynchronizeError       0xD3
-#define        __BiasLeak                   0xD4
-#define        __MainmotorError             0xD5
-#define        __FuserThermistorError       0xD6
-#define        __FuserReloadError           0xD7
-#define        __HighTemperatureErrorSoft   0xD8
-#define        __HighTemperatureErrorHard   0xD9
-#define        __FuserFullHeaterError       0xDA
-#define        __Fuser3timesJamError        0xDB
-#define        __LowVoltageFuserReloadError 0xDC
-#define        __MotorThermistorError       0xDD
-#define        __EEPROMCommunicationError   0xDE
-#define        __CTL_PRREQ_NSignalNoCome    0xDF
-#define        __ScanPCUnkownCommandUSB     0xE0
-#define        __SCANUSBDisconnect          0xE1
-#define        __ScanPCUnkownCommandNET     0xE3
-#define        __ScanNETDisconnect          0xE4
-#define        __ScanMotorError             0xE5
-#define        __Unknown                    0xF0 // status added by SW
-#define        __Offline                    0xF1 // status added by SW
-#define        __PowerOff                   0xF2 // status added by SW
+#define        __Ready                       0x00
+#define        __Printing                    0x01
+#define        __PowerSaving                 0x02
+#define        __WarmingUp                   0x03
+#define        __PrintCanceling              0x04
+#define        __Processing                  0x07
+#define        __CopyScanning                0x60
+#define        __CopyScanNextPage            0x61
+#define        __CopyPrinting                0x62
+#define        __CopyCanceling               0x63
+#define        __IDCardMode                  0x64
+#define        __ScanScanning                0x6A
+#define        __ScanSending                 0x6B
+#define        __ScanCanceling               0x6C
+#define        __ScannerBusy                 0x6D
+#define        __TonerEnd1                   0x7F//For china maket
+#define        __TonerEnd2                   0x80
+#define        __TonerNearEnd                0x81
+#define        __ManualFeedRequired          0x85
+#define        __InitializeJam               0xBC
+#define        __NofeedJam                   0xBD
+#define        __JamAtRegistStayOn           0xBE
+#define        __JamAtExitNotReach           0xBF
+#define        __JamAtExitStayOn             0xC0
+#define        __CoverOpen                   0xC1
+#define        __NoTonerCartridge            0xC5
+#define        __WasteTonerFull              0xC6
+#define        __FWUpdate                    0xC7
+#define        __OverHeat                    0xC8
+#define        __PolygomotorOnTimeoutError   0xCD
+#define        __PolygomotorOffTimeoutError  0xCE
+#define        __PolygomotorLockSignalError  0xCF
+#define        __BeamSynchronizeError        0xD1
+#define        __BiasLeak                    0xD2
+#define        __PlateActionError            0xD3
+#define        __MainmotorError              0xD4
+#define        __MainFanMotorEorror          0xD5
+#define        __JoinerThermistorError       0xD6
+#define        __JoinerReloadError           0xD7
+#define        __HighTemperatureErrorSoft    0xD8
+#define        __HighTemperatureErrorHard    0xD9
+#define        __JoinerFullHeaterError       0xDA
+#define        __Joiner3timesJamError        0xDB
+#define        __LowVoltageJoinerReloadError 0xDC
+#define        __MotorThermistorError        0xDD
+#define        __EEPROMCommunicationError    0xDE
+#define        __CTL_PRREQ_NSignalNoCome     0xDF
+#define        __ScanMotorError              0xE5
+#define        __NetWirelessDongleCfgFail    0xE8
+#define        __PrinterDataError            0xEF
+#define        __Unknown                     0xF0 // status added by SW
+#define        __Offline                     0xF1 // status added by SW
+#define        __PowerOff                    0xF2 // status added by SW
 
 #define	_DEF_VID	0
 #define _DEF_PID	0
