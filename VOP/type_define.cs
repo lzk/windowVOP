@@ -91,6 +91,7 @@ namespace VOP
         NetWirelessConnectFail     = 0xE6,
         NetWirelessDisable         = 0xE7,
         NetWirelessDongleCfgFail   = 0xE8,
+        ScanDriverCalibrationFail  = 0xE9,
         FWUpdateError              = 0xEB,
         DSPError                   = 0xEC,
         CodecError                 = 0xED,

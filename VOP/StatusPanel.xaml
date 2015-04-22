@@ -147,7 +147,7 @@
 
                         <TextBlock x:Name="txtErrMsg" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Red"
                                    FontSize="10" TextWrapping="Wrap"
-                                   Text="{Binding ElementName=status, Path=TipInfo}">
+                                   Text="{Binding ElementName=status, Path=TipInfo}" MouseLeftButtonDown="txtErrMsg_MouseLeftButtonDown">
                         </TextBlock>
                     </Grid>
                 </Grid>
