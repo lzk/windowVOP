@@ -139,6 +139,7 @@
 #define        __EEPROMCommunicationError    0xDE
 #define        __CTL_PRREQ_NSignalNoCome     0xDF
 #define        __ScanMotorError              0xE5
+#define        __SCAN_DRV_CALIB_FAIL         0xE9
 #define        __NetWirelessDongleCfgFail    0xE8
 #define        __PrinterDataError            0xEF
 #define        __Unknown                     0xF0 // status added by SW

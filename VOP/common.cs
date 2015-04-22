@@ -244,14 +244,14 @@ namespace VOP
 
             switch ( status )
             {
-                case EnumStatus.Ready                      : errMsg = "   "                                                                                                     ; break;
-                case EnumStatus.Printing                   : errMsg = "Printing"                                                                                                ; break;
-                case EnumStatus.PowerSaving                : errMsg = "   "                                                                                                     ; break;
-                case EnumStatus.WarmingUp                  : errMsg = "WarmingUp"                                                                                               ; break;
-                case EnumStatus.PrintCanceling             : errMsg = "Print Cancelling"                                                                                         ; break;
-                case EnumStatus.Processing                 : errMsg = "Processing"                                                                                              ; break;
-                case EnumStatus.CopyScanning               : errMsg = "Copying"                                                                                                 ; break;
-                case EnumStatus.CopyScanNextPage           :
+                case EnumStatus.Ready                       	 : errMsg = ""; break;
+                case EnumStatus.Printing                    	 : errMsg = "Printing"; break;
+                case EnumStatus.PowerSaving                 	 : errMsg = ""; break;
+                case EnumStatus.WarmingUp                   	 : errMsg = "WarmingUp"; break;
+                case EnumStatus.PrintCanceling              	 : errMsg = "Print Cancelling"; break;
+                case EnumStatus.Processing                  	 : errMsg = "Processing"; break;
+                case EnumStatus.CopyScanning                	 : errMsg = "Copying"; break;
+               case EnumStatus.CopyScanNextPage           :
                     if ( job == EnumMachineJob.IDCardCopyJob )
                         errMsg = "Turn card over to copy the reverse.";
                     else if ( job == EnumMachineJob.Nin1CopyJob )
@@ -259,49 +259,51 @@ namespace VOP
                     else
                         errMsg = "";
                     break;
-                case EnumStatus.CopyPrinting               : errMsg = "Copying"                                                                                                 ; break;
-                case EnumStatus.CopyCanceling              : errMsg = "Copy Cancelling"                                                                                         ; break;
-                case EnumStatus.ScanScanning               : errMsg = "Scanning"                                                                                                ; break;
-                case EnumStatus.IDCardMode                 : errMsg = "ID card mode"                                                                                            ; break;
-                case EnumStatus.ScanSending                : errMsg = "Scanning"                                                                                                ; break;
-                case EnumStatus.ScanCanceling              : errMsg = "Scan Cancelling"																							; break;
-                case EnumStatus.ScannerBusy                : errMsg = "Scanner Busy"                                                                                            ; break;
-                case EnumStatus.TonerEnd1                  : errMsg = "Toner End"                                                                                               ; break;
-                case EnumStatus.TonerEnd2                  : errMsg = "Toner End"                                                                                               ; break;
-                case EnumStatus.TonerNearEnd               : errMsg = "Toner Near End"                                                                                          ; break;
-                case EnumStatus.ManualFeedRequired         : errMsg = "Waiting 2nd pages when print manual duplex job"                                                          ; break;
-                case EnumStatus.InitializeJam              : errMsg = "Paper Jam: Paper Remained"                                                                               ; break;
-                case EnumStatus.NofeedJam                  : errMsg = "Paper Jam: Nofeed"                                                                                       ; break;
-                case EnumStatus.JamAtRegistStayOn          : errMsg = "Paper Jam: Regist"                                                                                       ; break;
-                case EnumStatus.JamAtExitNotReach          : errMsg = "Paper Jam: Exit"                                                                                         ; break;
-                case EnumStatus.JamAtExitStayOn            : errMsg = "Paper Jam: Exit"                                                                                         ; break;
-                case EnumStatus.CoverOpen                  : errMsg = "Cover Open"                                                                                              ; break;
-                case EnumStatus.NoTonerCartridge           : errMsg = "No Toner Cartridge"                                                                                      ; break;
-                case EnumStatus.WasteTonerFull             : errMsg = "Please Replace Toner"                                                                                    ; break;
-                case EnumStatus.FWUpdate                   : errMsg = "FW updating"                                                                                             ; break;
-                case EnumStatus.OverHeat                   : errMsg = "Overheat"; break;
-                case EnumStatus.PolygomotorOnTimeoutError  : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC202"; break;
-                case EnumStatus.PolygomotorOffTimeoutError : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC203" ; break;
-                case EnumStatus.PolygomotorLockSignalError : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC204" ; break;
-                case EnumStatus.BeamSynchronizeError       : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC220" ; break;
-                case EnumStatus.BiasLeak                   : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC491" ; break;
-                case EnumStatus.PlateActionError           : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC501" ; break;
-                case EnumStatus.MainmotorError             : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC520"; break;
-                case EnumStatus.MainFanMotorEorror         : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC530"; break;
-                case EnumStatus.JoinerThermistorError      : errMsg = "Please contact customer support: SC541"; break;
-                case EnumStatus.JoinerReloadError          : errMsg = "Please contact customer support: SC542"                                                                  ; break;
-                case EnumStatus.HighTemperatureErrorSoft   : errMsg = "Please contact customer support: SC543"                                                                  ; break;
-                case EnumStatus.HighTemperatureErrorHard   : errMsg = "Please contact customer support: SC544"                                                                  ; break;
-                case EnumStatus.JoinerFullHeaterError      : errMsg = "Please contact customer support: SC545"                                                                  ; break;
-                case EnumStatus.Joiner3timesJamError       : errMsg = "Please contact customer support: SC559"                                                                  ; break;
-                case EnumStatus.LowVoltageJoinerReloadError: errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC560" ; break;
-                case EnumStatus.MotorThermistorError       : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC587" ; break;
-                case EnumStatus.EEPROMCommunicationError   : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC669" ; break;
-                case EnumStatus.CTL_PRREQ_NSignalNoCome    : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC688" ; break;
-                case EnumStatus.ScanMotorError             : errMsg = "Turn off the printer, and turn it on again. Contact customer support if this failure is repeated: SC800" ; break;
-                case EnumStatus.NetWirelessDongleCfgFail   : errMsg = "Wireless Dongle Config Fail"                                                                             ; break;
-                case EnumStatus.PrinterDataError           : errMsg = "Print Data Error"; break;               
+                case EnumStatus.CopyPrinting                	 : errMsg = "Copying"; break;
+                case EnumStatus.CopyCanceling               	 : errMsg = "Copy Cancelling"; break;
+                case EnumStatus.IDCardMode                  	 : errMsg = "ID Card Mode"; break;
+                case EnumStatus.ScanScanning                	 : errMsg = "Scanning"; break;
+                case EnumStatus.ScanSending                 	 : errMsg = "Scanning"; break;
+                case EnumStatus.ScanCanceling               	 : errMsg = "Scan Cancelling"; break;
+                case EnumStatus.ScannerBusy                 	 : errMsg = "Scanner Busy"; break;
+                case EnumStatus.TonerEnd1                   	 : errMsg = "Toner End"; break;
+                case EnumStatus.TonerEnd2                   	 : errMsg = "Toner End"; break;
+                case EnumStatus.TonerNearEnd                	 : errMsg = "Toner Near End"; break;
+                case EnumStatus.ManualFeedRequired          	 : errMsg = "Waiting 2nd pages when print manual duplex job"; break;
+                case EnumStatus.InitializeJam               	 : errMsg = "Paper Jam: Paper Remained"; break;
+                case EnumStatus.NofeedJam                   	 : errMsg = "Paper Jam: Nofeed"; break;
+                case EnumStatus.JamAtRegistStayOn           	 : errMsg = "Paper Jam: Regist"; break;
+                case EnumStatus.JamAtExitNotReach           	 : errMsg = "Paper Jam: Exit"; break;
+                case EnumStatus.JamAtExitStayOn             	 : errMsg = "Paper Jam: Exit"; break;
+                case EnumStatus.CoverOpen                   	 : errMsg = "Cover Open"; break;
+                case EnumStatus.NoTonerCartridge            	 : errMsg = "No Toner Cartridge"; break;
+                case EnumStatus.WasteTonerFull              	 : errMsg = "Please Replace Toner"; break;
+                case EnumStatus.FWUpdate                    	 : errMsg = "FW Updating"; break;
+                case EnumStatus.OverHeat                    	 : errMsg = "Overheat"; break;
+                case EnumStatus.PolygomotorOnTimeoutError   	 : errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC202"; break;
+                case EnumStatus.PolygomotorOffTimeoutError  	 : errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC203"; break;
+                case EnumStatus.PolygomotorLockSignalError  	 : errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC204"; break;
+                case EnumStatus.BeamSynchronizeError        	 : errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC220"; break;
+                case EnumStatus.BiasLeak                    	 : errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC491"; break;
+                case EnumStatus.PlateActionError            	 : errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC501"; break;
+                case EnumStatus.MainmotorError              	 : errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC520"; break;
+                case EnumStatus.MainFanMotorEorror          	 : errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC530"; break;
 
+                case EnumStatus.JoinerThermistorError       	 : errMsg = "Please contact customer support:\nSC541"; break;
+                case EnumStatus.JoinerReloadError           	 : errMsg = "Please contact customer support:\nSC542"; break;
+                case EnumStatus.HighTemperatureErrorSoft    	 : errMsg = "Please contact customer support:\nSC543"; break;
+                case EnumStatus.HighTemperatureErrorHard    	 : errMsg = "Please contact customer support:\nSC544"; break;
+                case EnumStatus.JoinerFullHeaterError       	 : errMsg = "Please contact customer support:\nSC545"; break;
+                case EnumStatus.Joiner3timesJamError        	 : errMsg = "Please contact customer support:\nSC559"; break;
+
+                case EnumStatus.LowVoltageJoinerReloadError 	 : errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC560"; break;
+                case EnumStatus.MotorThermistorError        	 : errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC587"; break;
+                case EnumStatus.EEPROMCommunicationError    	 : errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC669"; break;
+                case EnumStatus.CTL_PRREQ_NSignalNoCome     	 : errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC688"; break;
+                case EnumStatus.ScanMotorError              	 : errMsg = "Scanner not found home position;\nTurn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC1001"; break;
+                case EnumStatus.SCAN_DRV_CALIB_FAIL         	 : errMsg = "Scan Calibration Error;\nTurn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC1001"; break;
+                case EnumStatus.NetWirelessDongleCfgFail    	 : errMsg = "Wireless Dongle Config Fail;\nTurn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC1002"; break;
+                case EnumStatus.PrinterDataError            	 : errMsg = "Print Data Error:\nSC1006"; break;
                 case EnumStatus.Offline                    : 
                 case EnumStatus.PowerOff                   :
                 case EnumStatus.Unknown                    : errMsg = "Device Offline"; break;
