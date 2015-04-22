@@ -16,7 +16,7 @@
     
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="Images\PagePrint.tif" />
+            <ImageBrush ImageSource="Images\PagePrint.png" />
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="230" />

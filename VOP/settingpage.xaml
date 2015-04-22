@@ -18,7 +18,7 @@
     </UserControl.Resources>
     <Grid Name="mainGrid">
         <Grid.Background>
-            <ImageBrush ImageSource="Images\PageSetting.tif" />
+            <ImageBrush ImageSource="Images\PageSetting.png" />
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*"/>

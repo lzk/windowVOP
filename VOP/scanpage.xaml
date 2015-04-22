@@ -98,7 +98,7 @@
     </Grid.ColumnDefinitions>
     
         <Grid.Background>
-            <ImageBrush ImageSource="Images\PageScan.tif" />
+            <ImageBrush ImageSource="Images\PageScan.png" />
         </Grid.Background>
         
     <ScrollViewer Grid.Column="1" Width="395" Height="162" Name="scrollview" CanContentScroll="true"

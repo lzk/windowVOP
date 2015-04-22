@@ -63,15 +63,15 @@
         
         <SolidColorBrush x:Key="lineColor_1" Color="#AAAAAA" />
         <SolidColorBrush x:Key="lineColor_2" Color="#555555" />
-        <ImageBrush x:Key="imgBk_Brush_1"  ImageSource="Images\PagePrint.tif" />
-        <ImageBrush x:Key="imgBk_Brush_2"  ImageSource="Images\PageCopy.tif" />
-        <ImageBrush x:Key="imgBk_Brush_3"  ImageSource="Images\PageScan.tif" />
-        <ImageBrush x:Key="imgBk_Brush_4"  ImageSource="Images\PageSetting.tif" />        
+        <ImageBrush x:Key="imgBk_Brush_1"  ImageSource="Images\PagePrint.png" />
+        <ImageBrush x:Key="imgBk_Brush_2"  ImageSource="Images\PageCopy.png" />
+        <ImageBrush x:Key="imgBk_Brush_3"  ImageSource="Images\PageScan.png" />
+        <ImageBrush x:Key="imgBk_Brush_4"  ImageSource="Images\PageSetting.png" />        
     </Window.Resources>
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="Images\background.tif" />
+            <ImageBrush ImageSource="Images\background.png" />
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>

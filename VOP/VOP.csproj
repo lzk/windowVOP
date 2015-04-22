@@ -633,11 +633,11 @@
     <Resource Include="Images\btnScan.tif" />
     <Resource Include="Images\btnSetting.tif" />
     <Resource Include="Images\busyRefresh.tif" />
-    <Resource Include="Images\background.tif" />
-    <Resource Include="Images\PagePrint.tif" />
-    <Resource Include="Images\PageCopy.tif" />
-    <Resource Include="Images\PageScan.tif" />
-    <Resource Include="Images\PageSetting.tif" />
+    <Resource Include="Images\background.png" />
+    <Resource Include="Images\PagePrint.png" />
+    <Resource Include="Images\PageCopy.png" />
+    <Resource Include="Images\PageScan.png" />
+    <Resource Include="Images\PageSetting.png" />
     <Resource Include="Images\SettingViewBackground.png" />
     <Resource Include="Images\triangle.png" />
     <Resource Include="Images\Fit.tif" />

@@ -113,7 +113,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="Images\PageCopy.tif" />
+            <ImageBrush ImageSource="Images\PageCopy.png" />
         </Grid.Background>
         
         <Grid>
