@@ -358,31 +358,33 @@ namespace VOP
 
         private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
-            // btnCopy.IsEnabled = ( false == spinCtlCopies.ValidationHasError );
+            btnOk.IsEnabled = ( false == spinCtlBrightness.ValidationHasError
+                    && false == spinCtlConstrast.ValidationHasError );
         }
 
         private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
         { 
-            // VOP.Controls.SpinnerControl spinnerCtl = sender as VOP.Controls.SpinnerControl;
-            // TextBox tb = spinnerCtl.Template.FindName("tbTextBox", spinnerCtl) as TextBox;
-            // int textValue = 0;
-            // if (!spinnerCtl.IsFocused)
-            // {
-            //     if ( "spinCtlCopies" == spinnerCtl.Name ) 
-            //     {
-            //         if (int.TryParse(tb.Text, out textValue))
-            //         {
-            //             if ( textValue > 99 )
-            //                 tb.Text = "99";
-            //             else if ( textValue < 1 )
-            //                 tb.Text = "1";
-            //         }
-            //         else
-            //         {
-            //             tb.Text = "1";
-            //         }
-            //     }
-            // }
+            VOP.Controls.SpinnerControl spinnerCtl = sender as VOP.Controls.SpinnerControl;
+            TextBox tb = spinnerCtl.Template.FindName("tbTextBox", spinnerCtl) as TextBox;
+            int textValue = 0;
+            if (!spinnerCtl.IsFocused)
+            {
+                if ( "spinCtlBrightness" == spinnerCtl.Name 
+                        || "spinCtlConstrast" == spinnerCtl.Name  ) 
+                {
+                    if (int.TryParse(tb.Text, out textValue))
+                    {
+                        if ( textValue > 100 )
+                            tb.Text = "100";
+                        else if ( textValue < 0 )
+                            tb.Text = "0";
+                    }
+                    else
+                    {
+                        tb.Text = "50";
+                    }
+                }
+            }
         }
 
 
