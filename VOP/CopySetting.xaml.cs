@@ -217,7 +217,7 @@ namespace VOP
             m_docSize    = EnumPaperSizeInput._A4;
             m_outputSize = EnumPaperSizeOutput._Letter;
             m_nin1       = EnumNin1._1up;
-            m_dpi        = EnumCopyResln._300x300;
+            m_dpi        = m_isIDCardCopy ? EnumCopyResln._600x600 : EnumCopyResln._300x300;
             m_mediaType  = EnumMediaType.Plain;
 
             InitCboDocSize();
@@ -262,12 +262,6 @@ namespace VOP
                 rdBtnScanModePhoto.IsChecked = true;
             }
 
-
-
-            if ( m_isIDCardCopy )
-            {
-            }
-                
 
             InitCboDocSize();
             InitCboResolution();
@@ -375,7 +369,8 @@ namespace VOP
             {
                 foreach ( ComboBoxItem obj in cboResolution.Items )
                 {
-                    obj.IsEnabled = false;
+                    if ( (EnumCopyResln)obj.DataContext != EnumCopyResln._600x600 )
+                        obj.IsEnabled = false;
                 }
             }
         }
