@@ -385,7 +385,8 @@ namespace VOP
         /// Exit falg. True if need to exit thread statusUpdater.
         /// </summary>
         bool bExitUpdater = false;
-
+        bool m_isShowedMaintainWindow = false;
+        bool m_isShowPurchaseWindow = false;
         // Those variable were used for post WM_STATUS_UPDATE message, do not
         // for other usage.
         private byte _toner  = 0;
@@ -496,16 +497,36 @@ namespace VOP
 
                    this.statusPanelPage.lbTonerBar.FlashShopCatIcon( true );
 
+                   m_isShowPurchaseWindow = true;
                    PurchaseWindow win = new PurchaseWindow();
                    win.ShowDialog();
+                   m_isShowPurchaseWindow = false;
 
-                   this.statusPanelPage.lbTonerBar.FlashShopCatIcon( false );
+                   this.statusPanelPage.lbTonerBar.FlashShopCatIcon(false);
                }
                else
                {
                    this.statusPanelPage.m_toner         = toner;
                    this.statusPanelPage.m_currentStatus = (EnumStatus)status;
                    this.statusPanelPage.m_job           = (EnumMachineJob)job;
+
+                   if (!m_isShowPurchaseWindow)
+                   {
+                       if(!m_isShowedMaintainWindow)
+                       {
+                           if (((byte)status >= (byte)EnumStatus.PolygomotorOnTimeoutError &&
+                                 (byte)status <= (byte)EnumStatus.CTL_PRREQ_NSignalNoCome) ||
+                                 (EnumStatus)status == EnumStatus.ScanMotorError ||
+                                 (EnumStatus)status == EnumStatus.ScanDriverCalibrationFail ||
+                                 (EnumStatus)status == EnumStatus.NetWirelessDongleCfgFail)
+                           {
+                               m_isShowedMaintainWindow = true;
+                               MaintainWindow mw = new MaintainWindow();
+                               mw.Owner = App.Current.MainWindow;
+                               mw.ShowDialog();
+                           }
+                       }
+                   }
                }
 
                if ( false == m_isOnlineDetected )

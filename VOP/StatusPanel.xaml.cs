@@ -248,12 +248,13 @@ namespace VOP
         private void txtErrMsg_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (((byte)m_currentStatus >= (byte)EnumStatus.PolygomotorOnTimeoutError &&
-                (byte)m_currentStatus <= (byte)EnumStatus.CTL_PRREQ_NSignalNoCome) ||
-                m_currentStatus == EnumStatus.ScanMotorError ||
-                m_currentStatus == EnumStatus.ScanDriverCalibrationFail ||
-                m_currentStatus == EnumStatus.NetWirelessDongleCfgFail)
+                    (byte)m_currentStatus <= (byte)EnumStatus.CTL_PRREQ_NSignalNoCome) ||
+                    m_currentStatus == EnumStatus.ScanMotorError ||
+                    m_currentStatus == EnumStatus.ScanDriverCalibrationFail ||
+                    m_currentStatus == EnumStatus.NetWirelessDongleCfgFail)
             {
                 MaintainWindow mw = new MaintainWindow();
+                mw.Owner = App.Current.MainWindow;
                 mw.ShowDialog();
             }
         }
