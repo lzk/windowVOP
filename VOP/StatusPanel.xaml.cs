@@ -25,7 +25,10 @@ namespace VOP
         private string m_errorMsg = ""; // If isn't empty present the requiring message is showing.
         private System.Windows.Threading.DispatcherTimer m_showTimeCnter = new System.Windows.Threading.DispatcherTimer();
 
-        public void ShowMessage( string s, StatusDisplayType t ) // TODO: Add message type.
+        /// <summary>
+        /// Show message string in status panel with specified foreground brushes.
+        /// </summary>
+        public void ShowMessage( string s, Brush brForeground=null )
         {
             if ( null != txtErrMsg )
             {
@@ -33,12 +36,10 @@ namespace VOP
                 m_preStatus = m_currentStatus;
                 m_errorMsg = s;
 
-                if ( StatusDisplayType.Error == t || StatusDisplayType.Offline == t )
-                    this.txtErrMsg.Foreground = Brushes.Red;
-                else if ( StatusDisplayType.Warning == t )
-                    this.txtErrMsg.Foreground = Brushes.Orange;
-                else
+                if ( null == brForeground )
                     this.txtErrMsg.Foreground = Brushes.Black;
+                else
+                    this.txtErrMsg.Foreground = brForeground;
 
                 this.txtErrMsg.Text = s;
                 m_showTimeCnter.Start();
@@ -182,21 +183,63 @@ namespace VOP
         /// </summary>
         private Brush GetMessageForegroundBrush( EnumStatus s )
         {
-            StatusDisplayType t = common.GetStatusTypeForUI( s );
-
             Brush br = Brushes.Black;
-
-            if ( StatusDisplayType.Error == t || StatusDisplayType.Offline == t )
+            switch ( s )
             {
-                br = Brushes.Red;
-            }
-            else if ( StatusDisplayType.Warning == t )
-            {
-                br = Brushes.Orange;
-            }
-            else
-            {
-                br = Brushes.Black;
+                case EnumStatus.Ready                       : br = Brushes.Black ; break;
+                case EnumStatus.Printing                                : br = Brushes.Black ; break;
+                case EnumStatus.PowerSaving                             : br = Brushes.Black ; break;
+                case EnumStatus.WarmingUp                               : br = Brushes.Black ; break;
+                case EnumStatus.PrintCanceling                          : br = Brushes.Black ; break;
+                case EnumStatus.Processing                              : br = Brushes.Black ; break;
+                case EnumStatus.CopyScanning                            : br = Brushes.Black ; break;
+                case EnumStatus.CopyScanNextPage                        : br = Brushes.Black ; break;
+                case EnumStatus.CopyPrinting                            : br = Brushes.Black ; break;
+                case EnumStatus.CopyCanceling                           : br = Brushes.Black ; break;
+                case EnumStatus.IDCardMode                              : br = Brushes.Black ; break;
+                case EnumStatus.ScanScanning                            : br = Brushes.Black ; break;
+                case EnumStatus.ScanSending                             : br = Brushes.Black ; break;
+                case EnumStatus.ScanCanceling                           : br = Brushes.Black ; break;
+                case EnumStatus.ScannerBusy                             : br = Brushes.Black ; break;
+                case EnumStatus.TonerEnd1                               : br = Brushes.Orange; break;
+                case EnumStatus.TonerEnd2                               : br = Brushes.Orange; break;
+                case EnumStatus.TonerNearEnd                            : br = Brushes.Orange; break;
+                case EnumStatus.ManualFeedRequired                      : br = Brushes.Black ; break;
+                case EnumStatus.InitializeJam                           : br = Brushes.Red   ; break;
+                case EnumStatus.NofeedJam                               : br = Brushes.Red   ; break;
+                case EnumStatus.JamAtRegistStayOn                       : br = Brushes.Red   ; break;
+                case EnumStatus.JamAtExitNotReach                       : br = Brushes.Red   ; break;
+                case EnumStatus.JamAtExitStayOn                         : br = Brushes.Red   ; break;
+                case EnumStatus.CoverOpen                               : br = Brushes.Red   ; break;
+                case EnumStatus.NoTonerCartridge                        : br = Brushes.Red   ; break;
+                case EnumStatus.WasteTonerFull                          : br = Brushes.Red   ; break;
+                case EnumStatus.FWUpdate                                : br = Brushes.Black ; break;
+                case EnumStatus.OverHeat                                : br = Brushes.Orange; break;
+                case EnumStatus.PolygomotorOnTimeoutError               : br = Brushes.Red   ; break;
+                case EnumStatus.PolygomotorOffTimeoutError              : br = Brushes.Red   ; break;
+                case EnumStatus.PolygomotorLockSignalError              : br = Brushes.Red   ; break;
+                case EnumStatus.BeamSynchronizeError                    : br = Brushes.Red   ; break;
+                case EnumStatus.BiasLeak                                : br = Brushes.Red   ; break;
+                case EnumStatus.PlateActionError                        : br = Brushes.Red   ; break;
+                case EnumStatus.MainmotorError                          : br = Brushes.Red   ; break;
+                case EnumStatus.MainFanMotorEorror                      : br = Brushes.Red   ; break;
+                case EnumStatus.JoinerThermistorError                   : br = Brushes.Red   ; break;
+                case EnumStatus.JoinerReloadError                       : br = Brushes.Red   ; break;
+                case EnumStatus.HighTemperatureErrorSoft                : br = Brushes.Red   ; break;
+                case EnumStatus.HighTemperatureErrorHard                : br = Brushes.Red   ; break;
+                case EnumStatus.JoinerFullHeaterError                   : br = Brushes.Red   ; break;
+                case EnumStatus.Joiner3timesJamError                    : br = Brushes.Red   ; break;
+                case EnumStatus.LowVoltageJoinerReloadError             : br = Brushes.Red   ; break;
+                case EnumStatus.MotorThermistorError                    : br = Brushes.Red   ; break;
+                case EnumStatus.EEPROMCommunicationError                : br = Brushes.Red   ; break;
+                case EnumStatus.CTL_PRREQ_NSignalNoCome                 : br = Brushes.Red   ; break;
+                case EnumStatus.ScanMotorError                          : br = Brushes.Red   ; break;
+                case EnumStatus.SCAN_DRV_CALIB_FAIL                     : br = Brushes.Red   ; break;
+                case EnumStatus.NetWirelessDongleCfgFail                : br = Brushes.Red   ; break;
+                case EnumStatus.PrinterDataError                        : br = Brushes.Orange; break;
+                default:
+                                                                          br = Brushes.Black;
+                                                                          break;
             }
 
             return br;

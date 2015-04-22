@@ -221,7 +221,7 @@ namespace VOP
 
                 }
 
-                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功，机器重启后生效。" : "设置失败", StatusDisplayType.Ready );
+                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功，机器重启后生效。" : "设置失败", Brushes.Black );
             }
             else
             {
@@ -500,7 +500,7 @@ namespace VOP
                 }
             }
 
-            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(bSuccess ? "设置成功，机器重启后生效。" : "设置失败", StatusDisplayType.Ready );
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(bSuccess ? "设置成功，机器重启后生效。" : "设置失败", Brushes.Black );
         }
     }
 }

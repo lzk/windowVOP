@@ -376,14 +376,14 @@ namespace VOP
                  else if ( RETSCAN_CANCEL == (int)wParam )
                  {
                      // TODO: Clear this message in release version.
-                     m_MainWin.statusPanelPage.ShowMessage( "Scan cancel", StatusDisplayType.Ready );
+                     m_MainWin.statusPanelPage.ShowMessage( "Scan cancel", Brushes.Black );
 
                      progressBar1.Value = 0;
                      txtProgressPercent.Text = "0";
                  }
                  else
                  {
-                     m_MainWin.statusPanelPage.ShowMessage( "Scan Fail", StatusDisplayType.Ready );
+                     m_MainWin.statusPanelPage.ShowMessage( "Scan Fail", Brushes.Black );
                  }
             }
 

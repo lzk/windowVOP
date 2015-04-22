@@ -201,11 +201,11 @@ namespace VOP
             }
             else if (printRes == PrintError.Print_Operation_Fail)
             {
-                m_MainWin.statusPanelPage.ShowMessage("打印失败", StatusDisplayType.Ready);
+                m_MainWin.statusPanelPage.ShowMessage("打印失败", Brushes.Black );
             }
             else if (printRes == PrintError.Print_OK)
             {
-                m_MainWin.statusPanelPage.ShowMessage("打印成功", StatusDisplayType.Ready);
+                m_MainWin.statusPanelPage.ShowMessage("打印成功", Brushes.Black );
             }
         }
 
