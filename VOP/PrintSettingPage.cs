@@ -11,11 +11,31 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Interop;
+using System.Runtime.InteropServices;
 using Microsoft.Win32;
+
 
 namespace VOP
 {
+   
 
+    //[StructLayout(LayoutKind.Sequential)]
+    //public class CPAPERSIZE
+    //{
+    //     #define		CPAPER_NAME_LEN		24
+
+    //    int		width;
+    //    int		height;
+    //    int		cp_MiterType;  /* 0 : MM ; 1: Inch */
+    //    TCHAR	cp_szName[CPAPER_NAME_LEN + 1];
+    //    BOOL	cp_Modify;
+    //    short	paperSizeID;
+    //}
+
+    public class UserDefinedSizeRegistry
+    {
+
+    }
     /// <summary>
     /// </summary>
     public partial class PrintSettingPage : Window
