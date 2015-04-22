@@ -20,6 +20,9 @@ namespace VOP
         private EnumCopyResln       m_dpi        = EnumCopyResln._300x300;
         private EnumMediaType       m_mediaType  = EnumMediaType.Plain;
 #endregion
+
+        private EnumState m_currentState = EnumState.init; // State of current auto machine.
+
         private byte _density = 3;
         public byte m_density
         {
@@ -182,7 +185,8 @@ namespace VOP
 
         public void HandlerStateUpdate( EnumState state )
         {
-            // TODO: update UI when auto machine state change.
+            m_currentState = state;
+            btnCopy.IsEnabled = ( EnumState.init == state && false == spinCtlCopies.ValidationHasError );
         }
 
         /// <summary>
@@ -211,7 +215,7 @@ namespace VOP
 
         private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
-            btnCopy.IsEnabled = ( false == spinCtlCopies.ValidationHasError );
+            btnCopy.IsEnabled = ( EnumState.init == m_currentState && false == spinCtlCopies.ValidationHasError );
         }
 
         private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)

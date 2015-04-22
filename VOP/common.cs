@@ -92,8 +92,8 @@ namespace VOP
 
         public void TranferState( EnumStatus status )
         {
-            if ( StatusDisplayType.Error == common.GetStatusTypeForUI( status ) ||
-               EnumStatus.IDCardMode == status)
+            StatusDisplayType dt = common.GetStatusTypeForUI( status );
+            if ( StatusDisplayType.Error == dt || StatusDisplayType.Offline == dt )
             {
                 m_autoMachineState = EnumState.stopWorking;
             }
