@@ -22,34 +22,39 @@ namespace VOP
     {
         public ObservableCollection<UserDefinedSizeItem> UserDefinedSizeItems { get; set; }
 
-        public UserDefinedSetting()
+        public UserDefinedSetting(ObservableCollection<UserDefinedSizeItem> userDefinedSizeItems)
         {
-
+            UserDefinedSizeItems = userDefinedSizeItems;
             DataContext = this;
-
             InitializeComponent();
-        }
-
-        private void rdBtnMM_Checked(object sender, RoutedEventArgs e)
-        {
-            //this.tWidth.Text = "宽度（76.2-216.0）";
-            //this.tHeight.Text = "高度（116.0-355.6）";
-            //this.tbWidth.Text = "210.0";
-            //this.tbHeight.Text = "297.0";
-
-        }
-
-        private void rdBtnInch_Checked(object sender, RoutedEventArgs e)
-        {
-            //this.tWidth.Text = "宽度（3.00-8.50）";
-            //this.tHeight.Text = "高度（4.57-14.00）";
-            //this.tbWidth.Text = "8.27";
-            //this.tbHeight.Text = "11.69";
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
+            myStackPanel.AddHandler(RadioButton.CheckedEvent, new RoutedEventHandler(OnRadioChecked));
+
+        }
+
+        private void OnRadioChecked(object sender, RoutedEventArgs e)
+        {
+            RadioButton button = e.Source as RadioButton;
+            if (button.Name == "RadioButtonMM")
+            {
+                tWidth.Text = "宽度（76.2-216.0）";
+                tHeight.Text = "高度（116.0-355.6）";
+
+                tbWidth.Text = "210.0";
+                tbHeight.Text = "297.0";
+            }
+            else
+            {
+                tWidth.Text = "宽度（3.00-8.50）";
+                tHeight.Text = "高度（4.57-14.00）";
+
+                tbWidth.Text = "8.27";
+                tbHeight.Text = "11.69";
+            }
         }
 
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -83,9 +88,17 @@ namespace VOP
                     UserDefinedSizeItems.Add(new UserDefinedSizeItem()
                     {
                         UserDefinedName = myComboBox.Text.Trim(),
-                        IsMM = (bool)myRadioButton.IsChecked, 
+                        IsMM = (bool)RadioButtonMM.IsChecked, 
                         Width = w, 
                         Height = h });
+                }
+                else if (result.Count == 1)
+                {
+                    UserDefinedSizeItem item = (UserDefinedSizeItem)result[0];
+                    item.UserDefinedName = myComboBox.Text.Trim();
+                    item.IsMM = (bool)RadioButtonMM.IsChecked;
+                    item.Width = w;
+                    item.Height = h;
                 }
             }
         }
@@ -111,22 +124,7 @@ namespace VOP
         {
             this.DialogResult = true;
         }
-
-        public UserDefinedSizeItem GetSelectedDefinedSizeItem()
-        {
-            var result = (from item in UserDefinedSizeItems
-                          where item.UserDefinedName == myComboBox.Text.Trim()
-                          select item).ToList();
-
-            if (result.Count != 0)
-            {
-               return (UserDefinedSizeItem)result[0];
-            }
-            else
-            {
-                return null;
-            }
-        }
+    
     }
 
  

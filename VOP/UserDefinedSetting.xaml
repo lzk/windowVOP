@@ -137,12 +137,12 @@
                           ItemsSource="{Binding UserDefinedSizeItems}"
                           DisplayMemberPath="UserDefinedName"
                           SelectedValuePath="UserDefinedName"
-                          SelectedValue="自定义尺寸01"
+                          SelectedValue=""
                           />
             </controls:GroupBoxDecorator>
 
             <controls:GroupBoxDecorator Style="{StaticResource GroupBoxDecoratorNoHeader}" Grid.Row="2" Padding="10">
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" Name="myStackPanel">
                     <TextBlock Text="单位：" 
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Center"
@@ -152,9 +152,8 @@
                            Foreground="DarkSlateGray"
                            Margin="30,0,0,0"/>
 
-                    <RadioButton Name="myRadioButton"
+                    <RadioButton Name="RadioButtonMM"
                              GroupName="Goup1" 
-                             Checked="rdBtnMM_Checked"
                              IsChecked="{Binding ElementName=myComboBox, Mode=OneWay, Path=SelectedItem, Converter={StaticResource isInchConverter}}"
                              Content="毫米" 
                              Template="{StaticResource customRadioButton}"
@@ -162,7 +161,7 @@
                              Margin="10,0,0,0"/>
 
                     <RadioButton GroupName="Goup1"
-                             Checked="rdBtnInch_Checked"
+                             Name="RadioButtonInch"
                              IsChecked="{Binding ElementName=myComboBox, Mode=OneWay, Path=SelectedItem, Converter={StaticResource isInchConverter}, ConverterParameter=flip}"
                              Content="英寸"
                              Template="{StaticResource customRadioButton}"

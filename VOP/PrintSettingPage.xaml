@@ -141,18 +141,11 @@
 				x:Name="cboPaperSize"
 				Background="White" 
                 ItemContainerStyle="{StaticResource customComboBoxItem}"
+                ItemsSource="{Binding PaperSizeItemsBase}"
+                DisplayMemberPath="UserDefinedName"
+                SelectedValuePath="UserDefinedName"
+                SelectedValue="A4"
 				SelectionChanged="cboPaperSize_SelectionChanged">
-                <ComboBoxItem Content="A4" IsSelected="true"/>
-                <ComboBoxItem Content="Letter" />
-                <ComboBoxItem Content="B5(ISO)" />
-                <ComboBoxItem Content="A5" />
-                <ComboBoxItem Content="A5(LEF)" />
-                <ComboBoxItem Content="B6" />
-                <ComboBoxItem Content="B6(LEF)" />
-                <ComboBoxItem Content="A6" />
-                <ComboBoxItem Content="Executive" />
-                <ComboBoxItem Content="16K" />
-                <ComboBoxItem Content="User Defined Size" />
             </ComboBox>
         </Controls:GroupBoxDecorator>
 

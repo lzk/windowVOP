@@ -204,7 +204,7 @@ namespace VOP
             }
             else if (printRes == PrintError.Print_OK)
             {
-                m_MainWin.statusPanelPage.ShowMessage("打印成功", Brushes.Black );
+                //m_MainWin.statusPanelPage.ShowMessage("打印成功", Brushes.Black );
             }
         }
 

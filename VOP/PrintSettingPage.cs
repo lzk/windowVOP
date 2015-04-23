@@ -20,6 +20,11 @@ using System.Collections.ObjectModel;
 
 namespace VOP
 {
+    public enum UserDefinedSizeType
+    {
+        MM = 0,
+        Inch  = 1,
+    }
 
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     public struct CPAPERSIZE
@@ -35,6 +40,7 @@ namespace VOP
 
     public class UserDefinedSizeRegistry
     {
+
         RegistryKey rootKey = Registry.CurrentUser;
         string openKeyString = @"Software\Lenovo\" + ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter
                                + @"\Lenovo Printer\PrinterUI\CustomPaperSize";
@@ -45,6 +51,9 @@ namespace VOP
             try
             {
                 rootKey = rootKey.OpenSubKey(openKeyString, true);
+
+                if (rootKey == null)
+                    return false;
             }
             catch(Exception)
             {
@@ -176,6 +185,33 @@ namespace VOP
         }
 
     }
+
+    public static class SizeConvert
+    {
+        public static int SizeToPixel(double s, UserDefinedSizeType type)
+        {
+            if (type == UserDefinedSizeType.MM)
+            {
+                return (int)(s / 25.4 * 600);
+            }
+            else
+            {
+                return (int)(s * 600);
+            }
+        }
+
+        public static double PixelToSize(int p, UserDefinedSizeType type)
+        {
+            if (type == UserDefinedSizeType.MM)
+            {
+                return p / 600 * 25.4;
+            }
+            else
+            {
+                return p / 600;
+            }
+        }
+    }
     /// <summary>
     /// </summary>
     public partial class PrintSettingPage : Window
@@ -203,6 +239,7 @@ namespace VOP
         public sbyte m_ADJColorBalance = 1;
         #endregion
 
+        public ObservableCollection<UserDefinedSizeItem> PaperSizeItemsBase { get; set; }
         public ObservableCollection<UserDefinedSizeItem> UserDefinedSizeItems { get; set; }
 
         public MainWindow m_MainWin { get; set; }
@@ -211,6 +248,8 @@ namespace VOP
 
         public PrintSettingPage()
         {
+            DataContext = this;
+            InitBaseUserDefinedSizeItems();
             InitializeComponent();
             UserDefinedSizeItems = new ObservableCollection<UserDefinedSizeItem>();
         }
@@ -229,7 +268,8 @@ namespace VOP
                 FileSelectionPage.IsInitPrintSettingPage = false;
             }
             else
-            {                
+            {
+                SetDefaultValue();
                 GetDataFromPrinterInfo();
             }
 
@@ -279,25 +319,55 @@ namespace VOP
             this.DialogResult = true;
         }
 
+        private void InitBaseUserDefinedSizeItems()
+        {
+            PaperSizeItemsBase = new ObservableCollection<UserDefinedSizeItem>
+            {
+                new UserDefinedSizeItem(){UserDefinedName = "A4"},
+                new UserDefinedSizeItem(){UserDefinedName = "Letter"},
+                new UserDefinedSizeItem(){UserDefinedName = "B5(ISO)"},
+                new UserDefinedSizeItem(){UserDefinedName = "A5"},
+                new UserDefinedSizeItem(){UserDefinedName = "A5(LEF)"},
+                new UserDefinedSizeItem(){UserDefinedName = "B6"},
+                new UserDefinedSizeItem(){UserDefinedName = "B6(LEF)"},
+                new UserDefinedSizeItem(){UserDefinedName = "A6"},
+                new UserDefinedSizeItem(){UserDefinedName = "Executive"},
+                new UserDefinedSizeItem(){UserDefinedName = "16K"},
+                new UserDefinedSizeItem(){UserDefinedName = "User Defined Size"}
+            };
+        }
+
         private void UpdatePaperSizeCombobox()
         {
+            UserDefinedSizeItems.Clear();
+
             if (regHelper.Open())
             {
                 int count = regHelper.GetCount();
 
                 CPAPERSIZE[] block = regHelper.GetCustomPaperBin();
 
-                if(block != null)
+                if (block != null)
                 {
-                    for(int i = 0; i < count; i++)
+                    for (int i = 0; i < count; i++)
                     {
-
-                        cboPaperSize.Items.Add(block[0].cp_szName.ToString());
+                        UserDefinedSizeItems.Add(new UserDefinedSizeItem()
+                        {
+                            UserDefinedName = block[i].cp_szName.ToString(),
+                            IsMM = block[i].cp_MiterType == 0 ? true : false,
+                            Width = SizeConvert.PixelToSize(block[i].width, block[i].cp_MiterType == 0 ? UserDefinedSizeType.MM : UserDefinedSizeType.Inch),
+                            Height = SizeConvert.PixelToSize(block[i].height, block[i].cp_MiterType == 0 ? UserDefinedSizeType.MM : UserDefinedSizeType.Inch),
+                        });
                     }
                 }
-             
+
                 regHelper.Close();
-            }  
+            }
+
+            Binding myBinding = new Binding();
+            myBinding.Source = PaperSizeItemsBase.Concat(UserDefinedSizeItems);
+            cboPaperSize.SetBinding(ComboBox.ItemsSourceProperty, myBinding);
+
         }
 
         private void cboPaperSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -307,13 +377,13 @@ namespace VOP
             if (m_paperSize == 10)
             {
                 bool? result = null;
-                UserDefinedSetting UserDefinedWin = new UserDefinedSetting();
+                UserDefinedSetting UserDefinedWin = new UserDefinedSetting(UserDefinedSizeItems);
                 UserDefinedWin.Owner = App.Current.MainWindow;
 
                 result = UserDefinedWin.ShowDialog();
                 if (result == true)
                 {
-                    // selectedDefinedSizeItem = UserDefinedWin.GetSelectedDefinedSizeItem();
+
                 }
             }
         }
@@ -668,12 +738,14 @@ namespace VOP
         {
             if (m_CurrentPrintType == PrintPage.PrintType.PrintFile)
             {
-                cboPaperSize.IsEnabled = true;
+                cboPaperSize.IsEnabled = false;
+                rdBtnPortrait.IsEnabled = false;
+                rdBtnLandscape.IsEnabled = false;
                 rdBtnLandscape.IsChecked = false;
                 rdBtnPortrait.IsChecked = true;
                 cboMediaType.IsEnabled = true;
-                rdBtnPagerOrder112233.IsEnabled = true;
-                rdBtnPagerOrder123123.IsEnabled = true;
+                rdBtnPagerOrder112233.IsEnabled = false;
+                rdBtnPagerOrder123123.IsEnabled = false;
                 rdBtnPagerOrder123123.IsChecked = true;
                 cboPrintQuality.IsEnabled = true;
                 spinnerScaling.IsEnabled = true;
@@ -902,7 +974,15 @@ namespace VOP
                     break;
                 case 1:
                     spinnerScaling.IsEnabled = true;
-                    chk_FitToPaperSize.IsEnabled = true;
+                    if (m_CurrentPrintType == PrintPage.PrintType.PrintFile)
+                    {
+                        chk_FitToPaperSize.IsEnabled = false;
+                    }
+                    else
+                    {
+                        chk_FitToPaperSize.IsEnabled = true;
+                    }
+                   
                     chk_FitToPaperSize.IsChecked = false;
                     spinnerScaling.Value = m_scalingRatio;
                     break;
