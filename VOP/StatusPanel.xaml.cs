@@ -70,6 +70,11 @@ namespace VOP
                 {
                     _toner = value;
                     lbTonerBar.CurValue = value;
+
+                    if ( value > 30 )
+                    {
+                        this.lbTonerBar.FlashShopCatIcon(false);
+                    }
                 }
             }
 
@@ -167,10 +172,9 @@ namespace VOP
         {
             PurchaseWindow win = new PurchaseWindow();
 
-            if (true == win.ShowDialog())
-            {
+            win.ShowDialog();
 
-            }
+            this.lbTonerBar.FlashShopCatIcon(false);
         }
 
 
