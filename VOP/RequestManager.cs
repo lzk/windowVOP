@@ -500,12 +500,12 @@ namespace VOP
             return bSuccess;
         }
 
-        public bool SendHttpWebRequest<T>(string url, string httpRequestMtd, string strBuf, JSONReturnFormat rtFormat, ref T record)
+        public bool SendHttpWebRequest<T>(string url, string httpRequestMtd, string strParam, JSONReturnFormat rtFormat, ref T record, ref string strResult)
         {
             bool bSuccess = false;
             try
             {
-                byte[] byteArray = Encoding.UTF8.GetBytes(strBuf); // 转化
+                byte[] byteArray = Encoding.UTF8.GetBytes(strParam); // 转化
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);  //新建一个WebRequest对象用来请求或者响应url
                 dll.OutputDebugStringToFile_("####### SendHttpWebRequest WebRequest.Create(url) ######");
                 IWebProxy webProxy = WebRequest.DefaultWebProxy;
@@ -543,6 +543,7 @@ namespace VOP
 
                 string text2 = sr2.ReadToEnd();
                 dll.OutputDebugStringToFile_(text2);
+                strResult = text2;
                 if (ParseJsonData<T>(text2, rtFormat, ref record))
                 {
                     bSuccess = true;
@@ -564,8 +565,9 @@ namespace VOP
             bool bSuccess = false;
             string url = "http://function.iprintworks.cn:8001/smsauth/mt_u.php";
             string strCMD = "phoneNum=" + strPhoneNumber;
+            string strResult = "";
 
-            if (SendHttpWebRequest<JSONResultFormat1>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat1, ref rtValue))
+            if (SendHttpWebRequest<JSONResultFormat1>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat1, ref rtValue, ref strResult))
             {
                 if (rtValue.m_bSuccess)
                 {
@@ -581,8 +583,9 @@ namespace VOP
             bool bSuccess = false;
             string url = "http://function.iprintworks.cn:8001/smsauth/authCode.php";
             string strCMD = "phoneNum=" + strPhoneNumber + "&authCode=" + strVerifyCode;
+            string strResult = "";
 
-            if (SendHttpWebRequest<JSONResultFormat1>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat1, ref rtValue) || rtValue.m_bSuccess)
+            if (SendHttpWebRequest<JSONResultFormat1>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat1, ref rtValue, ref strResult) || rtValue.m_bSuccess)
             {
                 if (rtValue.m_bSuccess)
                 {
@@ -598,8 +601,9 @@ namespace VOP
             bool bSuccess = false;
             string url = "http://o2o.iprintworks.cn/api/common/saveCustomer";
             string strCMD = "customer_id=105";
+            string strResult = "";
 
-            if (SendHttpWebRequest<SessionInfo>(url, "POST", strCMD, JSONReturnFormat.SessionInfo, ref rtValue))
+            if (SendHttpWebRequest<SessionInfo>(url, "POST", strCMD, JSONReturnFormat.SessionInfo, ref rtValue, ref strResult))
             {
                 if (rtValue.m_bSuccess)
                 {
@@ -610,33 +614,51 @@ namespace VOP
             return bSuccess;
         }
 
-        public bool GetMerchantSet(Int32 nStart, Int32 nLimit, ref MerchantInfoSet rtValue)
+        public bool GetMerchantSet(Int32 nStart, Int32 nLimit, ref MerchantInfoSet rtValue, ref string strResult )
         {
             bool bSuccess = false;
             string url = "http://o2o.iprintworks.cn/api/data/getMerchantList";
             string strCMD = String.Format("start={0}&limit={1}", nStart, nLimit);
-
-            if (SendHttpWebRequest<MerchantInfoSet>(url, "POST", strCMD, JSONReturnFormat.MerchantInfoSet, ref rtValue))
+            strResult = "";
+           
+            int nCount = 2;
+            while (nCount-- > 0)
             {
-                if (rtValue.m_bSuccess)
+                rtValue.m_bSuccess = bSuccess = false;
+                
+                if (SendHttpWebRequest<MerchantInfoSet>(url, "POST", strCMD, JSONReturnFormat.MerchantInfoSet, ref rtValue, ref strResult))
                 {
-                    bSuccess = true;
+                    if (rtValue.m_bSuccess)
+                    {
+                        bSuccess = true;
+                    }
+                }
+
+                if ((!bSuccess) && (!rtValue.m_bSuccess) && m_CookieContainer.Count == 0)
+                {
+                    SessionInfo session = new SessionInfo();
+                    GetSession(ref session);
+                }
+                else
+                {
+                    break;
                 }
             }
 
             return bSuccess;
         }
 
-        public bool GetMaintainInfoSet(Int32 nStart, Int32 nLimit, ref MaintainInfoSet rtValue)
+        public bool GetMaintainInfoSet(Int32 nStart, Int32 nLimit, ref MaintainInfoSet rtValue, ref string strResult)
         {
             bool bSuccess = false;
             string url = "http://o2o.iprintworks.cn/api/data/getServiceStationList";//请求登录的URL
             string strCMD = String.Format("start={0}&limit={1}", nStart, nLimit);
+            strResult = "";
             int nCount = 2;
             while(nCount-- > 0)
             {
                 rtValue.m_bSuccess = bSuccess = false;
-                if (SendHttpWebRequest<MaintainInfoSet>(url, "POST", strCMD, JSONReturnFormat.MaintainInfoSet, ref rtValue) || rtValue.m_bSuccess)
+                if (SendHttpWebRequest<MaintainInfoSet>(url, "POST", strCMD, JSONReturnFormat.MaintainInfoSet, ref rtValue, ref strResult) || rtValue.m_bSuccess)
                 {
                     bSuccess = true;
                 }
@@ -662,8 +684,9 @@ namespace VOP
             //http://crm.iprintworks.cn/api/app_print
             string url = "http://123.57.255.92/api/app_print";//debug 
             string strCMD = _PrintInfo.ConvertToWebParams();
+            string strResult = "";
 
-            if (SendHttpWebRequest<JSONResultFormat2>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat2, ref rtValue))
+            if (SendHttpWebRequest<JSONResultFormat2>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat2, ref rtValue, ref strResult))
             {
                 if (rtValue.m_bSuccess)
                 {
@@ -680,8 +703,9 @@ namespace VOP
             //http://crm.iprintworks.cn/api/app_open
             string url = "http://123.57.255.92/api/app_open";//debug 
             string strCMD = _lci.ConvertToWebParams();
+            string strResult = "";
 
-            if (SendHttpWebRequest<JSONResultFormat2>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat2, ref rtValue))
+            if (SendHttpWebRequest<JSONResultFormat2>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat2, ref rtValue, ref strResult))
             {
                 if (rtValue.m_bSuccess)
                 {

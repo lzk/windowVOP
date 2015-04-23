@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Interop;
 
 namespace VOP
 {
@@ -22,6 +23,7 @@ namespace VOP
         List<string> m_listProvince = new List<string>();
         List<KeyValuePair<string, string>> m_listProvinceCity = new List<KeyValuePair<string, string>>();       
         bool m_bInit = false;
+        int  m_nExpiredMonth = 0; 
        
         public PurchaseWindow()
         {
@@ -43,12 +45,13 @@ namespace VOP
             m_MerchantInfoSet.Clear();
             m_listProvince.Clear();
             m_listProvinceCity.Clear();
+            string strResult = "";
 
-            if (true == VOP.MainWindow.m_RequestManager.GetMerchantSet(0, 5, ref maintainSet))
+            if (true == VOP.MainWindow.m_RequestManager.GetMerchantSet(0, 5, ref maintainSet, ref strResult))
             {
                 int nTotalCount = maintainSet.m_nTotalCount;
 
-                if (true == VOP.MainWindow.m_RequestManager.GetMerchantSet(0, nTotalCount, ref m_MerchantInfoSet))
+                if (true == VOP.MainWindow.m_RequestManager.GetMerchantSet(0, nTotalCount, ref m_MerchantInfoSet, ref strResult))
                 {
                     bSuccess = true;
                 }
@@ -57,8 +60,31 @@ namespace VOP
             if (!bSuccess)
             {
                 m_MerchantInfoSet.Clear();
-                string str = LocalData.MerchantInfo_Json;
+
+                DateTime dtSaveTime = new DateTime();
+                string str = "";
+                if (true == VOP.MainWindow.ReadCRMDataFromXamlFile("Merchant.xaml", ref dtSaveTime, ref str))
+                {
+                    DateTime newDate = DateTime.Now;
+                    TimeSpan ts = newDate - dtSaveTime;
+                    int differenceInDays = ts.Days;
+                    m_nExpiredMonth = differenceInDays / 30;
+
+                    if (m_nExpiredMonth >= 3)
+                        Win32.PostMessage((IntPtr)0xffff, App.WM_CHECK_MERCHANT_INFO_Expired, IntPtr.Zero, IntPtr.Zero);
+                }
+                else
+                {
+                    str = LocalData.MaintainInfo_Json;
+                    VOP.MainWindow.SaveCRMDataIntoXamlFile("Merchant.xaml", DateTime.Now, strResult);
+                }
+
+                str = LocalData.MerchantInfo_Json;
                 VOP.MainWindow.m_RequestManager.ParseJsonData<MerchantInfoSet>(str, JSONReturnFormat.MerchantInfoSet, ref m_MerchantInfoSet);
+            }
+            else
+            {
+                VOP.MainWindow.SaveCRMDataIntoXamlFile("Merchant.xaml", DateTime.Now, strResult);
             }
 
             for (int nIdx = 0; nIdx < m_MerchantInfoSet.m_nTotalCount; nIdx++)
@@ -88,6 +114,55 @@ namespace VOP
             m_bInit = true;
 
             cboProvince.SelectedIndex = 0;
+
+            AddMessageHook();
+        }
+
+        private System.IntPtr _handle = IntPtr.Zero;
+        public System.IntPtr WindowHandle
+        {
+            get
+            {
+                if (_handle == IntPtr.Zero)
+                    _handle = (new WindowInteropHelper(App.Current.MainWindow)).Handle;
+                return _handle;
+            }
+        }
+
+        private void AddMessageHook()
+        {
+            HwndSource src = HwndSource.FromHwnd(WindowHandle);
+            src.AddHook(new HwndSourceHook(this.WndProc));
+        }
+
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            System.Windows.Forms.Message m = new System.Windows.Forms.Message();
+            m.HWnd = hwnd;
+            m.Msg = msg;
+            m.WParam = wParam;
+            m.LParam = lParam;
+
+            if (handled)
+                return IntPtr.Zero;
+
+            if (msg == App.WM_CHECK_MERCHANT_INFO_Expired)
+            {
+                if (m_nExpiredMonth >= 3)
+                {
+                    try
+                    {
+                        string strMessage = String.Format("经销商信息已经{0}个月未更新，为保证信息的准确性，请在线更新。", m_nExpiredMonth);
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, strMessage, "");
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+          
+            return IntPtr.Zero;
         }
 
         private void cboProvince_SelectionChanged(object sender, SelectionChangedEventArgs e)
