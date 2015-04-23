@@ -404,13 +404,14 @@ namespace VOP
         /// <summary>
         /// Exit falg. True if need to exit thread statusUpdater.
         /// </summary>
-        bool bExitUpdater = false;
-        bool m_isShowedMaintainWindow = false;
-        // Those variable were used for post WM_STATUS_UPDATE message, do not
-        // for other usage.
+        private bool bExitUpdater = false;
+        private bool m_isShowedMaintainWindow = false;
+
+        // NOTE: Those variable were used for post WM_STATUS_UPDATE message, do not for other usage.
         private byte _toner  = 0;
         private byte _status = (byte)EnumStatus.Offline; 
         private byte _job    = (byte)EnumMachineJob.UnknowJob;
+        private object statusLock = new Object(); // Use to sync status share varibles.
 
         public void UpdateStatusCaller()
         {
@@ -418,26 +419,38 @@ namespace VOP
 
             m_updaterAndUIEvent.Reset();
 
-            // TODO: Add Thread Sync mechanism for share variable
+            // The UpdateStatusCaller only read the share variables,
+            // so don't add Thread Sync mechanism for share variable yet.
             bExitUpdater = false;
+
+            byte _tmpToner  = 0;
+            byte _tmpStatus = (byte)EnumStatus.Offline; 
+            byte _tmpJob    = (byte)EnumMachineJob.UnknowJob;
 
             while ( !bExitUpdater )
             {
-                if (false == GetPrinterStatusEx(statusPanelPage.m_selectedPrinter, ref _status, ref _toner, ref _job))
+                if (false == GetPrinterStatusEx(statusPanelPage.m_selectedPrinter, ref _tmpStatus, ref _tmpToner, ref _tmpJob))
                 {
                     nFailCnt++;
                     
                     // If status getting fail more than 3 times, reset the status
                     if ( nFailCnt >= 3 )
                     {
-                        _toner  = 0;
-                        _status = (byte)EnumStatus.Offline; 
-                        _job    = (byte)EnumMachineJob.UnknowJob;
+                        _tmpToner  = 0;
+                        _tmpStatus = (byte)EnumStatus.Offline; 
+                        _tmpJob    = (byte)EnumMachineJob.UnknowJob;
                     }
                 }            
                 else
                 {
                     nFailCnt = 0;
+                }
+
+                lock ( statusLock )
+                {
+                    _toner  = _tmpToner ;
+                    _status = _tmpStatus;
+                    _job    = _tmpJob   ;
                 }
 
                 // TODO: post the status message to the main window
@@ -503,10 +516,12 @@ namespace VOP
                byte status = (byte)EnumStatus.Offline; 
                byte job    = (byte)EnumMachineJob.UnknowJob;
 
-               // TODO: add sync mechanism 
-               toner  = _toner ;
-               status = _status;
-               job    = _job   ;
+               lock ( statusLock )
+               {
+                   toner  = _toner ;
+                   status = _status;
+                   job    = _job   ;
+               }
 
                this.statusPanelPage.m_toner         = toner;
                this.statusPanelPage.m_currentStatus = (EnumStatus)status;
@@ -634,8 +649,7 @@ namespace VOP
                     || (byte)EnumStatus.PowerOff == status 
                     || (byte)EnumStatus.Unknown == status );
 
-            // TODO: uncomment this statement: if ( bIsOnline )
-            if ( true )
+            if ( bIsOnline )
             {
                 m_isOnlineDetected = true;
                 ExpandSubpage();
