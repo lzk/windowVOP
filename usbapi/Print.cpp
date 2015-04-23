@@ -126,6 +126,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(const TCHAR * strPrinterName,
 	BYTE* ptr_tonerSaving);//byte
 
 USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies);
+USBAPI_API void __stdcall SetDefault(const TCHAR * strPrinterName);
 
 static std::vector<PrintItem> g_vecImagePaths;
 static std::vector<IStream*>  g_vecIdCardImageSources;
@@ -671,7 +672,7 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
 			{
 				PCLDEVMODE devmode;
 
-				DWORD dwSize = sizeof(devmode)- sizeof(DEVMODE);
+				DWORD dwSize = sizeof(devmode)-sizeof(DEVMODE);
 
 				devmode = *(LPPCLDEVMODE)printer_info->pDevMode;
 				switch (PaperSize)
@@ -712,7 +713,7 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
 				default:
 					devmode.dmPublic.dmPaperSize = DMPAPER_LETTER;
 					break;
-				}				
+				}
 
 				devmode.dmPublic.dmOrientation = PaperOrientation;
 				devmode.dmPublic.dmMediaType = MediaType + DMMEDIA_USER;
@@ -751,6 +752,71 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
 		ClosePrinter(phandle);
 		phandle = NULL;
 	}
+}
+
+USBAPI_API void __stdcall SetDefault(const TCHAR * strPrinterName)
+{
+	HANDLE   phandle;
+	DWORD dmsize;
+
+	phandle = NULL;
+	LPPCLDEVMODE lpInitData = NULL;
+	LPPCLDEVMODE lpDefaultData = NULL;
+
+	wchar_t szprintername[MAX_PATH] = { 0 };
+	wcscpy_s(szprintername, MAX_PATH, strPrinterName);
+
+	if (OpenPrinter(szprintername, &phandle, NULL))
+	{
+		LPPRINTER_INFO_2 printer_info;
+
+		GetPrinter(phandle, 2, (LPBYTE)NULL, 0, &dmsize);
+
+		printer_info = (LPPRINTER_INFO_2)malloc(dmsize);
+
+		if (printer_info != NULL)
+		{
+			if (GetPrinter(phandle, 2, (LPBYTE)printer_info, dmsize, &dmsize))
+			{
+				dmsize = DocumentProperties(NULL, phandle, szprintername, NULL, NULL, 0);
+
+				lpDefaultData = (LPPCLDEVMODE)malloc(dmsize);
+
+				lpInitData = (LPPCLDEVMODE)malloc(dmsize);
+
+				if (lpDefaultData && lpInitData)
+				{
+					DocumentProperties(NULL, phandle, szprintername,
+						(LPDEVMODE)lpDefaultData, NULL, DM_OUT_BUFFER);
+
+					DocumentProperties(NULL, phandle, szprintername,
+						(LPDEVMODE)lpInitData, (LPDEVMODE)lpDefaultData, DM_IN_BUFFER | DM_OUT_BUFFER);
+				}
+				PCLDEVMODE devmode;
+				devmode = *(LPPCLDEVMODE)lpDefaultData;
+
+				*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
+
+				SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
+			}
+			free(printer_info);
+
+		}
+			
+	}
+
+		if (lpDefaultData)
+			free(lpDefaultData);
+
+		if (lpInitData)
+			free(lpInitData);
+		if (phandle != NULL)
+		{
+			ClosePrinter(phandle);
+			phandle = NULL;
+		}
+
+
 }
 
 USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies)
@@ -900,8 +966,6 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 
 				*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
 
-				*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
-
 				SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
 
 			}
@@ -1022,8 +1086,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(const TCHAR * strPrinterName,
 				inputDevmode.dmPublic.dmDuplex = *ptr_duplexPrint; //DUPLEX£¬ DMDUP_VERTICAL: ³¤±ß DMDUP_HORIZONTAL£¬¶Ì±ß
 
 				inputDevmode.dmPrivate.bPaperReverseOrder = *ptr_reversePrint;
-				inputDevmode.dmPrivate.graphics.TonerSaving = *ptr_tonerSaving;
-
+				inputDevmode.dmPrivate.graphics.TonerSaving = *ptr_tonerSaving;				
 
 				dmsize = DocumentProperties(NULL, phandle, szprintername, NULL, NULL, 0);
 

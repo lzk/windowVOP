@@ -280,6 +280,9 @@ namespace VOP
         [DllImport("usbapi.dll")]
         public static extern void SetCopies([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName, sbyte Copies);
 
+        [DllImport("usbapi.dll")]
+        public static extern void SetDefault([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName);
+
     }
 
 }

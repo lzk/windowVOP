@@ -25,6 +25,7 @@ EXPORTS
 	GetPrinterInfo
 	OpenDocumentProperties
 	SetCopies
+	SetDefault
 	OutputDebugStringToFileA
 	OutputDebugStringToFile
 	OutputDebugStringToFile_
