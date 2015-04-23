@@ -299,8 +299,8 @@ namespace VOP
             notifyIcon1.Text = "ABC Virtual Panel";
             notifyIcon1.Visible = true;
 
-            // Handle the Click event to activate the form.        
-            notifyIcon1.Click += notifyIcon1_Click;
+            // Handle the Double Click event to activate the form.        
+            notifyIcon1.DoubleClick += notifyIcon1_Click;
         }
 
         void notifyIcon1_Click(object sender, EventArgs e)
