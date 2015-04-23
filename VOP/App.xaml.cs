@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Threading; // for Mutex
+using System.Globalization; // for Multi-Langulage UI
 
 
 namespace VOP
@@ -69,5 +70,45 @@ namespace VOP
             }
 
         }
+
+        #region Multi-Langulage
+        public static string Culture { get; set; }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            GetCulture();
+        }
+
+        // https://msdn.microsoft.com/zh-cn/library/kx54z3k7(VS.80).aspx
+        public void GetCulture()
+        {
+            Culture = string.Empty;          
+            CultureInfo CurrentUICulture = CultureInfo.CurrentUICulture;       
+
+            Culture = CurrentUICulture.Name;           
+
+            List<ResourceDictionary> dictionaryList = new List<ResourceDictionary>();
+            foreach (ResourceDictionary dictionary in Application.Current.Resources.MergedDictionaries)
+            {
+                dictionaryList.Add(dictionary);
+            }
+            string requestedCulture = string.Format(@"Resources\StringResource.{0}.xaml", Culture);
+            ResourceDictionary resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString.Equals(requestedCulture));
+            if (resourceDictionary == null)
+            {
+                requestedCulture = @"Resources\StringResource.xaml";
+                resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString.Equals(requestedCulture));
+            }
+            if (resourceDictionary != null)
+            {
+                Application.Current.Resources.MergedDictionaries.Remove(resourceDictionary);
+                Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+            }             
+            
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(Culture);
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo(Culture);
+        }
+        #endregion  //Multi-Langulage
     }
 }
