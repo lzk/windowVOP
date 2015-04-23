@@ -52,6 +52,7 @@ namespace VOP
 
             ScanFiles objScan   = new ScanFiles();
 
+            // TODO: Clear those object for release version.
             objScan.m_pathOrig  = @"G:\TestImages\image1.bmp";
             objScan.m_pathView  = @"G:\TestImages\image2.bmp";
             objScan.m_pathThumb = @"G:\TestImages\image3.bmp";
@@ -159,13 +160,18 @@ namespace VOP
 
                 if ( -1 != index )
                 {
-                    this.image_wrappanel.Children.RemoveAt( index );
-
                     ImageItem tmp  = new ImageItem();
                     tmp.m_images = win.m_rotatedObj;
 
                     if ( tmp.m_iSimgReady )
                     {
+                        this.image_wrappanel.Children.RemoveAt( index );
+
+                        // Remove original cache files.
+                        File.Delete(img.m_images.m_pathOrig);
+                        File.Delete(img.m_images.m_pathView);
+                        File.Delete(img.m_images.m_pathThumb);
+
                         tmp.ImageSingleClick += ImageItemSingleClick;
                         tmp.ImageDoubleClick += ImageItemDoubleClick;
                         tmp.CheckImage( false );
@@ -173,9 +179,6 @@ namespace VOP
                         this.image_wrappanel.Children.Insert(index, tmp );
                         App.scanFileList.Add( objScan );
                     }
-
-
-                    // TODO: remove original cache file.
                 }
             }
         }
@@ -378,9 +381,6 @@ namespace VOP
                  }
                  else if ( RETSCAN_CANCEL == (int)wParam )
                  {
-                     // TODO: Clear this message in release version.
-                     m_MainWin.statusPanelPage.ShowMessage( "Scan cancel", Brushes.Black );
-
                      progressBar1.Value = 0;
                      txtProgressPercent.Text = "0";
                  }

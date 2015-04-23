@@ -313,7 +313,7 @@ namespace VOP
                 result = UserDefinedWin.ShowDialog();
                 if (result == true)
                 {
-                    selectedDefinedSizeItem = UserDefinedWin.GetSelectedDefinedSizeItem();
+                    // selectedDefinedSizeItem = UserDefinedWin.GetSelectedDefinedSizeItem();
                 }
             }
         }
