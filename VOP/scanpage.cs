@@ -39,9 +39,10 @@ namespace VOP
         private Thread scanningThread = null;
         private uint WM_VOPSCAN_PROGRESS = Win32.RegisterWindowMessage("vop_scan_progress2");
         private uint WM_VOPSCAN_COMPLETED = Win32.RegisterWindowMessage("vop_scan_completed");
-        // share data between UI thread and scanning thread. TODO: add sync
-        // for objScan
-        private ScanFiles objScan = null; 
+
+        // share data between UI thread and scanning thread. 
+        private ScanFiles m_shareObj = null; 
+        private object objLock = new object(); 
 
         // InitialDirectory for SaveFileDialog.
         private string strInitalDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
@@ -49,29 +50,6 @@ namespace VOP
         public ScanPage()
         {
             InitializeComponent();
-
-            ScanFiles objScan   = new ScanFiles();
-
-            // TODO: Clear those object for release version.
-            objScan.m_pathOrig  = @"G:\TestImages\image1.bmp";
-            objScan.m_pathView  = @"G:\TestImages\image2.bmp";
-            objScan.m_pathThumb = @"G:\TestImages\image3.bmp";
-             
-            objScan.m_colorMode  = EnumColorType.color_24bit;
-            App.scanFileList.Add( objScan );
-            App.scanFileList.Add( objScan );
-            App.scanFileList.Add( objScan );
-            App.scanFileList.Add( objScan );
-            App.scanFileList.Add( objScan );
-            App.scanFileList.Add( objScan );
-            App.scanFileList.Add( objScan );
-            App.scanFileList.Add( objScan );
-            App.scanFileList.Add( objScan );
-            App.scanFileList.Add( objScan );
-            App.scanFileList.Add( objScan );
-            App.scanFileList.Add( objScan );
-            App.scanFileList.Add( objScan );
-            App.scanFileList.Add( objScan );
 
             foreach( ScanFiles obj in App.scanFileList )
             {
@@ -177,7 +155,7 @@ namespace VOP
                         tmp.CheckImage( false );
                         tmp.Margin = new Thickness( 5 );
                         this.image_wrappanel.Children.Insert(index, tmp );
-                        App.scanFileList.Add( objScan );
+                        App.scanFileList.Add( tmp.m_images );
                     }
                 }
             }
@@ -242,9 +220,6 @@ namespace VOP
 
         public void DoScanning()
         {
-            objScan = new ScanFiles();
-            objScan.m_colorMode = m_color;
-
             string strFolder = System.IO.Path.GetTempPath()+"VOPCache\\";
             string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString( "D10" );
 
@@ -253,9 +228,14 @@ namespace VOP
                 Directory.CreateDirectory( strFolder );
             }
 
-            objScan.m_pathOrig  = strFolder + "vopOrig" + strSuffix + ".bmp";
-            objScan.m_pathView  = strFolder + "vopView" + strSuffix + ".bmp";
-            objScan.m_pathThumb = strFolder + "vopThum" + strSuffix + ".bmp";
+            lock ( objLock )
+            {
+                m_shareObj = new ScanFiles();
+                m_shareObj.m_colorMode = m_color;
+                m_shareObj.m_pathOrig  = strFolder + "vopOrig" + strSuffix + ".bmp";
+                m_shareObj.m_pathView  = strFolder + "vopView" + strSuffix + ".bmp";
+                m_shareObj.m_pathThumb = strFolder + "vopThum" + strSuffix + ".bmp";
+            }
 
             int scanMode   = (int)m_color;
             int resolution = (int)m_scanResln;
@@ -269,9 +249,9 @@ namespace VOP
 
             int nResult = dll.ScanEx(
                     m_MainWin.statusPanelPage.m_selectedPrinter ,
-                    objScan.m_pathOrig     ,
-                    objScan.m_pathView     ,
-                    objScan.m_pathThumb    ,
+                    m_shareObj.m_pathOrig     ,
+                    m_shareObj.m_pathView     ,
+                    m_shareObj.m_pathThumb    ,
                     scanMode   ,
                     resolution ,
                     nWidth     ,
@@ -367,7 +347,11 @@ namespace VOP
                  if ( RETSCAN_OK == (int)wParam )
                  {
                      ImageItem img  = new ImageItem();
-                     img.m_images = objScan;
+
+                     lock ( objLock )
+                     {
+                         img.m_images = m_shareObj;
+                     }
 
                      if ( img.m_iSimgReady )
                      {
@@ -376,7 +360,7 @@ namespace VOP
                          img.CheckImage( false );
                          img.Margin = new Thickness( 5 );
                          this.image_wrappanel.Children.Insert(0, img );
-                         App.scanFileList.Add( objScan );
+                         App.scanFileList.Add( img.m_images );
                      }
                  }
                  else if ( RETSCAN_CANCEL == (int)wParam )

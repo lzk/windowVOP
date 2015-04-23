@@ -411,7 +411,7 @@ namespace VOP
         private byte _toner  = 0;
         private byte _status = (byte)EnumStatus.Offline; 
         private byte _job    = (byte)EnumMachineJob.UnknowJob;
-        private object statusLock = new Object(); // Use to sync status share varibles.
+        private object statusLock = new object(); // Use to sync status share varibles.
 
         public void UpdateStatusCaller()
         {
