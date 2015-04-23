@@ -555,12 +555,27 @@ namespace VOP
         /// </summary>
         private void MainWindowExitPoint()
         {
-            bExit = true;
-            bExitUpdater = true;
-            m_updaterAndUIEvent.WaitOne();
-            notifyIcon1.Visible = false;
+            bool bAllowExit = true;
 
-            this.Close();
+            if ( 0 < winScanPage.image_wrappanel.Children.Count )
+            {
+                if ( VOP.Controls.MessageBoxExResult.Yes != 
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, "VOP关闭后，扫描图片将会被删除，是否关闭，请确认。", "提示") )
+                {
+                    SetTabItemFromIndex( EnumSubPage.Scan );
+                    bAllowExit = false;
+                }
+            }
+
+            if ( bAllowExit )
+            {
+                bExit = true;
+                bExitUpdater = true;
+                m_updaterAndUIEvent.WaitOne();
+                notifyIcon1.Visible = false;
+                this.Close();
+            }
+
         }
 
         private System.IntPtr _handle = IntPtr.Zero;
