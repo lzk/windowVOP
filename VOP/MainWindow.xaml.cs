@@ -52,6 +52,7 @@ namespace VOP
         /// Thread used to update status of current printer.
         /// </summary>
         private Thread statusUpdater = null;
+        private Thread uploadCRMThread = null;
 
         /// <summary>
         /// Event used to sync between status update thread and main UI.
@@ -149,7 +150,26 @@ namespace VOP
                 rsg.Close();
             }
 
-            UploadCRM_LocalInfoToServer();
+            uploadCRMThread = new Thread(UploadCRM_LocalInfoToServerCaller);
+            uploadCRMThread.Start();
+        }
+
+        bool bExit = false;
+        public void UploadCRM_LocalInfoToServerCaller()
+        {
+            while(!bExit)
+            {
+                if (true == UploadCRM_LocalInfoToServer())
+                    break;
+
+                for (int i = 0; i < 1200; i++)
+                {
+                    if (bExit)
+                        break;
+
+                    System.Threading.Thread.Sleep(500);
+                }
+            }
         }
 
         private bool UploadCRM_LocalInfoToServer()
@@ -441,6 +461,7 @@ namespace VOP
         /// </summary>
         private void MainWindowExitPoint()
         {
+            bExit = true;
             bExitUpdater = true;
             m_updaterAndUIEvent.WaitOne();
             notifyIcon1.Visible = false;
