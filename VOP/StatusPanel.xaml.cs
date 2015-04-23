@@ -61,6 +61,7 @@ namespace VOP
         public bool m_isSFP             = false; // true if the m_selectedPrinter is a SFP model.
         public bool m_isWiFiModel       = false; // true if the m_selectedPrinter is a WiFi support model.
 
+        private byte _OldToner = 0; 
         private byte _toner = 0; 
         public byte m_toner 
         {
@@ -75,6 +76,17 @@ namespace VOP
                     {
                         this.lbTonerBar.FlashShopCatIcon(false);
                     }
+                    else
+                    {
+                        if ( _OldToner > 30 && value <= 30 
+                                || _OldToner > 20 && value <= 20 
+                                || _OldToner > 10 && value <= 10 )
+                        {
+                            this.lbTonerBar.FlashShopCatIcon(true);
+                        }
+                    }
+
+                    _OldToner = value;
                 }
             }
 

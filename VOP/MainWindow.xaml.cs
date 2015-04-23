@@ -386,7 +386,6 @@ namespace VOP
         /// </summary>
         bool bExitUpdater = false;
         bool m_isShowedMaintainWindow = false;
-        bool m_isShowPurchaseWindow = false;
         // Those variable were used for post WM_STATUS_UPDATE message, do not
         // for other usage.
         private byte _toner  = 0;
@@ -488,44 +487,22 @@ namespace VOP
                status = _status;
                job    = _job   ;
 
-               if ( ( 10 == toner || 20 == toner || 30 == toner ) 
-                       && toner != this.statusPanelPage.m_toner )
+               this.statusPanelPage.m_toner         = toner;
+               this.statusPanelPage.m_currentStatus = (EnumStatus)status;
+               this.statusPanelPage.m_job           = (EnumMachineJob)job;
+
+               if(!m_isShowedMaintainWindow)
                {
-                   this.statusPanelPage.m_toner         = toner;
-                   this.statusPanelPage.m_currentStatus = (EnumStatus)status;
-                   this.statusPanelPage.m_job           = (EnumMachineJob)job;
-
-                   this.statusPanelPage.lbTonerBar.FlashShopCatIcon( true );
-
-                   m_isShowPurchaseWindow = true;
-                   PurchaseWindow win = new PurchaseWindow();
-                   win.ShowDialog();
-                   m_isShowPurchaseWindow = false;
-
-                   this.statusPanelPage.lbTonerBar.FlashShopCatIcon(false);
-               }
-               else
-               {
-                   this.statusPanelPage.m_toner         = toner;
-                   this.statusPanelPage.m_currentStatus = (EnumStatus)status;
-                   this.statusPanelPage.m_job           = (EnumMachineJob)job;
-
-                   if (!m_isShowPurchaseWindow)
+                   if (((byte)status >= (byte)EnumStatus.PolygomotorOnTimeoutError &&
+                               (byte)status <= (byte)EnumStatus.CTL_PRREQ_NSignalNoCome) ||
+                           (EnumStatus)status == EnumStatus.ScanMotorError ||
+                           (EnumStatus)status == EnumStatus.ScanDriverCalibrationFail ||
+                           (EnumStatus)status == EnumStatus.NetWirelessDongleCfgFail)
                    {
-                       if(!m_isShowedMaintainWindow)
-                       {
-                           if (((byte)status >= (byte)EnumStatus.PolygomotorOnTimeoutError &&
-                                 (byte)status <= (byte)EnumStatus.CTL_PRREQ_NSignalNoCome) ||
-                                 (EnumStatus)status == EnumStatus.ScanMotorError ||
-                                 (EnumStatus)status == EnumStatus.ScanDriverCalibrationFail ||
-                                 (EnumStatus)status == EnumStatus.NetWirelessDongleCfgFail)
-                           {
-                               m_isShowedMaintainWindow = true;
-                               MaintainWindow mw = new MaintainWindow();
-                               mw.Owner = App.Current.MainWindow;
-                               mw.ShowDialog();
-                           }
-                       }
+                       m_isShowedMaintainWindow = true;
+                       MaintainWindow mw = new MaintainWindow();
+                       mw.Owner = App.Current.MainWindow;
+                       mw.ShowDialog();
                    }
                }
 
@@ -627,10 +604,6 @@ namespace VOP
                 status = (byte)EnumStatus.Offline; 
                 job    = (byte)EnumMachineJob.UnknowJob;
             }
-
-            // In order to let PurchaseWindow popup properly, don't assign those popup value to statusPanelPage.m_toner.
-            if ( 10 == toner || 20 == toner || 30 == toner ) 
-                toner = 0; 
 
             statusPanelPage.m_job = (EnumMachineJob)job;
             statusPanelPage.m_toner = toner;
