@@ -146,8 +146,14 @@ namespace VOP
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            byte byteNin1 = (byte)m_nin1;
+
             if ( true == chkBtnIDCardCopy.IsChecked )
+            {
                 ResetValueForIDCardCopy();
+                byteNin1 = 4; // This value present sending ID Card Copy command.
+            }
+
 
             dll.SendCopyCmd( 
                     m_MainWin.statusPanelPage.m_selectedPrinter,
@@ -156,7 +162,7 @@ namespace VOP
                     (byte)m_scanMode,
                     (byte)m_docSize,
                     (byte)m_outputSize,
-                    (byte)m_nin1,
+                    (byte)byteNin1,
                     (byte)m_dpi,
                     (byte)m_scaling,
                     (byte)m_mediaType );
