@@ -155,7 +155,7 @@ namespace VOP
             }
 
 
-            dll.SendCopyCmd( 
+            EnumCmdResult ret = (EnumCmdResult)dll.SendCopyCmd( 
                     m_MainWin.statusPanelPage.m_selectedPrinter,
                     m_density,
                     (byte)spinCtlCopies.Value,
@@ -166,6 +166,19 @@ namespace VOP
                     (byte)m_dpi,
                     (byte)m_scaling,
                     (byte)m_mediaType );
+
+            switch ( ret )
+            {
+                case EnumCmdResult._ACK:
+                    App.g_autoMachine.TranferToWaitCmdBegin();
+                    break;
+                case EnumCmdResult._Printer_busy:
+                    // TODO: Post warning message.
+                    break;
+                default:
+                    // TODO: Post warning message.
+                    break;
+            }
         }
 
         private void CheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
