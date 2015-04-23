@@ -50,12 +50,7 @@ namespace VOP
 
         private bool IsIdle( EnumMachineJob job )
         {
-            return ( EnumMachineJob.PrintJob        != job
-                    && EnumMachineJob.NormalCopyJob != job
-                    && EnumMachineJob.ScanJob       != job
-                    && EnumMachineJob.Nin1CopyJob   != job
-                    && EnumMachineJob.IDCardCopyJob != job 
-                    && EnumMachineJob.PreIDCardCopyJob != job );
+            return ( EnumMachineJob.UnknowJob == job );
         }
 
         public AutoMachine()
