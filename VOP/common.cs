@@ -54,7 +54,8 @@ namespace VOP
                     && EnumMachineJob.NormalCopyJob != job
                     && EnumMachineJob.ScanJob       != job
                     && EnumMachineJob.Nin1CopyJob   != job
-                    && EnumMachineJob.IDCardCopyJob != job );
+                    && EnumMachineJob.IDCardCopyJob != job 
+                    && EnumMachineJob.PreIDCardCopyJob != job );
         }
 
         public AutoMachine()

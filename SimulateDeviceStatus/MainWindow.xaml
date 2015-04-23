@@ -136,6 +136,7 @@
             <ComboBoxItem>ReportJob</ComboBoxItem>
             <ComboBoxItem>Nin1CopyJob</ComboBoxItem>
             <ComboBoxItem>IDCardCopyJob</ComboBoxItem>
+            <ComboBoxItem>PreIDCardCopyJob</ComboBoxItem>
         </ComboBox>
 
 

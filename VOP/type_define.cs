@@ -270,6 +270,7 @@ namespace VOP
         ReportJob     = 6,
         Nin1CopyJob   = 7,
         IDCardCopyJob = 8,
+        PreIDCardCopyJob = 9,
     }
 
     // auto machine state

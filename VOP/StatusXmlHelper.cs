@@ -352,6 +352,7 @@ namespace VOP
                 case "ReportJob"     : retJob = EnumMachineJob.ReportJob;     break;
                 case "Nin1CopyJob"   : retJob = EnumMachineJob.Nin1CopyJob;   break;
                 case "IDCardCopyJob" : retJob = EnumMachineJob.IDCardCopyJob; break;
+                case "PreIDCardCopyJob" : retJob = EnumMachineJob.PreIDCardCopyJob; break;
                 default              :
                     retJob = EnumMachineJob.UnknowJob;
                     break;

@@ -106,6 +106,8 @@ namespace VOP
 
         public MainWindow()
         {
+            InitializeComponent();
+
             const int GEOCLASS_NATION = 16;
             int nGeoID = Win32.GetUserGeoID(GEOCLASS_NATION);
             if (45 == nGeoID)
@@ -118,8 +120,6 @@ namespace VOP
             App.g_autoMachine.eventStateUpdate += winScanPage.HandlerStateUpdate;
             App.g_autoMachine.eventStateUpdate += winSettingPage.HandlerStateUpdate;
             App.g_autoMachine.eventStateUpdate += winPrintPage.HandlerStateUpdate;
-
-            InitializeComponent();
 
             winCopyPage    .m_MainWin = this;
             winScanPage    .m_MainWin = this;
