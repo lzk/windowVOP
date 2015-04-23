@@ -152,6 +152,7 @@ namespace VOP
 
                         tmp.ImageSingleClick += ImageItemSingleClick;
                         tmp.ImageDoubleClick += ImageItemDoubleClick;
+                        tmp.CloseIconClick += ImageItemCloseIconClick;
                         tmp.CheckImage( false );
                         tmp.Margin = new Thickness( 5 );
                         this.image_wrappanel.Children.Insert(index, tmp );
@@ -357,6 +358,7 @@ namespace VOP
                      {
                          img.ImageSingleClick += ImageItemSingleClick;
                          img.ImageDoubleClick += ImageItemDoubleClick;
+                         img.CloseIconClick += ImageItemCloseIconClick;
                          img.CheckImage( false );
                          img.Margin = new Thickness( 5 );
                          this.image_wrappanel.Children.Insert(0, img );
