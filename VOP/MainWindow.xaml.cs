@@ -17,6 +17,10 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Windows.Interop;
 using Microsoft.Win32;
+using System.Xaml;
+using System.Xml;
+using Newtonsoft;
+using System.IO;
 
 namespace VOP
 {
@@ -152,6 +156,83 @@ namespace VOP
 
             uploadCRMThread = new Thread(UploadCRM_LocalInfoToServerCaller);
             uploadCRMThread.Start();
+        }
+
+        public static bool SaveCRMDataIntoXamlFile(string strFileName, DateTime date, string strData)
+        {
+            bool bSuccess = false;
+            try
+            {
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+                var directory = new DirectoryInfo(documentsPath);
+                string strUsersPublic = directory.Parent.FullName;
+                string strDirectory = strUsersPublic + "\\Lenovo\\";
+
+                Directory.CreateDirectory(strDirectory);
+
+                XmlDocument doc = new XmlDocument();
+
+                XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+                XmlElement root = doc.DocumentElement;
+                doc.InsertBefore(xmlDeclaration, root);
+
+                XmlElement eleBody = doc.CreateElement(string.Empty, "body", string.Empty);
+                doc.AppendChild(eleBody);
+
+                XmlElement eleTime = doc.CreateElement(string.Empty, "Time", string.Empty);
+                XmlText textTime = doc.CreateTextNode(date.ToShortDateString());
+                eleTime.AppendChild(textTime);
+                eleBody.AppendChild(eleTime);
+
+                XmlElement eleData = doc.CreateElement(string.Empty, "Data", string.Empty);
+                XmlText textData = doc.CreateTextNode(strData);
+                eleData.AppendChild(textData);
+                eleBody.AppendChild(eleData);
+
+                doc.Save(strDirectory + strFileName);
+
+                bSuccess = true;
+            }
+            catch
+            {
+
+            }
+
+            return bSuccess;
+        }
+
+        public static bool ReadCRMDataFromXamlFile(string strFileName, ref DateTime date, ref string strData)
+        {
+            bool bSuccess = false;
+           
+            try
+            {
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+                var directory = new DirectoryInfo(documentsPath);
+                string strUsersPublic = directory.Parent.FullName;
+                string strPath = strUsersPublic + "\\Lenovo\\" + strFileName;
+
+                if (File.Exists(strPath))
+                {
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load(strPath);
+
+                    string strText = "";
+                    XmlNode xmlNode = doc.SelectSingleNode("body/Time");
+                    strText = xmlNode.InnerText;
+                    date = DateTime.Parse(strText);
+                    XmlNode xmlNode2 = doc.SelectSingleNode("body/Data");
+                    strData = xmlNode2.InnerText;
+
+                    bSuccess = true;
+                }
+            }
+            catch
+            {
+
+            }
+
+            return bSuccess;
         }
 
         bool bExit = false;
