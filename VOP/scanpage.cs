@@ -331,6 +331,9 @@ namespace VOP
                  btnCancel.IsEnabled  = false;
                  btnScan.IsEnabled    = true;
                  btnSetting.IsEnabled = true;
+                 
+                 progressBar1.Value = 0;
+                 txtProgressPercent.Text = "0";
 
                  if ( RETSCAN_OK == (int)wParam )
                  {
@@ -354,8 +357,6 @@ namespace VOP
                  }
                  else if ( RETSCAN_CANCEL == (int)wParam )
                  {
-                     progressBar1.Value = 0;
-                     txtProgressPercent.Text = "0";
                  }
                  else
                  {
