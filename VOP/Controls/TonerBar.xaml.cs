@@ -184,6 +184,12 @@ namespace VOP
         {
             InitializeComponent();
             Init();
+
+            if(false == VOP.MainWindow.m_bLocationIsChina)
+            {
+                shopGrid.Visibility = Visibility.Hidden;
+                Grid.SetColumnSpan(TonerGrid, 3);
+            }
         }
 
 
