@@ -67,7 +67,7 @@ namespace VOP
 
         public string m_strPassword = "";
         public string m_strPhoneNumber = "";
-        public bool   m_bLocationIsChina = false;
+        public static bool   m_bLocationIsChina = false;
 
         public bool PasswordCorrect()
         {
@@ -259,6 +259,7 @@ namespace VOP
         private bool UploadCRM_LocalInfoToServer()
         {
             CRM_LocalInfo lci = new CRM_LocalInfo();
+            lci.m_strMobileNumber = m_strPhoneNumber;
             lci.m_strAppVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             JSONResultFormat2 rtValue = new JSONResultFormat2();
 
@@ -626,18 +627,21 @@ namespace VOP
                this.statusPanelPage.m_currentStatus = (EnumStatus)status;
                this.statusPanelPage.m_job           = (EnumMachineJob)job;
 
-               if(!m_isShowedMaintainWindow)
+               if(true == m_bLocationIsChina)
                {
-                   if (((byte)status >= (byte)EnumStatus.PolygomotorOnTimeoutError &&
-                               (byte)status <= (byte)EnumStatus.CTL_PRREQ_NSignalNoCome) ||
-                           (EnumStatus)status == EnumStatus.ScanMotorError ||
-                           (EnumStatus)status == EnumStatus.ScanDriverCalibrationFail ||
-                           (EnumStatus)status == EnumStatus.NetWirelessDongleCfgFail)
+                   if (false == m_isShowedMaintainWindow)
                    {
-                       m_isShowedMaintainWindow = true;
-                       MaintainWindow mw = new MaintainWindow();
-                       mw.Owner = App.Current.MainWindow;
-                       mw.ShowDialog();
+                       if (((byte)status >= (byte)EnumStatus.PolygomotorOnTimeoutError &&
+                                   (byte)status <= (byte)EnumStatus.CTL_PRREQ_NSignalNoCome) ||
+                               (EnumStatus)status == EnumStatus.ScanMotorError ||
+                               (EnumStatus)status == EnumStatus.ScanDriverCalibrationFail ||
+                               (EnumStatus)status == EnumStatus.NetWirelessDongleCfgFail)
+                       {
+                           m_isShowedMaintainWindow = true;
+                           MaintainWindow mw = new MaintainWindow();
+                           mw.Owner = App.Current.MainWindow;
+                           mw.ShowDialog();
+                       }
                    }
                }
 
