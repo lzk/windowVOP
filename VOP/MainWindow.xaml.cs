@@ -734,8 +734,9 @@ namespace VOP
                 statusUpdater.Abort();
             }
 
-            App.g_autoMachine.ResetAutoMachine();
+            winCopyPage.ResetToDefaultValue();
 
+            App.g_autoMachine.ResetAutoMachine();
 
             byte toner  = 0;
             byte status = (byte)EnumStatus.Offline; 

@@ -110,18 +110,7 @@ namespace VOP
         {
             InitializeComponent();
 
-            bool bIsMetrice = dll.IsMetricCountry();
-
-            if ( bIsMetrice )
-            {
-                m_docSize    = EnumPaperSizeInput._A4;
-                m_outputSize = EnumPaperSizeOutput._A4;
-            }
-            else
-            {
-                m_docSize    = EnumPaperSizeInput._Letter;
-                m_outputSize = EnumPaperSizeOutput._Letter;
-            }
+            ResetToDefaultValue();
         }
 
         private void SettingBtnClick(object sender, RoutedEventArgs e)
@@ -271,6 +260,36 @@ namespace VOP
                         tb.Text = "1";
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Reset copy command parameter to default value.
+        /// </summary>
+        public void ResetToDefaultValue()
+        {
+            bool bIsMetrice = dll.IsMetricCountry();
+
+            m_scaling    = 100;
+            m_scanMode   = EnumCopyScanMode.Photo;
+            m_nin1       = EnumNin1._1up;
+            m_dpi        = EnumCopyResln._300x300;
+            m_mediaType  = EnumMediaType.Plain;
+
+            m_density = 3;
+            m_currentState = EnumState.init; 
+            chkBtnIDCardCopy.IsChecked = false;
+            spinCtlCopies.Value = 1;
+
+            if ( bIsMetrice )
+            {
+                m_docSize    = EnumPaperSizeInput._A4;
+                m_outputSize = EnumPaperSizeOutput._A4;
+            }
+            else
+            {
+                m_docSize    = EnumPaperSizeInput._Letter;
+                m_outputSize = EnumPaperSizeOutput._Letter;
             }
         }
 
