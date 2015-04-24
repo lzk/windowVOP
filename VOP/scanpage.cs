@@ -566,10 +566,6 @@ namespace VOP
             m_contrast   = 50;
 
             strInitalDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-            this.image_wrappanel.Children.Clear();
-
-            // TODO: Delete cached file.
-            App.scanFileList.Clear();
 
             btnPrint.IsEnabled   = false;
             btnSave.IsEnabled    = false;
