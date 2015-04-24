@@ -402,6 +402,7 @@ namespace VOP
             Binding myBinding = new Binding();
             myBinding.Source = PaperSizeItemsBase.Concat(UserDefinedSizeItems);
             cboPaperSize.SetBinding(ComboBox.ItemsSourceProperty, myBinding);
+            cboPaperSize.SelectedIndex = 0;
 
         }
 
