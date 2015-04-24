@@ -32,6 +32,10 @@
                 <Trigger Property="Button.IsPressed" Value="True">
                     <Setter TargetName="myPath" Property="Fill" Value="#51B000"/>
                 </Trigger>
+
+                <Trigger Property="Button.IsEnabled" Value="False">
+                    <Setter TargetName="myPath" Property="Fill" Value="White"/>
+                </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </UserControl.Resources>
