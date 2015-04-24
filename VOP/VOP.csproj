@@ -107,6 +107,7 @@
       <DependentUpon>ScrollTextNoShadow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SpinnerControl\SpinnerControl.cs" />
+    <Compile Include="Controls\TextBoxValidation\UserDefinedSizeValidationRule.cs" />
     <Compile Include="Controls\TextBoxValidation\PrintCopysValidationRule.cs" />
     <Compile Include="Controls\ToggleButtonEx.cs" />
     <Compile Include="Controls\WiFiItem.xaml.cs">

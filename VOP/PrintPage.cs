@@ -22,7 +22,7 @@ namespace VOP
         public PrintType CurrentPrintType { get; set; }
         public IdCardTypeItem SelectedTypeItem { get; set; }
 
-        private bool needFitToPage = false;
+        private bool needFitToPage = true;
 
         public List<string> FilePaths
         {

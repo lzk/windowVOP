@@ -39,5 +39,12 @@
         </Style.Triggers>-->
     </Style>
 
+    <ControlTemplate x:Key="TextBoxErrorTemplate">
+        <StackPanel>
+            <Border BorderBrush="Red" BorderThickness="2" CornerRadius="15">
+                <AdornedElementPlaceholder Name="MyAdorner"/>
+            </Border>
+        </StackPanel>
+    </ControlTemplate>
 
 </ResourceDictionary>

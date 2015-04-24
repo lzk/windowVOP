@@ -211,6 +211,16 @@ namespace VOP
                 return p / 600;
             }
         }
+
+        public static double MMToInch(double value)
+        {
+            return value / 25.4;
+        }
+
+        public static double InchToMM(double value)
+        {
+            return value * 25.4;
+        }
     }
     /// <summary>
     /// </summary>
@@ -273,7 +283,7 @@ namespace VOP
                 GetDataFromPrinterInfo();
             }
 
-            UpdatePaperSizeCombobox();
+            UpdatePaperSizeCombobox(true);
         }
 
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -337,33 +347,58 @@ namespace VOP
             };
         }
 
-        private void UpdatePaperSizeCombobox()
+        private void UpdatePaperSizeCombobox(bool Read)
         {
-            UserDefinedSizeItems.Clear();
 
-            if (regHelper.Open())
+            if (Read)
             {
-                int count = regHelper.GetCount();
+                UserDefinedSizeItems.Clear();
 
-                CPAPERSIZE[] block = regHelper.GetCustomPaperBin();
-
-                if (block != null)
+                if (regHelper.Open())
                 {
-                    for (int i = 0; i < count; i++)
+                    int count = regHelper.GetCount();
+
+                    CPAPERSIZE[] block = regHelper.GetCustomPaperBin();
+
+                    if (block != null)
                     {
-                        UserDefinedSizeItems.Add(new UserDefinedSizeItem()
+                        for (int i = 0; i < count; i++)
                         {
-                            UserDefinedName = block[i].cp_szName.ToString(),
-                            IsMM = block[i].cp_MiterType == 0 ? true : false,
-                            Width = SizeConvert.PixelToSize(block[i].width, block[i].cp_MiterType == 0 ? UserDefinedSizeType.MM : UserDefinedSizeType.Inch),
-                            Height = SizeConvert.PixelToSize(block[i].height, block[i].cp_MiterType == 0 ? UserDefinedSizeType.MM : UserDefinedSizeType.Inch),
-                        });
+                            UserDefinedSizeItems.Add(new UserDefinedSizeItem()
+                            {
+                                UserDefinedName = block[i].cp_szName.ToString(),
+                                IsMM = block[i].cp_MiterType == 0 ? true : false,
+                                Width = SizeConvert.PixelToSize(block[i].width, block[i].cp_MiterType == 0 ? UserDefinedSizeType.MM : UserDefinedSizeType.Inch),
+                                Height = SizeConvert.PixelToSize(block[i].height, block[i].cp_MiterType == 0 ? UserDefinedSizeType.MM : UserDefinedSizeType.Inch),
+                            });
+                        }
                     }
+
+                    regHelper.Close();
                 }
-
-                regHelper.Close();
             }
+            else
+            {
+                if (regHelper.Open())
+                {
+                    regHelper.SetCount(UserDefinedSizeItems.Count());
 
+                    CPAPERSIZE[] block = new CPAPERSIZE[20];
+
+                    for (int i = 0; i < UserDefinedSizeItems.Count(); i++)
+                    {
+                        block[i].cp_szName = UserDefinedSizeItems[i].UserDefinedName;
+                        block[i].cp_MiterType = UserDefinedSizeItems[i].IsMM ? 0 : 1;
+                        block[i].width = SizeConvert.SizeToPixel(UserDefinedSizeItems[i].Width, UserDefinedSizeItems[i].IsMM ? UserDefinedSizeType.MM : UserDefinedSizeType.Inch);
+                        block[i].height = SizeConvert.SizeToPixel(UserDefinedSizeItems[i].Height, UserDefinedSizeItems[i].IsMM ? UserDefinedSizeType.MM : UserDefinedSizeType.Inch);
+                    }
+
+                    regHelper.SetCustomPaperBin(block);
+
+                    regHelper.Close();
+                }
+            }
+           
             Binding myBinding = new Binding();
             myBinding.Source = PaperSizeItemsBase.Concat(UserDefinedSizeItems);
             cboPaperSize.SetBinding(ComboBox.ItemsSourceProperty, myBinding);
@@ -383,7 +418,11 @@ namespace VOP
                 result = UserDefinedWin.ShowDialog();
                 if (result == true)
                 {
-
+                    UpdatePaperSizeCombobox(false);
+                }
+                else
+                {
+                    UpdatePaperSizeCombobox(true);
                 }
             }
         }

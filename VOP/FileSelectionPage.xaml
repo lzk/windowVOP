@@ -6,9 +6,10 @@
              x:Name="myControl"
              Width="638"
              Height="367"
-             UseLayoutRounding="True">
+             UseLayoutRounding="True"
+             Loaded="FileSelectionPageOnLoaded">
 
-    <Grid>
+    <Grid Name="rootGrid">
         <Grid.Background>
             <ImageBrush ImageSource="Images\PagePrint.png" />
         </Grid.Background>
@@ -25,26 +26,40 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <local:ImageButton  Grid.Row="1"
+        <local:ImageButton  x:Name="ImageButton"
+                            Grid.Row="1"
                             Grid.Column="1"
+                            Grid.ColumnSpan="2"
                             PreviewMouseLeftButtonDown="OnClickImagePrint" 
                             ImagePath="Images/ButtonPicSelect.png" 
                             BottomText="{StaticResource ResStr_Picture_Print}" 
-                            Height="83" Width="79"/>
+                            Height="83" Width="79"
+                            HorizontalAlignment="Left"
+                            Margin="12"/>
 
-        <local:ImageButton  Grid.Row="1"
+        <local:ImageButton  x:Name="FileButton"
+                            Grid.Row="1"
                             Grid.Column="2"
+                            Grid.ColumnSpan="2"
                             PreviewMouseLeftButtonDown="OnClickFilePrint" 
                             ImagePath="Images/ButtonFileSelect.png" 
                             BottomText="{StaticResource ResStr_File_Print}" 
-                            Height="83" Width="79"/>
+                            Height="83" Width="79"
+                            HorizontalAlignment="Left"
+                            Margin="12"/>
 
-        <local:ImageButton  Grid.Row="1"
+
+        <local:ImageButton  x:Name="IdCardButton"
+                            Grid.Row="1"
                             Grid.Column="3"
+                            Grid.ColumnSpan="2"
                             PreviewMouseLeftButtonDown="OnClickIdCardPrint" 
                             ImagePath="Images/ButtonIdCardSelect.png" 
                             BottomText="{StaticResource ResStr_Credentials_Print}" 
-                            Height="83" Width="79"/>
+                            Height="83" Width="79"
+                            HorizontalAlignment="Left"
+                            Margin="12"/>
+
       
        
     </Grid>

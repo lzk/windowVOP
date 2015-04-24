@@ -25,6 +25,16 @@ namespace VOP
             InitializeComponent();
         }
 
+        private void FileSelectionPageOnLoaded(object sender, RoutedEventArgs e)
+        {
+            if(!MainWindow.m_bLocationIsChina)
+            {
+                IdCardButton.Visibility = Visibility.Hidden;
+                ImageButton.Margin = new Thickness(60, 0, 0, 0);
+                FileButton.Margin = new Thickness(90, 0, 0, 0);
+            }
+        }
+
         private void OnClickImagePrint(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             OpenFileDialog open = null;
