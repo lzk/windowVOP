@@ -35,3 +35,4 @@ EXPORTS
 	SetPassword
 	GetPassword
     CancelScanning
+    IsMetricCountry

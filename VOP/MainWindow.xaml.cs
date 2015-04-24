@@ -21,6 +21,7 @@ using System.Xaml;
 using System.Xml;
 using Newtonsoft;
 using System.IO;
+using System.Globalization;
 
 namespace VOP
 {
@@ -111,6 +112,8 @@ namespace VOP
         public MainWindow()
         {
             InitializeComponent();
+
+            RegionInfo LocalReg = System.Globalization.RegionInfo.CurrentRegion;
 
             const int GEOCLASS_NATION = 16;
             int nGeoID = Win32.GetUserGeoID(GEOCLASS_NATION);

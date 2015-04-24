@@ -465,6 +465,7 @@ USBAPI_API int __stdcall GetPassword(const wchar_t* szPrinter, char* pwd);
 USBAPI_API int __stdcall SetPassword(const wchar_t* szPrinter, const wchar_t* ws_pwd);
 
 USBAPI_API void __stdcall CancelScanning();
+USBAPI_API BOOL __stdcall IsMetricCountry();
 //--------------------------------global--------------------------------------
 static const unsigned char INIT_VALUE = 0xfe;
 static bool bCancelScanning = false; // Scanning cancel falg, only use in ScanEx(). 
@@ -2988,4 +2989,62 @@ USBAPI_API int __stdcall CheckPortAPI( const wchar_t* szPrinter )
 USBAPI_API void __stdcall CancelScanning()
 {
     bCancelScanning = true;
+}
+
+/*++
+Routine Description:
+                Determine if the current country is using metric system.
+Arguments:
+                NONE
+Return Value:
+                TRUE if the current country uses metric system
+                FALSE otherwise
+--*/
+USBAPI_API BOOL __stdcall IsMetricCountry()
+{
+    INT    cChar        = 0;
+    LONG   lCountryCode = 0;
+    LPTSTR pwstr        = NULL;
+    BOOL   bMetric      = FALSE;
+
+    // Determine the size of the buffer needed to retrieve information.
+    cChar = GetLocaleInfoW( LOCALE_SYSTEM_DEFAULT, LOCALE_ICOUNTRY, NULL, 0);
+
+    if (cChar > 0) 
+    {
+        // Allocate the necessary buffers.
+        pwstr = new wchar_t[cChar];
+
+        if (pwstr != NULL )
+        {
+            // We now have a buffer, so get the country code.
+            cChar = GetLocaleInfoW( LOCALE_SYSTEM_DEFAULT, LOCALE_ICOUNTRY, pwstr, cChar);
+
+            if (cChar > 0) {
+
+                lCountryCode = _wtol(pwstr);
+
+                // This is the Win31 algorithm based on AT&T international
+                // dialing codes.
+
+                // Reference: https://msdn.microsoft.com/en-us/library/windows/hardware/ff561927(v=vs.85).aspx
+                // Use the default system locale obtained from GetLocaleInfo to determine metric or non-metric paper size.
+                //     Non-metric if default system locale is:
+                //         CTRY_UNITED_STATES, or
+                //         CTRY_CANADA, or
+                //         Greater than or equal to 50, but less than 60 and not CTRY_BRAZIL, or
+                //         Greater than or equal to 500, but less than 600
+                bMetric = ((lCountryCode == CTRY_UNITED_STATES) ||
+                        (lCountryCode == CTRY_CANADA) ||
+                        (lCountryCode >= 50 && lCountryCode < 60 && lCountryCode != CTRY_BRAZIL) ||
+                        (lCountryCode >= 500 && lCountryCode < 600)) ? FALSE : TRUE;
+
+            } 
+
+            delete[] pwstr;
+            pwstr = NULL;
+        }
+    }
+
+    return bMetric;
 }

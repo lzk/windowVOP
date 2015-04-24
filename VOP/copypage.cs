@@ -110,6 +110,18 @@ namespace VOP
         {
             InitializeComponent();
 
+            bool bIsMetrice = dll.IsMetricCountry();
+
+            if ( bIsMetrice )
+            {
+                m_docSize    = EnumPaperSizeInput._A4;
+                m_outputSize = EnumPaperSizeOutput._A4;
+            }
+            else
+            {
+                m_docSize    = EnumPaperSizeInput._Letter;
+                m_outputSize = EnumPaperSizeOutput._Letter;
+            }
         }
 
         private void SettingBtnClick(object sender, RoutedEventArgs e)

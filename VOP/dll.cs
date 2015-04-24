@@ -8,6 +8,9 @@ namespace VOP
     public static class dll
     {
         [DllImport("usbapi.dll")]
+        public static extern bool IsMetricCountry();
+
+        [DllImport("usbapi.dll")]
         public static extern void CancelScanning();
 
         [DllImport("usbapi.dll")]
