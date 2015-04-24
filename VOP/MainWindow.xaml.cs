@@ -113,8 +113,6 @@ namespace VOP
         {
             InitializeComponent();
 
-            RegionInfo LocalReg = System.Globalization.RegionInfo.CurrentRegion;
-
             const int GEOCLASS_NATION = 16;
             int nGeoID = Win32.GetUserGeoID(GEOCLASS_NATION);
             if (45 == nGeoID)
@@ -757,10 +755,10 @@ namespace VOP
                     || (byte)EnumStatus.PowerOff == status 
                     || (byte)EnumStatus.Unknown == status );
 
-            if ( bIsOnline )
+            if ( m_isOnlineDetected || bIsOnline )
             {
-                m_isOnlineDetected = true;
                 ExpandSubpage();
+                m_isOnlineDetected = true;
             }
 
             // After UI already loaded, tranfer auto machine. 
