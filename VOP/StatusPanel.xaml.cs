@@ -313,5 +313,11 @@ namespace VOP
             m_currentStatus = st;
             m_toner = toner;
         }
+
+        
+        public void EnableRefreshBtn( bool bEnable )
+        {
+            RefreshBtn.IsEnabled = bEnable;
+        }
     }
 }
