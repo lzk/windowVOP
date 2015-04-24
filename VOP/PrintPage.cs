@@ -128,7 +128,17 @@ namespace VOP
         {
             PrintError printRes = PrintError.Print_OK;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+
             dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
+            PrintSettingPage printWin = new PrintSettingPage();
+            printWin.Owner = App.Current.MainWindow;
+            printWin.m_MainWin = m_MainWin;
+            printWin.m_CurrentPrintType = CurrentPrintType;
+
+            printWin.Show();
+            printWin.Hide();
+            printWin.Close();
+
             switch(CurrentPrintType)
             {
                 case PrintType.PrintFile:
@@ -161,6 +171,7 @@ namespace VOP
 
                     break;
                 case PrintType.PrintIdCard:
+
                     IdCardSize idCardSize = new IdCardSize();
                     idCardSize.Width = SelectedTypeItem.Width;
                     idCardSize.Height = SelectedTypeItem.Height;
