@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Threading; // for Mutex
 using System.Globalization; // for Multi-Langulage UI
-
+using Microsoft.Win32;
 
 namespace VOP
 {
@@ -71,9 +71,7 @@ namespace VOP
 
         }
 
-        #region Multi-Langulage
-        public static string Culture { get; set; }
-
+        #region Multi-Langulage  
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -83,10 +81,32 @@ namespace VOP
         // https://msdn.microsoft.com/zh-cn/library/kx54z3k7(VS.80).aspx
         public void GetCulture()
         {
-            Culture = string.Empty;          
-            CultureInfo CurrentUICulture = CultureInfo.CurrentUICulture;       
+            string Culture = string.Empty;             
 
-            Culture = CurrentUICulture.Name;           
+            RegistryKey rsg = null;
+            rsg = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Lenovo\\Printer SSW\\Version", false);
+            Int32 nLanguage = 0x804;
+            object obj = null;
+            if (null != rsg)
+            {
+                obj = rsg.GetValue("language", RegistryValueKind.DWord);
+                nLanguage = (Int32)obj;         
+
+                rsg.Close();
+            }           
+            
+            switch(nLanguage)
+            {
+                case 1033:
+                    Culture = "en-US";
+                    break;
+                case 2052:
+                    Culture = "zh-CN";
+                    break;
+                default:
+                    Culture = "zh-CN";
+                    break;
+            }
 
             List<ResourceDictionary> dictionaryList = new List<ResourceDictionary>();
             foreach (ResourceDictionary dictionary in Application.Current.Resources.MergedDictionaries)

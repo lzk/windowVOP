@@ -7,16 +7,16 @@
 
     <!--Data for default Id card type-->
     <x:Array x:Key="IdCardTypeNameList" Type="local:IdCardTypeItem">
-        <local:IdCardTypeItem TypeId="HouseholdRegister" Name="{x:Static p:Resources.SID_HouseholdRegister}" PrintSides="OneSide" Width="21" Height="14"/>
-        <local:IdCardTypeItem TypeId="IdCard" Name="{x:Static p:Resources.SID_IdCard}" PrintSides="TwoSides" Width="8.5" Height="5.4"/>
-        <local:IdCardTypeItem TypeId="MarriageCertificate" Name="{x:Static p:Resources.SID_MarriageCertificate}" PrintSides="OneSide" Width="12.8" Height="18.7"/>
-        <local:IdCardTypeItem TypeId="Passport" Name="{x:Static p:Resources.SID_Passport}" PrintSides="OneSide" Width="17.6" Height="12.5"/>
-        <local:IdCardTypeItem TypeId="RealEstateEvaluator" Name="{x:Static p:Resources.SID_RealEstateEvaluator}" PrintSides="OneSide" Width="23.9" Height="16.6"/>
-        <local:IdCardTypeItem TypeId="DriverLicense" Name="{x:Static p:Resources.SID_DriverLicense}" PrintSides="OneSide" Width="20.6" Height="7.4"/>
-        <local:IdCardTypeItem TypeId="Diploma" Name="{x:Static p:Resources.SID_Diploma}" PrintSides="OneSide" Width="23.5" Height="16.4"/>
-        <local:IdCardTypeItem TypeId="StudentIDcard" Name="{x:Static p:Resources.SID_StudentIDcard}" PrintSides="OneSide" Width="10.5" Height="7.3"/>
-        <local:IdCardTypeItem TypeId="BirthCertificate" Name="{x:Static p:Resources.SID_BirthCertificate}" PrintSides="OneSide" Width="18.9" Height="13"/>
-        <local:IdCardTypeItem TypeId="BankCards" Name="{x:Static p:Resources.SID_BankCards}" PrintSides="OneSide" Width="8.5" Height="5.4"/>
+        <local:IdCardTypeItem TypeId="HouseholdRegister" Name="{StaticResource ResStr_Residence_Booklet}" PrintSides="OneSide" Width="21" Height="14"/>
+        <local:IdCardTypeItem TypeId="IdCard" Name="{StaticResource ResStr_ID_Card}" PrintSides="TwoSides" Width="8.5" Height="5.4"/>
+        <local:IdCardTypeItem TypeId="MarriageCertificate" Name="{StaticResource ResStr_Marriage_Certificate}" PrintSides="OneSide" Width="12.8" Height="18.7"/>
+        <local:IdCardTypeItem TypeId="Passport" Name="{StaticResource ResStr_Passport}" PrintSides="OneSide" Width="17.6" Height="12.5"/>
+        <local:IdCardTypeItem TypeId="RealEstateEvaluator" Name="{StaticResource ResStr_Real_Estate_License}" PrintSides="OneSide" Width="23.9" Height="16.6"/>
+        <local:IdCardTypeItem TypeId="DriverLicense" Name="{StaticResource ResStr_Driving_license}" PrintSides="OneSide" Width="20.6" Height="7.4"/>
+        <local:IdCardTypeItem TypeId="Diploma" Name="{StaticResource ResStr_Diploma}" PrintSides="OneSide" Width="23.5" Height="16.4"/>
+        <local:IdCardTypeItem TypeId="StudentIDcard" Name="{StaticResource ResStr_Student_ID_card}" PrintSides="OneSide" Width="10.5" Height="7.3"/>
+        <local:IdCardTypeItem TypeId="BirthCertificate" Name="{StaticResource ResStr_Birth_Certificate}" PrintSides="OneSide" Width="18.9" Height="13"/>
+        <local:IdCardTypeItem TypeId="BankCards" Name="{StaticResource ResStr_Bank_SocialSecurity_Card}" PrintSides="OneSide" Width="8.5" Height="5.4"/>
     </x:Array>
 
 

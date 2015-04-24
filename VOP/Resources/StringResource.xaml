@@ -59,6 +59,7 @@
     <sys:String x:Key="ResStr_Birth_Certificate">出生证明</sys:String>
     <sys:String x:Key="ResStr_Bank_Card">银行卡</sys:String>
     <sys:String x:Key="ResStr_Social_Security_Card">社保卡</sys:String>
+    <sys:String x:Key="ResStr_Bank_SocialSecurity_Card">银行卡/社保卡</sys:String>
     <sys:String x:Key="ResStr_ID_Card">身份证</sys:String>
     <sys:String x:Key="ResStr_More_Settings">更多设置</sys:String>
     <sys:String x:Key="ResStr_Copies">打印份数</sys:String>
@@ -127,8 +128,8 @@
     <sys:String x:Key="ResStr_Scanning_Mode">扫描模式</sys:String>
     <sys:String x:Key="ResStr_Photo">照片</sys:String>
     <sys:String x:Key="ResStr_Text">文本</sys:String>
-    <sys:String x:Key="ResStr_Scanned_image_size">待扫描图片大小</sys:String>
-    <sys:String x:Key="ResStr_Scanning_2">扫描进度</sys:String>
+    <sys:String x:Key="ResStr_Scanned_image_size">待扫描图片大小:</sys:String>
+    <sys:String x:Key="ResStr_Scanning_2">扫描进度:</sys:String>
     <sys:String x:Key="ResStr_Document_Type">文档类型</sys:String>
     <sys:String x:Key="ResStr_Photo_2">图片</sys:String>
     <sys:String x:Key="ResStr_Text_and_Graph">图文</sys:String>

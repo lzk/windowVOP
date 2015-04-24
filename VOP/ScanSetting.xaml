@@ -132,39 +132,39 @@
 
         <!-- Title bar begin -->
         <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0">
-            <TextBlock Text="更多设置" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Text="{StaticResource ResStr_More_Settings}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
 
         <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" />
         <!-- Title bar end -->
 
 
-        <local:GroupBoxDecorator Grid.Row="1" Header="文档类型" HorizontalAlignment="Center" VerticalAlignment="Center" Width="450" Height="75" >
+        <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Document_Type}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="450" Height="75" >
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
 
                 <RadioButton GroupName="docType" IsChecked="true"
                     Name="docutype_photo" Click="docutype_click"
                     Template="{StaticResource customRadioButton}"
-                    Content="图片" VerticalAlignment="Center"
+                    Content="{StaticResource ResStr_Photo_2}" VerticalAlignment="Center"
                     Margin="10,0" ></RadioButton>
 
                 <RadioButton GroupName="docType" IsChecked="false"
                     Name="docutype_graphic" Click="docutype_click"
                     Template="{StaticResource customRadioButton}"
-                    Content="图文" VerticalAlignment="Center"
+                    Content="{StaticResource ResStr_Text_and_Graph}" VerticalAlignment="Center"
                     Margin="10,0" ></RadioButton>
 
                 <RadioButton GroupName="docType" IsChecked="false"
                     Name="docutype_text" Click="docutype_click"
                     Template="{StaticResource customRadioButton}"
-                    Content="文本" VerticalAlignment="Center"
+                    Content="{StaticResource ResStr_Text}" VerticalAlignment="Center"
                     Margin="10,0" ></RadioButton>
 
             </StackPanel>
         </local:GroupBoxDecorator>
 
         <Grid Grid.Row="2" >
-            <local:GroupBoxDecorator Margin="40,0,0,0" Header="分辨率" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_DPI}" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
                 <ComboBox Name="cboScanResln" SelectionChanged="combo_sel_change"
                     Style="{StaticResource customComboBox}"
                     Background="White"
@@ -176,32 +176,32 @@
                 </ComboBox>
             </local:GroupBoxDecorator>
 
-            <local:GroupBoxDecorator Margin="40,0,0,0" Header="色彩模式" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_Color_Mode}" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center">
 
                     <RadioButton GroupName="colorMode" IsChecked="True"
                         Name="Color" Click="colorMode_Click"
                         Template="{StaticResource customRadioButton}"
-                        Content="彩色" VerticalAlignment="Center"
+                        Content="{StaticResource ResStr_Color}" VerticalAlignment="Center"
                         Margin="5,0" ></RadioButton>
 
                     <RadioButton GroupName="colorMode" IsChecked="false"
                         Name="Grayscale" Click="colorMode_Click"
                         Template="{StaticResource customRadioButton}"
-                        Content="灰阶" VerticalAlignment="Center"
+                        Content="{StaticResource ResStr_Grayscale}" VerticalAlignment="Center"
                         Margin="5,0" ></RadioButton>
 
                     <RadioButton GroupName="colorMode" IsChecked="false"
                         Name="BlackAndWhite" Click="colorMode_Click"
                         Template="{StaticResource customRadioButton}"
-                        Content="黑白" VerticalAlignment="Center"
+                        Content="{StaticResource ResStr_Black_White}" VerticalAlignment="Center"
                         Margin="5,0" ></RadioButton>
 
                 </StackPanel>
             </local:GroupBoxDecorator>
 
-            <local:GroupBoxDecorator Margin="40,0,0,0" Header="扫描区域大小" Height="70" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="220" >
+            <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_Scan_Size}" Height="70" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="220" >
                 <ComboBox Name="cboScanSize" SelectionChanged="cbo_selchg_scansize"
                     Style="{StaticResource customComboBox}"
                     Background="White"
@@ -214,7 +214,7 @@
 
 
             <!-- Right side -->
-            <local:GroupBoxDecorator Margin="0,0,40,0" Header="亮度" Height="115" Width="220" HorizontalAlignment="Right" VerticalAlignment="Top" >
+            <local:GroupBoxDecorator Margin="0,0,40,0" Header="{StaticResource ResStr_Brightness}" Height="115" Width="220" HorizontalAlignment="Right" VerticalAlignment="Top" >
                 <StackPanel>
                     <Image Stretch="None" VerticalAlignment="Top"
                         Margin="0,5" Source="Images/Brightness.png" />
@@ -237,7 +237,7 @@
                 </StackPanel>
             </local:GroupBoxDecorator>
 
-            <local:GroupBoxDecorator Margin="0,0,40,0" Header="对比度" Height="115" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="220" >
+            <local:GroupBoxDecorator Margin="0,0,40,0" Header="{StaticResource ResStr_Contrast}" Height="115" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="220" >
                 <StackPanel>
                     <Image Stretch="None" VerticalAlignment="Top"
                         Margin="0,5" Source="Images/Constrast.png" />
@@ -263,10 +263,10 @@
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="False" x:Name="btnDefault" Click="btnDefault_Click"
-                Content="默认" 
+                Content="{StaticResource ResStr_Defualt}" 
                 Height="35" Width="120" Margin="0,0,20,0" />
             <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="True" x:Name="btnOk" Click="btnOk_Click"
-                Content="确定"  Height="35" Width="120" IsActiveEx="True" />
+                Content="{StaticResource ResStr_OK}"  Height="35" Width="120" IsActiveEx="True" />
         </StackPanel>
 
     </Grid>

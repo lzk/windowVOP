@@ -59,6 +59,7 @@
     <sys:String x:Key="ResStr_Birth_Certificate">出生证明</sys:String>
     <sys:String x:Key="ResStr_Bank_Card">银行卡</sys:String>
     <sys:String x:Key="ResStr_Social_Security_Card">社保卡</sys:String>
+    <sys:String x:Key="ResStr_Bank_SocialSecurity_Card">银行卡/社保卡</sys:String>
     <sys:String x:Key="ResStr_ID_Card">身份证</sys:String>
     <sys:String x:Key="ResStr_More_Settings">更多设置</sys:String>
     <sys:String x:Key="ResStr_Copies">打印份数</sys:String>
