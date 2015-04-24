@@ -215,13 +215,7 @@ namespace VOP
 
         private void ButtonEx_Click(object sender, RoutedEventArgs e)
         {
-            MaintainList.Children.Clear();
-            int nIdx = 1;
-            foreach (MaintainInfoItem item in m_MaintainSet.m_listMaintainInfo)
-            {
-                MaintainInfo maintainInfo = new MaintainInfo(nIdx++, "地址：" + item.m_strAddress, "电话：" + item.m_strPhone);
-                MaintainList.Children.Add(maintainInfo);
-            }
+            System.Diagnostics.Process.Start(@"http://appserver.lenovo.com.cn/Lenovo_Series_List.aspx?CategoryCode=A06B12");
         }
     }
 }
