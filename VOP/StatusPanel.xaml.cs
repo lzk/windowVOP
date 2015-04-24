@@ -315,9 +315,10 @@ namespace VOP
         }
 
         
-        public void EnableRefreshBtn( bool bEnable )
+        public void EnableSwitchPrinter( bool bEnable )
         {
             RefreshBtn.IsEnabled = bEnable;
+            cboPrinters.IsEnabled = bEnable;
         }
     }
 }

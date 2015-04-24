@@ -259,7 +259,7 @@ namespace VOP
             btnCancel.IsEnabled  = true;
             btnScan.IsEnabled    = false;
             btnSetting.IsEnabled = false;
-            m_MainWin.statusPanelPage.EnableRefreshBtn( false );
+            m_MainWin.statusPanelPage.EnableSwitchPrinter( false );
 
             scanningThread = new Thread(DoScanning);
             scanningThread.Start();
@@ -332,7 +332,7 @@ namespace VOP
                  btnCancel.IsEnabled  = false;
                  btnScan.IsEnabled    = true;
                  btnSetting.IsEnabled = true;
-                 m_MainWin.statusPanelPage.EnableRefreshBtn( true );
+                 m_MainWin.statusPanelPage.EnableSwitchPrinter( true );
                  
                  progressBar1.Value = 0;
                  txtProgressPercent.Text = "0";
