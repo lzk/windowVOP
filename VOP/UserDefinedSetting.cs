@@ -43,71 +43,6 @@ namespace VOP
             tbHeight.LostFocus += new RoutedEventHandler(TextBox_LostFocus);
             tbHeight.TextChanged += new TextChangedEventHandler(TextBox_TextChanged);
 
-            UpdateValidationRule();
-        }
-
-        private void UpdateValidationRule()
-        {
-            if (RadioButtonMM.IsChecked == true)
-            {
-                UserDefinedSizeValidationRule ruleWidth = new UserDefinedSizeValidationRule();
-                ruleWidth.MinimumValue = 76.2;
-                ruleWidth.MaximumValue = 216.0;
-                ruleWidth.DecimalPlaces = 1;
-
-                Binding binding = new Binding();
-                binding.ElementName = "myComboBox";
-                binding.Mode = BindingMode.OneWay;
-                binding.Path = new PropertyPath(ComboBox.SelectedItemProperty);
-                binding.Converter = new WidthConverter();
-                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                binding.ValidationRules.Add(ruleWidth);
-                tbWidth.SetBinding(TextBox.TextProperty, binding);
-
-                UserDefinedSizeValidationRule ruleHeight = new UserDefinedSizeValidationRule();
-                ruleHeight.MinimumValue = 116.0;
-                ruleHeight.MaximumValue = 355.6;
-                ruleHeight.DecimalPlaces = 1;
-
-                binding = new Binding();
-                binding.ElementName = "myComboBox";
-                binding.Mode = BindingMode.OneWay;
-                binding.Path = new PropertyPath(ComboBox.SelectedItemProperty);
-                binding.Converter = new HeightConverter();
-                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                binding.ValidationRules.Add(ruleHeight);
-                tbHeight.SetBinding(TextBox.TextProperty, binding);
-            }
-            else
-            {
-                UserDefinedSizeValidationRule ruleWidth = new UserDefinedSizeValidationRule();
-                ruleWidth.MinimumValue = 3.00;
-                ruleWidth.MaximumValue = 8.50;
-                ruleWidth.DecimalPlaces = 2;
-
-                Binding binding = new Binding();
-                binding.ElementName = "myComboBox";
-                binding.Mode = BindingMode.OneWay;
-                binding.Path = new PropertyPath(ComboBox.SelectedItemProperty);
-                binding.Converter = new WidthConverter();
-                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                binding.ValidationRules.Add(ruleWidth);
-                tbWidth.SetBinding(TextBox.TextProperty, binding);
-
-                UserDefinedSizeValidationRule ruleHeight = new UserDefinedSizeValidationRule();
-                ruleHeight.MinimumValue = 4.57;
-                ruleHeight.MaximumValue = 14.00;
-                ruleHeight.DecimalPlaces = 2;
-
-                binding = new Binding();
-                binding.ElementName = "myComboBox";
-                binding.Mode = BindingMode.OneWay;
-                binding.Path = new PropertyPath(ComboBox.SelectedItemProperty);
-                binding.Converter = new HeightConverter();
-                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-                binding.ValidationRules.Add(ruleHeight);
-                tbHeight.SetBinding(TextBox.TextProperty, binding);
-            }
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -134,11 +69,80 @@ namespace VOP
             }
         }
 
+        private bool IsTextBoxValid(TextBox tb, ValidationRule rule)
+        {
+            ValidationResult result = rule.Validate(tb.Text, null);
+            if (result.IsValid == false)
+            {
+                BindingExpression expression = BindingOperations.GetBindingExpression(tb, TextBox.TextProperty);
+
+                if (expression != null)
+                     Validation.MarkInvalid(expression, new ValidationError(rule, expression, result.ErrorContent, null));
+
+                return false;
+            }
+            else
+            {
+                BindingExpression expression = BindingOperations.GetBindingExpression(tb, TextBox.TextProperty);
+
+                if (expression != null)
+                    Validation.ClearInvalid(expression);
+
+                return true;
+            }
+        }
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox tb = sender as TextBox;
+            bool IsValid = false;
 
-            if(Validation.GetHasError(tb))
+            if (RadioButtonMM.IsChecked == true)
+            {
+                if (tb.Name == "tbWidth")
+                {
+                    UserDefinedSizeValidationRule ruleWidth = new UserDefinedSizeValidationRule();
+                    ruleWidth.MinimumValue = 76.2;
+                    ruleWidth.MaximumValue = 216.0;
+                    ruleWidth.DecimalPlaces = 1;
+
+                    IsValid = IsTextBoxValid(tb, ruleWidth);
+                }
+                else
+                {
+
+                    UserDefinedSizeValidationRule ruleHeight = new UserDefinedSizeValidationRule();
+                    ruleHeight.MinimumValue = 116.0;
+                    ruleHeight.MaximumValue = 355.6;
+                    ruleHeight.DecimalPlaces = 1;
+
+                    IsValid = IsTextBoxValid(tb, ruleHeight);
+                }
+
+            }
+            else
+            {
+                if (tb.Name == "tbWidth")
+                {
+                    UserDefinedSizeValidationRule ruleWidth = new UserDefinedSizeValidationRule();
+                    ruleWidth.MinimumValue = 3.00;
+                    ruleWidth.MaximumValue = 8.50;
+                    ruleWidth.DecimalPlaces = 2;
+
+                    IsValid = IsTextBoxValid(tb, ruleWidth);
+                }
+                else
+                {
+                    UserDefinedSizeValidationRule ruleHeight = new UserDefinedSizeValidationRule();
+                    ruleHeight.MinimumValue = 4.57;
+                    ruleHeight.MaximumValue = 14.00;
+                    ruleHeight.DecimalPlaces = 2;
+
+                    IsValid = IsTextBoxValid(tb, ruleHeight);
+                }  
+            }
+
+            if (IsValid)
             {
                 OkButton.IsEnabled = false;
             }
@@ -186,8 +190,6 @@ namespace VOP
             {
                 tbHeight.Text = RadioButtonMM.IsChecked == true ? "297.0" : "11.69";
             }
-
-            UpdateValidationRule();
         }
 
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
