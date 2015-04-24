@@ -735,6 +735,7 @@ namespace VOP
             }
 
             winCopyPage.ResetToDefaultValue();
+            winScanPage.ResetToDefaultValue();
 
             App.g_autoMachine.ResetAutoMachine();
 

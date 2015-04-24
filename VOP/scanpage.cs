@@ -45,28 +45,13 @@ namespace VOP
         private object objLock = new object(); 
 
         // InitialDirectory for SaveFileDialog.
-        private string strInitalDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+        private string strInitalDirectory = "";
 
         public ScanPage()
         {
             InitializeComponent();
+            ResetToDefaultValue();
 
-            foreach( ScanFiles obj in App.scanFileList )
-            {
-                ImageItem img  = new ImageItem();
-                img.m_images = obj;
-                img.CheckImage( false );
-                img.Margin = new Thickness( 5 );
-
-                img.ImageSingleClick += ImageItemSingleClick;
-                img.ImageDoubleClick += ImageItemDoubleClick;
-                img.CloseIconClick += ImageItemCloseIconClick;
-
-                if ( img.m_iSimgReady )
-                {
-                    this.image_wrappanel.Children.Insert(0, img );
-                }
-            }
         }
 
         private void ImageItemCloseIconClick(object sender, RoutedEventArgs e)
@@ -276,18 +261,6 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            txtBlkImgSize.Text = FormatSize( GetScanSize() );
-
-            btnPrint.IsEnabled = false;
-            btnSave.IsEnabled = false;
-            btnCancel.IsEnabled = false;
-
-			//Configure the ProgressBar
-            progressBar1.Minimum = 0;
-            progressBar1.Maximum = 100;
-            progressBar1.Value = 0;
-            txtProgressPercent.Text = "0";
-
             HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
             source.AddHook(WndProc);
         }
@@ -566,6 +539,34 @@ namespace VOP
             }
 
             return str;
+        }
+
+        public void ResetToDefaultValue()
+        {
+            m_docutype   = EnumScanDocType.Photo;
+            m_scanResln  = EnumScanResln._300x300;
+            m_paperSize  = EnumPaperSizeScan._A4;
+            m_color      = EnumColorType.color_24bit;
+            m_brightness = 50;
+            m_contrast   = 50;
+
+            strInitalDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            this.image_wrappanel.Children.Clear();
+
+            // TODO: Delete cached file.
+            App.scanFileList.Clear();
+
+            btnPrint.IsEnabled = false;
+            btnSave.IsEnabled = false;
+            btnCancel.IsEnabled = false;
+
+			//Configure the ProgressBar
+            progressBar1.Minimum = 0;
+            progressBar1.Maximum = 100;
+            progressBar1.Value = 0;
+            txtProgressPercent.Text = "0";
+
+            txtBlkImgSize.Text = FormatSize( GetScanSize() );
         }
     }
 }
