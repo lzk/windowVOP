@@ -50,6 +50,17 @@ namespace VOP
         // Flags present the WndProc had been hooked or not.
         private bool m_bHooked = false;
 
+
+        // Flag present the whether doing scanning job.
+        private bool _isScanning = false; 
+        public bool m_isScanning 
+        {
+            get 
+            {
+                return _isScanning;
+            }
+        }
+
         public ScanPage()
         {
             InitializeComponent();
@@ -261,6 +272,7 @@ namespace VOP
             btnSetting.IsEnabled = false;
             m_MainWin.statusPanelPage.EnableSwitchPrinter( false );
 
+            _isScanning = true;
             scanningThread = new Thread(DoScanning);
             scanningThread.Start();
 
@@ -327,6 +339,7 @@ namespace VOP
             } 
             else if ( WM_VOPSCAN_COMPLETED == msg )
             {
+                _isScanning = false;
                  handled = true;
 
                  btnCancel.IsEnabled  = false;

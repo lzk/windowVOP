@@ -13,7 +13,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Printing;
 using System.Drawing.Printing;
-using System.Windows.Forms;
 using System.Threading;
 using System.Windows.Interop;
 using Microsoft.Win32;
@@ -280,7 +279,7 @@ namespace VOP
 
 
         #region TrayMenu
-        NotifyIcon notifyIcon1;
+        System.Windows.Forms.NotifyIcon notifyIcon1;
         void InitTrayMenu()
         {
             // Create the NotifyIcon. 
