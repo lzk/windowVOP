@@ -624,9 +624,7 @@ namespace VOP
                    job    = _job   ;
                }
 
-               this.statusPanelPage.m_toner         = toner;
-               this.statusPanelPage.m_currentStatus = (EnumStatus)status;
-               this.statusPanelPage.m_job           = (EnumMachineJob)job;
+               statusPanelPage.UpdateStatusPanel( (EnumStatus)status, (EnumMachineJob)job, toner );
 
                if(true == m_bLocationIsChina)
                {
@@ -747,9 +745,7 @@ namespace VOP
                 job    = (byte)EnumMachineJob.UnknowJob;
             }
 
-            statusPanelPage.m_job = (EnumMachineJob)job;
-            statusPanelPage.m_toner = toner;
-            statusPanelPage.m_currentStatus = (EnumStatus)status;
+            statusPanelPage.UpdateStatusPanel( (EnumStatus)status, (EnumMachineJob)job, toner );
 
             bool bIsOnline = !( (byte)EnumStatus.Offline == status 
                     || (byte)EnumStatus.PowerOff == status 

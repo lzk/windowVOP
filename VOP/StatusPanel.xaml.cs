@@ -63,7 +63,7 @@ namespace VOP
 
         private byte _OldToner = 0; 
         private byte _toner = 0; 
-        public byte m_toner 
+        private byte m_toner 
         {
             set
             {
@@ -82,7 +82,12 @@ namespace VOP
                                 || _OldToner > 20 && value <= 20 
                                 || _OldToner > 10 && value <= 10 )
                         {
-                            this.lbTonerBar.FlashShopCatIcon(true);
+                            if ( EnumStatus.Offline != m_currentStatus 
+                                    && EnumStatus.PowerOff != m_currentStatus 
+                                    && EnumStatus.Unknown != m_currentStatus )
+                            {
+                                this.lbTonerBar.FlashShopCatIcon(true);
+                            }
                         }
                     }
 
@@ -97,7 +102,7 @@ namespace VOP
         }
 
         private EnumStatus _currentStatus = EnumStatus.Offline;
-        public EnumStatus m_currentStatus
+        private EnumStatus m_currentStatus
         {
             set
             {
@@ -144,7 +149,7 @@ namespace VOP
             }
         }
 
-        public EnumMachineJob m_job = EnumMachineJob.UnknowJob;
+        private EnumMachineJob m_job = EnumMachineJob.UnknowJob;
 
         public StatusPanel()
         {
@@ -295,6 +300,18 @@ namespace VOP
 
             if ( cboPrinters.Items.Count > 0 )
                 cboPrinters.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// In order protect the job, status and toner assign order, those fields were defined as private member. 
+        /// So use this interface to update those fields.
+        /// </summary>
+        public void UpdateStatusPanel( EnumStatus st, EnumMachineJob job, byte toner )
+        {
+            // NOTE: Don't change this assign order
+            m_job = job;
+            m_currentStatus = st;
+            m_toner = toner;
         }
     }
 }
