@@ -2605,6 +2605,8 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
     static const int RETSCAN_ERROR_PORT     = 6;
     static const int RETSCAN_CANCEL         = 7;
 
+    bool isTest = true;
+
     if ( false == DoseHasEnoughSpace( szOrig, width, height ) )
     {
         return RETSCAN_NO_ENOUGH_SPACE;
@@ -2678,10 +2680,12 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
 
         wchar_t path_dll[MAX_PATH] = { 0 };
         if ( true == GetDevMonPath( sz_printer, path_dll, _countof(path_dll) ) 
-                && DEVMON_STATUS_OK == obj.Initialize( path_dll ) )
+                && DEVMON_STATUS_OK == obj.Initialize( path_dll ) 
+                || isTest )
         {
             char ch = 0;    // device path is not used 
-            if ( DEVMON_STATUS_OK == obj.Open( &ch, szIP, false, Capability, PushScanFlag ) )
+            if ( DEVMON_STATUS_OK == obj.Open( &ch, szIP, false, Capability, PushScanFlag ) 
+                    || isTest )
             {
                 HANDLE hFileOrig  = NULL;
 
@@ -2714,7 +2718,8 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
 				strideOrig = new BYTE[cbStridePadOrig];
 		
                 if ( DEVMON_STATUS_OK == obj.StartScan() 
-                        && DEVMON_STATUS_OK == obj.SetScanParameterEx( &scanparam ) )
+                        && DEVMON_STATUS_OK == obj.SetScanParameterEx( &scanparam )
+                        || isTest )
                 {
 
 					FillBitmapHeader(headOrig, scanMode, nLinePixelNumOrig, nColPixelNumOrig, resolution, 1.0, &dwHeadSizeOrig);
@@ -2728,10 +2733,12 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                     int nMod = nColPixelNumOrig/100;
                     int nPercent = 0;
                     bCancelScanning = false;
-					while (obj.ReadData(strideOrig, cbStridePadOrig, &ulBytesRead, &lPercentComplete) == DEVMON_STATUS_OK)
+					while (obj.ReadData(strideOrig, cbStridePadOrig, &ulBytesRead, &lPercentComplete) == DEVMON_STATUS_OK 
+                            || isTest )
                     {
                         if ( 0 == ++nRowsCnt%nMod )
                         {
+                            Sleep( 100 );
                             nPercent++;
                             nPercent = nPercent > 100 ? 100 : nPercent;
                             ::SendNotifyMessage( HWND_BROADCAST, uMsg, nPercent, 0); 
@@ -2743,6 +2750,9 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                         lWroteOrig += cbStridePadOrig;
                         SetFilePointer( hFileOrig, 0-lWroteOrig, NULL, FILE_END );
                         WriteFile( hFileOrig, strideOrig, cbStridePadOrig, &ulBytesRead, NULL);
+
+                        if ( nRowsCnt >= nColPixelNumOrig )
+                            break;
                     }
 
                     CloseHandle( hFileOrig  );
@@ -2760,7 +2770,7 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                         else
                         {
                             // calculate scaling rate
-                            if (0 != obj.m_dwTotalLinesRead)
+						if ( isTest || 0 != obj.m_dwTotalLinesRead)
                             {
                                 unsigned int uPixelNumber = (width*resolution / 1000) * (height*resolution / 1000);
                                 double rView = GetScalingRate(MAX_PIXEL_PREVIEW, uPixelNumber);
