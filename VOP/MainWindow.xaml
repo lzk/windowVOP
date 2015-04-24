@@ -101,7 +101,7 @@
         <!-- Title Bar Layout --> 
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="13">
 
-            <TextBlock Text="ABC打印机" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="24" Height="35" />
+            <TextBlock Text="{StaticResource ResStr_ABC_Printer}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="24" Height="35" />
 
             <Image HorizontalAlignment="Left" VerticalAlignment="Center"  Source="Images\mainWindow_Logo.png" Height="15" Margin="20,0" Width="100" />
 
@@ -114,7 +114,7 @@
 
       
 
-        <TextBlock x:Name="txtPageName" Grid.Column="1" Grid.Row="2" Margin="5, 15, 0, 0" FontSize="45.31" Foreground="#676767"> 打印</TextBlock>
+        <TextBlock x:Name="txtPageName" Grid.Column="1" Grid.Row="2" Margin="5, 15, 0, 0" FontSize="45.31" Foreground="#676767"> </TextBlock>
 
         <Rectangle Name="line1" Grid.Row="2" Grid.Column="2" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0"/>
         <Rectangle Name="line2" Grid.Row="2" Grid.Column="4" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0" />
@@ -161,26 +161,26 @@
         <mycontrol:customTabItem x:Name="tabItem_Print"   Grid.Column="3" Grid.Row="3"  Margin="0,1"                             
                                  IsSelect="False" 
                                  FontSize="16.99" 
-                                 Text="打印">
+                                 Text="{StaticResource ResStr_Print}">
         </mycontrol:customTabItem>
 
         <mycontrol:customTabItem x:Name="tabItem_Copy"   Grid.Column="5" Grid.Row="3" Margin="0,1"                               
                                  IsSelect="False" 
                                  FontSize="16.99" 
-                                 Text="复印">
+                                 Text="{StaticResource ResStr_Copy}">
         </mycontrol:customTabItem>
 
 
         <mycontrol:customTabItem x:Name="tabItem_Scan"     Grid.Column="7" Grid.Row="3" Margin="0,1"                                 
                                  IsSelect="False" 
                                  FontSize="16.99" 
-                                 Text="扫描">
+                                 Text="{StaticResource ResStr_Scan}">
         </mycontrol:customTabItem>
 
         <mycontrol:customTabItem x:Name="tabItem_Setting"   Grid.Column="9" Grid.Row="3" Margin="0,1"                                 
                                  IsSelect="False" 
                                  FontSize="16.99" 
-                                 Text="设置">
+                                 Text="{StaticResource ResStr_Setting}">
         </mycontrol:customTabItem>
 
         <mycontrol:LogonButton  x:Name="btnLogin"  Grid.Column="11" Grid.Row="2" Margin="10, 15, 10, 5"  

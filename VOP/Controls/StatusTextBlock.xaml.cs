@@ -62,31 +62,31 @@ namespace VOP
             switch ( TypeId )
             {
                 case StatusDisplayType.Ready   :
-                    strStatus = "待机";
+                    strStatus = (string)this.FindResource("ResStr_Ready");
                     br = Brush_Ready;
                     break;
                 case StatusDisplayType.Sleep   :
-                    strStatus = "休眠";
+                    strStatus = (string)this.FindResource("ResStr_Sleep");
                     br = Brush_Sleep;
                     break;
                 case StatusDisplayType.Offline :
-                    strStatus = "离线";
+                    strStatus = (string)this.FindResource("ResStr_Offline");
                     br = Brush_Offline;
                     break;
                 case StatusDisplayType.Warning :
-                    strStatus = "告警";
+                    strStatus = (string)this.FindResource("ResStr_Warning");
                     br = Brush_Warning;
                     break;
                 case StatusDisplayType.Busy    :
-                    strStatus = "工作中";
+                    strStatus = (string)this.FindResource("ResStr_Busy");
                     br = Brush_Busy;
                     break;
                 case StatusDisplayType.Error   :
-                    strStatus = "错误";
+                    strStatus = (string)this.FindResource("ResStr_Error");
                     br = Brush_Error;
                     break;
                 default:
-                    strStatus = "离线";
+                    strStatus = (string)this.FindResource("ResStr_Offline");
                     br = Brush_Offline;
                     break;
             }

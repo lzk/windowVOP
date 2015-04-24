@@ -125,7 +125,7 @@
             <Grid Grid.Column="1">
 
                 <StackPanel>
-                    <local:GroupBoxDecorator Header="复印份数" Height="80" Width="320"
+                    <local:GroupBoxDecorator Header="{StaticResource ResStr_Copies_2}" Height="80" Width="320"
                         Margin="0,65,0,10" 
                         >
 
@@ -146,7 +146,7 @@
 
                     </local:GroupBoxDecorator>
 
-                    <local:GroupBoxDecorator Header="浓度" Height="80" Width="320">
+                    <local:GroupBoxDecorator Header="{StaticResource ResStr_Density}" Height="80" Width="320">
                         <StackPanel
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" 
@@ -176,7 +176,7 @@
                         <Image x:Name="imgIDCard"
                             Source="Images/IDCardCopyIconDisable.png"
                                Stretch="None" > </Image>
-                           <TextBlock Margin="20,0" VerticalAlignment="Center">身份证复印</TextBlock>
+                        <TextBlock Margin="20,0" VerticalAlignment="Center" Text="{StaticResource ResStr_ID_Card_Copy}"></TextBlock>
                         <CheckBox x:Name="chkBtnIDCardCopy" Template="{StaticResource switchBox}"
                                   IsChecked="False" Width="50" Height="25"
                                   Checked="CheckBox_Checked"
@@ -185,12 +185,12 @@
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
-                        <local:ButtonEx IsDefault="False" IsEnabled="True" Content="更多设置" 
+                        <local:ButtonEx IsDefault="False" IsEnabled="True" Content="{StaticResource ResStr_More_Settings}" 
                                 x:Name="btnSetting" Width="120" Height="35"
                                 Margin="0,0,40,0" Click="SettingBtnClick" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
 
                         <local:ButtonEx x:Name="btnCopy" HorizontalContentAlignment="Center"
-                                IsDefault="True" IsActiveEx="True" Content="复印"
+                                IsDefault="True" IsActiveEx="True" Content="{StaticResource ResStr_Copy}"
                                 Height="35" Width="150" Click="Button_Click" HorizontalAlignment="Center" />
                     </StackPanel>
 

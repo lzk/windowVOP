@@ -43,13 +43,13 @@
         </Grid.RowDefinitions>
 
         <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0">
-            <TextBlock Text="更多设置" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Text="{StaticResource ResStr_More_Settings}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
 
         <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True"/>
 
         <Grid Grid.Row="1" >
-            <local:GroupBoxDecorator Margin="38,10,0,0" Header="缩放" Height="80" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <local:GroupBoxDecorator Margin="38,10,0,0" Header="{StaticResource ResStr_Scaling}" Height="80" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
 
                 <local:SpinnerControl
                             x:Name="spinnerScaling"
@@ -67,18 +67,18 @@
 
             </local:GroupBoxDecorator>
 
-            <local:GroupBoxDecorator Margin="0,10,38,0" Header="扫描模式" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top" Width="220">
+            <local:GroupBoxDecorator Margin="0,10,38,0" Header="{StaticResource ResStr_Scanning_Mode}" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top" Width="220">
 
                 <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
 
                     <RadioButton x:Name="rdBtnScanModePhoto" GroupName="ScanMode" IsChecked="True"
                             Template="{StaticResource customRadioButton}"
-                            Content="照片" VerticalAlignment="Center"
+                            Content="{StaticResource ResStr_Photo}" VerticalAlignment="Center"
                             Margin="10,0" Checked="rdBtnScanModePhoto_Checked" ></RadioButton>
                     <RadioButton x:Name="rdBtnScanModeTxt" GroupName="ScanMode" IsChecked="False"
                             Template="{StaticResource customRadioButton}"
-                            Content="文本" VerticalAlignment="Center"
+                            Content="{StaticResource ResStr_Text}" VerticalAlignment="Center"
                             Margin="10,0" Checked="rdBtnScanModeTxt_Checked" ></RadioButton>
 
                 </StackPanel>
@@ -86,7 +86,7 @@
             </local:GroupBoxDecorator>
 
 
-            <local:GroupBoxDecorator Margin="38,10,0,0" Header="原稿尺寸" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center" >
+            <local:GroupBoxDecorator Margin="38,10,0,0" Header="{StaticResource ResStr_Document_Size}" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center" >
                 <ComboBox x:Name="cboDocSize"
                         Style="{StaticResource customComboBox}"
                         Background="White"
@@ -96,7 +96,7 @@
                 </ComboBox>
             </local:GroupBoxDecorator>
 
-            <local:GroupBoxDecorator Margin="0,10,38,0" Header="分辨率" Height="70" HorizontalAlignment="Right" VerticalAlignment="Center" Width="220" >
+            <local:GroupBoxDecorator Margin="0,10,38,0" Header="{StaticResource ResStr_DPI}" Height="70" HorizontalAlignment="Right" VerticalAlignment="Center" Width="220" >
                 <ComboBox x:Name="cboResolution"
                         Style="{StaticResource customComboBox}"
                         Background="White"
@@ -107,7 +107,7 @@
                 </ComboBox>
             </local:GroupBoxDecorator>
 
-            <local:GroupBoxDecorator Margin="38,0,0,8" Header="输出纸张大小" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+            <local:GroupBoxDecorator Margin="38,0,0,8" Header="{StaticResource ResStr_Output_Size}" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
                 <ComboBox x:Name="cboOutputSize"
                         Style="{StaticResource customComboBox}"
                         Background="White"
@@ -117,7 +117,7 @@
                 </ComboBox>
             </local:GroupBoxDecorator>
 
-            <local:GroupBoxDecorator Margin="0,0,38,8" Header="介质类型" Height="70" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="220">
+            <local:GroupBoxDecorator Margin="0,0,38,8" Header="{StaticResource ResStr_Media_Type}" Height="70" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="220">
                 <ComboBox x:Name="cboMediaType"
                         Style="{StaticResource customComboBox}"
                         Background="White"
@@ -129,7 +129,7 @@
         </Grid>
 
 
-        <local:GroupBoxDecorator Grid.Row="2" Header="N合1复印" Height="140" Width="455" >
+        <local:GroupBoxDecorator Grid.Row="2" Header="{StaticResource ResStr_N_in_1_Copy}" Height="140" Width="455" >
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -146,11 +146,11 @@
                 </Grid.RowDefinitions>
 
                 <CheckBox x:Name="chkNin1" Template="{StaticResource customCheckBox}" IsChecked="true" VerticalAlignment="Center"
-                    Content="多页打印" HorizontalAlignment="Center" Checked="chkNin1_Checked" Unchecked="chkNin1_Unchecked" Height="24" Margin="38,42,38,11" Width="74" />
+                    Content="{StaticResource ResStr_Multiple_Page}" HorizontalAlignment="Center" Checked="chkNin1_Checked" Unchecked="chkNin1_Unchecked" Height="24" Margin="38,42,38,11" Width="74" />
 
-                <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="2合1" Height="16" />
-                <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="4合1" Height="16" />
-                <TextBlock Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="9合1" Height="16" />
+                <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_2_in_1}" Height="16" />
+                <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_4_in_1}" Height="16" />
+                <TextBlock Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_9_in_1}" Height="16" />
 
                 <Rectangle x:Name="rectNin1_2" Grid.Column="1" Fill="Gray" RadiusX="5" RadiusY="5" Height="65" VerticalAlignment="Bottom" Margin="5,0" />
                 <Rectangle x:Name="rectNin1_4" Grid.Column="2" Fill="Gray" RadiusX="5" RadiusY="5" Height="65" VerticalAlignment="Bottom" Margin="5,0" />
@@ -166,10 +166,10 @@
         <StackPanel Grid.Row="5" Orientation="Horizontal"
             HorizontalAlignment="Center">
             <local:ButtonEx x:Name="btnDefault" HorizontalContentAlignment="Center" IsDefault="False"
-                Content="默认" 
+                Content="{StaticResource ResStr_Defualt}" 
                 Height="38" Width="125" Margin="0,0,20,0" Click="btnDefault_Click" />
             <local:ButtonEx x:Name="btnApply" HorizontalContentAlignment="Center" IsActiveEx="True"
-                Content="确定"  Height="38" Width="125" Click="btnApply_Click" />
+                Content="{StaticResource ResStr_OK}"  Height="38" Width="125" Click="btnApply_Click" />
         </StackPanel>
 
     </Grid>

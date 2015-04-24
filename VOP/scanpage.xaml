@@ -121,13 +121,13 @@
     <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal"
         HorizontalAlignment="Left" Width="431" Margin="0,0,-8,0" >
         <local:ButtonEx x:Name="btnPrint" HorizontalContentAlignment="Center" Margin="0,0,5,0" IsDefault="False"
-            Content="打印" Height="35" Width="75" HorizontalAlignment="Center" Click="btnPrint_Click" />
+            Content="{StaticResource ResStr_Print}" Height="35" Width="75" HorizontalAlignment="Center" Click="btnPrint_Click" />
         <local:ButtonEx x:Name="btnSave" HorizontalContentAlignment="Center" Margin="5,0" IsDefault="False"
-            Content="保存" Height="35" Width="75" HorizontalAlignment="Center" Click="btnSave_Click" />
+            Content="{StaticResource ResStr_Save}" Height="35" Width="75" HorizontalAlignment="Center" Click="btnSave_Click" />
         <local:ButtonEx Click="SettingBtnClick" HorizontalContentAlignment="Center" Margin="5,10" IsDefault="False"
-            Content="更多设置" Height="35" Width="105" HorizontalAlignment="Center" />
+            Content="{StaticResource ResStr_More_Settings}" Height="35" Width="105" HorizontalAlignment="Center" />
         <local:ButtonEx x:Name="btnScan" HorizontalContentAlignment="Center" Margin="10,0" IsDefault="True" IsActiveEx="True"
-            Content="扫描" Height="35" Width="105" Click="btnScan_Click" />
+            Content="{StaticResource ResStr_Scan}" Height="35" Width="105" Click="btnScan_Click" />
     </StackPanel>
     <Grid Grid.Column="1" Margin="0" Grid.Row="2">
     	<Grid.ColumnDefinitions>
@@ -135,14 +135,14 @@
     		<ColumnDefinition Width="230*"/>
     		<ColumnDefinition Width="103*"/>
     	</Grid.ColumnDefinitions>
-    	<TextBlock VerticalAlignment="Center" Grid.Column="0" Height="15.96" Margin="0,14.52" >待扫描图片大小:</TextBlock>
+            <TextBlock VerticalAlignment="Center" Grid.Column="0" Height="15.96" Margin="0,14.52" Text="{StaticResource ResStr_Scanned_image_size}"></TextBlock>
     	<TextBlock x:Name="txtBlkImgSize" VerticalAlignment="Center" Grid.Column="1" Height="15.96" Margin="0,14.52" ></TextBlock>
-    	<local:ButtonEx x:Name="btnCancel" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="75" Height="35" IsDefault="false" Content="取消" Grid.Column="2" Click="btnCancel_Click" />
+            <local:ButtonEx x:Name="btnCancel" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="75" Height="35" IsDefault="false" Content="{StaticResource ResStr_Cancel}" Grid.Column="2" Click="btnCancel_Click" />
     </Grid>
 
     <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal"
         HorizontalAlignment="Left" VerticalAlignment="Top">
-        <TextBlock x:Name="txtProgressLabel"   VerticalAlignment="Top" HorizontalAlignment="Left"> 扫描进度: </TextBlock>
+            <TextBlock x:Name="txtProgressLabel"   VerticalAlignment="Top" HorizontalAlignment="Left" Text="{StaticResource ResStr_Scanning_2}">  </TextBlock>
         <TextBlock x:Name="txtProgressPercent" VerticalAlignment="Top" TextAlignment="Right" Width="20" > 100 </TextBlock>
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" > % </TextBlock>
         <ProgressBar x:Name="progressBar1" Style="{StaticResource RoundedProgressBar}" Width="310" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="18" Value="50"/>

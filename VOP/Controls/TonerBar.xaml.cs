@@ -154,9 +154,9 @@ namespace VOP
             {
                 TonerPercent.Background = Brush_Normal;
             }
-           
 
-            textblock_Tip.Text = string.Format("碳粉容量 ： {0:P0}", CurValue / 100.0);
+            string strFormat = (string)this.FindResource("ResStr_Toner") + " ： {0:P0}";
+            textblock_Tip.Text = string.Format(strFormat, CurValue / 100.0);
 
             // Draw ShopCart Image
             if(IsEnabled)

@@ -95,7 +95,7 @@
                                    Background="{x:Null}"
                                    FontSize="12"
                                    Foreground="#555555"
-                                   Text="机型："
+                                   Text="{StaticResource ResStr_Model}"
                                    TextAlignment="Center">
                         </TextBlock>
 
@@ -122,7 +122,7 @@
                                Background="{x:Null}"
                                FontSize="12"
                                Foreground="#555555"
-                               Text="设备状态:"
+                               Text="{StaticResource ResStr_Device_Status}"
                                TextAlignment="Center" />
 
                     <mycontrol:StatusTextBlock x:Name="status" Grid.Row="4" 
@@ -130,7 +130,7 @@
                                                Margin="0, 5, 0, 0"
                                                FontSize="12"                                           
                                                TypeId="Error" 
-                                               Text="错误">
+                                               >
                     </mycontrol:StatusTextBlock>
 
                     <mycontrol:TonerBar Grid.Row="6" Grid.Column="1" 

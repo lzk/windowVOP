@@ -188,12 +188,12 @@ namespace VOP
 
             if ( true == chkBtnIDCardCopy.IsChecked ) 
             {
-                this.btnCopy.Content = "身份证复印";
+                this.btnCopy.Content = (string)this.FindResource("ResStr_ID_Card_Copy");
                 bi.UriSource = new Uri("Images/IDCardCopyIconEnable.png", UriKind.Relative);
             }
             else
             {
-                this.btnCopy.Content = "复印";
+                this.btnCopy.Content = (string)this.FindResource("ResStr_Copy");
                 bi.UriSource = new Uri("Images/IDCardCopyIconDisable.png", UriKind.Relative);
             }
 
