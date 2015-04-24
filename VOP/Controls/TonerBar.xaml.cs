@@ -214,6 +214,7 @@ namespace VOP
             {
                 shopGrid.Visibility = Visibility.Hidden;
                 Grid.SetColumnSpan(TonerGrid, 3);
+                UpdateLayout();
             }
             PaintControl();
         }
