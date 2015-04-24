@@ -154,8 +154,11 @@ namespace VOP
                 rsg.Close();
             }
 
-            uploadCRMThread = new Thread(UploadCRM_LocalInfoToServerCaller);
-            uploadCRMThread.Start();
+            if (true == m_bLocationIsChina)
+            {
+                uploadCRMThread = new Thread(UploadCRM_LocalInfoToServerCaller);
+                uploadCRMThread.Start();
+            }
         }
 
         public static bool SaveCRMDataIntoXamlFile(string strFileName, DateTime date, string strData)
