@@ -124,7 +124,7 @@
             Content="{StaticResource ResStr_Print}" Height="35" Width="75" HorizontalAlignment="Center" Click="btnPrint_Click" />
         <local:ButtonEx x:Name="btnSave" HorizontalContentAlignment="Center" Margin="5,0" IsDefault="False"
             Content="{StaticResource ResStr_Save}" Height="35" Width="75" HorizontalAlignment="Center" Click="btnSave_Click" />
-        <local:ButtonEx Click="SettingBtnClick" HorizontalContentAlignment="Center" Margin="5,10" IsDefault="False"
+        <local:ButtonEx x:Name="btnSetting" Click="SettingBtnClick" HorizontalContentAlignment="Center" Margin="5,10" IsDefault="False"
             Content="{StaticResource ResStr_More_Settings}" Height="35" Width="105" HorizontalAlignment="Center" />
         <local:ButtonEx x:Name="btnScan" HorizontalContentAlignment="Center" Margin="10,0" IsDefault="True" IsActiveEx="True"
             Content="{StaticResource ResStr_Scan}" Height="35" Width="105" Click="btnScan_Click" />

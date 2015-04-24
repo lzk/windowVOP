@@ -256,7 +256,10 @@ namespace VOP
 
         private void btnScan_Click(object sender, RoutedEventArgs e)
         {
-            btnCancel.IsEnabled = true;
+            btnCancel.IsEnabled  = true;
+            btnScan.IsEnabled    = false;
+            btnSetting.IsEnabled = false;
+
             scanningThread = new Thread(DoScanning);
             scanningThread.Start();
 
@@ -324,7 +327,10 @@ namespace VOP
             else if ( WM_VOPSCAN_COMPLETED == msg )
             {
                  handled = true;
-                 btnCancel.IsEnabled = false;
+
+                 btnCancel.IsEnabled  = false;
+                 btnScan.IsEnabled    = true;
+                 btnSetting.IsEnabled = true;
 
                  if ( RETSCAN_OK == (int)wParam )
                  {
@@ -564,14 +570,16 @@ namespace VOP
             // TODO: Delete cached file.
             App.scanFileList.Clear();
 
-            btnPrint.IsEnabled = false;
-            btnSave.IsEnabled = false;
-            btnCancel.IsEnabled = false;
+            btnPrint.IsEnabled   = false;
+            btnSave.IsEnabled    = false;
+            btnCancel.IsEnabled  = false;
+            btnScan.IsEnabled    = true;
+            btnSetting.IsEnabled = true;
 
 			//Configure the ProgressBar
-            progressBar1.Minimum = 0;
-            progressBar1.Maximum = 100;
-            progressBar1.Value = 0;
+            progressBar1.Minimum    = 0;
+            progressBar1.Maximum    = 100;
+            progressBar1.Value      = 0;
             txtProgressPercent.Text = "0";
 
             txtBlkImgSize.Text = FormatSize( GetScanSize() );
