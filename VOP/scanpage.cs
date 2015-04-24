@@ -47,6 +47,9 @@ namespace VOP
         // InitialDirectory for SaveFileDialog.
         private string strInitalDirectory = "";
 
+        // Flags present the WndProc had been hooked or not.
+        private bool m_bHooked = false;
+
         public ScanPage()
         {
             InitializeComponent();
@@ -261,8 +264,13 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
-            source.AddHook(WndProc);
+            if ( false == m_bHooked )
+            {
+                HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
+                source.AddHook(WndProc);
+
+                m_bHooked = true;
+            }
         }
 
 
