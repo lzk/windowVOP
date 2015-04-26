@@ -21,6 +21,25 @@ namespace VOP
     /// </summary>
     public partial class UserDefinedSetting : Window
     {
+        double MMWidthMin = 76.2;
+        double MMWidthMax = 216.0;
+        double MMWidthDefault = 210.0;
+        double MMHeightMin = 116.0;
+        double MMHeightMax = 355.6;
+        double MMHeightDefault = 297.0;
+
+        double InchWidthMin = 3.00;
+        double InchWidthMax = 8.50;
+        double InchWidthDefault = 8.27;
+        double InchHeightMin = 4.57;
+        double InchHeightMax = 14.00;
+        double InchHeightDefault = 11.69;
+
+        string preWidthText = "";
+        string preHeightText = "";
+        bool IsPreTextInputValid = false;
+
+        bool IsTextInputValid = false;
         public ObservableCollection<UserDefinedSizeItem> UserDefinedSizeItems { get; set; }
 
         public UserDefinedSetting(ObservableCollection<UserDefinedSizeItem> userDefinedSizeItems)
@@ -32,17 +51,38 @@ namespace VOP
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            InitTextBoxBinding();
+
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
             myStackPanel.AddHandler(RadioButton.CheckedEvent, new RoutedEventHandler(OnRadioChecked));
 
             tbWidth.PreviewTextInput += new TextCompositionEventHandler(TextBox_PreviewTextInput);
+            tbWidth.LostKeyboardFocus += new KeyboardFocusChangedEventHandler(TextBox_LostKeyboardFocus);
             tbWidth.LostFocus += new RoutedEventHandler(TextBox_LostFocus);
             tbWidth.TextChanged += new TextChangedEventHandler(TextBox_TextChanged);
+         
 
             tbHeight.PreviewTextInput += new TextCompositionEventHandler(TextBox_PreviewTextInput);
+            tbHeight.LostKeyboardFocus += new KeyboardFocusChangedEventHandler(TextBox_LostKeyboardFocus);
             tbHeight.LostFocus += new RoutedEventHandler(TextBox_LostFocus);
-            tbHeight.TextChanged += new TextChangedEventHandler(TextBox_TextChanged);
+            tbHeight.TextChanged += new TextChangedEventHandler(TextBox_TextChanged);   
+        }
 
+        private void InitTextBoxBinding()
+        {
+            Binding binding = new Binding();
+            binding.ElementName = "myComboBox";
+            binding.Mode = BindingMode.TwoWay;
+            binding.Path = new PropertyPath(ComboBox.SelectedItemProperty);
+            binding.Converter = new WidthConverter();
+            tbWidth.SetBinding(TextBox.TextProperty, binding);
+
+            binding = new Binding();
+            binding.ElementName = "myComboBox";
+            binding.Mode = BindingMode.TwoWay;
+            binding.Path = new PropertyPath(ComboBox.SelectedItemProperty);
+            binding.Converter = new HeightConverter();
+            tbHeight.SetBinding(TextBox.TextProperty, binding);
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -55,17 +95,65 @@ namespace VOP
             }
         }
 
+        private void TextBox_LostKeyboardFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            IsPreTextInputValid = IsTextInputValid;
+
+            if (tb.Name == "tbWidth")
+            {
+                preWidthText = tb.Text;
+            }
+            else
+            {
+                preHeightText = tb.Text;
+            }
+        }
+
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox tb = sender as TextBox;
 
-            if (tb.Name == "tbWidth")
+            if (IsTextInputValid == false)
             {
-                tbWidth.Text = RadioButtonMM.IsChecked == true ? "210.0" : "8.27";
-            }
-            else
-            {
-                tbHeight.Text = RadioButtonMM.IsChecked == true ? "297.0" : "11.69";
+                if(string.IsNullOrEmpty(tb.Text))
+                {
+                    if (IsPreTextInputValid)
+                    {
+                        if (tb.Name == "tbWidth")
+                        {
+                            tb.Text = preWidthText;
+                        }
+                        else
+                        {
+                            tb.Text = preHeightText;
+                        }
+                    }
+                    else
+                    {
+                        if (tb.Name == "tbWidth")
+                        {
+                            tbWidth.Text = RadioButtonMM.IsChecked == true ? MMWidthDefault.ToString() : InchWidthDefault.ToString();
+                        }
+                        else
+                        {
+                            tbHeight.Text = RadioButtonMM.IsChecked == true ? MMHeightDefault.ToString() : InchHeightDefault.ToString();
+                        }
+                    }
+                   
+                }
+                else
+                {
+                    if (tb.Name == "tbWidth")
+                    {
+                        tbWidth.Text = RadioButtonMM.IsChecked == true ? MMWidthDefault.ToString() : InchWidthDefault.ToString();
+                    }
+                    else
+                    {
+                        tbHeight.Text = RadioButtonMM.IsChecked == true ? MMHeightDefault.ToString() : InchHeightDefault.ToString();
+                    }
+                }
             }
         }
 
@@ -95,28 +183,27 @@ namespace VOP
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox tb = sender as TextBox;
-            bool IsValid = false;
 
             if (RadioButtonMM.IsChecked == true)
             {
                 if (tb.Name == "tbWidth")
                 {
                     UserDefinedSizeValidationRule ruleWidth = new UserDefinedSizeValidationRule();
-                    ruleWidth.MinimumValue = 76.2;
-                    ruleWidth.MaximumValue = 216.0;
+                    ruleWidth.MinimumValue = MMWidthMin;
+                    ruleWidth.MaximumValue = MMWidthMax;
                     ruleWidth.DecimalPlaces = 1;
 
-                    IsValid = IsTextBoxValid(tb, ruleWidth);
+                    IsTextInputValid = IsTextBoxValid(tb, ruleWidth);
                 }
                 else
                 {
 
                     UserDefinedSizeValidationRule ruleHeight = new UserDefinedSizeValidationRule();
-                    ruleHeight.MinimumValue = 116.0;
-                    ruleHeight.MaximumValue = 355.6;
+                    ruleHeight.MinimumValue = MMHeightMin;
+                    ruleHeight.MaximumValue = MMHeightMax;
                     ruleHeight.DecimalPlaces = 1;
 
-                    IsValid = IsTextBoxValid(tb, ruleHeight);
+                    IsTextInputValid = IsTextBoxValid(tb, ruleHeight);
                 }
 
             }
@@ -125,30 +212,30 @@ namespace VOP
                 if (tb.Name == "tbWidth")
                 {
                     UserDefinedSizeValidationRule ruleWidth = new UserDefinedSizeValidationRule();
-                    ruleWidth.MinimumValue = 3.00;
-                    ruleWidth.MaximumValue = 8.50;
+                    ruleWidth.MinimumValue = InchWidthMin;
+                    ruleWidth.MaximumValue = InchWidthMax;
                     ruleWidth.DecimalPlaces = 2;
 
-                    IsValid = IsTextBoxValid(tb, ruleWidth);
+                    IsTextInputValid = IsTextBoxValid(tb, ruleWidth);
                 }
                 else
                 {
                     UserDefinedSizeValidationRule ruleHeight = new UserDefinedSizeValidationRule();
-                    ruleHeight.MinimumValue = 4.57;
-                    ruleHeight.MaximumValue = 14.00;
+                    ruleHeight.MinimumValue = InchHeightMin;
+                    ruleHeight.MaximumValue = InchHeightMax;
                     ruleHeight.DecimalPlaces = 2;
 
-                    IsValid = IsTextBoxValid(tb, ruleHeight);
+                    IsTextInputValid = IsTextBoxValid(tb, ruleHeight);
                 }  
             }
 
-            if (IsValid)
+            if (IsTextInputValid)
             {
-                OkButton.IsEnabled = false;
+                OkButton.IsEnabled = true;
             }
             else
             {
-                OkButton.IsEnabled = true;
+                OkButton.IsEnabled = false;
             }
         }
 
@@ -172,23 +259,21 @@ namespace VOP
             if (double.TryParse(tbWidth.Text.Trim(), out value))
             {
                 tbWidth.Text = RadioButtonMM.IsChecked == true ? 
-                    Math.Round(SizeConvert.InchToMM(value), 1).ToString() 
-                    : Math.Round(SizeConvert.MMToInch(value),2).ToString();
+                    SizeConvert.InchToMM(value).ToString() : SizeConvert.MMToInch(value).ToString();
             }
             else
             {
-                tbWidth.Text = RadioButtonMM.IsChecked == true ? "210.0" : "8.27";
+                tbWidth.Text = RadioButtonMM.IsChecked == true ? MMWidthDefault.ToString() : InchWidthDefault.ToString();
             }
 
             if (double.TryParse(tbHeight.Text.Trim(), out value))
             {
-                tbHeight.Text = RadioButtonMM.IsChecked == true ? 
-                    Math.Round(SizeConvert.InchToMM(value), 1).ToString() 
-                    : Math.Round(SizeConvert.MMToInch(value), 2).ToString();
+                tbHeight.Text = RadioButtonMM.IsChecked == true ?
+                    SizeConvert.InchToMM(value).ToString() : SizeConvert.MMToInch(value).ToString();
             }
             else
             {
-                tbHeight.Text = RadioButtonMM.IsChecked == true ? "297.0" : "11.69";
+                tbHeight.Text = RadioButtonMM.IsChecked == true ? MMHeightDefault.ToString() : InchHeightDefault.ToString();
             }
         }
 
@@ -264,6 +349,10 @@ namespace VOP
             this.DialogResult = true;
         }
     
+        public int GetCurrentSelectedIndex()
+        {
+            return myComboBox.SelectedIndex;
+        }
     }
 
  

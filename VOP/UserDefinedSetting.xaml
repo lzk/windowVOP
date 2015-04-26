@@ -183,7 +183,6 @@
                 <TextBlock x:Name="tWidth" Text="宽度（76.2-216.0）" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
                 <TextBox x:Name="tbWidth" 
                          Template="{StaticResource customTextBox}"
-                         Text="{Binding ElementName=myComboBox, Mode=OneWay, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource widthConverter}}"
                          Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" 
                          VerticalAlignment="Center"
                          InputMethod.IsInputMethodEnabled="False"
@@ -196,7 +195,6 @@
                 <TextBlock x:Name="tHeight" Text="高度（116.0-355.6）" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
                 <TextBox x:Name="tbHeight" 
                          Template="{StaticResource customTextBox}" 
-                         Text="{Binding ElementName=myComboBox, Mode=OneWay, Path=SelectedItem, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource heightConverter}}"
                          Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" 
                          VerticalAlignment="Center"
                          Height="30" 

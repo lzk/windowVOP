@@ -41,7 +41,8 @@ namespace VOP
     public class UserDefinedSizeRegistry
     {
 
-        RegistryKey rootKey = Registry.CurrentUser;
+        RegistryKey CurrentUserKey = Registry.CurrentUser;
+        RegistryKey rootKey = null;
         string openKeyString = @"Software\Lenovo\" + ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter
                                + @"\Lenovo Printer\PrinterUI\CustomPaperSize";
 
@@ -50,13 +51,14 @@ namespace VOP
         {
             try
             {
-                rootKey = rootKey.OpenSubKey(openKeyString, true);
+                rootKey = CurrentUserKey.OpenSubKey(openKeyString, true);
 
                 if (rootKey == null)
                     return false;
             }
-            catch(Exception)
+            catch(Exception ex)
             {
+                string s = ex.Message;
                 return false;
             }
 
@@ -64,8 +66,9 @@ namespace VOP
         }
 
         public void Close()
-        {      
-            rootKey.Close();       
+        {   
+            rootKey.Close();
+            CurrentUserKey.Close();
         }
 
         public int GetCount()
@@ -97,12 +100,12 @@ namespace VOP
             return true;
         }
 
-        public int GetCurrent()
+        public UInt32 GetCurrent()
         {
-            int index = int.MaxValue;
+            UInt32 index = UInt32.MaxValue;
             try
             {
-                index = (int)rootKey.GetValue("Current");
+                index = (UInt32)rootKey.GetValue("Current");
             }
             catch (Exception)
             {
@@ -112,7 +115,7 @@ namespace VOP
             return index;
         }
 
-        public bool SetCurrent(int index)
+        public bool SetCurrent(UInt32 index)
         {
             try
             {
@@ -192,6 +195,7 @@ namespace VOP
         {
             if (type == UserDefinedSizeType.MM)
             {
+                int t = (int)(s / 25.4 * 600);
                 return (int)(s / 25.4 * 600);
             }
             else
@@ -204,22 +208,22 @@ namespace VOP
         {
             if (type == UserDefinedSizeType.MM)
             {
-                return p / 600 * 25.4;
+                return Math.Round((double)p / 600 * 25.4, 1);
             }
             else
             {
-                return p / 600;
+                return Math.Round((double)p / 600, 2);
             }
         }
 
         public static double MMToInch(double value)
         {
-            return value / 25.4;
+            return Math.Round(value / 25.4, 2);
         }
 
         public static double InchToMM(double value)
         {
-            return value * 25.4;
+            return Math.Round(value * 25.4, 1);
         }
     }
     /// <summary>
@@ -283,7 +287,7 @@ namespace VOP
                 GetDataFromPrinterInfo();
             }
 
-            UpdatePaperSizeCombobox(true);
+            UpdatePaperSizeCombobox(true, 0);
         }
 
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -347,9 +351,9 @@ namespace VOP
             };
         }
 
-        private void UpdatePaperSizeCombobox(bool Read)
+        private void UpdatePaperSizeCombobox(bool Read, int selectIndex)
         {
-
+            UInt32 current = UInt32.MaxValue;
             if (Read)
             {
                 UserDefinedSizeItems.Clear();
@@ -357,6 +361,7 @@ namespace VOP
                 if (regHelper.Open())
                 {
                     int count = regHelper.GetCount();
+                    current = regHelper.GetCurrent();
 
                     CPAPERSIZE[] block = regHelper.GetCustomPaperBin();
 
@@ -376,6 +381,7 @@ namespace VOP
 
                     regHelper.Close();
                 }
+     
             }
             else
             {
@@ -387,6 +393,7 @@ namespace VOP
 
                     for (int i = 0; i < UserDefinedSizeItems.Count(); i++)
                     {
+                        block[i].paperSizeID = (short)(i + 257);
                         block[i].cp_szName = UserDefinedSizeItems[i].UserDefinedName;
                         block[i].cp_MiterType = UserDefinedSizeItems[i].IsMM ? 0 : 1;
                         block[i].width = SizeConvert.SizeToPixel(UserDefinedSizeItems[i].Width, UserDefinedSizeItems[i].IsMM ? UserDefinedSizeType.MM : UserDefinedSizeType.Inch);
@@ -402,15 +409,29 @@ namespace VOP
             Binding myBinding = new Binding();
             myBinding.Source = PaperSizeItemsBase.Concat(UserDefinedSizeItems);
             cboPaperSize.SetBinding(ComboBox.ItemsSourceProperty, myBinding);
-            cboPaperSize.SelectedIndex = 0;
 
+            if(Read)
+            {
+                cboPaperSize.SelectedIndex = current == UInt32.MaxValue ? 0 : PaperSizeItemsBase.Count + (int)current;
+            }
+            else
+            {
+                if (selectIndex == -1)
+                {
+                    cboPaperSize.SelectedIndex = 0;
+                }
+                else
+                {
+                    cboPaperSize.SelectedIndex = PaperSizeItemsBase.Count + selectIndex;
+                }
+            }
         }
 
         private void cboPaperSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             m_paperSize = (sbyte)cboPaperSize.SelectedIndex;
 
-            if (m_paperSize == 10)
+            if (m_paperSize == PaperSizeItemsBase.Count - 1)
             {
                 bool? result = null;
                 UserDefinedSetting UserDefinedWin = new UserDefinedSetting(UserDefinedSizeItems);
@@ -419,11 +440,19 @@ namespace VOP
                 result = UserDefinedWin.ShowDialog();
                 if (result == true)
                 {
-                    UpdatePaperSizeCombobox(false);
+                    UpdatePaperSizeCombobox(false, UserDefinedWin.GetCurrentSelectedIndex()); 
                 }
                 else
                 {
-                    UpdatePaperSizeCombobox(true);
+                    UpdatePaperSizeCombobox(true, 0);
+                }
+            }
+            else if(m_paperSize > PaperSizeItemsBase.Count - 1)
+            {
+                if (regHelper.Open())
+                {
+                    regHelper.SetCurrent((UInt32)(m_paperSize - PaperSizeItemsBase.Count));
+                    regHelper.Close();
                 }
             }
         }
