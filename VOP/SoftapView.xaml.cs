@@ -135,7 +135,7 @@ namespace VOP
                 }
                 else if (str_pwd.Length < 8 || str_pwd.Length >= 64)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码必须是8到63个ASCII字符或者64个二进制字符，手机号码错误，请确认后再次输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码必须是8到63个ASCII字符或者64个十六进制字符，请确认后再次输入。", "错误");
                 }
             }
 

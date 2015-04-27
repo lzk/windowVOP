@@ -106,14 +106,13 @@ namespace VOP
                 ComboBoxItem item = new ComboBoxItem();
                 item.Content = m_listProvince[nIdx];
                 item.Width = 80;
-                item.IsSelected = true;
+                item.IsSelected = false;
                 item.Style = (Style)this.FindResource("customComboBoxItem");
                 cboProvince.Items.Add(item);
             }
 
+            cboCity.IsEnabled = false;
             m_bInit = true;
-
-            cboProvince.SelectedIndex = 0;
 
             AddMessageHook();
         }
@@ -173,6 +172,11 @@ namespace VOP
                 if (m_bInit)
                 {
                     cboCity.Items.Clear();
+                    if (-1 != cb.SelectedIndex)
+                    {
+                        cboCity.IsEnabled = true;
+                    }
+
                     List<string> listCity = new List<string>();
                     for (int nIdx = 0; nIdx < m_listProvinceCity.Count; nIdx++)
                     {
@@ -190,7 +194,7 @@ namespace VOP
                         ComboBoxItem item = new ComboBoxItem();
                         item.Content = str;
                         item.Width = 80;
-                        item.IsSelected = true;
+                        item.IsSelected = false;
                         item.Style = (Style)this.FindResource("customComboBoxItem");
                         cboCity.Items.Add(item);
                     }
