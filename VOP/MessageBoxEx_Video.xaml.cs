@@ -29,7 +29,7 @@ namespace VOP
             messageBoxTextBlock.Text = messageBoxText;
             captionTextBlock.Text = caption;
 
-            m_timer.Interval = new TimeSpan( 0, 0, 1 );
+            m_timer.Interval = new TimeSpan( 0, 0, 3 );
             m_timer.Tick += new EventHandler( TimerHandler );
             m_timer.Start();
         }
@@ -56,6 +56,12 @@ namespace VOP
             {
                 m_timer.Stop();
                 this.Close();
+            }
+            else if ( m_uri.AbsoluteUri != m_MainWin.m_animationUri )
+            {
+                m_uri = new Uri( m_MainWin.m_animationUri );
+                media.Source = m_uri;
+                // TODO: Resume animation.
             }
         }
 

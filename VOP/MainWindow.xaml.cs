@@ -71,7 +71,7 @@ namespace VOP
 
         private bool m_isAnimationPopup = false;  // True if animation window had popup.
         public  bool m_isCloseAnimation = false;  // True if animation window need to close.
-        private string m_animationUri = "";       // Animation Uri need to display
+        public  string m_animationUri = "";       // Animation Uri need to display
 
         public bool PasswordCorrect()
         {
@@ -679,15 +679,26 @@ namespace VOP
                        || EnumStatus.NofeedJam            == status
                        || EnumStatus.JamAtRegistStayOn    == status
                        || EnumStatus.JamAtExitNotReach    == status
-                       || EnumStatus.JamAtExitStayOn      == status
-                       || EnumStatus.Joiner3timesJamError == status )
+                       || EnumStatus.JamAtExitStayOn      == status )
                {
+                   
+                   switch ( status )
+                   {
+                       case EnumStatus.Joiner3timesJamError : m_animationUri = ""; break;
+                       case EnumStatus.InitializeJam        : m_animationUri = ""; break;
+                       case EnumStatus.NofeedJam            : m_animationUri = ""; break;
+                       case EnumStatus.JamAtRegistStayOn    : m_animationUri = ""; break;
+                       case EnumStatus.JamAtExitNotReach    : m_animationUri = ""; break;
+                       case EnumStatus.JamAtExitStayOn      : m_animationUri = ""; break;
+                       default: break;
+                   }
+
                    // TODO: Update animation Uri.
                    if ( false == m_isAnimationPopup )
                    {
                        m_isCloseAnimation = false;  
                        m_isAnimationPopup = true;
-                       MessageBoxEx_Video win = new MessageBoxEx_Video( new Uri(@"H:\page.mp4"), "", "" );
+                       MessageBoxEx_Video win = new MessageBoxEx_Video( new Uri( m_animationUri ), "", "" );
                        win.m_MainWin = this;
                        win.Owner = this;
                        win.ShowDialog();
