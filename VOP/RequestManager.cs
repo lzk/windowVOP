@@ -185,8 +185,8 @@ namespace VOP
         public string m_strMobileNumber;  //can not upload
         public string m_strDeviceBrand;
         public string m_strDeviceModel;
-        private string m_strPrintType;   //always "VOP-WIN"
-        private string m_strPrintMode;    //alway "VOP-WIN"
+        public string m_strPrintType;   //always "VOP-WIN"
+        public string m_strPrintMode;    //alway "VOP-WIN"
         public string m_strPrintDocType;
         public string m_strPrintCopys;
         public string m_strPrintPages;
@@ -195,6 +195,7 @@ namespace VOP
         public string m_strPrinterType;
         public string m_strPrintSuccess;   //alway true
         public string m_strVersion;
+        public string m_strFlag;
         public DateTime m_time;   //yyyyMMddHHmmss, for example:20140219092408
         public string m_strSign; //MobileCode+time+key using MD5
 
@@ -214,6 +215,8 @@ namespace VOP
             m_strPrinterType = "SFP";
             m_strPrintSuccess = "true";
             m_strVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            System.Guid guid = System.Guid.NewGuid();
+            m_strFlag = guid.ToString();
             m_time = System.DateTime.Now.ToLocalTime();
         }
 
@@ -224,9 +227,9 @@ namespace VOP
             {
                 m_strSign = MD5.MD5_Encrypt(m_strMobileCode + m_time.ToString("yyyyMMddHHmmss") + m_strSignKey);
 
-                str = String.Format("MobileCode={0}&Mobile={1}&DeviceBrand={2}&DeviceModel={3}&PrintType={4}&PrintMode={5}&PrintDocType={6}&PrintCopys={7}&PrintPages={8}&PrinterModel={9}&PrinterName={10}&PrinterType={11}&IsSuccess={12}&version={13}&time={14}&sign={15}"
+                str = String.Format("MobileCode={0}&Mobile={1}&DeviceBrand={2}&DeviceModel={3}&PrintType={4}&PrintMode={5}&PrintDocType={6}&PrintCopys={7}&PrintPages={8}&PrinterModel={9}&PrinterName={10}&PrinterType={11}&IsSuccess={12}&version={13}&flag={14}&time={15}&sign={16}"
                     , m_strMobileCode, m_strMobileNumber, m_strDeviceBrand, m_strDeviceModel, m_strPrintType, m_strPrintMode, m_strPrintDocType,
-                    m_strPrintCopys, m_strPrintPages, m_strPrinterModel, m_strPrinterName, m_strPrinterType, m_strPrintSuccess, m_strVersion, m_time.ToString("yyyyMMddHHmmss"), m_strSign
+                    m_strPrintCopys, m_strPrintPages, m_strPrinterModel, m_strPrinterName, m_strPrinterType, m_strPrintSuccess, m_strVersion, m_strFlag, m_time.ToString("yyyyMMddHHmmss"), m_strSign
                     );  
             }
             catch
@@ -370,8 +373,18 @@ namespace VOP
                                 merchantInfo.m_strPhone = ja[nIdx]["merchant_phone"].ToString();
                                 merchantInfo.m_strContact = ja[nIdx]["merchant_contact"].ToString();
                                 merchantInfo.m_strProvince = ja[nIdx]["merchant_province"].ToString();
+                                if (merchantInfo.m_strProvince.EndsWith("省"))
+                                {
+                                    merchantInfo.m_strProvince = merchantInfo.m_strProvince.Substring(0,merchantInfo.m_strProvince.Length-1);
+                                }
 
                                 merchantInfo.m_strCity = ja[nIdx]["merchant_city"].ToString();
+
+                                if (merchantInfo.m_strCity.EndsWith("市"))
+                                {
+                                    merchantInfo.m_strCity = merchantInfo.m_strCity.Substring(0, merchantInfo.m_strCity.Length - 1);
+                                }
+
                                 merchantInfo.m_strDistrict = ja[nIdx]["merchant_district"].ToString();
                                 merchantInfo.m_strAddress = ja[nIdx]["merchant_address"].ToString();
                                 merchantInfo.m_strLongitude = ja[nIdx]["merchant_longitude"].ToString();
@@ -428,7 +441,16 @@ namespace VOP
                                 maintainInfoItem.m_nUserID = Convert.ToInt32(strItemValue);
                                 maintainInfoItem.m_strName = ja[nIdx]["service_station_name"].ToString();
                                 maintainInfoItem.m_strProvince = ja[nIdx]["service_station_province"].ToString();
+                                if (maintainInfoItem.m_strProvince.EndsWith("省"))
+                                {
+                                    maintainInfoItem.m_strProvince = maintainInfoItem.m_strProvince.Substring(0, maintainInfoItem.m_strProvince.Length - 1);
+                                }
+
                                 maintainInfoItem.m_strCity = ja[nIdx]["service_station_city"].ToString();
+                                if (maintainInfoItem.m_strCity.EndsWith("市"))
+                                {
+                                    maintainInfoItem.m_strCity = maintainInfoItem.m_strCity.Substring(0, maintainInfoItem.m_strCity.Length - 1);
+                                }
 
                                 maintainInfoItem.m_strAddress = ja[nIdx]["service_station_address"].ToString();
                                 maintainInfoItem.m_strProductLine = ja[nIdx]["service_station_product_line"].ToString();

@@ -476,7 +476,6 @@ namespace VOP
                 {
                     bSuccess = true;
                 }
-
             }
 
             if (!bSuccess)

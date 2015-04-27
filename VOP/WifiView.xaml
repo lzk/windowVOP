@@ -166,10 +166,10 @@
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
 
-                                            <RadioButton Name="wepKey0" GroupName="WepKeyRadio" IsChecked="False" Template="{StaticResource customRadioButton}" Content="Key1" VerticalAlignment="Center"></RadioButton>
-                                            <RadioButton Name="wepKey1" GroupName="WepKeyRadio" IsChecked="False" Grid.Column="1" Template="{StaticResource customRadioButton}" Content="Key2" VerticalAlignment="Center"></RadioButton>
-                                            <RadioButton Name="wepKey2" GroupName="WepKeyRadio" IsChecked="False" Grid.Column="2" Template="{StaticResource customRadioButton}" Content="Key3" VerticalAlignment="Center"></RadioButton>
-                                            <RadioButton Name="wepKey3" GroupName="WepKeyRadio"  IsChecked="False" Grid.Column="3" Template="{StaticResource customRadioButton}" Content="Key4" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton Name="wepKey0" GroupName="WepKeyRadio1" IsChecked="False" Template="{StaticResource customRadioButton}" Content="Key1" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton Name="wepKey1" GroupName="WepKeyRadio1" IsChecked="False" Grid.Column="1" Template="{StaticResource customRadioButton}" Content="Key2" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton Name="wepKey2" GroupName="WepKeyRadio1" IsChecked="False" Grid.Column="2" Template="{StaticResource customRadioButton}" Content="Key3" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton Name="wepKey3" GroupName="WepKeyRadio1"  IsChecked="False" Grid.Column="3" Template="{StaticResource customRadioButton}" Content="Key4" VerticalAlignment="Center"></RadioButton>
                                         </Grid>
                                     </Grid>
                                 </StackPanel>
