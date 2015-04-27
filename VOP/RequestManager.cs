@@ -194,6 +194,7 @@ namespace VOP
         public string m_strPrinterName;
         public string m_strPrinterType;
         public string m_strPrintSuccess;   //alway true
+        public string m_strVersion;
         public DateTime m_time;   //yyyyMMddHHmmss, for example:20140219092408
         public string m_strSign; //MobileCode+time+key using MD5
 
@@ -212,7 +213,7 @@ namespace VOP
             m_strPrinterName = "Lenovo ABC Printer";
             m_strPrinterType = "SFP";
             m_strPrintSuccess = "true";
-
+            m_strVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             m_time = System.DateTime.Now.ToLocalTime();
         }
 
@@ -223,9 +224,9 @@ namespace VOP
             {
                 m_strSign = MD5.MD5_Encrypt(m_strMobileCode + m_time.ToString("yyyyMMddHHmmss") + m_strSignKey);
 
-                str = String.Format("MobileCode={0}&Mobile={1}&DeviceBrand={2}&DeviceModel={3}&PrintType={4}&PrintMode={5}&PrintDocType={6}&PrintCopys={7}&PrintPages={8}&PrinterModel={9}&PrinterName={10}&PrinterType={11}&IsSuccess={12}&time={13}&sign={14}"
+                str = String.Format("MobileCode={0}&Mobile={1}&DeviceBrand={2}&DeviceModel={3}&PrintType={4}&PrintMode={5}&PrintDocType={6}&PrintCopys={7}&PrintPages={8}&PrinterModel={9}&PrinterName={10}&PrinterType={11}&IsSuccess={12}&version={13}&time={14}&sign={15}"
                     , m_strMobileCode, m_strMobileNumber, m_strDeviceBrand, m_strDeviceModel, m_strPrintType, m_strPrintMode, m_strPrintDocType,
-                    m_strPrintCopys, m_strPrintPages, m_strPrinterModel, m_strPrinterName, m_strPrinterType, m_strPrintSuccess, m_time.ToString("yyyyMMddHHmmss"), m_strSign
+                    m_strPrintCopys, m_strPrintPages, m_strPrinterModel, m_strPrinterName, m_strPrinterType, m_strPrintSuccess, m_strVersion, m_time.ToString("yyyyMMddHHmmss"), m_strSign
                     );  
             }
             catch

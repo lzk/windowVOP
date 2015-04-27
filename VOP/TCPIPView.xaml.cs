@@ -352,14 +352,14 @@ namespace VOP
                 }
                 else if (false == isGateOK)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP网关输入有误，请确认后再次输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "网关输入有误，请确认后再次输入。", "错误");
                     tb_gate.Text = "";
                     tb_gate.Focus();
                     return false;
                 }
                 else if (false == isMaskOK)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP子网掩码输入有误，请确认后再次输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "子网掩码输入有误，请确认后再次输入。", "错误");
                     tb_mask.Text = "";
                     tb_mask.Focus();
                     return false;
@@ -473,7 +473,7 @@ namespace VOP
                 }
             }
 
-            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isSuccess ? "设置成功" : "设置失败", Brushes.Black );
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isSuccess ? "设定成功" : "设定失败", Brushes.Black);
             return isSuccess;
         }
 

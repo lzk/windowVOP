@@ -503,7 +503,7 @@ namespace VOP.Controls
             {
                 tbPwd.Text = pwd;
                 pbPwd.Password = pwd;
-                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设置成功，机器重启后生效。" : "设置失败", Brushes.Black );
+                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设定成功，机器重启后生效。" : "设置失败", Brushes.Black);
             }
  
             return isApplySuccess;
@@ -518,9 +518,9 @@ namespace VOP.Controls
             else
             {
                 if(EncryptType == EnumEncryptType.WEP)
-                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码必须是5/13个ASCII字符或者10/26个二进制字符，请确认后再次输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码必须是5/13个ASCII字符或者10/26个十六进制字符，请确认后再次输入。", "错误");
                 else
-                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码必须是8到63个ASCII字符或者64个二进制字符，请确认后再次输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码必须是8到63个ASCII字符或者64个十六进制字符，请确认后再次输入。", "错误");
             }
         }
     }

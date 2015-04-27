@@ -145,7 +145,7 @@
                             <RowDefinition Height="1*" />
                             <RowDefinition Height="86*" />
                         </Grid.RowDefinitions>
-                        <Border Grid.Row="1" Background="White" BorderThickness="0" Opacity="0.4"></Border>
+                        <Border Grid.Row="1"  BorderThickness="0" Opacity="0.4"></Border>
 
                         <TextBlock x:Name="txtErrMsg" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="Red"
                                    FontSize="10" TextWrapping="Wrap"
