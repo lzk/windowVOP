@@ -221,5 +221,11 @@ namespace VOP
         {
             System.Diagnostics.Process.Start(@"http://appserver.lenovo.com.cn/Lenovo_Series_List.aspx?CategoryCode=A06B12");
         }
+
+        private void MinimizeCloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            HwndSource src = HwndSource.FromHwnd(WindowHandle);
+            src.RemoveHook(new HwndSourceHook(this.WndProc));  
+        }
     }
 }
