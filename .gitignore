@@ -35,7 +35,4 @@ tags
 # Files generated version script
 VersionInfo.rc
 **/VersionInfo.cs
-
-
-# gitignore PATTERN FORMAT details: git help gitignore
-# Show ignored files as well: git status -u --ignored
+VOP/Properties/VersionInfo.cs
