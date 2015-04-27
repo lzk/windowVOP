@@ -145,8 +145,8 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <CheckBox x:Name="chkNin1" Template="{StaticResource customCheckBox}" IsChecked="true" VerticalAlignment="Center"
-                    Content="{StaticResource ResStr_Multiple_Page}" HorizontalAlignment="Center" Checked="chkNin1_Checked" Unchecked="chkNin1_Unchecked" Height="24" Margin="38,42,38,11" Width="74" />
+                <CheckBox x:Name="chkNin1" Template="{StaticResource customCheckBox}" IsChecked="true" VerticalAlignment="Center" Content="{StaticResource ResStr_Multiple_Page}"
+                    HorizontalAlignment="Center" Checked="chkNin1_Checked" Unchecked="chkNin1_Unchecked" Height="24" Margin="0,30,0,0" />
 
                 <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_2_in_1}" Height="16" />
                 <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_4_in_1}" Height="16" />

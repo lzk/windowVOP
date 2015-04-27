@@ -521,35 +521,35 @@ namespace VOP
             ComboBoxItem cboItem = null;
 
             cboItem = new ComboBoxItem();
-            cboItem.Content = "普通纸";
+            cboItem.Content = (string)this.FindResource( "ResStr_Plain_Paper" );
             cboItem.DataContext = EnumMediaType.Plain;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboMediaType.Items.Add( cboItem );
 
             cboItem = new ComboBoxItem();
-            cboItem.Content = "再生纸";
+            cboItem.Content = (string)this.FindResource( "ResStr_Recycled_Paper" );
             cboItem.DataContext = EnumMediaType.Recycled;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboMediaType.Items.Add( cboItem );
 
             cboItem = new ComboBoxItem();
-            cboItem.Content = "薄纸";
+            cboItem.Content = (string)this.FindResource( "ResStr_Thin_Paper" );
             cboItem.DataContext = EnumMediaType.Thick;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboMediaType.Items.Add( cboItem );
 
             cboItem = new ComboBoxItem();
-            cboItem.Content = "厚纸";
+            cboItem.Content = (string)this.FindResource( "ResStr_Thick_Paper" );
             cboItem.DataContext = EnumMediaType.Thin;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboMediaType.Items.Add( cboItem );
 
             cboItem = new ComboBoxItem();
-            cboItem.Content = "标签";
+            cboItem.Content = (string)this.FindResource( "ResStr_Label" );
             cboItem.DataContext = EnumMediaType.Label;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
