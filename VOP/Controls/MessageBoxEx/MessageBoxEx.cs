@@ -85,9 +85,15 @@ namespace VOP.Controls
                 msg = new MessageBoxEx_YesNo(messageBoxText, caption);
             }
 
-            if(null != owner)
+            if (null != owner)
             {
-                msg.Owner = owner;
+               try
+               {
+                   msg.Owner = owner;
+               }
+                catch
+               {
+               }               
             }
 
             msg.ShowDialog();

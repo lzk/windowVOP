@@ -223,5 +223,11 @@ namespace VOP
         {
             System.Diagnostics.Process.Start(@"http://www.jd.com");
         }
+
+        private void btn_Click(object sender, RoutedEventArgs e)
+        {
+            HwndSource src = HwndSource.FromHwnd(WindowHandle);
+            src.RemoveHook(new HwndSourceHook(this.WndProc));  
+        }
     }
 }

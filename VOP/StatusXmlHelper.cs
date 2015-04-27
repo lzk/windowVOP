@@ -226,14 +226,11 @@ namespace VOP
             {
                 return false;
             }
-            else // Load xml File
-            {
-                xmlDoc.Load(xmlFileName);
-            }
-
 
             try
             {
+                 xmlDoc.Load(xmlFileName); // Load xml File
+
                 XmlNode xmlNode = xmlDoc.SelectSingleNode(root);
                 if (xmlNode != null)
                 {
