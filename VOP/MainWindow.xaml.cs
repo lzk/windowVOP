@@ -623,28 +623,27 @@ namespace VOP
 
            if (msg == App.WM_STATUS_UPDATE )
            {
-               byte toner  = 0;
-               byte status = (byte)EnumStatus.Offline; 
-               byte job    = (byte)EnumMachineJob.UnknowJob;
+               byte toner         = 0;
+               EnumStatus status  = EnumStatus.Offline;
+               EnumMachineJob job = EnumMachineJob.UnknowJob;
 
                lock ( statusLock )
                {
                    toner  = _toner ;
-                   status = _status;
-                   job    = _job   ;
+                   status = (EnumStatus)_status;
+                   job    = (EnumMachineJob)_job   ;
                }
 
-               statusPanelPage.UpdateStatusPanel( (EnumStatus)status, (EnumMachineJob)job, toner );
+               statusPanelPage.UpdateStatusPanel( status, job, toner );
 
                if(true == m_bLocationIsChina)
                {
                    if (false == m_isShowedMaintainWindow)
                    {
-                       if (((byte)status >= (byte)EnumStatus.PolygomotorOnTimeoutError &&
-                                   (byte)status <= (byte)EnumStatus.CTL_PRREQ_NSignalNoCome) ||
-                               (EnumStatus)status == EnumStatus.ScanMotorError ||
-                               (EnumStatus)status == EnumStatus.ScanDriverCalibrationFail ||
-                               (EnumStatus)status == EnumStatus.NetWirelessDongleCfgFail)
+                       if ((status >= EnumStatus.PolygomotorOnTimeoutError && status <= EnumStatus.CTL_PRREQ_NSignalNoCome) 
+                               || status == EnumStatus.ScanMotorError 
+                               || status == EnumStatus.ScanDriverCalibrationFail 
+                               || status == EnumStatus.NetWirelessDongleCfgFail)
                        {
                            m_isShowedMaintainWindow = true;
                            MaintainWindow mw = new MaintainWindow();
@@ -656,9 +655,9 @@ namespace VOP
 
                if ( false == m_isOnlineDetected )
                {
-                   bool bIsOnline = !( (byte)EnumStatus.Offline == status 
-                           || (byte)EnumStatus.PowerOff == status 
-                           || (byte)EnumStatus.Unknown == status );
+                   bool bIsOnline = !( EnumStatus.Offline == status 
+                           || EnumStatus.PowerOff == status 
+                           || EnumStatus.Unknown == status );
 
                    if ( true == bIsOnline )
                    {
@@ -667,8 +666,8 @@ namespace VOP
                    }
                }
 
-               App.g_autoMachine.TranferState((EnumMachineJob)job);
-               App.g_autoMachine.TranferState((EnumStatus)status);
+               App.g_autoMachine.TranferState(job);
+               App.g_autoMachine.TranferState(status);
 
            }
            else if (msg == App.WM_VOP)
