@@ -22,7 +22,7 @@
                 <Path Name="myPath"   Fill="{TemplateBinding Background}"                    
                       Data="M11.2,3.2 A8,8 0 1 0 15.2,4.324 L14.4,5.76 A6.4,6.4 0 1 1 11.2,4.8 Z" 
                       />
-                <Path  Fill="{TemplateBinding Background}"                    
+                <Path Name="pathArrow" Fill="{TemplateBinding Background}"                    
                       Data="M13.6,4 L10.7,1 L11.0,3.2 L11.0,4.8  L10.7,7 Z" 
                       />
                 <!--M11.2,4.8 L11.2,8 L13.6,4 L11.2,0 L11.2,3.2 A8,8 0 1 0 15.2,4.324 L14.4,5.76 A6.4,6.4 0 1 1 11.2,4.8-->
@@ -31,10 +31,12 @@
             <ControlTemplate.Triggers>
                 <Trigger Property="Button.IsPressed" Value="True">
                     <Setter TargetName="myPath" Property="Fill" Value="#51B000"/>
+                    <Setter TargetName="pathArrow" Property="Fill" Value="#51B000"/>
                 </Trigger>
 
                 <Trigger Property="Button.IsEnabled" Value="False">
-                    <Setter TargetName="myPath" Property="Fill" Value="White"/>
+                    <Setter TargetName="myPath" Property="Fill" Value="#cccccc"/>
+                    <Setter TargetName="pathArrow" Property="Fill" Value="#cccccc"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
