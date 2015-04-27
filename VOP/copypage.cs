@@ -174,7 +174,12 @@ namespace VOP
                     App.g_autoMachine.TranferToWaitCmdBegin();
                     break;
                 case EnumCmdResult._Printer_busy:
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, m_MainWin, "The machine is busy, please try later...", "Information" );
+                    VOP.Controls.MessageBoxEx.Show(
+                            VOP.Controls.MessageBoxExStyle.Simple,
+                            m_MainWin,
+                            (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
+                            (string)this.FindResource( "ResStr_Warning" )
+                            );
                     break;
                 default:
                      m_MainWin.statusPanelPage.ShowMessage( "Copy Fail", Brushes.Black );
