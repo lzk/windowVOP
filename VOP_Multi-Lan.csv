@@ -138,7 +138,7 @@ ResStr_Scan_Size,Scan Size,扫描区域大小
 ResStr_A4_210_297mm_,A4(210*297mm),A4(210*297毫米)
 ResStr_A5_148_x_210mm_,A5(148 x 210mm),A5(148 x 210毫米)
 ResStr_B5_182_x_257mm_,B5(182 x 257mm),B5(182 x 257毫米)
-ResStr_Letter_8_5_x_11,Letter(8.5 x 11),Letter(8.5 x 11
+ResStr_Letter_8_5_x_11,"Letter(8.5 x 11"")","Letter(8.5 x 11"")"
 ResStr_4_x_6_,4 x 6”,4 x 6”
 ResStr_Contrast,Contrast,对比度
 ResStr_Brightness,Brightness,亮度
@@ -224,8 +224,8 @@ ResStr_Setting_Fail,Setting Fail,设定失败
 ResStr_Scan_Fail,Scan Fail,扫描失败
 ResStr_Print_Fail,Print Fail,打印失败
 ResStr_Msg_1, ,设置成功，机器重启后生效
-ResStr_Msg_2, ,密码必须是5/13个ASCII字符或者10/26个二进制字符，请确认后再次输入。
-ResStr_Msg_3, ,密码必须是8到63个ASCII字符或者64个二进制字符，请确认后再次输入。
+ResStr_Msg_2, ,密码必须是5/13个ASCII字符或者10/26个十六进制字符，请确认后再次输入。
+ResStr_Msg_3, ,密码必须是8到63个ASCII字符或者64个十六进制字符，请确认后再次输入。
 ResStr_Msg_4, ,输入手机号
 ResStr_Msg_5, ,验证码发送成功。
 ResStr_Msg_6, ,验证码发送失败。
