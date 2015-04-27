@@ -380,7 +380,9 @@ namespace VOP
                  }
                  else
                  {
-                     m_MainWin.statusPanelPage.ShowMessage( "Scan Fail", Brushes.Black );
+                     m_MainWin.statusPanelPage.ShowMessage( 
+                             (string)this.FindResource("ResStr_Scan_Fail"),
+                             Brushes.Black );
                  }
             }
 
@@ -531,7 +533,9 @@ namespace VOP
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message,
+                                (string)this.FindResource("ResStr_Error"),
+                                System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                     }
 
                 }
