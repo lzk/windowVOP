@@ -59,11 +59,11 @@ namespace VOP
             {
                 if (strPWD.Length == 0)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码不能为空，请确认后再次输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "新密码不能为空。", "错误");
                 }
                 else if(strPWD != strCfPWD)
                 {
-                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码输入不一致，请确认后再次输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "输入密码不一致，请重新输入。", "错误");
 
                 }
             }
