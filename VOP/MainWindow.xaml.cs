@@ -561,6 +561,17 @@ namespace VOP
         {
             bool bAllowExit = true;
 
+            if ( null != winScanPage.scanningThread 
+                    && true == winScanPage.scanningThread.IsAlive )
+            {
+                dll.CancelScanning();
+                while ( true == winScanPage.scanningThread.IsAlive )
+                {
+                    // TODO: This statement will block UI thread. 
+                    System.Threading.Thread.Sleep(100);
+                }
+            }
+
             if ( 0 < winScanPage.image_wrappanel.Children.Count )
             {
                 if ( VOP.Controls.MessageBoxExResult.Yes != 

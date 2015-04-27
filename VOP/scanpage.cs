@@ -36,7 +36,8 @@ namespace VOP
         private const int RETSCAN_ERROR_PORT     = 6;
         private const int RETSCAN_CANCEL         = 7;
 #endregion
-        private Thread scanningThread = null;
+        public Thread scanningThread = null;
+
         private uint WM_VOPSCAN_PROGRESS = Win32.RegisterWindowMessage("vop_scan_progress2");
         private uint WM_VOPSCAN_COMPLETED = Win32.RegisterWindowMessage("vop_scan_completed");
 
