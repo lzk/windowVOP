@@ -22,9 +22,7 @@ namespace VOP.Controls
 ///
 ///
 ///   
-///   2.            MessageBoxExResult result = MessageBoxEx.Show(MessageBoxExStyle.Video, this, "content...  ", "caption", new Uri(@"F:\C++\MFC\general\CmnCtrl1\filecopy.avi"));
-///
-///   3.            MessageBoxExResult result = MessageBoxEx.Show(MessageBoxExStyle.YesNo, this, "content...  ", "caption");
+///   2.            MessageBoxExResult result = MessageBoxEx.Show(MessageBoxExStyle.YesNo, this, "content...  ", "caption");
 /// 
 /// 
 /// </summary>
@@ -32,7 +30,6 @@ namespace VOP.Controls
     public enum MessageBoxExStyle
     {
         Simple,
-        Video,
         YesNo
     }
 
@@ -71,11 +68,7 @@ namespace VOP.Controls
         {
             Window msg = null;
 
-            if (MessageBoxExStyle.Video == style)
-            {
-                msg = new MessageBoxEx_Video(uri, messageBoxText, caption);
-            }
-            else if (MessageBoxExStyle.Simple == style)
+            if (MessageBoxExStyle.Simple == style)
             {
                 msg = new MessageBoxEx_Simple(messageBoxText, caption);
             }

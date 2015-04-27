@@ -669,6 +669,22 @@ namespace VOP
                App.g_autoMachine.TranferState(job);
                App.g_autoMachine.TranferState(status);
 
+
+               if ( EnumStatus.Joiner3timesJamError       == status
+                       || EnumStatus.InitializeJam        == status
+                       || EnumStatus.NofeedJam            == status
+                       || EnumStatus.JamAtRegistStayOn    == status
+                       || EnumStatus.JamAtExitNotReach    == status
+                       || EnumStatus.JamAtExitStayOn      == status
+                       || EnumStatus.Joiner3timesJamError == status )
+               {
+                   // TODO: Popup dialog.
+               }
+               else
+               {
+                   // TODO: Shutdown popuped dialog.
+               }
+
            }
            else if (msg == App.WM_VOP)
            {

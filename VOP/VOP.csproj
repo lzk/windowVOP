@@ -94,7 +94,7 @@
       <DependentUpon>ScrollTextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MessageBoxEx\MessageBoxEx.cs" />
-    <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Video.xaml.cs">
+    <Compile Include="MessageBoxEx_Video.xaml.cs">
       <DependentUpon>MessageBoxEx_Video.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple.xaml.cs">
@@ -224,7 +224,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Video.xaml">
+    <Page Include="MessageBoxEx_Video.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
