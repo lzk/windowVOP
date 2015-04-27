@@ -69,6 +69,10 @@ namespace VOP
         public string m_strPhoneNumber = "";
         public static bool   m_bLocationIsChina = false;
 
+        private bool m_isAnimationPopup = false;  // True if animation window had popup.
+        public  bool m_isCloseAnimation = false;  // True if animation window need to close.
+        private string m_animationUri = "";       // Animation Uri need to display
+
         public bool PasswordCorrect()
         {
             bool bCorrect = false;
@@ -678,11 +682,21 @@ namespace VOP
                        || EnumStatus.JamAtExitStayOn      == status
                        || EnumStatus.Joiner3timesJamError == status )
                {
-                   // TODO: Popup dialog.
+                   // TODO: Update animation Uri.
+                   if ( false == m_isAnimationPopup )
+                   {
+                       m_isCloseAnimation = false;  
+                       m_isAnimationPopup = true;
+                       MessageBoxEx_Video win = new MessageBoxEx_Video( new Uri(@"H:\page.mp4"), "", "" );
+                       win.m_MainWin = this;
+                       win.Owner = this;
+                       win.ShowDialog();
+                       m_isAnimationPopup = false;
+                   }
                }
                else
                {
-                   // TODO: Shutdown popuped dialog.
+                   m_isCloseAnimation = true;  
                }
 
            }

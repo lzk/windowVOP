@@ -1,4 +1,4 @@
-﻿<Window x:Class="VOP.Controls.MessageBoxEx_Video"
+﻿<Window x:Class="VOP.MessageBoxEx_Video"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MessageBoxEx_Video" 
