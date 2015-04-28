@@ -23,6 +23,7 @@
     <sys:String x:Key="ResStr_Place_Next_Page">放置下一页</sys:String>
     <sys:String x:Key="ResStr_Turn_card_over_to_copy_the_reverse_">翻转卡片，并放在扫描板上</sys:String>
     <sys:String x:Key="ResStr_Copy_Cancelling">复印取消</sys:String>
+    <sys:String x:Key="ResStr_Copy_Fail">复印失败</sys:String>
     <sys:String x:Key="ResStr_ID_Card_Mode">身份证复印模式</sys:String>
     <sys:String x:Key="ResStr_Scanning">扫描中</sys:String>
     <sys:String x:Key="ResStr_Scan_Cancelling">扫描取消</sys:String>
@@ -49,6 +50,7 @@
     <sys:String x:Key="ResStr_File_Print">文件打印</sys:String>
     <sys:String x:Key="ResStr_Credentials_Print">证件打印</sys:String>
     <sys:String x:Key="ResStr_Certificate_Type">证件类型</sys:String>
+    <sys:String x:Key="ResStr_Certificates_Edit">证件编辑</sys:String>
     <sys:String x:Key="ResStr_Residence_Booklet">户口本</sys:String>
     <sys:String x:Key="ResStr_Marriage_Certificate">结婚证</sys:String>
     <sys:String x:Key="ResStr_Passport">护照</sys:String>
@@ -71,6 +73,7 @@
     <sys:String x:Key="ResStr_B5_ISO_">B5（ISO）</sys:String>
     <sys:String x:Key="ResStr_B6">B6</sys:String>
     <sys:String x:Key="ResStr_Executive">Executive</sys:String>
+    <sys:String x:Key="ResStr_Exit">退出</sys:String>
     <sys:String x:Key="ResStr_16K">16K</sys:String>
     <sys:String x:Key="ResStr_A5_LEF_">A5长边</sys:String>
     <sys:String x:Key="ResStr_B6_LEF_">B6长边</sys:String>
@@ -79,6 +82,7 @@
     <sys:String x:Key="ResStr_Landscape">横向</sys:String>
     <sys:String x:Key="ResStr_Portrait">纵向</sys:String>
     <sys:String x:Key="ResStr_Media_Type">介质类型</sys:String>
+    <sys:String x:Key="ResStr_Memory_Alloc_Fail">打印文件内存分配失败！</sys:String>
     <sys:String x:Key="ResStr_Plain_Paper">普通纸</sys:String>
     <sys:String x:Key="ResStr_Thin_Paper">薄纸</sys:String>
     <sys:String x:Key="ResStr_Thick_Paper">厚纸</sys:String>
@@ -86,6 +90,7 @@
     <sys:String x:Key="ResStr_Label">标签</sys:String>
     <sys:String x:Key="ResStr_Print_Quality">打印质量</sys:String>
     <sys:String x:Key="ResStr_Normal_600_600_">标准（600*600）</sys:String>
+    <sys:String x:Key="ResStr_Not_Browse">暂时无法浏览</sys:String>
     <sys:String x:Key="ResStr_Fine_1200_600_">精细（1200*600）</sys:String>
     <sys:String x:Key="ResStr_Scaling">缩放</sys:String>
     <sys:String x:Key="ResStr_Fit_to_Paper_Size">调整至纸张大小</sys:String>
@@ -109,6 +114,7 @@
     <sys:String x:Key="ResStr_OK">确定</sys:String>
     <sys:String x:Key="ResStr_Custom_Paper_Size_Name">自定义纸张大小名称</sys:String>
     <sys:String x:Key="ResStr_User_Defined_Size_01">自定义尺寸01</sys:String>
+    <sys:String x:Key="ResStr_User_SelfDefine">用户自定义设置</sys:String>
     <sys:String x:Key="ResStr_Unit">单位</sys:String>
     <sys:String x:Key="ResStr_mm">毫米</sys:String>
     <sys:String x:Key="ResStr_inch">英寸</sys:String>
@@ -192,6 +198,7 @@
     <sys:String x:Key="ResStr_Confirm_Password">确认密码</sys:String>
     <sys:String x:Key="ResStr_Identity_Authentication">身份认证</sys:String>
     <sys:String x:Key="ResStr_Login">登录</sys:String>
+    <sys:String x:Key="ResStr_Login_Register">登录/注册</sys:String>
     <sys:String x:Key="ResStr_Supplies_Purchasing_Channels">耗材购买渠道</sys:String>
     <sys:String x:Key="ResStr_Printer_Upgrade_Method">打印机升级方式</sys:String>
     <sys:String x:Key="ResStr_Printworks_Promotion">打印工场推广</sys:String>
@@ -226,6 +233,7 @@
     <sys:String x:Key="ResStr_Setting_Fail">设定失败</sys:String>
     <sys:String x:Key="ResStr_Scan_Fail">扫描失败</sys:String>
     <sys:String x:Key="ResStr_Print_Fail">打印失败</sys:String>
+    <sys:String x:Key="ResStr_Print_Preview">打印预览</sys:String>
     <sys:String x:Key="ResStr_Msg_1">设置成功，机器重启后生效</sys:String>
     <sys:String x:Key="ResStr_Msg_2">密码必须是5/13个ASCII字符或者10/26个十六进制字符，请确认后再次输入。</sys:String>
     <sys:String x:Key="ResStr_Msg_3">密码必须是8到63个ASCII字符或者64个十六进制字符，请确认后再次输入。</sys:String>

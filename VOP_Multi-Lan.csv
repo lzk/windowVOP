@@ -1,3 +1,4 @@
+Key,English,SC
 ResStr_ABC_Printer, ,ABC打印机
 ResStr_Print,Print,打印
 ResStr_Copy,Copy,复印
@@ -20,6 +21,7 @@ ResStr_Copying,Copying,复印中
 ResStr_Place_Next_Page,Place Next Page,放置下一页
 ResStr_Turn_card_over_to_copy_the_reverse_,Turn card over to copy the reverse.,翻转卡片，并放在扫描板上
 ResStr_Copy_Cancelling,Copy Cancelling,复印取消
+ResStr_Copy_Fail,Copy Fail,复印失败
 ResStr_ID_Card_Mode,ID Card Mode,身份证复印模式
 ResStr_Scanning,Scanning,扫描中
 ResStr_Scan_Cancelling,Scan Cancelling,扫描取消
@@ -46,6 +48,7 @@ ResStr_Picture_Print,Picture Print,图片打印
 ResStr_File_Print,File Print,文件打印
 ResStr_Credentials_Print,Credentials Print,证件打印
 ResStr_Certificate_Type,Certificate Type,证件类型
+ResStr_Certificates_Edit,,证件编辑
 ResStr_Residence_Booklet,Residence Booklet,户口本
 ResStr_Marriage_Certificate,Marriage Certificate,结婚证
 ResStr_Passport,Passport,护照
@@ -68,6 +71,7 @@ ResStr_A6,A6,A6
 ResStr_B5_ISO_,B5（ISO）,B5（ISO）
 ResStr_B6,B6,B6
 ResStr_Executive,Executive,Executive
+ResStr_Exit,Exit,退出
 ResStr_16K,16K,16K
 ResStr_A5_LEF_,A5(LEF),A5长边
 ResStr_B6_LEF_,B6(LEF),B6长边
@@ -76,6 +80,7 @@ ResStr_Orientation,Orientation,纸张方向
 ResStr_Landscape,Landscape,横向
 ResStr_Portrait,Portrait,纵向
 ResStr_Media_Type,Media Type,介质类型
+ResStr_Memory_Alloc_Fail,,打印文件内存分配失败！
 ResStr_Plain_Paper,Plain Paper,普通纸
 ResStr_Thin_Paper,Thin Paper,薄纸
 ResStr_Thick_Paper,Thick Paper,厚纸
@@ -83,6 +88,7 @@ ResStr_Recycled_Paper,Recycled Paper,再生纸
 ResStr_Label,Label,标签
 ResStr_Print_Quality,Print Quality,打印质量
 ResStr_Normal_600_600_,Normal（600*600）,标准（600*600）
+ResStr_Not_Browse,,暂时无法浏览
 ResStr_Fine_1200_600_,Fine（1200*600）,精细（1200*600）
 ResStr_Scaling,Scaling,缩放
 ResStr_Fit_to_Paper_Size,Fit to Paper Size,调整至纸张大小
@@ -106,6 +112,7 @@ ResStr_Defualt,Defualt,默认
 ResStr_OK,OK,确定
 ResStr_Custom_Paper_Size_Name,Custom Paper Size Name,自定义纸张大小名称
 ResStr_User_Defined_Size_01,User Defined Size 01,自定义尺寸01
+ResStr_User_SelfDefine,,用户自定义设置
 ResStr_Unit,Unit,单位
 ResStr_mm,mm,毫米
 ResStr_inch,inch,英寸
@@ -133,7 +140,7 @@ ResStr_Text_and_Graph,Text and Graph,图文
 ResStr_Color_Mode,Color Mode,色彩模式
 ResStr_Color,Color,彩色
 ResStr_Grayscale,Grayscale,灰阶
-ResStr_Black_White,&lt;Black &amp; White&gt;,黑白
+ResStr_Black_White,Black & White,黑白
 ResStr_Scan_Size,Scan Size,扫描区域大小
 ResStr_A4_210_297mm_,A4(210*297mm),A4(210*297毫米)
 ResStr_A5_148_x_210mm_,A5(148 x 210mm),A5(148 x 210毫米)
@@ -189,10 +196,11 @@ ResStr_New_Password,New Password,新密码
 ResStr_Confirm_Password,Confirm Password,确认密码
 ResStr_Identity_Authentication,Identity Authentication,身份认证
 ResStr_Login,Login,登录
+ResStr_Login_Register,,登录/注册
 ResStr_Supplies_Purchasing_Channels,Supplies Purchasing Channels,耗材购买渠道
 ResStr_Printer_Upgrade_Method,Printer Upgrade Method,打印机升级方式
 ResStr_Printworks_Promotion,Printworks Promotion,打印工场推广
-ResStr_Version_Copyright,&lt;Version &amp; Copyright&gt;,版本和版权
+ResStr_Version_Copyright,Version & Copyright,版本和版权
 ResStr_Printer_DriverVersion_____,Printer DriverVersion ****,Printer DriverVersion ****
 ResStr_Copyright__C___2014_2015__Lenovo__Beijing__Limited_All_Right_Reserved_,Copyright (C) (2014-2015) Lenovo (Beijing) Limited.All Right Reserved.,Copyright (C) (2014-2015) Lenovo (Beijing) Limited.All Right Reserved.
 ResStr_This_file_is_not_supported__please_select_another_one_,"This file is not supported, please select another one.",暂不支持该文件的打印，请重新选择。
@@ -223,6 +231,7 @@ ResStr_Setting_Successfully_,Setting Successfully,设定成功
 ResStr_Setting_Fail,Setting Fail,设定失败
 ResStr_Scan_Fail,Scan Fail,扫描失败
 ResStr_Print_Fail,Print Fail,打印失败
+ResStr_Print_Preview,,打印预览
 ResStr_Msg_1, ,设置成功，机器重启后生效
 ResStr_Msg_2, ,密码必须是5/13个ASCII字符或者10/26个十六进制字符，请确认后再次输入。
 ResStr_Msg_3, ,密码必须是8到63个ASCII字符或者64个十六进制字符，请确认后再次输入。

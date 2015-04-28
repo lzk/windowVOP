@@ -23,6 +23,7 @@
     <sys:String x:Key="ResStr_Place_Next_Page">Place Next Page</sys:String>
     <sys:String x:Key="ResStr_Turn_card_over_to_copy_the_reverse_">Turn card over to copy the reverse.</sys:String>
     <sys:String x:Key="ResStr_Copy_Cancelling">Copy Cancelling</sys:String>
+    <sys:String x:Key="ResStr_Copy_Fail">Copy Fail</sys:String>
     <sys:String x:Key="ResStr_ID_Card_Mode">ID Card Mode</sys:String>
     <sys:String x:Key="ResStr_Scanning">Scanning</sys:String>
     <sys:String x:Key="ResStr_Scan_Cancelling">Scan Cancelling</sys:String>
@@ -49,6 +50,7 @@
     <sys:String x:Key="ResStr_File_Print">File Print</sys:String>
     <sys:String x:Key="ResStr_Credentials_Print">Credentials Print</sys:String>
     <sys:String x:Key="ResStr_Certificate_Type">Certificate Type</sys:String>
+    <sys:String x:Key="ResStr_Certificates_Edit">String without translation</sys:String>
     <sys:String x:Key="ResStr_Residence_Booklet">Residence Booklet</sys:String>
     <sys:String x:Key="ResStr_Marriage_Certificate">Marriage Certificate</sys:String>
     <sys:String x:Key="ResStr_Passport">Passport</sys:String>
@@ -71,6 +73,7 @@
     <sys:String x:Key="ResStr_B5_ISO_">B5（ISO）</sys:String>
     <sys:String x:Key="ResStr_B6">B6</sys:String>
     <sys:String x:Key="ResStr_Executive">Executive</sys:String>
+    <sys:String x:Key="ResStr_Exit">Exit</sys:String>
     <sys:String x:Key="ResStr_16K">16K</sys:String>
     <sys:String x:Key="ResStr_A5_LEF_">A5(LEF)</sys:String>
     <sys:String x:Key="ResStr_B6_LEF_">B6(LEF)</sys:String>
@@ -79,6 +82,7 @@
     <sys:String x:Key="ResStr_Landscape">Landscape</sys:String>
     <sys:String x:Key="ResStr_Portrait">Portrait</sys:String>
     <sys:String x:Key="ResStr_Media_Type">Media Type</sys:String>
+    <sys:String x:Key="ResStr_Memory_Alloc_Fail">String without translation</sys:String>
     <sys:String x:Key="ResStr_Plain_Paper">Plain Paper</sys:String>
     <sys:String x:Key="ResStr_Thin_Paper">Thin Paper</sys:String>
     <sys:String x:Key="ResStr_Thick_Paper">Thick Paper</sys:String>
@@ -86,6 +90,7 @@
     <sys:String x:Key="ResStr_Label">Label</sys:String>
     <sys:String x:Key="ResStr_Print_Quality">Print Quality</sys:String>
     <sys:String x:Key="ResStr_Normal_600_600_">Normal（600*600）</sys:String>
+    <sys:String x:Key="ResStr_Not_Browse">String without translation</sys:String>
     <sys:String x:Key="ResStr_Fine_1200_600_">Fine（1200*600）</sys:String>
     <sys:String x:Key="ResStr_Scaling">Scaling</sys:String>
     <sys:String x:Key="ResStr_Fit_to_Paper_Size">Fit to Paper Size</sys:String>
@@ -109,6 +114,7 @@
     <sys:String x:Key="ResStr_OK">OK</sys:String>
     <sys:String x:Key="ResStr_Custom_Paper_Size_Name">Custom Paper Size Name</sys:String>
     <sys:String x:Key="ResStr_User_Defined_Size_01">User Defined Size 01</sys:String>
+    <sys:String x:Key="ResStr_User_SelfDefine">String without translation</sys:String>
     <sys:String x:Key="ResStr_Unit">Unit</sys:String>
     <sys:String x:Key="ResStr_mm">mm</sys:String>
     <sys:String x:Key="ResStr_inch">inch</sys:String>
@@ -192,6 +198,7 @@
     <sys:String x:Key="ResStr_Confirm_Password">Confirm Password</sys:String>
     <sys:String x:Key="ResStr_Identity_Authentication">Identity Authentication</sys:String>
     <sys:String x:Key="ResStr_Login">Login</sys:String>
+    <sys:String x:Key="ResStr_Login_Register">String without translation</sys:String>
     <sys:String x:Key="ResStr_Supplies_Purchasing_Channels">Supplies Purchasing Channels</sys:String>
     <sys:String x:Key="ResStr_Printer_Upgrade_Method">Printer Upgrade Method</sys:String>
     <sys:String x:Key="ResStr_Printworks_Promotion">Printworks Promotion</sys:String>
@@ -226,6 +233,7 @@
     <sys:String x:Key="ResStr_Setting_Fail">Setting Fail</sys:String>
     <sys:String x:Key="ResStr_Scan_Fail">Scan Fail</sys:String>
     <sys:String x:Key="ResStr_Print_Fail">Print Fail</sys:String>
+    <sys:String x:Key="ResStr_Print_Preview">String without translation</sys:String>
     <sys:String x:Key="ResStr_Msg_1">String without translation</sys:String>
     <sys:String x:Key="ResStr_Msg_2">String without translation</sys:String>
     <sys:String x:Key="ResStr_Msg_3">String without translation</sys:String>
