@@ -688,9 +688,20 @@
     <Resource Include="Index.png" />
     <Resource Include="Images\Index.png" />
     <Resource Include="Images\Printer.png" />
-    <Content Include="Media\FlickAnimation.avi">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+
+    <Content Include="Media\JamAtExitNotReach.mp4">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Media\JamAtRegistStayOn.mp4">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\JamAtExitStayOn.mp4">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\NofeedJam.mp4">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

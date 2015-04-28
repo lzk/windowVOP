@@ -674,23 +674,20 @@ namespace VOP
                App.g_autoMachine.TranferState(status);
 
 
-               if ( EnumStatus.Joiner3timesJamError       == status
-                       || EnumStatus.InitializeJam        == status
-                       || EnumStatus.NofeedJam            == status
-                       || EnumStatus.JamAtRegistStayOn    == status
-                       || EnumStatus.JamAtExitNotReach    == status
-                       || EnumStatus.JamAtExitStayOn      == status )
+               if ( EnumStatus.NofeedJam               == status
+                       || EnumStatus.JamAtRegistStayOn == status
+                       || EnumStatus.JamAtExitNotReach == status
+                       || EnumStatus.JamAtExitStayOn   == status )
                {
-                   
+
                    switch ( status )
                    {
-                       case EnumStatus.Joiner3timesJamError : m_animationUri = ""; break;
-                       case EnumStatus.InitializeJam        : m_animationUri = ""; break;
-                       case EnumStatus.NofeedJam            : m_animationUri = ""; break;
-                       case EnumStatus.JamAtRegistStayOn    : m_animationUri = ""; break;
-                       case EnumStatus.JamAtExitNotReach    : m_animationUri = ""; break;
-                       case EnumStatus.JamAtExitStayOn      : m_animationUri = ""; break;
-                       default: break;
+                       case EnumStatus.NofeedJam            : m_animationUri = "pack://siteoforigin:,,,/../../Media/JamAtExitNotReach.mp4"; break;
+                       case EnumStatus.JamAtRegistStayOn    : m_animationUri = "pack://siteoforigin:,,,/../../Media/JamAtExitStayOn.mp4"  ; break;
+                       case EnumStatus.JamAtExitNotReach    : m_animationUri = "pack://siteoforigin:,,,/../../Media/JamAtRegistStayOn.mp4"; break;
+                       case EnumStatus.JamAtExitStayOn      : m_animationUri = "pack://siteoforigin:,,,/../../Media/NofeedJam.mp4"        ; break;
+                       default: 
+                                                              m_animationUri = "pack://siteoforigin:,,,/../../Media/NofeedJam.mp4"        ; break;
                    }
 
                    // TODO: Update animation Uri.

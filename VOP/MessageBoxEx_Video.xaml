@@ -73,10 +73,7 @@
                         <EventTrigger.Actions>
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <!--<MediaTimeline  Source="pack://siteoforigin:,,,/../../Media/FlickAnimation.avi" Storyboard.TargetName="mediaElement"  
-                                                    RepeatBehavior="Forever" />-->
-                                    <MediaTimeline Name="media" Source="pack://siteoforigin:,,,/../../Media/FlickAnimation.avi" Storyboard.TargetName="mediaElement"  
-                                                    RepeatBehavior="Forever" />
+                                    <MediaTimeline Name="media" Storyboard.TargetName="mediaElement"  RepeatBehavior="Forever" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger.Actions>
