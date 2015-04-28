@@ -166,7 +166,7 @@ namespace VOP
                     (byte)m_outputSize,
                     (byte)byteNin1,
                     (byte)m_dpi,
-                    (byte)m_scaling,
+                    (ushort)m_scaling,
                     (byte)m_mediaType );
 
             switch ( ret )
