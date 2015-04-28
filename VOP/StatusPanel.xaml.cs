@@ -188,7 +188,7 @@ namespace VOP
         private void btnPurchaseWindow_Click(object sender, RoutedEventArgs e)
         {
             PurchaseWindow win = new PurchaseWindow();
-
+            win.Owner = App.Current.MainWindow;
             win.ShowDialog();
 
             this.lbTonerBar.FlashShopCatIcon(false);

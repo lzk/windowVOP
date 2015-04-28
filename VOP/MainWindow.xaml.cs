@@ -611,6 +611,7 @@ namespace VOP
                 else if ( "btnLogin" == btn.Name )
                 {
                     LoginWindow loginWnd = new LoginWindow();
+                    loginWnd.Owner = this;
                     loginWnd.ShowActivated = true;
                     Nullable<bool> dialogResult = loginWnd.ShowDialog();
 
