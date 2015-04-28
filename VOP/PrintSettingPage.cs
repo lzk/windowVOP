@@ -71,12 +71,12 @@ namespace VOP
             CurrentUserKey.Close();
         }
 
-        public int GetCount()
+        public uint GetCount()
         {
-            int count = 0;
+            uint count = 0;
             try
             {
-                count = (int)rootKey.GetValue("Count");
+                count = Convert.ToUInt32(rootKey.GetValue("Count"));
             }
             catch (Exception)
             {
@@ -86,7 +86,7 @@ namespace VOP
             return count;
         }
 
-        public bool SetCount(int count)
+        public bool SetCount(uint count)
         {
             try
             {
@@ -100,22 +100,22 @@ namespace VOP
             return true;
         }
 
-        public UInt32 GetCurrent()
+        public uint GetCurrent()
         {
-            UInt32 index = UInt32.MaxValue;
+            uint index = uint.MaxValue;
             try
             {
-                index = (UInt32)rootKey.GetValue("Current");
+                index = Convert.ToUInt32(rootKey.GetValue("Current"));
             }
             catch (Exception)
             {
-               
+
             }
 
             return index;
         }
 
-        public bool SetCurrent(UInt32 index)
+        public bool SetCurrent(uint index)
         {
             try
             {
@@ -353,14 +353,14 @@ namespace VOP
 
         private void UpdatePaperSizeCombobox(bool Read, int selectIndex)
         {
-            UInt32 current = UInt32.MaxValue;
+            uint current = uint.MaxValue;
             if (Read)
             {
                 UserDefinedSizeItems.Clear();
 
                 if (regHelper.Open())
                 {
-                    int count = regHelper.GetCount();
+                    uint count = regHelper.GetCount();
                     current = regHelper.GetCurrent();
 
                     CPAPERSIZE[] block = regHelper.GetCustomPaperBin();
@@ -387,7 +387,7 @@ namespace VOP
             {
                 if (regHelper.Open())
                 {
-                    regHelper.SetCount(UserDefinedSizeItems.Count());
+                    regHelper.SetCount((uint)UserDefinedSizeItems.Count());
 
                     CPAPERSIZE[] block = new CPAPERSIZE[20];
 

@@ -213,7 +213,8 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal">
-                <Button HorizontalAlignment="Center" 
+                <Button Name="SaveButton"
+                        HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
         	            Content="保 存" 
                         Style="{StaticResource CustomGrayButtonStyle}"
@@ -222,7 +223,9 @@
                         FontSize="18"  
                         Margin="10,0,0,0"
                         Click="SaveButton_Click"/>
-                <Button HorizontalAlignment="Center" 
+                
+                <Button Name="DeleteButton"
+                        HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
         	            Content="删 除" 
                         Style="{StaticResource CustomGrayButtonStyle}"

@@ -1,16 +1,17 @@
-using System.Windows.Controls;
+using System;
 using System.Windows;
 using System.Windows.Media;
-using System;
-using System.Runtime.InteropServices;
-using System.Text;
+using System.Windows.Controls;
 using System.Windows.Input; // for MouseButtonEventArgs
 using System.Windows.Media.Imaging; // for BitmapImage
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using VOP.Controls;
+using System.Text;
 using System.IO;
-using System.Runtime.InteropServices.ComTypes;
+using VOP.Controls;
+
 
 namespace VOP
 {
@@ -58,6 +59,7 @@ namespace VOP
             TextBox tb = spinnerControl1.Template.FindName("tbTextBox", spinnerControl1) as TextBox;
             tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+            tb.LostFocus += new RoutedEventHandler(SpinnerTextBox_LostFocus);
         }
 
         private void SpinnerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -88,7 +90,17 @@ namespace VOP
                     textBox.Text = "1";
                 }
             }
-          
+        }
+
+        private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            int textValue = 0;
+
+            if (!int.TryParse(tb.Text, out textValue))
+            {
+                tb.Text = "1";
+            }
         }
 
         private void OnBackArrowButtonClick(object sender, RoutedEventArgs e)
@@ -146,10 +158,29 @@ namespace VOP
 
                     if (FilePaths.Count == 1)
                     {
-                        printRes = worker.InvokePrintFileMethod(dll.PrintFile,
-                               m_MainWin.statusPanelPage.m_selectedPrinter,
-                               FilePaths[0],
-                               needFitToPage);
+                        string fileExt = System.IO.Path.GetExtension(FilePaths[0]).ToLower();
+
+                        if (   fileExt == ".xls"
+                            || fileExt == ".xlsx")
+                        {
+                            ExcelHelper helper = new ExcelHelper(FilePaths[0]);
+
+                            if(helper.Open())
+                            {
+                                helper.PrintAll(m_MainWin.statusPanelPage.m_selectedPrinter,
+                                                (int)spinnerControl1.Value);
+                                helper.Close();
+                            }
+
+                        }
+                        else
+                        {
+                            printRes = worker.InvokePrintFileMethod(dll.PrintFile,
+                                       m_MainWin.statusPanelPage.m_selectedPrinter,
+                                       FilePaths[0].ToLower(),
+                                       needFitToPage);
+                        }
+                    
                     }
                     break;
                 case PrintType.PrintImages:
@@ -157,9 +188,10 @@ namespace VOP
                     if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "Print Images",
                                      (int)enumIdCardType.NonIdCard, new IdCardSize(), needFitToPage))
                     {
+
                         foreach (string path in FilePaths)
                         {
-                            dll.AddImagePath(path);
+                            dll.AddImagePath(path.ToLower());
                         }
 
                         printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintImage);
@@ -225,7 +257,7 @@ namespace VOP
 
             if (EnumState.doingJob == state || EnumState.stopWorking == state)
             {
-                PrintButton.IsEnabled = false;
+              //  PrintButton.IsEnabled = false;
             }
             else
             {
@@ -308,6 +340,49 @@ namespace VOP
                 iis.Write(data, data.GetLength(0), IntPtr.Zero);
                 dll.AddImageSource((IStream)iis);
             }
+        }
+    }
+
+    public class ExcelHelper
+    {
+        private string filePath;
+        private Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+        private Microsoft.Office.Interop.Excel.Workbook wb;
+        object misValue = System.Reflection.Missing.Value;
+
+        public ExcelHelper(string s)
+        {
+            filePath = s;
+        }
+
+        public bool Open()
+        {
+            try
+            {
+                wb = app.Workbooks.Open(filePath, misValue, misValue, misValue, misValue, misValue, misValue, misValue,
+                                        misValue, misValue, misValue, misValue, misValue, misValue, misValue);
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public void Close()
+        {
+            wb.Close(false, filePath, null);
+            app.Quit();
+            Marshal.FinalReleaseComObject(wb);
+            Marshal.FinalReleaseComObject(app);
+            wb = null;
+            app = null;
+        }
+       
+        public void PrintAll(string printerName, int copies)
+        {
+            wb.PrintOutEx(misValue, misValue, copies, misValue, printerName, misValue, misValue, misValue);
         }
     }
 }

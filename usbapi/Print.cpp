@@ -149,18 +149,16 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	const TCHAR *fileExt = NULL;
 
 	fileExt = PathFindExtension(strFileName);
-	std::wstring strExt(fileExt);
-	std::transform(strExt.begin(), strExt.end(), strExt.begin(), ::tolower);
 
-	if (strExt.compare(L".bmp") == 0
-		|| strExt.compare(L".ico") == 0
-		|| strExt.compare(L".gif") == 0
-		|| strExt.compare(L".jpg") == 0
-		|| strExt.compare(L".exif") == 0
-		|| strExt.compare(L".png") == 0
-		|| strExt.compare(L".tif") == 0
-		|| strExt.compare(L".wmf") == 0
-		|| strExt.compare(L".emf") == 0)
+	if (   _tcscmp(fileExt, L".bmp") == 0
+		|| _tcscmp(fileExt, L".ico") == 0
+		|| _tcscmp(fileExt, L".gif") == 0
+		|| _tcscmp(fileExt, L".jpg") == 0
+		|| _tcscmp(fileExt, L".exif") == 0
+		|| _tcscmp(fileExt, L".png") == 0
+		|| _tcscmp(fileExt, L".tif") == 0
+		|| _tcscmp(fileExt, L".wmf") == 0
+		|| _tcscmp(fileExt, L".emf") == 0)
 	{
 		if (PrintInit(strPrinterName, L"Print Image Files", 0, NULL, fitToPage))
 		{
@@ -174,32 +172,39 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	}
 	else
 	{
-		if (GetDefaultPrinter(defaultPrinterName, &bufferSize))
+		if (_tcscmp(fileExt, L".txt") == 0)
 		{
-			::SetDefaultPrinter(strPrinterName);
-			CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
-		
-			if ((shellExeRes = (int)::ShellExecute(NULL, L"print", strFileName, NULL, NULL, SW_HIDE)) > 32)
-			{
 
-			}
-			else
-			{
-				if (shellExeRes == SE_ERR_OOM || shellExeRes == 0)
-				{
-					error = Print_Memory_Fail;
-				}
-				else
-				{
-					error = Print_File_Not_Support;
-				}
-			}
-		
-			::SetDefaultPrinter(defaultPrinterName);
 		}
 		else
 		{
-			error = Print_Get_Default_Printer_Fail;
+			if (GetDefaultPrinter(defaultPrinterName, &bufferSize))
+			{
+				::SetDefaultPrinter(strPrinterName);
+				CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
+
+				if ((shellExeRes = (int)::ShellExecute(NULL, L"print", strFileName, NULL, NULL, SW_HIDE)) > 32)
+				{
+
+				}
+				else
+				{
+					if (shellExeRes == SE_ERR_OOM || shellExeRes == 0)
+					{
+						error = Print_Memory_Fail;
+					}
+					else
+					{
+						error = Print_File_Not_Support;
+					}
+				}
+
+				::SetDefaultPrinter(defaultPrinterName);
+			}
+			else
+			{
+				error = Print_Get_Default_Printer_Fail;
+			}
 		}
 	}
 
@@ -271,18 +276,16 @@ USBAPI_API int __stdcall DoPrintImage()
 		for (UINT i = 0; i < g_vecImagePaths.size(); i++)
 		{
 			fileExt = PathFindExtension(g_vecImagePaths[i].imagePath);
-			std::wstring strExt(fileExt);
-			std::transform(strExt.begin(), strExt.end(), strExt.begin(), ::tolower);
 		
-			if ( strExt.compare(L".bmp") == 0
-			  || strExt.compare(L".ico") == 0
-			  || strExt.compare(L".gif") == 0
-			  || strExt.compare(L".jpg") == 0
-			  || strExt.compare(L".exif") == 0
-			  || strExt.compare(L".png") == 0
-			  || strExt.compare(L".tif") == 0
-			  || strExt.compare(L".wmf") == 0
-			  || strExt.compare(L".emf") == 0)
+			if (   _tcscmp(fileExt, L".bmp") == 0
+				|| _tcscmp(fileExt, L".ico") == 0
+				|| _tcscmp(fileExt, L".gif") == 0
+				|| _tcscmp(fileExt, L".jpg") == 0
+				|| _tcscmp(fileExt, L".exif") == 0
+				|| _tcscmp(fileExt, L".png") == 0
+				|| _tcscmp(fileExt, L".tif") == 0
+				|| _tcscmp(fileExt, L".wmf") == 0
+				|| _tcscmp(fileExt, L".emf") == 0)
 			{
 				Image img(g_vecImagePaths[i].imagePath);
 				count = img.GetFrameDimensionsCount();
@@ -305,8 +308,10 @@ USBAPI_API int __stdcall DoPrintImage()
 
 						int x = 0;
 						int y = 0;
-						int w = img.GetWidth();
-						int h = img.GetHeight();
+						int dpiX = img.GetHorizontalResolution();
+						int dpiY = img.GetVerticalResolution();
+						int w = img.GetWidth() * (600 / dpiX);
+						int h = img.GetHeight()* (600 / dpiY);
 
 						double whRatio = (double)w / h;
 						double scaleRatioX = (double)w / cxPage;
@@ -330,8 +335,8 @@ USBAPI_API int __stdcall DoPrintImage()
 						
 						if (IsFitted == TRUE)
 						{
-							w = img.GetWidth();
-							h = img.GetHeight();
+							w = img.GetWidth() * (600 / dpiX);
+							h = img.GetHeight()* (600 / dpiY);
 							x = 0; //Align Top left
 							y = 0;
 						}
@@ -341,13 +346,15 @@ USBAPI_API int __stdcall DoPrintImage()
 							{
 								w = cxPage;
 								h = (int)((double)cxPage / whRatio);
-								y = (cyPage - h) / 2;
+								//y = (cyPage - h) / 2;
+								y = 0;
 							}
 							else if (scaleRatioX < scaleRatioY)
 							{
 								w = (int)((double)cyPage * whRatio);
 								h = cyPage;
-								x = (cxPage - w) / 2;
+								//x = (cxPage - w) / 2;
+								x = 0;
 							}
 							else
 							{
@@ -416,6 +423,9 @@ USBAPI_API int __stdcall DoPrintIdCard()
 	double imageHeight = 0;
 	double imageToLeft = 0;
 	double imageToTop = 0;
+	int dpiX = 0;
+	int dpiY = 0;
+
 	Status status;
 
 	if (StartDoc(hdcPrn, &di) > 0)
@@ -432,16 +442,16 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				imageHeight = 0;
 				imageToLeft = 0;
 				imageToTop = 0;
-
-				imageWidth = cxPage * (currentIdCardSize.Width / A4Size.Width);
-				imageHeight = cyPage * (currentIdCardSize.Height / A4Size.Height);
+		
+				imageWidth = (currentIdCardSize.Width / 2.54) * 600;
+				imageHeight = (currentIdCardSize.Height / 2.54) * 600;
 
 				imageToLeft = (cxPage - imageWidth) / 2;
 				imageToTop = (cyPage / 2 - imageHeight) / 2;
 
 				Image img1(g_vecIdCardImageSources[0]);
 				Image img2(g_vecIdCardImageSources[1]);
-
+	
 				if (StartPage(hdcPrn) < 0)
 				{
 					error = Print_Operation_Fail;
@@ -450,7 +460,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 			
 				Graphics graphics(hdcPrn);
 				graphics.SetPageUnit(UnitPixel);
-
+		
 				if ((status = graphics.DrawImage(&img1, (int)imageToLeft, (int)imageToTop, (int)imageWidth, (int)imageHeight)) != Ok)
 				{
 					if (status == OutOfMemory)
@@ -493,8 +503,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				imageToLeft = 0;
 				imageToTop = 0;
 
-				imageWidth = cxPage * (currentIdCardSize.Width / A4Size.Width);
-				imageHeight = cyPage * (currentIdCardSize.Height / A4Size.Height);
+				imageWidth = (currentIdCardSize.Width / 2.54) * 600;
+				imageHeight = (currentIdCardSize.Height / 2.54) * 600;
 
 				imageToLeft = (cxPage - imageWidth) / 2;
 				imageToTop = (cyPage - imageHeight) / 2;
@@ -545,8 +555,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				imageToLeft = 0;
 				imageToTop = 0;
 
-				imageWidth = cyPage * (currentIdCardSize.Width / A4Size.Height);
-				imageHeight = cxPage * (currentIdCardSize.Height / A4Size.Width);
+				imageWidth = (currentIdCardSize.Width / 2.54) * 600;
+				imageHeight = (currentIdCardSize.Height / 2.54) * 600;
 
 				imageToLeft = (cxPage - imageHeight) / 2;
 				imageToTop = (cyPage - imageWidth) / 2 + imageWidth;

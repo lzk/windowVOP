@@ -65,7 +65,10 @@ namespace VOP
             tbHeight.PreviewTextInput += new TextCompositionEventHandler(TextBox_PreviewTextInput);
             tbHeight.LostKeyboardFocus += new KeyboardFocusChangedEventHandler(TextBox_LostKeyboardFocus);
             tbHeight.LostFocus += new RoutedEventHandler(TextBox_LostFocus);
-            tbHeight.TextChanged += new TextChangedEventHandler(TextBox_TextChanged);   
+            tbHeight.TextChanged += new TextChangedEventHandler(TextBox_TextChanged);
+
+            SaveButton.IsEnabled = false;
+            DeleteButton.IsEnabled = false;
         }
 
         private void InitTextBoxBinding()
@@ -232,10 +235,14 @@ namespace VOP
             if (IsTextInputValid)
             {
                 OkButton.IsEnabled = true;
+                SaveButton.IsEnabled = true;
+                DeleteButton.IsEnabled = true;
             }
             else
             {
                 OkButton.IsEnabled = false;
+                SaveButton.IsEnabled = false;
+                DeleteButton.IsEnabled = false;
             }
         }
 
