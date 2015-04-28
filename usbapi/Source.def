@@ -21,11 +21,15 @@ EXPORTS
 	DoPrintImage
 	DoPrintIdCard
     PrintFile
+	SavePrinterSettingsData
+	SetPrinterSettingsInitData
 	SetPrinterInfo
+	GetPrinterSettingsData
 	GetPrinterInfo
 	OpenDocumentProperties
 	SetCopies
-	SetDefault
+	InitPrinterData
+	RecoverDevModeData
 	OutputDebugStringToFileA
 	OutputDebugStringToFile
 	OutputDebugStringToFile_

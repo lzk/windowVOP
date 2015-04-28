@@ -31,9 +31,12 @@ namespace VOP
         }
 
         public PrintType CurrentPrintType { get; set; }
+        public PrintType m_PrintType { get; set; }
         public IdCardTypeItem SelectedTypeItem { get; set; }
 
         private bool needFitToPage = true;
+
+        public static bool IsOpenPrintSettingPage = true;
 
         public List<string> FilePaths
         {
@@ -52,6 +55,7 @@ namespace VOP
         {
             InitializeComponent();
             CurrentPrintType = PrintType.PrintFile;
+            m_PrintType = PrintType.PrintFile;
             myImagePreviewPanel.BackArrowButton.Click += new RoutedEventHandler(OnBackArrowButtonClick);
         }
         private void Window_LostFocus(object sender, RoutedEventArgs e)
@@ -137,7 +141,16 @@ namespace VOP
             PrintSettingPage printWin = new PrintSettingPage();
             printWin.Owner = App.Current.MainWindow;
             printWin.m_MainWin = m_MainWin;
+            if (m_PrintType == CurrentPrintType)
+            {
+                FileSelectionPage.IsInitPrintSettingPage = false;
+            }
+            else
+            {
+                FileSelectionPage.IsInitPrintSettingPage = true;
+            }
             printWin.m_CurrentPrintType = CurrentPrintType;
+            m_PrintType = CurrentPrintType;
 
             result = printWin.ShowDialog();
             if (result == true)
@@ -155,11 +168,19 @@ namespace VOP
             PrintSettingPage printWin = new PrintSettingPage();
             printWin.Owner = App.Current.MainWindow;
             printWin.m_MainWin = m_MainWin;
+            dll.InitPrinterData(m_MainWin.statusPanelPage.m_selectedPrinter);
+            if (m_PrintType != CurrentPrintType && FileSelectionPage.IsInitPrintSettingPage)
+            {               
+                dll.SetPrinterSettingsInitData((sbyte)CurrentPrintType);
+                FileSelectionPage.IsInitPrintSettingPage = false;
+                dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)CurrentPrintType);                
+            }
+            else
+            {
+                dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)CurrentPrintType);
+            }           
             printWin.m_CurrentPrintType = CurrentPrintType;
-
-            printWin.Show();
-            printWin.Hide();
-            printWin.Close();
+            m_PrintType = CurrentPrintType;
 
             switch(CurrentPrintType)
             {
@@ -241,6 +262,7 @@ namespace VOP
                     break;
             }
 
+            dll.RecoverDevModeData(m_MainWin.statusPanelPage.m_selectedPrinter);
             if (printRes == PrintError.Print_File_Not_Support)
             {
                 MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("暂不支持该文件打印， 请重新选择。", (string)this.FindResource("ResStr_Error"));

@@ -70,24 +70,42 @@ USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName);
 USBAPI_API void __stdcall AddImageSource(IStream * imageSource);
 USBAPI_API int __stdcall DoPrintImage();
 USBAPI_API int __stdcall DoPrintIdCard();
-
-USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
+USBAPI_API void __stdcall SavePrinterSettingsData(const TCHAR * strPrinterName,
 	UINT8 PaperSize,
 	UINT8 PaperOrientation,
 	UINT8 MediaType,
 	UINT8 PaperOrder,
-	UINT8 PrintQuality,
-	UINT8 ScalingType,
+	UINT8 PrintQuality,//byte
+	UINT8 ScalingType,//byte
 	UINT16 ScalingRatio,
-	UINT8 NupNum,
-	UINT8 TypeofPB,
+	UINT8 NupNum,//byte
+	UINT8 TypeofPB,//byte
 	UINT8 PosterType,
 	UINT8 ADJColorBalance,
 	UINT8 ColorBalanceTo,
 	UINT8 Density,
 	UINT8 DuplexPrint,
-	UINT8 ReversePrint,
+	UINT8 ReversePrint,//byte
 	UINT8 TonerSaving);
+USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_PrintType);
+USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType);
+USBAPI_API void __stdcall GetPrinterSettingsData(
+	BYTE* ptr_paperSize,
+	BYTE* ptr_paperOrientation,
+	BYTE* ptr_mediaType,
+	BYTE* ptr_paperOrder,
+	BYTE* ptr_printQuality,//byte
+	BYTE* ptr_scalingType,//byte
+	UINT16* ptr_scalingRatio,
+	BYTE* ptr_nupNum,//byte
+	BYTE* ptr_typeofPB,//byte
+	BYTE* ptr_posterType,
+	BYTE* ptr_ADJColorBalance,
+	BYTE* ptr_colorBalanceTo,
+	BYTE* ptr_density,
+	BYTE* ptr_duplexPrint,
+	BYTE* ptr_reversePrint,//byte
+	BYTE* ptr_tonerSaving);//byte
 
 USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 	BYTE* ptr_paperSize,
@@ -126,7 +144,9 @@ USBAPI_API int __stdcall OpenDocumentProperties(const TCHAR * strPrinterName,
 	BYTE* ptr_tonerSaving);//byte
 
 USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies);
-USBAPI_API void __stdcall SetDefault(const TCHAR * strPrinterName);
+USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName);
+USBAPI_API void __stdcall RecoverDevModeData(const TCHAR * strPrinterName);
+USBAPI_API void __stdcall SetInitData(const TCHAR * strPrinterName);
 
 static std::vector<PrintItem> g_vecImagePaths;
 static std::vector<IStream*>  g_vecIdCardImageSources;
@@ -139,6 +159,8 @@ static int currentIdCardType = 0;
 static IdCardSize currentIdCardSize = { 0 };
 static bool needFitToPage = false;
 Size A4Size( 21, 29.7 ); //unit cm
+static PCLDEVMODE getdevmode;
+static PirntSettingsData g_PirntSettingsData;
 
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int copies)
 {
@@ -645,7 +667,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 	return error;
 }
 
-USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
+USBAPI_API void __stdcall SavePrinterSettingsData(
 	UINT8 PaperSize,
 	UINT8 PaperOrientation,
 	UINT8 MediaType,
@@ -662,6 +684,122 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
 	UINT8 DuplexPrint,
 	UINT8 ReversePrint,//byte
 	UINT8 TonerSaving)//byte
+{
+	g_PirntSettingsData.m_paperSize = PaperSize;
+	g_PirntSettingsData.m_paperOrientation = PaperOrientation;
+	g_PirntSettingsData.m_mediaType = MediaType;
+	g_PirntSettingsData.m_paperOrder = PaperOrder;
+	g_PirntSettingsData.m_printQuality = PrintQuality;
+	g_PirntSettingsData.m_scalingType = ScalingType;
+	g_PirntSettingsData.m_scalingRatio = ScalingRatio;
+	g_PirntSettingsData.m_nupNum = NupNum;
+	g_PirntSettingsData.m_typeofPB = TypeofPB;
+	g_PirntSettingsData.m_posterType = PosterType;
+	g_PirntSettingsData.m_ADJColorBalance = ADJColorBalance;
+	g_PirntSettingsData.m_colorBalanceTo = ColorBalanceTo;
+	g_PirntSettingsData.m_densityValue = Density;
+	g_PirntSettingsData.m_duplexPrint = DuplexPrint;
+	g_PirntSettingsData.m_reversePrint = ReversePrint;
+	g_PirntSettingsData.m_tonerSaving = TonerSaving;
+}
+USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
+{
+	switch (m_PrintType)
+	{
+	case 0:
+		g_PirntSettingsData.m_paperSize = 0;
+		g_PirntSettingsData.m_paperOrientation = 1;
+		g_PirntSettingsData.m_mediaType = 0;
+		g_PirntSettingsData.m_paperOrder = 1;
+		g_PirntSettingsData.m_printQuality = 0;
+		g_PirntSettingsData.m_scalingType = 1;
+		g_PirntSettingsData.m_scalingRatio = 100;
+		g_PirntSettingsData.m_nupNum = 1;
+		g_PirntSettingsData.m_typeofPB = 0;
+		g_PirntSettingsData.m_posterType = 0;
+		g_PirntSettingsData.m_ADJColorBalance = 1;
+		g_PirntSettingsData.m_colorBalanceTo = 1;
+		g_PirntSettingsData.m_densityValue = 0;
+		g_PirntSettingsData.m_duplexPrint = 1;
+		g_PirntSettingsData.m_reversePrint = 1;
+		g_PirntSettingsData.m_tonerSaving = 0;
+		break;
+	case 1:
+		g_PirntSettingsData.m_paperSize = 0;
+		g_PirntSettingsData.m_paperOrientation = 1;
+		g_PirntSettingsData.m_mediaType = 0;
+		g_PirntSettingsData.m_paperOrder = 1;
+		g_PirntSettingsData.m_printQuality = 0;
+		g_PirntSettingsData.m_scalingType = 2;
+		g_PirntSettingsData.m_scalingRatio = 100;
+		g_PirntSettingsData.m_nupNum = 1;
+		g_PirntSettingsData.m_typeofPB = 0;
+		g_PirntSettingsData.m_posterType = 0;
+		g_PirntSettingsData.m_ADJColorBalance = 1;
+		g_PirntSettingsData.m_colorBalanceTo = 1;
+		g_PirntSettingsData.m_densityValue = 0;
+		g_PirntSettingsData.m_duplexPrint = 1;
+		g_PirntSettingsData.m_reversePrint = 1;
+		g_PirntSettingsData.m_tonerSaving = 0;
+		break;
+	case 2:
+		g_PirntSettingsData.m_paperSize = 0;
+		g_PirntSettingsData.m_paperOrientation = 1;
+		g_PirntSettingsData.m_mediaType = 0;
+		g_PirntSettingsData.m_paperOrder = 1;
+		g_PirntSettingsData.m_printQuality = 0;
+		g_PirntSettingsData.m_scalingType = 0;
+		g_PirntSettingsData.m_scalingRatio = 100;
+		g_PirntSettingsData.m_nupNum = 1;
+		g_PirntSettingsData.m_typeofPB = 0;
+		g_PirntSettingsData.m_posterType = 0;
+		g_PirntSettingsData.m_ADJColorBalance = 1;
+		g_PirntSettingsData.m_colorBalanceTo = 1;
+		g_PirntSettingsData.m_densityValue = 0;
+		g_PirntSettingsData.m_duplexPrint = 1;
+		g_PirntSettingsData.m_reversePrint = 1;
+		g_PirntSettingsData.m_tonerSaving = 0;
+		break;
+	case 3:
+		g_PirntSettingsData.m_paperSize = 0;
+		g_PirntSettingsData.m_paperOrientation = 1;
+		g_PirntSettingsData.m_mediaType = 0;
+		g_PirntSettingsData.m_paperOrder = 1;
+		g_PirntSettingsData.m_printQuality = 0;
+		g_PirntSettingsData.m_scalingType = 2;
+		g_PirntSettingsData.m_scalingRatio = 100;
+		g_PirntSettingsData.m_nupNum = 1;
+		g_PirntSettingsData.m_typeofPB = 0;
+		g_PirntSettingsData.m_posterType = 0;
+		g_PirntSettingsData.m_ADJColorBalance = 1;
+		g_PirntSettingsData.m_colorBalanceTo = 1;
+		g_PirntSettingsData.m_densityValue = 0;
+		g_PirntSettingsData.m_duplexPrint = 1;
+		g_PirntSettingsData.m_reversePrint = 1;
+		g_PirntSettingsData.m_tonerSaving = 0;
+		break;	
+	default:
+		g_PirntSettingsData.m_paperSize = 0;
+		g_PirntSettingsData.m_paperOrientation = 1;
+		g_PirntSettingsData.m_mediaType = 0;
+		g_PirntSettingsData.m_paperOrder = 1;
+		g_PirntSettingsData.m_printQuality = 0;
+		g_PirntSettingsData.m_scalingType = 2;
+		g_PirntSettingsData.m_scalingRatio = 100;
+		g_PirntSettingsData.m_nupNum = 1;
+		g_PirntSettingsData.m_typeofPB = 0;
+		g_PirntSettingsData.m_posterType = 0;
+		g_PirntSettingsData.m_ADJColorBalance = 1;
+		g_PirntSettingsData.m_colorBalanceTo = 1;
+		g_PirntSettingsData.m_densityValue = 0;
+		g_PirntSettingsData.m_duplexPrint = 1;
+		g_PirntSettingsData.m_reversePrint = 1;
+		g_PirntSettingsData.m_tonerSaving = 0;
+		break;
+	}
+	
+}
+USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_PrintType)//byte
 {
 	HANDLE   phandle;
 	DWORD dmsize;
@@ -686,9 +824,10 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
 				PCLDEVMODE devmode;
 
 				DWORD dwSize = sizeof(devmode)-sizeof(DEVMODE);
+				getdevmode = *(LPPCLDEVMODE)printer_info->pDevMode;
 
 				devmode = *(LPPCLDEVMODE)printer_info->pDevMode;
-				switch (PaperSize)
+				switch (g_PirntSettingsData.m_paperSize)
 				{
 				case 0:
 					devmode.dmPublic.dmPaperSize = DMPAPER_A4;
@@ -728,29 +867,32 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
 					break;
 				}
 
-				devmode.dmPublic.dmOrientation = PaperOrientation;
-				devmode.dmPublic.dmMediaType = MediaType + DMMEDIA_USER;
-				devmode.dmPrivate.par.wMediaType = MediaType;
-				devmode.dmPublic.dmCollate = PaperOrder;
-				devmode.dmPrivate.PrintQuality = PrintQuality;
-				devmode.dmPrivate.nup.bNupNum = NupNum;//multiple-page 2in1: 2, 4in1: 4, 6in1: 6, 9in1: 9, 16 in1: 16
+				devmode.dmPublic.dmOrientation = g_PirntSettingsData.m_paperOrientation;
+				devmode.dmPublic.dmMediaType = g_PirntSettingsData.m_mediaType + DMMEDIA_USER;
+				devmode.dmPrivate.par.wMediaType = g_PirntSettingsData.m_mediaType;
+				devmode.dmPublic.dmCollate = g_PirntSettingsData.m_paperOrder;
+				devmode.dmPrivate.PrintQuality = static_cast<BYTE>(g_PirntSettingsData.m_printQuality);
+				devmode.dmPrivate.nup.bNupNum = static_cast<BYTE>(g_PirntSettingsData.m_nupNum);//multiple-page 2in1: 2, 4in1: 4, 6in1: 6, 9in1: 9, 16 in1: 16
+				devmode.dmPrivate.bpmrdata.TypeofPB = static_cast<BYTE>(g_PirntSettingsData.m_typeofPB); //TypeofPB;//multiple-page, 1in nxn pages
+				devmode.dmPrivate.poster.wPosterType = g_PirntSettingsData.m_posterType;// 0: 1 in 2x2, 1: 1 in 3x3, 2: 1 in 4x4 pages.
 
-				devmode.dmPrivate.bpmrdata.TypeofPB = TypeofPB;//multiple-page, 1in nxn pages
-				devmode.dmPrivate.poster.wPosterType = PosterType;// 0: 1 in 2x2, 1: 1 in 3x3, 2: 1 in 4x4 pages.
+				devmode.dmPrivate.sfp.ISFSet = static_cast<BYTE>(g_PirntSettingsData.m_scalingType);// scale 
+				devmode.dmPrivate.sfp.SRatio = g_PirntSettingsData.m_scalingRatio;//scale 25~400
 
-				devmode.dmPrivate.sfp.ISFSet = ScalingType;// scale 
-				devmode.dmPrivate.sfp.SRatio = ScalingRatio;//scale 25~400
+				devmode.dmPrivate.graphics.isADJColorBalance = g_PirntSettingsData.m_ADJColorBalance;
+				devmode.dmPrivate.graphics.bColorBalanceTo = static_cast<BYTE>(g_PirntSettingsData.m_colorBalanceTo);
 
-				devmode.dmPrivate.graphics.isADJColorBalance = ADJColorBalance;
-				devmode.dmPrivate.graphics.bColorBalanceTo = ColorBalanceTo;
+				devmode.dmPrivate.graphics.ColorBalanceIndex[0][0] = static_cast<BYTE>(g_PirntSettingsData.m_densityValue);
 
-				devmode.dmPrivate.graphics.ColorBalanceIndex[0][0] = Density;
+				devmode.dmPublic.dmDuplex = g_PirntSettingsData.m_duplexPrint; //DUPLEX£¬ DMDUP_VERTICAL: ³¤±ß DMDUP_HORIZONTAL£¬¶Ì±ß
 
-				devmode.dmPublic.dmDuplex = DuplexPrint; //DUPLEX£¬ DMDUP_VERTICAL: ³¤±ß DMDUP_HORIZONTAL£¬¶Ì±ß
+				devmode.dmPrivate.bPaperReverseOrder = static_cast<BYTE>(g_PirntSettingsData.m_reversePrint);
+				devmode.dmPrivate.graphics.TonerSaving = static_cast<BYTE>(g_PirntSettingsData.m_tonerSaving);
 
-				devmode.dmPrivate.bPaperReverseOrder = ReversePrint;
-				devmode.dmPrivate.graphics.TonerSaving = TonerSaving;
-
+				if (2 == m_PrintType)
+				{
+					devmode.dmPrivate.bEnableBooklet = false;
+				}
 
 				*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
 
@@ -767,7 +909,45 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName,
 	}
 }
 
-USBAPI_API void __stdcall SetDefault(const TCHAR * strPrinterName)
+USBAPI_API void __stdcall RecoverDevModeData(const TCHAR * strPrinterName)
+{
+	HANDLE   phandle;
+	DWORD dmsize;
+
+	phandle = NULL;
+	wchar_t szprintername[MAX_PATH] = { 0 };
+	wcscpy_s(szprintername, MAX_PATH, strPrinterName);
+
+	if (OpenPrinter(szprintername, &phandle, NULL))
+	{
+		LPPRINTER_INFO_2 printer_info;
+
+		GetPrinter(phandle, 2, (LPBYTE)NULL, 0, &dmsize);
+
+		printer_info = (LPPRINTER_INFO_2)malloc(dmsize);
+
+		if (printer_info != NULL)
+		{
+			if (GetPrinter(phandle, 2, (LPBYTE)printer_info, dmsize, &dmsize))
+			{
+				*((LPPCLDEVMODE)printer_info->pDevMode) = getdevmode;
+
+				SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
+
+			}
+			free(printer_info);
+		}
+	}
+	if (phandle != NULL)
+	{
+		ClosePrinter(phandle);
+		phandle = NULL;
+	}
+}
+
+
+
+USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 {
 	HANDLE   phandle;
 	DWORD dmsize;
@@ -828,8 +1008,6 @@ USBAPI_API void __stdcall SetDefault(const TCHAR * strPrinterName)
 			ClosePrinter(phandle);
 			phandle = NULL;
 		}
-
-
 }
 
 USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies)
@@ -875,6 +1053,41 @@ USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies)
 		ClosePrinter(phandle);
 		phandle = NULL;
 	}
+}
+USBAPI_API void __stdcall GetPrinterSettingsData(
+	BYTE* ptr_paperSize,
+	BYTE* ptr_paperOrientation,
+	BYTE* ptr_mediaType,
+	BYTE* ptr_paperOrder,
+	BYTE* ptr_printQuality,//byte
+	BYTE* ptr_scalingType,//byte
+	UINT16* ptr_scalingRatio,
+	BYTE* ptr_nupNum,//byte
+	BYTE* ptr_typeofPB,//byte
+	BYTE* ptr_posterType,
+	BYTE* ptr_ADJColorBalance,
+	BYTE* ptr_colorBalanceTo,
+	BYTE* ptr_density,
+	BYTE* ptr_duplexPrint,
+	BYTE* ptr_reversePrint,//byte
+	BYTE* ptr_tonerSaving)//byte
+{
+	*ptr_paperSize = static_cast<BYTE>(g_PirntSettingsData.m_paperSize);
+	*ptr_paperOrientation = static_cast<BYTE>(g_PirntSettingsData.m_paperOrientation);
+	*ptr_mediaType = static_cast<BYTE>(g_PirntSettingsData.m_mediaType);
+	*ptr_paperOrder = static_cast<BYTE>(g_PirntSettingsData.m_paperOrder);
+	*ptr_printQuality = static_cast<BYTE>(g_PirntSettingsData.m_printQuality);
+	*ptr_scalingType = static_cast<BYTE>(g_PirntSettingsData.m_scalingType);
+	*ptr_scalingRatio = g_PirntSettingsData.m_scalingRatio;
+	*ptr_nupNum = static_cast<BYTE>(g_PirntSettingsData.m_nupNum);
+	*ptr_typeofPB = static_cast<BYTE>(g_PirntSettingsData.m_typeofPB);
+	*ptr_posterType = static_cast<BYTE>(g_PirntSettingsData.m_posterType);
+	*ptr_ADJColorBalance = static_cast<BYTE>(g_PirntSettingsData.m_ADJColorBalance);
+	*ptr_colorBalanceTo = static_cast<BYTE>(g_PirntSettingsData.m_colorBalanceTo);
+	*ptr_density = static_cast<BYTE>(g_PirntSettingsData.m_densityValue);
+	*ptr_duplexPrint = static_cast<BYTE>(g_PirntSettingsData.m_duplexPrint);
+	*ptr_reversePrint = static_cast<BYTE>(g_PirntSettingsData.m_reversePrint);
+	*ptr_tonerSaving = static_cast<BYTE>(g_PirntSettingsData.m_tonerSaving);
 }
 
 USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,

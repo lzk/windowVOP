@@ -222,8 +222,7 @@ namespace VOP
         public static extern int OutputDebugStringToFile_([MarshalAs(UnmanagedType.LPWStr)]string _lpFormat);
 
         [DllImport("usbapi.dll")]
-        public static extern void SetPrinterInfo(
-            [MarshalAs(UnmanagedType.LPWStr)]string strPrinterName,
+        public static extern void SavePrinterSettingsData(
             sbyte PaperSize,
             sbyte PaperOrientation,
             sbyte MediaType,
@@ -240,6 +239,32 @@ namespace VOP
             sbyte DuplexPrint,
             sbyte ReversePrint,
             sbyte TonerSaving);
+
+        [DllImport("usbapi.dll")]
+        public static extern void SetPrinterSettingsInitData(sbyte m_PrintType);
+
+        [DllImport("usbapi.dll")]
+        public static extern void SetPrinterInfo(
+            [MarshalAs(UnmanagedType.LPWStr)]string strPrinterName, sbyte m_PrintType);
+
+        [DllImport("usbapi.dll")]
+        public static extern void GetPrinterSettingsData(
+            ref sbyte PaperSize,
+            ref sbyte PaperOrientation,
+            ref sbyte MediaType,
+            ref sbyte PaperOrder,
+            ref sbyte PrintQuality,
+            ref sbyte ScalingType,
+            ref short ScalingRatio,
+            ref sbyte NupNum,
+            ref sbyte TypeofPB,
+            ref sbyte PosterType,
+            ref sbyte ADJColorBalance,
+            ref sbyte ColorBalanceTo,
+            ref sbyte Density,
+            ref sbyte DuplexPrint,
+            ref sbyte ReversePrint,
+            ref sbyte TonerSaving);
 
         [DllImport("usbapi.dll")]
         public static extern int GetPrinterInfo(
@@ -285,7 +310,10 @@ namespace VOP
         public static extern void SetCopies([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName, sbyte Copies);
 
         [DllImport("usbapi.dll")]
-        public static extern void SetDefault([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName);
+        public static extern void InitPrinterData([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName);
+
+        [DllImport("usbapi.dll")]
+        public static extern void RecoverDevModeData([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName);
 
     }
 

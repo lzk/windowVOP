@@ -481,6 +481,26 @@ typedef struct {
 	DEVMODEPRIVATE	dmPrivate;
 } PCLDEVMODE, FAR *LPPCLDEVMODE;
 
+typedef struct PirntSettingsData
+{
+	short m_paperSize;
+	short m_paperOrientation;
+	short m_mediaType;
+	short m_paperOrder;
+	short m_printQuality;
+	short m_scalingType;
+	short m_scalingRatio;
+	short m_nupNum;
+	short m_typeofPB;
+	short m_posterType;
+	short m_ADJColorBalance;
+	short m_colorBalanceTo;
+	short m_densityValue;
+	short m_duplexPrint;
+	short m_reversePrint;
+	short m_tonerSaving;
+
+} PirntSettingsData, *pPirntSettingsData;
 
 #define PCLDM_PRIV_SIZE (sizeof(PCLDEVMODE) - sizeof(DEVMODE))
 #endif	// _DEVMODE2_H_
