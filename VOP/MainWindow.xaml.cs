@@ -73,6 +73,9 @@ namespace VOP
         public  bool m_isCloseAnimation = false;  // True if animation window need to close.
         public  string m_animationUri = "";       // Animation Uri need to display
 
+        // Old status used to popup animation window.
+        private EnumStatus m_oldStatus = EnumStatus.Offline;
+
         public bool PasswordCorrect()
         {
             bool bCorrect = false;
@@ -679,33 +682,36 @@ namespace VOP
                        || EnumStatus.JamAtExitNotReach == status
                        || EnumStatus.JamAtExitStayOn   == status )
                {
-
-                   switch ( status )
+                   if ( m_oldStatus != status )
                    {
-                       case EnumStatus.NofeedJam            : m_animationUri = "pack://siteoforigin:,,,/../../Media/JamAtExitNotReach.mp4"; break;
-                       case EnumStatus.JamAtRegistStayOn    : m_animationUri = "pack://siteoforigin:,,,/../../Media/JamAtExitStayOn.mp4"  ; break;
-                       case EnumStatus.JamAtExitNotReach    : m_animationUri = "pack://siteoforigin:,,,/../../Media/JamAtRegistStayOn.mp4"; break;
-                       case EnumStatus.JamAtExitStayOn      : m_animationUri = "pack://siteoforigin:,,,/../../Media/NofeedJam.mp4"        ; break;
-                       default: 
-                                                              m_animationUri = "pack://siteoforigin:,,,/../../Media/NofeedJam.mp4"        ; break;
-                   }
+                       switch ( status )
+                       {
+                           case EnumStatus.JamAtExitNotReach  : m_animationUri = "pack://siteoforigin:,,,/../../Media/JamAtExitNotReach.mp4"; break;
+                           case EnumStatus.JamAtExitStayOn    : m_animationUri = "pack://siteoforigin:,,,/../../Media/JamAtExitStayOn.mp4"  ; break;
+                           case EnumStatus.JamAtRegistStayOn  : m_animationUri = "pack://siteoforigin:,,,/../../Media/JamAtRegistStayOn.mp4"; break;
+                           case EnumStatus.NofeedJam          : m_animationUri = "pack://siteoforigin:,,,/../../Media/NofeedJam.mp4"        ; break;
+                           default: 
+                                                                  m_animationUri = "pack://siteoforigin:,,,/../../Media/NofeedJam.mp4"      ; break;
+                       }
 
-                   // TODO: Update animation Uri.
-                   if ( false == m_isAnimationPopup )
-                   {
-                       m_isCloseAnimation = false;  
-                       m_isAnimationPopup = true;
-                       MessageBoxEx_Video win = new MessageBoxEx_Video( new Uri( m_animationUri ), "", "" );
-                       win.m_MainWin = this;
-                       win.Owner = this;
-                       win.ShowDialog();
-                       m_isAnimationPopup = false;
+                       if ( false == m_isAnimationPopup )
+                       {
+                           m_isCloseAnimation = false;  
+                           m_isAnimationPopup = true;
+                           MessageBoxEx_Video win = new MessageBoxEx_Video( new Uri( m_animationUri ), "", "" );
+                           win.m_MainWin = this;
+                           win.Owner = this;
+                           win.ShowDialog();
+                           m_isAnimationPopup = false;
+                       }
                    }
                }
                else
                {
                    m_isCloseAnimation = true;  
                }
+
+               m_oldStatus = status;
 
            }
            else if (msg == App.WM_VOP)
