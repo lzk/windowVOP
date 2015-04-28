@@ -275,6 +275,9 @@ namespace VOP
             btnScan.IsEnabled    = false;
             btnSetting.IsEnabled = false;
             m_MainWin.statusPanelPage.EnableSwitchPrinter( false );
+            this.image_wrappanel.IsEnabled = false;
+            btnPrint.IsEnabled = false;
+            btnSave.IsEnabled = false;
 
             _isScanning = true;
             scanningThread = new Thread(DoScanning);
@@ -349,6 +352,13 @@ namespace VOP
                  btnCancel.IsEnabled  = false;
                  btnSetting.IsEnabled = true;
                  m_MainWin.statusPanelPage.EnableSwitchPrinter( true );
+                 this.image_wrappanel.IsEnabled = true;
+
+                 if ( 0 < GetSelectedItemCount() )
+                 {
+                     btnPrint.IsEnabled = true;
+                     btnSave.IsEnabled = true;
+                 }
                  
                  btnScan.IsEnabled = ( EnumState.init == m_currentState && false == m_isScanning );
 
