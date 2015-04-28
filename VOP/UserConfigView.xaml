@@ -63,7 +63,7 @@
                                          UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
                                                 <local:PrintCopysValidationRule MinimumValue="-6" MaximumValue="6" 
-										ErrorMessage="有效值输入范围为-6到6, 请确认后再次输入." />
+										ErrorMessage="{StaticResource ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_}" />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
@@ -148,7 +148,7 @@
                                          UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
                                                 <local:PrintCopysValidationRule MinimumValue="-3" MaximumValue="3" 
-										ErrorMessage="有效值输入范围为-3到3, 请确认后再次输入." />
+										ErrorMessage="{StaticResource ResStr_The_valid_range_is_from__3_to_3__please_confirm_and_enter_again_}" />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
@@ -233,7 +233,7 @@
                                          UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
                                                 <local:PrintCopysValidationRule MinimumValue="0" MaximumValue="1" 
-										ErrorMessage="有效值输入范围为0到1, 请确认后再次输入." />
+										ErrorMessage="{StaticResource ResStr_The_valid_range_is_0_1__please_confirm_and_enter_again_}" />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>

@@ -97,7 +97,7 @@
                                          UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
                                                 <local:PrintCopysValidationRule MinimumValue="1" MaximumValue="30" 
-										ErrorMessage="有效值输入范围为1-30, 请确认后再次输入." />
+										ErrorMessage="{StaticResource ResStr_The_valid_range_is_1_30__please_confirm_and_enter_again_}" />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>

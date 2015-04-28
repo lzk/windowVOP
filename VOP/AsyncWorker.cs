@@ -166,6 +166,7 @@ namespace VOP
                     if (!((MainWindow)App.Current.MainWindow).PasswordCorrect())
                     {
                         PasswordWindow pw = new PasswordWindow();
+                        pw.Owner = App.Current.MainWindow;
                         Nullable<bool> dialogResult = pw.ShowDialog();
 
                         if (dialogResult != true)
