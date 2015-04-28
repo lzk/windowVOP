@@ -34,7 +34,7 @@ namespace VOP
 
         private void OnOpenWebsite(object sender, MouseButtonEventArgs e)
         {
-            System.Diagnostics.Process.Start(@"http://www.lenovo.com.cn");
+            System.Diagnostics.Process.Start(@"http://www.lenovo.com");
         }
     }
 }
