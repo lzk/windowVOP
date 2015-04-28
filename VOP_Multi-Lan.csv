@@ -182,7 +182,7 @@ ResStr_Connect,Connect,连接
 ResStr_Find_and_join_the_Wi_Fi,Find and join the Wi-Fi,查找并加入Wi-Fi网络
 ResStr_Enter_SSID_and_security_type_,Enter SSID and security type.,输入你想要加入的网络名称和安全性类型
 ResStr_Power_Save_Time,Power Save Time,进入休眠时间
-ResStr_1_30_Minute,1-30 Minute,1-30分钟
+ResStr_1_30_Minute,(1-30 Minute),(1-30分钟)
 ResStr_SSID_2,SSID,网络标识
 ResStr_Enable,Enable,使用
 ResStr_Leading_Edge_Registration,Leading Edge Registration,顶端偏移量
