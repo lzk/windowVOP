@@ -21,6 +21,7 @@ using System.Xml;
 using Newtonsoft;
 using System.IO;
 using System.Globalization;
+using System.Xml.Linq;
 
 namespace VOP
 {
@@ -33,6 +34,12 @@ namespace VOP
     {
         SFP,
         MFP
+    }
+
+    public class UploadPrintInfo
+    {
+        public bool m_bUploadSuccess = false;
+        public CRM_PrintInfo m_PrintInfo = new CRM_PrintInfo();
     }
 
     public partial class MainWindow : Window
@@ -68,6 +75,7 @@ namespace VOP
         public string m_strPassword = "";
         public string m_strPhoneNumber = "";
         public static bool   m_bLocationIsChina = false;
+        public List<UploadPrintInfo> m_UploadPrintInfoSet = new List<UploadPrintInfo>();
 
         private bool m_isAnimationPopup = false;  // True if animation window had popup.
         public  bool m_isCloseAnimation = false;  // True if animation window need to close.
@@ -166,6 +174,214 @@ namespace VOP
                 uploadCRMThread = new Thread(UploadCRM_LocalInfoToServerCaller);
                 uploadCRMThread.Start();
             }
+
+            ReadPrintInfoIntoXamlFile();
+
+            Thread uploadPrintInfoThread = new Thread(UploadPrintInfoToServerCaller);
+            uploadPrintInfoThread.Start();
+
+//            SavePrintInfoIntoXamlFile();
+        }
+
+        public XmlAttribute CreateAttribute(XmlNode node, string attributeName, string value)
+        {
+            try
+            {
+                XmlDocument doc = node.OwnerDocument;
+                XmlAttribute attr = null;
+                attr = doc.CreateAttribute(attributeName);
+                attr.Value = value;
+                node.Attributes.SetNamedItem(attr);
+                return attr;
+            }
+            catch (Exception err)
+            {
+                string desc = err.Message;
+                return null;
+            }
+        } 
+        
+        public bool SavePrintInfoIntoXamlFile()
+        {
+            bool bSuccess = false;
+            try
+            {
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+                var directory = new DirectoryInfo(documentsPath);
+                string strUsersPublic = directory.Parent.FullName;
+                string strDirectory = strUsersPublic + "\\Lenovo\\";
+                Directory.CreateDirectory(strDirectory);
+                string path = strDirectory + "PrintInfo.xaml";
+
+                XmlDocument doc = new XmlDocument();
+
+                XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+                XmlElement root = doc.DocumentElement;
+                doc.InsertBefore(xmlDeclaration, root);
+
+                XmlElement eleRoot = doc.CreateElement(string.Empty, "printinfoset", string.Empty);
+                doc.AppendChild(eleRoot);
+
+                foreach (UploadPrintInfo item in m_UploadPrintInfoSet)
+                {
+                    if(false == item.m_bUploadSuccess)
+                    {
+                        XmlNode node = doc.CreateElement("printinfo");
+                        node.Attributes.Append(CreateAttribute(node, "MobileCode", item.m_PrintInfo.m_strMobileCode));
+                        node.Attributes.Append(CreateAttribute(node, "Mobile", item.m_PrintInfo.m_strMobileNumber));
+                        node.Attributes.Append(CreateAttribute(node, "DeviceBrand", item.m_PrintInfo.m_strDeviceBrand));
+                        node.Attributes.Append(CreateAttribute(node, "DeviceModel", item.m_PrintInfo.m_strDeviceModel));
+                        node.Attributes.Append(CreateAttribute(node, "PrintType", item.m_PrintInfo.m_strPrintType));
+
+                        node.Attributes.Append(CreateAttribute(node, "PrintMode", item.m_PrintInfo.m_strPrintMode));
+                        node.Attributes.Append(CreateAttribute(node, "PrintDocType", item.m_PrintInfo.m_strPrintDocType));
+                        node.Attributes.Append(CreateAttribute(node, "PrintCopys", item.m_PrintInfo.m_strPrintCopys));
+                        node.Attributes.Append(CreateAttribute(node, "PrintPages", item.m_PrintInfo.m_strPrintPages));
+                        node.Attributes.Append(CreateAttribute(node, "PrinterModel", item.m_PrintInfo.m_strPrinterModel));
+
+                        node.Attributes.Append(CreateAttribute(node, "PrinterName", item.m_PrintInfo.m_strPrinterName));
+                        node.Attributes.Append(CreateAttribute(node, "PrinterType", item.m_PrintInfo.m_strPrinterType));
+                        node.Attributes.Append(CreateAttribute(node, "IsSuccess", item.m_PrintInfo.m_strPrintSuccess));
+                        node.Attributes.Append(CreateAttribute(node, "version", item.m_PrintInfo.m_strVersion));
+                        node.Attributes.Append(CreateAttribute(node, "flag", item.m_PrintInfo.m_strFlag));
+
+                        eleRoot.AppendChild(node);
+                    }
+
+                }
+                doc.Save(path);
+                bSuccess = true;
+            }
+            catch
+            {
+
+            }
+            return bSuccess;
+        }
+
+        public bool ReadPrintInfoIntoXamlFile()
+        {
+            bool bSuccess = false;
+            try
+            {
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+                var directory = new DirectoryInfo(documentsPath);
+                string strUsersPublic = directory.Parent.FullName;
+                string strDirectory = strUsersPublic + "\\Lenovo\\";
+                Directory.CreateDirectory(strDirectory);
+
+                string path = strDirectory + "PrintInfo.xaml";
+                XDocument doc = XDocument.Load(path);
+
+                var query = (from item in doc.Element("printinfoset").Elements() select item).ToList();
+                UploadPrintInfo upi = new UploadPrintInfo();
+                foreach (var item in query)
+                {
+                    upi.m_PrintInfo.m_strMobileCode = (item.Attribute("MobileCode") == null ? (string)null : item.Attribute("MobileCode").Value);
+                    upi.m_PrintInfo.m_strMobileNumber = (item.Attribute("Mobile") == null ? (string)null : item.Attribute("Mobile").Value);
+                    upi.m_PrintInfo.m_strDeviceBrand = (item.Attribute("DeviceBrand") == null ? (string)null : item.Attribute("DeviceBrand").Value);
+                    upi.m_PrintInfo.m_strDeviceModel = (item.Attribute("DeviceModel") == null ? (string)null : item.Attribute("DeviceModel").Value);
+                    upi.m_PrintInfo.m_strPrintType = (item.Attribute("PrintType") == null ? (string)null : item.Attribute("PrintType").Value);
+                    upi.m_PrintInfo.m_strPrintMode = (item.Attribute("PrintMode") == null ? (string)null : item.Attribute("PrintMode").Value);
+                    upi.m_PrintInfo.m_strPrintDocType = (item.Attribute("PrintDocType") == null ? (string)null : item.Attribute("PrintDocType").Value);
+                    upi.m_PrintInfo.m_strPrintCopys = (item.Attribute("PrintCopys") == null ? (string)null : item.Attribute("PrintCopys").Value);
+                    upi.m_PrintInfo.m_strPrintPages = (item.Attribute("PrintPages") == null ? (string)null : item.Attribute("PrintPages").Value);
+                    upi.m_PrintInfo.m_strPrinterModel = (item.Attribute("PrinterModel") == null ? (string)null : item.Attribute("PrinterModel").Value);
+                    upi.m_PrintInfo.m_strPrinterName = (item.Attribute("PrinterName") == null ? (string)null : item.Attribute("PrinterName").Value);
+                    upi.m_PrintInfo.m_strPrinterType = (item.Attribute("PrinterType") == null ? (string)null : item.Attribute("PrinterType").Value);
+                    upi.m_PrintInfo.m_strPrintSuccess = (item.Attribute("IsSuccess") == null ? (string)null : item.Attribute("IsSuccess").Value);
+                    upi.m_PrintInfo.m_strVersion = (item.Attribute("version") == null ? (string)null : item.Attribute("version").Value);
+                    upi.m_PrintInfo.m_strFlag = (item.Attribute("flag") == null ? (string)null : item.Attribute("flag").Value);
+                    try
+                    {
+                        upi.m_PrintInfo.m_time = DateTime.Parse((item.Attribute("time") == null ? (string)null : item.Attribute("time").Value));
+                    }
+                    catch
+                    {
+
+                    }
+                    m_UploadPrintInfoSet.Add(upi);
+                }
+            }
+            catch
+            {
+
+            }
+            return bSuccess;
+        }
+
+        public void UploadPrintInfoToServerCaller()
+        {
+            try
+            {
+                while (!bExit)
+                {
+                    lock (printinfoLock)
+                    {
+                        for (int i = m_UploadPrintInfoSet.Count - 1; i >= 0; i--)
+                        {
+                            if (m_UploadPrintInfoSet[i].m_bUploadSuccess)
+                                m_UploadPrintInfoSet.Remove(m_UploadPrintInfoSet[i]);
+                        }
+                        
+                        SavePrintInfoIntoXamlFile();
+                    }
+
+
+                    foreach (UploadPrintInfo item in m_UploadPrintInfoSet)
+                    {
+                        JSONResultFormat2 rtValue = new JSONResultFormat2();
+                        item.m_bUploadSuccess = m_RequestManager.UploadCRM_PrintInfoToServer(ref item.m_PrintInfo, ref rtValue);
+                        if(!item.m_bUploadSuccess)
+                        {
+                            if (rtValue.m_strMessage == "flag重复")
+                                item.m_bUploadSuccess = true;
+                        }
+                    }
+
+
+                    for (int i = 0; i < 1; i++)
+                    {
+                        if (bExit)
+                            break;
+
+                        System.Threading.Thread.Sleep(500);
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        public void UploadPrintInfo(CRM_PrintInfo printInfo)
+        {
+            try
+            {
+                UploadPrintInfo upi = new UploadPrintInfo();
+                upi.m_PrintInfo = printInfo;
+    
+                JSONResultFormat2 rtValue = new JSONResultFormat2();
+                upi.m_bUploadSuccess = m_RequestManager.UploadCRM_PrintInfoToServer(ref upi.m_PrintInfo, ref rtValue);
+                if (!upi.m_bUploadSuccess)
+                {
+                    if (rtValue.m_strMessage == "flag重复")
+                        upi.m_bUploadSuccess = true;
+                }
+
+                if (false == upi.m_bUploadSuccess)
+                {
+                    lock (printinfoLock)
+                    {
+                        m_UploadPrintInfoSet.Add(upi);
+                    }
+                }
+            }
+            catch
+            {
+
+            }
         }
 
         public static bool SaveCRMDataIntoXamlFile(string strFileName, DateTime date, string strData)
@@ -177,7 +393,6 @@ namespace VOP
                 var directory = new DirectoryInfo(documentsPath);
                 string strUsersPublic = directory.Parent.FullName;
                 string strDirectory = strUsersPublic + "\\Lenovo\\";
-
                 Directory.CreateDirectory(strDirectory);
 
                 XmlDocument doc = new XmlDocument();
@@ -504,6 +719,7 @@ namespace VOP
         private byte _status = (byte)EnumStatus.Offline; 
         private byte _job    = (byte)EnumMachineJob.UnknowJob;
         private object statusLock = new object(); // Use to sync status share varibles.
+        private object printinfoLock = new object(); // Use to sync status share varibles.
 
         public void UpdateStatusCaller()
         {
