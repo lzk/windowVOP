@@ -767,8 +767,6 @@ namespace VOP
                     _job    = _tmpJob   ;
                 }
 
-                CRM_PrintInfo pi = new CRM_PrintInfo();
-                UploadPrintInfo(pi);
                 // TODO: post the status message to the main window
                 Win32.PostMessage( (IntPtr)0xffff, App.WM_STATUS_UPDATE, IntPtr.Zero , IntPtr.Zero );
 
