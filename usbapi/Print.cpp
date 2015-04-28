@@ -146,7 +146,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	DWORD bufferSize = 500;
 	TCHAR defaultPrinterName[500];
 	int shellExeRes = 0;
-	int count = 0;
+	int count = 1;
 	const TCHAR *fileExt = NULL;
 
 	fileExt = PathFindExtension(strFileName);
