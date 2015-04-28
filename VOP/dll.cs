@@ -215,7 +215,8 @@ namespace VOP
         public static extern int PrintFile(
                [MarshalAs(UnmanagedType.LPWStr)]string printerName, 
                [MarshalAs(UnmanagedType.LPWStr)]string fileName,
-               bool fitToPage);
+               bool fitToPage,
+               int copies);
 
         [DllImport("usbapi.dll")]
         public static extern int OutputDebugStringToFile_([MarshalAs(UnmanagedType.LPWStr)]string _lpFormat);

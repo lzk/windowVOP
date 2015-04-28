@@ -84,6 +84,14 @@ namespace VOP
                 {
                     this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile_Image;
                 }
+                else if( fileExt == ".txt")
+                {
+                    this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile_Txt;
+                }
+                else if (fileExt == ".pdf")
+                {
+                    this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile_Pdf;
+                }
                 else
                 {
                     this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile;

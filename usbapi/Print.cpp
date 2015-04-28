@@ -64,7 +64,7 @@ typedef struct _IdCardSize
 }IdCardSize;
 
 
-USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage);
+USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int copies);
 USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage);
 USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName);
 USBAPI_API void __stdcall AddImageSource(IStream * imageSource);
@@ -140,12 +140,13 @@ static IdCardSize currentIdCardSize = { 0 };
 static bool needFitToPage = false;
 Size A4Size( 21, 29.7 ); //unit cm
 
-USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage)
+USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int copies)
 {
 	PrintError error = Print_OK;
 	DWORD bufferSize = 500;
 	TCHAR defaultPrinterName[500];
 	int shellExeRes = 0;
+	int count = 0;
 	const TCHAR *fileExt = NULL;
 
 	fileExt = PathFindExtension(strFileName);
@@ -172,17 +173,18 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	}
 	else
 	{
-		if (_tcscmp(fileExt, L".txt") == 0)
+		if (GetDefaultPrinter(defaultPrinterName, &bufferSize))
 		{
+			::SetDefaultPrinter(strPrinterName);
+			CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
 
-		}
-		else
-		{
-			if (GetDefaultPrinter(defaultPrinterName, &bufferSize))
+			if (_tcscmp(fileExt, L".txt") == 0)
 			{
-				::SetDefaultPrinter(strPrinterName);
-				CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
+				count = copies;
+			}
 
+			for (int i = 0; i < count; i++)
+			{
 				if ((shellExeRes = (int)::ShellExecute(NULL, L"print", strFileName, NULL, NULL, SW_HIDE)) > 32)
 				{
 
@@ -198,14 +200,15 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 						error = Print_File_Not_Support;
 					}
 				}
-
-				::SetDefaultPrinter(defaultPrinterName);
 			}
-			else
-			{
-				error = Print_Get_Default_Printer_Fail;
-			}
+			
+			::SetDefaultPrinter(defaultPrinterName);
 		}
+		else
+		{
+			error = Print_Get_Default_Printer_Fail;
+		}
+		
 	}
 
 	return error;

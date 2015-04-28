@@ -23,7 +23,7 @@ namespace VOP
     public delegate int ScanDelegate(string printerName, string szOrig, string szView, string szThumb,
                                         int scanMode, int resolution, int width, int height,
                                         int contrast, int brightness, int docuType, uint uMsg );
-    public delegate int PrintFileDelegate(string printerName, string fileName, bool needFitToPage);
+    public delegate int PrintFileDelegate(string printerName, string fileName, bool needFitToPage, int copies);
     
     class AsyncWorker
     {
@@ -97,14 +97,14 @@ namespace VOP
             return 1;
         }
 
-        public PrintError InvokePrintFileMethod(PrintFileDelegate method, string printerName, string fileName, bool needFitToPage)
+        public PrintError InvokePrintFileMethod(PrintFileDelegate method, string printerName, string fileName, bool needFitToPage, int copies)
         {
 
             if (method != null)
             {
                 PrintFileDelegate caller = method;
 
-                IAsyncResult result = caller.BeginInvoke(printerName, fileName, needFitToPage, new AsyncCallback(CallbackMethod), null);
+                IAsyncResult result = caller.BeginInvoke(printerName, fileName, needFitToPage, copies, new AsyncCallback(CallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {

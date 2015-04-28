@@ -19,7 +19,17 @@ namespace VOP
     {
         public MainWindow m_MainWin { get; set; }
         List<string> filePaths = new List<string>();
-        public enum PrintType{PrintFile,PrintImages,PrintIdCard,PrintFile_Image}
+
+        public enum PrintType
+        {   
+            PrintFile,
+            PrintImages,
+            PrintIdCard,
+            PrintFile_Image,
+            PrintFile_Txt,
+            PrintFile_Pdf
+        }
+
         public PrintType CurrentPrintType { get; set; }
         public IdCardTypeItem SelectedTypeItem { get; set; }
 
@@ -155,6 +165,8 @@ namespace VOP
             {
                 case PrintType.PrintFile:
                 case PrintType.PrintFile_Image:
+                case PrintType.PrintFile_Txt:
+                case PrintType.PrintFile_Pdf:
 
                     if (FilePaths.Count == 1)
                     {
@@ -178,7 +190,8 @@ namespace VOP
                             printRes = worker.InvokePrintFileMethod(dll.PrintFile,
                                        m_MainWin.statusPanelPage.m_selectedPrinter,
                                        FilePaths[0].ToLower(),
-                                       needFitToPage);
+                                       needFitToPage,
+                                       (int)spinnerControl1.Value);
                         }
                     
                     }
