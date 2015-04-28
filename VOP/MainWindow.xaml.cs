@@ -893,6 +893,7 @@ namespace VOP
                App.g_autoMachine.TranferState(job);
                App.g_autoMachine.TranferState(status);
 
+               winCopyPage.PassStatus( status, job, toner );
 
                if ( EnumStatus.NofeedJam               == status
                        || EnumStatus.JamAtRegistStayOn == status

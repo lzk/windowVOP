@@ -22,6 +22,7 @@ namespace VOP
 #endregion
 
         private EnumState m_currentState = EnumState.init; // State of current auto machine.
+        private EnumMachineJob m_oldJob = EnumMachineJob.UnknowJob; // Job used to monitor IDCardCopy job.
 
         private byte _density = 3;
         public byte m_density
@@ -298,5 +299,18 @@ namespace VOP
             }
         }
 
+        /// <summary>
+        /// Status update thread will this interface to update status of subpage.
+        /// </summary>
+        public void PassStatus( EnumStatus st, EnumMachineJob job, byte toner )
+        {
+            if ( m_oldJob == EnumMachineJob.IDCardCopyJob && m_oldJob != job ) 
+            {
+                chkBtnIDCardCopy.IsChecked = false;
+            }
+
+            m_oldJob = job;
+        }
     }
+
 }
