@@ -295,6 +295,8 @@ namespace VOP
             }
 
 
+            decimal nOriginalScaling = spinnerScaling.Value;
+            
             InitCboDocSize();
             InitCboResolution();
             InitCboOutputSize();
@@ -303,6 +305,7 @@ namespace VOP
             m_preNin1 = m_nin1;
 
             m_isWindowLoaded = true;
+            spinnerScaling.Value = nOriginalScaling;
 
             if ( m_isIDCardCopy )
             {
