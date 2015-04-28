@@ -85,7 +85,7 @@
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                         <ColumnDefinition Width="4*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Image Source="Images/wifi.png" Height="28" Width="28"></Image>
+                                    <Image Source="Images/Wifi.png" Height="28" Width="28"></Image>
                                     <Grid Grid.Column="1">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"></RowDefinition>
