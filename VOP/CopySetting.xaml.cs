@@ -302,6 +302,11 @@ namespace VOP
 
             m_isWindowLoaded = true;
 
+            if ( m_isIDCardCopy )
+            {
+                spinnerScaling.IsEnabled = false;
+                spinnerScaling.Value = 100;
+            }
         }
 
 
@@ -670,71 +675,75 @@ namespace VOP
         /// </summary>
         private void CalculateScaling()
         {
-            PaperSizeInputST[] input_papersize_infos = 
+            if ( null != cboDocSize 
+                    && null != cboOutputSize
+                    && true != m_isIDCardCopy )
             {
-                new PaperSizeInputST( EnumPaperSizeInput._A4        , 210 , 297 ) ,
-                new PaperSizeInputST( EnumPaperSizeInput._A5        , 148 , 210 ) ,
-                new PaperSizeInputST( EnumPaperSizeInput._B5        , 182 , 257 ) ,
-                new PaperSizeInputST( EnumPaperSizeInput._Letter    , 216 , 279 ) ,
-                new PaperSizeInputST( EnumPaperSizeInput._Executive , 184 , 267 ) ,
-            };
 
-            PaperSizeOutputST[] output_papersize_infos = 
-            {
-                new PaperSizeOutputST( EnumPaperSizeOutput._A4        , 210 , 297 ) ,
-                new PaperSizeOutputST( EnumPaperSizeOutput._A5        , 148 , 210 ) ,
-                new PaperSizeOutputST( EnumPaperSizeOutput._B5        , 182 , 257 ) ,
-                new PaperSizeOutputST( EnumPaperSizeOutput._A6        , 105 , 148 ) ,
-                new PaperSizeOutputST( EnumPaperSizeOutput._B6        , 128 , 182 ) ,
-                new PaperSizeOutputST( EnumPaperSizeOutput._Letter    , 216 , 279 ) ,
-                new PaperSizeOutputST( EnumPaperSizeOutput._Executive , 184 , 267 ) ,
-                new PaperSizeOutputST( EnumPaperSizeOutput._16K       , 185 , 260 ) ,
-            };
-
-            if ( null == cboDocSize || null == cboOutputSize )
-                return;
-
-            int idxInput = 0;
-            int idxOutput = 0;
-
-            // get selected item of input paper size
-            EnumPaperSizeInput valInput = EnumPaperSizeInput._A4;
-            ComboBoxItem selectedItemInput = (ComboBoxItem)cboDocSize.SelectedItem;
-            if ( null != selectedItemInput && null != selectedItemInput.DataContext )
-                valInput = (EnumPaperSizeInput)selectedItemInput.DataContext;
-
-            // get selected item of output paper size
-            EnumPaperSizeOutput valOutput = EnumPaperSizeOutput._A4;
-            ComboBoxItem selectedItemOutput = (ComboBoxItem)cboOutputSize.SelectedItem;
-            if ( null != selectedItemOutput && null != selectedItemOutput.DataContext )
-                valOutput = (EnumPaperSizeOutput)selectedItemOutput.DataContext;
-
-            // get the index of input paper size
-            for (int i = 0; i < input_papersize_infos.Length; i++)
-            {
-                if ( valInput == input_papersize_infos[i].m_papersize_id )
+                PaperSizeInputST[] input_papersize_infos = 
                 {
-                    idxInput = i;
-                    break;
+                    new PaperSizeInputST( EnumPaperSizeInput._A4        , 210 , 297 ) ,
+                    new PaperSizeInputST( EnumPaperSizeInput._A5        , 148 , 210 ) ,
+                    new PaperSizeInputST( EnumPaperSizeInput._B5        , 182 , 257 ) ,
+                    new PaperSizeInputST( EnumPaperSizeInput._Letter    , 216 , 279 ) ,
+                    new PaperSizeInputST( EnumPaperSizeInput._Executive , 184 , 267 ) ,
+                };
+
+                PaperSizeOutputST[] output_papersize_infos = 
+                {
+                    new PaperSizeOutputST( EnumPaperSizeOutput._A4        , 210 , 297 ) ,
+                    new PaperSizeOutputST( EnumPaperSizeOutput._A5        , 148 , 210 ) ,
+                    new PaperSizeOutputST( EnumPaperSizeOutput._B5        , 182 , 257 ) ,
+                    new PaperSizeOutputST( EnumPaperSizeOutput._A6        , 105 , 148 ) ,
+                    new PaperSizeOutputST( EnumPaperSizeOutput._B6        , 128 , 182 ) ,
+                    new PaperSizeOutputST( EnumPaperSizeOutput._Letter    , 216 , 279 ) ,
+                    new PaperSizeOutputST( EnumPaperSizeOutput._Executive , 184 , 267 ) ,
+                    new PaperSizeOutputST( EnumPaperSizeOutput._16K       , 185 , 260 ) ,
+                };
+
+                int idxInput = 0;
+                int idxOutput = 0;
+
+                // get selected item of input paper size
+                EnumPaperSizeInput valInput = EnumPaperSizeInput._A4;
+                ComboBoxItem selectedItemInput = (ComboBoxItem)cboDocSize.SelectedItem;
+                if ( null != selectedItemInput && null != selectedItemInput.DataContext )
+                    valInput = (EnumPaperSizeInput)selectedItemInput.DataContext;
+
+                // get selected item of output paper size
+                EnumPaperSizeOutput valOutput = EnumPaperSizeOutput._A4;
+                ComboBoxItem selectedItemOutput = (ComboBoxItem)cboOutputSize.SelectedItem;
+                if ( null != selectedItemOutput && null != selectedItemOutput.DataContext )
+                    valOutput = (EnumPaperSizeOutput)selectedItemOutput.DataContext;
+
+                // get the index of input paper size
+                for (int i = 0; i < input_papersize_infos.Length; i++)
+                {
+                    if ( valInput == input_papersize_infos[i].m_papersize_id )
+                    {
+                        idxInput = i;
+                        break;
+                    }
                 }
+
+                // get the index of output paper size
+                for (int i = 0; i < output_papersize_infos.Length; i++)
+                {
+                    if ( valOutput == output_papersize_infos[i].m_papersize_id )
+                    {
+                        idxOutput = i;
+                        break;
+                    }
+                }
+
+                // according the phone call from Beijing, the margin is 4.2 mm
+                double scaling1 = (output_papersize_infos[idxOutput].m_width-4.2*2)/(input_papersize_infos[idxInput].m_width-4.2*2);
+                double scaling2 = (output_papersize_infos[idxOutput].m_height-4.2*2)/(input_papersize_infos[idxInput].m_height-4.2*2);
+                double scaling = scaling1 < scaling2 ? scaling1 : scaling2;
+
+                spinnerScaling.Value = (decimal)(scaling*100);
             }
 
-            // get the index of output paper size
-            for (int i = 0; i < output_papersize_infos.Length; i++)
-            {
-                if ( valOutput == output_papersize_infos[i].m_papersize_id )
-                {
-                    idxOutput = i;
-                    break;
-                }
-            }
-
-            // according the phone call from Beijing, the margin is 4.2 mm
-            double scaling1 = (output_papersize_infos[idxOutput].m_width-4.2*2)/(input_papersize_infos[idxInput].m_width-4.2*2);
-            double scaling2 = (output_papersize_infos[idxOutput].m_height-4.2*2)/(input_papersize_infos[idxInput].m_height-4.2*2);
-            double scaling = scaling1 < scaling2 ? scaling1 : scaling2;
-
-            spinnerScaling.Value = (decimal)(scaling*100);
         }
 	}
 }
