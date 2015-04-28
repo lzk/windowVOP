@@ -223,6 +223,7 @@ namespace VOP
                     m_nin1 = EnumNin1._2up;
 
                 InitNin1();
+                spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
             }
         }
 
@@ -231,6 +232,7 @@ namespace VOP
             if ( m_isWindowLoaded )
             {
                 m_nin1 = EnumNin1._1up;
+                spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
                 InitNin1();
             }
         }
@@ -307,6 +309,9 @@ namespace VOP
                 spinnerScaling.IsEnabled = false;
                 spinnerScaling.Value = 100;
             }
+
+            if ( EnumNin1._1up != m_nin1 )
+                spinnerScaling.IsEnabled = false;
         }
 
 
@@ -618,6 +623,7 @@ namespace VOP
                 m_preNin1 = EnumNin1._2up;
                 m_nin1 = EnumNin1._2up;
                 InitNin1();
+                spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
             }
         }
 
@@ -628,6 +634,7 @@ namespace VOP
                 m_preNin1 = EnumNin1._4up;
                 m_nin1 = EnumNin1._4up;
                 InitNin1();
+                spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
             }
         }
 
@@ -638,6 +645,7 @@ namespace VOP
                 m_preNin1 = EnumNin1._9up;
                 m_nin1 = EnumNin1._9up;
                 InitNin1();
+                spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
             }
         }
 
