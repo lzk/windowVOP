@@ -139,7 +139,7 @@ namespace VOP
                 }
             }
 
-            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设定成功" : "设定失败", Brushes.Black);
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设定成功，机器重启后生效。" : "设定失败", Brushes.Black);
 
             return isApplySuccess;
         }
