@@ -91,8 +91,8 @@
                                             <RowDefinition Height="*"></RowDefinition>
                                             <RowDefinition Height="*"></RowDefinition>
                                         </Grid.RowDefinitions>
-                                        <TextBlock FontSize="15" Text="查找并加入WiFi网络"></TextBlock>
-                                        <TextBlock Text="输入您想要加入的网络名称和安全类型。" Grid.Row="1" TextWrapping="Wrap"></TextBlock>
+                                        <TextBlock FontSize="15" Text="{StaticResource ResStr_Find_and_join_the_Wi_Fi}"></TextBlock>
+                                        <TextBlock Text="{StaticResource ResStr_Enter_SSID_and_security_type_}" Grid.Row="1" TextWrapping="Wrap"></TextBlock>
                                     </Grid>
                                 </Grid>
                                 <Grid Grid.Row="1">
@@ -132,17 +132,17 @@
                                                 <mycontrol:EnumEncryptType>NoSecurity</mycontrol:EnumEncryptType>
                                             </ComboBoxItem.DataContext>
                                         </ComboBoxItem>
-                                        <ComboBoxItem IsSelected="false" Content="WEP" >
+                                        <ComboBoxItem IsSelected="false" Content="{StaticResource ResStr_WEP}" >
                                             <ComboBoxItem.DataContext>
                                                 <mycontrol:EnumEncryptType>WEP</mycontrol:EnumEncryptType>
                                             </ComboBoxItem.DataContext>
                                         </ComboBoxItem>
-                                        <ComboBoxItem IsSelected="True" Content="WPA2-PSK-AES" >
+                                        <ComboBoxItem IsSelected="True" Content="{StaticResource ResStr_WPA2_PSK_AES}" >
                                             <ComboBoxItem.DataContext>
                                                 <mycontrol:EnumEncryptType>WPA2_PSK_AES</mycontrol:EnumEncryptType>
                                             </ComboBoxItem.DataContext>
                                         </ComboBoxItem>
-                                        <ComboBoxItem IsSelected="false" Content="Mixed Mode PSK" >
+                                        <ComboBoxItem IsSelected="false" Content="{StaticResource ResStr_Mixed_Mode_PSK}" >
                                             <ComboBoxItem.DataContext>
                                                 <mycontrol:EnumEncryptType>MixedModePSK</mycontrol:EnumEncryptType>
                                             </ComboBoxItem.DataContext>

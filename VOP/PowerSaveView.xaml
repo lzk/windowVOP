@@ -193,7 +193,7 @@
 
                     </local:SpinnerControl>
                 </Grid>
-                <TextBlock Text="（1-30分钟）" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"> </TextBlock>
+                <TextBlock Text="{StaticResource ResStr_1_30_Minute}" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"> </TextBlock>
             </Grid>
             <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="{StaticResource ResStr_Apply}" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
         </Grid>

@@ -184,7 +184,7 @@
     <sys:String x:Key="ResStr_Find_and_join_the_Wi_Fi">查找并加入Wi-Fi网络</sys:String>
     <sys:String x:Key="ResStr_Enter_SSID_and_security_type_">输入你想要加入的网络名称和安全性类型</sys:String>
     <sys:String x:Key="ResStr_Power_Save_Time">进入休眠时间</sys:String>
-    <sys:String x:Key="ResStr_1_30_Minute">1-30分钟</sys:String>
+    <sys:String x:Key="ResStr_1_30_Minute">（1-30分钟）</sys:String>
     <sys:String x:Key="ResStr_SSID_2">网络标识</sys:String>
     <sys:String x:Key="ResStr_Enable">使用</sys:String>
     <sys:String x:Key="ResStr_Leading_Edge_Registration">顶端偏移量</sys:String>
