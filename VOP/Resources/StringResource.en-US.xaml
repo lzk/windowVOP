@@ -202,7 +202,7 @@
     <sys:String x:Key="ResStr_Supplies_Purchasing_Channels">Supplies Purchasing Channels</sys:String>
     <sys:String x:Key="ResStr_Printer_Upgrade_Method">Printer Upgrade Method</sys:String>
     <sys:String x:Key="ResStr_Printworks_Promotion">Printworks Promotion</sys:String>
-    <sys:String x:Key="ResStr_Version_Copyright">&lt;Version &amp; Copyright&gt;</sys:String>
+    <sys:String x:Key="ResStr_Version_Copyright">Version &amp; Copyright</sys:String>
     <sys:String x:Key="ResStr_Printer_DriverVersion_____">Printer DriverVersion ****</sys:String>
     <sys:String x:Key="ResStr_Copyright__C___2014_2015__Lenovo__Beijing__Limited_All_Right_Reserved_">Copyright (C) (2014-2015) Lenovo (Beijing) Limited.All Right Reserved.</sys:String>
     <sys:String x:Key="ResStr_This_file_is_not_supported__please_select_another_one_">This file is not supported, please select another one.</sys:String>

@@ -56,7 +56,7 @@
                         
                         <StackPanel Grid.Row="1">
                             <Grid Grid.Row="2" Height="30">
-                                <CheckBox Name="cbDisplayPwd" Checked="OnClickDisplayPWD" Unchecked="OnClickDisplayPWD" Grid.Column="1" Template="{StaticResource customCheckBox}" Content="显示密码"></CheckBox>
+                                <CheckBox Name="cbDisplayPwd" Checked="OnClickDisplayPWD" Unchecked="OnClickDisplayPWD" Grid.Column="1" Template="{StaticResource customCheckBox}" Content="{StaticResource ResStr_Display_Password}"></CheckBox>
                             </Grid>
                         </StackPanel>
                         
@@ -91,8 +91,8 @@
                                     <ColumnDefinition Width="12"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <local:ButtonEx Click="OnClickCancelButton" IsActiveEx="False" Content="取消" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="30"></local:ButtonEx>
-                                <local:ButtonEx Click="OnClickConnectBtn" x:Name="btnConnect" IsActiveEx="True" Content="连接" Grid.Column="2" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="30"></local:ButtonEx>
+                                <local:ButtonEx Click="OnClickCancelButton" IsActiveEx="False" Content="{StaticResource ResStr_Cancel}" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="30"></local:ButtonEx>
+                                <local:ButtonEx Click="OnClickConnectBtn" x:Name="btnConnect" IsActiveEx="True" Content="{StaticResource ResStr_Connect}" Grid.Column="2" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="30"></local:ButtonEx>
                             </Grid>
                         </StackPanel>
 

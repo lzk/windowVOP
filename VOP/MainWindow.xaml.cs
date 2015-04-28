@@ -221,34 +221,36 @@ namespace VOP
 
                 XmlElement eleRoot = doc.CreateElement(string.Empty, "printinfoset", string.Empty);
                 doc.AppendChild(eleRoot);
-
-                foreach (UploadPrintInfo item in m_UploadPrintInfoSet)
+                lock (printinfoLock)
                 {
-                    if(false == item.m_bUploadSuccess)
+                    foreach (UploadPrintInfo item in m_UploadPrintInfoSet)
                     {
-                        XmlNode node = doc.CreateElement("printinfo");
-                        node.Attributes.Append(CreateAttribute(node, "MobileCode", item.m_PrintInfo.m_strMobileCode));
-                        node.Attributes.Append(CreateAttribute(node, "Mobile", item.m_PrintInfo.m_strMobileNumber));
-                        node.Attributes.Append(CreateAttribute(node, "DeviceBrand", item.m_PrintInfo.m_strDeviceBrand));
-                        node.Attributes.Append(CreateAttribute(node, "DeviceModel", item.m_PrintInfo.m_strDeviceModel));
-                        node.Attributes.Append(CreateAttribute(node, "PrintType", item.m_PrintInfo.m_strPrintType));
+                        if (false == item.m_bUploadSuccess)
+                        {
+                            XmlNode node = doc.CreateElement("printinfo");
+                            node.Attributes.Append(CreateAttribute(node, "MobileCode", item.m_PrintInfo.m_strMobileCode));
+                            node.Attributes.Append(CreateAttribute(node, "Mobile", item.m_PrintInfo.m_strMobileNumber));
+                            node.Attributes.Append(CreateAttribute(node, "DeviceBrand", item.m_PrintInfo.m_strDeviceBrand));
+                            node.Attributes.Append(CreateAttribute(node, "DeviceModel", item.m_PrintInfo.m_strDeviceModel));
+                            node.Attributes.Append(CreateAttribute(node, "PrintType", item.m_PrintInfo.m_strPrintType));
 
-                        node.Attributes.Append(CreateAttribute(node, "PrintMode", item.m_PrintInfo.m_strPrintMode));
-                        node.Attributes.Append(CreateAttribute(node, "PrintDocType", item.m_PrintInfo.m_strPrintDocType));
-                        node.Attributes.Append(CreateAttribute(node, "PrintCopys", item.m_PrintInfo.m_strPrintCopys));
-                        node.Attributes.Append(CreateAttribute(node, "PrintPages", item.m_PrintInfo.m_strPrintPages));
-                        node.Attributes.Append(CreateAttribute(node, "PrinterModel", item.m_PrintInfo.m_strPrinterModel));
+                            node.Attributes.Append(CreateAttribute(node, "PrintMode", item.m_PrintInfo.m_strPrintMode));
+                            node.Attributes.Append(CreateAttribute(node, "PrintDocType", item.m_PrintInfo.m_strPrintDocType));
+                            node.Attributes.Append(CreateAttribute(node, "PrintCopys", item.m_PrintInfo.m_strPrintCopys));
+                            node.Attributes.Append(CreateAttribute(node, "PrintPages", item.m_PrintInfo.m_strPrintPages));
+                            node.Attributes.Append(CreateAttribute(node, "PrinterModel", item.m_PrintInfo.m_strPrinterModel));
 
-                        node.Attributes.Append(CreateAttribute(node, "PrinterName", item.m_PrintInfo.m_strPrinterName));
-                        node.Attributes.Append(CreateAttribute(node, "PrinterType", item.m_PrintInfo.m_strPrinterType));
-                        node.Attributes.Append(CreateAttribute(node, "IsSuccess", item.m_PrintInfo.m_strPrintSuccess));
-                        node.Attributes.Append(CreateAttribute(node, "version", item.m_PrintInfo.m_strVersion));
-                        node.Attributes.Append(CreateAttribute(node, "flag", item.m_PrintInfo.m_strFlag));
+                            node.Attributes.Append(CreateAttribute(node, "PrinterName", item.m_PrintInfo.m_strPrinterName));
+                            node.Attributes.Append(CreateAttribute(node, "PrinterType", item.m_PrintInfo.m_strPrinterType));
+                            node.Attributes.Append(CreateAttribute(node, "IsSuccess", item.m_PrintInfo.m_strPrintSuccess));
+                            node.Attributes.Append(CreateAttribute(node, "version", item.m_PrintInfo.m_strVersion));
+                            node.Attributes.Append(CreateAttribute(node, "flag", item.m_PrintInfo.m_strFlag));
 
-                        eleRoot.AppendChild(node);
+                            eleRoot.AppendChild(node);
+                        }
                     }
-
                 }
+
                 doc.Save(path);
                 bSuccess = true;
             }
@@ -316,29 +318,32 @@ namespace VOP
             {
                 while (!bExit)
                 {
-                    lock (printinfoLock)
+                    SessionInfo session = new SessionInfo();
+                    if (true == m_RequestManager.GetSession(ref session))
                     {
-                        for (int i = m_UploadPrintInfoSet.Count - 1; i >= 0; i--)
+                        lock (printinfoLock)
                         {
-                            if (m_UploadPrintInfoSet[i].m_bUploadSuccess)
-                                m_UploadPrintInfoSet.Remove(m_UploadPrintInfoSet[i]);
+                            for (int i = m_UploadPrintInfoSet.Count - 1; i >= 0; i--)
+                            {
+                                if (m_UploadPrintInfoSet[i].m_bUploadSuccess)
+                                    m_UploadPrintInfoSet.Remove(m_UploadPrintInfoSet[i]);
+                            }
                         }
-                        
-                        SavePrintInfoIntoXamlFile();
-                    }
 
 
-                    foreach (UploadPrintInfo item in m_UploadPrintInfoSet)
-                    {
-                        JSONResultFormat2 rtValue = new JSONResultFormat2();
-                        item.m_bUploadSuccess = m_RequestManager.UploadCRM_PrintInfoToServer(ref item.m_PrintInfo, ref rtValue);
-                        if(!item.m_bUploadSuccess)
+                        for (int i = 0; i < m_UploadPrintInfoSet.Count; i++)
                         {
-                            if (rtValue.m_strMessage == "flag重复")
-                                item.m_bUploadSuccess = true;
-                        }
+                            JSONResultFormat2 rtValue = new JSONResultFormat2();
+                            m_UploadPrintInfoSet[i].m_bUploadSuccess = m_RequestManager.UploadCRM_PrintInfoToServer(ref m_UploadPrintInfoSet[i].m_PrintInfo, ref rtValue);
+                            if (!m_UploadPrintInfoSet[i].m_bUploadSuccess)
+                            {
+                                if (rtValue.m_strMessage == "flag重复")
+                                    m_UploadPrintInfoSet[i].m_bUploadSuccess = true;
+                            }
+                         }
                     }
-
+                   
+                    SavePrintInfoIntoXamlFile();
 
                     for (int i = 0; i < 1; i++)
                     {
@@ -762,6 +767,8 @@ namespace VOP
                     _job    = _tmpJob   ;
                 }
 
+                CRM_PrintInfo pi = new CRM_PrintInfo();
+                UploadPrintInfo(pi);
                 // TODO: post the status message to the main window
                 Win32.PostMessage( (IntPtr)0xffff, App.WM_STATUS_UPDATE, IntPtr.Zero , IntPtr.Zero );
 

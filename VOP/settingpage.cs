@@ -41,7 +41,7 @@ namespace VOP
             int tabbtn_width = 165;
             int tabbtn_height = 30;
 
-            btnwifi.btn.Content = "打印机Wi-Fi";
+            btnwifi.btn.Content = (string)this.FindResource("ResStr_Printer_Wi_Fi");
             btnwifi.Margin = new Thickness(0, 0, 0, 10);
             btnwifi.Width = tabbtn_width;
             btnwifi.Height = tabbtn_height;
@@ -50,7 +50,7 @@ namespace VOP
             btnwifi.btn.Click += SettingBtnClick;           
             m_listSettingButton.Add(btnwifi);
 
-            btnSoftAp.btn.Content = "打印机自主热点";
+            btnSoftAp.btn.Content = (string)this.FindResource("ResStr_Soft_AP"); 
             btnSoftAp.Margin = new Thickness(0, 0, 0, 10);
             btnSoftAp.Width = tabbtn_width;
             btnSoftAp.Height = tabbtn_height;
@@ -59,7 +59,7 @@ namespace VOP
             btnSoftAp.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnSoftAp);
 
-            btnTCPIP.btn.Content = "打印机网络设置";
+            btnTCPIP.btn.Content = (string)this.FindResource("ResStr_TCP_IP"); 
             btnTCPIP.Margin = new Thickness(0, 0, 0, 10);
             btnTCPIP.Width = tabbtn_width;
             btnTCPIP.Height = tabbtn_height;
@@ -68,7 +68,7 @@ namespace VOP
             btnTCPIP.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnTCPIP);
 
-            btnPowerSave.btn.Content = "休眠";
+            btnPowerSave.btn.Content = (string)this.FindResource("ResStr_Power_Save"); 
             btnPowerSave.Margin = new Thickness(0, 0, 0, 10);
             btnPowerSave.Width = tabbtn_width;
             btnPowerSave.Height = tabbtn_height;
@@ -77,7 +77,7 @@ namespace VOP
             btnPowerSave.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnPowerSave);
 
-            btnUserConfig.btn.Content = "用户设置";
+            btnUserConfig.btn.Content = (string)this.FindResource("ResStr_User_Config");
             btnUserConfig.Margin = new Thickness(0, 0, 0, 10);
             btnUserConfig.Width = tabbtn_width;
             btnUserConfig.Height = tabbtn_height;
@@ -86,7 +86,7 @@ namespace VOP
             btnUserConfig.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnUserConfig);
 
-            btnPwd.btn.Content = "密码修改";
+            btnPwd.btn.Content = (string)this.FindResource("ResStr_Modify_Password"); 
             btnPwd.Margin = new Thickness(0, 0, 0, 10);
             btnPwd.Width = tabbtn_width;
             btnPwd.Height = tabbtn_height;
@@ -95,7 +95,7 @@ namespace VOP
             btnPwd.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnPwd);
 
-            btnAbout.btn.Content = "关于";
+            btnAbout.btn.Content = (string)this.FindResource("ResStr_About"); 
             btnAbout.Margin = new Thickness(0, 0, 0, 10);
             btnAbout.Width = tabbtn_width;
             btnAbout.Height = tabbtn_height;

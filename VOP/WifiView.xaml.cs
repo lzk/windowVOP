@@ -221,7 +221,7 @@ namespace VOP
 
                 }
 
-                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设定成功，机器重启后生效。" : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Black);
+                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? (string)this.FindResource("ResStr_Msg_1") : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Black);
             }
             else
             {
@@ -275,22 +275,22 @@ namespace VOP
                         wifiitem.SSIDText = m_rec.SsidList[i];
                         if ((byte)EnumEncryptType.NoSecurity == m_rec.EncryptionList[i])    //No Security
                         {
-                            wifiitem.EncryptionText = "网络未加密";
+                            wifiitem.EncryptionText = (string)this.FindResource("ResStr_No_Security");
                             wifiitem.EncryptType = VOP.EnumEncryptType.NoSecurity;
                         }
                         else if ((byte)EnumEncryptType.WEP == m_rec.EncryptionList[i]) //WEP
                         {
-                            wifiitem.EncryptionText = "通过WEP进行保护";
+                            wifiitem.EncryptionText = (string)this.FindResource("ResStr_Protected_by_WEP");
                             wifiitem.EncryptType = VOP.EnumEncryptType.WEP;
                         }
                         else if ((byte)EnumEncryptType.WPA2_PSK_AES == m_rec.EncryptionList[i])   //3. WPA2-PSK-AES 
                         {
-                            wifiitem.EncryptionText = "通过WPA2-PSK-AES进行保护";
+                            wifiitem.EncryptionText = (string)this.FindResource("ResStr_Protected_by_WPA2"); 
                             wifiitem.EncryptType = VOP.EnumEncryptType.WPA2_PSK_AES;
                         }
                         else if ((byte)EnumEncryptType.MixedModePSK == m_rec.EncryptionList[i])   //4.Mixed Mode PSK
                         {
-                            wifiitem.EncryptionText = "通过Mixed Mode PSK进行保护";
+                            wifiitem.EncryptionText = (string)this.FindResource("ResStr_Protected_by_Mixed_Mode_PSK");
                             wifiitem.EncryptType = VOP.EnumEncryptType.MixedModePSK;
                         }
                         wifiitem.WifiSignalLevel = VOP.Controls.EnumWifiSignalLevel.stronger;
@@ -498,7 +498,7 @@ namespace VOP
                 }
             }
 
-            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(bSuccess ? "设定成功，机器重启后生效。" : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Black);
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(bSuccess ? (string)this.FindResource("ResStr_Msg_1") : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Black);
         }
 
         public void HandlerStateUpdate(EnumState state)
