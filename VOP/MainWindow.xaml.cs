@@ -561,6 +561,16 @@ namespace VOP
             ShowAboutPageOnly();
 
             AddMessageHook();
+
+            int nWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
+            int nHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
+
+            double scaling1 = nWidth / 1600.0;
+            double scaling2 = nHeight / 900.0;
+            double scaling0 = (scaling1 < scaling2) ? scaling1 : scaling2;
+
+            this.Width = this.Width*scaling0;
+            this.Height = this.Height*scaling0;
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
