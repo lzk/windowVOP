@@ -53,14 +53,14 @@
                     <ColumnDefinition Width="10"></ColumnDefinition>
                     <ColumnDefinition Width="3*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="网络标识" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{StaticResource ResStr_SSID_2}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                 <TextBox Name="tbSSID" Template="{StaticResource customTextBox}" Grid.Column="2" Grid.Row="0" Height="28" VerticalAlignment="Center" MaxLength="32" TextChanged="handler_text_changed" InputMethod.IsInputMethodEnabled="False"></TextBox>
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="密码" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="{StaticResource ResStr_Password}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                 <TextBox Name="tbPWD" Template="{StaticResource customTextBox}" Grid.Column="2" Grid.Row="1" Height="28" VerticalAlignment="Center" MaxLength="64" TextChanged="handler_password_changed" InputMethod.IsInputMethodEnabled="False"></TextBox>
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="使用" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="{StaticResource ResStr_Enable}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
                 <CheckBox Name="chkbtn_wifi_enable" Template="{StaticResource switchBox}" Grid.Row="3" Grid.Column="2" IsChecked="False"  Checked="HandleCheck" Unchecked="HandleCheck"  Width="40" Height="22" HorizontalAlignment="Left"/>
             </Grid>
-            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="应 用" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
+            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="{StaticResource ResStr_Apply}" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
         </Grid>
     </Grid>
 </UserControl>

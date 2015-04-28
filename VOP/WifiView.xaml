@@ -106,16 +106,16 @@
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBlock Text="网络名称：" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{StaticResource ResStr_SSID}" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
                                     <TextBox Name="tbSSID" Grid.Column="2" VerticalAlignment="Center" MaxLength="32" InputMethod.IsInputMethodEnabled="False"></TextBox>
-                                    <TextBlock Name="tbkPwd" Grid.Row="1" Text="密码：" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Name="tbkPwd" Grid.Row="1" Text="{StaticResource ResStr_Password}" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
                                     <TextBox Name="tbPwd" Grid.Row="1" Grid.Column="2" Visibility="Hidden" VerticalAlignment="Center" MaxLength="64" InputMethod.IsInputMethodEnabled="False"></TextBox>
                                     <PasswordBox Name="pbPwd" Grid.Row="1"  Grid.Column="2"  VerticalAlignment="Center" MaxLength="64"></PasswordBox>
                                 </Grid>
                                 
                                 <StackPanel Grid.Row="2">
                                     <Grid Height="30">
-                                        <CheckBox Name="chkDisplayPwd" Content="显示密码" IsChecked="False" Template="{StaticResource customCheckBox}"  Checked="OnClickDisplayPWD" Unchecked="OnClickDisplayPWD"></CheckBox>
+                                        <CheckBox Name="chkDisplayPwd" Content="{StaticResource ResStr_Display_Password}" IsChecked="False" Template="{StaticResource customCheckBox}"  Checked="OnClickDisplayPWD" Unchecked="OnClickDisplayPWD"></CheckBox>
                                     </Grid>
                                 </StackPanel>
                                 
@@ -125,9 +125,9 @@
                                         <ColumnDefinition Width="4"></ColumnDefinition>
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="加密方式：" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="{StaticResource ResStr_Encryption}" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
                                     <ComboBox Name="cboEncrytion" Grid.Column="2" Background="White" Foreground="Black" VerticalAlignment="Center" Height="24" Style="{StaticResource CboCommomStyle}" SelectionChanged="OncboEncrytionSelectionChanged">
-                                        <ComboBoxItem IsSelected="false" Content="不加密" >
+                                        <ComboBoxItem IsSelected="false" Content="{StaticResource ResStr_No_Security}" >
                                             <ComboBoxItem.DataContext>
                                                 <mycontrol:EnumEncryptType>NoSecurity</mycontrol:EnumEncryptType>
                                             </ComboBoxItem.DataContext>
@@ -181,8 +181,8 @@
                                             <ColumnDefinition Width="6"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <local:ButtonEx x:Name="btnCancel" Click="btn_Click" IsActiveEx="False" Content="取   消" HorizontalContentAlignment="Center"></local:ButtonEx>
-                                        <local:ButtonEx x:Name="btnConnect" Click="btn_Click" Grid.Column="2" IsActiveEx="True" Content="连   接" HorizontalContentAlignment="Center"></local:ButtonEx>
+                                        <local:ButtonEx x:Name="btnCancel" Click="btn_Click" IsActiveEx="False" Content="{StaticResource ResStr_Cancel}" HorizontalContentAlignment="Center"></local:ButtonEx>
+                                        <local:ButtonEx x:Name="btnConnect" Click="btn_Click" Grid.Column="2" IsActiveEx="True" Content="{StaticResource ResStr_Connect}" HorizontalContentAlignment="Center"></local:ButtonEx>
                                     </Grid>
                                 </StackPanel>
                             </Grid>
@@ -197,7 +197,7 @@
                                     <RowDefinition Height="*"></RowDefinition>
                                     <RowDefinition Height="2"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Column="0" Text="WLAN网络" FontSize="16"></TextBlock>
+                                <TextBlock Grid.Column="0" Text="{StaticResource ResStr_WLAN_Network}" FontSize="16"></TextBlock>
                                 <mycontrol:RefreshButton 
                                         Grid.Column="1" 
                                         VerticalAlignment="Bottom"

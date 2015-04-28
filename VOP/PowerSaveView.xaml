@@ -171,7 +171,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Text="进入休眠时间" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="{StaticResource ResStr_Power_Save_Time}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -195,7 +195,7 @@
                 </Grid>
                 <TextBlock Text="（1-30分钟）" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"> </TextBlock>
             </Grid>
-            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="应 用" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
+            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="{StaticResource ResStr_Apply}" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
         </Grid>
     </Grid>
 </UserControl>

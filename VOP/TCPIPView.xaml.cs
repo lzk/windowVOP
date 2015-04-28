@@ -345,21 +345,21 @@ namespace VOP
             {
                 if (false == isIPOK)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP地址输入有误，请确认后再次输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_"), (string)this.FindResource("ResStr_Warning"));
                     tb_ip.Text = "";
                     tb_ip.Focus();
                     return false;
                 }
                 else if (false == isGateOK)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "网关输入有误，请确认后再次输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_"), (string)this.FindResource("ResStr_Warning"));
                     tb_gate.Text = "";
                     tb_gate.Focus();
                     return false;
                 }
                 else if (false == isMaskOK)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "子网掩码输入有误，请确认后再次输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation"), (string)this.FindResource("ResStr_Warning"));
                     tb_mask.Text = "";
                     tb_mask.Focus();
                     return false;
@@ -374,13 +374,13 @@ namespace VOP
                         isIPOK = false;
                         if (0xffffffff == ((nIP | nSubMask) & 0xffffffff))
                         {
-                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP地址与子网掩码组合无效。已将IP地址的主机地址部分的所有位都设置为1.请输入一个有效的IP地址和子网掩码组合。", "错误");
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP地址与子网掩码组合无效。已将IP地址的主机地址部分的所有位都设置为1.请输入一个有效的IP地址和子网掩码组合。", (string)this.FindResource("ResStr_Warning"));
                             tb_ip.Focus();
                             return false;
                         }
                         else if ((0x00000000 == ((~nSubMask) & nIP)))
                         {
-                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP地址与子网掩码组合无效。已将IP地址的主机地址部分的所有位都设置为0.请输入一个有效的IP地址和子网掩码组合。", "错误");
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "IP地址与子网掩码组合无效。已将IP地址的主机地址部分的所有位都设置为0.请输入一个有效的IP地址和子网掩码组合。", (string)this.FindResource("ResStr_Warning"));
                             tb_ip.Focus();
                             return false;
                         }
@@ -473,7 +473,7 @@ namespace VOP
                 }
             }
 
-            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isSuccess ? "设定成功" : "设定失败", Brushes.Black);
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isSuccess ? (string)this.FindResource("ResStr_Setting_Successfully_") : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Black);
             return isSuccess;
         }
 

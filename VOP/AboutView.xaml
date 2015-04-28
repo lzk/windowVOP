@@ -46,7 +46,7 @@
                         <RowDefinition Height="20"></RowDefinition>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-                        <local:GroupBoxDecorator Header="耗材购买渠道" Height="110" Width="210" Margin="0,0,0,8" HorizontalAlignment="Center">
+                        <local:GroupBoxDecorator Header="{StaticResource ResStr_Supplies_Purchasing_Channels}" Height="110" Width="210" Margin="0,0,0,8" HorizontalAlignment="Center">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="8"></RowDefinition>
@@ -61,7 +61,7 @@
                                 <Image Grid.Column="1" Grid.Row="1" Source="Images\HotLine.png" />
                             </Grid>
                         </local:GroupBoxDecorator>
-                        <local:GroupBoxDecorator Header="打印机升级方式" Height="80" Width="210" Margin="0,0,0,8" HorizontalAlignment="Center">
+                        <local:GroupBoxDecorator Header="{StaticResource ResStr_Printer_Upgrade_Method}" Height="80" Width="210" Margin="0,0,0,8" HorizontalAlignment="Center">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="8"></RowDefinition>
@@ -76,7 +76,7 @@
                                 <Image Grid.Column="1" Grid.Row="1" Source="Images\Update.png" MouseLeftButtonDown="OnOpenWebsite" />
                             </Grid>
                         </local:GroupBoxDecorator>
-                        <local:GroupBoxDecorator Header="打印机推广" Height="120" Width="210" Margin="0,0,0,8" HorizontalAlignment="Center">
+                        <local:GroupBoxDecorator Header="{StaticResource ResStr_Printworks_Promotion}" Height="120" Width="210" Margin="0,0,0,8" HorizontalAlignment="Center">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="8"></RowDefinition>
@@ -92,7 +92,7 @@
                             </Grid>
 
                         </local:GroupBoxDecorator>
-                        <local:GroupBoxDecorator Header="版本和版权" Height="135" Width="210" Margin="0,0,0,8" HorizontalAlignment="Center">
+                        <local:GroupBoxDecorator Header="{StaticResource ResStr_Version_Copyright}" Height="135" Width="210" Margin="0,0,0,8" HorizontalAlignment="Center">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="2"></RowDefinition>

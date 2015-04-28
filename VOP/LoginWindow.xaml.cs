@@ -37,12 +37,12 @@ namespace VOP
             {
                 if (false == VOP.MainWindow.m_RequestManager.SendVerifyCode(tbPhoneNumber.Text, ref js))
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "验证码发送失败。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, (string)this.FindResource("ResStr_Msg_6"), (string)this.FindResource("ResStr_Warning"));
                 }
             }
             else
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "手机号码错误，请确认后再次输入。", "错误");
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, (string)this.FindResource("ResStr_Msg_7"), (string)this.FindResource("ResStr_Warning"));
                 tbPhoneNumber.Focus();
             }
         }
@@ -61,19 +61,19 @@ namespace VOP
                 }
                 else
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "验证码错误，请确认后再次输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "验证码错误，请确认后再次输入。", (string)this.FindResource("ResStr_Error"));
                 }
             }
             else
             {
                 if (tbPhoneNumber.Text.Length != 11)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "手机号码错误，请确认后再次输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, (string)this.FindResource("ResStr_Msg_7"), (string)this.FindResource("ResStr_Warning"));
                     tbPhoneNumber.Focus();
                 }
                 else if (pbPwd.Password.Length != 6)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "验证码格式错误，请确认后再次输入。", "错误");
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, (string)this.FindResource("ResStr_Msg_8"), (string)this.FindResource("ResStr_Warning"));
                     pbPwd.Focus();
                 }
             }

@@ -221,23 +221,23 @@ namespace VOP
 
                 }
 
-                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设定成功，机器重启后生效。" : "设定失败", Brushes.Black);
+                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设定成功，机器重启后生效。" : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Black);
             }
             else
             {
                 if (ssid.Length <= 0 || ssid.Length > 32)
                 {
-                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "网络名称必须是1到32个字符，请确认后再次输入。", "警告");
+                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_Msg_9"), (string)this.FindResource("ResStr_Warning"));
                 }
                 else
                 {
                     if (encryption == (byte)EnumEncryptType.WEP)
                     {
-                        VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码必须是5/13个ASCII字符或者10/26个十六进制字符，请确认后再次输入。", "警告");
+                        VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_Msg_2"), (string)this.FindResource("ResStr_Warning"));
                     }
                     else
                     {
-                        VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, "密码必须是8到63个ASCII字符或者64个十六进制字符，请确认后再次输入。", "警告");
+                        VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_Msg_3"), (string)this.FindResource("ResStr_Warning"));
                     }
                 }
             }
@@ -498,7 +498,7 @@ namespace VOP
                 }
             }
 
-            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(bSuccess ? "设定成功，机器重启后生效。" : "设定失败", Brushes.Black);
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(bSuccess ? "设定成功，机器重启后生效。" : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Black);
         }
 
         public void HandlerStateUpdate(EnumState state)

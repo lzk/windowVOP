@@ -216,7 +216,7 @@ namespace VOP
 
             }
 
-            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设定成功" : "设定失败", Brushes.Black);
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? (string)this.FindResource("ResStr_Setting_Successfully_") : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Black);
 
             return isApplySuccess;
         }
@@ -242,7 +242,7 @@ namespace VOP
                 }
             }
 
-            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设定成功" : "设定失败", Brushes.Black);
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? (string)this.FindResource("ResStr_Setting_Successfully_") : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Black);
         }
 
         private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)

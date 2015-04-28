@@ -114,7 +114,7 @@ namespace VOP
 
             if(e.NewValue)
             {
-                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("有效值输入范围为1-99，请确认后再次输入。", "错误");
+                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("有效值输入范围为1-99，请确认后再次输入。", (string)this.FindResource("ResStr_Error"));
                 messageBox.Owner = App.Current.MainWindow;
                 messageBox.ShowDialog();
             }
@@ -230,14 +230,14 @@ namespace VOP
 
             if (printRes == PrintError.Print_File_Not_Support)
             {
-                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("暂不支持该文件打印， 请重新选择。", "错误");
+                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("暂不支持该文件打印， 请重新选择。", (string)this.FindResource("ResStr_Error"));
                 messageBox.Owner = App.Current.MainWindow;
                 messageBox.ShowDialog();
                 this.m_MainWin.subPageView.Child = this.m_MainWin.winFileSelectionPage;
             }
             else if (printRes == PrintError.Print_Memory_Fail)
             {
-                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("打印文件内存分配失败！", "错误");
+                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("打印文件内存分配失败！", (string)this.FindResource("ResStr_Error"));
                 messageBox.Owner = App.Current.MainWindow;
                 messageBox.ShowDialog();
             }
