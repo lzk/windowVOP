@@ -27,11 +27,20 @@ namespace VOP
         public static uint WM_CHECK_MAINTAIN_DATA_Expired = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_maintain");
         public static uint WM_CHECK_MERCHANT_INFO_Expired = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_merchant");
         public static uint WM_VOP = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_vop");
+        public static double gScalingRate = 1.0; // Scaling rate used to scale windows's according the screen resolution.
 
         App()
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh-CN");
-            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en");
+
+            // Calculate the scaling rate for resolution.
+            int nWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
+            int nHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
+
+            double scaling1 = nWidth / 1600.0;
+            double scaling2 = nHeight / 900.0;
+
+            gScalingRate = (scaling1 < scaling2) ? scaling1 : scaling2;
         }
 
         /// <summary>
