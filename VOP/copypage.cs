@@ -183,7 +183,7 @@ namespace VOP
                             );
                     break;
                 default:
-                     m_MainWin.statusPanelPage.ShowMessage( "Copy Fail", Brushes.Black );
+                     m_MainWin.statusPanelPage.ShowMessage( "Copy Fail", Brushes.Red );
                     break;
             }
 

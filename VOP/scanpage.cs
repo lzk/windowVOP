@@ -390,13 +390,13 @@ namespace VOP
                  }
                  else if ( RETSCAN_NO_ENOUGH_SPACE == (int)wParam )
                  {
-                     m_MainWin.statusPanelPage.ShowMessage( "There no enough space in system partial, please free the disk before try again.", Brushes.Black );
+                     m_MainWin.statusPanelPage.ShowMessage( "There no enough space in system partial, please free the disk before try again.", Brushes.Red );
                  }
                  else
                  {
                      m_MainWin.statusPanelPage.ShowMessage( 
                              (string)this.FindResource("ResStr_Scan_Fail"),
-                             Brushes.Black );
+                             Brushes.Red );
                  }
             }
 

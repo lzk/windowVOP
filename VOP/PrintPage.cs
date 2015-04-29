@@ -313,12 +313,12 @@ namespace VOP
             }
             else if (printRes == PrintError.Print_Operation_Fail)
             {
-                m_MainWin.statusPanelPage.ShowMessage("´òÓ¡Ê§°Ü", Brushes.Black );
+                m_MainWin.statusPanelPage.ShowMessage("´òÓ¡Ê§°Ü", Brushes.Red );
                 crmPrintInfo.m_strPrintSuccess = "false";
             }
             else if (printRes == PrintError.Print_Get_Default_Printer_Fail)
             {
-                m_MainWin.statusPanelPage.ShowMessage("´òÓ¡Ê§°Ü", Brushes.Black );
+                m_MainWin.statusPanelPage.ShowMessage("´òÓ¡Ê§°Ü", Brushes.Red );
                 crmPrintInfo.m_strPrintSuccess = "false";
             }
             else

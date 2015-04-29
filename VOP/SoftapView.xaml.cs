@@ -139,7 +139,7 @@ namespace VOP
                 }
             }
 
-            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? (string)this.FindResource("ResStr_Msg_1") : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Black);
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? (string)this.FindResource("ResStr_Msg_1") : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Red);
 
             return isApplySuccess;
         }
