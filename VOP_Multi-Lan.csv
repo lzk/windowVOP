@@ -1,5 +1,5 @@
 Key,English,SC
-ResStr_ABC_Printer, ,ABC打印机
+ResStr_VirtualOperationPanel,Virtual Operation Panel,虚拟操作面板
 ResStr_Print,Print,打印
 ResStr_Copy,Copy,复印
 ResStr_Scan,Scan,扫描
@@ -21,7 +21,6 @@ ResStr_Copying,Copying,复印中
 ResStr_Place_Next_Page,Place Next Page,放置下一页
 ResStr_Turn_card_over_to_copy_the_reverse_,Turn card over to copy the reverse.,翻转卡片，并放在扫描板上
 ResStr_Copy_Cancelling,Copy Cancelling,复印取消
-ResStr_Copy_Fail,Copy Fail,复印失败
 ResStr_ID_Card_Mode,ID Card Mode,身份证复印模式
 ResStr_Scanning,Scanning,扫描中
 ResStr_Scan_Cancelling,Scan Cancelling,扫描取消
@@ -38,27 +37,48 @@ ResStr_No_Toner_Cartridge,No Toner Cartridge,缺少硒鼓碳粉组件
 ResStr_Please_Replace_Toner,Please Replace Toner,请更换硒鼓
 ResStr_FW_Updating,FW Updating,固件升级
 ResStr_Overheat,Overheat,过热
-ResStr_Print_Data_Error_SCxxx,Print Data Error:SCxxx,打印数据错误SCxxx
-ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx,"Turn off the printer, and turn it on again.Contact customer support if this failure is repeated:SCxxx",请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：SCxxx
-ResStr_Please_contact_customer_support__SCxxx,Please contact customer support: SCxxx,请联系您的客户支持：SCxxx
-ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001,"anner not found home position;Turn off the printer, and turn it on again.Contact customer support if this failure is repeated:SC1001", 
-ResStr_Scan_Calibration_Error_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001,"Scan Calibration Error;Turn off the printer, and turn it on again.Contact customer support if this failure is repeated:SC1001", 
-ResStr_Wireless_Dongle_Config_Fail_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx,"Wireless Dongle Config Fail;Turn off the printer, and turn it on again.Contact customer support if this failure is repeated:SCxxx",无线模块配置失败；请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持:SCxxx
+ResStr_Print_Data_Error_SCxxx,"Print Data Error:
+SCxxx","打印数据错误
+SCxxx"
+ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx,"Turn off the printer, and turn it on again.
+Contact customer support if this failure is repeated:
+SCxxx
+","请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：
+SCxxx"
+ResStr_Please_contact_customer_support__SCxxx,Please contact customer support: SCxxx,"请联系您的客户支持：
+SCxxx"
+ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001,"Scanner not found home position;
+Turn off the printer, and turn it on again.
+Contact customer support if this failure is repeated:
+SC1001
+","扫描起始位置未发现：
+请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：
+SC1001"
+ResStr_Scan_Calibration_Error_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001,"Scan Calibration Error;
+Turn off the printer, and turn it on again.
+Contact customer support if this failure is repeated:
+SC1001
+","扫描校准错误：
+请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：
+SC1001"
+ResStr_Wireless_Dongle_Config_Fail_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx,"Wireless Dongle Config Fail;
+Turn off the printer, and turn it on again.
+Contact customer support if this failure is repeated:
+SCxxx","无线模块配置失败；
+请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持:
+SCxxx"
 ResStr_Picture_Print,Picture Print,图片打印
 ResStr_File_Print,File Print,文件打印
 ResStr_Credentials_Print,Credentials Print,证件打印
 ResStr_Certificate_Type,Certificate Type,证件类型
-ResStr_Certificates_Edit,,证件编辑
 ResStr_Residence_Booklet,Residence Booklet,户口本
 ResStr_Marriage_Certificate,Marriage Certificate,结婚证
-ResStr_Passport,Passport,护照
-ResStr_Real_Estate_License,Real Estate License,房产证
+ResStr_Passport,Passport,护照 
+ResStr_Real_Estate_License,Real Estate License,房产证  
 ResStr_Driving_license,Driving license,驾照
 ResStr_Diploma,Diploma,毕业证
 ResStr_Student_ID_card,Student ID card,学生证
 ResStr_Birth_Certificate,Birth Certificate,出生证明
-ResStr_Bank_Card,Bank Card,银行卡
-ResStr_Social_Security_Card,Social Security Card,社保卡
 ResStr_Bank_SocialSecurity_Card,Bank Card/Social Security Card,银行卡/社保卡
 ResStr_ID_Card,ID Card,身份证
 ResStr_More_Settings,More Settings,更多设置
@@ -71,7 +91,6 @@ ResStr_A6,A6,A6
 ResStr_B5_ISO_,B5（ISO）,B5（ISO）
 ResStr_B6,B6,B6
 ResStr_Executive,Executive,Executive
-ResStr_Exit,Exit,退出
 ResStr_16K,16K,16K
 ResStr_A5_LEF_,A5(LEF),A5长边
 ResStr_B6_LEF_,B6(LEF),B6长边
@@ -80,7 +99,6 @@ ResStr_Orientation,Orientation,纸张方向
 ResStr_Landscape,Landscape,横向
 ResStr_Portrait,Portrait,纵向
 ResStr_Media_Type,Media Type,介质类型
-ResStr_Memory_Alloc_Fail,,打印文件内存分配失败！
 ResStr_Plain_Paper,Plain Paper,普通纸
 ResStr_Thin_Paper,Thin Paper,薄纸
 ResStr_Thick_Paper,Thick Paper,厚纸
@@ -88,7 +106,6 @@ ResStr_Recycled_Paper,Recycled Paper,再生纸
 ResStr_Label,Label,标签
 ResStr_Print_Quality,Print Quality,打印质量
 ResStr_Normal_600_600_,Normal（600*600）,标准（600*600）
-ResStr_Not_Browse,,暂时无法浏览
 ResStr_Fine_1200_600_,Fine（1200*600）,精细（1200*600）
 ResStr_Scaling,Scaling,缩放
 ResStr_Fit_to_Paper_Size,Fit to Paper Size,调整至纸张大小
@@ -99,9 +116,9 @@ ResStr_2_in_1,2 in 1,2合1
 ResStr_4_in_1,4 in 1,4合1
 ResStr_9_in_1,9 in 1,9合1
 ResStr_16_in_1,16 in 1,16合1
-ResStr_1_in_2_2_,1 in 2*2,1合2*2
+ResStr_1_in_2_2_,1 in 2*2 ,1合2*2
 ResStr_1_in_3_3,1 in 3*3,1合3*3
-ResStr_1_in_4_4_,1 in 4*4,1合4*4
+ResStr_1_in_4_4_,1 in 4*4 ,1合4*4
 ResStr_Reverse_Print,Reverse Print,反转打印
 ResStr_2_sided,2-sided,双面打印
 ResStr_Flip_on_long_edge,Flip on long edge,长边翻页
@@ -112,7 +129,6 @@ ResStr_Defualt,Defualt,默认
 ResStr_OK,OK,确定
 ResStr_Custom_Paper_Size_Name,Custom Paper Size Name,自定义纸张大小名称
 ResStr_User_Defined_Size_01,User Defined Size 01,自定义尺寸01
-ResStr_User_SelfDefine,,用户自定义设置
 ResStr_Unit,Unit,单位
 ResStr_mm,mm,毫米
 ResStr_inch,inch,英寸
@@ -168,12 +184,15 @@ ResStr_Protected_by_WPA2,Protected by WPA2,通过WPA2进行保护
 ResStr_Protected_by_WEP,Protected by WEP,通过WEP进行保护
 ResStr_Protected_by_Mixed_Mode_PSK,Protected by Mixed Mode PSK,通过Mixed Mode PSK进行保护
 ResStr_Manual_Wi_Fi,Manual Wi-Fi,加入其他网络
+ResStr_Password_,Password:,密码：
 ResStr_Password,Password,密码
 ResStr_Display_Password,Display Password,显示密码
 ResStr_WEP_KeyID,WEP KeyID,WEP KeyID
 ResStr_SSID,SSID,网络名称
+ResStr_SSID_,SSID:,网络名称：
 ResStr_Remember_the_network,Remember the network,记住该网络
 ResStr_Encryption,Encryption,加密方式
+ResStr_Encryption_,Encryption:,加密方式：
 ResStr_No_Security,No Security,不使用
 ResStr_WEP,WEP,WEP
 ResStr_WPA2_PSK_AES,WPA2-PSK-AES,WPA2-PSK-AES
@@ -182,7 +201,7 @@ ResStr_Connect,Connect,连接
 ResStr_Find_and_join_the_Wi_Fi,Find and join the Wi-Fi,查找并加入Wi-Fi网络
 ResStr_Enter_SSID_and_security_type_,Enter SSID and security type.,输入你想要加入的网络名称和安全性类型
 ResStr_Power_Save_Time,Power Save Time,进入休眠时间
-ResStr_1_30_Minute,(1-30 Minute),(1-30分钟)
+ResStr_1_30_Minute,(1-30 Minute),（1-30分钟）
 ResStr_SSID_2,SSID,网络标识
 ResStr_Enable,Enable,使用
 ResStr_Leading_Edge_Registration,Leading Edge Registration,顶端偏移量
@@ -196,18 +215,22 @@ ResStr_New_Password,New Password,新密码
 ResStr_Confirm_Password,Confirm Password,确认密码
 ResStr_Identity_Authentication,Identity Authentication,身份认证
 ResStr_Login,Login,登录
-ResStr_Login_Register,,登录/注册
 ResStr_Supplies_Purchasing_Channels,Supplies Purchasing Channels,耗材购买渠道
 ResStr_Printer_Upgrade_Method,Printer Upgrade Method,打印机升级方式
 ResStr_Printworks_Promotion,Printworks Promotion,打印工场推广
 ResStr_Version_Copyright,Version & Copyright,版本和版权
-ResStr_Printer_DriverVersion_____,Printer DriverVersion ****,Printer DriverVersion ****
-ResStr_Copyright__C___2014_2015__Lenovo__Beijing__Limited_All_Right_Reserved_,Copyright (C) (2014-2015) Lenovo (Beijing) Limited.All Right Reserved.,Copyright (C) (2014-2015) Lenovo (Beijing) Limited.All Right Reserved.
+ResStr_Printer_DriverVersion_____,"Printer Driver
+Version ****","Printer Driver
+Version ****"
+ResStr_Copyright__C___2014_2015__Lenovo__Beijing__Limited_All_Right_Reserved_,"Copyright (C) (2014-2015) Lenovo (Beijing) Limited.
+All Right Reserved.","Copyright (C) (2014-2015) Lenovo (Beijing) Limited.
+All Right Reserved."
 ResStr_This_file_is_not_supported__please_select_another_one_,"This file is not supported, please select another one.",暂不支持该文件的打印，请重新选择。
 ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_,"The valid range is 1-99, please confirm and enter again.",有效值输入范围为1-99，请确认后再次输入。
 ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_,"The valid range is 25-400, please confirm and enter again.",有效值输入范围为25-400，请确认后再次输入。
 ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_,The scanned images will be deleted after closing the VOP. Are you sure to close the VOP?,VOP关闭后，扫描图片将会被删除，是否关闭，请确认
-ResStr_Lack_of_memery_disk_space_because_too_many_files_are_selected__please_select_again_,"Lack of memery/disk space because too many files are selected, please select again.",选择文件太多，导致保存时****不足，请重新选择图片。其中****为内存或者是磁盘空间。
+ResStr_Lack_of_memery_disk_space_because_too_many_files_are_selected__please_select_again_,"Lack of memery/disk space because too many files are selected, please select again.","选择文件太多，导致保存时****不足，请重新选择图片。
+其中****为内存或者是磁盘空间。"
 ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_,"The valid range is 0-100, please confirm and enter again.",有效值输入范围为0-100，请确认后再次输入。
 ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_,"Scanning image has been changed, please confirm whether save it or not?",扫描图片已被更改，是否保存，请确认
 ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_,"The entered IP address  is wrong, please confirm and enter again.",IP地址输入有误，请确认后再次输入
@@ -226,19 +249,26 @@ ResStr_The_service_station_information_hasn_t_updated_for_____months__please_upd
 ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_1__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_,The combination of IP address and subnet mask is invalid. All of the bits in the host address portion of the IP address are set to 1. Please enter a valid combination of IP address and subnet mask.,IP地址和子网掩码组合无效。已将IP地址的主机地址部分的所有位都设为1。请输入一个有效的IP地址和子网掩码组合。
 ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_0__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_,The combination of IP address and subnet mask is invalid. All of the bits in the host address portion of the IP address are set to 0. Please enter a valid combination of IP address and subnet mask.,IP地址和子网掩码组合无效。已将IP地址的主机地址部分的所有位都设为0。请输入一个有效的IP地址和子网掩码组合。
 ResStr_The_machine_is_busy__please_try_later_,"The machine is busy, please try later!",机器正在工作中，请稍后再试！
-ResStr_Please_fix_error_first_and_try_later_,Please fix error first and try later!, 
-ResStr_Setting_Successfully_,Setting Successfully,设定成功
+ResStr_Please_fix_error_first_and_try_later_,Please fix error first and try later!,请解决故障后再试一次！
+ResStr_Setting_Successfully_,Setting Successfully ,设定成功
 ResStr_Setting_Fail,Setting Fail,设定失败
 ResStr_Scan_Fail,Scan Fail,扫描失败
 ResStr_Print_Fail,Print Fail,打印失败
-ResStr_Print_Preview,,打印预览
-ResStr_Msg_1, ,设置成功，机器重启后生效
-ResStr_Msg_2, ,密码必须是5/13个ASCII字符或者10/26个十六进制字符，请确认后再次输入。
-ResStr_Msg_3, ,密码必须是8到63个ASCII字符或者64个十六进制字符，请确认后再次输入。
-ResStr_Msg_4, ,输入手机号
-ResStr_Msg_5, ,验证码发送成功。
-ResStr_Msg_6, ,验证码发送失败。
-ResStr_Msg_7, ,手机号码错误，请确认后再次输入。
-ResStr_Msg_8, ,验证码格式错误，请确认后再次输入。
-ResStr_Msg_9, ,网络名称必须是1到32个字符，请确认后再次输入。
-ResStr_Msg_10, ,网络标识必须是1到32个字符，请确认后再次输入。
+ResStr_Copy_Fail,Copy Fail,复印失败
+ResStr_Msg_1,"Setting Successfully,the parameters are valid after the restart the machine.",设定成功，机器重启后生效
+ResStr_Msg_2,"The password must be 5 to 13 ASCII characters or 10 to 26  hex characters, please confirm and enter again.",密码必须是5/13个ASCII字符或者10/26个十六进制字符，请确认后再次输入。
+ResStr_Msg_3,"The password must be 8 to 63 ASCII characters or 64  hex characters, please confirm and enter again.",密码必须是8到63个ASCII字符或者64个十六进制字符，请确认后再次输入。
+ResStr_Msg_4,please enter the phone number.,输入手机号
+ResStr_Msg_5,Verification code sent successfully.,验证码发送成功。
+ResStr_Msg_6,Verification code sent failed.,验证码发送失败。
+ResStr_Msg_7,"phone number is error, please confirm and enter again.",手机号码错误，请确认后再次输入。
+ResStr_Msg_8,"Verification code's format is error, please confirm and enter again.",验证码格式错误，请确认后再次输入。
+ResStr_Msg_9,"The SSID must be 1 to 32 characters, please confirm and enter again.",网络名称必须是1到32个字符，请确认后再次输入。
+ResStr_Msg_10,"The SSID must be 1 to 32 characters, please confirm and enter again.",网络标识必须是1到32个字符，请确认后再次输入。
+ResStr_Exit,Exit,退出
+ResStr_Preview,Preview,打印预览
+ResStr_Certificate_Edit,Certificate Edit,证件编辑
+ResStr_Unable_to_preview,"Unable to preview,",暂时无法浏览
+ResStr_Memory_Alloc_Fail,Print memory allocation failed!,打印文件内存分配失败！
+ResStr_User_Defined_Settings,User Defined Settings,用户自定义设置
+ResStr_Login_Register,Login / Register,登录/注册

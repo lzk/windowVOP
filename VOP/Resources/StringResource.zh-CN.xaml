@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <sys:String x:Key="ResStr_ABC_Printer">ABC打印机</sys:String>
+    <sys:String x:Key="ResStr_VirtualOperationPanel">虚拟操作面板</sys:String>
     <sys:String x:Key="ResStr_Print">打印</sys:String>
     <sys:String x:Key="ResStr_Copy">复印</sys:String>
     <sys:String x:Key="ResStr_Scan">扫描</sys:String>
@@ -23,7 +23,6 @@
     <sys:String x:Key="ResStr_Place_Next_Page">放置下一页</sys:String>
     <sys:String x:Key="ResStr_Turn_card_over_to_copy_the_reverse_">翻转卡片，并放在扫描板上</sys:String>
     <sys:String x:Key="ResStr_Copy_Cancelling">复印取消</sys:String>
-    <sys:String x:Key="ResStr_Copy_Fail">复印失败</sys:String>
     <sys:String x:Key="ResStr_ID_Card_Mode">身份证复印模式</sys:String>
     <sys:String x:Key="ResStr_Scanning">扫描中</sys:String>
     <sys:String x:Key="ResStr_Scan_Cancelling">扫描取消</sys:String>
@@ -43,14 +42,13 @@
     <sys:String x:Key="ResStr_Print_Data_Error_SCxxx">打印数据错误SCxxx</sys:String>
     <sys:String x:Key="ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：SCxxx</sys:String>
     <sys:String x:Key="ResStr_Please_contact_customer_support__SCxxx">请联系您的客户支持：SCxxx</sys:String>
-    <sys:String x:Key="ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">String without translation</sys:String>
-    <sys:String x:Key="ResStr_Scan_Calibration_Error_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">String without translation</sys:String>
+    <sys:String x:Key="ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">扫描起始位置未发现：请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：SC1001</sys:String>
+    <sys:String x:Key="ResStr_Scan_Calibration_Error_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">扫描校准错误：请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：SC1001</sys:String>
     <sys:String x:Key="ResStr_Wireless_Dongle_Config_Fail_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">无线模块配置失败；请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持:SCxxx</sys:String>
     <sys:String x:Key="ResStr_Picture_Print">图片打印</sys:String>
     <sys:String x:Key="ResStr_File_Print">文件打印</sys:String>
     <sys:String x:Key="ResStr_Credentials_Print">证件打印</sys:String>
     <sys:String x:Key="ResStr_Certificate_Type">证件类型</sys:String>
-    <sys:String x:Key="ResStr_Certificates_Edit">证件编辑</sys:String>
     <sys:String x:Key="ResStr_Residence_Booklet">户口本</sys:String>
     <sys:String x:Key="ResStr_Marriage_Certificate">结婚证</sys:String>
     <sys:String x:Key="ResStr_Passport">护照</sys:String>
@@ -59,8 +57,6 @@
     <sys:String x:Key="ResStr_Diploma">毕业证</sys:String>
     <sys:String x:Key="ResStr_Student_ID_card">学生证</sys:String>
     <sys:String x:Key="ResStr_Birth_Certificate">出生证明</sys:String>
-    <sys:String x:Key="ResStr_Bank_Card">银行卡</sys:String>
-    <sys:String x:Key="ResStr_Social_Security_Card">社保卡</sys:String>
     <sys:String x:Key="ResStr_Bank_SocialSecurity_Card">银行卡/社保卡</sys:String>
     <sys:String x:Key="ResStr_ID_Card">身份证</sys:String>
     <sys:String x:Key="ResStr_More_Settings">更多设置</sys:String>
@@ -73,7 +69,6 @@
     <sys:String x:Key="ResStr_B5_ISO_">B5（ISO）</sys:String>
     <sys:String x:Key="ResStr_B6">B6</sys:String>
     <sys:String x:Key="ResStr_Executive">Executive</sys:String>
-    <sys:String x:Key="ResStr_Exit">退出</sys:String>
     <sys:String x:Key="ResStr_16K">16K</sys:String>
     <sys:String x:Key="ResStr_A5_LEF_">A5长边</sys:String>
     <sys:String x:Key="ResStr_B6_LEF_">B6长边</sys:String>
@@ -82,7 +77,6 @@
     <sys:String x:Key="ResStr_Landscape">横向</sys:String>
     <sys:String x:Key="ResStr_Portrait">纵向</sys:String>
     <sys:String x:Key="ResStr_Media_Type">介质类型</sys:String>
-    <sys:String x:Key="ResStr_Memory_Alloc_Fail">打印文件内存分配失败！</sys:String>
     <sys:String x:Key="ResStr_Plain_Paper">普通纸</sys:String>
     <sys:String x:Key="ResStr_Thin_Paper">薄纸</sys:String>
     <sys:String x:Key="ResStr_Thick_Paper">厚纸</sys:String>
@@ -90,7 +84,6 @@
     <sys:String x:Key="ResStr_Label">标签</sys:String>
     <sys:String x:Key="ResStr_Print_Quality">打印质量</sys:String>
     <sys:String x:Key="ResStr_Normal_600_600_">标准（600*600）</sys:String>
-    <sys:String x:Key="ResStr_Not_Browse">暂时无法浏览</sys:String>
     <sys:String x:Key="ResStr_Fine_1200_600_">精细（1200*600）</sys:String>
     <sys:String x:Key="ResStr_Scaling">缩放</sys:String>
     <sys:String x:Key="ResStr_Fit_to_Paper_Size">调整至纸张大小</sys:String>
@@ -114,7 +107,6 @@
     <sys:String x:Key="ResStr_OK">确定</sys:String>
     <sys:String x:Key="ResStr_Custom_Paper_Size_Name">自定义纸张大小名称</sys:String>
     <sys:String x:Key="ResStr_User_Defined_Size_01">自定义尺寸01</sys:String>
-    <sys:String x:Key="ResStr_User_SelfDefine">用户自定义设置</sys:String>
     <sys:String x:Key="ResStr_Unit">单位</sys:String>
     <sys:String x:Key="ResStr_mm">毫米</sys:String>
     <sys:String x:Key="ResStr_inch">英寸</sys:String>
@@ -170,12 +162,15 @@
     <sys:String x:Key="ResStr_Protected_by_WEP">通过WEP进行保护</sys:String>
     <sys:String x:Key="ResStr_Protected_by_Mixed_Mode_PSK">通过Mixed Mode PSK进行保护</sys:String>
     <sys:String x:Key="ResStr_Manual_Wi_Fi">加入其他网络</sys:String>
+    <sys:String x:Key="ResStr_Password_">密码：</sys:String>
     <sys:String x:Key="ResStr_Password">密码</sys:String>
     <sys:String x:Key="ResStr_Display_Password">显示密码</sys:String>
     <sys:String x:Key="ResStr_WEP_KeyID">WEP KeyID</sys:String>
     <sys:String x:Key="ResStr_SSID">网络名称</sys:String>
+    <sys:String x:Key="ResStr_SSID_">网络名称：</sys:String>
     <sys:String x:Key="ResStr_Remember_the_network">记住该网络</sys:String>
     <sys:String x:Key="ResStr_Encryption">加密方式</sys:String>
+    <sys:String x:Key="ResStr_Encryption_">加密方式：</sys:String>
     <sys:String x:Key="ResStr_No_Security">不使用</sys:String>
     <sys:String x:Key="ResStr_WEP">WEP</sys:String>
     <sys:String x:Key="ResStr_WPA2_PSK_AES">WPA2-PSK-AES</sys:String>
@@ -198,7 +193,6 @@
     <sys:String x:Key="ResStr_Confirm_Password">确认密码</sys:String>
     <sys:String x:Key="ResStr_Identity_Authentication">身份认证</sys:String>
     <sys:String x:Key="ResStr_Login">登录</sys:String>
-    <sys:String x:Key="ResStr_Login_Register">登录/注册</sys:String>
     <sys:String x:Key="ResStr_Supplies_Purchasing_Channels">耗材购买渠道</sys:String>
     <sys:String x:Key="ResStr_Printer_Upgrade_Method">打印机升级方式</sys:String>
     <sys:String x:Key="ResStr_Printworks_Promotion">打印工场推广</sys:String>
@@ -228,13 +222,13 @@
     <sys:String x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_1__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">IP地址和子网掩码组合无效。已将IP地址的主机地址部分的所有位都设为1。请输入一个有效的IP地址和子网掩码组合。</sys:String>
     <sys:String x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_0__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">IP地址和子网掩码组合无效。已将IP地址的主机地址部分的所有位都设为0。请输入一个有效的IP地址和子网掩码组合。</sys:String>
     <sys:String x:Key="ResStr_The_machine_is_busy__please_try_later_">机器正在工作中，请稍后再试！</sys:String>
-    <sys:String x:Key="ResStr_Please_fix_error_first_and_try_later_">String without translation</sys:String>
+    <sys:String x:Key="ResStr_Please_fix_error_first_and_try_later_">请解决故障后再试一次！</sys:String>
     <sys:String x:Key="ResStr_Setting_Successfully_">设定成功</sys:String>
     <sys:String x:Key="ResStr_Setting_Fail">设定失败</sys:String>
     <sys:String x:Key="ResStr_Scan_Fail">扫描失败</sys:String>
     <sys:String x:Key="ResStr_Print_Fail">打印失败</sys:String>
-    <sys:String x:Key="ResStr_Print_Preview">打印预览</sys:String>
-    <sys:String x:Key="ResStr_Msg_1">设置成功，机器重启后生效</sys:String>
+    <sys:String x:Key="ResStr_Copy_Fail">复印失败</sys:String>
+    <sys:String x:Key="ResStr_Msg_1">设定成功，机器重启后生效</sys:String>
     <sys:String x:Key="ResStr_Msg_2">密码必须是5/13个ASCII字符或者10/26个十六进制字符，请确认后再次输入。</sys:String>
     <sys:String x:Key="ResStr_Msg_3">密码必须是8到63个ASCII字符或者64个十六进制字符，请确认后再次输入。</sys:String>
     <sys:String x:Key="ResStr_Msg_4">输入手机号</sys:String>
@@ -244,4 +238,11 @@
     <sys:String x:Key="ResStr_Msg_8">验证码格式错误，请确认后再次输入。</sys:String>
     <sys:String x:Key="ResStr_Msg_9">网络名称必须是1到32个字符，请确认后再次输入。</sys:String>
     <sys:String x:Key="ResStr_Msg_10">网络标识必须是1到32个字符，请确认后再次输入。</sys:String>
+    <sys:String x:Key="ResStr_Exit">退出</sys:String>
+    <sys:String x:Key="ResStr_Preview">打印预览</sys:String>
+    <sys:String x:Key="ResStr_Certificate_Edit">证件编辑</sys:String>
+    <sys:String x:Key="ResStr_Unable_to_preview">暂时无法浏览</sys:String>
+    <sys:String x:Key="ResStr_Memory_Alloc_Fail">打印文件内存分配失败！</sys:String>
+    <sys:String x:Key="ResStr_User_Defined_Settings">用户自定义设置</sys:String>
+    <sys:String x:Key="ResStr_Login_Register">登录/注册</sys:String>
 </ResourceDictionary>
