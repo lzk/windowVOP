@@ -53,6 +53,16 @@
     <SolidColorBrush x:Key="PlusButtonContentPressed" Color="White" Opacity="1"/>
     <SolidColorBrush x:Key="PlusButtonContentOver" Color="#FF0AAA0A" Opacity="1"/>
 
+    <Style x:Key="SpinnerButtonFocus">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Ellipse Margin="-1" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="CustomPlusButtonStyle"
        TargetType="{x:Type RepeatButton}">
         <Setter Property="Template">
@@ -81,13 +91,15 @@
                             <Setter TargetName="innerShape" Property="Stroke" Value="{StaticResource PlusButtonContentOver}" />
                         </MultiTrigger>
 
-                      
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource SpinnerButtonFocus}"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
+    
     <Style x:Key="CustomMinusButtonStyle"
        TargetType="{x:Type RepeatButton}">
         <Setter Property="Template">
@@ -116,7 +128,9 @@
                             <Setter TargetName="innerShape" Property="Stroke" Value="{StaticResource PlusButtonContentOver}" />
                         </MultiTrigger>
 
-
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource SpinnerButtonFocus}"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

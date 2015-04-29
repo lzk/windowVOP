@@ -33,6 +33,16 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <Style x:Key="switchBoxFocus">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="-1" RadiusY="10" RadiusX="10" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <ControlTemplate x:Key="switchBox" TargetType="{x:Type CheckBox}" >
         <Grid Width="{TemplateBinding Width}"
                       Height="{TemplateBinding Height}">
@@ -148,6 +158,10 @@
             <Trigger Property="IsChecked" Value="false">
                 <Setter TargetName="Off" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="On" Property="Visibility" Value="Hidden"/>
+            </Trigger>
+
+            <Trigger  Property="IsFocused" Value="True">
+                <Setter Property="FocusVisualStyle" Value="{StaticResource switchBoxFocus}"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

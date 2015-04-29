@@ -49,20 +49,22 @@
                     
                     <Grid Height="45"  Background="#FFD1D1D1" Margin="6,2,6,2">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="8"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="8"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="8"></ColumnDefinition>
+                            <ColumnDefinition Width="4"></ColumnDefinition>
                             <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                            <ColumnDefinition Width="2"></ColumnDefinition>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="2"></ColumnDefinition>
                             <ColumnDefinition Width="2.5*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Text="WLAN" FontWeight="Bold" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
-                        <CheckBox Name="chkWifi" Click="OnClickWifiCheckBox" IsChecked="True" Grid.Row="1" Grid.Column="2" Template="{StaticResource switchBox}" Height="22" Width="45" Checked="OnchkWifiChecked" Unchecked="OnchkWifiUnchecked"></CheckBox>
-                        <local:ButtonEx x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="1" Grid.Column="3" Width="100" Content="{StaticResource ResStr_Manual_Wi_Fi}" HorizontalContentAlignment="Center"></local:ButtonEx>
+                        <CheckBox Name="chkWifi" Click="OnClickWifiCheckBox" IsChecked="True" Grid.Row="1" Grid.Column="3" Template="{StaticResource switchBox}" Height="22" Width="42" Checked="OnchkWifiChecked" Unchecked="OnchkWifiUnchecked"></CheckBox>
+                        <local:ButtonEx x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="1" Grid.Column="5" Width="100" Content="{StaticResource ResStr_Manual_Wi_Fi}" HorizontalContentAlignment="Center"></local:ButtonEx>
                     </Grid>
 
                     <Grid Grid.Row="1">

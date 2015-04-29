@@ -58,6 +58,7 @@
             </Trigger>
         </Style.Triggers>-->
             </Style>
+
             <Style x:Key ="SpinnerControl1"  TargetType="{x:Type local:SpinnerControl}">
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
@@ -74,7 +75,16 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-
+                                
+                                <RepeatButton 
+                                      Name="btnDecrease"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
+                                
                                 <TextBox 
                                  Name="tbTextBox"
                                  Grid.Row="0"
@@ -104,16 +114,6 @@
                                         </Binding>
                                     </TextBox.Text>
                                 </TextBox>
-
-                                <RepeatButton 
-                                      Name="btnDecrease"
-                                      Grid.Row="0"
-                                      Grid.Column="0"
-                                      Width="25"
-                                      Height="25"
-                                      Style="{StaticResource CustomMinusButtonStyle}" 
-                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
-
 
                                 <RepeatButton 
                                       Name="btnIncrease"

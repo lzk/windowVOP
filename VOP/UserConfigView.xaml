@@ -41,6 +41,15 @@
                                     we use the TemplatedParent binding to get a reference to the control
                                     this template has been applied to, so we can access the property on it
                                 -->
+
+                                <RepeatButton Name="btnDecrease"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
+                                
                                 <TextBox Name="tbTextBox"
                                  Grid.Row="0"
                                  Grid.Column="1"
@@ -68,15 +77,6 @@
                                         </Binding>
                                     </TextBox.Text>
                                 </TextBox>
-
-                                <RepeatButton Name="btnDecrease"
-                                      Grid.Row="0"
-                                      Grid.Column="0"
-                                      Width="25"
-                                      Height="25"
-                                      Style="{StaticResource CustomMinusButtonStyle}" 
-                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
-
 
                                 <RepeatButton Name="btnIncrease"
                                       Grid.Row="0"
@@ -126,6 +126,15 @@
                                     we use the TemplatedParent binding to get a reference to the control
                                     this template has been applied to, so we can access the property on it
                                 -->
+                                <RepeatButton Name="btnDecrease"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
+                                
+                                
                                 <TextBox Name="tbTextBox"
                                  Grid.Row="0"
                                  Grid.Column="1"
@@ -153,15 +162,6 @@
                                         </Binding>
                                     </TextBox.Text>
                                 </TextBox>
-
-                                <RepeatButton Name="btnDecrease"
-                                      Grid.Row="0"
-                                      Grid.Column="0"
-                                      Width="25"
-                                      Height="25"
-                                      Style="{StaticResource CustomMinusButtonStyle}" 
-                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
-
 
                                 <RepeatButton Name="btnIncrease"
                                       Grid.Row="0"
@@ -210,6 +210,16 @@
                                     we use the TemplatedParent binding to get a reference to the control
                                     this template has been applied to, so we can access the property on it
                                 -->
+                                <RepeatButton 
+                                      Name="btnDecrease"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
+                                
+                                
                                 <TextBox 
                                  Name="tbTextBox"
                                  Grid.Row="0"
@@ -238,16 +248,6 @@
                                         </Binding>
                                     </TextBox.Text>
                                 </TextBox>
-
-                                <RepeatButton 
-                                      Name="btnDecrease"
-                                      Grid.Row="0"
-                                      Grid.Column="0"
-                                      Width="25"
-                                      Height="25"
-                                      Style="{StaticResource CustomMinusButtonStyle}" 
-                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
-
 
                                 <RepeatButton 
                                       Name="btnIncrease"
