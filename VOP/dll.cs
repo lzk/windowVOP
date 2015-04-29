@@ -288,6 +288,7 @@ namespace VOP
 
         [DllImport("usbapi.dll")]
         public static extern int OpenDocumentProperties(
+            IntPtr hwnd,
             [MarshalAs(UnmanagedType.LPWStr)]string strPrinterName,
             ref sbyte PaperSize,
             ref sbyte PaperOrientation,
