@@ -512,16 +512,6 @@
     <Compile Include="Controls\RefreshButton.xaml.cs">
       <DependentUpon>RefreshButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Resources.zh-CN.Designer.cs">
-      <DependentUpon>Resources.zh-CN.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Properties\Resources.en.Designer.cs">
-      <DependentUpon>Resources.en.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="RequestManager.cs" />
     <Compile Include="ScanPage.cs">
       <DependentUpon>ScanPage.xaml</DependentUpon>
@@ -564,28 +554,11 @@
     <Compile Include="Properties\VersionInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.zh-CN.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.zh-CN.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.en.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.en.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="LocalData.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LocalData.Designer.cs</LastGenOutput>
@@ -689,7 +662,6 @@
     <Resource Include="Images\Index.png" />
     <Resource Include="Images\Printer.png" />
     <Resource Include="Images\Wifi.png" />
-
     <Content Include="Media\JamAtExitNotReach.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
