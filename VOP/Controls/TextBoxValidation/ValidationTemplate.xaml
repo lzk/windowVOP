@@ -1,17 +1,22 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:VOP.Controls"
+                    >
 
     <Style x:Key="TextBoxErrorTemplateStyle" TargetType="{x:Type TextBox}">
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
                     <StackPanel>
-                        <Popup IsOpen="True" 
+                        <local:PopupEx IsOpen="True" 
                                AllowsTransparency="True"
                                PlacementTarget="{Binding ElementName=MyAdorner}"
                                Placement="Top"
                                VerticalOffset="-5"
-                               HorizontalOffset="-50">
+                               HorizontalOffset="-50"
+                               Topmost="False"
+                               PopupPlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" 
+                                >
                             <Border Background="#FFD3EAC3" BorderBrush="#FF727272" BorderThickness="0.5">
                                 <TextBlock 
 								Foreground="#FF727272"
@@ -21,7 +26,7 @@
                                 Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
                                 </TextBlock>
                             </Border>
-                        </Popup>
+                        </local:PopupEx>
                       
                         <Border BorderBrush="Red" BorderThickness="2">
                             <AdornedElementPlaceholder Name="MyAdorner"/>

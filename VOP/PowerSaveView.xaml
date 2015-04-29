@@ -23,12 +23,14 @@
                     <Setter.Value>
                         <ControlTemplate>
                             <StackPanel>
-                               <Popup IsOpen="True" 
+                               <local:PopupEx IsOpen="True" 
                                AllowsTransparency="True"
                                PlacementTarget="{Binding ElementName=MyAdorner}"
                                Placement="Top"
                                VerticalOffset="-5"
                                HorizontalOffset="-50"
+                               Topmost="False"
+                               PopupPlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" 
                                >
                                     <Border Background="#FFD3EAC3" BorderBrush="#FF727272" BorderThickness="0.5">
                                         <TextBlock 
@@ -39,7 +41,7 @@
                                             Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
                                             </TextBlock>
                                     </Border>
-                                </Popup>
+                                </local:PopupEx>
 
                                 <Border BorderBrush="Red" BorderThickness="2.5" CornerRadius="16">
                                     <AdornedElementPlaceholder Name="MyAdorner"/>

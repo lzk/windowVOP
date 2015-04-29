@@ -94,6 +94,7 @@
       <DependentUpon>ScrollTextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MessageBoxEx\MessageBoxEx.cs" />
+    <Compile Include="Controls\PopupEx.cs" />
     <Compile Include="MessageBoxEx_Video.xaml.cs">
       <DependentUpon>MessageBoxEx_Video.xaml</DependentUpon>
     </Compile>
