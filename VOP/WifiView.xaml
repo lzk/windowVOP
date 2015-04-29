@@ -62,7 +62,7 @@
 
                         <TextBlock Text="WLAN" FontWeight="Bold" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
                         <CheckBox Name="chkWifi" Click="OnClickWifiCheckBox" IsChecked="True" Grid.Row="1" Grid.Column="2" Template="{StaticResource switchBox}" Height="22" Width="45" Checked="OnchkWifiChecked" Unchecked="OnchkWifiUnchecked"></CheckBox>
-                        <local:ButtonEx x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="1" Grid.Column="3" Width="100" Content="加入其它网络" HorizontalContentAlignment="Center"></local:ButtonEx>
+                        <local:ButtonEx x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="1" Grid.Column="3" Width="100" Content="{StaticResource ResStr_Manual_Wi_Fi}" HorizontalContentAlignment="Center"></local:ButtonEx>
                     </Grid>
 
                     <Grid Grid.Row="1">

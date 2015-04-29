@@ -189,7 +189,7 @@
         <mycontrol:LogonButton  x:Name="btnLogin"  Grid.Column="11" Grid.Row="2" Margin="10, 15, 10, 5"  
                                 btnClick="NvgBtnClick" 
                                 IsLogon="False"
-                                bottomText="登录/注册" />
+                                bottomText="{StaticResource ResStr_Login_Register}" />
 
         <!--<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.ColumnSpan="13">
              <Button Name="btnMinimize" Click="ControlBtnClick" Width="30" Height="30" Margin="0,0,2,0" >-</Button>
