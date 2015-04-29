@@ -2350,6 +2350,23 @@ USBAPI_API int __stdcall GetIPInfo(
                 *ptr_gate1              = ptr_net_info->GatewayAddress[1];
                 *ptr_gate2              = ptr_net_info->GatewayAddress[2];
                 *ptr_gate3              = ptr_net_info->GatewayAddress[3];
+
+				OutputDebugStringToFileA("\r\n#### IPMode:%d IPAddressMode:%d IPAddress:%d.%d.%d.%d SubnetMask:%d.%d.%d.%d GatewayAddress:%d.%d.%d.%d #### ", 
+											ptr_net_info->IPMode, 
+											ptr_net_info->IPAddressMode,
+											ptr_net_info->IPAddress[0],
+											ptr_net_info->IPAddress[1],
+											ptr_net_info->IPAddress[2],
+											ptr_net_info->IPAddress[3],
+											ptr_net_info->SubnetMask[0],
+											ptr_net_info->SubnetMask[1], 
+											ptr_net_info->SubnetMask[2], 
+											ptr_net_info->SubnetMask[3],
+											ptr_net_info->GatewayAddress[0],
+											ptr_net_info->GatewayAddress[1],
+											ptr_net_info->GatewayAddress[2],
+											ptr_net_info->GatewayAddress[3]);
+
                 nResult = _ACK;
             }
             else
