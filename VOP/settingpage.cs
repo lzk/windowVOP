@@ -42,7 +42,7 @@ namespace VOP
             int tabbtn_height = 30;
 
             btnwifi.btn.Content = (string)this.FindResource("ResStr_Printer_Wi_Fi");
-            btnwifi.Margin = new Thickness(0, 0, 0, 10);
+            btnwifi.Margin = new Thickness(0, 1, 0, 9);
             btnwifi.Width = tabbtn_width;
             btnwifi.Height = tabbtn_height;
             btnwifi.HorizontalAlignment = HorizontalAlignment.Left;
@@ -50,8 +50,8 @@ namespace VOP
             btnwifi.btn.Click += SettingBtnClick;           
             m_listSettingButton.Add(btnwifi);
 
-            btnSoftAp.btn.Content = (string)this.FindResource("ResStr_Soft_AP"); 
-            btnSoftAp.Margin = new Thickness(0, 0, 0, 10);
+            btnSoftAp.btn.Content = (string)this.FindResource("ResStr_Soft_AP");
+            btnSoftAp.Margin = new Thickness(0, 1, 0, 9);
             btnSoftAp.Width = tabbtn_width;
             btnSoftAp.Height = tabbtn_height;
             btnSoftAp.HorizontalAlignment = HorizontalAlignment.Left;
@@ -59,8 +59,8 @@ namespace VOP
             btnSoftAp.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnSoftAp);
 
-            btnTCPIP.btn.Content = (string)this.FindResource("ResStr_TCP_IP"); 
-            btnTCPIP.Margin = new Thickness(0, 0, 0, 10);
+            btnTCPIP.btn.Content = (string)this.FindResource("ResStr_TCP_IP");
+            btnTCPIP.Margin = new Thickness(0, 1, 0, 9);
             btnTCPIP.Width = tabbtn_width;
             btnTCPIP.Height = tabbtn_height;
             btnTCPIP.HorizontalAlignment = HorizontalAlignment.Left;
@@ -68,8 +68,8 @@ namespace VOP
             btnTCPIP.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnTCPIP);
 
-            btnPowerSave.btn.Content = (string)this.FindResource("ResStr_Power_Save"); 
-            btnPowerSave.Margin = new Thickness(0, 0, 0, 10);
+            btnPowerSave.btn.Content = (string)this.FindResource("ResStr_Power_Save");
+            btnPowerSave.Margin = new Thickness(0, 1, 0, 9);
             btnPowerSave.Width = tabbtn_width;
             btnPowerSave.Height = tabbtn_height;
             btnPowerSave.HorizontalAlignment = HorizontalAlignment.Left;
@@ -78,7 +78,7 @@ namespace VOP
             m_listSettingButton.Add(btnPowerSave);
 
             btnUserConfig.btn.Content = (string)this.FindResource("ResStr_User_Config");
-            btnUserConfig.Margin = new Thickness(0, 0, 0, 10);
+            btnUserConfig.Margin = new Thickness(0, 1, 0, 9);
             btnUserConfig.Width = tabbtn_width;
             btnUserConfig.Height = tabbtn_height;
             btnUserConfig.HorizontalAlignment = HorizontalAlignment.Left;
@@ -86,8 +86,8 @@ namespace VOP
             btnUserConfig.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnUserConfig);
 
-            btnPwd.btn.Content = (string)this.FindResource("ResStr_Modify_Password"); 
-            btnPwd.Margin = new Thickness(0, 0, 0, 10);
+            btnPwd.btn.Content = (string)this.FindResource("ResStr_Modify_Password");
+            btnPwd.Margin = new Thickness(0, 1, 0, 9);
             btnPwd.Width = tabbtn_width;
             btnPwd.Height = tabbtn_height;
             btnPwd.HorizontalAlignment = HorizontalAlignment.Left;
@@ -95,8 +95,8 @@ namespace VOP
             btnPwd.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnPwd);
 
-            btnAbout.btn.Content = (string)this.FindResource("ResStr_About"); 
-            btnAbout.Margin = new Thickness(0, 0, 0, 10);
+            btnAbout.btn.Content = (string)this.FindResource("ResStr_About");
+            btnAbout.Margin = new Thickness(0, 1, 0, 9);
             btnAbout.Width = tabbtn_width;
             btnAbout.Height = tabbtn_height;
             btnAbout.HorizontalAlignment = HorizontalAlignment.Left;
