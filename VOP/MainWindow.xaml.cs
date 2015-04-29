@@ -73,9 +73,9 @@ namespace VOP
         private bool m_isOnlineDetected = false;    // true is one online printer has been seleted.
 
         public string m_strPassword = "";
-        public string m_strPhoneNumber = "";
+        public static string m_strPhoneNumber = "";
         public static bool   m_bLocationIsChina = false;
-        public List<UploadPrintInfo> m_UploadPrintInfoSet = new List<UploadPrintInfo>();
+        public static List<UploadPrintInfo> m_UploadPrintInfoSet = new List<UploadPrintInfo>();
 
         private bool m_isAnimationPopup = false;  // True if animation window had popup.
         public  bool m_isCloseAnimation = false;  // True if animation window need to close.
@@ -175,12 +175,8 @@ namespace VOP
                 uploadCRMThread.Start();
             }
 
-            ReadPrintInfoIntoXamlFile();
-
             Thread uploadPrintInfoThread = new Thread(UploadPrintInfoToServerCaller);
             uploadPrintInfoThread.Start();
-
-//            SavePrintInfoIntoXamlFile();
         }
 
         public XmlAttribute CreateAttribute(XmlNode node, string attributeName, string value)
@@ -302,7 +298,11 @@ namespace VOP
                     {
 
                     }
-                    m_UploadPrintInfoSet.Add(upi);
+                   
+                    lock (printinfoLock)
+                    {
+                        m_UploadPrintInfoSet.Add(upi);
+                    }
                 }
             }
             catch
@@ -316,11 +316,13 @@ namespace VOP
         {
             try
             {
+                ReadPrintInfoIntoXamlFile();
+
                 while (!bExit)
                 {
                     SessionInfo session = new SessionInfo();
                     if (true == m_RequestManager.GetSession(ref session))
-                    {
+                    {//if network is ok
                         lock (printinfoLock)
                         {
                             for (int i = m_UploadPrintInfoSet.Count - 1; i >= 0; i--)
@@ -345,7 +347,7 @@ namespace VOP
                    
                     SavePrintInfoIntoXamlFile();
 
-                    for (int i = 0; i < 1; i++)
+                    for (int i = 0; i < 500; i++)
                     {
                         if (bExit)
                             break;
@@ -826,6 +828,7 @@ namespace VOP
                 bExit = true;
                 bExitUpdater = true;
                 m_updaterAndUIEvent.WaitOne();
+                SavePrintInfoIntoXamlFile();
                 notifyIcon1.Visible = false;
                 this.Close();
             }

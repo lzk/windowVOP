@@ -179,6 +179,8 @@ namespace VOP
 
     public class CRM_PrintInfo
     {
+        public MainWindow m_MainWin { get; set; }
+
         private readonly string m_strSignKey = "86c02972fba047b0b0a9adb8123029fb";
 
         public string m_strMobileCode;    //Net card ID
@@ -202,7 +204,7 @@ namespace VOP
         public CRM_PrintInfo()
         {
             m_strMobileCode = SystemInfo.GetMacAddress();
-            m_strMobileNumber = "";
+            m_strMobileNumber = VOP.MainWindow.m_strPhoneNumber;
             m_strDeviceBrand = "";
             m_strDeviceModel = "";
             m_strPrintType = "VOP-WIN";
@@ -210,8 +212,8 @@ namespace VOP
             m_strPrintDocType = "doc";
             m_strPrintCopys = "1";
             m_strPrintPages = "1";
-            m_strPrinterModel = "Lenovo ABC";
-            m_strPrinterName = "Lenovo ABC Printer";
+            m_strPrinterModel = "Lenovo M7208W";
+            m_strPrinterName = "Lenovo M7208W";
             m_strPrinterType = "SFP";
             m_strPrintSuccess = "true";
             m_strVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -238,6 +240,33 @@ namespace VOP
             }
 
             return str;
+        }
+
+        public void SetPrintDocType(PrintPage.PrintType printDocType)
+        {
+            switch(printDocType)
+            {
+                case PrintPage.PrintType.PrintFile:
+                    m_strPrintDocType = "file";
+                    break;
+                case PrintPage.PrintType.PrintImages:
+                    m_strPrintDocType = "image";
+                    break;
+                case PrintPage.PrintType.PrintIdCard:
+                    m_strPrintDocType = "IdCard";
+                    break;
+                case PrintPage.PrintType.PrintFile_Image:
+                    m_strPrintDocType = "image";
+                    break;
+                case PrintPage.PrintType.PrintFile_Txt:
+                    m_strPrintDocType = "txt";
+                    break;
+                case PrintPage.PrintType.PrintFile_Pdf:
+                    m_strPrintDocType = "pdf";
+                    break;                
+                default:
+                    break;
+            }
         }
     }
 

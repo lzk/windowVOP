@@ -161,10 +161,14 @@ namespace VOP
 
         private void ApplyButtonClick(object sender, RoutedEventArgs e)
         {
+            string strPrinterName = "";
+            CRM_PrintInfo crmPrintInfo = new CRM_PrintInfo();
             PrintError printRes = PrintError.Print_OK;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
             dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
+            crmPrintInfo.m_strPrintCopys = String.Format("{0}", (sbyte)spinnerControl1.Value);
+
             PrintSettingPage printWin = new PrintSettingPage();
             printWin.Owner = App.Current.MainWindow;
             printWin.m_MainWin = m_MainWin;
@@ -180,6 +184,8 @@ namespace VOP
                 dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)CurrentPrintType);
             }           
             printWin.m_CurrentPrintType = CurrentPrintType;
+
+            crmPrintInfo.SetPrintDocType(m_PrintType);
             m_PrintType = CurrentPrintType;
 
             switch(CurrentPrintType)
@@ -261,29 +267,57 @@ namespace VOP
 
                     break;
             }
-
             dll.RecoverDevModeData(m_MainWin.statusPanelPage.m_selectedPrinter);
+           
+            {
+                strPrinterName = m_MainWin.statusPanelPage.m_selectedPrinter;
+                crmPrintInfo.m_strPrinterName = strPrinterName;
+                bool isSFP = common.IsSFPPrinter( common.GetPrinterDrvName(strPrinterName));
+                bool isWiFiModel = common.IsSupportWifi( common.GetPrinterDrvName(strPrinterName));
+
+                if(isSFP)
+                {
+                    if(isWiFiModel)
+                        crmPrintInfo.m_strPrinterModel = "Lenovo LJ2208W";
+                    else
+                        crmPrintInfo.m_strPrinterModel = "Lenovo LJ2208";
+                }
+                else
+                {
+                    if(isWiFiModel)
+                        crmPrintInfo.m_strPrinterModel = "Lenovo M7208W";
+                    else
+                        crmPrintInfo.m_strPrinterModel = "Lenovo M7208";
+                } 
+            }
+ 
             if (printRes == PrintError.Print_File_Not_Support)
             {
                 MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("暂不支持该文件打印， 请重新选择。", (string)this.FindResource("ResStr_Error"));
                 messageBox.Owner = App.Current.MainWindow;
                 messageBox.ShowDialog();
                 this.m_MainWin.subPageView.Child = this.m_MainWin.winFileSelectionPage;
+                crmPrintInfo.m_strPrintSuccess = "false";
             }
             else if (printRes == PrintError.Print_Memory_Fail)
             {
                 MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("打印文件内存分配失败！", (string)this.FindResource("ResStr_Error"));
                 messageBox.Owner = App.Current.MainWindow;
                 messageBox.ShowDialog();
+                crmPrintInfo.m_strPrintSuccess = "false";
             }
             else if (printRes == PrintError.Print_Operation_Fail)
             {
                 m_MainWin.statusPanelPage.ShowMessage("打印失败", Brushes.Black );
+                crmPrintInfo.m_strPrintSuccess = "false";
             }
             else if (printRes == PrintError.Print_OK)
             {
+                crmPrintInfo.m_strPrintSuccess = "true";
                 //m_MainWin.statusPanelPage.ShowMessage("打印成功", Brushes.Black );
             }
+
+            m_MainWin.UploadPrintInfo(crmPrintInfo);
         }
 
         public void HandlerStateUpdate( EnumState state )
