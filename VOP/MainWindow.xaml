@@ -104,7 +104,7 @@
         <!-- Title Bar Layout --> 
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="13">
 
-            <TextBlock Text="{StaticResource ResStr_ABC_Printer}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="24" Height="35" />
+                    <TextBlock Text="{StaticResource ResStr_VirtualOperationPanel}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="24"  />
 
             <Image HorizontalAlignment="Left" VerticalAlignment="Center"  Source="Images\mainWindow_Logo.png" Height="15" Margin="20,0" Width="100" />
 

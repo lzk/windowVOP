@@ -12,7 +12,7 @@ ResStr_Sleep,Sleep,休眠
 ResStr_Warning,Warning,告警
 ResStr_Error,Error,错误
 ResStr_Offline,Offline,离线
-ResStr_Toner,Toner,碳粉容量
+ResStr_Toner,Toner :,碳粉容量 :
 ResStr_Printing,Printing,打印中
 ResStr_WarmingUp,WarmingUp,预热
 ResStr_Print_Cancelling,Print Cancelling,打印取消

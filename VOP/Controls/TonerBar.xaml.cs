@@ -177,8 +177,8 @@ namespace VOP
             {
                 shopCart_Img.Fill = imgBrush_Disable;
 
-                textblock_Tip.Text = "碳粉容量 ：";
-            }         
+                textblock_Tip.Text = (string)this.TryFindResource("ResStr_Toner");
+            }
         }
         public TonerBar()
         {
