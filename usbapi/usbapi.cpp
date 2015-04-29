@@ -2733,6 +2733,7 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                         if ( 0 == ++nRowsCnt%nMod )
                         {
                             nPercent++;
+                            nPercent = nPercent > 100 ? 100 : nPercent;
                             ::SendNotifyMessage( HWND_BROADCAST, uMsg, nPercent, 0); 
                         }
 

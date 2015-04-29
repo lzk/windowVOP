@@ -388,6 +388,10 @@ namespace VOP
                  else if ( RETSCAN_CANCEL == (int)wParam )
                  {
                  }
+                 else if ( RETSCAN_NO_ENOUGH_SPACE == (int)wParam )
+                 {
+                     m_MainWin.statusPanelPage.ShowMessage( "There no enough space in system partial, please free the disk before try again.", Brushes.Black );
+                 }
                  else
                  {
                      m_MainWin.statusPanelPage.ShowMessage( 
@@ -468,6 +472,12 @@ namespace VOP
                 int position = strInitalDirectory.LastIndexOf('\\'); 
                 if (position > 0)
                     strInitalDirectory = strInitalDirectory.Substring( 0, position );
+                
+                if ( false == DoseHasEnoughSpace(save.FileName) )
+                {
+                    MessageBox.Show( "DoseHasEnoughSpace return false." );
+                    return;
+                }
 
                 // This index is 1-based, not 0-based
                 if (3 == save.FilterIndex)
@@ -616,6 +626,51 @@ namespace VOP
             txtProgressPercent.Text = "0";
 
             txtBlkImgSize.Text = FormatSize( GetScanSize() );
+        }
+
+        private bool DoseHasEnoughSpace( string strPath )
+        {
+            bool bIsHasEnoughSpace = true;
+
+            if ( strPath.Length >= 3 )
+            {
+                string strDisk = strPath.Substring(0, 3);
+                long lFreeSpace = GetTotalFreeSpace( strDisk );
+
+                long lNeedSpace = 0;
+
+                foreach (object obj in image_wrappanel.Children)
+                {
+                    ImageItem img = obj as ImageItem;
+
+                    if ( null != img && true == img.m_ischeck )
+                    {
+                        System.IO.FileInfo fi = new System.IO.FileInfo( img.m_images.m_pathOrig );
+                        lNeedSpace += fi.Length;
+                    }
+                }
+
+                bIsHasEnoughSpace = lFreeSpace > lNeedSpace;
+            }
+
+            return bIsHasEnoughSpace;
+        }
+
+        /// <summary>
+        /// Format of parameter driveName: "X:\". Case insensitive.
+        /// </summary>
+        private long GetTotalFreeSpace(string driveName)
+        {
+            foreach (DriveInfo drive in DriveInfo.GetDrives())
+            {
+                if (drive.IsReady && drive.Name == driveName &&
+                        string.Compare( drive.Name, driveName, StringComparison.OrdinalIgnoreCase) == 0 )
+                {
+                    return drive.TotalFreeSpace;
+                }
+            }
+
+            return -1;
         }
     }
 }
