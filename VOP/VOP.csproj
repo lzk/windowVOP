@@ -116,9 +116,6 @@
     <Compile Include="Controls\BusyRefresh.xaml.cs">
       <DependentUpon>BusyRefresh.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ValidateTip_TextBox.xaml.cs">
-      <DependentUpon>ValidateTip_TextBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MaintainInfo.xaml.cs">
       <DependentUpon>MaintainInfo.xaml</DependentUpon>
     </Compile>
@@ -285,10 +282,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ImageCropper\ResizeRotateChrome.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\ValidateTip_TextBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
