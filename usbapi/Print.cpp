@@ -848,6 +848,42 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		break;	
+	case 4:
+		g_PirntSettingsData.m_paperSize = 0;
+		g_PirntSettingsData.m_paperOrientation = 1;
+		g_PirntSettingsData.m_mediaType = 0;
+		g_PirntSettingsData.m_paperOrder = 1;
+		g_PirntSettingsData.m_printQuality = 0;
+		g_PirntSettingsData.m_scalingType = 1;
+		g_PirntSettingsData.m_scalingRatio = 100;
+		g_PirntSettingsData.m_nupNum = 1;
+		g_PirntSettingsData.m_typeofPB = 0;
+		g_PirntSettingsData.m_posterType = 0;
+		g_PirntSettingsData.m_ADJColorBalance = 1;
+		g_PirntSettingsData.m_colorBalanceTo = 1;
+		g_PirntSettingsData.m_densityValue = 0;
+		g_PirntSettingsData.m_duplexPrint = 1;
+		g_PirntSettingsData.m_reversePrint = 1;
+		g_PirntSettingsData.m_tonerSaving = 0;
+		break;
+	case 5:
+		g_PirntSettingsData.m_paperSize = 0;
+		g_PirntSettingsData.m_paperOrientation = 1;
+		g_PirntSettingsData.m_mediaType = 0;
+		g_PirntSettingsData.m_paperOrder = 1;
+		g_PirntSettingsData.m_printQuality = 0;
+		g_PirntSettingsData.m_scalingType = 1;
+		g_PirntSettingsData.m_scalingRatio = 100;
+		g_PirntSettingsData.m_nupNum = 1;
+		g_PirntSettingsData.m_typeofPB = 0;
+		g_PirntSettingsData.m_posterType = 0;
+		g_PirntSettingsData.m_ADJColorBalance = 1;
+		g_PirntSettingsData.m_colorBalanceTo = 1;
+		g_PirntSettingsData.m_densityValue = 0;
+		g_PirntSettingsData.m_duplexPrint = 1;
+		g_PirntSettingsData.m_reversePrint = 1;
+		g_PirntSettingsData.m_tonerSaving = 0;
+		break;
 	default:
 		g_PirntSettingsData.m_paperSize = 0;
 		g_PirntSettingsData.m_paperOrientation = 1;

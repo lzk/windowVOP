@@ -261,6 +261,7 @@
                                  Width="55"
                                  Foreground="#FF707070"
                                  TextAlignment="Center"
+                                 Background="Transparent"
                                  Padding="0,2,0,2"
                                  IsReadOnly="False"
                                  FontSize="26" 

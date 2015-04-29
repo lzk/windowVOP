@@ -575,8 +575,11 @@ namespace VOP
         {
             m_nupNum = 1;
             m_typeofPB = 0;
-            chk_FitToPaperSize.IsEnabled = true;
-            chk_FitToPaperSize.IsChecked = false;
+            if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
+            {
+                chk_FitToPaperSize.IsEnabled = true;
+                chk_FitToPaperSize.IsChecked = false;
+            }         
             spinnerScaling.IsEnabled = true;
             rdBtn2in1.IsEnabled = false;
             rdBtn2in1.IsChecked = false;
@@ -606,8 +609,6 @@ namespace VOP
             m_scalingType = 0;
             m_scalingRatio = 100;
             chk_DuplexPrint.IsEnabled = true;
-            rdBtnFlipOnShortEdger.IsEnabled = true;
-            rdBtnFlipOnLongEdge.IsEnabled = true;
         }
 
         private void rdBtn4in1_Checked(object sender, RoutedEventArgs e)
@@ -618,8 +619,6 @@ namespace VOP
             m_scalingType = 0;
             m_scalingRatio = 100;
             chk_DuplexPrint.IsEnabled = true;
-            rdBtnFlipOnShortEdger.IsEnabled = true;
-            rdBtnFlipOnLongEdge.IsEnabled = true;
 
         }
 
@@ -631,8 +630,6 @@ namespace VOP
             m_scalingType = 0;
             m_scalingRatio = 100;
             chk_DuplexPrint.IsEnabled = true;
-            rdBtnFlipOnShortEdger.IsEnabled = true;
-            rdBtnFlipOnLongEdge.IsEnabled = true;
         }
 
         private void rdBtn16in1_Checked(object sender, RoutedEventArgs e)
@@ -643,8 +640,6 @@ namespace VOP
             m_scalingType = 0;
             m_scalingRatio = 100;
             chk_DuplexPrint.IsEnabled = true;
-            rdBtnFlipOnShortEdger.IsEnabled = true;
-            rdBtnFlipOnLongEdge.IsEnabled = true;
 
         }
 
@@ -915,6 +910,80 @@ namespace VOP
                 chk_TonerSaving.IsChecked = false;
                 AdvancedSettingsButton.IsEnabled = true;              
             }
+            else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Txt)
+            {
+                cboPaperSize.IsEnabled = false;
+                rdBtnPortrait.IsEnabled = false;
+                rdBtnLandscape.IsEnabled = false;
+                rdBtnLandscape.IsChecked = false;
+                rdBtnPortrait.IsChecked = true;
+                cboMediaType.IsEnabled = true;
+                rdBtnPagerOrder112233.IsEnabled = false;
+                rdBtnPagerOrder123123.IsEnabled = false;
+                rdBtnPagerOrder123123.IsChecked = true;
+                cboPrintQuality.IsEnabled = true;
+                spinnerScaling.IsEnabled = true;
+                chk_FitToPaperSize.IsEnabled = false;
+                chk_FitToPaperSize.IsChecked = false;
+                chk_MultiplePagePrint.IsEnabled = true;
+                chk_MultiplePagePrint.IsChecked = false;
+                rdBtn2in1.IsEnabled = false;
+                rdBtn4in1.IsEnabled = false;
+                rdBtn9in1.IsEnabled = false;
+                rdBtn16in1.IsEnabled = false;
+                rdBtn1in2x2.IsEnabled = false;
+                rdBtn1in3x3.IsEnabled = false;
+                rdBtn1in4x4.IsEnabled = false;
+                spinnerDensityAdjustment.IsEnabled = true;
+                chk_DuplexPrint.IsEnabled = true;
+                chk_DuplexPrint.IsChecked = false;
+                rdBtnFlipOnShortEdger.IsEnabled = false;
+                rdBtnFlipOnLongEdge.IsEnabled = false;
+                rdBtnNormalPrint.IsEnabled = true;
+                rdBtnReversePrint.IsEnabled = true;
+                rdBtnReversePrint.IsChecked = true;
+                chk_TonerSaving.IsEnabled = true;
+                chk_TonerSaving.IsChecked = false;
+                AdvancedSettingsButton.IsEnabled = true;
+
+            }
+            else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf)
+            {
+                cboPaperSize.IsEnabled = true;
+                rdBtnPortrait.IsEnabled = false;
+                rdBtnLandscape.IsEnabled = false;
+                rdBtnLandscape.IsChecked = false;
+                rdBtnPortrait.IsChecked = true;
+                cboMediaType.IsEnabled = true;
+                rdBtnPagerOrder112233.IsEnabled = false;
+                rdBtnPagerOrder123123.IsEnabled = false;
+                rdBtnPagerOrder123123.IsChecked = true;
+                cboPrintQuality.IsEnabled = true;
+                spinnerScaling.IsEnabled = true;
+                chk_FitToPaperSize.IsEnabled = false;
+                chk_FitToPaperSize.IsChecked = false;
+                chk_MultiplePagePrint.IsEnabled = true;
+                chk_MultiplePagePrint.IsChecked = false;
+                rdBtn2in1.IsEnabled = false;
+                rdBtn4in1.IsEnabled = false;
+                rdBtn9in1.IsEnabled = false;
+                rdBtn16in1.IsEnabled = false;
+                rdBtn1in2x2.IsEnabled = false;
+                rdBtn1in3x3.IsEnabled = false;
+                rdBtn1in4x4.IsEnabled = false;
+                spinnerDensityAdjustment.IsEnabled = true;
+                chk_DuplexPrint.IsEnabled = true;
+                chk_DuplexPrint.IsChecked = false;
+                rdBtnFlipOnShortEdger.IsEnabled = false;
+                rdBtnFlipOnLongEdge.IsEnabled = false;
+                rdBtnNormalPrint.IsEnabled = true;
+                rdBtnReversePrint.IsEnabled = true;
+                rdBtnReversePrint.IsChecked = true;
+                chk_TonerSaving.IsEnabled = true;
+                chk_TonerSaving.IsChecked = false;
+                AdvancedSettingsButton.IsEnabled = true;
+
+            }
         }
 
         private void SetDefaultValue()
@@ -1043,6 +1112,88 @@ namespace VOP
                 spinnerDensityAdjustment.Value = 4;
                 spinnerScaling.Value = 100;
             }
+            else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Txt)
+            {
+                cboPaperSize.IsEnabled = false;
+                rdBtnPortrait.IsEnabled = false;
+                rdBtnLandscape.IsEnabled = false;
+                rdBtnLandscape.IsChecked = false;
+                rdBtnPortrait.IsChecked = true;
+                cboMediaType.IsEnabled = true;
+                rdBtnPagerOrder112233.IsEnabled = false;
+                rdBtnPagerOrder123123.IsEnabled = false;
+                rdBtnPagerOrder123123.IsChecked = true;
+                cboPrintQuality.IsEnabled = true;
+                spinnerScaling.IsEnabled = true;
+                chk_FitToPaperSize.IsEnabled = false;
+                chk_FitToPaperSize.IsChecked = false;
+                chk_MultiplePagePrint.IsEnabled = true;
+                chk_MultiplePagePrint.IsChecked = false;
+                rdBtn2in1.IsEnabled = false;
+                rdBtn4in1.IsEnabled = false;
+                rdBtn9in1.IsEnabled = false;
+                rdBtn16in1.IsEnabled = false;
+                rdBtn1in2x2.IsEnabled = false;
+                rdBtn1in3x3.IsEnabled = false;
+                rdBtn1in4x4.IsEnabled = false;
+                spinnerDensityAdjustment.IsEnabled = true;
+                chk_DuplexPrint.IsEnabled = true;
+                chk_DuplexPrint.IsChecked = false;
+                rdBtnFlipOnShortEdger.IsEnabled = false;
+                rdBtnFlipOnLongEdge.IsEnabled = false;
+                rdBtnNormalPrint.IsEnabled = true;
+                rdBtnReversePrint.IsEnabled = true;
+                rdBtnReversePrint.IsChecked = true;
+                chk_TonerSaving.IsEnabled = true;
+                chk_TonerSaving.IsChecked = false;
+                AdvancedSettingsButton.IsEnabled = true;
+                cboPaperSize.SelectedIndex = 0;
+                cboPrintQuality.SelectedIndex = 0;
+                cboMediaType.SelectedIndex = 0;
+                spinnerDensityAdjustment.Value = 4;
+                spinnerScaling.Value = 100;
+            }
+            else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf)
+            {
+                cboPaperSize.IsEnabled = true;
+                rdBtnPortrait.IsEnabled = false;
+                rdBtnLandscape.IsEnabled = false;
+                rdBtnLandscape.IsChecked = false;
+                rdBtnPortrait.IsChecked = true;
+                cboMediaType.IsEnabled = true;
+                rdBtnPagerOrder112233.IsEnabled = false;
+                rdBtnPagerOrder123123.IsEnabled = false;
+                rdBtnPagerOrder123123.IsChecked = true;
+                cboPrintQuality.IsEnabled = true;
+                spinnerScaling.IsEnabled = true;
+                chk_FitToPaperSize.IsEnabled = false;
+                chk_FitToPaperSize.IsChecked = false;
+                chk_MultiplePagePrint.IsEnabled = true;
+                chk_MultiplePagePrint.IsChecked = false;
+                rdBtn2in1.IsEnabled = false;
+                rdBtn4in1.IsEnabled = false;
+                rdBtn9in1.IsEnabled = false;
+                rdBtn16in1.IsEnabled = false;
+                rdBtn1in2x2.IsEnabled = false;
+                rdBtn1in3x3.IsEnabled = false;
+                rdBtn1in4x4.IsEnabled = false;
+                spinnerDensityAdjustment.IsEnabled = true;
+                chk_DuplexPrint.IsEnabled = true;
+                chk_DuplexPrint.IsChecked = false;
+                rdBtnFlipOnShortEdger.IsEnabled = false;
+                rdBtnFlipOnLongEdge.IsEnabled = false;
+                rdBtnNormalPrint.IsEnabled = true;
+                rdBtnReversePrint.IsEnabled = true;
+                rdBtnReversePrint.IsChecked = true;
+                chk_TonerSaving.IsEnabled = true;
+                chk_TonerSaving.IsChecked = false;
+                AdvancedSettingsButton.IsEnabled = true;
+                cboPaperSize.SelectedIndex = 0;
+                cboPrintQuality.SelectedIndex = 0;
+                cboMediaType.SelectedIndex = 0;
+                spinnerDensityAdjustment.Value = 4;
+                spinnerScaling.Value = 100;
+            }
         }
 
         private void SetDataFromPrinterInfo()
@@ -1069,6 +1220,10 @@ namespace VOP
                     rdBtnPagerOrder112233.IsChecked = true;
                     rdBtnPagerOrder123123.IsChecked = false;
                 }
+            }
+            else if  (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf)
+            {
+                cboPaperSize.SelectedIndex = m_paperSize;
             }
 
             cboMediaType.SelectedIndex = m_mediaType;
@@ -1154,42 +1309,51 @@ namespace VOP
             {
                 chk_TonerSaving.IsChecked = true;
             }
-            switch (m_scalingType)
+            if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
             {
-                case 0:
-//                    spinnerScaling.IsEnabled = true;
-                    chk_FitToPaperSize.IsChecked = false;
-//                    chk_FitToPaperSize.IsEnabled = true;
-                    spinnerScaling.Value = m_scalingRatio;
-                    break;
-                case 1:
-                    spinnerScaling.IsEnabled = true;
-                    spinnerScaling.Value = m_scalingRatio;
-                    if (m_CurrentPrintType == PrintPage.PrintType.PrintFile)
-                    {
-                        chk_FitToPaperSize.IsEnabled = false;
-                    }
-                    else
-                    {
+                switch (m_scalingType)
+                {
+                    case 0:
+                        //                    spinnerScaling.IsEnabled = true;
+                        chk_FitToPaperSize.IsChecked = false;
+                        //                    chk_FitToPaperSize.IsEnabled = true;
+                        spinnerScaling.Value = m_scalingRatio;
+                        break;
+                    case 1:
+                        spinnerScaling.IsEnabled = true;
+                        spinnerScaling.Value = m_scalingRatio;
+                        if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
+                        {
+                            chk_FitToPaperSize.IsEnabled = true;
+                        }
+                        else
+                        {
+                            chk_FitToPaperSize.IsEnabled = false;
+                        }
+
+                        chk_FitToPaperSize.IsChecked = false;
+
+                        break;
+                    case 2:
+                        spinnerScaling.IsEnabled = false;                      
+                        chk_FitToPaperSize.IsChecked = true;
                         chk_FitToPaperSize.IsEnabled = true;
-                    }
-                   
-                    chk_FitToPaperSize.IsChecked = false;
-                    
-                    break;
-                case 2:
-                    spinnerScaling.IsEnabled = false;
-                    chk_FitToPaperSize.IsChecked = true;
-                    chk_FitToPaperSize.IsEnabled = true;
-                    spinnerScaling.Value = m_scalingRatio;
-                    break;
-                default:
-                    spinnerScaling.IsEnabled = true;
-                    chk_FitToPaperSize.IsEnabled = true;
-                    chk_FitToPaperSize.IsChecked = false;
-                    spinnerScaling.Value = m_scalingRatio;
-                    break;
+                        spinnerScaling.Value = m_scalingRatio;
+                        break;
+                    default:
+                        spinnerScaling.IsEnabled = true;
+                        chk_FitToPaperSize.IsEnabled = true;
+                        chk_FitToPaperSize.IsChecked = false;
+                        spinnerScaling.Value = m_scalingRatio;
+                        break;
+                }
             }
+            else
+            {
+                spinnerScaling.Value = m_scalingRatio;
+            }
+
+           
             if (m_ADJColorBalance == 1 && m_colorBalanceTo == 1)
             {
                 spinnerDensityAdjustment.IsEnabled = true;

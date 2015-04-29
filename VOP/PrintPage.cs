@@ -27,7 +27,8 @@ namespace VOP
             PrintIdCard,
             PrintFile_Image,
             PrintFile_Txt,
-            PrintFile_Pdf
+            PrintFile_Pdf,
+            PrintFile_Other
         }
 
         public PrintType CurrentPrintType { get; set; }
@@ -55,7 +56,7 @@ namespace VOP
         {
             InitializeComponent();
             CurrentPrintType = PrintType.PrintFile;
-            m_PrintType = PrintType.PrintFile;
+            m_PrintType = PrintType.PrintFile_Other;
             myImagePreviewPanel.BackArrowButton.Click += new RoutedEventHandler(OnBackArrowButtonClick);
         }
         private void Window_LostFocus(object sender, RoutedEventArgs e)
