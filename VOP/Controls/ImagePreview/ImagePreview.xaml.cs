@@ -77,7 +77,7 @@ namespace VOP.Controls
             {              
                 imagePaths = value;
                 currentState = ImagePreviewState.Init;
-                Update();
+                Update();        
             }
             get
             {
@@ -127,8 +127,8 @@ namespace VOP.Controls
                 currentState = ImagePreviewState.TiffState;
                 currentTiffState = ImagePreviewTiffState.TiffNext;
             }
-
-            Update();
+ 
+            Update(); 
         }
 
         public void Update()

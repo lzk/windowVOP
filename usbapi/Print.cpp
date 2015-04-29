@@ -313,6 +313,21 @@ USBAPI_API int __stdcall DoPrintImage()
 				|| _tcscmp(fileExt, L".emf") == 0)
 			{
 				Image img(g_vecImagePaths[i].imagePath);
+
+				status = img.GetLastStatus();
+				if (status != Ok)
+				{
+					if (status == OutOfMemory)
+					{
+						error = Print_Memory_Fail;
+					}
+					else
+					{
+						error = Print_File_Not_Support;
+					}
+					break;
+				}
+
 				count = img.GetFrameDimensionsCount();
 
 				if (count > 0)
@@ -399,7 +414,7 @@ USBAPI_API int __stdcall DoPrintImage()
 							}
 							else
 							{
-								error = Print_Operation_Fail;
+								error = Print_File_Not_Support;
 							}
 							break;
 						}
@@ -475,7 +490,36 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				imageToTop = (cyPage / 2 - imageHeight) / 2;
 
 				Image img1(g_vecIdCardImageSources[0]);
+
+				status = img1.GetLastStatus();
+				if (status != Ok)
+				{
+					if (status == OutOfMemory)
+					{
+						error = Print_Memory_Fail;
+					}
+					else
+					{
+						error = Print_File_Not_Support;
+					}
+					break;
+				}
+
 				Image img2(g_vecIdCardImageSources[1]);
+
+				status = img2.GetLastStatus();
+				if (status != Ok)
+				{
+					if (status == OutOfMemory)
+					{
+						error = Print_Memory_Fail;
+					}
+					else
+					{
+						error = Print_File_Not_Support;
+					}
+					break;
+				}
 	
 				if (StartPage(hdcPrn) < 0)
 				{
@@ -494,7 +538,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					}
 					else
 					{
-						error = Print_Operation_Fail;
+						error = Print_File_Not_Support;
 					}
 					break;
 				}
@@ -507,7 +551,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					}
 					else
 					{
-						error = Print_Operation_Fail;
+						error = Print_File_Not_Support;
 					}
 					break;
 				}
@@ -536,6 +580,20 @@ USBAPI_API int __stdcall DoPrintIdCard()
 
 				Image img1(g_vecIdCardImageSources[0]);
 
+				status = img1.GetLastStatus();
+				if (status != Ok)
+				{
+					if (status == OutOfMemory)
+					{
+						error = Print_Memory_Fail;
+					}
+					else
+					{
+						error = Print_File_Not_Support;
+					}
+					break;
+				}
+
 				if (StartPage(hdcPrn) < 0)
 				{
 					error = Print_Operation_Fail;
@@ -553,7 +611,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					}
 					else
 					{
-						error = Print_Operation_Fail;
+						error = Print_File_Not_Support;
 					}
 					break;
 				}
@@ -601,7 +659,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					}
 					else
 					{
-						error = Print_Operation_Fail;
+						error = Print_File_Not_Support;
 					}
 					break;
 				}
@@ -631,7 +689,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					}
 					else
 					{
-						error = Print_Operation_Fail;
+						error = Print_File_Not_Support;
 					}
 					break;
 				}

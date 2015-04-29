@@ -53,8 +53,13 @@ namespace VOP.Controls
             DragMove();
         }
 
-        private void GreenOkButton_Click(object sender, RoutedEventArgs e)
+        private void RotatedButton_Click(object sender, RoutedEventArgs e)
         {
+            myCropper.Rotated90();
+        }
+
+        private void GreenOkButton_Click(object sender, RoutedEventArgs e)
+        { 
             switch (currentState)
             {
                 case EditWindowState.Edit:
@@ -63,7 +68,7 @@ namespace VOP.Controls
                     {
                         croppedImageList.Add(myCropper.GetCroppedImage());
                     }
-                       
+
                     PrintPreview printPreview = new PrintPreview();
                     printPreview.PaperWidth = A4Size.Width; //A4
                     printPreview.PaperHeight = A4Size.Height;

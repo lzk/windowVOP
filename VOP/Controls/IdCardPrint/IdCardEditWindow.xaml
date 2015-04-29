@@ -46,15 +46,17 @@
                  Background="#FFE7E7E7">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
                     <RowDefinition Height="70"/>
                 </Grid.RowDefinitions>
-                <Border Name="borderContainer" Grid.Row="0" Background="White" Margin="20" CornerRadius="15">
+                <Border Name="borderContainer" Grid.Row="0" Background="White" Margin="20,5,20,5" CornerRadius="15">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="10" Color="#FF858484" Direction="292" ShadowDepth="1" Opacity="0.3"/>
                     </Border.Effect>
                     <local:ImageCropper x:Name="myCropper" Margin="20"/>
                 </Border>
-                <Button Grid.Row="1" Name="GreenOkButton"
+                <!--<Button Name="RotatedButton" Grid.Row="1" Width="50" Height="20" Content="R" Click="RotatedButton_Click"/>-->
+                <Button Grid.Row="2" Name="GreenOkButton"
                         Width="125" Height="35" 
                         Margin="0, -22, 0, 0" 
                         Padding="0, 0, 0, 0"

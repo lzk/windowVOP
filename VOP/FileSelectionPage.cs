@@ -47,9 +47,18 @@ namespace VOP
             result = open.ShowDialog();
             if (result == true)
             {
-                this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
-                this.m_MainWin.winPrintPage.FilePaths = new List<string>(open.FileNames);
-                this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintImages;
+                try
+                {
+                    this.m_MainWin.winPrintPage.FilePaths = new List<string>(open.FileNames);
+                    this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
+                    this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintImages;
+                }
+                catch (Exception)
+                {
+                    MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("暂不支持该文件打印， 请重新选择。", (string)this.FindResource("ResStr_Error"));
+                    messageBox.Owner = App.Current.MainWindow;
+                    messageBox.ShowDialog();
+                } 
             }
         }
 
@@ -64,38 +73,46 @@ namespace VOP
             result = open.ShowDialog();
             if (result == true)
             {
-                List<string> strls = new List<string>();
-                strls.Add(open.FileName);
-                this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
-                this.m_MainWin.winPrintPage.FilePaths = strls;
-               
+                try
+                {
+                    List<string> strls = new List<string>();
+                    strls.Add(open.FileName);
+                    this.m_MainWin.winPrintPage.FilePaths = strls;
+                    this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
 
-                string fileExt = System.IO.Path.GetExtension(open.FileName).ToLower();
+                    string fileExt = System.IO.Path.GetExtension(open.FileName).ToLower();
 
-                if (   fileExt == ".bmp" 
-                    || fileExt == ".ico" 
-                    || fileExt == ".gif"
-                    || fileExt == ".jpg"
-                    || fileExt == ".exif"
-                    || fileExt == ".png"
-                    || fileExt == ".tif"
-                    || fileExt == ".wmf"
-                    || fileExt == ".emf")
-                {
-                    this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile_Image;
+                    if (fileExt == ".bmp"
+                        || fileExt == ".ico"
+                        || fileExt == ".gif"
+                        || fileExt == ".jpg"
+                        || fileExt == ".exif"
+                        || fileExt == ".png"
+                        || fileExt == ".tif"
+                        || fileExt == ".wmf"
+                        || fileExt == ".emf")
+                    {
+                        this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile_Image;
+                    }
+                    else if (fileExt == ".txt")
+                    {
+                        this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile_Txt;
+                    }
+                    else if (fileExt == ".pdf")
+                    {
+                        this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile_Pdf;
+                    }
+                    else
+                    {
+                        this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile;
+                    }
                 }
-                else if( fileExt == ".txt")
+                catch (Exception)
                 {
-                    this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile_Txt;
-                }
-                else if (fileExt == ".pdf")
-                {
-                    this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile_Pdf;
-                }
-                else
-                {
-                    this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile;
-                }
+                    MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("暂不支持该文件打印， 请重新选择。", (string)this.FindResource("ResStr_Error"));
+                    messageBox.Owner = App.Current.MainWindow;
+                    messageBox.ShowDialog();
+                } 
             }
         }
 
@@ -110,9 +127,10 @@ namespace VOP
             currentState = FileSelectionState.SelectWindow;
             IdCardEditWindow.croppedImageList.Clear();
 
-            while(currentState != FileSelectionState.Exit)
+          
+            while (currentState != FileSelectionState.Exit)
             {
-                switch(currentState)
+                switch (currentState)
                 {
                     case FileSelectionState.SelectWindow:
 
@@ -120,7 +138,7 @@ namespace VOP
                         selectWin.Owner = App.Current.MainWindow;
                         result = selectWin.ShowDialog();
 
-                        if(result == true)
+                        if (result == true)
                         {
                             currentState = FileSelectionState.OpenFile;
                         }
@@ -148,30 +166,40 @@ namespace VOP
                         break;
                     case FileSelectionState.EditWindow:
 
-                        IdCardEditWindow editWin = new IdCardEditWindow();
-                        editWin.Owner = App.Current.MainWindow;
-                        editWin.ImageUri = new Uri(open.FileName);
-                        editWin.SelectedTypeItem = selectWin.SelectedTypeItem;
-                        ImageCropper.designerItemWHRatio = selectWin.SelectedTypeItem.Width / selectWin.SelectedTypeItem.Height;
-
-                        result = editWin.ShowDialog();
-                        if (result == true)
+                        try
                         {
-                            currentState = FileSelectionState.GoPrint;
+                            IdCardEditWindow editWin = new IdCardEditWindow();
+                            editWin.Owner = App.Current.MainWindow;
+                            editWin.ImageUri = new Uri(open.FileName);
+                            editWin.SelectedTypeItem = selectWin.SelectedTypeItem;
+                            ImageCropper.designerItemWHRatio = selectWin.SelectedTypeItem.Width / selectWin.SelectedTypeItem.Height;
 
-                            if(selectWin.SelectedTypeItem.PrintSides == enumIdCardPrintSides.TwoSides)
+                            result = editWin.ShowDialog();
+                            if (result == true)
                             {
-                                if (++imageFileCount < 2)
+                                currentState = FileSelectionState.GoPrint;
+
+                                if (selectWin.SelectedTypeItem.PrintSides == enumIdCardPrintSides.TwoSides)
                                 {
-                                    currentState = FileSelectionState.OpenFile;
+                                    if (++imageFileCount < 2)
+                                    {
+                                        currentState = FileSelectionState.OpenFile;
+                                    }
                                 }
                             }
+                            else
+                            {
+                                currentState = FileSelectionState.Exit;
+                            }
                         }
-                        else
+                        catch (Exception)
                         {
+                            MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("暂不支持该文件打印， 请重新选择。", (string)this.FindResource("ResStr_Error"));
+                            messageBox.Owner = App.Current.MainWindow;
+                            messageBox.ShowDialog();
                             currentState = FileSelectionState.Exit;
-                        }
-
+                        } 
+                       
                         break;
                     case FileSelectionState.GoPrint:
                         this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;

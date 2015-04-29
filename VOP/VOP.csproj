@@ -689,6 +689,7 @@
     <Resource Include="Images\Index.png" />
     <Resource Include="Images\Printer.png" />
     <Resource Include="Images\Wifi.png" />
+
     <Content Include="Media\JamAtExitNotReach.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

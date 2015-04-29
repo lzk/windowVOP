@@ -162,17 +162,17 @@ namespace VOP
         private void ApplyButtonClick(object sender, RoutedEventArgs e)
         {
             string strPrinterName = "";
-            CRM_PrintInfo crmPrintInfo = new CRM_PrintInfo();
+
             PrintError printRes = PrintError.Print_OK;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+
+            CRM_PrintInfo crmPrintInfo = new CRM_PrintInfo();
 
             dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
             crmPrintInfo.m_strPrintCopys = String.Format("{0}", (sbyte)spinnerControl1.Value);
 
-            PrintSettingPage printWin = new PrintSettingPage();
-            printWin.Owner = App.Current.MainWindow;
-            printWin.m_MainWin = m_MainWin;
             dll.InitPrinterData(m_MainWin.statusPanelPage.m_selectedPrinter);
+
             if (m_PrintType != CurrentPrintType && FileSelectionPage.IsInitPrintSettingPage)
             {               
                 dll.SetPrinterSettingsInitData((sbyte)CurrentPrintType);
@@ -183,7 +183,6 @@ namespace VOP
             {
                 dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)CurrentPrintType);
             }           
-            printWin.m_CurrentPrintType = CurrentPrintType;
 
             crmPrintInfo.SetPrintDocType(m_PrintType);
             m_PrintType = CurrentPrintType;
@@ -210,6 +209,10 @@ namespace VOP
                                                 (int)spinnerControl1.Value);
                                 helper.Close();
                             }
+                            else
+                            {
+                                printRes = PrintError.Print_File_Not_Support;
+                            }
 
                         }
                         else
@@ -225,7 +228,7 @@ namespace VOP
                     break;
                 case PrintType.PrintImages:
 
-                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "Print Images",
+                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print Images",
                                      (int)enumIdCardType.NonIdCard, new IdCardSize(), needFitToPage))
                     {
 
@@ -248,7 +251,7 @@ namespace VOP
                     idCardSize.Width = SelectedTypeItem.Width;
                     idCardSize.Height = SelectedTypeItem.Height;
 
-                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "Print Id Card", (int)SelectedTypeItem.TypeId, idCardSize, needFitToPage))
+                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print Id Card", (int)SelectedTypeItem.TypeId, idCardSize, needFitToPage))
                     {
                         using(IdCardPrintHelper helper = new IdCardPrintHelper())
                         {
@@ -267,29 +270,30 @@ namespace VOP
 
                     break;
             }
+
             dll.RecoverDevModeData(m_MainWin.statusPanelPage.m_selectedPrinter);
            
-            {
-                strPrinterName = m_MainWin.statusPanelPage.m_selectedPrinter;
-                crmPrintInfo.m_strPrinterName = strPrinterName;
-                bool isSFP = common.IsSFPPrinter( common.GetPrinterDrvName(strPrinterName));
-                bool isWiFiModel = common.IsSupportWifi( common.GetPrinterDrvName(strPrinterName));
+            
+            strPrinterName = m_MainWin.statusPanelPage.m_selectedPrinter;
+            crmPrintInfo.m_strPrinterName = strPrinterName;
+            bool isSFP = common.IsSFPPrinter( common.GetPrinterDrvName(strPrinterName));
+            bool isWiFiModel = common.IsSupportWifi( common.GetPrinterDrvName(strPrinterName));
 
-                if(isSFP)
-                {
-                    if(isWiFiModel)
-                        crmPrintInfo.m_strPrinterModel = "Lenovo LJ2208W";
-                    else
-                        crmPrintInfo.m_strPrinterModel = "Lenovo LJ2208";
-                }
+            if(isSFP)
+            {
+                if(isWiFiModel)
+                    crmPrintInfo.m_strPrinterModel = "Lenovo LJ2208W";
                 else
-                {
-                    if(isWiFiModel)
-                        crmPrintInfo.m_strPrinterModel = "Lenovo M7208W";
-                    else
-                        crmPrintInfo.m_strPrinterModel = "Lenovo M7208";
-                } 
+                    crmPrintInfo.m_strPrinterModel = "Lenovo LJ2208";
             }
+            else
+            {
+                if(isWiFiModel)
+                    crmPrintInfo.m_strPrinterModel = "Lenovo M7208W";
+                else
+                    crmPrintInfo.m_strPrinterModel = "Lenovo M7208";
+            } 
+            
  
             if (printRes == PrintError.Print_File_Not_Support)
             {
@@ -311,10 +315,14 @@ namespace VOP
                 m_MainWin.statusPanelPage.ShowMessage("打印失败", Brushes.Black );
                 crmPrintInfo.m_strPrintSuccess = "false";
             }
-            else if (printRes == PrintError.Print_OK)
+            else if (printRes == PrintError.Print_Get_Default_Printer_Fail)
+            {
+                m_MainWin.statusPanelPage.ShowMessage("打印失败", Brushes.Black );
+                crmPrintInfo.m_strPrintSuccess = "false";
+            }
+            else
             {
                 crmPrintInfo.m_strPrintSuccess = "true";
-                //m_MainWin.statusPanelPage.ShowMessage("打印成功", Brushes.Black );
             }
 
             m_MainWin.UploadPrintInfo(crmPrintInfo);
@@ -326,7 +334,7 @@ namespace VOP
 
             if (EnumState.doingJob == state || EnumState.stopWorking == state)
             {
-              //  PrintButton.IsEnabled = false;
+                PrintButton.IsEnabled = false;
             }
             else
             {
@@ -430,6 +438,9 @@ namespace VOP
             {
                 wb = app.Workbooks.Open(filePath, misValue, misValue, misValue, misValue, misValue, misValue, misValue,
                                         misValue, misValue, misValue, misValue, misValue, misValue, misValue);
+
+                if (wb == null)
+                    return false;
             }
             catch(Exception)
             {

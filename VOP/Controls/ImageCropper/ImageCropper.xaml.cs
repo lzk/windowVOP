@@ -28,6 +28,7 @@ namespace VOP.Controls
         public static double imageWidth = 0;
         public static double imageHeight = 0;
         double scaleRatioApply = 1.0;
+        int rotatedDegree = 0;
 
         BitmapImage imageSource = null;
 
@@ -47,6 +48,15 @@ namespace VOP.Controls
             DependencyProperty.Register("ImagePath", typeof(Uri), typeof(ImageCropper),
             new FrameworkPropertyMetadata(null, new PropertyChangedCallback(ImagePathProperty_Changed)));
 
+        private double PixelToUnit(int p, double dpi)
+        {
+            return  (double)p / dpi * 96;
+        }
+
+        private int UnitToPixel(double u, double dpi)
+        {
+            return (int)(u / 96 * dpi);
+        }
 
         private void ImageCropper_Loaded(Object sender, RoutedEventArgs e)
         {
@@ -65,7 +75,10 @@ namespace VOP.Controls
 
             if(src != null)
             {
-                if (src.PixelWidth < this.ActualWidth && src.PixelHeight < this.ActualHeight)
+                imageWidth = PixelToUnit(src.PixelWidth, src.DpiX);
+                imageHeight = PixelToUnit(src.PixelHeight, src.DpiY);
+
+                if (imageWidth < this.ActualWidth && imageHeight < this.ActualHeight)
                 {
                     this.backgroundImage.Stretch = Stretch.None;
                     IsFitted = true;
@@ -76,14 +89,14 @@ namespace VOP.Controls
                     IsFitted = false;
                 }
 
-                whRatio = (double)src.PixelWidth / src.PixelHeight;
-                scaleRatioX = src.PixelWidth / this.ActualWidth;
-                scaleRatioY = src.PixelHeight / this.ActualHeight;
+                whRatio = imageWidth / imageHeight;
+                scaleRatioX = imageWidth / this.ActualWidth;
+                scaleRatioY = imageHeight / this.ActualHeight;
 
                 if (IsFitted == true)
                 {
-                    imageWidth = (double)src.PixelWidth;
-                    imageHeight = (double)src.PixelHeight;
+                    imageWidth = PixelToUnit(src.PixelWidth, src.DpiX);
+                    imageHeight = PixelToUnit(src.PixelHeight, src.DpiY);
                     imageToTop = (this.ActualHeight - imageHeight) / 2;
                     imageToLeft = (this.ActualWidth - imageWidth) / 2;
                 }
@@ -146,8 +159,8 @@ namespace VOP.Controls
 
                 //scale down image
                 ScaleTransform scaleTransform = new ScaleTransform();
-                scaleTransform.ScaleX = imageWidth / (double)src.PixelWidth;
-                scaleTransform.ScaleY = imageHeight / (double)src.PixelHeight;
+                scaleTransform.ScaleX = imageWidth / PixelToUnit(src.PixelWidth, src.DpiX);
+                scaleTransform.ScaleY = imageHeight / PixelToUnit(src.PixelHeight, src.DpiY);
 
                 TransformedBitmap tb = new TransformedBitmap();
                 tb.BeginInit();
@@ -162,6 +175,7 @@ namespace VOP.Controls
         private static void ImagePathProperty_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ImageCropper cropper = d as ImageCropper;
+           
             Uri newUri = (Uri)e.NewValue;
 
             BitmapImage myBitmapImage = new BitmapImage();
@@ -173,6 +187,29 @@ namespace VOP.Controls
             cropper.imageSource = myBitmapImage;
         }
 
+        public void Rotated90()
+        {
+            rotatedDegree += 90;
+            backgroundImage.RenderTransformOrigin = new Point(0.5, 0.5);
+            backgroundImage.RenderTransform = new RotateTransform(rotatedDegree % 360);
+
+            BitmapSource src = backgroundImage.Source as BitmapSource;
+
+            imageWidth = PixelToUnit(src.PixelWidth, src.DpiX);
+            imageHeight = PixelToUnit(src.PixelHeight, src.DpiY);
+
+            if (imageWidth < this.ActualWidth && imageHeight < this.ActualHeight)
+            {
+                this.backgroundImage.Stretch = Stretch.None;
+                IsFitted = true;
+            }
+            else
+            {
+                this.backgroundImage.Stretch = Stretch.Uniform;
+                IsFitted = false;
+            }
+        }
+
         public BitmapSource GetCroppedImage()
         {
             CroppedBitmap croppedImage = null;
@@ -181,15 +218,20 @@ namespace VOP.Controls
             BitmapSource src = this.imageSource as BitmapSource;
 
             if (src == null)
-                return null;        
+                return null;
+
+            double w = src.PixelWidth;
+            double h = src.PixelHeight;
 
             ContentControl designerItem = imageCropperContent;
             Canvas canvas = VisualTreeHelper.GetParent(designerItem) as Canvas;
- 
-            double toLeft = Canvas.GetLeft(designerItem);
-            double toTop = Canvas.GetTop(designerItem);
 
-            Rect rect = new Rect(toLeft - imageToLeft, toTop - imageToTop, designerItem.ActualWidth, designerItem.ActualHeight);
+            double toLeft = UnitToPixel(Canvas.GetLeft(designerItem) - imageToLeft, src.DpiX);
+            double toTop = UnitToPixel(Canvas.GetTop(designerItem) - imageToTop, src.DpiY);
+            double designerItemWidth = UnitToPixel(designerItem.ActualWidth, src.DpiX);
+            double designerItemHeight = UnitToPixel(designerItem.ActualHeight, src.DpiY);
+
+            Rect rect = new Rect(toLeft, toTop, designerItemWidth, designerItemHeight);
 
             if(IsFitted == false)
             {
@@ -200,8 +242,8 @@ namespace VOP.Controls
 
             if (   intRect.X >= 0
                 && intRect.Y >= 0
-                && intRect.X + intRect.Width <= src.PixelWidth
-                && intRect.Y + intRect.Height <= src.PixelHeight)
+                && intRect.X + intRect.Width <= w
+                && intRect.Y + intRect.Height <= h)
             {
                 croppedImage = new CroppedBitmap(src, intRect);
             }
