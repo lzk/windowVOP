@@ -475,7 +475,14 @@ namespace VOP
                 
                 if ( false == DoseHasEnoughSpace(save.FileName) )
                 {
-                    MessageBox.Show( "DoseHasEnoughSpace return false." );
+                    // TODO: Add multi language. 
+                    VOP.Controls.MessageBoxEx.Show(
+                            VOP.Controls.MessageBoxExStyle.Simple,
+                            m_MainWin,
+                            "The disk has not enough space.",
+                            (string)this.FindResource( "ResStr_Warning" )
+                            );
+
                     return;
                 }
 
@@ -628,6 +635,10 @@ namespace VOP
             txtBlkImgSize.Text = FormatSize( GetScanSize() );
         }
 
+        /// <summary>
+        /// Get free space of disk specified by strPath.
+        /// </summary>
+        /// <param name="strPath"> Path of folder or file. </param>
         private bool DoseHasEnoughSpace( string strPath )
         {
             bool bIsHasEnoughSpace = true;
