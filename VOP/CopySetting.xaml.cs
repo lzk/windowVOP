@@ -251,6 +251,7 @@ namespace VOP
             m_nin1       = EnumNin1._1up;
             m_dpi        = m_isIDCardCopy ? EnumCopyResln._600x600 : EnumCopyResln._300x300;
             m_mediaType  = EnumMediaType.Plain;
+            m_preNin1 = EnumNin1._2up;
 
             InitCboDocSize();
             InitCboResolution();
