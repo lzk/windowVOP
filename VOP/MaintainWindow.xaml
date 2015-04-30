@@ -31,23 +31,24 @@
     <Window.Effect>
         <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
     </Window.Effect>
-    <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
+    <Viewbox Stretch="Fill">
+        <Grid Height="400" Width="350">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Background="#FF1F3345" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="30"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="维修网点查询" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="18"></TextBlock>
-                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" VerticalAlignment="Center" Click="MinimizeCloseButton_Click"/>
-            </Grid>
-            <Grid Grid.Row="1" Background="#FFE7E7E7">
-                <ScrollViewer 
+                <Grid Grid.Row="0" Background="#FF1F3345" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="维修网点查询" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="18"></TextBlock>
+                    <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" VerticalAlignment="Center" Click="MinimizeCloseButton_Click"/>
+                </Grid>
+                <Grid Grid.Row="1" Background="#FFE7E7E7">
+                    <ScrollViewer 
                     Name="scrollview" 
                     CanContentScroll="true"
                     SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
@@ -58,38 +59,39 @@
                     Style="{StaticResource LeftScrollViewer}"
                     Margin="4"
                     Width="340">
-                    <Grid>
+                        <Grid>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="60"></RowDefinition>
-                            <RowDefinition Height="40"></RowDefinition>
-                            <RowDefinition Height="40"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                        </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
 
-                        <Grid Margin="10" Grid.ColumnSpan="2">
-                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                                <TextBlock Text="您所在的位置：" VerticalAlignment="Center"></TextBlock>
-                                <ComboBox Width="80" Margin="6,0,0,2" Style="{StaticResource RadiusComboBox}" FontSize="13" Name="cboProvince" SelectionChanged="cboProvince_SelectionChanged">                                  
-                                </ComboBox>
-                                <TextBlock Text="省" Margin="6,0,0,2" VerticalAlignment="Center"></TextBlock>
-                                <ComboBox Width="80" Margin="6,0,0,2" Style="{StaticResource RadiusComboBox}"  FontSize="13" Name="cboCity" SelectionChanged="cboProvince_SelectionChanged"></ComboBox>
-                                <TextBlock Text="市" Margin="6,0,0,2" VerticalAlignment="Center"></TextBlock>
+                            <Grid Margin="10" Grid.ColumnSpan="2">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                                    <TextBlock Text="您所在的位置：" VerticalAlignment="Center"></TextBlock>
+                                    <ComboBox Width="80" Margin="6,0,0,2" Style="{StaticResource RadiusComboBox}" FontSize="13" Name="cboProvince" SelectionChanged="cboProvince_SelectionChanged">
+                                    </ComboBox>
+                                    <TextBlock Text="省" Margin="6,0,0,2" VerticalAlignment="Center"></TextBlock>
+                                    <ComboBox Width="80" Margin="6,0,0,2" Style="{StaticResource RadiusComboBox}"  FontSize="13" Name="cboCity" SelectionChanged="cboProvince_SelectionChanged"></ComboBox>
+                                    <TextBlock Text="市" Margin="6,0,0,2" VerticalAlignment="Center"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                                <local:ButtonEx x:Name="btnMore" IsActiveEx="False" Height="30" Width="210" Content="查询更多网点" HorizontalContentAlignment="Center" Click="ButtonEx_Click"></local:ButtonEx>
+                            </Grid>
+                            <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                                <TextBox Height="30" Width="210" IsEnabled="False" Text="推荐维修网点" TextAlignment="Center" VerticalAlignment="Center" Template="{StaticResource customTextBox2}"/>
+                            </Grid>
+                            <StackPanel Name="MaintainList" Grid.Row="3" Orientation="Vertical" Margin="0,10,0,0" Grid.ColumnSpan="2">
+
                             </StackPanel>
                         </Grid>
-                        <Grid Grid.Row="1" Grid.ColumnSpan="2">
-                            <local:ButtonEx x:Name="btnMore" IsActiveEx="False" Height="30" Width="210" Content="查询更多网点" HorizontalContentAlignment="Center" Click="ButtonEx_Click"></local:ButtonEx>
-                        </Grid>
-                        <Grid Grid.Row="2" Grid.ColumnSpan="2">
-                            <TextBox Height="30" Width="210" IsEnabled="False" Text="推荐维修网点" TextAlignment="Center" VerticalAlignment="Center" Template="{StaticResource customTextBox2}"/>
-                        </Grid>
-                        <StackPanel Name="MaintainList" Grid.Row="3" Orientation="Vertical" Margin="0,10,0,0" Grid.ColumnSpan="2">
-                        
-                        </StackPanel>
-                    </Grid>
-                </ScrollViewer>
+                    </ScrollViewer>
+                </Grid>
             </Grid>
         </Grid>
-    </Grid>
+    </Viewbox>
 </Window>
 

@@ -28,6 +28,8 @@ namespace VOP
         public PurchaseWindow()
         {
             InitializeComponent();
+            this.Width = this.Width * App.gScalingRate;
+            this.Height = this.Height * App.gScalingRate;
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

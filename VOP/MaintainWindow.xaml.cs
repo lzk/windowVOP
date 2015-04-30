@@ -29,6 +29,8 @@ namespace VOP
         public MaintainWindow()
         {
             InitializeComponent();
+            this.Width = this.Width * App.gScalingRate;
+            this.Height = this.Height * App.gScalingRate;
         }
 
         private void OnLoadWindow(object sender, RoutedEventArgs e)

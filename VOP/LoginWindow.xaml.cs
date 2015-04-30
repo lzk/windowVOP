@@ -22,6 +22,8 @@ namespace VOP
         public LoginWindow()
         {
             InitializeComponent();
+            this.Width = this.Width * App.gScalingRate;
+            this.Height = this.Height * App.gScalingRate;
         }
 
         public void MyMouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
