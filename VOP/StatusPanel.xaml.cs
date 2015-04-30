@@ -100,6 +100,27 @@ namespace VOP
                 return _toner;
             }
         }
+        
+        private MainWindow _MainWin = null;
+        public MainWindow m_MainWin
+        {
+            set
+            {
+                _MainWin = value;
+            }
+
+            get
+            {
+                if (null == _MainWin)
+                {
+                    return (MainWindow)App.Current.MainWindow;
+                }
+                else
+                {
+                    return _MainWin;
+                }
+            }
+        }
 
         private EnumStatus _currentStatus = EnumStatus.Offline;
         private EnumStatus m_currentStatus
@@ -300,6 +321,11 @@ namespace VOP
 
             if ( cboPrinters.Items.Count > 0 )
                 cboPrinters.SelectedIndex = 0;
+            else
+            {   //Add for BMS bug 59074
+                if (null != this.m_MainWin)
+                    this.m_MainWin.ShowAboutPageOnly();
+            }
         }
 
         /// <summary>

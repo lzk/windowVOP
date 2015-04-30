@@ -1123,7 +1123,7 @@ namespace VOP
             winSettingPage.m_bOnlyDispalyAboutView = false;
         }
 
-        private void ShowAboutPageOnly()
+        public void ShowAboutPageOnly()
         {
             SetTabItemFromIndex( EnumSubPage.Setting );
 
