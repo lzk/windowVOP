@@ -5,7 +5,8 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Input; // for MouseButtonEventArgs
-using System.Windows.Media.Imaging; // for BitmapImage
+using System.Windows.Media.Imaging;
+using VOP.Controls; // for BitmapImage
 
 namespace VOP
 {
@@ -243,29 +244,11 @@ namespace VOP
         private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
             btnCopy.IsEnabled = ( EnumState.init == m_currentState && false == spinCtlCopies.ValidationHasError );
-        }
-
-        private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
-        { 
-            VOP.Controls.SpinnerControl spinnerCtl = sender as VOP.Controls.SpinnerControl;
-            TextBox tb = spinnerCtl.Template.FindName("tbTextBox", spinnerCtl) as TextBox;
-            int textValue = 0;
-            if (!spinnerCtl.IsFocused)
+            if (e.NewValue)
             {
-                if ( "spinCtlCopies" == spinnerCtl.Name ) 
-                {
-                    if (int.TryParse(tb.Text, out textValue))
-                    {
-                        if ( textValue > 99 )
-                            tb.Text = "99";
-                        else if ( textValue < 1 )
-                            tb.Text = "1";
-                    }
-                    else
-                    {
-                        tb.Text = "1";
-                    }
-                }
+                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_"), (string)this.FindResource("ResStr_Error"));
+                messageBox.Owner = App.Current.MainWindow;
+                messageBox.ShowDialog();
             }
         }
 
@@ -310,6 +293,55 @@ namespace VOP
             }
 
             m_oldJob = job;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = spinCtlCopies.Template.FindName("tbTextBox", spinCtlCopies) as TextBox;
+            tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
+            tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+            tb.LostFocus += new RoutedEventHandler(SpinnerTextBox_LostFocus);
+        }
+
+        private void SpinnerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            int textValue = 0;
+
+            if (!int.TryParse(e.Text, out textValue))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void SpinnerTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            int textValue = 0;
+
+            if (int.TryParse(textBox.Text, out textValue))
+            {
+                if (textValue > 99)
+                {
+                    textBox.Text = "99";
+                }
+
+                if (textValue < 1)
+                {
+                    textBox.Text = "1";
+                }
+            }
+        }
+
+        private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            int textValue = 0;
+
+            if (!int.TryParse(tb.Text, out textValue))
+            {
+                tb.Text = "1";
+            }
         }
     }
 

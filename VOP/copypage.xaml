@@ -5,6 +5,7 @@
              xmlns:local="clr-namespace:VOP.Controls"
              Width="638"
              Height="367"
+             Loaded="UserControl_Loaded"
              >
 
     <UserControl.Resources>
@@ -139,7 +140,7 @@
                             Value="1"
                             IsPercentFormat="False"
                             ValidationHasErrorChanged="OnValidationHasErrorChanged"
-                            LostFocus="SpinnerTextBox_LostFocus">
+                            >
 
                     </local:SpinnerControl>
 
