@@ -458,10 +458,6 @@
       <DependentUpon>TonerBar.xaml</DependentUpon>
     </Compile>
     <Page Include="CopyPage.xaml" />
-    <Page Include="Controls\ImagePreviewControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="FileSelectionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -491,9 +487,6 @@
     <Page Include="SettingPage.xaml" />
     <Compile Include="CopyPage.cs">
       <DependentUpon>CopyPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ImagePreviewControl.xaml.cs">
-      <DependentUpon>ImagePreviewControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileSelectionPage.cs" />
     <Compile Include="Controls\LoginButton.xaml.cs">
