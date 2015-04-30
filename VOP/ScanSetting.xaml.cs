@@ -36,6 +36,9 @@ namespace VOP
 
         public void handler_loaded( object sender, RoutedEventArgs e )
         {
+            this.Width = this.Width*  App.gScalingRate;
+            this.Height = this.Height*App.gScalingRate;
+
             InitControls();
             InitScanResln();
             InitScanSize();

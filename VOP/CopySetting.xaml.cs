@@ -284,6 +284,9 @@ namespace VOP
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            this.Width = this.Width*  App.gScalingRate;
+            this.Height = this.Height*App.gScalingRate;
+
             if ( EnumCopyScanMode.Text == m_scanMode )
             {
                 rdBtnScanModeTxt.IsChecked = true;

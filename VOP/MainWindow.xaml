@@ -70,34 +70,33 @@
     </Window.Resources>
 
         <Viewbox  Name="Viewbox1" Stretch="Fill">
-            <Canvas Height="638" Name="Canvas1" Width="850">
 
-    <Grid>
+    <Grid Width="850" Height="638" >
         <Grid.Background>
             <ImageBrush ImageSource="Images\background.png" />
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="96"/>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="335"/>
-            <RowDefinition Height="43"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="96*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="335*"/>
+            <RowDefinition Height="38*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="115" />
-            <ColumnDefinition Width="161" />
+            <ColumnDefinition Width="115*" />
+            <ColumnDefinition Width="161*" />
             <ColumnDefinition Width="1" />
-            <ColumnDefinition Width="88" />
+            <ColumnDefinition Width="88*" />
             <ColumnDefinition Width="1" />
-            <ColumnDefinition Width="87" />
+            <ColumnDefinition Width="87*" />
             <ColumnDefinition Width="1" />
-            <ColumnDefinition Width="88" />
+            <ColumnDefinition Width="88*" />
             <ColumnDefinition Width="1" />
-            <ColumnDefinition Width="87" />
+            <ColumnDefinition Width="87*" />
             <ColumnDefinition Width="1" />
-            <ColumnDefinition Width="103" />
-            <ColumnDefinition Width="117" />
+            <ColumnDefinition Width="103*" />
+            <ColumnDefinition Width="117*" />
         </Grid.ColumnDefinitions>
 
 
@@ -203,6 +202,5 @@
 
     </Grid>
 
-            </Canvas>
         </Viewbox>
 </Window>
