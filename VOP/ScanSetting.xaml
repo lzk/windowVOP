@@ -142,27 +142,35 @@
 
 
         <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Document_Type}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="450" Height="75" >
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
 
                 <RadioButton GroupName="docType" IsChecked="true"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
                     Name="docutype_photo" Click="docutype_click"
                     Template="{StaticResource customRadioButton}"
-                    Content="{StaticResource ResStr_Photo_2}" VerticalAlignment="Center"
-                    Margin="10,0" ></RadioButton>
+                    Content="{StaticResource ResStr_Photo_2}" VerticalAlignment="Center" ></RadioButton>
 
                 <RadioButton GroupName="docType" IsChecked="false"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
                     Name="docutype_graphic" Click="docutype_click"
                     Template="{StaticResource customRadioButton}"
-                    Content="{StaticResource ResStr_Text_and_Graph}" VerticalAlignment="Center"
-                    Margin="10,0" ></RadioButton>
+                    Content="{StaticResource ResStr_Text_and_Graph}" VerticalAlignment="Center" ></RadioButton>
 
                 <RadioButton GroupName="docType" IsChecked="false"
+                    Grid.Column="2"
+                    HorizontalAlignment="Center"
                     Name="docutype_text" Click="docutype_click"
                     Template="{StaticResource customRadioButton}"
-                    Content="{StaticResource ResStr_Text}" VerticalAlignment="Center"
-                    Margin="10,0" ></RadioButton>
+                    Content="{StaticResource ResStr_Text}" VerticalAlignment="Center" ></RadioButton>
+            </Grid>
 
-            </StackPanel>
         </local:GroupBoxDecorator>
 
         <Grid Grid.Row="2" >
@@ -216,7 +224,7 @@
 
 
             <!-- Right side -->
-            <local:GroupBoxDecorator Margin="0,0,40,0" Header="{StaticResource ResStr_Brightness}" Height="115" Width="220" HorizontalAlignment="Right" VerticalAlignment="Top" >
+            <local:GroupBoxDecorator Margin="0,0,40,0" Header="{StaticResource ResStr_Brightness}" Height="115" Width="220" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
                 <StackPanel>
                     <Image Stretch="None" VerticalAlignment="Top"
                         Margin="0,5" Source="Images/Brightness.png" />
@@ -239,7 +247,7 @@
                 </StackPanel>
             </local:GroupBoxDecorator>
 
-            <local:GroupBoxDecorator Margin="0,0,40,0" Header="{StaticResource ResStr_Contrast}" Height="115" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="220" >
+            <local:GroupBoxDecorator Margin="0,0,40,0" Header="{StaticResource ResStr_Contrast}" Height="115" HorizontalAlignment="Right" VerticalAlignment="Top" Width="220" >
                 <StackPanel>
                     <Image Stretch="None" VerticalAlignment="Top"
                         Margin="0,5" Source="Images/Constrast.png" />
