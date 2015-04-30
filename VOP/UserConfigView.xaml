@@ -311,10 +311,10 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.8*"></ColumnDefinition>
+                    <ColumnDefinition Width="1.9*"></ColumnDefinition>
                     <ColumnDefinition Width="2"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="{StaticResource ResStr_Leading_Edge_Registration}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
@@ -390,10 +390,10 @@
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.8*"></ColumnDefinition>
+                    <ColumnDefinition Width="1.9*"></ColumnDefinition>
                     <ColumnDefinition Width="2"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <!--Setting of Plate Control Mode-->
                 <TextBlock Text="{StaticResource ResStr_Setting_of_Plate_Control_Mode}" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
@@ -401,10 +401,10 @@
             </Grid>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.8*"></ColumnDefinition>
+                    <ColumnDefinition Width="1.9*"></ColumnDefinition>
                     <ColumnDefinition Width="2"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <!--Primary Cooling Mode-->
                 <TextBlock Text="{StaticResource ResStr_Primary_Cooling_Mode}" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
