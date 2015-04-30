@@ -46,6 +46,16 @@
         <ImageBrush x:Key="imgBrush_Warn" ImageSource="..\Images\shopCart_Warn.png" />
         <ImageBrush x:Key="imgBrush_Normal" ImageSource="..\Images\shopCart_Normal.png" />
         <ImageBrush x:Key="imgBrush_Disable" ImageSource="..\Images\shopCart_Disable.tif" />
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+        <Style x:Key="RectangleFocus">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="-1" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 3"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
     </UserControl.Resources>
     
@@ -74,7 +84,19 @@
 
         <Grid Name="shopGrid" Grid.Column="2" Grid.RowSpan="3" Width="20" Height="15" VerticalAlignment="Bottom" Margin="0,0,0, 5" >
             <Rectangle Name="shopCart_Img"/>
-            <Button Opacity="0" Click="Button_Click"/>
+            <Button Click="Button_Click" Margin="-2">
+                <Button.Template>
+                    <ControlTemplate >
+                        <Rectangle Opacity="0" Fill="White" />                        
+                        <ControlTemplate.Triggers>
+                            <Trigger  Property="IsFocused" Value="True">
+                                <Setter Property="FocusVisualStyle" Value="{StaticResource RectangleFocus}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template >
+            </Button>
+           
         </Grid>        
 
         <Grid Grid.Row="2" Name="TonerGrid">   
