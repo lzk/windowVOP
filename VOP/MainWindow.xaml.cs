@@ -127,6 +127,9 @@ namespace VOP
         {
             InitializeComponent();
 
+            this.Width = this.Width*  App.gScalingRate;
+            this.Height = this.Height*App.gScalingRate;
+
             const int GEOCLASS_NATION = 16;
             int nGeoID = Win32.GetUserGeoID(GEOCLASS_NATION);
             if (45 == nGeoID)
@@ -571,9 +574,6 @@ namespace VOP
 
             AddMessageHook();
 
-
-            this.Width = this.Width*  App.gScalingRate;
-            this.Height = this.Height*App.gScalingRate;
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)

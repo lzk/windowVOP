@@ -30,15 +30,16 @@ namespace VOP
         public ScanSetting()
         {
             this.InitializeComponent();
+
+            this.Width = this.Width*  App.gScalingRate;
+            this.Height = this.Height*App.gScalingRate;
+
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;
             // Insert code required on object creation below this point.
         }
 
         public void handler_loaded( object sender, RoutedEventArgs e )
         {
-            this.Width = this.Width*  App.gScalingRate;
-            this.Height = this.Height*App.gScalingRate;
-
             InitControls();
             InitScanResln();
             InitScanSize();

@@ -142,6 +142,10 @@ namespace VOP
 		public CopySetting()
 		{
 			this.InitializeComponent();
+
+            this.Width = this.Width*  App.gScalingRate;
+            this.Height = this.Height*App.gScalingRate;
+
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;
 			// Insert code required on object creation below this point.
 		}
@@ -284,9 +288,6 @@ namespace VOP
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Width = this.Width*  App.gScalingRate;
-            this.Height = this.Height*App.gScalingRate;
-
             if ( EnumCopyScanMode.Text == m_scanMode )
             {
                 rdBtnScanModeTxt.IsChecked = true;
