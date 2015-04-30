@@ -701,6 +701,7 @@ namespace VOP
             {
                 if ( EnumSubPage.Print == subpage )
                 {
+                    txtPageName.Text = (string)this.FindResource("ResStr_Print");
                     this.subPageView.Child = winFileSelectionPage;
                    
                     tabItem_Print.IsSelect = true;
@@ -708,6 +709,7 @@ namespace VOP
                 }
                 else if ( EnumSubPage.Setting == subpage )
                 {
+                    txtPageName.Text = (string)this.FindResource("ResStr_Setting");
                     this.subPageView.Child = winSettingPage;
                     
                     tabItem_Print.IsSelect = false;
