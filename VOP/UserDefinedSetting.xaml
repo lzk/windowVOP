@@ -122,7 +122,7 @@
         </Grid.RowDefinitions>
 
         <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
-            <TextBlock Name="TitleBarText" Text="用户自定义设置" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Name="TitleBarText" Text="{StaticResource ResStr_User_Defined_Settings}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
         <controls:MinimizeCloseButton Grid.Row="0" Grid.Column="2" Width="30" Height="30" MinimizeOrCloseStyle="Close" IsCancel="True" HorizontalAlignment="Right" />
         
@@ -132,7 +132,7 @@
                 <RowDefinition Height="10"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <controls:GroupBoxDecorator Header="自定义纸张大小名称" Grid.Row="0" Padding="15,5,15,10">
+            <controls:GroupBoxDecorator Header="{StaticResource ResStr_Custom_Paper_Size_Name}" Grid.Row="0" Padding="15,5,15,10">
                 <ComboBox x:Name="myComboBox"
                           Style="{StaticResource customComboBox}"
                           ItemsSource="{Binding UserDefinedSizeItems}"
@@ -144,7 +144,7 @@
 
             <controls:GroupBoxDecorator Style="{StaticResource GroupBoxDecoratorNoHeader}" Grid.Row="2" Padding="10">
                 <StackPanel Orientation="Horizontal" Name="myStackPanel">
-                    <TextBlock Text="单位：" 
+                    <TextBlock Text="{StaticResource ResStr_ExtraAdd_Unit}" 
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Center"
                            Width="40"
@@ -156,7 +156,7 @@
                     <RadioButton Name="RadioButtonMM"
                              GroupName="Goup1" 
                              IsChecked="{Binding ElementName=myComboBox, Mode=OneWay, Path=SelectedItem, Converter={StaticResource isInchConverter}}"
-                             Content="毫米" 
+                             Content="{StaticResource ResStr_mm}" 
                              Template="{StaticResource customRadioButton}"
                              Foreground="DarkSlateGray"
                              Margin="10,0,0,0"/>
@@ -164,7 +164,7 @@
                     <RadioButton GroupName="Goup1"
                              Name="RadioButtonInch"
                              IsChecked="{Binding ElementName=myComboBox, Mode=OneWay, Path=SelectedItem, Converter={StaticResource isInchConverter}, ConverterParameter=flip}"
-                             Content="英寸"
+                             Content="{StaticResource ResStr_inch}"
                              Template="{StaticResource customRadioButton}"
                              Foreground="DarkSlateGray"
                              Margin="20,0,0,0"/>
@@ -180,7 +180,7 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Name="tWidth" Text="宽度（76.2-216.0）" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
+                <TextBlock x:Name="tWidth" Text="{StaticResource ResStr_ExtraAdd_Width_76_2_216_0}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
                 <TextBox x:Name="tbWidth" 
                          Template="{StaticResource customTextBox}"
                          Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" 
@@ -192,7 +192,7 @@
                          Margin="10,0,0,0"/>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <TextBlock x:Name="tHeight" Text="高度（116.0-355.6）" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
+                <TextBlock x:Name="tHeight" Text="{StaticResource ResStr_ExtraAdd_Height_116_0_355_0}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
                 <TextBox x:Name="tbHeight" 
                          Template="{StaticResource customTextBox}" 
                          Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" 
@@ -216,7 +216,7 @@
                 <Button Name="SaveButton"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-        	            Content="保 存" 
+        	            Content="{StaticResource ResStr_ExtraAdd_Save}" 
                         Style="{StaticResource CustomGrayButtonStyle}"
         	            Height="34" 
                         Width="110" 
@@ -227,7 +227,7 @@
                 <Button Name="DeleteButton"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-        	            Content="删 除" 
+        	            Content="{StaticResource ResStr_ExtraAdd_Delete}" 
                         Style="{StaticResource CustomGrayButtonStyle}"
         	            Height="34" 
                         Width="110" 
@@ -239,7 +239,7 @@
             <Button     Grid.Row="2"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-        	            Content="取 消" 
+        	            Content="{StaticResource ResStr_ExtraAdd_Canel}" 
                         Style="{StaticResource CustomGrayButtonStyle}"
         	            Height="34" 
                         Width="110" 
@@ -251,7 +251,7 @@
                         Grid.Row="4"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-        	            Content="确 定" 
+        	            Content="{StaticResource ResStr_ExtraAdd_OK_2}" 
                         Style="{StaticResource CustomGreenButtonStyle}"
         	            Height="34" 
                         Width="110" 

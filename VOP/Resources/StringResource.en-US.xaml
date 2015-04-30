@@ -245,4 +245,15 @@
     <sys:String x:Key="ResStr_Memory_Alloc_Fail">Print memory allocation failed!</sys:String>
     <sys:String x:Key="ResStr_User_Defined_Settings">User Defined Settings</sys:String>
     <sys:String x:Key="ResStr_Login_Register">Login / Register</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Print">Print</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Default">Default</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_OK">OK</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Unit">Unit:</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Width_76_2_216_0">Width（76.2-216.0）</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Height_116_0_355_0">Length（116.0-355.6）</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Save">Save</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Delete">Delete</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Canel">Cancel</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_OK_2">OK</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_OK_3">OK</sys:String>
 </ResourceDictionary>

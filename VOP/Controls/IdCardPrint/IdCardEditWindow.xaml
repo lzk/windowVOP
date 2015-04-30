@@ -35,7 +35,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
-                <TextBlock Name="TitleBarText" Text="证件编辑" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Name="TitleBarText" Text="{StaticResource ResStr_Certificate_Edit}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
 
             <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
@@ -62,7 +62,7 @@
                         Padding="0, 0, 0, 0"
                         FontSize="16"
                         Style="{StaticResource CustomGreenButtonStyle}"
-                        Content="确    定"
+                        Content="{StaticResource ResStr_ExtraAdd_OK_3}"
                         Click="GreenOkButton_Click" />
             </Grid>
         </Grid>

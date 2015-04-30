@@ -253,14 +253,14 @@ namespace VOP
             RadioButton button = e.Source as RadioButton;
             
             if (button.Name == "RadioButtonMM")
-            {
-                tWidth.Text = "宽度（76.2-216.0）";
-                tHeight.Text = "高度（116.0-355.6）";            
+            {  
+                tWidth.Text = (string)this.TryFindResource("ResStr_Width") + "（76.2-216.0）";
+                tHeight.Text = (string)this.TryFindResource("ResStr_Length") + "（116.0-355.6）";    
             }
             else
             {
-                tWidth.Text = "宽度（3.00-8.50）";
-                tHeight.Text = "高度（4.57-14.00）";
+                tWidth.Text = (string)this.TryFindResource("ResStr_Width") + "（3.00-8.50）";
+                tHeight.Text = (string)this.TryFindResource("ResStr_Length") + "（4.57-14.00）";
             }
 
             if (double.TryParse(tbWidth.Text.Trim(), out value))

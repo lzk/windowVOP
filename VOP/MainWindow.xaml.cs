@@ -522,7 +522,7 @@ namespace VOP
             // The ContextMenu property sets the menu that will 
             // appear when the systray icon is right clicked.
             System.Windows.Forms.ContextMenu contextMenu1 = new System.Windows.Forms.ContextMenu();
-            System.Windows.Forms.MenuItem menuItem1 = new System.Windows.Forms.MenuItem("退出");
+            System.Windows.Forms.MenuItem menuItem1 = new System.Windows.Forms.MenuItem((string)this.TryFindResource("ResStr_Exit"));
             menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
             contextMenu1.MenuItems.Clear();
             contextMenu1.MenuItems.Add(menuItem1);
@@ -810,7 +810,7 @@ namespace VOP
             if ( 0 < winScanPage.image_wrappanel.Children.Count )
             {
                 if ( VOP.Controls.MessageBoxExResult.Yes != 
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, "VOP关闭后，扫描图片将会被删除，是否关闭，请确认。", "提示") )
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, (string)this.TryFindResource("ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_"), "提示") )
                 {
                     SetTabItemFromIndex( EnumSubPage.Scan );
                     bAllowExit = false;

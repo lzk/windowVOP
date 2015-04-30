@@ -102,7 +102,7 @@
                                 </RadialGradientBrush>
                             </Ellipse.Fill>
                         </Ellipse>
-                        <TextBlock Grid.Row="5" Grid.Column="1" Text="暂时无法浏览"
+                        <TextBlock Grid.Row="5" Grid.Column="1" Text="{StaticResource ResStr_Unable_to_preview}"
                          Foreground="#FF71726F"
 			             FontSize="16" 
 			             HorizontalAlignment="Center" 

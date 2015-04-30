@@ -161,10 +161,10 @@
         </StackPanel>
 
         <StackPanel Margin="0" Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top" >
-            <local:ButtonEx x:Name="btnOK" Content="确定" HorizontalAlignment="Center" Height="35"
+            <local:ButtonEx x:Name="btnOK" Content="{StaticResource ResStr_OK}" HorizontalAlignment="Center" Height="35"
                 HorizontalContentAlignment="Center"
                 Width="100" VerticalAlignment="Center" Click="btnOK_Click"/>
-            <local:ButtonEx x:Name="btnPrint"  Content="打印" HorizontalAlignment="Center" Height="35"
+            <local:ButtonEx x:Name="btnPrint"  Content="{StaticResource ResStr_Print}" HorizontalAlignment="Center" Height="35"
                 HorizontalContentAlignment="Center"
                 Margin="25,0,0,0" Width="100" IsActiveEx="true" VerticalAlignment="Center" Click="btnPrint_Click" />
         </StackPanel>

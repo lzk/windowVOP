@@ -272,3 +272,14 @@ ResStr_Unable_to_preview,"Unable to preview,",暂时无法浏览
 ResStr_Memory_Alloc_Fail,Print memory allocation failed!,打印文件内存分配失败！
 ResStr_User_Defined_Settings,User Defined Settings,用户自定义设置
 ResStr_Login_Register,Login / Register,登录/注册
+ResStr_ExtraAdd_Print,Print,打    印
+ResStr_ExtraAdd_Default,Default,默  认
+ResStr_ExtraAdd_OK,OK,确  定
+ResStr_ExtraAdd_Unit,Unit:,单位:
+ResStr_ExtraAdd_Width_76_2_216_0,Width（76.2-216.0）,宽度（76.2-216.0）
+ResStr_ExtraAdd_Height_116_0_355_0,Length（116.0-355.6）,高度（116.0-355.6）
+ResStr_ExtraAdd_Save,Save,保 存
+ResStr_ExtraAdd_Delete,Delete,删 除
+ResStr_ExtraAdd_Canel,Cancel,取 消
+ResStr_ExtraAdd_OK_2,OK,确 定
+ResStr_ExtraAdd_OK_3,OK,确    定

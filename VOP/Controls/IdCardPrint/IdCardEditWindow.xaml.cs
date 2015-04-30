@@ -78,7 +78,7 @@ namespace VOP.Controls
                     {
                         borderContainer.Child = printPreview;
                         printPreview.Update(); //update after being a child
-                        TitleBarText.Text = "打印预览";
+                        TitleBarText.Text = (string)this.TryFindResource("ResStr_Preview");
                     }
                     else
                     {
@@ -90,7 +90,7 @@ namespace VOP.Controls
                         {
                             borderContainer.Child = printPreview;
                             printPreview.Update();
-                            TitleBarText.Text = "打印预览";
+                            TitleBarText.Text = (string)this.TryFindResource("ResStr_Preview");
                         }
                     }
                     currentState = EditWindowState.Preview;

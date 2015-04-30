@@ -148,7 +148,7 @@ namespace VOP
 
             }
 
-            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? "设定成功" : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Red);
+            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? (string)this.TryFindResource("ResStr_Setting_Successfully_") : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Red);
             return isApplySuccess;
         }
 

@@ -129,7 +129,7 @@ namespace VOP
 
             if(e.NewValue)
             {
-                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("有效值输入范围为1-99，请确认后再次输入。", (string)this.FindResource("ResStr_Error"));
+                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_"), (string)this.FindResource("ResStr_Error"));
                 messageBox.Owner = App.Current.MainWindow;
                 messageBox.ShowDialog();
             }
@@ -306,19 +306,19 @@ namespace VOP
             }
             else if (printRes == PrintError.Print_Memory_Fail)
             {
-                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("打印文件内存分配失败！", (string)this.FindResource("ResStr_Error"));
+                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_Memory_Alloc_Fail"), (string)this.FindResource("ResStr_Error"));
                 messageBox.Owner = App.Current.MainWindow;
                 messageBox.ShowDialog();
                 crmPrintInfo.m_strPrintSuccess = "false";
             }
             else if (printRes == PrintError.Print_Operation_Fail)
             {
-                m_MainWin.statusPanelPage.ShowMessage("打印失败", Brushes.Red );
+                m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
                 crmPrintInfo.m_strPrintSuccess = "false";
             }
             else if (printRes == PrintError.Print_Get_Default_Printer_Fail)
             {
-                m_MainWin.statusPanelPage.ShowMessage("打印失败", Brushes.Red );
+                m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
                 crmPrintInfo.m_strPrintSuccess = "false";
             }
             else

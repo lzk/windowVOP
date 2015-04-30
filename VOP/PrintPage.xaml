@@ -33,7 +33,7 @@
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <local:ImagePreviewPanel x:Name="myImagePreviewPanel" Width="240" Height="271" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4"/>
-        <TextBlock Grid.Row="1" Grid.Column="2" Text="打印份数" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="{StaticResource ResStr_Copies}" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         <local:SpinnerControl x:Name="spinnerControl1"
                             Width="163"
                             Background="Transparent"
@@ -51,7 +51,7 @@
                         Padding="0, 0, 0, 0"
                         FontSize="17"
                         Style="{StaticResource CustomGrayButtonStyle}"
-                        Content="更多设置"
+                        Content="{StaticResource ResStr_More_Settings}"
                         Grid.Row="3" Grid.Column="2" 
                         Click="AdvancedSettingButtonClick"/>
         <Button Name="PrintButton"
@@ -59,7 +59,7 @@
                         Padding="0, 0, 0, 0"
                         FontSize="17"
                         Style="{StaticResource CustomGreenButtonStyle}"
-                        Content="打    印"
+                        Content="{StaticResource ResStr_ExtraAdd_Print}"
                         Grid.Row="4" Grid.Column="2" 
                         Click="ApplyButtonClick"/>
     </Grid>

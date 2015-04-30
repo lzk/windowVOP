@@ -245,4 +245,15 @@
     <sys:String x:Key="ResStr_Memory_Alloc_Fail">打印文件内存分配失败！</sys:String>
     <sys:String x:Key="ResStr_User_Defined_Settings">用户自定义设置</sys:String>
     <sys:String x:Key="ResStr_Login_Register">登录/注册</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Print">打    印</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Default">默  认</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_OK">确  定</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Unit">单位:</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Width_76_2_216_0">宽度（76.2-216.0）</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Height_116_0_355_0">高度（116.0-355.6）</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Save">保 存</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Delete">删 除</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_Canel">取 消</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_OK_2">确 定</sys:String>
+    <sys:String x:Key="ResStr_ExtraAdd_OK_3">确    定</sys:String>
 </ResourceDictionary>
