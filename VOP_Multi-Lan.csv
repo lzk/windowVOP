@@ -158,7 +158,7 @@ ResStr_Color,Color,彩色
 ResStr_Grayscale,Grayscale,灰阶
 ResStr_Black_White,Black & White,黑白
 ResStr_Scan_Size,Scan Size,扫描区域大小
-ResStr_A4_210_297mm_,A4(210*297mm),A4(210*297毫米)
+ResStr_A4_210_297mm_,A4(210 x 297mm),A4(210 x 297毫米)
 ResStr_A5_148_x_210mm_,A5(148 x 210mm),A5(148 x 210毫米)
 ResStr_B5_182_x_257mm_,B5(182 x 257mm),B5(182 x 257毫米)
 ResStr_Letter_8_5_x_11,"Letter(8.5 x 11"")","Letter(8.5 x 11"")"
