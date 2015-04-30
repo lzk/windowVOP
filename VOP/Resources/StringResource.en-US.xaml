@@ -139,7 +139,7 @@
     <sys:String x:Key="ResStr_A4_210_297mm_">A4(210*297mm)</sys:String>
     <sys:String x:Key="ResStr_A5_148_x_210mm_">A5(148 x 210mm)</sys:String>
     <sys:String x:Key="ResStr_B5_182_x_257mm_">B5(182 x 257mm)</sys:String>
-    <sys:String x:Key="ResStr_Letter_8_5_x_11">Letter(8.5 x 11"")</sys:String>
+    <sys:String x:Key="ResStr_Letter_8_5_x_11">Letter(8.5 x 11")</sys:String>
     <sys:String x:Key="ResStr_4_x_6_">4 x 6”</sys:String>
     <sys:String x:Key="ResStr_Contrast">Contrast</sys:String>
     <sys:String x:Key="ResStr_Brightness">Brightness</sys:String>
