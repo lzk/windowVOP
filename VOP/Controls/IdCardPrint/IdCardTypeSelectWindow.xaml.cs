@@ -23,7 +23,6 @@ namespace VOP.Controls
         public IdCardTypeSelectWindow()
         {
             InitializeComponent();
-           // this.FontFamily = new FontFamily("Segoe UI");
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

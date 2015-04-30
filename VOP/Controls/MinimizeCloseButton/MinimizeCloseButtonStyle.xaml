@@ -18,7 +18,7 @@
         <Setter Property="BorderBrush" Value="{StaticResource brushBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="ForegroundColor" Value="{StaticResource brushForeground}"/>
-
+        <Setter Property="Focusable" Value="False"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MinimizeCloseButton}">
