@@ -162,9 +162,16 @@ namespace VOP
                 nLanguage = (Int32)obj;
 
                 if (0x804 == nLanguage)
-                    this.FontFamily = new FontFamily("幼圆");
+                {
+                    TextElement.FontFamilyProperty.OverrideMetadata(typeof(TextElement), new FrameworkPropertyMetadata(new FontFamily("幼圆")));
+                    TextBlock.FontFamilyProperty.OverrideMetadata(typeof(TextBlock), new FrameworkPropertyMetadata(new FontFamily("幼圆")));
+                }
                 else
-                    this.FontFamily = new FontFamily("Arial");
+                {
+                    TextElement.FontFamilyProperty.OverrideMetadata(typeof(TextElement), new FrameworkPropertyMetadata(new FontFamily("Arial")));
+                    TextBlock.FontFamilyProperty.OverrideMetadata(typeof(TextBlock), new FrameworkPropertyMetadata(new FontFamily("Arial")));
+                }
+//                    this.FontFamily = new FontFamily("Arial");
 
                 rsg.Close();
             }
