@@ -69,7 +69,7 @@
         <ImageBrush x:Key="imgBk_Brush_4"  ImageSource="Images\PageSetting.png" />        
     </Window.Resources>
 
-        <Viewbox  Name="Viewbox1" Stretch="Fill">
+        <Viewbox Stretch="Fill">
 
     <Grid Width="850" Height="638" >
         <Grid.Background>

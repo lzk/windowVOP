@@ -121,7 +121,7 @@
         <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
     </Window.Effect>
 
-        <Viewbox  Name="Viewbox1" Stretch="Fill">
+        <Viewbox Stretch="Fill">
 
     <Grid x:Name="LayoutRoot" Background="#FFE7E7E7" Width="537" Height="445" >
 

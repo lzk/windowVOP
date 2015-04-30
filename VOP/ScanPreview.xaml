@@ -118,7 +118,9 @@
         <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
     </Window.Effect>
 
-    <Grid>
+        <Viewbox Stretch="Fill">
+
+    <Grid Width="472" Height="494" >
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="298" />
@@ -170,4 +172,7 @@
         </StackPanel>
         
     </Grid>
+
+    </Viewbox>
+
 </Window>

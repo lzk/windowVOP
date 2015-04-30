@@ -36,6 +36,10 @@ namespace VOP
         public ScanPreview()
         {
             InitializeComponent();
+
+            this.Width = this.Width*  App.gScalingRate;
+            this.Height = this.Height*App.gScalingRate;
+
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;
         }
         
