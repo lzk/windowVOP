@@ -52,7 +52,7 @@ namespace VOP
                 if (!isApplySuccess)
                 {
                     ((MainWindow)App.Current.MainWindow).m_strPassword = "";
-                    tbkErrorInfo.Text = "认证错误，请重新输入密码。";
+                    tbkErrorInfo.Text = (string)this.FindResource("ResStr_Authentication_error__please_enter_the_password_again_"); 
                 }
                 else
                 {
@@ -62,7 +62,7 @@ namespace VOP
             }   
             else
             {
-                tbkErrorInfo.Text = "新密码不能为空,请输入密码。";
+                tbkErrorInfo.Text = (string)this.FindResource("ResStr_The_new_password_can_not_be_empty_");
             }
         }
 
