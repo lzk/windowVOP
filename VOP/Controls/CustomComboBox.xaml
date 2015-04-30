@@ -219,6 +219,7 @@
 
     <Style  x:Key="RadiusComboBox" TargetType="{x:Type ComboBox}">
         <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        <Setter Property="Focusable" Value="False"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">

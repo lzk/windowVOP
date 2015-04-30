@@ -174,7 +174,6 @@ namespace VOP
                     TextElement.FontFamilyProperty.OverrideMetadata(typeof(TextElement), new FrameworkPropertyMetadata(new FontFamily("Arial")));
                     TextBlock.FontFamilyProperty.OverrideMetadata(typeof(TextBlock), new FrameworkPropertyMetadata(new FontFamily("Arial")));
                 }
-//                    this.FontFamily = new FontFamily("Arial");
 
                 rsg.Close();
             }
