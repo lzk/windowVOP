@@ -62,7 +62,6 @@
 
             <Image Source="..\..\..\Images\Warning.tif" Grid.Row="1"></Image>
             <TextBlock Name="messageBoxTextBlock" Grid.RowSpan="3" Grid.Column="1" FontSize="14" Width="230" Margin="20,0"
-                       Text="{StaticResource ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_}"                        
                        VerticalAlignment="Center" HorizontalAlignment="Left"               
                        TextWrapping="Wrap"
                        Foreground="#555555" >                

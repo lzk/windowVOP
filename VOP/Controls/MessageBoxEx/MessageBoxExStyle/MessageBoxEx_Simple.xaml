@@ -58,7 +58,6 @@
 
             <Image Source="..\..\..\Images\Warning.tif" Grid.Row="1"></Image>
             <TextBlock Name="messageBoxTextBlock" Grid.RowSpan="3" Grid.Column="1" FontSize="14" Margin="20,0"
-                       Text="最高可连接复印99份，请输入相应数值！"                        
                        VerticalAlignment="Center" HorizontalAlignment="Left"               
                        TextWrapping="Wrap"
                        Foreground="#555555" >

@@ -298,7 +298,7 @@ namespace VOP
  
             if (printRes == PrintError.Print_File_Not_Support)
             {
-                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple("暂不支持该文件打印， 请重新选择。", (string)this.FindResource("ResStr_Error"));
+                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_This_file_is_not_supported__please_select_another_one_"), (string)this.FindResource("ResStr_Error"));
                 messageBox.Owner = App.Current.MainWindow;
                 messageBox.ShowDialog();
                 this.m_MainWin.subPageView.Child = this.m_MainWin.winFileSelectionPage;
