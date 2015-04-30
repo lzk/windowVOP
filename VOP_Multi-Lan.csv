@@ -204,13 +204,13 @@ ResStr_Power_Save_Time,Power Save Time,进入休眠时间
 ResStr_1_30_Minute,(1-30 Minute),（1-30分钟）
 ResStr_SSID_2,SSID,网络标识
 ResStr_Enable,Enable,使用
-ResStr_Leading_Edge_Registration,Leading Edge Registration,顶端偏移量
-ResStr_Side_to_side_Registration,Side-to-side Registration,左端偏移量
+ResStr_Leading_Edge_Registration,Top Offset Adjust,顶端偏移量
+ResStr_Side_to_side_Registration,Side-to-side Adjust,左端偏移量
 ResStr_Image_Density,Image Density,画像浓度
 ResStr_Low_Hunidity_Mode,Low Hunidity Mode,低湿度模式
-ResStr_Setting_of_Plate_Control_Mode,Setting of Plate Control Mode,防止背面脏污模式
-ResStr_Primary_Cooling_Mode,Primary Cooling Mode,强制降温模式
-ResStr_Fuser_Error_Remove,Fuser Error Remove,解除定影单元错误
+ResStr_Setting_of_Plate_Control_Mode,Plate Control Mode,防止背面脏污模式
+ResStr_Primary_Cooling_Mode,Cooling Mode,强制降温模式
+ResStr_Fuser_Error_Remove,Fuser Error Clean,解除定影单元错误
 ResStr_New_Password,New Password,新密码
 ResStr_Confirm_Password,Confirm Password,确认密码
 ResStr_Identity_Authentication,Identity Authentication,身份认证
