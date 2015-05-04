@@ -99,52 +99,53 @@
     <Window.Effect>
         <DropShadowEffect BlurRadius="30" Color="#FF858484" Direction="292" ShadowDepth="0" Opacity="1"/>
     </Window.Effect>
-    
-    <Grid>
-        <Grid.Background>
-            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightColorKey}}"/>
-        </Grid.Background>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="30"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="10"/>
-            <RowDefinition Height="110"/>
-            <RowDefinition Height="15"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="10"/>
-        </Grid.RowDefinitions>
 
-        <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
-            <TextBlock Name="TitleBarText" Text="{StaticResource ResStr_User_Defined_Settings}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        </Border>
-        <controls:MinimizeCloseButton Grid.Row="0" Grid.Column="2" Width="30" Height="30" MinimizeOrCloseStyle="Close" IsCancel="True" HorizontalAlignment="Right" />
-        
-        <Grid Grid.Row="2" Grid.Column="1">
+    <Viewbox Stretch="Fill">
+        <Grid Width="340" Height="460">
+            <Grid.Background>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightColorKey}}"/>
+            </Grid.Background>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="75"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="10"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="110"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
             </Grid.RowDefinitions>
-            <controls:GroupBoxDecorator Header="{StaticResource ResStr_Custom_Paper_Size_Name}" Grid.Row="0" Padding="15,5,15,10">
-                <ComboBox x:Name="myComboBox"
+
+            <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
+                <TextBlock Name="TitleBarText" Text="{StaticResource ResStr_User_Defined_Settings}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            <controls:MinimizeCloseButton Grid.Row="0" Grid.Column="2" Width="30" Height="30" MinimizeOrCloseStyle="Close" IsCancel="True" HorizontalAlignment="Right" />
+
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <controls:GroupBoxDecorator Header="{StaticResource ResStr_Custom_Paper_Size_Name}" Grid.Row="0" Padding="15,5,15,10">
+                    <ComboBox x:Name="myComboBox"
                           Style="{StaticResource customComboBox}"
                           ItemsSource="{Binding UserDefinedSizeItems}"
                           DisplayMemberPath="UserDefinedName"
                           SelectedValuePath="UserDefinedName"
                           SelectedValue=""
                           />
-            </controls:GroupBoxDecorator>
+                </controls:GroupBoxDecorator>
 
-            <controls:GroupBoxDecorator Style="{StaticResource GroupBoxDecoratorNoHeader}" Grid.Row="2" Padding="10">
-                <StackPanel Orientation="Horizontal" Name="myStackPanel">
-                    <TextBlock Text="{StaticResource ResStr_ExtraAdd_Unit}" 
+                <controls:GroupBoxDecorator Style="{StaticResource GroupBoxDecoratorNoHeader}" Grid.Row="2" Padding="10">
+                    <StackPanel Orientation="Horizontal" Name="myStackPanel">
+                        <TextBlock Text="{StaticResource ResStr_ExtraAdd_Unit}" 
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Center"
                            Width="40"
@@ -153,7 +154,7 @@
                            Foreground="DarkSlateGray"
                            Margin="30,0,0,0"/>
 
-                    <RadioButton Name="RadioButtonMM"
+                        <RadioButton Name="RadioButtonMM"
                              GroupName="Goup1" 
                              IsChecked="{Binding ElementName=myComboBox, Mode=OneWay, Path=SelectedItem, Converter={StaticResource isInchConverter}}"
                              Content="{StaticResource ResStr_mm}" 
@@ -161,7 +162,7 @@
                              Foreground="DarkSlateGray"
                              Margin="10,0,0,0"/>
 
-                    <RadioButton GroupName="Goup1"
+                        <RadioButton GroupName="Goup1"
                              Name="RadioButtonInch"
                              IsChecked="{Binding ElementName=myComboBox, Mode=OneWay, Path=SelectedItem, Converter={StaticResource isInchConverter}, ConverterParameter=flip}"
                              Content="{StaticResource ResStr_inch}"
@@ -169,19 +170,19 @@
                              Foreground="DarkSlateGray"
                              Margin="20,0,0,0"/>
 
-                </StackPanel>
-            </controls:GroupBoxDecorator>
-        </Grid>
+                    </StackPanel>
+                </controls:GroupBoxDecorator>
+            </Grid>
 
-        <Grid Grid.Row="4" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock x:Name="tWidth" Text="{StaticResource ResStr_ExtraAdd_Width_76_2_216_0}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
-                <TextBox x:Name="tbWidth" 
+            <Grid Grid.Row="4" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="tWidth" Text="{StaticResource ResStr_ExtraAdd_Width_76_2_216_0}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
+                    <TextBox x:Name="tbWidth" 
                          Template="{StaticResource customTextBox}"
                          Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" 
                          VerticalAlignment="Center"
@@ -190,10 +191,10 @@
                          Height="30" 
                          MaxLength="11" 
                          Margin="10,0,0,0"/>
-            </StackPanel>
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <TextBlock x:Name="tHeight" Text="{StaticResource ResStr_ExtraAdd_Height_116_0_355_0}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
-                <TextBox x:Name="tbHeight" 
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <TextBlock x:Name="tHeight" Text="{StaticResource ResStr_ExtraAdd_Height_116_0_355_0}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
+                    <TextBox x:Name="tbHeight" 
                          Template="{StaticResource customTextBox}" 
                          Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" 
                          VerticalAlignment="Center"
@@ -201,19 +202,19 @@
                          Width="120" 
                          MaxLength="11" 
                          Margin="10,0,0,0"/>
-            </StackPanel>
-        </Grid>
+                </StackPanel>
+            </Grid>
 
-        <Grid Grid.Row="6" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="5"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="5"/>
-                <RowDefinition Height="40"/>
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal">
-                <Button Name="SaveButton"
+            <Grid Grid.Row="6" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Button Name="SaveButton"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
         	            Content="{StaticResource ResStr_ExtraAdd_Save}" 
@@ -223,8 +224,8 @@
                         FontSize="18"  
                         Margin="10,0,0,0"
                         Click="SaveButton_Click"/>
-                
-                <Button Name="DeleteButton"
+
+                    <Button Name="DeleteButton"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
         	            Content="{StaticResource ResStr_ExtraAdd_Delete}" 
@@ -234,9 +235,9 @@
                         FontSize="18"
                         Margin="20,0,0,0"
                         Click="DeleteButton_Click"/>
-            </StackPanel>
+                </StackPanel>
 
-            <Button     Grid.Row="2"
+                <Button     Grid.Row="2"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
         	            Content="{StaticResource ResStr_ExtraAdd_Canel}" 
@@ -246,8 +247,8 @@
                         FontSize="18"
                         Margin="0,0,0,0"
                         Click="CancelButton_Click"/>
-            
-            <Button     Name="OkButton"
+
+                <Button     Name="OkButton"
                         Grid.Row="4"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
@@ -258,6 +259,7 @@
                         FontSize="18"
                         Margin="0,0,0,0"
                         Click="ApplyButton_Click"/>
+            </Grid>
         </Grid>
-    </Grid>
+    </Viewbox>
 </Window>

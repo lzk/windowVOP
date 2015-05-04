@@ -100,44 +100,45 @@
         <DropShadowEffect BlurRadius="30" Color="#FF858484" Direction="292" ShadowDepth="0" Opacity="1"/>
     </Window.Effect>
 
-    <Grid >
-        <Grid.Background>
-            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightColorKey}}"/>
-        </Grid.Background>
+    <Viewbox Stretch="Fill">
+        <Grid Width="650" Height="560">
+            <Grid.Background>
+                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlLightColorKey}}"/>
+            </Grid.Background>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40*"/>
-            <ColumnDefinition Width="181*"/>
-            <ColumnDefinition Width="12*"/>
-            <ColumnDefinition Width="181*"/>
-            <ColumnDefinition Width="12*"/>
-            <ColumnDefinition Width="181*"/>
-            <ColumnDefinition Width="40*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="6*" />
-            <RowDefinition Height="68*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="68*" />
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="34*" />
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="73*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="102*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="94*"/>
-            <RowDefinition Height="65*"/>
-        </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="181*"/>
+                <ColumnDefinition Width="12*"/>
+                <ColumnDefinition Width="181*"/>
+                <ColumnDefinition Width="12*"/>
+                <ColumnDefinition Width="181*"/>
+                <ColumnDefinition Width="40*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="6*" />
+                <RowDefinition Height="68*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="68*" />
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="34*" />
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="73*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="102*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="94*"/>
+                <RowDefinition Height="65*"/>
+            </Grid.RowDefinitions>
 
-        <Border x:Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="7">
-            <TextBlock x:Name="TitleBarText" Text="{StaticResource ResStr_More_Settings}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        </Border>
-        <Controls:MinimizeCloseButton Grid.Row="0" Grid.Column="6" Width="30" Height="30" MinimizeOrCloseStyle="Close" IsCancel="True" HorizontalAlignment="Right" />
+            <Border x:Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="7">
+                <TextBlock x:Name="TitleBarText" Text="{StaticResource ResStr_More_Settings}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            <Controls:MinimizeCloseButton Grid.Row="0" Grid.Column="6" Width="30" Height="30" MinimizeOrCloseStyle="Close" IsCancel="True" HorizontalAlignment="Right" />
 
-        <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Paper_Size}" Margin="2,2,0,0"  Grid.Row="2" Grid.Column="1" Padding="20,5,30,10" >
-            <ComboBox Style="{StaticResource customComboBox}"
+            <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Paper_Size}" Margin="2,2,0,0"  Grid.Row="2" Grid.Column="1" Padding="20,5,30,10" >
+                <ComboBox Style="{StaticResource customComboBox}"
 				x:Name="cboPaperSize"
 				Background="White" 
                 ItemContainerStyle="{StaticResource customComboBoxItem}"
@@ -146,24 +147,24 @@
                 SelectedValuePath="UserDefinedName"
                 SelectedValue="A4"
 				SelectionChanged="cboPaperSize_SelectionChanged">
-            </ComboBox>
-        </Controls:GroupBoxDecorator>
+                </ComboBox>
+            </Controls:GroupBoxDecorator>
 
-        <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Page_Order}" Margin="2,2,0,0" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Padding="30,5,30,15">
-            <StackPanel Orientation="Horizontal">
-                <RadioButton GroupName="Goup3"                              
+            <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Page_Order}" Margin="2,2,0,0" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Padding="30,5,30,15">
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton GroupName="Goup3"                              
 					Cursor="Hand" 
 					x:Name="rdBtnPagerOrder112233" 
 					Checked="rdBtnPagerOrder112233_Checked"
 					Style="{StaticResource CustomRadioButtonEx}" 
 					Padding="0,10,0,0"
 					Width="145">
-                    <RadioButton.BorderBrush>
-                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
-                    </RadioButton.BorderBrush>
-                    <Image Stretch="None" Source="Images/112233.png" />
-                </RadioButton>
-                <RadioButton GroupName="Goup3" 
+                        <RadioButton.BorderBrush>
+                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
+                        </RadioButton.BorderBrush>
+                        <Image Stretch="None" Source="Images/112233.png" />
+                    </RadioButton>
+                    <RadioButton GroupName="Goup3" 
 					IsChecked="true" 
 					Cursor="Hand" 
 					x:Name="rdBtnPagerOrder123123" 
@@ -172,138 +173,138 @@
 					Padding="0,10,0,0" 
 					Width="145"
 					Margin="20,0,0,0">
-                    <Image Stretch="None" Source="Images/123123.png" />
-                </RadioButton>
-            </StackPanel>
-        </Controls:GroupBoxDecorator>
+                        <Image Stretch="None" Source="Images/123123.png" />
+                    </RadioButton>
+                </StackPanel>
+            </Controls:GroupBoxDecorator>
 
-        <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Multiple_Page}" Margin="1,2,0,0" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="4">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="5" />
-                    <RowDefinition Height="65" />
-                    <RowDefinition Height="5"/>
-                    <RowDefinition Height="65"/>
-                    <RowDefinition Height="5" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="15"/>
-                    <ColumnDefinition Width="60"/>
-                    <ColumnDefinition Width="70"/>
-                    <ColumnDefinition Width="70"/>
-                    <ColumnDefinition Width="70"/>
-                    <ColumnDefinition Width="70"/>
-                    <ColumnDefinition Width="10"/>
-                </Grid.ColumnDefinitions>
+            <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Multiple_Page}" Margin="1,2,0,0" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="4">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="65" />
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="65"/>
+                        <RowDefinition Height="5" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Vertical"
+                    <StackPanel Orientation="Vertical"
 					Grid.Column="2" 
 					Grid.Row="1">
-                    <RadioButton GroupName="Goup4" 
+                        <RadioButton GroupName="Goup4" 
 						IsChecked="False"  
 						Cursor="Hand" 
 						x:Name="rdBtn2in1" 
 						Checked="rdBtn2in1_Checked"
 						Style="{StaticResource CustomRadioButtonEx}">
-                        <Image Width="51" Height="35" Margin="10,7,0,6" Stretch="None" Source="Images/2in1.png" HorizontalAlignment="Left" />
-                    </RadioButton>
-                    <TextBlock Text="{StaticResource ResStr_2_in_1}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
-                </StackPanel>
+                            <Image Width="51" Height="35" Margin="10,7,0,6" Stretch="None" Source="Images/2in1.png" HorizontalAlignment="Left" />
+                        </RadioButton>
+                        <TextBlock Text="{StaticResource ResStr_2_in_1}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
+                    </StackPanel>
 
-                <StackPanel Orientation="Vertical"
+                    <StackPanel Orientation="Vertical"
 					Grid.Column="3" 
 					Grid.Row="1"
 					Margin="5,0,0,0">
-                    <RadioButton GroupName="Goup4" 
+                        <RadioButton GroupName="Goup4" 
 						IsChecked="False"  
 						Cursor="Hand" 
 						x:Name="rdBtn4in1" 
 						Checked="rdBtn4in1_Checked"
 						Style="{StaticResource CustomRadioButtonEx}">
-                        <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/4in1.png" HorizontalAlignment="Left" />
-                    </RadioButton>
-                    <TextBlock Text="{StaticResource ResStr_4_in_1}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
-                </StackPanel>
+                            <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/4in1.png" HorizontalAlignment="Left" />
+                        </RadioButton>
+                        <TextBlock Text="{StaticResource ResStr_4_in_1}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
+                    </StackPanel>
 
-                <StackPanel Orientation="Vertical"
+                    <StackPanel Orientation="Vertical"
 					Grid.Column="4" 
 					Grid.Row="1"
 					Margin="5,0,0,0">
-                    <RadioButton GroupName="Goup4" 
+                        <RadioButton GroupName="Goup4" 
 						IsChecked="False"  
 						Cursor="Hand" 
 						x:Name="rdBtn9in1"
 						Checked="rdBtn9in1_Checked"
 						Style="{StaticResource CustomRadioButtonEx}">
-                        <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/9in1.png" HorizontalAlignment="Left" />
-                    </RadioButton>
-                    <TextBlock Text="{StaticResource ResStr_9_in_1}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
-                </StackPanel>
+                            <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/9in1.png" HorizontalAlignment="Left" />
+                        </RadioButton>
+                        <TextBlock Text="{StaticResource ResStr_9_in_1}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
+                    </StackPanel>
 
-                <StackPanel Orientation="Vertical"
+                    <StackPanel Orientation="Vertical"
 					Grid.Column="5" 
 					Grid.Row="1"
 					Margin="5,0,0,0">
-                    <RadioButton GroupName="Goup4" 
+                        <RadioButton GroupName="Goup4" 
 						IsChecked="False"  
 						Cursor="Hand" 
 						x:Name="rdBtn16in1"
 						Checked="rdBtn16in1_Checked"
 						Style="{StaticResource CustomRadioButtonEx}">
-                        <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/16in1.png" HorizontalAlignment="Left" />
-                    </RadioButton>
-                    <TextBlock Text="{StaticResource ResStr_16_in_1}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="35" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
-                </StackPanel>
+                            <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/16in1.png" HorizontalAlignment="Left" />
+                        </RadioButton>
+                        <TextBlock Text="{StaticResource ResStr_16_in_1}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="35" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
+                    </StackPanel>
 
-                <StackPanel Orientation="Vertical"
+                    <StackPanel Orientation="Vertical"
 					Grid.Column="2" 
 					Grid.Row="3"
 					Margin="30,0,45,0"
 					Grid.ColumnSpan="2">
-                    <RadioButton GroupName="Goup4" 
+                        <RadioButton GroupName="Goup4" 
 						IsChecked="False"  
 						Cursor="Hand" 
 						x:Name="rdBtn1in2x2" 
 						Checked="rdBtn1in2x2_Checked"
 						Style="{StaticResource CustomRadioButtonEx}">
-                        <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/1in2x2.png" HorizontalAlignment="Left" />
-                    </RadioButton>
-                    <TextBlock Text="{StaticResource ResStr_1_in_2_2_}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
-                </StackPanel>
+                            <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/1in2x2.png" HorizontalAlignment="Left" />
+                        </RadioButton>
+                        <TextBlock Text="{StaticResource ResStr_1_in_2_2_}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
+                    </StackPanel>
 
-                <StackPanel Orientation="Vertical"
+                    <StackPanel Orientation="Vertical"
 					Grid.Column="3" 
 					Grid.Row="3"
 					Margin="30,0,45,0"
 					Grid.ColumnSpan="2">
-                    <RadioButton GroupName="Goup4" 
+                        <RadioButton GroupName="Goup4" 
 						IsChecked="False"  
 						Cursor="Hand" 
 						x:Name="rdBtn1in3x3" 
 						Checked="rdBtn1in3x3_Checked"
 						Style="{StaticResource CustomRadioButtonEx}">
-                        <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/1in3x3.png" HorizontalAlignment="Left" />
-                    </RadioButton>
-                    <TextBlock Text="{StaticResource ResStr_1_in_3_3}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
-                </StackPanel>
+                            <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/1in3x3.png" HorizontalAlignment="Left" />
+                        </RadioButton>
+                        <TextBlock Text="{StaticResource ResStr_1_in_3_3}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
+                    </StackPanel>
 
-                <StackPanel Orientation="Vertical"
+                    <StackPanel Orientation="Vertical"
 					Grid.Column="4" 
 					Grid.Row="3"
 					Margin="30,0,45,0"
 					Grid.ColumnSpan="2">
-                    <RadioButton GroupName="Goup4" 
+                        <RadioButton GroupName="Goup4" 
 						IsChecked="False"  
 						Cursor="Hand" 
 						x:Name="rdBtn1in4x4" 
 						Checked="rdBtn1in4x4_Checked"
 						Style="{StaticResource CustomRadioButtonEx}">
-                        <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/1in4x4.png" HorizontalAlignment="Left" />
-                    </RadioButton>
-                    <TextBlock Text="{StaticResource ResStr_1_in_4_4_}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
-                </StackPanel>
+                            <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/1in4x4.png" HorizontalAlignment="Left" />
+                        </RadioButton>
+                        <TextBlock Text="{StaticResource ResStr_1_in_4_4_}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
+                    </StackPanel>
 
-                <CheckBox x:Name="chk_MultiplePagePrint" 
+                    <CheckBox x:Name="chk_MultiplePagePrint" 
 					Grid.Row="3"
 					Grid.Column="1" 
 					Grid.ColumnSpan="2"
@@ -314,23 +315,23 @@
 					Checked="chk_MultiplePagePrint_Checked" 
 					Unchecked="chk_MultiplePagePrint_Unchecked"/>
 
-            </Grid>
-        </Controls:GroupBoxDecorator>
+                </Grid>
+            </Controls:GroupBoxDecorator>
 
-        <Controls:GroupBoxDecorator Header="{StaticResource ResStr_2_sided}" Margin="1,3,0,61" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2">
-            <Grid Margin="0,0,0,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="65"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="94"/>
-                    <ColumnDefinition Width="142"/>
-                    <ColumnDefinition Width="139"/>
-                </Grid.ColumnDefinitions>
+            <Controls:GroupBoxDecorator Header="{StaticResource ResStr_2_sided}" Margin="1,3,0,61" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                <Grid Margin="0,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="65"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="94"/>
+                        <ColumnDefinition Width="142"/>
+                        <ColumnDefinition Width="139"/>
+                    </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Horizontal" 
+                    <StackPanel Orientation="Horizontal" 
 					Grid.ColumnSpan="3" Margin="93,0,1,0">
-                    <RadioButton GroupName="Goup2" 
+                        <RadioButton GroupName="Goup2" 
 						Height="42" 
 						Width="123" 
 						IsChecked="False"                           
@@ -340,13 +341,13 @@
 						Style="{StaticResource CustomRadioButtonEx}" 
 						SnapsToDevicePixels="True"
 						Margin="10,0,0,2">
-                        <StackPanel Width="120">
-                            <Image Height="42" Margin="10,0,66,0" Stretch="None" Source="Images/FlipOnShortEdge.png" HorizontalAlignment="Left" Width="50"/>
-                            <TextBlock Text="{StaticResource ResStr_Flip_on_short_edge}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="56" FontSize="13" Margin="60,-30,0,30" Height="20" FontWeight="Bold" Foreground="DimGray"/>
-                        </StackPanel>
-                    </RadioButton>
+                            <StackPanel Width="120">
+                                <Image Height="42" Margin="10,0,66,0" Stretch="None" Source="Images/FlipOnShortEdge.png" HorizontalAlignment="Left" Width="50"/>
+                                <TextBlock Text="{StaticResource ResStr_Flip_on_short_edge}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="56" FontSize="13" Margin="60,-30,0,30" Height="20" FontWeight="Bold" Foreground="DimGray"/>
+                            </StackPanel>
+                        </RadioButton>
 
-                    <RadioButton GroupName="Goup2" 
+                        <RadioButton GroupName="Goup2" 
 						Width="127"
 						Height="42" 
 						Cursor="Hand" 
@@ -355,13 +356,13 @@
 						Style="{StaticResource CustomRadioButtonEx}" 
 						SnapsToDevicePixels="True"
 						Margin="10,0,0,2">
-                        <StackPanel Margin="2,0,8,0">
-                            <Image Height="42" Margin="10,0,66,0"  Stretch="None" Source="Images/FlipOnLongEdge.png" HorizontalAlignment="Left" Width="50"/>
-                            <TextBlock Text="{StaticResource ResStr_Flip_on_long_edge}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="56" FontSize="13" Margin="60,-30,0,30" Height="20" FontWeight="Bold" Foreground="DimGray"/>
-                        </StackPanel>
-                    </RadioButton>
-                </StackPanel>
-                <CheckBox x:Name="chk_DuplexPrint" 
+                            <StackPanel Margin="2,0,8,0">
+                                <Image Height="42" Margin="10,0,66,0"  Stretch="None" Source="Images/FlipOnLongEdge.png" HorizontalAlignment="Left" Width="50"/>
+                                <TextBlock Text="{StaticResource ResStr_Flip_on_long_edge}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="56" FontSize="13" Margin="60,-30,0,30" Height="20" FontWeight="Bold" Foreground="DimGray"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+                    <CheckBox x:Name="chk_DuplexPrint" 
 					Template="{StaticResource customCheckBox}" 
 					IsChecked="False" 
 					Checked="chk_DuplexPrint_Checked" 
@@ -369,41 +370,41 @@
 					Content="{StaticResource ResStr_2_sided}"
 					Margin="16,8,0,12"/>
 
-            </Grid>
-        </Controls:GroupBoxDecorator>
+                </Grid>
+            </Controls:GroupBoxDecorator>
 
 
-        <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Orientation}" Margin="2,1,0,1" Grid.Row="2" Grid.Column="3">
-            <StackPanel Orientation="Horizontal"/>
-        </Controls:GroupBoxDecorator>
+            <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Orientation}" Margin="2,1,0,1" Grid.Row="2" Grid.Column="3">
+                <StackPanel Orientation="Horizontal"/>
+            </Controls:GroupBoxDecorator>
 
-        <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Media_Type}" Margin="1,1,0,1" Grid.Row="2" Grid.Column="5" Padding="20,5,30,10">
-            <ComboBox Style="{StaticResource customComboBox}" 
+            <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Media_Type}" Margin="1,1,0,1" Grid.Row="2" Grid.Column="5" Padding="20,5,30,10">
+                <ComboBox Style="{StaticResource customComboBox}" 
 				x:Name="cboMediaType" 
 				Background="White"
 				SelectionChanged="cboMediaType_SelectionChanged">
-                <ComboBoxItem Style="{StaticResource customComboBoxItem}"  IsSelected="true" Content="{StaticResource ResStr_Plain_Paper}" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="{StaticResource ResStr_Recycled_Paper}" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="{StaticResource ResStr_Thick_Paper}" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="{StaticResource ResStr_Thin_Paper}" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="{StaticResource ResStr_Label}" />
-            </ComboBox>
-        </Controls:GroupBoxDecorator>
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"  IsSelected="true" Content="{StaticResource ResStr_Plain_Paper}" />
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="{StaticResource ResStr_Recycled_Paper}" />
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="{StaticResource ResStr_Thick_Paper}" />
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="{StaticResource ResStr_Thin_Paper}" />
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="{StaticResource ResStr_Label}" />
+                </ComboBox>
+            </Controls:GroupBoxDecorator>
 
-        <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Print_Quality}" Margin="0,2" Grid.Row="4" Grid.Column="5" Padding="20,5,30,10">
-            <ComboBox Style="{StaticResource customComboBox}" 
+            <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Print_Quality}" Margin="0,2" Grid.Row="4" Grid.Column="5" Padding="20,5,30,10">
+                <ComboBox Style="{StaticResource customComboBox}" 
 				x:Name="cboPrintQuality" 
 				Background="White"
 				SelectionChanged="cboPrintQuality_SelectionChanged">
-                <ComboBoxItem Style="{StaticResource customComboBoxItem}"  IsSelected="true" Content="{StaticResource ResStr_Normal_600_600_}" />
-                <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="{StaticResource ResStr_Fine_1200_600_}" />
-            </ComboBox>
-        </Controls:GroupBoxDecorator>
+                    <ComboBoxItem Style="{StaticResource customComboBoxItem}"  IsSelected="true" Content="{StaticResource ResStr_Normal_600_600_}" />
+                    <ComboBoxItem  Style="{StaticResource customComboBoxItem}" Content="{StaticResource ResStr_Fine_1200_600_}" />
+                </ComboBox>
+            </Controls:GroupBoxDecorator>
 
 
-        <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Scaling}" Margin="0,2,0,0" Grid.Row="6" Grid.Column="5" Grid.RowSpan="3">
-            <StackPanel Orientation="Vertical">
-                <Controls:SpinnerControl
+            <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Scaling}" Margin="0,2,0,0" Grid.Row="6" Grid.Column="5" Grid.RowSpan="3">
+                <StackPanel Orientation="Vertical">
+                    <Controls:SpinnerControl
 					x:Name="spinnerScaling"
 					Style="{StaticResource PrintSettingSpinnerStyle}"
 					Width="163"
@@ -415,18 +416,18 @@
 					Value="100"
 					ValidationHasErrorChanged="OnScalingValidationHasError"
 					Margin="0,5,0,0"/>
-                <CheckBox x:Name="chk_FitToPaperSize" 
+                    <CheckBox x:Name="chk_FitToPaperSize" 
 					Template="{StaticResource customCheckBox}" 
 					IsChecked="False" 
 					Checked="chk_FitToPaperSize_Checked"
 					Unchecked="chk_FitToPaperSize_Unchecked"
 					Content="{StaticResource ResStr_Fit_to_Paper_Size}" 
 					HorizontalAlignment="Center"/>
-            </StackPanel>
-        </Controls:GroupBoxDecorator>
+                </StackPanel>
+            </Controls:GroupBoxDecorator>
 
-        <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Density_Adjustment}" Margin="1,3,0,1" Grid.Row="10" Grid.Column="5">
-            <Controls:SpinnerControl
+            <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Density_Adjustment}" Margin="1,3,0,1" Grid.Row="10" Grid.Column="5">
+                <Controls:SpinnerControl
 				x:Name="spinnerDensityAdjustment"
 				Style="{StaticResource PrintSettingSpinnerBarStyle}"
 				Width="163"
@@ -436,12 +437,12 @@
 				Minimum="1"  
 				Value="4"
 				Margin="0,0,0,0"/>
-        </Controls:GroupBoxDecorator>
+            </Controls:GroupBoxDecorator>
 
 
-        <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Reverse_Print}" Margin="0,2,0,0" Grid.Row="12" Grid.Column="5" Grid.RowSpan="1">
-            <StackPanel Orientation="Horizontal">
-                <RadioButton GroupName="Goup1" 
+            <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Reverse_Print}" Margin="0,2,0,0" Grid.Row="12" Grid.Column="5" Grid.RowSpan="1">
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton GroupName="Goup1" 
 					Margin="23,0,0,2"  
 					Cursor="Hand" 
 					x:Name="rdBtnNormalPrint"
@@ -449,9 +450,9 @@
 					Style="{StaticResource CustomRadioButtonEx}" 
 					Width="63" 
 					Height="37" >
-                    <Image Height="37"  Stretch="None" Source="Images/123.png" Width="63" />
-                </RadioButton>
-                <RadioButton GroupName="Goup1" 
+                        <Image Height="37"  Stretch="None" Source="Images/123.png" Width="63" />
+                    </RadioButton>
+                    <RadioButton GroupName="Goup1" 
 					Margin="10,0,0,2"  
 					Cursor="Hand" 
 					x:Name="rdBtnReversePrint"
@@ -460,17 +461,17 @@
 					IsChecked="true"  
 					Width="63" 
 					Height="37">
-                    <Image Height="37" Stretch="None" Source="Images/321.png" Width="63" />
-                </RadioButton>
-            </StackPanel>
-        </Controls:GroupBoxDecorator>
+                        <Image Height="37" Stretch="None" Source="Images/321.png" Width="63" />
+                    </RadioButton>
+                </StackPanel>
+            </Controls:GroupBoxDecorator>
 
-        <StackPanel 
+            <StackPanel 
 			Orientation="Horizontal"  
 			Grid.Row="13"
 			Grid.Column="1"
 			Grid.ColumnSpan="5">
-            <CheckBox x:Name="chk_TonerSaving"
+                <CheckBox x:Name="chk_TonerSaving"
 				Template="{StaticResource customCheckBox}" 
 				IsChecked="False" 
 				Checked="chk_TonerSaving_Checked" 
@@ -479,7 +480,7 @@
 				Margin="0,-15,0,0" 
 				FontSize="14"/>
 
-            <Button 
+                <Button 
 				x:Name="AdvancedSettingsButton"
 				IsDefault="False"
 				Content="{StaticResource ResStr_Advanced_settings}" 
@@ -490,7 +491,7 @@
 				FontSize="18"
 				Click="AdvancedSettingButtonClick"/>
 
-            <Button IsDefault="False"
+                <Button IsDefault="False"
 				x:Name="DefaultButton"
 				Content="{StaticResource ResStr_ExtraAdd_Default}" 
 				Style="{StaticResource CustomGrayButtonStyle}"
@@ -500,7 +501,7 @@
 				FontSize="18"
 				Click="DefaultButtonClick"/>
 
-            <Button 
+                <Button 
 				IsDefault="True"
 				x:Name="OKButton"
 				Content="{StaticResource ResStr_ExtraAdd_OK}" 
@@ -510,9 +511,9 @@
 				Margin="10,0,0,0"
 				FontSize="18"
 				Click="OKButtonClick"/>
-        </StackPanel>
+            </StackPanel>
 
-        <RadioButton x:Name="rdBtnPortrait"
+            <RadioButton x:Name="rdBtnPortrait"
 			GroupName="Goup5" 
 			Checked="rdBtnPortrait_Checked"
 			IsChecked="{Binding SelectedItem, Converter={StaticResource isInchConverter}, ElementName=myComboBox, Mode=OneWay}"
@@ -521,7 +522,7 @@
 			Foreground="DarkSlateGray"
 			Margin="30,31,101,7" Grid.Column="3" Grid.Row="2"/>
 
-        <RadioButton x:Name="rdBtnLandscape"
+            <RadioButton x:Name="rdBtnLandscape"
             GroupName="Goup5"
 			Checked="rdBtnLandscape_Checked"
 			IsChecked="{Binding SelectedItem, ConverterParameter=flip, Converter={StaticResource isInchConverter}, ElementName=myComboBox, Mode=OneWay}"
@@ -530,5 +531,6 @@
 			Foreground="DarkSlateGray"
 			Margin="101,31,30,7" Grid.Column="3" Grid.Row="2"/>
 
-    </Grid>
+        </Grid>
+    </Viewbox>
 </Window>

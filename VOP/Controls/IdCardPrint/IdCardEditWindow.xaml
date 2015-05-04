@@ -10,6 +10,7 @@
         AllowsTransparency="True"
         Background="Transparent" 
         ShowInTaskbar="False" 
+        BorderThickness="25,25,25,25"
         Loaded="Window_Loaded">
     <Window.Resources>
         <ResourceDictionary>
@@ -19,59 +20,61 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="30" Color="#FF858484" Direction="292" ShadowDepth="0" Opacity="1"/>
+    </Window.Effect>
 
-    <Border Height="430" Width="450">
-        <Border.Effect>
-            <DropShadowEffect BlurRadius="30" Color="#FF858484" Direction="292" ShadowDepth="0" Opacity="1"/>
-        </Border.Effect>
+    <Viewbox Stretch="Fill">
+        <Border Height="430" Width="450">
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="30"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
-                <TextBlock Name="TitleBarText" Text="{StaticResource ResStr_Certificate_Edit}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            </Border>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock Name="TitleBarText" Text="{StaticResource ResStr_Certificate_Edit}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
 
-            <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
+                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
 
-            <Grid Grid.Row="1"  
+                <Grid Grid.Row="1"  
                  Grid.Column="0" 
                  Grid.ColumnSpan="2"
                  Background="#FFE7E7E7">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="5"/>
-                    <RowDefinition Height="70"/>
-                </Grid.RowDefinitions>
-                <Border Name="borderContainer" Grid.Row="0" Background="White" Margin="20,5,20,5" CornerRadius="15">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="10" Color="#FF858484" Direction="292" ShadowDepth="1" Opacity="0.3"/>
-                    </Border.Effect>
-                    <local:ImageCropper x:Name="myCropper" Margin="20"/>
-                </Border>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="70"/>
+                    </Grid.RowDefinitions>
+                    <Border Name="borderContainer" Grid.Row="0" Background="White" Margin="20,5,20,5" CornerRadius="15">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="10" Color="#FF858484" Direction="292" ShadowDepth="1" Opacity="0.3"/>
+                        </Border.Effect>
+                        <local:ImageCropper x:Name="myCropper" Margin="20"/>
+                    </Border>
 
-                <StackPanel Grid.Row="2" Orientation="Horizontal">
-                    <ContentControl Style="{StaticResource designerItemColorPanelStyle}"
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <ContentControl Style="{StaticResource designerItemColorPanelStyle}"
                                     Width="180"
                                     Margin="20, 0, 0, 5" 
                                     Content="边框颜色"
                                     x:Name="colorPanel"/>
-                    
-                    <Button Name="RotationButton" 
+
+                        <Button Name="RotationButton" 
                             Width="60"
                             Height="35"
                             Margin="20, 0, 0, 5" 
                             Style="{StaticResource RotationButtonStyle}"
-                            Click="RotatedButton_Click">  
-                    </Button>
-                          
-                    <Button  Name="GreenOkButton"
+                            Click="RotatedButton_Click">
+                        </Button>
+
+                        <Button  Name="GreenOkButton"
                         Width="125"
                         Height="35" 
                         Margin="20, 0, 0, 5" 
@@ -80,9 +83,9 @@
                         Style="{StaticResource CustomGreenButtonStyle}"
                         Content="{StaticResource ResStr_ExtraAdd_OK_3}"
                         Click="GreenOkButton_Click" />
-                </StackPanel>
+                    </StackPanel>
+                </Grid>
             </Grid>
-        </Grid>
-    </Border>
-   
+        </Border>
+    </Viewbox>
 </Window>
