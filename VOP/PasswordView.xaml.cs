@@ -26,7 +26,8 @@ namespace VOP
 
         private void OnLoadedPasswordView(object sender, RoutedEventArgs e)
         {
-        
+            pbnewPWD.Password = "";
+            pbConfirmPWD.Password = "";
         }
 
         public bool apply()
