@@ -166,7 +166,7 @@ static PCLDEVMODE getDocumentPropertiesData;
 static PCLDEVMODE getOutputData;
 static PirntSettingsData g_PirntSettingsData;
 static bool isOpenDocumentProperties = false;
-static TCHAR * g_strPrinterName = NULL;
+static const TCHAR * g_strPrinterName = NULL;
 
 
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int copies)
@@ -1102,12 +1102,9 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 				DWORD dwSize = sizeof(devmode)-sizeof(DEVMODE);
 				if (g_strPrinterName == NULL || g_strPrinterName != strPrinterName)
 				{	
-					if (g_strPrinterName != strPrinterName)
-					{
-						RecoverDevModeData();
-					}
+					RecoverDevModeData();
 					getdevmode = *(LPPCLDEVMODE)printer_info->pDevMode;
-					g_strPrinterName = szprintername;
+					g_strPrinterName = strPrinterName;
 				}				
 				if (isOpenDocumentProperties)
 				{
@@ -1208,7 +1205,9 @@ USBAPI_API void __stdcall RecoverDevModeData()
 	phandle = NULL;
 	if (g_strPrinterName != NULL)
 	{
-		if (OpenPrinter(g_strPrinterName, &phandle, NULL))
+		wchar_t szprintername[MAX_PATH] = { 0 };
+		wcscpy_s(szprintername, MAX_PATH, g_strPrinterName);
+		if (OpenPrinter(szprintername, &phandle, NULL))
 		{
 			LPPRINTER_INFO_2 printer_info;
 
