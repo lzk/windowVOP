@@ -68,6 +68,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage);
 USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName);
 USBAPI_API void __stdcall AddImageSource(IStream * imageSource);
+USBAPI_API void __stdcall AddImageRotation(int rotation);
 USBAPI_API int __stdcall DoPrintImage();
 USBAPI_API int __stdcall DoPrintIdCard();
 USBAPI_API void __stdcall SavePrinterSettingsData(const TCHAR * strPrinterName,
@@ -150,6 +151,7 @@ USBAPI_API void __stdcall SetInitData(const TCHAR * strPrinterName);
 
 static std::vector<PrintItem> g_vecImagePaths;
 static std::vector<IStream*>  g_vecIdCardImageSources;
+static std::vector<int>  g_vecIdCardImageRotation;
 static DOCINFO  di = { sizeof (DOCINFO) };
 static HDC dc = NULL;
 
@@ -250,6 +252,7 @@ USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * 
 {
 	g_vecImagePaths.clear();
 	g_vecIdCardImageSources.clear();
+	g_vecIdCardImageRotation.clear();
 
 	currentIdCardType = idCardType;
 	needFitToPage = fitToPage;
@@ -284,6 +287,11 @@ USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName)
 USBAPI_API void __stdcall AddImageSource(IStream * imageSource)
 {
 	g_vecIdCardImageSources.push_back(imageSource);
+}
+
+USBAPI_API void __stdcall AddImageRotation(int rotation)
+{
+	g_vecIdCardImageRotation.push_back(rotation);
 }
 
 USBAPI_API int __stdcall DoPrintImage()
@@ -360,9 +368,10 @@ USBAPI_API int __stdcall DoPrintImage()
 						int y = 0;
 						int dpiX = img.GetHorizontalResolution();
 						int dpiY = img.GetVerticalResolution();
+
 						int w = img.GetWidth() * (600 / dpiX);
 						int h = img.GetHeight()* (600 / dpiY);
-
+		
 						double whRatio = (double)w / h;
 						double scaleRatioX = (double)w / cxPage;
 						double scaleRatioY = (double)h / cyPage;
@@ -493,12 +502,6 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				imageToLeft = 0;
 				imageToTop = 0;
 		
-				imageWidth = (currentIdCardSize.Width / 2.54) * 600;
-				imageHeight = (currentIdCardSize.Height / 2.54) * 600;
-
-				imageToLeft = (cxPage - imageWidth) / 2;
-				imageToTop = (cyPage / 2 - imageHeight) / 2;
-
 				Image img1(g_vecIdCardImageSources[0]);
 
 				status = img1.GetLastStatus();
@@ -540,7 +543,51 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				Graphics graphics(hdcPrn);
 				graphics.SetPageUnit(UnitPixel);
 		
-				if ((status = graphics.DrawImage(&img1, (int)imageToLeft, (int)imageToTop, (int)imageWidth, (int)imageHeight)) != Ok)
+				switch (g_vecIdCardImageRotation[0])
+				{
+				case 0:
+					imageWidth = (currentIdCardSize.Width / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Height / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageWidth) / 2;
+					imageToTop = (cyPage / 2 - imageHeight) / 2;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(0.0f);
+					break;
+				case 90:
+					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Width / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
+					imageToTop = (cyPage / 2 - imageWidth) / 2;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(90.0f);
+					break;
+				case 180:
+					imageWidth = (currentIdCardSize.Width / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Height / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
+					imageToTop = (cyPage / 2 - imageHeight) / 2 + imageHeight;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(180.0f);
+					break;
+				case 270:
+					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Width / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageHeight) / 2;
+					imageToTop = (cyPage / 2 - imageWidth) / 2 + imageWidth;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(270.0f);
+					break;
+				}
+
+				if ((status = graphics.DrawImage(&img1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Ok)
 				{
 					if (status == OutOfMemory)
 					{
@@ -553,7 +600,53 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				if ((status = graphics.DrawImage(&img2, (int)imageToLeft, (int)imageToTop + cyPage / 2, (int)imageWidth, (int)imageHeight)) != Ok)
+				graphics.ResetTransform();
+
+				switch (g_vecIdCardImageRotation[1])
+				{
+				case 0:
+					imageWidth = (currentIdCardSize.Width / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Height / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageWidth) / 2;
+					imageToTop = (cyPage / 2 - imageHeight) / 2 + cyPage / 2;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(0.0f);
+					break;
+				case 90:
+					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Width / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
+					imageToTop = (cyPage / 2 - imageWidth) / 2 + cyPage / 2;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(90.0f);
+					break;
+				case 180:
+					imageWidth = (currentIdCardSize.Width / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Height / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
+					imageToTop = (cyPage / 2 - imageHeight) / 2 + imageHeight + cyPage / 2;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(180.0f);
+					break;
+				case 270:
+					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Width / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageHeight) / 2;
+					imageToTop = (cyPage / 2 - imageWidth) / 2 + imageWidth + cyPage / 2;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(270.0f);
+					break;
+				}
+
+				if ((status = graphics.DrawImage(&img2, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Ok)
 				{
 					if (status == OutOfMemory)
 					{
@@ -582,12 +675,6 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				imageToLeft = 0;
 				imageToTop = 0;
 
-				imageWidth = (currentIdCardSize.Width / 2.54) * 600;
-				imageHeight = (currentIdCardSize.Height / 2.54) * 600;
-
-				imageToLeft = (cxPage - imageWidth) / 2;
-				imageToTop = (cyPage - imageHeight) / 2;
-
 				Image img1(g_vecIdCardImageSources[0]);
 
 				status = img1.GetLastStatus();
@@ -613,7 +700,51 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				Graphics graphics(hdcPrn);
 				graphics.SetPageUnit(UnitPixel);
 
-				if ((status = graphics.DrawImage(&img1, (int)imageToLeft, (int)imageToTop, (int)imageWidth, (int)imageHeight)) != Ok)
+				switch (g_vecIdCardImageRotation[0])
+				{
+				case 0:
+					imageWidth = (currentIdCardSize.Width / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Height / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageWidth) / 2;
+					imageToTop = (cyPage - imageHeight) / 2;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(0.0f);
+					break;
+				case 90:
+					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Width / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
+					imageToTop = (cyPage - imageWidth) / 2;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(90.0f);
+					break;
+				case 180:
+					imageWidth = (currentIdCardSize.Width / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Height / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
+					imageToTop = (cyPage - imageHeight) / 2 + imageHeight;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(180.0f);
+					break;
+				case 270:
+					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Width / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageHeight) / 2;
+					imageToTop = (cyPage - imageWidth) / 2 + imageWidth;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(270.0f);
+					break;
+				}
+
+				if ((status = graphics.DrawImage(&img1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Ok)
 				{
 					if (status == OutOfMemory)
 					{
@@ -648,12 +779,6 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				imageToLeft = 0;
 				imageToTop = 0;
 
-				imageWidth = (currentIdCardSize.Width / 2.54) * 600;
-				imageHeight = (currentIdCardSize.Height / 2.54) * 600;
-
-				imageToLeft = (cxPage - imageHeight) / 2;
-				imageToTop = (cyPage - imageWidth) / 2 + imageWidth;
-
 				Image *pImg1 = NULL;
 				pImg1 = Image::FromStream(g_vecIdCardImageSources[0]);
 
@@ -685,9 +810,52 @@ USBAPI_API int __stdcall DoPrintIdCard()
 
 				Graphics graphics(hdcPrn);
 				graphics.SetPageUnit(UnitPixel);
-				graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
-				graphics.RotateTransform(270.0f);
 
+				switch (g_vecIdCardImageRotation[0])
+				{
+				case 0:
+					imageWidth = (currentIdCardSize.Width / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Height / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageHeight) / 2;
+					imageToTop = (cyPage - imageWidth) / 2 + imageWidth;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(270.0f);
+					break;
+				case 90:
+					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Width / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageWidth) / 2;
+					imageToTop = (cyPage - imageHeight) / 2;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(0.0f);
+					break;
+				case 180:
+					imageWidth = (currentIdCardSize.Width / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Height / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
+					imageToTop = (cyPage - imageWidth) / 2;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(90.0f);
+					break;
+				case 270:
+					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
+					imageHeight = (currentIdCardSize.Width / 2.54) * 600;
+
+					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
+					imageToTop = (cyPage - imageHeight) / 2 + imageHeight;
+
+					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.RotateTransform(180.0f);
+					break;
+				}
+
+				
 				if ((status = graphics.DrawImage(pImg1, 0, 0, (int)imageWidth, (int)imageHeight)) != Ok)
 				{
 					if (pImg1)

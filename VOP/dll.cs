@@ -206,6 +206,9 @@ namespace VOP
         public static extern void AddImageSource(IStream imageSource);
 
         [DllImport("usbapi.dll")]
+        public static extern void AddImageRotation(int rotation);
+
+        [DllImport("usbapi.dll")]
         public static extern int DoPrintImage();
 
         [DllImport("usbapi.dll")]

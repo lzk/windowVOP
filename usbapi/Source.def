@@ -18,6 +18,7 @@ EXPORTS
 	PrintInit
 	AddImagePath
     AddImageSource
+	AddImageRotation
 	DoPrintImage
 	DoPrintIdCard
     PrintFile

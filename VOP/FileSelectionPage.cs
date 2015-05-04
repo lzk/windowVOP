@@ -126,7 +126,7 @@ namespace VOP
 
             currentState = FileSelectionState.SelectWindow;
             IdCardEditWindow.croppedImageList.Clear();
-
+            IdCardEditWindow.imageRotationList.Clear();
           
             while (currentState != FileSelectionState.Exit)
             {

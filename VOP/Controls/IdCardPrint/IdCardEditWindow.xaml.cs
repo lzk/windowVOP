@@ -20,6 +20,7 @@ namespace VOP.Controls
     {
         public static Size A4Size = new Size(21, 29.7); //unit cm
         public static List<BitmapSource> croppedImageList = new List<BitmapSource>();
+        public static List<int> imageRotationList = new List<int>();
 
         public IdCardTypeItem SelectedTypeItem { get; set; }
 
@@ -46,11 +47,44 @@ namespace VOP.Controls
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
+
+            RadioButton rb = colorPanel.Template.FindName("WhiteRadioButton", colorPanel) as RadioButton;
+            rb.Checked += new RoutedEventHandler(RadioColor_Checked);
+
+            rb = colorPanel.Template.FindName("GreenRadioButton", colorPanel) as RadioButton;
+            rb.Checked += new RoutedEventHandler(RadioColor_Checked);
+
+            rb = colorPanel.Template.FindName("GrayRadioButton", colorPanel) as RadioButton;
+            rb.Checked += new RoutedEventHandler(RadioColor_Checked);
         }
 
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void RadioColor_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+
+            if(rb.Name == "WhiteRadioButton")
+            {
+                SolidColorBrush brush = new SolidColorBrush();
+                brush.Color = Colors.White;
+                myCropper.SetDesignerItemColor(brush);
+            }
+            else if (rb.Name == "GreenRadioButton")
+            {
+                SolidColorBrush brush = new SolidColorBrush();
+                brush.Color = Colors.Green;
+                myCropper.SetDesignerItemColor(brush);
+            }
+            else if (rb.Name == "GrayRadioButton")
+            {
+                SolidColorBrush brush = new SolidColorBrush();
+                brush.Color = Colors.DarkGray;
+                myCropper.SetDesignerItemColor(brush);
+            }
         }
 
         private void RotatedButton_Click(object sender, RoutedEventArgs e)
@@ -67,6 +101,7 @@ namespace VOP.Controls
                     if (myCropper.GetCroppedImage() != null)
                     {
                         croppedImageList.Add(myCropper.GetCroppedImage());
+                        imageRotationList.Add(myCropper.GetCurrentImageRotation());
                     }
 
                     PrintPreview printPreview = new PrintPreview();
@@ -79,6 +114,10 @@ namespace VOP.Controls
                         borderContainer.Child = printPreview;
                         printPreview.Update(); //update after being a child
                         TitleBarText.Text = (string)this.TryFindResource("ResStr_Preview");
+
+                        colorPanel.Visibility = System.Windows.Visibility.Hidden;
+                        RotationButton.Visibility = System.Windows.Visibility.Hidden;
+                        GreenOkButton.Margin = new Thickness(-120, 0, 0, 5);
                     }
                     else
                     {
@@ -91,6 +130,10 @@ namespace VOP.Controls
                             borderContainer.Child = printPreview;
                             printPreview.Update();
                             TitleBarText.Text = (string)this.TryFindResource("ResStr_Preview");
+
+                            colorPanel.Visibility = System.Windows.Visibility.Hidden;
+                            RotationButton.Visibility = System.Windows.Visibility.Hidden;
+                            GreenOkButton.Margin = new Thickness(-120, 0, 0, 5);
                         }
                     }
                     currentState = EditWindowState.Preview;

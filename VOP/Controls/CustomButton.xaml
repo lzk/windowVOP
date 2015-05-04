@@ -220,6 +220,59 @@
         </Setter>
     </Style>
 
+    <Style x:Key="RotationButtonStyle"
+       TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Rectangle Name="innerRect" RadiusY="16.75" RadiusX="16.75" StrokeThickness="2"
+                                   Stroke="{StaticResource GrayButtonStrokeNormal}" 
+                                   Fill="{StaticResource GrayButtonFillNormal}"/>
+                        <Path Data="M27.749992,2.5 L27.749992,9.5000001 34.749988,5.9999902 z M26.111874,6.252521 C26.111874,6.252521 5.1284532,5.2774706 2.5000006,29.250101 2.5000006,29.250101 3.1726524,50.362515 22.049721,52.520088 22.049721,52.520088 37.342535,56.116033 44.749992,42.211675"
+                              Stretch="Fill" 
+                              Stroke="#FF717171" 
+                              StrokeThickness="2"
+                              Width="20"
+                              Height="18"
+                              />
+                        <ContentPresenter x:Name="myContentPresenter" 
+                                           Content="{TemplateBinding  Content}"  
+                                           Margin="{TemplateBinding   Padding}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           TextBlock.Foreground="Black" 
+                                           TextBlock.FontSize="{TemplateBinding FontSize}"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="innerRect" Property="Stroke" Value="{StaticResource GrayButtonStrokePressed}" />
+                            <Setter TargetName="innerRect" Property="Fill" Value="{StaticResource GrayButtonFillPressed}" />
+                            <Setter TargetName="myContentPresenter" Property="TextBlock.Foreground" Value="White"/>
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="true"/>
+                                <Condition Property="IsPressed" Value="false"/>
+                            </MultiTrigger.Conditions>
+
+                            <Setter TargetName="innerRect" Property="Stroke" Value="{StaticResource GrayButtonStrokeNormal}" />
+                            <Setter TargetName="innerRect" Property="Fill" Value="{StaticResource GrayButtonFillNormal}" />
+                            <Setter TargetName="myContentPresenter" Property="TextBlock.Foreground" Value="#FF0AAA0A"/>
+                        </MultiTrigger>
+
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="innerRect" Property="Stroke" Value="{StaticResource GrayButtonStrokeDisable}" />
+                            <Setter TargetName="innerRect" Property="Fill" Value="{StaticResource GrayButtonFillDisable}" />
+                            <Setter TargetName="myContentPresenter" Property="TextBlock.Foreground" Value="#FFA8A8A8"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <!-- Slider Style Begin -->
 
     <Style x:Key="SliderButtonStyle"

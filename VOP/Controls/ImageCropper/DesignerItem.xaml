@@ -21,7 +21,9 @@
             <s:MoveThumb Cursor="SizeAll" Template="{StaticResource MoveThumbTemplate}" />
             <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
                               Margin="{TemplateBinding Padding}"/>
-            <s:ResizeRotateChrome x:Name="ItemDecorator" Style="{StaticResource ResizeRotateChromeStyle}" />
+                        <s:ResizeRotateChrome x:Name="ItemDecorator" 
+                     DesignerItemColor="{Binding Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentControl}}}" 
+                                              Style="{StaticResource ResizeRotateChromeStyle}" />
           </Grid>
          </ControlTemplate>
       </Setter.Value>

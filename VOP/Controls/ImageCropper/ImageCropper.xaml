@@ -5,7 +5,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d"
 	x:Class="VOP.Controls.ImageCropper"
-	x:Name="UserControl"
+	x:Name="userControl"
 	d:DesignWidth="640" d:DesignHeight="480" Background="#FFB4B4B4"  
     xmlns:s="clr-namespace:VOP.Controls">
 	<UserControl.Resources>
@@ -23,9 +23,10 @@
             <ContentControl x:Name="imageCropperContent" 
                             Width="130" Height="130" 
                             Canvas.Top="15" Canvas.Left="15" 
+                            Tag="{Binding ElementName=userControl, Path=DesignerItemColor}"
                             Style="{StaticResource DesignerItemStyle}">
                 <Path Data="M0.5,20.5 L60.5,20.5 M0.5,40.5 L60.5,40.5 M20.5,0.5 L20.5,60.5 M40.5,0.5 L40.5,60.5"  
-                      Stretch="Fill" Stroke="White" 
+                      Stretch="Fill" Stroke="{Binding ElementName=userControl, Path=DesignerItemColor}"
                       StrokeDashArray="2" 
                       StrokeDashCap="Square" 
                       StrokeDashOffset="35"

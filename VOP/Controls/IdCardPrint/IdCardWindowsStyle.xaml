@@ -20,6 +20,146 @@
     </x:Array>
 
 
+    <LinearGradientBrush x:Key="ColorPanelBackground" StartPoint="0,0" EndPoint="0,1">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FFFBFBFB" Offset="0"/>
+                <GradientStop Color="#FFD1D1D1" Offset="1"/>
+                <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <Style x:Key="ColorRadioButtonStyle" TargetType="{x:Type RadioButton}">
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform  ScaleX="1" ScaleY="1"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <BulletDecorator >
+                        <Ellipse Width="{Binding Width, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type RadioButton}}}"
+                                 Height="{Binding Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type RadioButton}}}"
+                            Fill="{Binding Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type RadioButton}}}" />                  
+                    </BulletDecorator>
+                  
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Checked" >
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                        Storyboard.TargetProperty="(RadioButton.Effect).(DropShadowEffect.BlurRadius)"
+                                        To="6" Duration="0:0:0.2" />
+                            <DoubleAnimation
+                                        Storyboard.TargetProperty="(RadioButton.RenderTransform).(ScaleTransform.ScaleX)"
+                                        To="1.04" Duration="0:0:0.2" />
+                            <DoubleAnimation
+                                        Storyboard.TargetProperty="(RadioButton.RenderTransform).(ScaleTransform.ScaleY)"
+                                        To="1.04" Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+
+                </EventTrigger.Actions>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="Unchecked" >
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                            Storyboard.TargetProperty="(RadioButton.Effect).(DropShadowEffect.BlurRadius)"
+                                            To="3" Duration="0:0:0.2" />
+                            <DoubleAnimation
+                                            Storyboard.TargetProperty="(RadioButton.RenderTransform).(ScaleTransform.ScaleX)"
+                                            To="1.00" Duration="0:0:0.2" />
+                            <DoubleAnimation
+                                            Storyboard.TargetProperty="(RadioButton.RenderTransform).(ScaleTransform.ScaleY)"
+                                            To="1.00" Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="designerItemColorPanelStyle" TargetType="{x:Type ContentControl}">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <!--<Setter Property="OverridesDefaultStyle" Value="true"/>-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Border  Name="Border" 
+                             BorderThickness="2" 
+                             Height="40"
+                             CornerRadius="18"
+                             Background="{StaticResource ColorPanelBackground}">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#FFC9C9C9" Direction="307" ShadowDepth="0" Opacity="0.955"/>
+                        </Border.Effect>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{TemplateBinding Content}" FontSize="16" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#FF646464"/>
+                            <RadioButton Style="{StaticResource ColorRadioButtonStyle}" 
+                                         IsChecked="True"
+                                         GroupName="ColorSelectionGroup"
+                                         x:Name="WhiteRadioButton">
+                                <RadioButton.Effect>
+                                    <DropShadowEffect Color="#FFC0C1C3" Opacity="0.9" ShadowDepth="0" BlurRadius="3" Direction="219"/>
+                                </RadioButton.Effect>
+                                <RadioButton.Background>
+                                    <RadialGradientBrush>
+                                        <GradientStop Color="White" Offset="0"/>
+                                        <GradientStop Color="#FFE3E3E3" Offset="1"/>
+                                    </RadialGradientBrush>
+                                </RadioButton.Background>
+                            </RadioButton>
+                            <RadioButton Style="{StaticResource ColorRadioButtonStyle}" 
+                                         GroupName="ColorSelectionGroup"
+                                         x:Name="GreenRadioButton">
+                                <RadioButton.Effect>
+                                    <DropShadowEffect Color="#FF6AAC29" Opacity="0.9" ShadowDepth="0" BlurRadius="3" Direction="219"/>
+                                </RadioButton.Effect>
+                                <RadioButton.Background>
+                                    <RadialGradientBrush>
+                                        <GradientStop Color="#FFAAF65B" Offset="0"/>
+                                        <GradientStop Color="#FF66D21B" Offset="1"/>
+                                    </RadialGradientBrush>
+                                </RadioButton.Background>
+                            </RadioButton>
+                            <RadioButton Style="{StaticResource ColorRadioButtonStyle}" 
+                                         GroupName="ColorSelectionGroup"
+                                         x:Name="GrayRadioButton">
+                                <RadioButton.Effect>
+                                    <DropShadowEffect Color="#FF9F9F9F" Opacity="0.9" ShadowDepth="0" BlurRadius="3" Direction="219"/>
+                                </RadioButton.Effect>
+                                <RadioButton.Background>
+                                    <RadialGradientBrush>
+                                        <GradientStop Color="#FFC9C9C9" Offset="0"/>
+                                        <GradientStop Color="#FFA7A7A7" Offset="1"/>
+                                    </RadialGradientBrush>
+                                </RadioButton.Background>
+                            </RadioButton>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                       
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <SolidColorBrush x:Key="ListBoxItemBackgroundOver" Color="#FF9B999A" Opacity="1"/>
     
     <Style x:Key="CustomListBoxItem" TargetType="{x:Type ListBoxItem}">

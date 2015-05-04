@@ -46,7 +46,7 @@
                  Background="#FFE7E7E7">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="5"/>
                     <RowDefinition Height="70"/>
                 </Grid.RowDefinitions>
                 <Border Name="borderContainer" Grid.Row="0" Background="White" Margin="20,5,20,5" CornerRadius="15">
@@ -55,15 +55,32 @@
                     </Border.Effect>
                     <local:ImageCropper x:Name="myCropper" Margin="20"/>
                 </Border>
-                <!--<Button Name="RotatedButton" Grid.Row="1" Width="50" Height="20" Content="R" Click="RotatedButton_Click"/>-->
-                <Button Grid.Row="2" Name="GreenOkButton"
-                        Width="125" Height="35" 
-                        Margin="0, -22, 0, 0" 
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <ContentControl Style="{StaticResource designerItemColorPanelStyle}"
+                                    Width="180"
+                                    Margin="20, 0, 0, 5" 
+                                    Content="边框颜色"
+                                    x:Name="colorPanel"/>
+                    
+                    <Button Name="RotationButton" 
+                            Width="60"
+                            Height="35"
+                            Margin="20, 0, 0, 5" 
+                            Style="{StaticResource RotationButtonStyle}"
+                            Click="RotatedButton_Click">  
+                    </Button>
+                          
+                    <Button  Name="GreenOkButton"
+                        Width="125"
+                        Height="35" 
+                        Margin="20, 0, 0, 5" 
                         Padding="0, 0, 0, 0"
                         FontSize="16"
                         Style="{StaticResource CustomGreenButtonStyle}"
                         Content="{StaticResource ResStr_ExtraAdd_OK_3}"
                         Click="GreenOkButton_Click" />
+                </StackPanel>
             </Grid>
         </Grid>
     </Border>
