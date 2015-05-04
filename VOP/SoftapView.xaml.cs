@@ -131,7 +131,7 @@ namespace VOP
             {
                 if (str_ssid.Length <= 0)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_Msg_9"), (string)this.FindResource("ResStr_Warning"));
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_Msg_10"), (string)this.FindResource("ResStr_Warning"));
                 }
                 else if (str_pwd.Length < 8 || str_pwd.Length >= 64)
                 {
@@ -220,6 +220,14 @@ namespace VOP
         private void handler_text_changed(object sender, TextChangedEventArgs e)
         {
             TextBox txtBox = sender as TextBox;
+            string strText = txtBox.Text;
+
+            bool bValidate = common.IsAsciiLetter(strText);
+            if (!bValidate)
+            {
+                txtBox.Text = softAPSetting.m_ssid;
+            }
+            
             softAPSetting.m_ssid = txtBox.Text;
             //UpdateApplyBtnStatus();
         }

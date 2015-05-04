@@ -573,6 +573,20 @@ namespace VOP
                     break;
             }
         }
+
+        public static bool IsAsciiLetter(string strText)
+        {
+            bool bIsAsciiLetter = true;
+            foreach (char ch in strText)
+            {
+                if (((UInt16)ch) > 128)
+                {
+                    bIsAsciiLetter = false;
+                    break;
+                }
+            }
+            return bIsAsciiLetter;
+        }
     }
 
 
