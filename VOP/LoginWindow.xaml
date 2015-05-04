@@ -10,6 +10,7 @@
         AllowsTransparency="True"
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" 
+        FontFamily="幼圆"
         >
     <Window.Resources>
         <ResourceDictionary>
