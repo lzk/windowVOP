@@ -247,23 +247,24 @@
                                         <DropShadowEffect Color="Black" ShadowDepth="0"
                                             BlurRadius="16" Opacity="0.75" Direction="90"/>
                                     </UIElement.Effect>
-
-                                    <StackPanel>
-                                        <Path 
-                                            Panel.ZIndex="1"
-                                            HorizontalAlignment="Center"
-                                            Fill="White"
-                                            Data="F1 M0,10 L10,0 L20,10z" />
-
-                                        <Border 
-                                            BorderBrush="Transparent"
+                                    <ScrollViewer 
+                                            Width="{TemplateBinding Width}"
+                                            Name="scrollview" CanContentScroll="true"
+                                            SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
+                                            VerticalScrollBarVisibility="Auto"
+                                            HorizontalScrollBarVisibility="Disabled"
+                                            HorizontalAlignment="Left"
                                             Background="White"
-                                            Panel.ZIndex="0"
-                                            CornerRadius="5">
+                                            Margin="0">
+                                        <Border 
+                                                BorderBrush="Transparent"
+                                                Background="White"
+                                                Panel.ZIndex="0"
+                                                >
                                             <ItemsPresenter/>
                                         </Border>
+                                    </ScrollViewer>
 
-                                    </StackPanel>
 
                                 </Border>
                             </Popup>
