@@ -71,6 +71,11 @@ namespace VOP
         private void pbPwd_PasswordChanged(object sender, RoutedEventArgs e)
         {
             tbkErrorInfo.Text = "";
+
+            if (pbPwd.Password.Length == 0)
+                btnLogin.IsEnabled = false;
+            else
+                btnLogin.IsEnabled = true;
         }
 
         private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
