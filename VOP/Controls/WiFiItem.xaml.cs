@@ -338,11 +338,6 @@ namespace VOP.Controls
             }
         }
 
-        private void wifiExpander_IsExpandedPropertyChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            VOP.Controls.CustomExpander ce = sender as VOP.Controls.CustomExpander;
-        }
-
         public bool is_InputVailible()
         {
             string pwd = "";
@@ -435,19 +430,19 @@ namespace VOP.Controls
             
             if (true == wepKey0.IsChecked)
             {
-                wepKeyId = 0x00;
+                wepKeyId = 0x01;
             }
             else if (true == wepKey1.IsChecked)
             {
-                wepKeyId = 0x01;
+                wepKeyId = 0x02;
             }
             else if (true == wepKey2.IsChecked)
             {
-                wepKeyId = 0x02;
+                wepKeyId = 0x03;
             }
             else if (true == wepKey3.IsChecked)
             {
-                wepKeyId = 0x03;
+                wepKeyId = 0x04;
             }
         }
 

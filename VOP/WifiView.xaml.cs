@@ -29,13 +29,24 @@ namespace VOP
             InitializeComponent();           
         }
 
+        private void InitLayout()
+        {
+            btnConnectOthAp.Visibility = Visibility.Visible;
+            manualConnect.Visibility = Visibility.Hidden;
+            rowManual.Height = new GridLength(0);
+            autoConnect.Visibility = Visibility.Visible;
+            rowAuto.Height = GridLength.Auto;
+            scrollview.ScrollToTop();
+            m_bConnectOthApMode = false;
+        }
+
         private void OnLoadWifiView(object sender, RoutedEventArgs e)
         {
+            InitLayout();
+
             WiFiInfoRecord m_rec = null;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-
             worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetWiFiInfo);
-           
 
             if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
             {
@@ -55,6 +66,7 @@ namespace VOP
             {
                 chkWifi.IsChecked = false;
             }
+
             scrollview.ScrollToTop();
         }
 
@@ -155,19 +167,56 @@ namespace VOP
                 rowManual.Height = GridLength.Auto;
                 autoConnect.Visibility = Visibility.Hidden;
                 rowAuto.Height = new GridLength(0);
-                scrollview.ScrollToTop();
                 wepKey0.IsChecked = true;
                 m_bConnectOthApMode = true;
+
+
+                wifiSetting.m_ssid = "";
+                wifiSetting.m_pwd = "";
+                wifiSetting.m_encryption = (byte)EnumEncryptType.WPA2_PSK_AES;
+                wifiSetting.m_wepKeyId = 1;
+
+                WiFiInfoRecord m_rec = null;
+                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+
+                worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetWiFiInfo);
+                
+                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+                {
+                    wifiSetting.m_ssid = m_rec.SSID;
+                    wifiSetting.m_pwd = m_rec.PWD;
+                    wifiSetting.m_encryption = (byte)m_rec.Encryption;
+                    wifiSetting.m_wepKeyId = m_rec.WepKeyId;
+                }
+                
+                tbSSID.Text = wifiSetting.m_ssid;
+                tbPwd.Text = wifiSetting.m_pwd;
+                pbPwd.Password = wifiSetting.m_pwd;
+                common.SelectItemByContext(cboEncrytion, wifiSetting.m_encryption);
+
+                if (wifiSetting.m_wepKeyId == 0X01)
+                {
+                    wepKey0.IsChecked = true;
+                }
+                else if (wifiSetting.m_wepKeyId == 0X02)
+                {
+                    wepKey1.IsChecked = true;
+                }
+                else if (wifiSetting.m_wepKeyId == 0X03)
+                {
+                    wepKey2.IsChecked = true;
+                }
+                else if (wifiSetting.m_wepKeyId == 0X04)
+                {
+                    wepKey3.IsChecked = true;
+                }
+
+                UpdateControlsStatus();
+                scrollview.ScrollToTop();
             }
             else if (btn.Name == "btnCancel")
             {
-                btnConnectOthAp.Visibility = Visibility.Visible;
-                manualConnect.Visibility = Visibility.Hidden;
-                rowManual.Height = new GridLength(0); 
-                autoConnect.Visibility = Visibility.Visible;
-                rowAuto.Height = GridLength.Auto;
-                scrollview.ScrollToTop();
-                m_bConnectOthApMode = false;
+                InitLayout();
             }
             else if(btn.Name == "btnConnect")
             {
@@ -328,19 +377,19 @@ namespace VOP
                
                 if (true == wepKey0.IsChecked)
                 {
-                    wepKeyId = 0x00;
+                    wepKeyId = 0x01;
                 }
                 else if (true == wepKey1.IsChecked)
                 {
-                    wepKeyId = 0x01;
+                    wepKeyId = 0x02;
                 }
                 else if (true == wepKey2.IsChecked)
                 {
-                    wepKeyId = 0x02;
+                    wepKeyId = 0x03;
                 }
                 else if (true == wepKey3.IsChecked)
                 {
-                    wepKeyId = 0x03;
+                    wepKeyId = 0x04;
                 }
 
                 if (true == chkDisplayPwd.IsChecked)
