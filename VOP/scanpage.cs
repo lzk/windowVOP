@@ -298,6 +298,18 @@ namespace VOP
                 source.AddHook(WndProc);
 
                 m_bHooked = true;
+
+            }
+
+            if ( 0 < GetSelectedItemCount() )
+            {
+                btnPrint.IsEnabled = true;
+                btnSave.IsEnabled = true;
+            }
+            else
+            {
+                btnPrint.IsEnabled = false;
+                btnSave.IsEnabled = false;
             }
         }
 
