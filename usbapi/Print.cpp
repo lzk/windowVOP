@@ -71,6 +71,9 @@ USBAPI_API void __stdcall AddImageSource(IStream * imageSource);
 USBAPI_API void __stdcall AddImageRotation(int rotation);
 USBAPI_API int __stdcall DoPrintImage();
 USBAPI_API int __stdcall DoPrintIdCard();
+USBAPI_API int __stdcall SaveDefaultPrinter();
+USBAPI_API int __stdcall ResetDefaultPrinter();
+USBAPI_API int __stdcall DoPrintIdCard();
 USBAPI_API void __stdcall SavePrinterSettingsData(const TCHAR * strPrinterName,
 	UINT8 PaperSize,
 	UINT8 PaperOrientation,
@@ -168,12 +171,37 @@ static PirntSettingsData g_PirntSettingsData;
 static bool isOpenDocumentProperties = false;
 static const TCHAR * g_strPrinterName = NULL;
 
+static DWORD bufferSize = 500;
+static TCHAR defaultPrinterName[500];
+
+USBAPI_API int __stdcall SaveDefaultPrinter()
+{
+	if (::GetDefaultPrinter(defaultPrinterName, &bufferSize))
+	{
+		return Print_OK;
+	}
+	else
+	{
+		return Print_Get_Default_Printer_Fail;
+	}
+}
+
+USBAPI_API int __stdcall ResetDefaultPrinter()
+{
+	if (::SetDefaultPrinter(defaultPrinterName))
+	{
+		return Print_OK;
+	}
+	else
+	{
+		return Print_Get_Default_Printer_Fail;
+	}
+}
 
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int copies)
 {
 	PrintError error = Print_OK;
-	DWORD bufferSize = 500;
-	TCHAR defaultPrinterName[500];
+	
 	int shellExeRes = 0;
 	int count = 1;
 	const TCHAR *fileExt = NULL;
@@ -202,48 +230,39 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	}
 	else
 	{
-		if (GetDefaultPrinter(defaultPrinterName, &bufferSize))
+		if (::SetDefaultPrinter(strPrinterName) == TRUE)
 		{
-			if (::SetDefaultPrinter(strPrinterName) == TRUE)
+			CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
+
+			if (_tcscmp(fileExt, L".txt") == 0)
 			{
-				CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
+				count = copies;
+			}
 
-				if (_tcscmp(fileExt, L".txt") == 0)
+			for (int i = 0; i < count; i++)
+			{
+				if ((shellExeRes = (int)::ShellExecute(NULL, L"print", strFileName, NULL, NULL, SW_HIDE)) > 32)
 				{
-					count = copies;
+
 				}
-
-				for (int i = 0; i < count; i++)
+				else
 				{
-					if ((shellExeRes = (int)::ShellExecute(NULL, L"print", strFileName, NULL, NULL, SW_HIDE)) > 32)
+					if (shellExeRes == SE_ERR_OOM || shellExeRes == 0)
 					{
-
+						error = Print_Memory_Fail;
 					}
 					else
 					{
-						if (shellExeRes == SE_ERR_OOM || shellExeRes == 0)
-						{
-							error = Print_Memory_Fail;
-						}
-						else
-						{
-							error = Print_File_Not_Support;
-						}
+						error = Print_File_Not_Support;
 					}
 				}
-			 
-				Sleep(500);
-				::SetDefaultPrinter(defaultPrinterName);
 			}
-			else
-			{
-				error = Print_Get_Default_Printer_Fail;
-			}
+	
 		}
 		else
 		{
 			error = Print_Get_Default_Printer_Fail;
-		}	
+		}
 	}
 
 	return error;

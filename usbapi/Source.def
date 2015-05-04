@@ -21,6 +21,8 @@ EXPORTS
 	AddImageRotation
 	DoPrintImage
 	DoPrintIdCard
+	SaveDefaultPrinter
+	ResetDefaultPrinter
     PrintFile
 	SavePrinterSettingsData
 	SetPrinterSettingsInitData

@@ -566,10 +566,11 @@ namespace VOP
 
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
         {
+            dll.SaveDefaultPrinter(); //save default printer name before vop action
             statusPageView.Child = statusPanelPage;
             this.statusPanelPage.Visibility = Visibility.Visible;
 
-            ShowAboutPageOnly();
+           // ShowAboutPageOnly();
 
             AddMessageHook();
 
@@ -833,6 +834,7 @@ namespace VOP
                 SavePrintInfoIntoXamlFile();
                 dll.RecoverDevModeData();
                 notifyIcon1.Visible = false;
+                dll.ResetDefaultPrinter();
                 this.Close();
             }
 

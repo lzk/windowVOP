@@ -215,6 +215,12 @@ namespace VOP
         public static extern int DoPrintIdCard();
 
         [DllImport("usbapi.dll")]
+        public static extern int SaveDefaultPrinter();
+
+        [DllImport("usbapi.dll")]
+        public static extern int ResetDefaultPrinter();
+
+        [DllImport("usbapi.dll")]
         public static extern int PrintFile(
                [MarshalAs(UnmanagedType.LPWStr)]string printerName, 
                [MarshalAs(UnmanagedType.LPWStr)]string fileName,

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using VOP.Controls;
-
+using System.Printing;
 
 namespace VOP
 {
@@ -333,7 +333,7 @@ namespace VOP
 
             if (EnumState.doingJob == state || EnumState.stopWorking == state)
             {
-                PrintButton.IsEnabled = false;
+               // PrintButton.IsEnabled = false;
             }
             else
             {
