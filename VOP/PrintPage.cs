@@ -336,7 +336,7 @@ namespace VOP
 
             if (EnumState.doingJob == state || EnumState.stopWorking == state)
             {
-             //   PrintButton.IsEnabled = false;
+                PrintButton.IsEnabled = false;
             }
             else
             {
