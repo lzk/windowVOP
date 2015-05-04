@@ -136,7 +136,20 @@ namespace VOP.Controls
         public EnumEncryptType EncryptType
         {
             get { return (EnumEncryptType)GetValue(EncryptTypeProperty); }
-            set { SetValue(EncryptTypeProperty, value); }
+            set { 
+                SetValue(EncryptTypeProperty, value);
+
+                if (value == EnumEncryptType.WEP)
+                {
+                    pbPwd.MaxLength = 26;
+                    tbPwd.MaxLength = 26;
+                }
+                else
+                {
+                    tbPwd.MaxLength = 64;
+                    pbPwd.MaxLength = 64;
+                }
+            }
         }
 
         public event RoutedEventHandler EncryptTypePropertyChanged
