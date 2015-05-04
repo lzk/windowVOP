@@ -124,11 +124,7 @@ namespace VOP
             }
             string requestedCulture = string.Format(@"Resources\StringResource.{0}.xaml", Culture);
             ResourceDictionary resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString.Equals(requestedCulture));
-            if (resourceDictionary == null)
-            {
-                requestedCulture = @"Resources\StringResource.xaml";
-                resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString.Equals(requestedCulture));
-            }
+
             if (resourceDictionary != null)
             {
                 Application.Current.Resources.MergedDictionaries.Remove(resourceDictionary);
