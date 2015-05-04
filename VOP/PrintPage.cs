@@ -256,9 +256,12 @@ namespace VOP
                     {
                         using(IdCardPrintHelper helper = new IdCardPrintHelper())
                         {
+                            int i = 0;
                             foreach (BitmapSource src in IdCardEditWindow.croppedImageList)
                             {
                                 helper.AddImage(src);
+                                dll.AddImageRotation(IdCardEditWindow.imageRotationList[i]);
+                                i++;
                             }
 
                             printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintIdCard);
@@ -333,7 +336,7 @@ namespace VOP
 
             if (EnumState.doingJob == state || EnumState.stopWorking == state)
             {
-                PrintButton.IsEnabled = false;
+             //   PrintButton.IsEnabled = false;
             }
             else
             {

@@ -17,7 +17,6 @@
 
 #pragma pack(8)
 
-using namespace Gdiplus;
 
 enum IdCardType
 {
@@ -158,12 +157,12 @@ static std::vector<int>  g_vecIdCardImageRotation;
 static DOCINFO  di = { sizeof (DOCINFO) };
 static HDC dc = NULL;
 
-static GdiplusStartupInput gdiplusStartupInput;
+static Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 static ULONG_PTR gdiplusToken;
 static int currentIdCardType = 0;
 static IdCardSize currentIdCardSize = { 0 };
 static bool needFitToPage = false;
-Size A4Size( 21, 29.7 ); //unit cm
+Gdiplus::Size A4Size(21, 29.7); //unit cm
 static PCLDEVMODE getdevmode;
 static PCLDEVMODE getDocumentPropertiesData;
 static PCLDEVMODE getOutputData;
@@ -289,8 +288,8 @@ USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * 
 	if (dc == NULL)
 		return FALSE;
 
-	Status status;
-	if ((status = Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL)) != Ok)
+	Gdiplus::Status status;
+	if ((status = Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL)) != Gdiplus::Ok)
 	{
 		return FALSE;
 	}
@@ -317,7 +316,7 @@ USBAPI_API void __stdcall AddImageRotation(int rotation)
 USBAPI_API int __stdcall DoPrintImage()
 {
 	PrintError error = Print_OK;
-	Status status;
+	Gdiplus::Status status;
 	HDC   hdcPrn = dc;
 	const TCHAR *fileExt = NULL;
 	int   cxPage;
@@ -350,12 +349,12 @@ USBAPI_API int __stdcall DoPrintImage()
 				|| _tcscmp(fileExt, L".wmf") == 0
 				|| _tcscmp(fileExt, L".emf") == 0)
 			{
-				Image img(g_vecImagePaths[i].imagePath);
+				Gdiplus::Image img(g_vecImagePaths[i].imagePath);
 
 				status = img.GetLastStatus();
-				if (status != Ok)
+				if (status != Gdiplus::Ok)
 				{
-					if (status == OutOfMemory)
+					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
 					}
@@ -386,8 +385,8 @@ USBAPI_API int __stdcall DoPrintImage()
 
 						int x = 0;
 						int y = 0;
-						int dpiX = img.GetHorizontalResolution();
-						int dpiY = img.GetVerticalResolution();
+						Gdiplus::REAL dpiX = img.GetHorizontalResolution();
+						Gdiplus::REAL dpiY = img.GetVerticalResolution();
 
 						int w = img.GetWidth() * (600 / dpiX);
 						int h = img.GetHeight()* (600 / dpiY);
@@ -442,12 +441,12 @@ USBAPI_API int __stdcall DoPrintImage()
 							}
 						}
 
-						Graphics graphics(hdcPrn);
-						graphics.SetPageUnit(UnitPixel);
+						Gdiplus::Graphics graphics(hdcPrn);
+						graphics.SetPageUnit(Gdiplus::UnitPixel);
 
-						if ((status = graphics.DrawImage(&img, x, y, w, h)) != Ok)
+						if ((status = graphics.DrawImage(&img, x, y, w, h)) != Gdiplus::Ok)
 						{
-							if (status == OutOfMemory)
+							if (status == Gdiplus::OutOfMemory)
 							{
 								error = Print_Memory_Fail;
 							}
@@ -502,10 +501,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 	double imageHeight = 0;
 	double imageToLeft = 0;
 	double imageToTop = 0;
-	int dpiX = 0;
-	int dpiY = 0;
 
-	Status status;
+	Gdiplus::Status status;
 
 	if (StartDoc(hdcPrn, &di) > 0)
 	{
@@ -522,12 +519,12 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				imageToLeft = 0;
 				imageToTop = 0;
 		
-				Image img1(g_vecIdCardImageSources[0]);
+				Gdiplus::Image img1(g_vecIdCardImageSources[0]);
 
 				status = img1.GetLastStatus();
-				if (status != Ok)
+				if (status != Gdiplus::Ok)
 				{
-					if (status == OutOfMemory)
+					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
 					}
@@ -538,12 +535,12 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				Image img2(g_vecIdCardImageSources[1]);
+				Gdiplus::Image img2(g_vecIdCardImageSources[1]);
 
 				status = img2.GetLastStatus();
-				if (status != Ok)
+				if (status != Gdiplus::Ok)
 				{
-					if (status == OutOfMemory)
+					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
 					}
@@ -560,8 +557,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 			
-				Graphics graphics(hdcPrn);
-				graphics.SetPageUnit(UnitPixel);
+				Gdiplus::Graphics graphics(hdcPrn);
+				graphics.SetPageUnit(Gdiplus::UnitPixel);
 		
 				switch (g_vecIdCardImageRotation[0])
 				{
@@ -607,9 +604,9 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				if ((status = graphics.DrawImage(&img1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Ok)
+				if ((status = graphics.DrawImage(&img1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
 				{
-					if (status == OutOfMemory)
+					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
 					}
@@ -666,9 +663,9 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				if ((status = graphics.DrawImage(&img2, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Ok)
+				if ((status = graphics.DrawImage(&img2, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
 				{
-					if (status == OutOfMemory)
+					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
 					}
@@ -695,12 +692,12 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				imageToLeft = 0;
 				imageToTop = 0;
 
-				Image img1(g_vecIdCardImageSources[0]);
+				Gdiplus::Image img1(g_vecIdCardImageSources[0]);
 
 				status = img1.GetLastStatus();
-				if (status != Ok)
+				if (status != Gdiplus::Ok)
 				{
-					if (status == OutOfMemory)
+					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
 					}
@@ -717,8 +714,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				Graphics graphics(hdcPrn);
-				graphics.SetPageUnit(UnitPixel);
+				Gdiplus::Graphics graphics(hdcPrn);
+				graphics.SetPageUnit(Gdiplus::UnitPixel);
 
 				switch (g_vecIdCardImageRotation[0])
 				{
@@ -764,9 +761,9 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				if ((status = graphics.DrawImage(&img1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Ok)
+				if ((status = graphics.DrawImage(&img1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
 				{
-					if (status == OutOfMemory)
+					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
 					}
@@ -799,16 +796,16 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				imageToLeft = 0;
 				imageToTop = 0;
 
-				Image *pImg1 = NULL;
-				pImg1 = Image::FromStream(g_vecIdCardImageSources[0]);
+				Gdiplus::Image *pImg1 = NULL;
+				pImg1 = Gdiplus::Image::FromStream(g_vecIdCardImageSources[0]);
 
 				status = pImg1->GetLastStatus();
-				if (status != Ok)
+				if (status != Gdiplus::Ok)
 				{
 					if (pImg1)
 						delete pImg1;
 
-					if (status == OutOfMemory)
+					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
 					}
@@ -828,8 +825,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				Graphics graphics(hdcPrn);
-				graphics.SetPageUnit(UnitPixel);
+				Gdiplus::Graphics graphics(hdcPrn);
+				graphics.SetPageUnit(Gdiplus::UnitPixel);
 
 				switch (g_vecIdCardImageRotation[0])
 				{
@@ -876,12 +873,12 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				}
 
 				
-				if ((status = graphics.DrawImage(pImg1, 0, 0, (int)imageWidth, (int)imageHeight)) != Ok)
+				if ((status = graphics.DrawImage(pImg1, 0, 0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
 				{
 					if (pImg1)
 						delete pImg1;
 
-					if (status == OutOfMemory)
+					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
 					}
