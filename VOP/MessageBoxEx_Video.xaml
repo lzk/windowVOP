@@ -32,18 +32,7 @@
 
         <Grid Grid.ColumnSpan="3" Background="#213244" MouseLeftButtonDown="Title_MouseButtonEventHandler">
             <TextBlock Name="captionTextBlock" FontSize="16" Text="" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-
             <local:MinimizeCloseButton MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnClose_Click"/>
-
-            <!--<Button Name="btnClose"  Click="btnClose_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
-                <Button.Template>
-                    <ControlTemplate>
-                        <Grid Background="{x:Null}">
-                            <Image Source="..\..\Images\MainWindow_Close.PNG" ></Image>
-                        </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>-->
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="1">
@@ -55,17 +44,12 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="54*" />
                 <ColumnDefinition Width="296*" />
-                <!--<ColumnDefinition Width="37*"/>-->
             </Grid.ColumnDefinitions>
-
-            <Image Source="..\..\..\Images\Warning.tif" Grid.Row="1"></Image>
+            <Image Source="Images\Warning.tif" Grid.Row="1"></Image>
             <TextBlock Name="messageBoxTextBlock" Grid.Row="1" Grid.Column="1" FontSize="14"  Margin="20"  Foreground="#555555" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-
         </Grid>
 
-        <!--<Rectangle Fill="Red" ></Rectangle>-->
         <Grid Name="MediaGrid" Grid.Row="2" Grid.Column="1" >
-            <!--Background="#FFCDCDCD"-->
             <Rectangle Stroke="Black" StrokeThickness="1" />
             <MediaElement Name="mediaElement" LoadedBehavior="Play" Stretch="Fill" Margin="1" Loaded="mediaElement_Loaded">
                 <MediaElement.Triggers>
@@ -81,6 +65,5 @@
                 </MediaElement.Triggers>
             </MediaElement>
         </Grid>
-
     </Grid>
 </Window>

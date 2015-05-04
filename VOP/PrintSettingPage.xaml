@@ -381,7 +381,7 @@
 			GroupName="Goup5" 
 			Checked="rdBtnPortrait_Checked"
 			IsChecked="{Binding SelectedItem, Converter={StaticResource isInchConverter}, ElementName=myComboBox, Mode=OneWay}"
-			Content="纵向" 
+			Content="{StaticResource ResStr_Portrait}" 
 			Template="{StaticResource customRadioButton}"
 			Foreground="DarkSlateGray"
 			Margin="30,31,101,7" Grid.Column="3" Grid.Row="2"/>
@@ -390,7 +390,7 @@
             GroupName="Goup5"
 			Checked="rdBtnLandscape_Checked"
 			IsChecked="{Binding SelectedItem, ConverterParameter=flip, Converter={StaticResource isInchConverter}, ElementName=myComboBox, Mode=OneWay}"
-			Content="横向"
+			Content="{StaticResource ResStr_Landscape}"
 			Template="{StaticResource customRadioButton}"
 			Foreground="DarkSlateGray"
 			Margin="101,31,30,7" Grid.Column="3" Grid.Row="2"/>
