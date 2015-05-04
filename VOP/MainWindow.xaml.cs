@@ -818,10 +818,16 @@ namespace VOP
 
             if ( 0 < winScanPage.image_wrappanel.Children.Count )
             {
-                if ( VOP.Controls.MessageBoxExResult.Yes != 
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, (string)this.TryFindResource("ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_"), "提示") )
+                if (VOP.Controls.MessageBoxExResult.Yes !=
+                        VOP.Controls.MessageBoxEx.Show(
+                                                    VOP.Controls.MessageBoxExStyle.YesNo,
+                                                    this,
+                                                    (string)this.TryFindResource("ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_"),
+                                                    (string)this.TryFindResource("ResStr_Warning_2")
+                                                    )
+                    )
                 {
-                    SetTabItemFromIndex( EnumSubPage.Scan );
+                    SetTabItemFromIndex(EnumSubPage.Scan);
                     bAllowExit = false;
                 }
             }

@@ -182,7 +182,7 @@ namespace VOP
                 if ( VOP.Controls.MessageBoxExResult.Yes == 
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, 
                         (string)this.TryFindResource("ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_"), 
-                        "提示") )
+                        (string)this.TryFindResource("ResStr_Warning_2") ))
                 {
                     m_rotatedObj = new ScanFiles();
                     m_rotatedObj.m_colorMode = m_images.m_colorMode;

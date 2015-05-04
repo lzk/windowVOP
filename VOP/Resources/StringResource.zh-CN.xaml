@@ -245,6 +245,11 @@
     <sys:String x:Key="ResStr_Memory_Alloc_Fail">打印文件内存分配失败！</sys:String>
     <sys:String x:Key="ResStr_User_Defined_Settings">用户自定义设置</sys:String>
     <sys:String x:Key="ResStr_Login_Register">登录/注册</sys:String>
+    <sys:String x:Key="ResStr_insufficient_system_disk_space">系统盘空间不足，请清理后再试。</sys:String>
+    <sys:String x:Key="ResStr_Yes">是</sys:String>
+    <sys:String x:Key="ResStr_No">否</sys:String>
+    <sys:String x:Key="ResStr_Warning_2">警告</sys:String>
+    <sys:String x:Key="ResStr_Border_Color">边框颜色</sys:String>
     <sys:String x:Key="ResStr_ExtraAdd_Print">打    印</sys:String>
     <sys:String x:Key="ResStr_ExtraAdd_Default">默  认</sys:String>
     <sys:String x:Key="ResStr_ExtraAdd_OK">确  定</sys:String>

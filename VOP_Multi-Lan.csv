@@ -272,6 +272,11 @@ ResStr_Unable_to_preview,"Unable to preview,",暂时无法浏览
 ResStr_Memory_Alloc_Fail,Print memory allocation failed!,打印文件内存分配失败！
 ResStr_User_Defined_Settings,User Defined Settings,用户自定义设置
 ResStr_Login_Register,Login / Register,登录/注册
+ResStr_insufficient_system_disk_space,Operation cannot be carried out due to insufficient system disk space. Try again after freeing hard disk space.,系统盘空间不足，请清理后再试。
+ResStr_Yes,Yes,是
+ResStr_No,No,否
+ResStr_Warning_2,Warning,警告
+ResStr_Border_Color,边框颜色,边框颜色
 ResStr_ExtraAdd_Print,Print,打    印
 ResStr_ExtraAdd_Default,Default,默  认
 ResStr_ExtraAdd_OK,OK,确  定

@@ -245,6 +245,11 @@
     <sys:String x:Key="ResStr_Memory_Alloc_Fail">Print memory allocation failed!</sys:String>
     <sys:String x:Key="ResStr_User_Defined_Settings">User Defined Settings</sys:String>
     <sys:String x:Key="ResStr_Login_Register">Login / Register</sys:String>
+    <sys:String x:Key="ResStr_insufficient_system_disk_space">Operation cannot be carried out due to insufficient system disk space. Try again after freeing hard disk space.</sys:String>
+    <sys:String x:Key="ResStr_Yes">Yes</sys:String>
+    <sys:String x:Key="ResStr_No">No</sys:String>
+    <sys:String x:Key="ResStr_Warning_2">Warning</sys:String>
+    <sys:String x:Key="ResStr_Border_Color">边框颜色</sys:String>
     <sys:String x:Key="ResStr_ExtraAdd_Print">Print</sys:String>
     <sys:String x:Key="ResStr_ExtraAdd_Default">Default</sys:String>
     <sys:String x:Key="ResStr_ExtraAdd_OK">OK</sys:String>

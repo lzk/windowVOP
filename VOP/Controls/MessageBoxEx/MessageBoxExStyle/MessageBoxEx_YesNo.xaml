@@ -77,8 +77,8 @@
                 <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
 
-            <local:ButtonEx Grid.Column="1" IsActiveEx="False" x:Name="btn_No"  Content="否" FontSize="16" HorizontalContentAlignment="Center" Click="Click"/>
-            <local:ButtonEx Grid.Column="3" IsActiveEx="True" x:Name="btn_Yes"  Content="是" FontSize="16" HorizontalContentAlignment="Center" Click="Click"/>
+            <local:ButtonEx Grid.Column="1" IsActiveEx="False" x:Name="btn_No"  Content="{StaticResource ResStr_No}" FontSize="16" HorizontalContentAlignment="Center" Click="Click"/>
+            <local:ButtonEx Grid.Column="3" IsActiveEx="True" x:Name="btn_Yes"  Content="{StaticResource ResStr_Yes}" FontSize="16" HorizontalContentAlignment="Center" Click="Click"/>
 
         </Grid>
 

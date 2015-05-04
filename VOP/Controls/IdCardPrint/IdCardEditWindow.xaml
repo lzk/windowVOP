@@ -63,7 +63,7 @@
                         <ContentControl Style="{StaticResource designerItemColorPanelStyle}"
                                     Width="180"
                                     Margin="20, 0, 0, 5" 
-                                    Content="边框颜色"
+                                    Content="{StaticResource ResStr_Border_Color}"
                                     x:Name="colorPanel"/>
 
                         <Button Name="RotationButton" 
