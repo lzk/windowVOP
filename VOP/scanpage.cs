@@ -122,7 +122,12 @@ namespace VOP
             if ( true == win.isPrint )
             {
                 List<string> files = new List<string>();
-                files.Add( img.m_images.m_pathOrig );
+
+                if ( 0 != win.m_rotatedAngle%360 && null != win.m_rotatedObj )
+                    files.Add( win.m_rotatedObj.m_pathOrig );
+                else
+                    files.Add( img.m_images.m_pathOrig );
+
                 m_MainWin.SwitchToPrintingPage( files );
             }
 
