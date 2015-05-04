@@ -138,7 +138,7 @@ namespace VOP
         private void AdvancedSettingButtonClick(object sender, RoutedEventArgs e)
         {
             bool? result = null;
-            dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
+//            dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
             PrintSettingPage printWin = new PrintSettingPage();
             printWin.Owner = App.Current.MainWindow;
             printWin.m_MainWin = m_MainWin;
@@ -168,8 +168,14 @@ namespace VOP
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
             CRM_PrintInfo crmPrintInfo = new CRM_PrintInfo();
-
-            dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
+            if (CurrentPrintType == PrintType.PrintFile_Txt)
+            {
+                dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, 1);
+            }
+            else
+            {
+                dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
+            }
             crmPrintInfo.m_strPrintCopys = String.Format("{0}", (sbyte)spinnerControl1.Value);
 
             dll.InitPrinterData(m_MainWin.statusPanelPage.m_selectedPrinter);
