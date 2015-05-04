@@ -569,7 +569,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2;
 					imageToTop = (cyPage / 2 - imageHeight) / 2;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(0.0f);
 					break;
 				case 90:
@@ -579,7 +579,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
 					imageToTop = (cyPage / 2 - imageWidth) / 2;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(90.0f);
 					break;
 				case 180:
@@ -589,7 +589,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
 					imageToTop = (cyPage / 2 - imageHeight) / 2 + imageHeight;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(180.0f);
 					break;
 				case 270:
@@ -599,7 +599,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2;
 					imageToTop = (cyPage / 2 - imageWidth) / 2 + imageWidth;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(270.0f);
 					break;
 				}
@@ -628,7 +628,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2;
 					imageToTop = (cyPage / 2 - imageHeight) / 2 + cyPage / 2;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(0.0f);
 					break;
 				case 90:
@@ -638,7 +638,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
 					imageToTop = (cyPage / 2 - imageWidth) / 2 + cyPage / 2;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(90.0f);
 					break;
 				case 180:
@@ -648,7 +648,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
 					imageToTop = (cyPage / 2 - imageHeight) / 2 + imageHeight + cyPage / 2;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(180.0f);
 					break;
 				case 270:
@@ -658,7 +658,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2;
 					imageToTop = (cyPage / 2 - imageWidth) / 2 + imageWidth + cyPage / 2;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(270.0f);
 					break;
 				}
@@ -726,7 +726,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2;
 					imageToTop = (cyPage - imageHeight) / 2;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(0.0f);
 					break;
 				case 90:
@@ -736,7 +736,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
 					imageToTop = (cyPage - imageWidth) / 2;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(90.0f);
 					break;
 				case 180:
@@ -746,7 +746,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
 					imageToTop = (cyPage - imageHeight) / 2 + imageHeight;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(180.0f);
 					break;
 				case 270:
@@ -756,7 +756,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2;
 					imageToTop = (cyPage - imageWidth) / 2 + imageWidth;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(270.0f);
 					break;
 				}
@@ -837,7 +837,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2;
 					imageToTop = (cyPage - imageWidth) / 2 + imageWidth;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(270.0f);
 					break;
 				case 90:
@@ -847,7 +847,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2;
 					imageToTop = (cyPage - imageHeight) / 2;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(0.0f);
 					break;
 				case 180:
@@ -857,7 +857,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
 					imageToTop = (cyPage - imageWidth) / 2;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(90.0f);
 					break;
 				case 270:
@@ -867,7 +867,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
 					imageToTop = (cyPage - imageHeight) / 2 + imageHeight;
 
-					graphics.TranslateTransform((int)imageToLeft, (int)imageToTop);
+					graphics.TranslateTransform(imageToLeft, imageToTop);
 					graphics.RotateTransform(180.0f);
 					break;
 				}
