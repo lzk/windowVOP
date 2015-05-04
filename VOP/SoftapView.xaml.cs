@@ -197,15 +197,7 @@ namespace VOP
             TextBox pwd = sender as TextBox;
             string strText = pwd.Text;
 
-            bool bValidate = true;
-            foreach (char ch in strText)
-            {
-                if (((UInt16)ch) > 128)
-                {
-                    bValidate = false;
-                    break;
-                }
-            }
+            bool bValidate = common.IsAsciiLetter(strText);
 
             if (!bValidate)
             {

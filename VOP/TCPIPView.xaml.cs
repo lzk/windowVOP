@@ -42,6 +42,9 @@ namespace VOP
         public bool m_is_init = false;
 
         TCPIPSetting TcpIpSetting = new TCPIPSetting();
+        string m_strIP = "";
+        string m_strMask = "";
+        string m_strGate = "";
 
         public TcpipView()
         {
@@ -280,6 +283,28 @@ namespace VOP
 
         public void handler_text_changed(object sender, TextChangedEventArgs e)
         {
+            TextBox tb = sender as TextBox;
+            string strText = tb.Text;
+            bool bValidate = common.IsAsciiLetter(strText);
+            if (false == bValidate)
+            {
+                if (tb.Name == "tb_ip")
+                    tb_ip.Text = m_strIP;
+                if (tb.Name == "tb_gate")
+                    tb_gate.Text = m_strGate;
+                if (tb.Name == "tb_mask")
+                    tb_mask.Text = m_strMask;
+
+                return;
+            }
+
+            if (tb.Name == "tb_ip")
+                m_strIP = tb_ip.Text;
+            if (tb.Name == "tb_gate")
+                m_strGate = tb_gate.Text;
+            if (tb.Name == "tb_mask")
+                m_strMask = tb_mask.Text;
+
             if (tb_ip.Text.Length == 0 ||
                 tb_gate.Text.Length == 0 ||
                 tb_mask.Text.Length == 0)

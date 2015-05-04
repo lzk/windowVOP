@@ -29,20 +29,14 @@ namespace VOP
             InitializeComponent();           
         }
 
-        private void InitLayout()
-        {
-            btnConnectOthAp.Visibility = Visibility.Visible;
-            manualConnect.Visibility = Visibility.Hidden;
-            rowManual.Height = new GridLength(0);
-            autoConnect.Visibility = Visibility.Visible;
-            rowAuto.Height = GridLength.Auto;
-            scrollview.ScrollToTop();
-            m_bConnectOthApMode = false;
-        }
-
         private void OnLoadWifiView(object sender, RoutedEventArgs e)
         {
-            InitLayout();
+            btnConnectOthAp.Visibility = Visibility.Hidden;
+            manualConnect.Visibility = Visibility.Hidden;
+            rowManual.Height = new GridLength(0);
+            autoConnect.Visibility = Visibility.Hidden;
+            rowAuto.Height = GridLength.Auto;
+            m_bConnectOthApMode = false;
 
             WiFiInfoRecord m_rec = null;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
@@ -216,7 +210,13 @@ namespace VOP
             }
             else if (btn.Name == "btnCancel")
             {
-                InitLayout();
+                btnConnectOthAp.Visibility = Visibility.Visible;
+                manualConnect.Visibility = Visibility.Hidden;
+                rowManual.Height = new GridLength(0);
+                autoConnect.Visibility = Visibility.Visible;
+                rowAuto.Height = GridLength.Auto;
+                scrollview.ScrollToTop();
+                m_bConnectOthApMode = false;
             }
             else if(btn.Name == "btnConnect")
             {
