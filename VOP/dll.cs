@@ -317,7 +317,7 @@ namespace VOP
         public static extern void InitPrinterData([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName);
 
         [DllImport("usbapi.dll")]
-        public static extern void RecoverDevModeData([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName);
+        public static extern void RecoverDevModeData();
 
     }
 

@@ -146,7 +146,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 
 USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies);
 USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName);
-USBAPI_API void __stdcall RecoverDevModeData(const TCHAR * strPrinterName);
+USBAPI_API void __stdcall RecoverDevModeData();
 USBAPI_API void __stdcall SetInitData(const TCHAR * strPrinterName);
 
 static std::vector<PrintItem> g_vecImagePaths;
@@ -166,6 +166,7 @@ static PCLDEVMODE getDocumentPropertiesData;
 static PCLDEVMODE getOutputData;
 static PirntSettingsData g_PirntSettingsData;
 static bool isOpenDocumentProperties = false;
+static TCHAR * g_strPrinterName = NULL;
 
 
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int copies)
@@ -1099,8 +1100,15 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 				PCLDEVMODE devmode;
 
 				DWORD dwSize = sizeof(devmode)-sizeof(DEVMODE);
-				getdevmode = *(LPPCLDEVMODE)printer_info->pDevMode;
-
+				if (g_strPrinterName == NULL || g_strPrinterName != strPrinterName)
+				{	
+					if (g_strPrinterName != strPrinterName)
+					{
+						RecoverDevModeData();
+					}
+					getdevmode = *(LPPCLDEVMODE)printer_info->pDevMode;
+					g_strPrinterName = szprintername;
+				}				
 				if (isOpenDocumentProperties)
 				{
 					devmode = getOutputData;
@@ -1109,7 +1117,7 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 				{
 					devmode = *(LPPCLDEVMODE)printer_info->pDevMode;
 				}
-				
+				 
 				switch (g_PirntSettingsData.m_paperSize)
 				{
 				case 0:
@@ -1192,40 +1200,40 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 	}
 }
 
-USBAPI_API void __stdcall RecoverDevModeData(const TCHAR * strPrinterName)
+USBAPI_API void __stdcall RecoverDevModeData()
 {
 	HANDLE   phandle;
 	DWORD dmsize;
 
 	phandle = NULL;
-	wchar_t szprintername[MAX_PATH] = { 0 };
-	wcscpy_s(szprintername, MAX_PATH, strPrinterName);
-
-	if (OpenPrinter(szprintername, &phandle, NULL))
+	if (g_strPrinterName != NULL)
 	{
-		LPPRINTER_INFO_2 printer_info;
-
-		GetPrinter(phandle, 2, (LPBYTE)NULL, 0, &dmsize);
-
-		printer_info = (LPPRINTER_INFO_2)malloc(dmsize);
-
-		if (printer_info != NULL)
+		if (OpenPrinter(g_strPrinterName, &phandle, NULL))
 		{
-			if (GetPrinter(phandle, 2, (LPBYTE)printer_info, dmsize, &dmsize))
+			LPPRINTER_INFO_2 printer_info;
+
+			GetPrinter(phandle, 2, (LPBYTE)NULL, 0, &dmsize);
+
+			printer_info = (LPPRINTER_INFO_2)malloc(dmsize);
+
+			if (printer_info != NULL)
 			{
-				*((LPPCLDEVMODE)printer_info->pDevMode) = getdevmode;
+				if (GetPrinter(phandle, 2, (LPBYTE)printer_info, dmsize, &dmsize))
+				{
+					*((LPPCLDEVMODE)printer_info->pDevMode) = getdevmode;
 
-				SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
+					SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
 
+				}
+				free(printer_info);
 			}
-			free(printer_info);
 		}
-	}
-	if (phandle != NULL)
-	{
-		ClosePrinter(phandle);
-		phandle = NULL;
-	}
+		if (phandle != NULL)
+		{
+			ClosePrinter(phandle);
+			phandle = NULL;
+		}
+	}	
 }
 
 

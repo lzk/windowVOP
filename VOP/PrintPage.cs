@@ -272,9 +272,7 @@ namespace VOP
                     break;
             }
 
-            dll.RecoverDevModeData(m_MainWin.statusPanelPage.m_selectedPrinter);
            
-            
             strPrinterName = m_MainWin.statusPanelPage.m_selectedPrinter;
             crmPrintInfo.m_strPrinterName = strPrinterName;
             bool isSFP = common.IsSFPPrinter( common.GetPrinterDrvName(strPrinterName));

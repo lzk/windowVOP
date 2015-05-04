@@ -831,6 +831,7 @@ namespace VOP
                 bExitUpdater = true;
                 m_updaterAndUIEvent.WaitOne();
                 SavePrintInfoIntoXamlFile();
+                dll.RecoverDevModeData();
                 notifyIcon1.Visible = false;
                 this.Close();
             }
