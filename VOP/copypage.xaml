@@ -33,64 +33,65 @@
 
                             <Grid Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="55*"/>
+                                    <ColumnDefinition Width="28*"/>
+                                    <ColumnDefinition Width="154*"/>
+                                    <ColumnDefinition Width="28*"/>
+                                    <ColumnDefinition Width="55*"/>                                    
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition />
+                                    <RowDefinition Height="6*"/>
+                                    <RowDefinition Height="28*"/>
+                                    <RowDefinition Height="6*"/>
                                 </Grid.RowDefinitions>
                                 <!--
                                     we use the TemplatedParent binding to get a reference to the control
                                     this template has been applied to, so we can access the property on it
                                 -->
                                 <RepeatButton Name="btnDecrease"
-                                      Grid.Row="0"
-                                      Grid.Column="0"
-                                      Width="30"
-                                      Height="30"
-                                      Style="{StaticResource CustomMinusButtonStyle}" 
-                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
+                                              Grid.Row="1"
+                                              Grid.Column="1"                                                                               
+                                              Style="{StaticResource CustomMinusButtonStyle}" 
+                                              Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
                                 
                                 <TextBox Name="tbTextBox"
-                                 Grid.Row="0"
-                                 Grid.Column="1"
-                                 Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                 BorderBrush="{StaticResource TextBoxBorderBrush}"
-                                 Foreground="#FF707070"
-                                 TextAlignment="Center"
-                                 IsReadOnly="False"
-                                 BorderThickness="0"
-                                 FontSize="30" 
-                                 Margin="0,0,0,2"
-                                 MaxLength="3"
-                                 Style="{StaticResource TextBoxErrorTemplateStyle}"
-                                 InputMethod.IsInputMethodEnabled="False"
-                                 VerticalAlignment="Center"
-                                 >
+                                         Grid.Row="0" Grid.RowSpan="3"
+                                         Grid.Column="2"
+                                         Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                         BorderBrush="{StaticResource TextBoxBorderBrush}"
+                                         Foreground="#FF707070"
+                                         TextAlignment="Center"
+                                         IsReadOnly="False"
+                                         BorderThickness="0"
+                                         FontSize="30" 
+                                         Margin="0,0,0,2"
+                                         MaxLength="3"
+                                         Style="{StaticResource TextBoxErrorTemplateStyle}"
+                                         InputMethod.IsInputMethodEnabled="False"
+                                         VerticalAlignment="Center"
+                                         >
                                     <TextBox.InputBindings>
                                         <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                                     </TextBox.InputBindings>
                                     <TextBox.Text>
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" 
-                                         Mode="TwoWay"
-                                         Path="FormattedValue" 
-                                         UpdateSourceTrigger="PropertyChanged">
+                                                 Mode="TwoWay"
+                                                 Path="FormattedValue" 
+                                                 UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
                                                 <local:PrintCopysValidationRule MinimumValue="1" MaximumValue="99" 
-										ErrorMessage="{StaticResource ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_}" />
+                                                                                ErrorMessage="{StaticResource ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_}" />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
                                 </TextBox>
 
                                 <RepeatButton Name="btnIncrease"
-                                      Grid.Row="0"
-                                      Grid.Column="2"
-                                      Width="30"
-                                      Height="30"
-                                      Style="{StaticResource CustomPlusButtonStyle}" 
-                                      Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
+                                              Grid.Row="1"
+                                              Grid.Column="3"                                              
+                                              Height="28"                                    
+                                              Style="{StaticResource CustomPlusButtonStyle}" 
+                                              Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger SourceName="tbTextBox" Property="Validation.HasError"  Value="true">
@@ -128,56 +129,89 @@
             <Grid Grid.Column="1">
 
                 <StackPanel>
-                    <local:GroupBoxDecorator Header="{StaticResource ResStr_Copies_2}" Height="80" Width="320"
-                        Margin="0,65,0,10" 
-                        >
-
-                    <local:SpinnerControl x:Name="spinCtlCopies" Style="{StaticResource SpinnerControl1}"
-                            Width="210" 
-                            Background="Transparent"
-                            Change="1"
-                            DecimalPlaces="0"
-                            Maximum="99"
-                            Minimum="1"  
-                            Value="1"
-                            IsPercentFormat="False"
-                            ValidationHasErrorChanged="OnValidationHasErrorChanged"
-                            >
-
-                    </local:SpinnerControl>
-
-
+                    <local:GroupBoxDecorator Header="{StaticResource ResStr_Copies_2}" Height="80" Width="320" 
+                                             Margin="0,65,0,10" >  
+                        <Grid >
+                            <local:SpinnerControl x:Name="spinCtlCopies" Style="{StaticResource SpinnerControl1}"
+                                                  Width="320" 
+                                                  Background="Transparent"
+                                                  Change="1"
+                                                  DecimalPlaces="0"
+                                                  Maximum="99"
+                                                  Minimum="1"  
+                                                  Value="1"
+                                                  IsPercentFormat="False"
+                                                  ValidationHasErrorChanged="OnValidationHasErrorChanged">
+                            </local:SpinnerControl>
+                        </Grid>
                     </local:GroupBoxDecorator>
 
                     <local:GroupBoxDecorator Header="{StaticResource ResStr_Density}" Height="80" Width="320">
-                        <StackPanel
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center" 
-                            Orientation="Horizontal"
-                            >
+                        <Grid VerticalAlignment="Center" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="55*"/>
+                                <ColumnDefinition Width="28*"/>
+                                <ColumnDefinition Width="154*"/>
+                                <ColumnDefinition Width="28*"/>
+                                <ColumnDefinition Width="55*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="6*"/>
+                                <RowDefinition Height="28*"/>
+                                <RowDefinition Height="6*"/>
+                            </Grid.RowDefinitions>    
+                            
+                            <RepeatButton x:Name="btnDecDensity" 
+                                          Grid.Row="1"
+                                          Grid.Column="1" 
+                                          Style="{StaticResource CustomMinusButtonStyle}" Click="btnDecDensity_Click" KeyDown="btnDecDensity_KeyDown"/>    
+
+                            <Grid Grid.Row="1" Grid.Column="2" Margin="0,0,0,3" >                                
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32*" />                                 
+                                    <ColumnDefinition Width="14*" />
+                                    <ColumnDefinition Width="5*" />
+                                    <ColumnDefinition Width="14*" />
+                                    <ColumnDefinition Width="5*" />
+                                    <ColumnDefinition Width="14*" />
+                                    <ColumnDefinition Width="5*" />
+                                    <ColumnDefinition Width="14*" />
+                                    <ColumnDefinition Width="5*" />
+                                    <ColumnDefinition Width="14*" />
+                                    <ColumnDefinition Width="32*" />                                   
+                                </Grid.ColumnDefinitions>                                
+                                <Rectangle Name="rect1" Grid.Column="1" VerticalAlignment="Bottom" Fill="#ff888888" Height="8" />
+                                <Rectangle Name="rect2" Grid.Column="3" VerticalAlignment="Bottom" Fill="#ff888888" Height="11" />
+                                <Rectangle Name="rect3" Grid.Column="5" VerticalAlignment="Bottom" Fill="#ff888888" Height="14" />
+                                <Rectangle Name="rect4" Grid.Column="7" VerticalAlignment="Bottom" Fill="#ffacacac" Height="17" />
+                                <Rectangle Name="rect5" Grid.Column="9" VerticalAlignment="Bottom" Fill="#ffacacac" Height="20" />
+                            </Grid>
+
+                            <!--<RepeatButton x:Name="btnDecDensity" 
+                                 Grid.Row="1"
+                                 Grid.Column="1"   
+                                 
+                                 
+                                 Style="{StaticResource CustomMinusButtonStyle}" Click="btnDecDensity_Click" KeyDown="btnDecDensity_KeyDown"/>-->
 
 
-                            <Button x:Name="btnDecDensity" Style="{StaticResource
-                                AdjustButton}" Content="-" Margin="10,0" FontSize="45" Click="btnDecDensity_Click" KeyDown="btnDecDensity_KeyDown"/>
-
-
-                            <Rectangle Name="rect1" VerticalAlignment="Bottom" Margin="5,0,0,12" Fill="#ff888888" Width="12" Height="8" />
-                            <Rectangle Name="rect2" VerticalAlignment="Bottom" Margin="5,0,0,12" Fill="#ff888888" Width="12" Height="11" />
-                            <Rectangle Name="rect3" VerticalAlignment="Bottom" Margin="5,0,0,12" Fill="#ff888888" Width="12" Height="14" />
-                            <Rectangle Name="rect4" VerticalAlignment="Bottom" Margin="5,0,0,12" Fill="#ffacacac" Width="12" Height="17" />
-                            <Rectangle Name="rect5" VerticalAlignment="Bottom" Margin="5,0,0,12" Fill="#ffacacac" Width="12" Height="20" />
-
-                            <Button x:Name="btnIncDensity" Style="{StaticResource
-                                AdjustButton}" Content="+" 
-                                FontSize="30"
-                                Margin="10,0" Click="btnIncDensity_Click" KeyDown="btnIncDensity_KeyDown" />
-
-                        </StackPanel>
+                            <RepeatButton x:Name="btnIncDensity" 
+                                          Grid.Row="1"
+                                          Grid.Column="3"
+                                          Width="28"
+                                          Height="28"
+                                          
+                                       
+                                      
+                               
+                                          Style="{StaticResource CustomPlusButtonStyle}"                                   
+                                          Click="btnIncDensity_Click" KeyDown="btnIncDensity_KeyDown" />
+                        </Grid>                      
                     </local:GroupBoxDecorator>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,15" >
                         <Image x:Name="imgIDCard"
-                            Source="Images/IDCardCopyIconDisable.png"
+                               Source="Images/IDCardCopyIconDisable.png"
                                Stretch="None" > </Image>
                         <TextBlock Margin="20,0" VerticalAlignment="Center" Text="{StaticResource ResStr_ID_Card_Copy}"></TextBlock>
                         <CheckBox x:Name="chkBtnIDCardCopy" Template="{StaticResource switchBox}"
@@ -189,12 +223,12 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
                         <local:ButtonEx IsDefault="False" IsEnabled="True" Content="{StaticResource ResStr_More_Settings}" 
-                                x:Name="btnSetting" Width="120" Height="35"
-                                Margin="0,0,40,0" Click="SettingBtnClick" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+                                        x:Name="btnSetting" Width="120" Height="35"
+                                        Margin="0,0,40,0" Click="SettingBtnClick" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
 
                         <local:ButtonEx x:Name="btnCopy" HorizontalContentAlignment="Center"
-                                IsDefault="True" IsActiveEx="True" Content="{StaticResource ResStr_Copy}"
-                                Height="35" Width="150" Click="Button_Click" HorizontalAlignment="Center" />
+                                        IsDefault="True" IsActiveEx="True" Content="{StaticResource ResStr_Copy}"
+                                        Height="35" Width="150" Click="Button_Click" HorizontalAlignment="Center" />
                     </StackPanel>
 
                 </StackPanel>
