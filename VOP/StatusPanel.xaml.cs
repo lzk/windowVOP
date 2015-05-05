@@ -204,6 +204,7 @@ namespace VOP
 
                 if ( null != eventPrinterSwitch )
                     eventPrinterSwitch();
+                dll.RecoverDevModeData();
             }
         }
 
@@ -327,6 +328,8 @@ namespace VOP
                 if (null != this.m_MainWin)
                     this.m_MainWin.ShowAboutPageOnly();
             }
+            dll.RecoverDevModeData();//Init Print setting
+            FileSelectionPage.IsInitPrintSettingPage = true;
         }
 
         /// <summary>

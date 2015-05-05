@@ -138,10 +138,11 @@ namespace VOP
         private void AdvancedSettingButtonClick(object sender, RoutedEventArgs e)
         {
             bool? result = null;
-//            dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
+            dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
             PrintSettingPage printWin = new PrintSettingPage();
             printWin.Owner = App.Current.MainWindow;
             printWin.m_MainWin = m_MainWin;
+            printWin.m_copies = (sbyte)spinnerControl1.Value;
             if (m_PrintType == CurrentPrintType)
             {
                 FileSelectionPage.IsInitPrintSettingPage = false;
@@ -157,6 +158,7 @@ namespace VOP
             if (result == true)
             {
                 needFitToPage = (bool)printWin.chk_FitToPaperSize.IsChecked;
+                spinnerControl1.Value = printWin.m_copies;
             }
         }
 
@@ -186,14 +188,14 @@ namespace VOP
                 FileSelectionPage.IsInitPrintSettingPage = false;
                 dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)CurrentPrintType);                
             }
-            else
-            {
-                dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)CurrentPrintType);
-            }           
+//            else
+//            {
+//                dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)CurrentPrintType);
+//            }           
 
             crmPrintInfo.SetPrintDocType(m_PrintType);
             m_PrintType = CurrentPrintType;
-
+            
             switch(CurrentPrintType)
             {
                 case PrintType.PrintFile:

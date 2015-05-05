@@ -47,6 +47,8 @@ namespace VOP
             UserDefinedSizeItems = userDefinedSizeItems;
             DataContext = this;
             InitializeComponent();
+            this.Width = this.Width * App.gScalingRate;
+            this.Height = this.Height * App.gScalingRate;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
