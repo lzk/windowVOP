@@ -460,10 +460,12 @@ USBAPI_API int __stdcall DoPrintImage()
 							}
 						}
 
-						Gdiplus::Graphics graphics(hdcPrn);
-						graphics.SetPageUnit(Gdiplus::UnitPixel);
 
-						if ((status = graphics.DrawImage(pImg, x, y, w, h)) != Gdiplus::Ok)
+						Gdiplus::Graphics *pGraphics = NULL;
+						pGraphics = Gdiplus::Graphics::FromHDC(hdcPrn);
+						pGraphics->SetPageUnit(Gdiplus::UnitPixel);
+
+						if ((status = pGraphics->DrawImage(pImg, x, y, w, h)) != Gdiplus::Ok)
 						{
 							if (pImg)
 							{
@@ -471,6 +473,12 @@ USBAPI_API int __stdcall DoPrintImage()
 								pImg = NULL;
 							}
 
+							if (pGraphics)
+							{
+								delete pGraphics;
+								pGraphics = NULL;
+							}
+								
 							if (status == Gdiplus::OutOfMemory)
 							{
 								error = Print_Memory_Fail;
@@ -482,6 +490,12 @@ USBAPI_API int __stdcall DoPrintImage()
 							break;
 						}
 					
+						if (pGraphics)
+						{
+							delete pGraphics;
+							pGraphics = NULL;
+						}
+
 						fIndex++;
 
 						if (EndPage(hdcPrn) < 0)
@@ -608,8 +622,9 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 			
-				Gdiplus::Graphics graphics(hdcPrn);
-				graphics.SetPageUnit(Gdiplus::UnitPixel);
+				Gdiplus::Graphics *pGraphics = NULL;
+				pGraphics = Gdiplus::Graphics::FromHDC(hdcPrn);
+				pGraphics->SetPageUnit(Gdiplus::UnitPixel);
 		
 				switch (g_vecIdCardImageRotation[0])
 				{
@@ -620,8 +635,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2;
 					imageToTop = (cyPage / 2 - imageHeight) / 2;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(0.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(0.0f);
 					break;
 				case 90:
 					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
@@ -630,8 +645,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
 					imageToTop = (cyPage / 2 - imageWidth) / 2;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(90.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(90.0f);
 					break;
 				case 180:
 					imageWidth = (currentIdCardSize.Width / 2.54) * 600;
@@ -640,8 +655,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
 					imageToTop = (cyPage / 2 - imageHeight) / 2 + imageHeight;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(180.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(180.0f);
 					break;
 				case 270:
 					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
@@ -650,15 +665,21 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2;
 					imageToTop = (cyPage / 2 - imageWidth) / 2 + imageWidth;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(270.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(270.0f);
 					break;
 				}
 
-				if ((status = graphics.DrawImage(pImg1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
+				if ((status = pGraphics->DrawImage(pImg1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
 				{
 					if (pImg1)
 						delete pImg1;
+
+					if (pGraphics)
+					{
+						delete pGraphics;
+						pGraphics = NULL;
+					}
 
 					if (status == Gdiplus::OutOfMemory)
 					{
@@ -671,7 +692,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				graphics.ResetTransform();
+				pGraphics->ResetTransform();
 
 				switch (g_vecIdCardImageRotation[1])
 				{
@@ -682,8 +703,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2;
 					imageToTop = (cyPage / 2 - imageHeight) / 2 + cyPage / 2;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(0.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(0.0f);
 					break;
 				case 90:
 					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
@@ -692,8 +713,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
 					imageToTop = (cyPage / 2 - imageWidth) / 2 + cyPage / 2;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(90.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(90.0f);
 					break;
 				case 180:
 					imageWidth = (currentIdCardSize.Width / 2.54) * 600;
@@ -702,8 +723,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
 					imageToTop = (cyPage / 2 - imageHeight) / 2 + imageHeight + cyPage / 2;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(180.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(180.0f);
 					break;
 				case 270:
 					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
@@ -712,15 +733,21 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2;
 					imageToTop = (cyPage / 2 - imageWidth) / 2 + imageWidth + cyPage / 2;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(270.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(270.0f);
 					break;
 				}
 
-				if ((status = graphics.DrawImage(pImg2, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
+				if ((status = pGraphics->DrawImage(pImg2, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
 				{
 					if (pImg2)
 						delete pImg2;
+
+					if (pGraphics)
+					{
+						delete pGraphics;
+						pGraphics = NULL;
+					}
 
 					if (status == Gdiplus::OutOfMemory)
 					{
@@ -731,6 +758,12 @@ USBAPI_API int __stdcall DoPrintIdCard()
 						error = Print_File_Not_Support;
 					}
 					break;
+				}
+
+				if (pGraphics)
+				{
+					delete pGraphics;
+					pGraphics = NULL;
 				}
 
 				if (EndPage(hdcPrn) < 0)
@@ -789,8 +822,9 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				Gdiplus::Graphics graphics(hdcPrn);
-				graphics.SetPageUnit(Gdiplus::UnitPixel);
+				Gdiplus::Graphics *pGraphics = NULL;
+				pGraphics = Gdiplus::Graphics::FromHDC(hdcPrn);
+				pGraphics->SetPageUnit(Gdiplus::UnitPixel);
 
 				switch (g_vecIdCardImageRotation[0])
 				{
@@ -801,8 +835,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2;
 					imageToTop = (cyPage - imageHeight) / 2;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(0.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(0.0f);
 					break;
 				case 90:
 					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
@@ -811,8 +845,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
 					imageToTop = (cyPage - imageWidth) / 2;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(90.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(90.0f);
 					break;
 				case 180:
 					imageWidth = (currentIdCardSize.Width / 2.54) * 600;
@@ -821,8 +855,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
 					imageToTop = (cyPage - imageHeight) / 2 + imageHeight;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(180.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(180.0f);
 					break;
 				case 270:
 					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
@@ -831,15 +865,21 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2;
 					imageToTop = (cyPage - imageWidth) / 2 + imageWidth;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(270.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(270.0f);
 					break;
 				}
 
-				if ((status = graphics.DrawImage(pImg1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
+				if ((status = pGraphics->DrawImage(pImg1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
 				{
 					if (pImg1)
 						delete pImg1;
+
+					if (pGraphics)
+					{
+						delete pGraphics;
+						pGraphics = NULL;
+					}
 
 					if (status == Gdiplus::OutOfMemory)
 					{
@@ -850,6 +890,12 @@ USBAPI_API int __stdcall DoPrintIdCard()
 						error = Print_File_Not_Support;
 					}
 					break;
+				}
+
+				if (pGraphics)
+				{
+					delete pGraphics;
+					pGraphics = NULL;
 				}
 
 				if (EndPage(hdcPrn) < 0)
@@ -909,8 +955,9 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				Gdiplus::Graphics graphics(hdcPrn);
-				graphics.SetPageUnit(Gdiplus::UnitPixel);
+				Gdiplus::Graphics *pGraphics = NULL;
+				pGraphics = Gdiplus::Graphics::FromHDC(hdcPrn);
+				pGraphics->SetPageUnit(Gdiplus::UnitPixel);
 
 				switch (g_vecIdCardImageRotation[0])
 				{
@@ -921,8 +968,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2;
 					imageToTop = (cyPage - imageWidth) / 2 + imageWidth;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(270.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(270.0f);
 					break;
 				case 90:
 					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
@@ -931,8 +978,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2;
 					imageToTop = (cyPage - imageHeight) / 2;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(0.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(0.0f);
 					break;
 				case 180:
 					imageWidth = (currentIdCardSize.Width / 2.54) * 600;
@@ -941,8 +988,8 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
 					imageToTop = (cyPage - imageWidth) / 2;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(90.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(90.0f);
 					break;
 				case 270:
 					imageWidth = (currentIdCardSize.Height / 2.54) * 600;
@@ -951,16 +998,22 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
 					imageToTop = (cyPage - imageHeight) / 2 + imageHeight;
 
-					graphics.TranslateTransform(imageToLeft, imageToTop);
-					graphics.RotateTransform(180.0f);
+					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->RotateTransform(180.0f);
 					break;
 				}
 
 				
-				if ((status = graphics.DrawImage(pImg1, 0, 0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
+				if ((status = pGraphics->DrawImage(pImg1, 0, 0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
 				{
 					if (pImg1)
 						delete pImg1;
+
+					if (pGraphics)
+					{
+						delete pGraphics;
+						pGraphics = NULL;
+					}
 
 					if (status == Gdiplus::OutOfMemory)
 					{
@@ -971,6 +1024,12 @@ USBAPI_API int __stdcall DoPrintIdCard()
 						error = Print_File_Not_Support;
 					}
 					break;
+				}
+
+				if (pGraphics)
+				{
+					delete pGraphics;
+					pGraphics = NULL;
 				}
 
 				if (EndPage(hdcPrn) < 0)
