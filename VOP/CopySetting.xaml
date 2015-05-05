@@ -65,14 +65,14 @@
                             Value="100"
                             ValidationHasErrorChanged="OnScalingValidationHasError"
                             LostFocus="SpinnerTextBox_LostFocus"
-                            Margin="0,5,0,0"/>
+                            Margin="0,2,0,8"/>
 
             </local:GroupBoxDecorator>
 
             <local:GroupBoxDecorator Margin="0,10,38,0" Header="{StaticResource ResStr_Scanning_Mode}" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top" Width="220">
 
                 <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center">
+                        HorizontalAlignment="Center" Margin="0,2,0,8">
 
                     <RadioButton x:Name="rdBtnScanModePhoto" GroupName="ScanMode" IsChecked="True"
                             Template="{StaticResource customRadioButton}"

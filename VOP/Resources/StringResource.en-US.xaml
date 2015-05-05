@@ -201,7 +201,7 @@
     <sys:String x:Key="ResStr_Copyright__C___2014_2015__Lenovo__Beijing__Limited_All_Right_Reserved_">Copyright (C) (2014-2015) Lenovo (Beijing) Limited.All Right Reserved.</sys:String>
     <sys:String x:Key="ResStr_This_file_is_not_supported__please_select_another_one_">This file is not supported, please select another one.</sys:String>
     <sys:String x:Key="ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_">The valid range is 1-99, please confirm and enter again.</sys:String>
-    <sys:String x:Key="ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_">The valid range is 25-400, please confirm and enter again.</sys:String>
+    <sys:String x:Key="ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_">The valid range is 25-400%, please confirm and enter again.</sys:String>
     <sys:String x:Key="ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_">The scanned images will be deleted after closing the VOP. Are you sure to close the VOP?</sys:String>
     <sys:String x:Key="ResStr_Lack_of_memery_disk_space_because_too_many_files_are_selected__please_select_again_">Lack of memery/disk space because too many files are selected, please select again.</sys:String>
     <sys:String x:Key="ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_">The valid range is 0-100, please confirm and enter again.</sys:String>
