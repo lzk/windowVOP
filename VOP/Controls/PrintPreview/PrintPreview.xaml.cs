@@ -36,9 +36,9 @@ namespace VOP.Controls
 
         private void ConvertCanvasToImageSource()
         {
-            Size size = new Size(backgroundPaper.Width, backgroundPaper.Height);
-            backgroundPaper.Measure(size);
-            backgroundPaper.Arrange(new Rect(size));
+            Size size = new Size(backgroundPaperBorder.Width, backgroundPaperBorder.Height);
+            backgroundPaperBorder.Measure(size);
+            backgroundPaperBorder.Arrange(new Rect(size));
 
             // Create a render bitmap and push the surface to it
             RenderTargetBitmap renderBitmap =
@@ -48,7 +48,8 @@ namespace VOP.Controls
                 96d,
                 96d,
                 PixelFormats.Pbgra32);
-            renderBitmap.Render(backgroundPaper);
+
+            renderBitmap.Render(backgroundPaperBorder);
             PreviewImageSource = renderBitmap;
         }
 
@@ -62,7 +63,10 @@ namespace VOP.Controls
             if(border != null)
             {   
                 backgroundPaper.Height = border.ActualHeight - 2 * PaperToTop;
-                backgroundPaper.Width = backgroundPaper.Height * paperWHRatio;  
+                backgroundPaper.Width = backgroundPaper.Height * paperWHRatio;
+
+                backgroundPaperBorder.Width = backgroundPaper.Width + 2 * PaperToTop;
+                backgroundPaperBorder.Height = backgroundPaper.Height + 2 * PaperToTop;
 
                 if(SelectedTypeItem != null)
                 {

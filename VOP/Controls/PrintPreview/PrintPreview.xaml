@@ -7,13 +7,15 @@
              x:Name="myControl"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Canvas Name="backgroundPaper" 
+        <Border Name="backgroundPaperBorder" Background="White">
+            <Canvas Name="backgroundPaper" 
                 Width="100"
                 Height="100"
                 Background="White">
-            <Canvas.Effect>
-                <DropShadowEffect BlurRadius="10" Color="#FF858484" Direction="292" ShadowDepth="1" Opacity="0.5"/>
-            </Canvas.Effect>
-        </Canvas>
+                <Canvas.Effect>
+                    <DropShadowEffect BlurRadius="10" Color="#FF858484" Direction="292" ShadowDepth="1" Opacity="0.5"/>
+                </Canvas.Effect>
+            </Canvas>
+        </Border>
     </Grid>
 </UserControl>
