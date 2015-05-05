@@ -596,6 +596,9 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				status = pImg2->GetLastStatus();
 				if (status != Gdiplus::Ok)
 				{
+					if (pImg1)
+						delete pImg1;
+
 					if (pImg2)
 						delete pImg2;
 
@@ -675,6 +678,9 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					if (pImg1)
 						delete pImg1;
 
+					if (pImg2)
+						delete pImg2;
+
 					if (pGraphics)
 					{
 						delete pGraphics;
@@ -740,6 +746,9 @@ USBAPI_API int __stdcall DoPrintIdCard()
 
 				if ((status = pGraphics->DrawImage(pImg2, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
 				{
+					if (pImg1)
+						delete pImg1;
+
 					if (pImg2)
 						delete pImg2;
 
