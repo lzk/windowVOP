@@ -456,7 +456,7 @@ namespace VOP
             ComboBoxItem cboItem = null;
 
             cboItem = new ComboBoxItem();
-            cboItem.Content="Letter" ;
+            cboItem.Content = (string)this.FindResource( "ResStr_Letter" );
             cboItem.DataContext = EnumPaperSizeOutput._Letter;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
@@ -493,13 +493,6 @@ namespace VOP
             cboItem = new ComboBoxItem();
             cboItem.Content = (string)this.FindResource( "ResStr_B6" );
             cboItem.DataContext = EnumPaperSizeOutput._B6;
-            cboItem.MinWidth = 145;
-            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            cboOutputSize.Items.Add( cboItem );
-
-            cboItem = new ComboBoxItem();
-            cboItem.Content = (string)this.FindResource( "ResStr_Letter" );
-            cboItem.DataContext = EnumPaperSizeOutput._Letter;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboOutputSize.Items.Add( cboItem );
