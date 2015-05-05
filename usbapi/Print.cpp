@@ -328,7 +328,7 @@ USBAPI_API int __stdcall DoPrintImage()
 	int   cxPage;
 	int	  cyPage;
 
-	GUID* pDimensionIDs;
+	GUID* pDimensionIDs = NULL;
 	UINT frameCount = 0;
 
 	UINT count = 0;
@@ -390,6 +390,7 @@ USBAPI_API int __stdcall DoPrintImage()
 					while (fIndex < frameCount)
 					{
 						pImg->SelectActiveFrame(&pDimensionIDs[0], fIndex);
+
 						if (StartPage(hdcPrn) < 0)
 						{
 							if (pImg)
@@ -398,6 +399,12 @@ USBAPI_API int __stdcall DoPrintImage()
 								pImg = NULL;
 							}
 
+							if (pDimensionIDs)
+							{
+								free(pDimensionIDs);
+								pDimensionIDs = NULL;
+							}
+						
 							error = Print_Operation_Fail;
 							break;
 						}
@@ -479,6 +486,12 @@ USBAPI_API int __stdcall DoPrintImage()
 								pGraphics = NULL;
 							}
 								
+							if (pDimensionIDs)
+							{
+								free(pDimensionIDs);
+								pDimensionIDs = NULL;
+							}
+
 							if (status == Gdiplus::OutOfMemory)
 							{
 								error = Print_Memory_Fail;
@@ -506,12 +519,22 @@ USBAPI_API int __stdcall DoPrintImage()
 								pImg = NULL;
 							}
 
+							if (pDimensionIDs)
+							{
+								free(pDimensionIDs);
+								pDimensionIDs = NULL;
+							}
+
 							error = Print_Operation_Fail;
 							break;
 						}
 					}
 
-					free(pDimensionIDs);			
+					if (pDimensionIDs)
+					{
+						free(pDimensionIDs);
+						pDimensionIDs = NULL;
+					}
 				}
 
 				if (pImg)
