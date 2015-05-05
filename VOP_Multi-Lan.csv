@@ -226,8 +226,7 @@ ResStr_This_file_is_not_supported__please_select_another_one_,"This file is not 
 ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_,"The valid range is 1-99, please confirm and enter again.",有效值输入范围为1-99，请确认后再次输入。
 ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_,"The valid range is 25-400%, please confirm and enter again.",有效值输入范围为25-400%，请确认后再次输入。
 ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_,The scanned images will be deleted after closing the VOP. Are you sure to close the VOP?,VOP关闭后，扫描图片将会被删除，是否关闭，请确认
-ResStr_Lack_of_memery_disk_space_because_too_many_files_are_selected__please_select_again_,"Lack of memery/disk space because too many files are selected, please select again.","选择文件太多，导致保存时****不足，请重新选择图片。
-其中****为内存或者是磁盘空间。"
+ResStr_Lack_of_memery_disk_space_because_too_many_files_are_selected__please_select_again_,"Lack of memery/disk space because too many files are selected, please select again.","该操作所需内存或者磁盘空间不足，请重新选择文件或释放内存后再试。"
 ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_,"The valid range is 0-100, please confirm and enter again.",有效值输入范围为0-100，请确认后再次输入。
 ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_,"Scanning image has been changed, please confirm whether save it or not?",扫描图片已被更改，是否保存，请确认
 ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_,"The entered IP address  is wrong, please confirm and enter again.",IP地址输入有误，请确认后再次输入

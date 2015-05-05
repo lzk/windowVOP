@@ -407,7 +407,7 @@ namespace VOP
                  }
                  else if ( RETSCAN_NO_ENOUGH_SPACE == (int)wParam )
                  {
-                     m_MainWin.statusPanelPage.ShowMessage( "There no enough space in system partial, please free the disk before try again.", Brushes.Red );
+                     m_MainWin.statusPanelPage.ShowMessage( (string)this.FindResource( "ResStr_insufficient_system_disk_space" ), Brushes.Red );
                  }
                  else
                  {
@@ -492,11 +492,11 @@ namespace VOP
                 
                 if ( false == DoseHasEnoughSpace(save.FileName) )
                 {
-                    // TODO: Add multi language. 
+                    // TODO: Update multi language. 
                     VOP.Controls.MessageBoxEx.Show(
                             VOP.Controls.MessageBoxExStyle.Simple,
                             m_MainWin,
-                            "The disk has not enough space.",
+                            (string)this.FindResource( "ResStr_Lack_of_memery_disk_space_because_too_many_files_are_selected__please_select_again_" ),
                             (string)this.FindResource( "ResStr_Warning" )
                             );
 
