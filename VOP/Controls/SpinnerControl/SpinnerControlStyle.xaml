@@ -269,6 +269,15 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                         </Grid.RowDefinitions>
+                        <RepeatButton 
+                                      Name="btnDecrease"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static btl:SpinnerControl.DecreaseCommand}"/>
+
                         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
                             <TextBox 
                                  Name="tbTextBox"
@@ -284,6 +293,9 @@
                                  BorderBrush="{x:Null}"
                                  MaxLength="4"
                                  InputMethod.IsInputMethodEnabled="False">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                                </TextBox.InputBindings>
                                 <TextBox.Text>
                                     <Binding RelativeSource="{RelativeSource TemplatedParent}" 
                                          Mode="TwoWay"
@@ -299,14 +311,7 @@
                             <TextBlock Foreground="#FF707070" FontSize="26" Text="%" VerticalAlignment="Center"/>
                         </StackPanel>
                        
-                        <RepeatButton 
-                                      Name="btnDecrease"
-                                      Grid.Row="0"
-                                      Grid.Column="0"
-                                      Width="25"
-                                      Height="25"
-                                      Style="{StaticResource CustomMinusButtonStyle}" 
-                                      Command="{x:Static btl:SpinnerControl.DecreaseCommand}"/>
+
 
 
                         <RepeatButton 

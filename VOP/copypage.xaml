@@ -44,6 +44,14 @@
                                     we use the TemplatedParent binding to get a reference to the control
                                     this template has been applied to, so we can access the property on it
                                 -->
+                                <RepeatButton Name="btnDecrease"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="30"
+                                      Height="30"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
+                                
                                 <TextBox Name="tbTextBox"
                                  Grid.Row="0"
                                  Grid.Column="1"
@@ -60,6 +68,9 @@
                                  InputMethod.IsInputMethodEnabled="False"
                                  VerticalAlignment="Center"
                                  >
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                                    </TextBox.InputBindings>
                                     <TextBox.Text>
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" 
                                          Mode="TwoWay"
@@ -72,15 +83,6 @@
                                         </Binding>
                                     </TextBox.Text>
                                 </TextBox>
-
-                                <RepeatButton Name="btnDecrease"
-                                      Grid.Row="0"
-                                      Grid.Column="0"
-                                      Width="30"
-                                      Height="30"
-                                      Style="{StaticResource CustomMinusButtonStyle}" 
-                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
-
 
                                 <RepeatButton Name="btnIncrease"
                                       Grid.Row="0"

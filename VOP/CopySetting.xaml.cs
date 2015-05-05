@@ -320,9 +320,34 @@ namespace VOP
 
             if ( EnumNin1._1up != m_nin1 )
                 spinnerScaling.IsEnabled = false;
+
+            TextBox tb = spinnerScaling.Template.FindName("tbTextBox", spinnerScaling) as TextBox;
+            tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
+            tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
         }
 
+        private void SpinnerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            int textValue = 0;
 
+            if (!int.TryParse(e.Text, out textValue))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void SpinnerTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+
+            int textValue = 0;
+
+            if (int.TryParse(textBox.Text, out textValue))
+            {
+
+            }
+
+        }
         /// <summary>
         /// Initialize original document size combobox.
         /// </summary>
