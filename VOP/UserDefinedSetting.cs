@@ -91,7 +91,7 @@ namespace VOP
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             string strText = e.Text;
-            if (!Char.IsDigit(strText, 0))
+            if (strText.Length >0 && !Char.IsDigit(strText, 0))
             {
                 if (e.Text != ".")
                     e.Handled = true;      
