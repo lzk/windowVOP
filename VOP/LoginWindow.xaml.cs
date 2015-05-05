@@ -41,6 +41,10 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, (string)this.FindResource("ResStr_Msg_6"), (string)this.FindResource("ResStr_Warning"));
                 }
+                else
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, (string)this.FindResource("ResStr_Msg_5"), "");
+                }
             }
             else
             {
