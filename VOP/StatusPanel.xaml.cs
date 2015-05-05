@@ -139,7 +139,7 @@ namespace VOP
                     if ( "" == m_errorMsg )
                     {
                         this.txtErrMsg.Foreground = GetMessageForegroundBrush( value );
-                        this.txtErrMsg.Text = common.GetErrorMsg( value, m_job );
+                        this.txtErrMsg.Text = common.GetErrorMsg( value, m_job, this);
                     }
                     else if (  value != m_preStatus )
                     {
@@ -147,7 +147,7 @@ namespace VOP
                         m_showTimeCnter.Stop();
 
                         this.txtErrMsg.Foreground = GetMessageForegroundBrush( value );
-                        this.txtErrMsg.Text = common.GetErrorMsg( value, m_job );
+                        this.txtErrMsg.Text = common.GetErrorMsg( value, m_job, this);
                         m_errorMsg = "";
                     }
 

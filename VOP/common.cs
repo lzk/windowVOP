@@ -234,76 +234,81 @@ namespace VOP
         /// <summary>
         /// Message of status show in bottom of status panel.
         /// </summary>
-        public static string GetErrorMsg(EnumStatus status, EnumMachineJob job )
+        public static string GetErrorMsg(EnumStatus status, EnumMachineJob job, object frameworkElement)
         {
             string errMsg = "";
 
-            switch ( status )
+            FrameworkElement _this = frameworkElement as FrameworkElement;
+
+            if (null != _this)
             {
-                case EnumStatus.Ready           :  errMsg = ""; break;
-                case EnumStatus.Printing        :  errMsg = "Printing"; break;
-                case EnumStatus.PowerSaving     :  errMsg = ""; break;
-                case EnumStatus.WarmingUp       :  errMsg = "WarmingUp"; break;
-                case EnumStatus.PrintCanceling  :  errMsg = "Print Cancelling"; break;
-                case EnumStatus.Processing      :  errMsg = "Processing"; break;
-                case EnumStatus.CopyScanning    :  errMsg = "Copying"; break;
-               case EnumStatus.CopyScanNextPage           :
-                    if ( job == EnumMachineJob.IDCardCopyJob )
-                        errMsg = "Turn card over to copy the reverse.";
-                    else if ( job == EnumMachineJob.Nin1CopyJob )
-                        errMsg = "Place Next Page";
-                    else
+                switch (status)
+                {
+                    case EnumStatus.Ready: errMsg = ""; break;
+                    case EnumStatus.Printing: errMsg = (string)_this.TryFindResource("ResStr_Printing"); break;
+                    case EnumStatus.PowerSaving: errMsg = ""; break;
+                    case EnumStatus.WarmingUp: errMsg = (string)_this.TryFindResource("ResStr_WarmingUp"); break;
+                    case EnumStatus.PrintCanceling: errMsg = (string)_this.TryFindResource("ResStr_Print_Cancelling"); break;
+                    case EnumStatus.Processing: errMsg = (string)_this.TryFindResource("ResStr_Processing"); break;
+                    case EnumStatus.CopyScanning: errMsg = (string)_this.TryFindResource("ResStr_Copying"); break;
+                    case EnumStatus.CopyScanNextPage:
+                        if (job == EnumMachineJob.IDCardCopyJob)
+                            errMsg = (string)_this.TryFindResource("ResStr_Turn_card_over_to_copy_the_reverse_");
+                        else if (job == EnumMachineJob.Nin1CopyJob)
+                            errMsg = (string)_this.TryFindResource("ResStr_Place_Next_Page");
+                        else
+                            errMsg = "";
+                        break;
+                    case EnumStatus.CopyPrinting: errMsg = (string)_this.TryFindResource("ResStr_Copying"); break;
+                    case EnumStatus.CopyCanceling: errMsg = (string)_this.TryFindResource("ResStr_Copy_Cancelling"); break;
+                    case EnumStatus.IDCardMode: errMsg = (string)_this.TryFindResource("ResStr_ID_Card_Mode"); break;
+                    case EnumStatus.ScanScanning: errMsg = (string)_this.TryFindResource("ResStr_Scanning"); break;
+                    case EnumStatus.ScanSending: errMsg = (string)_this.TryFindResource("ResStr_Scanning"); break;
+                    case EnumStatus.ScanCanceling: errMsg = (string)_this.TryFindResource("ResStr_Scan_Cancelling"); break;
+                    case EnumStatus.ScannerBusy: errMsg = (string)_this.TryFindResource("ResStr_Scanner_Busy"); break;
+                    case EnumStatus.TonerEnd1: errMsg = (string)_this.TryFindResource("ResStr_Toner_End"); break;
+                    case EnumStatus.TonerEnd2: errMsg = (string)_this.TryFindResource("ResStr_Toner_End"); break;
+                    case EnumStatus.TonerNearEnd: errMsg = (string)_this.TryFindResource("ResStr_Toner_Near_End"); break;
+                    case EnumStatus.ManualFeedRequired: errMsg = (string)_this.TryFindResource("ResStr_Waiting_2nd_pages_when_print_manual_duplex_job"); break;
+                    case EnumStatus.InitializeJam: errMsg = (string)_this.TryFindResource("ResStr_Paper_Jam__Paper_Remained"); break;
+                    case EnumStatus.NofeedJam: errMsg = (string)_this.TryFindResource("ResStr_Paper_Jam__Nofeed"); break;
+                    case EnumStatus.JamAtRegistStayOn: errMsg = (string)_this.TryFindResource("ResStr_Paper_Jam__Regist"); break;
+                    case EnumStatus.JamAtExitNotReach: errMsg = (string)_this.TryFindResource("ResStr_Paper_Jam__Exit"); break;
+                    case EnumStatus.JamAtExitStayOn: errMsg = (string)_this.TryFindResource("ResStr_Paper_Jam__Exit"); break;
+                    case EnumStatus.CoverOpen: errMsg = (string)_this.TryFindResource("ResStr_Cover_Open"); break;
+                    case EnumStatus.NoTonerCartridge: errMsg = (string)_this.TryFindResource("ResStr_No_Toner_Cartridge"); break;
+                    case EnumStatus.WasteTonerFull: errMsg = (string)_this.TryFindResource("ResStr_Please_Replace_Toner"); break;
+                    case EnumStatus.FWUpdate: errMsg = (string)_this.TryFindResource("ResStr_FW_Updating"); break;
+                    case EnumStatus.OverHeat: errMsg = (string)_this.TryFindResource("ResStr_Overheat"); break;
+                    case EnumStatus.PolygomotorOnTimeoutError:  errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "202"; break;
+                    case EnumStatus.PolygomotorOffTimeoutError: errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "203"; break;
+                    case EnumStatus.PolygomotorLockSignalError: errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "204"; break;
+                    case EnumStatus.BeamSynchronizeError:       errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "220"; break;
+                    case EnumStatus.BiasLeak:                   errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "491"; break;
+                    case EnumStatus.PlateActionError:           errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "501"; break;
+                    case EnumStatus.MainmotorError:             errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "520"; break;
+                    case EnumStatus.MainFanMotorEorror:         errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "530"; break;
+                    case EnumStatus.JoinerThermistorError:      errMsg = (string)_this.TryFindResource("ResStr_Please_contact_customer_support__SCxxx") + "541"; break;
+                    case EnumStatus.JoinerReloadError:          errMsg = (string)_this.TryFindResource("ResStr_Please_contact_customer_support__SCxxx") + "542"; break;
+                    case EnumStatus.HighTemperatureErrorSoft:   errMsg = (string)_this.TryFindResource("ResStr_Please_contact_customer_support__SCxxx") + "543"; break;
+                    case EnumStatus.HighTemperatureErrorHard:   errMsg = (string)_this.TryFindResource("ResStr_Please_contact_customer_support__SCxxx") + "544"; break;
+                    case EnumStatus.JoinerFullHeaterError:      errMsg = (string)_this.TryFindResource("ResStr_Please_contact_customer_support__SCxxx") + "545"; break;
+                    case EnumStatus.Joiner3timesJamError:       errMsg = (string)_this.TryFindResource("ResStr_Please_contact_customer_support__SCxxx") + "559"; break;
+                    case EnumStatus.LowVoltageJoinerReloadError:    errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "560"; break;
+                    case EnumStatus.MotorThermistorError:           errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "587"; break;
+                    case EnumStatus.EEPROMCommunicationError:       errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "669"; break;
+                    case EnumStatus.CTL_PRREQ_NSignalNoCome:        errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "688"; break;
+                    case EnumStatus.ScanMotorError: errMsg = (string)_this.TryFindResource("ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001"); break;
+                    case EnumStatus.SCAN_DRV_CALIB_FAIL: errMsg = (string)_this.TryFindResource("Scan Calibration Error;\nTurn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC1001"); break;
+                    case EnumStatus.NetWirelessDongleCfgFail: errMsg = (string)_this.TryFindResource("ResStr_Wireless_Dongle_Config_Fail_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "1002"; break;
+                    case EnumStatus.PrinterDataError: errMsg = (string)_this.TryFindResource("ResStr_Print_Data_Error_SCxxx") + "1006"; break;
+                    case EnumStatus.Offline:
+                    case EnumStatus.PowerOff:
+                    case EnumStatus.Unknown: errMsg = ""; break;
+                    default:
                         errMsg = "";
-                    break;
-                case EnumStatus.CopyPrinting                 :  errMsg = "Copying"; break;
-                case EnumStatus.CopyCanceling                :  errMsg = "Copy Cancelling"; break;
-                case EnumStatus.IDCardMode                   :  errMsg = "ID Card Mode"; break;
-                case EnumStatus.ScanScanning                 :  errMsg = "Scanning"; break;
-                case EnumStatus.ScanSending                  :  errMsg = "Scanning"; break;
-                case EnumStatus.ScanCanceling                :  errMsg = "Scan Cancelling"; break;
-                case EnumStatus.ScannerBusy                  :  errMsg = "Scanner Busy"; break;
-                case EnumStatus.TonerEnd1                    :  errMsg = "Toner End"; break;
-                case EnumStatus.TonerEnd2                    :  errMsg = "Toner End"; break;
-                case EnumStatus.TonerNearEnd                 :  errMsg = "Toner Near End"; break;
-                case EnumStatus.ManualFeedRequired           :  errMsg = "Waiting 2nd pages when print manual duplex job"; break;
-                case EnumStatus.InitializeJam                :  errMsg = "Paper Jam: Paper Remained"; break;
-                case EnumStatus.NofeedJam                    :  errMsg = "Paper Jam: Nofeed"; break;
-                case EnumStatus.JamAtRegistStayOn            :  errMsg = "Paper Jam: Regist"; break;
-                case EnumStatus.JamAtExitNotReach            :  errMsg = "Paper Jam: Exit"; break;
-                case EnumStatus.JamAtExitStayOn              :  errMsg = "Paper Jam: Exit"; break;
-                case EnumStatus.CoverOpen                    :  errMsg = "Cover Open"; break;
-                case EnumStatus.NoTonerCartridge             :  errMsg = "No Toner Cartridge"; break;
-                case EnumStatus.WasteTonerFull               :  errMsg = "Please Replace Toner"; break;
-                case EnumStatus.FWUpdate                     :  errMsg = "FW Updating"; break;
-                case EnumStatus.OverHeat                     :  errMsg = "Overheat"; break;
-                case EnumStatus.PolygomotorOnTimeoutError    :  errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC202"; break;
-                case EnumStatus.PolygomotorOffTimeoutError   :  errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC203"; break;
-                case EnumStatus.PolygomotorLockSignalError   :  errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC204"; break;
-                case EnumStatus.BeamSynchronizeError         :  errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC220"; break;
-                case EnumStatus.BiasLeak                     :  errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC491"; break;
-                case EnumStatus.PlateActionError             :  errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC501"; break;
-                case EnumStatus.MainmotorError               :  errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC520"; break;
-                case EnumStatus.MainFanMotorEorror           :  errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC530"; break;
-                case EnumStatus.JoinerThermistorError        :  errMsg = "Please contact customer support:\nSC541"; break;
-                case EnumStatus.JoinerReloadError            :  errMsg = "Please contact customer support:\nSC542"; break;
-                case EnumStatus.HighTemperatureErrorSoft     :  errMsg = "Please contact customer support:\nSC543"; break;
-                case EnumStatus.HighTemperatureErrorHard     :  errMsg = "Please contact customer support:\nSC544"; break;
-                case EnumStatus.JoinerFullHeaterError        :  errMsg = "Please contact customer support:\nSC545"; break;
-                case EnumStatus.Joiner3timesJamError         :  errMsg = "Please contact customer support:\nSC559"; break;
-                case EnumStatus.LowVoltageJoinerReloadError  :  errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC560"; break;
-                case EnumStatus.MotorThermistorError         :  errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC587"; break;
-                case EnumStatus.EEPROMCommunicationError     :  errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC669"; break;
-                case EnumStatus.CTL_PRREQ_NSignalNoCome      :  errMsg = "Turn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC688"; break;
-                case EnumStatus.ScanMotorError               :  errMsg = "Scanner not found home position;\nTurn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC1001"; break;
-                case EnumStatus.SCAN_DRV_CALIB_FAIL          :  errMsg = "Scan Calibration Error;\nTurn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC1001"; break;
-                case EnumStatus.NetWirelessDongleCfgFail     :  errMsg = "Wireless Dongle Config Fail;\nTurn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC1002"; break;
-                case EnumStatus.PrinterDataError             :  errMsg = "Print Data Error:\nSC1006"; break;
-                case EnumStatus.Offline                      :
-                case EnumStatus.PowerOff                   :
-                case EnumStatus.Unknown                    : errMsg = ""; break;
-                default:
-                                                             errMsg = "";
-                                                             break;
+                        break;
+                }
             }
 
             return errMsg;

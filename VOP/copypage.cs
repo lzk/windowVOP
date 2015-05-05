@@ -184,7 +184,7 @@ namespace VOP
                             );
                     break;
                 default:
-                     m_MainWin.statusPanelPage.ShowMessage( "Copy Fail", Brushes.Red );
+                     m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
                     break;
             }
 
