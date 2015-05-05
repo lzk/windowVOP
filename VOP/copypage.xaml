@@ -11,7 +11,6 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-
                 <ResourceDictionary Source="Controls/CustomButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
@@ -21,8 +20,6 @@
                 <ResourceDictionary Source="Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-
-
             <Style x:Key ="SpinnerControl1"  TargetType="{x:Type local:SpinnerControl}">
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
@@ -30,7 +27,6 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type local:SpinnerControl}">
-
                             <Grid Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="55*"/>
@@ -185,25 +181,13 @@
                                 <Rectangle Name="rect3" Grid.Column="5" VerticalAlignment="Bottom" Fill="#ff888888" Height="14" />
                                 <Rectangle Name="rect4" Grid.Column="7" VerticalAlignment="Bottom" Fill="#ffacacac" Height="17" />
                                 <Rectangle Name="rect5" Grid.Column="9" VerticalAlignment="Bottom" Fill="#ffacacac" Height="20" />
-                            </Grid>
-
-                            <!--<RepeatButton x:Name="btnDecDensity" 
-                                 Grid.Row="1"
-                                 Grid.Column="1"   
-                                 
-                                 
-                                 Style="{StaticResource CustomMinusButtonStyle}" Click="btnDecDensity_Click" KeyDown="btnDecDensity_KeyDown"/>-->
-
+                            </Grid>     
 
                             <RepeatButton x:Name="btnIncDensity" 
                                           Grid.Row="1"
                                           Grid.Column="3"
                                           Width="28"
-                                          Height="28"
-                                          
-                                       
-                                      
-                               
+                                          Height="28"             
                                           Style="{StaticResource CustomPlusButtonStyle}"                                   
                                           Click="btnIncDensity_Click" KeyDown="btnIncDensity_KeyDown" />
                         </Grid>                      
@@ -220,8 +204,7 @@
                                   Unchecked="CheckBox_Checked" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">                        
                         <local:ButtonEx IsDefault="False" IsEnabled="True" Content="{StaticResource ResStr_More_Settings}" 
                                         x:Name="btnSetting" Width="120" Height="35"
                                         Margin="0,0,40,0" Click="SettingBtnClick" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
@@ -230,14 +213,8 @@
                                         IsDefault="True" IsActiveEx="True" Content="{StaticResource ResStr_Copy}"
                                         Height="35" Width="150" Click="Button_Click" HorizontalAlignment="Center" />
                     </StackPanel>
-
                 </StackPanel>
-
-
             </Grid>
-
         </Grid>
-
-
     </Grid>
 </UserControl>
