@@ -160,7 +160,7 @@
     <sys:String x:Key="ResStr_WLAN_Network">WLAN网络</sys:String>
     <sys:String x:Key="ResStr_Protected_by_WPA2">通过WPA2进行保护</sys:String>
     <sys:String x:Key="ResStr_Protected_by_WEP">通过WEP进行保护</sys:String>
-    <sys:String x:Key="ResStr_Protected_by_Mixed_Mode_PSK">通过Mixed Mode PSK进行保护</sys:String>
+    <sys:String x:Key="ResStr_Protected_by_Mixed_Mode_PSK">通过混合模式PSK进行保护</sys:String>
     <sys:String x:Key="ResStr_Manual_Wi_Fi">加入其他网络</sys:String>
     <sys:String x:Key="ResStr_Password_">密码：</sys:String>
     <sys:String x:Key="ResStr_Password">密码</sys:String>
