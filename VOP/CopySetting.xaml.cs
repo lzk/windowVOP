@@ -248,10 +248,22 @@ namespace VOP
             cboOutputSize.Items.Clear();
             cboMediaType.Items.Clear();
 
+            bool bIsMetrice = dll.IsMetricCountry();
+
             spinnerScaling.Value = 100;
             m_scanMode   = EnumCopyScanMode.Photo;
-            m_docSize    = EnumPaperSizeInput._A4;
-            m_outputSize = EnumPaperSizeOutput._Letter;
+
+            if ( bIsMetrice )
+            {
+                m_docSize    = EnumPaperSizeInput._A4;
+                m_outputSize = EnumPaperSizeOutput._A4;
+            }
+            else
+            {
+                m_docSize    = EnumPaperSizeInput._Letter;
+                m_outputSize = EnumPaperSizeOutput._Letter;
+            }
+
             m_nin1       = EnumNin1._1up;
             m_dpi        = m_isIDCardCopy ? EnumCopyResln._600x600 : EnumCopyResln._300x300;
             m_mediaType  = EnumMediaType.Plain;
