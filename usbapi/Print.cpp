@@ -151,7 +151,7 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName);
 USBAPI_API void __stdcall RecoverDevModeData();
 USBAPI_API void __stdcall SetInitData(const TCHAR * strPrinterName);
 
-static std::vector<PrintItem> g_vecImagePaths;
+static std::vector<std::wstring> g_vecImagePaths;
 static std::vector<IStream*>  g_vecIdCardImageSources;
 static std::vector<int>  g_vecIdCardImageRotation;
 static DOCINFO  di = { sizeof (DOCINFO) };
@@ -281,7 +281,9 @@ USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * 
 
 	ZeroMemory(&di, sizeof(di));
 	di.cbSize = sizeof(di);
-	di.lpszDocName = jobDescription;
+
+	std::wstring jobStr(jobDescription);
+	di.lpszDocName = jobStr.c_str();
 
 	dc = CreateDCW(L"WINSPOOL", strPrinterName, NULL, NULL);
 
@@ -299,8 +301,8 @@ USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * 
 
 USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName)
 {
-	PrintItem item = { fileName };
-	g_vecImagePaths.push_back(item);
+	std::wstring str(fileName);
+	g_vecImagePaths.push_back(str);
 }
 
 USBAPI_API void __stdcall AddImageSource(IStream * imageSource)
@@ -337,7 +339,7 @@ USBAPI_API int __stdcall DoPrintImage()
 		// Start the page
 		for (UINT i = 0; i < g_vecImagePaths.size(); i++)
 		{
-			fileExt = PathFindExtension(g_vecImagePaths[i].imagePath);
+			fileExt = PathFindExtension(g_vecImagePaths[i].c_str());
 		
 			if (   _tcscmp(fileExt, L".bmp") == 0
 				|| _tcscmp(fileExt, L".ico") == 0
@@ -349,11 +351,18 @@ USBAPI_API int __stdcall DoPrintImage()
 				|| _tcscmp(fileExt, L".wmf") == 0
 				|| _tcscmp(fileExt, L".emf") == 0)
 			{
-				Gdiplus::Image img(g_vecImagePaths[i].imagePath);
+				Gdiplus::Image *pImg = NULL;
+				pImg = Gdiplus::Image::FromFile(g_vecImagePaths[i].c_str());
 
-				status = img.GetLastStatus();
+				status = pImg->GetLastStatus();
 				if (status != Gdiplus::Ok)
 				{
+					if (pImg)
+					{
+						delete pImg;
+						pImg = NULL;
+					}
+						
 					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
@@ -365,31 +374,37 @@ USBAPI_API int __stdcall DoPrintImage()
 					break;
 				}
 
-				count = img.GetFrameDimensionsCount();
+				count = pImg->GetFrameDimensionsCount();
 
 				if (count > 0)
 				{
 					pDimensionIDs = (GUID*)malloc(sizeof(GUID)*count);
-					img.GetFrameDimensionsList(pDimensionIDs, count);
-					frameCount = img.GetFrameCount(&pDimensionIDs[0]);
+					pImg->GetFrameDimensionsList(pDimensionIDs, count);
+					frameCount = pImg->GetFrameCount(&pDimensionIDs[0]);
 
 					fIndex = 0;
 					while (fIndex < frameCount)
 					{
-						img.SelectActiveFrame(&pDimensionIDs[0], fIndex);
+						pImg->SelectActiveFrame(&pDimensionIDs[0], fIndex);
 						if (StartPage(hdcPrn) < 0)
 						{
+							if (pImg)
+							{
+								delete pImg;
+								pImg = NULL;
+							}
+
 							error = Print_Operation_Fail;
 							break;
 						}
 
 						int x = 0;
 						int y = 0;
-						Gdiplus::REAL dpiX = img.GetHorizontalResolution();
-						Gdiplus::REAL dpiY = img.GetVerticalResolution();
+						Gdiplus::REAL dpiX = pImg->GetHorizontalResolution();
+						Gdiplus::REAL dpiY = pImg->GetVerticalResolution();
 
-						int w = img.GetWidth() * (600 / dpiX);
-						int h = img.GetHeight()* (600 / dpiY);
+						int w = pImg->GetWidth() * (600 / dpiX);
+						int h = pImg->GetHeight()* (600 / dpiY);
 		
 						double whRatio = (double)w / h;
 						double scaleRatioX = (double)w / cxPage;
@@ -413,8 +428,8 @@ USBAPI_API int __stdcall DoPrintImage()
 						
 						if (IsFitted == TRUE)
 						{
-							w = img.GetWidth() * (600 / dpiX);
-							h = img.GetHeight()* (600 / dpiY);
+							w = pImg->GetWidth() * (600 / dpiX);
+							h = pImg->GetHeight()* (600 / dpiY);
 							x = 0; //Align Top left
 							y = 0;
 						}
@@ -444,8 +459,14 @@ USBAPI_API int __stdcall DoPrintImage()
 						Gdiplus::Graphics graphics(hdcPrn);
 						graphics.SetPageUnit(Gdiplus::UnitPixel);
 
-						if ((status = graphics.DrawImage(&img, x, y, w, h)) != Gdiplus::Ok)
+						if ((status = graphics.DrawImage(pImg, x, y, w, h)) != Gdiplus::Ok)
 						{
+							if (pImg)
+							{
+								delete pImg;
+								pImg = NULL;
+							}
+
 							if (status == Gdiplus::OutOfMemory)
 							{
 								error = Print_Memory_Fail;
@@ -461,14 +482,25 @@ USBAPI_API int __stdcall DoPrintImage()
 
 						if (EndPage(hdcPrn) < 0)
 						{
+							if (pImg)
+							{
+								delete pImg;
+								pImg = NULL;
+							}
+
 							error = Print_Operation_Fail;
 							break;
 						}
 					}
 
-					free(pDimensionIDs);
+					free(pDimensionIDs);			
 				}
-				
+
+				if (pImg)
+				{
+					delete pImg;
+					pImg = NULL;
+				}
 			}
 			else
 			{
@@ -503,8 +535,9 @@ USBAPI_API int __stdcall DoPrintIdCard()
 	double imageToTop = 0;
 
 	Gdiplus::Status status;
+	int docStatus;
 
-	if (StartDoc(hdcPrn, &di) > 0)
+	if ((docStatus = StartDoc(hdcPrn, &di)) > 0)
 	{
 		cxPage = GetDeviceCaps(hdcPrn, HORZRES);
 		cyPage = GetDeviceCaps(hdcPrn, VERTRES);
@@ -519,11 +552,15 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				imageToLeft = 0;
 				imageToTop = 0;
 		
-				Gdiplus::Image img1(g_vecIdCardImageSources[0]);
+				Gdiplus::Image *pImg1 = NULL;
+				pImg1 = Gdiplus::Image::FromStream(g_vecIdCardImageSources[0]);
 
-				status = img1.GetLastStatus();
+				status = pImg1->GetLastStatus();
 				if (status != Gdiplus::Ok)
 				{
+					if (pImg1)
+						delete pImg1;
+
 					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
@@ -535,11 +572,15 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				Gdiplus::Image img2(g_vecIdCardImageSources[1]);
+				Gdiplus::Image *pImg2 = NULL;
+				pImg2 = Gdiplus::Image::FromStream(g_vecIdCardImageSources[1]);
 
-				status = img2.GetLastStatus();
+				status = pImg2->GetLastStatus();
 				if (status != Gdiplus::Ok)
 				{
+					if (pImg2)
+						delete pImg2;
+
 					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
@@ -553,6 +594,12 @@ USBAPI_API int __stdcall DoPrintIdCard()
 	
 				if (StartPage(hdcPrn) < 0)
 				{
+					if (pImg1)
+						delete pImg1;
+
+					if (pImg2)
+						delete pImg2;
+
 					error = Print_Operation_Fail;
 					break;
 				}
@@ -604,8 +651,11 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				if ((status = graphics.DrawImage(&img1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
+				if ((status = graphics.DrawImage(pImg1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
 				{
+					if (pImg1)
+						delete pImg1;
+
 					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
@@ -663,8 +713,11 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				if ((status = graphics.DrawImage(&img2, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
+				if ((status = graphics.DrawImage(pImg2, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
 				{
+					if (pImg2)
+						delete pImg2;
+
 					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
@@ -678,10 +731,21 @@ USBAPI_API int __stdcall DoPrintIdCard()
 
 				if (EndPage(hdcPrn) < 0)
 				{
+					if (pImg1)
+						delete pImg1;
+
+					if (pImg2)
+						delete pImg2;
+
 					error = Print_Operation_Fail;
 					break;
 				}
 
+				if (pImg1)
+					delete pImg1;
+
+				if (pImg2)
+					delete pImg2;
 			}
 			break;
 		case MarriageCertificate:
@@ -692,11 +756,15 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				imageToLeft = 0;
 				imageToTop = 0;
 
-				Gdiplus::Image img1(g_vecIdCardImageSources[0]);
+				Gdiplus::Image *pImg1 = NULL;
+				pImg1 = Gdiplus::Image::FromStream(g_vecIdCardImageSources[0]);
 
-				status = img1.GetLastStatus();
+				status = pImg1->GetLastStatus();
 				if (status != Gdiplus::Ok)
 				{
+					if (pImg1)
+						delete pImg1;
+
 					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
@@ -710,6 +778,9 @@ USBAPI_API int __stdcall DoPrintIdCard()
 
 				if (StartPage(hdcPrn) < 0)
 				{
+					if (pImg1)
+						delete pImg1;
+
 					error = Print_Operation_Fail;
 					break;
 				}
@@ -761,8 +832,11 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				if ((status = graphics.DrawImage(&img1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
+				if ((status = graphics.DrawImage(pImg1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
 				{
+					if (pImg1)
+						delete pImg1;
+
 					if (status == Gdiplus::OutOfMemory)
 					{
 						error = Print_Memory_Fail;
@@ -776,9 +850,15 @@ USBAPI_API int __stdcall DoPrintIdCard()
 
 				if (EndPage(hdcPrn) < 0)
 				{
+					if (pImg1)
+						delete pImg1;
+
 					error = Print_Operation_Fail;
 					break;
 				}
+
+				if (pImg1)
+					delete pImg1;
 			}
 			break;
 		case HouseholdRegister:
