@@ -153,8 +153,8 @@
     <sys:String x:Key="ResStr_IP_Type">获取方式</sys:String>
     <sys:String x:Key="ResStr_DHCP">自动获取</sys:String>
     <sys:String x:Key="ResStr_Static">固定</sys:String>
-    <sys:String x:Key="ResStr_IP_Address">IP地址</sys:String>
-    <sys:String x:Key="ResStr_Gateway">网关</sys:String>
+    <sys:String x:Key="ResStr_IP_Address">IP 地址</sys:String>
+    <sys:String x:Key="ResStr_Gateway" xml:space="preserve">网   关</sys:String>
     <sys:String x:Key="ResStr_Submask">子网掩码</sys:String>
     <sys:String x:Key="ResStr_Apply">应用</sys:String>
     <sys:String x:Key="ResStr_WLAN_Network">WLAN网络</sys:String>
