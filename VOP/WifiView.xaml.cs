@@ -54,6 +54,11 @@ namespace VOP
             if (0x01 == (m_rec.WifiEnable & 0x01))
             {
                 chkWifi.IsChecked = true;
+                btnConnectOthAp.Visibility = Visibility.Visible;
+                manualConnect.Visibility = Visibility.Hidden;
+                rowManual.Height = new GridLength(0);
+                autoConnect.Visibility = Visibility.Visible;
+                rowAuto.Height = GridLength.Auto;
                 cbo_ssid_refresh();
             }
             else
