@@ -343,6 +343,34 @@ namespace VOP
                 tb.Text = "1";
             }
         }
+
+        private void btnIncDensity_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ( Key.Up == e.Key || Key.Right == e.Key )
+            {
+                m_density++;
+                e.Handled = true;
+            }
+            else if ( Key.Down == e.Key || Key.Left == e.Key )
+            {
+                m_density--;
+                e.Handled = true;
+            }
+        }
+
+        private void btnDecDensity_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ( Key.Up == e.Key || Key.Right == e.Key )
+            {
+                m_density++;
+                e.Handled = true;
+            }
+            else if ( Key.Down == e.Key || Key.Left == e.Key )
+            {
+                m_density--;
+                e.Handled = true;
+            }
+        }
     }
 
 }

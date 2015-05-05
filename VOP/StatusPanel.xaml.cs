@@ -156,6 +156,7 @@ namespace VOP
                             || EnumStatus.Unknown == value )
                     {
                         lbTonerBar.IsEnabled = false;
+                        this.lbTonerBar.FlashShopCatIcon(false);
                     }
                     else
                     {

@@ -158,7 +158,7 @@
 
 
                             <Button x:Name="btnDecDensity" Style="{StaticResource
-                                AdjustButton}" Content="-" Margin="10,0" FontSize="45" Click="btnDecDensity_Click"/>
+                                AdjustButton}" Content="-" Margin="10,0" FontSize="45" Click="btnDecDensity_Click" KeyDown="btnDecDensity_KeyDown"/>
 
 
                             <Rectangle Name="rect1" VerticalAlignment="Bottom" Margin="5,0,0,12" Fill="#ff888888" Width="12" Height="8" />
@@ -170,7 +170,7 @@
                             <Button x:Name="btnIncDensity" Style="{StaticResource
                                 AdjustButton}" Content="+" 
                                 FontSize="30"
-                                Margin="10,0" Click="btnIncDensity_Click" />
+                                Margin="10,0" Click="btnIncDensity_Click" KeyDown="btnIncDensity_KeyDown" />
 
                         </StackPanel>
                     </local:GroupBoxDecorator>
