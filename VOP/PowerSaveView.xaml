@@ -103,6 +103,9 @@
                                  Template="{StaticResource customTextBox}"
                                  InputMethod.IsInputMethodEnabled="False"
                                  >
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                                    </TextBox.InputBindings>
                                     <TextBox.Text>
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" 
                                          Mode="TwoWay"

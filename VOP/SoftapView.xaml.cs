@@ -195,15 +195,6 @@ namespace VOP
         public void handler_password_changed(object sender, RoutedEventArgs e)
         {
             TextBox pwd = sender as TextBox;
-            string strText = pwd.Text;
-
-            bool bValidate = common.IsAsciiLetter(strText);
-
-            if (!bValidate)
-            {
-                pwd.Text = softAPSetting.m_pwd;
-            }
-
             softAPSetting.m_pwd = pwd.Text;
 
             //UpdateApplyBtnStatus();

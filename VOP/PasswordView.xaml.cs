@@ -86,7 +86,7 @@ namespace VOP
         {
             PasswordBox pb = sender as PasswordBox;
             string strText = e.Text;
-            if (!Char.IsLetterOrDigit(strText, 0))
+            if (strText.Length > 0 && !Char.IsLetterOrDigit(strText, 0))
             {
                 e.Handled = true;
             }
