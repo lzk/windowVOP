@@ -454,17 +454,13 @@ namespace VOP
         private void InitCboOutputSize()
         {
             ComboBoxItem cboItem = null;
-            bool bIsMetrice = dll.IsMetricCountry();
 
-            if ( false == bIsMetrice )
-            {
-                cboItem = new ComboBoxItem();
-                cboItem.Content="Letter" ;
-                cboItem.DataContext = EnumPaperSizeOutput._Letter;
-                cboItem.MinWidth = 145;
-                cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-                cboOutputSize.Items.Add( cboItem );
-            }
+            cboItem = new ComboBoxItem();
+            cboItem.Content="Letter" ;
+            cboItem.DataContext = EnumPaperSizeOutput._Letter;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboOutputSize.Items.Add( cboItem );
 
             cboItem = new ComboBoxItem();
             cboItem.Content = (string)this.FindResource( "ResStr_A4" );
@@ -501,15 +497,12 @@ namespace VOP
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboOutputSize.Items.Add( cboItem );
 
-            if ( true == bIsMetrice )
-            {
-                cboItem = new ComboBoxItem();
-                cboItem.Content = (string)this.FindResource( "ResStr_Letter" );
-                cboItem.DataContext = EnumPaperSizeOutput._Letter;
-                cboItem.MinWidth = 145;
-                cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-                cboOutputSize.Items.Add( cboItem );
-            }
+            cboItem = new ComboBoxItem();
+            cboItem.Content = (string)this.FindResource( "ResStr_Letter" );
+            cboItem.DataContext = EnumPaperSizeOutput._Letter;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboOutputSize.Items.Add( cboItem );
 
             cboItem = new ComboBoxItem();
             cboItem.Content = (string)this.FindResource( "ResStr_Executive" );
