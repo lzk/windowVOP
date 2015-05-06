@@ -54,7 +54,11 @@ namespace VOP
                         }
                     }
                 }
-                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? (string)this.FindResource("ResStr_Setting_Successfully_") : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Red);
+             
+                if (isApplySuccess)
+                    ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Setting_Successfully_"), Brushes.Black);
+                else
+                    ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Setting_Fail"), Brushes.Red);
             }
             else
             {

@@ -513,7 +513,10 @@ namespace VOP.Controls
                 pbPwd.Password = pwd;
             }
             
-            ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage(isApplySuccess ? (string)this.FindResource("ResStr_Msg_1") : (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Black);
+            if (isApplySuccess)
+                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Msg_1"), Brushes.Black);
+            else
+                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Setting_Fail"), Brushes.Red);
  
             return isApplySuccess;
         }
