@@ -135,7 +135,7 @@ namespace VOP
             }
         }
 
-        public void handler_loaded_settingpage( object sender, RoutedEventArgs e )
+        public void InitWindowLayout()
         {
             setting_tab_btn.Children.Clear();
             Grid.SetColumnSpan(setting_tab_btn, 3);
@@ -170,6 +170,11 @@ namespace VOP
                 setting_tab_btn.Children.Add(btnAbout);
                 ClickSettingButton(IconType.About);
             }
+        }
+
+        public void handler_loaded_settingpage( object sender, RoutedEventArgs e )
+        {
+            InitWindowLayout();
         }
 
         private void SettingBtnClick(object sender, RoutedEventArgs e)

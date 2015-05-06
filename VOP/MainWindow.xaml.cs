@@ -1134,7 +1134,7 @@ namespace VOP
 
         public void ShowAboutPageOnly()
         {
-            SetTabItemFromIndex( EnumSubPage.Setting );
+            SetTabItemFromIndex(EnumSubPage.Setting);
 
             line3.Visibility = Visibility.Hidden;
             line4.Visibility = Visibility.Hidden;
@@ -1159,6 +1159,7 @@ namespace VOP
 
             winSettingPage.mainGrid.Background = imgBk_Brush_1;
             winSettingPage.m_bOnlyDispalyAboutView = true;
+            winSettingPage.InitWindowLayout();
         }
 
         public enum EnumSubPage
