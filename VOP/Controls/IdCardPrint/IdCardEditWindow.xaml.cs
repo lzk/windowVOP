@@ -56,6 +56,9 @@ namespace VOP.Controls
 
             rb = colorPanel.Template.FindName("GrayRadioButton", colorPanel) as RadioButton;
             rb.Checked += new RoutedEventHandler(RadioColor_Checked);
+
+            this.Width = this.Width * App.gScalingRate;
+            this.Height = this.Height * App.gScalingRate;
         }
 
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

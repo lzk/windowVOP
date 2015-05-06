@@ -11,6 +11,7 @@
 #include "DM2OEM.H"
 #include "DEVMODE.H"
 #include <winspool.h>
+#include <math.h>
 
 #pragma comment(lib, "Shlwapi.lib")
 #pragma comment(lib, "gdiplus.lib")
@@ -414,8 +415,8 @@ USBAPI_API int __stdcall DoPrintImage()
 						Gdiplus::REAL dpiX = pImg->GetHorizontalResolution();
 						Gdiplus::REAL dpiY = pImg->GetVerticalResolution();
 
-						int w = pImg->GetWidth() * (600 / dpiX);
-						int h = pImg->GetHeight()* (600 / dpiY);
+						int w = round(pImg->GetWidth() * (600 / dpiX));
+						int h = round(pImg->GetHeight()* (600 / dpiY));
 		
 						double whRatio = (double)w / h;
 						double scaleRatioX = (double)w / cxPage;
@@ -439,8 +440,8 @@ USBAPI_API int __stdcall DoPrintImage()
 						
 						if (IsFitted == TRUE)
 						{
-							w = pImg->GetWidth() * (600 / dpiX);
-							h = pImg->GetHeight()* (600 / dpiY);
+							w = round(pImg->GetWidth() * (600 / dpiX));
+							h = round(pImg->GetHeight()* (600 / dpiY));
 							x = 0; //Align Top left
 							y = 0;
 						}
@@ -449,13 +450,13 @@ USBAPI_API int __stdcall DoPrintImage()
 							if (scaleRatioX > scaleRatioY)
 							{
 								w = cxPage;
-								h = (int)((double)cxPage / whRatio);
+								h = round(((double)cxPage / whRatio));
 								//y = (cyPage - h) / 2;
 								y = 0;
 							}
 							else if (scaleRatioX < scaleRatioY)
 							{
-								w = (int)((double)cyPage * whRatio);
+								w = round(((double)cyPage * whRatio));
 								h = cyPage;
 								//x = (cxPage - w) / 2;
 								x = 0;
@@ -696,7 +697,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				if ((status = pGraphics->DrawImage(pImg1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
+				if ((status = pGraphics->DrawImage(pImg1, 0, 0, round(imageWidth), round(imageHeight))) != Gdiplus::Ok)
 				{
 					if (pImg1)
 						delete pImg1;
@@ -767,7 +768,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				if ((status = pGraphics->DrawImage(pImg2, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
+				if ((status = pGraphics->DrawImage(pImg2, 0, 0, round(imageWidth), round(imageHeight))) != Gdiplus::Ok)
 				{
 					if (pImg1)
 						delete pImg1;
@@ -902,7 +903,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				if ((status = pGraphics->DrawImage(pImg1, (int)0, (int)0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
+				if ((status = pGraphics->DrawImage(pImg1, 0, 0, round(imageWidth), round(imageHeight))) != Gdiplus::Ok)
 				{
 					if (pImg1)
 						delete pImg1;
@@ -1036,7 +1037,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 				}
 
 				
-				if ((status = pGraphics->DrawImage(pImg1, 0, 0, (int)imageWidth, (int)imageHeight)) != Gdiplus::Ok)
+				if ((status = pGraphics->DrawImage(pImg1, 0, 0, round(imageWidth), round(imageHeight))) != Gdiplus::Ok)
 				{
 					if (pImg1)
 						delete pImg1;
