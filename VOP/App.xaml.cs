@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -20,6 +21,8 @@ namespace VOP
         /// define in App.
         /// </summary>
         public static List<ScanFiles> scanFileList = new List<ScanFiles>(); 
+        public static List<ScanFiles> rubbishFiles = new List<ScanFiles>(); // Rubbish files list, delete them when exit.
+
         public static AutoMachine g_autoMachine = new AutoMachine();
 
         static Mutex mutex = new Mutex(true, "4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_mutex");
@@ -61,10 +64,22 @@ namespace VOP
                 {
                     try
                     {
-                        // TODO: clear cache.
-                        // File.Delete(obj.m_pathOrig);
-                        // File.Delete(obj.m_pathView);
-                        // File.Delete(obj.m_pathThumb);
+                        File.Delete(obj.m_pathOrig);
+                        File.Delete(obj.m_pathView);
+                        File.Delete(obj.m_pathThumb);
+                    }
+                    catch
+                    {
+                    }
+                }
+
+                foreach( ScanFiles obj in App.rubbishFiles )
+                {
+                    try
+                    {
+                        File.Delete(obj.m_pathOrig);
+                        File.Delete(obj.m_pathView);
+                        File.Delete(obj.m_pathThumb);
                     }
                     catch
                     {

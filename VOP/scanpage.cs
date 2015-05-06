@@ -152,10 +152,8 @@ namespace VOP
                     {
                         this.image_wrappanel.Children.RemoveAt( index );
 
-                        // Remove original cache files.
-                        File.Delete(img.m_images.m_pathOrig);
-                        File.Delete(img.m_images.m_pathView);
-                        File.Delete(img.m_images.m_pathThumb);
+                        // Collect the rubbish files.
+                        App.rubbishFiles.Add( img.m_images );
 
                         tmp.ImageSingleClick += ImageItemSingleClick;
                         tmp.ImageDoubleClick += ImageItemDoubleClick;
