@@ -15,7 +15,7 @@ using Microsoft.Win32;              // for SaveFileDialog
 using System.IO;                    // for File.Create
 using PdfEncoderClient;
 using System.Windows.Interop;
-
+using System.Diagnostics;
 
 namespace VOP
 {
@@ -191,9 +191,31 @@ namespace VOP
                     m_rotatedObj.m_pathView  = m_images.m_pathView.Insert( m_images.m_pathView.Length-4   , m_rotatedAngle.ToString() );
                     m_rotatedObj.m_pathThumb = m_images.m_pathThumb.Insert( m_images.m_pathThumb.Length-4 , m_rotatedAngle.ToString() );
 
-                    SaveRotatedImage( m_images.m_pathOrig , m_rotatedObj.m_pathOrig , m_rotatedAngle );
-                    SaveRotatedImage( m_images.m_pathView , m_rotatedObj.m_pathView , m_rotatedAngle );
-                    SaveRotatedImage( m_images.m_pathThumb, m_rotatedObj.m_pathThumb, m_rotatedAngle );
+                    string args1 = m_images.m_pathOrig  + " " + m_rotatedObj.m_pathOrig  + " " + m_rotatedAngle.ToString();
+                    string args2 = m_images.m_pathView  + " " + m_rotatedObj.m_pathView  + " " + m_rotatedAngle.ToString();
+                    string args3 = m_images.m_pathThumb + " " + m_rotatedObj.m_pathThumb + " " + m_rotatedAngle.ToString();
+
+                    try
+                    {
+                        ProcessStartInfo startInfo = new ProcessStartInfo();
+                        startInfo.FileName = "VopHelper.exe";
+                        Process exeProcess = null;
+
+                        startInfo.Arguments = args1;
+                        exeProcess = Process.Start(startInfo);
+                        exeProcess.WaitForExit();
+
+                        startInfo.Arguments = args2;
+                        exeProcess = Process.Start(startInfo);
+                        exeProcess.WaitForExit();
+
+                        startInfo.Arguments = args3;
+                        exeProcess = Process.Start(startInfo);
+                        exeProcess.WaitForExit();
+                    }
+                    catch
+                    {
+                    }
                 }
                 else
                 {
@@ -203,27 +225,5 @@ namespace VOP
 
             this.Close();
         }
-
-        /// <summary>
-        /// Rotate bitmap file pathSrc and save to pathDst.
-        /// </summary>
-        private void SaveRotatedImage( string pathSrc, string pathDst, int angle )
-        {
-            Uri myUri = new Uri( pathSrc, UriKind.RelativeOrAbsolute);
-            BmpBitmapDecoder decoder = new BmpBitmapDecoder( myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad   );
-            BitmapSource bmpSrc = decoder.Frames[0];
-
-            bmpSrc = common.RotateBitmap( bmpSrc, angle );
-
-            FileStream fs = File.Open( pathDst, FileMode.Create);
-
-            BmpBitmapEncoder encoder = new BmpBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(bmpSrc));
-
-            encoder.Save(fs);
-            fs.Close();
-        }
     }
-
-
 }
