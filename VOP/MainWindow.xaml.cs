@@ -75,6 +75,7 @@ namespace VOP
         public string m_strPassword = "";
         public static string m_strPhoneNumber = "";
         public static bool   m_bLocationIsChina = false;
+        public static byte   m_byWifiInitStatus = 0;
         public static List<UploadPrintInfo> m_UploadPrintInfoSet = new List<UploadPrintInfo>();
 
         private bool m_isAnimationPopup = false;  // True if animation window had popup.

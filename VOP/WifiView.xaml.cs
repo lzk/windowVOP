@@ -67,6 +67,10 @@ namespace VOP
             }
 
             scrollview.ScrollToTop();
+
+            byte wifiInit = 0;
+            dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);
+            VOP.MainWindow.m_byWifiInitStatus = wifiInit;
         }
 
         public bool is_InputVailible()
@@ -258,6 +262,10 @@ namespace VOP
 
                 }
 
+                byte wifiInit = 0;
+                dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);
+                VOP.MainWindow.m_byWifiInitStatus = wifiInit;
+
                 WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, wifiEnable, 0, ssid, (encryption != (byte)EnumEncryptType.NoSecurity) ? pwd : "", (EnumEncryptType)encryption, wepKeyId);
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
@@ -276,7 +284,12 @@ namespace VOP
                 }
 
                 if (isApplySuccess)
-                    ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Msg_1"), Brushes.Black);
+                {
+                    if (wifiEnable != VOP.MainWindow.m_byWifiInitStatus)
+                        ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Msg_1"), Brushes.Black);
+                    else
+                        ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Setting_Successfully_"), Brushes.Black);
+                }
                 else
                     ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Setting_Fail"), Brushes.Red);
             }
@@ -526,6 +539,7 @@ namespace VOP
             
             byte wifiInit = 0;
             dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);
+            VOP.MainWindow.m_byWifiInitStatus = wifiInit;
 
             WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, wifiEnable, 1, "", "", EnumEncryptType.WPA2_PSK_AES, 0);
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
@@ -544,7 +558,7 @@ namespace VOP
                 {
                     bEnable = !chkWifi.IsChecked;
                     chkWifi.IsChecked = bEnable;
-                    if (true == bEnable)
+                    if (VOP.MainWindow.m_byWifiInitStatus == 0x01 && true == bEnable)
                     {
                         cbo_ssid_refresh();
                     }
@@ -559,7 +573,12 @@ namespace VOP
             }
 
             if (bSuccess)
-                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Msg_1"), Brushes.Black);
+            {
+                if (wifiEnable != VOP.MainWindow.m_byWifiInitStatus)
+                    ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Msg_1"), Brushes.Black);
+                else
+                    ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Setting_Successfully_"), Brushes.Black);
+            }
             else
                 ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Setting_Fail"), Brushes.Red);
         }

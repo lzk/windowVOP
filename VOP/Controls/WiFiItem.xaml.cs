@@ -486,6 +486,10 @@ namespace VOP.Controls
                 {
 
                 }
+                
+                byte wifiInit = 0;
+                dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);
+                VOP.MainWindow.m_byWifiInitStatus = wifiInit;
 
                 WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter,
                     wifiEnable,
@@ -500,7 +504,6 @@ namespace VOP.Controls
                 {
                     if (m_rec.CmdResult == EnumCmdResult._ACK)
                     {
-
                         isApplySuccess = true;
                     }
 
@@ -514,7 +517,12 @@ namespace VOP.Controls
             }
             
             if (isApplySuccess)
-                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Msg_1"), Brushes.Black);
+            {
+                if (wifiEnable != VOP.MainWindow.m_byWifiInitStatus)
+                    ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Msg_1"), Brushes.Black);
+                else
+                    ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Setting_Successfully_"), Brushes.Black);
+            }
             else
                 ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Setting_Fail"), Brushes.Red);
  
