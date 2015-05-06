@@ -278,6 +278,7 @@ namespace VOP
             TextBox tb = spinnerScaling.Template.FindName("tbTextBox", spinnerScaling) as TextBox;
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.LostFocus += new RoutedEventHandler(SpinnerTextBox_LostFocus);
+            tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
 
             UpdatePaperSizeCombobox(true, 0);
 
@@ -298,6 +299,12 @@ namespace VOP
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+        
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
         }
 
         private void SpinnerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

@@ -75,6 +75,13 @@ namespace VOP
             tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.LostFocus += new RoutedEventHandler(SpinnerTextBox_LostFocus);
+            tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
+        }
+        
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
         }
 
         private void SpinnerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

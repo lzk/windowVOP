@@ -43,6 +43,31 @@ namespace VOP
             InitControls();
             InitScanResln();
             InitScanSize();
+
+            TextBox tb = spinCtlConstrast.Template.FindName("tbTextBox", spinCtlConstrast) as TextBox;
+            tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+            tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
+
+            TextBox tb1 = spinCtlBrightness.Template.FindName("tbTextBox", spinCtlBrightness) as TextBox;
+            tb1.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+            tb1.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
+
+        }
+
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
+        }
+
+        private void SpinnerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            int textValue = 0;
+
+            if (!int.TryParse(e.Text, out textValue))
+            {
+                e.Handled = true;
+            }
         }
 
         /// <summary>
@@ -164,6 +189,31 @@ namespace VOP
             }
         }
 
+
+        private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            VOP.Controls.SpinnerControl spinnerCtl = sender as VOP.Controls.SpinnerControl;
+            TextBox tb = spinnerCtl.Template.FindName("tbTextBox", spinnerCtl) as TextBox;
+            int textValue = 0;
+            if (!spinnerCtl.IsFocused)
+            {
+                if ("spinCtlBrightness" == spinnerCtl.Name
+                        || "spinCtlConstrast" == spinnerCtl.Name)
+                {
+                    if (int.TryParse(tb.Text, out textValue))
+                    {
+                        if (textValue > 100)
+                            tb.Text = "100";
+                        else if (textValue < 0)
+                            tb.Text = "0";
+                    }
+                    else
+                    {
+                        tb.Text = "50";
+                    }
+                }
+            }
+        }
 
         public void TextValueChanged(object sender, TextChangedEventArgs e)
         {
@@ -369,32 +419,5 @@ namespace VOP
             btnOk.IsEnabled = ( false == spinCtlBrightness.ValidationHasError
                     && false == spinCtlConstrast.ValidationHasError );
         }
-
-        private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
-        { 
-            VOP.Controls.SpinnerControl spinnerCtl = sender as VOP.Controls.SpinnerControl;
-            TextBox tb = spinnerCtl.Template.FindName("tbTextBox", spinnerCtl) as TextBox;
-            int textValue = 0;
-            if (!spinnerCtl.IsFocused)
-            {
-                if ( "spinCtlBrightness" == spinnerCtl.Name 
-                        || "spinCtlConstrast" == spinnerCtl.Name  ) 
-                {
-                    if (int.TryParse(tb.Text, out textValue))
-                    {
-                        if ( textValue > 100 )
-                            tb.Text = "100";
-                        else if ( textValue < 0 )
-                            tb.Text = "0";
-                    }
-                    else
-                    {
-                        tb.Text = "50";
-                    }
-                }
-            }
-        }
-
-
     }
 }

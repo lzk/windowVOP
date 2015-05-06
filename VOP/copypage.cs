@@ -300,7 +300,14 @@ namespace VOP
             TextBox tb = spinCtlCopies.Template.FindName("tbTextBox", spinCtlCopies) as TextBox;
             tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+            tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
             tb.LostFocus += new RoutedEventHandler(SpinnerTextBox_LostFocus);
+        }
+        
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
         }
 
         private void SpinnerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

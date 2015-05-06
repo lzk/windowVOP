@@ -336,6 +336,13 @@ namespace VOP
             TextBox tb = spinnerScaling.Template.FindName("tbTextBox", spinnerScaling) as TextBox;
             tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+            tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
+        }
+        
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
         }
 
         private void SpinnerTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
