@@ -34,21 +34,21 @@ namespace VOP
         private void btnGetVerifyCode_Click(object sender, RoutedEventArgs e)
         {
             JSONResultFormat1 js = new JSONResultFormat1();
-
+            tbkErrorInfo.Text = "";
             if (tbPhoneNumber.Text.Length == 11)
             {
                 if (false == VOP.MainWindow.m_RequestManager.SendVerifyCode(tbPhoneNumber.Text, ref js))
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, (string)this.FindResource("ResStr_Msg_6"), (string)this.FindResource("ResStr_Warning"));
+                    tbkErrorInfo.Text = "验证码发送失败。";
                 }
                 else
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, (string)this.FindResource("ResStr_Msg_5"), "");
+                    tbkErrorInfo.Text = "验证码发送成功。";
                 }
             }
             else
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, (string)this.FindResource("ResStr_Msg_7"), (string)this.FindResource("ResStr_Warning"));
+                tbkErrorInfo.Text = "手机号码错误，请确认后再次输入。";
                 tbPhoneNumber.Focus();
             }
         }
@@ -67,19 +67,19 @@ namespace VOP
                 }
                 else
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, "验证码错误，请确认后再次输入。", (string)this.FindResource("ResStr_Error"));
+                    tbkErrorInfo.Text = "验证码错误，请确认后再次输入。";
                 }
             }
             else
             {
                 if (tbPhoneNumber.Text.Length != 11)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, (string)this.FindResource("ResStr_Msg_7"), (string)this.FindResource("ResStr_Warning"));
+                    tbkErrorInfo.Text = "手机号码错误，请确认后再次输入。";
                     tbPhoneNumber.Focus();
                 }
                 else if (pbPwd.Password.Length != 6)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, (string)this.FindResource("ResStr_Msg_8"), (string)this.FindResource("ResStr_Warning"));
+                    tbkErrorInfo.Text = "验证码格式错误，请确认后再次输入。";
                     pbPwd.Focus();
                 }
             }
@@ -110,6 +110,18 @@ namespace VOP
         {
             if (e.Key == Key.Space)
                 e.Handled = true;
+        }
+
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (null != tbkErrorInfo)
+                tbkErrorInfo.Text = "";
+        }
+
+        private void OnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (null != tbkErrorInfo)
+                tbkErrorInfo.Text = "";
         }
     }
 }
