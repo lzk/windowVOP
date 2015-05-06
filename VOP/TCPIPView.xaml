@@ -58,20 +58,20 @@
             </Grid>
 
             <TextBlock Text="{StaticResource ResStr_IP_Address}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
-            <TextBox TextChanged="handler_text_changed" Name="tb_ip" PreviewTextInput="OnTextBoxPreviewTextInput" Template="{StaticResource customTextBox}" Grid.Row="1" Grid.Column="1" Height="28" VerticalAlignment="Center" MaxLength="15" InputMethod.IsInputMethodEnabled="False">
+            <TextBox TextChanged="handler_text_changed" Name="tb_ip" PreviewTextInput="OnTextBoxPreviewTextInput" Template="{StaticResource customTextBox}" Grid.Row="1" Grid.Column="1" Height="28" VerticalAlignment="Center" MaxLength="15" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>
             </TextBox>
             <TextBlock Text="{StaticResource ResStr_Gateway}" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
-            <TextBox TextChanged="handler_text_changed" Name="tb_gate" PreviewTextInput="OnTextBoxPreviewTextInput" Template="{StaticResource customTextBox}" Grid.Row="2" Grid.Column="1" Height="28" VerticalAlignment="Center" MaxLength="15" InputMethod.IsInputMethodEnabled="False">
+            <TextBox TextChanged="handler_text_changed" Name="tb_gate" PreviewTextInput="OnTextBoxPreviewTextInput" Template="{StaticResource customTextBox}" Grid.Row="2" Grid.Column="1" Height="28" VerticalAlignment="Center" MaxLength="15" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>
             </TextBox>
 
             <TextBlock Text="{StaticResource ResStr_Submask}" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
-            <TextBox TextChanged="handler_text_changed" Name="tb_mask" PreviewTextInput="OnTextBoxPreviewTextInput" Template="{StaticResource customTextBox}" Grid.Row="3" Grid.Column="1" Height="28" VerticalAlignment="Center" MaxLength="15" InputMethod.IsInputMethodEnabled="False">
+            <TextBox TextChanged="handler_text_changed" Name="tb_mask" PreviewTextInput="OnTextBoxPreviewTextInput" Template="{StaticResource customTextBox}" Grid.Row="3" Grid.Column="1" Height="28" VerticalAlignment="Center" MaxLength="15" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>

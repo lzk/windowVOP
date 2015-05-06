@@ -53,6 +53,7 @@ namespace VOP
             TextBox tb = spinnerControl1.Template.FindName("tbTextBox", spinnerControl1) as TextBox;
             tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+            tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
            // UpdateApplyBtnStatus();
         }
 
@@ -98,6 +99,12 @@ namespace VOP
  
             }
 
+        }
+        
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
         }
 
         private void OnLoadedPowerSaveView(object sender, RoutedEventArgs e)

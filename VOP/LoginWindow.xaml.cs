@@ -105,5 +105,11 @@ namespace VOP
                 e.Handled = true;
             }
         }
+
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
+        }
     }
 }

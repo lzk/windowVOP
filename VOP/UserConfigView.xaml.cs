@@ -123,6 +123,12 @@ namespace VOP
             }
             textBox.Text = strText;
         }
+        
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
+        }
 
         private void OnLoadedUserConfigView(object sender, RoutedEventArgs e)
         {
@@ -131,18 +137,22 @@ namespace VOP
             TextBox tb = spinCtlEdge.Template.FindName("tbTextBox", spinCtlEdge) as TextBox;
             tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+            tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
 
             TextBox tb1 = spinCtlSide2Side.Template.FindName("tbTextBox", spinCtlSide2Side) as TextBox;
             tb1.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb1.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+            tb1.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
 
             TextBox tb2 = spinCtlDensity.Template.FindName("tbTextBox", spinCtlDensity) as TextBox;
             tb2.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb2.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+            tb2.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
 
             TextBox tb3 = spinCtlHumidity.Template.FindName("tbTextBox", spinCtlHumidity) as TextBox;
             tb3.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb3.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput1);
+            tb3.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
         }
 
         private void GetUIValues(
