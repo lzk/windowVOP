@@ -198,6 +198,7 @@ namespace VOP
                     try
                     {
                         ProcessStartInfo startInfo = new ProcessStartInfo();
+                        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                         startInfo.FileName = "VopHelper.exe";
                         Process exeProcess = null;
 
