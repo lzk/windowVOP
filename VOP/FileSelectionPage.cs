@@ -55,7 +55,7 @@ namespace VOP
                 }
                 catch (Exception)
                 {
-                    MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_This_file_is_not_supported__please_select_another_one_"), (string)this.FindResource("ResStr_Error"));
+                    MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_This_file_is_not_supported__please_select_another_one_"), (string)this.FindResource("ResStr_Warning_2"));
                     messageBox.Owner = App.Current.MainWindow;
                     messageBox.ShowDialog();
                 } 
@@ -109,7 +109,7 @@ namespace VOP
                 }
                 catch (Exception)
                 {
-                    MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_This_file_is_not_supported__please_select_another_one_"), (string)this.FindResource("ResStr_Error"));
+                    MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_This_file_is_not_supported__please_select_another_one_"), (string)this.FindResource("ResStr_Warning_2"));
                     messageBox.Owner = App.Current.MainWindow;
                     messageBox.ShowDialog();
                 } 
@@ -194,7 +194,7 @@ namespace VOP
                         }
                         catch (Exception)
                         {
-                            MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_This_file_is_not_supported__please_select_another_one_"), (string)this.FindResource("ResStr_Error"));
+                            MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_This_file_is_not_supported__please_select_another_one_"), (string)this.FindResource("ResStr_Warning_2"));
                             messageBox.Owner = App.Current.MainWindow;
                             messageBox.ShowDialog();
                             currentState = FileSelectionState.Exit;
