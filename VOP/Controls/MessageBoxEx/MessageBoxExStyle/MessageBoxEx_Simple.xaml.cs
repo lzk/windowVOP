@@ -24,6 +24,9 @@ namespace VOP.Controls
 
             messageBoxTextBlock.Text = messageBoxText;
             captionTextBlock.Text = caption;
+
+            this.Width = this.Width * App.gScalingRate;
+            this.Height = this.Height * App.gScalingRate;
         }
 
         public void Title_MouseButtonEventHandler(Object sender, MouseButtonEventArgs e)

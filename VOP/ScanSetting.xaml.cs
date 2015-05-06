@@ -43,6 +43,7 @@ namespace VOP
             InitControls();
             InitScanResln();
             InitScanSize();
+            InitFontSize();
 
             TextBox tb = spinCtlConstrast.Template.FindName("tbTextBox", spinCtlConstrast) as TextBox;
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
@@ -411,6 +412,14 @@ namespace VOP
                 {
                     obj.IsSelected = true;
                 }
+            }
+        }
+
+        private void InitFontSize()
+        {
+            if (App.LangId == 0x409) // en-US
+            {
+                Color.FontSize = Grayscale.FontSize = BlackAndWhite.FontSize = 8.0;
             }
         }
 

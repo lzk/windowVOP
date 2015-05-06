@@ -32,9 +32,17 @@ namespace VOP
         public static uint WM_VOP = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_vop");
         public static double gScalingRate = 1.0; // Scaling rate used to scale windows's according the screen resolution.
 
+        private static Int32 gLanguage = 0x804;
+        public static Int32 LangId
+        {
+            get{ return gLanguage; }
+        }
+
         App()
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh-CN");
+
+            gLanguage = GetLangID(); 
 
             // Calculate the scaling rate for resolution.
             int nWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
@@ -44,6 +52,33 @@ namespace VOP
             double scaling2 = nHeight / 900.0;
 
             gScalingRate = (scaling1 < scaling2) ? scaling1 : scaling2;
+
+            // Resolution:1600*900  ==> Height="638" Width="850"
+            if ((nWidth < 850.0) || (nHeight < 638.0))
+            {
+                scaling1 = nWidth / 850.0;
+                scaling2 = nHeight / 638.0;
+
+                gScalingRate = (scaling1 < scaling2) ? scaling1 : scaling2;
+            }
+        }
+
+        private Int32 GetLangID()
+        {
+            Int32 LangId = 0x804;
+            RegistryKey rsg = null;
+            rsg = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Lenovo\\Printer SSW\\Version", false);
+           
+            object obj = null;
+            if (null != rsg)
+            {
+                obj = rsg.GetValue("language", RegistryValueKind.DWord);
+                LangId = (Int32)obj;
+
+                rsg.Close();
+            }
+
+            return LangId;
         }
 
         /// <summary>
@@ -105,21 +140,9 @@ namespace VOP
         // https://msdn.microsoft.com/zh-cn/library/kx54z3k7(VS.80).aspx
         public void GetCulture()
         {
-            string Culture = string.Empty;             
-
-            RegistryKey rsg = null;
-            rsg = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Lenovo\\Printer SSW\\Version", false);
-            Int32 nLanguage = 0x804;
-            object obj = null;
-            if (null != rsg)
-            {
-                obj = rsg.GetValue("language", RegistryValueKind.DWord);
-                nLanguage = (Int32)obj;         
-
-                rsg.Close();
-            }           
+            string Culture = string.Empty;           
             
-            switch(nLanguage)
+            switch(gLanguage)
             {
                 case 1033:
                     Culture = "en-US";
