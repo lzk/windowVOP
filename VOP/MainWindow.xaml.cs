@@ -543,14 +543,13 @@ namespace VOP
             notifyIcon1.Visible = true;
 
             // Handle the Double Click event to activate the form.        
-            notifyIcon1.DoubleClick += notifyIcon1_Click;
+            notifyIcon1.DoubleClick += notifyIcon1_DoubleClick;
         }
 
-        void notifyIcon1_Click(object sender, EventArgs e)
-        {
-             this.Show();
-
-            this.ShowInTaskbar = true;         
+        void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {            
+            this.Show();
+            this.Activate();          
         }
 
         private void menuItem1_Click(object sender, System.EventArgs e)
@@ -595,11 +594,7 @@ namespace VOP
                     this.MainWindowExitPoint();
                 }
                 else if ("btnMinimize" == btn.Name)
-                {
-                    this.ShowInTaskbar = false;
-                    this.notifyIcon1.Visible = true;
-
-                    //this.WindowState = WindowState.Minimized;
+                {                             
                     this.Hide();
                 }
             }
