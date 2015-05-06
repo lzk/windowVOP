@@ -164,7 +164,8 @@ namespace VOP
             result = printWin.ShowDialog();
             if (result == true)
             {
-                needFitToPage = (bool)printWin.chk_FitToPaperSize.IsChecked;
+                //Fit to page always
+               // needFitToPage = (bool)printWin.chk_FitToPaperSize.IsChecked; 
                 spinnerControl1.Value = printWin.m_copies;
             }
         }
@@ -351,7 +352,7 @@ namespace VOP
 
             if (EnumState.doingJob == state || EnumState.stopWorking == state)
             {
-                PrintButton.IsEnabled = false;
+                //PrintButton.IsEnabled = false;
             }
             else
             {
