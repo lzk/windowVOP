@@ -2730,8 +2730,15 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                     int nMod = nColPixelNumOrig/100;
                     int nPercent = 0;
                     bCancelScanning = false;
-					while (obj.ReadData(strideOrig, cbStridePadOrig, &ulBytesRead, &lPercentComplete) == DEVMON_STATUS_OK)
+                    bool bReadDataFailFlag = false;
+
+					while ( true )
                     {
+                        bReadDataFailFlag = ( obj.ReadData(strideOrig, cbStridePadOrig, &ulBytesRead, &lPercentComplete) != DEVMON_STATUS_OK );
+
+                        if ( bReadDataFailFlag )
+                            break;
+
                         if ( 0 == ++nRowsCnt%nMod )
                         {
                             nPercent++;
@@ -2772,7 +2779,8 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                             }
                         }
 
-                        ::SendNotifyMessage( HWND_BROADCAST, uMsg, 100, 0); 
+                        if ( false == bReadDataFailFlag )
+                            ::SendNotifyMessage( HWND_BROADCAST, uMsg, 100, 0); 
                     }
                     else
                     {
