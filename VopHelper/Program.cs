@@ -8,18 +8,42 @@ namespace VopHelper
     class Program
     {
         /// <summary>
-        /// Rotate bitmap file pathSrc and save to pathDst.
+        /// Rotate bitmap file pathSrc and save to pathDst. 
         /// </summary>
+        /// <param name="angle" > value: "0", "90", "180", "270" </param>
         private static void SaveRotatedImage( string pathSrc, string pathDst, string angle )
         {
-            System.Drawing.Image i = System.Drawing.Image.FromFile( pathSrc );
-            i.RotateFlip( System.Drawing.RotateFlipType.Rotate90FlipNone );
-            i.Save( pathDst, System.Drawing.Imaging.ImageFormat.Bmp );
+            int nAngle = 0;
+            if ( int.TryParse( angle, out nAngle) && nAngle%90 == 0 )
+            {
+                System.Drawing.Image i = System.Drawing.Image.FromFile( pathSrc );
+
+                switch ( nAngle%360 )
+                {
+                    case 90:
+                        i.RotateFlip( System.Drawing.RotateFlipType.Rotate90FlipNone );
+                        break;
+                    case 180:
+                        i.RotateFlip( System.Drawing.RotateFlipType.Rotate180FlipNone );
+                        break;
+                    case 270:
+                        i.RotateFlip( System.Drawing.RotateFlipType.Rotate180FlipNone );
+                        break;
+                    default:
+                        i.RotateFlip( System.Drawing.RotateFlipType.Rotate270FlipNone );
+                        break;
+                }
+
+                i.Save( pathDst, System.Drawing.Imaging.ImageFormat.Bmp );
+            }
         }
         
         static void Main(string[] args)
         {
-            SaveRotatedImage( args[0], args[1], args[2] );
+            if ( args.Length == 3 )
+            {
+                SaveRotatedImage( args[0], args[1], args[2] );
+            }
         }
     }
 }
