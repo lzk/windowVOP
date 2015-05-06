@@ -113,7 +113,7 @@ namespace VOP.Controls
                     {
                         borderContainer.Child = printPreview;
                         printPreview.Update(); //update after being a child
-                        TitleBarText.Text = (string)this.TryFindResource("ResStr_Preview");
+                        TitleBarText.Text = (string)this.TryFindResource("ResStr_Print_Preview");
 
                         colorPanel.Visibility = System.Windows.Visibility.Hidden;
                         RotationButton.Visibility = System.Windows.Visibility.Hidden;
@@ -129,7 +129,7 @@ namespace VOP.Controls
                         {
                             borderContainer.Child = printPreview;
                             printPreview.Update();
-                            TitleBarText.Text = (string)this.TryFindResource("ResStr_Preview");
+                            TitleBarText.Text = (string)this.TryFindResource("ResStr_Print_Preview");
 
                             colorPanel.Visibility = System.Windows.Visibility.Hidden;
                             RotationButton.Visibility = System.Windows.Visibility.Hidden;

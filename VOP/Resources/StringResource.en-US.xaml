@@ -239,7 +239,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_9">The SSID must be 1 to 32 characters, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_10">The SSID must be 1 to 32 characters, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Exit">Exit</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Preview">Preview</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Print_Preview">Preview</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Certificate_Edit">Certificate Edit</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Unable_to_preview">Unable to preview,</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Memory_Alloc_Fail">Print memory allocation failed!</sys:String>
@@ -249,7 +249,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Yes">Yes</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_No">No</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Warning_2">Warning</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Border_Color">边框颜色</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Border_Color">Border Color</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Preview">Preview</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Print">Print</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Default">Default</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK">OK</sys:String>

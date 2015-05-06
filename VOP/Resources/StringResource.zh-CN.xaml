@@ -239,7 +239,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_9">网络名称必须是1到32个字符，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_10">网络标识必须是1到32个字符，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Exit">退出</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Preview">打印预览</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Print_Preview">打印预览</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Certificate_Edit">证件编辑</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Unable_to_preview">暂时无法浏览</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Memory_Alloc_Fail">打印文件内存分配失败！</sys:String>
@@ -250,6 +250,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_No">否</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Warning_2">警告</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Border_Color">边框颜色</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Preview">预览</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Print">打    印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Default">默  认</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK">确  定</sys:String>
