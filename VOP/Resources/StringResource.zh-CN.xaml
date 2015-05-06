@@ -201,7 +201,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Copyright__C___2014_2015__Lenovo__Beijing__Limited_All_Right_Reserved_">Copyright (C) (2014-2015) Lenovo (Beijing) Limited.&#x000D;&#x000A;All Right Reserved.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_This_file_is_not_supported__please_select_another_one_">暂不支持该文件的打印，请重新选择。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_">有效值输入范围为1到99，请确认后再次输入。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_">有效值输入范围为25到400%，请确认后再次输入。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_">有效值输入范围为25%到400%，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_">VOP关闭后，扫描图片将会被删除，是否关闭，请确认</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Lack_of_memery_disk_space_because_too_many_files_are_selected__please_select_again_">该操作所需内存或者磁盘空间不足，请重新选择文件或释放内存后再试。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_">有效值输入范围为0到100，请确认后再次输入。</sys:String>
