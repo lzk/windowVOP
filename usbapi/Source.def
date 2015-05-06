@@ -43,3 +43,4 @@ EXPORTS
 	GetPassword
     CancelScanning
     IsMetricCountry
+	GetWifiChangeStatus

@@ -70,6 +70,10 @@ namespace VOP
                     else if(textValue < 1)
                         tb.Text = "1";
                 }
+                else
+                {
+                    tb.Text = "1";
+                }
             }
         }
 

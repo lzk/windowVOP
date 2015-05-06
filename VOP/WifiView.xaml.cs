@@ -520,6 +520,9 @@ namespace VOP
             Nullable<bool> bEnable = chkWifi.IsChecked;
             if (true == bEnable)
                 wifiEnable = 1;
+            
+            byte wifiInit = 0;
+            dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);
 
             WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, wifiEnable, 1, "", "", EnumEncryptType.WPA2_PSK_AES, 0);
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);

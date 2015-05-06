@@ -331,6 +331,10 @@ namespace VOP
                     textBox.Text = "1";
                 }
             }
+            else
+            {
+                textBox.Text = "1";
+            }
         }
 
         private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)

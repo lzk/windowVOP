@@ -329,6 +329,10 @@ namespace VOP
         [DllImport("usbapi.dll")]
         public static extern void RecoverDevModeData();
 
+        [DllImport("usbapi.dll")]
+        public static extern int GetWifiChangeStatus(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                ref byte wifiInit);
     }
 
 }

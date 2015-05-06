@@ -466,6 +466,8 @@ USBAPI_API int __stdcall SetPassword(const wchar_t* szPrinter, const wchar_t* ws
 
 USBAPI_API void __stdcall CancelScanning();
 USBAPI_API BOOL __stdcall IsMetricCountry();
+USBAPI_API int __stdcall GetWifiChangeStatus(const wchar_t* szPrinter, BYTE* wifiInit);
+
 //--------------------------------global--------------------------------------
 static const unsigned char INIT_VALUE = 0xfe;
 static bool bCancelScanning = false; // Scanning cancel falg, only use in ScanEx(). 
@@ -3065,4 +3067,71 @@ USBAPI_API BOOL __stdcall IsMetricCountry()
     }
 
     return bMetric;
+}
+
+USBAPI_API int __stdcall GetWifiChangeStatus(const wchar_t* szPrinter, BYTE* wifiInit)
+{
+	if (NULL == szPrinter)
+		return _SW_INVALID_PARAMETER;
+
+	OutputDebugStringToFileA("\r\n####VP:GetWifiChangeStatus() begin");
+
+	int nResult = _ACK;
+	wchar_t szIP[MAX_PATH] = {0};
+	int nPortType = CheckPort(szPrinter, szIP);
+
+	if (PT_UNKNOWN == nPortType)
+	{
+		nResult = _SW_UNKNOWN_PORT;
+	}
+	else
+	{
+		char* buffer = new char[sizeof(COMM_HEADER)+16];
+		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+16);
+		COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>(buffer);
+
+		ppkg->magic = MAGIC_NUM;
+		ppkg->id = _LS_WIFICMD;
+		ppkg->len = 3;
+
+		// For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+		// it just stand for the sub id. The real data length is defined by the lib
+		ppkg->subid = 0x13;
+		ppkg->len2 = 1;
+		ppkg->subcmd = 0x08; // _WIFI_STATUS 0x08
+
+		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
+		{
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+16);
+		}
+		else if (PT_USB == nPortType)
+		{
+			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+16);
+		}
+
+		if (_ACK == nResult)
+		{
+			BYTE* ptr = reinterpret_cast<BYTE*>(buffer + sizeof(COMM_HEADER));
+
+			if (1 == *ptr || 0 == *ptr)
+			{
+				*wifiInit = *ptr;
+				nResult = _ACK;
+			}
+			else
+			{
+				nResult = _SW_INVALID_RETURN_VALUE;
+			}
+		}
+
+		if (buffer)
+		{
+			delete[] buffer;
+			buffer = NULL;
+		}
+	}
+
+	OutputDebugStringToFileA("\r\n####VP:GetWifiChangeStatus(): nResult == 0x%x", nResult);
+	OutputDebugStringToFileA("\r\n####VP:GetWifiChangeStatus() end");
+	return nResult;
 }
