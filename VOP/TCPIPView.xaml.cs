@@ -104,6 +104,8 @@ namespace VOP
                 TcpIpSetting.m_gate1 = arr[1];
                 TcpIpSetting.m_gate2 = arr[2];
                 TcpIpSetting.m_gate3 = arr[3];
+
+                TcpIpSetting.m_mode_ipaddress = (byte)m_rec.IpAddressMode;
             }
 
             string addr_ip = "";
