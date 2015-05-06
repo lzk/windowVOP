@@ -40,9 +40,18 @@ namespace VopHelper
         
         static void Main(string[] args)
         {
-            if ( args.Length == 3 )
+            try
             {
-                SaveRotatedImage( args[0], args[1], args[2] );
+                if ( args.Length == 3 )
+                {
+                    SaveRotatedImage( args[0], args[1], args[2] );
+                }
+
+                Environment.ExitCode = 0;
+            }
+            catch 
+            {
+                Environment.ExitCode = 1;
             }
         }
     }

@@ -197,6 +197,8 @@ namespace VOP
 
                     try
                     {
+                        // TODO: Get the ExitCode of VopHelper. 0 success,
+                        // otherwise fail.
                         ProcessStartInfo startInfo = new ProcessStartInfo();
                         startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                         startInfo.FileName = "VopHelper.exe";
