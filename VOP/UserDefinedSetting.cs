@@ -362,6 +362,12 @@ namespace VOP
         {
             return myComboBox.SelectedIndex;
         }
+
+        private void OnPreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
+        }
     }
 
  
