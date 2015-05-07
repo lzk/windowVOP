@@ -96,18 +96,6 @@ namespace VOP
             }
         }
 
-        public void HandlerStateUpdate(EnumState state)
-        {
-            if (state == EnumState.stopWorking)
-            {
-                this.IsEnabled = false;
-            }
-            else
-            {
-                this.IsEnabled = true;
-            }
-        }
-
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Space)

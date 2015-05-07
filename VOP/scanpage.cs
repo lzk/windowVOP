@@ -51,9 +51,6 @@ namespace VOP
         // Flags present the WndProc had been hooked or not.
         private bool m_bHooked = false;
 
-        private EnumState m_currentState = EnumState.init;
-
-
         // Flag present the whether doing scanning job.
         private bool _isScanning = false; 
         public bool m_isScanning 
@@ -218,13 +215,6 @@ namespace VOP
             }
         }
 
-
-        public void HandlerStateUpdate( EnumState state )
-        {
-            m_currentState = state;
-            btnScan.IsEnabled = ( EnumState.init == state && false == m_isScanning );
-        }
-
         public void DoScanning()
         {
             string strFolder = System.IO.Path.GetTempPath()+"VOPCache\\";
@@ -375,7 +365,7 @@ namespace VOP
                      btnSave.IsEnabled = true;
                  }
                  
-                 btnScan.IsEnabled = ( EnumState.init == m_currentState && false == m_isScanning );
+                 btnScan.IsEnabled = ( false == m_isScanning );
 
                  progressBar1.Value = 0;
                  txtProgressPercent.Text = "0";
@@ -624,8 +614,6 @@ namespace VOP
 
         public void ResetToDefaultValue()
         {
-            m_currentState = EnumState.init;
-
             m_docutype   = EnumScanDocType.Photo;
             m_scanResln  = EnumScanResln._300x300;
             m_paperSize  = EnumPaperSizeScan._A4;
@@ -639,7 +627,7 @@ namespace VOP
             btnSave.IsEnabled    = false;
             btnCancel.IsEnabled  = false;
             btnSetting.IsEnabled = true;
-            btnScan.IsEnabled = ( EnumState.init == m_currentState && false == m_isScanning );
+            btnScan.IsEnabled = ( false == m_isScanning );
 
 			//Configure the ProgressBar
             progressBar1.Minimum    = 0;

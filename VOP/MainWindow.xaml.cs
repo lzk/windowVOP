@@ -139,10 +139,6 @@ namespace VOP
             }
 
             statusPanelPage.eventPrinterSwitch += PrinterSwitch;
-            App.g_autoMachine.eventStateUpdate += winCopyPage.HandlerStateUpdate;
-            App.g_autoMachine.eventStateUpdate += winScanPage.HandlerStateUpdate;
-            App.g_autoMachine.eventStateUpdate += winSettingPage.HandlerStateUpdate;
-            App.g_autoMachine.eventStateUpdate += winPrintPage.HandlerStateUpdate;
 
             winCopyPage    .m_MainWin = this;
             winScanPage    .m_MainWin = this;
@@ -903,9 +899,6 @@ namespace VOP
                    }
                }
 
-               App.g_autoMachine.TranferState(job);
-               App.g_autoMachine.TranferState(status);
-
                winCopyPage.PassStatus( status, job, toner );
 
                if ( EnumStatus.NofeedJam               == status
@@ -1026,8 +1019,6 @@ namespace VOP
             winCopyPage.ResetToDefaultValue();
             winScanPage.ResetToDefaultValue();
 
-            App.g_autoMachine.ResetAutoMachine();
-
             byte toner  = 0;
             byte status = (byte)EnumStatus.Offline; 
             byte job    = (byte)EnumMachineJob.UnknowJob;
@@ -1049,10 +1040,6 @@ namespace VOP
                 ExpandSubpage();
                 m_isOnlineDetected = true;
             }
-
-            // After UI already loaded, tranfer auto machine. 
-            App.g_autoMachine.TranferState( (EnumMachineJob)job );
-            App.g_autoMachine.TranferState( (EnumStatus)status );
 
             statusUpdater = new Thread(UpdateStatusCaller);
             statusUpdater.Start();

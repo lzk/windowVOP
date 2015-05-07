@@ -22,7 +22,6 @@ namespace VOP
         private EnumMediaType       m_mediaType  = EnumMediaType.Plain;
 #endregion
 
-        private EnumState m_currentState = EnumState.init; // State of current auto machine.
         private EnumMachineJob m_oldJob = EnumMachineJob.UnknowJob; // Job used to monitor IDCardCopy job.
 
         private byte _density = 3;
@@ -173,7 +172,6 @@ namespace VOP
             switch ( ret )
             {
                 case EnumCmdResult._ACK:
-                    App.g_autoMachine.TranferToWaitCmdBegin();
                     break;
                 case EnumCmdResult._Printer_busy:
                     VOP.Controls.MessageBoxEx.Show(
@@ -211,12 +209,6 @@ namespace VOP
             imgIDCard.Source = bi;
         }
 
-        public void HandlerStateUpdate( EnumState state )
-        {
-            m_currentState = state;
-            btnCopy.IsEnabled = ( EnumState.init == state && false == spinCtlCopies.ValidationHasError );
-        }
-
         /// <summary>
         /// Reset value of constrained items for id card copy.
         /// </summary>
@@ -243,7 +235,7 @@ namespace VOP
 
         private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
-            btnCopy.IsEnabled = ( EnumState.init == m_currentState && false == spinCtlCopies.ValidationHasError );
+            btnCopy.IsEnabled = ( false == spinCtlCopies.ValidationHasError );
             if (e.NewValue)
             {
                 MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_"), (string)this.FindResource("ResStr_Error"));
@@ -266,7 +258,6 @@ namespace VOP
             m_mediaType  = EnumMediaType.Plain;
 
             m_density = 3;
-            m_currentState = EnumState.init; 
             chkBtnIDCardCopy.IsChecked = false;
             spinCtlCopies.Value = 1;
 

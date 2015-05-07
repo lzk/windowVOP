@@ -244,21 +244,5 @@ namespace VOP
             }
         }
 
-        public void HandlerStateUpdate(EnumState state)
-        {
-            // TODO: update UI when auto machine state change.
-            if (null != m_MainWin && !m_bOnlyDispalyAboutView)
-            {
-                if (m_MainWin.statusPanelPage.m_isWiFiModel)
-                {
-                    wifiView.HandlerStateUpdate(state);
-                    softapView.HandlerStateUpdate(state);
-                    tcpipView.HandlerStateUpdate(state);
-                }
-                powersaveView.HandlerStateUpdate(state);
-                userconfigView.HandlerStateUpdate(state);
-                passwordView.HandlerStateUpdate(state);
-            }
-        }
     }
 }

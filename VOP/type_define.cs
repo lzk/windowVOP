@@ -273,16 +273,6 @@ namespace VOP
         PreIDCardCopyJob = 9,
     }
 
-    // auto machine state
-    public enum EnumState : byte
-    {
-        init          = 0,
-        doingJob      = 1,
-        stopWorking   = 2,
-        waitCmdBegin  = 3,
-    }
-
-
     /// <summary>
     /// Enumerate type used for copying parameter -- media type 
     /// </summary>

@@ -351,20 +351,6 @@ namespace VOP
 
             m_MainWin.UploadPrintInfo(crmPrintInfo);
         }
-
-        public void HandlerStateUpdate( EnumState state )
-        {
-            // TODO: update UI when auto machine state change.
-            // Always enable
-            //if (EnumState.doingJob == state || EnumState.stopWorking == state)
-            //{
-            //   // PrintButton.IsEnabled = false;
-            //}
-            //else
-            //{
-            //    PrintButton.IsEnabled = true;
-            //}
-        }
     }
 
     public class IdCardPrintHelper : IDisposable

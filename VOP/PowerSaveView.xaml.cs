@@ -222,17 +222,5 @@ namespace VOP
                 btnApply.IsEnabled = true;
         }
 
-        public void HandlerStateUpdate(EnumState state)
-        {
-            // TODO: update UI when auto machine state change.
-            if (state == EnumState.stopWorking)
-            {
-                this.IsEnabled = false;
-            }
-            else
-            {
-                this.IsEnabled = true;
-            }
-        }
     }
 }
