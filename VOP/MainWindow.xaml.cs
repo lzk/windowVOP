@@ -991,11 +991,20 @@ namespace VOP
             // simulate Device status Info.
             if (StatusXmlHelper.GetPrinterInfo(statusPanelPage.m_selectedPrinter, out deviceStatus, out machineJob, out tonerCapacity, "DeviceStatus.xml"))
             {
-                toner  = (byte)(int)double.Parse(tonerCapacity);
+                bIsOK = true;          
+              
                 status = (byte)StatusXmlHelper.GetStatusTypeFormString(deviceStatus);
                 job    = (byte)StatusXmlHelper.GetJobTypeFormString(machineJob);
 
-                bIsOK = true;
+                double dToner = 0.0;
+                if (double.TryParse(tonerCapacity, out dToner))
+                {
+                    toner = (byte)(int)dToner;
+                }
+                else
+                {
+                    bIsOK = false;
+                }              
             }
             else 
             {

@@ -252,7 +252,7 @@ ResStr_Scan_Fail,Scan Fail,扫描失败
 ResStr_Print_Fail,Print Fail,打印失败
 ResStr_Copy_Fail,Copy Fail,复印失败
 ResStr_Msg_1,"Setting Successfully,the parameters are valid after the restart the machine.",设定成功，机器重启后生效
-ResStr_Msg_2,"The password must be 5 to 13 ASCII characters or 10 to 26  hex characters, please confirm and enter again.",密码必须是5/13个ASCII字符或者10/26个十六进制字符，请确认后再次输入。
+ResStr_Msg_2,"The password must be 5 to 13 ASCII characters or 10 to 26  hex characters, please confirm and enter again.",密码必须是5到13个ASCII字符或者10到26个十六进制字符，请确认后再次输入。
 ResStr_Msg_3,"The password must be 8 to 63 ASCII characters or 64  hex characters, please confirm and enter again.",密码必须是8到63个ASCII字符或者64个十六进制字符，请确认后再次输入。
 ResStr_Msg_4,please enter the phone number.,输入手机号
 ResStr_Msg_5,Verification code sent successfully.,验证码发送成功。

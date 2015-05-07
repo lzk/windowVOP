@@ -211,10 +211,7 @@ namespace VOP
         /// <param name="tonerCapacity"></param>
         /// <returns></returns>
         public static bool GetPrinterInfo(string printerName, out string deviceStatus, out string machineJob, out string tonerCapacity, string xmlFileName)
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-
-
+        {           
             bool isSuccess = false;
             bool isExistsNode = false;
 
@@ -229,6 +226,8 @@ namespace VOP
 
             try
             {
+                XmlDocument xmlDoc = new XmlDocument();
+
                  xmlDoc.Load(xmlFileName); // Load xml File
 
                 XmlNode xmlNode = xmlDoc.SelectSingleNode(root);
@@ -261,6 +260,7 @@ namespace VOP
             }
             catch (Exception ex)
             {
+                isSuccess = false;
                 throw ex;
             }
 
