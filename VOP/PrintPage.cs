@@ -330,12 +330,18 @@ namespace VOP
             }
             else if (printRes == PrintError.Print_Operation_Fail)
             {
-                m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
+               // m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
+                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_Print_Fail"), (string)this.FindResource("ResStr_Error"));
+                messageBox.Owner = App.Current.MainWindow;
+                messageBox.ShowDialog();
                 crmPrintInfo.m_strPrintSuccess = "false";
             }
             else if (printRes == PrintError.Print_Get_Default_Printer_Fail)
             {
-                m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
+               // m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
+                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_Print_Fail"), (string)this.FindResource("ResStr_Error"));
+                messageBox.Owner = App.Current.MainWindow;
+                messageBox.ShowDialog();
                 crmPrintInfo.m_strPrintSuccess = "false";
             }
             else
@@ -349,15 +355,15 @@ namespace VOP
         public void HandlerStateUpdate( EnumState state )
         {
             // TODO: update UI when auto machine state change.
-
-            if (EnumState.doingJob == state || EnumState.stopWorking == state)
-            {
-                PrintButton.IsEnabled = false;
-            }
-            else
-            {
-                PrintButton.IsEnabled = true;
-            }
+            // Always enable
+            //if (EnumState.doingJob == state || EnumState.stopWorking == state)
+            //{
+            //   // PrintButton.IsEnabled = false;
+            //}
+            //else
+            //{
+            //    PrintButton.IsEnabled = true;
+            //}
         }
     }
 
