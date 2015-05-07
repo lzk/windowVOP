@@ -104,23 +104,22 @@
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="4"></ColumnDefinition>
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="{StaticResource ResStr_SSID}" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                                    <TextBox Name="tbSSID" Grid.Column="2" VerticalAlignment="Center" MaxLength="32" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
+                                    <TextBox Name="tbSSID" Grid.Column="1" Margin="4" VerticalAlignment="Center" MaxLength="32" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
                                         <TextBox.InputBindings>
                                             <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                                         </TextBox.InputBindings>
                                     </TextBox>
                                     <TextBlock Name="tbkPwd" Grid.Row="1" Text="{StaticResource ResStr_Password}" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                                    <TextBox Name="tbPwd" Grid.Row="1" Grid.Column="2" Visibility="Hidden" VerticalAlignment="Center" MaxLength="64" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
+                                    <TextBox Name="tbPwd" Grid.Row="1" Grid.Column="1" Margin="4" Visibility="Hidden" VerticalAlignment="Center" MaxLength="64" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
                                         <TextBox.InputBindings>
                                             <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                                         </TextBox.InputBindings>
                                     </TextBox>
-                                    <PasswordBox Name="pbPwd" Grid.Row="1"  Grid.Column="2"  VerticalAlignment="Center" MaxLength="64" PreviewKeyDown="OnPreviewKeyDown">
+                                    <PasswordBox Name="pbPwd" Grid.Row="1"  Grid.Column="1" Margin="4"   VerticalAlignment="Center" MaxLength="64" PreviewKeyDown="OnPreviewKeyDown">
                                         <PasswordBox.InputBindings>
                                             <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                                         </PasswordBox.InputBindings>
