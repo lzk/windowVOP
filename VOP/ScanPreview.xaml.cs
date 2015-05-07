@@ -124,7 +124,16 @@ namespace VOP
                 m_rotatedAngle += 90;
                 m_rotatedAngle = m_rotatedAngle % 360;
 
-                previewImg.Source = common.RotateBitmap(m_src, m_rotatedAngle);
+                if ( 0 != m_rotatedAngle )
+                {
+                    CachedBitmap cache = new CachedBitmap(m_src, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                    previewImg.Source = BitmapFrame.Create(new TransformedBitmap(cache, new RotateTransform(m_rotatedAngle)));
+                }
+                else
+                {
+                    previewImg.Source = m_src;
+                }
+
                 GC.Collect();
             }
             else if (name == "btn_normal")

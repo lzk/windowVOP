@@ -214,23 +214,6 @@ namespace VOP
             }
         }
 
-        public static BitmapSource RotateBitmap( BitmapSource bmpSrc, int angle )
-        {
-            BitmapSource ret = null;
-
-            if ( 0 != angle )
-            {
-                CachedBitmap cache = new CachedBitmap(bmpSrc, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                ret = BitmapFrame.Create(new TransformedBitmap(cache, new RotateTransform(angle)));
-            }
-            else
-            {
-                ret = bmpSrc;
-            }
-
-            return ret;
-        }
-
         /// <summary>
         /// Message of status show in bottom of status panel.
         /// </summary>
