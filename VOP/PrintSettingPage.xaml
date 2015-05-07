@@ -253,7 +253,7 @@
 						Style="{StaticResource CustomRadioButtonEx}">
                             <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/16in1.png" HorizontalAlignment="Left" />
                         </RadioButton>
-                        <TextBlock Text="{StaticResource ResStr_16_in_1}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="35" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
+                        <TextBlock Text="{StaticResource ResStr_16_in_1}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" FontSize="13" Foreground="#FF7A7A7A" Height="18" Margin="16,0,10,0"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical"
@@ -266,10 +266,10 @@
 						Cursor="Hand" 
 						x:Name="rdBtn1in2x2" 
 						Checked="rdBtn1in2x2_Checked"
-						Style="{StaticResource CustomRadioButtonEx}">
+						Style="{StaticResource CustomRadioButtonEx}" Margin="13,0,-13,0">
                             <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/1in2x2.png" HorizontalAlignment="Left" />
                         </RadioButton>
-                        <TextBlock Text="{StaticResource ResStr_1_in_2_2_}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
+                        <TextBlock Text="{StaticResource ResStr_1_in_2_2_}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18" Margin="22,0,-5,0"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical"
@@ -282,10 +282,10 @@
 						Cursor="Hand" 
 						x:Name="rdBtn1in3x3" 
 						Checked="rdBtn1in3x3_Checked"
-						Style="{StaticResource CustomRadioButtonEx}">
+						Style="{StaticResource CustomRadioButtonEx}" Margin="13,0,-13,0">
                             <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/1in3x3.png" HorizontalAlignment="Left" />
                         </RadioButton>
-                        <TextBlock Text="{StaticResource ResStr_1_in_3_3}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
+                        <TextBlock Text="{StaticResource ResStr_1_in_3_3}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18" Margin="22,0,-5,0"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical"
@@ -298,10 +298,10 @@
 						Cursor="Hand" 
 						x:Name="rdBtn1in4x4" 
 						Checked="rdBtn1in4x4_Checked"
-						Style="{StaticResource CustomRadioButtonEx}">
+						Style="{StaticResource CustomRadioButtonEx}" Margin="13,0,-13,0">
                             <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/1in4x4.png" HorizontalAlignment="Left" />
                         </RadioButton>
-                        <TextBlock Text="{StaticResource ResStr_1_in_4_4_}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
+                        <TextBlock Text="{StaticResource ResStr_1_in_4_4_}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18" Margin="22,0,-5,0"/>
                     </StackPanel>
 
                     <CheckBox x:Name="chk_MultiplePagePrint" 
@@ -311,7 +311,7 @@
 					Template="{StaticResource customCheckBox}"
 					IsChecked="False"
 					Content="{StaticResource ResStr_Multiple_Page}" 
-					Margin="0,0,46,0"
+					Margin="0,0,29,0"
 					Checked="chk_MultiplePagePrint_Checked" 
 					Unchecked="chk_MultiplePagePrint_Unchecked"/>
 
@@ -340,9 +340,10 @@
 						Checked="rdBtnFlipOnShortEdger_Checked"
 						Style="{StaticResource CustomRadioButtonEx}" 
 						SnapsToDevicePixels="True"
+                        ToolTip="{StaticResource ResStr_Flip_on_short_edge}" 
 						Margin="10,0,0,2">
                             <StackPanel Width="120">
-                                <Image Height="42" Margin="10,0,66,0" Stretch="None" Source="Images/FlipOnShortEdge.png" HorizontalAlignment="Left" Width="50"/>
+                                <Image Height="42" Margin="10,0,60,0" Stretch="None" Source="Images/FlipOnShortEdge.png"/>
                                 <TextBlock Text="{StaticResource ResStr_Flip_on_short_edge}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="56" FontSize="13" Margin="60,-30,0,30" Height="20" FontWeight="Bold" Foreground="DimGray"/>
                             </StackPanel>
                         </RadioButton>
@@ -355,6 +356,7 @@
 						Checked="rdBtnFlipOnLongEdger_Checked"
 						Style="{StaticResource CustomRadioButtonEx}" 
 						SnapsToDevicePixels="True"
+                        ToolTip="{StaticResource ResStr_Flip_on_long_edge}"
 						Margin="10,0,0,2">
                             <StackPanel Margin="2,0,8,0">
                                 <Image Height="42" Margin="10,0,66,0"  Stretch="None" Source="Images/FlipOnLongEdge.png" HorizontalAlignment="Left" Width="50"/>
@@ -377,23 +379,23 @@
             <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Orientation}" Margin="2,1,0,1" Grid.Row="2" Grid.Column="3">
                 <StackPanel Orientation="Horizontal"/>
             </Controls:GroupBoxDecorator>
-        <RadioButton x:Name="rdBtnPortrait"
+            <RadioButton x:Name="rdBtnPortrait"
 			GroupName="Goup5" 
 			Checked="rdBtnPortrait_Checked"
 			IsChecked="{Binding SelectedItem, Converter={StaticResource isInchConverter}, ElementName=myComboBox, Mode=OneWay}"
 			Content="{StaticResource ResStr_Portrait}" 
 			Template="{StaticResource customRadioButton}"
 			Foreground="DarkSlateGray"
-			Margin="30,31,101,7" Grid.Column="3" Grid.Row="2"/>
+			Margin="13,31,98,7" Grid.Column="3" Grid.Row="2"/>
 
-        <RadioButton x:Name="rdBtnLandscape"
+            <RadioButton x:Name="rdBtnLandscape"
             GroupName="Goup5"
 			Checked="rdBtnLandscape_Checked"
 			IsChecked="{Binding SelectedItem, ConverterParameter=flip, Converter={StaticResource isInchConverter}, ElementName=myComboBox, Mode=OneWay}"
 			Content="{StaticResource ResStr_Landscape}"
 			Template="{StaticResource customRadioButton}"
 			Foreground="DarkSlateGray"
-			Margin="101,31,30,7" Grid.Column="3" Grid.Row="2"/>
+			Margin="87,31,11,7" Grid.Column="3" Grid.Row="2"/>
 
             <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Media_Type}" Margin="1,1,0,1" Grid.Row="2" Grid.Column="5" Padding="20,5,30,10">
                 <ComboBox Style="{StaticResource customComboBox}" 
@@ -439,7 +441,7 @@
 					Checked="chk_FitToPaperSize_Checked"
 					Unchecked="chk_FitToPaperSize_Unchecked"
 					Content="{StaticResource ResStr_Fit_to_Paper_Size}" 
-					HorizontalAlignment="Center"/>
+					HorizontalAlignment="Center" Margin="35,0,30,0" Width="117"/>
                 </StackPanel>
             </Controls:GroupBoxDecorator>
 
@@ -487,37 +489,33 @@
 			Orientation="Horizontal"  
 			Grid.Row="13"
 			Grid.Column="1"
-			Grid.ColumnSpan="5">
+			Grid.ColumnSpan="6">
                 <CheckBox x:Name="chk_TonerSaving"
 				Template="{StaticResource customCheckBox}" 
 				IsChecked="False" 
 				Checked="chk_TonerSaving_Checked" 
 				Unchecked="chk_TonerSaving_Unchecked"
 				Content="{StaticResource ResStr_Toner_Save_Mode}" 
-				Margin="0,-15,0,0" 
-				FontSize="14"/>
-
+				FontSize="14" Margin="0,0,0,16"/>
                 <Button 
-				x:Name="AdvancedSettingsButton"
-				IsDefault="False"
-				Content="{StaticResource ResStr_Advanced_settings}" 
-				Style="{StaticResource CustomGrayButtonStyle}"
-				Height="34" 
-				Width="130" 
-				Margin="30,0,0,0"
-				FontSize="18"
-				Click="AdvancedSettingButtonClick"/>
-
+                	x:Name="AdvancedSettingsButton"
+                	IsDefault="False"
+                	Content="{StaticResource ResStr_Advanced_settings}" 
+                	Style="{StaticResource CustomGrayButtonStyle}"
+                	Height="34" 
+                	Width="150" 
+                	Margin="11,16,0,16"
+                	FontSize="17"
+                	Click="AdvancedSettingButtonClick"/>
                 <Button IsDefault="False"
 				x:Name="DefaultButton"
 				Content="{StaticResource ResStr_ExtraAdd_Default}" 
 				Style="{StaticResource CustomGrayButtonStyle}"
 				Height="34" 
 				Width="130" 
-				Margin="10,0,0,0"
+				Margin="10,16,0,16"
 				FontSize="18"
 				Click="DefaultButtonClick"/>
-
                 <Button 
 				IsDefault="True"
 				x:Name="OKButton"
@@ -525,12 +523,12 @@
 				Style="{StaticResource CustomGreenButtonStyle}"  
 				Height="34" 
 				Width="130" 
-				Margin="10,0,0,0"
+				Margin="10,16,0,16"
 				FontSize="18"
 				Click="OKButtonClick"/>
             </StackPanel>
 
-        
+
 
         </Grid>
     </Viewbox>

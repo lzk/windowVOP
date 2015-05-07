@@ -1219,6 +1219,15 @@ namespace VOP
                 spinnerDensityAdjustment.Value = 4;
                 spinnerScaling.Value = 100;
             }
+            bool bIsMetrice = dll.IsMetricCountry();
+            if (bIsMetrice)
+            {
+                cboPaperSize.SelectedIndex = 0;
+            }
+            else
+            {
+                cboPaperSize.SelectedIndex = 1;
+            }
         }
 
         private void SetDataFromPrinterInfo()
