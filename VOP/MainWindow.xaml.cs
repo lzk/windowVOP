@@ -570,7 +570,7 @@ namespace VOP
             statusPageView.Child = statusPanelPage;
             this.statusPanelPage.Visibility = Visibility.Visible;
 
-            ShowAboutPageOnly();
+            //ShowAboutPageOnly();
 
             AddMessageHook();
 
