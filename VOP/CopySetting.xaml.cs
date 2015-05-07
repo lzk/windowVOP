@@ -435,14 +435,14 @@ namespace VOP
             ComboBoxItem cboItem = null;
 
             cboItem = new ComboBoxItem();
-            cboItem.Content = "300x300dpi" ;
+            cboItem.Content = "300 x 300dpi" ;
             cboItem.DataContext = EnumCopyResln._300x300;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboResolution.Items.Add( cboItem );
 
             cboItem = new ComboBoxItem();
-            cboItem.Content = "600x600dpi" ;
+            cboItem.Content = "600 x 600dpi" ;
             cboItem.DataContext = EnumCopyResln._600x600;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
