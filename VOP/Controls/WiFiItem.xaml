@@ -19,9 +19,9 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3"></ColumnDefinition>
+            <ColumnDefinition Width="1"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="3"></ColumnDefinition>
+            <ColumnDefinition Width="1"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1">
             <local:CustomExpander 
