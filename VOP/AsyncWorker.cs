@@ -24,6 +24,7 @@ namespace VOP
                                         int scanMode, int resolution, int width, int height,
                                         int contrast, int brightness, int docuType, uint uMsg );
     public delegate int PrintFileDelegate(string printerName, string fileName, bool needFitToPage, int copies);
+    public delegate void RotateScannedFilesDelegate( ScanFiles objSrc, ScanFiles objDst, int nAngle );
     
     class AsyncWorker
     {
@@ -95,6 +96,26 @@ namespace VOP
             }
 
             return 1;
+        }
+
+
+        public void InvokeRotateScannedFiles(RotateScannedFilesDelegate method, ScanFiles objSrc, ScanFiles objDst, int nAngle )
+        {
+            if (method != null)
+            {
+                RotateScannedFilesDelegate caller = method;
+
+                IAsyncResult result = caller.BeginInvoke( objSrc, objDst, nAngle, new AsyncCallback(CallbackMethod), null);
+
+                if (!result.AsyncWaitHandle.WaitOne(100, false))
+                {
+                    pbw = new ProgressBarWindow();
+                    pbw.Owner = this.owner;
+                    pbw.ShowDialog();
+                }
+
+                result.AsyncWaitHandle.WaitOne(100, false);
+            }
         }
 
         public PrintError InvokePrintFileMethod(PrintFileDelegate method, string printerName, string fileName, bool needFitToPage, int copies)

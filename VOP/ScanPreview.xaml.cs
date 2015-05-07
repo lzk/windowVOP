@@ -173,10 +173,46 @@ namespace VOP
         }
 
         /// <summary>
+        /// Rotate objSrc to objDst with angle nAngle.
+        /// </summary>
+        private void RotateScannedFiles( ScanFiles objSrc, ScanFiles objDst, int nAngle )
+        {
+            string args1 = objSrc.m_pathOrig  + " " + objDst.m_pathOrig  + " " + nAngle.ToString();
+            string args2 = objSrc.m_pathView  + " " + objDst.m_pathView  + " " + nAngle.ToString();
+            string args3 = objSrc.m_pathThumb + " " + objDst.m_pathThumb + " " + nAngle.ToString();
+
+            try
+            {
+                // TODO: Get the ExitCode of VopHelper. 0 success,
+                // otherwise fail.
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                startInfo.FileName = "VopHelper.exe";
+                Process exeProcess = null;
+
+                startInfo.Arguments = args1;
+                exeProcess = Process.Start(startInfo);
+                exeProcess.WaitForExit();
+
+                startInfo.Arguments = args2;
+                exeProcess = Process.Start(startInfo);
+                exeProcess.WaitForExit();
+
+                startInfo.Arguments = args3;
+                exeProcess = Process.Start(startInfo);
+                exeProcess.WaitForExit();
+            }
+            catch
+            {
+            }
+        }
+
+        /// <summary>
         /// Close preview window. Popup MessageBox to user if the image has rotated.
         /// </summary>
         private void ClosePreviewWin()
         {
+
             if ( 0 != m_rotatedAngle % 360 )
             {
                 if ( VOP.Controls.MessageBoxExResult.Yes == 
@@ -191,34 +227,10 @@ namespace VOP
                     m_rotatedObj.m_pathView  = m_images.m_pathView.Insert( m_images.m_pathView.Length-4   , m_rotatedAngle.ToString() );
                     m_rotatedObj.m_pathThumb = m_images.m_pathThumb.Insert( m_images.m_pathThumb.Length-4 , m_rotatedAngle.ToString() );
 
-                    string args1 = m_images.m_pathOrig  + " " + m_rotatedObj.m_pathOrig  + " " + m_rotatedAngle.ToString();
-                    string args2 = m_images.m_pathView  + " " + m_rotatedObj.m_pathView  + " " + m_rotatedAngle.ToString();
-                    string args3 = m_images.m_pathThumb + " " + m_rotatedObj.m_pathThumb + " " + m_rotatedAngle.ToString();
+                    RotateScannedFiles( m_images, m_rotatedObj, m_rotatedAngle );
 
-                    try
-                    {
-                        // TODO: Get the ExitCode of VopHelper. 0 success,
-                        // otherwise fail.
-                        ProcessStartInfo startInfo = new ProcessStartInfo();
-                        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                        startInfo.FileName = "VopHelper.exe";
-                        Process exeProcess = null;
-
-                        startInfo.Arguments = args1;
-                        exeProcess = Process.Start(startInfo);
-                        exeProcess.WaitForExit();
-
-                        startInfo.Arguments = args2;
-                        exeProcess = Process.Start(startInfo);
-                        exeProcess.WaitForExit();
-
-                        startInfo.Arguments = args3;
-                        exeProcess = Process.Start(startInfo);
-                        exeProcess.WaitForExit();
-                    }
-                    catch
-                    {
-                    }
+                    AsyncWorker worker = new AsyncWorker( this );
+                    worker.InvokeRotateScannedFiles( RotateScannedFiles, m_images, m_rotatedObj, m_rotatedAngle );
                 }
                 else
                 {
