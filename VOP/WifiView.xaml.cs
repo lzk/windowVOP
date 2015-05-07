@@ -554,13 +554,14 @@ namespace VOP
                     bSuccess = true;
                 }
             }
-
+           
             if (!bSuccess)
             {
-                if(((MainWindow)App.Current.MainWindow).m_strPassword.Length == 0)
+                bEnable = !chkWifi.IsChecked;
+                chkWifi.IsChecked = bEnable;
+
+                if (((MainWindow)App.Current.MainWindow).m_strPassword.Length == 0)
                 {
-                    bEnable = !chkWifi.IsChecked;
-                    chkWifi.IsChecked = bEnable;
                     if (VOP.MainWindow.m_byWifiInitStatus == 0x01 && true == bEnable)
                     {
                         cbo_ssid_refresh();
