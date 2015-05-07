@@ -64,7 +64,8 @@
                                     Width="180"
                                     Margin="20, 0, 0, 5" 
                                     Content="{StaticResource ResStr_Border_Color}"
-                                    x:Name="colorPanel"/>
+                                    x:Name="colorPanel"
+                                    FontSize="16"/>
 
                         <Button Name="RotationButton" 
                             Width="60"

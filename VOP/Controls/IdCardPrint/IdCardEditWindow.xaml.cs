@@ -59,6 +59,16 @@ namespace VOP.Controls
 
             this.Width = this.Width * App.gScalingRate;
             this.Height = this.Height * App.gScalingRate;
+
+            InitFontSize();
+        }
+
+        void InitFontSize()
+        {
+            if (App.LangId == 0x409) // en-US
+            {
+                colorPanel.FontSize = 12.0;
+            }
         }
 
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

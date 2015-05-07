@@ -109,7 +109,7 @@
                             <DropShadowEffect Color="#FFC9C9C9" Direction="307" ShadowDepth="0" Opacity="0.955"/>
                         </Border.Effect>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{TemplateBinding Content}" FontSize="16" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#FF646464"/>
+                            <TextBlock Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#FF646464"/>
                             <RadioButton Style="{StaticResource ColorRadioButtonStyle}" 
                                          IsChecked="True"
                                          GroupName="ColorSelectionGroup"

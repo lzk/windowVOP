@@ -24,6 +24,6 @@
         Style="{StaticResource fileSelectionButtonStyle}"
         local:EyeCandy.Image="{Binding ElementName=myControl, Path=ImagePath}" Margin="10,0">
         </Button>
-        <TextBlock Grid.Row="2" Text="{Binding ElementName=myControl, Path=BottomText}"  HorizontalAlignment="Center" FontSize="14"/>
+        <TextBlock Grid.Row="2" Text="{Binding ElementName=myControl, Path=BottomText}"  HorizontalAlignment="Center" />
     </Grid>
 </UserControl>

@@ -294,6 +294,20 @@ namespace VOP
                 GetDataFromPrinterInfo();
             }
 //            UpdatePaperSizeCombobox(true, 0);
+
+            InitFontSize();
+        }
+
+        void InitFontSize()
+        {
+            if (App.LangId == 0x409) // en-US
+            {
+                AdvancedSettingsButton.FontSize = DefaultButton.FontSize = OKButton.FontSize = 14.0;
+                chk_MultiplePagePrint.FontSize = 9.0;
+
+                rdBtnPortrait.Margin = new Thickness(10, 31, 101, 7);
+                rdBtnLandscape.Margin = new Thickness(85, 31, 10, 7);
+            }
         }
 
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

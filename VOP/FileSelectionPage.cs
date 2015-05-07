@@ -33,6 +33,16 @@ namespace VOP
                 ImageButton.Margin = new Thickness(60, 0, 0, 0);
                 FileButton.Margin = new Thickness(90, 0, 0, 0);
             }
+
+            InitFontSize();
+        }
+
+        void InitFontSize()
+        {
+            if (App.LangId == 0x409) // en-US
+            {
+                ImageButton.FontSize = FileButton.FontSize = IdCardButton.FontSize = 10.0;
+            }
         }
 
         private void OnClickImagePrint(object sender, System.Windows.Input.MouseButtonEventArgs e)

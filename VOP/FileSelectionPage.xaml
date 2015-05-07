@@ -35,7 +35,8 @@
                             BottomText="{StaticResource ResStr_Picture_Print}" 
                             Height="83" Width="79"
                             HorizontalAlignment="Left"
-                            Margin="12"/>
+                            Margin="12"
+                            FontSize="14"/>
 
         <local:ImageButton  x:Name="FileButton"
                             Grid.Row="1"
@@ -46,7 +47,8 @@
                             BottomText="{StaticResource ResStr_File_Print}" 
                             Height="83" Width="79"
                             HorizontalAlignment="Left"
-                            Margin="12"/>
+                            Margin="12"
+                            FontSize="14"/>
 
 
         <local:ImageButton  x:Name="IdCardButton"
@@ -58,7 +60,9 @@
                             BottomText="{StaticResource ResStr_Credentials_Print}" 
                             Height="83" Width="79"
                             HorizontalAlignment="Left"
-                            Margin="12"/>
+                            Margin="12"
+                            FontSize="14"
+                           />
 
       
        
