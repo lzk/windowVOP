@@ -9,7 +9,7 @@ ResStr_Device_Status,Device Status,设备状态
 ResStr_Ready,Ready,待机
 ResStr_Busy,Busy,工作中
 ResStr_Sleep,Sleep,休眠
-ResStr_Warning,Warning,告警
+ResStr_Warning,Warning,警告
 ResStr_Error,Error,错误
 ResStr_Offline,Offline,离线
 ResStr_Toner,Toner :,碳粉容量 :
@@ -223,19 +223,19 @@ ResStr_Copyright__C___2014_2015__Lenovo__Beijing__Limited_All_Right_Reserved_,"C
 All Right Reserved.","Copyright (C) (2014-2015) Lenovo (Beijing) Limited.
 All Right Reserved."
 ResStr_This_file_is_not_supported__please_select_another_one_,"This file is not supported, please select another one.",暂不支持该文件的打印，请重新选择。
-ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_,"The valid range is 1-99, please confirm and enter again.",有效值输入范围为1-99，请确认后再次输入。
-ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_,"The valid range is 25-400%, please confirm and enter again.",有效值输入范围为25-400%，请确认后再次输入。
+ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_,"The valid range is 1 to 99, please confirm and enter again.",有效值输入范围为1到99，请确认后再次输入。
+ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_,"The valid range is 25% to 400%, please confirm and enter again.",有效值输入范围为25%到400%，请确认后再次输入。
 ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_,The scanned images will be deleted after closing the VOP. Are you sure to close the VOP?,VOP关闭后，扫描图片将会被删除，是否关闭，请确认
 ResStr_Lack_of_memery_disk_space_because_too_many_files_are_selected__please_select_again_,"Lack of memery/disk space because too many files are selected, please select again.",该操作所需内存或者磁盘空间不足，请重新选择文件或释放内存后再试。
-ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_,"The valid range is 0-100, please confirm and enter again.",有效值输入范围为0-100，请确认后再次输入。
+ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_,"The valid range is 0 to 100, please confirm and enter again.",有效值输入范围为0到100，请确认后再次输入。
 ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_,"Scanning image has been changed, please confirm whether save it or not?",扫描图片已被更改，是否保存，请确认
 ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_,"The entered IP address  is wrong, please confirm and enter again.",IP地址输入有误，请确认后再次输入
 ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_,"The entered Gateway is wrong, please confirm and enter again.",网关输入有误，请确认后再次输入
 ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation,"The subnet mask input error, please input again after confirmation",子网掩码输入有误，请确认后再次输入
-ResStr_The_valid_range_is_1_30__please_confirm_and_enter_again_,"The valid range is 1-30, please confirm and enter again.",有效值输入范围为1-30，请确认后再次输入。
+ResStr_The_valid_range_is_1_30__please_confirm_and_enter_again_,"The valid range is 1 to 30, please confirm and enter again.",有效值输入范围为1到30，请确认后再次输入。
 ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_,"The valid range is from -6 to 6, please confirm and enter again.",有效值输入范围为-6到6，请确认后再次输入。
 ResStr_The_valid_range_is_from__3_to_3__please_confirm_and_enter_again_,"The valid range is from -3 to 3, please confirm and enter again.",有效值输入范围为-3到3，请确认后再次输入。
-ResStr_The_valid_range_is_0_1__please_confirm_and_enter_again_,"The valid range is 0-1, please confirm and enter again.",有效值输入范围为0到1，请确认后再次输入。
+ResStr_The_valid_range_is_0_1__please_confirm_and_enter_again_,"The valid range is 0 to 1, please confirm and enter again.",有效值输入范围为0到1，请确认后再次输入。
 ResStr_Please_boot_the_machine_after_more_than_30_minutes_to_protect_the_machine_,Please boot the machine after more than 30 minutes to protect the machine.,请关闭机器30分钟以上再开机，以免损坏机器。
 ResStr_The_new_password_can_not_be_empty_,The new password can not be empty.,新密码不能为空。
 ResStr_The_passwords_you_entered__are_different__please_try_again_,"The passwords you entered  are different, please try again.",输入密码不一致，请重新输入。
