@@ -445,7 +445,7 @@ namespace VOP
             {
                 if (selectIndex == -1)
                 {
-                    cboPaperSize.SelectedIndex = 0;
+                   // cboPaperSize.SelectedIndex = 0;
                 }
                 else
                 {
