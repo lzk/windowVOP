@@ -70,6 +70,16 @@
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
 
+    <Style x:Key="EllipseFocus">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="CustomGreenButtonStyle"
        TargetType="{x:Type Button}">
         <Setter Property="Template">
@@ -111,6 +121,10 @@
                             <Setter TargetName="innerRect" Property="Stroke" Value="{StaticResource GreenButtonStrokeDisable}" />
                             <Setter TargetName="innerRect" Property="Fill" Value="{StaticResource GreenButtonFillDisable}" />
                             <Setter TargetName="myContentPresenter" Property="TextBlock.Foreground" Value="White"/>
+                        </Trigger>
+
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource EllipseFocus}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -213,6 +227,10 @@
                             <Setter TargetName="innerRect" Property="Stroke" Value="{StaticResource GrayButtonStrokeDisable}" />
                             <Setter TargetName="innerRect" Property="Fill" Value="{StaticResource GrayButtonFillDisable}" />
                             <Setter TargetName="myContentPresenter" Property="TextBlock.Foreground" Value="#FFA8A8A8"/>
+                        </Trigger>
+
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource EllipseFocus}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

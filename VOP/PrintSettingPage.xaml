@@ -150,6 +150,28 @@
                 </ComboBox>
             </Controls:GroupBoxDecorator>
 
+            <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Orientation}" Margin="2,1,0,1" Grid.Row="2" Grid.Column="3">
+                <StackPanel Orientation="Horizontal"/>
+
+            </Controls:GroupBoxDecorator>
+            <RadioButton x:Name="rdBtnPortrait"
+			GroupName="Goup5" 
+			Checked="rdBtnPortrait_Checked"
+			IsChecked="{Binding SelectedItem, Converter={StaticResource isInchConverter}, ElementName=myComboBox, Mode=OneWay}"
+			Content="{StaticResource ResStr_Portrait}" 
+			Template="{StaticResource customRadioButton}"
+			Foreground="DarkSlateGray"
+			Margin="13,31,98,7" Grid.Column="3" Grid.Row="2"/>
+
+            <RadioButton x:Name="rdBtnLandscape"
+            GroupName="Goup5"
+			Checked="rdBtnLandscape_Checked"
+			IsChecked="{Binding SelectedItem, ConverterParameter=flip, Converter={StaticResource isInchConverter}, ElementName=myComboBox, Mode=OneWay}"
+			Content="{StaticResource ResStr_Landscape}"
+			Template="{StaticResource customRadioButton}"
+			Foreground="DarkSlateGray"
+			Margin="87,31,11,7" Grid.Column="3" Grid.Row="2"/>
+            
             <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Page_Order}" Margin="2,2,0,0" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Padding="30,5,30,15">
                 <StackPanel Orientation="Horizontal">
                     <RadioButton GroupName="Goup3"                              
@@ -376,27 +398,8 @@
             </Controls:GroupBoxDecorator>
 
 
-            <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Orientation}" Margin="2,1,0,1" Grid.Row="2" Grid.Column="3">
-                <StackPanel Orientation="Horizontal"/>
-            </Controls:GroupBoxDecorator>
-            <RadioButton x:Name="rdBtnPortrait"
-			GroupName="Goup5" 
-			Checked="rdBtnPortrait_Checked"
-			IsChecked="{Binding SelectedItem, Converter={StaticResource isInchConverter}, ElementName=myComboBox, Mode=OneWay}"
-			Content="{StaticResource ResStr_Portrait}" 
-			Template="{StaticResource customRadioButton}"
-			Foreground="DarkSlateGray"
-			Margin="13,31,98,7" Grid.Column="3" Grid.Row="2"/>
 
-            <RadioButton x:Name="rdBtnLandscape"
-            GroupName="Goup5"
-			Checked="rdBtnLandscape_Checked"
-			IsChecked="{Binding SelectedItem, ConverterParameter=flip, Converter={StaticResource isInchConverter}, ElementName=myComboBox, Mode=OneWay}"
-			Content="{StaticResource ResStr_Landscape}"
-			Template="{StaticResource customRadioButton}"
-			Foreground="DarkSlateGray"
-			Margin="87,31,11,7" Grid.Column="3" Grid.Row="2"/>
-
+            
             <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Media_Type}" Margin="1,1,0,1" Grid.Row="2" Grid.Column="5" Padding="20,5,30,10">
                 <ComboBox Style="{StaticResource customComboBox}" 
 				x:Name="cboMediaType" 
