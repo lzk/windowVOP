@@ -71,6 +71,8 @@ namespace VOP
             byte wifiInit = 0;
             dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);
             VOP.MainWindow.m_byWifiInitStatus = wifiInit;
+            
+            chkDisplayPwd.IsChecked = false;
         }
 
         public bool is_InputVailible()
@@ -172,6 +174,7 @@ namespace VOP
                 rowAuto.Height = new GridLength(0);
                 wepKey0.IsChecked = true;
                 m_bConnectOthApMode = true;
+                chkDisplayPwd.IsChecked = false;
 
 
                 wifiSetting.m_ssid = "";
