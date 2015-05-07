@@ -195,8 +195,7 @@ namespace VOP
         {
             if (type == UserDefinedSizeType.MM)
             {
-                int t = (int)(s / 25.4 * 600);
-                return (int)(s / 25.4 * 600);
+                return (int)Math.Round(s / 25.4 * 600);
             }
             else
             {

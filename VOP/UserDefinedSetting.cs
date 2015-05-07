@@ -245,7 +245,7 @@ namespace VOP
                 }
             }
             else
-            {
+            { 
                 OkButton.IsEnabled = false;
 
                 if (myComboBox.Text.Trim() != "")
@@ -462,10 +462,11 @@ namespace VOP
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             element = value as UserDefinedSizeItem;
+            string flag = parameter as string;
 
             if (element != null)
             {
-                return element.Width.ToString();
+                return element.Width.ToString();// (flag == "1") ? string.Format("{0:0.0}", element.Width) : string.Format("{0:0.00}", element.Width);
             }
             else
                 return null;
@@ -495,10 +496,11 @@ namespace VOP
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             element = value as UserDefinedSizeItem;
+            string flag = parameter as string;
 
             if (element != null)
             {
-                return element.Height.ToString();
+                return element.Height.ToString(); //(flag == "1") ? string.Format("{0:0.0}", element.Height) : string.Format("{0:0.00}", element.Height);
             }
             else
                 return null;
