@@ -237,14 +237,22 @@ namespace VOP
             if (IsTextInputValid)
             {
                 OkButton.IsEnabled = true;
-                SaveButton.IsEnabled = true;
-                DeleteButton.IsEnabled = true;
+
+                if (myComboBox.Text.Trim() != "")
+                {
+                    SaveButton.IsEnabled = true;
+                    DeleteButton.IsEnabled = true;
+                }
             }
             else
             {
                 OkButton.IsEnabled = false;
-                SaveButton.IsEnabled = false;
-                DeleteButton.IsEnabled = false;
+
+                if (myComboBox.Text.Trim() != "")
+                {
+                    SaveButton.IsEnabled = false;
+                    DeleteButton.IsEnabled = false;
+                }
             }
         }
 
