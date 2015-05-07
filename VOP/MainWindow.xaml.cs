@@ -155,30 +155,18 @@ namespace VOP
             m_RequestManager.GetSession(ref session);
 
             btnLogin.Visibility = m_bLocationIsChina ? Visibility.Visible : Visibility.Hidden;
-            
-            RegistryKey rsg = null;
-            rsg = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Lenovo\\Printer SSW\\Version", false);
-            Int32 nLanguage = 0x804;
-            object obj = null;
-            if (null != rsg)
+
+            if (0x804 == App.LangId)
             {
-                obj = rsg.GetValue("language", RegistryValueKind.DWord);
-                nLanguage = (Int32)obj;
-
-                if (0x804 == nLanguage)
-                {
-                    TextElement.FontFamilyProperty.OverrideMetadata(typeof(TextElement), new FrameworkPropertyMetadata(new FontFamily("幼圆")));
-                    TextBlock.FontFamilyProperty.OverrideMetadata(typeof(TextBlock), new FrameworkPropertyMetadata(new FontFamily("幼圆")));
-                }
-                else
-                {
-                    TextElement.FontFamilyProperty.OverrideMetadata(typeof(TextElement), new FrameworkPropertyMetadata(new FontFamily("Arial")));
-                    TextBlock.FontFamilyProperty.OverrideMetadata(typeof(TextBlock), new FrameworkPropertyMetadata(new FontFamily("Arial")));
-                }
-
-                rsg.Close();
+                TextElement.FontFamilyProperty.OverrideMetadata(typeof(TextElement), new FrameworkPropertyMetadata(new FontFamily("幼圆")));
+                TextBlock.FontFamilyProperty.OverrideMetadata(typeof(TextBlock), new FrameworkPropertyMetadata(new FontFamily("幼圆")));
             }
-
+            else
+            {
+                TextElement.FontFamilyProperty.OverrideMetadata(typeof(TextElement), new FrameworkPropertyMetadata(new FontFamily("Arial")));
+                TextBlock.FontFamilyProperty.OverrideMetadata(typeof(TextBlock), new FrameworkPropertyMetadata(new FontFamily("Arial")));
+            }
+           
             if (true == m_bLocationIsChina)
             {
                 uploadCRMThread = new Thread(UploadCRM_LocalInfoToServerCaller);
