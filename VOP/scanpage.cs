@@ -405,7 +405,7 @@ namespace VOP
                  }
                  else if ( RETSCAN_NO_ENOUGH_SPACE == (int)wParam )
                  {
-                     m_MainWin.statusPanelPage.ShowMessage( (string)this.FindResource( "ResStr_insufficient_system_disk_space" ), Brushes.Red );
+                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_insufficient_system_disk_space"), (string)this.FindResource("ResStr_Error"));
                  }
                  else
                  {
