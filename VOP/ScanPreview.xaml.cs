@@ -186,17 +186,20 @@ namespace VOP
         /// </summary>
         private void RotateScannedFiles( ScanFiles objSrc, ScanFiles objDst, int nAngle )
         {
-            string args1 = objSrc.m_pathOrig  + " " + objDst.m_pathOrig  + " " + nAngle.ToString();
-            string args2 = objSrc.m_pathView  + " " + objDst.m_pathView  + " " + nAngle.ToString();
-            string args3 = objSrc.m_pathThumb + " " + objDst.m_pathThumb + " " + nAngle.ToString();
+            string args1 = "\"" + objSrc.m_pathOrig  + "\" \"" + objDst.m_pathOrig  + "\" \"" + nAngle.ToString();
+            string args2 = "\"" + objSrc.m_pathView  + "\" \"" + objDst.m_pathView  + "\" \"" + nAngle.ToString();
+            string args3 = "\"" + objSrc.m_pathThumb + "\" \"" + objDst.m_pathThumb + "\" \"" + nAngle.ToString();
 
             try
             {
+                string currentPath = System.AppDomain.CurrentDomain.BaseDirectory;
+                string vopHelperExe = currentPath + "VopHelper.exe";
+
                 // TODO: Get the ExitCode of VopHelper. 0 success,
                 // otherwise fail.
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                startInfo.FileName = "VopHelper.exe";
+                startInfo.FileName = vopHelperExe;
                 Process exeProcess = null;
 
                 startInfo.Arguments = args1;
