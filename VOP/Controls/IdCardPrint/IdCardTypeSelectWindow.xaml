@@ -25,32 +25,28 @@
         <DropShadowEffect BlurRadius="30" Color="#FF858484" Direction="292" ShadowDepth="0" Opacity="1"/>
     </Window.Effect>
 
-    <Viewbox Stretch="Fill">
-        <Border Width="250" Height="260">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="30"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
-                    <TextBlock Text="{StaticResource ResStr_Certificate_Type}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Border>
+    <!--<Viewbox Stretch="Fill">-->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock Text="{StaticResource ResStr_Certificate_Type}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
 
-                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
+        <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
 
-                <ListBox Grid.Row="1"  
+        <ListBox Grid.Row="1"  
                  Grid.Column="0" 
                  Grid.ColumnSpan="2"
                  Style="{ StaticResource ListBoxWithAutoScroll }" 
                  ItemsSource="{StaticResource IdCardTypeNameList}"
                  Selector.SelectionChanged="verticalListBox_SelectionChanged"/>
-
-            </Grid>
-
-        </Border>
-    </Viewbox>
+    </Grid>
+    <!--</Viewbox>-->
 </Window>

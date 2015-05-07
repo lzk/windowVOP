@@ -28,8 +28,8 @@ namespace VOP.Controls
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
-            this.Width = this.Width * App.gScalingRate;
-            this.Height = this.Height * App.gScalingRate;
+            //this.Width = this.Width * App.gScalingRate;
+            //this.Height = this.Height * App.gScalingRate;
         }
 
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
