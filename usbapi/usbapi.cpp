@@ -2788,13 +2788,13 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                         nResult = RETSCAN_CANCEL;
                     }
 
-                    obj.StopScan();
                 }
                 else
                 {
                     nResult = RETSCAN_CMDFAIL;
                 }
 
+                obj.StopScan();
                 obj.Close();
 
                 if ( NULL != strideOrig )
