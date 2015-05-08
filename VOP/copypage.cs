@@ -174,15 +174,18 @@ namespace VOP
                 case EnumCmdResult._ACK:
                     break;
                 case EnumCmdResult._Printer_busy:
-                    VOP.Controls.MessageBoxEx.Show(
-                            VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
                             m_MainWin,
                             (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
-                            (string)this.FindResource( "ResStr_Warning" )
-                            );
+                            (string)this.FindResource( "ResStr_Warning" ));
                     break;
                 default:
-                     m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
+                    m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
+
+                    VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                            m_MainWin,
+                            (string)this.FindResource( "ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
+                            (string)this.FindResource( "ResStr_Warning" ));
                     break;
             }
 

@@ -31,10 +31,11 @@ namespace VOP
         private const int RETSCAN_ERRORDLL       = 1;
         private const int RETSCAN_OPENFAIL       = 2;
         private const int RETSCAN_ERRORPARAMETER = 3;
-        private const int RETSCAN_CMDFAIL        = 4;
         private const int RETSCAN_NO_ENOUGH_SPACE= 5;
         private const int RETSCAN_ERROR_PORT     = 6;
         private const int RETSCAN_CANCEL         = 7;
+        private const int RETSCAN_BUSY           = 8;
+        private const int RETSCAN_ERROR          = 9;
 #endregion
         public Thread scanningThread = null;
 
@@ -399,9 +400,32 @@ namespace VOP
                  }
                  else
                  {
-                     m_MainWin.statusPanelPage.ShowMessage( 
-                             (string)this.FindResource("ResStr_Scan_Fail"),
-                             Brushes.Red );
+                     m_MainWin.statusPanelPage.ShowMessage( (string)this.FindResource("ResStr_Scan_Fail"), Brushes.Red );
+
+                     if ( RETSCAN_OPENFAIL == (int)wParam
+                             || RETSCAN_ERRORDLL == (int)wParam
+                             || RETSCAN_ERROR_PORT == (int)wParam)
+                     {
+                         VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                                 m_MainWin,
+                                 (string)this.FindResource( "ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_" ),
+                                 (string)this.FindResource( "ResStr_Warning" ));
+                     }
+                     else if ( RETSCAN_ERROR == (int)wParam )
+                     {
+                         VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                                 m_MainWin,
+                                 (string)this.FindResource( "ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
+                                 (string)this.FindResource( "ResStr_Warning" ));
+                     }
+                     else if ( RETSCAN_BUSY == (int)wParam )
+                     {
+                         VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                                 m_MainWin,
+                                 (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
+                                 (string)this.FindResource( "ResStr_Warning" ));
+                     }
+
                  }
             }
 

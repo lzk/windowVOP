@@ -2598,14 +2598,15 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
         int docutype,
         UINT32 uMsg )
 {
-    static const int RETSCAN_OK             = 0;
-    static const int RETSCAN_ERRORDLL       = 1;
-    static const int RETSCAN_OPENFAIL       = 2;
-    static const int RETSCAN_ERRORPARAMETER = 3;
-    static const int RETSCAN_CMDFAIL        = 4;
-    static const int RETSCAN_NO_ENOUGH_SPACE= 5;
-    static const int RETSCAN_ERROR_PORT     = 6;
-    static const int RETSCAN_CANCEL         = 7;
+    static const int RETSCAN_OK              = 0;
+    static const int RETSCAN_ERRORDLL        = 1;
+    static const int RETSCAN_OPENFAIL        = 2;
+    static const int RETSCAN_ERRORPARAMETER  = 3;
+    static const int RETSCAN_NO_ENOUGH_SPACE = 5;
+    static const int RETSCAN_ERROR_PORT      = 6;
+    static const int RETSCAN_CANCEL          = 7;
+    static const int RETSCAN_BUSY            = 8;
+    static const int RETSCAN_ERROR           = 9;
 
     if ( false == DoseHasEnoughSpace( szOrig, width, height ) )
     {
@@ -2715,10 +2716,16 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                 nColPixelNumOrig  = height*resolution/1000; 
 				strideOrig = new BYTE[cbStridePadOrig];
 		
-                if ( DEVMON_STATUS_OK == obj.StartScan() 
-                        && DEVMON_STATUS_OK == obj.SetScanParameterEx( &scanparam ) )
+                if ( DEVMON_STATUS_OK != obj.StartScan() )
                 {
-
+                    nResult = RETSCAN_BUSY;
+                }
+                else if ( DEVMON_STATUS_OK != obj.SetScanParameterEx( &scanparam ) )
+                {
+                    nResult = RETSCAN_ERROR;
+                }
+                else
+                {
 					FillBitmapHeader(headOrig, scanMode, nLinePixelNumOrig, nColPixelNumOrig, resolution, 1.0, &dwHeadSizeOrig);
 
                     CreateFileWithSize( szOrig, reinterpret_cast<const BITMAPFILEHEADER*>(headOrig)->bfSize );
@@ -2781,6 +2788,8 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
 
                         if ( false == bReadDataFailFlag )
                             ::SendNotifyMessage( HWND_BROADCAST, uMsg, 100, 0); 
+                        else
+                            nResult = RETSCAN_ERROR;
                     }
                     else
                     {
@@ -2788,10 +2797,6 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                         nResult = RETSCAN_CANCEL;
                     }
 
-                }
-                else
-                {
-                    nResult = RETSCAN_CMDFAIL;
                 }
 
                 obj.StopScan();
