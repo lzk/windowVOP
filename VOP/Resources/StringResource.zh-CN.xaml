@@ -154,7 +154,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_DHCP">自动获取</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Static">固定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_IP_Address">IP 地址</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Gateway">网   关</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Gateway">网    关</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Submask">子网掩码</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Apply">应  用</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_WLAN_Network">WLAN网络</sys:String>
@@ -175,7 +175,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_WEP">WEP</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_WPA2_PSK_AES">WPA2-PSK-AES</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Mixed_Mode_PSK">混合模式PSK</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Connect">连接</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Connect">连  接</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Find_and_join_the_Wi_Fi">查找并加入Wi-Fi网络</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Enter_SSID_and_security_type_">输入你想要加入的网络名称和安全性类型</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Power_Save_Time">进入休眠时间</sys:String>
@@ -192,7 +192,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_New_Password">新密码</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Confirm_Password">确认密码</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Identity_Authentication">身份认证</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Login">登录</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Login">登  录</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Supplies_Purchasing_Channels">耗材购买渠道</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Upgrade_Method">打印机升级方式</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printworks_Promotion">打印工场推广</sys:String>
