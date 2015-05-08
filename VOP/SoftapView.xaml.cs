@@ -48,23 +48,29 @@ namespace VOP
             softAPSettingInit.m_ssid = "";
             softAPSettingInit.m_pwd = "";
 
-            SoftApRecord m_rec = null;
-            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+            byte wifiInit = 0;
+            dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);
+            VOP.MainWindow.m_byWifiInitStatus = wifiInit;
+            if (wifiInit == 0x01)
+            {
+                SoftApRecord m_rec = null;
+                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-            if (_bDisplayProgressBar)
-            {
-                worker.InvokeMethod<SoftApRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetSoftAp);
-            }
-            else
-            {
-                m_rec = worker.GetSoftAp(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
-            }
+                if (_bDisplayProgressBar)
+                {
+                    worker.InvokeMethod<SoftApRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetSoftAp);
+                }
+                else
+                {
+                    m_rec = worker.GetSoftAp(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
+                }
 
-            if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
-            {
-                softAPSetting.m_ssid = softAPSettingInit.m_ssid = m_rec.SSID;
-                softAPSetting.m_pwd = softAPSettingInit.m_pwd = m_rec.PWD;
-                softAPSetting.m_bEnableSoftAp = softAPSettingInit.m_bEnableSoftAp = m_rec.WifiEnable;
+                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+                {
+                    softAPSetting.m_ssid = softAPSettingInit.m_ssid = m_rec.SSID;
+                    softAPSetting.m_pwd = softAPSettingInit.m_pwd = m_rec.PWD;
+                    softAPSetting.m_bEnableSoftAp = softAPSettingInit.m_bEnableSoftAp = m_rec.WifiEnable;
+                }
             }
 
             tbSSID.Text = softAPSettingInit.m_ssid;

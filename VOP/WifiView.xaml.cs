@@ -68,10 +68,6 @@ namespace VOP
 
             scrollview.ScrollToTop();
 
-            byte wifiInit = 0;
-            dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);
-            VOP.MainWindow.m_byWifiInitStatus = wifiInit;
-            
             chkDisplayPwd.IsChecked = false;
         }
 
@@ -324,6 +320,12 @@ namespace VOP
         public void cbo_ssid_refresh(bool _bDisplayProgressBar = true)
         {
             wifilist.Children.Clear();
+
+            byte wifiInit = 0;
+            dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);
+            VOP.MainWindow.m_byWifiInitStatus = wifiInit;
+            if (wifiInit == 0x00)
+                return;
 
             ApListRecord m_rec = null;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);

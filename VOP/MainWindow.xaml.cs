@@ -922,7 +922,7 @@ namespace VOP
                        {
                            m_isCloseAnimation = false;  
                            m_isAnimationPopup = true;
-                           MessageBoxEx_Video win = new MessageBoxEx_Video(new Uri(m_animationUri), "打印机卡纸，请安装提示操作！", (string)this.FindResource("ResStr_Error"));
+                           MessageBoxEx_Video win = new MessageBoxEx_Video(new Uri(m_animationUri), "打印机卡纸，请按照提示操作！", (string)this.FindResource("ResStr_Error"));
                            win.m_MainWin = this;
                            win.Owner = this;
                            win.ShowDialog();

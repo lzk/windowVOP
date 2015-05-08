@@ -420,13 +420,13 @@
                 <CheckBox Name="chkCoolingMode" Grid.Column="2" Template="{StaticResource switchBox}" Height="22" Width="45" IsChecked="False"></CheckBox>
             </Grid>
             <Grid Grid.Row="3">
-                <local:ButtonEx x:Name="btnFusing" Content="{StaticResource ResStr_Fuser_Error_Remove}" FontSize="18"  IsActiveEx="False" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="200" Height="30" Click="btnFusing_Click"></local:ButtonEx>
+                <local:ButtonEx x:Name="btnFusing" Content="{StaticResource ResStr_Fuser_Error_Remove}" FontSize="16"  IsActiveEx="False" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="150" Height="30" Click="btnFusing_Click"></local:ButtonEx>
             </Grid>
             <Image Source="Images/line.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom"></Image>
             <Image Source="Images/line.png" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom"></Image>
             <Image Source="Images/line.png" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom"></Image>
 
-            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="{StaticResource ResStr_Apply}" FontSize="18"  IsActiveEx="True" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="200" Height="35"></local:ButtonEx>
+            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="{StaticResource ResStr_Apply}" FontSize="18"  IsActiveEx="True" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
         </Grid>
     </Grid>
 </UserControl>
