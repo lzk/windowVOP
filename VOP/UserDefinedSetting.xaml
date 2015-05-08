@@ -145,7 +145,7 @@
 
                 <controls:GroupBoxDecorator Style="{StaticResource GroupBoxDecoratorNoHeader}" Grid.Row="2" Padding="10">
                     <StackPanel Orientation="Horizontal" Name="myStackPanel">
-                        <TextBlock Text="{StaticResource ResStr_ExtraAdd_Unit}" 
+                        <TextBlock Text="{StaticResource ResStr_Unit}" 
                            HorizontalAlignment="Center" 
                            VerticalAlignment="Center"
                            Width="40"
@@ -181,7 +181,7 @@
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock x:Name="tWidth" Text="{StaticResource ResStr_ExtraAdd_Width_76_2_216_0}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
+                    <TextBlock x:Name="tWidth" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
                     <TextBox x:Name="tbWidth" 
                          Template="{StaticResource customTextBox}"
                          Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" 
@@ -199,7 +199,7 @@
                     </TextBox>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Orientation="Horizontal">
-                    <TextBlock x:Name="tHeight" Text="{StaticResource ResStr_ExtraAdd_Height_116_0_355_0}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
+                    <TextBlock x:Name="tHeight" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
                     <TextBox x:Name="tbHeight" 
                          Template="{StaticResource customTextBox}" 
                          Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" 
@@ -229,7 +229,7 @@
                     <Button Name="SaveButton"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-        	            Content="{StaticResource ResStr_ExtraAdd_Save}" 
+        	            Content="{StaticResource ResStr_Save}" 
                         Style="{StaticResource CustomGrayButtonStyle}"
         	            Height="34" 
                         Width="110" 
@@ -240,7 +240,7 @@
                     <Button Name="DeleteButton"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-        	            Content="{StaticResource ResStr_ExtraAdd_Delete}" 
+        	            Content="{StaticResource ResStr_Delete}" 
                         Style="{StaticResource CustomGrayButtonStyle}"
         	            Height="34" 
                         Width="110" 
@@ -252,7 +252,7 @@
                 <Button     Grid.Row="2"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-        	            Content="{StaticResource ResStr_ExtraAdd_Canel}" 
+        	            Content="{StaticResource ResStr_Cancel}" 
                         Style="{StaticResource CustomGrayButtonStyle}"
         	            Height="34" 
                         Width="110" 
@@ -264,7 +264,7 @@
                         Grid.Row="4"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" 
-        	            Content="{StaticResource ResStr_ExtraAdd_OK_2}" 
+        	            Content="{StaticResource ResStr_OK}" 
                         Style="{StaticResource CustomGreenButtonStyle}"
         	            Height="34" 
                         Width="110" 

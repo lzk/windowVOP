@@ -512,7 +512,7 @@
                 	Click="AdvancedSettingButtonClick"/>
                 <Button IsDefault="False"
 				x:Name="DefaultButton"
-				Content="{StaticResource ResStr_ExtraAdd_Default}" 
+				Content="{StaticResource ResStr_Defualt}" 
 				Style="{StaticResource CustomGrayButtonStyle}"
 				Height="34" 
 				Width="130" 
@@ -522,7 +522,7 @@
                 <Button 
 				IsDefault="True"
 				x:Name="OKButton"
-				Content="{StaticResource ResStr_ExtraAdd_OK}" 
+				Content="{StaticResource ResStr_OK}" 
 				Style="{StaticResource CustomGreenButtonStyle}"  
 				Height="34" 
 				Width="130" 

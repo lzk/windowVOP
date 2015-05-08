@@ -634,8 +634,8 @@ namespace VOP
             if ( false == statusPanelPage.m_isSFP )
             {
                 if ( EnumSubPage.Print == subpage )
-                {
-                    txtPageName.Text = (string)this.FindResource("ResStr_Print");
+                {              
+                    txtPageName.Text = (string)this.FindResource("ResStr_ExtraAdd_Print");
                     this.subPageView.Child = winFileSelectionPage;
                 
                     tabItem_Print.IsSelect = true;
@@ -645,7 +645,7 @@ namespace VOP
                 }
                 else if ( EnumSubPage.Copy == subpage )
                 {
-                    txtPageName.Text = (string)this.FindResource("ResStr_Copy");
+                    txtPageName.Text = (string)this.FindResource("ResStr_ExtraAdd_Copy");
                     this.subPageView.Child = winCopyPage;
                  
                     tabItem_Print.IsSelect = false;
@@ -655,7 +655,7 @@ namespace VOP
                 }
                 else if ( EnumSubPage.Scan == subpage )
                 {
-                    txtPageName.Text = (string)this.FindResource("ResStr_Scan");
+                    txtPageName.Text = (string)this.FindResource("ResStr_ExtraAdd_Scan");
                     this.subPageView.Child = winScanPage;
                  
                     tabItem_Print.IsSelect = false;
@@ -682,7 +682,7 @@ namespace VOP
             {
                 if ( EnumSubPage.Print == subpage )
                 {
-                    txtPageName.Text = (string)this.FindResource("ResStr_Print");
+                    txtPageName.Text = (string)this.FindResource("ResStr_ExtraAdd_Print");
                     this.subPageView.Child = winFileSelectionPage;
                    
                     tabItem_Print.IsSelect = true;
@@ -922,7 +922,7 @@ namespace VOP
                        {
                            m_isCloseAnimation = false;  
                            m_isAnimationPopup = true;
-                           MessageBoxEx_Video win = new MessageBoxEx_Video(new Uri(m_animationUri), "打印机卡纸，请按照提示操作！", (string)this.FindResource("ResStr_Error"));
+                           MessageBoxEx_Video win = new MessageBoxEx_Video(new Uri(m_animationUri), (string)this.TryFindResource("ResStr_The_paper_jam_occurred_please_follow_the_instructions_"), (string)this.FindResource("ResStr_Error"));
                            win.m_MainWin = this;
                            win.Owner = this;
                            win.ShowDialog();

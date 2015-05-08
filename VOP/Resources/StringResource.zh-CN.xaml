@@ -2,9 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String xml:space="preserve" x:Key="ResStr_VirtualOperationPanel">虚拟操作面板</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Print">打印</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Copy">复印</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scan">扫描</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Print">打  印</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Copy">复  印</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scan">扫  描</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting">设置</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Model">机型:</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Device_Status">设备状态</sys:String>
@@ -103,18 +103,18 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Flip_on_short_edge">短边翻页</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Toner_Save_Mode">省墨打印模式</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Advanced_settings">高级设置</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Defualt">默认</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_OK">确定</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Defualt">默  认</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_OK">确  定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Custom_Paper_Size_Name">自定义纸张大小名称</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Defined_Size_01">自定义尺寸01</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Unit">单位</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Unit">单位:</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_mm">毫米</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_inch">英寸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Width">宽度</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Length">高度</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Save">保存</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Delete">删除</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Cancel">取消</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Save">保  存</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Delete">删  除</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Cancel">取  消</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copies_2">复印份数</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Density">浓度</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ID_Card_Copy">身份证复印</sys:String>
@@ -156,7 +156,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_IP_Address">IP 地址</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Gateway">网   关</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Submask">子网掩码</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Apply">应用</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Apply">应  用</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_WLAN_Network">WLAN网络</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_WPA2">通过WPA2进行保护</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_WEP">通过WEP进行保护</sys:String>
@@ -254,15 +254,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_paper_jam_occurred_please_follow_the_instructions_">打印机卡纸，请按照提示操作！</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_">机器故障，操作无法进行。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_">软件出现问题，操作无法进行，请重新安装驱动和虚拟操作面板软件后再试。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Print">打    印</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Default">默  认</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK">确  定</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Unit">单位:</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Width_76_2_216_0">宽度（76.2-216.0）</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Height_116_0_355_0">高度（116.0-355.6）</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Save">保 存</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Delete">删 除</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Canel">取 消</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK_2">确 定</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK_3">确    定</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Print">打印</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Copy">复印</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Scan">扫描</sys:String>
 </ResourceDictionary>

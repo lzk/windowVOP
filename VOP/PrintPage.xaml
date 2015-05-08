@@ -59,7 +59,7 @@
                         Padding="0, 0, 0, 0"
                         FontSize="17"
                         Style="{StaticResource CustomGreenButtonStyle}"
-                        Content="{StaticResource ResStr_ExtraAdd_Print}"
+                        Content="{StaticResource ResStr_Print}"
                         Grid.Row="4" Grid.Column="2" 
                         Click="ApplyButtonClick"/>
     </Grid>

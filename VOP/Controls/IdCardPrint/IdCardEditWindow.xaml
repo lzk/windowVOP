@@ -82,7 +82,7 @@
                         Padding="0, 0, 0, 0"
                         FontSize="16"
                         Style="{StaticResource CustomGreenButtonStyle}"
-                        Content="{StaticResource ResStr_ExtraAdd_OK_3}"
+                        Content="{StaticResource ResStr_OK}"
                         Click="GreenOkButton_Click" />
                     </StackPanel>
                 </Grid>

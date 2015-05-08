@@ -1,8 +1,8 @@
 Key,English,SC
 ResStr_VirtualOperationPanel,Virtual Operation Panel,虚拟操作面板
-ResStr_Print,Print,打印
-ResStr_Copy,Copy,复印
-ResStr_Scan,Scan,扫描
+ResStr_Print,Print,打  印
+ResStr_Copy,Copy,复  印
+ResStr_Scan,Scan,扫  描
 ResStr_Setting,Setting,设置
 ResStr_Model,Model:,机型:
 ResStr_Device_Status,Device Status,设备状态
@@ -122,18 +122,18 @@ ResStr_Flip_on_long_edge,Flip on long edge,长边翻页
 ResStr_Flip_on_short_edge,Flip on short edge,短边翻页
 ResStr_Toner_Save_Mode,Toner Save Mode,省墨打印模式
 ResStr_Advanced_settings,Advanced settings,高级设置
-ResStr_Defualt,Defualt,默认
-ResStr_OK,OK,确定
+ResStr_Defualt,Defualt,默  认
+ResStr_OK,OK,确  定
 ResStr_Custom_Paper_Size_Name,Custom Paper Size Name,自定义纸张大小名称
 ResStr_User_Defined_Size_01,User Defined Size 01,自定义尺寸01
-ResStr_Unit,Unit,单位
+ResStr_Unit,Unit:,单位:
 ResStr_mm,mm,毫米
 ResStr_inch,inch,英寸
 ResStr_Width,Width,宽度
 ResStr_Length,Length,高度
-ResStr_Save,Save,保存
-ResStr_Delete,Delete,删除
-ResStr_Cancel,Cancel,取消
+ResStr_Save,Save,保  存
+ResStr_Delete,Delete,删  除
+ResStr_Cancel,Cancel,取  消
 ResStr_Copies_2,Copies,复印份数
 ResStr_Density,Density,浓度
 ResStr_ID_Card_Copy,ID Card Copy,身份证复印
@@ -175,7 +175,7 @@ ResStr_Static,Static,固定
 ResStr_IP_Address,IP Address,IP 地址
 ResStr_Gateway,Gateway,网   关
 ResStr_Submask,Submask,子网掩码
-ResStr_Apply,Apply,应用
+ResStr_Apply,Apply,应  用
 ResStr_WLAN_Network,WLAN Network,WLAN网络
 ResStr_Protected_by_WPA2,Protected by WPA2,通过WPA2进行保护
 ResStr_Protected_by_WEP,Protected by WEP,通过WEP进行保护
@@ -277,14 +277,6 @@ ResStr_Preview,Preview,预览
 ResStr_The_paper_jam_occurred_please_follow_the_instructions_,The paper jam occurred，please follow the instructions!,打印机卡纸，请按照提示操作！
 ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_,Operation can not be carried out due to machine malfunction. ,机器故障，操作无法进行。
 ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_,can not be carried out due to software has error. please try  again after reinstall the Driver and Virtual Operation Panel.,软件出现问题，操作无法进行，请重新安装驱动和虚拟操作面板软件后再试。
-ResStr_ExtraAdd_Print,Print,打    印
-ResStr_ExtraAdd_Default,Default,默  认
-ResStr_ExtraAdd_OK,OK,确  定
-ResStr_ExtraAdd_Unit,Unit:,单位:
-ResStr_ExtraAdd_Width_76_2_216_0,Width（76.2-216.0）,宽度（76.2-216.0）
-ResStr_ExtraAdd_Height_116_0_355_0,Length（116.0-355.6）,高度（116.0-355.6）
-ResStr_ExtraAdd_Save,Save,保 存
-ResStr_ExtraAdd_Delete,Delete,删 除
-ResStr_ExtraAdd_Canel,Cancel,取 消
-ResStr_ExtraAdd_OK_2,OK,确 定
-ResStr_ExtraAdd_OK_3,OK,确    定
+ResStr_ExtraAdd_Print,Print,打印
+ResStr_ExtraAdd_Copy,Copy,复印
+ResStr_ExtraAdd_Scan,Scan,扫描

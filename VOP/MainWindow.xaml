@@ -163,20 +163,20 @@
         <mycontrol:customTabItem x:Name="tabItem_Print"   Grid.Column="3" Grid.Row="3"  Margin="0,1"                             
                                  IsSelect="False" 
                                  FontSize="16.99" 
-                                 Text="{StaticResource ResStr_Print}">
+                                 Text="{StaticResource ResStr_ExtraAdd_Print}">
         </mycontrol:customTabItem>
 
         <mycontrol:customTabItem x:Name="tabItem_Copy"   Grid.Column="5" Grid.Row="3" Margin="0,1"                               
                                  IsSelect="False" 
                                  FontSize="16.99" 
-                                 Text="{StaticResource ResStr_Copy}">
+                                 Text="{StaticResource ResStr_ExtraAdd_Copy}">
         </mycontrol:customTabItem>
 
 
         <mycontrol:customTabItem x:Name="tabItem_Scan"     Grid.Column="7" Grid.Row="3" Margin="0,1"                                 
                                  IsSelect="False" 
                                  FontSize="16.99" 
-                                 Text="{StaticResource ResStr_Scan}">
+                                 Text="{StaticResource ResStr_ExtraAdd_Scan}">
         </mycontrol:customTabItem>
 
         <mycontrol:customTabItem x:Name="tabItem_Setting"   Grid.Column="9" Grid.Row="3" Margin="0,1"                                 

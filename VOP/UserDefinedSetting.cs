@@ -49,6 +49,9 @@ namespace VOP
             InitializeComponent();
             this.Width = this.Width * App.gScalingRate;
             this.Height = this.Height * App.gScalingRate;
+
+            tWidth.Text = (string)this.TryFindResource("ResStr_Width") + "(76.2-216.0)";
+            tHeight.Text = (string)this.TryFindResource("ResStr_Length") + "(116.0-355.6)";
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
