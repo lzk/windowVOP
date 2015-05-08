@@ -203,7 +203,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_">The valid range is 1 to 99, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_">The valid range is 25% to 400%, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_">The scanned images will be deleted after closing the VOP. Are you sure to close the VOP?</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Lack_of_memery_disk_space_because_too_many_files_are_selected__please_select_again_">Lack of memery/disk space because too many files are selected, please select again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_">Operation cannot be carried out due to insufficient memory or hard disk space.Please try again after freeing memory or hard disk space.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_">The valid range is 0 to 100, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_">Scanning image has been changed, please confirm whether save it or not?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_">The entered IP address  is wrong, please confirm and enter again.</sys:String>
@@ -251,6 +251,9 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Warning_2">Warning</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Border_Color">Border Color</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Preview">Preview</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_paper_jam_occurred_please_follow_the_instructions_">The paper jam occurred，please follow the instructions!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_">Operation can not be carried out due to machine malfunction.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_">can not be carried out due to software has error. please try  again after reinstall the Driver and Virtual Operation Panel.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Print">Print</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Default">Default</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK">OK</sys:String>

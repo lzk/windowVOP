@@ -203,7 +203,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_">有效值输入范围为1到99，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_">有效值输入范围为25%到400%，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_">VOP关闭后，扫描图片将会被删除，是否关闭，请确认</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Lack_of_memery_disk_space_because_too_many_files_are_selected__please_select_again_">该操作所需内存或者磁盘空间不足，请重新选择文件或释放内存后再试。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_">该操作所需内存或者磁盘空间不足，请重新选择文件或释放内存后再试。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_">有效值输入范围为0到100，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_">扫描图片已被更改，是否保存，请确认</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_">IP地址输入有误，请确认后再次输入</sys:String>
@@ -251,6 +251,9 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Warning_2">警告</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Border_Color">边框颜色</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Preview">预览</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_paper_jam_occurred_please_follow_the_instructions_">打印机卡纸，请按照提示操作！</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_">机器故障，操作无法进行。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_">软件出现问题，操作无法进行，请重新安装驱动和虚拟操作面板软件后再试。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Print">打    印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Default">默  认</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK">确  定</sys:String>

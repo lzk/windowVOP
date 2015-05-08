@@ -484,7 +484,7 @@ namespace VOP
                     VOP.Controls.MessageBoxEx.Show(
                             VOP.Controls.MessageBoxExStyle.Simple,
                             m_MainWin,
-                            (string)this.FindResource( "ResStr_Lack_of_memery_disk_space_because_too_many_files_are_selected__please_select_again_" ),
+                            (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
                             (string)this.FindResource( "ResStr_Warning" )
                             );
 
