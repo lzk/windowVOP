@@ -3041,7 +3041,7 @@ USBAPI_API BOOL __stdcall IsMetricCountry()
     BOOL   bMetric      = FALSE;
 
     // Determine the size of the buffer needed to retrieve information.
-    cChar = GetLocaleInfoW( LOCALE_SYSTEM_DEFAULT, LOCALE_ICOUNTRY, NULL, 0);
+    cChar = GetLocaleInfoW( LOCALE_USER_DEFAULT, LOCALE_ICOUNTRY, NULL, 0);
 
     if (cChar > 0) 
     {
@@ -3051,7 +3051,7 @@ USBAPI_API BOOL __stdcall IsMetricCountry()
         if (pwstr != NULL )
         {
             // We now have a buffer, so get the country code.
-            cChar = GetLocaleInfoW( LOCALE_SYSTEM_DEFAULT, LOCALE_ICOUNTRY, pwstr, cChar);
+            cChar = GetLocaleInfoW( LOCALE_USER_DEFAULT, LOCALE_ICOUNTRY, pwstr, cChar);
 
             if (cChar > 0) {
 
