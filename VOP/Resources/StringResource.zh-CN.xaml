@@ -257,4 +257,15 @@
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Print">打印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Copy">复印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Scan">扫描</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Default">默  认</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK">确  定</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Unit">单位:</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Width_76_2_216_0">宽度（76.2-216.0）</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Height_116_0_355_0">高度（116.0-355.6）</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Save">保 存</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Delete">删 除</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Canel">取 消</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK_2">确 定</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK_3">确    定</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Warning_Custom_Exceed">最多可注册20种类型的用户自定义纸张大小。如果你想注册更多的用户自定义纸张类型，首先要删除原有的类型。</sys:String>
 </ResourceDictionary>

@@ -257,4 +257,15 @@
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Print">Print</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Copy">Copy</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Scan">Scan</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Default">Default</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK">OK</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Unit">Unit:</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Width_76_2_216_0">Width（76.2-216.0）</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Height_116_0_355_0">Length（116.0-355.6）</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Save">Save</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Delete">Delete</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Canel">Cancel</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK_2">OK</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK_3">OK</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Warning_Custom_Exceed">A maximun of 20 types of User defined paper sizes can be registered. If you would like to register more User defined paper sizes, you will need to first delete some existing ones.</sys:String>
 </ResourceDictionary>

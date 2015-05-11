@@ -400,14 +400,14 @@ namespace VOP
                     else
                     {
                         MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple(
-                            "最多可注册20种类型的用户自定义纸张大小",
+                            (string)this.FindResource("ResStr_Warning_Custom_Exceed"),
                             (string)this.FindResource("ResStr_Warning_2"));
                         messageBox.Owner = App.Current.MainWindow;
                         messageBox.ShowDialog();
                     }
+                    myComboBox.Text = "";
                 }
-                myComboBox.Text = "";
-                DeleteButton.IsEnabled = true;
+                
             }
         }
 

@@ -146,7 +146,9 @@
                 DisplayMemberPath="UserDefinedName"
                 SelectedValuePath="UserDefinedName"
                 SelectedValue="A4"
-				SelectionChanged="cboPaperSize_SelectionChanged">
+				SelectionChanged="cboPaperSize_SelectionChanged"
+                DropDownOpened="OnDropDownOpened" 
+                DropDownClosed="OnDropDownClosed">
                 </ComboBox>
             </Controls:GroupBoxDecorator>
 
