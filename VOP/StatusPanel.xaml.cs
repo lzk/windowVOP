@@ -326,18 +326,30 @@ namespace VOP
 
         private void InitPrinterCbo()
         {
+            string oldPrinter = "";
+            if ( null != cboPrinters.SelectedItem )
+            {
+                oldPrinter = this.cboPrinters.SelectedItem.ToString();
+            }
+
             cboPrinters.Items.Clear();
 
             List<string> printers = new List<string>();
             common.GetSupportPrinters( printers );
 
+            int oldIndex = 0;
             for ( int i=0; i<printers.Count; i++ )
             {
                 cboPrinters.Items.Add( printers[i] );
+
+                if ( oldPrinter == printers[i] && "" != oldPrinter )
+                    oldIndex = i;
             }
 
             if ( cboPrinters.Items.Count > 0 )
-                cboPrinters.SelectedIndex = 0;
+            {
+                cboPrinters.SelectedIndex = oldIndex;
+            }
             else
             {   //Add for BMS bug 59074
                 if (null != this.m_MainWin)
