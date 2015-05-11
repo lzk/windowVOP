@@ -182,7 +182,7 @@
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal">
 
-                    <TextBlock x:Name="tWidth" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
+                    <TextBlock x:Name="tWidth" Text="{StaticResource ResStr_ExtraAdd_Width_76_2_216_0}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
                     <Border x:Name="tbWidthBorder" 
                             BorderBrush="Red" 
                             BorderThickness="0" 
@@ -207,7 +207,7 @@
                 </StackPanel>
                 <StackPanel Grid.Row="2" Orientation="Horizontal">
 
-                    <TextBlock x:Name="tHeight" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
+                    <TextBlock x:Name="tHeight" Text="{StaticResource ResStr_ExtraAdd_Height_116_0_355_0}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
                     <Border x:Name="tbHeightBorder" 
                             BorderBrush="Red" 
                             BorderThickness="0" 

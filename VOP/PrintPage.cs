@@ -332,7 +332,8 @@ namespace VOP
             else if (printRes == PrintError.Print_Operation_Fail)
             {
                // m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
-                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_Print_Fail"), (string)this.FindResource("ResStr_Error"));
+                MessageBoxEx_Simple messageBox = 
+                    new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)this.FindResource("ResStr_Error"));
                 messageBox.Owner = App.Current.MainWindow;
                 messageBox.ShowDialog();
                 crmPrintInfo.m_strPrintSuccess = "false";
@@ -340,7 +341,8 @@ namespace VOP
             else if (printRes == PrintError.Print_Get_Default_Printer_Fail)
             {
                // m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
-                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_Print_Fail"), (string)this.FindResource("ResStr_Error"));
+                MessageBoxEx_Simple messageBox = 
+                    new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)this.FindResource("ResStr_Error"));
                 messageBox.Owner = App.Current.MainWindow;
                 messageBox.ShowDialog();
                 crmPrintInfo.m_strPrintSuccess = "false";
