@@ -221,6 +221,9 @@ namespace VOP
         public static extern int ResetDefaultPrinter();
 
         [DllImport("usbapi.dll")]
+        public static extern int VopSetDefaultPrinter([MarshalAs(UnmanagedType.LPWStr)]string printerName);
+
+        [DllImport("usbapi.dll")]
         public static extern int PrintFile(
                [MarshalAs(UnmanagedType.LPWStr)]string printerName, 
                [MarshalAs(UnmanagedType.LPWStr)]string fileName,

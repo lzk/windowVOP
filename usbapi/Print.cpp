@@ -74,6 +74,7 @@ USBAPI_API int __stdcall DoPrintImage();
 USBAPI_API int __stdcall DoPrintIdCard();
 USBAPI_API int __stdcall SaveDefaultPrinter();
 USBAPI_API int __stdcall ResetDefaultPrinter();
+USBAPI_API int __stdcall VopSetDefaultPrinter(const TCHAR * strPrinterName);
 USBAPI_API int __stdcall DoPrintIdCard();
 USBAPI_API void __stdcall SavePrinterSettingsData(const TCHAR * strPrinterName,
 	UINT8 PaperSize,
@@ -254,6 +255,18 @@ USBAPI_API int __stdcall ResetDefaultPrinter()
 	}
 }
 
+USBAPI_API int __stdcall VopSetDefaultPrinter(const TCHAR * strPrinterName)
+{
+	if (::SetDefaultPrinter(strPrinterName))
+	{
+		return Print_OK;
+	}
+	else
+	{
+		return Print_Get_Default_Printer_Fail;
+	}
+}
+
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int copies)
 {
 	PrintError error = Print_OK;
@@ -266,7 +279,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
 	ShExecInfo.fMask = SEE_MASK_FLAG_NO_UI | SEE_MASK_NOASYNC;
 	ShExecInfo.hwnd = NULL;
-	ShExecInfo.lpVerb = L"print";
+	ShExecInfo.lpVerb = L"Print";
 	ShExecInfo.lpFile = strFileName;
 	ShExecInfo.lpParameters = NULL;
 	ShExecInfo.lpDirectory = NULL;

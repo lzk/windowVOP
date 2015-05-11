@@ -12,6 +12,7 @@ using System.Text;
 using System.IO;
 using VOP.Controls;
 using System.Printing;
+using System.Diagnostics;
 
 namespace VOP
 {
@@ -159,6 +160,14 @@ namespace VOP
             }
         }
 
+        private int DoPdfPrint()
+        {
+            pdfPrint print = new pdfPrint();
+            print.pdfTest(FilePaths[0]);
+
+            return (int)PrintError.Print_OK;
+        }
+
         private void ApplyButtonClick(object sender, RoutedEventArgs e)
         {
             string strPrinterName = "";
@@ -220,6 +229,11 @@ namespace VOP
                                 printRes = PrintError.Print_File_Not_Support;
                             }
 
+                        }
+                        else if (fileExt == ".pdf")
+                        {
+                            dll.VopSetDefaultPrinter(m_MainWin.statusPanelPage.m_selectedPrinter);
+                            printRes = (PrintError)worker.InvokeDoWorkMethod(DoPdfPrint);
                         }
                         else
                         {
@@ -417,6 +431,46 @@ namespace VOP
 
                 iis.Write(data, data.GetLength(0), IntPtr.Zero);
                 dll.AddImageSource((IStream)iis);
+            }
+        }
+    }
+
+    class pdfPrint
+    {
+        public void pdfTest(string pdfFileName)
+        {
+            //string processFilename = Microsoft.Win32.Registry.LocalMachine
+            //     .OpenSubKey("Software")
+            //     .OpenSubKey("Microsoft")
+            //     .OpenSubKey("Windows")
+            //     .OpenSubKey("CurrentVersion")
+            //     .OpenSubKey("App Paths")
+            //     .OpenSubKey("AcroRd32.exe")
+            //     .GetValue(String.Empty).ToString();
+
+            ProcessStartInfo info = new ProcessStartInfo();
+            info.Verb = "print";
+            info.FileName = pdfFileName;
+          //  info.FileName = processFilename;
+          //  info.Arguments = String.Format("/t \"{0}\" \"{1}\"", pdfFileName, ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
+            info.CreateNoWindow = true;
+            info.WindowStyle = ProcessWindowStyle.Normal;
+            //(It won't be hidden anyway... thanks Adobe!)
+            info.UseShellExecute = true;
+
+            Process p = Process.Start(info);
+
+            int counter = 0;
+            while (!p.HasExited)
+            {
+                System.Threading.Thread.Sleep(1000);
+                counter += 1;
+                if (counter == 5) break;
+            }
+            if (!p.HasExited)
+            {
+                p.CloseMainWindow();
+                p.Kill();
             }
         }
     }

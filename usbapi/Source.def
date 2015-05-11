@@ -23,6 +23,7 @@ EXPORTS
 	DoPrintIdCard
 	SaveDefaultPrinter
 	ResetDefaultPrinter
+	VopSetDefaultPrinter
     PrintFile
 	SavePrinterSettingsData
 	SetPrinterSettingsInitData
