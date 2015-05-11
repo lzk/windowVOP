@@ -259,6 +259,17 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	int shellExeRes = 0;
 	int count = 1;
 	const TCHAR *fileExt = NULL;
+	SHELLEXECUTEINFO ShExecInfo;
+
+	ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+	ShExecInfo.fMask = SEE_MASK_FLAG_NO_UI | SEE_MASK_NOASYNC;
+	ShExecInfo.hwnd = NULL;
+	ShExecInfo.lpVerb = L"print";
+	ShExecInfo.lpFile = strFileName;
+	ShExecInfo.lpParameters = NULL;
+	ShExecInfo.lpDirectory = NULL;
+	ShExecInfo.nShow = SW_HIDE;
+	ShExecInfo.hInstApp = NULL;
 
 	fileExt = PathFindExtension(strFileName);
 
@@ -295,13 +306,12 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 
 			for (int i = 0; i < count; i++)
 			{
-				if ((shellExeRes = (int)::ShellExecute(NULL, L"print", strFileName, NULL, NULL, SW_HIDE)) > 32)
-				{
 
-				}
-				else
+				BOOL res = ::ShellExecuteEx(&ShExecInfo);
+
+				if (res == FALSE)
 				{
-					if (shellExeRes == SE_ERR_OOM || shellExeRes == 0)
+					if ((int)ShExecInfo.hInstApp == SE_ERR_OOM || (int)ShExecInfo.hInstApp == 0)
 					{
 						error = Print_Memory_Fail;
 					}

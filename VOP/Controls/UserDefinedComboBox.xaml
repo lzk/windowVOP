@@ -11,17 +11,16 @@
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <Path 
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    x:Name="BtnArrow" Height="10" Width="10" 
-                                    Stretch="Uniform" Margin="0,0,6,0"
+                                    x:Name="BtnArrow" 
+                                    Height="10" Width="10" 
+                                    Stretch="Uniform"
                                     Fill="#ff818181"
                                     Data="F1 M 300,-190L 310,-190L 305,-183L 301,-190 Z " />
                         <Path 
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    x:Name="BtnArrow2" Height="10" Width="10" 
-                                    Stretch="Uniform" Margin="0,0,6,0"
+                         
+                                    x:Name="BtnArrow2" 
+                                    Height="10" Width="10" 
+                                    Stretch="Uniform" 
                                     Fill="#ff818181"
                                     Visibility="Hidden"
                                     Data="F1 M 300,-183L 310,-183L 305,-190L
@@ -94,36 +93,44 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
                     <Grid Name="root">
-
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                        </Grid.ColumnDefinitions>
+                     
+                        <TextBox x:Name="PART_EditableTextBox"
+                            Focusable="True"
+                            BorderThickness="0"
+                            Margin="5,2,0,2"
+                            Background="Transparent"
+                            Grid.Column="0" 
+                            HorizontalContentAlignment="Left" 
+                            VerticalContentAlignment="Center"
+                            MaxLength="24"
+                            />
+                            
                         <ToggleButton x:Name="DropDownToggle"
-                                Style="{StaticResource ComboBoxToggleButton}"
-                                BorderBrush="Transparent"
-                                Focusable="false"
-                                ClickMode="Press"
-                                Background="{TemplateBinding Background}"
-                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
-                                Margin="-1" HorizontalContentAlignment="Right"
-                                IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,
-                                RelativeSource={RelativeSource TemplatedParent}}"
-                                >
+                            Style="{StaticResource ComboBoxToggleButton}"
+                            BorderBrush="Transparent"
+                            Focusable="false"
+                            ClickMode="Press"
+                            Background="{TemplateBinding Background}"
+                            IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                            Grid.Column="1" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center">
                         </ToggleButton>
-
-                        <ContentPresenter x:Name="ContentPresenter" 
+                      
+                       
+                        <!--<ContentPresenter x:Name="ContentPresenter" 
                                             IsHitTestVisible="False"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Left"
                                             Content="{Binding SelectionBoxItem}"
                                             ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
+                                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>-->
                         
-                        <TextBox x:Name="PART_EditableTextBox"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               Focusable="True"
-                               BorderThickness="0"
-                               Margin="0,0,20,0"
-                               Background="Transparent"/>
-
+                      
                         <Popup x:Name="PART_Popup"
                                 AllowsTransparency="True"
                                 Placement="Bottom"
@@ -132,7 +139,7 @@
                                 PopupAnimation="Slide" 
                                 IsOpen="{TemplateBinding IsDropDownOpen}">
                             <Border x:Name="PopupBorder" 
-                                    Margin="16" 
+                                    Margin="16"
                                     Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}}">
 
                                 <UIElement.Effect>

@@ -207,22 +207,22 @@ namespace VOP
         {
             if (type == UserDefinedSizeType.MM)
             {
-                return Math.Round((double)p / 600 * 25.4, 1);
+                return (double)p / 600 * 25.4;
             }
             else
             {
-                return Math.Round((double)p / 600, 2);
+                return (double)p / 600;
             }
         }
 
         public static double MMToInch(double value)
         {
-            return Math.Round(value / 25.4, 2);
+            return value / 25.4;
         }
 
         public static double InchToMM(double value)
         {
-            return Math.Round(value * 25.4, 1);
+            return value * 25.4;
         }
     }
     /// <summary>
@@ -259,7 +259,6 @@ namespace VOP
         public MainWindow m_MainWin { get; set; }
         public PrintPage.PrintType m_CurrentPrintType  { get; set; }
         UserDefinedSizeRegistry regHelper = new UserDefinedSizeRegistry();
-        bool IsAdvancedDialogOpen = false;
 
         public PrintSettingPage()
         {
@@ -280,7 +279,7 @@ namespace VOP
             tb.LostFocus += new RoutedEventHandler(SpinnerTextBox_LostFocus);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
 
-            UpdatePaperSizeCombobox(true, 0);
+            UpdatePaperSizeComboBox(true, 0);
 
             if (FileSelectionPage.IsInitPrintSettingPage)
             {
@@ -377,7 +376,7 @@ namespace VOP
             };
         }
 
-        private void UpdatePaperSizeCombobox(bool Read, int selectIndex)
+        private void UpdatePaperSizeComboBox(bool Read, int selectIndex)
         {
             uint current = uint.MaxValue;
             if (Read)
@@ -453,11 +452,19 @@ namespace VOP
             }
         }
 
-        private void cboPaperSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnDropDownOpened(object sender, EventArgs e)
+        {
+            if (cboPaperSize.IsDropDownOpen == true)
+            {
+               // cboPaperSize.SelectedIndex = -1;
+            }
+        }
+
+        private void OnDropDownClosed(object sender, EventArgs e)
         {
             m_paperSize = (sbyte)cboPaperSize.SelectedIndex;
 
-            if (m_paperSize == PaperSizeItemsBase.Count - 1 && IsAdvancedDialogOpen == false)
+            if (m_paperSize == PaperSizeItemsBase.Count - 1)
             {
                 bool? result = null;
                 UserDefinedSetting UserDefinedWin = new UserDefinedSetting(UserDefinedSizeItems);
@@ -466,11 +473,11 @@ namespace VOP
                 result = UserDefinedWin.ShowDialog();
                 if (result == true)
                 {
-                    UpdatePaperSizeCombobox(false, UserDefinedWin.GetCurrentSelectedIndex()); 
+                    UpdatePaperSizeComboBox(false, UserDefinedWin.GetCurrentSelectedIndex());
                 }
                 else
                 {
-                    UpdatePaperSizeCombobox(true, 0);
+                    UpdatePaperSizeComboBox(true, 0);
                 }
             }
             else if (m_paperSize > PaperSizeItemsBase.Count - 1)
@@ -481,8 +488,11 @@ namespace VOP
                     regHelper.Close();
                 }
             }
+        }
 
-            IsAdvancedDialogOpen = false;
+        private void cboPaperSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
         }
 
         private void cboMediaType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -802,7 +812,6 @@ namespace VOP
 //                GetDataFromPrinterInfo();
                  dll.InitPrinterData(m_MainWin.statusPanelPage.m_selectedPrinter);
                  dll.OpenDocumentProperties((new WindowInteropHelper(this)).Handle, m_MainWin.statusPanelPage.m_selectedPrinter, ref m_paperSize, ref m_paperOrientation, ref m_mediaType, ref m_paperOrder, ref m_printQuality, ref m_scalingType, ref m_scalingRatio, ref m_nupNum, ref m_typeofPB, ref m_posterType, ref m_ADJColorBalance, ref  m_colorBalanceTo, ref m_densityValue, ref m_duplexPrint, ref m_reversePrint, ref m_tonerSaving, ref m_copies);
-                 IsAdvancedDialogOpen = true; 
                  SetDataFromPrinterInfo();  
             }
         }

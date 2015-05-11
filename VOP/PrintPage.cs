@@ -218,9 +218,10 @@ namespace VOP
                         if (   fileExt == ".xls"
                             || fileExt == ".xlsx")
                         {
+                           
                             ExcelHelper helper = new ExcelHelper(FilePaths[0]);
 
-                            if(helper.Open())
+                            if (helper.Open())
                             {
                                 helper.PrintAll(m_MainWin.statusPanelPage.m_selectedPrinter,
                                                 (int)spinnerControl1.Value);
@@ -472,7 +473,7 @@ namespace VOP
        
         public void PrintAll(string printerName, int copies)
         {
-            wb.PrintOutEx(misValue, misValue, copies, misValue, printerName, misValue, misValue, misValue);
+            wb.PrintOut(misValue, misValue, copies, misValue, printerName, misValue, misValue, misValue);
         }
     }
 }

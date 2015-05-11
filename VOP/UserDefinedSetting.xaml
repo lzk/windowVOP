@@ -139,8 +139,9 @@
                           ItemsSource="{Binding UserDefinedSizeItems}"
                           DisplayMemberPath="UserDefinedName"
                           SelectedValuePath="UserDefinedName"
-                          SelectedValue=""
-                          />
+                          DropDownOpened="OnDropDownOpened" 
+                          DropDownClosed="OnDropDownClosed"
+                          SelectionChanged="UserDefinedNameComboBox_SelectionChanged"/>
                 </controls:GroupBoxDecorator>
 
                 <controls:GroupBoxDecorator Style="{StaticResource GroupBoxDecoratorNoHeader}" Grid.Row="2" Padding="10">
@@ -156,7 +157,7 @@
 
                         <RadioButton Name="RadioButtonMM"
                              GroupName="Goup1" 
-                             IsChecked="{Binding ElementName=myComboBox, Mode=OneWay, Path=SelectedItem, Converter={StaticResource isInchConverter}}"
+                             IsChecked="True"
                              Content="{StaticResource ResStr_mm}" 
                              Template="{StaticResource customRadioButton}"
                              Foreground="DarkSlateGray"
@@ -164,7 +165,6 @@
 
                         <RadioButton GroupName="Goup1"
                              Name="RadioButtonInch"
-                             IsChecked="{Binding ElementName=myComboBox, Mode=OneWay, Path=SelectedItem, Converter={StaticResource isInchConverter}, ConverterParameter=flip}"
                              Content="{StaticResource ResStr_inch}"
                              Template="{StaticResource customRadioButton}"
                              Foreground="DarkSlateGray"
@@ -181,39 +181,53 @@
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal">
+
                     <TextBlock x:Name="tWidth" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
-                    <TextBox x:Name="tbWidth" 
+                    <Border x:Name="tbWidthBorder" 
+                            BorderBrush="Red" 
+                            BorderThickness="0" 
+                            Width="124" 
+                            Height="34"
+                            CornerRadius="15" 
+                            Margin="10,0,0,0" >
+                        <TextBox x:Name="tbWidth" 
+
                          Template="{StaticResource customTextBox}"
-                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" 
-                         VerticalAlignment="Center"
                          InputMethod.IsInputMethodEnabled="False"
                          Width="120" 
                          Height="30" 
-                         MaxLength="11" 
-                         Margin="10,0,0,0"
+                         MaxLength="11"  
                          PreviewKeyDown="OnPreviewKeyDown"
                          >
-                        <TextBox.InputBindings>
-                            <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
-                        </TextBox.InputBindings>
-                    </TextBox>
+                            <TextBox.InputBindings>
+                                <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
+                    </Border>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Orientation="Horizontal">
+
                     <TextBlock x:Name="tHeight" HorizontalAlignment="Center" VerticalAlignment="Center" Width="140" FontSize="15"/>
-                    <TextBox x:Name="tbHeight" 
+                    <Border x:Name="tbHeightBorder" 
+                            BorderBrush="Red" 
+                            BorderThickness="0" 
+                            Width="124" 
+                            Height="34"
+                            CornerRadius="15" 
+                            Margin="10,0,0,0" >
+                        <TextBox x:Name="tbHeight" 
+
                          Template="{StaticResource customTextBox}" 
-                         Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}" 
-                         VerticalAlignment="Center"
                          Height="30" 
                          Width="120" 
                          MaxLength="11" 
-                         Margin="10,0,0,0"
                          PreviewKeyDown="OnPreviewKeyDown"
                          >
-                        <TextBox.InputBindings>
-                            <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
-                        </TextBox.InputBindings>
-                    </TextBox>
+                            <TextBox.InputBindings>
+                                <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
+                    </Border>  
                 </StackPanel>
             </Grid>
 
