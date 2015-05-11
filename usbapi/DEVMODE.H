@@ -500,6 +500,7 @@ typedef struct PirntSettingsData
 	short m_reversePrint;
 	short m_tonerSaving;
 	short m_copies;
+	short m_booklet;
 
 } PirntSettingsData, *pPirntSettingsData;
 

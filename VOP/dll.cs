@@ -248,7 +248,8 @@ namespace VOP
             sbyte DuplexPrint,
             sbyte ReversePrint,
             sbyte TonerSaving,
-            sbyte Copies);
+            sbyte Copies,
+            sbyte Booklet);
 
         [DllImport("usbapi.dll")]
         public static extern void SetPrinterSettingsInitData(sbyte m_PrintType);
@@ -318,7 +319,8 @@ namespace VOP
             ref sbyte DuplexPrint,
             ref sbyte ReversePrint,
             ref sbyte TonerSaving,
-            ref sbyte Copies);
+            ref sbyte Copies,
+            ref sbyte Booklet);
 
         [DllImport("usbapi.dll")]
         public static extern void SetCopies([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName, sbyte Copies);

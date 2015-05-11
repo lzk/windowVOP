@@ -66,7 +66,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_A4">A4</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A5">A5</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A6">A6</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_B5_ISO_">B5（ISO）</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_B5_ISO_">B5</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_B6">B6</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Executive">Executive</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_16K">16K</sys:String>

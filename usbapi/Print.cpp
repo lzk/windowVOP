@@ -92,7 +92,8 @@ USBAPI_API void __stdcall SavePrinterSettingsData(const TCHAR * strPrinterName,
 	UINT8 DuplexPrint,
 	UINT8 ReversePrint,//byte
 	UINT8 TonerSaving,
-	UINT8 Copies);
+	UINT8 Copies,
+	UINT8 Booklet);
 USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_PrintType);
 USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType);
 USBAPI_API void __stdcall GetPrinterSettingsData(
@@ -150,7 +151,8 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 	BYTE* ptr_duplexPrint,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
-	BYTE* ptr_copies);//byte
+	BYTE* ptr_copies,
+	BYTE* ptr_booklet);//byte
 
 USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies);
 USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName);
@@ -1173,7 +1175,8 @@ USBAPI_API void __stdcall SavePrinterSettingsData(
 	UINT8 DuplexPrint,
 	UINT8 ReversePrint,//byte
 	UINT8 TonerSaving,
-	UINT8 Copies)//byte
+	UINT8 Copies,
+	UINT8 Booklet)//byte
 {
 	g_PirntSettingsData.m_paperSize = PaperSize;
 	g_PirntSettingsData.m_paperOrientation = PaperOrientation;
@@ -1192,6 +1195,8 @@ USBAPI_API void __stdcall SavePrinterSettingsData(
 	g_PirntSettingsData.m_reversePrint = ReversePrint;
 	g_PirntSettingsData.m_tonerSaving = TonerSaving;
 	g_PirntSettingsData.m_copies = Copies;
+	g_PirntSettingsData.m_booklet = Booklet;
+
 	getOutputData = getDocumentPropertiesData;
 
 }
@@ -1439,12 +1444,9 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 
 				devmode.dmPrivate.bPaperReverseOrder = static_cast<BYTE>(g_PirntSettingsData.m_reversePrint);
 				devmode.dmPrivate.graphics.TonerSaving = static_cast<BYTE>(g_PirntSettingsData.m_tonerSaving);
-				devmode.dmPublic.dmCopies = g_PirntSettingsData.m_copies;
-				if (0 != g_PirntSettingsData.m_nupNum && 0 != g_PirntSettingsData.m_typeofPB)
-				{
-					devmode.dmPrivate.bEnableBooklet = false;
-				}
-				if (g_PirntSettingsData.m_duplexPrint != 2)
+				devmode.dmPublic.dmCopies = g_PirntSettingsData.m_copies;	
+
+				if (0 == g_PirntSettingsData.m_booklet)
 				{
 					devmode.dmPrivate.bEnableBooklet = false;
 				}
@@ -1461,6 +1463,7 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 				*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
 
 				SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
+				isOpenDocumentProperties = false;
 
 			}
 			free(printer_info);
@@ -1796,7 +1799,8 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 	BYTE* ptr_duplexPrint,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
-	BYTE* ptr_copies)//byte
+	BYTE* ptr_copies,
+	BYTE* ptr_booklet)//byte
 {
 	HANDLE   phandle;
 	LPPCLDEVMODE lpOutputData = NULL;
@@ -1821,15 +1825,15 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 			if (GetPrinter(phandle, 2, (LPBYTE)printer_info, dmsize, &dmsize))
 			{
 				PCLDEVMODE inputDevmode;
-/*				if (isOpenDocumentProperties)
+				if (isOpenDocumentProperties)
 				{
 					inputDevmode = getDocumentPropertiesData;					
 				}
 				else
 				{
 					inputDevmode = *(LPPCLDEVMODE)printer_info->pDevMode;
-				}	*/	
-				inputDevmode = *(LPPCLDEVMODE)printer_info->pDevMode;
+				}	
+
 				switch (*ptr_paperSize)
 				{
 				case 0:
@@ -1893,15 +1897,23 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 				inputDevmode.dmPrivate.bPaperReverseOrder = *ptr_reversePrint;
 				inputDevmode.dmPrivate.graphics.TonerSaving = *ptr_tonerSaving;		
 				inputDevmode.dmPublic.dmCopies = *ptr_copies;
+				inputDevmode.dmPrivate.bEnableBooklet = *ptr_booklet;
+
+				//if (0 == *ptr_booklet)
+				//{
+				//	inputDevmode.dmPrivate.bEnableBooklet = false;
+				//}
+				
 
 				dmsize = DocumentProperties(hWnd, phandle, szprintername, NULL, NULL, 0);
 
 				lpOutputData = (LPPCLDEVMODE)malloc(dmsize);
-				lpInputData = (LPPCLDEVMODE)malloc(dmsize);
+				lpInputData = (LPPCLDEVMODE)malloc(dmsize);				
 
 				*((LPPCLDEVMODE)printer_info->pDevMode) = inputDevmode;
 
 				lpInputData = (LPPCLDEVMODE)printer_info->pDevMode;
+
 
 				if (lpOutputData && lpInputData)
 				{
@@ -1969,6 +1981,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 						*ptr_reversePrint = devmode.dmPrivate.bPaperReverseOrder;
 						*ptr_tonerSaving = devmode.dmPrivate.graphics.TonerSaving;
 						*ptr_copies = devmode.dmPublic.dmCopies;
+						*ptr_booklet = devmode.dmPrivate.bEnableBooklet;
 
 						*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
 						getDocumentPropertiesData = devmode;

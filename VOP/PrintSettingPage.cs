@@ -251,6 +251,8 @@ namespace VOP
         public  sbyte m_colorBalanceTo = 1;
         public sbyte m_ADJColorBalance = 1;
         public sbyte m_copies = 1;
+        public sbyte m_booklet = 0;
+        public EnumMediaType m_MediaType = EnumMediaType.Plain;
         #endregion
 
         public ObservableCollection<UserDefinedSizeItem> PaperSizeItemsBase { get; set; }
@@ -259,7 +261,6 @@ namespace VOP
         public MainWindow m_MainWin { get; set; }
         public PrintPage.PrintType m_CurrentPrintType  { get; set; }
         UserDefinedSizeRegistry regHelper = new UserDefinedSizeRegistry();
-
         public PrintSettingPage()
         {
             DataContext = this;
@@ -280,11 +281,12 @@ namespace VOP
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
 
             UpdatePaperSizeComboBox(true, 0);
-
+            InitCboMediaType();
             if (FileSelectionPage.IsInitPrintSettingPage)
             {
                 SetDefaultValue();
                 dll.SetPrinterSettingsInitData((sbyte)m_CurrentPrintType);
+                dll.SavePrinterSettingsData(m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo, m_densityValue, m_duplexPrint, m_reversePrint, m_tonerSaving, m_copies, m_booklet);
                 FileSelectionPage.IsInitPrintSettingPage = false;
             }
             else
@@ -295,6 +297,8 @@ namespace VOP
 //            UpdatePaperSizeCombobox(true, 0);
 
             InitFontSize();
+            
+           
         }
 
         void InitFontSize()
@@ -364,7 +368,7 @@ namespace VOP
             {
                 new UserDefinedSizeItem(){UserDefinedName = "A4"},
                 new UserDefinedSizeItem(){UserDefinedName = "Letter"},
-                new UserDefinedSizeItem(){UserDefinedName = "B5(ISO)"},
+                new UserDefinedSizeItem(){UserDefinedName = "B5"},
                 new UserDefinedSizeItem(){UserDefinedName = "A5"},
                 new UserDefinedSizeItem(){UserDefinedName = "A5(LEF)"},
                 new UserDefinedSizeItem(){UserDefinedName = "B6"},
@@ -497,7 +501,70 @@ namespace VOP
 
         private void cboMediaType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            m_mediaType = (sbyte)cboMediaType.SelectedIndex;           
+            m_mediaType = (sbyte)cboMediaType.SelectedIndex;
+            ComboBoxItem selItem = cboMediaType.SelectedItem as ComboBoxItem;
+
+            if (null != selItem && null != selItem.DataContext)
+            {
+                m_MediaType = (EnumMediaType)selItem.DataContext;
+            }
+            if (4 == m_mediaType)
+            {
+                chk_DuplexPrint.IsEnabled = false;
+            }
+            else
+            {
+                chk_DuplexPrint.IsEnabled = true;
+            }
+           
+        }
+        private void InitCboMediaType()
+        {
+            ComboBoxItem cboItem = null;
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = (string)this.FindResource("ResStr_Plain_Paper");
+            cboItem.DataContext = EnumMediaType.Plain;
+            cboItem.MinWidth = 130;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboMediaType.Items.Add(cboItem);
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = (string)this.FindResource("ResStr_Recycled_Paper");
+            cboItem.DataContext = EnumMediaType.Recycled;
+            cboItem.MinWidth = 130;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboMediaType.Items.Add(cboItem);
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = (string)this.FindResource("ResStr_Thick_Paper");
+            cboItem.DataContext = EnumMediaType.Thin;
+            cboItem.MinWidth = 130;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboMediaType.Items.Add(cboItem);
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = (string)this.FindResource("ResStr_Thin_Paper");
+            cboItem.DataContext = EnumMediaType.Thick;
+            cboItem.MinWidth = 130;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboMediaType.Items.Add(cboItem);
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = (string)this.FindResource("ResStr_Label");
+            cboItem.DataContext = EnumMediaType.Label;
+            cboItem.MinWidth = 130;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboMediaType.Items.Add(cboItem);
+
+            foreach (ComboBoxItem obj in cboMediaType.Items)
+            {
+                if (null != obj.DataContext
+                        && (EnumMediaType)obj.DataContext == m_MediaType)
+                {
+                    obj.IsSelected = true;
+                }
+            }
         }
 
         private void cboPrintQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -529,7 +596,7 @@ namespace VOP
         private void rdBtnFlipOnShortEdger_Checked(object sender, RoutedEventArgs e)
         {
             m_duplexPrint = 3;////DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
-            m_preduplexPrint = 3;       
+            m_preduplexPrint = 3;
         }
 
         private void rdBtnFlipOnLongEdger_Checked(object sender, RoutedEventArgs e)
@@ -552,6 +619,41 @@ namespace VOP
             }
             rdBtnFlipOnLongEdge.IsEnabled = true;
             rdBtnFlipOnShortEdger.IsEnabled = true;
+
+            rdBtn1in2x2.IsEnabled = false;
+            rdBtn1in3x3.IsEnabled = false;
+            rdBtn1in4x4.IsEnabled = false;
+
+            foreach (ComboBoxItem obj in cboMediaType.Items)
+            {
+                if (null != obj.DataContext)
+                {
+                    EnumMediaType s = (EnumMediaType)obj.DataContext;
+
+                    switch (s)
+                    {
+                        case EnumMediaType.Plain:
+                            obj.IsEnabled = true;
+                            break;
+                        case EnumMediaType.Recycled:
+                            obj.IsEnabled = true;
+                            break;
+                        case EnumMediaType.Thick:
+                            obj.IsEnabled = true;
+                            break;
+                        case EnumMediaType.Thin:
+                            obj.IsEnabled = true;
+                            break;
+                        case EnumMediaType.Label:
+                            obj.IsEnabled = false;
+                            break;                        
+                        default:
+                            obj.IsEnabled = true;
+                            break;
+                    }
+
+                }
+            }
         }
 
         private void chk_DuplexPrint_Unchecked(object sender, RoutedEventArgs e)
@@ -561,6 +663,42 @@ namespace VOP
             rdBtnFlipOnLongEdge.IsEnabled = false;
             rdBtnFlipOnShortEdger.IsChecked = false;
             rdBtnFlipOnLongEdge.IsChecked = false;
+
+            rdBtn1in2x2.IsEnabled = true;
+            rdBtn1in3x3.IsEnabled = true;
+            rdBtn1in4x4.IsEnabled = true;
+
+            foreach (ComboBoxItem obj in cboMediaType.Items)
+            {
+                if (null != obj.DataContext)
+                {
+                    EnumMediaType s = (EnumMediaType)obj.DataContext;
+
+                    switch (s)
+                    {
+                        case EnumMediaType.Plain:
+                            obj.IsEnabled = true;
+                            break;
+                        case EnumMediaType.Recycled:
+                            obj.IsEnabled = true;
+                            break;
+                        case EnumMediaType.Thick:
+                            obj.IsEnabled = true;
+                            break;
+                        case EnumMediaType.Thin:
+                            obj.IsEnabled = true;
+                            break;
+                        case EnumMediaType.Label:
+                            obj.IsEnabled = true;
+                            break;
+
+                        default:
+                            obj.IsEnabled = true;
+                            break;
+                    }
+
+                }
+            }
         }
 
         private void chk_MultiplePagePrint_Checked(object sender, RoutedEventArgs e)
@@ -634,7 +772,6 @@ namespace VOP
             chk_DuplexPrint.IsEnabled = true;
             rdBtnFlipOnShortEdger.IsEnabled = true;
             rdBtnFlipOnLongEdge.IsEnabled = true;
-
         }
 
         private void rdBtn2in1_Checked(object sender, RoutedEventArgs e)
@@ -811,7 +948,7 @@ namespace VOP
 //                dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo,m_densityValue, m_duplexPrint, m_reversePrint, m_tonerSaving);
 //                GetDataFromPrinterInfo();
                  dll.InitPrinterData(m_MainWin.statusPanelPage.m_selectedPrinter);
-                 dll.OpenDocumentProperties((new WindowInteropHelper(this)).Handle, m_MainWin.statusPanelPage.m_selectedPrinter, ref m_paperSize, ref m_paperOrientation, ref m_mediaType, ref m_paperOrder, ref m_printQuality, ref m_scalingType, ref m_scalingRatio, ref m_nupNum, ref m_typeofPB, ref m_posterType, ref m_ADJColorBalance, ref  m_colorBalanceTo, ref m_densityValue, ref m_duplexPrint, ref m_reversePrint, ref m_tonerSaving, ref m_copies);
+                 dll.OpenDocumentProperties((new WindowInteropHelper(this)).Handle, m_MainWin.statusPanelPage.m_selectedPrinter, ref m_paperSize, ref m_paperOrientation, ref m_mediaType, ref m_paperOrder, ref m_printQuality, ref m_scalingType, ref m_scalingRatio, ref m_nupNum, ref m_typeofPB, ref m_posterType, ref m_ADJColorBalance, ref  m_colorBalanceTo, ref m_densityValue, ref m_duplexPrint, ref m_reversePrint, ref m_tonerSaving, ref m_copies, ref m_booklet);
                  SetDataFromPrinterInfo();  
             }
         }
@@ -831,7 +968,7 @@ namespace VOP
 
             if (printerName != null && printerName.Length > 0)
             {
-                dll.SavePrinterSettingsData(m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo, m_densityValue, m_duplexPrint, m_reversePrint, m_tonerSaving, m_copies);
+                dll.SavePrinterSettingsData(m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo, m_densityValue, m_duplexPrint, m_reversePrint, m_tonerSaving, m_copies,m_booklet);
                 dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)m_CurrentPrintType);
             }
         }
@@ -1019,7 +1156,6 @@ namespace VOP
                 chk_TonerSaving.IsEnabled = true;
                 chk_TonerSaving.IsChecked = false;
                 AdvancedSettingsButton.IsEnabled = true;
-
             }
         }
 
@@ -1409,12 +1545,29 @@ namespace VOP
             {
                 spinnerDensityAdjustment.Value = 4;
             }
+            if(m_booklet == 1)
+            {
+                chk_MultiplePagePrint.IsChecked = false;
+                chk_MultiplePagePrint.IsEnabled = false;
+                rdBtnFlipOnShortEdger.IsEnabled = false;
+                chk_DuplexPrint.IsEnabled = false;  
+            }
+            else
+            {
+                chk_MultiplePagePrint.IsEnabled = true;
+                rdBtnFlipOnShortEdger.IsEnabled = true;
+                chk_DuplexPrint.IsEnabled = true;  
+            }
         }
 
         private void GetDataFromPrinterInfo()
         {
            dll.GetPrinterSettingsData(ref m_paperSize, ref m_paperOrientation, ref m_mediaType, ref m_paperOrder, ref m_printQuality, ref m_scalingType, ref m_scalingRatio, ref m_nupNum, ref m_typeofPB, ref m_posterType, ref m_ADJColorBalance, ref  m_colorBalanceTo, ref m_densityValue, ref m_duplexPrint, ref m_reversePrint, ref m_tonerSaving,ref m_copies);
            SetDataFromPrinterInfo();
+        }
+        private void InitCboDocSize()
+        {
+
         }
 
     }

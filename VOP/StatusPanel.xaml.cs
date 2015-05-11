@@ -210,7 +210,7 @@ namespace VOP
                 if ( null != eventPrinterSwitch )
                     eventPrinterSwitch();
                 dll.RecoverDevModeData();
-
+                FileSelectionPage.IsInitPrintSettingPage = true;
                 if ( m_toner <= 30 && EnumStatus.Offline != m_currentStatus 
                         && EnumStatus.PowerOff != m_currentStatus 
                         && EnumStatus.Unknown != m_currentStatus )
@@ -219,7 +219,7 @@ namespace VOP
                         this.lbTonerBar.FlashShopCatIcon(true);
                     else
                         this.lbTonerBar.FlashShopCatIcon(false);
-                }
+                }                
             }
         }
 

@@ -27,12 +27,10 @@ namespace VOP
             PrintIdCard,
             PrintFile_Image,
             PrintFile_Txt,
-            PrintFile_Pdf,
-            PrintFile_Other
+            PrintFile_Pdf
         }
 
         public PrintType CurrentPrintType { get; set; }
-        public PrintType m_PrintType { get; set; }
         public IdCardTypeItem SelectedTypeItem { get; set; }
 
         private bool needFitToPage = true;
@@ -56,7 +54,6 @@ namespace VOP
         {
             InitializeComponent();
             CurrentPrintType = PrintType.PrintFile;
-            m_PrintType = PrintType.PrintFile_Other;
             myImagePreviewPanel.BackArrowButton.Click += new RoutedEventHandler(OnBackArrowButtonClick);
         }
         private void Window_LostFocus(object sender, RoutedEventArgs e)
@@ -150,16 +147,8 @@ namespace VOP
             printWin.Owner = App.Current.MainWindow;
             printWin.m_MainWin = m_MainWin;
             printWin.m_copies = (sbyte)spinnerControl1.Value;
-            if (m_PrintType == CurrentPrintType)
-            {
-                FileSelectionPage.IsInitPrintSettingPage = false;
-            }
-            else
-            {
-                FileSelectionPage.IsInitPrintSettingPage = true;
-            }
+            
             printWin.m_CurrentPrintType = CurrentPrintType;
-            m_PrintType = CurrentPrintType;
 
             result = printWin.ShowDialog();
             if (result == true)
@@ -178,19 +167,12 @@ namespace VOP
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
             CRM_PrintInfo crmPrintInfo = new CRM_PrintInfo();
-            if (CurrentPrintType == PrintType.PrintFile_Txt)
-            {
-                dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, 1);
-            }
-            else
-            {
-                dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
-            }
+            
             crmPrintInfo.m_strPrintCopys = String.Format("{0}", (sbyte)spinnerControl1.Value);
 
             dll.InitPrinterData(m_MainWin.statusPanelPage.m_selectedPrinter);
 
-            if (m_PrintType != CurrentPrintType && FileSelectionPage.IsInitPrintSettingPage)
+            if (FileSelectionPage.IsInitPrintSettingPage)
             {               
                 dll.SetPrinterSettingsInitData((sbyte)CurrentPrintType);
                 FileSelectionPage.IsInitPrintSettingPage = false;
@@ -200,9 +182,15 @@ namespace VOP
 //            {
 //                dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)CurrentPrintType);
 //            }           
-
-            crmPrintInfo.SetPrintDocType(m_PrintType);
-            m_PrintType = CurrentPrintType;
+            if (CurrentPrintType == PrintType.PrintFile_Txt)
+            {
+                dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, 1);
+            }
+            else
+            {
+                dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
+            }
+            crmPrintInfo.SetPrintDocType(CurrentPrintType);
             
             switch(CurrentPrintType)
             {

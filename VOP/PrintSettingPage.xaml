@@ -407,11 +407,7 @@
 				x:Name="cboMediaType" 
 				Background="White"
 				SelectionChanged="cboMediaType_SelectionChanged">
-                    <ComboBoxItem  MinWidth="130" Style="{StaticResource customComboBoxItem}"  IsSelected="true" Content="{StaticResource ResStr_Plain_Paper}" />
-                    <ComboBoxItem  MinWidth="130" Style="{StaticResource customComboBoxItem}" Content="{StaticResource ResStr_Recycled_Paper}" />
-                    <ComboBoxItem  MinWidth="130" Style="{StaticResource customComboBoxItem}" Content="{StaticResource ResStr_Thick_Paper}" />
-                    <ComboBoxItem  MinWidth="130" Style="{StaticResource customComboBoxItem}" Content="{StaticResource ResStr_Thin_Paper}" />
-                    <ComboBoxItem  MinWidth="130" Style="{StaticResource customComboBoxItem}" Content="{StaticResource ResStr_Label}" />
+                   
                 </ComboBox>
             </Controls:GroupBoxDecorator>
 
