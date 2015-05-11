@@ -1111,6 +1111,11 @@ namespace VOP
             }
             winSettingPage.m_bOnlyDispalyAboutView = false;
         }
+        
+        public void RemoveScanImage()
+        {
+             winScanPage.image_wrappanel.Children.Clear();
+        }
 
         public void ShowAboutPageOnly()
         {
@@ -1140,6 +1145,8 @@ namespace VOP
             winSettingPage.mainGrid.Background = imgBk_Brush_1;
             winSettingPage.m_bOnlyDispalyAboutView = true;
             winSettingPage.InitWindowLayout();
+
+            RemoveScanImage();
         }
 
         public enum EnumSubPage
