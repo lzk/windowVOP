@@ -11,18 +11,40 @@
         <ImageBrush x:Key="imgNotLogon" ImageSource="..\Images\NotLogin.tif" />
         <ImageBrush x:Key="imgLogon" ImageSource="..\Images\Login.tif" />
         <ImageBrush x:Key="imgLogonPressed" ImageSource="..\Images\LoginPressed.tif" />
+
+        <Style x:Key="LoginFocus">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2,11,3,-5" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+      
     </UserControl.Resources>       
     
     <Grid>
-        <Rectangle Fill="White" Opacity="0" />
+        <Button Opacity="0">
+            <Button.Template>
+                <ControlTemplate>
+                    <ControlTemplate.Triggers>
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource LoginFocus}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+                
+            </Button.Template>
+        </Button>
         <Grid>
             <Grid.RowDefinitions>               
-                <RowDefinition Height="142*" />
+                <RowDefinition Height="159*" />
                 <RowDefinition Height="15*" />
-                <RowDefinition Height="123*" />               
+                <RowDefinition Height="121*" />
             </Grid.RowDefinitions>
 
-            <Rectangle Name="rect_Image" Width="25" Height="24"  Fill="{StaticResource imgNotLogon}" VerticalAlignment="Bottom">
+            <Rectangle Name="rect_Image" Width="26" Height="24" Margin="0,0,1,0" Fill="{StaticResource imgNotLogon}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
             </Rectangle>
 
             <!--<Image Name="Image" Grid.Row="0" Width="26" Height="24" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
