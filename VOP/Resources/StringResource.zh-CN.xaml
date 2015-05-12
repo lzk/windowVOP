@@ -66,7 +66,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_A4">A4</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A5">A5</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A6">A6</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_B5_ISO_">B5</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_B5_ISO_">B5（ISO）</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_B6">B6</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Executive">Executive</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_16K">16K</sys:String>
@@ -254,18 +254,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_paper_jam_occurred_please_follow_the_instructions_">打印机卡纸，请按照提示操作！</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_">机器故障，操作无法进行。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_">软件出现问题，操作无法进行，请重新安装驱动和虚拟操作面板软件后再试。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Warning_Custom_Exceed">最多可注册20种类型的用户自定义纸张大小。如果你想注册更多的用户自定义纸张类型，首先要删除原有的类型。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Print">打印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Copy">复印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Scan">扫描</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Default">默  认</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK">确  定</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Unit">单位:</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Width_76_2_216_0">宽度（76.2-216.0）</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Height_116_0_355_0">高度（116.0-355.6）</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Save">保 存</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Delete">删 除</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Canel">取 消</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK_2">确 定</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK_3">确    定</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Warning_Custom_Exceed">最多可注册20种类型的用户自定义纸张大小。如果你想注册更多的用户自定义纸张类型，首先要删除原有的类型。</sys:String>
 </ResourceDictionary>

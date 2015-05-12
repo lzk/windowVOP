@@ -173,7 +173,7 @@ ResStr_IP_Type,IP Type,获取方式
 ResStr_DHCP,DHCP,自动获取
 ResStr_Static,Static,固定
 ResStr_IP_Address,IP Address,IP 地址
-ResStr_Gateway,Gateway,网   关
+ResStr_Gateway,Gateway,网    关
 ResStr_Submask,Submask,子网掩码
 ResStr_Apply,Apply,应  用
 ResStr_WLAN_Network,WLAN Network,WLAN网络
@@ -194,7 +194,7 @@ ResStr_No_Security,No Security,不使用
 ResStr_WEP,WEP,WEP
 ResStr_WPA2_PSK_AES,WPA2-PSK-AES,WPA2-PSK-AES
 ResStr_Mixed_Mode_PSK,Mixed Mode PSK,混合模式PSK
-ResStr_Connect,Connect,连接
+ResStr_Connect,Connect,连  接
 ResStr_Find_and_join_the_Wi_Fi,Find and join the Wi-Fi,查找并加入Wi-Fi网络
 ResStr_Enter_SSID_and_security_type_,Enter SSID and security type.,输入你想要加入的网络名称和安全性类型
 ResStr_Power_Save_Time,Power Save Time,进入休眠时间
@@ -211,7 +211,7 @@ ResStr_Fuser_Error_Remove,Fuser Error Clean,解除定影单元错误
 ResStr_New_Password,New Password,新密码
 ResStr_Confirm_Password,Confirm Password,确认密码
 ResStr_Identity_Authentication,Identity Authentication,身份认证
-ResStr_Login,Login,登录
+ResStr_Login,Login,登  录
 ResStr_Supplies_Purchasing_Channels,Supplies Purchasing Channels,耗材购买渠道
 ResStr_Printer_Upgrade_Method,Printer Upgrade Method,打印机升级方式
 ResStr_Printworks_Promotion,Printworks Promotion,打印工场推广
@@ -277,6 +277,7 @@ ResStr_Preview,Preview,预览
 ResStr_The_paper_jam_occurred_please_follow_the_instructions_,The paper jam occurred，please follow the instructions!,打印机卡纸，请按照提示操作！
 ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_,Operation can not be carried out due to machine malfunction. ,机器故障，操作无法进行。
 ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_,can not be carried out due to software has error. please try  again after reinstall the Driver and Virtual Operation Panel.,软件出现问题，操作无法进行，请重新安装驱动和虚拟操作面板软件后再试。
+ResStr_Warning_Custom_Exceed,"A maximun of 20 types of User defined paper sizes can be registered. If you would like to register more User defined paper sizes, you will need to first delete some existing ones.",最多可注册20种类型的用户自定义纸张大小。如果你想注册更多的用户自定义纸张类型，首先要删除原有的类型。
 ResStr_ExtraAdd_Print,Print,打印
 ResStr_ExtraAdd_Copy,Copy,复印
 ResStr_ExtraAdd_Scan,Scan,扫描

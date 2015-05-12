@@ -366,17 +366,17 @@ namespace VOP
         {
             PaperSizeItemsBase = new ObservableCollection<UserDefinedSizeItem>
             {
-                new UserDefinedSizeItem(){UserDefinedName = "A4"},
-                new UserDefinedSizeItem(){UserDefinedName = "Letter"},
-                new UserDefinedSizeItem(){UserDefinedName = "B5"},
-                new UserDefinedSizeItem(){UserDefinedName = "A5"},
-                new UserDefinedSizeItem(){UserDefinedName = "A5(LEF)"},
-                new UserDefinedSizeItem(){UserDefinedName = "B6"},
-                new UserDefinedSizeItem(){UserDefinedName = "B6(LEF)"},
-                new UserDefinedSizeItem(){UserDefinedName = "A6"},
-                new UserDefinedSizeItem(){UserDefinedName = "Executive"},
-                new UserDefinedSizeItem(){UserDefinedName = "16K"},
-                new UserDefinedSizeItem(){UserDefinedName = "User Defined Size"}
+                new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_A4")},
+                new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_Letter")},
+                new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_B5")},
+                new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_A5")},
+                new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_A5_LEF_")},
+                new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_B6")},
+                new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_B6_LEF_")},
+                new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_A6")},
+                new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_Executive")},
+                new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_16K")},
+                new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_User_Defined_Size")}
             };
         }
 

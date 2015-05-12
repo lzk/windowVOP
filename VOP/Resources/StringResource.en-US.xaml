@@ -66,7 +66,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_A4">A4</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A5">A5</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A6">A6</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_B5_ISO_">B5</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_B5_ISO_">B5（ISO）</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_B6">B6</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Executive">Executive</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_16K">16K</sys:String>
@@ -254,18 +254,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_paper_jam_occurred_please_follow_the_instructions_">The paper jam occurred，please follow the instructions!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_">Operation can not be carried out due to machine malfunction.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_">can not be carried out due to software has error. please try  again after reinstall the Driver and Virtual Operation Panel.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Warning_Custom_Exceed">A maximun of 20 types of User defined paper sizes can be registered. If you would like to register more User defined paper sizes, you will need to first delete some existing ones.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Print">Print</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Copy">Copy</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Scan">Scan</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Default">Default</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK">OK</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Unit">Unit:</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Width_76_2_216_0">Width（76.2-216.0）</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Height_116_0_355_0">Length（116.0-355.6）</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Save">Save</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Delete">Delete</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Canel">Cancel</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK_2">OK</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_OK_3">OK</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Warning_Custom_Exceed">A maximun of 20 types of User defined paper sizes can be registered. If you would like to register more User defined paper sizes, you will need to first delete some existing ones.</sys:String>
 </ResourceDictionary>
