@@ -82,6 +82,17 @@ namespace VOP
 
                 CenterImage();
             }
+            else
+            {
+                VOP.Controls.MessageBoxEx.Show(
+                        VOP.Controls.MessageBoxExStyle.Simple,
+                        this,
+                        (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
+                        (string)this.FindResource( "ResStr_Error" )
+                        );
+
+                ClosePreviewWin();
+            }
         }
 
         private void CenterImage()
@@ -126,15 +137,26 @@ namespace VOP
 
                 if ( 0 != m_rotatedAngle )
                 {
-                    CachedBitmap cache = new CachedBitmap(m_src, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                    previewImg.Source = BitmapFrame.Create(new TransformedBitmap(cache, new RotateTransform(m_rotatedAngle)));
+                    try
+                    {
+                        CachedBitmap cache = new CachedBitmap(m_src, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                        previewImg.Source = BitmapFrame.Create(new TransformedBitmap(cache, new RotateTransform(m_rotatedAngle)));
+                        GC.Collect();
+                    }
+                    catch
+                    {
+                        VOP.Controls.MessageBoxEx.Show(
+                                VOP.Controls.MessageBoxExStyle.Simple,
+                                this,
+                                (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
+                                (string)this.FindResource( "ResStr_Error" )
+                                );
+                    }
                 }
                 else
                 {
                     previewImg.Source = m_src;
                 }
-
-                GC.Collect();
             }
             else if (name == "btn_normal")
             {
@@ -184,6 +206,7 @@ namespace VOP
         /// <summary>
         /// Rotate objSrc to objDst with angle nAngle.
         /// </summary>
+        /// <returns> Success return true, otherwise return false. </returns>
         private bool RotateScannedFiles( ScanFiles objSrc, ScanFiles objDst, int nAngle )
         {
             bool bSuccess = true;
@@ -197,8 +220,11 @@ namespace VOP
                 string currentPath = System.AppDomain.CurrentDomain.BaseDirectory;
                 string vopHelperExe = currentPath + "VopHelper.exe";
 
-                // TODO: Get the ExitCode of VopHelper. 0 success,
-                // otherwise fail.
+                // Get the ExitCode of VopHelper. 0 success, otherwise fail.
+                int nExitCode1 = 0;
+                int nExitCode2 = 0;
+                int nExitCode3 = 0;
+
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 startInfo.FileName = vopHelperExe;
@@ -207,14 +233,21 @@ namespace VOP
                 startInfo.Arguments = args1;
                 exeProcess = Process.Start(startInfo);
                 exeProcess.WaitForExit();
+                nExitCode1 = exeProcess.ExitCode;
 
                 startInfo.Arguments = args2;
                 exeProcess = Process.Start(startInfo);
                 exeProcess.WaitForExit();
+                nExitCode2 = exeProcess.ExitCode;
 
                 startInfo.Arguments = args3;
                 exeProcess = Process.Start(startInfo);
                 exeProcess.WaitForExit();
+                nExitCode3 = exeProcess.ExitCode;
+
+                bSuccess = ( 0 == nExitCode1 
+                        && 0 == nExitCode2 
+                        && 0 == nExitCode3);
             }
             catch
             {
@@ -245,7 +278,15 @@ namespace VOP
                     m_rotatedObj.m_pathThumb = m_images.m_pathThumb.Insert( m_images.m_pathThumb.Length-4 , m_rotatedAngle.ToString() );
 
                     AsyncWorker worker = new AsyncWorker( this );
-                    worker.InvokeRotateScannedFiles( RotateScannedFiles, m_images, m_rotatedObj, m_rotatedAngle );
+                    if ( false == worker.InvokeRotateScannedFiles( RotateScannedFiles, m_images, m_rotatedObj, m_rotatedAngle ) )
+                    {
+                        VOP.Controls.MessageBoxEx.Show(
+                                VOP.Controls.MessageBoxExStyle.Simple,
+                                this,
+                                (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
+                                (string)this.FindResource( "ResStr_Error" )
+                                );
+                    }
                 }
                 else
                 {
