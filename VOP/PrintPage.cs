@@ -229,22 +229,22 @@ namespace VOP
                             }
 
                         }
-                        else if (fileExt == ".ppt"
-                              || fileExt == ".pptx")
-                        {
-                            PPTHelper helper = new PPTHelper(FilePaths[0]);
+                        //else if (fileExt == ".ppt"
+                        //      || fileExt == ".pptx")
+                        //{
+                        //    PPTHelper helper = new PPTHelper(FilePaths[0]);
 
-                            if (helper.Open())
-                            {
-                                helper.PrintAll(m_MainWin.statusPanelPage.m_selectedPrinter,
-                                                (int)spinnerControl1.Value);
-                                helper.Close();
-                            }
-                            else
-                            {
-                                printRes = PrintError.Print_File_Not_Support;
-                            }
-                        }
+                        //    if (helper.Open())
+                        //    {
+                        //        helper.PrintAll(m_MainWin.statusPanelPage.m_selectedPrinter,
+                        //                        (int)spinnerControl1.Value);
+                        //        helper.Close();
+                        //    }
+                        //    else
+                        //    {
+                        //        printRes = PrintError.Print_File_Not_Support;
+                        //    }
+                        //}
                         else if (fileExt == ".pdf")
                         {
                             dll.VopSetDefaultPrinter(m_MainWin.statusPanelPage.m_selectedPrinter);

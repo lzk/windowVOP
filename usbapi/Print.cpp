@@ -507,14 +507,16 @@ USBAPI_API int __stdcall DoPrintImage()
 						}
 						else
 						{
-							if (w < cxPage && h < cyPage)
+							IsFitted = TRUE;
+
+						/*	if (w < cxPage && h < cyPage)
 							{
 								IsFitted = TRUE;
 							}
 							else
 							{
 								IsFitted = FALSE;
-							}
+							}*/
 						}
 						
 						if (IsFitted == TRUE)
