@@ -154,8 +154,7 @@ namespace VOP
             result = printWin.ShowDialog();
             if (result == true)
             {
-                //Fit to page always
-               // needFitToPage = (bool)printWin.chk_FitToPaperSize.IsChecked; 
+                needFitToPage = (bool)printWin.chk_FitToPaperSize.IsChecked; 
                 spinnerControl1.Value = printWin.m_copies;
             }
         }
@@ -229,6 +228,22 @@ namespace VOP
                                 printRes = PrintError.Print_File_Not_Support;
                             }
 
+                        }
+                        else if (fileExt == ".ppt"
+                              || fileExt == ".pptx")
+                        {
+                            PPTHelper helper = new PPTHelper(FilePaths[0]);
+
+                            if (helper.Open())
+                            {
+                                helper.PrintAll(m_MainWin.statusPanelPage.m_selectedPrinter,
+                                                (int)spinnerControl1.Value);
+                                helper.Close();
+                            }
+                            else
+                            {
+                                printRes = PrintError.Print_File_Not_Support;
+                            }
                         }
                         else if (fileExt == ".pdf")
                         {
@@ -518,6 +533,53 @@ namespace VOP
         public void PrintAll(string printerName, int copies)
         {
             wb.PrintOut(misValue, misValue, copies, misValue, printerName, misValue, misValue, misValue);
+        }
+    }
+
+    public class PPTHelper
+    {
+        private string filePath;
+        private Microsoft.Office.Interop.PowerPoint.Application app = new Microsoft.Office.Interop.PowerPoint.Application();
+        private Microsoft.Office.Interop.PowerPoint.Presentation ppt;
+
+        public PPTHelper(string s)
+        {
+            filePath = s;
+        }
+
+        public bool Open()
+        {
+            try
+            {
+                ppt = app.Presentations.Open(filePath, Microsoft.Office.Core.MsoTriState.msoTrue,
+                                             Microsoft.Office.Core.MsoTriState.msoFalse,
+                                             Microsoft.Office.Core.MsoTriState.msoFalse);
+                if (ppt == null)
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public void Close()
+        {
+            ppt.Close();
+            app.Quit();
+            Marshal.FinalReleaseComObject(ppt);
+            Marshal.FinalReleaseComObject(app);
+            ppt = null;
+            app = null;
+        }
+
+        public void PrintAll(string printerName, int copies)
+        {
+            ppt.PrintOptions.ActivePrinter = printerName;
+            ppt.PrintOptions.NumberOfCopies = copies;
+            ppt.PrintOut();
         }
     }
 }
