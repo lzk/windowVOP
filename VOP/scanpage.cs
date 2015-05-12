@@ -515,56 +515,55 @@ namespace VOP
                 }
 
                 // This index is 1-based, not 0-based
-                if (3 == save.FilterIndex)
+                try
                 {
-                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-
-                    foreach (object obj in image_wrappanel.Children)
+                    if (3 == save.FilterIndex)
                     {
-                        ImageItem img = obj as ImageItem;
+                        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
 
-                        if ( null != img && true == img.m_ischeck )
+                        foreach (object obj in image_wrappanel.Children)
                         {
-                            Uri myUri = new Uri(img.m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
-                            BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
-                            BitmapSource origSource = decoder.Frames[0];
+                            ImageItem img = obj as ImageItem;
 
-                            if (null != origSource)
-                                encoder.Frames.Add(BitmapFrame.Create(origSource));
-                        }
-                    }  
+                            if ( null != img && true == img.m_ischeck )
+                            {
+                                Uri myUri = new Uri(img.m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
+                                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
+                                BitmapSource origSource = decoder.Frames[0];
 
-                    FileStream fs = File.Open(save.FileName, FileMode.Create);
-                    encoder.Save(fs);
-                    fs.Close();
-                }
-                else if (1 == save.FilterIndex)
-                {
-                    TiffBitmapEncoder encoder = new TiffBitmapEncoder();
+                                if (null != origSource)
+                                    encoder.Frames.Add(BitmapFrame.Create(origSource));
+                            }
+                        }  
 
-                    foreach (object obj in image_wrappanel.Children)
+                        FileStream fs = File.Open(save.FileName, FileMode.Create);
+                        encoder.Save(fs);
+                        fs.Close();
+                    }
+                    else if (1 == save.FilterIndex)
                     {
-                        ImageItem img = obj as ImageItem;
+                        TiffBitmapEncoder encoder = new TiffBitmapEncoder();
 
-                        if (null != img && true == img.m_ischeck)
+                        foreach (object obj in image_wrappanel.Children)
                         {
-                            Uri myUri = new Uri(img.m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
-                            BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
-                            BitmapSource origSource = decoder.Frames[0];
+                            ImageItem img = obj as ImageItem;
 
-                            if ( null != origSource )
-                                encoder.Frames.Add(BitmapFrame.Create(origSource));
-                        }
-                    }  
+                            if (null != img && true == img.m_ischeck)
+                            {
+                                Uri myUri = new Uri(img.m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
+                                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
+                                BitmapSource origSource = decoder.Frames[0];
 
-                    FileStream fs = File.Open(save.FileName, FileMode.Create);
-                    encoder.Save(fs);
-                    fs.Close();
-                }
-                else if (2 == save.FilterIndex)
-                {
+                                if ( null != origSource )
+                                    encoder.Frames.Add(BitmapFrame.Create(origSource));
+                            }
+                        }  
 
-                    try
+                        FileStream fs = File.Open(save.FileName, FileMode.Create);
+                        encoder.Save(fs);
+                        fs.Close();
+                    }
+                    else if (2 == save.FilterIndex)
                     {
                         using (PdfHelper help = new PdfHelper())
                         {
@@ -587,14 +586,17 @@ namespace VOP
 
                             help.Close();
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message,
-                                (string)this.FindResource("ResStr_Error"),
-                                System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
-                    }
 
+                    }
+                }
+                catch
+                {
+                    VOP.Controls.MessageBoxEx.Show(
+                            VOP.Controls.MessageBoxExStyle.Simple,
+                            m_MainWin,
+                            (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
+                            (string)this.FindResource( "ResStr_Error" )
+                            );
                 }
             }
             
