@@ -50,7 +50,7 @@ namespace VOP
             OpenFileDialog open = null;
             bool? result = null;
             open = new OpenFileDialog();
-            open.Filter = "JPEG|*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif|All Images|*.jpg;*.bmp;*.png;*.tif";
+            open.Filter = "All Images|*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
             open.Multiselect = true;
             IsInitPrintSettingPage = true;
 

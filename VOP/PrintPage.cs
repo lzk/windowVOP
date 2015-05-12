@@ -475,6 +475,13 @@ namespace VOP
 
             Process p = Process.Start(info);
 
+            //if (p != null)
+            //{
+            //    p.WaitForInputIdle();
+            //    p.CloseMainWindow();
+            //    p.Kill();
+            //}
+
             int counter = 0;
             while (!p.HasExited)
             {
@@ -539,7 +546,7 @@ namespace VOP
     public class PPTHelper
     {
         private string filePath;
-        private Microsoft.Office.Interop.PowerPoint.Application app = new Microsoft.Office.Interop.PowerPoint.Application();
+        private Microsoft.Office.Interop.PowerPoint.Application app;
         private Microsoft.Office.Interop.PowerPoint.Presentation ppt;
 
         public PPTHelper(string s)
@@ -551,6 +558,17 @@ namespace VOP
         {
             try
             {
+              //  Object oject = Marshal.GetActiveObject("Powerpoint.Application");
+
+              //  if(oject == null)
+                {
+                    app = new Microsoft.Office.Interop.PowerPoint.Application();
+                }
+             //   else
+                {
+             //       app = (Microsoft.Office.Interop.PowerPoint.Application)oject;
+                }
+              
                 ppt = app.Presentations.Open(filePath, Microsoft.Office.Core.MsoTriState.msoTrue,
                                              Microsoft.Office.Core.MsoTriState.msoFalse,
                                              Microsoft.Office.Core.MsoTriState.msoFalse);
