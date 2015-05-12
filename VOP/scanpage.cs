@@ -548,7 +548,9 @@ namespace VOP
 
                         if (null != img && true == img.m_ischeck)
                         {
-                            BitmapSource origSource = common.GetOrigBitmapSource( img.m_images );
+                            Uri myUri = new Uri(img.m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
+                            BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
+                            BitmapSource origSource = decoder.Frames[0];
 
                             if ( null != origSource )
                                 encoder.Frames.Add(BitmapFrame.Create(origSource));

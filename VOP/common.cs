@@ -88,23 +88,6 @@ namespace VOP
             new PrinterInfo("Lenovo LJ2208W" , true  , true)  ,
         };
 
-        public static BitmapSource GetOrigBitmapSource( ScanFiles obj  )
-        {
-            BitmapSource origSource = null;
-            try
-            {
-                Uri myUri = new Uri(obj.m_pathOrig, UriKind.RelativeOrAbsolute);
-                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad );
-                origSource = decoder.Frames[0];
-            }
-            catch
-            {
-                origSource = null;
-            }
-
-            return origSource;
-        }
-
         public static void SelectItemByContext( ComboBox cbo, byte context )
         {
             if ( null != cbo )
