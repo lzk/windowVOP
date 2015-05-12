@@ -2699,7 +2699,7 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                 int cbStridePadOrig   = 0;    // Bytes per line after padding of orig image.
                 BYTE* strideOrig      = NULL; // Buffer pointer of single line.
                 long lWroteOrig       = 0;
-                int nRowsCnt          = 0;
+                int nRowsCnt          = 0;    // Mount of row has read from scanner.
 
                 // calculate pixel number
                 nLinePixelNumOrig  = width*resolution/1000;
@@ -2737,24 +2737,20 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                     int nMod = nColPixelNumOrig/100;
                     int nPercent = 0;
                     bCancelScanning = false;
-                    bool bReadDataFailFlag = false;
 
 					while ( true )
                     {
-                        bReadDataFailFlag = ( obj.ReadData(strideOrig, cbStridePadOrig, &ulBytesRead, &lPercentComplete) != DEVMON_STATUS_OK );
-
-                        if ( bReadDataFailFlag )
-                            break;
-
-                        if ( 0 == ++nRowsCnt%nMod )
-                        {
-                            nPercent++;
-                            nPercent = nPercent > 100 ? 100 : nPercent;
-                            ::SendNotifyMessage( HWND_BROADCAST, uMsg, nPercent, 0); 
-                        }
-
                         if ( true == bCancelScanning )
                             break;
+
+                        if ( obj.ReadData(strideOrig, cbStridePadOrig, &ulBytesRead, &lPercentComplete) != DEVMON_STATUS_OK )
+                            break;
+
+                        if ( ++nRowsCnt > nColPixelNumOrig )
+                            break;
+
+                        if ( 0 == nRowsCnt%nMod )
+                            ::SendNotifyMessage( HWND_BROADCAST, uMsg, ++nPercent, 0); 
 
                         lWroteOrig += cbStridePadOrig;
                         SetFilePointer( hFileOrig, 0-lWroteOrig, NULL, FILE_END );
@@ -2786,7 +2782,7 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                             }
                         }
 
-                        if ( false == bReadDataFailFlag )
+                        if ( nRowsCnt == nColPixelNumOrig )
                             ::SendNotifyMessage( HWND_BROADCAST, uMsg, 100, 0); 
                         else
                             nResult = RETSCAN_ERROR;
