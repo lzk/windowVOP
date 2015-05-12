@@ -91,6 +91,7 @@ USBAPI_API void __stdcall SavePrinterSettingsData(const TCHAR * strPrinterName,
 	UINT8 ColorBalanceTo,
 	UINT8 Density,
 	UINT8 DuplexPrint,
+	UINT8 DocumentStyle,
 	UINT8 ReversePrint,//byte
 	UINT8 TonerSaving,
 	UINT8 Copies,
@@ -112,6 +113,7 @@ USBAPI_API void __stdcall GetPrinterSettingsData(
 	BYTE* ptr_colorBalanceTo,
 	BYTE* ptr_density,
 	BYTE* ptr_duplexPrint,
+	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
 	BYTE* ptr_copies);//byte
@@ -131,6 +133,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 	BYTE* ptr_colorBalanceTo,
 	BYTE* ptr_density,
 	BYTE* ptr_duplexPrint,
+	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
 	BYTE* ptr_copies);//byte
@@ -150,6 +153,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 	BYTE* ptr_colorBalanceTo,
 	BYTE* ptr_density,
 	BYTE* ptr_duplexPrint,
+	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
 	BYTE* ptr_copies,
@@ -1186,6 +1190,7 @@ USBAPI_API void __stdcall SavePrinterSettingsData(
 	UINT8 ColorBalanceTo,
 	UINT8 Density,
 	UINT8 DuplexPrint,
+	UINT8 DocumentStyle,
 	UINT8 ReversePrint,//byte
 	UINT8 TonerSaving,
 	UINT8 Copies,
@@ -1205,6 +1210,7 @@ USBAPI_API void __stdcall SavePrinterSettingsData(
 	g_PirntSettingsData.m_colorBalanceTo = ColorBalanceTo;
 	g_PirntSettingsData.m_densityValue = Density;
 	g_PirntSettingsData.m_duplexPrint = DuplexPrint;
+	g_PirntSettingsData.m_documentStyle = DocumentStyle;
 	g_PirntSettingsData.m_reversePrint = ReversePrint;
 	g_PirntSettingsData.m_tonerSaving = TonerSaving;
 	g_PirntSettingsData.m_copies = Copies;
@@ -1231,6 +1237,7 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_colorBalanceTo = 1;
 		g_PirntSettingsData.m_densityValue = 0;
 		g_PirntSettingsData.m_duplexPrint = 1;
+		g_PirntSettingsData.m_documentStyle = 0;
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		g_PirntSettingsData.m_copies = 1;
@@ -1249,6 +1256,7 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_colorBalanceTo = 1;
 		g_PirntSettingsData.m_densityValue = 0;
 		g_PirntSettingsData.m_duplexPrint = 1;
+		g_PirntSettingsData.m_documentStyle = 0;
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		g_PirntSettingsData.m_copies = 1;
@@ -1267,6 +1275,7 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_colorBalanceTo = 1;
 		g_PirntSettingsData.m_densityValue = 0;
 		g_PirntSettingsData.m_duplexPrint = 1;
+		g_PirntSettingsData.m_documentStyle = 0;
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		g_PirntSettingsData.m_copies = 1;
@@ -1285,6 +1294,7 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_colorBalanceTo = 1;
 		g_PirntSettingsData.m_densityValue = 0;
 		g_PirntSettingsData.m_duplexPrint = 1;
+		g_PirntSettingsData.m_documentStyle = 0;
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		g_PirntSettingsData.m_copies = 1;
@@ -1303,6 +1313,7 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_colorBalanceTo = 1;
 		g_PirntSettingsData.m_densityValue = 0;
 		g_PirntSettingsData.m_duplexPrint = 1;
+		g_PirntSettingsData.m_documentStyle = 0;
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		g_PirntSettingsData.m_copies = 1;
@@ -1321,6 +1332,7 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_colorBalanceTo = 1;
 		g_PirntSettingsData.m_densityValue = 0;
 		g_PirntSettingsData.m_duplexPrint = 1;
+		g_PirntSettingsData.m_documentStyle = 0;
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		g_PirntSettingsData.m_copies = 1;
@@ -1339,6 +1351,7 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_colorBalanceTo = 1;
 		g_PirntSettingsData.m_densityValue = 0;
 		g_PirntSettingsData.m_duplexPrint = 1;
+		g_PirntSettingsData.m_documentStyle = 0;
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		g_PirntSettingsData.m_copies = 1;
@@ -1454,6 +1467,7 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 				devmode.dmPrivate.graphics.ColorBalanceIndex[0][0] = static_cast<BYTE>(g_PirntSettingsData.m_densityValue);
 
 				devmode.dmPublic.dmDuplex = g_PirntSettingsData.m_duplexPrint; //DUPLEX£¬ DMDUP_VERTICAL: ³¤±ß DMDUP_HORIZONTAL£¬¶Ì±ß
+				devmode.dmPrivate.bDocumentStyle = g_PirntSettingsData.m_documentStyle;
 
 				devmode.dmPrivate.bPaperReverseOrder = static_cast<BYTE>(g_PirntSettingsData.m_reversePrint);
 				devmode.dmPrivate.graphics.TonerSaving = static_cast<BYTE>(g_PirntSettingsData.m_tonerSaving);
@@ -1652,6 +1666,7 @@ USBAPI_API void __stdcall GetPrinterSettingsData(
 	BYTE* ptr_colorBalanceTo,
 	BYTE* ptr_density,
 	BYTE* ptr_duplexPrint,
+	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
 	BYTE* ptr_copies)//byte
@@ -1670,6 +1685,7 @@ USBAPI_API void __stdcall GetPrinterSettingsData(
 	*ptr_colorBalanceTo = static_cast<BYTE>(g_PirntSettingsData.m_colorBalanceTo);
 	*ptr_density = static_cast<BYTE>(g_PirntSettingsData.m_densityValue);
 	*ptr_duplexPrint = static_cast<BYTE>(g_PirntSettingsData.m_duplexPrint);
+	*ptr_documentStyle = static_cast<BYTE>(g_PirntSettingsData.m_documentStyle);
 	*ptr_reversePrint = static_cast<BYTE>(g_PirntSettingsData.m_reversePrint);
 	*ptr_tonerSaving = static_cast<BYTE>(g_PirntSettingsData.m_tonerSaving);
 	*ptr_copies = static_cast<BYTE>(g_PirntSettingsData.m_copies);
@@ -1691,6 +1707,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 	BYTE* ptr_colorBalanceTo,
 	BYTE* ptr_density,
 	BYTE* ptr_duplexPrint,
+	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
 	BYTE* ptr_copies)//byte
@@ -1774,6 +1791,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 				*ptr_colorBalanceTo = devmode.dmPrivate.graphics.bColorBalanceTo;
 				*ptr_density = devmode.dmPrivate.graphics.ColorBalanceIndex[0][0];
 				*ptr_duplexPrint = static_cast<BYTE>(devmode.dmPublic.dmDuplex);
+				*ptr_documentStyle = devmode.dmPrivate.bDocumentStyle;
 				*ptr_reversePrint = devmode.dmPrivate.bPaperReverseOrder;
 				*ptr_tonerSaving = devmode.dmPrivate.graphics.TonerSaving;
 				*ptr_copies = devmode.dmPublic.dmCopies;
@@ -1810,6 +1828,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 	BYTE* ptr_colorBalanceTo,
 	BYTE* ptr_density,
 	BYTE* ptr_duplexPrint,
+	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
 	BYTE* ptr_copies,
@@ -1906,6 +1925,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 				inputDevmode.dmPrivate.graphics.ColorBalanceIndex[0][0] = *ptr_density;
 
 				inputDevmode.dmPublic.dmDuplex = *ptr_duplexPrint; //DUPLEX£¬ DMDUP_VERTICAL: ³¤±ß DMDUP_HORIZONTAL£¬¶Ì±ß
+				inputDevmode.dmPrivate.bDocumentStyle = *ptr_documentStyle;
 
 				inputDevmode.dmPrivate.bPaperReverseOrder = *ptr_reversePrint;
 				inputDevmode.dmPrivate.graphics.TonerSaving = *ptr_tonerSaving;		
@@ -1991,6 +2011,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 						*ptr_colorBalanceTo = devmode.dmPrivate.graphics.bColorBalanceTo;
 						*ptr_density = devmode.dmPrivate.graphics.ColorBalanceIndex[0][0];
 						*ptr_duplexPrint = static_cast<BYTE>(devmode.dmPublic.dmDuplex);
+						*ptr_documentStyle = devmode.dmPrivate.bDocumentStyle;
 						*ptr_reversePrint = devmode.dmPrivate.bPaperReverseOrder;
 						*ptr_tonerSaving = devmode.dmPrivate.graphics.TonerSaving;
 						*ptr_copies = devmode.dmPublic.dmCopies;

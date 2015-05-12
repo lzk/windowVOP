@@ -234,6 +234,7 @@ namespace VOP
         public sbyte m_paperOrder = 0;//DMCOLLATE_FALSE = 0, DMCOLLATE_TRUE = 1,
         public sbyte m_reversePrint = 1;//NORMAL_PRINT = 0,  REVERSE_PRINT = 1,
         public sbyte m_duplexPrint = 1;//DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
+        public sbyte m_documentStyle = 0;//0:DMDUP_SIMPLEX,1:DMDUP_VERTICAL,2:DMDUP_HORIZONTAL
         public sbyte m_scalingType = 0;//0:ISF_DISABLE,1:ISF_SCALING,2:ISF_FITTOPAPER
         public sbyte m_paperSize = 0;
         public sbyte m_mediaType = 0;
@@ -286,7 +287,7 @@ namespace VOP
             {
                 SetDefaultValue();
                 dll.SetPrinterSettingsInitData((sbyte)m_CurrentPrintType);
-                dll.SavePrinterSettingsData(m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo, m_densityValue, m_duplexPrint, m_reversePrint, m_tonerSaving, m_copies, m_booklet);
+                dll.SavePrinterSettingsData(m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo, m_densityValue, m_duplexPrint,m_documentStyle, m_reversePrint, m_tonerSaving, m_copies, m_booklet);
                 FileSelectionPage.IsInitPrintSettingPage = false;
             }
             else
@@ -503,20 +504,21 @@ namespace VOP
         {
             m_mediaType = (sbyte)cboMediaType.SelectedIndex;
             ComboBoxItem selItem = cboMediaType.SelectedItem as ComboBoxItem;
-
-            if (null != selItem && null != selItem.DataContext)
+            if (m_CurrentPrintType != PrintPage.PrintType.PrintIdCard)
             {
-                m_MediaType = (EnumMediaType)selItem.DataContext;
-            }
-            if (4 == m_mediaType)
-            {
-                chk_DuplexPrint.IsEnabled = false;
-            }
-            else
-            {
-                chk_DuplexPrint.IsEnabled = true;
-            }
-           
+                if (null != selItem && null != selItem.DataContext)
+                {
+                    m_MediaType = (EnumMediaType)selItem.DataContext;
+                }
+                if (4 == m_mediaType)
+                {
+                    chk_DuplexPrint.IsEnabled = false;
+                }
+                else
+                {
+                    chk_DuplexPrint.IsEnabled = true;
+                }
+            }          
         }
         private void InitCboMediaType()
         {
@@ -597,12 +599,14 @@ namespace VOP
         {
             m_duplexPrint = 3;////DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
             m_preduplexPrint = 3;
+            m_documentStyle = 2;
         }
 
         private void rdBtnFlipOnLongEdger_Checked(object sender, RoutedEventArgs e)
         {
             m_preduplexPrint = 2;
             m_duplexPrint = 2;//DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
+            m_documentStyle = 1;
         }
 
         private void chk_DuplexPrint_Checked(object sender, RoutedEventArgs e)
@@ -611,18 +615,24 @@ namespace VOP
             {
                 rdBtnFlipOnShortEdger.IsChecked = true;
                 m_duplexPrint = 3;//DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
+                m_documentStyle = 2;
             }
             else
             {
                 rdBtnFlipOnLongEdge.IsChecked = true;
                 m_duplexPrint = 2;//DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
+                m_documentStyle = 1;
             }
             rdBtnFlipOnLongEdge.IsEnabled = true;
             rdBtnFlipOnShortEdger.IsEnabled = true;
 
             rdBtn1in2x2.IsEnabled = false;
+            rdBtn1in2x2.IsChecked = false;
             rdBtn1in3x3.IsEnabled = false;
+            rdBtn1in3x3.IsChecked = false;
             rdBtn1in4x4.IsEnabled = false;
+            rdBtn1in4x4.IsChecked = false;
+            m_preNin1 = 0;
 
             foreach (ComboBoxItem obj in cboMediaType.Items)
             {
@@ -659,6 +669,7 @@ namespace VOP
         private void chk_DuplexPrint_Unchecked(object sender, RoutedEventArgs e)
         {
             m_duplexPrint = 1;//DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
+            m_documentStyle = 0;
             rdBtnFlipOnShortEdger.IsEnabled = false;
             rdBtnFlipOnLongEdge.IsEnabled = false;
             rdBtnFlipOnShortEdger.IsChecked = false;
@@ -945,10 +956,10 @@ namespace VOP
 
             if (printerName != null && printerName.Length > 0)
             {
-//                dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo,m_densityValue, m_duplexPrint, m_reversePrint, m_tonerSaving);
+                //                dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo,m_densityValue, m_duplexPrint,m_documentStyle, m_reversePrint, m_tonerSaving);
 //                GetDataFromPrinterInfo();
                  dll.InitPrinterData(m_MainWin.statusPanelPage.m_selectedPrinter);
-                 dll.OpenDocumentProperties((new WindowInteropHelper(this)).Handle, m_MainWin.statusPanelPage.m_selectedPrinter, ref m_paperSize, ref m_paperOrientation, ref m_mediaType, ref m_paperOrder, ref m_printQuality, ref m_scalingType, ref m_scalingRatio, ref m_nupNum, ref m_typeofPB, ref m_posterType, ref m_ADJColorBalance, ref  m_colorBalanceTo, ref m_densityValue, ref m_duplexPrint, ref m_reversePrint, ref m_tonerSaving, ref m_copies, ref m_booklet);
+                 dll.OpenDocumentProperties((new WindowInteropHelper(this)).Handle, m_MainWin.statusPanelPage.m_selectedPrinter, ref m_paperSize, ref m_paperOrientation, ref m_mediaType, ref m_paperOrder, ref m_printQuality, ref m_scalingType, ref m_scalingRatio, ref m_nupNum, ref m_typeofPB, ref m_posterType, ref m_ADJColorBalance, ref  m_colorBalanceTo, ref m_densityValue, ref m_duplexPrint, ref m_documentStyle, ref m_reversePrint, ref m_tonerSaving, ref m_copies, ref m_booklet);
                  SetDataFromPrinterInfo();  
             }
         }
@@ -968,7 +979,7 @@ namespace VOP
 
             if (printerName != null && printerName.Length > 0)
             {
-                dll.SavePrinterSettingsData(m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo, m_densityValue, m_duplexPrint, m_reversePrint, m_tonerSaving, m_copies,m_booklet);
+                dll.SavePrinterSettingsData(m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo, m_densityValue, m_duplexPrint, m_documentStyle, m_reversePrint, m_tonerSaving, m_copies, m_booklet);
                 dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)m_CurrentPrintType);
             }
         }
@@ -986,9 +997,6 @@ namespace VOP
                 rdBtnPagerOrder123123.IsEnabled = false;
                 rdBtnPagerOrder123123.IsChecked = true;
                 cboPrintQuality.IsEnabled = true;
-                spinnerScaling.IsEnabled = true;
-                chk_FitToPaperSize.IsEnabled = false;
-                chk_FitToPaperSize.IsChecked = false;
                 chk_MultiplePagePrint.IsEnabled = true;
                 chk_MultiplePagePrint.IsChecked = false;
                 rdBtn2in1.IsEnabled = false;
@@ -1003,13 +1011,15 @@ namespace VOP
                 chk_DuplexPrint.IsChecked = false;
                 rdBtnFlipOnShortEdger.IsEnabled = false;
                 rdBtnFlipOnLongEdge.IsEnabled = false;
+                spinnerScaling.IsEnabled = true;
+                chk_FitToPaperSize.IsEnabled = false;
+                chk_FitToPaperSize.IsChecked = false;
                 rdBtnNormalPrint.IsEnabled = true;
                 rdBtnReversePrint.IsEnabled = true;
                 rdBtnReversePrint.IsChecked = true;
                 chk_TonerSaving.IsEnabled = true;
                 chk_TonerSaving.IsChecked = false;
-                AdvancedSettingsButton.IsEnabled = true;
-                
+                AdvancedSettingsButton.IsEnabled = true;                
             }
             else if (m_CurrentPrintType == PrintPage.PrintType.PrintIdCard)
             {
@@ -1024,8 +1034,6 @@ namespace VOP
                 rdBtnPagerOrder123123.IsEnabled = false;
                 rdBtnPagerOrder123123.IsChecked = true;
                 cboPrintQuality.IsEnabled = true;
-                spinnerScaling.IsEnabled = false;
-                chk_FitToPaperSize.IsEnabled = false;
                 chk_MultiplePagePrint.IsEnabled = false;
                 chk_MultiplePagePrint.IsChecked = false;
                 rdBtn2in1.IsEnabled = false;
@@ -1040,6 +1048,8 @@ namespace VOP
                 chk_DuplexPrint.IsChecked = false;
                 rdBtnFlipOnShortEdger.IsEnabled = false;
                 rdBtnFlipOnLongEdge.IsEnabled = false;
+                spinnerScaling.IsEnabled = false;
+                chk_FitToPaperSize.IsEnabled = false;
                 rdBtnNormalPrint.IsEnabled = false;
                 rdBtnNormalPrint.IsChecked = false;
                 rdBtnReversePrint.IsEnabled = false;
@@ -1047,8 +1057,6 @@ namespace VOP
                 chk_TonerSaving.IsEnabled = true;
                 chk_TonerSaving.IsChecked = false;
                 AdvancedSettingsButton.IsEnabled = false;
-                
-
             }
             else if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
             {
@@ -1060,9 +1068,6 @@ namespace VOP
                 rdBtnPagerOrder123123.IsEnabled = true;
                 rdBtnPagerOrder123123.IsChecked = true;
                 cboPrintQuality.IsEnabled = true;
-                spinnerScaling.IsEnabled = false;
-                chk_FitToPaperSize.IsEnabled = true;
-                chk_FitToPaperSize.IsChecked = true;
                 chk_MultiplePagePrint.IsEnabled = true;
                 chk_MultiplePagePrint.IsChecked = false;
                 rdBtn2in1.IsEnabled = false;
@@ -1077,12 +1082,15 @@ namespace VOP
                 chk_DuplexPrint.IsChecked = false;
                 rdBtnFlipOnShortEdger.IsEnabled = false;
                 rdBtnFlipOnLongEdge.IsEnabled = false;
+                spinnerScaling.IsEnabled = false;
+                chk_FitToPaperSize.IsEnabled = true;
+                chk_FitToPaperSize.IsChecked = true;
                 rdBtnNormalPrint.IsEnabled = true;
                 rdBtnReversePrint.IsEnabled = true;
                 rdBtnReversePrint.IsChecked = true;
                 chk_TonerSaving.IsEnabled = true;
                 chk_TonerSaving.IsChecked = false;
-                AdvancedSettingsButton.IsEnabled = true;              
+                AdvancedSettingsButton.IsEnabled = true;
             }
             else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Txt)
             {
@@ -1096,9 +1104,6 @@ namespace VOP
                 rdBtnPagerOrder123123.IsEnabled = false;
                 rdBtnPagerOrder123123.IsChecked = true;
                 cboPrintQuality.IsEnabled = true;
-                spinnerScaling.IsEnabled = true;
-                chk_FitToPaperSize.IsEnabled = false;
-                chk_FitToPaperSize.IsChecked = false;
                 chk_MultiplePagePrint.IsEnabled = true;
                 chk_MultiplePagePrint.IsChecked = false;
                 rdBtn2in1.IsEnabled = false;
@@ -1113,13 +1118,15 @@ namespace VOP
                 chk_DuplexPrint.IsChecked = false;
                 rdBtnFlipOnShortEdger.IsEnabled = false;
                 rdBtnFlipOnLongEdge.IsEnabled = false;
+                spinnerScaling.IsEnabled = true;
+                chk_FitToPaperSize.IsEnabled = false;
+                chk_FitToPaperSize.IsChecked = false;
                 rdBtnNormalPrint.IsEnabled = true;
                 rdBtnReversePrint.IsEnabled = true;
                 rdBtnReversePrint.IsChecked = true;
                 chk_TonerSaving.IsEnabled = true;
                 chk_TonerSaving.IsChecked = false;
                 AdvancedSettingsButton.IsEnabled = true;
-
             }
             else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf)
             {
@@ -1133,9 +1140,6 @@ namespace VOP
                 rdBtnPagerOrder123123.IsEnabled = false;
                 rdBtnPagerOrder123123.IsChecked = true;
                 cboPrintQuality.IsEnabled = true;
-                spinnerScaling.IsEnabled = true;
-                chk_FitToPaperSize.IsEnabled = false;
-                chk_FitToPaperSize.IsChecked = false;
                 chk_MultiplePagePrint.IsEnabled = true;
                 chk_MultiplePagePrint.IsChecked = false;
                 rdBtn2in1.IsEnabled = false;
@@ -1150,6 +1154,9 @@ namespace VOP
                 chk_DuplexPrint.IsChecked = false;
                 rdBtnFlipOnShortEdger.IsEnabled = false;
                 rdBtnFlipOnLongEdge.IsEnabled = false;
+                spinnerScaling.IsEnabled = true;
+                chk_FitToPaperSize.IsEnabled = false;
+                chk_FitToPaperSize.IsChecked = false;
                 rdBtnNormalPrint.IsEnabled = true;
                 rdBtnReversePrint.IsEnabled = true;
                 rdBtnReversePrint.IsChecked = true;
@@ -1172,10 +1179,7 @@ namespace VOP
                 rdBtnPagerOrder112233.IsEnabled = false;
                 rdBtnPagerOrder123123.IsEnabled = false;
                 rdBtnPagerOrder123123.IsChecked = true;
-                cboPrintQuality.IsEnabled = true;
-                spinnerScaling.IsEnabled = true;
-                chk_FitToPaperSize.IsEnabled = false;
-                chk_FitToPaperSize.IsChecked = false;
+                cboPrintQuality.IsEnabled = true;                
                 chk_MultiplePagePrint.IsEnabled = true;
                 chk_MultiplePagePrint.IsChecked = false;
                 rdBtn2in1.IsEnabled = false;
@@ -1190,6 +1194,9 @@ namespace VOP
                 chk_DuplexPrint.IsChecked = false;
                 rdBtnFlipOnShortEdger.IsEnabled = false;
                 rdBtnFlipOnLongEdge.IsEnabled = false;
+                spinnerScaling.IsEnabled = true;
+                chk_FitToPaperSize.IsEnabled = false;
+                chk_FitToPaperSize.IsChecked = false;
                 rdBtnNormalPrint.IsEnabled = true;
                 rdBtnReversePrint.IsEnabled = true;
                 rdBtnReversePrint.IsChecked = true;
@@ -1214,9 +1221,7 @@ namespace VOP
                 rdBtnPagerOrder112233.IsChecked = false;
                 rdBtnPagerOrder123123.IsEnabled = false;
                 rdBtnPagerOrder123123.IsChecked = true;
-                cboPrintQuality.IsEnabled = true;
-                spinnerScaling.IsEnabled = false;
-                chk_FitToPaperSize.IsEnabled = false;
+                cboPrintQuality.IsEnabled = true;                
                 chk_MultiplePagePrint.IsEnabled = false;
                 chk_MultiplePagePrint.IsChecked = false;
                 rdBtn2in1.IsEnabled = false;
@@ -1231,6 +1236,8 @@ namespace VOP
                 chk_DuplexPrint.IsChecked = false;
                 rdBtnFlipOnShortEdger.IsEnabled = false;
                 rdBtnFlipOnLongEdge.IsEnabled = false;
+                spinnerScaling.IsEnabled = false;
+                chk_FitToPaperSize.IsEnabled = false;
                 rdBtnNormalPrint.IsEnabled = false;
                 rdBtnNormalPrint.IsChecked = false;
                 rdBtnReversePrint.IsEnabled = false;
@@ -1254,10 +1261,7 @@ namespace VOP
                 rdBtnPagerOrder112233.IsEnabled = true;
                 rdBtnPagerOrder123123.IsEnabled = true;
                 rdBtnPagerOrder123123.IsChecked = true;
-                cboPrintQuality.IsEnabled = true;
-                spinnerScaling.IsEnabled = false;
-                chk_FitToPaperSize.IsEnabled = true;
-                chk_FitToPaperSize.IsChecked = true;
+                cboPrintQuality.IsEnabled = true;                
                 chk_MultiplePagePrint.IsEnabled = true;
                 chk_MultiplePagePrint.IsChecked = false;
                 rdBtn2in1.IsEnabled = false;
@@ -1272,6 +1276,9 @@ namespace VOP
                 chk_DuplexPrint.IsChecked = false;
                 rdBtnFlipOnShortEdger.IsEnabled = false;
                 rdBtnFlipOnLongEdge.IsEnabled = false;
+                spinnerScaling.IsEnabled = false;
+                chk_FitToPaperSize.IsEnabled = true;
+                chk_FitToPaperSize.IsChecked = true;
                 rdBtnNormalPrint.IsEnabled = true;
                 rdBtnReversePrint.IsEnabled = true;
                 rdBtnReversePrint.IsChecked = true;
@@ -1296,10 +1303,7 @@ namespace VOP
                 rdBtnPagerOrder112233.IsEnabled = false;
                 rdBtnPagerOrder123123.IsEnabled = false;
                 rdBtnPagerOrder123123.IsChecked = true;
-                cboPrintQuality.IsEnabled = true;
-                spinnerScaling.IsEnabled = true;
-                chk_FitToPaperSize.IsEnabled = false;
-                chk_FitToPaperSize.IsChecked = false;
+                cboPrintQuality.IsEnabled = true;                
                 chk_MultiplePagePrint.IsEnabled = true;
                 chk_MultiplePagePrint.IsChecked = false;
                 rdBtn2in1.IsEnabled = false;
@@ -1314,6 +1318,9 @@ namespace VOP
                 chk_DuplexPrint.IsChecked = false;
                 rdBtnFlipOnShortEdger.IsEnabled = false;
                 rdBtnFlipOnLongEdge.IsEnabled = false;
+                spinnerScaling.IsEnabled = true;
+                chk_FitToPaperSize.IsEnabled = false;
+                chk_FitToPaperSize.IsChecked = false;
                 rdBtnNormalPrint.IsEnabled = true;
                 rdBtnReversePrint.IsEnabled = true;
                 rdBtnReversePrint.IsChecked = true;
@@ -1337,10 +1344,7 @@ namespace VOP
                 rdBtnPagerOrder112233.IsEnabled = false;
                 rdBtnPagerOrder123123.IsEnabled = false;
                 rdBtnPagerOrder123123.IsChecked = true;
-                cboPrintQuality.IsEnabled = true;
-                spinnerScaling.IsEnabled = true;
-                chk_FitToPaperSize.IsEnabled = false;
-                chk_FitToPaperSize.IsChecked = false;
+                cboPrintQuality.IsEnabled = true;                
                 chk_MultiplePagePrint.IsEnabled = true;
                 chk_MultiplePagePrint.IsChecked = false;
                 rdBtn2in1.IsEnabled = false;
@@ -1355,6 +1359,9 @@ namespace VOP
                 chk_DuplexPrint.IsChecked = false;
                 rdBtnFlipOnShortEdger.IsEnabled = false;
                 rdBtnFlipOnLongEdge.IsEnabled = false;
+                spinnerScaling.IsEnabled = true;
+                chk_FitToPaperSize.IsEnabled = false;
+                chk_FitToPaperSize.IsChecked = false;
                 rdBtnNormalPrint.IsEnabled = true;
                 rdBtnReversePrint.IsEnabled = true;
                 rdBtnReversePrint.IsChecked = true;
@@ -1406,6 +1413,26 @@ namespace VOP
             else if  (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf)
             {
                 cboPaperSize.SelectedIndex = m_paperSize;
+                m_paperOrientation = 1;
+                m_paperOrder = 1;
+            }
+            else
+            {
+                bool bIsMetrice = dll.IsMetricCountry();
+                if (bIsMetrice)
+                {
+                    cboPaperSize.SelectedIndex = 0;
+                    m_paperSize = 0;
+
+                }
+                else
+                {
+                    cboPaperSize.SelectedIndex = 1;
+                    m_paperSize = 1;
+                }
+                m_paperOrientation = 1;
+                m_paperOrder = 1;
+
             }
 
             cboMediaType.SelectedIndex = m_mediaType;
@@ -1562,13 +1589,9 @@ namespace VOP
 
         private void GetDataFromPrinterInfo()
         {
-           dll.GetPrinterSettingsData(ref m_paperSize, ref m_paperOrientation, ref m_mediaType, ref m_paperOrder, ref m_printQuality, ref m_scalingType, ref m_scalingRatio, ref m_nupNum, ref m_typeofPB, ref m_posterType, ref m_ADJColorBalance, ref  m_colorBalanceTo, ref m_densityValue, ref m_duplexPrint, ref m_reversePrint, ref m_tonerSaving,ref m_copies);
+           dll.GetPrinterSettingsData(ref m_paperSize, ref m_paperOrientation, ref m_mediaType, ref m_paperOrder, ref m_printQuality, ref m_scalingType, ref m_scalingRatio, ref m_nupNum, ref m_typeofPB, ref m_posterType, ref m_ADJColorBalance, ref  m_colorBalanceTo, ref m_densityValue, ref m_duplexPrint, ref m_documentStyle, ref m_reversePrint, ref m_tonerSaving,ref m_copies);
            SetDataFromPrinterInfo();
         }
-        private void InitCboDocSize()
-        {
-
-        }
-
+       
     }
 }

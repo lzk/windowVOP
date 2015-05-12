@@ -249,6 +249,7 @@ namespace VOP
             sbyte ColorBalanceTo,
             sbyte Density,
             sbyte DuplexPrint,
+            sbyte DocumentStyle,
             sbyte ReversePrint,
             sbyte TonerSaving,
             sbyte Copies,
@@ -277,6 +278,7 @@ namespace VOP
             ref sbyte ColorBalanceTo,
             ref sbyte Density,
             ref sbyte DuplexPrint,
+            ref sbyte DocumentStyle,
             ref sbyte ReversePrint,
             ref sbyte TonerSaving,
             ref sbyte Copies);
@@ -298,6 +300,7 @@ namespace VOP
             ref sbyte ColorBalanceTo,
             ref sbyte Density,
             ref sbyte DuplexPrint,
+            ref sbyte DocumentStyle,
             ref sbyte ReversePrint,
             ref sbyte TonerSaving,
             ref sbyte Copies);
@@ -320,6 +323,7 @@ namespace VOP
             ref sbyte ColorBalanceTo,
             ref sbyte Density,
             ref sbyte DuplexPrint,
+            ref sbyte DocumentStyle,
             ref sbyte ReversePrint,
             ref sbyte TonerSaving,
             ref sbyte Copies,
