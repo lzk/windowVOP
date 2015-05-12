@@ -184,8 +184,10 @@ namespace VOP
         /// <summary>
         /// Rotate objSrc to objDst with angle nAngle.
         /// </summary>
-        private void RotateScannedFiles( ScanFiles objSrc, ScanFiles objDst, int nAngle )
+        private bool RotateScannedFiles( ScanFiles objSrc, ScanFiles objDst, int nAngle )
         {
+            bool bSuccess = true;
+
             string args1 = "\"" + objSrc.m_pathOrig  + "\" \"" + objDst.m_pathOrig  + "\" \"" + nAngle.ToString();
             string args2 = "\"" + objSrc.m_pathView  + "\" \"" + objDst.m_pathView  + "\" \"" + nAngle.ToString();
             string args3 = "\"" + objSrc.m_pathThumb + "\" \"" + objDst.m_pathThumb + "\" \"" + nAngle.ToString();
@@ -216,7 +218,10 @@ namespace VOP
             }
             catch
             {
+                bSuccess = false;
             }
+
+            return bSuccess;
         }
 
         /// <summary>
@@ -238,8 +243,6 @@ namespace VOP
                     m_rotatedObj.m_pathOrig  = m_images.m_pathOrig.Insert( m_images.m_pathOrig.Length-4   , m_rotatedAngle.ToString() );
                     m_rotatedObj.m_pathView  = m_images.m_pathView.Insert( m_images.m_pathView.Length-4   , m_rotatedAngle.ToString() );
                     m_rotatedObj.m_pathThumb = m_images.m_pathThumb.Insert( m_images.m_pathThumb.Length-4 , m_rotatedAngle.ToString() );
-
-                    RotateScannedFiles( m_images, m_rotatedObj, m_rotatedAngle );
 
                     AsyncWorker worker = new AsyncWorker( this );
                     worker.InvokeRotateScannedFiles( RotateScannedFiles, m_images, m_rotatedObj, m_rotatedAngle );
