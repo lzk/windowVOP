@@ -39,7 +39,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Please_Replace_Toner">请更换硒鼓</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_FW_Updating">固件升级</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Overheat">过热</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Print_Data_Error_SCxxx">打印数据错误&#x000D;&#x000A;SC</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_DMA_Error_SCxxx">DMA错误:&#x000D;&#x000A;请关闭打印机后重新启动。&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_contact_customer_support__SCxxx">请联系您的客户支持：&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">扫描起始位置未发现：&#x000D;&#x000A;请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：&#x000D;&#x000A;SC1001</sys:String>

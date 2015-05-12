@@ -39,7 +39,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Please_Replace_Toner">Please Replace Toner</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_FW_Updating">FW Updating</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Overheat">Overheat</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Print_Data_Error_SCxxx">Print Data Error:&#x000D;&#x000A;SC</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_DMA_Error_SCxxx">DMA Error:&#x000D;&#x000A;Turn off the printer, and turn it on again.&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">Turn off the printer, and turn it on again.&#x000D;&#x000A;Contact customer support if this failure is repeated:&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_contact_customer_support__SCxxx">Please contact customer support: SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">Scanner not found home position;&#x000D;&#x000A;Turn off the printer, and turn it on again.&#x000D;&#x000A;Contact customer support if this failure is repeated:&#x000D;&#x000A;SC1001</sys:String>

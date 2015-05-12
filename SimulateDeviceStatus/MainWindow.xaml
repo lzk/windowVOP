@@ -108,7 +108,7 @@
             <ComboBoxItem>FWUpdateError</ComboBoxItem>
             <ComboBoxItem>DSPError</ComboBoxItem>
             <ComboBoxItem>CodecError</ComboBoxItem>
-            <ComboBoxItem>PrinterDataError</ComboBoxItem>
+            <ComboBoxItem>DMAError</ComboBoxItem>
             <ComboBoxItem>Unknown</ComboBoxItem>
             <ComboBoxItem>Offline</ComboBoxItem>
             <ComboBoxItem>PowerOff</ComboBoxItem>

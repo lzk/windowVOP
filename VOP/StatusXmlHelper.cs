@@ -324,7 +324,7 @@ namespace VOP
                 case "CTL_PRREQ_NSignalNoCome"     : retStatus = EnumStatus.CTL_PRREQ_NSignalNoCome;     break;
                 case "ScanMotorError"              : retStatus = EnumStatus.ScanMotorError;              break;
                 case "NetWirelessDongleCfgFail"    : retStatus = EnumStatus.NetWirelessDongleCfgFail;    break;
-                case "PrinterDataError"            : retStatus = EnumStatus.PrinterDataError;            break;
+                case "DMAError"                    : retStatus = EnumStatus.DMAError; 					 break;
                 case "Unknown"                     : retStatus = EnumStatus.Unknown;                     break;
                 case "Offline"                     : retStatus = EnumStatus.Offline;                     break;
                 case "PowerOff"                    : retStatus = EnumStatus.PowerOff;                    break;

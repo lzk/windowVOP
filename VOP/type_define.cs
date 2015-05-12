@@ -86,8 +86,8 @@ namespace VOP
         ScanMotorError              = 0xE5,
         SCAN_DRV_CALIB_FAIL         = 0xE9,
         NetWirelessDongleCfgFail    = 0xE8,
-        ScanDriverCalibrationFail  = 0xE9,
-        PrinterDataError            = 0xEF,
+        ScanDriverCalibrationFail   = 0xE9,
+        DMAError                    = 0xEF,
         Unknown                     = 0xF0, // status added by SW
         Offline                     = 0xF1, // status added by SW
         PowerOff                    = 0xF2, // status added by SW

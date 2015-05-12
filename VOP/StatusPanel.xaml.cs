@@ -241,7 +241,7 @@ namespace VOP
             Brush br = Brushes.Black;
             switch ( s )
             {
-                case EnumStatus.Ready                       : br = Brushes.Black ; break;
+                case EnumStatus.Ready                                   : br = Brushes.Black ; break;
                 case EnumStatus.Printing                                : br = Brushes.Black ; break;
                 case EnumStatus.PowerSaving                             : br = Brushes.Black ; break;
                 case EnumStatus.WarmingUp                               : br = Brushes.Black ; break;
@@ -291,7 +291,7 @@ namespace VOP
                 case EnumStatus.ScanMotorError                          : br = Brushes.Red   ; break;
                 case EnumStatus.SCAN_DRV_CALIB_FAIL                     : br = Brushes.Red   ; break;
                 case EnumStatus.NetWirelessDongleCfgFail                : br = Brushes.Red   ; break;
-                case EnumStatus.PrinterDataError                        : br = Brushes.Orange; break;
+                case EnumStatus.DMAError                                : br = Brushes.Red   ; break;
                 default:
                                                                           br = Brushes.Black;
                                                                           break;
