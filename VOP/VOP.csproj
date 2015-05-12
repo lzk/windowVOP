@@ -102,6 +102,7 @@
     </Compile>
     <Compile Include="Controls\MessageBoxEx\MessageBoxEx.cs" />
     <Compile Include="Controls\PopupEx.cs" />
+    <Compile Include="Controls\TextBoxValidation\IPAddressValidationRule.cs" />
     <Compile Include="MessageBoxEx_Video.xaml.cs">
       <DependentUpon>MessageBoxEx_Video.xaml</DependentUpon>
     </Compile>

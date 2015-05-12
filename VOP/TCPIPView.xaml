@@ -7,6 +7,7 @@
              xmlns:vop="clr-namespace:VOP"
              xmlns:local="clr-namespace:VOP.Controls"
              Loaded="OnLoadedTcpipView"
+             Name="MyView"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -17,8 +18,108 @@
                 <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
                 <ResourceDictionary Source="Controls/AdjustButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+           
+            <Style x:Key="IPErrorTemplateStyle" TargetType="{x:Type TextBox}">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <local:PopupEx IsOpen="True" 
+                               AllowsTransparency="True"
+                               PlacementTarget="{Binding ElementName=MyAdorner}"
+                               Placement="Right"
+                               VerticalAlignment="Center"
+                               HorizontalOffset="5"
+                               Topmost="False"
+                               PopupPlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" 
+                               >
+                                    <Border Background="#FFD3EAC3" BorderBrush="#FF727272" BorderThickness="0.5">
+                                        <TextBlock 
+								            Foreground="#FF727272"
+								            Margin="5" 
+								            FontSize="12"
+								            Text="{StaticResource ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_}">
+                                        </TextBlock>
+                                    </Border>
+                                </local:PopupEx>
+
+                                <Border BorderBrush="Red" BorderThickness="2.5" CornerRadius="16">
+                                    <AdornedElementPlaceholder Name="MyAdorner"/>
+                                </Border>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="GatewayErrorTemplateStyle" TargetType="{x:Type TextBox}">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <local:PopupEx IsOpen="True" 
+                               AllowsTransparency="True"
+                               PlacementTarget="{Binding ElementName=MyAdorner}"
+                               Placement="Right"
+                               VerticalAlignment="Center"
+                               HorizontalOffset="5"
+                               Topmost="False"
+                               PopupPlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" 
+                               >
+                                    <Border Background="#FFD3EAC3" BorderBrush="#FF727272" BorderThickness="0.5">
+                                        <TextBlock 
+								            Foreground="#FF727272"
+								            Margin="5" 
+								            FontSize="12"
+								            Text="{StaticResource ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_}">
+                                        </TextBlock>
+                                    </Border>
+                                </local:PopupEx>
+
+                                <Border BorderBrush="Red" BorderThickness="2.5" CornerRadius="16">
+                                    <AdornedElementPlaceholder Name="MyAdorner"/>
+                                </Border>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="SubmaskErrorTemplateStyle" TargetType="{x:Type TextBox}">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <local:PopupEx IsOpen="True" 
+                               AllowsTransparency="True"
+                               PlacementTarget="{Binding ElementName=MyAdorner}"
+                               Placement="Right"
+                               VerticalAlignment="Center"
+                               HorizontalOffset="5"
+                               Topmost="False"
+                               PopupPlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" 
+                               >
+                                    <Border Background="#FFD3EAC3" BorderBrush="#FF727272" BorderThickness="0.5">
+                                        <TextBlock 
+								            Foreground="#FF727272"
+								            Margin="5" 
+								            FontSize="12"
+								            Text="{StaticResource ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation}">
+                                        </TextBlock>
+                                    </Border>
+                                </local:PopupEx>
+
+                                <Border BorderBrush="Red" BorderThickness="2.5" CornerRadius="16">
+                                    <AdornedElementPlaceholder Name="MyAdorner"/>
+                                </Border>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
+
 
     <Grid>
         <Grid.Background>
@@ -58,23 +159,96 @@
             </Grid>
 
             <TextBlock Text="{StaticResource ResStr_IP_Address}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
-            <TextBox TextChanged="handler_text_changed" Name="tb_ip" PreviewTextInput="OnTextBoxPreviewTextInput" Template="{StaticResource customTextBox}" Grid.Row="1" Grid.Column="1" Height="28" VerticalAlignment="Center" MaxLength="15" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
+            <TextBox 
+                TextChanged="handler_text_changed" 
+                x:Name="tb_ip" 
+                PreviewTextInput="OnTextBoxPreviewTextInput" 
+                Template="{StaticResource customTextBox}" 
+                Grid.Row="1" 
+                Grid.Column="1" 
+                Height="28" 
+                VerticalAlignment="Center" 
+                MaxLength="15" 
+                Style="{StaticResource IPErrorTemplateStyle}"
+                InputMethod.IsInputMethodEnabled="False" 
+                PreviewKeyDown="OnPreviewKeyDown"
+                LostFocus="tb_ip_LostFocus">
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>
+                <TextBox.Text>
+                    <Binding 
+                        Path="IP" 
+                        ElementName="MyView"
+                        Mode="TwoWay"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:IPAddressValidationRule ErrorMessage="{StaticResource ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_}"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                
             </TextBox>
             <TextBlock Text="{StaticResource ResStr_Gateway}" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
-            <TextBox TextChanged="handler_text_changed" Name="tb_gate" PreviewTextInput="OnTextBoxPreviewTextInput" Template="{StaticResource customTextBox}" Grid.Row="2" Grid.Column="1" Height="28" VerticalAlignment="Center" MaxLength="15" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
+            <TextBox 
+                TextChanged="handler_text_changed" 
+                Name="tb_gate" 
+                PreviewTextInput="OnTextBoxPreviewTextInput" 
+                Template="{StaticResource customTextBox}"  
+                Grid.Row="2" 
+                Grid.Column="1" 
+                Height="28" 
+                VerticalAlignment="Center" 
+                MaxLength="15" 
+                Style="{StaticResource GatewayErrorTemplateStyle}"
+                InputMethod.IsInputMethodEnabled="False" 
+                PreviewKeyDown="OnPreviewKeyDown"
+                LostFocus="tb_ip_LostFocus">
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>
+                <TextBox.Text>
+                    <Binding 
+                        Path="Gateway" 
+                        ElementName="MyView"
+                        Mode="TwoWay"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:IPAddressValidationRule ErrorMessage="{StaticResource ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_}"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
             </TextBox>
 
             <TextBlock Text="{StaticResource ResStr_Submask}" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
-            <TextBox TextChanged="handler_text_changed" Name="tb_mask" PreviewTextInput="OnTextBoxPreviewTextInput" Template="{StaticResource customTextBox}" Grid.Row="3" Grid.Column="1" Height="28" VerticalAlignment="Center" MaxLength="15" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
+            <TextBox 
+                TextChanged="handler_text_changed" 
+                Name="tb_mask" 
+                PreviewTextInput="OnTextBoxPreviewTextInput" 
+                Template="{StaticResource customTextBox}" 
+                Grid.Row="3"
+                Grid.Column="1" 
+                Height="28" 
+                VerticalAlignment="Center" 
+                MaxLength="15" 
+                Style="{StaticResource SubmaskErrorTemplateStyle}"
+                InputMethod.IsInputMethodEnabled="False" 
+                PreviewKeyDown="OnPreviewKeyDown"
+                LostFocus="tb_mask_LostFocus">
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>
+                <TextBox.Text>
+                    <Binding 
+                        Path="Submask" 
+                        ElementName="MyView"
+                        Mode="TwoWay"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:SubmaskValidationRule ErrorMessage="{StaticResource ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_}"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
             </TextBox>
 
             <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="{StaticResource ResStr_Apply}" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>

@@ -37,11 +37,71 @@ namespace VOP
         public byte m_gate2 = 0;
         public byte m_gate3 = 0;
     }
+
     public partial class TcpipView : UserControl
     {
         public bool m_is_init = false;
 
         TCPIPSetting TcpIpSetting = new TCPIPSetting();
+
+        #region IP
+        private static readonly DependencyProperty IPProperty =
+            DependencyProperty.Register("IP", typeof(string), typeof(TcpipView),
+            new PropertyMetadata("0.0.0.0", OnFormattedValueChanged));
+
+        private static void OnFormattedValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
+        {
+          
+        }
+
+        public string IP
+        {
+            set
+            {
+                SetValue(IPProperty, value);
+            }
+            get
+            {
+                return (string)GetValue(IPProperty);
+            }
+        }
+        #endregion
+
+        #region Gateway
+        private static readonly DependencyProperty GatewayProperty =
+            DependencyProperty.Register("Gateway", typeof(string), typeof(TcpipView),
+            new PropertyMetadata("0.0.0.0", OnFormattedValueChanged));
+
+        public string Gateway
+        {
+            set
+            {
+                SetValue(GatewayProperty, value);
+            }
+            get
+            {
+                return (string)GetValue(GatewayProperty);
+            }
+        }
+        #endregion
+
+        #region Submask
+        private static readonly DependencyProperty SubmaskProperty =
+            DependencyProperty.Register("Submask", typeof(string), typeof(TcpipView),
+            new PropertyMetadata("255.255.255.0", OnFormattedValueChanged));
+
+        public string Submask
+        {
+            set
+            {
+                SetValue(SubmaskProperty, value);
+            }
+            get
+            {
+                return (string)GetValue(SubmaskProperty);
+            }
+        }
+        #endregion
 
         public TcpipView()
         {
@@ -159,38 +219,88 @@ namespace VOP
             }
         }
 
-        private bool ParseNetworkMask(string strIP)
+        private bool ParseNetworkMask(string strIP, ref byte ip0, ref byte ip1, ref byte ip2, ref byte ip3)
         {
-            bool isSuccess = false;
-            byte ip0 = 0;
-            byte ip1 = 0;
-            byte ip2 = 0;
-            byte ip3 = 0;
-
-            Int32 nIP;
-            if (ParseIP(strIP, ref ip0, ref ip1, ref ip2, ref ip3))
+            bool isSuccess = true;
+            IPAddress ipAddress;
+            IPAddress.TryParse(strIP, out ipAddress);
+            
+            if (null != ipAddress)
             {
-                nIP = ip3 | (ip2 << 8) | (ip1 << 16) | (ip0 << 24);
-                int nIdx = 0;
-                for (; nIdx < 32; nIdx++)
-                {
-                    if (0 != (nIP & (0x80000000 >> nIdx)))
-                        continue;
-                    else
-                        break;
-                }
+                int nVal0 = -1;
+                int nVal1 = -1;
+                int nVal2 = -1;
+                int nVal3 = -1;
 
-                for (int nIdx1 = 0; nIdx1 < (32 - nIdx); nIdx1++)
+                if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
                 {
-                    if (0 != (nIP & (0x80000000 >> (nIdx + nIdx1))))
+                    string strIP1 = ipAddress.ToString();
+                    if (null != strIP && 0 < strIP1.Length)
+                    {
+                        var parts_ip = strIP1.Split('.');
+                        try
+                        {
+                            nVal0 = Convert.ToInt32(parts_ip[0]);
+                            nVal1 = Convert.ToInt32(parts_ip[1]);
+                            nVal2 = Convert.ToInt32(parts_ip[2]);
+                            nVal3 = Convert.ToInt32(parts_ip[3]);
+
+                            ip0 = (byte)nVal0;
+                            ip1 = (byte)nVal1;
+                            ip2 = (byte)nVal2;
+                            ip3 = (byte)nVal3;
+
+                            if (false == (0 <= nVal0 && 255 >= nVal0
+                                    && 0 <= nVal1 && 255 >= nVal1
+                                    && 0 <= nVal2 && 255 >= nVal2
+                                    && 0 <= nVal3 && 255 >= nVal3))
+                            {
+                                isSuccess = false;
+                            }
+                            else
+                            {
+                                Int32 nIP;
+                                nIP = nVal3 | (nVal2 << 8) | (nVal1 << 16) | (nVal0 << 24);
+                                int nIdx = 0;
+                                for (; nIdx < 32; nIdx++)
+                                {
+                                    if (0 != (nIP & (0x80000000 >> nIdx)))
+                                        continue;
+                                    else
+                                        break;
+                                }
+
+                                if (nIdx < 32)
+                                {
+                                    for (int nIdx1 = 0; nIdx1 < (32 - nIdx); nIdx1++)
+                                    {
+                                        if (0 != (nIP & (0x80000000 >> (nIdx + nIdx1))))
+                                        {
+                                            isSuccess = false;
+                                            break;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    isSuccess = false;
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            isSuccess = false;
+                        }
+                    }
+                    else
+                    {
                         isSuccess = false;
-                    else
-                        isSuccess = true;
-
-                    if (!isSuccess)
-                        break;
+                    }
                 }
-
+            }
+            else
+            {
+                isSuccess = false;
             }
 
             return isSuccess;
@@ -227,16 +337,29 @@ namespace VOP
                     nVal2 = Convert.ToInt32(parts_ip[2]);
                     nVal3 = Convert.ToInt32(parts_ip[3]);
 
-                    if (0 <= nVal0 && 255 >= nVal0
-                            && 0 <= nVal1 && 255 >= nVal1
-                            && 0 <= nVal2 && 255 >= nVal2
-                            && 0 <= nVal3 && 255 >= nVal3)
+                    ip0 = (byte)nVal0;
+                    ip1 = (byte)nVal1;
+                    ip2 = (byte)nVal2;
+                    ip3 = (byte)nVal3;
+
+                    if (false == (0 <= nVal0 && 224 > nVal0
+                         && 0 <= nVal1 && 255 >= nVal1
+                         && 0 <= nVal2 && 255 >= nVal2
+                         && 0 <= nVal3 && 255 >= nVal3))
                     {
-                        ip0 = (byte)nVal0;
-                        ip1 = (byte)nVal1;
-                        ip2 = (byte)nVal2;
-                        ip3 = (byte)nVal3;
-                        isSuccess = true;
+                        isSuccess = false;
+                    }
+                    else
+                    {
+                        if (nVal0 == 127 ||
+                            (nVal0 == 169 && nVal1 == 254))
+                        {
+                            isSuccess = false;
+                        }
+                        else
+                        {
+                            isSuccess = true;
+                        }
                     }
                 }
                 catch
@@ -282,15 +405,40 @@ namespace VOP
 
         public void handler_text_changed(object sender, TextChangedEventArgs e)
         {
-            if (tb_ip.Text.Length == 0 ||
-                tb_gate.Text.Length == 0 ||
-                tb_mask.Text.Length == 0)
+            TextBox tb = sender as TextBox;
+            string strText = tb.Text;
+            
+            if (null != tb_ip &&
+                null != tb_gate &&
+                null != tb_mask &&
+                null != btnApply)
             {
-                btnApply.IsEnabled = false;
-            }
-            else
-            {
-                btnApply.IsEnabled = true;
+                bool bValidate = false;
+                byte ip0 = 0;
+                byte ip1 = 0;
+                byte ip2 = 0;
+                byte ip3 = 0;
+
+                if (tb.Name == "tb_ip" ||
+                    tb.Name == "tb_gate")
+                {
+                    if (true == ParseIP(strText, ref ip0, ref ip1, ref ip2, ref ip3))
+                        bValidate = true;
+                }
+                else if (tb.Name == "tb_mask")
+                {
+                    if (true == ParseNetworkMask(strText, ref ip0, ref ip1, ref ip2, ref ip3))
+                        bValidate = true;
+                }
+
+                if (bValidate)
+                {
+                    btnApply.IsEnabled = true;
+                }
+                else
+                {
+                    btnApply.IsEnabled = false;
+                }
             }
         }
 
@@ -323,7 +471,7 @@ namespace VOP
 
             bool isIPOK = ParseIP(addr_ip, ref ip0, ref ip1, ref ip2, ref ip3);
             bool isGateOK = ParseIP(addr_gate, ref gate0, ref gate1, ref gate2, ref gate3);
-            bool isMaskOK = ParseIP(addr_mask, ref mask0, ref mask1, ref mask2, ref mask3) && ParseNetworkMask(addr_mask);
+            bool isMaskOK = ParseNetworkMask(addr_mask, ref mask0, ref mask1, ref mask2, ref mask3);
 
             if (mode_ipaddress == (byte)enum_addr_mode.Manual)
             {
@@ -509,6 +657,55 @@ namespace VOP
         {
             if (e.Key == Key.Space)
                 e.Handled = true;
+        }
+
+        private void tb_ip_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            string strIP = tb.Text;
+            byte ip0 = 0;
+            byte ip1 = 0;
+            byte ip2 = 0;
+            byte ip3 = 0;
+
+            if (false == ParseIP(strIP, ref ip0, ref ip1, ref ip2, ref ip3))
+            {
+                tb.Text = "0.0.0.0";
+            }
+            else
+            {
+                IPAddress ipAddress;
+                IPAddress.TryParse(strIP, out ipAddress);
+                if (null != ipAddress)
+                {
+                    tb.Text = ipAddress.ToString();
+                }
+            }
+        }
+
+        private void tb_mask_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            string strIP = tb.Text;
+           
+            byte mask0 = 0;
+            byte mask1 = 0;
+            byte mask2 = 0;
+            byte mask3 = 0;
+
+            if (false == ParseNetworkMask(strIP, ref mask0, ref mask1, ref mask2, ref mask3))
+            {
+                tb.Text = "255.255.255.0";
+            }
+            else
+            {
+                IPAddress ipAddress;
+                IPAddress.TryParse(strIP, out ipAddress);
+                if (null != ipAddress)
+                {
+                    tb.Text = ipAddress.ToString();
+                }
+            }
         }
     }
 }
