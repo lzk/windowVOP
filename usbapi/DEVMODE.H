@@ -495,7 +495,7 @@ typedef struct PirntSettingsData
 	short m_posterType;
 	short m_ADJColorBalance;
 	short m_colorBalanceTo;
-	short m_densityValue;
+	int m_densityValue;
 	short m_duplexPrint;
 	short m_documentStyle;
 	short m_reversePrint;

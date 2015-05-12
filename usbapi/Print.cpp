@@ -1210,7 +1210,7 @@ USBAPI_API void __stdcall SavePrinterSettingsData(
 	g_PirntSettingsData.m_posterType = PosterType;
 	g_PirntSettingsData.m_ADJColorBalance = ADJColorBalance;
 	g_PirntSettingsData.m_colorBalanceTo = ColorBalanceTo;
-	g_PirntSettingsData.m_densityValue = Density;
+	g_PirntSettingsData.m_densityValue = Density - 4;
 	g_PirntSettingsData.m_duplexPrint = DuplexPrint;
 	g_PirntSettingsData.m_documentStyle = DocumentStyle;
 	g_PirntSettingsData.m_reversePrint = ReversePrint;
@@ -1467,6 +1467,8 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 				devmode.dmPrivate.graphics.bColorBalanceTo = static_cast<BYTE>(g_PirntSettingsData.m_colorBalanceTo);
 
 				devmode.dmPrivate.graphics.ColorBalanceIndex[0][0] = static_cast<BYTE>(g_PirntSettingsData.m_densityValue);
+				devmode.dmPrivate.graphics.ColorBalanceIndex[0][1] = static_cast<BYTE>(g_PirntSettingsData.m_densityValue);
+				devmode.dmPrivate.graphics.ColorBalanceIndex[0][2] = static_cast<BYTE>(g_PirntSettingsData.m_densityValue);
 
 				devmode.dmPublic.dmDuplex = g_PirntSettingsData.m_duplexPrint; //DUPLEX£¬ DMDUP_VERTICAL: ³¤±ß DMDUP_HORIZONTAL£¬¶Ì±ß
 				devmode.dmPrivate.bDocumentStyle = g_PirntSettingsData.m_documentStyle;
@@ -1924,7 +1926,9 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 				inputDevmode.dmPrivate.graphics.isADJColorBalance = *ptr_ADJColorBalance;
 				inputDevmode.dmPrivate.graphics.bColorBalanceTo = *ptr_colorBalanceTo;
 
-				inputDevmode.dmPrivate.graphics.ColorBalanceIndex[0][0] = *ptr_density;
+				inputDevmode.dmPrivate.graphics.ColorBalanceIndex[0][0] = *ptr_density - 4;
+				inputDevmode.dmPrivate.graphics.ColorBalanceIndex[0][1] = *ptr_density - 4;
+				inputDevmode.dmPrivate.graphics.ColorBalanceIndex[0][2] = *ptr_density - 4;
 
 				inputDevmode.dmPublic.dmDuplex = *ptr_duplexPrint; //DUPLEX£¬ DMDUP_VERTICAL: ³¤±ß DMDUP_HORIZONTAL£¬¶Ì±ß
 				inputDevmode.dmPrivate.bDocumentStyle = *ptr_documentStyle;
