@@ -219,7 +219,7 @@ namespace VOP
 
                             if (helper.Open())
                             {
-                                helper.PrintAll(m_MainWin.statusPanelPage.m_selectedPrinter,
+                                helper.Print(m_MainWin.statusPanelPage.m_selectedPrinter,
                                                 (int)spinnerControl1.Value);
                                 helper.Close();
                             }
@@ -530,9 +530,9 @@ namespace VOP
             app = null;
         }
        
-        public void PrintAll(string printerName, int copies)
+        public void Print(string printerName, int copies)
         {
-            wb.PrintOut(misValue, misValue, copies, misValue, printerName, misValue, misValue, misValue);
+            wb.ActiveSheet.PrintOut(misValue, misValue, copies, misValue, printerName, misValue, misValue, misValue);
         }
     }
 
