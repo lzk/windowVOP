@@ -3111,11 +3111,11 @@ USBAPI_API int __stdcall GetWifiChangeStatus(const wchar_t* szPrinter, BYTE* wif
 
 		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
 		{
-			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+16);
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1);
 		}
 		else if (PT_USB == nPortType)
 		{
-			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+16);
+			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1);
 		}
 
 		if (_ACK == nResult)
