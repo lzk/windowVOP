@@ -38,7 +38,6 @@ namespace VOP
         private const double OPACITY_STRONG = 1.0;
         private const double OPACITY_WEAK = 0.1;
        
-        public bool m_isFlash = false;
         #endregion //Data_Member
 
         #region Event
@@ -246,13 +245,11 @@ namespace VOP
             {
                 shopCart_Img.Opacity = OPACITY_WEAK;
                 timer.Start();
-                m_isFlash = true;
             }
             else
             {
                 shopCart_Img.Opacity = OPACITY_STRONG;
                 timer.Stop();
-                m_isFlash = false;
             }
         }
     }

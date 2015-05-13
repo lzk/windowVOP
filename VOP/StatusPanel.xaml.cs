@@ -198,11 +198,6 @@ namespace VOP
         {
             if ( null != cboPrinters.SelectedItem )
             {
-                if ( null != m_selectedPrinter && "" != m_selectedPrinter )
-                {
-                    App.shoppingCartClickedManger.AddRecordItem( m_selectedPrinter, !lbTonerBar.m_isFlash );
-                }
-
                 m_selectedPrinter = this.cboPrinters.SelectedItem.ToString();
                 m_isSFP = common.IsSFPPrinter( common.GetPrinterDrvName( m_selectedPrinter ) );
                 m_isWiFiModel = common.IsSupportWifi( common.GetPrinterDrvName( m_selectedPrinter ) );
@@ -211,15 +206,6 @@ namespace VOP
                     eventPrinterSwitch();
                 dll.RecoverDevModeData();
                 FileSelectionPage.IsInitPrintSettingPage = true;
-                if ( m_toner <= 30 && EnumStatus.Offline != m_currentStatus 
-                        && EnumStatus.PowerOff != m_currentStatus 
-                        && EnumStatus.Unknown != m_currentStatus )
-                {
-                    if ( false == App.shoppingCartClickedManger.IsShoppingCartClicked( m_selectedPrinter ) )
-                        this.lbTonerBar.FlashShopCatIcon(true);
-                    else
-                        this.lbTonerBar.FlashShopCatIcon(false);
-                }                
             }
         }
 

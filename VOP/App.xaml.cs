@@ -16,8 +16,6 @@ namespace VOP
     /// </summary>
     public partial class App : Application
     {
-        public static ShoppingCartClickedRecord shoppingCartClickedManger = new ShoppingCartClickedRecord();
-
         /// <summary>
         /// Scanned images file list. The files in list need to be cleared, so
         /// define in App.

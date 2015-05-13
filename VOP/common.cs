@@ -9,57 +9,6 @@ using System.Windows.Media.Imaging;
 
 namespace VOP
 {
-    public class ShoppingCartClickedRecordItem
-    {
-        public ShoppingCartClickedRecordItem( string strPrinterName, bool isClicked )
-        {
-            m_strPrinterName = strPrinterName;
-            m_isClicked = isClicked;
-        }
-
-        public string m_strPrinterName = "";
-        public bool m_isClicked = false;
-    }
-     
-    public class ShoppingCartClickedRecord
-    {
-        private List<ShoppingCartClickedRecordItem> m_recordList = new List<ShoppingCartClickedRecordItem>();
-
-        public bool IsShoppingCartClicked( string strPrinterName )
-        {
-            bool isClicked = false;
-
-            foreach ( ShoppingCartClickedRecordItem item in m_recordList )
-            {
-                if ( strPrinterName == item.m_strPrinterName )
-                {
-                    isClicked = item.m_isClicked;
-                    break;
-                }
-            }
-
-            return isClicked;
-        }
-
-        public void AddRecordItem( string strPrinterName, bool isClicked )
-        {
-            int i = 0;
-            for ( i=0; i<m_recordList.Count; i++ )
-            {
-                if ( strPrinterName == m_recordList[i].m_strPrinterName )
-                {
-                    m_recordList[i].m_isClicked = isClicked;
-                    break;
-                }
-            }
-
-            if ( i >= m_recordList.Count )
-            {
-                m_recordList.Insert( 0, new ShoppingCartClickedRecordItem( strPrinterName, isClicked ) );
-            }
-        }
-    }
-
     public class PrinterInfo
     {
         public string m_name;   // Name of the printer driver
