@@ -320,35 +320,35 @@ namespace VOP
             ComboBoxItem cboItem = null;
 
             cboItem = new ComboBoxItem();
-            cboItem.Content = "100x100dpi" ;
+            cboItem.Content = "100 x 100dpi" ;
             cboItem.DataContext = EnumScanResln._100x100;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboScanResln.Items.Add( cboItem );
 
             cboItem = new ComboBoxItem();
-            cboItem.Content = "200x200dpi" ;
+            cboItem.Content = "200 x 200dpi" ;
             cboItem.DataContext = EnumScanResln._200x200;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboScanResln.Items.Add( cboItem );
 
             cboItem = new ComboBoxItem();
-            cboItem.Content = "300x300dpi" ;
+            cboItem.Content = "300 x 300dpi" ;
             cboItem.DataContext = EnumScanResln._300x300;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboScanResln.Items.Add( cboItem );
 
             cboItem = new ComboBoxItem();
-            cboItem.Content = "600x600dpi" ;
+            cboItem.Content = "600 x 600dpi" ;
             cboItem.DataContext = EnumScanResln._600x600;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboScanResln.Items.Add( cboItem );
 
             cboItem = new ComboBoxItem();
-            cboItem.Content = "1200x1200dpi" ;
+            cboItem.Content = "1200 x 1200dpi" ;
             cboItem.DataContext = EnumScanResln._1200x1200;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
