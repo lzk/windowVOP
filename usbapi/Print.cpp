@@ -95,7 +95,8 @@ USBAPI_API void __stdcall SavePrinterSettingsData(const TCHAR * strPrinterName,
 	UINT8 ReversePrint,//byte
 	UINT8 TonerSaving,
 	UINT8 Copies,
-	UINT8 Booklet);
+	UINT8 Booklet,
+	UINT8 Watermark);
 USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_PrintType);
 USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType);
 USBAPI_API void __stdcall GetPrinterSettingsData(
@@ -116,7 +117,9 @@ USBAPI_API void __stdcall GetPrinterSettingsData(
 	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
-	BYTE* ptr_copies);//byte
+	BYTE* ptr_copies,
+	BYTE* ptr_booklet,
+	BYTE* ptr_watermark);//byte
 
 USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 	BYTE* ptr_paperSize,
@@ -136,7 +139,9 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
-	BYTE* ptr_copies);//byte
+	BYTE* ptr_copies,
+	BYTE* ptr_booklet,
+	BYTE* ptr_watermark);//byte
 
 USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrinterName,
 	BYTE* ptr_paperSize,
@@ -157,7 +162,8 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
 	BYTE* ptr_copies,
-	BYTE* ptr_booklet);//byte
+	BYTE* ptr_booklet,
+	BYTE* ptr_watermark);//byte
 
 USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies);
 USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName);
@@ -1196,7 +1202,8 @@ USBAPI_API void __stdcall SavePrinterSettingsData(
 	UINT8 ReversePrint,//byte
 	UINT8 TonerSaving,
 	UINT8 Copies,
-	UINT8 Booklet)//byte
+	UINT8 Booklet,
+	UINT8 Watermark)//byte
 {
 	g_PirntSettingsData.m_paperSize = PaperSize;
 	g_PirntSettingsData.m_paperOrientation = PaperOrientation;
@@ -1217,6 +1224,7 @@ USBAPI_API void __stdcall SavePrinterSettingsData(
 	g_PirntSettingsData.m_tonerSaving = TonerSaving;
 	g_PirntSettingsData.m_copies = Copies;
 	g_PirntSettingsData.m_booklet = Booklet;
+	g_PirntSettingsData.m_watermark = Watermark;
 
 	getOutputData = getDocumentPropertiesData;
 
@@ -1243,6 +1251,8 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		g_PirntSettingsData.m_copies = 1;
+		g_PirntSettingsData.m_booklet = 0;
+		g_PirntSettingsData.m_watermark = 0;
 		break;
 	case 1:
 		g_PirntSettingsData.m_paperOrientation = 1;
@@ -1262,6 +1272,8 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		g_PirntSettingsData.m_copies = 1;
+		g_PirntSettingsData.m_booklet = 0;
+		g_PirntSettingsData.m_watermark = 0;
 		break;
 	case 2:
 		g_PirntSettingsData.m_paperOrientation = 1;
@@ -1281,6 +1293,8 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		g_PirntSettingsData.m_copies = 1;
+		g_PirntSettingsData.m_booklet = 0;
+		g_PirntSettingsData.m_watermark = 0;
 		break;
 	case 3:
 		g_PirntSettingsData.m_paperOrientation = 1;
@@ -1300,6 +1314,8 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		g_PirntSettingsData.m_copies = 1;
+		g_PirntSettingsData.m_booklet = 0;
+		g_PirntSettingsData.m_watermark = 0;
 		break;	
 	case 4:
 		g_PirntSettingsData.m_paperOrientation = 1;
@@ -1319,6 +1335,8 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		g_PirntSettingsData.m_copies = 1;
+		g_PirntSettingsData.m_booklet = 0;
+		g_PirntSettingsData.m_watermark = 0;
 		break;
 	case 5:
 		g_PirntSettingsData.m_paperOrientation = 1;
@@ -1338,6 +1356,8 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		g_PirntSettingsData.m_copies = 1;
+		g_PirntSettingsData.m_booklet = 0;
+		g_PirntSettingsData.m_watermark = 0;
 		break;
 	default:
 		g_PirntSettingsData.m_paperOrientation = 1;
@@ -1357,6 +1377,8 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 		g_PirntSettingsData.m_reversePrint = 1;
 		g_PirntSettingsData.m_tonerSaving = 0;
 		g_PirntSettingsData.m_copies = 1;
+		g_PirntSettingsData.m_booklet = 0;
+		g_PirntSettingsData.m_watermark = 0;
 		break;		
 	}
 	bool bIsMetrice = IsMetricCountry();
@@ -1410,46 +1432,52 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 				{
 					devmode = *(LPPCLDEVMODE)printer_info->pDevMode;
 				}
-				 
-				switch (g_PirntSettingsData.m_paperSize)
+				if (g_PirntSettingsData.m_paperSize > 10)
 				{
-				case 0:
-					devmode.dmPublic.dmPaperSize = DMPAPER_A4;
-					break;
-				case 1:
-					devmode.dmPublic.dmPaperSize = DMPAPER_LETTER;
-					break;
-				case 2:
-					devmode.dmPublic.dmPaperSize = DMPAPER_B5;
-					break;
-				case 3:
-					devmode.dmPublic.dmPaperSize = DMPAPER_A5;
-					break;
-				case 4:
-					devmode.dmPublic.dmPaperSize = DMPAPER_A5LEF;
-					break;
-				case 5:
-					devmode.dmPublic.dmPaperSize = DMPAPER_B6_JIS;
-					break;
-				case 6:
-					devmode.dmPublic.dmPaperSize = DMPAPER_B6LEF;
-					break;
-				case 7:
-					devmode.dmPublic.dmPaperSize = DMPAPER_A6;
-					break;
-				case 8:
-					devmode.dmPublic.dmPaperSize = DMPAPER_EXECUTIVE;
-					break;
-				case 9:
-					devmode.dmPublic.dmPaperSize = DMPAPER_P16K;
-					break;
-				case 10:
-					devmode.dmPublic.dmPaperSize = DMPAPER_USER;
-					break;
-				default:
-					devmode.dmPublic.dmPaperSize = DMPAPER_LETTER;
-					break;
+					devmode.dmPublic.dmPaperSize = DMPAPER_USER + (g_PirntSettingsData.m_paperSize - 10);
 				}
+				else
+				{
+					switch (g_PirntSettingsData.m_paperSize)
+					{
+					case 0:
+						devmode.dmPublic.dmPaperSize = DMPAPER_A4;
+						break;
+					case 1:
+						devmode.dmPublic.dmPaperSize = DMPAPER_LETTER;
+						break;
+					case 2:
+						devmode.dmPublic.dmPaperSize = DMPAPER_B5;
+						break;
+					case 3:
+						devmode.dmPublic.dmPaperSize = DMPAPER_A5;
+						break;
+					case 4:
+						devmode.dmPublic.dmPaperSize = DMPAPER_A5LEF;
+						break;
+					case 5:
+						devmode.dmPublic.dmPaperSize = DMPAPER_B6_JIS;
+						break;
+					case 6:
+						devmode.dmPublic.dmPaperSize = DMPAPER_B6LEF;
+						break;
+					case 7:
+						devmode.dmPublic.dmPaperSize = DMPAPER_A6;
+						break;
+					case 8:
+						devmode.dmPublic.dmPaperSize = DMPAPER_EXECUTIVE;
+						break;
+					case 9:
+						devmode.dmPublic.dmPaperSize = DMPAPER_P16K;
+						break;
+					case 10:
+						devmode.dmPublic.dmPaperSize = DMPAPER_USER;
+						break;
+					default:
+						devmode.dmPublic.dmPaperSize = DMPAPER_LETTER;
+						break;
+					}
+				}				
 
 				devmode.dmPublic.dmOrientation = g_PirntSettingsData.m_paperOrientation;
 				devmode.dmPublic.dmMediaType = g_PirntSettingsData.m_mediaType + DMMEDIA_USER;
@@ -1477,11 +1505,6 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 				devmode.dmPrivate.graphics.TonerSaving = static_cast<BYTE>(g_PirntSettingsData.m_tonerSaving);
 				devmode.dmPublic.dmCopies = g_PirntSettingsData.m_copies;	
 
-				if (0 == g_PirntSettingsData.m_booklet)
-				{
-					devmode.dmPrivate.bEnableBooklet = false;
-				}
-
 				if (2 == m_PrintType)
 				{
 					devmode.dmPrivate.bEnableBooklet = false;
@@ -1489,6 +1512,11 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 					devmode.dmPrivate.headerData.bEnable = false;
 					devmode.dmPrivate.sPrintTextAsBlack = 0;
 					devmode.dmPrivate.sSkipBlankPage = 0;
+				}
+				else
+				{
+					devmode.dmPrivate.bEnableBooklet = static_cast<BYTE>(g_PirntSettingsData.m_booklet);
+					devmode.dmPrivate.bEnableWM = static_cast<BYTE>(g_PirntSettingsData.m_watermark);
 				}
 
 				*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
@@ -1593,9 +1621,7 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 				SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
 			}
 			free(printer_info);
-
-		}
-			
+		}			
 	}
 
 	if (lpDefaultData)
@@ -1673,7 +1699,9 @@ USBAPI_API void __stdcall GetPrinterSettingsData(
 	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
-	BYTE* ptr_copies)//byte
+	BYTE* ptr_copies,
+	BYTE* ptr_booklet,
+	BYTE* ptr_watermark)//byte
 {
 	*ptr_paperSize = static_cast<BYTE>(g_PirntSettingsData.m_paperSize);
 	*ptr_paperOrientation = static_cast<BYTE>(g_PirntSettingsData.m_paperOrientation);
@@ -1693,6 +1721,8 @@ USBAPI_API void __stdcall GetPrinterSettingsData(
 	*ptr_reversePrint = static_cast<BYTE>(g_PirntSettingsData.m_reversePrint);
 	*ptr_tonerSaving = static_cast<BYTE>(g_PirntSettingsData.m_tonerSaving);
 	*ptr_copies = static_cast<BYTE>(g_PirntSettingsData.m_copies);
+	*ptr_booklet = static_cast<BYTE>(g_PirntSettingsData.m_booklet);
+	*ptr_watermark = static_cast<BYTE>(g_PirntSettingsData.m_watermark);
 	getDocumentPropertiesData = getOutputData;
 }
 
@@ -1714,7 +1744,9 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
-	BYTE* ptr_copies)//byte
+	BYTE* ptr_copies,
+	BYTE* ptr_booklet,
+	BYTE* ptr_watermark)//byte
 {
 	HANDLE   phandle;
 	DWORD dmsize;
@@ -1741,46 +1773,52 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 				DWORD dwSize = sizeof(devmode)-sizeof(DEVMODE);
 
 				devmode = *(LPPCLDEVMODE)printer_info->pDevMode;
-				
-				switch (devmode.dmPublic.dmPaperSize)
+				if (devmode.dmPublic.dmPaperSize > 256)
 				{
-				case DMPAPER_A4:
-					*ptr_paperSize = 0;
-					break;
-				case DMPAPER_LETTER:
-					*ptr_paperSize = 1;
-					break;
-				case DMPAPER_B5:
-					*ptr_paperSize = 2;
-					break;
-				case DMPAPER_A5:
-					*ptr_paperSize = 3;
-					break;
-				case DMPAPER_A5LEF:
-					*ptr_paperSize = 4;
-					break;
-				case DMPAPER_B6_JIS:
-					*ptr_paperSize = 5;
-					break;
-				case DMPAPER_B6LEF:
-					*ptr_paperSize = 6;
-					break;
-				case DMPAPER_A6:
-					*ptr_paperSize = 7;
-					break;
-				case DMPAPER_EXECUTIVE:
-					*ptr_paperSize = 8;
-					break;
-				case DMPAPER_P16K:
-					*ptr_paperSize = 9;
-					break;
-				case DMPAPER_USER:
-					*ptr_paperSize = 10;
-					break;
-				default:
-					*ptr_paperSize = 1;
-					break;
+					*ptr_paperSize = (devmode.dmPublic.dmPaperSize - 256) + 10;
 				}
+				else
+				{
+					switch (devmode.dmPublic.dmPaperSize)
+					{
+					case DMPAPER_A4:
+						*ptr_paperSize = 0;
+						break;
+					case DMPAPER_LETTER:
+						*ptr_paperSize = 1;
+						break;
+					case DMPAPER_B5:
+						*ptr_paperSize = 2;
+						break;
+					case DMPAPER_A5:
+						*ptr_paperSize = 3;
+						break;
+					case DMPAPER_A5LEF:
+						*ptr_paperSize = 4;
+						break;
+					case DMPAPER_B6_JIS:
+						*ptr_paperSize = 5;
+						break;
+					case DMPAPER_B6LEF:
+						*ptr_paperSize = 6;
+						break;
+					case DMPAPER_A6:
+						*ptr_paperSize = 7;
+						break;
+					case DMPAPER_EXECUTIVE:
+						*ptr_paperSize = 8;
+						break;
+					case DMPAPER_P16K:
+						*ptr_paperSize = 9;
+						break;
+					case DMPAPER_USER:
+						*ptr_paperSize = 10;
+						break;
+					default:
+						*ptr_paperSize = 1;
+						break;
+					}
+				}				
 
 				*ptr_paperOrientation = static_cast<BYTE>(devmode.dmPublic.dmOrientation);				
 				*ptr_mediaType = static_cast<BYTE>(devmode.dmPrivate.par.wMediaType);
@@ -1799,10 +1837,14 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 				*ptr_reversePrint = devmode.dmPrivate.bPaperReverseOrder;
 				*ptr_tonerSaving = devmode.dmPrivate.graphics.TonerSaving;
 				*ptr_copies = devmode.dmPublic.dmCopies;
+				*ptr_booklet = devmode.dmPrivate.bEnableBooklet;
+				*ptr_watermark = devmode.dmPrivate.bEnableWM;
 
 				*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
 
-				SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
+				getDocumentPropertiesData = devmode;
+
+//				SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
 
 			}
 			free(printer_info);
@@ -1836,7 +1878,8 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
 	BYTE* ptr_copies,
-	BYTE* ptr_booklet)//byte
+	BYTE* ptr_booklet,
+	BYTE* ptr_watermark)//byte
 {
 	HANDLE   phandle;
 	LPPCLDEVMODE lpOutputData = NULL;
@@ -1869,46 +1912,52 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 				{
 					inputDevmode = *(LPPCLDEVMODE)printer_info->pDevMode;
 				}	
-
-				switch (*ptr_paperSize)
+				if (*ptr_paperSize > 10)
 				{
-				case 0:
-					inputDevmode.dmPublic.dmPaperSize = DMPAPER_A4;
-					break;
-				case 1:
-					inputDevmode.dmPublic.dmPaperSize = DMPAPER_LETTER;
-					break;
-				case 2:
-					inputDevmode.dmPublic.dmPaperSize = DMPAPER_B5;
-					break;
-				case 3:
-					inputDevmode.dmPublic.dmPaperSize = DMPAPER_A5;
-					break;
-				case 4:
-					inputDevmode.dmPublic.dmPaperSize = DMPAPER_A5LEF;
-					break;
-				case 5:
-					inputDevmode.dmPublic.dmPaperSize = DMPAPER_B6_JIS;
-					break;
-				case 6:
-					inputDevmode.dmPublic.dmPaperSize = DMPAPER_B6LEF;
-					break;
-				case 7:
-					inputDevmode.dmPublic.dmPaperSize = DMPAPER_A6;
-					break;
-				case 8:
-					inputDevmode.dmPublic.dmPaperSize = DMPAPER_EXECUTIVE;
-					break;
-				case 9:
-					inputDevmode.dmPublic.dmPaperSize = DMPAPER_P16K;
-					break;
-				case 10:
-					inputDevmode.dmPublic.dmPaperSize = DMPAPER_USER;
-					break;
-				default:
-					inputDevmode.dmPublic.dmPaperSize = DMPAPER_LETTER;
-					break;
+					inputDevmode.dmPublic.dmPaperSize = DMPAPER_USER + (*ptr_paperSize - 10);
 				}
+				else
+				{
+					switch (*ptr_paperSize)
+					{
+					case 0:
+						inputDevmode.dmPublic.dmPaperSize = DMPAPER_A4;
+						break;
+					case 1:
+						inputDevmode.dmPublic.dmPaperSize = DMPAPER_LETTER;
+						break;
+					case 2:
+						inputDevmode.dmPublic.dmPaperSize = DMPAPER_B5;
+						break;
+					case 3:
+						inputDevmode.dmPublic.dmPaperSize = DMPAPER_A5;
+						break;
+					case 4:
+						inputDevmode.dmPublic.dmPaperSize = DMPAPER_A5LEF;
+						break;
+					case 5:
+						inputDevmode.dmPublic.dmPaperSize = DMPAPER_B6_JIS;
+						break;
+					case 6:
+						inputDevmode.dmPublic.dmPaperSize = DMPAPER_B6LEF;
+						break;
+					case 7:
+						inputDevmode.dmPublic.dmPaperSize = DMPAPER_A6;
+						break;
+					case 8:
+						inputDevmode.dmPublic.dmPaperSize = DMPAPER_EXECUTIVE;
+						break;
+					case 9:
+						inputDevmode.dmPublic.dmPaperSize = DMPAPER_P16K;
+						break;
+					case 10:
+						inputDevmode.dmPublic.dmPaperSize = DMPAPER_USER;
+						break;
+					default:
+						inputDevmode.dmPublic.dmPaperSize = DMPAPER_LETTER;
+						break;
+					}
+				}				
 
 				inputDevmode.dmPublic.dmOrientation = *ptr_paperOrientation;
 				inputDevmode.dmPublic.dmMediaType = *ptr_mediaType + DMMEDIA_USER;
@@ -1937,6 +1986,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 				inputDevmode.dmPrivate.graphics.TonerSaving = *ptr_tonerSaving;		
 				inputDevmode.dmPublic.dmCopies = *ptr_copies;
 				inputDevmode.dmPrivate.bEnableBooklet = *ptr_booklet;
+				inputDevmode.dmPrivate.bEnableWM = *ptr_watermark;
 
 				//if (0 == *ptr_booklet)
 				//{
@@ -1963,46 +2013,52 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 					{
 						PCLDEVMODE devmode;
 						devmode = *lpOutputData;
-
-						switch (devmode.dmPublic.dmPaperSize)
+						if (devmode.dmPublic.dmPaperSize > 256)
 						{
-						case DMPAPER_A4:
-							*ptr_paperSize = 0;
-							break;
-						case DMPAPER_LETTER:
-							*ptr_paperSize = 1;
-							break;
-						case DMPAPER_B5:
-							*ptr_paperSize = 2;
-							break;
-						case DMPAPER_A5:
-							*ptr_paperSize = 3;
-							break;
-						case DMPAPER_A5LEF:
-							*ptr_paperSize = 4;
-							break;
-						case DMPAPER_B6_JIS:
-							*ptr_paperSize = 5;
-							break;
-						case DMPAPER_B6LEF:
-							*ptr_paperSize = 6;
-							break;
-						case DMPAPER_A6:
-							*ptr_paperSize = 7;
-							break;
-						case DMPAPER_EXECUTIVE:
-							*ptr_paperSize = 8;
-							break;
-						case DMPAPER_P16K:
-							*ptr_paperSize = 9;
-							break;
-						case DMPAPER_USER:
-							*ptr_paperSize = 10;
-							break;
-						default:
-							*ptr_paperSize = 1;
-							break;
+							*ptr_paperSize = (devmode.dmPublic.dmPaperSize - 256) + 10;
 						}
+						else
+						{
+							switch (devmode.dmPublic.dmPaperSize)
+							{
+							case DMPAPER_A4:
+								*ptr_paperSize = 0;
+								break;
+							case DMPAPER_LETTER:
+								*ptr_paperSize = 1;
+								break;
+							case DMPAPER_B5:
+								*ptr_paperSize = 2;
+								break;
+							case DMPAPER_A5:
+								*ptr_paperSize = 3;
+								break;
+							case DMPAPER_A5LEF:
+								*ptr_paperSize = 4;
+								break;
+							case DMPAPER_B6_JIS:
+								*ptr_paperSize = 5;
+								break;
+							case DMPAPER_B6LEF:
+								*ptr_paperSize = 6;
+								break;
+							case DMPAPER_A6:
+								*ptr_paperSize = 7;
+								break;
+							case DMPAPER_EXECUTIVE:
+								*ptr_paperSize = 8;
+								break;
+							case DMPAPER_P16K:
+								*ptr_paperSize = 9;
+								break;
+							case DMPAPER_USER:
+								*ptr_paperSize = 10;
+								break;
+							default:
+								*ptr_paperSize = 1;
+								break;
+							}
+						}				
 
 						*ptr_paperOrientation = static_cast<BYTE>(devmode.dmPublic.dmOrientation);						
 						*ptr_mediaType = static_cast<BYTE>(devmode.dmPrivate.par.wMediaType);
@@ -2022,6 +2078,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 						*ptr_tonerSaving = devmode.dmPrivate.graphics.TonerSaving;
 						*ptr_copies = devmode.dmPublic.dmCopies;
 						*ptr_booklet = devmode.dmPrivate.bEnableBooklet;
+						*ptr_watermark = devmode.dmPrivate.bEnableWM;
 
 						*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
 						getDocumentPropertiesData = devmode;

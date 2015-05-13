@@ -495,13 +495,14 @@ typedef struct PirntSettingsData
 	short m_posterType;
 	short m_ADJColorBalance;
 	short m_colorBalanceTo;
-	int m_densityValue;
+	short m_densityValue;
 	short m_duplexPrint;
 	short m_documentStyle;
 	short m_reversePrint;
 	short m_tonerSaving;
 	short m_copies;
 	short m_booklet;
+	short m_watermark;
 
 } PirntSettingsData, *pPirntSettingsData;
 

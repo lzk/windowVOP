@@ -253,7 +253,8 @@ namespace VOP
             sbyte ReversePrint,
             sbyte TonerSaving,
             sbyte Copies,
-            sbyte Booklet);
+            sbyte Booklet,
+            sbyte Watermark);
 
         [DllImport("usbapi.dll")]
         public static extern void SetPrinterSettingsInitData(sbyte m_PrintType);
@@ -281,7 +282,9 @@ namespace VOP
             ref sbyte DocumentStyle,
             ref sbyte ReversePrint,
             ref sbyte TonerSaving,
-            ref sbyte Copies);
+            ref sbyte Copies,
+            ref sbyte Booklet,
+            ref sbyte Watermark);
 
         [DllImport("usbapi.dll")]
         public static extern int GetPrinterInfo(
@@ -303,7 +306,9 @@ namespace VOP
             ref sbyte DocumentStyle,
             ref sbyte ReversePrint,
             ref sbyte TonerSaving,
-            ref sbyte Copies);
+            ref sbyte Copies,
+            ref sbyte Booklet,
+            ref sbyte Watermark);
 
         [DllImport("usbapi.dll")]
         public static extern int OpenDocumentProperties(
@@ -327,7 +332,8 @@ namespace VOP
             ref sbyte ReversePrint,
             ref sbyte TonerSaving,
             ref sbyte Copies,
-            ref sbyte Booklet);
+            ref sbyte Booklet,
+            ref sbyte Watermark);
 
         [DllImport("usbapi.dll")]
         public static extern void SetCopies([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName, sbyte Copies);

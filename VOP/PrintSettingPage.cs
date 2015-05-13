@@ -249,10 +249,11 @@ namespace VOP
         private sbyte m_preNin1 = 2;//multiple-page 2in1: 2, 4in1: 4, 6in1: 6, 9in1: 9, 16 in1:16
 
         private sbyte m_preduplexPrint = 3;
-        public  sbyte m_colorBalanceTo = 1;
-        public sbyte m_ADJColorBalance = 1;
+        public  sbyte m_colorBalanceTo = 0;
+        public sbyte m_ADJColorBalance = 0;
         public sbyte m_copies = 1;
         public sbyte m_booklet = 0;
+        public sbyte m_watermark = 0;
         public EnumMediaType m_MediaType = EnumMediaType.Plain;
         #endregion
 
@@ -287,7 +288,7 @@ namespace VOP
             {
                 SetDefaultValue();
                 dll.SetPrinterSettingsInitData((sbyte)m_CurrentPrintType);
-                dll.SavePrinterSettingsData(m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo, m_densityValue, m_duplexPrint,m_documentStyle, m_reversePrint, m_tonerSaving, m_copies, m_booklet);
+                dll.SavePrinterSettingsData(m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo, m_densityValue, m_duplexPrint, m_documentStyle, m_reversePrint, m_tonerSaving, m_copies, m_booklet, m_watermark);
                 FileSelectionPage.IsInitPrintSettingPage = false;
             }
             else
@@ -510,9 +511,10 @@ namespace VOP
                 {
                     m_MediaType = (EnumMediaType)selItem.DataContext;
                 }
-                if (4 == m_mediaType||rdBtn1in2x2.IsChecked == true ||rdBtn1in3x3.IsChecked == true || rdBtn1in4x4.IsChecked == true)
+                if (4 == m_mediaType||rdBtn1in2x2.IsChecked == true ||rdBtn1in3x3.IsChecked == true || rdBtn1in4x4.IsChecked == true||m_booklet == 1 )
                 {
                     chk_DuplexPrint.IsEnabled = false;
+                    m_booklet = 0;
                 }
                 else
                 {
@@ -633,37 +635,7 @@ namespace VOP
             rdBtn1in4x4.IsEnabled = false;
             rdBtn1in4x4.IsChecked = false;
             m_preNin1 = 0;
-
-            foreach (ComboBoxItem obj in cboMediaType.Items)
-            {
-                if (null != obj.DataContext)
-                {
-                    EnumMediaType s = (EnumMediaType)obj.DataContext;
-
-                    switch (s)
-                    {
-                        case EnumMediaType.Plain:
-                            obj.IsEnabled = true;
-                            break;
-                        case EnumMediaType.Recycled:
-                            obj.IsEnabled = true;
-                            break;
-                        case EnumMediaType.Thick:
-                            obj.IsEnabled = true;
-                            break;
-                        case EnumMediaType.Thin:
-                            obj.IsEnabled = true;
-                            break;
-                        case EnumMediaType.Label:
-                            obj.IsEnabled = false;
-                            break;                        
-                        default:
-                            obj.IsEnabled = true;
-                            break;
-                    }
-
-                }
-            }
+            DisableLabelType();
         }
 
         private void chk_DuplexPrint_Unchecked(object sender, RoutedEventArgs e)
@@ -674,48 +646,19 @@ namespace VOP
             rdBtnFlipOnLongEdge.IsEnabled = false;
             rdBtnFlipOnShortEdger.IsChecked = false;
             rdBtnFlipOnLongEdge.IsChecked = false;
+            m_scalingRatio = 100;
+            m_scalingType = 0;
 
-            rdBtn1in2x2.IsEnabled = true;
-            rdBtn1in3x3.IsEnabled = true;
-            rdBtn1in4x4.IsEnabled = true;
-
-            foreach (ComboBoxItem obj in cboMediaType.Items)
-            {
-                if (null != obj.DataContext)
-                {
-                    EnumMediaType s = (EnumMediaType)obj.DataContext;
-
-                    switch (s)
-                    {
-                        case EnumMediaType.Plain:
-                            obj.IsEnabled = true;
-                            break;
-                        case EnumMediaType.Recycled:
-                            obj.IsEnabled = true;
-                            break;
-                        case EnumMediaType.Thick:
-                            obj.IsEnabled = true;
-                            break;
-                        case EnumMediaType.Thin:
-                            obj.IsEnabled = true;
-                            break;
-                        case EnumMediaType.Label:
-                            obj.IsEnabled = true;
-                            break;
-
-                        default:
-                            obj.IsEnabled = true;
-                            break;
-                    }
-
-                }
-            }
+            DisableLabelType();
         }
 
         private void chk_MultiplePagePrint_Checked(object sender, RoutedEventArgs e)
         {
-            chk_FitToPaperSize.IsEnabled = false;
-            chk_FitToPaperSize.IsChecked = false;
+            if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
+            {
+                chk_FitToPaperSize.IsEnabled = false;
+                chk_FitToPaperSize.IsChecked = true;
+            }
             spinnerScaling.IsEnabled = false;
             if (4 == m_preNin1)
             {
@@ -729,15 +672,15 @@ namespace VOP
             {
                 rdBtn16in1.IsChecked = true;
             }
-            else if (1 == m_preNin1 && m_posterType == 0 )
+            else if (1 == m_preNin1 && m_posterType == 0 && chk_DuplexPrint.IsChecked == false)
             {
                 rdBtn1in2x2.IsChecked = true;
             }
-            else if (1 == m_preNin1 && m_posterType == 1 )
+            else if (1 == m_preNin1 && m_posterType == 1 && chk_DuplexPrint.IsChecked == false)
             {
                 rdBtn1in3x3.IsChecked = true;
             }
-            else if (1 == m_preNin1 && m_posterType == 2 )
+            else if (1 == m_preNin1 && m_posterType == 2 && chk_DuplexPrint.IsChecked == false)
             {
                 rdBtn1in4x4.IsChecked = true;
             }
@@ -749,9 +692,18 @@ namespace VOP
             rdBtn4in1.IsEnabled = true;
             rdBtn9in1.IsEnabled = true;
             rdBtn16in1.IsEnabled = true;
-            rdBtn1in2x2.IsEnabled = true;
-            rdBtn1in3x3.IsEnabled = true;
-            rdBtn1in4x4.IsEnabled = true;
+            if (chk_DuplexPrint.IsChecked == true || 1 == m_watermark)
+            {
+                rdBtn1in2x2.IsEnabled = false;
+                rdBtn1in3x3.IsEnabled = false;
+                rdBtn1in4x4.IsEnabled = false;
+            }
+            else
+            {
+                rdBtn1in2x2.IsEnabled = true;
+                rdBtn1in3x3.IsEnabled = true;
+                rdBtn1in4x4.IsEnabled = true;
+            }           
 
             m_nupNum = m_preNin1;
         }
@@ -763,7 +715,6 @@ namespace VOP
             if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
             {
                 chk_FitToPaperSize.IsEnabled = true;
-                chk_FitToPaperSize.IsChecked = false;
             }         
             spinnerScaling.IsEnabled = true;
             rdBtn2in1.IsEnabled = false;
@@ -783,13 +734,13 @@ namespace VOP
             if (4 == m_mediaType)
             {
                 chk_DuplexPrint.IsEnabled = false;
+                rdBtnFlipOnShortEdger.IsEnabled = false;
+                rdBtnFlipOnLongEdge.IsEnabled = false;
             }
             else
             {
                 chk_DuplexPrint.IsEnabled = true;
-            }            
-            rdBtnFlipOnShortEdger.IsEnabled = true;
-            rdBtnFlipOnLongEdge.IsEnabled = true;
+            }                        
         }
 
         private void rdBtn2in1_Checked(object sender, RoutedEventArgs e)
@@ -870,6 +821,7 @@ namespace VOP
             m_scalingType = 0;
             m_scalingRatio = 100;
             m_posterType = 0;
+            m_watermark = 0;
             chk_DuplexPrint.IsChecked = false;
             chk_DuplexPrint.IsEnabled = false;
             rdBtnFlipOnShortEdger.IsEnabled = false;
@@ -887,6 +839,7 @@ namespace VOP
             m_scalingType = 0;
             m_scalingRatio = 100;
             m_posterType = 1;
+            m_watermark = 0;
             chk_DuplexPrint.IsChecked = false;
             chk_DuplexPrint.IsEnabled = false;
             rdBtnFlipOnShortEdger.IsEnabled = false;
@@ -903,6 +856,7 @@ namespace VOP
             m_scalingType = 0;
             m_scalingRatio = 100;
             m_posterType = 2;
+            m_watermark = 0;
             chk_DuplexPrint.IsChecked = false;
             chk_DuplexPrint.IsEnabled = false;
             rdBtnFlipOnShortEdger.IsEnabled = false;
@@ -937,40 +891,46 @@ namespace VOP
         }
        
         private void GetScalingValues()
-        {
-            if (chk_FitToPaperSize.IsChecked == false && spinnerScaling.IsEnabled == false)
-            {
-                m_scalingType = 0;
-            }
-            else if (chk_FitToPaperSize.IsChecked == true && spinnerScaling.IsEnabled == false)
-            {
-                m_scalingType = 2;
-            }
-            else
-            {
-                m_scalingType = 1;
-            }
+        {            
             if (null != spinnerScaling)
             {
                 m_scalingRatio = (short)spinnerScaling.Value;
+                if(100 == m_scalingRatio )
+                {                  
+                    m_scalingType = 0;
+                }
+                else
+                {
+                    m_scalingType = 1;
+                }
             }
         }
 
         private void GetDensityValues()
         {
-            if (spinnerDensityAdjustment.IsEnabled == false )
-            {
-                m_ADJColorBalance = 0;
-                m_colorBalanceTo = 0;
-            }
-            else
-            {
-                m_ADJColorBalance = 1;
-                m_colorBalanceTo = 1;
-            }
+            //if (spinnerDensityAdjustment.IsEnabled == false )
+            //{
+            //    m_ADJColorBalance = 0;
+            //    m_colorBalanceTo = 0;
+            //}
+            //else
+            //{
+            //    m_ADJColorBalance = 1;
+            //    m_colorBalanceTo = 1;
+            //}
             if (null != spinnerDensityAdjustment)
             {
                 m_densityValue = (sbyte)(spinnerDensityAdjustment.Value);
+                if(4 ==m_densityValue)
+                {
+                    m_ADJColorBalance = 0;
+                    m_colorBalanceTo = 0;
+                }
+                else
+                {
+                    m_ADJColorBalance = 1;
+                    m_colorBalanceTo = 1;
+                }
             }
         }
 
@@ -996,7 +956,7 @@ namespace VOP
                 //                dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo,m_densityValue, m_duplexPrint,m_documentStyle, m_reversePrint, m_tonerSaving);
 //                GetDataFromPrinterInfo();
                  dll.InitPrinterData(m_MainWin.statusPanelPage.m_selectedPrinter);
-                 dll.OpenDocumentProperties((new WindowInteropHelper(this)).Handle, m_MainWin.statusPanelPage.m_selectedPrinter, ref m_paperSize, ref m_paperOrientation, ref m_mediaType, ref m_paperOrder, ref m_printQuality, ref m_scalingType, ref m_scalingRatio, ref m_nupNum, ref m_typeofPB, ref m_posterType, ref m_ADJColorBalance, ref  m_colorBalanceTo, ref m_densityValue, ref m_duplexPrint, ref m_documentStyle, ref m_reversePrint, ref m_tonerSaving, ref m_copies, ref m_booklet);
+                 dll.OpenDocumentProperties((new WindowInteropHelper(this)).Handle, m_MainWin.statusPanelPage.m_selectedPrinter, ref m_paperSize, ref m_paperOrientation, ref m_mediaType, ref m_paperOrder, ref m_printQuality, ref m_scalingType, ref m_scalingRatio, ref m_nupNum, ref m_typeofPB, ref m_posterType, ref m_ADJColorBalance, ref  m_colorBalanceTo, ref m_densityValue, ref m_duplexPrint, ref m_documentStyle, ref m_reversePrint, ref m_tonerSaving, ref m_copies, ref m_booklet, ref m_watermark);
                  SetDataFromPrinterInfo();  
             }
         }
@@ -1016,7 +976,8 @@ namespace VOP
 
             if (printerName != null && printerName.Length > 0)
             {
-                dll.SavePrinterSettingsData(m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo, m_densityValue, m_duplexPrint, m_documentStyle, m_reversePrint, m_tonerSaving, m_copies, m_booklet);
+                dll.InitPrinterData(m_MainWin.statusPanelPage.m_selectedPrinter);
+                dll.SavePrinterSettingsData(m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo, m_densityValue, m_duplexPrint, m_documentStyle, m_reversePrint, m_tonerSaving, m_copies, m_booklet, m_watermark);
                 dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)m_CurrentPrintType);
             }
         }
@@ -1087,6 +1048,7 @@ namespace VOP
                 rdBtnFlipOnLongEdge.IsEnabled = false;
                 spinnerScaling.IsEnabled = false;
                 chk_FitToPaperSize.IsEnabled = false;
+                chk_FitToPaperSize.IsChecked = false;
                 rdBtnNormalPrint.IsEnabled = false;
                 rdBtnNormalPrint.IsChecked = false;
                 rdBtnReversePrint.IsEnabled = false;
@@ -1240,11 +1202,6 @@ namespace VOP
                 chk_TonerSaving.IsEnabled = true;
                 chk_TonerSaving.IsChecked = false;
                 AdvancedSettingsButton.IsEnabled = true;
-                cboPaperSize.SelectedIndex = 0;
-                cboPrintQuality.SelectedIndex = 0;
-                cboMediaType.SelectedIndex = 0;
-                spinnerDensityAdjustment.Value = 4;
-                spinnerScaling.Value = 100;
             }
             else if (m_CurrentPrintType == PrintPage.PrintType.PrintIdCard)
             {
@@ -1275,6 +1232,7 @@ namespace VOP
                 rdBtnFlipOnLongEdge.IsEnabled = false;
                 spinnerScaling.IsEnabled = false;
                 chk_FitToPaperSize.IsEnabled = false;
+                chk_FitToPaperSize.IsChecked = false;
                 rdBtnNormalPrint.IsEnabled = false;
                 rdBtnNormalPrint.IsChecked = false;
                 rdBtnReversePrint.IsEnabled = false;
@@ -1282,12 +1240,6 @@ namespace VOP
                 chk_TonerSaving.IsEnabled = true;
                 chk_TonerSaving.IsChecked = false;
                 AdvancedSettingsButton.IsEnabled = false;
-                cboPaperSize.SelectedIndex = 0;
-                cboPrintQuality.SelectedIndex = 0;
-                cboMediaType.SelectedIndex = 0;
-                spinnerDensityAdjustment.Value = 4;
-                spinnerScaling.Value = 100;
-
             }
             else if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
             {
@@ -1322,12 +1274,6 @@ namespace VOP
                 chk_TonerSaving.IsEnabled = true;
                 chk_TonerSaving.IsChecked = false;
                 AdvancedSettingsButton.IsEnabled = true;
-                
-                cboPaperSize.SelectedIndex = 0;
-                cboPrintQuality.SelectedIndex = 0;
-                cboMediaType.SelectedIndex = 0;
-                spinnerDensityAdjustment.Value = 4;
-                spinnerScaling.Value = 100;
             }
             else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Txt)
             {
@@ -1364,11 +1310,6 @@ namespace VOP
                 chk_TonerSaving.IsEnabled = true;
                 chk_TonerSaving.IsChecked = false;
                 AdvancedSettingsButton.IsEnabled = true;
-                cboPaperSize.SelectedIndex = 0;
-                cboPrintQuality.SelectedIndex = 0;
-                cboMediaType.SelectedIndex = 0;
-                spinnerDensityAdjustment.Value = 4;
-                spinnerScaling.Value = 100;
             }
             else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf)
             {
@@ -1404,21 +1345,28 @@ namespace VOP
                 rdBtnReversePrint.IsChecked = true;
                 chk_TonerSaving.IsEnabled = true;
                 chk_TonerSaving.IsChecked = false;
-                AdvancedSettingsButton.IsEnabled = true;
-                cboPaperSize.SelectedIndex = 0;
-                cboPrintQuality.SelectedIndex = 0;
-                cboMediaType.SelectedIndex = 0;
-                spinnerDensityAdjustment.Value = 4;
-                spinnerScaling.Value = 100;
+                AdvancedSettingsButton.IsEnabled = true;                
             }
+            cboPrintQuality.SelectedIndex = 0;
+            cboMediaType.SelectedIndex = 0;
+            spinnerDensityAdjustment.Value = 4;
+            spinnerScaling.Value = 100;
+
+            m_mediaType = 0;
+            m_printQuality = 0;
+            m_scalingRatio = 100;
+            m_densityValue = 4;
+
             bool bIsMetrice = dll.IsMetricCountry();
             if (bIsMetrice)
             {
                 cboPaperSize.SelectedIndex = 0;
+                m_paperSize = 0;
             }
             else
             {
                 cboPaperSize.SelectedIndex = 1;
+                m_paperSize = 1;
             }
         }
 
@@ -1555,50 +1503,14 @@ namespace VOP
             {
                 chk_TonerSaving.IsChecked = true;
             }
-            if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
-            {
-                switch (m_scalingType)
-                {
-                    case 0:
-                        spinnerScaling.IsEnabled = false;
-                        chk_FitToPaperSize.IsChecked = false;
-                        chk_FitToPaperSize.IsEnabled = false;
-                        spinnerScaling.Value = m_scalingRatio;
-                        break;
-                    case 1:
-                        spinnerScaling.IsEnabled = true;
-                        spinnerScaling.Value = m_scalingRatio;
-                        if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
-                        {
-                            chk_FitToPaperSize.IsEnabled = true;
-                        }
-                        else
-                        {
-                            chk_FitToPaperSize.IsEnabled = false;
-                        }
-
-                        chk_FitToPaperSize.IsChecked = false;
-
-                        break;
-                    case 2:
-                        spinnerScaling.IsEnabled = false;                      
-                        chk_FitToPaperSize.IsChecked = true;
-                        chk_FitToPaperSize.IsEnabled = true;
-                        spinnerScaling.Value = m_scalingRatio;
-                        break;
-                    default:
-                        spinnerScaling.IsEnabled = false;
-                        chk_FitToPaperSize.IsEnabled = false;
-                        chk_FitToPaperSize.IsChecked = false;
-                        spinnerScaling.Value = m_scalingRatio;
-                        break;
-                }
-            }
-            else
+            if (1 == m_scalingType)
             {
                 spinnerScaling.Value = m_scalingRatio;
             }
-
+            else
+            {
+                spinnerScaling.Value = 100;
+            }
            
             if (m_ADJColorBalance == 1 && m_colorBalanceTo == 1)
             {
@@ -1614,23 +1526,94 @@ namespace VOP
                 chk_MultiplePagePrint.IsChecked = false;
                 chk_MultiplePagePrint.IsEnabled = false;
                 rdBtnFlipOnShortEdger.IsEnabled = false;
-                chk_DuplexPrint.IsEnabled = false;
-                spinnerScaling.IsEnabled = false;
-                chk_FitToPaperSize.IsEnabled = false;
+                chk_DuplexPrint.IsEnabled = false;  
             }
             else
             {
                 chk_MultiplePagePrint.IsEnabled = true;
-                rdBtnFlipOnShortEdger.IsEnabled = true;
                 chk_DuplexPrint.IsEnabled = true;  
+            }
+            DisableLabelType();
+            if(m_watermark == 1)
+            {
+                rdBtn1in2x2.IsEnabled = false;
+                rdBtn1in3x3.IsEnabled = false;
+                rdBtn1in4x4.IsEnabled = false;
             }
         }
 
         private void GetDataFromPrinterInfo()
         {
-           dll.GetPrinterSettingsData(ref m_paperSize, ref m_paperOrientation, ref m_mediaType, ref m_paperOrder, ref m_printQuality, ref m_scalingType, ref m_scalingRatio, ref m_nupNum, ref m_typeofPB, ref m_posterType, ref m_ADJColorBalance, ref  m_colorBalanceTo, ref m_densityValue, ref m_duplexPrint, ref m_documentStyle, ref m_reversePrint, ref m_tonerSaving,ref m_copies);
+            dll.GetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, ref m_paperSize, ref m_paperOrientation, ref m_mediaType, ref m_paperOrder, ref m_printQuality, ref m_scalingType, ref m_scalingRatio, ref m_nupNum, ref m_typeofPB, ref m_posterType, ref m_ADJColorBalance, ref  m_colorBalanceTo, ref m_densityValue, ref m_duplexPrint, ref m_documentStyle, ref m_reversePrint, ref m_tonerSaving, ref m_copies, ref m_booklet, ref m_watermark);
+//           dll.GetPrinterSettingsData(ref m_paperSize, ref m_paperOrientation, ref m_mediaType, ref m_paperOrder, ref m_printQuality, ref m_scalingType, ref m_scalingRatio, ref m_nupNum, ref m_typeofPB, ref m_posterType, ref m_ADJColorBalance, ref  m_colorBalanceTo, ref m_densityValue, ref m_duplexPrint, ref m_documentStyle, ref m_reversePrint, ref m_tonerSaving,ref m_copies,ref m_booklet, ref m_watermark);
            SetDataFromPrinterInfo();
         }
-       
+        private void DisableLabelType()
+        {
+            if (0 != m_duplexPrint || m_booklet == 1)
+            {
+                foreach (ComboBoxItem obj in cboMediaType.Items)
+                {
+                    if (null != obj.DataContext)
+                    {
+                        EnumMediaType s = (EnumMediaType)obj.DataContext;
+
+                        switch (s)
+                        {
+                            case EnumMediaType.Plain:
+                                obj.IsEnabled = true;
+                                break;
+                            case EnumMediaType.Recycled:
+                                obj.IsEnabled = true;
+                                break;
+                            case EnumMediaType.Thick:
+                                obj.IsEnabled = true;
+                                break;
+                            case EnumMediaType.Thin:
+                                obj.IsEnabled = true;
+                                break;
+                            case EnumMediaType.Label:
+                                obj.IsEnabled = false;
+                                break;
+                            default:
+                                obj.IsEnabled = true;
+                                break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                foreach (ComboBoxItem obj in cboMediaType.Items)
+                {
+                    if (null != obj.DataContext)
+                    {
+                        EnumMediaType s = (EnumMediaType)obj.DataContext;
+
+                        switch (s)
+                        {
+                            case EnumMediaType.Plain:
+                                obj.IsEnabled = true;
+                                break;
+                            case EnumMediaType.Recycled:
+                                obj.IsEnabled = true;
+                                break;
+                            case EnumMediaType.Thick:
+                                obj.IsEnabled = true;
+                                break;
+                            case EnumMediaType.Thin:
+                                obj.IsEnabled = true;
+                                break;
+                            case EnumMediaType.Label:
+                                obj.IsEnabled = true;
+                                break;
+                            default:
+                                obj.IsEnabled = true;
+                                break;
+                        }
+                    }
+                }
+            }            
+        }        
     }
 }
