@@ -2720,82 +2720,85 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                 {
                     nResult = RETSCAN_BUSY;
                 }
-                else if ( DEVMON_STATUS_OK != obj.SetScanParameterEx( &scanparam ) )
+                else 
                 {
-                    nResult = RETSCAN_ERROR;
-                }
-                else
-                {
-					FillBitmapHeader(headOrig, scanMode, nLinePixelNumOrig, nColPixelNumOrig, resolution, 1.0, &dwHeadSizeOrig);
-
-                    CreateFileWithSize( szOrig, reinterpret_cast<const BITMAPFILEHEADER*>(headOrig)->bfSize );
-
-                    hFileOrig  = CreateFile( szOrig , GENERIC_READ | GENERIC_WRITE, 0, (LPSECURITY_ATTRIBUTES) NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, (HANDLE) NULL);
-
-                    WriteFile( hFileOrig , headOrig , dwHeadSizeOrig , &dwHeadSizeOrig , NULL);
-
-                    int nMod = nColPixelNumOrig/100;
-                    int nPercent = 0;
-                    bCancelScanning = false;
-
-					while ( true )
+                    if ( DEVMON_STATUS_OK != obj.SetScanParameterEx( &scanparam ) )
                     {
-                        if ( true == bCancelScanning )
-                            break;
-
-                        if ( obj.ReadData(strideOrig, cbStridePadOrig, &ulBytesRead, &lPercentComplete) != DEVMON_STATUS_OK )
-                            break;
-
-                        if ( ++nRowsCnt > nColPixelNumOrig )
-                            break;
-
-                        if ( 0 == nRowsCnt%nMod )
-                            ::SendNotifyMessage( HWND_BROADCAST, uMsg, ++nPercent, 0); 
-
-                        lWroteOrig += cbStridePadOrig;
-                        SetFilePointer( hFileOrig, 0-lWroteOrig, NULL, FILE_END );
-                        WriteFile( hFileOrig, strideOrig, cbStridePadOrig, &ulBytesRead, NULL);
-                    }
-
-                    CloseHandle( hFileOrig  );
-
-                    if ( false == bCancelScanning )
-                    {
-                        if ( 0 == scanMode )
-                        {
-                            if (0 != obj.m_dwTotalLinesRead)
-                            {
-                                ScalingBitmap( szOrig, szView, 1 );
-                                ScalingBitmap( szOrig, szThumb, 1 );
-                            }
-                        }
-                        else
-                        {
-                            // calculate scaling rate
-                            if (0 != obj.m_dwTotalLinesRead)
-                            {
-                                unsigned int uPixelNumber = (width*resolution / 1000) * (height*resolution / 1000);
-                                double rView = GetScalingRate(MAX_PIXEL_PREVIEW, uPixelNumber);
-                                double rThumb = GetScalingRate(MAX_PIXEL_THUMB, uPixelNumber);
-                                ScalingBitmap(szOrig, szView, rView);
-                                ScalingBitmap(szOrig, szThumb, rThumb);
-                            }
-                        }
-
-                        if ( nRowsCnt == nColPixelNumOrig )
-                            ::SendNotifyMessage( HWND_BROADCAST, uMsg, 100, 0); 
-                        else
-                            nResult = RETSCAN_ERROR;
+                        nResult = RETSCAN_ERROR;
                     }
                     else
                     {
-                        // TODO: clear cache file. add sync mechanism.
-                        nResult = RETSCAN_CANCEL;
+                        FillBitmapHeader(headOrig, scanMode, nLinePixelNumOrig, nColPixelNumOrig, resolution, 1.0, &dwHeadSizeOrig);
+
+                        CreateFileWithSize( szOrig, reinterpret_cast<const BITMAPFILEHEADER*>(headOrig)->bfSize );
+
+                        hFileOrig  = CreateFile( szOrig , GENERIC_READ | GENERIC_WRITE, 0, (LPSECURITY_ATTRIBUTES) NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, (HANDLE) NULL);
+
+                        WriteFile( hFileOrig , headOrig , dwHeadSizeOrig , &dwHeadSizeOrig , NULL);
+
+                        int nMod = nColPixelNumOrig/100;
+                        int nPercent = 0;
+                        bCancelScanning = false;
+
+                        while ( true )
+                        {
+                            if ( true == bCancelScanning )
+                                break;
+
+                            if ( obj.ReadData(strideOrig, cbStridePadOrig, &ulBytesRead, &lPercentComplete) != DEVMON_STATUS_OK )
+                                break;
+
+                            if ( ++nRowsCnt > nColPixelNumOrig )
+                                break;
+
+                            if ( 0 == nRowsCnt%nMod )
+                                ::SendNotifyMessage( HWND_BROADCAST, uMsg, ++nPercent, 0); 
+
+                            lWroteOrig += cbStridePadOrig;
+                            SetFilePointer( hFileOrig, 0-lWroteOrig, NULL, FILE_END );
+                            WriteFile( hFileOrig, strideOrig, cbStridePadOrig, &ulBytesRead, NULL);
+                        }
+
+                        CloseHandle( hFileOrig  );
+
+                        if ( false == bCancelScanning )
+                        {
+                            if ( 0 == scanMode )
+                            {
+                                if (0 != obj.m_dwTotalLinesRead)
+                                {
+                                    ScalingBitmap( szOrig, szView, 1 );
+                                    ScalingBitmap( szOrig, szThumb, 1 );
+                                }
+                            }
+                            else
+                            {
+                                // calculate scaling rate
+                                if (0 != obj.m_dwTotalLinesRead)
+                                {
+                                    unsigned int uPixelNumber = (width*resolution / 1000) * (height*resolution / 1000);
+                                    double rView = GetScalingRate(MAX_PIXEL_PREVIEW, uPixelNumber);
+                                    double rThumb = GetScalingRate(MAX_PIXEL_THUMB, uPixelNumber);
+                                    ScalingBitmap(szOrig, szView, rView);
+                                    ScalingBitmap(szOrig, szThumb, rThumb);
+                                }
+                            }
+
+                            if ( nRowsCnt == nColPixelNumOrig )
+                                ::SendNotifyMessage( HWND_BROADCAST, uMsg, 100, 0); 
+                            else
+                                nResult = RETSCAN_ERROR;
+                        }
+                        else
+                        {
+                            // TODO: clear cache file. add sync mechanism.
+                            nResult = RETSCAN_CANCEL;
+                        }
                     }
 
+                    obj.StopScan();
                 }
 
-                obj.StopScan();
                 obj.Close();
 
                 if ( NULL != strideOrig )
