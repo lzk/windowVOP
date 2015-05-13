@@ -20,6 +20,7 @@ namespace VOP
     {
         public MainWindow m_MainWin { get; set; }
         List<string> filePaths = new List<string>();
+        PdfPrint print = new PdfPrint();
 
         public enum PrintType
         {   
@@ -161,8 +162,8 @@ namespace VOP
 
         private int DoPdfPrint()
         {
-            pdfPrint print = new pdfPrint();
-            print.pdfTest(FilePaths[0]);
+            PdfPrint print = new PdfPrint();
+            print.Print(FilePaths[0]);
 
             return (int)PrintError.Print_OK;
         }
@@ -248,7 +249,8 @@ namespace VOP
                         else if (fileExt == ".pdf")
                         {
                             dll.VopSetDefaultPrinter(m_MainWin.statusPanelPage.m_selectedPrinter);
-                            printRes = (PrintError)worker.InvokeDoWorkMethod(DoPdfPrint);
+                          //  printRes = (PrintError)worker.InvokeDoWorkMethod(DoPdfPrint);
+                            print.Print(FilePaths[0]);  
                         }
                         else
                         {
@@ -450,9 +452,28 @@ namespace VOP
         }
     }
 
-    class pdfPrint
+    class PdfPrint
     {
-        public void pdfTest(string pdfFileName)
+        static List<Process> proList = new List<Process>();
+ 
+        public static void CloseAll()
+        {
+            foreach(Process p in proList)
+            {
+                if(p != null)
+                {
+                    if(!p.HasExited)
+                    {
+                        p.CloseMainWindow();
+                        p.Kill();
+                    }  
+                }
+            }
+
+            proList.Clear();
+        }
+
+        public void Print(string pdfFileName)
         {
             //string processFilename = Microsoft.Win32.Registry.LocalMachine
             //     .OpenSubKey("Software")
@@ -463,37 +484,21 @@ namespace VOP
             //     .OpenSubKey("AcroRd32.exe")
             //     .GetValue(String.Empty).ToString();
 
+            CloseAll();
+
             ProcessStartInfo info = new ProcessStartInfo();
             info.Verb = "print";
             info.FileName = pdfFileName;
-          //  info.FileName = processFilename;
-          //  info.Arguments = String.Format("/t \"{0}\" \"{1}\"", pdfFileName, ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
-            info.CreateNoWindow = true;
+       //     info.FileName = processFilename;
+       //     info.Arguments = String.Format("/t \"{0}\" \"{1}\"", pdfFileName, ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
+            info.CreateNoWindow = false;
             info.WindowStyle = ProcessWindowStyle.Normal;
             //(It won't be hidden anyway... thanks Adobe!)
             info.UseShellExecute = true;
 
             Process p = Process.Start(info);
+            proList.Add(p);
 
-            //if (p != null)
-            //{
-            //    p.WaitForInputIdle();
-            //    p.CloseMainWindow();
-            //    p.Kill();
-            //}
-
-            int counter = 0;
-            while (!p.HasExited)
-            {
-                System.Threading.Thread.Sleep(1000);
-                counter += 1;
-                if (counter == 5) break;
-            }
-            if (!p.HasExited)
-            {
-                p.CloseMainWindow();
-                p.Kill();
-            }
         }
     }
 
@@ -598,6 +603,42 @@ namespace VOP
             ppt.PrintOptions.ActivePrinter = printerName;
             ppt.PrintOptions.NumberOfCopies = copies;
             ppt.PrintOut();
+        }
+    }
+
+    public class PdfJobPrint
+    {
+        private string filePath;
+       // Acrobat.AcroApp app = new Acrobat.AcroApp();
+        Acrobat.AcroAVDoc _acroDoc = new Acrobat.AcroAVDoc();
+
+        public PdfJobPrint(string s)
+        {
+            filePath = s;
+        }
+
+        public bool Open()
+        {
+            try
+            {
+               
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public void Close()
+        {
+           
+        }
+
+        public void PrintAll(string printerName, int copies)
+        {
+           
         }
     }
 }

@@ -821,6 +821,7 @@ namespace VOP
                 dll.RecoverDevModeData();
                 notifyIcon1.Visible = false;
                 dll.ResetDefaultPrinter();
+                PdfPrint.CloseAll();
                 this.Close();
             }
 
