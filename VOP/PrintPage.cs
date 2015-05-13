@@ -605,40 +605,4 @@ namespace VOP
             ppt.PrintOut();
         }
     }
-
-    public class PdfJobPrint
-    {
-        private string filePath;
-       // Acrobat.AcroApp app = new Acrobat.AcroApp();
-        Acrobat.AcroAVDoc _acroDoc = new Acrobat.AcroAVDoc();
-
-        public PdfJobPrint(string s)
-        {
-            filePath = s;
-        }
-
-        public bool Open()
-        {
-            try
-            {
-               
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public void Close()
-        {
-           
-        }
-
-        public void PrintAll(string printerName, int copies)
-        {
-           
-        }
-    }
 }
