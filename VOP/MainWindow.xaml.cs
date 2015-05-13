@@ -165,6 +165,19 @@ namespace VOP
            
             if (true == m_bLocationIsChina)
             {
+                string strUserName = "";
+                string strPassword = "";
+                if (true == ReadUserInfoFromXamlFile(ref strUserName, ref strPassword))
+                {
+                    JSONResultFormat1 js = new JSONResultFormat1();
+                    if (true == m_RequestManager.CheckVerifyCode(strUserName, strPassword, ref js))
+                    {
+                        m_strPhoneNumber = strUserName;
+                        btnLogin.IsLogon = true;
+                        btnLogin.bottomText = strUserName;
+                    }
+                }
+
                 uploadCRMThread = new Thread(UploadCRM_LocalInfoToServerCaller);
                 uploadCRMThread.Start();
             }
@@ -383,6 +396,80 @@ namespace VOP
             {
 
             }
+        }
+
+        public static bool SaveUserInfoIntoXamlFile(string strUserName, string strPassword)
+        {
+            bool bSuccess = false;
+            try
+            {
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+                var directory = new DirectoryInfo(documentsPath);
+                string strUsersPublic = directory.Parent.FullName;
+                string strDirectory = strUsersPublic + "\\Lenovo\\";
+                Directory.CreateDirectory(strDirectory);
+
+                XmlDocument doc = new XmlDocument();
+
+                XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+                XmlElement root = doc.DocumentElement;
+                doc.InsertBefore(xmlDeclaration, root);
+
+                XmlElement eleBody = doc.CreateElement(string.Empty, "body", string.Empty);
+                doc.AppendChild(eleBody);
+
+                XmlElement eleTime = doc.CreateElement(string.Empty, "UserName", string.Empty);
+                XmlText textTime = doc.CreateTextNode(strUserName);
+                eleTime.AppendChild(textTime);
+                eleBody.AppendChild(eleTime);
+
+                XmlElement eleData = doc.CreateElement(string.Empty, "Password", string.Empty);
+                XmlText textData = doc.CreateTextNode(strPassword);
+                eleData.AppendChild(textData);
+                eleBody.AppendChild(eleData);
+
+                doc.Save(strDirectory + "UserInfo.xaml");
+
+                bSuccess = true;
+            }
+            catch
+            {
+
+            }
+
+            return bSuccess;
+        }
+
+        public static bool ReadUserInfoFromXamlFile(ref string strUserName, ref string strPassword)
+        {
+            bool bSuccess = false;
+
+            try
+            {
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+                var directory = new DirectoryInfo(documentsPath);
+                string strUsersPublic = directory.Parent.FullName;
+                string strPath = strUsersPublic + "\\Lenovo\\UserInfo.xaml";
+
+                if (File.Exists(strPath))
+                {
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load(strPath);
+
+                    XmlNode xmlNode = doc.SelectSingleNode("body/UserName");
+                    strUserName = xmlNode.InnerText;
+                    XmlNode xmlNode2 = doc.SelectSingleNode("body/Password");
+                    strPassword = xmlNode2.InnerText;
+
+                    bSuccess = true;
+                }
+            }
+            catch
+            {
+
+            }
+
+            return bSuccess;
         }
 
         public static bool SaveCRMDataIntoXamlFile(string strFileName, DateTime date, string strData)

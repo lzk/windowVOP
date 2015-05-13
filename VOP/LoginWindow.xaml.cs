@@ -62,6 +62,7 @@ namespace VOP
                 if (true == VOP.MainWindow.m_RequestManager.CheckVerifyCode(tbPhoneNumber.Text, pbPwd.Password, ref js))
                 {
                     m_strPhoneNumber = tbPhoneNumber.Text;
+                    VOP.MainWindow.SaveUserInfoIntoXamlFile(tbPhoneNumber.Text, pbPwd.Password);
                     this.DialogResult = true;
                     this.Close();
                 }
