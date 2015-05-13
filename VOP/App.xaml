@@ -8,6 +8,36 @@
                 <ResourceDictionary Source="Resources\StringResource.zh-CN.xaml" />                   
                 <ResourceDictionary Source="Resources\StringResource.en-US.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="for_noresize_window" TargetType="{x:Type Window}">
+                <Setter Property="AllowsTransparency" Value="true"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="ResizeMode" Value="NoResize"/>
+                <Setter Property="WindowStyle" Value="None"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Window}">
+                            <Grid Margin="24">
+                                <Rectangle Fill="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"  
+                                    RadiusX="5" RadiusY="5">
+                                    <Rectangle.Effect>
+                                        <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+                                <Border Background="{TemplateBinding Background}"  
+                                        BorderBrush="{TemplateBinding BorderBrush}"  
+                                        BorderThickness="{TemplateBinding BorderThickness}"  
+                                        Padding="{TemplateBinding Margin}"  
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"  
+                                        CornerRadius="30">
+                                    <ContentPresenter />
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
+
 </Application>

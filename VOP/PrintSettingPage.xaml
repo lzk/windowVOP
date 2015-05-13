@@ -5,16 +5,13 @@
         xmlns:local="clr-namespace:VOP" 
         x:Class="VOP.PrintSettingPage"
         Title="PrintSettingPage" 
-        Height="680" 
-        Width="780"        
+        Height="608" 
+        Width="698"        
         WindowStartupLocation="CenterOwner"  
-        ResizeMode="NoResize"
-        WindowStyle="None"
-        AllowsTransparency="true"
-        BorderThickness="65, 60"
         Loaded="Window_Loaded" 
         UseLayoutRounding="True"
-        ShowInTaskbar="False">
+        ShowInTaskbar="False"
+        Style="{StaticResource for_noresize_window}">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -95,10 +92,6 @@
 
         </ResourceDictionary>
     </Window.Resources>
-
-    <Window.Effect>
-        <DropShadowEffect BlurRadius="30" Color="#FF858484" Direction="292" ShadowDepth="0" Opacity="1"/>
-    </Window.Effect>
 
     <Viewbox Stretch="Fill">
         <Grid Width="650" Height="560">
@@ -518,7 +511,6 @@
 				FontSize="18"
 				Click="DefaultButtonClick"/>
                 <Button 
-				IsDefault="True"
 				x:Name="OKButton"
 				Content="{StaticResource ResStr_OK}" 
 				Style="{StaticResource CustomGreenButtonStyle}"  

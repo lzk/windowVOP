@@ -3,19 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MessageBoxEx_Video" 
         Height="590"
-        Width="478"
-        BorderThickness="24"
-        AllowsTransparency="True"
-        WindowStyle="None"
-        ResizeMode="NoResize"        
+        Width="478"      
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" 
         ShowInTaskbar="False"
         VerticalAlignment="Center"
-        WindowStartupLocation="CenterOwner" >
-    <Window.Effect>
-        <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
-    </Window.Effect>
+        WindowStartupLocation="CenterOwner" 
+        Style="{StaticResource for_noresize_window}">
 
     <Grid  Background="#FFEDEDED">
         <Grid.RowDefinitions>

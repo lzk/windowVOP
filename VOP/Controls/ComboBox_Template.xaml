@@ -95,7 +95,6 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="ScrollViewer.PanningMode" Value="Both" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
-
         <Setter Property="Foreground" Value="#ff494949" />
         <Setter Property="FontSize" Value="13px" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource customComboBoxItem}" />

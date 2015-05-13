@@ -5,13 +5,12 @@
 	x:Class="VOP.CopySetting"
 	x:Name="Window"
 	Title="CopySetting"
-    Width="580" Height="550"
+    Width="580" 
+    Height="550"
     ShowInTaskbar="False" 
-    AllowsTransparency="true"
     WindowStartupLocation="CenterOwner"
-    ResizeMode="NoResize"
-    WindowStyle="None" 
-    BorderThickness="24" Loaded="Window_Loaded"
+    Loaded="Window_Loaded"
+    Style="{StaticResource for_noresize_window}"
     >
 
     <Window.Resources>
@@ -29,11 +28,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Window.Effect>
-        <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
-    </Window.Effect>
-
-        <Viewbox Stretch="Fill">
+    <Viewbox Stretch="Fill">
 
     <Grid x:Name="LayoutRoot" Background="#FFE7E7E7" Width="532" Height="502" >
 

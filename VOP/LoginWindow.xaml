@@ -3,15 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="LoginWindow" Height="328" Width="402"        
         WindowStartupLocation="CenterOwner"  
-        ResizeMode="NoResize"
-        WindowStyle="None"
         ShowInTaskbar="False" 
-        BorderThickness="24"
-        AllowsTransparency="True"
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" 
         FontFamily="幼圆"
-        >
+        Style="{StaticResource for_noresize_window}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -22,9 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Window.Effect>
-        <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
-    </Window.Effect>
+
     <Viewbox Stretch="Fill">
         <Grid Height="280" Width="354">
             <Grid.RowDefinitions>
