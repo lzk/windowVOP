@@ -372,8 +372,7 @@ USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * 
 	ZeroMemory(&di, sizeof(di));
 	di.cbSize = sizeof(di);
 
-	std::wstring jobStr(jobDescription);
-	di.lpszDocName = jobStr.c_str();
+	di.lpszDocName = jobDescription;
 
 	dc = CreateDCW(L"WINSPOOL", strPrinterName, NULL, NULL);
 
@@ -443,6 +442,7 @@ USBAPI_API int __stdcall DoPrintImage()
 			{
 				Gdiplus::Image *pImg = NULL;
 				pImg = Gdiplus::Image::FromFile(g_vecImagePaths[i].c_str());
+				
 
 				status = pImg->GetLastStatus();
 				if (status != Gdiplus::Ok)

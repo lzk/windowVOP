@@ -405,9 +405,8 @@ namespace VOP
                         messageBox.Owner = App.Current.MainWindow;
                         messageBox.ShowDialog();
                     }
-                    myComboBox.Text = "";
                 }
-                
+                myComboBox.Text = "";
             }
         }
 
