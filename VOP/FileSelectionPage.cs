@@ -161,7 +161,7 @@ namespace VOP
                     case FileSelectionState.OpenFile:
 
                         open = new OpenFileDialog();
-                        open.Filter = "JPEG|*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
+                        open.Filter = "All Images|*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
 
                         result = open.ShowDialog();
                         if (result == true)
