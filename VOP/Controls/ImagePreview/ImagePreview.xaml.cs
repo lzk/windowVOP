@@ -264,7 +264,7 @@ namespace VOP.Controls
                                     BitmapImage myBitmapImage = new BitmapImage();
                                     myBitmapImage.BeginInit();
                                     myBitmapImage.StreamSource = new MemoryStream(ms.ToArray());
-                                    myBitmapImage.DecodePixelWidth = 2000;
+                                    myBitmapImage.DecodePixelWidth = 400;
                                     myBitmapImage.EndInit();
 
                                     bitmapSource = myBitmapImage;
@@ -276,7 +276,7 @@ namespace VOP.Controls
                                 BitmapImage myBitmapImage = new BitmapImage();
                                 myBitmapImage.BeginInit();
                                 myBitmapImage.UriSource = new Uri(imagePaths[currentListIndex], UriKind.RelativeOrAbsolute);
-                                myBitmapImage.DecodePixelWidth = 2000;
+                                myBitmapImage.DecodePixelWidth = 400;
                                 myBitmapImage.EndInit();
 
                                 bitmapSource = myBitmapImage;

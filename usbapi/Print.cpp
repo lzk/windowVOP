@@ -1123,8 +1123,6 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					break;
 				}
 
-				double t1 = round(imageWidth);
-				double t2 = round(imageHeight);
 
 				if ((status = pGraphics->DrawImage(pImg1, 0, 0, round(imageWidth), round(imageHeight))) != Gdiplus::Ok)
 				{
