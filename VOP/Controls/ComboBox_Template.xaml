@@ -12,8 +12,8 @@
     <Style x:Key="ComboBoxFocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
-                <ControlTemplate>
-                    <Rectangle Margin="4,4,21,4"
+                <ControlTemplate>                    
+                    <Rectangle Margin="-1"
                                SnapsToDevicePixels="true"
                                Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
                                StrokeDashArray="1 2"
@@ -47,8 +47,6 @@
 
     <Style x:Key="ComboBoxReadonlyToggleButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
-        <Setter Property="IsTabStop" Value="false" />
-        <Setter Property="Focusable" Value="false" />
         <Setter Property="ClickMode" Value="Press" />
         <Setter Property="Template">
             <Setter.Value>
@@ -76,23 +74,15 @@
                             <Setter TargetName="Chrome"
                                     Property="Background" Value="{StaticResource toggleButtonBackground_Pressed}"/>
 
-                        </Trigger>
-
-                    </ControlTemplate.Triggers>
+                        </Trigger>                        
+                            <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource ComboBoxFocusVisual}"/>
+                        </Trigger>                        
+                </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
-
-    <Style x:Key="cboFocus">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Rectangle Margin="-1" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 2"/>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+    </Style>   
 
     <Style x:Key="CboCommomStyle" TargetType="{x:Type ComboBox}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource ComboBoxFocusVisual}" />
@@ -109,6 +99,7 @@
         <Setter Property="Foreground" Value="#ff494949" />
         <Setter Property="FontSize" Value="13px" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource customComboBoxItem}" />
+        <Setter Property="Focusable" Value="False"/>
 
         <Setter Property="Template">
             <Setter.Value>
@@ -227,10 +218,7 @@
                         <Trigger SourceName="DropDownScrollViewer" Property="ScrollViewer.CanContentScroll" Value="false">
                             <Setter TargetName="OpaqueRect" Property="Canvas.Top" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}" />
                             <Setter TargetName="OpaqueRect" Property="Canvas.Left" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}" />
-                        </Trigger>
-                        <Trigger  Property="IsFocused" Value="True">
-                            <Setter Property="FocusVisualStyle" Value="{StaticResource cboFocus}"/>
-                        </Trigger>
+                        </Trigger>                
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
