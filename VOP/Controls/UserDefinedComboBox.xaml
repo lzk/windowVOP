@@ -88,6 +88,7 @@
         <Setter Property="Foreground" Value="#ff494949" />
         <Setter Property="FontSize" Value="13px" />
         <Setter Property="IsEditable" Value="True" />
+        <Setter Property="IsTextSearchEnabled" Value="False" />
         <Setter Property="ItemContainerStyle" Value="{StaticResource customComboBoxItem}"/>
         <Setter Property="Template">
             <Setter.Value>
