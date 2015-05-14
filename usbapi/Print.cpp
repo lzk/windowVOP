@@ -187,11 +187,16 @@ static PCLDEVMODE getDocumentPropertiesData;
 static PCLDEVMODE getOutputData;
 static PirntSettingsData g_PirntSettingsData;
 static bool isOpenDocumentProperties = false;
-static const TCHAR * g_strPrinterName = NULL;
+static TCHAR * g_strPrinterName = NULL;
 
 static DWORD bufferSize = 500;
 static TCHAR defaultPrinterName[500];
 
+static int TcsNiCmp(TCHAR* c1, TCHAR* c2)
+{
+	int iNum = _tcslen(c1) > _tcslen(c2) ? _tcslen(c1) : _tcslen(c2);
+	return _tcsnicmp(c1, c2, iNum);
+}
 static BOOL IsMetricCountry()
 {
 	INT    cChar = 0;
@@ -1402,9 +1407,16 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 	wchar_t szprintername[MAX_PATH] = { 0 };
 	wcscpy_s(szprintername, MAX_PATH, strPrinterName);
 
+	if (g_strPrinterName == NULL)
+	{
+		RecoverDevModeData();
+	}
+	else if (0 != TcsNiCmp(g_strPrinterName, szprintername))
+	{
+		RecoverDevModeData();
+	}
 	if (OpenPrinter(szprintername, &phandle, NULL))
 	{
-
 		LPPRINTER_INFO_2 printer_info;
 
 		GetPrinter(phandle, 2, (LPBYTE)NULL, 0, &dmsize);
@@ -1418,12 +1430,16 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 				PCLDEVMODE devmode;
 
 				DWORD dwSize = sizeof(devmode)-sizeof(DEVMODE);
-				if (g_strPrinterName == NULL || g_strPrinterName != strPrinterName)
+				if (g_strPrinterName == NULL)
 				{	
-					RecoverDevModeData();
 					getdevmode = *(LPPCLDEVMODE)printer_info->pDevMode;
-					g_strPrinterName = strPrinterName;
-				}				
+					g_strPrinterName = szprintername;
+				}	
+				else if (0 != TcsNiCmp(g_strPrinterName, szprintername))
+				{
+					getdevmode = *(LPPCLDEVMODE)printer_info->pDevMode;
+					g_strPrinterName = szprintername;
+				}
 				if (isOpenDocumentProperties)
 				{
 					devmode = getOutputData;
@@ -1499,7 +1515,7 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 				devmode.dmPrivate.graphics.ColorBalanceIndex[0][2] = static_cast<BYTE>(g_PirntSettingsData.m_densityValue);
 
 				devmode.dmPublic.dmDuplex = g_PirntSettingsData.m_duplexPrint; //DUPLEX£¬ DMDUP_VERTICAL: ³¤±ß DMDUP_HORIZONTAL£¬¶Ì±ß
-				devmode.dmPrivate.bDocumentStyle = g_PirntSettingsData.m_documentStyle;
+				devmode.dmPrivate.bDocumentStyle = static_cast<BYTE>(g_PirntSettingsData.m_documentStyle);
 
 				devmode.dmPrivate.bPaperReverseOrder = static_cast<BYTE>(g_PirntSettingsData.m_reversePrint);
 				devmode.dmPrivate.graphics.TonerSaving = static_cast<BYTE>(g_PirntSettingsData.m_tonerSaving);
@@ -1579,14 +1595,14 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 {
 	HANDLE   phandle;
 	DWORD dmsize;
-
+	OutputDebugString(L"1");
 	phandle = NULL;
 	LPPCLDEVMODE lpInitData = NULL;
 	LPPCLDEVMODE lpDefaultData = NULL;
-
+	OutputDebugString(L"2");
 	wchar_t szprintername[MAX_PATH] = { 0 };
 	wcscpy_s(szprintername, MAX_PATH, strPrinterName);
-
+	OutputDebugString(L"3");
 	if (OpenPrinter(szprintername, &phandle, NULL))
 	{
 		LPPRINTER_INFO_2 printer_info;
@@ -1599,19 +1615,22 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 		{
 			if (GetPrinter(phandle, 2, (LPBYTE)printer_info, dmsize, &dmsize))
 			{
+				OutputDebugString(L"4");
 				dmsize = DocumentProperties(NULL, phandle, szprintername, NULL, NULL, 0);
-
+				OutputDebugString(L"5");
 				lpDefaultData = (LPPCLDEVMODE)malloc(dmsize);
-
+				OutputDebugString(L"6");
 				lpInitData = (LPPCLDEVMODE)malloc(dmsize);
-
+				OutputDebugString(L"7");
 				if (lpDefaultData && lpInitData)
 				{
+					OutputDebugString(L"8");
 					DocumentProperties(NULL, phandle, szprintername,
 						(LPDEVMODE)lpDefaultData, NULL, DM_OUT_BUFFER);
-
+					OutputDebugString(L"9");
 					DocumentProperties(NULL, phandle, szprintername,
 						(LPDEVMODE)lpInitData, (LPDEVMODE)lpDefaultData, DM_IN_BUFFER | DM_OUT_BUFFER);
+					OutputDebugString(L"10");
 				}
 				PCLDEVMODE devmode;
 				devmode = *(LPPCLDEVMODE)lpDefaultData;
@@ -1619,6 +1638,7 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 				*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
 
 				SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
+				OutputDebugString(L"11");
 			}
 			free(printer_info);
 		}			
@@ -1634,6 +1654,7 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 		ClosePrinter(phandle);
 		phandle = NULL;
 	}
+	OutputDebugString(L"11");
 }
 
 USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies)
@@ -1836,7 +1857,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 				*ptr_documentStyle = devmode.dmPrivate.bDocumentStyle;
 				*ptr_reversePrint = devmode.dmPrivate.bPaperReverseOrder;
 				*ptr_tonerSaving = devmode.dmPrivate.graphics.TonerSaving;
-				*ptr_copies = devmode.dmPublic.dmCopies;
+				*ptr_copies = static_cast<BYTE>(devmode.dmPublic.dmCopies);
 				*ptr_booklet = devmode.dmPrivate.bEnableBooklet;
 				*ptr_watermark = devmode.dmPrivate.bEnableWM;
 
@@ -1881,6 +1902,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 	BYTE* ptr_booklet,
 	BYTE* ptr_watermark)//byte
 {
+	OutputDebugString(L"OpenDocumentProperties 1");
 	HANDLE   phandle;
 	LPPCLDEVMODE lpOutputData = NULL;
 	LPPCLDEVMODE lpInputData = NULL;
@@ -1993,7 +2015,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 				//	inputDevmode.dmPrivate.bEnableBooklet = false;
 				//}
 				
-
+				OutputDebugString(L"OpenDocumentProperties 2");
 				dmsize = DocumentProperties(hWnd, phandle, szprintername, NULL, NULL, 0);
 
 				lpOutputData = (LPPCLDEVMODE)malloc(dmsize);
@@ -2003,7 +2025,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 
 				lpInputData = (LPPCLDEVMODE)printer_info->pDevMode;
 
-
+				OutputDebugString(L"OpenDocumentProperties 3");
 				if (lpOutputData && lpInputData)
 				{
 					int iNeeded = DocumentProperties(hWnd, phandle, szprintername,
@@ -2076,7 +2098,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 						*ptr_documentStyle = devmode.dmPrivate.bDocumentStyle;
 						*ptr_reversePrint = devmode.dmPrivate.bPaperReverseOrder;
 						*ptr_tonerSaving = devmode.dmPrivate.graphics.TonerSaving;
-						*ptr_copies = devmode.dmPublic.dmCopies;
+						*ptr_copies = static_cast<BYTE>(devmode.dmPublic.dmCopies);
 						*ptr_booklet = devmode.dmPrivate.bEnableBooklet;
 						*ptr_watermark = devmode.dmPrivate.bEnableWM;
 

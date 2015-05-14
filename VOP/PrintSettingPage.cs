@@ -237,6 +237,7 @@ namespace VOP
         public sbyte m_documentStyle = 0;//0:DMDUP_SIMPLEX,1:DMDUP_VERTICAL,2:DMDUP_HORIZONTAL
         public sbyte m_scalingType = 0;//0:ISF_DISABLE,1:ISF_SCALING,2:ISF_FITTOPAPER
         public sbyte m_paperSize = 0;
+        public sbyte m_prePaperSize = 0;
         public sbyte m_mediaType = 0;
         public sbyte m_printQuality = 0;// _600x600 = 0, _1200x600 = 1,
         public short m_scalingRatio = 100;
@@ -468,6 +469,7 @@ namespace VOP
 
         private void OnDropDownClosed(object sender, EventArgs e)
         {
+            m_prePaperSize = m_paperSize;
             m_paperSize = (sbyte)cboPaperSize.SelectedIndex;
 
             if (m_paperSize == PaperSizeItemsBase.Count - 1)
@@ -484,6 +486,7 @@ namespace VOP
                 else
                 {
                     UpdatePaperSizeComboBox(true, 0);
+                    cboPaperSize.SelectedIndex = m_prePaperSize;
                 }
             }
             else if (m_paperSize > PaperSizeItemsBase.Count - 1)
@@ -494,6 +497,7 @@ namespace VOP
                     regHelper.Close();
                 }
             }
+            m_paperSize = (sbyte)cboPaperSize.SelectedIndex;
         }
 
         private void cboPaperSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -515,6 +519,7 @@ namespace VOP
                 {
                     chk_DuplexPrint.IsEnabled = false;
                     m_booklet = 0;
+                    m_duplexPrint = 1;
                 }
                 else
                 {
@@ -646,8 +651,6 @@ namespace VOP
             rdBtnFlipOnLongEdge.IsEnabled = false;
             rdBtnFlipOnShortEdger.IsChecked = false;
             rdBtnFlipOnLongEdge.IsChecked = false;
-            m_scalingRatio = 100;
-            m_scalingType = 0;
 
             DisableLabelType();
         }
@@ -659,7 +662,6 @@ namespace VOP
                 chk_FitToPaperSize.IsEnabled = false;
                 chk_FitToPaperSize.IsChecked = true;
             }
-            spinnerScaling.IsEnabled = false;
             if (4 == m_preNin1)
             {
                 rdBtn4in1.IsChecked = true;
@@ -716,7 +718,6 @@ namespace VOP
             {
                 chk_FitToPaperSize.IsEnabled = true;
             }         
-            spinnerScaling.IsEnabled = true;
             rdBtn2in1.IsEnabled = false;
             rdBtn2in1.IsChecked = false;
             rdBtn4in1.IsEnabled = false;
@@ -877,17 +878,13 @@ namespace VOP
 
         private void chk_FitToPaperSize_Checked(object sender, RoutedEventArgs e)
         {
-            m_scalingType = 2;
             m_scalingRatio = 100;
             spinnerScaling.IsEnabled = false;
-            chk_MultiplePagePrint.IsEnabled = false;
         }
 
         private void chk_FitToPaperSize_Unchecked(object sender, RoutedEventArgs e)
         {
-            m_scalingType = 1;
             spinnerScaling.IsEnabled = true;
-            chk_MultiplePagePrint.IsEnabled = true;
         }
        
         private void GetScalingValues()
@@ -895,12 +892,8 @@ namespace VOP
             if (null != spinnerScaling)
             {
                 m_scalingRatio = (short)spinnerScaling.Value;
-                if(100 == m_scalingRatio )
+                if(100 != m_scalingRatio )
                 {                  
-                    m_scalingType = 0;
-                }
-                else
-                {
                     m_scalingType = 1;
                 }
             }
@@ -908,16 +901,6 @@ namespace VOP
 
         private void GetDensityValues()
         {
-            //if (spinnerDensityAdjustment.IsEnabled == false )
-            //{
-            //    m_ADJColorBalance = 0;
-            //    m_colorBalanceTo = 0;
-            //}
-            //else
-            //{
-            //    m_ADJColorBalance = 1;
-            //    m_colorBalanceTo = 1;
-            //}
             if (null != spinnerDensityAdjustment)
             {
                 m_densityValue = (sbyte)(spinnerDensityAdjustment.Value);
@@ -1167,6 +1150,7 @@ namespace VOP
 
         private void SetDefaultValue()
         {
+            m_booklet = 0;
             if (m_CurrentPrintType == PrintPage.PrintType.PrintFile)
             {
                 cboPaperSize.IsEnabled = false;
@@ -1351,11 +1335,14 @@ namespace VOP
             cboMediaType.SelectedIndex = 0;
             spinnerDensityAdjustment.Value = 4;
             spinnerScaling.Value = 100;
+            m_scalingType = 0;
 
             m_mediaType = 0;
             m_printQuality = 0;
             m_scalingRatio = 100;
             m_densityValue = 4;
+            
+            m_watermark = 0;
 
             bool bIsMetrice = dll.IsMetricCountry();
             if (bIsMetrice)
@@ -1550,7 +1537,7 @@ namespace VOP
         }
         private void DisableLabelType()
         {
-            if (0 != m_duplexPrint || m_booklet == 1)
+            if (m_duplexPrint > 1 || m_booklet == 1)
             {
                 foreach (ComboBoxItem obj in cboMediaType.Items)
                 {
