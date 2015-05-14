@@ -878,7 +878,7 @@ namespace VOP
 
         private void chk_FitToPaperSize_Checked(object sender, RoutedEventArgs e)
         {
-            m_scalingRatio = 100;
+            spinnerScaling.Value = 100;
             spinnerScaling.IsEnabled = false;
         }
 

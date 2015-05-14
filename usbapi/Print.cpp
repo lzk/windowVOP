@@ -1595,14 +1595,11 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 {
 	HANDLE   phandle;
 	DWORD dmsize;
-	OutputDebugString(L"1");
 	phandle = NULL;
 	LPPCLDEVMODE lpInitData = NULL;
 	LPPCLDEVMODE lpDefaultData = NULL;
-	OutputDebugString(L"2");
 	wchar_t szprintername[MAX_PATH] = { 0 };
 	wcscpy_s(szprintername, MAX_PATH, strPrinterName);
-	OutputDebugString(L"3");
 	if (OpenPrinter(szprintername, &phandle, NULL))
 	{
 		LPPRINTER_INFO_2 printer_info;
@@ -1615,30 +1612,24 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 		{
 			if (GetPrinter(phandle, 2, (LPBYTE)printer_info, dmsize, &dmsize))
 			{
-				OutputDebugString(L"4");
 				dmsize = DocumentProperties(NULL, phandle, szprintername, NULL, NULL, 0);
-				OutputDebugString(L"5");
+				TCHAR szDebug[256] = { 0 };
+				wsprintf(szDebug, _T("dmsize = %d"), dmsize);
+				OutputDebugString(szDebug);
 				lpDefaultData = (LPPCLDEVMODE)malloc(dmsize);
-				OutputDebugString(L"6");
 				lpInitData = (LPPCLDEVMODE)malloc(dmsize);
-				OutputDebugString(L"7");
 				if (lpDefaultData && lpInitData)
 				{
-					OutputDebugString(L"8");
 					DocumentProperties(NULL, phandle, szprintername,
 						(LPDEVMODE)lpDefaultData, NULL, DM_OUT_BUFFER);
-					OutputDebugString(L"9");
 					DocumentProperties(NULL, phandle, szprintername,
 						(LPDEVMODE)lpInitData, (LPDEVMODE)lpDefaultData, DM_IN_BUFFER | DM_OUT_BUFFER);
-					OutputDebugString(L"10");
-				}
-				PCLDEVMODE devmode;
-				devmode = *(LPPCLDEVMODE)lpDefaultData;
 
-				*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
-
-				SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
-				OutputDebugString(L"11");
+					PCLDEVMODE devmode;
+					devmode = *(LPPCLDEVMODE)lpDefaultData;
+					*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
+					SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
+				}				
 			}
 			free(printer_info);
 		}			
