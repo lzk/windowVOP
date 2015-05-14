@@ -129,7 +129,7 @@
         </Grid.RowDefinitions>
 
         <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0" >
-            <TextBlock Text="Preview" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Text="{StaticResource ResStr_Preview}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
 
         <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" />
