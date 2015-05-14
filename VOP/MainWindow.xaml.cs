@@ -958,6 +958,7 @@ namespace VOP
                }
 
                winCopyPage.PassStatus( status, job, toner );
+               winScanPage.PassStatus( status, job, toner );
 
                if ( EnumStatus.NofeedJam               == status
                        || EnumStatus.JamAtRegistStayOn == status

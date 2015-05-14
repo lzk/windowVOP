@@ -23,6 +23,7 @@ namespace VOP
 #endregion
 
         private EnumMachineJob m_oldJob = EnumMachineJob.UnknowJob; // Job used to monitor IDCardCopy job.
+        private EnumStatus m_currentStatus = EnumStatus.Offline; 
 
         private byte _density = 3;
         public byte m_density
@@ -248,7 +249,7 @@ namespace VOP
 
         private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
-            btnCopy.IsEnabled = ( false == spinCtlCopies.ValidationHasError );
+            btnCopy.IsEnabled = ( false == common.IsOffline(m_currentStatus) && false == spinCtlCopies.ValidationHasError );
             if (e.NewValue)
             {
                 MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_"), (string)this.FindResource("ResStr_Error"));
@@ -287,7 +288,7 @@ namespace VOP
         }
 
         /// <summary>
-        /// Status update thread will this interface to update status of subpage.
+        /// Status update thread will invoke this interface to update status of subpage.
         /// </summary>
         public void PassStatus( EnumStatus st, EnumMachineJob job, byte toner )
         {
@@ -297,6 +298,10 @@ namespace VOP
             }
 
             m_oldJob = job;
+
+            m_currentStatus = st;
+
+            btnCopy.IsEnabled = ( false == common.IsOffline(m_currentStatus) && false == spinCtlCopies.ValidationHasError );
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

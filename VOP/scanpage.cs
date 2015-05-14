@@ -37,6 +37,8 @@ namespace VOP
         private const int RETSCAN_BUSY           = 8;
         private const int RETSCAN_ERROR          = 9;
 #endregion
+        private EnumStatus m_currentStatus = EnumStatus.Offline;
+
         public Thread scanningThread = null;
 
         private uint WM_VOPSCAN_PROGRESS = Win32.RegisterWindowMessage("vop_scan_progress2");
@@ -366,7 +368,7 @@ namespace VOP
                      btnSave.IsEnabled = true;
                  }
                  
-                 btnScan.IsEnabled = ( false == m_isScanning );
+                 btnScan.IsEnabled = ( false == common.IsOffline(m_currentStatus) && false == m_isScanning );
 
                  progressBar1.Value = 0;
                  txtProgressPercent.Text = "0";
@@ -654,7 +656,7 @@ namespace VOP
             btnSave.IsEnabled    = false;
             btnCancel.IsEnabled  = false;
             btnSetting.IsEnabled = true;
-            btnScan.IsEnabled = ( false == m_isScanning );
+            btnScan.IsEnabled = ( false == common.IsOffline(m_currentStatus) && false == m_isScanning );
 
 			//Configure the ProgressBar
             progressBar1.Minimum    = 0;
@@ -712,6 +714,15 @@ namespace VOP
             }
 
             return -1;
+        }
+
+        /// <summary>
+        /// Status update thread will invoke this interface to update status of subpage.
+        /// </summary>
+        public void PassStatus( EnumStatus st, EnumMachineJob job, byte toner )
+        {
+            m_currentStatus = st;
+            btnScan.IsEnabled = ( false == common.IsOffline(m_currentStatus) && false == m_isScanning );
         }
     }
 }
