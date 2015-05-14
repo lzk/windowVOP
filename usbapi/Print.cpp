@@ -1401,7 +1401,7 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_PrintType)//byte
 {
 	HANDLE   phandle;
-	DWORD dmsize;
+	DWORD dmsize = 0;
 
 	phandle = NULL;
 	wchar_t szprintername[MAX_PATH] = { 0 };
@@ -1429,7 +1429,6 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 			{
 				PCLDEVMODE devmode;
 
-				DWORD dwSize = sizeof(devmode)-sizeof(DEVMODE);
 				if (g_strPrinterName == NULL)
 				{	
 					getdevmode = *(LPPCLDEVMODE)printer_info->pDevMode;
@@ -1554,7 +1553,7 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 USBAPI_API void __stdcall RecoverDevModeData()
 {
 	HANDLE   phandle;
-	DWORD dmsize;
+	DWORD dmsize = 0;
 
 	phandle = NULL;
 	if (g_strPrinterName != NULL)
@@ -1594,7 +1593,7 @@ USBAPI_API void __stdcall RecoverDevModeData()
 USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 {
 	HANDLE   phandle;
-	DWORD dmsize;
+	DWORD dmsize = 0;
 	phandle = NULL;
 	LPPCLDEVMODE lpInitData = NULL;
 	LPPCLDEVMODE lpDefaultData = NULL;
@@ -1651,7 +1650,7 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies)
 {
 	HANDLE   phandle;
-	DWORD dmsize;
+	DWORD dmsize = 0;
 
 	phandle = NULL;
 	wchar_t szprintername[MAX_PATH] = { 0 };
@@ -1671,8 +1670,6 @@ USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies)
 			if (GetPrinter(phandle, 2, (LPBYTE)printer_info, dmsize, &dmsize))
 			{
 				PCLDEVMODE devmode;
-
-				DWORD dwSize = sizeof(devmode)-sizeof(DEVMODE);
 
 				devmode = *(LPPCLDEVMODE)printer_info->pDevMode;
 				
@@ -1761,7 +1758,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 	BYTE* ptr_watermark)//byte
 {
 	HANDLE   phandle;
-	DWORD dmsize;
+	DWORD dmsize = 0;
 
 	phandle = NULL;
 	wchar_t szprintername[MAX_PATH] = { 0 };
@@ -1781,8 +1778,6 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 			if (GetPrinter(phandle, 2, (LPBYTE)printer_info, dmsize, &dmsize))
 			{
 				PCLDEVMODE devmode;
-
-				DWORD dwSize = sizeof(devmode)-sizeof(DEVMODE);
 
 				devmode = *(LPPCLDEVMODE)printer_info->pDevMode;
 				if (devmode.dmPublic.dmPaperSize > 256)
@@ -1893,7 +1888,6 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 	BYTE* ptr_booklet,
 	BYTE* ptr_watermark)//byte
 {
-	OutputDebugString(L"OpenDocumentProperties 1");
 	HANDLE   phandle;
 	LPPCLDEVMODE lpOutputData = NULL;
 	LPPCLDEVMODE lpInputData = NULL;
@@ -1905,7 +1899,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 
 	if (OpenPrinter(szprintername, &phandle, NULL))
 	{
-		DWORD dmsize;
+		DWORD dmsize = 0;
 
 		LPPRINTER_INFO_2 printer_info;
 		GetPrinter(phandle, 2, (LPBYTE)NULL, 0, &dmsize);
@@ -2006,7 +2000,6 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 				//	inputDevmode.dmPrivate.bEnableBooklet = false;
 				//}
 				
-				OutputDebugString(L"OpenDocumentProperties 2");
 				dmsize = DocumentProperties(hWnd, phandle, szprintername, NULL, NULL, 0);
 
 				lpOutputData = (LPPCLDEVMODE)malloc(dmsize);
@@ -2016,7 +2009,6 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 
 				lpInputData = (LPPCLDEVMODE)printer_info->pDevMode;
 
-				OutputDebugString(L"OpenDocumentProperties 3");
 				if (lpOutputData && lpInputData)
 				{
 					int iNeeded = DocumentProperties(hWnd, phandle, szprintername,

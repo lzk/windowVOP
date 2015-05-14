@@ -234,7 +234,7 @@ namespace VOP
         public sbyte m_paperOrder = 0;//DMCOLLATE_FALSE = 0, DMCOLLATE_TRUE = 1,
         public sbyte m_reversePrint = 1;//NORMAL_PRINT = 0,  REVERSE_PRINT = 1,
         public sbyte m_duplexPrint = 1;//DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
-        public sbyte m_documentStyle = 0;//0:DMDUP_SIMPLEX,1:DMDUP_VERTICAL,2:DMDUP_HORIZONTAL
+        public sbyte m_documentStyle = 0;//0:DMDUP_SIMPLEX,1:,2:
         public sbyte m_scalingType = 0;//0:ISF_DISABLE,1:ISF_SCALING,2:ISF_FITTOPAPER
         public sbyte m_paperSize = 0;
         public sbyte m_prePaperSize = 0;
@@ -606,14 +606,14 @@ namespace VOP
         {
             m_duplexPrint = 3;////DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
             m_preduplexPrint = 3;
-            m_documentStyle = 2;
+            m_documentStyle = 1;
         }
 
         private void rdBtnFlipOnLongEdger_Checked(object sender, RoutedEventArgs e)
         {
             m_preduplexPrint = 2;
             m_duplexPrint = 2;//DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
-            m_documentStyle = 1;
+            m_documentStyle = 2;
         }
 
         private void chk_DuplexPrint_Checked(object sender, RoutedEventArgs e)
@@ -622,13 +622,13 @@ namespace VOP
             {
                 rdBtnFlipOnShortEdger.IsChecked = true;
                 m_duplexPrint = 3;//DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
-                m_documentStyle = 2;
+                m_documentStyle = 1;
             }
             else
             {
                 rdBtnFlipOnLongEdge.IsChecked = true;
                 m_duplexPrint = 2;//DMDUP_SIMPLEX = 1, DMDUP_VERTICAL = 2: LongEdge, DMDUP_HORIZONTAL = 3:ShortEdge
-                m_documentStyle = 1;
+                m_documentStyle = 2;
             }
             rdBtnFlipOnLongEdge.IsEnabled = true;
             rdBtnFlipOnShortEdger.IsEnabled = true;
