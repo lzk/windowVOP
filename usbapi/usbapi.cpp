@@ -614,7 +614,7 @@ static int CheckPort( const wchar_t* pprintername_, wchar_t* str_ )
 	}
 
 	int ptType = PT_UNKNOWN;
-	for(int i=0; i< cReturned; i++)
+	for(DWORD i=0; i< cReturned; i++)
     {
 		if ( 0 == wcscmp(pPrinterInfo->pPortName, port[i].pPortName) )
         {
@@ -1323,7 +1323,7 @@ static BOOL GetPortName( const wchar_t *szPrinterName, wchar_t *szPortName, int 
 		ClosePrinter(hPrinter);
 		return FALSE;
 	}	
-	wcscpy(szPortName,pPrinterInfo->pPortName);
+	wcscpy_s(szPortName, iLen, pPrinterInfo->pPortName);
 	free(pPrinterInfo); 
 	ClosePrinter(hPrinter);
 	return TRUE;
@@ -2992,7 +2992,7 @@ static bool DoseHasEnoughSpace(
     {
         wchar_t szBuffer[1024];
         memset( szBuffer, 0, sizeof(szBuffer) );
-        wcsncpy( szBuffer, szPath, ptr-szPath );
+        wcsncpy_s( szBuffer, sizeof(szBuffer)/sizeof(wchar_t), szPath, ptr-szPath );
 
         ULARGE_INTEGER freeBytesAvailable = {0};
         if ( GetDiskFreeSpaceEx( 
