@@ -241,18 +241,18 @@ namespace VOP
                     {
                         SaveButton.IsEnabled = true;
                         DeleteButton.IsEnabled = false;
-                    }
-
-                    if (tb.Name == "tbWidth")
-                    {
-                        widthTextValue = double.Parse(tb.Text);
-                    }
-                    else
-                    {
-                        heightTextValue = double.Parse(tb.Text);
-                    }
-                  
+                    }    
                 }
+
+                if (tb.Name == "tbWidth")
+                {
+                    widthTextValue = double.Parse(tb.Text);
+                }
+                else
+                {
+                    heightTextValue = double.Parse(tb.Text);
+                }
+
             }
             else
             { 
