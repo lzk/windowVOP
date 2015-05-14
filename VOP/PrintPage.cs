@@ -459,11 +459,11 @@ namespace VOP
 
     class PdfPrint
     {
-        static List<Process> proList = new List<Process>();
+        static List<Process> procList = new List<Process>();
  
         public static void CloseAll()
         {
-            foreach(Process p in proList)
+            foreach(Process p in procList)
             {
                 if(p != null)
                 {
@@ -475,7 +475,7 @@ namespace VOP
                 }
             }
 
-            proList.Clear();
+            procList.Clear();
         }
 
         public void Print(string pdfFileName)
@@ -502,7 +502,7 @@ namespace VOP
             info.UseShellExecute = true;
 
             Process p = Process.Start(info);
-            proList.Add(p);
+            procList.Add(p);
 
         }
     }
