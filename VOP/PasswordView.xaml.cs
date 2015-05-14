@@ -64,12 +64,14 @@ namespace VOP
             {
                 if (strPWD.Length == 0)
                 {
+                    pbnewPWD.Focus();
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_The_new_password_can_not_be_empty_"), (string)this.FindResource("ResStr_Error"));
                 }
                 else if(strPWD != strCfPWD)
                 {
+                    pbnewPWD.Focus();
+                    pbnewPWD.SelectAll();
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_The_passwords_you_entered__are_different__please_try_again_"), (string)this.FindResource("ResStr_Error"));
-
                 }
             }
 

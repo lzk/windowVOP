@@ -68,6 +68,8 @@ namespace VOP
                 }
                 else
                 {
+                    pbPwd.Focus();
+                    pbPwd.SelectAll();
                     tbkErrorInfo.Text = "验证码错误，请确认后再次输入。";
                 }
             }
@@ -82,6 +84,7 @@ namespace VOP
                 {
                     tbkErrorInfo.Text = "验证码格式错误，请确认后再次输入。";
                     pbPwd.Focus();
+                    pbPwd.SelectAll();
                 }
             }
         }

@@ -54,6 +54,8 @@ namespace VOP
                 if (!isApplySuccess)
                 {
                     ((MainWindow)App.Current.MainWindow).m_strPassword = "";
+                    pbPwd.Focus();
+                    pbPwd.SelectAll();
                     tbkErrorInfo.Text = (string)this.FindResource("ResStr_Authentication_error__please_enter_the_password_again_"); 
                 }
                 else
