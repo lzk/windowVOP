@@ -483,6 +483,13 @@ namespace VOP
             }
             return bIsAsciiLetter;
         }
+
+        public static bool IsOffline( EnumStatus status )
+        {
+            return ( EnumStatus.Offline == status 
+                    || EnumStatus.PowerOff == status 
+                    || EnumStatus.Unknown == status );
+        }
     }
 
 

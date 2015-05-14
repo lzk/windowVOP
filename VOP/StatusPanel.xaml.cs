@@ -83,9 +83,7 @@ namespace VOP
                                 || _OldToner > 10 && value <= 10 
                                 || _OldToner > 5 && value <= 5 )
                         {
-                            if ( EnumStatus.Offline != m_currentStatus 
-                                    && EnumStatus.PowerOff != m_currentStatus 
-                                    && EnumStatus.Unknown != m_currentStatus )
+                            if ( false == common.IsOffline( m_currentStatus ) )
                             {
                                 this.lbTonerBar.FlashShopCatIcon(true);
                             }
@@ -152,9 +150,7 @@ namespace VOP
                         m_errorMsg = "";
                     }
 
-                    if ( EnumStatus.Offline == value 
-                            || EnumStatus.PowerOff == value 
-                            || EnumStatus.Unknown == value )
+                    if ( true == common.IsOffline( value ) )
                     {
                         lbTonerBar.IsEnabled = false;
                         this.lbTonerBar.FlashShopCatIcon(false);

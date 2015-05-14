@@ -950,11 +950,7 @@ namespace VOP
 
                if ( false == m_isOnlineDetected )
                {
-                   bool bIsOnline = !( EnumStatus.Offline == status 
-                           || EnumStatus.PowerOff == status 
-                           || EnumStatus.Unknown == status );
-
-                   if ( true == bIsOnline )
+                   if ( false == common.IsOffline( status ) )
                    {
                        m_isOnlineDetected = true;
                        ExpandSubpage();
@@ -1093,11 +1089,7 @@ namespace VOP
 
             statusPanelPage.UpdateStatusPanel( (EnumStatus)status, (EnumMachineJob)job, toner );
 
-            bool bIsOnline = !( (byte)EnumStatus.Offline == status 
-                    || (byte)EnumStatus.PowerOff == status 
-                    || (byte)EnumStatus.Unknown == status );
-
-            if ( m_isOnlineDetected || bIsOnline )
+            if ( m_isOnlineDetected || false == common.IsOffline( (EnumStatus)status) )
             {
                 ExpandSubpage();
                 m_isOnlineDetected = true;
