@@ -31,30 +31,33 @@
     </Window.Resources>
 
     <Viewbox Stretch="Fill">
-    <Grid x:Name="LayoutRoot" Background="#FFE7E7E7" Width="532" Height="502" >
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="260" />
-            <RowDefinition Height="150" />
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-            <Rectangle Grid.Row="0" Grid.RowSpan="5" Fill="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"  
+        <Grid>
+            <Rectangle Fill="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"  
                                     RadiusX="5" RadiusY="5">
                 <Rectangle.Effect>
                     <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
                 </Rectangle.Effect>
             </Rectangle>
-        <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0">
-            <TextBlock Text="{StaticResource ResStr_More_Settings}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        </Border>
+            
+            <Grid x:Name="LayoutRoot" Background="#FFE7E7E7" Width="532" Height="502" >
 
-        <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="260" />
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" >
-            <local:GroupBoxDecorator Margin="38,10,0,0" Header="{StaticResource ResStr_Scaling}" Height="80" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0">
+                    <TextBlock Text="{StaticResource ResStr_More_Settings}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
 
-                <local:SpinnerControl
+                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True"/>
+
+                <Grid Grid.Row="1" >
+                    <local:GroupBoxDecorator Margin="38,10,0,0" Header="{StaticResource ResStr_Scaling}" Height="80" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
+
+                        <local:SpinnerControl
                             x:Name="spinnerScaling"
                             Style="{StaticResource PrintSettingSpinnerStyle}"
                             Width="163"
@@ -68,114 +71,113 @@
                             LostFocus="SpinnerTextBox_LostFocus"
                             Margin="0,2,0,8"/>
 
-            </local:GroupBoxDecorator>
+                    </local:GroupBoxDecorator>
 
-            <local:GroupBoxDecorator Margin="0,10,38,0" Header="{StaticResource ResStr_Scanning_Mode}" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top" Width="220">
+                    <local:GroupBoxDecorator Margin="0,10,38,0" Header="{StaticResource ResStr_Scanning_Mode}" Height="80" HorizontalAlignment="Right" VerticalAlignment="Top" Width="220">
 
-                <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center" Margin="0,2,0,8">
 
-                    <RadioButton x:Name="rdBtnScanModePhoto" GroupName="ScanMode" IsChecked="True"
+                            <RadioButton x:Name="rdBtnScanModePhoto" GroupName="ScanMode" IsChecked="True"
                             Template="{StaticResource customRadioButton}"
                             Content="{StaticResource ResStr_Photo}" VerticalAlignment="Center"
                             Margin="10,0" Checked="rdBtnScanModePhoto_Checked" ></RadioButton>
-                    <RadioButton x:Name="rdBtnScanModeTxt" GroupName="ScanMode" IsChecked="False"
+                            <RadioButton x:Name="rdBtnScanModeTxt" GroupName="ScanMode" IsChecked="False"
                             Template="{StaticResource customRadioButton}"
                             Content="{StaticResource ResStr_Text}" VerticalAlignment="Center"
                             Margin="10,0" Checked="rdBtnScanModeTxt_Checked" ></RadioButton>
 
-                </StackPanel>
+                        </StackPanel>
 
-            </local:GroupBoxDecorator>
+                    </local:GroupBoxDecorator>
 
 
-            <local:GroupBoxDecorator Margin="38,10,0,0" Header="{StaticResource ResStr_Document_Size}" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center" >
-                <ComboBox x:Name="cboDocSize"
+                    <local:GroupBoxDecorator Margin="38,10,0,0" Header="{StaticResource ResStr_Document_Size}" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                        <ComboBox x:Name="cboDocSize"
                         Style="{StaticResource customComboBox}"
                         Background="White"
                         Width="145" Height="25" SelectionChanged="cboDocSize_SelectionChanged"
                         >
 
-                </ComboBox>
-            </local:GroupBoxDecorator>
+                        </ComboBox>
+                    </local:GroupBoxDecorator>
 
-            <local:GroupBoxDecorator Margin="0,10,38,0" Header="{StaticResource ResStr_DPI}" Height="70" HorizontalAlignment="Right" VerticalAlignment="Center" Width="220" >
-                <ComboBox x:Name="cboResolution"
+                    <local:GroupBoxDecorator Margin="0,10,38,0" Header="{StaticResource ResStr_DPI}" Height="70" HorizontalAlignment="Right" VerticalAlignment="Center" Width="220" >
+                        <ComboBox x:Name="cboResolution"
                         Style="{StaticResource customComboBox}"
                         Background="White"
                         Height="25"
                         Width="145"
                         HorizontalAlignment="Center" SelectionChanged="cboResolution_SelectionChanged"
                         >
-                </ComboBox>
-            </local:GroupBoxDecorator>
+                        </ComboBox>
+                    </local:GroupBoxDecorator>
 
-            <local:GroupBoxDecorator Margin="38,0,0,8" Header="{StaticResource ResStr_Output_Size}" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
-                <ComboBox x:Name="cboOutputSize"
+                    <local:GroupBoxDecorator Margin="38,0,0,8" Header="{StaticResource ResStr_Output_Size}" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                        <ComboBox x:Name="cboOutputSize"
                         Style="{StaticResource customComboBox}"
                         Background="White"
                         Width="145" Height="25" SelectionChanged="cboOutputSize_SelectionChanged"
                         >
 
-                </ComboBox>
-            </local:GroupBoxDecorator>
+                        </ComboBox>
+                    </local:GroupBoxDecorator>
 
-            <local:GroupBoxDecorator Margin="0,0,38,8" Header="{StaticResource ResStr_Media_Type}" Height="70" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="220">
-                <ComboBox x:Name="cboMediaType"
+                    <local:GroupBoxDecorator Margin="0,0,38,8" Header="{StaticResource ResStr_Media_Type}" Height="70" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="220">
+                        <ComboBox x:Name="cboMediaType"
                         Style="{StaticResource customComboBox}"
                         Background="White"
                         Width="145" Height="25" SelectionChanged="cboMediaType_SelectionChanged"
                         >
 
-                </ComboBox>
-            </local:GroupBoxDecorator>
-        </Grid>
+                        </ComboBox>
+                    </local:GroupBoxDecorator>
+                </Grid>
 
 
-        <local:GroupBoxDecorator Grid.Row="2" Header="{StaticResource ResStr_N_in_1_Copy}" Height="140" Width="455" >
+                <local:GroupBoxDecorator Grid.Row="2" Header="{StaticResource ResStr_N_in_1_Copy}" Height="140" Width="455" >
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="90" />
-                    <ColumnDefinition Width="90" />
-                    <ColumnDefinition Width="90" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="80" />
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="80" />
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
-                <CheckBox x:Name="chkNin1" Template="{StaticResource customCheckBox}" IsChecked="true" VerticalAlignment="Center" Content="{StaticResource ResStr_N_in_1_Copy}"
+                        <CheckBox x:Name="chkNin1" Template="{StaticResource customCheckBox}" IsChecked="true" VerticalAlignment="Center" Content="{StaticResource ResStr_N_in_1_Copy}"
                     HorizontalAlignment="Center" Checked="chkNin1_Checked" Unchecked="chkNin1_Unchecked" Height="24" Margin="0,30,0,0" />
 
-                <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_2_in_1}" Height="16" />
-                <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_4_in_1}" Height="16" />
-                <TextBlock Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_9_in_1}" Height="16" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_2_in_1}" Height="16" />
+                        <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_4_in_1}" Height="16" />
+                        <TextBlock Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_9_in_1}" Height="16" />
 
-                <Rectangle x:Name="rectNin1_2" Grid.Column="1" Fill="Gray" RadiusX="5" RadiusY="5" Height="65" VerticalAlignment="Bottom" Margin="5,0" />
-                <Rectangle x:Name="rectNin1_4" Grid.Column="2" Fill="Gray" RadiusX="5" RadiusY="5" Height="65" VerticalAlignment="Bottom" Margin="5,0" />
-                <Rectangle x:Name="rectNin1_9" Grid.Column="3" Fill="Gray" RadiusX="5" RadiusY="5" Height="65" VerticalAlignment="Bottom" Margin="5,0" />
+                        <Rectangle x:Name="rectNin1_2" Grid.Column="1" Fill="Gray" RadiusX="5" RadiusY="5" Height="65" VerticalAlignment="Bottom" Margin="5,0" />
+                        <Rectangle x:Name="rectNin1_4" Grid.Column="2" Fill="Gray" RadiusX="5" RadiusY="5" Height="65" VerticalAlignment="Bottom" Margin="5,0" />
+                        <Rectangle x:Name="rectNin1_9" Grid.Column="3" Fill="Gray" RadiusX="5" RadiusY="5" Height="65" VerticalAlignment="Bottom" Margin="5,0" />
 
-                <Image x:Name="imgNin1_2" Grid.Column="1" Stretch="None" Source="Images\Nin1_2.png" MouseDown="imgNin1_2_MouseDown" Margin="0,0,0,9" VerticalAlignment="Bottom" Height="42" />
-                <Image x:Name="imgNin1_4" Grid.Column="2" Stretch="None" Source="Images\Nin1_4.png" MouseDown="imgNin1_4_MouseDown" Margin="0,0,0,9" VerticalAlignment="Bottom" Height="42" />
-                <Image x:Name="imgNin1_9" Grid.Column="3" Stretch="None" Source="Images\Nin1_9.png" MouseDown="imgNin1_9_MouseDown" Margin="0,0,0,9" VerticalAlignment="Bottom" Height="42" />
+                        <Image x:Name="imgNin1_2" Grid.Column="1" Stretch="None" Source="Images\Nin1_2.png" MouseDown="imgNin1_2_MouseDown" Margin="0,0,0,9" VerticalAlignment="Bottom" Height="42" />
+                        <Image x:Name="imgNin1_4" Grid.Column="2" Stretch="None" Source="Images\Nin1_4.png" MouseDown="imgNin1_4_MouseDown" Margin="0,0,0,9" VerticalAlignment="Bottom" Height="42" />
+                        <Image x:Name="imgNin1_9" Grid.Column="3" Stretch="None" Source="Images\Nin1_9.png" MouseDown="imgNin1_9_MouseDown" Margin="0,0,0,9" VerticalAlignment="Bottom" Height="42" />
+                    </Grid>
+
+                </local:GroupBoxDecorator>
+
+                <StackPanel Grid.Row="5" Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <local:ButtonEx x:Name="btnDefault" HorizontalContentAlignment="Center" IsDefault="False"
+                        Content="{StaticResource ResStr_Default}" 
+                        Height="38" Width="125" Margin="0,0,20,0" Click="btnDefault_Click" />
+                            <local:ButtonEx x:Name="btnApply" HorizontalContentAlignment="Center" IsActiveEx="True"
+                        Content="{StaticResource ResStr_OK}"  Height="38" Width="125" Click="btnApply_Click" />
+                </StackPanel>
             </Grid>
-
-        </local:GroupBoxDecorator>
-
-        <StackPanel Grid.Row="5" Orientation="Horizontal"
-            HorizontalAlignment="Center">
-            <local:ButtonEx x:Name="btnDefault" HorizontalContentAlignment="Center" IsDefault="False"
-                Content="{StaticResource ResStr_Default}" 
-                Height="38" Width="125" Margin="0,0,20,0" Click="btnDefault_Click" />
-            <local:ButtonEx x:Name="btnApply" HorizontalContentAlignment="Center" IsActiveEx="True"
-                Content="{StaticResource ResStr_OK}"  Height="38" Width="125" Click="btnApply_Click" />
-        </StackPanel>
-
-    </Grid>
-
+        </Grid>
     </Viewbox>
 </Window>
