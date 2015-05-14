@@ -6,12 +6,15 @@
 	x:Name="Window"
 	Title="ScanSetting"
     Width="585" 
-    Height="493"
+	Height="493"
+    AllowsTransparency="true"
     WindowStartupLocation="CenterOwner"
+    ResizeMode="NoResize"
+    WindowStyle="None" 
+    BorderThickness="24"
     xmlns:vop="clr-namespace:VOP"
     ShowInTaskbar="False" 
     Loaded="handler_loaded"
-    Style="{StaticResource for_noresize_window}"
     >
     <Window.Resources>
         <ResourceDictionary>
@@ -117,7 +120,11 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Viewbox Stretch="Fill">
+    <!--<Window.Effect>
+        <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+    </Window.Effect>-->
+
+        <Viewbox Stretch="Fill">
 
     <Grid x:Name="LayoutRoot" Background="#FFE7E7E7" Width="537" Height="445" >
 
@@ -127,8 +134,13 @@
             <RowDefinition Height="240" />
             <RowDefinition/>
         </Grid.RowDefinitions>
-
-        <!-- Title bar begin -->
+            <Rectangle Grid.Row="0" Grid.RowSpan="4" Fill="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"  
+                                    RadiusX="5" RadiusY="5">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <!-- Title bar begin -->
         <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0">
             <TextBlock Text="{StaticResource ResStr_More_Settings}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>

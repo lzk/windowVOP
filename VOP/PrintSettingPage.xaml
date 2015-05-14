@@ -5,13 +5,16 @@
         xmlns:local="clr-namespace:VOP" 
         x:Class="VOP.PrintSettingPage"
         Title="PrintSettingPage" 
-        Height="608" 
-        Width="698"        
+        Height="680" 
+        Width="780"        
         WindowStartupLocation="CenterOwner"  
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="true"
+        BorderThickness="65, 60"
         Loaded="Window_Loaded" 
         UseLayoutRounding="True"
-        ShowInTaskbar="False"
-        Style="{StaticResource for_noresize_window}">
+        ShowInTaskbar="False">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -124,7 +127,13 @@
                 <RowDefinition Height="94*"/>
                 <RowDefinition Height="65*"/>
             </Grid.RowDefinitions>
-
+            <Rectangle Grid.Row="0" Grid.RowSpan="14" Grid.Column="0" Grid.ColumnSpan="7" Fill="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"  
+                                    RadiusX="5" RadiusY="5">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            
             <Border x:Name="TitleBar"  Background="#FF203144" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="7">
                 <TextBlock x:Name="TitleBarText" Text="{StaticResource ResStr_More_Settings}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>

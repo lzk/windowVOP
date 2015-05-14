@@ -6,11 +6,13 @@
 	x:Name="Window"
 	Title="CopySetting"
     Width="580" 
-    Height="550"
+	Height="550"
     ShowInTaskbar="False" 
+    AllowsTransparency="true"
     WindowStartupLocation="CenterOwner"
-    Loaded="Window_Loaded"
-    Style="{StaticResource for_noresize_window}"
+    ResizeMode="NoResize"
+    WindowStyle="None" 
+    BorderThickness="24" Loaded="Window_Loaded"
     >
 
     <Window.Resources>
@@ -29,7 +31,6 @@
     </Window.Resources>
 
     <Viewbox Stretch="Fill">
-
     <Grid x:Name="LayoutRoot" Background="#FFE7E7E7" Width="532" Height="502" >
 
         <Grid.RowDefinitions>
@@ -38,7 +39,12 @@
             <RowDefinition Height="150" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+            <Rectangle Grid.Row="0" Grid.RowSpan="5" Fill="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"  
+                                    RadiusX="5" RadiusY="5">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+                </Rectangle.Effect>
+            </Rectangle>
         <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0">
             <TextBlock Text="{StaticResource ResStr_More_Settings}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
