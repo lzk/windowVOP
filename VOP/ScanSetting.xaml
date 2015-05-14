@@ -269,7 +269,7 @@
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="False" x:Name="btnDefault" Click="btnDefault_Click"
-                Content="{StaticResource ResStr_Defualt}" 
+                Content="{StaticResource ResStr_Default}" 
                 Height="35" Width="120" Margin="0,0,20,0" />
             <local:ButtonEx HorizontalContentAlignment="Center" x:Name="btnOk" Click="btnOk_Click"
                 Content="{StaticResource ResStr_OK}"  Height="35" Width="120" IsActiveEx="True" />

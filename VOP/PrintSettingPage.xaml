@@ -503,7 +503,7 @@
                 	Click="AdvancedSettingButtonClick"/>
                 <Button IsDefault="False"
 				x:Name="DefaultButton"
-				Content="{StaticResource ResStr_Defualt}" 
+				Content="{StaticResource ResStr_Default}" 
 				Style="{StaticResource CustomGrayButtonStyle}"
 				Height="34" 
 				Width="130" 

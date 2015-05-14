@@ -2737,7 +2737,6 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                         WriteFile( hFileOrig , headOrig , dwHeadSizeOrig , &dwHeadSizeOrig , NULL);
 
                         int nMod = nColPixelNumOrig/100;
-                        int nPercent = 0;
                         bCancelScanning = false;
 
                         while ( true )
@@ -2752,7 +2751,7 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                                 break;
 
                             if ( 0 == nRowsCnt%nMod )
-                                ::SendNotifyMessage( HWND_BROADCAST, uMsg, ++nPercent, 0); 
+                                ::SendNotifyMessage( HWND_BROADCAST, uMsg, nRowsCnt*100/nColPixelNumOrig, 0); 
 
                             lWroteOrig += cbStridePadOrig;
                             SetFilePointer( hFileOrig, 0-lWroteOrig, NULL, FILE_END );

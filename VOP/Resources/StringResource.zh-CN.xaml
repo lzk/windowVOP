@@ -103,7 +103,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Flip_on_short_edge">短边翻页</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Toner_Save_Mode">省墨打印模式</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Advanced_settings">高级设置</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Defualt">默  认</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Default">默  认</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_OK">确  定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Custom_Paper_Size_Name">自定义纸张大小名称</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Defined_Size_01">自定义尺寸01</sys:String>
