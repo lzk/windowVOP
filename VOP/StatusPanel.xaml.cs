@@ -80,7 +80,8 @@ namespace VOP
                     {
                         if ( _OldToner > 30 && value <= 30 
                                 || _OldToner > 20 && value <= 20 
-                                || _OldToner > 10 && value <= 10 )
+                                || _OldToner > 10 && value <= 10 
+                                || _OldToner > 5 && value <= 5 )
                         {
                             if ( EnumStatus.Offline != m_currentStatus 
                                     && EnumStatus.PowerOff != m_currentStatus 
