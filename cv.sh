@@ -86,3 +86,26 @@ printf "\
 $v1 $v2 $v3 $v4 \
 $v1 $v2 $v3 $v4 \
 >> VOP/Properties/VersionInfo.cs
+
+printf "\
+using System.Reflection;\n\
+using System.Runtime.InteropServices;\n\
+\n\
+[assembly: AssemblyConfiguration(\"\")]\n\
+[assembly: AssemblyProduct(\"Lenovo virtual panel\")]\n\
+" > VopHelper/Properties/VersionInfo.cs
+
+git log --format="[assembly: AssemblyDescription(\"%H\")]" -1 >> VopHelper/Properties/VersionInfo.cs
+
+printf "\
+[assembly: AssemblyFileVersion(\"%d.%d.%d.%d\")]\n\
+[assembly: AssemblyCompany(\"Lenovo Co., Ltd.\")]\n\
+[assembly: AssemblyCopyright(\"(C) Lenovo Co., Ltd. 2015\")]\n\
+[assembly: ComVisible(false)]\n\
+[assembly: AssemblyTitle(\"Lenovo virtual panel\")]\n\
+[assembly: AssemblyTrademark(\"\")]\n\
+[assembly: AssemblyVersion(\"%d.%d.%d.%d\")]\n\
+" \
+$v1 $v2 $v3 $v4 \
+$v1 $v2 $v3 $v4 \
+>> VopHelper/Properties/VersionInfo.cs
