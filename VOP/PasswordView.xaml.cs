@@ -19,6 +19,8 @@ namespace VOP
     /// </summary>
     public partial class PasswordView : UserControl
     {
+        private EnumStatus m_currentStatus = EnumStatus.Offline;
+
         public PasswordView()
         {
             InitializeComponent();
@@ -102,6 +104,12 @@ namespace VOP
         {
             if (e.Key == Key.Space)
                 e.Handled = true;
+        }
+
+        public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
+        {
+            m_currentStatus = st;
+            btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
         }
     }
 }

@@ -29,7 +29,8 @@ namespace VOP
     {
         SoftAPSetting softAPSetting = new SoftAPSetting();
         SoftAPSetting softAPSettingInit = new SoftAPSetting();
-
+        private EnumStatus m_currentStatus = EnumStatus.Offline;
+        
         public SoftapView()
         {
             InitializeComponent();
@@ -228,6 +229,11 @@ namespace VOP
         {
             if (e.Key == Key.Space)
                 e.Handled = true;
+        }
+
+        public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
+        {
+            btnApply.IsEnabled = (false == common.IsOffline(st));
         }
     }
 }

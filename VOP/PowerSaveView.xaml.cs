@@ -21,6 +21,7 @@ namespace VOP
     public partial class PowerSaveView : UserControl
     {
         byte m_psavetime = 1;
+        private EnumStatus m_currentStatus = EnumStatus.Offline;
 
         public PowerSaveView()
         {
@@ -222,5 +223,10 @@ namespace VOP
                 btnApply.IsEnabled = true;
         }
 
+        public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
+        {
+            m_currentStatus = st;
+            btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
+        }
     }
 }

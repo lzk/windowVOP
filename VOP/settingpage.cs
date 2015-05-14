@@ -244,5 +244,20 @@ namespace VOP
             }
         }
 
+        public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
+        {
+             if (null != m_MainWin && !m_bOnlyDispalyAboutView)
+            {
+                if (m_MainWin.statusPanelPage.m_isWiFiModel)
+                {
+                    wifiView.PassStatus(st, job, toner);
+                    softapView.PassStatus(st, job, toner);
+                    tcpipView.PassStatus(st, job, toner);
+                }
+                powersaveView.PassStatus(st, job, toner);
+                userconfigView.PassStatus(st, job, toner);
+                passwordView.PassStatus(st, job, toner);
+            }
+        }
     }
 }

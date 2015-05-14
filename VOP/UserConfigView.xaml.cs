@@ -27,7 +27,9 @@ namespace VOP
         sbyte m_lowhumiditymode = 0;
         sbyte m_platecontrolmode = 0;
         sbyte m_primarycoolingmode = 0;
-        
+
+        private EnumStatus m_currentStatus = EnumStatus.Offline;
+
         public UserConfigView()
         {
             InitializeComponent();
@@ -326,6 +328,12 @@ namespace VOP
                     }
                 }
             }
+        }
+
+        public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
+        {
+            m_currentStatus = st;
+            btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
         }
     }
 }

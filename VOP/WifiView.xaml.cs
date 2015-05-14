@@ -23,6 +23,7 @@ namespace VOP
  //       VOP.Controls.WifiSetting wifiSettingInit = new VOP.Controls.WifiSetting();
         VOP.Controls.WifiSetting wifiSetting = new VOP.Controls.WifiSetting();
         private bool m_bConnectOthApMode = false;
+        private EnumStatus m_currentStatus = EnumStatus.Offline;
        
         public WifiView()
         {
@@ -593,6 +594,13 @@ namespace VOP
         {
             if (e.Key == Key.Space)
                 e.Handled = true;
+        }
+
+        public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
+        {
+            m_currentStatus = st;
+            btnConnect.IsEnabled = (false == common.IsOffline(m_currentStatus));
+            autoConnect.IsEnabled = (false == common.IsOffline(m_currentStatus)); 
         }
     }
 }

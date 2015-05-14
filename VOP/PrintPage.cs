@@ -373,6 +373,11 @@ namespace VOP
 
             m_MainWin.UploadPrintInfo(crmPrintInfo);
         }
+
+        public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
+        {
+            PrintButton.IsEnabled = (false == common.IsOffline(st));
+        }
     }
 
     public class IdCardPrintHelper : IDisposable

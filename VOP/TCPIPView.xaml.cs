@@ -43,6 +43,7 @@ namespace VOP
         public bool m_is_init = false;
 
         TCPIPSetting TcpIpSetting = new TCPIPSetting();
+        private EnumStatus m_currentStatus = EnumStatus.Offline;
 
         #region IP
         private static readonly DependencyProperty IPProperty =
@@ -382,7 +383,7 @@ namespace VOP
                     tb_ip.IsEnabled = false;
                     tb_gate.IsEnabled = false;
                     tb_mask.IsEnabled = false;
-                    btnApply.IsEnabled = true;
+                    btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
                 }
                 else if (btn.Name == "rdbtn_static")
                 {
@@ -397,7 +398,7 @@ namespace VOP
                     }
                     else
                     {
-                        btnApply.IsEnabled = true;
+                        btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
                     }
                 }
             }
@@ -706,6 +707,12 @@ namespace VOP
                     tb.Text = ipAddress.ToString();
                 }
             }
+        }
+
+        public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
+        {
+            m_currentStatus = st;
+            btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
         }
     }
 }
