@@ -70,7 +70,7 @@
                                 <Setter TargetName="Border" Property="Background" Value="#ffa8a6a6"/>
                             </Trigger>
 
-                            <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger Property="IsFocused" Value="True">
                                 <Setter TargetName="Border" Property="Background"
                                     Value="#FFA8A7A7"/>
                                 <Setter Property="Foreground" Value="White"/>

@@ -97,21 +97,13 @@
             <ComboBoxItem>MotorThermistorError</ComboBoxItem>
             <ComboBoxItem>EEPROMCommunicationError</ComboBoxItem>
             <ComboBoxItem>CTL_PRREQ_NSignalNoCome</ComboBoxItem>
-            <ComboBoxItem>ScanPCUnkownCommandUSB</ComboBoxItem>
-            <ComboBoxItem>SCANUSBDisconnect</ComboBoxItem>
-            <ComboBoxItem>ScanPCUnkownCommandNET</ComboBoxItem>
-            <ComboBoxItem>ScanNETDisconnect</ComboBoxItem>
             <ComboBoxItem>ScanMotorError</ComboBoxItem>
-            <ComboBoxItem>NetWirelessConnectFail</ComboBoxItem>
-            <ComboBoxItem>NetWirelessDisable</ComboBoxItem>
+            <ComboBoxItem>SCAN_DRV_CALIB_FAIL</ComboBoxItem>
             <ComboBoxItem>NetWirelessDongleCfgFail</ComboBoxItem>
-            <ComboBoxItem>FWUpdateError</ComboBoxItem>
-            <ComboBoxItem>DSPError</ComboBoxItem>
-            <ComboBoxItem>CodecError</ComboBoxItem>
             <ComboBoxItem>DMAError</ComboBoxItem>
-            <ComboBoxItem>Unknown</ComboBoxItem>
             <ComboBoxItem>Offline</ComboBoxItem>
             <ComboBoxItem>PowerOff</ComboBoxItem>
+            <ComboBoxItem>Unknown</ComboBoxItem>
         </ComboBox>
 
         <TextBlock Grid.Row="2"
