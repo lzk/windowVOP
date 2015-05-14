@@ -625,15 +625,10 @@ namespace VOP
 
         private void menuItem1_Click(object sender, System.EventArgs e)
         {
-            this.MainWindowExitPoint();
+            this.Close();
         }
 
         #endregion  // TrayMenu
-
-        public void handler_closed(Object sender, EventArgs e)
-        {
-            MainWindowExitPoint();
-        }
 
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
         {
@@ -662,7 +657,7 @@ namespace VOP
             {
                 if ( "btnClose" == btn.Name )
                 {
-                    this.MainWindowExitPoint();
+                    this.Close();
                 }
                 else if ("btnMinimize" == btn.Name)
                 {                             
@@ -870,8 +865,6 @@ namespace VOP
         /// </summary>
         private void MainWindowExitPoint()
         {
-            bool bAllowExit = true;
-
             if ( null != winScanPage.scanningThread 
                     && true == winScanPage.scanningThread.IsAlive )
             {
@@ -883,34 +876,15 @@ namespace VOP
                 }
             }
 
-            if ( 0 < winScanPage.image_wrappanel.Children.Count )
-            {
-                if (VOP.Controls.MessageBoxExResult.Yes !=
-                        VOP.Controls.MessageBoxEx.Show(
-                                                    VOP.Controls.MessageBoxExStyle.YesNo,
-                                                    this,
-                                                    (string)this.TryFindResource("ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_"),
-                                                    (string)this.TryFindResource("ResStr_Warning_2")
-                                                    )
-                    )
-                {
-                    SetTabItemFromIndex(EnumSubPage.Scan);
-                    bAllowExit = false;
-                }
-            }
 
-            if ( bAllowExit )
-            {
-                bExit = true;
-                bExitUpdater = true;
-                m_updaterAndUIEvent.WaitOne();
-                SavePrintInfoIntoXamlFile();
-                dll.RecoverDevModeData();
-                notifyIcon1.Visible = false;
-                dll.ResetDefaultPrinter();
-                PdfPrint.CloseAll();
-                this.Close();
-            }
+            bExit = true;
+            bExitUpdater = true;
+            m_updaterAndUIEvent.WaitOne();
+            SavePrintInfoIntoXamlFile();
+            dll.RecoverDevModeData();
+            notifyIcon1.Visible = false;
+            dll.ResetDefaultPrinter();
+            PdfPrint.CloseAll();
 
         }
 
@@ -1252,6 +1226,30 @@ namespace VOP
             this.Topmost = true;  // important
             this.Topmost = false; // important
             this.Focus();         // important
+        }
+
+        private void mainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = false;
+
+            if ( 0 < winScanPage.image_wrappanel.Children.Count )
+            {
+                if (VOP.Controls.MessageBoxExResult.Yes !=
+                        VOP.Controls.MessageBoxEx.Show(
+                                                    VOP.Controls.MessageBoxExStyle.YesNo,
+                                                    this,
+                                                    (string)this.TryFindResource("ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_"),
+                                                    (string)this.TryFindResource("ResStr_Warning_2")
+                                                    )
+                    )
+                {
+                    SetTabItemFromIndex(EnumSubPage.Scan);
+                    e.Cancel = true;
+                }
+            }
+
+            if ( false == e.Cancel )
+                MainWindowExitPoint();
         }
     }
 }

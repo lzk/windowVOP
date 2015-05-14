@@ -5,13 +5,12 @@
         AllowsTransparency="true"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Closed="handler_closed"
         Loaded="LoadedMainWindow"
         WindowStyle="None" 
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP"
         UseLayoutRounding="True"
-        Name="mainWindow"
+        Name="mainWindow" Closing="mainWindow_Closing"
         >
     <Window.Resources>
         <ControlTemplate x:Key="pageSwitch" TargetType="{x:Type CheckBox}">
