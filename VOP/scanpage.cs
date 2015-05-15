@@ -556,8 +556,11 @@ namespace VOP
                                 BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
                                 BitmapSource origSource = decoder.Frames[0];
 
-                                if ( null != origSource )
-                                    encoder.Frames.Add(BitmapFrame.Create(origSource));
+                                BitmapMetadata bitmapMetadata = new BitmapMetadata("tiff");
+                                bitmapMetadata.CameraModel = "Virtual Operation Panel";
+
+                                if (null != origSource)
+                                    encoder.Frames.Add(BitmapFrame.Create(origSource, null, bitmapMetadata, null));
                             }
                         }  
 
