@@ -21,6 +21,7 @@ namespace VOP
         public MainWindow m_MainWin { get; set; }
         List<string> filePaths = new List<string>();
         PdfPrint print = new PdfPrint();
+        private EnumStatus m_currentStatus = EnumStatus.Offline;
 
         public enum PrintType
         {   
@@ -170,6 +171,15 @@ namespace VOP
 
         private void ApplyButtonClick(object sender, RoutedEventArgs e)
         {
+            if(true == common.IsError(m_currentStatus))
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    m_MainWin,
+                    (string)this.FindResource("ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
+                    (string)this.FindResource("ResStr_Warning"));
+                return;
+            }
+
             string strPrinterName = "";
 
             PrintError printRes = PrintError.Print_OK;
@@ -395,7 +405,8 @@ namespace VOP
 
         public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
         {
-            PrintButton.IsEnabled = (false == common.IsOffline(st) && false == common.IsError(st));
+            m_currentStatus = st;
+            PrintButton.IsEnabled = (false == common.IsOffline(m_currentStatus));
         }
     }
 
