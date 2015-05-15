@@ -413,9 +413,9 @@ namespace VOP
 
             if (int.TryParse(textBox.Text, out textValue))
             {
-
+                textBox.Text = textValue.ToString();
+                textBox.CaretIndex = textBox.Text.Length;
             }
-
         }
         /// <summary>
         /// Initialize original document size combobox.

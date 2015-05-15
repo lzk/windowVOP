@@ -97,9 +97,9 @@ namespace VOP
 
             if (int.TryParse(textBox.Text, out textValue))
             {
-                textBox.Text = String.Format("{0}", textValue);
+                textBox.Text = textValue.ToString();
+                textBox.CaretIndex = textBox.Text.Length;
             }
-
         }
         
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)

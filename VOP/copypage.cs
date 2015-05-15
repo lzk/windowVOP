@@ -341,10 +341,14 @@ namespace VOP
                 {
                     textBox.Text = "99";
                 }
-
-                if (textValue < 1)
+                else if (textValue < 1)
                 {
                     textBox.Text = "1";
+                }
+                else
+                {
+                    textBox.Text = textValue.ToString();
+                    textBox.CaretIndex = textBox.Text.Length;
                 }
             }
             else
