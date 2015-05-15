@@ -492,6 +492,49 @@ namespace VOP
                     || EnumStatus.PowerOff == status 
                     || EnumStatus.Unknown == status );
         }
+
+        public static bool IsError(EnumStatus status)
+        {
+            bool bError = false;
+            switch (status)
+            {
+                case EnumStatus.InitializeJam:
+                case EnumStatus.NofeedJam:
+                case EnumStatus.JamAtRegistStayOn:
+                case EnumStatus.JamAtExitNotReach:
+                case EnumStatus.JamAtExitStayOn:
+                case EnumStatus.CoverOpen:
+                case EnumStatus.NoTonerCartridge:
+                case EnumStatus.PolygomotorOnTimeoutError:
+                case EnumStatus.PolygomotorOffTimeoutError:
+                case EnumStatus.PolygomotorLockSignalError:
+                case EnumStatus.BeamSynchronizeError:
+                case EnumStatus.BiasLeak:
+                case EnumStatus.PlateActionError:
+                case EnumStatus.MainmotorError:
+                case EnumStatus.MainFanMotorEorror:
+                case EnumStatus.JoinerThermistorError:
+                case EnumStatus.JoinerReloadError:
+                case EnumStatus.HighTemperatureErrorSoft:
+                case EnumStatus.HighTemperatureErrorHard:
+                case EnumStatus.JoinerFullHeaterError:
+                case EnumStatus.Joiner3timesJamError:
+                case EnumStatus.LowVoltageJoinerReloadError:
+                case EnumStatus.MotorThermistorError:
+                case EnumStatus.EEPROMCommunicationError:
+                case EnumStatus.CTL_PRREQ_NSignalNoCome:
+                case EnumStatus.ScanMotorError:
+                case EnumStatus.SCAN_DRV_CALIB_FAIL:
+                case EnumStatus.NetWirelessDongleCfgFail:
+                case EnumStatus.DMAError:
+                    bError = true;
+                break;
+                default:
+                    break;
+            }
+
+            return bError;
+        }
     }
 
 
