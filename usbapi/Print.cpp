@@ -1594,6 +1594,7 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 {
 	HANDLE   phandle;
 	DWORD dmsize = 0;
+	DWORD dwRet = 0;
 	phandle = NULL;
 	LPPCLDEVMODE lpInitData = NULL;
 	LPPCLDEVMODE lpDefaultData = NULL;
@@ -1615,14 +1616,35 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 				TCHAR szDebug[256] = { 0 };
 				wsprintf(szDebug, _T("dmsize = %d"), dmsize);
 				OutputDebugString(szDebug);
+				dmsize = 0;
+				while(dmsize < 1)
+				{
+					dmsize = DocumentProperties(NULL, phandle, szprintername, NULL, NULL, 0);
+					wsprintf(szDebug, _T("dmsize = %d"), dmsize);
+					OutputDebugString(szDebug);
+				}			
+				
 				lpDefaultData = (LPPCLDEVMODE)malloc(dmsize);
 				lpInitData = (LPPCLDEVMODE)malloc(dmsize);
 				if (lpDefaultData && lpInitData)
 				{
-					DocumentProperties(NULL, phandle, szprintername,
-						(LPDEVMODE)lpDefaultData, NULL, DM_OUT_BUFFER);
-					DocumentProperties(NULL, phandle, szprintername,
+					dwRet = DocumentProperties(NULL, phandle, szprintername,
+						(LPDEVMODE)lpDefaultData, NULL, DM_OUT_BUFFER);					
+					while (dwRet != IDOK)
+					{
+						dwRet = DocumentProperties(NULL, phandle, szprintername,
+							(LPDEVMODE)lpDefaultData, NULL, DM_OUT_BUFFER);
+						OutputDebugString(L"fail1");
+					}
+
+					dwRet = DocumentProperties(NULL, phandle, szprintername,
 						(LPDEVMODE)lpInitData, (LPDEVMODE)lpDefaultData, DM_IN_BUFFER | DM_OUT_BUFFER);
+					while (dwRet != IDOK)
+					{
+						dwRet = DocumentProperties(NULL, phandle, szprintername,
+							(LPDEVMODE)lpInitData, (LPDEVMODE)lpDefaultData, DM_IN_BUFFER | DM_OUT_BUFFER);
+						OutputDebugString(L"fail2");
+					}
 
 					PCLDEVMODE devmode;
 					devmode = *(LPPCLDEVMODE)lpDefaultData;
@@ -1644,7 +1666,6 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 		ClosePrinter(phandle);
 		phandle = NULL;
 	}
-	OutputDebugString(L"11");
 }
 
 USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies)

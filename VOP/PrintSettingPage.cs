@@ -1493,6 +1493,7 @@ namespace VOP
             if (1 == m_scalingType)
             {
                 spinnerScaling.Value = m_scalingRatio;
+                chk_FitToPaperSize.IsChecked = false;
             }
             else
             {
