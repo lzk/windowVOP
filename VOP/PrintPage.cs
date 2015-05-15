@@ -314,8 +314,18 @@ namespace VOP
            
             strPrinterName = m_MainWin.statusPanelPage.m_selectedPrinter;
             crmPrintInfo.m_strPrinterName = strPrinterName;
-            bool isSFP = common.IsSFPPrinter( common.GetPrinterDrvName(strPrinterName));
-            bool isWiFiModel = common.IsSupportWifi( common.GetPrinterDrvName(strPrinterName));
+            string strDrvName = "";
+            
+            if (false == common.GetPrinterDrvName(strPrinterName, ref strDrvName))
+            {
+                MessageBoxEx_Simple messageBox =
+                    new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)this.FindResource("ResStr_Error"));
+                messageBox.Owner = App.Current.MainWindow;
+                messageBox.ShowDialog();
+            }
+
+            bool isSFP = common.IsSFPPrinter(strDrvName);
+            bool isWiFiModel = common.IsSupportWifi(strDrvName);
 
             if(isSFP)
             {

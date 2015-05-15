@@ -410,11 +410,12 @@ namespace VOP
         /// <returns> 
         /// If success, return the name of printer driver, otherwise, return empty string.
         /// </returns>
-        public static string GetPrinterDrvName( 
-                string strPrinterName
+        public static bool GetPrinterDrvName( 
+                string strPrinterName, ref string strDrvName
                 )
         {
-            string strDrvName = "";
+            strDrvName = "";
+            bool bSuccess = false;
 
             try
             {
@@ -425,6 +426,7 @@ namespace VOP
                     if ( strPrinterName == pq.Name )
                     {
                         strDrvName = pq.QueueDriver.Name;
+                        bSuccess = true;
                         break;
                     }
                 }
@@ -433,7 +435,7 @@ namespace VOP
             {
             }
 
-            return strDrvName;
+            return bSuccess;
         }
 
         /// <summary>

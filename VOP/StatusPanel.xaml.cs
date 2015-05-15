@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VOP.Controls;
 
 namespace VOP
 {
@@ -196,8 +197,19 @@ namespace VOP
             if ( null != cboPrinters.SelectedItem )
             {
                 m_selectedPrinter = this.cboPrinters.SelectedItem.ToString();
-                m_isSFP = common.IsSFPPrinter( common.GetPrinterDrvName( m_selectedPrinter ) );
-                m_isWiFiModel = common.IsSupportWifi( common.GetPrinterDrvName( m_selectedPrinter ) );
+
+                string strDrvName = "";
+
+                if (false == common.GetPrinterDrvName(m_selectedPrinter, ref strDrvName))
+                {
+                    MessageBoxEx_Simple messageBox =
+                        new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)this.FindResource("ResStr_Error"));
+                    messageBox.Owner = App.Current.MainWindow;
+                    messageBox.ShowDialog();
+                }
+
+                m_isSFP = common.IsSFPPrinter(strDrvName);
+                m_isWiFiModel = common.IsSupportWifi(strDrvName);
 
                 if ( null != eventPrinterSwitch )
                     eventPrinterSwitch();
