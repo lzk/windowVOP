@@ -1616,7 +1616,6 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 				TCHAR szDebug[256] = { 0 };
 				wsprintf(szDebug, _T("dmsize = %d"), dmsize);
 				OutputDebugString(szDebug);
-				dmsize = 0;
 				while(dmsize < 1)
 				{
 					dmsize = DocumentProperties(NULL, phandle, szprintername, NULL, NULL, 0);
