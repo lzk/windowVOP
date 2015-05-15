@@ -91,7 +91,7 @@ namespace VOP
                         (string)this.FindResource( "ResStr_Error" )
                         );
 
-                ClosePreviewWin();
+                this.Close();
             }
         }
 
@@ -189,18 +189,18 @@ namespace VOP
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            ClosePreviewWin();
+            this.Close();
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            ClosePreviewWin();
+            this.Close();
         }
 
         private void btnPrint_Click(object sender, RoutedEventArgs e)
         {
             isPrint = true;    
-            ClosePreviewWin();
+            this.Close();
         }
 
         /// <summary>
@@ -257,18 +257,14 @@ namespace VOP
             return bSuccess;
         }
 
-        /// <summary>
-        /// Close preview window. Popup MessageBox to user if the image has rotated.
-        /// </summary>
-        private void ClosePreviewWin()
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
             if ( 0 != m_rotatedAngle % 360 )
             {
                 if ( VOP.Controls.MessageBoxExResult.Yes == 
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, 
-                        (string)this.TryFindResource("ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_"), 
-                        (string)this.TryFindResource("ResStr_Warning_2") ))
+                            (string)this.TryFindResource("ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_"), 
+                            (string)this.TryFindResource("ResStr_Warning_2") ))
                 {
                     m_rotatedObj = new ScanFiles();
                     m_rotatedObj.m_colorMode = m_images.m_colorMode;
@@ -293,8 +289,6 @@ namespace VOP
                     m_rotatedAngle = 0;
                 }
             }
-
-            this.Close();
         }
     }
 }

@@ -10,7 +10,7 @@
         ResizeMode="NoResize"
         WindowStyle="None" 
         BorderThickness="24"
-        Loaded="Window_Loaded"
+        Loaded="Window_Loaded" Closing="Window_Closing"
         >
     <Window.Resources>
         <ResourceDictionary>
