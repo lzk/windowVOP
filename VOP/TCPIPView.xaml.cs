@@ -712,7 +712,9 @@ namespace VOP
         public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
         {
             m_currentStatus = st;
-            btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
+            
+            if (true == btnApply.IsEnabled)
+                btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
         }
     }
 }

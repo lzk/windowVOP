@@ -121,7 +121,7 @@ namespace VOP
 
             if (int.TryParse(strText, out textValue))
             {
-
+                strText = String.Format("{0}", textValue);
             }
             textBox.Text = strText;
         }
@@ -333,7 +333,18 @@ namespace VOP
         public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
         {
             m_currentStatus = st;
-            btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
+
+            if (true == spinCtlEdge.ValidationHasError ||
+                true == spinCtlSide2Side.ValidationHasError ||
+                true == spinCtlDensity.ValidationHasError ||
+                true == spinCtlHumidity.ValidationHasError)
+            {
+                btnApply.IsEnabled = false;
+            }
+            else
+            {
+                btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
+            }
         }
     }
 }
