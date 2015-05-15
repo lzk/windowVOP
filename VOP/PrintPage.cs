@@ -208,60 +208,68 @@ namespace VOP
                 case PrintType.PrintFile_Txt:
                 case PrintType.PrintFile_Pdf:
 
-                    if (FilePaths.Count == 1)
+                    try
                     {
-                        string fileExt = System.IO.Path.GetExtension(FilePaths[0]).ToLower();
-
-                        if (   fileExt == ".xls"
-                            || fileExt == ".xlsx")
+                        if (FilePaths.Count == 1)
                         {
-                           
-                            ExcelHelper helper = new ExcelHelper(FilePaths[0]);
+                            string fileExt = System.IO.Path.GetExtension(FilePaths[0]).ToLower();
 
-                            if (helper.Open())
+                            if (fileExt == ".xls"
+                                || fileExt == ".xlsx")
                             {
-                                helper.Print(m_MainWin.statusPanelPage.m_selectedPrinter,
-                                                (int)spinnerControl1.Value);
-                                helper.Close();
+
+                                ExcelHelper helper = new ExcelHelper(FilePaths[0]);
+
+                                if (helper.Open())
+                                {
+                                    helper.Print(m_MainWin.statusPanelPage.m_selectedPrinter,
+                                                    (int)spinnerControl1.Value);
+                                    helper.Close();
+                                }
+                                else
+                                {
+                                    printRes = PrintError.Print_File_Not_Support;
+                                }
+
+                            }
+                            //else if (fileExt == ".ppt"
+                            //      || fileExt == ".pptx")
+                            //{
+                            //    PPTHelper helper = new PPTHelper(FilePaths[0]);
+
+                            //    if (helper.Open())
+                            //    {
+                            //        helper.PrintAll(m_MainWin.statusPanelPage.m_selectedPrinter,
+                            //                        (int)spinnerControl1.Value);
+                            //        helper.Close();
+                            //    }
+                            //    else
+                            //    {
+                            //        printRes = PrintError.Print_File_Not_Support;
+                            //    }
+                            //}
+                            else if (fileExt == ".pdf")
+                            {
+                                dll.VopSetDefaultPrinter(m_MainWin.statusPanelPage.m_selectedPrinter);
+                                //  printRes = (PrintError)worker.InvokeDoWorkMethod(DoPdfPrint);
+                                print.Print(FilePaths[0]);
                             }
                             else
                             {
-                                printRes = PrintError.Print_File_Not_Support;
+                                printRes = worker.InvokePrintFileMethod(dll.PrintFile,
+                                           m_MainWin.statusPanelPage.m_selectedPrinter,
+                                           FilePaths[0].ToLower(),
+                                           needFitToPage,
+                                           (int)spinnerControl1.Value);
                             }
 
                         }
-                        //else if (fileExt == ".ppt"
-                        //      || fileExt == ".pptx")
-                        //{
-                        //    PPTHelper helper = new PPTHelper(FilePaths[0]);
-
-                        //    if (helper.Open())
-                        //    {
-                        //        helper.PrintAll(m_MainWin.statusPanelPage.m_selectedPrinter,
-                        //                        (int)spinnerControl1.Value);
-                        //        helper.Close();
-                        //    }
-                        //    else
-                        //    {
-                        //        printRes = PrintError.Print_File_Not_Support;
-                        //    }
-                        //}
-                        else if (fileExt == ".pdf")
-                        {
-                            dll.VopSetDefaultPrinter(m_MainWin.statusPanelPage.m_selectedPrinter);
-                          //  printRes = (PrintError)worker.InvokeDoWorkMethod(DoPdfPrint);
-                            print.Print(FilePaths[0]);  
-                        }
-                        else
-                        {
-                            printRes = worker.InvokePrintFileMethod(dll.PrintFile,
-                                       m_MainWin.statusPanelPage.m_selectedPrinter,
-                                       FilePaths[0].ToLower(),
-                                       needFitToPage,
-                                       (int)spinnerControl1.Value);
-                        }
-                    
                     }
+                    catch(Exception)
+                    {
+                        printRes = PrintError.Print_File_Not_Support;
+                    }
+
                     break;
                 case PrintType.PrintImages:
 
@@ -322,6 +330,7 @@ namespace VOP
                     new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)this.FindResource("ResStr_Error"));
                 messageBox.Owner = App.Current.MainWindow;
                 messageBox.ShowDialog();
+                return;
             }
 
             bool isSFP = common.IsSFPPrinter(strDrvName);
@@ -490,26 +499,26 @@ namespace VOP
 
         public void Print(string pdfFileName)
         {
-            //string processFilename = Microsoft.Win32.Registry.LocalMachine
-            //     .OpenSubKey("Software")
-            //     .OpenSubKey("Microsoft")
-            //     .OpenSubKey("Windows")
-            //     .OpenSubKey("CurrentVersion")
-            //     .OpenSubKey("App Paths")
-            //     .OpenSubKey("AcroRd32.exe")
-            //     .GetValue(String.Empty).ToString();
+            string processFilename = Microsoft.Win32.Registry.LocalMachine
+                 .OpenSubKey("Software")
+                 .OpenSubKey("Microsoft")
+                 .OpenSubKey("Windows")
+                 .OpenSubKey("CurrentVersion")
+                 .OpenSubKey("App Paths")
+                 .OpenSubKey("AcroRd32.exe")
+                 .GetValue(String.Empty).ToString();
 
             CloseAll();
 
             ProcessStartInfo info = new ProcessStartInfo();
             info.Verb = "print";
-            info.FileName = pdfFileName;
-       //     info.FileName = processFilename;
-       //     info.Arguments = String.Format("/t \"{0}\" \"{1}\"", pdfFileName, ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
+           // info.FileName = pdfFileName;
+            info.FileName = processFilename;
+            info.Arguments = String.Format("/t \"{0}\" \"{1}\"", pdfFileName, ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
             info.CreateNoWindow = false;
             info.WindowStyle = ProcessWindowStyle.Normal;
             //(It won't be hidden anyway... thanks Adobe!)
-            info.UseShellExecute = true;
+            info.UseShellExecute = false;
 
             Process p = Process.Start(info);
             procList.Add(p);
