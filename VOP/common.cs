@@ -190,7 +190,7 @@ namespace VOP
                     case EnumStatus.EEPROMCommunicationError:       errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "669"; break;
                     case EnumStatus.CTL_PRREQ_NSignalNoCome:        errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "688"; break;
                     case EnumStatus.ScanMotorError: errMsg = (string)_this.TryFindResource("ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001"); break;
-                    case EnumStatus.SCAN_DRV_CALIB_FAIL: errMsg = (string)_this.TryFindResource("Scan Calibration Error;\nTurn off the printer, and turn it on again.\nContact customer support if this failure is repeated:\nSC1001"); break;
+                    case EnumStatus.SCAN_DRV_CALIB_FAIL: errMsg = (string)_this.TryFindResource("ResStr_Scan_Calibration_Error_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001"); break;
                     case EnumStatus.NetWirelessDongleCfgFail: errMsg = (string)_this.TryFindResource("ResStr_Wireless_Dongle_Config_Fail_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "1002"; break;
                     case EnumStatus.DMAError: errMsg = (string)_this.TryFindResource("ResStr_DMA_Error_SCxxx") + "1006"; break;
                     case EnumStatus.Offline:
