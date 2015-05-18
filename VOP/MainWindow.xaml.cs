@@ -184,7 +184,57 @@ namespace VOP
 
             Thread uploadPrintInfoThread = new Thread(UploadPrintInfoToServerCaller);
             uploadPrintInfoThread.Start();
+           
+            this.SourceInitialized += new EventHandler(win_SourceInitialized);  
         }
+
+        void win_SourceInitialized(object sender, EventArgs e)
+        {
+            HwndSource hwndSource = PresentationSource.FromVisual(this) as HwndSource;
+            if (hwndSource != null)
+            {
+                hwndSource.AddHook(new HwndSourceHook(WindowProc));
+            }
+        }
+        
+        private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            // Handle the message.
+            switch (msg)
+            {
+                case (int)0x007E:   //#define WM_DISPLAYCHANGE                0x007E
+                    {
+                        MainWindow _this = System.Windows.Interop.HwndSource.FromHwnd(hwnd).RootVisual as MainWindow;
+
+                        if(null != _this)
+                        {                         
+                            int nScreenWidth = (int)(lParam) & 0xFFFF;
+                            int nScreenHeight = (int)(lParam) / 0xFFFF;
+
+                            _this.AdjustAllWindowsSize(nScreenWidth, nScreenHeight);
+                        }
+
+                        break;
+                    }
+                default:
+                    break;
+            }
+
+            return IntPtr.Zero;
+        }
+
+        private void AdjustAllWindowsSize(int nScreenWidth, int nScreenHeight)
+        {
+            double OldRate = App.gScalingRate;
+
+            App.CalcScalingRate((double)nScreenWidth, nScreenHeight);            
+
+            foreach (Window window in Application.Current.Windows)
+            { 
+                window.Width = window.Width * App.gScalingRate / OldRate;
+                window.Height = window.Height * App.gScalingRate / OldRate;
+            }
+        }      
 
         public XmlAttribute CreateAttribute(XmlNode node, string attributeName, string value)
         {

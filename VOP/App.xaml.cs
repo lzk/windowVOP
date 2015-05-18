@@ -42,12 +42,19 @@ namespace VOP
 
             gLanguage = GetLangID(); 
 
-            // Calculate the scaling rate for resolution.
-            double nWidth = System.Windows.SystemParameters.WorkArea.Width;
-            double nHeight = System.Windows.SystemParameters.WorkArea.Height;
+            double nWidth = SystemParameters.PrimaryScreenWidth;
+            double nHeight = SystemParameters.PrimaryScreenHeight;
+
+            CalcScalingRate(nWidth, nHeight);
+        }
+
+        // Calculate the scaling rate for resolution.
+        public static void CalcScalingRate(double nScreenWidth, double nScreenHeight)
+        {
+            gScalingRate = 1.0;
 
             // Resolution:1600*900  ==> Height="638" Width="850"
-            if ((nWidth < 850.0) || (nHeight < 638.0))
+            if ((nScreenWidth < 850.0) || (nScreenHeight < 638.0))
             {      
                 gScalingRate = 0.85;
             }
