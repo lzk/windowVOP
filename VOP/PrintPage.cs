@@ -112,7 +112,7 @@ namespace VOP
                 }
                 else
                 {
-                    textBox.Text = textValue.ToString();
+                    textBox.Text = String.Format("{0}", textValue);
                     textBox.CaretIndex = textBox.Text.Length;
                 }
             }

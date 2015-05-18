@@ -97,7 +97,7 @@ namespace VOP
 
             if (int.TryParse(textBox.Text, out textValue))
             {
-                textBox.Text = textValue.ToString();
+                textBox.Text = String.Format("{0}", textValue);
                 textBox.CaretIndex = textBox.Text.Length;
             }
         }

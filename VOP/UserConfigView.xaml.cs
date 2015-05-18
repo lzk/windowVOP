@@ -114,17 +114,24 @@ namespace VOP
 
         private void SpinnerTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            TextBox textBox = sender as TextBox;
-            string strText = textBox.Text;
-            strText = strText.Replace("--", "-");
-            int textValue = 0;
-
-            if (int.TryParse(strText, out textValue))
+            try
             {
-                textBox.Text = textValue.ToString();
+                TextBox textBox = sender as TextBox;
+                string strText = textBox.Text;
+                strText = strText.Replace("--", "-");
+                int textValue = 0;
+
+                if (int.TryParse(strText, out textValue))
+                {
+                    strText = String.Format("{0}", textValue);
+                }
+                textBox.Text = strText;
+                textBox.CaretIndex = textBox.Text.Length;
             }
-            textBox.Text = strText;
-            textBox.CaretIndex = textBox.Text.Length;
+            catch
+            {
+
+            }
         }
         
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
