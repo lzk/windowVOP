@@ -38,7 +38,7 @@ namespace VOP
         double widthTextValue = 0;
         double heightTextValue = 0;
 
-        bool IsTextInputValid = false;
+        bool IsTextInputValid = true;
         public ObservableCollection<UserDefinedSizeItem> UserDefinedSizeItems { get; set; }
 
         public UserDefinedSetting(ObservableCollection<UserDefinedSizeItem> userDefinedSizeItems)
@@ -152,22 +152,25 @@ namespace VOP
         {
             TextBox tb = sender as TextBox;
 
-            if (tb.Text.Trim() == "")
+            if (IsTextInputValid)
             {
-                SaveButton.IsEnabled = false;
-                DeleteButton.IsEnabled = false;
-            }
-            else
-            {
-                if(IsTextKey(tb.Text))
+                if (tb.Text.Trim() == "")
                 {
-                    SaveButton.IsEnabled = true;
-                    DeleteButton.IsEnabled = true;
+                    SaveButton.IsEnabled = false;
+                    DeleteButton.IsEnabled = false;
                 }
                 else
                 {
-                    SaveButton.IsEnabled = true;
-                    DeleteButton.IsEnabled = false;
+                    if (IsTextKey(tb.Text))
+                    {
+                        SaveButton.IsEnabled = true;
+                        DeleteButton.IsEnabled = true;
+                    }
+                    else
+                    {
+                        SaveButton.IsEnabled = true;
+                        DeleteButton.IsEnabled = false;
+                    }
                 }
             }
         }
