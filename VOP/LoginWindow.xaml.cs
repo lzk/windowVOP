@@ -82,7 +82,7 @@ namespace VOP
                 }
                 else if (pbPwd.Password.Length != 6)
                 {
-                    tbkErrorInfo.Text = "验证码格式错误，请确认后再次输入。";
+                    tbkErrorInfo.Text = "验证码错误，请确认后再次输入。";
                     pbPwd.Focus();
                     pbPwd.SelectAll();
                 }
