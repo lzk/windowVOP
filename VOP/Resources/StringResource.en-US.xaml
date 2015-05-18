@@ -188,7 +188,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Low_Hunidity_Mode">Low Hunidity Mode</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_of_Plate_Control_Mode">Plate Control Mode</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Primary_Cooling_Mode">Cooling Mode</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Fuser_Error_Remove">Fuser Error Clean</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Fuser_Error_Remove">Fuser Error Clear</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_New_Password">New Password</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Confirm_Password">Confirm Password</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Identity_Authentication">Identity Authentication</sys:String>
