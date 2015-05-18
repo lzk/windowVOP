@@ -97,8 +97,9 @@ USBAPI_API void __stdcall SavePrinterSettingsData(const TCHAR * strPrinterName,
 	UINT8 Copies,
 	UINT8 Booklet,
 	UINT8 Watermark);
+USBAPI_API void __stdcall GetPrinterDefaultInfo(const TCHAR * strPrinterName);
 USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_PrintType);
-USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType);
+USBAPI_API void __stdcall SetPrinterSettingsInitData();
 USBAPI_API void __stdcall GetPrinterSettingsData(
 	BYTE* ptr_paperSize,
 	BYTE* ptr_paperOrientation,
@@ -187,10 +188,11 @@ static PCLDEVMODE getDocumentPropertiesData;
 static PCLDEVMODE getOutputData;
 static PirntSettingsData g_PirntSettingsData;
 static bool isOpenDocumentProperties = false;
-static TCHAR * g_strPrinterName = NULL;
+static const TCHAR * g_strPrinterName = NULL;
 
 static DWORD bufferSize = 500;
 static TCHAR defaultPrinterName[500];
+static bool IsInitPrinterName = true;
 
 static int TcsNiCmp(TCHAR* c1, TCHAR* c2)
 {
@@ -1234,158 +1236,28 @@ USBAPI_API void __stdcall SavePrinterSettingsData(
 	getOutputData = getDocumentPropertiesData;
 
 }
-USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
+USBAPI_API void __stdcall SetPrinterSettingsInitData()
 {
-	switch (m_PrintType)
-	{
-	case 0:
-		g_PirntSettingsData.m_paperOrientation = 1;
-		g_PirntSettingsData.m_mediaType = 0;
-		g_PirntSettingsData.m_paperOrder = 1;
-		g_PirntSettingsData.m_printQuality = 0;
-		g_PirntSettingsData.m_scalingType = 1;
-		g_PirntSettingsData.m_scalingRatio = 100;
-		g_PirntSettingsData.m_nupNum = 1;
-		g_PirntSettingsData.m_typeofPB = 0;
-		g_PirntSettingsData.m_posterType = 0;
-		g_PirntSettingsData.m_ADJColorBalance = 1;
-		g_PirntSettingsData.m_colorBalanceTo = 1;
-		g_PirntSettingsData.m_densityValue = 0;
-		g_PirntSettingsData.m_duplexPrint = 1;
-		g_PirntSettingsData.m_documentStyle = 0;
-		g_PirntSettingsData.m_reversePrint = 1;
-		g_PirntSettingsData.m_tonerSaving = 0;
-		g_PirntSettingsData.m_copies = 1;
-		g_PirntSettingsData.m_booklet = 0;
-		g_PirntSettingsData.m_watermark = 0;
-		break;
-	case 1:
-		g_PirntSettingsData.m_paperOrientation = 1;
-		g_PirntSettingsData.m_mediaType = 0;
-		g_PirntSettingsData.m_paperOrder = 1;
-		g_PirntSettingsData.m_printQuality = 0;
-		g_PirntSettingsData.m_scalingType = 2;
-		g_PirntSettingsData.m_scalingRatio = 100;
-		g_PirntSettingsData.m_nupNum = 1;
-		g_PirntSettingsData.m_typeofPB = 0;
-		g_PirntSettingsData.m_posterType = 0;
-		g_PirntSettingsData.m_ADJColorBalance = 1;
-		g_PirntSettingsData.m_colorBalanceTo = 1;
-		g_PirntSettingsData.m_densityValue = 0;
-		g_PirntSettingsData.m_duplexPrint = 1;
-		g_PirntSettingsData.m_documentStyle = 0;
-		g_PirntSettingsData.m_reversePrint = 1;
-		g_PirntSettingsData.m_tonerSaving = 0;
-		g_PirntSettingsData.m_copies = 1;
-		g_PirntSettingsData.m_booklet = 0;
-		g_PirntSettingsData.m_watermark = 0;
-		break;
-	case 2:
-		g_PirntSettingsData.m_paperOrientation = 1;
-		g_PirntSettingsData.m_mediaType = 0;
-		g_PirntSettingsData.m_paperOrder = 1;
-		g_PirntSettingsData.m_printQuality = 0;
-		g_PirntSettingsData.m_scalingType = 0;
-		g_PirntSettingsData.m_scalingRatio = 100;
-		g_PirntSettingsData.m_nupNum = 1;
-		g_PirntSettingsData.m_typeofPB = 0;
-		g_PirntSettingsData.m_posterType = 0;
-		g_PirntSettingsData.m_ADJColorBalance = 1;
-		g_PirntSettingsData.m_colorBalanceTo = 1;
-		g_PirntSettingsData.m_densityValue = 0;
-		g_PirntSettingsData.m_duplexPrint = 1;
-		g_PirntSettingsData.m_documentStyle = 0;
-		g_PirntSettingsData.m_reversePrint = 1;
-		g_PirntSettingsData.m_tonerSaving = 0;
-		g_PirntSettingsData.m_copies = 1;
-		g_PirntSettingsData.m_booklet = 0;
-		g_PirntSettingsData.m_watermark = 0;
-		break;
-	case 3:
-		g_PirntSettingsData.m_paperOrientation = 1;
-		g_PirntSettingsData.m_mediaType = 0;
-		g_PirntSettingsData.m_paperOrder = 1;
-		g_PirntSettingsData.m_printQuality = 0;
-		g_PirntSettingsData.m_scalingType = 2;
-		g_PirntSettingsData.m_scalingRatio = 100;
-		g_PirntSettingsData.m_nupNum = 1;
-		g_PirntSettingsData.m_typeofPB = 0;
-		g_PirntSettingsData.m_posterType = 0;
-		g_PirntSettingsData.m_ADJColorBalance = 1;
-		g_PirntSettingsData.m_colorBalanceTo = 1;
-		g_PirntSettingsData.m_densityValue = 0;
-		g_PirntSettingsData.m_duplexPrint = 1;
-		g_PirntSettingsData.m_documentStyle = 0;
-		g_PirntSettingsData.m_reversePrint = 1;
-		g_PirntSettingsData.m_tonerSaving = 0;
-		g_PirntSettingsData.m_copies = 1;
-		g_PirntSettingsData.m_booklet = 0;
-		g_PirntSettingsData.m_watermark = 0;
-		break;	
-	case 4:
-		g_PirntSettingsData.m_paperOrientation = 1;
-		g_PirntSettingsData.m_mediaType = 0;
-		g_PirntSettingsData.m_paperOrder = 1;
-		g_PirntSettingsData.m_printQuality = 0;
-		g_PirntSettingsData.m_scalingType = 1;
-		g_PirntSettingsData.m_scalingRatio = 100;
-		g_PirntSettingsData.m_nupNum = 1;
-		g_PirntSettingsData.m_typeofPB = 0;
-		g_PirntSettingsData.m_posterType = 0;
-		g_PirntSettingsData.m_ADJColorBalance = 1;
-		g_PirntSettingsData.m_colorBalanceTo = 1;
-		g_PirntSettingsData.m_densityValue = 0;
-		g_PirntSettingsData.m_duplexPrint = 1;
-		g_PirntSettingsData.m_documentStyle = 0;
-		g_PirntSettingsData.m_reversePrint = 1;
-		g_PirntSettingsData.m_tonerSaving = 0;
-		g_PirntSettingsData.m_copies = 1;
-		g_PirntSettingsData.m_booklet = 0;
-		g_PirntSettingsData.m_watermark = 0;
-		break;
-	case 5:
-		g_PirntSettingsData.m_paperOrientation = 1;
-		g_PirntSettingsData.m_mediaType = 0;
-		g_PirntSettingsData.m_paperOrder = 1;
-		g_PirntSettingsData.m_printQuality = 0;
-		g_PirntSettingsData.m_scalingType = 1;
-		g_PirntSettingsData.m_scalingRatio = 100;
-		g_PirntSettingsData.m_nupNum = 1;
-		g_PirntSettingsData.m_typeofPB = 0;
-		g_PirntSettingsData.m_posterType = 0;
-		g_PirntSettingsData.m_ADJColorBalance = 1;
-		g_PirntSettingsData.m_colorBalanceTo = 1;
-		g_PirntSettingsData.m_densityValue = 0;
-		g_PirntSettingsData.m_duplexPrint = 1;
-		g_PirntSettingsData.m_documentStyle = 0;
-		g_PirntSettingsData.m_reversePrint = 1;
-		g_PirntSettingsData.m_tonerSaving = 0;
-		g_PirntSettingsData.m_copies = 1;
-		g_PirntSettingsData.m_booklet = 0;
-		g_PirntSettingsData.m_watermark = 0;
-		break;
-	default:
-		g_PirntSettingsData.m_paperOrientation = 1;
-		g_PirntSettingsData.m_mediaType = 0;
-		g_PirntSettingsData.m_paperOrder = 1;
-		g_PirntSettingsData.m_printQuality = 0;
-		g_PirntSettingsData.m_scalingType = 2;
-		g_PirntSettingsData.m_scalingRatio = 100;
-		g_PirntSettingsData.m_nupNum = 1;
-		g_PirntSettingsData.m_typeofPB = 0;
-		g_PirntSettingsData.m_posterType = 0;
-		g_PirntSettingsData.m_ADJColorBalance = 1;
-		g_PirntSettingsData.m_colorBalanceTo = 1;
-		g_PirntSettingsData.m_densityValue = 0;
-		g_PirntSettingsData.m_duplexPrint = 1;
-		g_PirntSettingsData.m_documentStyle = 0;
-		g_PirntSettingsData.m_reversePrint = 1;
-		g_PirntSettingsData.m_tonerSaving = 0;
-		g_PirntSettingsData.m_copies = 1;
-		g_PirntSettingsData.m_booklet = 0;
-		g_PirntSettingsData.m_watermark = 0;
-		break;		
-	}
+	g_PirntSettingsData.m_paperOrientation = 1;
+	g_PirntSettingsData.m_mediaType = 0;
+	g_PirntSettingsData.m_paperOrder = 1;
+	g_PirntSettingsData.m_printQuality = 0;
+	g_PirntSettingsData.m_scalingType = 0;
+	g_PirntSettingsData.m_scalingRatio = 100;
+	g_PirntSettingsData.m_nupNum = 1;
+	g_PirntSettingsData.m_typeofPB = 0;
+	g_PirntSettingsData.m_posterType = 0;
+	g_PirntSettingsData.m_ADJColorBalance = 0;
+	g_PirntSettingsData.m_colorBalanceTo = 0;
+	g_PirntSettingsData.m_densityValue = 0;
+	g_PirntSettingsData.m_duplexPrint = 1;
+	g_PirntSettingsData.m_documentStyle = 0;
+	g_PirntSettingsData.m_reversePrint = 1;
+	g_PirntSettingsData.m_tonerSaving = 0;
+	g_PirntSettingsData.m_copies = 1;
+	g_PirntSettingsData.m_booklet = 0;
+	g_PirntSettingsData.m_watermark = 0;
+		
 	bool bIsMetrice = IsMetricCountry();
 	if (bIsMetrice)
 	{
@@ -1398,7 +1270,7 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData(UINT8 m_PrintType)
 	isOpenDocumentProperties = false;
 
 }
-USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_PrintType)//byte
+USBAPI_API void __stdcall GetPrinterDefaultInfo(const TCHAR * strPrinterName)
 {
 	HANDLE   phandle;
 	DWORD dmsize = 0;
@@ -1407,14 +1279,38 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 	wchar_t szprintername[MAX_PATH] = { 0 };
 	wcscpy_s(szprintername, MAX_PATH, strPrinterName);
 
-	if (g_strPrinterName == NULL)
+	if (OpenPrinter(szprintername, &phandle, NULL))
 	{
-		RecoverDevModeData();
+		LPPRINTER_INFO_2 printer_info;
+
+		GetPrinter(phandle, 2, (LPBYTE)NULL, 0, &dmsize);
+
+		printer_info = (LPPRINTER_INFO_2)malloc(dmsize);
+
+		if (printer_info != NULL)
+		{
+			if (GetPrinter(phandle, 2, (LPBYTE)printer_info, dmsize, &dmsize))
+			{
+				getdevmode = *(LPPCLDEVMODE)printer_info->pDevMode;
+			}
+			free(printer_info);
+		}
 	}
-	else if (0 != TcsNiCmp(g_strPrinterName, szprintername))
+	if (phandle != NULL)
 	{
-		RecoverDevModeData();
+		ClosePrinter(phandle);
+		phandle = NULL;
 	}
+
+}
+USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_PrintType)//byte
+{
+	HANDLE   phandle;
+	DWORD dmsize = 0;
+
+	phandle = NULL;
+	wchar_t szprintername[MAX_PATH] = { 0 };
+	wcscpy_s(szprintername, MAX_PATH, strPrinterName);		
 	if (OpenPrinter(szprintername, &phandle, NULL))
 	{
 		LPPRINTER_INFO_2 printer_info;
@@ -1429,16 +1325,6 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 			{
 				PCLDEVMODE devmode;
 
-				if (g_strPrinterName == NULL)
-				{	
-					getdevmode = *(LPPCLDEVMODE)printer_info->pDevMode;
-					g_strPrinterName = szprintername;
-				}	
-				else if (0 != TcsNiCmp(g_strPrinterName, szprintername))
-				{
-					getdevmode = *(LPPCLDEVMODE)printer_info->pDevMode;
-					g_strPrinterName = szprintername;
-				}
 				if (isOpenDocumentProperties)
 				{
 					devmode = getOutputData;
@@ -1537,7 +1423,9 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 				*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
 
 				SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
+				OutputDebugString(L"setprinter ok");
 				isOpenDocumentProperties = false;
+				Sleep(200);
 
 			}
 			free(printer_info);
@@ -1556,10 +1444,13 @@ USBAPI_API void __stdcall RecoverDevModeData()
 	DWORD dmsize = 0;
 
 	phandle = NULL;
-	if (g_strPrinterName != NULL)
+	if (g_PirntSettingsData.g_szprintername != NULL)
 	{
 		wchar_t szprintername[MAX_PATH] = { 0 };
-		wcscpy_s(szprintername, MAX_PATH, g_strPrinterName);
+		wcscpy_s(szprintername, MAX_PATH, g_PirntSettingsData.g_szprintername);
+		OutputDebugString(L"RecoverDevModeData");
+		OutputDebugString(L"szprintername:");
+		OutputDebugString(szprintername);
 		if (OpenPrinter(szprintername, &phandle, NULL))
 		{
 			LPPRINTER_INFO_2 printer_info;
@@ -1575,7 +1466,7 @@ USBAPI_API void __stdcall RecoverDevModeData()
 					*((LPPCLDEVMODE)printer_info->pDevMode) = getdevmode;
 
 					SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
-
+					OutputDebugString(L"RecoverDevModeData ok");
 				}
 				free(printer_info);
 			}
@@ -1599,7 +1490,22 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 	LPPCLDEVMODE lpInitData = NULL;
 	LPPCLDEVMODE lpDefaultData = NULL;
 	wchar_t szprintername[MAX_PATH] = { 0 };
-	wcscpy_s(szprintername, MAX_PATH, strPrinterName);
+	wcscpy_s(szprintername, MAX_PATH, strPrinterName);	
+	if (IsInitPrinterName)
+	{
+		wcscpy_s(g_PirntSettingsData.g_szprintername, MAX_PATH, strPrinterName);
+		GetPrinterDefaultInfo(strPrinterName);
+		IsInitPrinterName = false;
+	}
+	else
+	{
+		if (0 != TcsNiCmp(g_PirntSettingsData.g_szprintername, szprintername))
+		{
+			RecoverDevModeData();
+			wcscpy_s(g_PirntSettingsData.g_szprintername, MAX_PATH, strPrinterName);
+			GetPrinterDefaultInfo(strPrinterName);
+		}
+	}
 	if (OpenPrinter(szprintername, &phandle, NULL))
 	{
 		LPPRINTER_INFO_2 printer_info;
@@ -1616,15 +1522,16 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 				TCHAR szDebug[256] = { 0 };
 				wsprintf(szDebug, _T("dmsize = %d"), dmsize);
 				OutputDebugString(szDebug);
-				while(dmsize < 1)
+				lpDefaultData = (LPPCLDEVMODE)malloc(dmsize);
+				lpInitData = (LPPCLDEVMODE)malloc(dmsize);
+				while (lpDefaultData == NULL && lpInitData == NULL)
 				{
 					dmsize = DocumentProperties(NULL, phandle, szprintername, NULL, NULL, 0);
 					wsprintf(szDebug, _T("dmsize = %d"), dmsize);
 					OutputDebugString(szDebug);
-				}			
-				
-				lpDefaultData = (LPPCLDEVMODE)malloc(dmsize);
-				lpInitData = (LPPCLDEVMODE)malloc(dmsize);
+					lpDefaultData = (LPPCLDEVMODE)malloc(dmsize);
+					lpInitData = (LPPCLDEVMODE)malloc(dmsize);
+				}				
 				if (lpDefaultData && lpInitData)
 				{
 					dwRet = DocumentProperties(NULL, phandle, szprintername,
@@ -1648,7 +1555,9 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 					PCLDEVMODE devmode;
 					devmode = *(LPPCLDEVMODE)lpDefaultData;
 					*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
+
 					SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
+					Sleep(200);
 				}				
 			}
 			free(printer_info);
@@ -1699,6 +1608,8 @@ USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies)
 				*((LPPCLDEVMODE)printer_info->pDevMode) = devmode;
 
 				SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
+				OutputDebugString(L"SetCopies ok");
+				Sleep(200);
 
 			}
 			free(printer_info);

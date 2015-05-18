@@ -257,7 +257,11 @@ namespace VOP
             sbyte Watermark);
 
         [DllImport("usbapi.dll")]
-        public static extern void SetPrinterSettingsInitData(sbyte m_PrintType);
+        public static extern void SetPrinterSettingsInitData();
+
+        [DllImport("usbapi.dll")]
+        public static extern void GetPrinterDefaultInfo(
+            [MarshalAs(UnmanagedType.LPWStr)]string strPrinterName);
 
         [DllImport("usbapi.dll")]
         public static extern void SetPrinterInfo(

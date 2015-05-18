@@ -213,7 +213,7 @@ namespace VOP
 
                 if ( null != eventPrinterSwitch )
                     eventPrinterSwitch();
-                dll.RecoverDevModeData();
+                dll.InitPrinterData(m_MainWin.statusPanelPage.m_selectedPrinter);           
                 FileSelectionPage.IsInitPrintSettingPage = true;
             }
         }
@@ -316,6 +316,8 @@ namespace VOP
         {
             RefreshBtn.IsRefresh = true;
             InitPrinterCbo();
+            dll.RecoverDevModeData();//Init Print setting
+            FileSelectionPage.IsInitPrintSettingPage = true;
             RefreshBtn.IsRefresh = false;
         }
 
@@ -350,8 +352,7 @@ namespace VOP
                 if (null != this.m_MainWin)
                     this.m_MainWin.ShowAboutPageOnly();
             }
-            dll.RecoverDevModeData();//Init Print setting
-            FileSelectionPage.IsInitPrintSettingPage = true;
+            
         }
 
         /// <summary>

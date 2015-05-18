@@ -639,7 +639,6 @@ namespace VOP
             ShowAboutPageOnly();
 
             AddMessageHook();
-
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)

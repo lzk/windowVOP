@@ -33,7 +33,6 @@ namespace VOP
                 ImageButton.Margin = new Thickness(60, 0, 0, 0);
                 FileButton.Margin = new Thickness(90, 0, 0, 0);
             }
-
             InitFontSize();
         }
 

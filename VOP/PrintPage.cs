@@ -39,6 +39,7 @@ namespace VOP
         private bool needFitToPage = true;
 
         public static bool IsOpenPrintSettingPage = true;
+        public static bool IsInitPrint = true;
 
         public List<string> FilePaths
         {
@@ -76,6 +77,12 @@ namespace VOP
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.LostFocus += new RoutedEventHandler(SpinnerTextBox_LostFocus);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
+            
+            if (FileSelectionPage.IsInitPrintSettingPage)
+            {
+                dll.SetPrinterSettingsInitData();
+                dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)CurrentPrintType);
+            }
         }
         
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
@@ -192,19 +199,7 @@ namespace VOP
             CRM_PrintInfo crmPrintInfo = new CRM_PrintInfo();
             
             crmPrintInfo.m_strPrintCopys = String.Format("{0}", (sbyte)spinnerControl1.Value);
-
-            dll.InitPrinterData(m_MainWin.statusPanelPage.m_selectedPrinter);
-
-            if (FileSelectionPage.IsInitPrintSettingPage)
-            {               
-                dll.SetPrinterSettingsInitData((sbyte)CurrentPrintType);
-                FileSelectionPage.IsInitPrintSettingPage = false;
-                dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)CurrentPrintType);                
-            }
-//            else
-//            {
-//                dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)CurrentPrintType);
-//            }           
+         
             if (CurrentPrintType == PrintType.PrintFile_Txt)
             {
                 dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, 1);

@@ -27,6 +27,7 @@ EXPORTS
     PrintFile
 	SavePrinterSettingsData
 	SetPrinterSettingsInitData
+	GetPrinterDefaultInfo
 	SetPrinterInfo
 	GetPrinterSettingsData
 	GetPrinterInfo
