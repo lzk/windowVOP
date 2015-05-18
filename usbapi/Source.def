@@ -35,6 +35,8 @@ EXPORTS
 	SetCopies
 	InitPrinterData
 	RecoverDevModeData
+	GetFixToPaperSizeData
+	SaveFixToPaperSizeData
 	OutputDebugStringToFileA
 	OutputDebugStringToFile
 	OutputDebugStringToFile_

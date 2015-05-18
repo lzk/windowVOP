@@ -1622,7 +1622,7 @@ USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies)
 	}
 }
 USBAPI_API void __stdcall GetPrinterSettingsData(
-	BYTE* ptr_paperSize,
+	BYTE* ptr_PaperSize,
 	BYTE* ptr_paperOrientation,
 	BYTE* ptr_mediaType,
 	BYTE* ptr_paperOrder,
@@ -1643,7 +1643,7 @@ USBAPI_API void __stdcall GetPrinterSettingsData(
 	BYTE* ptr_booklet,
 	BYTE* ptr_watermark)//byte
 {
-	*ptr_paperSize = static_cast<BYTE>(g_PirntSettingsData.m_paperSize);
+	*ptr_PaperSize = static_cast<BYTE>(g_PirntSettingsData.m_paperSize);
 	*ptr_paperOrientation = static_cast<BYTE>(g_PirntSettingsData.m_paperOrientation);
 	*ptr_mediaType = static_cast<BYTE>(g_PirntSettingsData.m_mediaType);
 	*ptr_paperOrder = static_cast<BYTE>(g_PirntSettingsData.m_paperOrder);
@@ -2036,4 +2036,12 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 		phandle = NULL;
 	}
 	return true;
+}
+USBAPI_API void __stdcall GetFixToPaperSizeData(BYTE* ptr_fixToPaperSize)
+{
+	*ptr_fixToPaperSize = static_cast<BYTE>(g_PirntSettingsData.m_fixToPaperSize);
+}
+USBAPI_API void __stdcall SaveFixToPaperSizeData(UINT8 FixToPaperSize)
+{
+	g_PirntSettingsData.m_fixToPaperSize = FixToPaperSize;
 }

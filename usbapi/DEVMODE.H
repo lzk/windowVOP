@@ -503,7 +503,9 @@ typedef struct PirntSettingsData
 	short m_copies;
 	short m_booklet;
 	short m_watermark;
+	short m_fixToPaperSize;
 	wchar_t g_szprintername[MAX_PATH];
+	
 } PirntSettingsData, *pPirntSettingsData;
 
 #define PCLDM_PRIV_SIZE (sizeof(PCLDEVMODE) - sizeof(DEVMODE))

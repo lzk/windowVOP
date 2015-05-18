@@ -352,6 +352,11 @@ namespace VOP
         public static extern int GetWifiChangeStatus(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
                 ref byte wifiInit);
+
+        [DllImport("usbapi.dll")]
+        public static extern void GetFixToPaperSizeData(ref sbyte FixToPaperSiz);
+        [DllImport("usbapi.dll")]
+        public static extern int SaveFixToPaperSizeData(sbyte PaperSize);
     }
 
 }
