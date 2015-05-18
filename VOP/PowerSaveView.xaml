@@ -43,8 +43,8 @@
                                     </Border>
                                 </local:PopupEx>
 
-                                <Border BorderBrush="Red" BorderThickness="2.5" CornerRadius="16">
-                                    <AdornedElementPlaceholder Name="MyAdorner"/>
+                                <Border BorderBrush="Red" BorderThickness="2.5" CornerRadius="16.5">
+                                    <AdornedElementPlaceholder Name="MyAdorner" Margin="0, 0, -1, -1"/>
                                 </Border>
                             </StackPanel>
                         </ControlTemplate>
