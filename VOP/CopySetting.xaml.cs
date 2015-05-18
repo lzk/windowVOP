@@ -49,7 +49,7 @@ namespace VOP
 #region Fields
         public EnumCopyScanMode    m_scanMode   = EnumCopyScanMode.Photo;
         public EnumPaperSizeInput  m_docSize    = EnumPaperSizeInput._A4;
-        private EnumPaperSizeOutput _outputSize = EnumPaperSizeOutput._Letter;
+        public EnumPaperSizeOutput m_outputSize = EnumPaperSizeOutput._Letter;
         public EnumCopyResln       m_dpi        = EnumCopyResln._300x300;
         public EnumMediaType       m_mediaType  = EnumMediaType.Plain;
 
@@ -65,59 +65,9 @@ namespace VOP
         private EnumNin1 m_preNin1 = EnumNin1._1up;
 
         public bool m_isIDCardCopy = false; // flag present is id card copy mode or not.
-
-        private bool m_disable4or9in1 = false; // Disable 4 or 9 in 1.
 #endregion
 
 #region Properties
-        public EnumPaperSizeOutput  m_outputSize
-        {
-            get
-            {
-                return _outputSize;
-            }
-
-            set
-            {
-                _outputSize = value;
-
-                switch ( value )
-                {
-                    case EnumPaperSizeOutput._Letter    : 
-                    case EnumPaperSizeOutput._A4        : 
-                        // All options enable.
-                        if ( false == m_isIDCardCopy )
-                        {
-                            chkNin1.IsEnabled = true;
-                            m_disable4or9in1 = false;
-                        }
-                        break;
-                    case EnumPaperSizeOutput._A6        : 
-                    case EnumPaperSizeOutput._B6        : 
-                        // All options disable.
-                        m_nin1 = EnumNin1._1up;
-                        chkNin1.IsEnabled = false;
-                        break;
-                    case EnumPaperSizeOutput._A5        : 
-                    case EnumPaperSizeOutput._B5        : 
-                    case EnumPaperSizeOutput._Executive : 
-                    case EnumPaperSizeOutput._16K       : 
-                        // Only enable 2 in 1.
-                        if ( false == m_isIDCardCopy )
-                        {
-                            chkNin1.IsEnabled = true;
-                            if ( EnumNin1._4up == m_preNin1 || EnumNin1._9up == m_preNin1 )
-                                m_preNin1 = EnumNin1._1up;
-
-                            m_disable4or9in1 = true;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
         private EnumNin1 _nin1 = EnumNin1._1up;
         public EnumNin1 m_nin1
         {
@@ -180,8 +130,16 @@ namespace VOP
 
                     if ( isNeedReselect )
                     {
-                        // select default item.
-                        cboOutputSize.SelectedIndex = 0;
+                        bool bIsMetrice = dll.IsMetricCountry();
+                        foreach ( ComboBoxItem obj in cboOutputSize.Items )
+                        {
+                            if ( bIsMetrice && EnumPaperSizeOutput._A4 == (EnumPaperSizeOutput)obj.DataContext 
+                                    || false == bIsMetrice && EnumPaperSizeOutput._Letter == (EnumPaperSizeOutput)obj.DataContext )
+                            {
+                                obj.IsSelected = true;
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -717,7 +675,7 @@ namespace VOP
 
         private void imgNin1_4_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if ( true == chkNin1.IsChecked && false == m_disable4or9in1 ) 
+            if ( true == chkNin1.IsChecked ) 
             {
                 m_preNin1 = EnumNin1._4up;
                 m_nin1 = EnumNin1._4up;
@@ -728,7 +686,7 @@ namespace VOP
 
         private void imgNin1_9_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if ( true == chkNin1.IsChecked && false == m_disable4or9in1 ) 
+            if ( true == chkNin1.IsChecked ) 
             {
                 m_preNin1 = EnumNin1._9up;
                 m_nin1 = EnumNin1._9up;
