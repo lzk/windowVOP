@@ -458,8 +458,8 @@ namespace VOP
                     nHeight = 10118;
                     break;
                 case EnumPaperSizeScan._Letter     :
-                    nWidth  = 8504;
-                    nHeight = 10984;
+                    nWidth  = 8500;
+                    nHeight = 11000;
                     break;
                 case EnumPaperSizeScan._4x6Inch :
                     nWidth  = 4000;
