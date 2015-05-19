@@ -657,6 +657,12 @@ namespace VOP
             rdBtnFlipOnLongEdge.IsEnabled = false;
             rdBtnFlipOnShortEdger.IsChecked = false;
             rdBtnFlipOnLongEdge.IsChecked = false;
+            if(0 == m_watermark)
+            {
+                rdBtn1in2x2.IsEnabled = true;
+                rdBtn1in3x3.IsEnabled = true;
+                rdBtn1in4x4.IsEnabled = true;
+            }
 
             DisableLabelType();
         }
@@ -680,15 +686,15 @@ namespace VOP
             {
                 rdBtn16in1.IsChecked = true;
             }
-            else if (1 == m_preNin1 && m_posterType == 0 && chk_DuplexPrint.IsChecked == false)
+            else if (1 == m_preNin1 && m_posterType == 0 && chk_DuplexPrint.IsChecked == false && 0 == m_watermark)
             {
                 rdBtn1in2x2.IsChecked = true;
             }
-            else if (1 == m_preNin1 && m_posterType == 1 && chk_DuplexPrint.IsChecked == false)
+            else if (1 == m_preNin1 && m_posterType == 1 && chk_DuplexPrint.IsChecked == false && 0 == m_watermark)
             {
                 rdBtn1in3x3.IsChecked = true;
             }
-            else if (1 == m_preNin1 && m_posterType == 2 && chk_DuplexPrint.IsChecked == false)
+            else if (1 == m_preNin1 && m_posterType == 2 && chk_DuplexPrint.IsChecked == false && 0 == m_watermark)
             {
                 rdBtn1in4x4.IsChecked = true;
             }

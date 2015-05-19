@@ -1833,7 +1833,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 	if (OpenPrinter(szprintername, &phandle, NULL))
 	{
 		DWORD dmsize = 0;
-
+		int iNeeded = 0;
 		LPPRINTER_INFO_2 printer_info;
 		GetPrinter(phandle, 2, (LPBYTE)NULL, 0, &dmsize);
 
@@ -1915,9 +1915,10 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 				inputDevmode.dmPrivate.graphics.isADJColorBalance = *ptr_ADJColorBalance;
 				inputDevmode.dmPrivate.graphics.bColorBalanceTo = *ptr_colorBalanceTo;
 
-				inputDevmode.dmPrivate.graphics.ColorBalanceIndex[0][0] = *ptr_density - 4;
-				inputDevmode.dmPrivate.graphics.ColorBalanceIndex[0][1] = *ptr_density - 4;
-				inputDevmode.dmPrivate.graphics.ColorBalanceIndex[0][2] = *ptr_density - 4;
+				*ptr_density = *ptr_density - 4;
+				inputDevmode.dmPrivate.graphics.ColorBalanceIndex[0][0] = *ptr_density ;
+				inputDevmode.dmPrivate.graphics.ColorBalanceIndex[0][1] = *ptr_density;
+				inputDevmode.dmPrivate.graphics.ColorBalanceIndex[0][2] = *ptr_density;
 
 				inputDevmode.dmPublic.dmDuplex = *ptr_duplexPrint; //DUPLEX£¬ DMDUP_VERTICAL: ³¤±ß DMDUP_HORIZONTAL£¬¶Ì±ß
 				inputDevmode.dmPrivate.bDocumentStyle = *ptr_documentStyle;
@@ -1944,7 +1945,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 
 				if (lpOutputData && lpInputData)
 				{
-					int iNeeded = DocumentProperties(hWnd, phandle, szprintername,
+					iNeeded = DocumentProperties(hWnd, phandle, szprintername,
 						(LPDEVMODE)lpOutputData, (LPDEVMODE)lpInputData, DM_OUT_BUFFER | DM_IN_BUFFER | DM_IN_PROMPT);
 
 					if (1 == iNeeded)

@@ -311,7 +311,7 @@
                                     </Binding>
                                 </TextBox.Text>
                             </TextBox>
-                            <TextBlock Foreground="#FF707070" FontSize="26" Text="%" VerticalAlignment="Center"/>
+                            <TextBlock Foreground="#FF707070" FontSize="26" Text="%" VerticalAlignment="Center" Margin="3,0,0,0"/>
                         </StackPanel>
                        
 
