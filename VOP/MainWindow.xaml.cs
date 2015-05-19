@@ -1108,7 +1108,6 @@ namespace VOP
         /// <remarks>
         /// Execute the following logic:
         /// * Stop status update thread
-        /// * Update Auto Machine
         /// * Get Printer Status
         /// * Init other sub pages
         /// * Start Status Update Thread
