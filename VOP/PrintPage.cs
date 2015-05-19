@@ -282,7 +282,7 @@ namespace VOP
                     break;
                 case PrintType.PrintImages:
 
-                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print Images",
+                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print",
                                      (int)enumIdCardType.NonIdCard, new IdCardSize(), needFitToPage))
                     {
 
@@ -305,7 +305,7 @@ namespace VOP
                     idCardSize.Width = SelectedTypeItem.Width;
                     idCardSize.Height = SelectedTypeItem.Height;
 
-                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print Id Card", (int)SelectedTypeItem.TypeId, idCardSize, needFitToPage))
+                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print", (int)SelectedTypeItem.TypeId, idCardSize, needFitToPage))
                     {
                         using(IdCardPrintHelper helper = new IdCardPrintHelper())
                         {
@@ -405,7 +405,7 @@ namespace VOP
         public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
         {
             m_currentStatus = st;
-          //  PrintButton.IsEnabled = (false == common.IsOffline(m_currentStatus));
+            PrintButton.IsEnabled = (false == common.IsOffline(m_currentStatus));
         }
     }
 

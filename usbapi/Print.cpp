@@ -291,6 +291,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	int shellExeRes = 0;
 	int count = 1;
 	const TCHAR *fileExt = NULL;
+	const TCHAR *fileName = NULL;
 	SHELLEXECUTEINFO ShExecInfo;
 
 	ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
@@ -304,6 +305,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	ShExecInfo.hInstApp = NULL;
 
 	fileExt = PathFindExtension(strFileName);
+	fileName = PathFindFileName(strFileName);
 
 	if (   _tcscmp(fileExt, L".bmp") == 0
 		|| _tcscmp(fileExt, L".ico") == 0
@@ -315,7 +317,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 		|| _tcscmp(fileExt, L".wmf") == 0
 		|| _tcscmp(fileExt, L".emf") == 0)
 	{
-		if (PrintInit(strPrinterName, L"Print Image Files", 0, NULL, fitToPage))
+		if (PrintInit(strPrinterName, fileName, 0, NULL, fitToPage))
 		{
 			AddImagePath(strFileName);
 			DoPrintImage();
