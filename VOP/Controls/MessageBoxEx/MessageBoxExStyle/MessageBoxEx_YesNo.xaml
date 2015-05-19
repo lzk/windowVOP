@@ -21,9 +21,9 @@
             <RowDefinition Height="30*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40*" />
+            <ColumnDefinition Width="30*" />
             <ColumnDefinition Width="350*" />
-            <ColumnDefinition Width="40*" />
+            <ColumnDefinition Width="10*" />
         </Grid.ColumnDefinitions>
 
         <Grid Grid.ColumnSpan="3" Background="#213244" MouseLeftButtonDown="Title_MouseButtonEventHandler">

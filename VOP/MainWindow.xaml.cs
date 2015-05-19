@@ -147,9 +147,6 @@ namespace VOP
             winPrintPage.m_MainWin = this;
             Init();
 
-            SessionInfo session = new SessionInfo();
-            m_RequestManager.GetSession(ref session);
-
             btnLogin.Visibility = m_bLocationIsChina ? Visibility.Visible : Visibility.Hidden;
 
             if (0x804 == App.LangId)

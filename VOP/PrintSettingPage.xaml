@@ -358,37 +358,37 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Orientation="Horizontal" 
-					Grid.ColumnSpan="3" Margin="93,0,1,0">
+					            Grid.ColumnSpan="3" Margin="93,0,1,0">
                             <RadioButton GroupName="Goup2" 
-						Height="42" 
-						Width="123" 
-						IsChecked="False"                           
-						Cursor="Hand" 
-						x:Name="rdBtnFlipOnShortEdger"                 
-						Checked="rdBtnFlipOnShortEdger_Checked"
-						Style="{StaticResource CustomRadioButtonEx}" 
-						SnapsToDevicePixels="True"
-                        ToolTip="{StaticResource ResStr_Flip_on_short_edge}" 
-						Margin="10,0,0,2">
+						                Height="42" 
+						                Width="123" 
+						                IsChecked="False"                           
+						                Cursor="Hand" 
+						                x:Name="rdBtnFlipOnShortEdger"                 
+						                Checked="rdBtnFlipOnShortEdger_Checked"
+						                Style="{StaticResource CustomRadioButtonEx}" 
+						                SnapsToDevicePixels="True"
+                                        ToolTip="{StaticResource ResStr_Flip_on_short_edge}" 
+						                Margin="10,0,0,2">
                                 <StackPanel Width="120">
                                     <Image Height="42" Margin="10,0,60,0" Stretch="None" Source="Images/FlipOnShortEdge.png"/>
-                                    <TextBlock Text="{StaticResource ResStr_Flip_on_short_edge}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="56" FontSize="13" Margin="60,-30,0,30" Height="20" FontWeight="Bold" Foreground="DimGray"/>
+                                    <TextBlock Text="{StaticResource ResStr_Flip_on_short_edge}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="56" FontSize="13" Margin="60,-30,0,30" Height="20" FontWeight="Bold" Foreground="DimGray" TextTrimming="CharacterEllipsis"/>
                                 </StackPanel>
                             </RadioButton>
 
                             <RadioButton GroupName="Goup2" 
-						Width="127"
-						Height="42" 
-						Cursor="Hand" 
-						x:Name="rdBtnFlipOnLongEdge"                 
-						Checked="rdBtnFlipOnLongEdger_Checked"
-						Style="{StaticResource CustomRadioButtonEx}" 
-						SnapsToDevicePixels="True"
-                        ToolTip="{StaticResource ResStr_Flip_on_long_edge}"
-						Margin="10,0,0,2">
+						            Width="127"
+						            Height="42" 
+						            Cursor="Hand" 
+						            x:Name="rdBtnFlipOnLongEdge"                 
+						            Checked="rdBtnFlipOnLongEdger_Checked"
+						            Style="{StaticResource CustomRadioButtonEx}" 
+						            SnapsToDevicePixels="True"
+                                    ToolTip="{StaticResource ResStr_Flip_on_long_edge}"
+						            Margin="10,0,0,2">
                                 <StackPanel Margin="2,0,8,0">
                                     <Image Height="42" Margin="10,0,66,0"  Stretch="None" Source="Images/FlipOnLongEdge.png" HorizontalAlignment="Left" Width="50"/>
-                                    <TextBlock Text="{StaticResource ResStr_Flip_on_long_edge}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="56" FontSize="13" Margin="60,-30,0,30" Height="20" FontWeight="Bold" Foreground="DimGray"/>
+                                    <TextBlock Text="{StaticResource ResStr_Flip_on_long_edge}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="56" FontSize="13" Margin="60,-30,0,30" Height="20" FontWeight="Bold" Foreground="DimGray" TextTrimming="CharacterEllipsis"/>
                                 </StackPanel>
                             </RadioButton>
                         </StackPanel>
