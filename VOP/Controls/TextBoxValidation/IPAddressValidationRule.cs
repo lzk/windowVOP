@@ -56,8 +56,7 @@ namespace VOP.Controls
                             }
                             else
                             {
-                                if(nVal0 == 127 ||
-                                    (nVal0 == 169 && nVal1 == 254))
+                                if(nVal0 == 127)
                                 {
                                     result = new ValidationResult(false, this.ErrorMessage);
                                 }
@@ -129,8 +128,7 @@ namespace VOP.Controls
                             }
                             else
                             {
-                                if (nVal0 == 127 ||
-                                    (nVal0 == 169 && nVal1 == 254))
+                                if (nVal0 == 127)
                                 {
                                     result = new ValidationResult(false, this.ErrorMessage);
                                 }

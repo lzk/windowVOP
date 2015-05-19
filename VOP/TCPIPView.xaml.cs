@@ -352,8 +352,7 @@ namespace VOP
                     }
                     else
                     {
-                        if (nVal0 == 127 ||
-                            (nVal0 == 169 && nVal1 == 254))
+                        if (nVal0 == 127)
                         {
                             isSuccess = false;
                         }
@@ -479,8 +478,7 @@ namespace VOP
                 if ((ip0 >= 224 || ip0 == 127))
                     isIPOK = false;
 
-                if ((ip0 == 192 && ip0 == 168 && ip0 == 186 && ip0 == 1) || 
-                    (ip0 == 169 && ip0 == 254))
+                if ((ip0 == 192 && ip0 == 168 && ip0 == 186 && ip0 == 1))
                 {
                     isIPOK = false;
                 }
