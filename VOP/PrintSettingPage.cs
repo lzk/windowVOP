@@ -383,7 +383,7 @@ namespace VOP
                 new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_A6")},
                 new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_Executive")},
                 new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_16K")},
-                new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_User_Defined_Size")}
+                new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_User_Defined_Size")} 
             };
         }
 
@@ -473,40 +473,42 @@ namespace VOP
 
         private void OnDropDownClosed(object sender, EventArgs e)
         {
-            m_prePaperSize = m_paperSize;
-            m_paperSize = (sbyte)cboPaperSize.SelectedIndex;
+            //Remove User Defined Size item from paper size combobox
 
-            if (m_paperSize == PaperSizeItemsBase.Count - 1)
-            {
-                bool? result = null;
-                UserDefinedSetting UserDefinedWin = new UserDefinedSetting(UserDefinedSizeItems);
-                UserDefinedWin.Owner = App.Current.MainWindow;
+            //m_prePaperSize = m_paperSize;
+            //m_paperSize = (sbyte)cboPaperSize.SelectedIndex;
 
-                result = UserDefinedWin.ShowDialog();
-                if (result == true)
-                {
-                    UpdatePaperSizeComboBox(false, UserDefinedWin.GetCurrentSelectedIndex());
-                }
-                else
-                {
-                    UpdatePaperSizeComboBox(true, 0);
-                    cboPaperSize.SelectedIndex = m_prePaperSize;
-                }
-            }
-            else if (m_paperSize > PaperSizeItemsBase.Count - 1)
-            {
-                if (regHelper.Open())
-                {
-                    regHelper.SetCurrent((UInt32)(m_paperSize - PaperSizeItemsBase.Count));
-                    regHelper.Close();
-                }
-            }
-            m_paperSize = (sbyte)cboPaperSize.SelectedIndex;
+            //if (m_paperSize == PaperSizeItemsBase.Count - 1)
+            //{
+            //    bool? result = null;
+            //    UserDefinedSetting UserDefinedWin = new UserDefinedSetting(UserDefinedSizeItems);
+            //    UserDefinedWin.Owner = App.Current.MainWindow;
+
+            //    result = UserDefinedWin.ShowDialog();
+            //    if (result == true)
+            //    {
+            //        UpdatePaperSizeComboBox(false, UserDefinedWin.GetCurrentSelectedIndex());
+            //    }
+            //    else
+            //    {
+            //        UpdatePaperSizeComboBox(true, 0);
+            //        cboPaperSize.SelectedIndex = m_prePaperSize;
+            //    }
+            //}
+            //else if (m_paperSize > PaperSizeItemsBase.Count - 1)
+            //{
+            //    if (regHelper.Open())
+            //    {
+            //        regHelper.SetCurrent((UInt32)(m_paperSize - PaperSizeItemsBase.Count));
+            //        regHelper.Close();
+            //    }
+            //}
+            //m_paperSize = (sbyte)cboPaperSize.SelectedIndex;
         }
 
         private void cboPaperSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+            m_paperSize = (sbyte)cboPaperSize.SelectedIndex;
         }
 
         private void cboMediaType_SelectionChanged(object sender, SelectionChangedEventArgs e)
