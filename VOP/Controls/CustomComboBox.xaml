@@ -5,6 +5,16 @@
         <ResourceDictionary Source="CustomScrollView.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
+    <Style x:Key="EllipseFocus">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="-1" RadiusY="15" RadiusX="15" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="customToggle" TargetType="{x:Type ToggleButton}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -49,133 +59,133 @@
             </Setter>
         </Style>
 
-        <Style x:Key="customComboBoxItem"
-            TargetType="{x:Type ComboBoxItem}">
-            <Setter Property="SnapsToDevicePixels"
-                Value="true" />
-            <Setter Property="OverridesDefaultStyle"
-                Value="true" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
-                        <Border x:Name="Border"
-                            Padding="15,0"
-                            SnapsToDevicePixels="true"
-                            Background="Transparent">
-                            <ContentPresenter HorizontalAlignment="Left" />
-                        </Border>
+    <Style x:Key="customComboBoxItem"
+        TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="SnapsToDevicePixels"
+            Value="true" />
+        <Setter Property="OverridesDefaultStyle"
+            Value="true" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Border x:Name="Border"
+                        Padding="15,0"
+                        SnapsToDevicePixels="true"
+                        Background="Transparent">
+                        <ContentPresenter HorizontalAlignment="Left" />
+                    </Border>
 
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="#ffa8a6a6"/>
-                            </Trigger>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="#ffa8a6a6"/>
+                        </Trigger>
 
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter TargetName="Border" Property="Background"
-                                    Value="#FFA8A7A7"/>
-                                <Setter Property="Foreground" Value="White"/>
-                            </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Border" Property="Background"
+                                Value="#FFA8A7A7"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
 
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Foreground"
-                                    Value="#FF9E9E9E"/>
-                            </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground"
+                                Value="#FF9E9E9E"/>
+                        </Trigger>
 
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
 
 
-                </Setter.Value>
-            </Setter>
-        </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-        <local:ScrollViewerWidthConverter x:Key="objScrollViewerWidthConverter"/>
+    <local:ScrollViewerWidthConverter x:Key="objScrollViewerWidthConverter"/>
 
-        <Style x:Key="customComboBox" TargetType="{x:Type ComboBox}">
-            <Setter Property="Foreground" Value="#ff494949" />
-            <Setter Property="FontSize" Value="13px" />
-            <Setter Property="Focusable" Value="False"></Setter>
-            <Setter Property="Template">
-                <Setter.Value>
+    <Style x:Key="customComboBox" TargetType="{x:Type ComboBox}">
+        <Setter Property="Foreground" Value="#ff494949" />
+        <Setter Property="FontSize" Value="13px" />
+        <Setter Property="Focusable" Value="False"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
 
-                    <ControlTemplate TargetType="ComboBox">
-                        <Grid Name="root">
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid Name="root">
 
-                            <ToggleButton x:Name="DropDownToggle"
-                                Style="{StaticResource customToggle}"
-                                BorderBrush="Transparent"
-                                Background="{TemplateBinding Background}"
-                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
-                                Margin="-1" HorizontalContentAlignment="Right"
-                                IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,
-                                RelativeSource={RelativeSource TemplatedParent}}"
-                                >
-                            </ToggleButton>
+                        <ToggleButton x:Name="DropDownToggle"
+                            Style="{StaticResource customToggle}"
+                            BorderBrush="Transparent"
+                            Background="{TemplateBinding Background}"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
+                            Margin="-1" HorizontalContentAlignment="Right"
+                            IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,
+                            RelativeSource={RelativeSource TemplatedParent}}"
+                            >
+                        </ToggleButton>
 
-                            <Grid 
-                                Background="{TemplateBinding Background}"
-                                IsHitTestVisible="False"
-                                HorizontalAlignment="Left"
-                                Name="grid1"
-                                >
-                                <FrameworkElement.Width>
-                                    <MultiBinding Converter="{StaticResource objScrollViewerWidthConverter}">
-                                        <Binding ElementName="root" Path="ActualWidth"/>
-                                        <Binding ElementName="DropDownToggle" Path="ActualHeight"/>                                         
-                                    </MultiBinding>
-                                </FrameworkElement.Width>
+                        <Grid 
+                            Background="{TemplateBinding Background}"
+                            IsHitTestVisible="False"
+                            HorizontalAlignment="Left"
+                            Name="grid1"
+                            >
+                            <FrameworkElement.Width>
+                                <MultiBinding Converter="{StaticResource objScrollViewerWidthConverter}">
+                                    <Binding ElementName="root" Path="ActualWidth"/>
+                                    <Binding ElementName="DropDownToggle" Path="ActualHeight"/>                                         
+                                </MultiBinding>
+                            </FrameworkElement.Width>
 
-                                <ContentPresenter x:Name="ContentPresenter" 
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    Content="{TemplateBinding SelectionBoxItem}"
-                                    ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                    ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}">
-                                </ContentPresenter>
-                            </Grid>
-
-                            <Popup x:Name="PART_Popup"
-                                AllowsTransparency="True"
-                                IsOpen="{TemplateBinding IsDropDownOpen}">
-                                <Border x:Name="PopupBorder" Margin="16">
-
-                                    <UIElement.Effect>
-                                        <DropShadowEffect Color="Black" ShadowDepth="0"
-                                            BlurRadius="16" Opacity="0.75" Direction="90"/>
-                                    </UIElement.Effect>
-
-                                    <StackPanel>
-                                        <Path 
-                                            Panel.ZIndex="1"
-                                            HorizontalAlignment="Center"
-                                            Fill="White"
-                                            Data="F1 M0,10 L10,0 L20,10z" />
-
-                                        <Border 
-                                            BorderBrush="Transparent"
-                                            Background="White"
-                                            Panel.ZIndex="0"
-                                            CornerRadius="5">
-                                            <ItemsPresenter/>
-                                        </Border>
-
-                                    </StackPanel>
-
-                                </Border>
-                            </Popup>
-
+                            <ContentPresenter x:Name="ContentPresenter" 
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Content="{TemplateBinding SelectionBoxItem}"
+                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}">
+                            </ContentPresenter>
                         </Grid>
 
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter TargetName="DropDownToggle" Property="Background" Value="Transparent"/>
-                                <Setter TargetName="grid1" Property="Background" Value="Transparent"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+                        <Popup x:Name="PART_Popup"
+                            AllowsTransparency="True"
+                            IsOpen="{TemplateBinding IsDropDownOpen}">
+                            <Border x:Name="PopupBorder" Margin="16">
+
+                                <UIElement.Effect>
+                                    <DropShadowEffect Color="Black" ShadowDepth="0"
+                                        BlurRadius="16" Opacity="0.75" Direction="90"/>
+                                </UIElement.Effect>
+
+                                <StackPanel>
+                                    <Path 
+                                        Panel.ZIndex="1"
+                                        HorizontalAlignment="Center"
+                                        Fill="White"
+                                        Data="F1 M0,10 L10,0 L20,10z" />
+
+                                    <Border 
+                                        BorderBrush="Transparent"
+                                        Background="White"
+                                        Panel.ZIndex="0"
+                                        CornerRadius="5">
+                                        <ItemsPresenter/>
+                                    </Border>
+
+                                </StackPanel>
+
+                            </Border>
+                        </Popup>
+
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="DropDownToggle" Property="Background" Value="Transparent"/>
+                            <Setter TargetName="grid1" Property="Background" Value="Transparent"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style x:Key="RadiusToggle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Template">
@@ -221,8 +231,8 @@
         </Style>
 
     <Style  x:Key="RadiusComboBox" TargetType="{x:Type ComboBox}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource EllipseFocus}" />
         <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
-        <Setter Property="Focusable" Value="False"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
@@ -236,10 +246,10 @@
                                 Margin="-1" HorizontalContentAlignment="Right"
                                 IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,
                                 RelativeSource={RelativeSource TemplatedParent}}"
-                                >
+                                Focusable="False" >
                             </ToggleButton>
-                            <ContentPresenter  IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" VerticalAlignment="Center" Margin="3" HorizontalAlignment="Stretch" />
-                            <TextBox x:Name="PART_EditableTextBox" HorizontalAlignment="Stretch" Focusable="True" Visibility="Collapsed" IsReadOnly="False"/>
+                            <ContentPresenter   IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" VerticalAlignment="Center" Margin="3" HorizontalAlignment="Stretch" />
+                            <TextBox x:Name="PART_EditableTextBox" HorizontalAlignment="Stretch"  Visibility="Collapsed" IsReadOnly="False"/>
  
                             <Popup x:Name="PART_Popup"
                                 AllowsTransparency="True"
@@ -250,9 +260,10 @@
                                         <DropShadowEffect Color="Black" ShadowDepth="0"
                                             BlurRadius="16" Opacity="0.75" Direction="90"/>
                                     </UIElement.Effect>
-                                    <ScrollViewer 
+                                    <ScrollViewer
                                             Width="{TemplateBinding Width}"
-                                            Name="scrollview" CanContentScroll="true"
+                                            Name="scrollview" 
+                                            CanContentScroll="true"
                                             SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
                                             VerticalScrollBarVisibility="Auto"
                                             HorizontalScrollBarVisibility="Disabled"
