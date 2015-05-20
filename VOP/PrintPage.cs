@@ -143,7 +143,21 @@ namespace VOP
 
         private void OnCopysValidationHasError(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
-            PrintButton.IsEnabled = !e.NewValue;
+            if (e.NewValue)
+            {
+                PrintButton.IsEnabled = false;
+            }
+            else
+            {
+                if(common.IsOffline(m_currentStatus))
+                {
+                    PrintButton.IsEnabled = false;
+                }
+                else
+                {
+                    PrintButton.IsEnabled = true;
+                }
+            }
 
             if(e.NewValue)
             {
@@ -405,7 +419,7 @@ namespace VOP
         public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
         {
             m_currentStatus = st;
-          //  PrintButton.IsEnabled = (false == common.IsOffline(m_currentStatus));
+            PrintButton.IsEnabled = (false == common.IsOffline(m_currentStatus));
         }
     }
 
