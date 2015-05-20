@@ -7,7 +7,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Scan">Scan</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting">Setting</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Model">Model:</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Device_Status">Device Status</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Device_Status">Device Status:</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Ready">Ready</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Busy">Busy</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Sleep">Sleep</sys:String>
