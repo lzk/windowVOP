@@ -5,7 +5,17 @@
     <SolidColorBrush x:Key="PreNextImageButtonBrushNormal" Color="#FF4BA400" Opacity="1"/>
     <SolidColorBrush x:Key="PreNextImageButtonBrushOver" Color="#FF6BDE0A" Opacity="1"/>
     <SolidColorBrush x:Key="PreNextImageButtonBrushPress" Color="#FF497C1F" Opacity="1"/>
-    
+
+    <Style x:Key="FocusStyle">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="-3" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 2"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="PreImageButtonStyle"
        TargetType="{x:Type Button}">
         <Setter Property="Template">
@@ -30,7 +40,15 @@
                             </MultiTrigger.Conditions>
 
                             <Setter TargetName="innerPath" Property="Fill" Value="{StaticResource PreNextImageButtonBrushOver}" />
-                        </MultiTrigger>        
+                        </MultiTrigger>
+                        
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusStyle}"/>
+                        </Trigger>
+
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusStyle}"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -62,6 +80,14 @@
 
                             <Setter TargetName="innerPath" Property="Fill" Value="{StaticResource PreNextImageButtonBrushOver}" />
                         </MultiTrigger>
+
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusStyle}"/>
+                        </Trigger>
+
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusStyle}"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -157,5 +183,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>   
+
 </ResourceDictionary>

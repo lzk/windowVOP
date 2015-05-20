@@ -40,6 +40,23 @@
                 <Setter TargetName="imgCheck" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>
             </Trigger>
+
+            <Trigger  Property="IsFocused" Value="True">              
+                <Setter Property="FocusVisualStyle">                  
+                    <Setter.Value>                      
+                        <Style>                          
+                            <Setter Property="Control.Template">                               
+                                <Setter.Value>                                   
+                                    <ControlTemplate>                                      
+                                        <Rectangle Margin="-1,0,-3,0" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 2"/>                                      
+                                    </ControlTemplate>                                  
+                                </Setter.Value>                             
+                            </Setter>                         
+                        </Style>                       
+                    </Setter.Value>                    
+                </Setter>              
+            </Trigger>
+
         </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>
