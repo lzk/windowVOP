@@ -154,8 +154,8 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <RadioButton Click="btn_click" Name="rdbtn_dhcp" GroupName="ipaddress" Grid.Column="0" Content="{StaticResource ResStr_DHCP}" IsChecked="true" Template="{StaticResource customRadioButton}" />
-                <RadioButton Click="btn_click" Name="rdbtn_static" GroupName="ipaddress" Grid.Column="1"  Content="{StaticResource ResStr_Static}"  IsChecked="False"  Template="{StaticResource customRadioButton}" />
+                <RadioButton Click="btn_click" Name="rdbtn_dhcp" GroupName="ipaddress" Grid.Column="0" Content="{StaticResource ResStr_DHCP}" IsChecked="true" Height="25" Template="{StaticResource customRadioButton}" />
+                <RadioButton Click="btn_click" Name="rdbtn_static" GroupName="ipaddress" Grid.Column="1"  Content="{StaticResource ResStr_Static}"  IsChecked="False" Height="25"  Template="{StaticResource customRadioButton}" />
             </Grid>
 
             <TextBlock Text="{StaticResource ResStr_IP_Address}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>

@@ -77,16 +77,27 @@
 
                         <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center" Margin="0,2,0,8">
-
-                            <RadioButton x:Name="rdBtnScanModePhoto" GroupName="ScanMode" IsChecked="True"
-                            Template="{StaticResource customRadioButton}"
-                            Content="{StaticResource ResStr_Photo}" VerticalAlignment="Center"
-                            Margin="10,0" Checked="rdBtnScanModePhoto_Checked" ></RadioButton>
-                            <RadioButton x:Name="rdBtnScanModeTxt" GroupName="ScanMode" IsChecked="False"
-                            Template="{StaticResource customRadioButton}"
-                            Content="{StaticResource ResStr_Text}" VerticalAlignment="Center"
-                            Margin="10,0" Checked="rdBtnScanModeTxt_Checked" ></RadioButton>
-
+                            <Grid Width="160">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <RadioButton 
+                                    x:Name="rdBtnScanModePhoto" 
+                                    GroupName="ScanMode" 
+                                    IsChecked="True"
+                                    Template="{StaticResource customRadioButton}"
+                                    Content="{StaticResource ResStr_Photo}" 
+                                    VerticalAlignment="Center"
+                                    Checked="rdBtnScanModePhoto_Checked" 
+                                    Grid.Column="0"></RadioButton>
+                                <RadioButton x:Name="rdBtnScanModeTxt" GroupName="ScanMode" IsChecked="False"
+                                    Template="{StaticResource customRadioButton}"
+                                    Content="{StaticResource ResStr_Text}" VerticalAlignment="Center"
+                                    Checked="rdBtnScanModeTxt_Checked" 
+                                    Width="auto"
+                                    Grid.Column="1"></RadioButton>
+                            </Grid>
                         </StackPanel>
 
                     </local:GroupBoxDecorator>
