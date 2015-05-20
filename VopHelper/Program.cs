@@ -27,7 +27,7 @@ namespace VopHelper
                         i.RotateFlip( System.Drawing.RotateFlipType.Rotate180FlipNone );
                         break;
                     case 270:
-                        i.RotateFlip( System.Drawing.RotateFlipType.Rotate180FlipNone );
+                        i.RotateFlip( System.Drawing.RotateFlipType.Rotate270FlipNone );
                         break;
                     default:
                         i.RotateFlip( System.Drawing.RotateFlipType.Rotate270FlipNone );

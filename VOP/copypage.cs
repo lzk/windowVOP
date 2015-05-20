@@ -149,47 +149,61 @@ namespace VOP
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            byte byteNin1 = (byte)m_nin1;
-
-            if ( true == chkBtnIDCardCopy.IsChecked )
+            string strDrvName = "";
+            if (false == common.GetPrinterDrvName( m_MainWin.statusPanelPage.m_selectedPrinter, ref strDrvName))
             {
-                ResetValueForIDCardCopy();
-                byteNin1 = 4; // This value present sending ID Card Copy command.
+                m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
+
+                VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                        m_MainWin,
+                        (string)this.FindResource( "ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_" ),
+                        (string)this.FindResource( "ResStr_Error" ));
             }
-
-
-            EnumCmdResult ret = (EnumCmdResult)dll.SendCopyCmd( 
-                    m_MainWin.statusPanelPage.m_selectedPrinter,
-                    m_density,
-                    (byte)spinCtlCopies.Value,
-                    (byte)m_scanMode,
-                    (byte)m_docSize,
-                    (byte)m_outputSize,
-                    (byte)byteNin1,
-                    (byte)m_dpi,
-                    (ushort)m_scaling,
-                    (byte)m_mediaType );
-
-            switch ( ret )
+            else
             {
-                case EnumCmdResult._ACK:
-                    break;
-                case EnumCmdResult._Printer_busy:
-                    VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
-                            m_MainWin,
-                            (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
-                            (string)this.FindResource( "ResStr_Warning" ));
-                    break;
-                default:
-                    m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
+                byte byteNin1 = (byte)m_nin1;
 
-                    VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
-                            m_MainWin,
-                            (string)this.FindResource( "ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
-                            (string)this.FindResource( "ResStr_Warning" ));
-                    break;
+                if ( true == chkBtnIDCardCopy.IsChecked )
+                {
+                    ResetValueForIDCardCopy();
+                    byteNin1 = 4; // This value present sending ID Card Copy command.
+                }
+
+
+                EnumCmdResult ret = (EnumCmdResult)dll.SendCopyCmd( 
+                        m_MainWin.statusPanelPage.m_selectedPrinter,
+                        m_density,
+                        (byte)spinCtlCopies.Value,
+                        (byte)m_scanMode,
+                        (byte)m_docSize,
+                        (byte)m_outputSize,
+                        (byte)byteNin1,
+                        (byte)m_dpi,
+                        (ushort)m_scaling,
+                        (byte)m_mediaType );
+
+                switch ( ret )
+                {
+                    case EnumCmdResult._ACK:
+                        break;
+                    case EnumCmdResult._Printer_busy:
+                        VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                                m_MainWin,
+                                (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
+                                (string)this.FindResource( "ResStr_Warning" ));
+                        break;
+                    default:
+                        m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
+
+                        VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                                m_MainWin,
+                                (string)this.FindResource( "ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
+                                (string)this.FindResource( "ResStr_Error" ));
+                        break;
+                }
+
             }
-
+            
         }
 
         private void CheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)

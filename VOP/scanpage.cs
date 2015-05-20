@@ -411,14 +411,14 @@ namespace VOP
                          VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
                                  m_MainWin,
                                  (string)this.FindResource( "ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_" ),
-                                 (string)this.FindResource( "ResStr_Warning" ));
+                                 (string)this.FindResource( "ResStr_Error" ));
                      }
                      else if ( RETSCAN_ERROR == (int)wParam )
                      {
                          VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
                                  m_MainWin,
                                  (string)this.FindResource( "ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
-                                 (string)this.FindResource( "ResStr_Warning" ));
+                                 (string)this.FindResource( "ResStr_Error" ));
                      }
                      else if ( RETSCAN_BUSY == (int)wParam )
                      {
