@@ -594,7 +594,7 @@ namespace VOP
        
         public void Print(string printerName, int copies)
         {
-            wb.ActiveSheet.PrintOut(misValue, misValue, copies, misValue, printerName, misValue, misValue, misValue);
+            wb.ActiveSheet.PrintOut(misValue, misValue, copies, misValue, printerName, misValue, true, misValue);
         }
     }
 
