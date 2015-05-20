@@ -32,12 +32,25 @@
             <Color x:Key="clr6">#ffc6c6c6</Color>
             <Color x:Key="clr7">#ff8c8c8c</Color>
 
-        <Style x:Key="3dbutton" TargetType="{x:Type Button}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid>
-                            <Rectangle StrokeThickness="2" Name="rect"
+            <Style x:Key="EllipseFocus">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle RadiusY="15" RadiusX="15" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="3dbutton" TargetType="{x:Type Button}">
+                <Setter Property="FocusVisualStyle" Value="{StaticResource EllipseFocus}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Rectangle 
+                                StrokeThickness="2" 
+                                Name="rect"
                                 Width="50"
                                 Height="30"
                                 RadiusX="15"
@@ -46,35 +59,35 @@
                                 VerticalAlignment="Center"
                                 >
 
-                                <Rectangle.Stroke>
-                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                        <LinearGradientBrush.GradientStops>
-                                            <GradientStop
+                                    <Rectangle.Stroke>
+                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <LinearGradientBrush.GradientStops>
+                                                <GradientStop
                                                 Color="{StaticResource clr7}" Offset="1"/>
-                                            <GradientStop
+                                                <GradientStop
                                                 Color="{StaticResource clr6}" Offset="0.5"/>
-                                            <GradientStop
+                                                <GradientStop
                                                 Color="{StaticResource clr5}" Offset="0"/>
-                                        </LinearGradientBrush.GradientStops>
-                                    </LinearGradientBrush>
-                                </Rectangle.Stroke>
+                                            </LinearGradientBrush.GradientStops>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Stroke>
 
-                                <Rectangle.Fill>
-                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                        <LinearGradientBrush.GradientStops>
-                                            <GradientStop
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <LinearGradientBrush.GradientStops>
+                                                <GradientStop
                                                 Color="{StaticResource clr4}" Offset="1"/>
-                                            <GradientStop
+                                                <GradientStop
                                                 Color="{StaticResource clr3}" Offset="0"/>
-                                        </LinearGradientBrush.GradientStops>
-                                    </LinearGradientBrush>
-                                </Rectangle.Fill>
+                                            </LinearGradientBrush.GradientStops>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
 
-                            </Rectangle>
+                                </Rectangle>
 
-                            <ContentPresenter Width="40" Height="40"
+                                <ContentPresenter Width="40" Height="40"
                                 Margin="0,0,0,3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Grid>
+                            </Grid>
 
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
@@ -108,9 +121,9 @@
                             </ControlTemplate.Triggers>
 
                         </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -118,60 +131,60 @@
         <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
     </Window.Effect>
 
-        <Viewbox Stretch="Fill">
+    <Viewbox Stretch="Fill">
 
-    <Grid Width="472" Height="494" >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="298" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <Grid Width="472" Height="494" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="298" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0" >
-            <TextBlock Text="{StaticResource ResStr_Preview}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        </Border>
+            <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0" >
+                <TextBlock Text="{StaticResource ResStr_Preview}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
 
-        <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" />
-        
-        <!--<ScrollViewer Margin="0" Grid.Row="1"/>-->
-        <ScrollViewer Name="scrollPreview" Width="470" Height="268" HorizontalAlignment="Center" Margin="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Style="{StaticResource LeftScrollViewer}">
-            <Image VerticalAlignment="Center" HorizontalAlignment="Center" Name="previewImg" Height="100" Margin="20,10"/>
-        </ScrollViewer>
+            <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" />
 
-        <StackPanel HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal">
-            <Button HorizontalAlignment="Left" Name="btn_normal" Click="imagebtn_click"
-                VerticalAlignment="Center" Width="60" Style="{DynamicResource 3dbutton}">
-        		<Image Height="17" Width="17" Stretch="Fill"
+            <!--<ScrollViewer Margin="0" Grid.Row="1"/>-->
+            <ScrollViewer Name="scrollPreview" Width="470" Height="268" HorizontalAlignment="Center" Margin="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Style="{StaticResource LeftScrollViewer}">
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Name="previewImg" Height="100" Margin="20,10"/>
+            </ScrollViewer>
+
+            <StackPanel HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal">
+                <Button HorizontalAlignment="Left" Name="btn_normal" Click="imagebtn_click"
+                VerticalAlignment="Center"  Width="50" Height="30" Margin="10" Style="{DynamicResource 3dbutton}">
+                    <Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/Fit.tif"/>
-        	</Button>
-            <Button HorizontalAlignment="Left" Name="btn_zoomin" Click="imagebtn_click"
-                VerticalAlignment="Center" Width="60" Style="{DynamicResource 3dbutton}">
-        		<Image Height="17" Width="17" Stretch="Fill"
+                </Button>
+                <Button HorizontalAlignment="Left" Name="btn_zoomin" Click="imagebtn_click"
+                VerticalAlignment="Center" Width="50" Height="30" Margin="10" Style="{DynamicResource 3dbutton}" >
+                    <Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/ZoomIn.tif"/>
-        	</Button>
-            <Button HorizontalAlignment="Left" Margin="0"  Name="btn_zoomout" Click="imagebtn_click"
-                VerticalAlignment="Center" Width="60" Style="{DynamicResource 3dbutton}">
-        		<Image Height="17" Width="17" Stretch="Fill"
+                </Button>
+                <Button HorizontalAlignment="Left" Name="btn_zoomout" Click="imagebtn_click"
+                VerticalAlignment="Center" Width="50" Height="30" Margin="10" Style="{DynamicResource 3dbutton}">
+                    <Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/ZoomOut.tif"/>
-        	</Button>
-            <Button HorizontalAlignment="Left" Name="btn_turn" Click="imagebtn_click"
-                VerticalAlignment="Center" Width="60" Style="{DynamicResource 3dbutton}">
-        		<Image Height="17" Width="17" Stretch="Fill"
+                </Button>
+                <Button HorizontalAlignment="Left" Name="btn_turn" Click="imagebtn_click"
+                VerticalAlignment="Center"  Width="50" Height="30" Margin="10" Style="{DynamicResource 3dbutton}">
+                    <Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/Turn.tif"/>
-        	</Button>
-        </StackPanel>
+                </Button>
+            </StackPanel>
 
-        <StackPanel Margin="0" Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top" >
-            <local:ButtonEx x:Name="btnOK" Content="{StaticResource ResStr_OK}" HorizontalAlignment="Center" Height="35"
+            <StackPanel Margin="0" Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top" >
+                <local:ButtonEx x:Name="btnOK" Content="{StaticResource ResStr_OK}" HorizontalAlignment="Center" Height="35"
                 HorizontalContentAlignment="Center"
                 Width="100" VerticalAlignment="Center" Click="btnOK_Click"/>
-            <local:ButtonEx x:Name="btnPrint"  Content="{StaticResource ResStr_Print}" HorizontalAlignment="Center" Height="35"
+                <local:ButtonEx x:Name="btnPrint"  Content="{StaticResource ResStr_Print}" HorizontalAlignment="Center" Height="35"
                 HorizontalContentAlignment="Center"
                 Margin="25,0,0,0" Width="100" IsActiveEx="true" VerticalAlignment="Center" Click="btnPrint_Click" />
-        </StackPanel>
-        
-    </Grid>
+            </StackPanel>
+
+        </Grid>
 
     </Viewbox>
 
