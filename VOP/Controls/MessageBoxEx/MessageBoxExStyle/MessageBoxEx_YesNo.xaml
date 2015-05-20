@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MessageBoxEx_YesNo" 
         Height="228" 
-        Width="478"       
+        Width="490"
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" 
         ShowInTaskbar="False"
