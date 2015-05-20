@@ -240,6 +240,7 @@
 
     <Style x:Key="RotationButtonStyle"
        TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource EllipseFocus}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">

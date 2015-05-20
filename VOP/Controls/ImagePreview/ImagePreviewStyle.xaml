@@ -117,8 +117,19 @@
     <SolidColorBrush x:Key="BackArrowButtonBrushOver" Color="#FF73E061" Opacity="1"/>
     <SolidColorBrush x:Key="BackArrowButtonBrushPress" Color="#FF005C00" Opacity="1"/>
 
+    <Style x:Key="BackArrowButtonFocus">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="-2" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 2"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="BackArrowButtonStyle"
        TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource BackArrowButtonFocus}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
