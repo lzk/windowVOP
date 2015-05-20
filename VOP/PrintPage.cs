@@ -405,7 +405,7 @@ namespace VOP
         public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
         {
             m_currentStatus = st;
-            PrintButton.IsEnabled = (false == common.IsOffline(m_currentStatus));
+          //  PrintButton.IsEnabled = (false == common.IsOffline(m_currentStatus));
         }
     }
 
@@ -500,6 +500,8 @@ namespace VOP
                     {
                         p.CloseMainWindow();
                         p.Kill();
+
+                        p.WaitForExit();
                     }  
                 }
             }

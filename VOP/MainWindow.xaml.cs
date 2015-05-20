@@ -152,7 +152,7 @@ namespace VOP
             if (0x804 == App.LangId)
             {
                 TextElement.FontFamilyProperty.OverrideMetadata(typeof(TextElement), new FrameworkPropertyMetadata(new FontFamily("幼圆")));
-                TextBlock.FontFamilyProperty.OverrideMetadata(typeof(TextBlock), new FrameworkPropertyMetadata(new FontFamily("幼圆")));
+                TextBlock.FontFamilyProperty.OverrideMetadata(typeof(TextBlock), new FrameworkPropertyMetadata(new FontFamily("幼圆")));            
             }
             else
             {
