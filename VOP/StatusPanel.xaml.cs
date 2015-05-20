@@ -206,6 +206,11 @@ namespace VOP
                         new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)this.FindResource("ResStr_Error"));
                     messageBox.Owner = App.Current.MainWindow;
                     messageBox.ShowDialog();
+
+                    if (null != this.m_MainWin)
+                        this.m_MainWin.ShowAboutPageOnly();
+                    
+                    return;
                 }
 
                 m_isSFP = common.IsSFPPrinter(strDrvName);
