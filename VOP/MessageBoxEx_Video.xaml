@@ -40,7 +40,7 @@
                 <ColumnDefinition Width="296*" />
             </Grid.ColumnDefinitions>
             <Image Source="Images\Warning.tif" Grid.Row="1"></Image>
-            <TextBlock Name="messageBoxTextBlock" Grid.Row="1" Grid.Column="1" FontSize="14"  Margin="20"  Foreground="#555555" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+            <TextBlock Name="messageBoxTextBlock" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" FontSize="14"  Margin="20,0"  Foreground="#555555" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
         </Grid>
 
         <Grid Name="MediaGrid" Grid.Row="2" Grid.Column="1" >
