@@ -33,7 +33,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Paper_Remained">卡纸JAM</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Nofeed">缺纸JAM</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Regist">Regist处卡纸JAM</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Exit">排纸口出卡纸JAM</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Exit">排纸出口卡纸JAM</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Cover_Open">打开上盖</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_No_Toner_Cartridge">缺少硒鼓碳粉组件</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_Replace_Toner">请更换硒鼓</sys:String>

@@ -231,10 +231,10 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_1">Setting Successfully,the parameters are valid after the restart the machine.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_2">The password must be 5/13 ASCII characters or 10/26  hex characters, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_3">The password must be 8/63 ASCII characters or 64  hex characters, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_4">please enter the phone number.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_4">Please enter the phone number.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_5">Verification code sent successfully.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_6">Verification code sent failed.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_7">phone number is error, please confirm and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_7">Phone number is error, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_8">Verification code's format is error, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_9">The SSID must be 1 to 32 characters, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_10">The SSID must be 1 to 32 characters, please confirm and enter again.</sys:String>
@@ -253,7 +253,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Preview">Preview</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_paper_jam_occurred_please_follow_the_instructions_">The paper jam occurred，please follow the instructions!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_">Operation can not be carried out due to machine malfunction.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_">can not be carried out due to software has error. please try  again after reinstall the Driver and Virtual Operation Panel.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_">Can not be carried out due to software has error. please try  again after reinstall the Driver and Virtual Operation Panel.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Warning_Custom_Exceed">A maximun of 20 types of User defined paper sizes can be registered. If you would like to register more User defined paper sizes, you will need to first delete some existing ones.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Print">Print</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Copy">Copy</sys:String>
