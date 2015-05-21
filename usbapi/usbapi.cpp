@@ -2719,9 +2719,9 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                 int devmonCode = obj.StartScan(); 
                 if ( DEVMON_STATUS_OK != devmonCode )
                 {
+                    // According the e-mail from Jerry Chen, this two value present busy.
                     if ( DEVMON_ERROR_IN_USE == devmonCode 
-                            || DEVMON_ERROR_DRIVER_IN_USE == devmonCode 
-                            || DEVMON_ERROR_STILL_WARMUP == devmonCode )
+                            || DEVMON_ERROR_DRIVER_IN_USE == devmonCode )
                     {
                         nResult = RETSCAN_BUSY;
                     }
