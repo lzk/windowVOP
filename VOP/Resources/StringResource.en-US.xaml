@@ -221,8 +221,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_service_station_information_hasn_t_updated_for_____months__please_update_online_">The service station information hasn't updated for * * months, please update online.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_1__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">The combination of IP address and subnet mask is invalid. All of the bits in the host address portion of the IP address are set to 1. Please enter a valid combination of IP address and subnet mask.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_0__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">The combination of IP address and subnet mask is invalid. All of the bits in the host address portion of the IP address are set to 0. Please enter a valid combination of IP address and subnet mask.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_machine_is_busy__please_try_later_">The machine is busy, please try later!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Please_fix_error_first_and_try_later_">Please fix error first and try later!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_machine_is_busy__please_try_later_">The machine is busy, please try later.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Please_fix_error_first_and_try_later_">Please fix error first and try later.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_Successfully_">Setting Successfully</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_Fail">Setting Fail</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Fail">Scan Fail</sys:String>
