@@ -316,7 +316,7 @@ namespace VOP
                 chk_MultiplePagePrint.FontSize = 9.0;
 
                 rdBtnPortrait.Margin = new Thickness(10, 31, 101, 7);
-                rdBtnLandscape.Margin = new Thickness(85, 31, 10, 7);
+                rdBtnLandscape.Margin = new Thickness(85, 31, 5, 7);
             }
         }
 
