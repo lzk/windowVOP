@@ -35,6 +35,10 @@ namespace VOP
 
         [DllImport("kernel32.dll")]
         public static extern int GetUserGeoID(int geoId);
+
+        [DllImport("kernel32.dll")]
+        public static extern void OutputDebugString( string message );
+
     }
 
 }
