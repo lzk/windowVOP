@@ -9,7 +9,7 @@
         xmlns:mycontrol="clr-namespace:VOP" 
         Loaded="OnLoadWindow"
         ShowInTaskbar="False" 
-        FontFamily="幼圆"
+        FontFamily="幼圆,SimSun"
         Style="{StaticResource for_noresize_window}"
         >
     <Window.Resources>
