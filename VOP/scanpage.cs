@@ -557,7 +557,7 @@ namespace VOP
                                 BitmapSource origSource = decoder.Frames[0];
 
                                 BitmapMetadata bitmapMetadata = new BitmapMetadata("tiff");
-                                bitmapMetadata.CameraModel = "Virtual Operation Panel";
+                                bitmapMetadata.ApplicationName = "Virtual Operation Panel";
 
                                 if (null != origSource)
                                     encoder.Frames.Add(BitmapFrame.Create(origSource, null, bitmapMetadata, null));
