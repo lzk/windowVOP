@@ -44,6 +44,9 @@ namespace VOP
 
         TCPIPSetting TcpIpSetting = new TCPIPSetting();
         private EnumStatus m_currentStatus = EnumStatus.Offline;
+        private bool m_bIPValidate = true;
+        private bool m_bSubmaskValidate = true;
+        private bool m_bGatewayValidate = true;
 
         #region IP
         private static readonly DependencyProperty IPProperty =
@@ -139,7 +142,7 @@ namespace VOP
             
             if (_bDisplayProgressBar)
             {
-                worker.InvokeMethod<IpInfoRecord>(strPrinterName, ref m_rec, DllMethodType.GetIpInfo);
+                worker.InvokeMethod<IpInfoRecord>(strPrinterName, ref m_rec, DllMethodType.GetIpInfo, this);
             }
             else
             {
@@ -419,16 +422,41 @@ namespace VOP
                 byte ip2 = 0;
                 byte ip3 = 0;
 
-                if (tb.Name == "tb_ip" ||
-                    tb.Name == "tb_gate")
+                if (tb.Name == "tb_ip")
                 {
                     if (true == ParseIP(strText, ref ip0, ref ip1, ref ip2, ref ip3))
+                    {
+                        m_bIPValidate = true;
                         bValidate = true;
+                    }
+                    else
+                    {
+                        m_bIPValidate = false;
+                    }
+                }
+                else if(tb.Name == "tb_gate")
+                {
+                    if (true == ParseIP(strText, ref ip0, ref ip1, ref ip2, ref ip3))
+                    {
+                        m_bGatewayValidate = true;
+                        bValidate = true;
+                    }
+                    else
+                    {
+                        m_bGatewayValidate = false;
+                    }
                 }
                 else if (tb.Name == "tb_mask")
                 {
                     if (true == ParseNetworkMask(strText, ref ip0, ref ip1, ref ip2, ref ip3))
+                    {
+                        m_bSubmaskValidate = true;
                         bValidate = true;
+                    }
+                    else
+                    {
+                        m_bSubmaskValidate = false;
+                    }
                 }
 
                 if (bValidate)
@@ -568,7 +596,7 @@ namespace VOP
                 m_rec.Gate = new IPAddress(arr);
 
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-                if (worker.InvokeMethod<IpInfoRecord>(strPrinterName, ref m_rec, DllMethodType.SetIpInfo))
+                if (worker.InvokeMethod<IpInfoRecord>(strPrinterName, ref m_rec, DllMethodType.SetIpInfo, this))
                 {
                     if (m_rec.CmdResult == EnumCmdResult._ACK)
                     {
@@ -710,9 +738,13 @@ namespace VOP
         public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
         {
             m_currentStatus = st;
-            
-            if (true == btnApply.IsEnabled)
+
+            if (true == m_bSubmaskValidate &&
+                true == m_bIPValidate &&
+                true == m_bGatewayValidate)
+            {
                 btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
+            }
         }
     }
 }

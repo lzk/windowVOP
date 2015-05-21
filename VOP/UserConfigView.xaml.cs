@@ -54,7 +54,7 @@ namespace VOP
 
             if (_bDisplayProgressBar)
             {
-                worker.InvokeMethod<UserCfgRecord>(strPrinterName, ref m_rec, DllMethodType.GetUserConfig);
+                worker.InvokeMethod<UserCfgRecord>(strPrinterName, ref m_rec, DllMethodType.GetUserConfig, this);
             }
             else
             {
@@ -220,7 +220,7 @@ namespace VOP
             UserCfgRecord m_rec = new UserCfgRecord(strPrinterName, leadingedge, sidetoside, imagedensity, lowhumiditymode, platecontrolmode, primarycoolingmode);
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-            if (worker.InvokeMethod<UserCfgRecord>(strPrinterName, ref m_rec, DllMethodType.SetUserConfig))
+            if (worker.InvokeMethod<UserCfgRecord>(strPrinterName, ref m_rec, DllMethodType.SetUserConfig, this))
             {
                 if (m_rec.CmdResult == EnumCmdResult._ACK)
                 {
@@ -257,7 +257,7 @@ namespace VOP
             FusingResetRecord m_rec = new FusingResetRecord(strPrinterName);
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-            if (worker.InvokeMethod<FusingResetRecord>(strPrinterName, ref m_rec, DllMethodType.SetFusingResetCmd))
+            if (worker.InvokeMethod<FusingResetRecord>(strPrinterName, ref m_rec, DllMethodType.SetFusingResetCmd, this))
             {
                 if (m_rec.CmdResult == EnumCmdResult._ACK)
                 {

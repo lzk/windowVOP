@@ -41,7 +41,7 @@ namespace VOP
 
             WiFiInfoRecord m_rec = null;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-            worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetWiFiInfo);
+            worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetWiFiInfo, this);
 
             if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
             {
@@ -182,7 +182,7 @@ namespace VOP
                 WiFiInfoRecord m_rec = null;
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-                worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetWiFiInfo);
+                worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetWiFiInfo, this);
                 
                 if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                 {
@@ -269,7 +269,7 @@ namespace VOP
                 WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, wifiEnable, 0, ssid, (encryption != (byte)EnumEncryptType.NoSecurity) ? pwd : "", (EnumEncryptType)encryption, wepKeyId);
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-                if (worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetWiFiInfo))
+                if (worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetWiFiInfo, this))
                 {
                     if (m_rec.CmdResult == EnumCmdResult._ACK)
                     {
@@ -333,7 +333,7 @@ namespace VOP
 
             if (_bDisplayProgressBar)
             {
-                worker.InvokeMethod<ApListRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetApList);
+                worker.InvokeMethod<ApListRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetApList, this);
             }
             else
             {
@@ -550,7 +550,7 @@ namespace VOP
             WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, wifiEnable, 1, "", "", EnumEncryptType.WPA2_PSK_AES, 0);
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-            if (worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetWiFiInfo))
+            if (worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetWiFiInfo, this))
             {
                 if (m_rec.CmdResult == EnumCmdResult._ACK)
                 {

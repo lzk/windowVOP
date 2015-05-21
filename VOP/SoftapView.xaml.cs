@@ -59,7 +59,7 @@ namespace VOP
 
                 if (_bDisplayProgressBar)
                 {
-                    worker.InvokeMethod<SoftApRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetSoftAp);
+                    worker.InvokeMethod<SoftApRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetSoftAp, this);
                 }
                 else
                 {
@@ -120,7 +120,7 @@ namespace VOP
                 SoftApRecord m_rec = new SoftApRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, str_ssid, str_pwd, isEnableSoftAp);
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-                if (worker.InvokeMethod<SoftApRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetSoftAp))
+                if (worker.InvokeMethod<SoftApRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetSoftAp, this))
                 {
                     if (m_rec.CmdResult == EnumCmdResult._ACK)
                     {

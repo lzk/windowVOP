@@ -16,6 +16,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Net;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using VOP.Controls;
 
 namespace VOP
 {
@@ -176,11 +177,11 @@ namespace VOP
             return 1;
         }
 
-        public bool InvokeMethod<T>(string printerName, ref T rec,  DllMethodType methodType) where T : class
+        public bool InvokeMethod<T>(string printerName, ref T rec,  DllMethodType methodType, object frameworkElement) where T : class
         {
             T record = rec;
-            
-            switch(methodType)
+
+            switch (methodType)
             {
                 case DllMethodType.SetIpInfo:
                 case DllMethodType.SetPowerSaveTime:
@@ -189,6 +190,20 @@ namespace VOP
                 case DllMethodType.SetUserConfig:
                 case DllMethodType.SetPassword:
                 case DllMethodType.SetFusingResetCmd:
+                    string strDrvName = "";
+                    if (false == common.GetPrinterDrvName(printerName, ref strDrvName))
+                    {
+                        FrameworkElement _this = frameworkElement as FrameworkElement;
+                        if(null != _this)
+                        {
+                            MessageBoxEx_Simple messageBox =
+                                new MessageBoxEx_Simple((string)_this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)_this.FindResource("ResStr_Error"));
+                            messageBox.Owner = App.Current.MainWindow;
+                            messageBox.ShowDialog();
+                        }
+                        return false;
+                    }
+
                     if (!((MainWindow)App.Current.MainWindow).PasswordCorrect())
                     {
                         PasswordWindow pw = new PasswordWindow();

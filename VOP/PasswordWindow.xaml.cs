@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VOP.Controls;
 
 namespace VOP
 {
@@ -35,14 +36,24 @@ namespace VOP
             bool isApplySuccess = false;
 
             string strpwd = pbPwd.Password;
+            string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
+            string strDrvName = "";
+            if (false == common.GetPrinterDrvName(strPrinterName, ref strDrvName))
+            {
+                MessageBoxEx_Simple messageBox =
+                    new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)this.FindResource("ResStr_Error"));
+                messageBox.Owner = App.Current.MainWindow;
+                messageBox.ShowDialog();
+
+                return;
+            }
 
             if (strpwd.Length > 0)
             {
-                string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
                 PasswordRecord m_rec = new PasswordRecord(strPrinterName, strpwd);
                 AsyncWorker worker = new AsyncWorker(this);
 
-                if (worker.InvokeMethod<PasswordRecord>(strPrinterName, ref m_rec, DllMethodType.ConfirmPassword))
+                if (worker.InvokeMethod<PasswordRecord>(strPrinterName, ref m_rec, DllMethodType.ConfirmPassword, this))
                 {
                     if (m_rec.CmdResult == EnumCmdResult._ACK)
                     {

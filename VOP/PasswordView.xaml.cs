@@ -47,7 +47,7 @@ namespace VOP
                     PasswordRecord m_rec = new PasswordRecord(strPrinterName, strPWD);
                     AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-                    if (worker.InvokeMethod<PasswordRecord>(strPrinterName, ref m_rec, DllMethodType.SetPassword))
+                    if (worker.InvokeMethod<PasswordRecord>(strPrinterName, ref m_rec, DllMethodType.SetPassword, this))
                     {
                         if (m_rec.CmdResult == EnumCmdResult._ACK)
                         {

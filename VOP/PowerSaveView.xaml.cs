@@ -37,7 +37,7 @@ namespace VOP
 
             if (_bDisplayProgressBar)
             {
-                worker.InvokeMethod<PowerSaveTimeRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetPowerSaveTime);
+                worker.InvokeMethod<PowerSaveTimeRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetPowerSaveTime, this);
             }
             else
             {
@@ -150,7 +150,7 @@ namespace VOP
             PowerSaveTimeRecord m_rec = new PowerSaveTimeRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, psavetime);
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-            if (worker.InvokeMethod<PowerSaveTimeRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetPowerSaveTime))
+            if (worker.InvokeMethod<PowerSaveTimeRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetPowerSaveTime, this))
             {
                 if (m_rec.CmdResult == EnumCmdResult._ACK)
                 {
