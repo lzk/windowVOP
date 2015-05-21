@@ -199,7 +199,8 @@ namespace VOP
 
         private void btnPrint_Click(object sender, RoutedEventArgs e)
         {
-            isPrint = true;    
+            isPrint = true;
+            FileSelectionPage.IsInitPrintSettingPage = true;
             this.Close();
         }
 

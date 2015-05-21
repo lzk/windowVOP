@@ -657,7 +657,7 @@ namespace VOP
             rdBtnFlipOnLongEdge.IsEnabled = false;
             rdBtnFlipOnShortEdger.IsChecked = false;
             rdBtnFlipOnLongEdge.IsChecked = false;
-            if(0 == m_watermark)
+            if(0 == m_watermark && true == chk_MultiplePagePrint.IsChecked)
             {
                 rdBtn1in2x2.IsEnabled = true;
                 rdBtn1in3x3.IsEnabled = true;
@@ -897,7 +897,14 @@ namespace VOP
 
         private void chk_FitToPaperSize_Unchecked(object sender, RoutedEventArgs e)
         {
-            spinnerScaling.IsEnabled = true;
+            if (1 == m_booklet)
+            {
+                spinnerScaling.IsEnabled = false;
+            }
+            else
+            {
+                spinnerScaling.IsEnabled = true;
+            }
             m_fixToPaperSize = 0;
         }
        
@@ -1529,12 +1536,13 @@ namespace VOP
             {
                 spinnerDensityAdjustment.Value = 4;
             }
-            if(m_booklet == 1)
+            if(1 == m_booklet)
             {
                 chk_MultiplePagePrint.IsChecked = false;
                 chk_MultiplePagePrint.IsEnabled = false;
                 rdBtnFlipOnShortEdger.IsEnabled = false;
-                chk_DuplexPrint.IsEnabled = false;  
+                chk_DuplexPrint.IsEnabled = false;
+                spinnerScaling.IsEnabled = false;
             }
             else
             {
@@ -1542,11 +1550,11 @@ namespace VOP
                 chk_DuplexPrint.IsEnabled = true;  
             }
             DisableLabelType();
-            if(m_watermark == 1)
+            if(1 == m_watermark)
             {
                 rdBtn1in2x2.IsEnabled = false;
                 rdBtn1in3x3.IsEnabled = false;
-                rdBtn1in4x4.IsEnabled = false;
+                rdBtn1in4x4.IsEnabled = false;                
             }
         }
 
