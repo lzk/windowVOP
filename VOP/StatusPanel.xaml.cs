@@ -353,7 +353,10 @@ namespace VOP
                 cboPrinters.SelectedIndex = oldIndex;
             }
             else
-            {   //Add for BMS bug 59074
+            {   
+                this.UpdateStatusPanel( EnumStatus.Offline, EnumMachineJob.UnknowJob, 0 );
+
+                //Add for BMS bug 59074
                 if (null != this.m_MainWin)
                     this.m_MainWin.ShowAboutPageOnly();
             }
