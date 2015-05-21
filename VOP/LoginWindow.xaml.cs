@@ -104,9 +104,19 @@ namespace VOP
         private void tbPhoneNumber_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             string strText = e.Text;
-            if (!Char.IsDigit(strText, 0))
+            try
             {
-                e.Handled = true;
+                if (strText.Length > 0)
+                {
+                    if (!Char.IsDigit(strText, 0))
+                    {
+                        e.Handled = true;
+                    }
+                }
+            }
+            catch
+            {
+
             }
         }
 
