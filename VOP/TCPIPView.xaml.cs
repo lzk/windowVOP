@@ -459,9 +459,16 @@ namespace VOP
                     }
                 }
 
-                if (bValidate)
+                if(false == common.IsOffline(m_currentStatus))
                 {
-                    btnApply.IsEnabled = true;
+                    if (bValidate)
+                    {
+                        btnApply.IsEnabled = true;
+                    }
+                    else
+                    {
+                        btnApply.IsEnabled = false;
+                    }
                 }
                 else
                 {

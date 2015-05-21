@@ -217,10 +217,17 @@ namespace VOP
         private void spinnerControl1_ValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
             VOP.Controls.SpinnerControl sc = sender as VOP.Controls.SpinnerControl;
-            if (sc.ValidationHasError == true)
-                btnApply.IsEnabled = false;
+            if (false == common.IsOffline(m_currentStatus))
+            {
+                if (sc.ValidationHasError == true)
+                    btnApply.IsEnabled = false;
+                else
+                    btnApply.IsEnabled = true;
+            }
             else
-                btnApply.IsEnabled = true;
+            {
+                btnApply.IsEnabled = false;
+            }
         }
 
         public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)

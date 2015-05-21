@@ -273,16 +273,23 @@ namespace VOP
 
         private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
-            if (true == spinCtlEdge.ValidationHasError ||
-                true == spinCtlSide2Side.ValidationHasError ||
-                true == spinCtlDensity.ValidationHasError ||
-                true == spinCtlHumidity.ValidationHasError)
+            if (false == common.IsOffline(m_currentStatus))
             {
-                btnApply.IsEnabled = false;
+                if (true == spinCtlEdge.ValidationHasError ||
+                    true == spinCtlSide2Side.ValidationHasError ||
+                    true == spinCtlDensity.ValidationHasError ||
+                    true == spinCtlHumidity.ValidationHasError)
+                {
+                    btnApply.IsEnabled = false;
+                }
+                else
+                {
+                    btnApply.IsEnabled = true;
+                }
             }
             else
             {
-                btnApply.IsEnabled = true;
+                btnApply.IsEnabled = false;
             }
         }
 
