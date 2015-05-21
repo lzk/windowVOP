@@ -1428,6 +1428,12 @@ namespace VOP
             }
 
             cboMediaType.SelectedIndex = m_mediaType;
+            if (4 == m_mediaType)
+            {
+                chk_DuplexPrint.IsEnabled = false;
+                m_booklet = 0;
+                m_duplexPrint = 1;
+            }
             cboPrintQuality.SelectedIndex = m_printQuality;          
            
 
@@ -1547,7 +1553,10 @@ namespace VOP
             else
             {
                 chk_MultiplePagePrint.IsEnabled = true;
-                chk_DuplexPrint.IsEnabled = true;  
+                if (m_mediaType != 4)
+                {
+                    chk_DuplexPrint.IsEnabled = true;  
+                }                
             }
             DisableLabelType();
             if(1 == m_watermark)

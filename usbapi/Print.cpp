@@ -1935,16 +1935,25 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 				//}
 				
 				dmsize = DocumentProperties(hWnd, phandle, szprintername, NULL, NULL, 0);
-
+				TCHAR szDebug[256] = { 0 };
 				lpOutputData = (LPPCLDEVMODE)malloc(dmsize);
 				lpInputData = (LPPCLDEVMODE)malloc(dmsize);				
-
-				*((LPPCLDEVMODE)printer_info->pDevMode) = inputDevmode;
-
-				lpInputData = (LPPCLDEVMODE)printer_info->pDevMode;
-
+				wsprintf(szDebug, _T("dmsize = %d"), dmsize);
+				OutputDebugString(szDebug);
+				while (lpOutputData == NULL && lpInputData == NULL)
+				{
+					dmsize = DocumentProperties(hWnd, phandle, szprintername, NULL, NULL, 0);
+					wsprintf(szDebug, _T("dmsize = %d"), dmsize);
+					OutputDebugString(szDebug);
+					lpOutputData = (LPPCLDEVMODE)malloc(dmsize);
+					lpInputData = (LPPCLDEVMODE)malloc(dmsize);
+				}
 				if (lpOutputData && lpInputData)
 				{
+					*((LPPCLDEVMODE)printer_info->pDevMode) = inputDevmode;
+
+					lpInputData = (LPPCLDEVMODE)printer_info->pDevMode;
+
 					iNeeded = DocumentProperties(hWnd, phandle, szprintername,
 						(LPDEVMODE)lpOutputData, (LPDEVMODE)lpInputData, DM_OUT_BUFFER | DM_IN_BUFFER | DM_IN_PROMPT);
 
