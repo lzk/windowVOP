@@ -2716,9 +2716,19 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                 nColPixelNumOrig  = height*resolution/1000; 
 				strideOrig = new BYTE[cbStridePadOrig];
 		
-                if ( DEVMON_STATUS_OK != obj.StartScan() )
+                int devmonCode = obj.StartScan(); 
+                if ( DEVMON_STATUS_OK != devmonCode )
                 {
-                    nResult = RETSCAN_BUSY;
+                    if ( DEVMON_ERROR_IN_USE == devmonCode 
+                            || DEVMON_ERROR_DRIVER_IN_USE == devmonCode 
+                            || DEVMON_ERROR_STILL_WARMUP == devmonCode )
+                    {
+                        nResult = RETSCAN_BUSY;
+                    }
+                    else
+                    {
+                        nResult = RETSCAN_ERROR;
+                    }
                 }
                 else 
                 {
