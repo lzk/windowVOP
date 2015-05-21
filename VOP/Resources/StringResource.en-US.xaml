@@ -229,8 +229,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Fail">Print Fail</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copy_Fail">Copy Fail</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_1">Setting Successfully,the parameters are valid after the restart the machine.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_2">The password must be 5/13 ASCII characters or 10/26  hex characters, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_3">The password must be 8/63 ASCII characters or 64  hex characters, please confirm and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_2">The password must be 5/13 ASCII characters or 10/26 hex characters, please confirm and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_3">The password must be 8/63 ASCII characters or 64 hex characters, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_4">Please enter the phone number.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_5">Verification code sent successfully.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_6">Verification code sent failed.</sys:String>

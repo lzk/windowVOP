@@ -230,7 +230,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Copy_Fail">复印失败</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_1">设定成功，机器重启后生效</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_2">密码必须是5/13个ASCII字符或者10/26个十六进制字符，请确认后再次输入。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_3">密码必须是8/63个ASCII字符或者64个十六进制字符，请确认后再次输入。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_3">密码必须是8到63个ASCII字符或者64个十六进制字符，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_4">输入手机号</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_5">验证码发送成功。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_6">验证码发送失败。</sys:String>
