@@ -16,6 +16,10 @@ namespace VOP
     /// </summary>
     public partial class App : Application
     {
+        public static string currentFolder = System.IO.Path.GetDirectoryName( System.Windows.Forms.Application.ExecutablePath);
+        public static string pathSimulationFile = currentFolder + "\\DeviceStatus.xml";
+        public static string vopHelperExe = currentFolder + "\\VopHelper.exe";
+
         /// <summary>
         /// Scanned images file list. The files in list need to be cleared, so
         /// define in App.

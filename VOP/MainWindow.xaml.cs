@@ -1077,7 +1077,7 @@ namespace VOP
             bool bIsOK = false;
 
             // simulate Device status Info.
-            if (StatusXmlHelper.GetPrinterInfo(statusPanelPage.m_selectedPrinter, out deviceStatus, out machineJob, out tonerCapacity, "DeviceStatus.xml"))
+            if (StatusXmlHelper.GetPrinterInfo(statusPanelPage.m_selectedPrinter, out deviceStatus, out machineJob, out tonerCapacity, App.pathSimulationFile ))
             {
                 bIsOK = true;          
               

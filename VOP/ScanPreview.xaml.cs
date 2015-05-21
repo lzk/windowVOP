@@ -218,9 +218,6 @@ namespace VOP
 
             try
             {
-                string currentPath = System.AppDomain.CurrentDomain.BaseDirectory;
-                string vopHelperExe = currentPath + "VopHelper.exe";
-
                 // Get the ExitCode of VopHelper. 0 success, otherwise fail.
                 int nExitCode1 = 0;
                 int nExitCode2 = 0;
@@ -228,7 +225,7 @@ namespace VOP
 
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                startInfo.FileName = vopHelperExe;
+                startInfo.FileName = App.vopHelperExe;
                 Process exeProcess = null;
 
                 startInfo.Arguments = args1;
