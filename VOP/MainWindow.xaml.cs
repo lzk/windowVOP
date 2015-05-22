@@ -657,7 +657,7 @@ namespace VOP
 
             notifyIcon1.ContextMenu = contextMenu1;
 
-            notifyIcon1.Text = "ABC Virtual Panel";
+            notifyIcon1.Text = (string)this.FindResource("ResStr_VirtualOperationPanel");
             notifyIcon1.Visible = true;
 
             // Handle the Double Click event to activate the form.        

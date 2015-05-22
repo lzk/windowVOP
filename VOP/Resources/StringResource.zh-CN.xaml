@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <sys:String xml:space="preserve" x:Key="ResStr_VirtualOperationPanel">虚拟操作面板</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_VirtualOperationPanel">联想打印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print">打  印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copy">复  印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan">扫  描</sys:String>
