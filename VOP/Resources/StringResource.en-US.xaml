@@ -126,7 +126,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Scanning_Mode">Scanning Mode</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Photo">Photo</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Text">Text</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanned_image_size">Scanned image size:</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanned_image_size">Scanned image size: </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scanning_2">Scanning:</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Document_Type">Document Type</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Photo_2">Photo</sys:String>
@@ -241,7 +241,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Exit">Exit</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Preview">Preview</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Certificate_Edit">Certificate Edit</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Unable_to_preview">Unable to preview,</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Unable_to_preview">Unable to preview</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Memory_Alloc_Fail">Print memory allocation failed!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Defined_Settings">User Defined Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Login_Register">Login / Register</sys:String>
