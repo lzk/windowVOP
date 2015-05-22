@@ -198,7 +198,8 @@ namespace VOP
         private void ApplyButtonClick(object sender, RoutedEventArgs e)
         {
             string strDrvName = "";
-            string strPrinterName = "";
+            string strPrinterName = m_MainWin.statusPanelPage.m_selectedPrinter;
+
             PrintError printRes = PrintError.Print_OK;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
             CRM_PrintInfo crmPrintInfo = new CRM_PrintInfo();
