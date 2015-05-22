@@ -31,7 +31,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Toner_Near_End">Toner Near End</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Waiting_2nd_pages_when_print_manual_duplex_job">Waiting 2nd pages when print manual duplex job</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Paper_Remained">Paper Jam: Paper Remained</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Nofeed">Paper Jam: Nofeed</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Nofeed">Paper Jam: No feed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Regist">Paper Jam: Regist</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Exit">Paper Jam: Exit</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Cover_Open">Cover Open</sys:String>
@@ -185,7 +185,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Leading_Edge_Registration">Top Offset Adjust</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Side_to_side_Registration">Side-to-side Adjust</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Image_Density">Image Density</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Low_Hunidity_Mode">Low Hunidity Mode</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Low_Hunidity_Mode">Low Humidity Mode</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_of_Plate_Control_Mode">Plate Control Mode</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Primary_Cooling_Mode">Cooling Mode</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Fuser_Error_Remove">Fuser Error Clear</sys:String>
@@ -206,7 +206,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_">Operation cannot be carried out due to insufficient memory or hard disk space.Please try again after freeing memory or hard disk space.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_">The valid range is 0 to 100, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_">Scanning image has been changed, please confirm whether save it or not?</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_">The entered IP address  is wrong, please confirm and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_">The entered IP address is wrong, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_">The entered Gateway is wrong, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation">The subnet mask input error, please input again after confirmation</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_30__please_confirm_and_enter_again_">The valid range is 1 to 30, please confirm and enter again.</sys:String>
@@ -215,22 +215,22 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_1__please_confirm_and_enter_again_">The valid range is 0 to 1, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_boot_the_machine_after_more_than_30_minutes_to_protect_the_machine_">Please boot the machine after more than 30 minutes to protect the machine.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_new_password_can_not_be_empty_">The new password can not be empty.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_passwords_you_entered__are_different__please_try_again_">The passwords you entered  are different, please try again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_passwords_you_entered__are_different__please_try_again_">The passwords you entered are different, please try again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Authentication_error__please_enter_the_password_again_">Authentication error, please enter the password again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_agent_information_hasn_t_updated_for_____months__please_update_online_">The agent information hasn't updated for * * months, please update online.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_service_station_information_hasn_t_updated_for_____months__please_update_online_">The service station information hasn't updated for * * months, please update online.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_1__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">The combination of IP address and subnet mask is invalid. All of the bits in the host address portion of the IP address are set to 1. Please enter a valid combination of IP address and subnet mask.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_0__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">The combination of IP address and subnet mask is invalid. All of the bits in the host address portion of the IP address are set to 0. Please enter a valid combination of IP address and subnet mask.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_machine_is_busy__please_try_later_">The machine is busy, please try later.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Please_fix_error_first_and_try_later_">Please fix error first and try later.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Please_fix_error_first_and_try_later_">Please fix error first and try later!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_Successfully_">Setting Successfully</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_Fail">Setting Fail</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Fail">Scan Fail</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Fail">Print Fail</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copy_Fail">Copy Fail</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_1">Setting Successfully,the parameters are valid after the restart the machine.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_1">Setting Successfully, the parameters are valid after the restart the machine.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_2">The password must be 5/13 ASCII characters or 10/26 hex characters, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_3">The password must be 8/63 ASCII characters or 64 hex characters, please confirm and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_3">The password must be 8 to 63 ASCII characters or 64 hex characters, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_4">Please enter the phone number.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_5">Verification code sent successfully.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_6">Verification code sent failed.</sys:String>
@@ -251,9 +251,9 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Warning_2">Warning</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Border_Color">Border Color</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Preview">Preview</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_paper_jam_occurred_please_follow_the_instructions_">The paper jam occurred，please follow the instructions!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_paper_jam_occurred_please_follow_the_instructions_">The paper jam occurred, please follow the instructions!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_">Operation can not be carried out due to machine malfunction.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_">Operation can not be carried out due to software has error. please try  again after reinstall the Driver and Virtual Operation Panel.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_">Operation can not be carried out due to software has error. please try again after reinstall the driver and Virtual Operation Panel.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Warning_Custom_Exceed">A maximun of 20 types of User defined paper sizes can be registered. If you would like to register more User defined paper sizes, you will need to first delete some existing ones.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Print">Print</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Copy">Copy</sys:String>
