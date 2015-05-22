@@ -2757,8 +2757,17 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                             if ( true == bCancelScanning )
                                 break;
 
-                            if ( obj.ReadData(strideOrig, cbStridePadOrig, &ulBytesRead, &lPercentComplete) != DEVMON_STATUS_OK )
+                            devmonCode = obj.ReadData(strideOrig, cbStridePadOrig, &ulBytesRead, &lPercentComplete);
+
+                            if (  DEVMON_ERROR_SCAN_STATUS_STOP == devmonCode )
+                            {
+                                bCancelScanning = true;
                                 break;
+                            }
+                            else if ( DEVMON_STATUS_OK != devmonCode )
+                            {
+                                break;
+                            }
 
                             if ( ++nRowsCnt > nColPixelNumOrig )
                                 break;
