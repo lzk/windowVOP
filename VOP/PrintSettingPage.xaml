@@ -424,7 +424,7 @@
                 </Controls:GroupBoxDecorator>
 
 
-                <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Scaling}" Margin="0,2,0,0" Grid.Row="6" Grid.Column="5" Grid.RowSpan="3">
+                <Controls:GroupBoxDecorator Header="{StaticResource ResStr_Scaling}" Margin="0,2,0,0" Grid.Row="6" Grid.Column="5" Grid.RowSpan="3" x:Name="ScalingGroup">
                     <StackPanel Orientation="Vertical">
                         <Controls:SpinnerControl
 					x:Name="spinnerScaling"

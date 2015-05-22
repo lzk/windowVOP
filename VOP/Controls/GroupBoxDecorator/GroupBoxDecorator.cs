@@ -31,6 +31,38 @@ namespace VOP.Controls
         public static readonly DependencyProperty HeaderProperty =
            DependencyProperty.Register("Header", typeof(string), typeof(GroupBoxDecorator));
 
-    
+
+        public GroupBoxDecorator()
+        {
+            this.IsEnabledChanged += new DependencyPropertyChangedEventHandler(IsEnabledValueChanged);
+        }
+
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
+        }
+
+        private void IsEnabledValueChanged(Object obj, DependencyPropertyChangedEventArgs args)
+        {
+         //   foreach (DependencyObject tb in FindVisualChildren<DependencyObject>(this.Content))
+            {
+                // do something with tb here
+            }
+        }
     }
 }

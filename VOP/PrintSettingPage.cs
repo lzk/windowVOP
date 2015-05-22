@@ -304,8 +304,8 @@ namespace VOP
 //            UpdatePaperSizeCombobox(true, 0);
 
             InitFontSize();
-            
-           
+
+            ScalingGroup.IsEnabled = false;
         }
 
         void InitFontSize()

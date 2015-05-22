@@ -14,6 +14,7 @@ using VOP.Controls;
 using System.Printing;
 using System.Diagnostics;
 
+
 namespace VOP
 {
     public partial class PrintPage : UserControl
@@ -198,6 +199,7 @@ namespace VOP
         {
             if(true == common.IsError(m_currentStatus))
             {
+                m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                     m_MainWin,
                     (string)this.FindResource("ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
@@ -242,6 +244,23 @@ namespace VOP
                             {
 
                                 ExcelHelper helper = new ExcelHelper(FilePaths[0]);
+
+                                if (helper.Open())
+                                {
+                                    helper.Print(m_MainWin.statusPanelPage.m_selectedPrinter,
+                                                    (int)spinnerControl1.Value);
+                                    helper.Close();
+                                }
+                                else
+                                {
+                                    printRes = PrintError.Print_File_Not_Support;
+                                }
+
+                            }
+                            else if (fileExt == ".pub")
+                            {
+
+                                PubHelper helper = new PubHelper(FilePaths[0]);
 
                                 if (helper.Open())
                                 {
@@ -349,6 +368,7 @@ namespace VOP
             
             if (false == common.GetPrinterDrvName(strPrinterName, ref strDrvName))
             {
+                m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
                 MessageBoxEx_Simple messageBox =
                     new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)this.FindResource("ResStr_Error"));
                 messageBox.Owner = App.Current.MainWindow;
@@ -419,7 +439,7 @@ namespace VOP
         public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
         {
             m_currentStatus = st;
-            PrintButton.IsEnabled = (false == common.IsOffline(m_currentStatus));
+           // PrintButton.IsEnabled = (false == common.IsOffline(m_currentStatus));
         }
     }
 
@@ -598,13 +618,13 @@ namespace VOP
         }
     }
 
-    public class PPTHelper
+    public class PubHelper
     {
         private string filePath;
-        private Microsoft.Office.Interop.PowerPoint.Application app;
-        private Microsoft.Office.Interop.PowerPoint.Presentation ppt;
+        private Microsoft.Office.Interop.Publisher.Application app;
+        private Microsoft.Office.Interop.Publisher.Document doc;
 
-        public PPTHelper(string s)
+        public PubHelper(string s)
         {
             filePath = s;
         }
@@ -617,17 +637,15 @@ namespace VOP
 
               //  if(oject == null)
                 {
-                    app = new Microsoft.Office.Interop.PowerPoint.Application();
+                    app = new Microsoft.Office.Interop.Publisher.Application();
                 }
              //   else
                 {
              //       app = (Microsoft.Office.Interop.PowerPoint.Application)oject;
                 }
-              
-                ppt = app.Presentations.Open(filePath, Microsoft.Office.Core.MsoTriState.msoTrue,
-                                             Microsoft.Office.Core.MsoTriState.msoFalse,
-                                             Microsoft.Office.Core.MsoTriState.msoFalse);
-                if (ppt == null)
+
+                doc = app.Open(filePath);
+                if (doc == null)
                     return false;
             }
             catch (Exception)
@@ -640,19 +658,17 @@ namespace VOP
 
         public void Close()
         {
-            ppt.Close();
-            app.Quit();
-            Marshal.FinalReleaseComObject(ppt);
+            doc.Close();
+            ((Microsoft.Office.Interop.Publisher._Application)app).Quit();
+            Marshal.FinalReleaseComObject(doc);
             Marshal.FinalReleaseComObject(app);
-            ppt = null;
+            doc = null;
             app = null;
         }
 
-        public void PrintAll(string printerName, int copies)
+        public void Print(string printerName, int copies)
         {
-            ppt.PrintOptions.ActivePrinter = printerName;
-            ppt.PrintOptions.NumberOfCopies = copies;
-            ppt.PrintOut();
+            doc.PrintOut(copies);
         }
     }
 }
