@@ -2684,7 +2684,10 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                 && DEVMON_STATUS_OK == obj.Initialize( path_dll ) )
         {
             char ch = 0;    // device path is not used 
-            if ( DEVMON_STATUS_OK == obj.Open( &ch, szIP, false, Capability, PushScanFlag ) )
+            int devmonCode = DEVMON_STATUS_OK;
+
+            devmonCode = obj.Open( &ch, szIP, false, Capability, PushScanFlag );
+            if ( DEVMON_STATUS_OK == devmonCode )
             {
                 HANDLE hFileOrig  = NULL;
 
@@ -2716,7 +2719,7 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                 nColPixelNumOrig  = height*resolution/1000; 
 				strideOrig = new BYTE[cbStridePadOrig];
 		
-                int devmonCode = obj.StartScan(); 
+                devmonCode = obj.StartScan(); 
                 if ( DEVMON_STATUS_OK != devmonCode )
                 {
                     // According the e-mail from Jerry Chen, this two value present busy.
@@ -2815,6 +2818,10 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                     delete[] strideOrig;
                     strideOrig = NULL;
                 }
+            }
+            else if ( DEVMON_ERROR_IN_USE == devmonCode )
+            {
+                nResult = RETSCAN_BUSY;
             }
             else
             {
