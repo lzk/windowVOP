@@ -197,7 +197,13 @@ namespace VOP
 
         private void ApplyButtonClick(object sender, RoutedEventArgs e)
         {
-            if(true == common.IsError(m_currentStatus))
+            string strDrvName = "";
+            string strPrinterName = "";
+            PrintError printRes = PrintError.Print_OK;
+            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+            CRM_PrintInfo crmPrintInfo = new CRM_PrintInfo();
+
+            if (true == common.IsError(m_currentStatus))
             {
                 m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
@@ -207,15 +213,40 @@ namespace VOP
                 return;
             }
 
-            string strPrinterName = "";
+            if (false == common.GetPrinterDrvName(strPrinterName, ref strDrvName))
+            {
+                m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
+                MessageBoxEx_Simple messageBox =
+                    new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)this.FindResource("ResStr_Error"));
+                messageBox.Owner = App.Current.MainWindow;
+                messageBox.ShowDialog();
+                return;
+            }
 
-            PrintError printRes = PrintError.Print_OK;
-            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-
-            CRM_PrintInfo crmPrintInfo = new CRM_PrintInfo();
-            
+           //Collect user info
+            crmPrintInfo.SetPrintDocType(CurrentPrintType);
+            crmPrintInfo.m_strPrinterName = strPrinterName;
             crmPrintInfo.m_strPrintCopys = String.Format("{0}", (sbyte)spinnerControl1.Value);
-         
+
+            bool isSFP = common.IsSFPPrinter(strDrvName);
+            bool isWiFiModel = common.IsSupportWifi(strDrvName);
+
+            if (isSFP)
+            {
+                if (isWiFiModel)
+                    crmPrintInfo.m_strPrinterModel = "Lenovo LJ2208W";
+                else
+                    crmPrintInfo.m_strPrinterModel = "Lenovo LJ2208";
+            }
+            else
+            {
+                if (isWiFiModel)
+                    crmPrintInfo.m_strPrinterModel = "Lenovo M7208W";
+                else
+                    crmPrintInfo.m_strPrinterModel = "Lenovo M7208";
+            } 
+
+  
             if (CurrentPrintType == PrintType.PrintFile_Txt)
             {
                 dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, 1);
@@ -224,7 +255,7 @@ namespace VOP
             {
                 dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
             }
-            crmPrintInfo.SetPrintDocType(CurrentPrintType);
+       
             
             switch(CurrentPrintType)
             {
@@ -374,40 +405,7 @@ namespace VOP
 
                     break;
             }
-
-           
-            strPrinterName = m_MainWin.statusPanelPage.m_selectedPrinter;
-            crmPrintInfo.m_strPrinterName = strPrinterName;
-            string strDrvName = "";
-            
-            if (false == common.GetPrinterDrvName(strPrinterName, ref strDrvName))
-            {
-                m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
-                MessageBoxEx_Simple messageBox =
-                    new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)this.FindResource("ResStr_Error"));
-                messageBox.Owner = App.Current.MainWindow;
-                messageBox.ShowDialog();
-                return;
-            }
-
-            bool isSFP = common.IsSFPPrinter(strDrvName);
-            bool isWiFiModel = common.IsSupportWifi(strDrvName);
-
-            if(isSFP)
-            {
-                if(isWiFiModel)
-                    crmPrintInfo.m_strPrinterModel = "Lenovo LJ2208W";
-                else
-                    crmPrintInfo.m_strPrinterModel = "Lenovo LJ2208";
-            }
-            else
-            {
-                if(isWiFiModel)
-                    crmPrintInfo.m_strPrinterModel = "Lenovo M7208W";
-                else
-                    crmPrintInfo.m_strPrinterModel = "Lenovo M7208";
-            } 
-            
+  
  
             if (printRes == PrintError.Print_File_Not_Support)
             {
@@ -419,6 +417,7 @@ namespace VOP
             }
             else if (printRes == PrintError.Print_Memory_Fail)
             {
+                m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
                 MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_Memory_Alloc_Fail"), (string)this.FindResource("ResStr_Error"));
                 messageBox.Owner = App.Current.MainWindow;
                 messageBox.ShowDialog();
