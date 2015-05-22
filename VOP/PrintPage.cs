@@ -261,6 +261,7 @@ namespace VOP
                             {
 
                                 PubHelper helper = new PubHelper(FilePaths[0]);
+                                dll.VopSetDefaultPrinter(m_MainWin.statusPanelPage.m_selectedPrinter);
 
                                 if (helper.Open())
                                 {
@@ -305,6 +306,19 @@ namespace VOP
                                            (int)spinnerControl1.Value);
                             }
 
+                        }
+                    }
+                    catch (COMException ex)
+                    {
+                        if((uint)ex.ErrorCode == 0x80ff000d) //Open file is locked by other process
+                        {
+                            MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple(ex.Message, (string)this.FindResource("ResStr_Warning_2"));
+                            messageBox.Owner = App.Current.MainWindow;
+                            messageBox.ShowDialog();
+                        }
+                        else
+                        {
+                            printRes = PrintError.Print_File_Not_Support;
                         }
                     }
                     catch(Exception)
@@ -439,7 +453,7 @@ namespace VOP
         public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
         {
             m_currentStatus = st;
-           // PrintButton.IsEnabled = (false == common.IsOffline(m_currentStatus));
+            PrintButton.IsEnabled = (false == common.IsOffline(m_currentStatus));
         }
     }
 
@@ -631,27 +645,11 @@ namespace VOP
 
         public bool Open()
         {
-            try
-            {
-              //  Object oject = Marshal.GetActiveObject("Powerpoint.Application");
+            app = new Microsoft.Office.Interop.Publisher.Application();
 
-              //  if(oject == null)
-                {
-                    app = new Microsoft.Office.Interop.Publisher.Application();
-                }
-             //   else
-                {
-             //       app = (Microsoft.Office.Interop.PowerPoint.Application)oject;
-                }
-
-                doc = app.Open(filePath);
-                if (doc == null)
-                    return false;
-            }
-            catch (Exception)
-            {
+            doc = app.Open(filePath, true);
+            if (doc == null)
                 return false;
-            }
 
             return true;
         }
@@ -668,7 +666,7 @@ namespace VOP
 
         public void Print(string printerName, int copies)
         {
-            doc.PrintOut(copies);
+            doc.PrintOut(-1, -1, "", copies);
         }
     }
 }
