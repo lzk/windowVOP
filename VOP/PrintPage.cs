@@ -38,6 +38,7 @@ namespace VOP
         public IdCardTypeItem SelectedTypeItem { get; set; }
 
         private bool needFitToPage = true;
+        private bool IsCopiesValidate = true;
 
         public static bool IsOpenPrintSettingPage = true;
         public static bool IsInitPrint = true;
@@ -144,6 +145,7 @@ namespace VOP
 
         private void OnCopysValidationHasError(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
+            IsCopiesValidate = e.NewValue;
             if (e.NewValue)
             {
                 PrintButton.IsEnabled = false;
@@ -464,7 +466,22 @@ namespace VOP
         public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
         {
             m_currentStatus = st;
-            PrintButton.IsEnabled = (false == common.IsOffline(m_currentStatus));
+
+            if(false == common.IsOffline(m_currentStatus))
+            {
+                if (IsCopiesValidate)
+                {
+                    PrintButton.IsEnabled = true;
+                }
+                else
+                {
+                    PrintButton.IsEnabled = false;
+                }
+            }
+            else
+            {
+                PrintButton.IsEnabled = false;
+            }
         }
     }
 
