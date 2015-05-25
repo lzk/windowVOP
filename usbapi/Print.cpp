@@ -37,6 +37,7 @@ enum IdCardType
 enum PrintError
 {
 	Print_Memory_Fail,
+	Print_Insufficient_Memory_Or_Disk_Space,
 	Print_File_Not_Support,
 	Print_Get_Default_Printer_Fail,
 	Print_Operation_Fail,
@@ -468,7 +469,7 @@ USBAPI_API int __stdcall DoPrintImage()
 					}
 					else
 					{
-						error = Print_File_Not_Support;
+						error = Print_Insufficient_Memory_Or_Disk_Space;
 					}
 					break;
 				}
@@ -595,7 +596,7 @@ USBAPI_API int __stdcall DoPrintImage()
 							}
 							else
 							{
-								error = Print_File_Not_Support;
+								error = Print_Insufficient_Memory_Or_Disk_Space;
 							}
 							break;
 						}
@@ -705,7 +706,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					}
 					else
 					{
-						error = Print_File_Not_Support;
+						error = Print_Insufficient_Memory_Or_Disk_Space;
 					}
 					break;
 				}
@@ -728,7 +729,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					}
 					else
 					{
-						error = Print_File_Not_Support;
+						error = Print_Insufficient_Memory_Or_Disk_Space;
 					}
 					break;
 				}
@@ -813,7 +814,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					}
 					else
 					{
-						error = Print_File_Not_Support;
+						error = Print_Insufficient_Memory_Or_Disk_Space;
 					}
 					break;
 				}
@@ -884,7 +885,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					}
 					else
 					{
-						error = Print_File_Not_Support;
+						error = Print_Insufficient_Memory_Or_Disk_Space;
 					}
 					break;
 				}
@@ -937,7 +938,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					}
 					else
 					{
-						error = Print_File_Not_Support;
+						error = Print_Insufficient_Memory_Or_Disk_Space;
 					}
 					break;
 				}
@@ -1016,7 +1017,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					}
 					else
 					{
-						error = Print_File_Not_Support;
+						error = Print_Insufficient_Memory_Or_Disk_Space;
 					}
 					break;
 				}
@@ -1070,7 +1071,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					}
 					else
 					{
-						error = Print_File_Not_Support;
+						error = Print_Insufficient_Memory_Or_Disk_Space;
 					}
 					break;
 				}
@@ -1150,7 +1151,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					}
 					else
 					{
-						error = Print_File_Not_Support;
+						error = Print_Insufficient_Memory_Or_Disk_Space;
 					}
 					break;
 				}

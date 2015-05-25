@@ -424,6 +424,17 @@ namespace VOP
                 messageBox.ShowDialog();
                 crmPrintInfo.m_strPrintSuccess = "false";
             }
+            else if (printRes == PrintError.Print_Insufficient_Memory_Or_Disk_Space)
+            {
+                m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
+                VOP.Controls.MessageBoxEx.Show(
+                          VOP.Controls.MessageBoxExStyle.Simple,
+                          m_MainWin,
+                          (string)this.FindResource("ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_"),
+                          (string)this.FindResource("ResStr_Error")
+                          );
+                crmPrintInfo.m_strPrintSuccess = "false";
+            }
             else if (printRes == PrintError.Print_Operation_Fail)
             {
                 m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);

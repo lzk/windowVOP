@@ -62,6 +62,15 @@ namespace VOP
                     this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
                     this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintImages;
                 }
+                catch(OutOfMemoryException)
+                {
+                    VOP.Controls.MessageBoxEx.Show(
+                        VOP.Controls.MessageBoxExStyle.Simple,
+                        m_MainWin,
+                        (string)this.FindResource("ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_"),
+                        (string)this.FindResource("ResStr_Error")
+                        );
+                }
                 catch (Exception)
                 {
                     MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_This_file_is_not_supported__please_select_another_one_"), (string)this.FindResource("ResStr_Warning_2"));
@@ -115,6 +124,15 @@ namespace VOP
                     {
                         this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile;
                     }
+                }
+                catch (OutOfMemoryException)
+                {
+                    VOP.Controls.MessageBoxEx.Show(
+                        VOP.Controls.MessageBoxExStyle.Simple,
+                        m_MainWin,
+                        (string)this.FindResource("ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_"),
+                        (string)this.FindResource("ResStr_Error")
+                        );
                 }
                 catch (Exception)
                 {
@@ -200,6 +218,16 @@ namespace VOP
                             {
                                 currentState = FileSelectionState.Exit;
                             }
+                        }
+                        catch (OutOfMemoryException)
+                        {
+                            VOP.Controls.MessageBoxEx.Show(
+                                VOP.Controls.MessageBoxExStyle.Simple,
+                                m_MainWin,
+                                (string)this.FindResource("ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_"),
+                                (string)this.FindResource("ResStr_Error")
+                                );
+                            currentState = FileSelectionState.Exit;
                         }
                         catch (Exception)
                         {
