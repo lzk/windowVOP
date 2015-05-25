@@ -2805,7 +2805,7 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                                 }
                             }
 
-                            if ( nRowsCnt == nColPixelNumOrig )
+                            if ( nRowsCnt >= nColPixelNumOrig )
                                 ::SendNotifyMessage( HWND_BROADCAST, uMsg, 100, 0); 
                             else
                                 nResult = RETSCAN_ERROR;
