@@ -840,7 +840,7 @@ namespace VOP
         /// <summary>
         /// Exit falg. True if need to exit thread statusUpdater.
         /// </summary>
-        private bool bExitUpdater = false;
+        public static bool bExitUpdater = false;
         private bool m_isShowedMaintainWindow = false;
 
         // NOTE: Those variable were used for post WM_STATUS_UPDATE message, do not for other usage.

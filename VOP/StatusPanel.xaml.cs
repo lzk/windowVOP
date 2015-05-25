@@ -354,6 +354,8 @@ namespace VOP
             }
             else
             {   
+                MainWindow.bExitUpdater = true; // Exit the status update thread.
+                m_selectedPrinter = "";
                 this.UpdateStatusPanel( EnumStatus.Offline, EnumMachineJob.UnknowJob, 0 );
 
                 //Add for BMS bug 59074
