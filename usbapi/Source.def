@@ -25,6 +25,7 @@ EXPORTS
 	ResetDefaultPrinter
 	VopSetDefaultPrinter
     PrintFile
+	GetPaperNames
 	SavePrinterSettingsData
 	SetPrinterSettingsInitData
 	GetPrinterDefaultInfo

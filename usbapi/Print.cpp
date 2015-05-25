@@ -66,6 +66,7 @@ typedef struct _IdCardSize
 
 static BOOL IsMetricCountry();
 
+USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, TCHAR *** paperNames, int * numbersOfPaper);
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int copies);
 USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage);
 USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName);
@@ -283,6 +284,64 @@ USBAPI_API int __stdcall VopSetDefaultPrinter(const TCHAR * strPrinterName)
 	{
 		return Print_Get_Default_Printer_Fail;
 	}
+}
+
+USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, TCHAR *** paperNames, int * numbersOfPaper)
+{
+	TCHAR pBuffer[100][64] = { 0 };
+	HANDLE hPrinter = NULL;
+	PDEVMODE lpDefaultData = NULL;
+	PDEVMODE lpInitData = NULL;
+	DWORD dwSize;
+	TCHAR **paperNamesLocal = *paperNames;
+
+	if (OpenPrinter(strPrinterName, &hPrinter, NULL))
+	{
+		long dmsize;
+		dmsize = DocumentProperties(NULL, hPrinter, strPrinterName, NULL, NULL, 0);
+
+		lpDefaultData = (PDEVMODE)malloc(dmsize);
+		lpInitData = (PDEVMODE)malloc(dmsize);
+
+		while (lpDefaultData == NULL && lpInitData == NULL)
+		{
+			dmsize = DocumentProperties(NULL, hPrinter, strPrinterName, NULL, NULL, 0);
+			lpDefaultData = (PDEVMODE)malloc(dmsize);
+			lpInitData = (PDEVMODE)malloc(dmsize);
+		}
+
+		if (lpDefaultData && lpInitData)
+		{
+			DocumentProperties(NULL, hPrinter, strPrinterName,
+				lpDefaultData, NULL, DM_OUT_BUFFER);
+
+			DocumentProperties(NULL, hPrinter, strPrinterName,
+				lpInitData, lpDefaultData, DM_IN_BUFFER | DM_OUT_BUFFER);
+
+			dwSize = DeviceCapabilities(strPrinterName, NULL, DC_PAPERNAMES, NULL, NULL);
+			*numbersOfPaper = dwSize;
+
+			if (dwSize)
+			{
+				if (pBuffer)
+				{
+					DeviceCapabilities(strPrinterName, NULL, DC_PAPERNAMES, *pBuffer, lpInitData);
+
+					for (int i = 0; i < dwSize; i++)
+					{
+						wcscpy(paperNamesLocal[i], pBuffer[i]);
+					}
+				}
+			}
+
+			free(lpDefaultData);
+			free(lpInitData);
+		}
+	}
+
+	ClosePrinter(hPrinter);
+
+	return 1;
 }
 
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int copies)

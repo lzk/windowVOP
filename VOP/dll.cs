@@ -231,6 +231,12 @@ namespace VOP
                int copies);
 
         [DllImport("usbapi.dll")]
+        public static extern int GetPaperNames(
+                [MarshalAs(UnmanagedType.LPWStr)]string printerName,
+                [In, Out][MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPWStr, SizeConst = 100)] ref string[] paperNames,
+                ref int numbersOfPaper);
+
+        [DllImport("usbapi.dll")]
         public static extern int OutputDebugStringToFile_([MarshalAs(UnmanagedType.LPWStr)]string _lpFormat);
 
         [DllImport("usbapi.dll")]

@@ -268,7 +268,7 @@ namespace VOP
         public PrintSettingPage()
         {
             DataContext = this;
-            InitBaseUserDefinedSizeItems();
+           // InitBaseUserDefinedSizeItems();
             InitializeComponent();
             this.Width = this.Width * App.gScalingRate;
             this.Height = this.Height * App.gScalingRate;
@@ -284,7 +284,7 @@ namespace VOP
             tb.LostFocus += new RoutedEventHandler(SpinnerTextBox_LostFocus);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
 
-            UpdatePaperSizeComboBox(true, 0);
+            GetPaperNamesFromDriver();
             InitCboMediaType();
             if (FileSelectionPage.IsInitPrintSettingPage)
             {
@@ -301,7 +301,6 @@ namespace VOP
                 InitSettings();
                 GetDataFromPrinterInfo();
             }
-//            UpdatePaperSizeCombobox(true, 0);
 
             InitFontSize();
         }
@@ -383,6 +382,35 @@ namespace VOP
                 new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_16K")},
                 new UserDefinedSizeItem(){UserDefinedName = (string)this.TryFindResource("ResStr_User_Defined_Size")} 
             };
+        }
+
+        private void GetPaperNamesFromDriver()
+        {
+            string[] paperNames = new string[100];
+
+            for (int i = 0; i < 100; i++)
+            {
+                paperNames[i] = "";
+            }
+
+            int numbersOfPaper = 0;
+
+            dll.GetPaperNames(m_MainWin.statusPanelPage.m_selectedPrinter, ref paperNames, ref numbersOfPaper);
+
+            for (int i = 0; i < numbersOfPaper; i++)
+            {
+                UserDefinedSizeItems.Add(new UserDefinedSizeItem()
+                {
+                    UserDefinedName = paperNames[i],
+                    IsMM = true,
+                    Width = 0,
+                    Height = 0,
+                });
+            }
+
+            Binding myBinding = new Binding();
+            myBinding.Source = UserDefinedSizeItems;
+            cboPaperSize.SetBinding(ComboBox.ItemsSourceProperty, myBinding);
         }
 
         private void UpdatePaperSizeComboBox(bool Read, int selectIndex)
