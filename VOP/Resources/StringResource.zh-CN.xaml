@@ -211,6 +211,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation">子网掩码输入有误，请确认后再次输入</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_30__please_confirm_and_enter_again_">有效值输入范围为1到30，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_">有效值输入范围为-6到6，请确认后再次输入。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__2_to_2__please_confirm_and_enter_again_">有效值输入范围为-2到2，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__3_to_3__please_confirm_and_enter_again_">有效值输入范围为-3到3，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_1__please_confirm_and_enter_again_">有效值输入范围为0到1，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_boot_the_machine_after_more_than_30_minutes_to_protect_the_machine_">请关闭机器30分钟以上再开机，以免损坏机器。</sys:String>

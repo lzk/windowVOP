@@ -300,7 +300,21 @@ namespace VOP
             int textValue = 0;
             if (!spinnerCtl.IsFocused)
             {
-                if ("spinCtlEdge" == spinnerCtl.Name || "spinCtlSide2Side" == spinnerCtl.Name)
+                if ("spinCtlEdge" == spinnerCtl.Name)
+                {
+                    if (int.TryParse(tb.Text, out textValue))
+                    {
+                        if (textValue > 2)
+                            tb.Text = "2";
+                        else if (textValue < -2)
+                            tb.Text = "-2";
+                    }
+                    else
+                    {
+                        tb.Text = "0";
+                    }
+                }
+                else if ("spinCtlSide2Side" == spinnerCtl.Name)
                 {
                     if (int.TryParse(tb.Text, out textValue))
                     {

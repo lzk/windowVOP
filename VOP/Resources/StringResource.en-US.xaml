@@ -211,6 +211,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation">The subnet mask input error, please input again after confirmation</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_30__please_confirm_and_enter_again_">The valid range is 1 to 30, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_">The valid range is from -6 to 6, please confirm and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__2_to_2__please_confirm_and_enter_again_">The valid range is from -2 to 2, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__3_to_3__please_confirm_and_enter_again_">The valid range is from -3 to 3, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_1__please_confirm_and_enter_again_">The valid range is 0 to 1, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_boot_the_machine_after_more_than_30_minutes_to_protect_the_machine_">Please boot the machine after more than 30 minutes to protect the machine.</sys:String>
