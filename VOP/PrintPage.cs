@@ -350,6 +350,16 @@ namespace VOP
                             messageBox.Owner = App.Current.MainWindow;
                             messageBox.ShowDialog();
                         }
+                        else if ((uint)ex.ErrorCode == 0x800a03ec)//Insufficient disk space
+                        {
+                            m_MainWin.statusPanelPage.ShowMessage((string)this.TryFindResource("ResStr_Print_Fail"), Brushes.Red);
+                            VOP.Controls.MessageBoxEx.Show(
+                             VOP.Controls.MessageBoxExStyle.Simple,
+                             m_MainWin,
+                             (string)this.FindResource("ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_"),
+                             (string)this.FindResource("ResStr_Error")
+                             );
+                        }
                         else
                         {
                             printRes = PrintError.Print_File_Not_Support;
