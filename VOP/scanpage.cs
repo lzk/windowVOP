@@ -443,6 +443,7 @@ namespace VOP
         {
             List<string> files = new List<string>();
             GetSelectedFile( files );
+            FileSelectionPage.IsInitPrintSettingPage = true;//Init print setting
 
             m_MainWin.SwitchToPrintingPage( files );
         }
