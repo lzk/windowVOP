@@ -281,6 +281,10 @@ namespace VOP
                                 (string)this.FindResource( "ResStr_Error" )
                                 );
                     }
+                    else
+                    {
+                        m_rotatedAngle = 0; // Fixed #0059434.
+                    }
                 }
                 else
                 {
