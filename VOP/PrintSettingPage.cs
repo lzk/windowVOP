@@ -390,7 +390,7 @@ namespace VOP
 
             for (int i = 0; i < 100; i++)
             {
-                paperNames[i] = "";
+                paperNames[i] = ""; //allocate string
             }
 
             int numbersOfPaper = 0;
