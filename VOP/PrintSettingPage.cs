@@ -304,11 +304,7 @@ namespace VOP
             }
 
             InitFontSize();
-<<<<<<< HEAD
-=======
 
-//            ScalingGroup.IsEnabled = false;
->>>>>>> fixed #59426
         }
 
         void InitFontSize()
