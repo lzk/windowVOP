@@ -6,7 +6,7 @@
         ShowInTaskbar="False" 
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" 
-        FontFamily="幼圆,SimSun"
+        FontFamily="微软雅黑,SimSun"
         Style="{StaticResource for_noresize_window}">
     <Window.Resources>
         <ResourceDictionary>

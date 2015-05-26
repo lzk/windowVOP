@@ -151,8 +151,8 @@ namespace VOP
 
             if (0x804 == App.LangId)
             {
-                TextElement.FontFamilyProperty.OverrideMetadata(typeof(TextElement), new FrameworkPropertyMetadata(new FontFamily("幼圆,SimSun")));
-                TextBlock.FontFamilyProperty.OverrideMetadata(typeof(TextBlock), new FrameworkPropertyMetadata(new FontFamily("幼圆,SimSun")));            
+                TextElement.FontFamilyProperty.OverrideMetadata(typeof(TextElement), new FrameworkPropertyMetadata(new FontFamily("微软雅黑,SimSun")));
+                TextBlock.FontFamilyProperty.OverrideMetadata(typeof(TextBlock), new FrameworkPropertyMetadata(new FontFamily("微软雅黑,SimSun")));            
             }
             else
             {
