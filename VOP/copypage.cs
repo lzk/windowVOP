@@ -169,39 +169,48 @@ namespace VOP
                     byteNin1 = 4; // This value present sending ID Card Copy command.
                 }
 
-
-                EnumCmdResult ret = (EnumCmdResult)dll.SendCopyCmd( 
-                        m_MainWin.statusPanelPage.m_selectedPrinter,
-                        m_density,
-                        (byte)spinCtlCopies.Value,
-                        (byte)m_scanMode,
-                        (byte)m_docSize,
-                        (byte)m_outputSize,
-                        (byte)byteNin1,
-                        (byte)m_dpi,
-                        (ushort)m_scaling,
-                        (byte)m_mediaType );
-
-                switch ( ret )
+                if ( m_oldJob == EnumMachineJob.IDCardCopyJob
+                        || m_oldJob == EnumMachineJob.NormalCopyJob )
                 {
-                    case EnumCmdResult._ACK:
-                        break;
-                    case EnumCmdResult._Printer_busy:
-                        VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
-                                m_MainWin,
-                                (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
-                                (string)this.FindResource( "ResStr_Warning" ));
-                        break;
-                    default:
-                        m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
-
-                        VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
-                                m_MainWin,
-                                (string)this.FindResource( "ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
-                                (string)this.FindResource( "ResStr_Error" ));
-                        break;
+                    VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                            m_MainWin,
+                            (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
+                            (string)this.FindResource( "ResStr_Warning" ));
                 }
+                else
+                {
+                    EnumCmdResult ret = (EnumCmdResult)dll.SendCopyCmd( 
+                            m_MainWin.statusPanelPage.m_selectedPrinter,
+                            m_density,
+                            (byte)spinCtlCopies.Value,
+                            (byte)m_scanMode,
+                            (byte)m_docSize,
+                            (byte)m_outputSize,
+                            (byte)byteNin1,
+                            (byte)m_dpi,
+                            (ushort)m_scaling,
+                            (byte)m_mediaType );
 
+                    switch ( ret )
+                    {
+                        case EnumCmdResult._ACK:
+                            break;
+                        case EnumCmdResult._Printer_busy:
+                            VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                                    m_MainWin,
+                                    (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
+                                    (string)this.FindResource( "ResStr_Warning" ));
+                            break;
+                        default:
+                            m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
+
+                            VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                                    m_MainWin,
+                                    (string)this.FindResource( "ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
+                                    (string)this.FindResource( "ResStr_Error" ));
+                            break;
+                    }
+                }
             }
             
         }
