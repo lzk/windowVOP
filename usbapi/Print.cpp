@@ -185,7 +185,6 @@ static ULONG_PTR gdiplusToken;
 static int currentIdCardType = 0;
 static IdCardSize currentIdCardSize = { 0 };
 static bool needFitToPage = false;
-Gdiplus::Size A4Size(21, 29.7); //unit cm
 static PCLDEVMODE getdevmode;
 static PCLDEVMODE getDocumentPropertiesData;
 static PCLDEVMODE getOutputData;
@@ -384,7 +383,7 @@ USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, SAFEARRAY** paper
 				{
 					DeviceCapabilities(strPrinterName, NULL, DC_PAPERNAMES, *pBuffer, lpInitData);
 
-					for (int i = 0; i < dwSize; i++)
+					for (UINT i = 0; i < dwSize; i++)
 					{
 						//wcscpy(paperNamesLocal[i], pBuffer[i]);
 						bstrArray[i] = ::SysAllocString(pBuffer[i]);
@@ -397,7 +396,7 @@ USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, SAFEARRAY** paper
 						paperNames
 						);
 
-					for (int i = 0; i < dwSize; i++)
+					for (UINT i = 0; i < dwSize; i++)
 					{
 						::SysFreeString(bstrArray[i]);
 					}
@@ -655,8 +654,8 @@ USBAPI_API int __stdcall DoPrintImage()
 						Gdiplus::REAL dpiX = pImg->GetHorizontalResolution();
 						Gdiplus::REAL dpiY = pImg->GetVerticalResolution();
 
-						int w = round(pImg->GetWidth() * (600 / dpiX));
-						int h = round(pImg->GetHeight()* (600 / dpiY));
+						int w = (int)round(pImg->GetWidth() * (600 / dpiX));
+						int h = (int)round(pImg->GetHeight()* (600 / dpiY));
 		
 						double whRatio = (double)w / h;
 						double scaleRatioX = (double)w / cxPage;
@@ -682,8 +681,8 @@ USBAPI_API int __stdcall DoPrintImage()
 						
 						if (IsFitted == TRUE)
 						{
-							w = round(pImg->GetWidth() * (600 / dpiX));
-							h = round(pImg->GetHeight()* (600 / dpiY));
+							w = (int)round(pImg->GetWidth() * (600 / dpiX));
+							h = (int)round(pImg->GetHeight()* (600 / dpiY));
 							x = 0; //Align Top left
 							y = 0;
 						}
@@ -692,13 +691,13 @@ USBAPI_API int __stdcall DoPrintImage()
 							if (scaleRatioX > scaleRatioY)
 							{
 								w = cxPage;
-								h = round(((double)cxPage / whRatio));
+								h = (int)round(((double)cxPage / whRatio));
 								//y = (cyPage - h) / 2;
 								y = 0;
 							}
 							else if (scaleRatioX < scaleRatioY)
 							{
-								w = round(((double)cyPage * whRatio));
+								w = (int)round(((double)cyPage * whRatio));
 								h = cyPage;
 								//x = (cxPage - w) / 2;
 								x = 0;
@@ -904,7 +903,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2;
 					imageToTop = (cyPage / 2 - imageHeight) / 2;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(0.0f);
 					break;
 				case 90:
@@ -914,7 +913,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
 					imageToTop = (cyPage / 2 - imageWidth) / 2;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(90.0f);
 					break;
 				case 180:
@@ -924,7 +923,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
 					imageToTop = (cyPage / 2 - imageHeight) / 2 + imageHeight;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(180.0f);
 					break;
 				case 270:
@@ -934,12 +933,12 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2;
 					imageToTop = (cyPage / 2 - imageWidth) / 2 + imageWidth;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(270.0f);
 					break;
 				}
 
-				if ((status = pGraphics->DrawImage(pImg1, 0, 0, round(imageWidth), round(imageHeight))) != Gdiplus::Ok)
+				if ((status = pGraphics->DrawImage(pImg1, 0, 0, (int)round(imageWidth), (int)round(imageHeight))) != Gdiplus::Ok)
 				{
 					if (pImg1)
 						delete pImg1;
@@ -975,7 +974,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2;
 					imageToTop = (cyPage / 2 - imageHeight) / 2 + cyPage / 2;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(0.0f);
 					break;
 				case 90:
@@ -985,7 +984,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
 					imageToTop = (cyPage / 2 - imageWidth) / 2 + cyPage / 2;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(90.0f);
 					break;
 				case 180:
@@ -995,7 +994,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
 					imageToTop = (cyPage / 2 - imageHeight) / 2 + imageHeight + cyPage / 2;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(180.0f);
 					break;
 				case 270:
@@ -1005,12 +1004,12 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2;
 					imageToTop = (cyPage / 2 - imageWidth) / 2 + imageWidth + cyPage / 2;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(270.0f);
 					break;
 				}
 
-				if ((status = pGraphics->DrawImage(pImg2, 0, 0, round(imageWidth), round(imageHeight))) != Gdiplus::Ok)
+				if ((status = pGraphics->DrawImage(pImg2, 0, 0, (int)round(imageWidth), (int)round(imageHeight))) != Gdiplus::Ok)
 				{
 					if (pImg1)
 						delete pImg1;
@@ -1110,7 +1109,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2;
 					imageToTop = (cyPage - imageHeight) / 2;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(0.0f);
 					break;
 				case 90:
@@ -1120,7 +1119,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
 					imageToTop = (cyPage - imageWidth) / 2;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(90.0f);
 					break;
 				case 180:
@@ -1130,7 +1129,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
 					imageToTop = (cyPage - imageHeight) / 2 + imageHeight;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(180.0f);
 					break;
 				case 270:
@@ -1140,12 +1139,12 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2;
 					imageToTop = (cyPage - imageWidth) / 2 + imageWidth;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(270.0f);
 					break;
 				}
 
-				if ((status = pGraphics->DrawImage(pImg1, 0, 0, round(imageWidth), round(imageHeight))) != Gdiplus::Ok)
+				if ((status = pGraphics->DrawImage(pImg1, 0, 0, (int)round(imageWidth), (int)round(imageHeight))) != Gdiplus::Ok)
 				{
 					if (pImg1)
 						delete pImg1;
@@ -1243,7 +1242,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2;
 					imageToTop = (cyPage - imageWidth) / 2 + imageWidth;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(270.0f);
 					break;
 				case 90:
@@ -1253,7 +1252,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2;
 					imageToTop = (cyPage - imageHeight) / 2;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(0.0f);
 					break;
 				case 180:
@@ -1263,7 +1262,7 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageHeight) / 2 + imageHeight;
 					imageToTop = (cyPage - imageWidth) / 2;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(90.0f);
 					break;
 				case 270:
@@ -1273,13 +1272,13 @@ USBAPI_API int __stdcall DoPrintIdCard()
 					imageToLeft = (cxPage - imageWidth) / 2 + imageWidth;
 					imageToTop = (cyPage - imageHeight) / 2 + imageHeight;
 
-					pGraphics->TranslateTransform(imageToLeft, imageToTop);
+					pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 					pGraphics->RotateTransform(180.0f);
 					break;
 				}
 
 
-				if ((status = pGraphics->DrawImage(pImg1, 0, 0, round(imageWidth), round(imageHeight))) != Gdiplus::Ok)
+				if ((status = pGraphics->DrawImage(pImg1, 0, 0, (int)round(imageWidth), (int)round(imageHeight))) != Gdiplus::Ok)
 				{
 					if (pImg1)
 						delete pImg1;
@@ -1406,7 +1405,7 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData()
 	g_PirntSettingsData.m_booklet = 0;
 	g_PirntSettingsData.m_watermark = 0;
 		
-	bool bIsMetrice = IsMetricCountry();
+	BOOL bIsMetrice = IsMetricCountry();
 	if (bIsMetrice)
 	{
 		g_PirntSettingsData.m_paperSize = 0;
