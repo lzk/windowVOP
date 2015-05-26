@@ -61,6 +61,31 @@ namespace VOP
         public string   m_strStatusChange;
         public string   m_strTimeCreate;
         public string   m_strTimeLastModify;
+
+        public void OutputDebugStringIntoFile()
+        {
+            string strText = "";
+            dll.OutputDebugStringToFile_("\r\n##########################\r\n");
+            strText = String.Format("Province:{0}\r\n", m_strProvince);
+            dll.OutputDebugStringToFile_(strText);
+
+            strText = String.Format("City:{0}\r\n", m_strCity);
+            dll.OutputDebugStringToFile_(strText);
+
+            strText = String.Format("Address:{0}\r\n", m_strAddress);
+            dll.OutputDebugStringToFile_(strText);
+
+            strText = String.Format("Mail:{0}\r\n", m_strMail);
+            dll.OutputDebugStringToFile_(strText);
+            
+            strText = String.Format("CompanyName:{0}\r\n", m_strCompanyName);
+            dll.OutputDebugStringToFile_(strText);
+
+            strText = String.Format("Desctiption:{0}\r\n", m_strDesctiption);
+            dll.OutputDebugStringToFile_(strText);
+
+            dll.OutputDebugStringToFile_("\r\n##########################\r\n");
+        }
     };
 
     public class MerchantInfoSet
@@ -430,6 +455,7 @@ namespace VOP
                                 merchantInfo.m_strTimeCreate = ja[nIdx]["merchant_time_create"].ToString();
                                 merchantInfo.m_strTimeLastModify = ja[nIdx]["merchant_time_lastmodify"].ToString();
 
+                                merchantInfo.OutputDebugStringIntoFile();
                                 ((MerchantInfoSet)(dynamic)record).m_listMerchantInfo.Add(merchantInfo);
                             }
 
