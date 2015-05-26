@@ -1576,7 +1576,9 @@ USBAPI_API int __stdcall GetSoftAp( const wchar_t* szPrinter, char* ssid, char* 
             // strcpy_s( pwd, 64, pcmd_softap->pwd );
 
             memcpy( ssid, pcmd_softap->ssid, 32); ssid[32] = 0;
+			OutputDebugStringToFileA("\r\nssid: %s", ssid);
             memcpy( pwd, pcmd_softap->pwd, 64); pwd[64] = 0;
+			OutputDebugStringToFileA("\r\npwd: %s", pwd);
 
 			*ptr_wifi_enable = (0x06 == (pcmd_softap->wifiEnable & 0x06));
         }
