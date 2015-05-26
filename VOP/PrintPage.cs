@@ -145,7 +145,7 @@ namespace VOP
 
         private void OnCopysValidationHasError(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
-            IsCopiesValidate = e.NewValue;
+            IsCopiesValidate = !e.NewValue;
             if (e.NewValue)
             {
                 PrintButton.IsEnabled = false;
@@ -335,7 +335,7 @@ namespace VOP
                             {
                                 printRes = worker.InvokePrintFileMethod(dll.PrintFile,
                                            m_MainWin.statusPanelPage.m_selectedPrinter,
-                                           FilePaths[0].ToLower(),
+                                           FilePaths[0],
                                            needFitToPage,
                                            (int)spinnerControl1.Value);
                             }
@@ -379,7 +379,7 @@ namespace VOP
 
                         foreach (string path in FilePaths)
                         {
-                            dll.AddImagePath(path.ToLower());
+                            dll.AddImagePath(path);
                         }
 
                         printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintImage);
@@ -477,7 +477,7 @@ namespace VOP
         {
             m_currentStatus = st;
 
-            if(false == common.IsOffline(m_currentStatus))
+            if (false == common.IsOffline(m_currentStatus))
             {
                 if (IsCopiesValidate)
                 {

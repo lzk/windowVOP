@@ -392,18 +392,11 @@ namespace VOP
 
         private void GetPaperNamesFromDriver()
         {
-            string[] paperNames = new string[100];
+            string[] paperNames = null;
 
-            for (int i = 0; i < 100; i++)
-            {
-                paperNames[i] = ""; //allocate string
-            }
+            dll.GetPaperNames(m_MainWin.statusPanelPage.m_selectedPrinter, out  paperNames);
 
-            int numbersOfPaper = 0;
-
-            dll.GetPaperNames(m_MainWin.statusPanelPage.m_selectedPrinter, ref paperNames, ref numbersOfPaper);
-
-            for (int i = 0; i < numbersOfPaper; i++)
+            for (int i = 0; i < paperNames.Length; i++)
             {
                 UserDefinedSizeItems.Add(new UserDefinedSizeItem()
                 {

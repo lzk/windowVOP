@@ -12,6 +12,7 @@
 #include "DEVMODE.H"
 #include <winspool.h>
 #include <math.h>
+#include <cctype>
 
 #pragma comment(lib, "Shlwapi.lib")
 #pragma comment(lib, "gdiplus.lib")
@@ -66,7 +67,7 @@ typedef struct _IdCardSize
 
 static BOOL IsMetricCountry();
 
-USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, TCHAR *** paperNames, int * numbersOfPaper);
+USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, SAFEARRAY** paperNames);
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int copies);
 USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage);
 USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName);
@@ -286,14 +287,71 @@ USBAPI_API int __stdcall VopSetDefaultPrinter(const TCHAR * strPrinterName)
 	}
 }
 
-USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, TCHAR *** paperNames, int * numbersOfPaper)
+long CreateSafeArrayFromBSTRArray
+(
+BSTR* pBSTRArray,
+ULONG ulArraySize,
+SAFEARRAY** ppSafeArrayReceiver
+)
+{
+	HRESULT hrRetTemp = S_OK;
+	SAFEARRAY* pSAFEARRAYRet = NULL;
+	SAFEARRAYBOUND rgsabound[1];
+	ULONG ulIndex = 0;
+	long lRet = 0;
+
+	// Initialise receiver.
+	if (ppSafeArrayReceiver)
+	{
+		*ppSafeArrayReceiver = NULL;
+	}
+
+	if (pBSTRArray)
+	{
+		rgsabound[0].lLbound = 0;
+		rgsabound[0].cElements = ulArraySize;
+
+		pSAFEARRAYRet = (SAFEARRAY*)SafeArrayCreate
+			(
+			(VARTYPE)VT_BSTR,
+			(unsigned int)1,
+			(SAFEARRAYBOUND*)rgsabound
+			);
+	}
+
+	for (ulIndex = 0; ulIndex < ulArraySize; ulIndex++)
+	{
+		long lIndexVector[1];
+
+		lIndexVector[0] = ulIndex;
+
+		// Since pSAFEARRAYRet is created as a SafeArray of VT_BSTR,
+		// SafeArrayPutElement() will create a copy of each BSTR
+		// inserted into the SafeArray.
+		SafeArrayPutElement
+			(
+			(SAFEARRAY*)pSAFEARRAYRet,
+			(long*)lIndexVector,
+			(void*)(pBSTRArray[ulIndex])
+			);
+	}
+
+	if (pSAFEARRAYRet)
+	{
+		*ppSafeArrayReceiver = pSAFEARRAYRet;
+	}
+
+	return lRet;
+}
+
+USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, SAFEARRAY** paperNames)
 {
 	TCHAR pBuffer[100][64] = { 0 };
+	BSTR bstrArray[100] = { 0 };
 	HANDLE hPrinter = NULL;
 	PDEVMODE lpDefaultData = NULL;
 	PDEVMODE lpInitData = NULL;
 	DWORD dwSize;
-	TCHAR **paperNamesLocal = *paperNames;
 
 	if (OpenPrinter(strPrinterName, &hPrinter, NULL))
 	{
@@ -319,8 +377,7 @@ USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, TCHAR *** paperNa
 				lpInitData, lpDefaultData, DM_IN_BUFFER | DM_OUT_BUFFER);
 
 			dwSize = DeviceCapabilities(strPrinterName, NULL, DC_PAPERNAMES, NULL, NULL);
-			*numbersOfPaper = dwSize;
-
+			
 			if (dwSize)
 			{
 				if (pBuffer)
@@ -329,8 +386,22 @@ USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, TCHAR *** paperNa
 
 					for (int i = 0; i < dwSize; i++)
 					{
-						wcscpy(paperNamesLocal[i], pBuffer[i]);
+						//wcscpy(paperNamesLocal[i], pBuffer[i]);
+						bstrArray[i] = ::SysAllocString(pBuffer[i]);
 					}
+
+					CreateSafeArrayFromBSTRArray
+						(
+						bstrArray,
+						dwSize,
+						paperNames
+						);
+
+					for (int i = 0; i < dwSize; i++)
+					{
+						::SysFreeString(bstrArray[i]);
+					}
+
 				}
 			}
 
@@ -365,9 +436,12 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	ShExecInfo.hInstApp = NULL;
 
 	fileExt = PathFindExtension(strFileName);
+	std::wstring strExt(fileExt);
+	std::transform(strExt.begin(), strExt.end(), strExt.begin(), std::tolower);
+
 	fileName = PathFindFileName(strFileName);
 
-	if (   _tcscmp(fileExt, L".bmp") == 0
+	/*if (   _tcscmp(fileExt, L".bmp") == 0
 		|| _tcscmp(fileExt, L".ico") == 0
 		|| _tcscmp(fileExt, L".gif") == 0
 		|| _tcscmp(fileExt, L".jpg") == 0
@@ -375,7 +449,16 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 		|| _tcscmp(fileExt, L".png") == 0
 		|| _tcscmp(fileExt, L".tif") == 0
 		|| _tcscmp(fileExt, L".wmf") == 0
-		|| _tcscmp(fileExt, L".emf") == 0)
+		|| _tcscmp(fileExt, L".emf") == 0)*/
+	if (    strExt.compare(L".bmp") == 0
+		||  strExt.compare(L".ico") == 0
+		||  strExt.compare(L".gif") == 0
+		||  strExt.compare(L".jpg") == 0
+		||  strExt.compare(L".exif") == 0
+		||  strExt.compare(L".png") == 0
+		||  strExt.compare(L".tif") == 0
+		||  strExt.compare(L".wmf") == 0
+		||  strExt.compare(L".emf") == 0)
 	{
 		if (PrintInit(strPrinterName, fileName, 0, NULL, fitToPage))
 		{
@@ -498,16 +581,19 @@ USBAPI_API int __stdcall DoPrintImage()
 		for (UINT i = 0; i < g_vecImagePaths.size(); i++)
 		{
 			fileExt = PathFindExtension(g_vecImagePaths[i].c_str());
-		
-			if (   _tcscmp(fileExt, L".bmp") == 0
-				|| _tcscmp(fileExt, L".ico") == 0
-				|| _tcscmp(fileExt, L".gif") == 0
-				|| _tcscmp(fileExt, L".jpg") == 0
-				|| _tcscmp(fileExt, L".exif") == 0
-				|| _tcscmp(fileExt, L".png") == 0
-				|| _tcscmp(fileExt, L".tif") == 0
-				|| _tcscmp(fileExt, L".wmf") == 0
-				|| _tcscmp(fileExt, L".emf") == 0)
+
+			std::wstring strExt(fileExt);
+			std::transform(strExt.begin(), strExt.end(), strExt.begin(), std::tolower);
+
+			if (   strExt.compare(L".bmp") == 0
+				|| strExt.compare(L".ico") == 0
+				|| strExt.compare(L".gif") == 0
+				|| strExt.compare(L".jpg") == 0
+				|| strExt.compare(L".exif") == 0
+				|| strExt.compare(L".png") == 0
+				|| strExt.compare(L".tif") == 0
+				|| strExt.compare(L".wmf") == 0
+				|| strExt.compare(L".emf") == 0)
 			{
 				Gdiplus::Image *pImg = NULL;
 				pImg = Gdiplus::Image::FromFile(g_vecImagePaths[i].c_str());
