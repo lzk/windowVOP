@@ -14,7 +14,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Warning">警告</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Error">错误</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Offline">离线</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Toner">碳粉容量:</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Toner">碳粉容量：</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printing">打印中</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_WarmingUp">预热</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Cancelling">打印取消</sys:String>
