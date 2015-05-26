@@ -290,6 +290,7 @@ namespace VOP
             {
                 SetDefaultValue();
                 dll.SetPrinterSettingsInitData();
+                GetFixToPaperSizeValues();
                 dll.SaveFixToPaperSizeData(m_fixToPaperSize);
 //               dll.GetPrinterSettingsData(ref m_paperSize, ref m_paperOrientation, ref m_mediaType, ref m_paperOrder, ref m_printQuality, ref m_scalingType, ref m_scalingRatio, ref m_nupNum, ref m_typeofPB, ref m_posterType, ref m_ADJColorBalance, ref  m_colorBalanceTo, ref m_densityValue, ref m_duplexPrint, ref m_documentStyle, ref m_reversePrint, ref m_tonerSaving, ref m_copies, ref m_booklet, ref m_watermark);
 //               dll.SavePrinterSettingsData(m_paperSize, m_paperOrientation, m_mediaType, m_paperOrder, m_printQuality, m_scalingType, m_scalingRatio, m_nupNum, m_typeofPB, m_posterType, m_ADJColorBalance, m_colorBalanceTo, m_densityValue, m_duplexPrint, m_documentStyle, m_reversePrint, m_tonerSaving, m_copies, m_booklet, m_watermark);
@@ -303,6 +304,11 @@ namespace VOP
             }
 
             InitFontSize();
+<<<<<<< HEAD
+=======
+
+//            ScalingGroup.IsEnabled = false;
+>>>>>>> fixed #59426
         }
 
         void InitFontSize()
@@ -918,7 +924,6 @@ namespace VOP
         {
             spinnerScaling.Value = 100;
             spinnerScaling.IsEnabled = false;
-            m_fixToPaperSize = 1;
         }
 
         private void chk_FitToPaperSize_Unchecked(object sender, RoutedEventArgs e)
@@ -931,7 +936,6 @@ namespace VOP
             {
                 spinnerScaling.IsEnabled = true;
             }
-            m_fixToPaperSize = 0;
         }
        
         private void GetScalingValues()
@@ -963,7 +967,13 @@ namespace VOP
                 }
             }
         }
-
+        private void GetFixToPaperSizeValues()
+        {
+            if (chk_FitToPaperSize.IsChecked == true)
+                m_fixToPaperSize = 1;
+            else
+                m_fixToPaperSize = 0;
+        }
         private void rdBtnPortrait_Checked(object sender, RoutedEventArgs e)
         {
             m_paperOrientation = 1;//Portrait = 1, Landscape = 2,
@@ -979,7 +989,7 @@ namespace VOP
             string printerName = m_MainWin.statusPanelPage.m_selectedPrinter;
 
             GetDensityValues();
-            GetScalingValues();
+            GetScalingValues();         
 
             if (printerName != null && printerName.Length > 0)
             {
@@ -1002,6 +1012,7 @@ namespace VOP
 
             GetDensityValues();
             GetScalingValues();
+            GetFixToPaperSizeValues();
 
             if (printerName != null && printerName.Length > 0)
             {
