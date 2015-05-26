@@ -212,7 +212,7 @@ namespace VOP
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                     m_MainWin,
                     (string)this.FindResource("ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
-                    (string)this.FindResource("ResStr_Warning"));
+                    (string)this.FindResource("ResStr_Error"));
                 return;
             }
 
