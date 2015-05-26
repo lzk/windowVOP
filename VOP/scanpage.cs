@@ -220,21 +220,20 @@ namespace VOP
 
         public void DoScanning()
         {
-            string strFolder = System.IO.Path.GetTempPath()+"VOPCache\\";
             string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString( "D10" );
 
-            if ( false == Directory.Exists(strFolder) ) 
+            if ( false == Directory.Exists(App.cacheFolder) ) 
             {
-                Directory.CreateDirectory( strFolder );
+                Directory.CreateDirectory( App.cacheFolder );
             }
 
             lock ( objLock )
             {
                 m_shareObj = new ScanFiles();
                 m_shareObj.m_colorMode = m_color;
-                m_shareObj.m_pathOrig  = strFolder + "vopOrig" + strSuffix + ".bmp";
-                m_shareObj.m_pathView  = strFolder + "vopView" + strSuffix + ".bmp";
-                m_shareObj.m_pathThumb = strFolder + "vopThum" + strSuffix + ".bmp";
+                m_shareObj.m_pathOrig  = App.cacheFolder + "\\vopOrig" + strSuffix + ".bmp";
+                m_shareObj.m_pathView  = App.cacheFolder + "\\vopView" + strSuffix + ".bmp";
+                m_shareObj.m_pathThumb = App.cacheFolder + "\\vopThum" + strSuffix + ".bmp";
             }
 
             int scanMode   = (int)m_color;
@@ -571,26 +570,37 @@ namespace VOP
                     }
                     else if (2 == save.FilterIndex)
                     {
-                        using (PdfHelper help = new PdfHelper())
+                        if ( false == DoseHasEnoughSpace( App.cacheFolder ) )
                         {
-                            help.Open(save.FileName);
-
-                            foreach (object obj in image_wrappanel.Children)
+                            VOP.Controls.MessageBoxEx.Show(
+                                    VOP.Controls.MessageBoxExStyle.Simple,
+                                    Application.Current.MainWindow,
+                                    (string)this.FindResource("ResStr_insufficient_system_disk_space"),
+                                    (string)this.FindResource("ResStr_Error"));
+                        }
+                        else
+                        {
+                            using (PdfHelper help = new PdfHelper())
                             {
-                                ImageItem img = obj as ImageItem;
+                                help.Open(save.FileName);
 
-                                if (null != img && true == img.m_ischeck)
+                                foreach (object obj in image_wrappanel.Children)
                                 {
-                                    Uri myUri = new Uri(img.m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
-                                    BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
-                                    BitmapSource origSource = decoder.Frames[0];
+                                    ImageItem img = obj as ImageItem;
 
-                                    if ( null != origSource )
-                                        help.AddImage(origSource, 0);
-                                }
-                            }  
+                                    if (null != img && true == img.m_ischeck)
+                                    {
+                                        Uri myUri = new Uri(img.m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
+                                        BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
+                                        BitmapSource origSource = decoder.Frames[0];
 
-                            help.Close();
+                                        if ( null != origSource )
+                                            help.AddImage(origSource, 0);
+                                    }
+                                }  
+
+                                help.Close();
+                            }
                         }
 
                     }
