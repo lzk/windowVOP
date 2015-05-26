@@ -475,7 +475,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 		{
 			CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
 
-			if (_tcscmp(fileExt, L".txt") == 0)
+			if (strExt.compare(L".txt") == 0)
 			{
 				count = copies;
 			}
