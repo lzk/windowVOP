@@ -390,19 +390,22 @@ namespace VOP
         {
             string[] paperNames = null;
 
-            dll.GetPaperNames(m_MainWin.statusPanelPage.m_selectedPrinter, out  paperNames);
+            dll.GetPaperNames(m_MainWin.statusPanelPage.m_selectedPrinter, out paperNames);
 
-            for (int i = 0; i < paperNames.Length; i++)
+            if (paperNames != null)
             {
-                UserDefinedSizeItems.Add(new UserDefinedSizeItem()
+                for (int i = 0; i < paperNames.Length; i++)
                 {
-                    UserDefinedName = paperNames[i],
-                    IsMM = true,
-                    Width = 0,
-                    Height = 0,
-                });
+                    UserDefinedSizeItems.Add(new UserDefinedSizeItem()
+                    {
+                        UserDefinedName = paperNames[i],
+                        IsMM = true,
+                        Width = 0,
+                        Height = 0,
+                    });
+                }
             }
-
+         
             Binding myBinding = new Binding();
             myBinding.Source = UserDefinedSizeItems;
             cboPaperSize.SetBinding(ComboBox.ItemsSourceProperty, myBinding);
