@@ -471,7 +471,7 @@ USBAPI_API int __stdcall GetWifiChangeStatus(const wchar_t* szPrinter, BYTE* wif
 //--------------------------------global--------------------------------------
 static const unsigned char INIT_VALUE = 0xfe;
 static bool bCancelScanning = false; // Scanning cancel falg, only use in ScanEx(). 
-
+extern CRITICAL_SECTION g_csCriticalSection;
 //--------------------------------implement-----------------------------------
 static BOOL GetPrinterPortName(wchar_t *pPrinterName, wchar_t* portName, size_t portName_len)
 {
@@ -840,6 +840,7 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 		bool bWriteSuccess = false;
 		while (nCount++ < 5 && !bWriteSuccess)
 		{
+			EnterCriticalSection(&g_csCriticalSection);
 			USBGetSymbolicNameByPortEx(pszPort, 0, 0, pSymbolname, MAX_PATH);
 			HANDLE ctlPipe = CreateFile(pSymbolname, GENERIC_WRITE | GENERIC_READ, FILE_SHARE_WRITE | FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
 
@@ -990,6 +991,7 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 
 			if (!bWriteSuccess)
 				Sleep(200);
+			LeaveCriticalSection(&g_csCriticalSection);
 		}
     }
     else
