@@ -1582,7 +1582,7 @@ namespace VOP
             else
             {
                 chk_MultiplePagePrint.IsEnabled = true;
-                if (m_mediaType != 4)
+                if (m_mediaType != 4 && rdBtn1in2x2.IsChecked == false && rdBtn1in3x3.IsChecked == false && rdBtn1in4x4.IsChecked == false)
                 {
                     chk_DuplexPrint.IsEnabled = true;  
                 }                
