@@ -391,6 +391,15 @@ namespace VOP
                          this.image_wrappanel.Children.Insert(0, img );
                          App.scanFileList.Add( img.m_images );
                      }
+                     else
+                     {
+                         VOP.Controls.MessageBoxEx.Show(
+                                 VOP.Controls.MessageBoxExStyle.Simple,
+                                 m_MainWin,
+                                 (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
+                                 (string)this.FindResource( "ResStr_Error" )
+                                 );
+                     }
                  }
                  else if ( RETSCAN_CANCEL == (int)wParam )
                  {

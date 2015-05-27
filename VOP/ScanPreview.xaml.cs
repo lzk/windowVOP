@@ -280,9 +280,7 @@ namespace VOP
                                 (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
                                 (string)this.FindResource( "ResStr_Error" )
                                 );
-                    }
-                    else
-                    {
+
                         m_rotatedAngle = 0; // Fixed #0059434.
                     }
                 }
