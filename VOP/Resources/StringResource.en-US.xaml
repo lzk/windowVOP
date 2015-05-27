@@ -66,7 +66,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_A4">A4</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A5">A5</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A6">A6</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_B5_ISO_">B5（ISO）</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_B5_ISO_">B5(ISO)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_B6">B6</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Executive">Executive</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_16K">16K</sys:String>
@@ -83,8 +83,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Recycled_Paper">Recycled Paper</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Label">Label</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Quality">Print Quality</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Normal_600_600_">Normal（600*600）</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Fine_1200_600_">Fine（1200*600）</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Normal_600_600_">Normal(600*600)</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Fine_1200_600_">Fine(1200*600)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scaling">Scaling</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Fit_to_Paper_Size">Fit to Paper Size</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Density_Adjustment">Density Adjustment</sys:String>
