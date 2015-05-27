@@ -1049,6 +1049,10 @@ namespace VOP
            {
                PopupWindow();
            }
+           else if (msg == App.closeMsg)
+           {
+               Application.Current.Shutdown(0);
+           }
 
             return IntPtr.Zero;
         }

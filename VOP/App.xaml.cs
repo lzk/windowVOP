@@ -33,6 +33,7 @@ namespace VOP
         public static uint WM_CHECK_MAINTAIN_DATA_Expired = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_maintain");
         public static uint WM_CHECK_MERCHANT_INFO_Expired = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_merchant");
         public static uint WM_VOP = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_vop");
+        public static uint closeMsg = Win32.RegisterWindowMessage("vop_process_selfclose");
         public static double gScalingRate = 1.0; // Scaling rate used to scale windows's according the screen resolution.
 
         private static Int32 gLanguage = 0x804;
@@ -91,6 +92,14 @@ namespace VOP
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
         public static void Main() 
         {
+            string argLine = Environment.CommandLine;
+
+            if (argLine.Contains("EXIT"))
+            {
+                Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
+                return;
+            }
+
             if(mutex.WaitOne(TimeSpan.Zero, true)) 
             {
                 VOP.App app = new VOP.App();
