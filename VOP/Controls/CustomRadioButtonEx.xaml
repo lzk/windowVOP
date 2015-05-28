@@ -52,7 +52,22 @@
                             </Trigger.EnterActions>
                             <Setter TargetName="bd" Property="Background" Value="#FFAFAFAF" />
                         </Trigger>
-
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle">
+                                <Setter.Value>
+                                    <Style>
+                                        <Setter Property="Control.Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <Rectangle Margin="0,0,-1,0" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 2"/>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        
                         <MultiTrigger>
                             <MultiTrigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource Storyboard1}"/>
