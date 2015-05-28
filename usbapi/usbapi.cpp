@@ -2759,9 +2759,14 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
                 }
                 else 
                 {
-                    if ( DEVMON_STATUS_OK != obj.SetScanParameterEx( &scanparam ) )
+                    devmonCode = obj.SetScanParameterEx( &scanparam );
+                    if ( DEVMON_STATUS_OK != devmonCode )
                     {
-                        nResult = RETSCAN_ERROR;
+                        if ( DEVMON_ERROR_IN_USE == devmonCode 
+                                || DEVMON_ERROR_DRIVER_IN_USE == devmonCode )
+                            nResult = RETSCAN_BUSY;
+                        else
+                            nResult = RETSCAN_ERROR;
                     }
                     else
                     {
