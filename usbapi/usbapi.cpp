@@ -840,7 +840,6 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 		bool bWriteSuccess = false;
 		while (nCount++ < 5 && !bWriteSuccess)
 		{
-			EnterCriticalSection(&g_csCriticalSection);
 			USBGetSymbolicNameByPortEx(pszPort, 0, 0, pSymbolname, MAX_PATH);
 			HANDLE ctlPipe = CreateFile(pSymbolname, GENERIC_WRITE | GENERIC_READ, FILE_SHARE_WRITE | FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
 
@@ -902,6 +901,9 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 					}
 				}
 
+				EnterCriticalSection(&g_csCriticalSection);
+				OutputDebugStringToFileA("\r\n### vop EnterCriticalSection ######\r\n");
+
 				DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_GET_COMMAND, buffMax, 0, buffMax, 0x3FF, &dwActualSize, NULL);
 
 				while (0 == DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_SET_COMMAND, ptrInput, cbInput, NULL, 0, &dwActualSize, NULL)
@@ -958,6 +960,7 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 				}
 
 				LeaveCriticalSection(&g_csCriticalSection);
+				OutputDebugStringToFileA("\r\n### vop LeaveCriticalSection ######\r\n");
 				OutputDebugStringToFileA("\r\n####VP:WriteDataViaUSB(): nCount[%d] nResult [%d]", nCount, nResult);
 
 				if (_ACK == nResult
