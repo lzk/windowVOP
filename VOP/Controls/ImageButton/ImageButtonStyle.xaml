@@ -1,6 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:VOP.Controls">
+    <Style x:Key="ImageButtonFocus">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="-1" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     
     <Style x:Key="fileSelectionButtonStyle" TargetType="Button">
         <Setter Property="Effect">
@@ -48,8 +57,11 @@
                         </DockPanel>
 
                     </Grid>
-                    <!--<ControlTemplate.Triggers>                  
-                    </ControlTemplate.Triggers>-->
+                    <ControlTemplate.Triggers>
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
