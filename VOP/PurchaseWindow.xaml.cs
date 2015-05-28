@@ -79,7 +79,7 @@ namespace VOP
                 else
                 {
                     VOP.MainWindow.ReadInfoDataFromXamlFile(ref strMerchantInfo, ref strMaintainInfo);
-                    VOP.MainWindow.SaveCRMDataIntoXamlFile("Merchant.xaml", DateTime.Now, strResult);
+                    VOP.MainWindow.SaveCRMDataIntoXamlFile("Merchant.xaml", DateTime.Now, strMerchantInfo);
                 }
 
                 VOP.MainWindow.m_RequestManager.ParseJsonData<MerchantInfoSet>(strMerchantInfo, JSONReturnFormat.MerchantInfoSet, ref m_MerchantInfoSet);
