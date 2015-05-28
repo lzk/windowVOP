@@ -125,6 +125,10 @@ namespace VOP
                     textBox.CaretIndex = textBox.Text.Length;
                 }
             }
+            else
+            {
+                textBox.Text = "1";
+            }
         }
 
         private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
