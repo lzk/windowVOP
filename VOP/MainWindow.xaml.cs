@@ -177,6 +177,16 @@ namespace VOP
 
                 uploadCRMThread = new Thread(UploadCRM_LocalInfoToServerCaller);
                 uploadCRMThread.Start();
+
+                //MerchantInfoSet MerSet = new MerchantInfoSet();
+                //MaintainInfoSet maintainSet = new MaintainInfoSet();
+                //string strMerInfo = "";
+                //string strMaintainInfo = "";
+                //SessionInfo session = new SessionInfo();
+                //m_RequestManager.GetSession(ref session);
+                //m_RequestManager.GetMerchantSet(0, 200, ref MerSet, ref strMerInfo);
+                //m_RequestManager.GetMaintainInfoSet(0, 200, ref maintainSet, ref strMaintainInfo);
+                //SaveInfoDataIntoXamlFile(strMerInfo, strMaintainInfo);
             }
 
             Thread uploadPrintInfoThread = new Thread(UploadPrintInfoToServerCaller);
@@ -443,6 +453,79 @@ namespace VOP
             {
 
             }
+        }
+
+        public static bool SaveInfoDataIntoXamlFile(string strMerInfo, string strMaintainInfo)
+        {
+            bool bSuccess = false;
+            try
+            {
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+                var directory = new DirectoryInfo(documentsPath);
+                string strUsersPublic = directory.Parent.FullName;
+                string strDirectory = strUsersPublic + "\\Lenovo\\";
+                Directory.CreateDirectory(strDirectory);
+
+                XmlDocument doc = new XmlDocument();
+
+                XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+                XmlElement root = doc.DocumentElement;
+                doc.InsertBefore(xmlDeclaration, root);
+
+                XmlElement eleBody = doc.CreateElement(string.Empty, "body", string.Empty);
+                doc.AppendChild(eleBody);
+
+                XmlElement eleTime = doc.CreateElement(string.Empty, "MerInfo", string.Empty);
+                string str = Encrypt.EncryptDES(strMerInfo, "des12345");
+                XmlText textTime = doc.CreateTextNode(str);
+                eleTime.AppendChild(textTime);
+                eleBody.AppendChild(eleTime);
+
+                XmlElement eleData = doc.CreateElement(string.Empty, "MaintainInfo", string.Empty);
+                str = Encrypt.EncryptDES(strMaintainInfo, "des12345");
+                XmlText textData = doc.CreateTextNode(str);
+                eleData.AppendChild(textData);
+                eleBody.AppendChild(eleData);
+
+                doc.Save(strDirectory + "Data.xaml");
+
+                bSuccess = true;
+            }
+            catch
+            {
+
+            }
+
+            return bSuccess;
+        }
+
+        public static bool ReadInfoDataFromXamlFile(ref string strMerInfo, ref string strMaintainInfo)
+        {
+            bool bSuccess = false;
+
+            try
+            {
+                string documentsPath = App.currentFolder;
+                string strPath = documentsPath + "\\InfoData\\Data.xaml";
+
+                if (File.Exists(strPath))
+                {
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load(strPath);
+                    XmlNode xmlNode = doc.SelectSingleNode("body/MerInfo");
+                    strMerInfo = Encrypt.DecryptDES(xmlNode.InnerText, "des12345");
+                    XmlNode xmlNode2 = doc.SelectSingleNode("body/MaintainInfo");
+                    strMaintainInfo = Encrypt.DecryptDES(xmlNode2.InnerText, "des12345");
+
+                    bSuccess = true;
+                }
+            }
+            catch
+            {
+
+            }
+
+            return bSuccess;
         }
 
         public static bool SaveUserInfoIntoXamlFile(string strUserName, string strPassword)

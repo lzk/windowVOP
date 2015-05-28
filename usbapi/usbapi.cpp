@@ -955,6 +955,7 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 					nResult = _SW_USB_WRITE_TIMEOUT;
 				}
 
+				LeaveCriticalSection(&g_csCriticalSection);
 				OutputDebugStringToFileA("\r\n####VP:WriteDataViaUSB(): nCount[%d] nResult [%d]", nCount, nResult);
 
 				if (_ACK == nResult
@@ -991,7 +992,6 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 
 			if (!bWriteSuccess)
 				Sleep(200);
-			LeaveCriticalSection(&g_csCriticalSection);
 		}
     }
     else

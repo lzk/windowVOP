@@ -64,8 +64,9 @@ namespace VOP
                 m_MerchantInfoSet.Clear();
 
                 DateTime dtSaveTime = new DateTime();
-                string str = "";
-                if (true == VOP.MainWindow.ReadCRMDataFromXamlFile("Merchant.xaml", ref dtSaveTime, ref str))
+                string strMerchantInfo = "";
+                string strMaintainInfo = "";
+                if (true == VOP.MainWindow.ReadCRMDataFromXamlFile("Merchant.xaml", ref dtSaveTime, ref strMerchantInfo))
                 {
                     DateTime newDate = DateTime.Now;
                     TimeSpan ts = newDate - dtSaveTime;
@@ -77,12 +78,11 @@ namespace VOP
                 }
                 else
                 {
-                    str = LocalData.MaintainInfo_Json;
+                    VOP.MainWindow.ReadInfoDataFromXamlFile(ref strMerchantInfo, ref strMaintainInfo);
                     VOP.MainWindow.SaveCRMDataIntoXamlFile("Merchant.xaml", DateTime.Now, strResult);
                 }
 
-                str = LocalData.MerchantInfo_Json;
-                VOP.MainWindow.m_RequestManager.ParseJsonData<MerchantInfoSet>(str, JSONReturnFormat.MerchantInfoSet, ref m_MerchantInfoSet);
+                VOP.MainWindow.m_RequestManager.ParseJsonData<MerchantInfoSet>(strMerchantInfo, JSONReturnFormat.MerchantInfoSet, ref m_MerchantInfoSet);
             }
             else
             {

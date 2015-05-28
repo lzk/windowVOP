@@ -60,8 +60,9 @@ namespace VOP
                 m_MaintainSet.Clear();
 
                 DateTime dtSaveTime = new DateTime();
-                string str = "";
-                if (true == VOP.MainWindow.ReadCRMDataFromXamlFile("Maintain.xaml", ref dtSaveTime, ref str))
+                string strMerchantInfo = "";
+                string strMaintainInfo = "";
+                if (true == VOP.MainWindow.ReadCRMDataFromXamlFile("Maintain.xaml", ref dtSaveTime, ref strMaintainInfo))
                 {
                     DateTime newDate = DateTime.Now;
                     TimeSpan ts = newDate - dtSaveTime;
@@ -72,10 +73,10 @@ namespace VOP
                 }
                 else
                 {
-                    str = LocalData.MaintainInfo_Json;
-                    VOP.MainWindow.SaveCRMDataIntoXamlFile("Maintain.xaml", DateTime.Now, str);
+                    VOP.MainWindow.ReadInfoDataFromXamlFile(ref strMerchantInfo, ref strMaintainInfo);
+                    VOP.MainWindow.SaveCRMDataIntoXamlFile("Maintain.xaml", DateTime.Now, strMaintainInfo);
                 }
-                VOP.MainWindow.m_RequestManager.ParseJsonData<MaintainInfoSet>(str, JSONReturnFormat.MaintainInfoSet, ref m_MaintainSet);
+                VOP.MainWindow.m_RequestManager.ParseJsonData<MaintainInfoSet>(strMaintainInfo, JSONReturnFormat.MaintainInfoSet, ref m_MaintainSet);
             }
             else
             {
