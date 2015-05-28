@@ -222,7 +222,7 @@ namespace VOP
 
             if (worker.InvokeMethod<UserCfgRecord>(strPrinterName, ref m_rec, DllMethodType.SetUserConfig, this))
             {
-                if (m_rec.CmdResult == EnumCmdResult._ACK)
+                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                 {
                     m_leadingedge = leadingedge;
                     m_sidetoside = sidetoside;
@@ -259,7 +259,7 @@ namespace VOP
 
             if (worker.InvokeMethod<FusingResetRecord>(strPrinterName, ref m_rec, DllMethodType.SetFusingResetCmd, this))
             {
-                if (m_rec.CmdResult == EnumCmdResult._ACK)
+                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                 {
                     isApplySuccess = true;
                 }

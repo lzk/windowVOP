@@ -55,7 +55,7 @@ namespace VOP
 
                 if (worker.InvokeMethod<PasswordRecord>(strPrinterName, ref m_rec, DllMethodType.ConfirmPassword, this))
                 {
-                    if (m_rec.CmdResult == EnumCmdResult._ACK)
+                    if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                     {
                         ((MainWindow)App.Current.MainWindow).m_strPassword = strpwd;
                         isApplySuccess = true;

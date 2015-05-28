@@ -886,6 +886,8 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 						inBuffer[4] = 0xE0;
 						inBuffer[5] = 0x2B;
 
+						OutputDebugStringToFileA("\r\n### vop WriteFile begin() ######\r\n");
+						OutputDebugStringToFileA("\r\n### ctlPipe=%x ######\r\n", ctlPipe);
 						WriteFile(ctlPipe, inBuffer, 10, &dwWritten, NULL);
 						WriteFile(ctlPipe, &inBuffer[10], 512, &dwWritten, NULL);
 

@@ -96,7 +96,7 @@ namespace VOP
 
                 m_rec = worker.ConfirmPassword(m_rec);
 
-                if (m_rec.CmdResult == EnumCmdResult._ACK)
+                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                 {
                     bCorrect = true;
                 }

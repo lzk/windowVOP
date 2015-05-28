@@ -52,7 +52,7 @@ namespace VOP
                 wifiSetting.m_wepKeyId = m_rec.WepKeyId;
             }
 
-            if (0x01 == (m_rec.WifiEnable & 0x01))
+            if (null != m_rec && 0x01 == (m_rec.WifiEnable & 0x01))
             {
                 chkWifi.IsChecked = true;
                 btnConnectOthAp.Visibility = Visibility.Visible;
@@ -271,7 +271,7 @@ namespace VOP
 
                 if (worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetWiFiInfo, this))
                 {
-                    if (m_rec.CmdResult == EnumCmdResult._ACK)
+                    if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                     {
                         wifiSetting.wifiEnable = m_rec.WifiEnable;
                         wifiSetting.m_ssid = ssid;
@@ -552,7 +552,7 @@ namespace VOP
 
             if (worker.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetWiFiInfo, this))
             {
-                if (m_rec.CmdResult == EnumCmdResult._ACK)
+                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                 {
                     bSuccess = true;
                 }

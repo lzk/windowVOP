@@ -122,7 +122,7 @@ namespace VOP
 
                 if (worker.InvokeMethod<SoftApRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetSoftAp, this))
                 {
-                    if (m_rec.CmdResult == EnumCmdResult._ACK)
+                    if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                     {
                         softAPSettingInit.m_ssid = softAPSetting.m_ssid = str_ssid;
                         softAPSettingInit.m_pwd = softAPSetting.m_pwd = str_pwd;

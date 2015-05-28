@@ -605,7 +605,7 @@ namespace VOP
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
                 if (worker.InvokeMethod<IpInfoRecord>(strPrinterName, ref m_rec, DllMethodType.SetIpInfo, this))
                 {
-                    if (m_rec.CmdResult == EnumCmdResult._ACK)
+                    if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                     {
                         TcpIpSetting.m_mode_ipversion = mode_ipversion;
                         TcpIpSetting.m_mode_ipaddress = mode_ipaddress;

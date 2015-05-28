@@ -152,7 +152,7 @@ namespace VOP
 
             if (worker.InvokeMethod<PowerSaveTimeRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetPowerSaveTime, this))
             {
-                if (m_rec.CmdResult == EnumCmdResult._ACK)
+                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                 {
                     m_psavetime = psavetime;
                     isApplySuccess = true;
