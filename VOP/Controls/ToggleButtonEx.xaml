@@ -36,9 +36,9 @@
                                     <RowDefinition Height="2"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <TextBlock  FontSize="16" Text="{TemplateBinding  SSIDText}"  Grid.Row="0" TextTrimming="CharacterEllipsis" TextAlignment="Left"></TextBlock>
+                                <TextBlock Name="tbssid"  FontSize="16" Text="{TemplateBinding  SSIDText}"  Grid.Row="0" TextTrimming="CharacterEllipsis" TextAlignment="Left"></TextBlock>
                                 <Rectangle Grid.Row="1" Fill="White"></Rectangle>
-                                <TextBlock  Grid.Row="2" Text="{TemplateBinding  EncryptionText}" TextTrimming="CharacterEllipsis" TextAlignment="Left"></TextBlock>
+                                <TextBlock Name="tbEncrypt" Grid.Row="2" Text="{TemplateBinding  EncryptionText}" TextTrimming="CharacterEllipsis" TextAlignment="Left"></TextBlock>
                             </Grid>
                             <Rectangle Grid.Column="1" Grid.ColumnSpan="3" Fill="White"></Rectangle>
                             <Image Name="imgSignal"  Source="..\Images\signal.png" Grid.Column="1" VerticalAlignment="Bottom" Height="20" Width="20"></Image>
@@ -60,6 +60,11 @@
 
                             <Setter TargetName="imgSignal"
                                     Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="tbssid" Property="Foreground" Value="#FFD8D8D8"></Setter>
+                            <Setter TargetName="tbEncrypt" Property="Foreground" Value="#FFD8D8D8"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

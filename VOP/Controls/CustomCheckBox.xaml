@@ -12,7 +12,7 @@
             <Image Height="25" Width="25" Name="imgCheck" Source="..\Images\Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
             <Image Height="25" Width="25" Name="imgUncheck" Source="..\Images\Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
 
-            <TextBlock Grid.Column="1"
+            <TextBlock  Name="tbText" Grid.Column="1"
                         VerticalAlignment="Center"
                         HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                         Text="{TemplateBinding Content}"
@@ -47,6 +47,9 @@
                 </Setter>
             </Trigger>
 
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="tbText" Property="Foreground" Value="#FFD8D8D8"></Setter>
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
