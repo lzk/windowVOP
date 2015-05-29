@@ -37,6 +37,15 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <Style x:Key="ColorChangeTextBlock" TargetType="{x:Type TextBlock}">
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Foreground"
+                        Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 

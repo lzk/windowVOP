@@ -48,7 +48,7 @@
                                     <ColumnDefinition Width="1.2*"></ColumnDefinition>
                                     <ColumnDefinition Width="3*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Name="tkPwd" Text="{StaticResource ResStr_Password}" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+                                <TextBlock Name="tkPwd" Text="{StaticResource ResStr_Password}" Grid.Column="0" VerticalAlignment="Center" Style="{StaticResource ColorChangeTextBlock}"></TextBlock>
                                 <TextBox Name="tbPwd" Grid.Column="1" Visibility="Hidden" VerticalAlignment="Center" MaxLength="64" TextChanged="tbPwd_TextChanged" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
                                     <TextBox.InputBindings>
                                         <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
