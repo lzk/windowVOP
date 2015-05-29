@@ -8,7 +8,6 @@
              Height="367"
              UseLayoutRounding="True"
              Loaded="FileSelectionPageOnLoaded">
-
     <Grid Name="rootGrid">
         <Grid.Background>
             <ImageBrush ImageSource="Images\PagePrint.png" />
