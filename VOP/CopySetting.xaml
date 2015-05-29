@@ -170,13 +170,50 @@
                         <TextBlock Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_4_in_1}" Height="16" />
                         <TextBlock Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_9_in_1}" Height="16" />
 
-                        <Rectangle x:Name="rectNin1_2" Grid.Row="1" Grid.Column="1" Fill="Gray" RadiusX="5" RadiusY="5" Height="64" VerticalAlignment="Center" Margin="5,0" />
-                        <Rectangle x:Name="rectNin1_4" Grid.Row="1" Grid.Column="2" Fill="Gray" RadiusX="5" RadiusY="5" Height="64" VerticalAlignment="Center" Margin="5,0" />
-                        <Rectangle x:Name="rectNin1_9" Grid.Row="1" Grid.Column="3" Fill="Gray" RadiusX="5" RadiusY="5" Height="64" VerticalAlignment="Center" Margin="5,0" />
+                        <RadioButton GroupName="Goup3"                              
+					        Checked="RdbtnChecked"
+                            Grid.Row="1" Grid.Column="1"
+					        Cursor="Hand" 
+					        x:Name="rdbtn2" 
+					        Style="{StaticResource CustomRadioButtonEx}" 
+                            Width="80"
+                            Height="64"
+                            >
+                            <RadioButton.BorderBrush>
+                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
+                            </RadioButton.BorderBrush>
+                            <Image Stretch="None" Source="Images/Nin1_2.png" />
+                        </RadioButton>
 
-                        <Image x:Name="imgNin1_2" Grid.Row="1" Grid.Column="1" Stretch="None" Source="Images\Nin1_2.png" MouseDown="imgNin1_2_MouseDown" VerticalAlignment="Center" Height="42" />
-                        <Image x:Name="imgNin1_4" Grid.Row="1" Grid.Column="2" Stretch="None" Source="Images\Nin1_4.png" MouseDown="imgNin1_4_MouseDown" VerticalAlignment="Center" Height="42" />
-                        <Image x:Name="imgNin1_9" Grid.Row="1" Grid.Column="3" Stretch="None" Source="Images\Nin1_9.png" MouseDown="imgNin1_9_MouseDown" VerticalAlignment="Center" Height="42" />
+                        <RadioButton GroupName="Goup3"                              
+					        Checked="RdbtnChecked"
+                            Grid.Row="1" Grid.Column="2"
+					        Cursor="Hand" 
+					        x:Name="rdbtn4" 
+					        Style="{StaticResource CustomRadioButtonEx}" 
+                            Width="80"
+                            Height="64"
+                            >
+                            <RadioButton.BorderBrush>
+                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
+                            </RadioButton.BorderBrush>
+                            <Image Stretch="None" Source="Images/Nin1_4.png" />
+                        </RadioButton>
+
+                        <RadioButton GroupName="Goup3"                              
+					        Checked="RdbtnChecked"
+                            Grid.Row="1" Grid.Column="3"
+					        Cursor="Hand" 
+					        x:Name="rdbtn9" 
+					        Style="{StaticResource CustomRadioButtonEx}" 
+                            Width="80"
+                            Height="64"
+                            >
+                            <RadioButton.BorderBrush>
+                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
+                            </RadioButton.BorderBrush>
+                            <Image Stretch="None" Source="Images/Nin1_9.png" />
+                        </RadioButton>
                     </Grid>
 
                 </local:GroupBoxDecorator>

@@ -632,9 +632,9 @@ namespace VOP
             brSelected.Color = Color.FromArgb( 255, 168, 168, 168 );
             brUnselected.Color = Color.FromArgb(255, 235, 235, 235);
 
-            rectNin1_2.Fill = brUnselected;
-            rectNin1_4.Fill = brUnselected;
-            rectNin1_9.Fill = brUnselected;
+            rdbtn2.IsChecked = false;
+            rdbtn4.IsChecked = false;
+            rdbtn9.IsChecked = false;
 
             if ( EnumNin1._1up == m_nin1 )
             {
@@ -646,53 +646,20 @@ namespace VOP
 
                 if ( EnumNin1._2up == m_nin1 )
                 {
-                    rectNin1_2.Fill = brSelected;
+                    rdbtn2.IsChecked = true;
                 }
                 else if ( EnumNin1._4up == m_nin1 )
                 {
-                    rectNin1_4.Fill = brSelected;
+                    rdbtn4.IsChecked = true;
                 }
                 else if ( EnumNin1._9up == m_nin1 )
                 {
-                    rectNin1_9.Fill = brSelected;
+                    rdbtn9.IsChecked = true;
                 }
             }
 
             if ( m_isIDCardCopy )
                 chkNin1.IsEnabled = false;
-        }
-
-        private void imgNin1_2_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if ( true == chkNin1.IsChecked ) 
-            {
-                m_preNin1 = EnumNin1._2up;
-                m_nin1 = EnumNin1._2up;
-                InitNin1();
-                spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
-            }
-        }
-
-        private void imgNin1_4_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if ( true == chkNin1.IsChecked ) 
-            {
-                m_preNin1 = EnumNin1._4up;
-                m_nin1 = EnumNin1._4up;
-                InitNin1();
-                spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
-            }
-        }
-
-        private void imgNin1_9_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if ( true == chkNin1.IsChecked ) 
-            {
-                m_preNin1 = EnumNin1._9up;
-                m_nin1 = EnumNin1._9up;
-                InitNin1();
-                spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
-            }
         }
 
         private void OnScalingValidationHasError(object sender, RoutedPropertyChangedEventArgs<bool> e)
@@ -798,6 +765,31 @@ namespace VOP
                 spinnerScaling.Value = (decimal)(scaling*100);
             }
 
+        }
+
+        private void RdbtnChecked(object sender, RoutedEventArgs e)
+        {
+            if ( true == chkNin1.IsChecked ) 
+            {
+                if ( true == rdbtn2.IsChecked ) 
+                {
+                    m_preNin1 = EnumNin1._2up;
+                    m_nin1 = EnumNin1._2up;
+                    spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
+                }
+                else if ( true == rdbtn4.IsChecked ) 
+                {
+                    m_preNin1 = EnumNin1._4up;
+                    m_nin1 = EnumNin1._4up;
+                    spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
+                }
+                else if ( true == rdbtn9.IsChecked ) 
+                {
+                    m_preNin1 = EnumNin1._9up;
+                    m_nin1 = EnumNin1._9up;
+                    spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
+                }
+            }
         }
 	}
 }
