@@ -158,24 +158,25 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="80" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="70" />
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <CheckBox x:Name="chkNin1" Template="{StaticResource customCheckBox}" IsChecked="true" VerticalAlignment="Center" Content="{StaticResource ResStr_N_in_1_Copy}"
+                        <CheckBox x:Name="chkNin1" Grid.Row="1" Template="{StaticResource customCheckBox}" IsChecked="true" VerticalAlignment="Center" Content="{StaticResource ResStr_N_in_1_Copy}"
                     HorizontalAlignment="Center" Checked="chkNin1_Checked" Unchecked="chkNin1_Unchecked" Height="24" Margin="0,30,0,0" />
 
-                        <TextBlock Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_2_in_1}" Height="16" />
-                        <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_4_in_1}" Height="16" />
-                        <TextBlock Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_9_in_1}" Height="16" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_2_in_1}" Height="16" />
+                        <TextBlock Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_4_in_1}" Height="16" />
+                        <TextBlock Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_9_in_1}" Height="16" />
 
-                        <Rectangle x:Name="rectNin1_2" Grid.Column="1" Fill="Gray" RadiusX="5" RadiusY="5" Height="65" VerticalAlignment="Bottom" Margin="5,0" />
-                        <Rectangle x:Name="rectNin1_4" Grid.Column="2" Fill="Gray" RadiusX="5" RadiusY="5" Height="65" VerticalAlignment="Bottom" Margin="5,0" />
-                        <Rectangle x:Name="rectNin1_9" Grid.Column="3" Fill="Gray" RadiusX="5" RadiusY="5" Height="65" VerticalAlignment="Bottom" Margin="5,0" />
+                        <Rectangle x:Name="rectNin1_2" Grid.Row="1" Grid.Column="1" Fill="Gray" RadiusX="5" RadiusY="5" Height="64" VerticalAlignment="Center" Margin="5,0" />
+                        <Rectangle x:Name="rectNin1_4" Grid.Row="1" Grid.Column="2" Fill="Gray" RadiusX="5" RadiusY="5" Height="64" VerticalAlignment="Center" Margin="5,0" />
+                        <Rectangle x:Name="rectNin1_9" Grid.Row="1" Grid.Column="3" Fill="Gray" RadiusX="5" RadiusY="5" Height="64" VerticalAlignment="Center" Margin="5,0" />
 
-                        <Image x:Name="imgNin1_2" Grid.Column="1" Stretch="None" Source="Images\Nin1_2.png" MouseDown="imgNin1_2_MouseDown" Margin="0,0,0,9" VerticalAlignment="Bottom" Height="42" />
-                        <Image x:Name="imgNin1_4" Grid.Column="2" Stretch="None" Source="Images\Nin1_4.png" MouseDown="imgNin1_4_MouseDown" Margin="0,0,0,9" VerticalAlignment="Bottom" Height="42" />
-                        <Image x:Name="imgNin1_9" Grid.Column="3" Stretch="None" Source="Images\Nin1_9.png" MouseDown="imgNin1_9_MouseDown" Margin="0,0,0,9" VerticalAlignment="Bottom" Height="42" />
+                        <Image x:Name="imgNin1_2" Grid.Row="1" Grid.Column="1" Stretch="None" Source="Images\Nin1_2.png" MouseDown="imgNin1_2_MouseDown" VerticalAlignment="Center" Height="42" />
+                        <Image x:Name="imgNin1_4" Grid.Row="1" Grid.Column="2" Stretch="None" Source="Images\Nin1_4.png" MouseDown="imgNin1_4_MouseDown" VerticalAlignment="Center" Height="42" />
+                        <Image x:Name="imgNin1_9" Grid.Row="1" Grid.Column="3" Stretch="None" Source="Images\Nin1_9.png" MouseDown="imgNin1_9_MouseDown" VerticalAlignment="Center" Height="42" />
                     </Grid>
 
                 </local:GroupBoxDecorator>
