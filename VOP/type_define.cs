@@ -246,19 +246,6 @@ namespace VOP
         _9up = 3,
     }
 
-    public enum EnumTask : byte
-    {
-        Copying       = 0 ,
-        IDCardCopying = 1 ,
-        Scanning      = 2 ,
-        Printing      = 3 ,
-        Other         = 4 ,
-        Idle          = 5 ,
-        NoConnection  = 6 ,
-    }
-
-
-
     public enum EnumMachineJob : byte
     {
         UnknowJob     = 0,

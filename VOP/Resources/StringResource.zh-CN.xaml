@@ -6,7 +6,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Copy">复  印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan">扫  描</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting">设置</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Model">机型:</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Model">机型：</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Device_Status">设备状态：</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Ready">待机</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Busy">工作中</sys:String>
@@ -39,12 +39,12 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Please_Replace_Toner">请更换硒鼓</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_FW_Updating">固件升级</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Overheat">过热</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_DMA_Error_SCxxx">内存存取错误:&#x000D;&#x000A;请关闭打印机后重新启动。&#x000D;&#x000A;SC</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_DMA_Error_SCxxx">内存存取错误：&#x000D;&#x000A;请关闭打印机后重新启动。&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_contact_customer_support__SCxxx">请联系您的客户支持：&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">扫描起始位置未发现：&#x000D;&#x000A;请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：&#x000D;&#x000A;SC1001</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Calibration_Error_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">扫描校准错误：&#x000D;&#x000A;请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：&#x000D;&#x000A;SC1001</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Wireless_Dongle_Config_Fail_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">无线模块配置失败；&#x000D;&#x000A;请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持:&#x000D;&#x000A;SC</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Wireless_Dongle_Config_Fail_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">无线模块配置失败；&#x000D;&#x000A;请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Picture_Print">图片打印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_File_Print">文件打印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Credentials_Print">证件打印</sys:String>
@@ -107,7 +107,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_OK">确  定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Custom_Paper_Size_Name">自定义纸张大小名称</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Defined_Size_01">自定义尺寸01</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Unit">单位:</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Unit">单位：</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_mm">毫米</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_inch">英寸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Width">宽度</sys:String>
@@ -127,7 +127,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Photo">照片</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Text">文本</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scanned_image_size">待扫描图片大小：</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_2">扫描进度:</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_2">扫描进度：</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Document_Type">文档类型</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Photo_2">图片</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Text_and_Graph">图文</sys:String>
