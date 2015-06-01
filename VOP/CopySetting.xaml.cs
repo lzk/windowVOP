@@ -236,6 +236,10 @@ namespace VOP
 
                 InitNin1();
                 spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
+
+                rdbtn2.IsEnabled = true; 
+                rdbtn4.IsEnabled = true; 
+                rdbtn9.IsEnabled = true; 
             }
         }
 
@@ -246,6 +250,10 @@ namespace VOP
                 m_nin1 = EnumNin1._1up;
                 spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
                 InitNin1();
+
+                rdbtn2.IsEnabled = false; 
+                rdbtn4.IsEnabled = false; 
+                rdbtn9.IsEnabled = false; 
             }
         }
 
@@ -660,6 +668,10 @@ namespace VOP
 
             if ( m_isIDCardCopy )
                 chkNin1.IsEnabled = false;
+
+            rdbtn2.IsEnabled = true == chkNin1.IsChecked; 
+            rdbtn4.IsEnabled = true == chkNin1.IsChecked; 
+            rdbtn9.IsEnabled = true == chkNin1.IsChecked; 
         }
 
         private void OnScalingValidationHasError(object sender, RoutedPropertyChangedEventArgs<bool> e)
