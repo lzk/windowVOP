@@ -65,7 +65,7 @@ typedef struct _IdCardSize
 	double Height;
 }IdCardSize;
 
-static BOOL IsMetricCountry();
+USBAPI_API BOOL __stdcall IsMetricCountry();
 
 USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, SAFEARRAY** paperNames);
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int copies);
@@ -200,54 +200,6 @@ static int TcsNiCmp(TCHAR* c1, TCHAR* c2)
 {
 	int iNum = _tcslen(c1) > _tcslen(c2) ? _tcslen(c1) : _tcslen(c2);
 	return _tcsnicmp(c1, c2, iNum);
-}
-static BOOL IsMetricCountry()
-{
-	INT    cChar = 0;
-	LONG   lCountryCode = 0;
-	LPTSTR pwstr = NULL;
-	BOOL   bMetric = FALSE;
-
-	// Determine the size of the buffer needed to retrieve information.
-	cChar = GetLocaleInfoW(LOCALE_SYSTEM_DEFAULT, LOCALE_ICOUNTRY, NULL, 0);
-
-	if (cChar > 0)
-	{
-		// Allocate the necessary buffers.
-		pwstr = new wchar_t[cChar];
-
-		if (pwstr != NULL)
-		{
-			// We now have a buffer, so get the country code.
-			cChar = GetLocaleInfoW(LOCALE_SYSTEM_DEFAULT, LOCALE_ICOUNTRY, pwstr, cChar);
-
-			if (cChar > 0) {
-
-				lCountryCode = _wtol(pwstr);
-
-				// This is the Win31 algorithm based on AT&T international
-				// dialing codes.
-
-				// Reference: https://msdn.microsoft.com/en-us/library/windows/hardware/ff561927(v=vs.85).aspx
-				// Use the default system locale obtained from GetLocaleInfo to determine metric or non-metric paper size.
-				//     Non-metric if default system locale is:
-				//         CTRY_UNITED_STATES, or
-				//         CTRY_CANADA, or
-				//         Greater than or equal to 50, but less than 60 and not CTRY_BRAZIL, or
-				//         Greater than or equal to 500, but less than 600
-				bMetric = ((lCountryCode == CTRY_UNITED_STATES) ||
-					(lCountryCode == CTRY_CANADA) ||
-					(lCountryCode >= 50 && lCountryCode < 60 && lCountryCode != CTRY_BRAZIL) ||
-					(lCountryCode >= 500 && lCountryCode < 600)) ? FALSE : TRUE;
-
-			}
-
-			delete[] pwstr;
-			pwstr = NULL;
-		}
-	}
-
-	return bMetric;
 }
 
 USBAPI_API int __stdcall SaveDefaultPrinter()
@@ -1404,15 +1356,17 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData()
 	g_PirntSettingsData.m_copies = 1;
 	g_PirntSettingsData.m_booklet = 0;
 	g_PirntSettingsData.m_watermark = 0;
-		
+	OutputDebugString(L"SetPrinterSettingsInitData");
 	BOOL bIsMetrice = IsMetricCountry();
 	if (bIsMetrice)
 	{
-		g_PirntSettingsData.m_paperSize = 0;
+		g_PirntSettingsData.m_paperSize = 0;		
+		OutputDebugString(L"A4");
 	}
 	else
 	{
 		g_PirntSettingsData.m_paperSize = 1;
+		OutputDebugString(L"Letter");
 	}
 	isOpenDocumentProperties = false;
 
@@ -1490,9 +1444,11 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 					{
 					case 0:
 						devmode.dmPublic.dmPaperSize = DMPAPER_A4;
+						OutputDebugString(L"A4");
 						break;
 					case 1:
 						devmode.dmPublic.dmPaperSize = DMPAPER_LETTER;
+						OutputDebugString(L"Letter");
 						break;
 					case 2:
 						devmode.dmPublic.dmPaperSize = DMPAPER_B5;
