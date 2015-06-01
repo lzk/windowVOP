@@ -113,7 +113,7 @@
                                     <Image Grid.Column="0" Grid.Row="1" Source="Images\Logo.png" />
                                     <StackPanel Grid.Column="2" Orientation="Vertical">
                                         <TextBlock Name="tbkVersionInfo" Text="Printer Driver Version ****" TextWrapping="Wrap"></TextBlock>
-                                        <TextBlock Text="Copyright (C) 2015 Lenovo (Beijing) Limited." TextWrapping="Wrap"></TextBlock>
+                                        <TextBlock Text="Copyright (C) (2015) Lenovo (Beijing) Limited." TextWrapping="Wrap"></TextBlock>
                                         <TextBlock Text="All Right Reserved." TextWrapping="Wrap"></TextBlock>
                                     </StackPanel>
                                 </Grid>
