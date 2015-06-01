@@ -272,7 +272,7 @@ namespace VOP
             InitializeComponent();
             this.Width = this.Width * App.gScalingRate;
             this.Height = this.Height * App.gScalingRate;
-            UserDefinedSizeItems = new ObservableCollection<UserDefinedSizeItem>();
+           // UserDefinedSizeItems = new ObservableCollection<UserDefinedSizeItem>();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -396,19 +396,9 @@ namespace VOP
             {
                 for (int i = 0; i < paperNames.Length; i++)
                 {
-                    UserDefinedSizeItems.Add(new UserDefinedSizeItem()
-                    {
-                        UserDefinedName = paperNames[i],
-                        IsMM = true,
-                        Width = 0,
-                        Height = 0,
-                    });
+                    cboPaperSize.Items.Add(paperNames[i]);
                 }
             }
-         
-            Binding myBinding = new Binding();
-            myBinding.Source = UserDefinedSizeItems;
-            cboPaperSize.SetBinding(ComboBox.ItemsSourceProperty, myBinding);
         }
 
         private void UpdatePaperSizeComboBox(bool Read, int selectIndex)

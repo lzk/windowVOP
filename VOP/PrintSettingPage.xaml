@@ -21,7 +21,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Controls/CustomButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
-                <ResourceDictionary Source="Controls/CustomComboBox.xaml"/>
+                <ResourceDictionary Source="Controls/UserDefinedComboBox.xaml"/>
                 <ResourceDictionary Source="Controls/CustomRadioButtonEx.xaml"/>
                 <ResourceDictionary Source="Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -160,13 +160,7 @@
 				                x:Name="cboPaperSize"
 				                Background="White" 
                                 ItemContainerStyle="{StaticResource customComboBoxItem}"
-                                ItemsSource="{Binding PaperSizeItemsBase}"
-                                DisplayMemberPath="UserDefinedName"
-                                SelectedValuePath="UserDefinedName"
-                                SelectedValue="A4"
-				                SelectionChanged="cboPaperSize_SelectionChanged"
-                                DropDownOpened="OnDropDownOpened" 
-                                DropDownClosed="OnDropDownClosed">
+				                SelectionChanged="cboPaperSize_SelectionChanged">
                     </ComboBox>
                 </Controls:GroupBoxDecorator>
 
