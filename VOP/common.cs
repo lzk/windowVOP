@@ -124,65 +124,6 @@ namespace VOP
                 }
             }
         }
-        public static void SelectItemByContext( ComboBox cbo, sbyte context )
-        {
-            if ( null != cbo )
-            {
-                int idx = -1;
-                int counter = 0;
-                foreach (ComboBoxItem item in cbo.Items)
-                {
-                    if ( null != item.DataContext )
-                    {
-                        if ( context == (sbyte)item.DataContext )
-                        {
-                            idx = counter;
-                            break;
-                        }
-                    }
-                    counter++;
-                }
-
-                if ( -1 != idx )
-                {
-                    cbo.SelectedIndex = idx;
-                }
-            }
-        }
-
-        public static void select_cbo_by_content( ComboBox cbo, int val )
-        {
-            if ( null != cbo )
-            {
-                int idx = -1;
-                int counter = 0;
-                foreach (ComboBoxItem item in cbo.Items)
-                {
-                    string str_content = item.Content as string; 
-
-                    if ( null != str_content )
-                    {
-                        try
-                        {
-                            if ( val == Convert.ToInt32(str_content) )
-                            {
-                                idx = counter;
-                                break;
-                            }
-                        }
-                        catch 
-                        {
-                        }
-                    }
-                    counter++;
-                }
-
-                if ( -1 != idx )
-                {
-                    cbo.SelectedIndex = idx;
-                }
-            }
-        }
 
         /// <summary>
         /// Message of status show in bottom of status panel.
@@ -597,6 +538,15 @@ namespace VOP
 
             return bError;
         }
+
+        public static bool IsStatusNeedMaintain( EnumStatus status )
+        {
+            return ((status >= EnumStatus.PolygomotorOnTimeoutError && status <= EnumStatus.CTL_PRREQ_NSignalNoCome) 
+                    || status == EnumStatus.ScanMotorError 
+                    || status == EnumStatus.ScanDriverCalibrationFail 
+                    || status == EnumStatus.NetWirelessDongleCfgFail);
+        }
+
     }
 
 

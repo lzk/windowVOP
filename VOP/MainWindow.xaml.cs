@@ -729,7 +729,8 @@ namespace VOP
 
             // The Icon property sets the icon that will appear 
             // in the systray for this application.
-            System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,, /Images/printer.ico")).Stream;
+            System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,, /Images/printerGray.ico")).Stream;
+            bGrayIcon = true;
             notifyIcon1.Icon = new System.Drawing.Icon(iconStream);
 
             // The ContextMenu property sets the menu that will 
@@ -989,6 +990,11 @@ namespace VOP
             }
 
             m_updaterAndUIEvent.Set();
+
+            // When the status update thread pause, the icon turn to offline.
+            bGrayIcon = true; 
+            System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,, /Images/printerGray.ico")).Stream;
+            notifyIcon1.Icon = new System.Drawing.Icon(iconStream);
         }
 
         /// <summary>
@@ -1062,23 +1068,16 @@ namespace VOP
 
                statusPanelPage.UpdateStatusPanel( status, job, toner );
 
-               bool bIsNeedMaintain = IsStatusNeedMaintain(status);
+               bool bIsNeedMaintain = common.IsStatusNeedMaintain(status);
 
-               System.IO.Stream iconStream = null;
-               if ( ( EnumStatus.Offline == status || bIsNeedMaintain )
-                       && bGrayIcon == false )
+               bool bUseGrayIcon = ( EnumStatus.Offline == status || bIsNeedMaintain || toner <= 10 );
+
+               if ( bUseGrayIcon != bGrayIcon )
                {
-                   bGrayIcon = true; 
-                   iconStream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,, /Images/printerGray.ico")).Stream;
+                   string strIcon = bUseGrayIcon ? "pack://application:,,, /Images/printerGray.ico" : "pack://application:,,, /Images/printer.ico";
+                   System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(new Uri( strIcon )).Stream;
                    notifyIcon1.Icon = new System.Drawing.Icon(iconStream);
-               } 
-               else if ( EnumStatus.Offline != status 
-                       && false == bIsNeedMaintain 
-                       && bGrayIcon == true )
-               {
-                   bGrayIcon = false; 
-                   iconStream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,, /Images/printer.ico")).Stream;
-                   notifyIcon1.Icon = new System.Drawing.Icon(iconStream);
+                   bGrayIcon = bUseGrayIcon;
                }
 
                if(true == m_bLocationIsChina)
@@ -1395,14 +1394,6 @@ namespace VOP
 
             if ( false == e.Cancel )
                 MainWindowExitPoint();
-        }
-
-        public static bool IsStatusNeedMaintain( EnumStatus status )
-        {
-            return ((status >= EnumStatus.PolygomotorOnTimeoutError && status <= EnumStatus.CTL_PRREQ_NSignalNoCome) 
-                    || status == EnumStatus.ScanMotorError 
-                    || status == EnumStatus.ScanDriverCalibrationFail 
-                    || status == EnumStatus.NetWirelessDongleCfgFail);
         }
 
     }
