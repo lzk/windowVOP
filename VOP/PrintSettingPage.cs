@@ -305,6 +305,8 @@ namespace VOP
 
             InitFontSize();
 
+            //ScalingGroup.IsEnabled = false;
+
         }
 
         void InitFontSize()

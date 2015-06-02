@@ -37,32 +37,51 @@ namespace VOP.Controls
             this.IsEnabledChanged += new DependencyPropertyChangedEventHandler(IsEnabledValueChanged);
         }
 
-        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        private void EnableAllVisual(Visual myVisual, bool enable)
         {
-            if (depObj != null)
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(myVisual); i++)
             {
-                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                // Retrieve child visual at specified index value.
+                Visual childVisual = (Visual)VisualTreeHelper.GetChild(myVisual, i);
+               
+                // Do processing of the child visual object. 
+                if (childVisual is TextBlock)
                 {
-                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
-                    if (child != null && child is T)
+                    TextBlock textBlock = childVisual as TextBlock;
+                    if(enable)
                     {
-                        yield return (T)child;
-                    }
+                        SolidColorBrush brush = new SolidColorBrush();
+                        Color c = new Color();
+                        c.A = 255;
+                        c.R = 14;
+                        c.B = 14;
+                        c.G = 14;
 
-                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                        brush.Color = c;
+                        textBlock.Foreground = brush;
+                    }
+                    else
                     {
-                        yield return childOfChild;
+                        SolidColorBrush brush = new SolidColorBrush();
+                        Color c = new Color();
+                        c.A = 100;
+                        c.R = 14;
+                        c.B = 14;
+                        c.G = 14;
+
+                        brush.Color = c;
+                        textBlock.Foreground = brush;
                     }
                 }
+
+                // Enumerate children of the child visual object.
+                EnableAllVisual(childVisual, enable);
             }
         }
 
         private void IsEnabledValueChanged(Object obj, DependencyPropertyChangedEventArgs args)
         {
-         //   foreach (DependencyObject tb in FindVisualChildren<DependencyObject>(this.Content))
-            {
-                // do something with tb here
-            }
+            EnableAllVisual(this, (bool)args.NewValue);
         }
     }
 }

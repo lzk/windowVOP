@@ -75,8 +75,8 @@ typedef struct _IdCardSize
 USBAPI_API BOOL __stdcall IsMetricCountry();
 
 USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, SAFEARRAY** paperNames);
-USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int duplexType, int copies);
-USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage, int duplexType);
+USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int duplexType, bool IsPortrait, int copies);
+USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage, int duplexType, bool IsPortrait);
 USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName);
 USBAPI_API void __stdcall AddImageSource(IStream * imageSource);
 USBAPI_API void __stdcall AddImageRotation(int rotation);
@@ -192,6 +192,7 @@ static ULONG_PTR gdiplusToken;
 static int currentIdCardType = 0;
 static IdCardSize currentIdCardSize = { 0 };
 static bool needFitToPage = false;
+static bool IsPrintSettingPortrait = true;
 static DuplexPrintType currentDuplexType = NonDuplex;
 static PCLDEVMODE getdevmode;
 static PCLDEVMODE getDocumentPropertiesData;
@@ -374,7 +375,7 @@ USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, SAFEARRAY** paper
 	return 1;
 }
 
-USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int duplexType, int copies)
+USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int duplexType, bool IsPortrait, int copies)
 {
 	PrintError error = Print_OK;
 	
@@ -419,7 +420,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 		||  strExt.compare(L".wmf") == 0
 		||  strExt.compare(L".emf") == 0)
 	{
-		if (PrintInit(strPrinterName, fileName, 0, NULL, fitToPage, duplexType))
+		if (PrintInit(strPrinterName, fileName, 0, NULL, fitToPage, duplexType, IsPortrait))
 		{
 			AddImagePath(strFileName);
 			DoPrintImage();
@@ -468,7 +469,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	return error;
 }
 
-USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage, int duplexType)
+USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage, int duplexType, bool IsPortrait)
 {
 	g_vecImagePaths.clear();
 	g_vecIdCardImageSources.clear();
@@ -477,6 +478,7 @@ USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * 
 	currentIdCardType = idCardType;
 	needFitToPage = fitToPage;
 	currentDuplexType = (DuplexPrintType)duplexType;
+	IsPrintSettingPortrait = IsPortrait;
 
 	if (size != NULL)
 		currentIdCardSize = *size;
@@ -611,8 +613,8 @@ USBAPI_API int __stdcall DoPrintImage()
 							break;
 						}
 
-						int x = 0;
-						int y = 0;
+						int x = 99; //remove margin
+						int y = 99;
 						Gdiplus::REAL dpiX = pImg->GetHorizontalResolution();
 						Gdiplus::REAL dpiY = pImg->GetVerticalResolution();
 
@@ -645,29 +647,29 @@ USBAPI_API int __stdcall DoPrintImage()
 						{
 							w = (int)round(pImg->GetWidth() * (600 / dpiX));
 							h = (int)round(pImg->GetHeight()* (600 / dpiY));
-							x = 0; //Align Top left
-							y = 0;
+							x = 99; //Align Top left
+							y = 99;
 						}
 						else
 						{
 							if (scaleRatioX > scaleRatioY)
 							{
-								w = cxPage;
-								h = (int)round(((double)cxPage / whRatio));
+								w = cxPage - 2*99;
+								h = (int)round(((double)(cxPage - 2*99) / whRatio));
 								//y = (cyPage - h) / 2;
-								y = 0;
+								y = 99;
 							}
 							else if (scaleRatioX < scaleRatioY)
 							{
-								w = (int)round(((double)cyPage * whRatio));
-								h = cyPage;
+								w = (int)round(((double)(cyPage - 2*99) * whRatio));
+								h = cyPage - 2*99;
 								//x = (cxPage - w) / 2;
-								x = 0;
+								x = 99;
 							}
 							else
 							{
-								w = cxPage;
-								h = cyPage;
+								w = cxPage - 2*99;
+								h = cyPage - 2*99;
 							}
 						}
 
@@ -682,16 +684,36 @@ USBAPI_API int __stdcall DoPrintImage()
 							switch (currentDuplexType)
 							{
 							case FlipOnLongEdge:
-								x = cxPage - w;
-								y = 0;
+
+								if (IsPrintSettingPortrait)
+								{
+									x = cxPage - w - 99;
+									y = 99;
+								}
+								else
+								{
+									x = 99;
+									y = cyPage - h - 99;
+								}
+							
 								break;
 							case FlipOnShortEdge:
-								x = 0;
-								y = cyPage - h;
+
+								if (IsPrintSettingPortrait)
+								{
+									x = 99;
+									y = cyPage - h - 99;
+								}
+								else
+								{
+									x = cxPage - w - 99;
+									y = 99;
+								}
+							
 								break;
 							case NonDuplex:
-								x = 0;
-								y = 0;
+								x = 99;
+								y = 99;
 								break;
 							default:
 								break;

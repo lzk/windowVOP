@@ -45,6 +45,7 @@ namespace VOP
         public IdCardTypeItem SelectedTypeItem { get; set; }
 
         private DuplexPrintType CurrentDuplexType = DuplexPrintType.NonDuplex;
+        private bool IsPortrait = true;
         private bool needFitToPage = true;
         private bool IsCopiesValidate = true;
 
@@ -196,7 +197,8 @@ namespace VOP
             result = printWin.ShowDialog();
             if (result == true)
             {
-                needFitToPage = (bool)printWin.chk_FitToPaperSize.IsChecked; 
+                needFitToPage = (bool)printWin.chk_FitToPaperSize.IsChecked;
+                IsPortrait = (bool)printWin.rdBtnPortrait.IsChecked;
                 spinnerControl1.Value = printWin.m_copies;
 
                 if(printWin.chk_DuplexPrint.IsChecked == true)
@@ -367,6 +369,7 @@ namespace VOP
                                            FilePaths[0],
                                            needFitToPage,
                                            (int)CurrentDuplexType,
+                                           IsPortrait,
                                            (int)spinnerControl1.Value);
                             }
 
@@ -404,7 +407,7 @@ namespace VOP
                 case PrintType.PrintImages:
 
                     if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print",
-                                     (int)enumIdCardType.NonIdCard, new IdCardSize(), needFitToPage, (int)CurrentDuplexType))
+                                     (int)enumIdCardType.NonIdCard, new IdCardSize(), needFitToPage, (int)CurrentDuplexType, IsPortrait))
                     {
 
                         foreach (string path in FilePaths)
@@ -426,7 +429,7 @@ namespace VOP
                     idCardSize.Width = SelectedTypeItem.Width;
                     idCardSize.Height = SelectedTypeItem.Height;
 
-                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print", (int)SelectedTypeItem.TypeId, idCardSize, needFitToPage, (int)DuplexPrintType.NonDuplex))
+                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print", (int)SelectedTypeItem.TypeId, idCardSize, needFitToPage, (int)DuplexPrintType.NonDuplex, IsPortrait))
                     {
                         using(IdCardPrintHelper helper = new IdCardPrintHelper())
                         {
