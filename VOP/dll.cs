@@ -196,7 +196,8 @@ namespace VOP
                 [MarshalAs(UnmanagedType.LPWStr)]string jobDescription,
                 int idCardType,
                 [In, MarshalAs(UnmanagedType.LPStruct)]IdCardSize size,
-                bool fitToPage);
+                bool fitToPage,
+                int duplexType);
 
         [DllImport("usbapi.dll")]
         public static extern void AddImagePath(
@@ -228,6 +229,7 @@ namespace VOP
                [MarshalAs(UnmanagedType.LPWStr)]string printerName, 
                [MarshalAs(UnmanagedType.LPWStr)]string fileName,
                bool fitToPage,
+               int duplexType,
                int copies);
 
         [DllImport("usbapi.dll")]

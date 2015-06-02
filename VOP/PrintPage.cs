@@ -17,6 +17,13 @@ using System.Diagnostics;
 
 namespace VOP
 {
+    public enum DuplexPrintType
+    {
+        NonDuplex,
+        FlipOnLongEdge,
+        FlipOnShortEdge
+    }
+
     public partial class PrintPage : UserControl
     {
         public MainWindow m_MainWin { get; set; }
@@ -37,6 +44,7 @@ namespace VOP
         public PrintType CurrentPrintType { get; set; }
         public IdCardTypeItem SelectedTypeItem { get; set; }
 
+        private DuplexPrintType CurrentDuplexType = DuplexPrintType.NonDuplex;
         private bool needFitToPage = true;
         private bool IsCopiesValidate = true;
 
@@ -190,6 +198,23 @@ namespace VOP
             {
                 needFitToPage = (bool)printWin.chk_FitToPaperSize.IsChecked; 
                 spinnerControl1.Value = printWin.m_copies;
+
+                if(printWin.chk_DuplexPrint.IsChecked == true)
+                {
+                    if (printWin.rdBtnFlipOnShortEdger.IsChecked == true)
+                    {
+                        CurrentDuplexType = DuplexPrintType.FlipOnShortEdge;
+                    }
+                    else
+                    {
+                        CurrentDuplexType = DuplexPrintType.FlipOnLongEdge;
+                    }
+                    
+                }
+                else
+                {
+                    CurrentDuplexType = DuplexPrintType.NonDuplex;
+                }
             }
         }
 
@@ -341,6 +366,7 @@ namespace VOP
                                            m_MainWin.statusPanelPage.m_selectedPrinter,
                                            FilePaths[0],
                                            needFitToPage,
+                                           (int)CurrentDuplexType,
                                            (int)spinnerControl1.Value);
                             }
 
@@ -378,7 +404,7 @@ namespace VOP
                 case PrintType.PrintImages:
 
                     if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print",
-                                     (int)enumIdCardType.NonIdCard, new IdCardSize(), needFitToPage))
+                                     (int)enumIdCardType.NonIdCard, new IdCardSize(), needFitToPage, (int)CurrentDuplexType))
                     {
 
                         foreach (string path in FilePaths)
@@ -400,7 +426,7 @@ namespace VOP
                     idCardSize.Width = SelectedTypeItem.Width;
                     idCardSize.Height = SelectedTypeItem.Height;
 
-                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print", (int)SelectedTypeItem.TypeId, idCardSize, needFitToPage))
+                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print", (int)SelectedTypeItem.TypeId, idCardSize, needFitToPage, (int)DuplexPrintType.NonDuplex))
                     {
                         using(IdCardPrintHelper helper = new IdCardPrintHelper())
                         {

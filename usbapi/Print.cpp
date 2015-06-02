@@ -35,6 +35,13 @@ enum IdCardType
 	BankCards
 };
 
+enum DuplexPrintType
+{
+	NonDuplex,
+	FlipOnLongEdge,
+	FlipOnShortEdge
+};
+
 enum PrintError
 {
 	Print_Memory_Fail,
@@ -68,8 +75,8 @@ typedef struct _IdCardSize
 USBAPI_API BOOL __stdcall IsMetricCountry();
 
 USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, SAFEARRAY** paperNames);
-USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int copies);
-USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage);
+USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int duplexType, int copies);
+USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage, int duplexType);
 USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName);
 USBAPI_API void __stdcall AddImageSource(IStream * imageSource);
 USBAPI_API void __stdcall AddImageRotation(int rotation);
@@ -185,6 +192,7 @@ static ULONG_PTR gdiplusToken;
 static int currentIdCardType = 0;
 static IdCardSize currentIdCardSize = { 0 };
 static bool needFitToPage = false;
+static DuplexPrintType currentDuplexType = NonDuplex;
 static PCLDEVMODE getdevmode;
 static PCLDEVMODE getDocumentPropertiesData;
 static PCLDEVMODE getOutputData;
@@ -366,7 +374,7 @@ USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, SAFEARRAY** paper
 	return 1;
 }
 
-USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int copies)
+USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int duplexType, int copies)
 {
 	PrintError error = Print_OK;
 	
@@ -411,7 +419,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 		||  strExt.compare(L".wmf") == 0
 		||  strExt.compare(L".emf") == 0)
 	{
-		if (PrintInit(strPrinterName, fileName, 0, NULL, fitToPage))
+		if (PrintInit(strPrinterName, fileName, 0, NULL, fitToPage, duplexType))
 		{
 			AddImagePath(strFileName);
 			DoPrintImage();
@@ -460,7 +468,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	return error;
 }
 
-USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage)
+USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage, int duplexType)
 {
 	g_vecImagePaths.clear();
 	g_vecIdCardImageSources.clear();
@@ -468,6 +476,7 @@ USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * 
 
 	currentIdCardType = idCardType;
 	needFitToPage = fitToPage;
+	currentDuplexType = (DuplexPrintType)duplexType;
 
 	if (size != NULL)
 		currentIdCardSize = *size;
@@ -521,6 +530,7 @@ USBAPI_API int __stdcall DoPrintImage()
 
 	UINT count = 0;
 	UINT fIndex = 0;
+	UINT pageCount = 0;
 	BOOL IsFitted = FALSE;
 
 	if (StartDoc(hdcPrn, &di) > 0)
@@ -666,6 +676,29 @@ USBAPI_API int __stdcall DoPrintImage()
 						pGraphics = Gdiplus::Graphics::FromHDC(hdcPrn);
 						pGraphics->SetPageUnit(Gdiplus::UnitPixel);
 
+
+						if (pageCount % 2 == 1 && IsFitted == TRUE)
+						{
+							switch (currentDuplexType)
+							{
+							case FlipOnLongEdge:
+								x = cxPage - w;
+								y = 0;
+								break;
+							case FlipOnShortEdge:
+								x = 0;
+								y = cyPage - h;
+								break;
+							case NonDuplex:
+								x = 0;
+								y = 0;
+								break;
+							default:
+								break;
+							}
+						}
+
+
 						if ((status = pGraphics->DrawImage(pImg, x, y, w, h)) != Gdiplus::Ok)
 						{
 							if (pImg)
@@ -697,6 +730,7 @@ USBAPI_API int __stdcall DoPrintImage()
 							break;
 						}
 					
+
 						if (pGraphics)
 						{
 							delete pGraphics;
@@ -722,6 +756,8 @@ USBAPI_API int __stdcall DoPrintImage()
 							error = Print_Operation_Fail;
 							break;
 						}
+
+						pageCount++;
 					}
 
 					if (pDimensionIDs)
