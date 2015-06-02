@@ -1215,30 +1215,10 @@ USBAPI_API bool __stdcall GetPrinterStatus( const wchar_t* szPrinter, BYTE* ptr_
 
             if (!rc) 
             {
-
-                HANDLE hTemp = CreateFile(symbolicname,
-                        GENERIC_WRITE | GENERIC_READ,
-                        FILE_SHARE_WRITE | FILE_SHARE_READ,
-                        NULL,
-                        OPEN_EXISTING,
-                        0,
-                        NULL);
-
-                // Fixed #0059441.
-                if (NULL == hTemp || INVALID_HANDLE_VALUE == hTemp )
-                {
-                    ps.PrinterStatus = __Unknown;
-                    *ptr_status = __Unknown;
-                }
-                else
-                {
-                    // Test with FW 32.01, when the machine enter sleep mode
-                    // DeviceIoControl return false
-                    ps.PrinterStatus = __PowerSaving;
-                    *ptr_status = __PowerSaving;
-                    CloseHandle( hTemp );
-                }
-
+                // Fixed #0059441: According the mail from Victor,
+                // DeviceIoControl wouldn't return fail when enter sleep mode.
+                ps.PrinterStatus = __Unknown;
+                *ptr_status = __Unknown;
                 return true;
             }
 
