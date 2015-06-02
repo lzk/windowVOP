@@ -624,6 +624,7 @@
     <Resource Include="Images\signal.png" />
     <Resource Include="Images\GreenLine.png" />
     <Resource Include="Images\printer.ico" />
+    <Resource Include="Images\printerGray.ico" />
     <Resource Include="Images\ButtonPicSelect.png" />
     <Resource Include="Images\Checked.png" />
     <Resource Include="Images\Uncheck.png" />

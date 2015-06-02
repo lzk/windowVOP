@@ -154,7 +154,7 @@ namespace VOP
                 throw ex;
             }
 
-            return true;
+            return isSuccess;
         }
 
         public static bool SavePrinterInfo(string printerName, string deviceStatus, string machineJob, string tonerCapacity, string xmlFileName)

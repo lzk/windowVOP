@@ -44,6 +44,8 @@ namespace VOP
 
     public partial class MainWindow : Window
     {
+        private bool bGrayIcon = false; // True if the tray icon was set to gray.
+
         public static RequestManager m_RequestManager = new RequestManager();
 
         public FileSelectionPage winFileSelectionPage = new FileSelectionPage();
@@ -1060,14 +1062,30 @@ namespace VOP
 
                statusPanelPage.UpdateStatusPanel( status, job, toner );
 
+               bool bIsNeedMaintain = IsStatusNeedMaintain(status);
+
+               System.IO.Stream iconStream = null;
+               if ( ( EnumStatus.Offline == status || bIsNeedMaintain )
+                       && bGrayIcon == false )
+               {
+                   bGrayIcon = true; 
+                   iconStream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,, /Images/printerGray.ico")).Stream;
+                   notifyIcon1.Icon = new System.Drawing.Icon(iconStream);
+               } 
+               else if ( EnumStatus.Offline != status 
+                       && false == bIsNeedMaintain 
+                       && bGrayIcon == true )
+               {
+                   bGrayIcon = false; 
+                   iconStream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,, /Images/printer.ico")).Stream;
+                   notifyIcon1.Icon = new System.Drawing.Icon(iconStream);
+               }
+
                if(true == m_bLocationIsChina)
                {
                    if (false == m_isShowedMaintainWindow)
                    {
-                       if ((status >= EnumStatus.PolygomotorOnTimeoutError && status <= EnumStatus.CTL_PRREQ_NSignalNoCome) 
-                               || status == EnumStatus.ScanMotorError 
-                               || status == EnumStatus.ScanDriverCalibrationFail 
-                               || status == EnumStatus.NetWirelessDongleCfgFail)
+                       if ( bIsNeedMaintain )
                        {
                            m_isShowedMaintainWindow = true;
                            MaintainWindow mw = new MaintainWindow();
@@ -1378,5 +1396,14 @@ namespace VOP
             if ( false == e.Cancel )
                 MainWindowExitPoint();
         }
+
+        public static bool IsStatusNeedMaintain( EnumStatus status )
+        {
+            return ((status >= EnumStatus.PolygomotorOnTimeoutError && status <= EnumStatus.CTL_PRREQ_NSignalNoCome) 
+                    || status == EnumStatus.ScanMotorError 
+                    || status == EnumStatus.ScanDriverCalibrationFail 
+                    || status == EnumStatus.NetWirelessDongleCfgFail);
+        }
+
     }
 }
