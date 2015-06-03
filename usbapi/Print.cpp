@@ -613,8 +613,8 @@ USBAPI_API int __stdcall DoPrintImage()
 							break;
 						}
 
-						int x = 99; //remove margin
-						int y = 99;
+						int x = 0; 
+						int y = 0;
 						Gdiplus::REAL dpiX = pImg->GetHorizontalResolution();
 						Gdiplus::REAL dpiY = pImg->GetVerticalResolution();
 
@@ -647,29 +647,29 @@ USBAPI_API int __stdcall DoPrintImage()
 						{
 							w = (int)round(pImg->GetWidth() * (600 / dpiX));
 							h = (int)round(pImg->GetHeight()* (600 / dpiY));
-							x = 99; //Align Top left
-							y = 99;
+							x = 0; //Align Top left
+							y = 0;
 						}
 						else
 						{
 							if (scaleRatioX > scaleRatioY)
 							{
-								w = cxPage - 2*99;
-								h = (int)round(((double)(cxPage - 2*99) / whRatio));
+								w = cxPage;
+								h = (int)round(((double)cxPage / whRatio));
 								//y = (cyPage - h) / 2;
-								y = 99;
+								y = 0;
 							}
 							else if (scaleRatioX < scaleRatioY)
 							{
-								w = (int)round(((double)(cyPage - 2*99) * whRatio));
-								h = cyPage - 2*99;
+								w = (int)round(((double)cyPage * whRatio));
+								h = cyPage;
 								//x = (cxPage - w) / 2;
-								x = 99;
+								x = 0;
 							}
 							else
 							{
-								w = cxPage - 2*99;
-								h = cyPage - 2*99;
+								w = cxPage;
+								h = cyPage;
 							}
 						}
 
@@ -687,13 +687,13 @@ USBAPI_API int __stdcall DoPrintImage()
 
 								if (IsPrintSettingPortrait)
 								{
-									x = cxPage - w - 99;
-									y = 99;
+									x = cxPage - w;
+									y = 0;
 								}
 								else
 								{
-									x = 99;
-									y = cyPage - h - 99;
+									x = 0;
+									y = cyPage - h;
 								}
 							
 								break;
@@ -701,19 +701,19 @@ USBAPI_API int __stdcall DoPrintImage()
 
 								if (IsPrintSettingPortrait)
 								{
-									x = 99;
-									y = cyPage - h - 99;
+									x = 0;
+									y = cyPage - h;
 								}
 								else
 								{
-									x = cxPage - w - 99;
-									y = 99;
+									x = cxPage - w;
+									y = 0;
 								}
 							
 								break;
 							case NonDuplex:
-								x = 99;
-								y = 99;
+								x = 0;
+								y = 0;
 								break;
 							default:
 								break;
