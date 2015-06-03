@@ -989,12 +989,12 @@ namespace VOP
                 }
             }
 
-            m_updaterAndUIEvent.Set();
-
             // When the status update thread pause, the icon turn to offline.
             bGrayIcon = true; 
             System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,, /Images/printerGray.ico")).Stream;
             notifyIcon1.Icon = new System.Drawing.Icon(iconStream);
+
+            m_updaterAndUIEvent.Set();
         }
 
         /// <summary>
