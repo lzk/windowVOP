@@ -82,7 +82,6 @@ namespace VOP
 
         private bool m_isAnimationPopup = false;  // True if animation window had popup.
         public  bool m_isCloseAnimation = false;  // True if animation window need to close.
-        public  string m_animationUri = "";       // Animation Uri need to display
 
         // Old status used to popup animation window.
         private EnumStatus m_oldStatus = EnumStatus.Offline;
@@ -1120,24 +1119,26 @@ namespace VOP
                {
                    if ( m_oldStatus != status )
                    {
+                       string _animationUri = "";       // Animation Uri need to display
+
                        switch ( status )
                        {
-                           case EnumStatus.JamAtExitNotReach  : m_animationUri = "pack://application:,,, /Media/JamAtExitNotReach.gif"; break;
-                           case EnumStatus.JamAtExitStayOn    : m_animationUri = "pack://application:,,, /Media/JamAtExitStayOn.gif"  ; break;
-                           case EnumStatus.JamAtRegistStayOn  : m_animationUri = "pack://application:,,, /Media/JamAtRegistStayOn.gif"; break;
-                           case EnumStatus.NofeedJam          : m_animationUri = "pack://application:,,, /Media/NofeedJam.gif"        ; break;
+                           case EnumStatus.JamAtExitNotReach  : _animationUri = "pack://application:,,, /Media/JamAtExitNotReach.gif"; break;
+                           case EnumStatus.JamAtExitStayOn    : _animationUri = "pack://application:,,, /Media/JamAtExitStayOn.gif"  ; break;
+                           case EnumStatus.JamAtRegistStayOn  : _animationUri = "pack://application:,,, /Media/JamAtRegistStayOn.gif"; break;
+                           case EnumStatus.NofeedJam          : _animationUri = "pack://application:,,, /Media/NofeedJam.gif"        ; break;
                            default: 
-                                                                  m_animationUri = "pack://application:,,, /Media/NofeedJam.gif"      ; break;
+                                                                  _animationUri = "pack://application:,,, /Media/NofeedJam.gif"      ; break;
                        }
 
                        if ( false == m_isAnimationPopup )
                        {
                            m_isCloseAnimation = false;  
                            m_isAnimationPopup = true;
-                           MessageBoxEx_Video win = new MessageBoxEx_Video(new Uri(m_animationUri), (string)this.TryFindResource("ResStr_The_paper_jam_occurred_please_follow_the_instructions_"), (string)this.FindResource("ResStr_Error"));
+                           MessageBoxEx_Video win = new MessageBoxEx_Video(new Uri(_animationUri), (string)this.TryFindResource("ResStr_The_paper_jam_occurred_please_follow_the_instructions_"), (string)this.FindResource("ResStr_Error"));
                            win.m_MainWin = this;
                            win.Owner = this;
-                           win.ShowDialog();
+                           win.ShowDialog(); // TODO: Why this modeless dialog will not block WndProc()?
                            m_isAnimationPopup = false;
                        }
                    }

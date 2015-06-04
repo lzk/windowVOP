@@ -21,12 +21,10 @@ namespace VOP
     {
         private System.Windows.Threading.DispatcherTimer m_timer = new System.Windows.Threading.DispatcherTimer();
 
-        private Uri m_uri = null;
         public MessageBoxEx_Video(Uri uri, string messageBoxText, string caption)
         {
             InitializeComponent();
 
-            m_uri = uri;
             messageBoxTextBlock.Text = messageBoxText;
             captionTextBlock.Text = caption;
 
@@ -59,10 +57,6 @@ namespace VOP
             {
                 m_timer.Stop();
                 this.Close();
-            }
-            else if ( m_uri.AbsoluteUri != m_MainWin.m_animationUri )
-            {
-                m_uri = new Uri( m_MainWin.m_animationUri );
             }
         }
 

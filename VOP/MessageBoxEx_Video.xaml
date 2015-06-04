@@ -46,7 +46,7 @@
         <Grid Name="MediaGrid" Grid.Row="2" Grid.Column="1" >
             <Rectangle Stroke="Black" StrokeThickness="1" />
 
-            <Image x:Name="imgAnimation" />
+            <Image x:Name="imgAnimation" Width="310" />
         </Grid>
     </Grid>
 </Window>
