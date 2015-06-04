@@ -630,26 +630,26 @@ namespace VOP
 
         public void Print(string pdfFileName)
         {
-            string processFilename = Microsoft.Win32.Registry.LocalMachine
-                 .OpenSubKey("Software")
-                 .OpenSubKey("Microsoft")
-                 .OpenSubKey("Windows")
-                 .OpenSubKey("CurrentVersion")
-                 .OpenSubKey("App Paths")
-                 .OpenSubKey("AcroRd32.exe")
-                 .GetValue(String.Empty).ToString();
+            //string processFilename = Microsoft.Win32.Registry.LocalMachine
+            //     .OpenSubKey("Software")
+            //     .OpenSubKey("Microsoft")
+            //     .OpenSubKey("Windows")
+            //     .OpenSubKey("CurrentVersion")
+            //     .OpenSubKey("App Paths")
+            //     .OpenSubKey("AcroRd32.exe")
+            //     .GetValue(String.Empty).ToString();
 
             CloseAll();
 
             ProcessStartInfo info = new ProcessStartInfo();
             info.Verb = "print";
-           // info.FileName = pdfFileName;
-            info.FileName = processFilename;
-            info.Arguments = String.Format("/t \"{0}\" \"{1}\"", pdfFileName, ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
+            info.FileName = pdfFileName;
+          //  info.FileName = processFilename;
+          //  info.Arguments = String.Format("/t \"{0}\" \"{1}\"", pdfFileName, ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
             info.CreateNoWindow = false;
             info.WindowStyle = ProcessWindowStyle.Normal;
             //(It won't be hidden anyway... thanks Adobe!)
-            info.UseShellExecute = false;
+            info.UseShellExecute = true;
 
             Process p = Process.Start(info);
             procList.Add(p);
