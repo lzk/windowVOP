@@ -1087,6 +1087,11 @@ namespace VOP
                        if ( bIsNeedMaintain )
                        {
                            m_isShowedMaintainWindow = true;
+                           //Add by KevinYin for BMS Bug(59606) begin
+                           if (null != App.Current.MainWindow && App.Current.MainWindow.Visibility == Visibility.Hidden)
+                               App.Current.MainWindow.Show();
+                           //Add by KevinYin for BMS Bug(59606) end
+
                            MaintainWindow mw = new MaintainWindow();
                            mw.Owner = App.Current.MainWindow;
                            mw.ShowDialog();
