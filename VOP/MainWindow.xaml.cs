@@ -1122,12 +1122,12 @@ namespace VOP
                    {
                        switch ( status )
                        {
-                           case EnumStatus.JamAtExitNotReach  : m_animationUri = "Media/JamAtExitNotReach.gif"; break;
-                           case EnumStatus.JamAtExitStayOn    : m_animationUri = "Media/JamAtExitStayOn.gif"  ; break;
-                           case EnumStatus.JamAtRegistStayOn  : m_animationUri = "Media/JamAtRegistStayOn.gif"; break;
-                           case EnumStatus.NofeedJam          : m_animationUri = "Media/NofeedJam.gif"        ; break;
+                           case EnumStatus.JamAtExitNotReach  : m_animationUri = "pack://application:,,, /Media/JamAtExitNotReach.gif"; break;
+                           case EnumStatus.JamAtExitStayOn    : m_animationUri = "pack://application:,,, /Media/JamAtExitStayOn.gif"  ; break;
+                           case EnumStatus.JamAtRegistStayOn  : m_animationUri = "pack://application:,,, /Media/JamAtRegistStayOn.gif"; break;
+                           case EnumStatus.NofeedJam          : m_animationUri = "pack://application:,,, /Media/NofeedJam.gif"        ; break;
                            default: 
-                                                                  m_animationUri = "Media/NofeedJam.gif"      ; break;
+                                                                  m_animationUri = "pack://application:,,, /Media/NofeedJam.gif"      ; break;
                        }
 
                        if ( false == m_isAnimationPopup )

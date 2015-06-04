@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfAnimatedGif;
 
 namespace VOP
 {
@@ -32,6 +33,14 @@ namespace VOP
             m_timer.Interval = new TimeSpan( 0, 0, 3 );
             m_timer.Tick += new EventHandler( TimerHandler );
             m_timer.Start();
+
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = uri;
+            image.EndInit();
+
+            ImageBehavior.SetAnimatedSource( imgAnimation, image );
+
         }
         public void Title_MouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
         {
