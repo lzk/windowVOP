@@ -44,12 +44,6 @@ namespace VOP
             this.Close();
         }
 
-        private void mediaElement_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (null != m_uri)
-                media.Source = m_uri;
-        }
-
         private void TimerHandler(object sender, EventArgs e)
         {
             if ( true == m_MainWin.m_isCloseAnimation )
@@ -60,8 +54,6 @@ namespace VOP
             else if ( m_uri.AbsoluteUri != m_MainWin.m_animationUri )
             {
                 m_uri = new Uri( m_MainWin.m_animationUri );
-                media.Source = m_uri;
-                // TODO: Resume animation.
             }
         }
 

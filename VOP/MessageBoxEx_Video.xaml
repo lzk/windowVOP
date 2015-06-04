@@ -45,19 +45,8 @@
 
         <Grid Name="MediaGrid" Grid.Row="2" Grid.Column="1" >
             <Rectangle Stroke="Black" StrokeThickness="1" />
-            <MediaElement Name="mediaElement" LoadedBehavior="Play" Stretch="Fill" Margin="1" Loaded="mediaElement_Loaded">
-                <MediaElement.Triggers>
-                    <EventTrigger RoutedEvent="MediaElement.Loaded">
-                        <EventTrigger.Actions>
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <MediaTimeline Name="media" Storyboard.TargetName="mediaElement"  RepeatBehavior="Forever" />
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger.Actions>
-                    </EventTrigger>
-                </MediaElement.Triggers>
-            </MediaElement>
+
+            <Image />
         </Grid>
     </Grid>
 </Window>

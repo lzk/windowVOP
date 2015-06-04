@@ -646,12 +646,10 @@
     <Resource Include="Images\Index.png" />
     <Resource Include="Images\Printer.png" />
     <Resource Include="Images\Wifi.png" />
-
     <Resource Include="Media\JamAtExitNotReach.gif" />
     <Resource Include="Media\JamAtExitStayOn.gif" />
     <Resource Include="Media\JamAtRegistStayOn.gif" />
     <Resource Include="Media\NofeedJam.gif" />
-
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -703,5 +701,11 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WpfAnimatedGif\WpfAnimatedGif.csproj">
+      <Project>{d129789c-3096-4d0b-8dd7-fe24a4df4b21}</Project>
+      <Name>WpfAnimatedGif</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
