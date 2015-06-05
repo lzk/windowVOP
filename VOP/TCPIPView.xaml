@@ -27,9 +27,9 @@
                                 <local:PopupEx IsOpen="True" 
                                AllowsTransparency="True"
                                PlacementTarget="{Binding ElementName=MyAdorner}"
-                               Placement="Right"
-                               VerticalAlignment="Center"
-                               HorizontalOffset="5"
+                               Placement="Top"
+                               VerticalOffset="-5"
+                               HorizontalOffset="-50"
                                Topmost="False"
                                PopupPlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" 
                                >
@@ -38,7 +38,8 @@
 								            Foreground="#FF727272"
 								            Margin="5" 
 								            FontSize="12"
-								            Text="{StaticResource ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_}">
+								            Text="{Binding ElementName=MyAdorner, 
+                                                    Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
                                         </TextBlock>
                                     </Border>
                                 </local:PopupEx>
@@ -60,9 +61,9 @@
                                 <local:PopupEx IsOpen="True" 
                                AllowsTransparency="True"
                                PlacementTarget="{Binding ElementName=MyAdorner}"
-                               Placement="Right"
-                               VerticalAlignment="Center"
-                               HorizontalOffset="5"
+                               Placement="Top"
+                               VerticalOffset="-5"
+                               HorizontalOffset="-50"
                                Topmost="False"
                                PopupPlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" 
                                >
@@ -71,7 +72,8 @@
 								            Foreground="#FF727272"
 								            Margin="5" 
 								            FontSize="12"
-								            Text="{StaticResource ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_}">
+								            Text="{Binding ElementName=MyAdorner, 
+                                                    Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
                                         </TextBlock>
                                     </Border>
                                 </local:PopupEx>
@@ -93,9 +95,9 @@
                                 <local:PopupEx IsOpen="True" 
                                AllowsTransparency="True"
                                PlacementTarget="{Binding ElementName=MyAdorner}"
-                               Placement="Right"
-                               VerticalAlignment="Center"
-                               HorizontalOffset="5"
+                               Placement="Top"
+                               VerticalOffset="-5"
+                               HorizontalOffset="-50"
                                Topmost="False"
                                PopupPlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" 
                                >
@@ -104,7 +106,8 @@
 								            Foreground="#FF727272"
 								            Margin="5" 
 								            FontSize="12"
-								            Text="{StaticResource ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation}">
+								            Text="{Binding ElementName=MyAdorner, 
+                                                    Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
                                         </TextBlock>
                                     </Border>
                                 </local:PopupEx>
@@ -245,7 +248,7 @@
                         Mode="TwoWay"
                         UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
-                            <local:SubmaskValidationRule ErrorMessage="{StaticResource ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_}"/>
+                            <local:SubmaskValidationRule ErrorMessage="{StaticResource ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation}"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
