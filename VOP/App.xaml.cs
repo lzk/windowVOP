@@ -93,8 +93,16 @@ namespace VOP
         public static void Main() 
         {
             string argLine = Environment.CommandLine;
+            string regStr = "";
 
-            if (argLine.Contains("EXIT"))
+            if (SelfCloseRegistry.Open())
+            {
+                regStr = SelfCloseRegistry.GetEXIT();
+                SelfCloseRegistry.DeleteEXIT();
+                SelfCloseRegistry.Close();
+            }
+
+            if (argLine.Contains("EXIT") || regStr == "EXIT")
             {
                 Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
                 return;
