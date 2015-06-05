@@ -99,12 +99,12 @@
                                    TextAlignment="Center">
                         </TextBlock>
 
-                        <mycontrol:RefreshButton Margin="-15,5,0, 0"
+                        <mycontrol:RefreshButton Margin="-12,0,0, 5"
                             x:Name="RefreshBtn"
                             Grid.Column="1" Grid.RowSpan="2"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Left"
-                            Width="22.4" Height="22.4" 
+                            Width="17" Height="17" 
                             Button.Click="RefreshBtnClick"
                             >
                         </mycontrol:RefreshButton>

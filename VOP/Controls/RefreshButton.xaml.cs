@@ -32,22 +32,28 @@ namespace VOP
             DependencyProperty.Register("IsRefresh", typeof(bool), typeof(RefreshButton),
              new FrameworkPropertyMetadata(new PropertyChangedCallback(OnIsRefresh_Changed)));
 
+        public ImageSource ImagePath
+        {
+            get { return (ImageSource)GetValue(ImagePathProperty); }
+            set { SetValue(ImagePathProperty, value); }
+        }
+
+        public static readonly DependencyProperty ImagePathProperty =
+            DependencyProperty.Register("ImagePath", typeof(ImageSource), typeof(RefreshButton));
+
         private static void OnIsRefresh_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             VOP.RefreshButton _This = sender as VOP.RefreshButton;
             if (null == _This) return;
-
-            // refresh: color:#51B000
-            // Normal: color: #888888
             if (_This.IsRefresh)
             {
                 _This.timer.Start();
-                _This.refreshBtn.Background = new SolidColorBrush(Color.FromRgb(0x51, 0xB0, 0x00));
+                _This.ImagePath = new BitmapImage(new Uri("pack://application:,,,/" + @"../Images/RefreshClick.tif", UriKind.RelativeOrAbsolute));
             }
             else
             {
                 _This.timer.Stop();
-                _This.refreshBtn.Background = new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88));
+                _This.ImagePath = new BitmapImage(new Uri("pack://application:,,,/" + @"../Images/RefreshNormal.tif", UriKind.RelativeOrAbsolute));
                 _This.CurRotateAngle = 0;
             }
         }
@@ -58,6 +64,8 @@ namespace VOP
 
             timer.Interval = new TimeSpan(0, 0, 0, 0, 20);
             timer.Tick += new EventHandler(timer_Tick);
+
+            ImagePath = new BitmapImage(new Uri("pack://application:,,,/" + @"../Images/RefreshNormal.tif", UriKind.RelativeOrAbsolute));
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -78,15 +86,30 @@ namespace VOP
                 rotateTransform.Angle = curRotateAngle;
                 container.RenderTransform = rotateTransform;
             }
+        }    
+    }
+    public class RefreshImagePath
+    {
+
+        public static readonly DependencyProperty ImageProperty;
+
+        public static ImageSource GetImage(DependencyObject obj)
+        {
+            return (ImageSource)obj.GetValue(ImageProperty);
         }
 
-        private void refreshBtn_Click(object sender, RoutedEventArgs e)
+        public static void SetImage(DependencyObject obj, ImageSource value)
         {
-            //if (IsRefresh)
-            //    IsRefresh = false;
-            //else
-            //    IsRefresh = true;
+            obj.SetValue(ImageProperty, value);
+        }
+
+        static RefreshImagePath()
+        {
+            //register attached dependency property
+            var metadata = new FrameworkPropertyMetadata((ImageSource)null);
+            ImageProperty = DependencyProperty.RegisterAttached("Image",
+                                                                typeof(ImageSource),
+                                                                typeof(RefreshImagePath), metadata);
         }
     }
-
 }
