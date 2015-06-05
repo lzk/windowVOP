@@ -659,8 +659,10 @@ namespace VOP
             tk1in2x2.IsEnabled = false;
             rdBtn1in2x2.IsChecked = false;
             rdBtn1in3x3.IsEnabled = false;
+            tk1in3x3.IsEnabled = false;
             rdBtn1in3x3.IsChecked = false;
             rdBtn1in4x4.IsEnabled = false;
+            tk1in4x4.IsEnabled = false;
             rdBtn1in4x4.IsChecked = false;
             m_preNin1 = 0;
             DisableLabelType();
@@ -679,6 +681,9 @@ namespace VOP
                 rdBtn1in2x2.IsEnabled = true;
                 rdBtn1in3x3.IsEnabled = true;
                 rdBtn1in4x4.IsEnabled = true;
+                tk1in2x2.IsEnabled = true;
+                tk1in3x3.IsEnabled = true;
+                tk1in4x4.IsEnabled = true;
             }
 
             DisableLabelType();
@@ -723,17 +728,27 @@ namespace VOP
             rdBtn4in1.IsEnabled = true;
             rdBtn9in1.IsEnabled = true;
             rdBtn16in1.IsEnabled = true;
+            tk2in1.IsEnabled = true;
+            tk4in1.IsEnabled = true;
+            tk9in1.IsEnabled = true;
+            tk16in1.IsEnabled = true;
             if (chk_DuplexPrint.IsChecked == true || 1 == m_watermark)
             {
                 rdBtn1in2x2.IsEnabled = false;
                 rdBtn1in3x3.IsEnabled = false;
                 rdBtn1in4x4.IsEnabled = false;
+                tk1in2x2.IsEnabled = false;
+                tk1in3x3.IsEnabled = false;
+                tk1in4x4.IsEnabled = false;
             }
             else
             {
                 rdBtn1in2x2.IsEnabled = true;
                 rdBtn1in3x3.IsEnabled = true;
                 rdBtn1in4x4.IsEnabled = true;
+                tk1in2x2.IsEnabled = true;
+                tk1in3x3.IsEnabled = true;
+                tk1in4x4.IsEnabled = true;
             }           
 
             m_nupNum = m_preNin1;
@@ -761,6 +776,13 @@ namespace VOP
             rdBtn1in3x3.IsChecked = false;
             rdBtn1in4x4.IsEnabled = false;
             rdBtn1in4x4.IsChecked = false;
+            tk2in1.IsEnabled = false;
+            tk4in1.IsEnabled = false;
+            tk9in1.IsEnabled = false;
+            tk16in1.IsEnabled = false;
+            tk1in2x2.IsEnabled = false;
+            tk1in3x3.IsEnabled = false;
+            tk1in4x4.IsEnabled = false;
             if (4 == m_mediaType)
             {
                 chk_DuplexPrint.IsEnabled = false;
@@ -1030,6 +1052,13 @@ namespace VOP
                 rdBtn1in2x2.IsEnabled = false;
                 rdBtn1in3x3.IsEnabled = false;
                 rdBtn1in4x4.IsEnabled = false;
+                tk2in1.IsEnabled = false;
+                tk4in1.IsEnabled = false;
+                tk9in1.IsEnabled = false;
+                tk16in1.IsEnabled = false;
+                tk1in2x2.IsEnabled = false;
+                tk1in3x3.IsEnabled = false;
+                tk1in4x4.IsEnabled = false;
                 spinnerDensityAdjustment.IsEnabled = true;
                 chk_DuplexPrint.IsEnabled = true;
                 chk_DuplexPrint.IsChecked = false;
@@ -1070,6 +1099,13 @@ namespace VOP
                 rdBtn1in2x2.IsEnabled = false;
                 rdBtn1in3x3.IsEnabled = false;
                 rdBtn1in4x4.IsEnabled = false;
+                tk2in1.IsEnabled = false;
+                tk4in1.IsEnabled = false;
+                tk9in1.IsEnabled = false;
+                tk16in1.IsEnabled = false;
+                tk1in2x2.IsEnabled = false;
+                tk1in3x3.IsEnabled = false;
+                tk1in4x4.IsEnabled = false;
                 spinnerDensityAdjustment.IsEnabled = true;
                 chk_DuplexPrint.IsEnabled = false;
                 chk_DuplexPrint.IsChecked = false;
@@ -1112,6 +1148,13 @@ namespace VOP
                 rdBtn1in2x2.IsEnabled = false;
                 rdBtn1in3x3.IsEnabled = false;
                 rdBtn1in4x4.IsEnabled = false;
+                tk2in1.IsEnabled = false;
+                tk4in1.IsEnabled = false;
+                tk9in1.IsEnabled = false;
+                tk16in1.IsEnabled = false;
+                tk1in2x2.IsEnabled = false;
+                tk1in3x3.IsEnabled = false;
+                tk1in4x4.IsEnabled = false;
                 spinnerDensityAdjustment.IsEnabled = true;
                 chk_DuplexPrint.IsEnabled = true;
                 chk_DuplexPrint.IsChecked = false;
@@ -1148,6 +1191,13 @@ namespace VOP
                 rdBtn1in2x2.IsEnabled = false;
                 rdBtn1in3x3.IsEnabled = false;
                 rdBtn1in4x4.IsEnabled = false;
+                tk2in1.IsEnabled = false;
+                tk4in1.IsEnabled = false;
+                tk9in1.IsEnabled = false;
+                tk16in1.IsEnabled = false;
+                tk1in2x2.IsEnabled = false;
+                tk1in3x3.IsEnabled = false;
+                tk1in4x4.IsEnabled = false;
                 spinnerDensityAdjustment.IsEnabled = true;
                 chk_DuplexPrint.IsEnabled = true;
                 chk_DuplexPrint.IsChecked = false;
@@ -1188,6 +1238,13 @@ namespace VOP
                 rdBtn1in2x2.IsEnabled = false;
                 rdBtn1in3x3.IsEnabled = false;
                 rdBtn1in4x4.IsEnabled = false;
+                tk2in1.IsEnabled = false;
+                tk4in1.IsEnabled = false;
+                tk9in1.IsEnabled = false;
+                tk16in1.IsEnabled = false;
+                tk1in2x2.IsEnabled = false;
+                tk1in3x3.IsEnabled = false;
+                tk1in4x4.IsEnabled = false;
                 spinnerDensityAdjustment.IsEnabled = true;
                 chk_DuplexPrint.IsEnabled = true;
                 chk_DuplexPrint.IsChecked = false;
@@ -1231,6 +1288,13 @@ namespace VOP
                 rdBtn1in2x2.IsEnabled = false;
                 rdBtn1in3x3.IsEnabled = false;
                 rdBtn1in4x4.IsEnabled = false;
+                tk2in1.IsEnabled = false;
+                tk4in1.IsEnabled = false;
+                tk9in1.IsEnabled = false;
+                tk16in1.IsEnabled = false;
+                tk1in2x2.IsEnabled = false;
+                tk1in3x3.IsEnabled = false;
+                tk1in4x4.IsEnabled = false;
                 spinnerDensityAdjustment.IsEnabled = true;
                 chk_DuplexPrint.IsEnabled = true;
                 chk_DuplexPrint.IsChecked = false;
@@ -1271,6 +1335,13 @@ namespace VOP
                 rdBtn1in2x2.IsEnabled = false;
                 rdBtn1in3x3.IsEnabled = false;
                 rdBtn1in4x4.IsEnabled = false;
+                tk2in1.IsEnabled = false;
+                tk4in1.IsEnabled = false;
+                tk9in1.IsEnabled = false;
+                tk16in1.IsEnabled = false;
+                tk1in2x2.IsEnabled = false;
+                tk1in3x3.IsEnabled = false;
+                tk1in4x4.IsEnabled = false;
                 spinnerDensityAdjustment.IsEnabled = true;
                 chk_DuplexPrint.IsEnabled = false;
                 chk_DuplexPrint.IsChecked = false;
@@ -1313,6 +1384,13 @@ namespace VOP
                 rdBtn1in2x2.IsEnabled = false;
                 rdBtn1in3x3.IsEnabled = false;
                 rdBtn1in4x4.IsEnabled = false;
+                tk2in1.IsEnabled = false;
+                tk4in1.IsEnabled = false;
+                tk9in1.IsEnabled = false;
+                tk16in1.IsEnabled = false;
+                tk1in2x2.IsEnabled = false;
+                tk1in3x3.IsEnabled = false;
+                tk1in4x4.IsEnabled = false;
                 spinnerDensityAdjustment.IsEnabled = true;
                 chk_DuplexPrint.IsEnabled = true;
                 chk_DuplexPrint.IsChecked = false;
@@ -1349,6 +1427,13 @@ namespace VOP
                 rdBtn1in2x2.IsEnabled = false;
                 rdBtn1in3x3.IsEnabled = false;
                 rdBtn1in4x4.IsEnabled = false;
+                tk2in1.IsEnabled = false;
+                tk4in1.IsEnabled = false;
+                tk9in1.IsEnabled = false;
+                tk16in1.IsEnabled = false;
+                tk1in2x2.IsEnabled = false;
+                tk1in3x3.IsEnabled = false;
+                tk1in4x4.IsEnabled = false;
                 spinnerDensityAdjustment.IsEnabled = true;
                 chk_DuplexPrint.IsEnabled = true;
                 chk_DuplexPrint.IsChecked = false;
@@ -1388,6 +1473,13 @@ namespace VOP
                 rdBtn1in2x2.IsEnabled = false;
                 rdBtn1in3x3.IsEnabled = false;
                 rdBtn1in4x4.IsEnabled = false;
+                tk2in1.IsEnabled = false;
+                tk4in1.IsEnabled = false;
+                tk9in1.IsEnabled = false;
+                tk16in1.IsEnabled = false;
+                tk1in2x2.IsEnabled = false;
+                tk1in3x3.IsEnabled = false;
+                tk1in4x4.IsEnabled = false;
                 spinnerDensityAdjustment.IsEnabled = true;
                 chk_DuplexPrint.IsEnabled = true;
                 chk_DuplexPrint.IsChecked = false;
@@ -1617,7 +1709,10 @@ namespace VOP
             {
                 rdBtn1in2x2.IsEnabled = false;
                 rdBtn1in3x3.IsEnabled = false;
-                rdBtn1in4x4.IsEnabled = false;                
+                rdBtn1in4x4.IsEnabled = false;
+                tk1in2x2.IsEnabled = false;
+                tk1in3x3.IsEnabled = false;
+                tk1in4x4.IsEnabled = false;
             }
         }
 

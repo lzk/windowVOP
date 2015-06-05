@@ -111,8 +111,7 @@
                 <Setter Property="Foreground" Value="#FF7A7A7A"/>
                 <Style.Triggers>
                     <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Foreground"
-                        Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        <Setter Property="Foreground" Value="#7F6D6D6D"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -127,7 +126,7 @@
                     <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
                 </Rectangle.Effect>
             </Rectangle>
-            
+
             <Grid Width="650" Height="560">
                 <Grid.Background>
                     <SolidColorBrush Color="#FFE7E7E7"/>
@@ -241,7 +240,20 @@
                             <ColumnDefinition Width="70"/>
                             <ColumnDefinition Width="10"/>
                         </Grid.ColumnDefinitions>
-
+                        <StackPanel Orientation="Vertical"
+					Grid.Column="1" 
+					Grid.Row="3"
+                     Margin="0,0,0,0" HorizontalAlignment="Left" Width="103" Grid.ColumnSpan="2">
+                            <CheckBox x:Name="chk_MultiplePagePrint" 
+					Grid.Row="3"
+					Grid.Column="1" 
+					Grid.ColumnSpan="2"
+					Template="{StaticResource customCheckBox}"
+					IsChecked="False"
+					Content="{StaticResource ResStr_Multiple_Page}"
+					Checked="chk_MultiplePagePrint_Checked" 
+					Unchecked="chk_MultiplePagePrint_Unchecked" Height="66"/>
+                        </StackPanel>
                         <StackPanel Orientation="Vertical"
 					Grid.Column="2" 
 					Grid.Row="1">
@@ -253,7 +265,7 @@
 						Style="{StaticResource CustomRadioButtonEx}">
                                 <Image Width="51" Height="35" Margin="10,7,0,6" Stretch="None" Source="Images/2in1.png" HorizontalAlignment="Left" />
                             </RadioButton>
-                            <TextBlock Text="{StaticResource ResStr_2_in_1}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
+                            <TextBlock Name="tk2in1" Text="{StaticResource ResStr_2_in_1}"  Style="{StaticResource TextBlockColorChange}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13" Height="18"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical"
@@ -268,7 +280,7 @@
 						            Style="{StaticResource CustomRadioButtonEx}">
                                 <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/4in1.png" HorizontalAlignment="Left" />
                             </RadioButton>
-                            <TextBlock Text="{StaticResource ResStr_4_in_1}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
+                            <TextBlock Name="tk4in1" Text="{StaticResource ResStr_4_in_1}" Style="{StaticResource TextBlockColorChange}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13"  Height="18"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical"
@@ -283,7 +295,7 @@
 						            Style="{StaticResource CustomRadioButtonEx}">
                                 <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/9in1.png" HorizontalAlignment="Left" />
                             </RadioButton>
-                            <TextBlock Text="{StaticResource ResStr_9_in_1}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13" Foreground="#FF7A7A7A" Height="18"/>
+                            <TextBlock Name="tk9in1" Text="{StaticResource ResStr_9_in_1}" Style="{StaticResource TextBlockColorChange}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="30" FontSize="13" Height="18"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical"
@@ -298,7 +310,7 @@
 						Style="{StaticResource CustomRadioButtonEx}">
                                 <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/16in1.png" HorizontalAlignment="Left" />
                             </RadioButton>
-                            <TextBlock Text="{StaticResource ResStr_16_in_1}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" FontSize="13" Foreground="#FF7A7A7A" Height="18" Margin="16,0,10,0"/>
+                            <TextBlock Name="tk16in1" Text="{StaticResource ResStr_16_in_1}" Style="{StaticResource TextBlockColorChange}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="40" FontSize="13" Height="18" Margin="16,0,10,0"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical"
@@ -330,7 +342,7 @@
 						Style="{StaticResource CustomRadioButtonEx}" Margin="13,0,-13,0">
                                 <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/1in3x3.png" HorizontalAlignment="Left" />
                             </RadioButton>
-                            <TextBlock Text="{StaticResource ResStr_1_in_3_3}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18" Margin="22,0,-5,0"/>
+                            <TextBlock Name="tk1in3x3" Text="{StaticResource ResStr_1_in_3_3}" Style="{StaticResource TextBlockColorChange}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Height="18" Margin="22,0,-5,0"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Vertical"
@@ -346,19 +358,8 @@
 						Style="{StaticResource CustomRadioButtonEx}" Margin="13,0,-13,0">
                                 <Image Width="51" Height="35" Margin="8,7,0,6" Stretch="None" Source="Images/1in4x4.png" HorizontalAlignment="Left" />
                             </RadioButton>
-                            <TextBlock Text="{StaticResource ResStr_1_in_4_4_}"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Foreground="#FF7A7A7A" Height="18" Margin="22,0,-5,0"/>
+                            <TextBlock Name="tk1in4x4" Text="{StaticResource ResStr_1_in_4_4_}" Style="{StaticResource TextBlockColorChange}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" FontSize="13" Height="18" Margin="22,0,-5,0"/>
                         </StackPanel>
-
-                        <CheckBox x:Name="chk_MultiplePagePrint" 
-					Grid.Row="3"
-					Grid.Column="1" 
-					Grid.ColumnSpan="2"
-					Template="{StaticResource customCheckBox}"
-					IsChecked="False"
-					Content="{StaticResource ResStr_Multiple_Page}" 
-					Margin="0,0,29,0"
-					Checked="chk_MultiplePagePrint_Checked" 
-					Unchecked="chk_MultiplePagePrint_Unchecked"/>
 
                     </Grid>
                 </Controls:GroupBoxDecorator>
@@ -374,8 +375,16 @@
                             <ColumnDefinition Width="139"/>
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel Orientation="Horizontal" 
-					            Grid.ColumnSpan="3" Margin="93,0,1,0">
+                        <StackPanel Orientation="Horizontal"                                     
+					            Grid.ColumnSpan="3" Margin="0,0,0,0">
+                            <CheckBox x:Name="chk_DuplexPrint" 
+                        		Template="{StaticResource customCheckBox}" 
+                        		IsChecked="False" 
+                        		Checked="chk_DuplexPrint_Checked" 
+                        		Unchecked="chk_DuplexPrint_Unchecked"
+                        		Content="{StaticResource ResStr_2_sided}"
+                        		Margin="16,0,0,13" Width="83" Height="46" VerticalAlignment="Bottom"/>
+
                             <RadioButton GroupName="Goup2" 
 						                Height="42" 
 						                Width="123" 
@@ -386,7 +395,7 @@
 						                Style="{StaticResource CustomRadioButtonEx}" 
 						                SnapsToDevicePixels="True"
                                         ToolTip="{StaticResource ResStr_Flip_on_short_edge}" 
-						                Margin="10,0,0,2">
+						                Margin="5,0,0,2">
                                 <StackPanel Width="120">
                                     <Image Height="42" Stretch="None" Source="Images/FlipOnShortEdge.png"/>
                                 </StackPanel>
@@ -403,17 +412,10 @@
                                     ToolTip="{StaticResource ResStr_Flip_on_long_edge}"
 						            Margin="10,0,0,2">
                                 <StackPanel Margin="2,0,8,0">
-                                    <Image Height="42" Stretch="None" Source="Images/FlipOnLongEdge.png"/>                                   
+                                    <Image Height="42" Stretch="None" Source="Images/FlipOnLongEdge.png"/>
                                 </StackPanel>
                             </RadioButton>
                         </StackPanel>
-                        <CheckBox x:Name="chk_DuplexPrint" 
-					Template="{StaticResource customCheckBox}" 
-					IsChecked="False" 
-					Checked="chk_DuplexPrint_Checked" 
-					Unchecked="chk_DuplexPrint_Unchecked"
-					Content="{StaticResource ResStr_2_sided}"
-					Margin="16,8,0,12"/>
 
                     </Grid>
                 </Controls:GroupBoxDecorator>
