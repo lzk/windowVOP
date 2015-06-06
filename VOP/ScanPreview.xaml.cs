@@ -24,13 +24,9 @@ namespace VOP
     /// </summary>
     public partial class ScanPreview : Window
     {
-        private double m_scaleFitToWindow = 1;    // scaling rate when image fit to preview window.
-        private BitmapSource m_src        = null; // image object for preview image.
-        private double m_scale            = 1;    // scaling rate of preview image.
-
         public ScanFiles m_images     = null;
         public bool isPrint           = false;    // turn if user click print.
-        public int m_rotatedAngle     = 0;        // rotated angle of preview image.
+        public int m_rotatedAngle     = 0;        // Rotated angle of preview image. Value: { 0, 90, 180, 270 }.
         public ScanFiles m_rotatedObj = null;     
 
         public ScanPreview()
@@ -56,33 +52,13 @@ namespace VOP
                     bmpSrc = BitmapFrame.Create(new TransformedBitmap(bmpSrc, new ScaleTransform(0.4, 0.4)));
                 }
 
-                m_src = bmpSrc;
+                previewImg.Source = bmpSrc;
+                FitTheWindow();
+                CenterImage();
 
+                bmpSrc = null;
             }
             catch
-            {
-                m_src = null;
-            }
-
-            if (m_src != null)
-            {
-                double scaling1 = this.scrollPreview.Width / m_src.Width;
-                double scaling2 = this.scrollPreview.Height / m_src.Height;
-
-                m_scale = (scaling1 < scaling2) ? scaling1 : scaling2;
-
-                if ( m_scale > 1 )
-                    m_scale = 1;
-
-                m_scaleFitToWindow = m_scale;
-
-                this.previewImg.Width  = m_src.Width *m_scale;
-                this.previewImg.Height = m_src.Height*m_scale;
-                this.previewImg.Source = m_src;
-
-                CenterImage();
-            }
-            else
             {
                 VOP.Controls.MessageBoxEx.Show(
                         VOP.Controls.MessageBoxExStyle.Simple,
@@ -97,7 +73,7 @@ namespace VOP
 
         private void CenterImage()
         {
-            if (m_src != null)
+            if ( null != previewImg.Source )
             {
                 if (previewImg.Height > scrollPreview.ViewportHeight)
                     scrollPreview.ScrollToVerticalOffset((previewImg.Height - scrollPreview.ViewportHeight) / 2);
@@ -120,68 +96,53 @@ namespace VOP
 
             string name = btn.Name;
 
-            if (name == "btn_zoomin")
+            if (name == "btn_zoomin" || name == "btn_zoomout" )
             {
-                m_scale += 0.1;
-            }
-            else if (name == "btn_zoomout")
-            {
-                m_scale -= 0.1;
-            }
+                double scaling = 1.0;
 
+                if (name == "btn_zoomin")
+                    scaling += 0.1;
+                else
+                    scaling -= 0.1;
+
+                if ( previewImg.Height*scaling >= scrollPreview.Height/2 )
+                {
+                    previewImg.Width *= scaling;
+                    previewImg.Height *= scaling;
+                }
+            }
+            else if ( name == "btn_normal" )
+            {
+                FitTheWindow();
+            }
             else if (name == "btn_turn")
             {
-                m_scale = m_scaleFitToWindow;
                 m_rotatedAngle += 90;
-                m_rotatedAngle = m_rotatedAngle % 360;
+                m_rotatedAngle %= 360;
 
-                if ( 0 != m_rotatedAngle )
+                try
                 {
-                    try
-                    {
-                        CachedBitmap cache = new CachedBitmap(m_src, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                        previewImg.Source = BitmapFrame.Create(new TransformedBitmap(cache, new RotateTransform(m_rotatedAngle)));
-                        GC.Collect();
-                    }
-                    catch
-                    {
-                        VOP.Controls.MessageBoxEx.Show(
-                                VOP.Controls.MessageBoxExStyle.Simple,
-                                this,
-                                (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
-                                (string)this.FindResource( "ResStr_Error" )
-                                );
-                    }
+                    double oldWidth = previewImg.Width;
+                    double oldHeight = previewImg.Height;
+
+                    CachedBitmap cache = new CachedBitmap(previewImg.Source as BitmapSource, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                    previewImg.Source = BitmapFrame.Create(new TransformedBitmap(cache, new RotateTransform(90)));
+
+                    previewImg.Width = oldHeight;
+                    previewImg.Height = oldWidth;
+
+                    GC.Collect();
                 }
-                else
+                catch
                 {
-                    previewImg.Source = m_src;
+                    VOP.Controls.MessageBoxEx.Show(
+                            VOP.Controls.MessageBoxExStyle.Simple,
+                            this,
+                            (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
+                            (string)this.FindResource( "ResStr_Error" )
+                            );
+
                 }
-            }
-            else if (name == "btn_normal")
-            {
-                m_scale = m_scaleFitToWindow;
-            }
-
-            if (m_scale <= 0.1)
-            {
-                if (m_scaleFitToWindow < 0.1)
-                    m_scale = m_scaleFitToWindow;
-                else
-                    m_scale = 0.1;
-            }
-            else if (m_scale >= 4)
-                m_scale = 4;
-
-            if (-90 == m_rotatedAngle || -270 == m_rotatedAngle)
-            {
-                previewImg.Height = m_src.Width * m_scale;
-                previewImg.Width = m_src.Height * m_scale;
-            }
-            else
-            {
-                previewImg.Width = m_src.Width * m_scale;
-                previewImg.Height = m_src.Height * m_scale;
             }
 
             CenterImage();
@@ -257,7 +218,7 @@ namespace VOP
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if ( 0 != m_rotatedAngle % 360 )
+            if ( 0 != m_rotatedAngle )
             {
                 if ( VOP.Controls.MessageBoxExResult.Yes == 
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, 
@@ -290,5 +251,21 @@ namespace VOP
                 }
             }
         }
+
+        // Make the preview image fit the scroll view.
+        private void FitTheWindow()
+        {
+            double scaling1 = 0.0;
+            double scaling2 = 0.0;
+            double scaling0 = 0.0;
+
+            scaling1 = this.scrollPreview.Width / previewImg.Source.Width;
+            scaling2 = this.scrollPreview.Height / previewImg.Source.Height;
+            scaling0 = (scaling1 < scaling2) ? scaling1 : scaling2;
+
+            previewImg.Width  = previewImg.Source.Width * scaling0;
+            previewImg.Height = previewImg.Source.Height * scaling0;
+        }
+
     }
 }

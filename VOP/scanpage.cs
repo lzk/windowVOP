@@ -123,7 +123,7 @@ namespace VOP
             {
                 List<string> files = new List<string>();
 
-                if ( 0 != win.m_rotatedAngle%360 && null != win.m_rotatedObj )
+                if ( 0 != win.m_rotatedAngle && null != win.m_rotatedObj )
                     files.Add( win.m_rotatedObj.m_pathOrig );
                 else
                     files.Add( img.m_images.m_pathOrig );
@@ -131,7 +131,7 @@ namespace VOP
                 m_MainWin.SwitchToPrintingPage( files );
             }
 
-            if ( 0 != win.m_rotatedAngle%360 && null != win.m_rotatedObj )
+            if ( 0 != win.m_rotatedAngle && null != win.m_rotatedObj )
             {
                 int index = -1;
                 for ( int i=0; i<image_wrappanel.Children.Count; i++ )
@@ -158,7 +158,7 @@ namespace VOP
                         tmp.ImageSingleClick += ImageItemSingleClick;
                         tmp.ImageDoubleClick += ImageItemDoubleClick;
                         tmp.CloseIconClick += ImageItemCloseIconClick;
-                        tmp.CheckImage( false );
+                        tmp.CheckImage( true );
                         tmp.Margin = new Thickness( 5 );
                         this.image_wrappanel.Children.Insert(index, tmp );
                         App.scanFileList.Add( tmp.m_images );
