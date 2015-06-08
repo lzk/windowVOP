@@ -19,6 +19,8 @@ namespace VOP.Controls
     /// </summary>
     public partial class ImageButton : UserControl
     {
+        private bool _helpCanExecute = true;
+
         public ImageButton()
         {
             InitializeComponent();
@@ -51,6 +53,22 @@ namespace VOP.Controls
                 e.Handled = true;
             }
         }
+
+        private void HelpCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = _helpCanExecute;
+            e.Handled = true;
+        }
+
+        private void HelpExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            myButton.RaiseEvent(new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left)
+            {
+                RoutedEvent = Mouse.PreviewMouseDownEvent,
+                Source = this,
+            });
+        }
+
     }
 
     public class EyeCandy

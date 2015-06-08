@@ -14,13 +14,25 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
+
+    <UserControl.CommandBindings>
+        <CommandBinding Command="Help" 
+        CanExecute="HelpCanExecute"
+        Executed="HelpExecuted" />
+    </UserControl.CommandBindings>
+
+    <UserControl.InputBindings>
+        <KeyBinding Command="Help" Key="Enter" />
+    </UserControl.InputBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="6*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <Button Name="myButton"             
+        <Button Name="myButton"  
+        Command="Help"
         Style="{StaticResource fileSelectionButtonStyle}"
         local:EyeCandy.Image="{Binding ElementName=myControl, Path=ImagePath}" Margin="10,0">
         </Button>
