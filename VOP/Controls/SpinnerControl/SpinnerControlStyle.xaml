@@ -311,7 +311,7 @@
                                     </Binding>
                                 </TextBox.Text>
                             </TextBox>
-                            <TextBlock Foreground="#FF707070" FontSize="26" Text="%" VerticalAlignment="Center" Margin="3,0,0,0"/>
+                            <TextBlock x:Name="percentMark" Foreground="#FF707070" FontSize="26" Text="%" VerticalAlignment="Center" Margin="3,0,0,0"/>
                         </StackPanel>
                        
 
@@ -340,6 +340,11 @@
                             <Setter Property="ValidationHasError" Value="False"></Setter>
                             <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"></Setter>
                             <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"></Setter>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="tbTextBox" Property="Foreground" Value="#7F6D6D6D"/>
+                            <Setter TargetName="percentMark" Property="Foreground" Value="#7F6D6D6D"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -239,7 +239,10 @@ namespace VOP
 
                 rdbtn2.IsEnabled = true; 
                 rdbtn4.IsEnabled = true; 
-                rdbtn9.IsEnabled = true; 
+                rdbtn9.IsEnabled = true;
+                tk2in1.IsEnabled = true;
+                tk4in1.IsEnabled = true;
+                tk9in1.IsEnabled = true;
             }
         }
 
@@ -253,7 +256,10 @@ namespace VOP
 
                 rdbtn2.IsEnabled = false; 
                 rdbtn4.IsEnabled = false; 
-                rdbtn9.IsEnabled = false; 
+                rdbtn9.IsEnabled = false;
+                tk2in1.IsEnabled = false;
+                tk4in1.IsEnabled = false;
+                tk9in1.IsEnabled = false;
             }
         }
 
@@ -669,9 +675,14 @@ namespace VOP
             if ( m_isIDCardCopy )
                 chkNin1.IsEnabled = false;
 
-            rdbtn2.IsEnabled = true == chkNin1.IsChecked; 
-            rdbtn4.IsEnabled = true == chkNin1.IsChecked; 
-            rdbtn9.IsEnabled = true == chkNin1.IsChecked; 
+            rdbtn2.IsEnabled = true == chkNin1.IsChecked;
+            tk2in1.IsEnabled = true == chkNin1.IsChecked; 
+
+            rdbtn4.IsEnabled = true == chkNin1.IsChecked;
+            tk4in1.IsEnabled = true == chkNin1.IsChecked; 
+
+            rdbtn9.IsEnabled = true == chkNin1.IsChecked;
+            tk9in1.IsEnabled = true == chkNin1.IsChecked; 
         }
 
         private void OnScalingValidationHasError(object sender, RoutedPropertyChangedEventArgs<bool> e)
