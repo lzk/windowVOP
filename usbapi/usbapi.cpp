@@ -739,7 +739,7 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
     {
 		int nCount = 0;
 		bool bWriteSuccess = false;
-		while (nCount++ < 1 && !bWriteSuccess)
+		while (nCount++ < 2 && !bWriteSuccess)
 		{
 			char szAsciiIP[1024] = { 0 };
 			::WideCharToMultiByte(CP_ACP, 0, szIP, -1, szAsciiIP, 1024, NULL, NULL);
@@ -766,7 +766,7 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
 			//	break;
 			//}
 
-			int m_iSocketID = lpfnNetworkConnect(szAsciiIP, 9100, 500);
+			int m_iSocketID = lpfnNetworkConnect(szAsciiIP, 9100, 1000);
 			lpfnNetworkWrite(m_iSocketID, ptrInput, cbInput);
 
 			if (ptrOutput && cbOutput > 0)
