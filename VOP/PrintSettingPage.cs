@@ -1137,6 +1137,8 @@ namespace VOP
                 AdvancedSettingsButton.IsEnabled = true;
                 PaperSizeGroup.IsEnabled = false;
                 PaperOrientationGroup.IsEnabled = false;
+                rdBtnLandscape.IsEnabled = false;
+                rdBtnPortrait.IsEnabled = false;
                 PaperOrderGroup.IsEnabled = false;
             }
             else if (m_CurrentPrintType == PrintPage.PrintType.PrintIdCard)
@@ -1185,6 +1187,8 @@ namespace VOP
                 AdvancedSettingsButton.IsEnabled = false;
                 PaperSizeGroup.IsEnabled = false;
                 PaperOrientationGroup.IsEnabled = false;
+                rdBtnLandscape.IsEnabled = false;
+                rdBtnPortrait.IsEnabled = false;
                 PaperOrderGroup.IsEnabled = false;
                 DuplexPrintGroup.IsEnabled = false;
                 MultiplePageGroup.IsEnabled = false;
@@ -1276,6 +1280,8 @@ namespace VOP
                 AdvancedSettingsButton.IsEnabled = true;
                 PaperSizeGroup.IsEnabled = false;
                 PaperOrientationGroup.IsEnabled = false;
+                rdBtnLandscape.IsEnabled = false;
+                rdBtnPortrait.IsEnabled = false;
                 PaperOrderGroup.IsEnabled = false;
 
             }
@@ -1322,6 +1328,8 @@ namespace VOP
                 chk_TonerSaving.IsChecked = false;
                 AdvancedSettingsButton.IsEnabled = true;
                 PaperOrientationGroup.IsEnabled = false;
+                rdBtnLandscape.IsEnabled = false;
+                rdBtnPortrait.IsEnabled = false;
                 PaperOrderGroup.IsEnabled = false;
             }
         }
@@ -1373,6 +1381,8 @@ namespace VOP
                 AdvancedSettingsButton.IsEnabled = true;
                 PaperSizeGroup.IsEnabled = false;
                 PaperOrientationGroup.IsEnabled = false;
+                rdBtnLandscape.IsEnabled = false;
+                rdBtnPortrait.IsEnabled = false;
                 PaperOrderGroup.IsEnabled = false;
             }
             else if (m_CurrentPrintType == PrintPage.PrintType.PrintIdCard)
@@ -1421,6 +1431,8 @@ namespace VOP
                 AdvancedSettingsButton.IsEnabled = false;
                 PaperSizeGroup.IsEnabled = false;
                 PaperOrientationGroup.IsEnabled = false;
+                rdBtnLandscape.IsEnabled = false;
+                rdBtnPortrait.IsEnabled = false;
                 PaperOrderGroup.IsEnabled = false;
                 DuplexPrintGroup.IsEnabled = false;
                 MultiplePageGroup.IsEnabled = false;
@@ -1512,6 +1524,8 @@ namespace VOP
                 AdvancedSettingsButton.IsEnabled = true;
                 PaperSizeGroup.IsEnabled = false;
                 PaperOrientationGroup.IsEnabled = false;
+                rdBtnLandscape.IsEnabled = false;
+                rdBtnPortrait.IsEnabled = false;
                 PaperOrderGroup.IsEnabled = false;
             }
             else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf)
@@ -1557,6 +1571,8 @@ namespace VOP
                 chk_TonerSaving.IsChecked = false;
                 AdvancedSettingsButton.IsEnabled = true;
                 PaperOrientationGroup.IsEnabled = false;
+                rdBtnLandscape.IsEnabled = false;
+                rdBtnPortrait.IsEnabled = false;
                 PaperOrderGroup.IsEnabled = false;
             }
             cboPrintQuality.SelectedIndex = 0;
