@@ -143,24 +143,32 @@
                     </ComboBox>
                 </Controls:GroupBoxDecorator>
 
-                <Controls:GroupBoxDecorator x:Name="PaperOrientationGroup" Header="{StaticResource ResStr_Orientation}" Margin="2,1,0,1" Grid.Row="2" Grid.Column="3" Padding="5,0,0,15"/>
-                <RadioButton x:Name="rdBtnPortrait"
-			            GroupName="Goup5" 
-			            Checked="rdBtnPortrait_Checked"
-			            IsChecked="{Binding SelectedItem, Converter={StaticResource isInchConverter}, ElementName=myComboBox, Mode=OneWay}"
-			            Content="{StaticResource ResStr_Portrait}" 
-			            Template="{StaticResource customRadioButton}"
-			            Foreground="DarkSlateGray"
-			            Margin="12,31,99,7" Grid.Column="3" Grid.Row="2"/>
-
-                <RadioButton x:Name="rdBtnLandscape"
-                        GroupName="Goup5"
-			            Checked="rdBtnLandscape_Checked"
-			            IsChecked="{Binding SelectedItem, ConverterParameter=flip, Converter={StaticResource isInchConverter}, ElementName=myComboBox, Mode=OneWay}"
-			            Content="{StaticResource ResStr_Landscape}"
-			            Template="{StaticResource customRadioButton}"
-			            Foreground="DarkSlateGray"
-			            Margin="84,31,8,7" Grid.Column="3" Grid.Row="2"/>
+                <Controls:GroupBoxDecorator x:Name="PaperOrientationGroup" Header="{StaticResource ResStr_Orientation}" Margin="2,1,0,1" Grid.Row="2" Grid.Column="3" Padding="5,0,0,15">
+                    <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center" Margin="0,0,7,-9">
+                        <Grid Width="165">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="7*"></ColumnDefinition>
+                                <ColumnDefinition Width="8*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <RadioButton 
+                                    x:Name="rdBtnPortrait" 
+                                    GroupName="Goup5" 
+                                    IsChecked="True"
+                                    Content="{StaticResource ResStr_Portrait}" 
+                    			    Template="{StaticResource customRadioButton}"
+                                    VerticalAlignment="Center"
+                                    Checked="rdBtnPortrait_Checked" 
+                                    Grid.Column="0" Height="33" Margin="5,0"/>
+                            <RadioButton x:Name="rdBtnLandscape" GroupName="Goup5" IsChecked="False"
+                                    Content="{StaticResource ResStr_Landscape}"
+                    			    Template="{StaticResource customRadioButton}"
+                                    VerticalAlignment="Center"
+                                    Checked="rdBtnLandscape_Checked" 
+                                    Width="auto" Height="33" Margin="75,0,3,0" Grid.ColumnSpan="2"/>
+                        </Grid>
+                    </StackPanel>
+                </Controls:GroupBoxDecorator>
 
                 <Controls:GroupBoxDecorator x:Name="PaperOrderGroup" Header="{StaticResource ResStr_Page_Order}" Margin="2,2,0,0" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Padding="30,5,30,15">
                     <StackPanel Orientation="Horizontal">
