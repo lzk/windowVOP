@@ -65,7 +65,7 @@ namespace VOP
             timer.Interval = new TimeSpan(0, 0, 0, 0, 20);
             timer.Tick += new EventHandler(timer_Tick);
 
-            ImagePath = new BitmapImage(new Uri("pack://application:,,,/" + @"../Images/RefreshNormal.tif", UriKind.RelativeOrAbsolute));
+         //   ImagePath = new BitmapImage(new Uri("pack://application:,,,/" + @"../Images/RefreshNormal.tif", UriKind.RelativeOrAbsolute));
         }
 
         void timer_Tick(object sender, EventArgs e)

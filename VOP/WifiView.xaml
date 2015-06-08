@@ -216,9 +216,11 @@
                                         Grid.Column="1" 
                                         VerticalAlignment="Bottom"
                                         HorizontalAlignment="Left"
-                                        Width="22.4" 
-                                        Height="22.4"
-                                        Button.Click="RefreshButton_MouseLeftButtonDown">
+                                        Width="17" 
+                                        Height="17"
+                                        Margin="0,0,0, 5"
+                                        Button.Click="RefreshButton_MouseLeftButtonDown"
+                                        ImagePath="Images/RefreshNormal.tif">
                                 </mycontrol:RefreshButton>
                                 <Image Source="Images/GreenLine.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Stretch="Fill"></Image>
                             </Grid>     
