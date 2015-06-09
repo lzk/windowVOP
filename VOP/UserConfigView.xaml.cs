@@ -374,6 +374,8 @@ namespace VOP
             {
                 btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
             }
+          
+            btnFusing.IsEnabled = (false == common.IsOffline(m_currentStatus));
         }
     }
 }
