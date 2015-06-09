@@ -76,7 +76,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Orientation">纸张方向</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Landscape">横向</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Portrait">纵向</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Media_Type">介质类型</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Media_Type">纸张类型</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Plain_Paper">普通纸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Thin_Paper">薄纸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Thick_Paper">厚纸</sys:String>
@@ -85,7 +85,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Quality">打印质量</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Normal_600_600_">标准（600*600）</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Fine_1200_600_">精细（1200*600）</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scaling">缩放</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scaling">缩放比例</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Fit_to_Paper_Size">调整至纸张大小</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Density_Adjustment">浓度调整</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Page_Order">页面顺序</sys:String>
@@ -105,6 +105,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Advanced_settings">高级设置</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Default">默  认</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_OK">确  定</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Back">返回</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Custom_Paper_Size_Name">自定义纸张大小名称</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Defined_Size_01">自定义尺寸01</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Unit">单位：</sys:String>
@@ -119,11 +120,11 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Density">浓度</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ID_Card_Copy">身份证复印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Document_Size">原稿尺寸</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Output_Size">输出纸张大小</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Output_Size">输出纸张尺寸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_B5">B5</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_DPI">分辨率</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_N_in_1_Copy">N合1复印</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_Mode">扫描模式</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_Mode">原稿类型</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Photo">照片</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Text">文本</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scanned_image_size">待扫描图片大小：</sys:String>
@@ -135,7 +136,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Color">彩色</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Grayscale">灰阶</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Black_White">黑白</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scan_Size">扫描区域大小</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scan_Size">扫描区域尺寸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A4_210_297mm_">A4(210 x 297毫米)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A5_148_x_210mm_">A5(148 x 210毫米)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_B5_182_x_257mm_">B5(182 x 257毫米)</sys:String>

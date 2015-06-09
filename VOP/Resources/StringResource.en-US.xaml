@@ -105,6 +105,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Advanced_settings">Advanced settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Default">Default</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_OK">OK</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Back">Back</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Custom_Paper_Size_Name">Custom Paper Size Name</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Defined_Size_01">User Defined Size 01</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Unit">Unit:</sys:String>
