@@ -135,19 +135,28 @@
                 <ColumnDefinition Width="103*"/>
     	</Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                <TextBlock VerticalAlignment="Center" Grid.Column="0" Height="15.96" Margin="0,14.52" Text="{StaticResource ResStr_Scanned_image_size}"></TextBlock>
+                <TextBlock VerticalAlignment="Center" Height="15.96" Margin="0,14.52" Text="{StaticResource ResStr_Scanned_image_size}"></TextBlock>
                 <TextBlock x:Name="txtBlkImgSize" VerticalAlignment="Center" Height="15.96" Margin="0,14.52" ></TextBlock>
             </StackPanel>
-            <local:ButtonEx x:Name="btnCancel" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="75" Height="35" IsDefault="false" Content="{StaticResource ResStr_Cancel}" Grid.Column="1" Click="btnCancel_Click" />
     </Grid>
 
-    <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal"
-        HorizontalAlignment="Left" VerticalAlignment="Top">
-            <TextBlock x:Name="txtProgressLabel"   VerticalAlignment="Top" HorizontalAlignment="Left" Text="{StaticResource ResStr_Scanning_2}">  </TextBlock>
-        <TextBlock x:Name="txtProgressPercent" VerticalAlignment="Top" TextAlignment="Right" Width="20" > 100 </TextBlock>
-        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" > % </TextBlock>
-        <ProgressBar x:Name="progressBar1" Style="{StaticResource RoundedProgressBar}" Width="310" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="18" Value="50"/>
-    </StackPanel>
+    <Grid Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Width="400" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="55"/>
+            <ColumnDefinition Width="18"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock VerticalAlignment="Center" Grid.Column="0" x:Name="txtProgressLabel"   HorizontalAlignment="Left" Text="{StaticResource ResStr_Scanning_2}">  </TextBlock>
+        <TextBlock VerticalAlignment="Center" Grid.Column="1" x:Name="txtProgressPercent" TextAlignment="Right" Width="18" > 100 </TextBlock>
+        <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Left" > % </TextBlock>
+        <ProgressBar    Grid.Column="3" x:Name="progressBar1" Style="{StaticResource RoundedProgressBar}" Width="270" HorizontalAlignment="Center" Height="18" Value="50"/>
+        <local:ButtonEx Grid.Column="4" x:Name="btnCancel" HorizontalContentAlignment="Center" Width="18" Height="18" IsDefault="false" Click="btnCancel_Click">
+            <Image Height="17" Width="17" Stretch="Fill" Source="Images/cancelIcon.png"/>
+        </local:ButtonEx>
+    </Grid>
 
     </Grid>
 </UserControl>

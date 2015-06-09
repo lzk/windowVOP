@@ -611,6 +611,7 @@
     <Resource Include="Images\triangle.png" />
     <Resource Include="Images\Fit.tif" />
     <Resource Include="Images\Turn.tif" />
+    <Resource Include="Images\cancelIcon.png" />
     <Resource Include="Images\ZoomIn.tif" />
     <Resource Include="Images\ZoomOut.tif" />
     <Resource Include="Images\Line.png" />
