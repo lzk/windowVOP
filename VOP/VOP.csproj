@@ -646,7 +646,7 @@
     <Resource Include="Images\Index.png" />
     <Resource Include="Images\Printer.png" />
     <Resource Include="Images\Wifi.png" />
-     <Resource Include="Images\RefreshNormal.tif" />
+    <Resource Include="Images\RefreshNormal.tif" />
     <Resource Include="Images\RefreshClick.tif" />
     <Resource Include="Media\JamAtExitNotReach.gif" />
     <Resource Include="Media\JamAtExitStayOn.gif" />
@@ -709,5 +709,11 @@
       <Project>{d129789c-3096-4d0b-8dd7-fe24a4df4b21}</Project>
       <Name>WpfAnimatedGif</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\CheckBox_Close.png" />
+    <Resource Include="Images\CheckBox_Disable.png" />
+    <Resource Include="Images\CheckBox_Disable1.png" />
+    <Resource Include="Images\CheckBox_Open.png" />
   </ItemGroup>
 </Project>
