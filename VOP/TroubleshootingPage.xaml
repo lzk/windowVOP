@@ -34,16 +34,16 @@
             <RowDefinition Height="15*"/>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="5*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="12*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
 
         <Image Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Source="Images/TroubleshootingMachine.png"/>
-        <Image Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="-55,0,0,0" Source="Images/TroubleshootingUSB.png"/>
-        <Image Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="65,0,0,0" Source="Images/TroubleshootingWiFi.png"/>
+        <Image Width="62" Height="62" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="-55,0,0,0" Source="Images/TroubleshootingUSB.png"/>
+        <Image Width="62" Height="62" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="65,0,0,0" Source="Images/TroubleshootingWiFi.png"/>
         
-        <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="20,20,0,0" FontSize="14">
+        <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,10,0,0" FontSize="16">
             <Hyperlink Style="{StaticResource HyperlinkStyle}"
                 RequestNavigate="Hyperlink_RequestNavigate" 
                 NavigateUri="http://www.baidu.com">
@@ -51,7 +51,7 @@
             </Hyperlink>
         </TextBlock>
 
-        <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Margin="-20,20,0,0" FontSize="14">
+        <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Margin="-30,10,0,0" FontSize="16">
             <Hyperlink Style="{StaticResource HyperlinkStyle}"
                 RequestNavigate="Hyperlink_RequestNavigate" 
                 NavigateUri="http://www.baidu.com">
