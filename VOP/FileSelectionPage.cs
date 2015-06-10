@@ -58,9 +58,29 @@ namespace VOP
             {
                 try
                 {
-                    this.m_MainWin.winPrintPage.FilePaths = new List<string>(open.FileNames);
-                    this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
-                    this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintImages;
+                    string fileExt = System.IO.Path.GetExtension(open.FileName).ToLower();
+
+                    if (fileExt == ".bmp"
+                        || fileExt == ".ico"
+                        || fileExt == ".gif"
+                        || fileExt == ".jpg"
+                        || fileExt == ".exif"
+                        || fileExt == ".png"
+                        || fileExt == ".tif"
+                        || fileExt == ".wmf"
+                        || fileExt == ".emf")
+                    {
+                        this.m_MainWin.winPrintPage.FilePaths = new List<string>(open.FileNames);
+                        this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
+                        this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintImages;
+                    }
+                    else
+                    {
+                        MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_This_file_is_not_supported__please_select_another_one_"), (string)this.FindResource("ResStr_Warning_2"));
+                        messageBox.Owner = App.Current.MainWindow;
+                        messageBox.ShowDialog();
+                    }
+                 
                 }
                 catch(OutOfMemoryException)
                 {
