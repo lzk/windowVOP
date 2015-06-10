@@ -781,7 +781,7 @@ namespace VOP
         }
 
         private void ControlBtnClick(object sender, RoutedEventArgs e)
-        {            
+        {
             System.Windows.Controls.Button btn = sender as System.Windows.Controls.Button;
 
             if ( null != btn )
@@ -794,8 +794,10 @@ namespace VOP
                 {
                     btnMinimize.Focusable = true;
                     btnMinimize.Focus();
+                    btnMinimize.Focusable = false;
+                    this.Focus();
                     this.Hide();
-                    btnMinimize.Focusable = false;                    
+                    
                 }
             }
         }

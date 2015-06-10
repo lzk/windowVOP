@@ -352,8 +352,8 @@
         </Setter>
     </Style>
 
-    <SolidColorBrush x:Key="SpinnerBarOn" Color="#FF626262" Opacity="1"/>
-    <SolidColorBrush x:Key="SpinnerBarOff" Color="#FFB7B7B7" Opacity="1"/>
+    <SolidColorBrush x:Key="SpinnerBarOn" Color="#FF48A800" Opacity="1"/>
+    <SolidColorBrush x:Key="SpinnerBarOff" Color="#FFB5DC99" Opacity="1"/>
     
     <Style x:Key="PrintSettingSpinnerBarStyle" TargetType="{x:Type btl:SpinnerControl}">
         <Setter Property="HorizontalAlignment" Value="Center" />
