@@ -79,7 +79,82 @@
         </Setter>
     </Style>
 
+    	<LinearGradientBrush x:Key="Brush1" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FFE1E1E1" Offset="0"/>
+    		<GradientStop Color="White" Offset="1"/>
+    	</LinearGradientBrush>
 
+    	<LinearGradientBrush x:Key="Brush2" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FFBBBBBB" Offset="1"/>
+    		<GradientStop Color="White" Offset="0"/>
+    	</LinearGradientBrush>
+
+    	<LinearGradientBrush x:Key="brDisable" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FFE1E1E1" Offset="1"/>
+    		<GradientStop Color="White" Offset="0"/>
+    	</LinearGradientBrush>
+
+    	<LinearGradientBrush x:Key="brPressed" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FFBBBBBB" Offset="1"/>
+    		<GradientStop Color="White" Offset="0"/>
+    	</LinearGradientBrush>
+
+    	<LinearGradientBrush x:Key="brMouseMove" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FFCCCCCC" Offset="1"/>
+    		<GradientStop Color="White" Offset="0"/>
+    	</LinearGradientBrush>
+
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style>
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Rectangle Margin="2" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <Grid>
+                                <Ellipse x:Name="ellipse1" StrokeThickness="0" Stroke="Black" Fill="{DynamicResource Brush1}" >
+                                </Ellipse>
+
+                                <Ellipse x:Name="ellipse2" Margin="2" StrokeThickness="0" Stroke="Black" Fill="{DynamicResource Brush2}" >
+                                </Ellipse>
+                                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brMouseMove}"/>
+                                <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brMouseMove}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brPressed}"/>
+                                <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brPressed}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brDisable}"/>
+                                <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brDisable}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         </ResourceDictionary>
 
     </UserControl.Resources>
@@ -153,9 +228,11 @@
         <TextBlock VerticalAlignment="Center" Grid.Column="1" x:Name="txtProgressPercent" TextAlignment="Right" Width="18" > 100 </TextBlock>
         <TextBlock VerticalAlignment="Center" Grid.Column="2" HorizontalAlignment="Left" > % </TextBlock>
         <ProgressBar    Grid.Column="3" x:Name="progressBar1" Style="{StaticResource RoundedProgressBar}" Width="270" HorizontalAlignment="Center" Height="18" Value="50"/>
-        <local:ButtonEx Grid.Column="4" x:Name="btnCancel" HorizontalContentAlignment="Center" Width="18" Height="18" IsDefault="false" Click="btnCancel_Click">
-            <Image Height="17" Width="17" Stretch="Fill" Source="Images/cancelIcon.png"/>
-        </local:ButtonEx>
+
+        <Button Grid.Column="4" x:Name="btnCancel" HorizontalContentAlignment="Center" Width="20" Height="20" IsDefault="false" Click="btnCancel_Click" Style="{DynamicResource ButtonStyle1}" >
+            <Image Height="8" Width="8" Stretch="Fill" Source="Images/cancelIcon.png"/>
+        </Button>
+
     </Grid>
 
     </Grid>
