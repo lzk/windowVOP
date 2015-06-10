@@ -42,8 +42,9 @@ namespace VOP
 
                     SolidColorBrush br1 = new SolidColorBrush();
                     SolidColorBrush br2 = new SolidColorBrush();
-                    br1.Color = Color.FromArgb(0xff, 0x88, 0x88, 0x88);
-                    br2.Color = Color.FromArgb(0xff, 0xac, 0xac, 0xac);
+
+                    br1.Color = Color.FromArgb(0xff, 0x49, 0xa9, 0x00);
+                    br2.Color = Color.FromArgb(0xff, 0xb4, 0xdb, 0x97);
 
                     rect1.Fill = br2;
                     rect2.Fill = br2;
