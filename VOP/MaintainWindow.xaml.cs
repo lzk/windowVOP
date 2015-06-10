@@ -62,7 +62,7 @@ namespace VOP
                 DateTime dtSaveTime = new DateTime();
                 string strMerchantInfo = "";
                 string strMaintainInfo = "";
-                if (true == VOP.MainWindow.ReadCRMDataFromXamlFile("Maintain.xaml", ref dtSaveTime, ref strMaintainInfo) && strMerchantInfo.Length > 100)
+                if ((true == VOP.MainWindow.ReadCRMDataFromXamlFile("Maintain.xaml", ref dtSaveTime, ref strMaintainInfo)) && strMaintainInfo.Length > 100)
                 {
                     DateTime newDate = DateTime.Now;
                     TimeSpan ts = newDate - dtSaveTime;
