@@ -48,9 +48,10 @@ namespace VOP
 
         public static RequestManager m_RequestManager = new RequestManager();
 
-        public FileSelectionPage winFileSelectionPage = new FileSelectionPage();
-        public PrintPage winPrintPage = new PrintPage();
-        public StatusPanel statusPanelPage = new StatusPanel();
+        public FileSelectionPage   winFileSelectionPage   = new FileSelectionPage();
+        public PrintPage           winPrintPage           = new PrintPage();
+        public StatusPanel         statusPanelPage        = new StatusPanel();
+        public TroubleshootingPage winTroubleshootingPage = new TroubleshootingPage();
 
         private CopyPage    winCopyPage    = new CopyPage   ();
         private ScanPage    winScanPage    = new ScanPage   ();
@@ -89,6 +90,7 @@ namespace VOP
         // Old status used to popup animation window.
         private EnumStatus m_oldStatus = EnumStatus.Offline;
 
+     
         public bool PasswordCorrect()
         {
             bool bCorrect = false;
@@ -149,6 +151,7 @@ namespace VOP
             winSettingPage .m_MainWin = this;
             winFileSelectionPage.m_MainWin = this;
             winPrintPage.m_MainWin = this;
+            winTroubleshootingPage.m_MainWin = this;
             Init();
 
             btnLogin.Visibility = m_bLocationIsChina ? Visibility.Visible : Visibility.Hidden;
@@ -762,13 +765,20 @@ namespace VOP
 
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
         {
+            this.Visibility = System.Windows.Visibility.Hidden;
             dll.SaveDefaultPrinter(); //save default printer name before vop action
             statusPageView.Child = statusPanelPage;
+
             this.statusPanelPage.Visibility = Visibility.Visible;          
             UpdateLED( EnumStatus.Offline );
 
+            ShowTroubleshootingPage();
+
             SetTabItemFromIndex(EnumSubPage.Print);
             AddMessageHook();
+
+            ShowStartupWindow();
+            this.Visibility = System.Windows.Visibility.Visible;
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -1318,32 +1328,45 @@ namespace VOP
         }
 
         // Update LED light color according the status.
-        private void UpdateLED( EnumStatus s )
+        private void UpdateLED(EnumStatus s)
         {
-            StatusDisplayType type = common.GetStatusTypeForUI( s );
+            StatusDisplayType type = common.GetStatusTypeForUI(s);
 
-            imgLEDRed.Visibility   = Visibility.Hidden;
-            imgLEDGray.Visibility  = Visibility.Hidden;
+            imgLEDRed.Visibility = Visibility.Hidden;
+            imgLEDGray.Visibility = Visibility.Hidden;
             imgLEDGreen.Visibility = Visibility.Hidden;
 
-            switch ( type )
+            switch (type)
             {
-                case StatusDisplayType.Ready   :
-                case StatusDisplayType.Sleep   :
-                case StatusDisplayType.Warning :
-                case StatusDisplayType.Busy    :
-                    imgLEDGreen.Visibility  = Visibility.Visible;
+                case StatusDisplayType.Ready:
+                case StatusDisplayType.Sleep:
+                case StatusDisplayType.Warning:
+                case StatusDisplayType.Busy:
+                    imgLEDGreen.Visibility = Visibility.Visible;
                     break;
-                case StatusDisplayType.Error   :
-                    imgLEDRed.Visibility  = Visibility.Visible;
+                case StatusDisplayType.Error:
+                    imgLEDRed.Visibility = Visibility.Visible;
                     break;
-                case StatusDisplayType.Offline :
-                    imgLEDGray.Visibility  = Visibility.Visible;
+                case StatusDisplayType.Offline:
+                    imgLEDGray.Visibility = Visibility.Visible;
                     break;
                 default:
-                    imgLEDGray.Visibility  = Visibility.Visible;
+                    imgLEDGray.Visibility = Visibility.Visible;
                     break;
             }
+        }
+
+        private void ShowStartupWindow()
+        {
+            StartupWindow win = new StartupWindow(4);
+            win.Owner = this;
+            win.ShowDialog();
+        }
+
+        public void ShowTroubleshootingPage()
+        {
+            SetTabItemFromIndex(EnumSubPage.Print);
+            subPageView.Child = winTroubleshootingPage;
         }
     }
 

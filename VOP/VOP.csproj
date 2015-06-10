@@ -103,6 +103,7 @@
     <Compile Include="Controls\MessageBoxEx\MessageBoxEx.cs" />
     <Compile Include="Controls\PopupEx.cs" />
     <Compile Include="Controls\TextBoxValidation\IPAddressValidationRule.cs" />
+    <Compile Include="TroubleshootingPage.cs" />
     <Compile Include="MessageBoxEx_Video.xaml.cs">
       <DependentUpon>MessageBoxEx_Video.xaml</DependentUpon>
     </Compile>
@@ -186,6 +187,9 @@
     <Compile Include="SoftapView.xaml.cs">
       <DependentUpon>SoftapView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StartupWindow.xaml.cs">
+      <DependentUpon>StartupWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StatusXmlHelper.cs" />
     <Compile Include="UserConfigView.xaml.cs">
       <DependentUpon>UserConfigView.xaml</DependentUpon>
@@ -224,6 +228,10 @@
     <Page Include="Controls\ImagePreview\ScrollTextControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TroubleshootingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MessageBoxEx_Video.xaml">
       <SubType>Designer</SubType>
@@ -334,6 +342,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PurchaseWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StartupWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -715,6 +727,12 @@
     <Resource Include="Images\CheckBox_Disable.png" />
     <Resource Include="Images\CheckBox_Disable1.png" />
     <Resource Include="Images\CheckBox_Open.png" />
+    <Resource Include="Images\Startup.tif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\TroubleshootingMachine.png" />
+    <Resource Include="Images\TroubleshootingUSB.png" />
+    <Resource Include="Images\TroubleshootingWiFi.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Refresh_Disable.png" />

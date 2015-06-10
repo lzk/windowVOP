@@ -1,0 +1,31 @@
+﻿<Window x:Class="VOP.StartupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="" 
+        Height="638" Width="850"
+        AllowsTransparency="true"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize" 
+        UseLayoutRounding="True"
+        WindowStyle="None">
+    <Window.Background>
+        <ImageBrush ImageSource="Images/Startup.tif"/>
+    </Window.Background>
+    <Viewbox Stretch="Fill">
+        <Grid Height="638" Width="850">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="40*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="1" Name="HelloTextBlock" Text="Hello" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF2E3032"/>
+            <TextBlock Grid.Row="2" Name="NewLenovo" Text="联想小新" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF474F51" FontWeight="Light"/>
+            <TextBlock Grid.Row="3" Name="FirstNetPrint" Text="全球首款互联网打印机" FontSize="52" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF529E19" FontWeight="Light"/>
+            <TextBlock Grid.Row="4" Name="PrintDiff" Text="打印 从此不同" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF2E3032" FontWeight="Light"/>
+        </Grid>
+    </Viewbox>
+    
+</Window>

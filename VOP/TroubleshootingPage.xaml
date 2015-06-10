@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="VOP.TroubleshootingPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:VOP.Controls"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:Name="myControl"
+             Width="638"
+             Height="367"
+             UseLayoutRounding="True"
+             >
+    <UserControl.Resources>
+        <Style x:Key="HyperlinkStyle" TargetType="Hyperlink">
+            <Setter Property="Foreground" Value="#FF505050"/>
+            <Style.Triggers>
+                <Trigger  Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Green"/>
+                </Trigger> 
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Name="rootGrid">
+        <Grid.Background>
+            <ImageBrush ImageSource="Images\PagePrint.png" />
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="80" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+
+        <Image Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Source="Images/TroubleshootingMachine.png"/>
+        <Image Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="-55,0,0,0" Source="Images/TroubleshootingUSB.png"/>
+        <Image Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="65,0,0,0" Source="Images/TroubleshootingWiFi.png"/>
+        
+        <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="20,20,0,0" FontSize="14">
+            <Hyperlink Style="{StaticResource HyperlinkStyle}"
+                RequestNavigate="Hyperlink_RequestNavigate" 
+                NavigateUri="http://www.baidu.com">
+                <TextBlock Text="USB连接故障排除"/>
+            </Hyperlink>
+        </TextBlock>
+
+        <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Margin="-20,20,0,0" FontSize="14">
+            <Hyperlink Style="{StaticResource HyperlinkStyle}"
+                RequestNavigate="Hyperlink_RequestNavigate" 
+                NavigateUri="http://www.baidu.com">
+                <TextBlock Text="Wi-Fi连接故障排除"/>
+            </Hyperlink>
+        </TextBlock>
+    </Grid>
+</UserControl>
