@@ -354,7 +354,7 @@ namespace VOP
             }
             else
             {   
-                MainWindow.bExitUpdater = true; // Exit the status update thread.
+                m_MainWin.bExitUpdater = true; // Exit the status update thread.
                 m_selectedPrinter = "";
                 this.UpdateStatusPanel( EnumStatus.Offline, EnumMachineJob.UnknowJob, 0 );
 

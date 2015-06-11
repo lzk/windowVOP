@@ -929,7 +929,22 @@ namespace VOP
         /// <summary>
         /// Exit falg. True if need to exit thread statusUpdater.
         /// </summary>
-        public static bool bExitUpdater = false;
+        private bool _bExitUpdater = false;
+        public bool bExitUpdater
+        {
+            get
+            {
+                return _bExitUpdater;
+            }
+            set
+            {
+                if ( true == value )
+                    UpdateLED( EnumStatus.Offline );
+
+                _bExitUpdater = value;
+            }
+        }
+
         private bool m_isShowedMaintainWindow = false;
 
         // NOTE: Those variable were used for post WM_STATUS_UPDATE message, do not for other usage.
@@ -996,8 +1011,6 @@ namespace VOP
             bGrayIcon = true; 
             System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,, /Images/printerGray.ico")).Stream;
             notifyIcon1.Icon = new System.Drawing.Icon(iconStream);
-
-            UpdateLED( EnumStatus.Offline );
 
             m_updaterAndUIEvent.Set();
         }
