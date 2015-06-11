@@ -349,7 +349,6 @@ namespace VOP
                  handled = true;
 
                  progressBar1.Value = wParam.ToInt32();
-                 txtProgressPercent.Text = wParam.ToString();
             } 
             else if ( WM_VOPSCAN_COMPLETED == msg )
             {
@@ -370,7 +369,6 @@ namespace VOP
                  btnScan.IsEnabled = ( false == common.IsOffline(m_currentStatus) && false == m_isScanning );
 
                  progressBar1.Value = 0;
-                 txtProgressPercent.Text = "0";
 
                  if ( RETSCAN_OK == (int)wParam )
                  {
@@ -685,7 +683,6 @@ namespace VOP
             progressBar1.Minimum    = 0;
             progressBar1.Maximum    = 100;
             progressBar1.Value      = 0;
-            txtProgressPercent.Text = "0";
 
             txtBlkImgSize.Text = FormatSize( GetScanSize() );
         }

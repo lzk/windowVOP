@@ -27,4 +27,23 @@ namespace VOP
             throw new NotImplementedException();
         }
     }
+
+
+    [ValueConversion(typeof(double), typeof(String))]
+    public class PercentConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            double val = (double)value;
+            return val.ToString() + "%";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string strValue = value as string;
+
+            return 0;
+        }
+    }
+
 }
