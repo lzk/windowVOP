@@ -179,12 +179,12 @@
                                  IsSelect="False" 
                                  FontSize="16.99" 
                                  Text="{StaticResource ResStr_Setting}">
-                </mycontrol:customTabItem>
-
-                <Border VerticalAlignment="Center" HorizontalAlignment="Center" Name="statusPageView" Grid.ColumnSpan="11" Grid.RowSpan="6" 
+                </mycontrol:customTabItem>           
+            </Grid>
+            
+            <Border VerticalAlignment="Center" HorizontalAlignment="Center" Name="statusPageView" Grid.ColumnSpan="11" Grid.RowSpan="6" 
                 Height="638" Width="850"
                 />
-            </Grid>
         </Grid>
 
     </Viewbox>
