@@ -758,6 +758,10 @@ namespace VOP
                 chk_FitToPaperSize.IsEnabled = false;
                 chk_FitToPaperSize.IsChecked = true;
             }
+            if (m_CurrentPrintType == PrintPage.PrintType.PrintFile || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Txt)
+            {
+                spinnerScaling.IsEnabled = false;
+            }
             if (4 == m_preNin1)
             {
                 rdBtn4in1.IsChecked = true;
@@ -823,7 +827,11 @@ namespace VOP
             if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
             {
                 chk_FitToPaperSize.IsEnabled = true;
-            }         
+            }
+            if (m_CurrentPrintType == PrintPage.PrintType.PrintFile || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Txt)
+            {
+                spinnerScaling.IsEnabled = true;
+            }
             rdBtn2in1.IsEnabled = false;
             rdBtn2in1.IsChecked = false;
             rdBtn4in1.IsEnabled = false;
