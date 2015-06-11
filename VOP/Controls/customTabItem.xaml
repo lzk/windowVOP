@@ -32,7 +32,8 @@
         <Grid Name="Selected" Visibility="Hidden"  
               Width="{Binding ElementName=container, Path=Width}"
               Height="{Binding ElementName=container, Path=Height}"              
-              Background="#737373" >
+              Background="#6E6E6E" >            
+            
             <TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Background="{x:Null}"

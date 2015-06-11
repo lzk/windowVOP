@@ -56,10 +56,13 @@ namespace VOP
         private ScanPage    winScanPage    = new ScanPage   ();
         private SettingPage winSettingPage = new SettingPage();
 
-        private ImageBrush imgBk_Brush_1 = null;
-        private ImageBrush imgBk_Brush_2 = null;
-        private ImageBrush imgBk_Brush_3 = null;
-        private ImageBrush imgBk_Brush_4 = null;
+        private ImageBrush selectedBrush = null;
+        private ImageBrush noSelectedBrush = null;
+
+ //       private ImageBrush imgBk_Brush_1 = null;
+        //private ImageBrush imgBk_Brush_2 = null;
+        //private ImageBrush imgBk_Brush_3 = null;
+        //private ImageBrush imgBk_Brush_4 = null;
 
         /// <summary>
         /// Thread used to update status of current printer.
@@ -711,11 +714,6 @@ namespace VOP
         {
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;
             InitTrayMenu();
-
-            imgBk_Brush_1 = (ImageBrush)this.FindResource("imgBk_Brush_1");
-            imgBk_Brush_2 = (ImageBrush)this.FindResource("imgBk_Brush_2");
-            imgBk_Brush_3 = (ImageBrush)this.FindResource("imgBk_Brush_3");
-            imgBk_Brush_4 = (ImageBrush)this.FindResource("imgBk_Brush_4");
         }
 
 
@@ -766,11 +764,10 @@ namespace VOP
         {
             dll.SaveDefaultPrinter(); //save default printer name before vop action
             statusPageView.Child = statusPanelPage;
-            this.statusPanelPage.Visibility = Visibility.Visible;
+            this.statusPanelPage.Visibility = Visibility.Visible;          
             UpdateLED( EnumStatus.Offline );
 
-            ShowAboutPageOnly();
-
+            SetTabItemFromIndex(EnumSubPage.Print);
             AddMessageHook();
         }
 
@@ -848,76 +845,64 @@ namespace VOP
         /// </summary>
         private bool SetTabItemFromIndex( EnumSubPage subpage )
         {
-            if ( false == statusPanelPage.m_isSFP )
-            {
-                if ( EnumSubPage.Print == subpage )
-                {              
-                    txtPageName.Text = (string)this.FindResource("ResStr_ExtraAdd_Print");
-                    this.subPageView.Child = winFileSelectionPage;
-                
-                    tabItem_Print.IsSelect = true;
-                    tabItem_Copy.IsSelect = false;
-                    tabItem_Scan.IsSelect = false;
-                    tabItem_Setting.IsSelect = false;
-                }
-                else if ( EnumSubPage.Copy == subpage )
-                {
-                    txtPageName.Text = (string)this.FindResource("ResStr_ExtraAdd_Copy");
-                    this.subPageView.Child = winCopyPage;
-                 
-                    tabItem_Print.IsSelect = false;
-                    tabItem_Copy.IsSelect = true;
-                    tabItem_Scan.IsSelect = false;
-                    tabItem_Setting.IsSelect = false;
-                }
-                else if ( EnumSubPage.Scan == subpage )
-                {
-                    txtPageName.Text = (string)this.FindResource("ResStr_ExtraAdd_Scan");
-                    this.subPageView.Child = winScanPage;
-                 
-                    tabItem_Print.IsSelect = false;
-                    tabItem_Copy.IsSelect = false;
-                    tabItem_Scan.IsSelect = true;
-                    tabItem_Setting.IsSelect = false;
-                }
-                else if ( EnumSubPage.Setting == subpage )
-                {
-                    txtPageName.Text = (string)this.FindResource("ResStr_Setting");
-                    this.subPageView.Child = winSettingPage;
-                  
-                    tabItem_Print.IsSelect = false;
-                    tabItem_Copy.IsSelect = false;
-                    tabItem_Scan.IsSelect = false;
-                    tabItem_Setting.IsSelect = true;
-                }
-                else
-                {
-                    return false;
-                }
+            if (EnumSubPage.Print == subpage)
+            {               
+                this.subPageView.Child = winFileSelectionPage;
+
+                Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PagePrint.tif", UriKind.RelativeOrAbsolute));
+
+                tabLeft.Visibility = Visibility.Visible;
+                tabRight.Visibility = Visibility.Hidden;
+                tabItem_Print.IsSelect = true;
+                tabItem_Copy.IsSelect = false;
+                tabItem_Scan.IsSelect = false;
+                tabItem_Setting.IsSelect = false;
+            }
+            else if (EnumSubPage.Copy == subpage)
+            {             
+                this.subPageView.Child = winCopyPage;
+
+                Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PageCopy.tif", UriKind.RelativeOrAbsolute));
+
+                tabLeft.Visibility = Visibility.Hidden;
+                tabRight.Visibility = Visibility.Hidden;
+                tabItem_Print.IsSelect = false;
+                tabItem_Copy.IsSelect = true;
+                tabItem_Scan.IsSelect = false;
+                tabItem_Setting.IsSelect = false;
+            }
+            else if (EnumSubPage.Scan == subpage)
+            {               
+                this.subPageView.Child = winScanPage;
+
+                Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PageScan.tif", UriKind.RelativeOrAbsolute));
+
+                tabLeft.Visibility = Visibility.Hidden;
+                tabRight.Visibility = Visibility.Hidden;
+                tabItem_Print.IsSelect = false;
+                tabItem_Copy.IsSelect = false;
+                tabItem_Scan.IsSelect = true;
+                tabItem_Setting.IsSelect = false;
+            }
+            else if (EnumSubPage.Setting == subpage)
+            {              
+                this.subPageView.Child = winSettingPage;
+
+                Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PageSetting.tif", UriKind.RelativeOrAbsolute));
+
+                tabLeft.Visibility = Visibility.Hidden;
+                tabRight.Visibility = Visibility.Visible;
+                tabItem_Print.IsSelect = false;
+                tabItem_Copy.IsSelect = false;
+                tabItem_Scan.IsSelect = false;
+                tabItem_Setting.IsSelect = true;
             }
             else
             {
-                if ( EnumSubPage.Print == subpage )
-                {
-                    txtPageName.Text = (string)this.FindResource("ResStr_ExtraAdd_Print");
-                    this.subPageView.Child = winFileSelectionPage;
-                   
-                    tabItem_Print.IsSelect = true;
-                    tabItem_Setting.IsSelect = false;
-                }
-                else if ( EnumSubPage.Setting == subpage )
-                {
-                    txtPageName.Text = (string)this.FindResource("ResStr_Setting");
-                    this.subPageView.Child = winSettingPage;
-                    
-                    tabItem_Print.IsSelect = false;
-                    tabItem_Setting.IsSelect = true;
-                }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
+       
+    
 
             return true;
         }
@@ -1123,8 +1108,7 @@ namespace VOP
                {
                    if ( false == common.IsOffline( status ) )
                    {
-                       m_isOnlineDetected = true;
-                       ExpandSubpage();
+                       m_isOnlineDetected = true;                    
                    }
                }
 
@@ -1270,8 +1254,7 @@ namespace VOP
             // TODO: update LED.
 
             if ( m_isOnlineDetected || false == common.IsOffline( (EnumStatus)status) )
-            {
-                ExpandSubpage();
+            {              
                 m_isOnlineDetected = true;
             }
 
@@ -1292,97 +1275,7 @@ namespace VOP
             subPageView.Child = winPrintPage;
         }
         
-        /// <summary>
-        /// Expand other subpage according the model type ( 3in1 or SFP )
-        /// </summary>
-        private void ExpandSubpage()
-        {
-            line3.Visibility = Visibility.Visible;
-            line8.Visibility = Visibility.Visible;
-            Print_Grid.Visibility = Visibility.Visible;
-            tabItem_Print.Visibility = Visibility.Visible;
-            SetTabItemFromIndex( EnumSubPage.Print );
-
-            if ( false == statusPanelPage.m_isSFP )
-            {
-                line4.Visibility = Visibility.Visible;
-                line5.Visibility = Visibility.Visible;
-                line9.Visibility = Visibility.Visible;
-                line10.Visibility = Visibility.Visible;
-
-                Scan_Grid.Visibility = Visibility.Visible;
-                Copy_Grid.Visibility = Visibility.Visible;
-                Grid.SetColumn(Setting_Grid, 9);
-                Grid.SetRow(Setting_Grid, 2);
-
-                tabItem_Copy.Visibility = Visibility.Visible;
-                tabItem_Scan.Visibility = Visibility.Visible;
-
-                Grid.SetColumn(tabItem_Setting, 9);
-                Grid.SetRow(tabItem_Setting, 3);
-
-                winSettingPage.mainGrid.Background = imgBk_Brush_4;
-            }
-            else
-            {
-                line4.Visibility = Visibility.Hidden;
-                line5.Visibility = Visibility.Hidden;
-                line9.Visibility = Visibility.Hidden;
-                line10.Visibility = Visibility.Hidden;
-
-                Scan_Grid.Visibility = Visibility.Hidden;
-                Copy_Grid.Visibility = Visibility.Hidden;
-                Grid.SetColumn(Setting_Grid, 5);
-                Grid.SetRow(Setting_Grid, 2);
-
-                tabItem_Copy.Visibility = Visibility.Hidden;
-                tabItem_Scan.Visibility = Visibility.Hidden;
-
-                Grid.SetColumn(tabItem_Setting, 5);
-                Grid.SetRow(tabItem_Setting, 3);
-
-                winSettingPage.mainGrid.Background = imgBk_Brush_2;
-            }
-            winSettingPage.m_bOnlyDispalyAboutView = false;
-        }
-        
-        public void RemoveScanImage()
-        {
-             winScanPage.image_wrappanel.Children.Clear();
-        }
-
-        public void ShowAboutPageOnly()
-        {
-            SetTabItemFromIndex(EnumSubPage.Setting);
-
-            line3.Visibility = Visibility.Hidden;
-            line4.Visibility = Visibility.Hidden;
-            line5.Visibility = Visibility.Hidden;
-            line8.Visibility = Visibility.Hidden;
-            line9.Visibility = Visibility.Hidden;
-            line10.Visibility = Visibility.Hidden;
-
-
-            Print_Grid.Visibility = Visibility.Hidden;
-            Scan_Grid.Visibility = Visibility.Hidden;
-            Copy_Grid.Visibility = Visibility.Hidden;
-            Grid.SetColumn(Setting_Grid, 3);
-            Grid.SetRow(Setting_Grid, 2);
-
-            tabItem_Print.Visibility = Visibility.Hidden;
-            tabItem_Copy.Visibility = Visibility.Hidden;
-            tabItem_Scan.Visibility = Visibility.Hidden;
-
-            Grid.SetColumn(tabItem_Setting, 3);
-            Grid.SetRow(tabItem_Setting, 3);
-
-            winSettingPage.mainGrid.Background = imgBk_Brush_1;
-            winSettingPage.m_bOnlyDispalyAboutView = true;
-            winSettingPage.InitWindowLayout();
-
-            RemoveScanImage();
-        }
-
+ 
         public enum EnumSubPage
         {
             Print   ,

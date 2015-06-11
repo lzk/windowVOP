@@ -111,11 +111,7 @@
         </ResourceDictionary>
 
     </UserControl.Resources>
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="Images\PageCopy.png" />
-        </Grid.Background>
-        
+    <Grid>       
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="210" />

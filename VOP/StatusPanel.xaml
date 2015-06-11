@@ -62,8 +62,8 @@
                     
          
                 <Grid.RowDefinitions>
-                        <RowDefinition Height="41*" />
-                        <RowDefinition Height="27*" />
+                        <RowDefinition Height="34*" />
+                        <RowDefinition Height="34*" />
                         <RowDefinition Height="13*" />
                         <RowDefinition Height="16*" />                    
                         <RowDefinition Height="37*" />
@@ -111,7 +111,7 @@
                         </mycontrol:RefreshButton>
                     </Grid>
 
-                    <ComboBox Grid.Row="1" Grid.Column="1"
+                    <ComboBox Grid.Row="1" Grid.Column="1" Margin="0,6,0,-6"
                               Foreground="#555555"
                               Name="cboPrinters"
                               Style="{StaticResource CboCommomStyle}" SelectionChanged="cboPrinters_SelectionChanged">
@@ -134,7 +134,7 @@
                                                >
                     </mycontrol:StatusTextBlock>
 
-                    <mycontrol:TonerBar Grid.Row="6" Grid.Column="1" 
+                    <mycontrol:TonerBar Grid.Row="6" Grid.Column="1" Margin="0,0,0,-5"
                         x:Name="lbTonerBar" Click="btnPurchaseWindow_Click"
                                         CurValue="0">
                     </mycontrol:TonerBar>

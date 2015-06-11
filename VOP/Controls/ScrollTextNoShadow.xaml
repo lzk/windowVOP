@@ -30,7 +30,8 @@
                        TextWrapping="NoWrap" 
                        RenderTransformOrigin="0.5,0.5" 
                        HorizontalAlignment="Left" 
-                       VerticalAlignment="Center">
+                       VerticalAlignment="Center"
+                       Margin="3,0">
                 <TextBlock.RenderTransform>
                     <TransformGroup>
                         <TranslateTransform X="0"/>

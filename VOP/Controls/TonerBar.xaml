@@ -30,17 +30,18 @@
             <GradientStop Color="#FFD5A851" Offset="0.897"/>
             <GradientStop Color="#FF9F814D" Offset="1"/>
         </LinearGradientBrush>
-
-        <LinearGradientBrush x:Key="Brush_bk" EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFB2B2B2" Offset="0.119"/>
-            <GradientStop Color="#FFD0D0D0" Offset="0.881"/>
-            <GradientStop Color="#FFE3E3E3" Offset="1"/>
+      
+        <LinearGradientBrush  x:Key="Brush_bk" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFD8D8D8" Offset="0"/>
+            <GradientStop Color="#FFF7F7F7" Offset="0.944"/>
+            <GradientStop Color="#FFC4C4C4" Offset="1"/>
         </LinearGradientBrush>
 
         <LinearGradientBrush x:Key="Brush_bk2" EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FFB6B6B6" Offset="0"/>
-            <GradientStop Color="#FFACACAC" Offset="0.024"/>
-            <GradientStop Color="#FFD1D1D1" Offset="0.835"/>
+            <GradientStop Color="#FFB1B1B1" Offset="0"/>
+            <GradientStop Color="#FFD2D2D2" Offset="0.412"/>
+            <GradientStop Color="#FFD5D5D5" Offset="0.897"/>
+            <GradientStop Color="#FFEAEAEA" Offset="1"/>
         </LinearGradientBrush>
 
         <ImageBrush x:Key="imgBrush_Warn" ImageSource="..\Images\shopCart_Warn.png" />
@@ -61,10 +62,10 @@
     
     <Grid >      
         
-        <Grid.RowDefinitions>      
-            <RowDefinition Height="14*" />
-            <RowDefinition Height="5*" />
-            <RowDefinition Height="18*" />
+        <Grid.RowDefinitions>     
+            <RowDefinition Height="13*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="22*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -111,22 +112,25 @@
                 <ColumnDefinition Width="2" />
             </Grid.ColumnDefinitions>
 
-            <Border Grid.ColumnSpan="3" Grid.RowSpan="3" CornerRadius="3" BorderThickness="1" Background="{StaticResource Brush_bk}" Opacity="0.3"/>
+            <Border Grid.ColumnSpan="3" Grid.RowSpan="3" CornerRadius="10" BorderThickness="1" Background="{StaticResource Brush_bk}" Opacity="1" Margin="-5,0,-3,0"/>
 
-            <Border Name="TonerBackground" Grid.Column="1" Grid.Row="1" CornerRadius="3" 
+            <Border Name="TonerBackground" Grid.Column="1" Grid.Row="1" CornerRadius="6" 
                     BorderThickness="0" 
                     BorderBrush="#FFFFFF"
                     Background="{StaticResource Brush_bk2}">
             </Border>
 
             <Grid  Grid.Column="1" Grid.Row="1"  HorizontalAlignment="Left">
-                <Border Name="TonerPercent" CornerRadius="3"
+                <Border Name="TonerPercent" CornerRadius="6"
                         Background="{StaticResource Brush_Normal}">
                     <UIElement.Effect>
-                        <DropShadowEffect ShadowDepth="1" BlurRadius="3" Opacity="0.6" Direction="235"/>
+                        <DropShadowEffect ShadowDepth="1" BlurRadius="6" Opacity="0.3" Direction="260"/>
                     </UIElement.Effect>
-                </Border>     
+                </Border>               
+                
             </Grid>
+
+            <TextBlock Name="txtTonerPercent"  Grid.Column="1" Grid.Row="1" Text="60%" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"></TextBlock>
         </Grid>
     </Grid>    
 </UserControl>

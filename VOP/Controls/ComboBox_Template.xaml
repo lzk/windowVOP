@@ -53,18 +53,75 @@
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Border x:Name="Chrome"
                             Background="{StaticResource toggleButtonBackground_Normal}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="7"
+                            SnapsToDevicePixels="true">                  
+  
+                            <Border                    
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="5"
-                            SnapsToDevicePixels="true">
-                        <Grid Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" HorizontalAlignment="Right">
-                            <Path x:Name="Arrow"
-                                  Margin="1,1,0,0"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Data="{StaticResource DownArrowGeometry}"
-                                  Fill="#808080" />
-                        </Grid>
+                            SnapsToDevicePixels="true" Margin="5,4">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFCECECE" Offset="0"/>
+                                    <GradientStop Color="WhiteSmoke" Offset="0.3"/>
+                                    <GradientStop Color="White" Offset="0.259"/>
+                                    <GradientStop Color="White" Offset="0.806"/>
+                                    <GradientStop Color="#FFEAEAEA" Offset="0.978"/>
+                                    <GradientStop Color="#FFD1D1D1" Offset="1"/>
+                                </LinearGradientBrush>                                                           
+                            </Border.Background>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="4" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="3" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="4"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="4"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Row="1" Grid.Column="0" Margin="0">
+                                    <Grid.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                                            <GradientStop Color="#FFFBFBFB" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Grid.Background>
+                                </Grid>
+
+
+                                <Grid Grid.Row="1" Grid.Column="2" Margin="0">
+                                    <Grid.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FFF9F9F9" Offset="0.045"/>
+                                            <GradientStop Color="#FFF0F0F0" Offset="0.909"/>
+                                        </LinearGradientBrush>
+                                    </Grid.Background>
+                                </Grid>
+
+                                <!--<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFDFDFDF" Offset="0.1"/>
+                                    <GradientStop Color="#FFFCFCFC" Offset="1"/>
+                                </LinearGradientBrush>-->
+
+                                <Grid Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" HorizontalAlignment="Right" Grid.ColumnSpan="3" Grid.RowSpan="3">
+                                    <Path x:Name="Arrow"
+                                        Margin="1,1,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="{StaticResource DownArrowGeometry}"
+                                        Fill="#808080">                                        
+                                    </Path>
+                                </Grid>
+
+                            </Grid>
+                        </Border>
+                           
+                      
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="false">
@@ -106,6 +163,10 @@
                     <Grid x:Name="MainGrid"                              
                           Margin="0"
                           SnapsToDevicePixels="true">
+                        <Grid.Effect>
+                            <DropShadowEffect ShadowDepth="1" BlurRadius="5" Opacity="0.7" Direction="270"/>
+                        </Grid.Effect>                        
+                                              
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="0" MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" />
@@ -152,11 +213,11 @@
                                     </ScrollViewer>
                                 </Border>
                             </Border>
-                        </Popup>
+                        </Popup>                       
 
                         <ToggleButton Name="toggleButton" Grid.ColumnSpan="2" 
-                                      Background="{TemplateBinding Background}"
-                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      Background="Red"
+                                      BorderBrush="#DDDDDD"
                                       BorderThickness="{TemplateBinding BorderThickness}"
                                       IsChecked="{Binding IsDropDownOpen,
                                       Mode=TwoWay,
@@ -186,7 +247,7 @@
                                                   ScrollText="{TemplateBinding SelectionBoxItem}"
                                                   ScrollForeground="{Binding ElementName=DropDownScrollViewer, Path=Foreground}"
                                                   IsHitTestVisible="False"
-                                                  ScrollFontSize="12" Margin="5"/>
+                                                  ScrollFontSize="12" Margin="7,0"/>
                     </Grid>
 
                     <ControlTemplate.Triggers>

@@ -61,11 +61,7 @@
         </ControlTemplate>
         
         <SolidColorBrush x:Key="lineColor_1" Color="#AAAAAA" />
-        <SolidColorBrush x:Key="lineColor_2" Color="#555555" />
-        <ImageBrush x:Key="imgBk_Brush_1"  ImageSource="Images\PagePrint.png" />
-        <ImageBrush x:Key="imgBk_Brush_2"  ImageSource="Images\PageCopy.png" />
-        <ImageBrush x:Key="imgBk_Brush_3"  ImageSource="Images\PageScan.png" />
-        <ImageBrush x:Key="imgBk_Brush_4"  ImageSource="Images\PageSetting.png" />        
+        <SolidColorBrush x:Key="lineColor_2" Color="#555555" />  
     </Window.Resources>
 
         <Viewbox Stretch="Fill">
@@ -83,21 +79,21 @@
             <RowDefinition Height="38*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="115*" />
-            <ColumnDefinition Width="161*" />
+            <ColumnDefinition Width="204*" />
+            <ColumnDefinition Width="110*" />
             <ColumnDefinition Width="1" />
-            <ColumnDefinition Width="88*" />
+            <ColumnDefinition Width="110*" />
             <ColumnDefinition Width="1" />
-            <ColumnDefinition Width="87*" />
+            <ColumnDefinition Width="110*" />
             <ColumnDefinition Width="1" />
-            <ColumnDefinition Width="88*" />
-            <ColumnDefinition Width="1" />
-            <ColumnDefinition Width="87*" />
-            <ColumnDefinition Width="1" />
-            <ColumnDefinition Width="103*" />
-            <ColumnDefinition Width="117*" />
+            <ColumnDefinition Width="111*" />
+            <ColumnDefinition Width="203*" />
+           
         </Grid.ColumnDefinitions>
 
+            <Image Source="Images\PagePrint.tif"  Grid.RowSpan="100" Grid.ColumnSpan="100" Name="Background_SubPageView" Width="{Binding ElementName=mainWindow, Path=Width}" Height="{Binding ElementName=mainWindow, Path=Height}"></Image>
+
+         
 
         <!-- Title Bar Layout -->
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="13">
@@ -121,29 +117,29 @@
             VerticalAlignment="Top"
             />
 
-        <TextBlock x:Name="txtPageName" Grid.Column="1" Grid.Row="2" Margin="5, 15, 0, 0" FontSize="45.31" Foreground="#676767"> </TextBlock>
+        <!--<TextBlock x:Name="txtPageName" Grid.Column="1" Grid.Row="2" Margin="5, 15, 0, 0" FontSize="45.31" Foreground="#676767"> </TextBlock>-->
 
-        <Rectangle Name="line1" Grid.Row="2" Grid.Column="2" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0"/>
+        <!--<Rectangle Name="line1" Grid.Row="2" Grid.Column="2" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0"/>
         <Rectangle Name="line2" Grid.Row="2" Grid.Column="4" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0" />
         <Rectangle Name="line3" Grid.Row="2" Grid.Column="6" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0"/>
         <Rectangle Name="line4" Grid.Row="2" Grid.Column="8" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0" />
-        <Rectangle Name="line5" Grid.Row="2" Grid.Column="10" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0"/>
+        <Rectangle Name="line5" Grid.Row="2" Grid.Column="10" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0"/>-->
 
-        <Grid Name="Print_Grid" Grid.Column="3" Grid.Row="2">
+        <Grid Name="Print_Grid" Grid.Column="1" Grid.Row="2">
             <Image Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Margin="0,0,0, 7" Source="Images\btnPrint.tif" />
             <Button x:Name="btnPrint" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
         </Grid>
-        <Grid Name="Scan_Grid" Grid.Column="5" Grid.Row="2">
+        <Grid Name="Scan_Grid" Grid.Column="3" Grid.Row="2">
             <Image  Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnCopy.tif" />
             <Button x:Name="btnCopy" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
         </Grid>
 
-        <Grid Name="Copy_Grid" Grid.Column="7" Grid.Row="2">
+        <Grid Name="Copy_Grid" Grid.Column="5" Grid.Row="2">
             <Image  Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnScan.tif" />
             <Button x:Name="btnScan" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
         </Grid>
 
-        <Grid Name="Setting_Grid" Grid.Column="9" Grid.Row="2">
+        <Grid Name="Setting_Grid" Grid.Column="7" Grid.Row="2">
             <Image Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnSetting.tif" />
             <Button x:Name="btnSetting" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
         </Grid>
@@ -152,38 +148,42 @@
             <Border VerticalAlignment="Top" Name="subPageView" Width="{Binding ElementName=contentGrid, Path=Width}" Height="{Binding ElementName=contentGrid, Path=Height}"/>            
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="3"  Grid.ColumnSpan="11" Margin="0,0,0,-2"> 
-            <Rectangle  RadiusX="7" RadiusY="7" Fill="Black" />
-            <Rectangle RadiusX="7" RadiusY="7" Fill="White" Margin="1,1,1,3"/>                   
-        </Grid>
+            <Grid Grid.Column="1" Grid.Row="3"  Grid.ColumnSpan="7" Margin="0,0,0,-2">
+                <Rectangle  RadiusX="7" RadiusY="7" Fill="Black" />
+                <Rectangle RadiusX="7" RadiusY="7" Fill="White" Margin="1,1,1,3"/>
+              
+                <Rectangle Name="tabLeft" Width="100" HorizontalAlignment="Left" RadiusX="7" RadiusY="7" Fill="#6E6E6E" Margin="1,1,1,3"/>
 
-        <Rectangle Name="line6" Grid.Column="2" Grid.Row="3" Fill="{StaticResource lineColor_2}" />
+                <Rectangle Name="tabRight" Width="100" HorizontalAlignment="Right" RadiusX="7" RadiusY="7" Fill="#6E6E6E" Margin="1,1,1,3"/>
+            </Grid>
+
+            <!--<Rectangle Name="line6" Grid.Column="2" Grid.Row="3" Fill="{StaticResource lineColor_2}" />
         <Rectangle Name="line7" Grid.Column="4" Grid.Row="3" Fill="{StaticResource lineColor_2}" />
         <Rectangle Name="line8" Grid.Column="6" Grid.Row="3" Fill="{StaticResource lineColor_2}" />
         <Rectangle Name="line9" Grid.Column="8" Grid.Row="3" Fill="{StaticResource lineColor_2}" />
-        <Rectangle Name="line10" Grid.Column="10" Grid.Row="3" Fill="{StaticResource lineColor_2}" />
+        <Rectangle Name="line10" Grid.Column="10" Grid.Row="3" Fill="{StaticResource lineColor_2}" />-->
 
 
-        <mycontrol:customTabItem x:Name="tabItem_Print"   Grid.Column="3" Grid.Row="3"  Margin="0,1"                             
+        <mycontrol:customTabItem x:Name="tabItem_Print"   Grid.Column="1" Grid.Row="3"  Margin="5,1,0,1"                             
                                  IsSelect="False" 
                                  FontSize="16.99" 
                                  Text="{StaticResource ResStr_ExtraAdd_Print}">
         </mycontrol:customTabItem>
 
-        <mycontrol:customTabItem x:Name="tabItem_Copy"   Grid.Column="5" Grid.Row="3" Margin="0,1"                               
+        <mycontrol:customTabItem x:Name="tabItem_Copy"   Grid.Column="3" Grid.Row="3" Margin="0,1"                               
                                  IsSelect="False" 
                                  FontSize="16.99" 
                                  Text="{StaticResource ResStr_ExtraAdd_Copy}">
         </mycontrol:customTabItem>
 
 
-        <mycontrol:customTabItem x:Name="tabItem_Scan"     Grid.Column="7" Grid.Row="3" Margin="0,1"                                 
+        <mycontrol:customTabItem x:Name="tabItem_Scan"     Grid.Column="5" Grid.Row="3" Margin="0,1"                                 
                                  IsSelect="False" 
                                  FontSize="16.99" 
                                  Text="{StaticResource ResStr_ExtraAdd_Scan}">
         </mycontrol:customTabItem>
 
-        <mycontrol:customTabItem x:Name="tabItem_Setting"   Grid.Column="9" Grid.Row="3" Margin="0,1"                                 
+            <mycontrol:customTabItem x:Name="tabItem_Setting"   Grid.Column="7" Grid.Row="3"  Margin="0,1,5,1"                                
                                  IsSelect="False" 
                                  FontSize="16.99" 
                                  Text="{StaticResource ResStr_Setting}">

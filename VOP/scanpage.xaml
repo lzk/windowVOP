@@ -180,12 +180,8 @@
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="215" />
         <ColumnDefinition />
-    </Grid.ColumnDefinitions>
-    
-        <Grid.Background>
-            <ImageBrush ImageSource="Images\PageScan.png" />
-        </Grid.Background>
-        
+    </Grid.ColumnDefinitions>    
+         
     <ScrollViewer Grid.Column="1" Width="395" Height="162" Name="scrollview" CanContentScroll="true"
         SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" VerticalScrollBarVisibility="Auto"
         HorizontalScrollBarVisibility="Auto"
