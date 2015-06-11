@@ -653,6 +653,10 @@
     <Resource Include="Media\JamAtExitStayOn.gif" />
     <Resource Include="Media\JamAtRegistStayOn.gif" />
     <Resource Include="Media\NofeedJam.gif" />
+    <Resource Include="Images\LED_Gray.png" />
+    <Resource Include="Images\LED_Green.png" />
+    <Resource Include="Images\LED_Red.png" />
+
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
