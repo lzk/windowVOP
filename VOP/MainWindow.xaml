@@ -17,7 +17,7 @@
             <Grid Name="grid"
                   Width="{TemplateBinding Width}"
                   Height="{TemplateBinding Height}">
-                
+
                 <Grid  Name="Off" Width="{Binding ElementName=grid, Path=Width}"
                        Height="{Binding ElementName=grid, Path=Height}"
                        Background="White">
@@ -28,7 +28,7 @@
                         Foreground="#737373"
                         Text="{TemplateBinding  Content}"
                         FontSize="{TemplateBinding FontSize}"
-                        TextAlignment="Center">                        
+                        TextAlignment="Center">
                     </TextBlock>
                 </Grid>
 
@@ -48,7 +48,7 @@
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsChecked" Value="True">
-                    <Setter TargetName="Off" Property="Visibility" Value="Hidden" />                 
+                    <Setter TargetName="Off" Property="Visibility" Value="Hidden" />
                     <Setter TargetName="On" Property="Visibility" Value="Visible" />
                 </Trigger>
                 <Trigger Property="IsChecked" Value="False">
@@ -59,99 +59,98 @@
                 <Trigger Property="IsPressed" Value="False"></Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        
+
         <SolidColorBrush x:Key="lineColor_1" Color="#AAAAAA" />
-        <SolidColorBrush x:Key="lineColor_2" Color="#555555" />  
+        <SolidColorBrush x:Key="lineColor_2" Color="#555555" />
     </Window.Resources>
 
-        <Viewbox Stretch="Fill">
+    <Viewbox Stretch="Fill">
 
-    <Grid Width="850" Height="638" >
-        <Grid.Background>
-            <ImageBrush ImageSource="Images\background.png" />
-        </Grid.Background>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="96*"/>
-            <RowDefinition Height="25*"/>
-            <RowDefinition Height="335*"/>
-            <RowDefinition Height="38*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="204*" />
-            <ColumnDefinition Width="110*" />
-            <ColumnDefinition Width="1" />
-            <ColumnDefinition Width="110*" />
-            <ColumnDefinition Width="1" />
-            <ColumnDefinition Width="110*" />
-            <ColumnDefinition Width="1" />
-            <ColumnDefinition Width="111*" />
-            <ColumnDefinition Width="203*" />
-           
-        </Grid.ColumnDefinitions>
+        <Grid Width="850" Height="638" >
+            <Grid.Background>
+                <ImageBrush ImageSource="Images\background.png" />
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="96*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="335*"/>
+                <RowDefinition Height="38*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="204*" />
+                <ColumnDefinition Width="110*" />
+                <ColumnDefinition Width="1" />
+                <ColumnDefinition Width="110*" />
+                <ColumnDefinition Width="1" />
+                <ColumnDefinition Width="110*" />
+                <ColumnDefinition Width="1" />
+                <ColumnDefinition Width="111*" />
+                <ColumnDefinition Width="203*" />
+
+            </Grid.ColumnDefinitions>
 
             <Image Source="Images\PagePrint.tif"  Grid.RowSpan="100" Grid.ColumnSpan="100" Name="Background_SubPageView" Width="{Binding ElementName=mainWindow, Path=Width}" Height="{Binding ElementName=mainWindow, Path=Height}"></Image>
 
-         
 
-        <!-- Title Bar Layout -->
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="13">
-            <TextBlock Text="{StaticResource ResStr_VirtualOperationPanel}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="24"  />
+
+            <!-- Title Bar Layout -->
+            <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="13">
+                <TextBlock Text="{StaticResource ResStr_VirtualOperationPanel}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="24"  />
                 <Image HorizontalAlignment="Left" VerticalAlignment="Center"  Source="Images\mainWindow_Logo.png" Height="15" Margin="20,0" Width="100" />
                 <StackPanel HorizontalAlignment="Right" Margin="0,0,4,0" Orientation="Horizontal" >
                     <local:MinimizeCloseButton x:Name="btnMinimize" Height="30" Width="30" Click="ControlBtnClick" MinimizeOrCloseStyle="Minimize" />
                     <local:MinimizeCloseButton x:Name="btnClose"    Height="30" Width="30" Click="ControlBtnClick" MinimizeOrCloseStyle="Close" />
                 </StackPanel>
-        </Grid>
-       
-        <mycontrol:LogonButton  
+            </Grid>
+
+            <mycontrol:LogonButton  
             x:Name="btnLogin"  
             Grid.Column="0"
-            Grid.ColumnSpan="1"
             Grid.Row="1" 
-            Margin="11.293,21,0,0"
+            Margin="0,15,85,0"
             btnClick="NvgBtnClick" 
             IsLogon="False"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
             />
 
-        <!--<TextBlock x:Name="txtPageName" Grid.Column="1" Grid.Row="2" Margin="5, 15, 0, 0" FontSize="45.31" Foreground="#676767"> </TextBlock>-->
+            <!--<TextBlock x:Name="txtPageName" Grid.Column="1" Grid.Row="2" Margin="5, 15, 0, 0" FontSize="45.31" Foreground="#676767"> </TextBlock>-->
 
-        <!--<Rectangle Name="line1" Grid.Row="2" Grid.Column="2" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0"/>
+            <!--<Rectangle Name="line1" Grid.Row="2" Grid.Column="2" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0"/>
         <Rectangle Name="line2" Grid.Row="2" Grid.Column="4" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0" />
         <Rectangle Name="line3" Grid.Row="2" Grid.Column="6" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0"/>
         <Rectangle Name="line4" Grid.Row="2" Grid.Column="8" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0" />
         <Rectangle Name="line5" Grid.Row="2" Grid.Column="10" Fill="{StaticResource lineColor_1}" Margin="0, 15, 0, 0"/>-->
 
-        <Grid Name="Print_Grid" Grid.Column="1" Grid.Row="2">
-            <Image Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Margin="0,0,0, 7" Source="Images\btnPrint.tif" />
-            <Button x:Name="btnPrint" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
-        </Grid>
-        <Grid Name="Scan_Grid" Grid.Column="3" Grid.Row="2">
-            <Image  Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnCopy.tif" />
-            <Button x:Name="btnCopy" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
-        </Grid>
+            <Grid Name="Print_Grid" Grid.Column="1" Grid.Row="2">
+                <Image Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Margin="0,0,0, 7" Source="Images\btnPrint.tif" />
+                <Button x:Name="btnPrint" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
+            </Grid>
+            <Grid Name="Scan_Grid" Grid.Column="3" Grid.Row="2">
+                <Image  Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnCopy.tif" />
+                <Button x:Name="btnCopy" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
+            </Grid>
 
-        <Grid Name="Copy_Grid" Grid.Column="5" Grid.Row="2">
-            <Image  Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnScan.tif" />
-            <Button x:Name="btnScan" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
-        </Grid>
+            <Grid Name="Copy_Grid" Grid.Column="5" Grid.Row="2">
+                <Image  Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnScan.tif" />
+                <Button x:Name="btnScan" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
+            </Grid>
 
-        <Grid Name="Setting_Grid" Grid.Column="7" Grid.Row="2">
-            <Image Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnSetting.tif" />
-            <Button x:Name="btnSetting" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
-        </Grid>
-    
-        <Grid Name="contentGrid" Grid.Row="4" Grid.ColumnSpan="14" Margin="0, -20, 0, 0"  Width="638" Height="367">
-            <Border VerticalAlignment="Top" Name="subPageView" Width="{Binding ElementName=contentGrid, Path=Width}" Height="{Binding ElementName=contentGrid, Path=Height}"/>            
-        </Grid>
+            <Grid Name="Setting_Grid" Grid.Column="7" Grid.Row="2">
+                <Image Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnSetting.tif" />
+                <Button x:Name="btnSetting" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
+            </Grid>
+
+            <Grid Name="contentGrid" Grid.Row="4" Grid.ColumnSpan="14" Margin="0, -20, 0, 0"  Width="638" Height="367">
+                <Border VerticalAlignment="Top" Name="subPageView" Width="{Binding ElementName=contentGrid, Path=Width}" Height="{Binding ElementName=contentGrid, Path=Height}"/>
+            </Grid>
 
             <Grid Grid.Column="1" Grid.Row="3"  Grid.ColumnSpan="7" Margin="0,0,0,-2">
                 <Rectangle  RadiusX="7" RadiusY="7" Fill="Black" />
                 <Rectangle RadiusX="7" RadiusY="7" Fill="White" Margin="1,1,1,3"/>
-              
+
                 <Rectangle Name="tabLeft" Width="100" HorizontalAlignment="Left" RadiusX="7" RadiusY="7" Fill="#6E6E6E" Margin="1,1,1,3"/>
 
                 <Rectangle Name="tabRight" Width="100" HorizontalAlignment="Right" RadiusX="7" RadiusY="7" Fill="#6E6E6E" Margin="1,1,1,3"/>
@@ -164,47 +163,47 @@
         <Rectangle Name="line10" Grid.Column="10" Grid.Row="3" Fill="{StaticResource lineColor_2}" />-->
 
 
-        <mycontrol:customTabItem x:Name="tabItem_Print"   Grid.Column="1" Grid.Row="3"  Margin="5,1,0,1"                             
+            <mycontrol:customTabItem x:Name="tabItem_Print"   Grid.Column="1" Grid.Row="3"  Margin="5,1,0,1"                             
                                  IsSelect="False" 
                                  FontSize="16.99" 
                                  Text="{StaticResource ResStr_ExtraAdd_Print}">
-        </mycontrol:customTabItem>
+            </mycontrol:customTabItem>
 
-        <mycontrol:customTabItem x:Name="tabItem_Copy"   Grid.Column="3" Grid.Row="3" Margin="0,1"                               
+            <mycontrol:customTabItem x:Name="tabItem_Copy"   Grid.Column="3" Grid.Row="3" Margin="0,1"                               
                                  IsSelect="False" 
                                  FontSize="16.99" 
                                  Text="{StaticResource ResStr_ExtraAdd_Copy}">
-        </mycontrol:customTabItem>
+            </mycontrol:customTabItem>
 
 
-        <mycontrol:customTabItem x:Name="tabItem_Scan"     Grid.Column="5" Grid.Row="3" Margin="0,1"                                 
+            <mycontrol:customTabItem x:Name="tabItem_Scan"     Grid.Column="5" Grid.Row="3" Margin="0,1"                                 
                                  IsSelect="False" 
                                  FontSize="16.99" 
                                  Text="{StaticResource ResStr_ExtraAdd_Scan}">
-        </mycontrol:customTabItem>
+            </mycontrol:customTabItem>
 
             <mycontrol:customTabItem x:Name="tabItem_Setting"   Grid.Column="7" Grid.Row="3"  Margin="0,1,5,1"                                
                                  IsSelect="False" 
                                  FontSize="16.99" 
                                  Text="{StaticResource ResStr_Setting}">
-        </mycontrol:customTabItem>
+            </mycontrol:customTabItem>
 
-         
 
-        <!--<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.ColumnSpan="13">
+
+            <!--<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.ColumnSpan="13">
              <Button Name="btnMinimize" Click="ControlBtnClick" Width="30" Height="30" Margin="0,0,2,0" >-</Button>
              <Button Name="btnClose"    Click="ControlBtnClick" Width="30" Height="30" Margin="0,0,5,0" >X</Button>
              </StackPanel>-->
 
-       <Border VerticalAlignment="Center" HorizontalAlignment="Center" Name="statusPageView" Grid.ColumnSpan="100" Grid.RowSpan="100" 
+            <Border VerticalAlignment="Center" HorizontalAlignment="Center" Name="statusPageView" Grid.ColumnSpan="100" Grid.RowSpan="100" 
                 Height="638" Width="850"
                 />
-        
-            <Image x:Name="imgLEDRed" Grid.Row="1" Grid.Column="12" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Red.png" Margin="11.293,21,0,0"/>
-            <Image x:Name="imgLEDGray" Grid.Row="1" Grid.Column="12" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Gray.png" Margin="11.293,21,0,0"/>
-            <Image x:Name="imgLEDGreen" Grid.Row="1" Grid.Column="12" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Green.png" Margin="11.293,21,0,0"/>
+
+            <Image x:Name="imgLEDRed" Grid.Row="1" Grid.Column="12" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Red.png" Margin="95,21,0,0"/>
+            <Image x:Name="imgLEDGray" Grid.Row="1" Grid.Column="12" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Gray.png" Margin="95,21,0,0"/>
+            <Image x:Name="imgLEDGreen" Grid.Row="1" Grid.Column="8" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Green.png" Margin="95,21,0,0"/>
 
         </Grid>
 
-        </Viewbox>
+    </Viewbox>
 </Window>
