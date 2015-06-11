@@ -199,8 +199,11 @@
                 Height="638" Width="850"
                 />
         
+            <Image x:Name="imgLEDRed" Grid.Row="1" Grid.Column="12" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Red.png" Margin="11.293,21,0,0"/>
+            <Image x:Name="imgLEDGray" Grid.Row="1" Grid.Column="12" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Gray.png" Margin="11.293,21,0,0"/>
+            <Image x:Name="imgLEDGreen" Grid.Row="1" Grid.Column="12" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Green.png" Margin="11.293,21,0,0"/>
 
-    </Grid>
+        </Grid>
 
         </Viewbox>
 </Window>

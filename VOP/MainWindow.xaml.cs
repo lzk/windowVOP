@@ -767,6 +767,7 @@ namespace VOP
             dll.SaveDefaultPrinter(); //save default printer name before vop action
             statusPageView.Child = statusPanelPage;
             this.statusPanelPage.Visibility = Visibility.Visible;
+            UpdateLED( EnumStatus.Offline );
 
             ShowAboutPageOnly();
 
@@ -996,6 +997,8 @@ namespace VOP
             System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,, /Images/printerGray.ico")).Stream;
             notifyIcon1.Icon = new System.Drawing.Icon(iconStream);
 
+            UpdateLED( EnumStatus.Offline );
+
             m_updaterAndUIEvent.Set();
         }
 
@@ -1069,6 +1072,8 @@ namespace VOP
                }
 
                statusPanelPage.UpdateStatusPanel( status, job, toner );
+
+               UpdateLED( status );
 
                bool bIsNeedMaintain = common.IsStatusNeedMaintain(status);
 
@@ -1249,6 +1254,7 @@ namespace VOP
             }
 
             statusPanelPage.UpdateStatusPanel( (EnumStatus)status, (EnumMachineJob)job, toner );
+            // TODO: update LED.
 
             if ( m_isOnlineDetected || false == common.IsOffline( (EnumStatus)status) )
             {
@@ -1405,5 +1411,34 @@ namespace VOP
                 MainWindowExitPoint();
         }
 
+        // Update LED light color according the status.
+        private void UpdateLED( EnumStatus s )
+        {
+            StatusDisplayType type = common.GetStatusTypeForUI( s );
+
+            imgLEDRed.Visibility   = Visibility.Hidden;
+            imgLEDGray.Visibility  = Visibility.Hidden;
+            imgLEDGreen.Visibility = Visibility.Hidden;
+
+            switch ( type )
+            {
+                case StatusDisplayType.Ready   :
+                case StatusDisplayType.Sleep   :
+                case StatusDisplayType.Warning :
+                case StatusDisplayType.Busy    :
+                    imgLEDGreen.Visibility  = Visibility.Visible;
+                    break;
+                case StatusDisplayType.Error   :
+                    imgLEDRed.Visibility  = Visibility.Visible;
+                    break;
+                case StatusDisplayType.Offline :
+                    imgLEDGray.Visibility  = Visibility.Visible;
+                    break;
+                default:
+                    imgLEDGray.Visibility  = Visibility.Visible;
+                    break;
+            }
+        }
     }
+
 }
