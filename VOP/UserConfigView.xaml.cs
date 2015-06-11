@@ -75,8 +75,12 @@ namespace VOP
 
             spinCtlEdge.Value = m_leadingedge;
             spinCtlSide2Side.Value = m_sidetoside;
-            spinCtlHumidity.Value = m_lowhumiditymode;
             spinCtlDensity.Value = m_imagedensity;
+
+            if(1 == m_lowhumiditymode)
+                chkHumidity.IsChecked = true;
+            else
+                chkHumidity.IsChecked = false;
 
             if (0 == m_platecontrolmode)
                 chkPlateControlMode.IsChecked = true;
@@ -158,11 +162,6 @@ namespace VOP
             tb2.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb2.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb2.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
-
-            TextBox tb3 = spinCtlHumidity.Template.FindName("tbTextBox", spinCtlHumidity) as TextBox;
-            tb3.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
-            tb3.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput1);
-            tb3.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
         }
 
         private void GetUIValues(
@@ -182,15 +181,19 @@ namespace VOP
             if (null != spinCtlEdge &&
                 null != spinCtlSide2Side &&
                 null != spinCtlDensity &&
-                null != spinCtlHumidity &&
+                null != chkHumidity &&
                 null != chkPlateControlMode &&
                 null != chkCoolingMode)
             {
                 leadingedge = (sbyte)spinCtlEdge.Value;
                 sidetoside = (sbyte)spinCtlSide2Side.Value;
                 imagedensity = (sbyte)spinCtlDensity.Value;
-                lowhumiditymode = (sbyte)spinCtlHumidity.Value;
-                
+
+                if (true == chkHumidity.IsChecked)
+                    lowhumiditymode = 1;
+                else
+                    lowhumiditymode = 0;
+
                 if(true == chkPlateControlMode.IsChecked)
                     platecontrolmode = 0;
                 else
@@ -277,8 +280,7 @@ namespace VOP
             {
                 if (true == spinCtlEdge.ValidationHasError ||
                     true == spinCtlSide2Side.ValidationHasError ||
-                    true == spinCtlDensity.ValidationHasError ||
-                    true == spinCtlHumidity.ValidationHasError)
+                    true == spinCtlDensity.ValidationHasError)
                 {
                     btnApply.IsEnabled = false;
                 }
@@ -365,8 +367,7 @@ namespace VOP
 
             if (true == spinCtlEdge.ValidationHasError ||
                 true == spinCtlSide2Side.ValidationHasError ||
-                true == spinCtlDensity.ValidationHasError ||
-                true == spinCtlHumidity.ValidationHasError)
+                true == spinCtlDensity.ValidationHasError)
             {
                 btnApply.IsEnabled = false;
             }

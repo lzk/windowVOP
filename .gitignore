@@ -36,3 +36,6 @@ tags
 VersionInfo.rc
 **/VersionInfo.cs
 VOP/Properties/VersionInfo.cs
+
+MultiLangTool/
+MultiLangTool/*

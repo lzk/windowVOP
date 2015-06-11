@@ -260,4 +260,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Print">打印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Copy">复印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Scan">扫描</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Close">关闭</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Open">开启</sys:String>
 </ResourceDictionary>
