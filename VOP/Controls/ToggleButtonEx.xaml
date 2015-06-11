@@ -41,7 +41,7 @@
                                 <TextBlock Name="tbEncrypt" Grid.Row="2" Text="{TemplateBinding  EncryptionText}" TextTrimming="CharacterEllipsis" TextAlignment="Left"></TextBlock>
                             </Grid>
                             <Rectangle Grid.Column="1" Grid.ColumnSpan="3" Fill="White"></Rectangle>
-                            <Image Name="imgSignal"  Source="..\Images\signal.png" Grid.Column="1" VerticalAlignment="Bottom" Height="20" Width="20"></Image>
+                            <Image Name="imgSignal"  Source="..\Images\Signal_Enable.png" Grid.Column="1" VerticalAlignment="Bottom" Height="20" Width="20"></Image>
                             <Image Name="imgLine"  Source="..\Images\Line.png" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Stretch="UniformToFill"></Image>
                         </Grid>
                     </Grid>
@@ -65,6 +65,7 @@
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="tbssid" Property="Foreground" Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}"></Setter>
                             <Setter TargetName="tbEncrypt" Property="Foreground" Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}"></Setter>
+                            <Setter TargetName="imgSignal" Property="Source" Value="..\Images\Signal_Disable.png"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

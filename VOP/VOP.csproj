@@ -622,7 +622,6 @@
     <Resource Include="Images\mainWindow_Logo.png" />
     <Resource Include="Images\MainWindow_Close.PNG" />
     <Resource Include="Images\MainWindow_Min.PNG" />
-    <Resource Include="Images\signal.png" />
     <Resource Include="Images\GreenLine.png" />
     <Resource Include="Images\printer.ico" />
     <Resource Include="Images\printerGray.ico" />
@@ -656,7 +655,6 @@
     <Resource Include="Images\LED_Gray.png" />
     <Resource Include="Images\LED_Green.png" />
     <Resource Include="Images\LED_Red.png" />
-
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -720,5 +718,11 @@
     <Resource Include="Images\CheckBox_Disable.png" />
     <Resource Include="Images\CheckBox_Disable1.png" />
     <Resource Include="Images\CheckBox_Open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Refresh_Disable.png" />
+    <Resource Include="Images\Refresh_Enable.png" />
+    <Resource Include="Images\Signal_Disable.png" />
+    <Resource Include="Images\Signal_Enable.png" />
   </ItemGroup>
 </Project>
