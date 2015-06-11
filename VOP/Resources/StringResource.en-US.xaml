@@ -102,7 +102,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Flip_on_long_edge">Flip on long edge</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Flip_on_short_edge">Flip on short edge</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Toner_Save_Mode">Toner Save Mode</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Advanced_settings">Advanced settings</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Advanced_settings">Advanced Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Default">Default</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_OK">OK</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Back">Back</sys:String>
