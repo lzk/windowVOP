@@ -8,9 +8,9 @@
              d:DesignWidth="100"
              mc:Ignorable="d">    
     <UserControl.Resources>
-        <ImageBrush x:Key="imgNotLogon" ImageSource="..\Images\NotLogin.tif" />
-        <ImageBrush x:Key="imgLogon" ImageSource="..\Images\Login.tif" />
-        <ImageBrush x:Key="imgLogonPressed" ImageSource="..\Images\LoginPressed.tif" />
+        <ImageBrush x:Key="imgNotLogon" ImageSource="..\Images\Logon_Normal.png" />
+        <ImageBrush x:Key="imgLogon" ImageSource="..\Images\Logon_Active.png" />
+        <ImageBrush x:Key="imgLogonPressed" ImageSource="..\Images\Logon_Click.png" />
 
         <Style x:Key="LoginFocus">
             <Setter Property="Control.Template">
@@ -38,25 +38,7 @@
             </Button.Template>
         </Button>
         <Grid>
-            <Grid.RowDefinitions>               
-                <RowDefinition Height="159*" />
-                <RowDefinition Height="15*" />
-                <RowDefinition Height="121*" />
-            </Grid.RowDefinitions>
-
-            <Rectangle Name="rect_Image" Width="26" Height="24" Margin="0,0,1,0" Fill="{StaticResource imgNotLogon}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            </Rectangle>
-
-            <!--<Image Name="Image" Grid.Row="0" Width="26" Height="24" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-                   Source="..\Images\NotLogin.tif" />-->
- 
-            <TextBlock Grid.Row="2"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Top"
-                       Text="{Binding ElementName=container,
-                       Path=bottomText}"
-                       TextAlignment="Center" 
-                       FontSize="12"/>
+            <Rectangle Name="rect_Image" Width="33" Height="39" Margin="0,0,1,0" Fill="{StaticResource imgNotLogon}" HorizontalAlignment="Center" VerticalAlignment="Center"></Rectangle>
         </Grid>
 
     </Grid>

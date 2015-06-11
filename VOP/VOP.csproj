@@ -594,9 +594,6 @@
     <Resource Include="Images\UserConfig_Active.png" />
     <Resource Include="Images\Wireless.png" />
     <Resource Include="Images\Wireless_Active.png" />
-    <Resource Include="Images\Login.tif" />
-    <Resource Include="Images\LoginPressed.tif" />
-    <Resource Include="Images\NotLogin.tif" />
     <Resource Include="Images\btnCopy.tif" />
     <Resource Include="Images\btnPrint.tif" />
     <Resource Include="Images\btnScan.tif" />
@@ -724,5 +721,10 @@
     <Resource Include="Images\Refresh_Enable.png" />
     <Resource Include="Images\Signal_Disable.png" />
     <Resource Include="Images\Signal_Enable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Logon_Active.png" />
+    <Resource Include="Images\Logon_Click.png" />
+    <Resource Include="Images\Logon_Normal.png" />
   </ItemGroup>
 </Project>
