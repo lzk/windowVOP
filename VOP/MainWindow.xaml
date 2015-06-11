@@ -96,11 +96,13 @@
             <mycontrol:LogonButton  
                 x:Name="btnLogin"
                 Grid.Row="1" 
-                Margin="0,15,85,0"
+                Margin="0,15,0,0"
                 btnClick="NvgBtnClick" 
                 IsLogon="False"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Top" Height="39" Width="34" Grid.ColumnSpan="2"
+                VerticalAlignment="Top" 
+                Height="39" 
+                Width="34" 
                 />
             
             <Image x:Name="imgLEDRed" Grid.Row="1" Grid.Column="10" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Red.png" Margin="0,21,0,0"/>
