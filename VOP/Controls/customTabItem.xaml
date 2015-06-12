@@ -6,8 +6,7 @@
              Name="container"
              d:DesignHeight="300"
              d:DesignWidth="300"
-             mc:Ignorable="d"
-             >
+             mc:Ignorable="d">
     
     <UserControl.Resources>
         <LinearGradientBrush x:Key="selectedBrush" StartPoint="0,0" EndPoint="0,1">
@@ -27,31 +26,53 @@
     
     
     <Grid>
-        <Border BorderThickness="1" BorderBrush="Black" />
-        
-        <Grid Name="Selected" Visibility="Hidden"  
+        <Grid Name="Left" Visibility="Hidden"
               Width="{Binding ElementName=container, Path=Width}"
-              Height="{Binding ElementName=container, Path=Height}"              
-              Background="#6E6E6E" >            
-            
-            <TextBlock HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Background="{x:Null}"
-                       Foreground="White"
-                       Text="{Binding ElementName=container, Path=Text}"
-                       TextAlignment="Center" />
+              Height="{Binding ElementName=container, Path=Height}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Rectangle Name="rectLeft_1" RadiusX="7" RadiusY="7" Fill="White"/>
+            <Rectangle Name="rectLeft_2" Grid.Column="1" Margin="-10,0,0,0" Fill="White"/>
         </Grid>
 
-        <Grid Name="NoSelected"
+        <Grid Name="Middle"
               Width="{Binding ElementName=container, Path=Width}"
-              Height="{Binding ElementName=container, Path=Height}"              
-              Background="White">
-            <TextBlock HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Background="{x:Null}"
-                       Foreground="Black"
-                       Text="{Binding ElementName=container, Path=Text}"
-                       TextAlignment="Center" />
+              Height="{Binding ElementName=container, Path=Height}">
+            <Rectangle Name="rectMiddle" Fill="White"/> 
         </Grid>
+
+        <Grid Name="Right" Visibility="Hidden"
+              Width="{Binding ElementName=container, Path=Width}"
+              Height="{Binding ElementName=container, Path=Height}"   >
+            <Grid.ColumnDefinitions>                
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+            <Rectangle Name="rectRight_1" Margin="0,0,-10,0" Fill="White"/>
+            <Rectangle Name="rectRight_2" Grid.Column="1" RadiusX="7" RadiusY="7" Fill="White"/>
+        </Grid>
+
+        <Grid Name="Single" Visibility="Hidden"
+              Width="{Binding ElementName=container, Path=Width}"
+              Height="{Binding ElementName=container, Path=Height}"   >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="30" />
+            </Grid.ColumnDefinitions>
+            <Rectangle Name="rectSingle_1" RadiusX="7" RadiusY="7" Fill="White"/>
+            <Rectangle Name="rectSingle_2" Grid.Column="1" Margin="-10,0,-10,0" Fill="White"/>
+            <Rectangle Name="rectSingle_3" Grid.Column="2" RadiusX="7" RadiusY="7" Fill="White"/>  
+        </Grid>
+
+        <TextBlock Name="text" HorizontalAlignment="Center" Grid.ColumnSpan="3"
+                   VerticalAlignment="Center"
+                   Background="{x:Null}"
+                   Foreground="Black"
+                   Text="{Binding ElementName=container, Path=Text}"
+                   TextAlignment="Center">            
+        </TextBlock>
     </Grid>
 </UserControl>

@@ -17,6 +17,16 @@ namespace VOP
     /// <summary>
     /// Interaction logic for customTabItem.xaml
     /// </summary>
+    /// 
+
+    public enum CustomTabItemStyle
+    {
+        Left,
+        Middle,
+        Right,
+        Single
+    }
+
     public partial class customTabItem : UserControl
     {
         public static readonly DependencyProperty IsSelectProperty;
@@ -33,6 +43,51 @@ namespace VOP
             set { SetValue(TextProperty, value); }
         }
 
+        public CustomTabItemStyle tabItemStyle
+        {
+            get { return (CustomTabItemStyle)GetValue(tabItemStyleProperty); }
+            set { SetValue(tabItemStyleProperty, value); }
+        }
+
+        public static readonly DependencyProperty tabItemStyleProperty =
+            DependencyProperty.Register("tabItemStyle", typeof(CustomTabItemStyle), typeof(customTabItem),
+                new FrameworkPropertyMetadata(CustomTabItemStyle.Middle, new PropertyChangedCallback(OntabIemStyle_Changed)));
+
+        private static void OntabIemStyle_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            VOP.customTabItem _this = sender as VOP.customTabItem;
+
+            if (CustomTabItemStyle.Left == _this.tabItemStyle)
+            {
+                _this.Left.Visibility = Visibility.Visible;
+                _this.Middle.Visibility = Visibility.Hidden;
+                _this.Right.Visibility = Visibility.Hidden;
+                _this.Single.Visibility = Visibility.Hidden;
+
+            }
+            else if (CustomTabItemStyle.Middle == _this.tabItemStyle)
+            {
+                _this.Left.Visibility = Visibility.Hidden;
+                _this.Middle.Visibility = Visibility.Visible;
+                _this.Right.Visibility = Visibility.Hidden;
+                _this.Single.Visibility = Visibility.Hidden;
+            }
+            else if (CustomTabItemStyle.Right == _this.tabItemStyle)
+            {
+                _this.Left.Visibility = Visibility.Hidden;
+                _this.Middle.Visibility = Visibility.Hidden;
+                _this.Right.Visibility = Visibility.Visible;
+                _this.Single.Visibility = Visibility.Hidden;
+            }
+            else if (CustomTabItemStyle.Single == _this.tabItemStyle)
+            {
+                _this.Left.Visibility = Visibility.Hidden;
+                _this.Middle.Visibility = Visibility.Hidden;
+                _this.Right.Visibility = Visibility.Hidden;
+                _this.Single.Visibility = Visibility.Visible;
+            }
+        }
+        
         private static void OnIsSelect_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             VOP.customTabItem _this = sender as VOP.customTabItem;
@@ -40,13 +95,23 @@ namespace VOP
 
             if (_this.IsSelect) // On
             {
-                _this.NoSelected.Visibility = Visibility.Hidden;
-                _this.Selected.Visibility = Visibility.Visible;
+                _this.rectLeft_1.Fill = _this.rectLeft_2.Fill = 
+                _this.rectMiddle.Fill =
+                _this.rectRight_1.Fill = _this.rectRight_2.Fill =
+                _this.rectSingle_1.Fill = _this.rectSingle_2.Fill = _this.rectSingle_3.Fill = 
+                new SolidColorBrush(Color.FromRgb(0x6D, 0x6D, 0x6D));
+
+                _this.text.Foreground = new SolidColorBrush(Colors.White);
             }
             else // Default: Off
             {
-                _this.NoSelected.Visibility = Visibility.Visible;
-                _this.Selected.Visibility = Visibility.Hidden;
+                _this.rectLeft_1.Fill = _this.rectLeft_2.Fill =
+                _this.rectMiddle.Fill =
+                _this.rectRight_1.Fill = _this.rectRight_2.Fill =
+                _this.rectSingle_1.Fill = _this.rectSingle_2.Fill = _this.rectSingle_3.Fill = 
+               new SolidColorBrush(Colors.White);
+
+                _this.text.Foreground = new SolidColorBrush(Colors.Black);
             }
         }
 

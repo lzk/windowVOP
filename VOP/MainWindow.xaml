@@ -59,8 +59,6 @@
                 <Trigger Property="IsPressed" Value="False"></Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-
-        <SolidColorBrush x:Key="lineColor_1" Color="#AAAAAA" />
         <SolidColorBrush x:Key="lineColor_2" Color="#555555" />
     </Window.Resources>
 
@@ -71,9 +69,9 @@
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40*"/>
-                <RowDefinition Height="96*"/>
-                <RowDefinition Height="465*"/>
-                <RowDefinition Height="37*"/>
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="456*"/>
+                <RowDefinition Height="38*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="113*"/>
@@ -81,7 +79,7 @@
                 <ColumnDefinition Width="113*"/>
             </Grid.ColumnDefinitions>
 
-            <Image Source="Images\PagePrint.tif"  Grid.RowSpan="4" Grid.ColumnSpan="3" Name="Background_SubPageView"/>
+            <Image Source="Images\PagePrint.tif"  Grid.RowSpan="6" Grid.ColumnSpan="11" Name="Background_SubPageView"/>
 
             <!-- Title Bar Layout -->
             <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
@@ -112,9 +110,9 @@
             <Grid Grid.Row="2" Grid.Column="1">
                 <Grid >
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="109*"></RowDefinition>
-                        <RowDefinition Height="27*"></RowDefinition>
-                        <RowDefinition Height="329*"></RowDefinition>
+                    <RowDefinition Height="96*"></RowDefinition>
+                    <RowDefinition Height="25*"></RowDefinition>
+                    <RowDefinition Height="335*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="91*"></ColumnDefinition>
@@ -147,36 +145,41 @@
                         <Image Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnSetting.tif" />
                         <Button x:Name="btnSetting" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
                     </Grid>
+             
 
-                    <Grid Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="7" Margin="0,0,2,0">
-                        <Rectangle  RadiusX="7" RadiusY="7" Fill="Black" />
-                        <Rectangle RadiusX="7" RadiusY="7" Fill="White" Margin="1,1,1,2"/>
+                <Grid Name="tabItem_Container" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="7" Margin="0,0,0,335" Grid.RowSpan="2">
+                    <Rectangle  RadiusX="7" RadiusY="7" Fill="Black" />
+                    <Rectangle RadiusX="7" RadiusY="7" Fill="White" Margin="1,1,1,3"/>
+                </Grid>
 
-                        <Rectangle Name="tabLeft" Width="100" HorizontalAlignment="Left" RadiusX="7" RadiusY="7" Fill="#6E6E6E" Margin="1,1,0,3"/>
-
-                        <Rectangle Name="tabRight" Width="100" HorizontalAlignment="Right" RadiusX="7" RadiusY="7" Fill="#6E6E6E" Margin="1,1,0,3"/>
-                    </Grid>
-
-                    <mycontrol:customTabItem x:Name="tabItem_Print"   Grid.Column="1" Grid.Row="1"  Margin="5,1,0,2"                             
+                <Rectangle Name="line1" Grid.Column="2" Grid.Row="1" Fill="{StaticResource lineColor_2}" />
+                <Rectangle Name="line2" Grid.Column="4" Grid.Row="1" Fill="{StaticResource lineColor_2}" />
+                <Rectangle Name="line3" Grid.Column="6" Grid.Row="1" Fill="{StaticResource lineColor_2}" />
+        
+                <mycontrol:customTabItem x:Name="tabItem_Print"   Grid.Column="1" Grid.Row="1"  Margin="1,1,0,1"                             
                                  IsSelect="False" 
                                  FontSize="16.99" 
-                                 Text="{StaticResource ResStr_ExtraAdd_Print}"/>
+                                 Text="{StaticResource ResStr_ExtraAdd_Print}"
+                                 tabItemStyle="Left"/>
 
-                    <mycontrol:customTabItem x:Name="tabItem_Copy"   Grid.Column="3" Grid.Row="1" Margin="0,1,0,2"                               
+                <mycontrol:customTabItem x:Name="tabItem_Copy"   Grid.Column="3" Grid.Row="1" Margin="0,1"                               
                                  IsSelect="False" 
                                  FontSize="16.99" 
-                                 Text="{StaticResource ResStr_ExtraAdd_Copy}"/>
-
-                    <mycontrol:customTabItem x:Name="tabItem_Scan"     Grid.Column="5" Grid.Row="1" Margin="0,1,0,2"                                 
+                                 Text="{StaticResource ResStr_ExtraAdd_Copy}"
+                                 tabItemStyle="Middle"/>
+               
+                <mycontrol:customTabItem x:Name="tabItem_Scan"     Grid.Column="5" Grid.Row="1" Margin="0,1"                                 
                                  IsSelect="False" 
                                  FontSize="16.99" 
-                                 Text="{StaticResource ResStr_ExtraAdd_Scan}"/>
+                                 Text="{StaticResource ResStr_ExtraAdd_Scan}"
+                                 tabItemStyle="Middle"/>
 
-                    <mycontrol:customTabItem x:Name="tabItem_Setting"   Grid.Column="7" Grid.Row="1"  Margin="0,1,7,2"                                
+                <mycontrol:customTabItem x:Name="tabItem_Setting"   Grid.Column="7" Grid.Row="1"  Margin="0,1,1,1"                                
                                  IsSelect="False" 
                                  FontSize="16.99" 
-                                 Text="{StaticResource ResStr_Setting}">
-                    </mycontrol:customTabItem>
+                                 Text="{StaticResource ResStr_Setting}"
+                                 tabItemStyle="Right">
+                </mycontrol:customTabItem>
 
                     <Grid Name="contentGrid" Grid.Row="1" Grid.ColumnSpan="9" Grid.Column="0" Grid.RowSpan="2">
                         <Border VerticalAlignment="Top" Name="subPageView" Width="{Binding ElementName=contentGrid, Path=Width}" Height="{Binding ElementName=contentGrid, Path=Height}"/>

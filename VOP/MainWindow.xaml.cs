@@ -774,7 +774,7 @@ namespace VOP
 
             ShowTroubleshootingPage();
 
-           // SetTabItemFromIndex(EnumSubPage.Print);
+           ShowAboutPageOnly();
             AddMessageHook();
 
             ShowStartupWindow();
@@ -854,65 +854,89 @@ namespace VOP
         /// Switch sub page. 
         /// </summary>
         private bool SetTabItemFromIndex( EnumSubPage subpage )
-        {
-            if (EnumSubPage.Print == subpage)
-            {               
-                this.subPageView.Child = winFileSelectionPage;
+        {       
+            if (false == statusPanelPage.m_isSFP)
+            {
+                if (EnumSubPage.Print == subpage)
+                {
+                    this.subPageView.Child = winFileSelectionPage;
+                    Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PagePrint.tif", UriKind.RelativeOrAbsolute));
 
-                Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PagePrint.tif", UriKind.RelativeOrAbsolute));
+                    tabItem_Print.IsSelect = true;
+                    tabItem_Copy.IsSelect = false;
+                    tabItem_Scan.IsSelect = false;
+                    tabItem_Setting.IsSelect = false;
+                }
+                else if (EnumSubPage.Copy == subpage)
+                {
+                    this.subPageView.Child = winCopyPage;
+                    Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PageCopy.tif", UriKind.RelativeOrAbsolute));
 
-                tabLeft.Visibility = Visibility.Visible;
-                tabRight.Visibility = Visibility.Hidden;
-                tabItem_Print.IsSelect = true;
-                tabItem_Copy.IsSelect = false;
-                tabItem_Scan.IsSelect = false;
-                tabItem_Setting.IsSelect = false;
-            }
-            else if (EnumSubPage.Copy == subpage)
-            {             
-                this.subPageView.Child = winCopyPage;
+                    tabItem_Print.IsSelect = false;
+                    tabItem_Copy.IsSelect = true;
+                    tabItem_Scan.IsSelect = false;
+                    tabItem_Setting.IsSelect = false;
+                }
+                else if (EnumSubPage.Scan == subpage)
+                {
+                    this.subPageView.Child = winScanPage;
+                    Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PageScan.tif", UriKind.RelativeOrAbsolute));
 
-                Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PageCopy.tif", UriKind.RelativeOrAbsolute));
+                    tabItem_Print.IsSelect = false;
+                    tabItem_Copy.IsSelect = false;
+                    tabItem_Scan.IsSelect = true;
+                    tabItem_Setting.IsSelect = false;
+                }
+                else if (EnumSubPage.Setting == subpage)
+                {
+                    this.subPageView.Child = winSettingPage;
+                    Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PageSetting.tif", UriKind.RelativeOrAbsolute));
 
-                tabLeft.Visibility = Visibility.Hidden;
-                tabRight.Visibility = Visibility.Hidden;
-                tabItem_Print.IsSelect = false;
-                tabItem_Copy.IsSelect = true;
-                tabItem_Scan.IsSelect = false;
-                tabItem_Setting.IsSelect = false;
-            }
-            else if (EnumSubPage.Scan == subpage)
-            {               
-                this.subPageView.Child = winScanPage;
-
-                Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PageScan.tif", UriKind.RelativeOrAbsolute));
-
-                tabLeft.Visibility = Visibility.Hidden;
-                tabRight.Visibility = Visibility.Hidden;
-                tabItem_Print.IsSelect = false;
-                tabItem_Copy.IsSelect = false;
-                tabItem_Scan.IsSelect = true;
-                tabItem_Setting.IsSelect = false;
-            }
-            else if (EnumSubPage.Setting == subpage)
-            {              
-                this.subPageView.Child = winSettingPage;
-
-                Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PageSetting.tif", UriKind.RelativeOrAbsolute));
-
-                tabLeft.Visibility = Visibility.Hidden;
-                tabRight.Visibility = Visibility.Visible;
-                tabItem_Print.IsSelect = false;
-                tabItem_Copy.IsSelect = false;
-                tabItem_Scan.IsSelect = false;
-                tabItem_Setting.IsSelect = true;
+                    tabItem_Print.IsSelect = false;
+                    tabItem_Copy.IsSelect = false;
+                    tabItem_Scan.IsSelect = false;
+                    tabItem_Setting.IsSelect = true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                return false;
+                if (EnumSubPage.Print == subpage)
+                {
+                    this.subPageView.Child = winFileSelectionPage;
+                    Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PagePrint.tif", UriKind.RelativeOrAbsolute));
+
+                    tabItem_Print.IsSelect = true;
+                    tabItem_Setting.IsSelect = false;
+                }
+                else if (EnumSubPage.Setting == subpage)
+                {
+                    this.subPageView.Child = winSettingPage;
+                    Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PageCopy.tif", UriKind.RelativeOrAbsolute));
+
+                    tabItem_Print.IsSelect = false;
+                    tabItem_Setting.IsSelect = true;
+                }
+                else
+                {
+                    return false;
+                }        
+                
             }
-       
-    
+
+            if (winSettingPage.m_bOnlyDispalyAboutView)
+            {
+                Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PagePrint.tif", UriKind.RelativeOrAbsolute));
+
+                tabItem_Setting.tabItemStyle = CustomTabItemStyle.Single;
+            }
+            else
+            {
+                tabItem_Setting.tabItemStyle = CustomTabItemStyle.Right;
+            }
 
             return true;
         }
@@ -1119,6 +1143,7 @@ namespace VOP
                    if ( false == common.IsOffline( status ) )
                    {
                        m_isOnlineDetected = true;                    
+                       ExpandSubpage();
                    }
                }
 
@@ -1283,6 +1308,124 @@ namespace VOP
             winPrintPage.FilePaths = files;
             winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintImages;
             subPageView.Child = winPrintPage;
+        }
+
+        /// <summary>
+        /// Expand other subpage according the model type ( 3in1 or SFP )
+        /// </summary>
+        private void ExpandSubpage()
+        {
+            SetTabItemFromIndex(EnumSubPage.Print);
+
+            if (false == statusPanelPage.m_isSFP)
+            {
+                line1.Visibility = Visibility.Visible;
+                line2.Visibility = Visibility.Visible;
+                line3.Visibility = Visibility.Visible;
+
+                Print_Grid.Visibility = Visibility.Visible;
+                Grid.SetColumn(Print_Grid, 1);
+                Grid.SetRow(Print_Grid, 0);
+
+                Scan_Grid.Visibility = Visibility.Visible;
+                Grid.SetColumn(Scan_Grid, 3);
+                Grid.SetRow(Scan_Grid, 0);
+
+                Copy_Grid.Visibility = Visibility.Visible;
+                Grid.SetColumn(Copy_Grid, 5);
+                Grid.SetRow(Copy_Grid, 0);
+
+                Setting_Grid.Visibility = Visibility.Visible;
+                Grid.SetColumn(Setting_Grid, 7);
+                Grid.SetRow(Setting_Grid, 0);
+
+                tabItem_Print.Visibility = Visibility.Visible;
+                Grid.SetColumn(tabItem_Print, 1);
+                Grid.SetRow(tabItem_Print, 1);                
+               
+                tabItem_Copy.Visibility = Visibility.Visible;
+                Grid.SetColumn(tabItem_Copy, 3);
+                Grid.SetRow(tabItem_Copy, 1);
+
+                tabItem_Scan.Visibility = Visibility.Visible;
+                Grid.SetColumn(tabItem_Scan, 5);
+                Grid.SetRow(tabItem_Scan, 1);
+
+                tabItem_Setting.Visibility = Visibility.Visible;
+                Grid.SetColumn(tabItem_Setting, 7);
+                Grid.SetRow(tabItem_Setting, 1);               
+
+                Grid.SetColumnSpan(tabItem_Container, 7);                
+            }
+            else
+            {
+                line1.Visibility = Visibility.Visible;
+                line2.Visibility = Visibility.Hidden;
+                line3.Visibility = Visibility.Hidden;
+
+                Print_Grid.Visibility = Visibility.Visible;
+                Grid.SetColumn(Print_Grid, 1);
+                Grid.SetRow(Print_Grid, 0);
+
+                Scan_Grid.Visibility = Visibility.Hidden;
+                Copy_Grid.Visibility = Visibility.Hidden;
+
+                Setting_Grid.Visibility = Visibility.Visible;
+                Grid.SetColumn(Setting_Grid, 3);
+                Grid.SetRow(Setting_Grid, 0);
+
+                tabItem_Print.Visibility = Visibility.Visible;
+                Grid.SetColumn(tabItem_Print, 1);
+                Grid.SetRow(tabItem_Print, 1);
+
+                tabItem_Copy.Visibility = Visibility.Hidden;
+                tabItem_Scan.Visibility = Visibility.Hidden;
+
+                tabItem_Setting.Visibility = Visibility.Visible;
+                Grid.SetColumn(tabItem_Setting, 3);
+                Grid.SetRow(tabItem_Setting, 1);
+
+                Grid.SetColumnSpan(tabItem_Container, 3);
+            }
+            winSettingPage.m_bOnlyDispalyAboutView = false;
+        }
+
+        public void RemoveScanImage()
+        {
+            winScanPage.image_wrappanel.Children.Clear();
+        }
+
+        public void ShowAboutPageOnly()
+        {
+            
+
+            line1.Visibility = Visibility.Hidden;
+            line2.Visibility = Visibility.Hidden;
+            line3.Visibility = Visibility.Hidden;
+
+            Print_Grid.Visibility = Visibility.Hidden;
+            Scan_Grid.Visibility = Visibility.Hidden;
+            Copy_Grid.Visibility = Visibility.Hidden;
+            Grid.SetColumn(Setting_Grid, 1);
+            Grid.SetRow(Setting_Grid, 0);
+
+            tabItem_Print.Visibility = Visibility.Hidden;
+            tabItem_Copy.Visibility = Visibility.Hidden;
+            tabItem_Scan.Visibility = Visibility.Hidden;
+
+            Grid.SetColumn(tabItem_Setting, 1);
+            Grid.SetRow(tabItem_Setting, 1);
+
+            Grid.SetColumnSpan(tabItem_Container, 1);
+         
+            winSettingPage.m_bOnlyDispalyAboutView = true;
+            winSettingPage.InitWindowLayout();
+
+            SetTabItemFromIndex(EnumSubPage.Setting);
+
+            Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PagePrint.tif", UriKind.RelativeOrAbsolute));
+
+            RemoveScanImage();            
         }
         
  
