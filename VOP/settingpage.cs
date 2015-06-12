@@ -153,7 +153,7 @@ namespace VOP
                 setting_tab_btn.Children.Add(btnPowerSave);
                 setting_tab_btn.Children.Add(btnUserConfig);
                 setting_tab_btn.Children.Add(btnPwd);
-                setting_tab_btn.Children.Add(btnAbout);
+//              setting_tab_btn.Children.Add(btnAbout);
 
                 if (m_MainWin.statusPanelPage.m_isWiFiModel)
                 {
@@ -167,8 +167,8 @@ namespace VOP
             else
             {
                 //Only display about view when no printer online.
-                setting_tab_btn.Children.Add(btnAbout);
-                ClickSettingButton(IconType.About);
+//              setting_tab_btn.Children.Add(btnAbout);
+//              ClickSettingButton(IconType.About);
             }
         }
 
