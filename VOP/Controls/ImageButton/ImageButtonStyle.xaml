@@ -27,7 +27,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Grid ClipToBounds="True">
-                        <Border Name="MyImageBorder" CornerRadius="5">
+                        <Border Name="MyImageBorder" CornerRadius="7">
                             <Border.Background>
                                 <ImageBrush ImageSource="{Binding Path=(local:EyeCandy.Image),
                                 RelativeSource={RelativeSource FindAncestor,

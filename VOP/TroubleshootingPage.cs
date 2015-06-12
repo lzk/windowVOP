@@ -22,6 +22,19 @@ namespace VOP
             InitializeComponent();
         }
 
+        private void OnClickImageButton(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            VOP.Controls.ImageButton btn = sender as VOP.Controls.ImageButton;
+            try
+            {
+                System.Diagnostics.Process.Start(btn.Name == "UsbLinkButton" ? UsbLink.NavigateUri.ToString() : WiFilink.NavigateUri.ToString());
+            }
+            catch (Exception)
+            {
+
+            } 
+        }
+
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             try

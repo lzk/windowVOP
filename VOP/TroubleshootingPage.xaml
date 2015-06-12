@@ -37,11 +37,28 @@
         </Grid.RowDefinitions>
 
         <Image Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Source="Images/TroubleshootingMachine.png"/>
-        <Image Width="62" Height="62" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="-55,0,0,0" Source="Images/TroubleshootingUSB.png"/>
-        <Image Width="62" Height="62" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Margin="65,0,0,0" Source="Images/TroubleshootingWiFi.png"/>
+        <local:ImageButton x:Name="UsbLinkButton"
+                           Width="75" 
+                           Height="75" 
+                           Grid.Row="3"
+                           Grid.Column="1" 
+                           Grid.ColumnSpan="2" 
+                           Margin="-55,0,0,0" 
+                           ImagePath="Images/TroubleshootingUSB.png"
+                           PreviewMouseLeftButtonDown="OnClickImageButton"/>
+        <local:ImageButton x:Name="WiFiLinkButton"
+                           Width="75" 
+                           Height="75"
+                           Grid.Row="3" 
+                           Grid.Column="2" 
+                           Grid.ColumnSpan="2" 
+                           Margin="65,0,0,0" 
+                           ImagePath="Images/TroubleshootingWiFi.png"
+                           PreviewMouseLeftButtonDown="OnClickImageButton" />
         
         <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,10,0,0" FontSize="16">
-            <Hyperlink Style="{StaticResource HyperlinkStyle}"
+            <Hyperlink Name="UsbLink"
+                Style="{StaticResource HyperlinkStyle}"
                 RequestNavigate="Hyperlink_RequestNavigate" 
                 NavigateUri="">
                 <TextBlock Text="USB连接故障排除"/>
@@ -49,7 +66,8 @@
         </TextBlock>
 
         <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Margin="-30,10,0,0" FontSize="16">
-            <Hyperlink Style="{StaticResource HyperlinkStyle}"
+            <Hyperlink Name="WiFilink"
+                Style="{StaticResource HyperlinkStyle}"
                 RequestNavigate="Hyperlink_RequestNavigate" 
                 NavigateUri="">
                 <TextBlock Text="Wi-Fi连接故障排除"/>

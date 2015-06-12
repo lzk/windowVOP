@@ -194,6 +194,15 @@ namespace VOP
 
                     switch ( ret )
                     {
+                        case EnumCmdResult._Do_not_support_this_function:
+                            m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
+
+                            VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                                    m_MainWin,
+                                    (string)this.FindResource( "ResStr_Unsupported" ),
+                                    (string)this.FindResource( "ResStr_Error" ));
+                            break;
+
                         case EnumCmdResult._ACK:
                             break;
                         case EnumCmdResult._Printer_busy:

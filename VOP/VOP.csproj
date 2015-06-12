@@ -642,7 +642,6 @@
     <Resource Include="Images\Logo.png" />
     <Resource Include="Images\Promotion.png" />
     <Resource Include="Images\Update.png" />
-    <Resource Include="Images\mainWindow_Logo.png" />
     <Resource Include="Images\MainWindow_Close.PNG" />
     <Resource Include="Images\MainWindow_Min.PNG" />
     <Resource Include="Images\GreenLine.png" />
