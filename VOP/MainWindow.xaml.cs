@@ -57,14 +57,6 @@ namespace VOP
         private ScanPage    winScanPage    = new ScanPage   ();
         private SettingPage winSettingPage = new SettingPage();
 
-        private ImageBrush selectedBrush = null;
-        private ImageBrush noSelectedBrush = null;
-
- //       private ImageBrush imgBk_Brush_1 = null;
-        //private ImageBrush imgBk_Brush_2 = null;
-        //private ImageBrush imgBk_Brush_3 = null;
-        //private ImageBrush imgBk_Brush_4 = null;
-
         /// <summary>
         /// Thread used to update status of current printer.
         /// </summary>
@@ -1290,6 +1282,7 @@ namespace VOP
 
             if ( m_isOnlineDetected || false == common.IsOffline( (EnumStatus)status) )
             {              
+                ExpandSubpage();
                 m_isOnlineDetected = true;
             }
 
@@ -1396,9 +1389,7 @@ namespace VOP
         }
 
         public void ShowAboutPageOnly()
-        {
-            
-
+        {           
             line1.Visibility = Visibility.Hidden;
             line2.Visibility = Visibility.Hidden;
             line3.Visibility = Visibility.Hidden;
