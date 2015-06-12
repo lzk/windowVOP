@@ -766,7 +766,6 @@ namespace VOP
 
             ShowTroubleshootingPage();
 
-           ShowAboutPageOnly();
             AddMessageHook();
 
             ShowStartupWindow();
