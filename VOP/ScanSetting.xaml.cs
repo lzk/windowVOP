@@ -205,70 +205,13 @@ namespace VOP
                     {
                         if (textValue > 100)
                             tb.Text = "100";
-                        else if (textValue < 0)
+                        else if (textValue <= 0)
                             tb.Text = "0";
                     }
                     else
                     {
                         tb.Text = "50";
                     }
-                }
-            }
-        }
-
-        public void TextValueChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox tb = sender as TextBox;
-
-            if (null != tb)
-            {
-                if ("tb_brightness" == tb.Name)
-                {
-                    int nVal = m_brightness;
-                    try
-                    {
-                        if (tb.Text.Length > 0)
-                            nVal = Convert.ToInt32(tb.Text);
-                        else
-                            nVal = 0;
-                    }
-                    catch
-                    {
-                    }
-
-                    if (nVal < 0)
-                        nVal = 0;
-
-                    if (nVal > 100)
-                        nVal = 100;
-
-                    tb.Text = nVal.ToString();
-                    tb.CaretIndex = tb.Text.Length;
-                    sldr_brightness.Value = nVal;
-                }
-                else if ("tb_contrast" == tb.Name)
-                {
-                    int nVal = m_contrast;
-                    try
-                    {
-                        if (tb.Text.Length > 0)
-                            nVal = Convert.ToInt32(tb.Text);
-                        else
-                            nVal = 0;
-                    }
-                    catch
-                    {
-                    }
-
-                    if (nVal < 0)
-                        nVal = 0;
-
-                    if (nVal > 100)
-                        nVal = 100;
-
-                    tb.Text = nVal.ToString();
-                    tb.CaretIndex = tb.Text.Length;
-                    sldr_contrast.Value = nVal;
                 }
             }
         }
