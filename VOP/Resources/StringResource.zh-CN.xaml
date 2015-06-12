@@ -61,7 +61,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_ID_Card">身份证</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_More_Settings">更多设置</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copies">打印份数</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Size">纸张大小</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Size">纸张尺寸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Letter">Letter</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A4">A4</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A5">A5</sys:String>

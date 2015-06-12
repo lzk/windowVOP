@@ -1572,12 +1572,12 @@ namespace VOP
             spinnerDensityAdjustment.Value = 4;
             spinnerScaling.Value = 100;
             m_scalingType = 0;
-
             m_mediaType = 0;
             m_printQuality = 0;
             m_scalingRatio = 100;
             m_densityValue = 4;
-            
+            m_preNin1 = 2;
+            m_preduplexPrint = 3;
             m_watermark = 0;
 
             bool bIsMetrice = dll.IsMetricCountry();
