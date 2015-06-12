@@ -834,12 +834,14 @@ namespace VOP
                         statusPageView.Visibility = Visibility.Hidden;
                         UserCenterView ucv = new UserCenterView();
                         logonview.Children.Add(ucv);
+                        Background_SubPageView.Visibility = Visibility.Hidden;
                     }
                     else
                     {
                         logonview.Visibility = Visibility.Hidden;
                         mainview.Visibility = Visibility.Visible;
                         statusPageView.Visibility = Visibility.Visible;
+                        Background_SubPageView.Visibility = Visibility.Visible;
                     }
                     //LoginWindow loginWnd = new LoginWindow();
                     //loginWnd.Owner = this;
