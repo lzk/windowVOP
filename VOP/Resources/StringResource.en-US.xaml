@@ -262,4 +262,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Scan">Scan</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Close">Close</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Open">Open</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Unsupported">The function is unsupported</sys:String>
 </ResourceDictionary>
