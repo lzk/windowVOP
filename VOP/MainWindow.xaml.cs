@@ -1291,6 +1291,8 @@ namespace VOP
             {              
                 ExpandSubpage();
                 m_isOnlineDetected = true;
+
+                EnableTabItems(true);
             }
 
             statusUpdater = new Thread(UpdateStatusCaller);
@@ -1508,6 +1510,33 @@ namespace VOP
         {
             SetTabItemFromIndex(EnumSubPage.Print);
             subPageView.Child = winTroubleshootingPage;
+
+            EnableTabItems(false);
+        }
+		
+		   private void EnableTabItems(bool isEnable)
+        {
+            btnPrint.IsEnabled = btnCopy.IsEnabled = btnScan.IsEnabled = btnSetting.IsEnabled = isEnable;
+
+            if(isEnable)
+            {
+                tabItem_ImgPrint.Source = new BitmapImage(new Uri("Images\\btnPrint.tif", UriKind.RelativeOrAbsolute));
+                tabItem_ImgCopy.Source = new BitmapImage(new Uri("Images\\btnCopy.tif", UriKind.RelativeOrAbsolute));
+                tabItem_ImgScan.Source = new BitmapImage(new Uri("Images\\btnScan.tif", UriKind.RelativeOrAbsolute));
+                tabItem_ImgSetting.Source = new BitmapImage(new Uri("Images\\btnSetting.tif", UriKind.RelativeOrAbsolute));                
+
+                rect_tabItemForeground.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                tabItem_ImgPrint.Source     = new BitmapImage(new Uri("Images\\btnPrintDisable.tif", UriKind.RelativeOrAbsolute));
+                tabItem_ImgCopy.Source      = new BitmapImage(new Uri("Images\\btnCopyDisable.tif", UriKind.RelativeOrAbsolute));
+                tabItem_ImgScan.Source      = new BitmapImage(new Uri("Images\\btnScanDisable.tif", UriKind.RelativeOrAbsolute));
+                tabItem_ImgSetting.Source   = new BitmapImage(new Uri("Images\\btnSettingDisable.tif", UriKind.RelativeOrAbsolute));
+
+                tabItem_Print.IsSelect = tabItem_Copy.IsSelect = tabItem_Scan.IsSelect = tabItem_Setting.IsSelect = false;
+                rect_tabItemForeground.Visibility = Visibility.Visible;
+            }
         }
 
         public void UpdateLogonBtnStatus(bool _bLogon)

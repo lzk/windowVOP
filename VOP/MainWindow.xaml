@@ -128,22 +128,22 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid Name="Print_Grid" Grid.Column="1">
-                        <Image Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Margin="0,0,0, 7" Source="Images\btnPrint.tif" />
+                        <Image Name="tabItem_ImgPrint" Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Margin="0,0,0, 7" Source="Images\btnPrint.tif" />
                         <Button x:Name="btnPrint" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
                     </Grid>
 
                     <Grid Name="Scan_Grid" Grid.Column="3">
-                        <Image  Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnCopy.tif" />
+                        <Image  Name="tabItem_ImgScan" Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnCopy.tif" />
                         <Button x:Name="btnCopy" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
                     </Grid>
 
                     <Grid Name="Copy_Grid" Grid.Column="5">
-                        <Image  Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnScan.tif" />
+                        <Image Name="tabItem_ImgCopy" Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnScan.tif" />
                         <Button x:Name="btnScan" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
                     </Grid>
 
                     <Grid Name="Setting_Grid" Grid.Column="7" Margin="0,0,3,0">
-                        <Image Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnSetting.tif" />
+                        <Image Name="tabItem_ImgSetting" Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnSetting.tif" />
                         <Button x:Name="btnSetting" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
                     </Grid>
              
@@ -181,6 +181,8 @@
                                  Text="{StaticResource ResStr_Setting}"
                                  tabItemStyle="Right">
                 </mycontrol:customTabItem>
+                    
+                    <Rectangle Name="rect_tabItemForeground" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="7" Fill="White" Opacity="0.4" />
 
                     <Grid Name="contentGrid" Grid.Row="1" Grid.ColumnSpan="9" Grid.Column="0" Grid.RowSpan="2">
                         <Border VerticalAlignment="Top" Name="subPageView" Width="{Binding ElementName=contentGrid, Path=Width}" Height="{Binding ElementName=contentGrid, Path=Height}"/>
