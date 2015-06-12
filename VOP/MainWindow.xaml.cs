@@ -841,17 +841,6 @@ namespace VOP
                         mainview.Visibility = Visibility.Visible;
                         statusPageView.Visibility = Visibility.Visible;
                     }
-                    //LoginWindow loginWnd = new LoginWindow();
-                    //loginWnd.Owner = this;
-                    //loginWnd.ShowActivated = true;
-                    //Nullable<bool> dialogResult = loginWnd.ShowDialog();
-
-                    //if(dialogResult == true)
-                    //{
-                    //    m_strPhoneNumber = loginWnd.m_strPhoneNumber;
-                    //    btnLogin.IsLogon = true;
-                    //    btnLogin.bottomText = m_strPhoneNumber;
-                    //}
                 }
             }
 

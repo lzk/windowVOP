@@ -29,5 +29,58 @@ namespace VOP
 
         }
 
+        private void OnBtnClick(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn.Name == "btnUserName")
+            {
+
+            }
+            else if (btn.Name == "btnLogon")
+            {
+                LoginWindow loginWnd = new LoginWindow();
+                loginWnd.Owner = App.Current.MainWindow;
+                loginWnd.ShowActivated = true;
+                Nullable<bool> dialogResult = loginWnd.ShowDialog();
+
+                if (dialogResult == true)
+                {
+                    //App.Current.MainWindow.m_strPhoneNumber = loginWnd.m_strPhoneNumber;
+                    //btnLogin.IsLogon = true;
+                    //btnLogin.bottomText = m_strPhoneNumber;
+                }
+            }
+            else if (btn.Name == "btnModifyUserInfo")
+            {
+
+            }
+            else if (btn.Name == "btnConsumable")
+            {
+                PurchaseWindow win = new PurchaseWindow();
+                win.Owner = App.Current.MainWindow;
+                win.ShowDialog();
+            }
+            else if (btn.Name == "btnRewardPoints")
+            {
+
+            }
+            else if (btn.Name == "btnMaintainStation")
+            {
+                MaintainWindow mw = new MaintainWindow();
+                mw.Owner = App.Current.MainWindow;
+                mw.ShowDialog();
+            }
+            else if (btn.Name == "btnFWDownload")
+            {
+
+            }
+            else if (btn.Name == "btnAbout")
+            {
+                AboutWindow wnd = new AboutWindow();
+                wnd.Owner = App.Current.MainWindow;
+                wnd.ShowDialog();
+            }            
+        }
+
     }
 }

@@ -86,6 +86,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AsyncWorker.cs" />
     <Compile Include="common.cs" />
     <Compile Include="Controls\CustomExpander.cs" />
@@ -212,6 +215,10 @@
     </Compile>
     <Compile Include="type_define.cs" />
     <Compile Include="Win32.cs" />
+    <Page Include="AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\CustomExpander.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -763,5 +770,9 @@
     <Resource Include="Images\Position.png" />
     <Resource Include="Images\Shopping.png" />
     <Resource Include="Images\User.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BellForAbout.png" />
+    <Resource Include="Images\LogoForAbout.png" />
   </ItemGroup>
 </Project>

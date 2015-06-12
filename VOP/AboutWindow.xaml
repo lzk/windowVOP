@@ -1,0 +1,64 @@
+﻿<Window x:Class="VOP.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AboutWindow" 
+        Height="240" 
+        Width="492"
+        WindowStartupLocation="CenterOwner"  
+        ShowInTaskbar="False" 
+        xmlns:local="clr-namespace:VOP.Controls"
+        xmlns:mycontrol="clr-namespace:VOP" 
+        Style="{StaticResource for_noresize_window}">
+    <Viewbox Stretch="Fill">
+        <Grid Height="240" Width="492">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Background="#FF1F3345" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="关于" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="18"></TextBlock>
+                    <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" VerticalAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Row="1" Background="#FFE7E7E7">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
+                        <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Image Source="Images\BellForAbout.png" Grid.Row="1" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Top"></Image>
+                    <Grid Grid.Row="1" Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="2*"></RowDefinition>
+                            <RowDefinition Height="20"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        
+                        <Image Source="Images\LogoForAbout.png" Stretch="None" HorizontalAlignment="Left"></Image>
+                        <TextBlock Text="联想打印1.1" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
+                        <Grid  Grid.Row="3">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="Copyright(C) (2014-2015) Lenovo (Beijing) Limited" TextTrimming="WordEllipsis"></TextBlock>
+                                <TextBlock Text="all right reserved."></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                       
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+
+</Window>
