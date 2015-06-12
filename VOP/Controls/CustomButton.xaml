@@ -132,6 +132,26 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ButtonWithArrowPicture"
+       TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Image Source="..\\Images\arrow.png" HorizontalAlignment="Right" Stretch="None"></Image>
+                        <ContentPresenter x:Name="myContentPresenter" 
+                                           Content="{TemplateBinding  Content}"  
+                                           Margin="{TemplateBinding   Padding}"
+                                           HorizontalAlignment="{TemplateBinding  HorizontalContentAlignment}"                                         
+                                           VerticalAlignment="Center"
+                                           TextBlock.FontSize="{TemplateBinding FontSize}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
     <LinearGradientBrush x:Key="GrayButtonStrokeNormal" StartPoint="0,0" EndPoint="0,1">
         <LinearGradientBrush.GradientStops>
             <GradientStopCollection>
@@ -313,8 +333,6 @@
         </Setter>
     </Style>
 
-
-
     <Style x:Key="SliderThumbStyle"
        TargetType="{x:Type Thumb}">
         <Setter Property="SnapsToDevicePixels"
@@ -351,6 +369,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <ControlTemplate x:Key="HorizontalSlider"
                  TargetType="{x:Type Slider}">
         <Grid>
@@ -433,8 +452,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-
-<!-- Slider Style End -->   
+    <!-- Slider Style End -->   
     <ControlTemplate x:Key="btnpwd" TargetType="{x:Type Button}">
         <Border  Name="validate"  BorderThickness="1"   CornerRadius="0,13,13,0"  >
             <Border.Background>

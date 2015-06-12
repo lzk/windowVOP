@@ -800,6 +800,7 @@ namespace VOP
             }
         }
 
+        private bool m_bShowLogonView = false;
         private void NvgBtnClick(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.Control btn = sender as System.Windows.Controls.Control;
@@ -824,17 +825,33 @@ namespace VOP
                 }
                 else if ( "btnLogin" == btn.Name )
                 {
-                    LoginWindow loginWnd = new LoginWindow();
-                    loginWnd.Owner = this;
-                    loginWnd.ShowActivated = true;
-                    Nullable<bool> dialogResult = loginWnd.ShowDialog();
+                    m_bShowLogonView = !m_bShowLogonView;
 
-                    if(dialogResult == true)
+                    if (m_bShowLogonView)
                     {
-                        m_strPhoneNumber = loginWnd.m_strPhoneNumber;
-                        btnLogin.IsLogon = true;
-                        btnLogin.bottomText = m_strPhoneNumber;
+                        logonview.Visibility = Visibility.Visible;
+                        mainview.Visibility = Visibility.Hidden;
+                        statusPageView.Visibility = Visibility.Hidden;
+                        UserCenterView ucv = new UserCenterView();
+                        logonview.Children.Add(ucv);
                     }
+                    else
+                    {
+                        logonview.Visibility = Visibility.Hidden;
+                        mainview.Visibility = Visibility.Visible;
+                        statusPageView.Visibility = Visibility.Visible;
+                    }
+                    //LoginWindow loginWnd = new LoginWindow();
+                    //loginWnd.Owner = this;
+                    //loginWnd.ShowActivated = true;
+                    //Nullable<bool> dialogResult = loginWnd.ShowDialog();
+
+                    //if(dialogResult == true)
+                    //{
+                    //    m_strPhoneNumber = loginWnd.m_strPhoneNumber;
+                    //    btnLogin.IsLogon = true;
+                    //    btnLogin.bottomText = m_strPhoneNumber;
+                    //}
                 }
             }
 

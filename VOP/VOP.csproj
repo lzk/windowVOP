@@ -191,6 +191,9 @@
       <DependentUpon>StartupWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="StatusXmlHelper.cs" />
+    <Compile Include="UserCenterView.xaml.cs">
+      <DependentUpon>UserCenterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserConfigView.xaml.cs">
       <DependentUpon>UserConfigView.xaml</DependentUpon>
     </Compile>
@@ -346,6 +349,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StartupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserCenterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -744,5 +751,17 @@
     <Resource Include="Images\Logon_Active.png" />
     <Resource Include="Images\Logon_Click.png" />
     <Resource Include="Images\Logon_Normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\arrow.png" />
+    <Resource Include="Images\UserCenterBackground.png" />
+    <Resource Include="Images\Bell.png" />
+    <Resource Include="Images\Document.png" />
+    <Resource Include="Images\Home.png" />
+    <Resource Include="Images\Inbox.png" />
+    <Resource Include="Images\Notepad.png" />
+    <Resource Include="Images\Position.png" />
+    <Resource Include="Images\Shopping.png" />
+    <Resource Include="Images\User.png" />
   </ItemGroup>
 </Project>
