@@ -147,9 +147,8 @@
 
             <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" />
 
-            <!--<ScrollViewer Margin="0" Grid.Row="1"/>-->
-            <ScrollViewer Name="scrollPreview" Width="470" Height="268" HorizontalAlignment="Center" Margin="0" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Style="{StaticResource LeftScrollViewer}">
-                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Name="previewImg" Height="100" Margin="20,10"/>
+            <ScrollViewer Name="scrollPreview" Margin="10" Grid.Row="1" Background="#FFEEEEEE" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Style="{StaticResource LeftScrollViewer}">
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Name="previewImg" />
             </ScrollViewer>
 
             <StackPanel HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal">

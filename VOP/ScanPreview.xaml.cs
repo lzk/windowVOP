@@ -90,11 +90,11 @@ namespace VOP
         {
             if ( null != previewImg.Source )
             {
-                if (previewImg.Height > scrollPreview.ViewportHeight)
-                    scrollPreview.ScrollToVerticalOffset((previewImg.Height - scrollPreview.ViewportHeight) / 2);
+                if (previewImg.ActualHeight > scrollPreview.ViewportHeight)
+                    scrollPreview.ScrollToVerticalOffset((previewImg.ActualHeight - scrollPreview.ViewportHeight) / 2);
 
-                if (previewImg.Width > scrollPreview.ViewportWidth)
-                    scrollPreview.ScrollToHorizontalOffset((previewImg.Width - scrollPreview.ViewportWidth) / 2);
+                if (previewImg.ActualWidth > scrollPreview.ViewportWidth)
+                    scrollPreview.ScrollToHorizontalOffset((previewImg.ActualWidth - scrollPreview.ViewportWidth) / 2);
             }
         }
 
@@ -132,10 +132,10 @@ namespace VOP
                 else
                     scaling -= 0.1;
 
-                if ( previewImg.Height*scaling >= scrollPreview.Height/2 )
+                if ( previewImg.ActualHeight*scaling >= scrollPreview.ViewportHeight/2 )
                 {
-                    previewImg.Width *= scaling;
-                    previewImg.Height *= scaling;
+                    previewImg.Width = previewImg.ActualWidth*scaling;
+                    previewImg.Height = previewImg.ActualHeight*scaling;
                 }
             }
             else if ( name == "btn_normal" )
@@ -149,8 +149,8 @@ namespace VOP
 
                 try
                 {
-                    double oldWidth = previewImg.Width;
-                    double oldHeight = previewImg.Height;
+                    double oldWidth = previewImg.ActualWidth;
+                    double oldHeight = previewImg.ActualHeight;
 
                     CachedBitmap cache = new CachedBitmap(previewImg.Source as BitmapSource, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
                     previewImg.Source = BitmapFrame.Create(new TransformedBitmap(cache, new RotateTransform(90)));
@@ -286,8 +286,8 @@ namespace VOP
             double scaling2 = 0.0;
             double scaling0 = 0.0;
 
-            scaling1 = this.scrollPreview.Width / previewImg.Source.Width;
-            scaling2 = this.scrollPreview.Height / previewImg.Source.Height;
+            scaling1 = this.scrollPreview.ViewportWidth / previewImg.Source.Width;
+            scaling2 = this.scrollPreview.ViewportHeight / previewImg.Source.Height;
             scaling0 = (scaling1 < scaling2) ? scaling1 : scaling2;
 
             previewImg.Width  = previewImg.Source.Width * scaling0;
