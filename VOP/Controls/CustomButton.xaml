@@ -142,7 +142,7 @@
                               <ContentPresenter HorizontalAlignment="{TemplateBinding  HorizontalContentAlignment}"  VerticalAlignment="Center"/>
                          </Border>
                         <Image Source="..\Images\arrow.png" HorizontalAlignment="Right" Stretch="None"></Image>
-                    </Grid>                
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

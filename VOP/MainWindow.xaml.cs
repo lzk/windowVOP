@@ -1509,6 +1509,18 @@ namespace VOP
             SetTabItemFromIndex(EnumSubPage.Print);
             subPageView.Child = winTroubleshootingPage;
         }
+
+        public void UpdateLogonBtnStatus(bool _bLogon)
+        {
+            try
+            {
+                this.btnLogin.IsLogon = _bLogon;
+            }
+            catch
+            {
+
+            }
+        }
     }
 
 }

@@ -45,9 +45,8 @@ namespace VOP
 
                 if (dialogResult == true)
                 {
-                    //App.Current.MainWindow.m_strPhoneNumber = loginWnd.m_strPhoneNumber;
-                    //btnLogin.IsLogon = true;
-                    //btnLogin.bottomText = m_strPhoneNumber;
+                    VOP.MainWindow.m_strPhoneNumber = loginWnd.m_strPhoneNumber;
+                    ((MainWindow)App.Current.MainWindow).UpdateLogonBtnStatus(true);
                 }
             }
             else if (btn.Name == "btnModifyUserInfo")
