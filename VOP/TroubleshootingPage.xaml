@@ -20,9 +20,6 @@
     </UserControl.Resources>
 
     <Grid Name="rootGrid">
-        <Grid.Background>
-            <ImageBrush ImageSource="Images\PagePrint.png" />
-        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
             <ColumnDefinition Width="*" />

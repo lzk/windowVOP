@@ -774,7 +774,7 @@ namespace VOP
 
             ShowTroubleshootingPage();
 
-            SetTabItemFromIndex(EnumSubPage.Print);
+           // SetTabItemFromIndex(EnumSubPage.Print);
             AddMessageHook();
 
             ShowStartupWindow();
