@@ -202,13 +202,13 @@
     <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal"
         HorizontalAlignment="Left" Width="431" Margin="0,0,-8,0" >
         <local:ButtonEx x:Name="btnPrint" HorizontalContentAlignment="Center" Margin="0,0,5,0" IsDefault="False"
-            Content="{StaticResource ResStr_Print}" Height="35" Width="75" HorizontalAlignment="Center" Click="btnPrint_Click" />
+            Content="{StaticResource ResStr_Print}" Height="35" Width="73" HorizontalAlignment="Center" Click="btnPrint_Click" />
         <local:ButtonEx x:Name="btnSave" HorizontalContentAlignment="Center" Margin="5,0" IsDefault="False"
-            Content="{StaticResource ResStr_Save}" Height="35" Width="75" HorizontalAlignment="Center" Click="btnSave_Click" />
+            Content="{StaticResource ResStr_Save}" Height="35" Width="73" HorizontalAlignment="Center" Click="btnSave_Click" />
         <local:ButtonEx x:Name="btnSetting" Click="SettingBtnClick" HorizontalContentAlignment="Center" Margin="5,10" IsDefault="False"
-            Content="{StaticResource ResStr_More_Settings}" Height="35" Width="105" HorizontalAlignment="Center" />
+            Content="{StaticResource ResStr_More_Settings}" Height="35" Width="102" HorizontalAlignment="Center" />
         <local:ButtonEx x:Name="btnScan" HorizontalContentAlignment="Center" Margin="10,0" IsDefault="True" IsActiveEx="True"
-            Content="{StaticResource ResStr_Scan}" Height="35" Width="105" Click="btnScan_Click" />
+            Content="{StaticResource ResStr_Scan}" Height="35" Width="104" Click="btnScan_Click" />
     </StackPanel>
     <Grid Grid.Column="1" Margin="0" Grid.Row="2">
     	<Grid.ColumnDefinitions>
@@ -229,8 +229,8 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock VerticalAlignment="Center" Grid.Column="0" x:Name="txtProgressLabel"   HorizontalAlignment="Left" Text="{StaticResource ResStr_Scanning_2}">  </TextBlock>
-        <ProgressBar    Grid.Column="1" x:Name="progressBar1" Style="{StaticResource RoundedProgressBar}" Width="310" HorizontalAlignment="Center" Height="18" Value="50"/>
-        <Button Grid.Column="2" x:Name="btnCancel" HorizontalContentAlignment="Center" Width="20" Height="20" IsDefault="false" Click="btnCancel_Click" Style="{DynamicResource ButtonStyle1}" >
+        <ProgressBar Margin="-11, 0, 0, 0" Grid.Column="1" x:Name="progressBar1" Style="{StaticResource RoundedProgressBar}" Width="292" HorizontalAlignment="Center" Height="18" Value="50"/>
+            <Button Grid.Column="2" Margin="-22, 0, 0, 0" x:Name="btnCancel" HorizontalContentAlignment="Center" Width="20" Height="20" IsDefault="false" Click="btnCancel_Click" Style="{DynamicResource ButtonStyle1}" >
             <Image Height="8" Width="8" Stretch="Fill" Source="Images/cancelIcon.png"/>
         </Button>
 
