@@ -286,8 +286,8 @@ namespace VOP
             double scaling2 = 0.0;
             double scaling0 = 0.0;
 
-            scaling1 = this.scrollPreview.ViewportWidth / previewImg.Source.Width;
-            scaling2 = this.scrollPreview.ViewportHeight / previewImg.Source.Height;
+            scaling1 = ( this.scrollPreview.ViewportWidth  -10 ) / previewImg.Source.Width;
+            scaling2 = ( this.scrollPreview.ViewportHeight -10 ) / previewImg.Source.Height;
             scaling0 = (scaling1 < scaling2) ? scaling1 : scaling2;
 
             previewImg.Width  = previewImg.Source.Width * scaling0;

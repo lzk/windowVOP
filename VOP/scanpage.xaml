@@ -224,12 +224,12 @@
     <Grid Grid.Column="1" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Width="400" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="55"/>
-            <ColumnDefinition Width="325"/>
+            <ColumnDefinition Width="310"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
 
         <TextBlock VerticalAlignment="Center" Grid.Column="0" x:Name="txtProgressLabel"   HorizontalAlignment="Left" Text="{StaticResource ResStr_Scanning_2}">  </TextBlock>
-        <ProgressBar Margin="-11, 0, 0, 0" Grid.Column="1" x:Name="progressBar1" Style="{StaticResource RoundedProgressBar}" Width="292" HorizontalAlignment="Center" Height="18" Value="50"/>
+        <ProgressBar    Grid.Column="1" x:Name="progressBar1" Style="{StaticResource RoundedProgressBar}" Width="300" HorizontalAlignment="Center" Height="18" Value="50"/>
             <Button Grid.Column="2" Margin="-22, 0, 0, 0" x:Name="btnCancel" HorizontalContentAlignment="Center" Width="20" Height="20" IsDefault="false" Click="btnCancel_Click" Style="{DynamicResource ButtonStyle1}" >
             <Image Height="8" Width="8" Stretch="Fill" Source="Images/cancelIcon.png"/>
         </Button>
