@@ -106,7 +106,6 @@
                             HorizontalAlignment="Left"
                             Width="19" Height="19" 
                             Button.Click="RefreshBtnClick"
-                            ImagePath="Images/RefreshNormal.tif"
                             >
                         </mycontrol:RefreshButton>
                     </Grid>

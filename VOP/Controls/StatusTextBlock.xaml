@@ -55,40 +55,31 @@
             <GradientStop Color="#FFBF3434" Offset="0.98"/>
             <GradientStop Color="#FFC67D7D" Offset="1"/>
         </LinearGradientBrush>
-
     </UserControl.Resources>
-    
-    
-    
+
     <Grid>
-            <Rectangle RadiusX="6" RadiusY="6">
-                <UIElement.Effect>
-                    <DropShadowEffect ShadowDepth="1" BlurRadius="5" Opacity="0.9" Direction="270"/>
-                </UIElement.Effect>
-                <Rectangle.Fill>
-                    <LinearGradientBrush StartPoint="0, 0" EndPoint="0, 1">
-                        <GradientStop Color="White" Offset="0.0" />
-                        <GradientStop Color="#CDCDCD" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
+        <Rectangle RadiusX="6" RadiusY="6">
+            <UIElement.Effect>
+                <DropShadowEffect ShadowDepth="1" BlurRadius="5" Opacity="0.9" Direction="270"/>
+            </UIElement.Effect>
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0, 0" EndPoint="0, 1">
+                    <GradientStop Color="White" Offset="0.0" />
+                    <GradientStop Color="#CDCDCD" Offset="1.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
 
-
-
-        <Grid Margin="3">
-            <Rectangle Name="rect_Background"  RadiusX="3" RadiusY="3"                      
-                        >
-            </Rectangle>
-
+        <Grid Margin="5,4">
+            <Rectangle Name="rect_Background"  RadiusX="3" RadiusY="3"/>
             <TextBlock Name="textblock"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        TextAlignment="Center"
                        Foreground="White" 
                        Text="{Binding ElementName=container, Path=Text}"
-                       >               
+                       >
             </TextBlock>
-        </Grid>      
-
+        </Grid>
     </Grid>
 </UserControl>

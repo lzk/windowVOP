@@ -220,8 +220,7 @@
                                         Width="17" 
                                         Height="17"
                                         Margin="0,0,0, 5"
-                                        Button.Click="RefreshButton_MouseLeftButtonDown"
-                                        ImagePath="Images/RefreshNormal.tif">
+                                        Button.Click="RefreshButton_MouseLeftButtonDown">
                                 </mycontrol:RefreshButton>
                                 <Image Source="Images/GreenLine.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Stretch="Fill"></Image>
                             </Grid>     

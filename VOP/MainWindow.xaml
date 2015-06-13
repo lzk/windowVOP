@@ -59,7 +59,24 @@
                 <Trigger Property="IsPressed" Value="False"></Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        <SolidColorBrush x:Key="lineColor_2" Color="#555555" />
+
+        <Style x:Key="tabItem_btnStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style>
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Rectangle Margin="-3,13,-3,9" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <SolidColorBrush x:Key="lineColor_2" Color="#555555" />        
     </Window.Resources>
 
     <Viewbox Stretch="Fill">
@@ -126,25 +143,25 @@
                         <ColumnDefinition Width="111*"></ColumnDefinition>
                         <ColumnDefinition Width="89*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-
-                    <Grid Name="Print_Grid" Grid.Column="1">
-                        <Image Name="tabItem_ImgPrint" Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Margin="0,0,0, 7" Source="Images\btnPrint.tif" />
-                        <Button x:Name="btnPrint" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
+    
+                    <Grid Name="Print_Grid" Grid.Column="1" Width="62" Margin="0,0,0, 7">
+                        <Image Name="tabItem_ImgPrint" HorizontalAlignment="Center" VerticalAlignment="Bottom"   Source="Images\btnPrint.tif" />
+                        <Button x:Name="btnPrint" Click="NvgBtnClick" Opacity="0.0" Style="{StaticResource tabItem_btnStyle}"/>
                     </Grid>
 
-                    <Grid Name="Scan_Grid" Grid.Column="3">
-                        <Image  Name="tabItem_ImgScan" Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnCopy.tif" />
-                        <Button x:Name="btnCopy" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
+                    <Grid Name="Scan_Grid" Grid.Column="3" Width="62" Margin="0,0,0, 7">
+                        <Image  Name="tabItem_ImgScan"  HorizontalAlignment="Center" VerticalAlignment="Bottom"  Source="Images\btnCopy.tif" />
+                        <Button x:Name="btnCopy" Click="NvgBtnClick" Opacity="0.0" Style="{StaticResource tabItem_btnStyle}"/>
                     </Grid>
 
-                    <Grid Name="Copy_Grid" Grid.Column="5">
-                        <Image Name="tabItem_ImgCopy" Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnScan.tif" />
-                        <Button x:Name="btnScan" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
+                    <Grid Name="Copy_Grid" Grid.Column="5" Width="62" Margin="0,0,0, 7" >
+                        <Image Name="tabItem_ImgCopy" HorizontalAlignment="Center" VerticalAlignment="Bottom" Source="Images\btnScan.tif" />
+                        <Button x:Name="btnScan" Click="NvgBtnClick" Opacity="0.0" Style="{StaticResource tabItem_btnStyle}"/>
                     </Grid>
 
-                    <Grid Name="Setting_Grid" Grid.Column="7" Margin="0,0,3,0">
-                        <Image Name="tabItem_ImgSetting" Width="62" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0, 7" Source="Images\btnSetting.tif" />
-                        <Button x:Name="btnSetting" Click="NvgBtnClick" Opacity="0.0" Margin="0,10,0,0"/>
+                    <Grid Name="Setting_Grid" Grid.Column="7" Width="62" Margin="0,0,3, 7">
+                        <Image Name="tabItem_ImgSetting" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Source="Images\btnSetting.tif" />
+                        <Button x:Name="btnSetting" Click="NvgBtnClick" Opacity="0.0" Style="{StaticResource tabItem_btnStyle}"/>
                     </Grid>
              
 

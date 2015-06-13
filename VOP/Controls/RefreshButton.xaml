@@ -22,18 +22,10 @@
         </Style>
 
         <ControlTemplate x:Key ="myButtonTemplate"  TargetType ="{x:Type Button}" >
-            <Grid>
-                <Rectangle Name="rect">
-                    <Rectangle.Fill>
-                        <ImageBrush x:Name="imgBrush" ImageSource="{Binding Path=(con:RefreshImagePath.Image),
-                                RelativeSource={RelativeSource FindAncestor,
-                                AncestorType={x:Type Button}}}"/>
-                    </Rectangle.Fill>
-                </Rectangle>
-            </Grid>
-
+            <Rectangle Name="rect"/>
+         
             <ControlTemplate.Triggers>
-                <Trigger Property="Button.IsPressed" Value="True">
+                <Trigger Property="IsEnabled" Value="True">
                     <Setter TargetName="rect" Property="Fill" Value="{StaticResource imgBrushClick}"/>
                 </Trigger>
                 <Trigger Property="Button.IsEnabled" Value="False">
@@ -50,8 +42,7 @@
 
 
     <Grid Name="grid">
-        <Button Name="refreshBtn" Style="{StaticResource RefreshButtonStyle}"           
-                con:RefreshImagePath.Image="{Binding ElementName=container, Path=ImagePath}">
+        <Button Name="refreshBtn" Style="{StaticResource RefreshButtonStyle}">
         </Button>
     </Grid>
 </UserControl>

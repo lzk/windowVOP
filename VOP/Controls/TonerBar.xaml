@@ -61,16 +61,15 @@
     </UserControl.Resources>
     
     <Grid >      
-        
         <Grid.RowDefinitions>     
             <RowDefinition Height="13*" />
             <RowDefinition Height="3*" />
             <RowDefinition Height="22*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="20" />            
+            <ColumnDefinition Width="123*" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="23" />            
         </Grid.ColumnDefinitions>
 
         <TextBlock Name="textblock_Tip"  
@@ -83,7 +82,7 @@
                    Foreground="#555555"                   
                    TextAlignment="Center" />
 
-        <Grid Name="shopGrid" Grid.Column="2" Grid.RowSpan="3" Width="20" Height="15" VerticalAlignment="Bottom" Margin="0,0,0, 5" >
+        <Grid Name="shopGrid" Grid.Column="2" Grid.RowSpan="3" Width="20" Height="17" VerticalAlignment="Bottom" Margin="0,0,0, 5" >
             <Rectangle Name="shopCart_Img"/>
             <Button Click="Button_Click" Margin="-2">
                 <Button.Template>
@@ -96,9 +95,8 @@
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Button.Template >
-            </Button>
-           
-        </Grid>        
+            </Button>           
+        </Grid>    
 
         <Grid Grid.Row="2" Name="TonerGrid">   
             <Grid.RowDefinitions>
@@ -127,19 +125,17 @@
                         <DropShadowEffect ShadowDepth="1" BlurRadius="6" Opacity="0.3" Direction="260"/>
                     </UIElement.Effect>
                 </Border>               
-                
             </Grid>
-
-            <TextBlock Name="txtTonerPercent"  Grid.Column="1" Grid.Row="1" Text="60%" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12">
-                <TextBlock.Effect>
-                    <DropShadowEffect
-			          Direction="304"
-			          Color="White"
-			          Opacity="0.5"
-			          BlurRadius="4" 
-                      ShadowDepth="4"/>
-                </TextBlock.Effect>
-            </TextBlock>
         </Grid>
+        <TextBlock Name="txtTonerPercent" Margin="0,0,0,3"  Grid.Row="2" Grid.ColumnSpan="2" Text="60%" TextAlignment="Center" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="12">
+            <TextBlock.Effect>
+                <DropShadowEffect
+			          Direction="270"
+			          Color="White"
+                      Opacity="0.9"
+			          BlurRadius="2" 
+                      ShadowDepth="2"/>
+            </TextBlock.Effect>
+        </TextBlock>
     </Grid>    
 </UserControl>
