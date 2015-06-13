@@ -157,6 +157,7 @@ namespace VOP
 
             textblock_Tip.Text = (string)this.FindResource("ResStr_Toner");
             txtTonerPercent.Text = string.Format("{0:P0}", CurValue / 100.0);
+     //       txtTonerPercent.Text = string.Format("", 0.32);
 
             // Draw ShopCart Image
             if(IsEnabled)

@@ -768,7 +768,7 @@ namespace VOP
 
             AddMessageHook();
 
-            ShowStartupWindow();
+           // ShowStartupWindow();
             this.Visibility = System.Windows.Visibility.Visible;
         }
 

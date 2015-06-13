@@ -130,7 +130,16 @@
                 
             </Grid>
 
-            <TextBlock Name="txtTonerPercent"  Grid.Column="1" Grid.Row="1" Text="60%" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12"></TextBlock>
+            <TextBlock Name="txtTonerPercent"  Grid.Column="1" Grid.Row="1" Text="60%" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12">
+                <TextBlock.Effect>
+                    <DropShadowEffect
+			          Direction="304"
+			          Color="White"
+			          Opacity="0.5"
+			          BlurRadius="4" 
+                      ShadowDepth="4"/>
+                </TextBlock.Effect>
+            </TextBlock>
         </Grid>
     </Grid>    
 </UserControl>
