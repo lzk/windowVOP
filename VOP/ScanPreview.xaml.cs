@@ -159,6 +159,8 @@ namespace VOP
                     previewImg.Height = oldWidth;
 
                     GC.Collect();
+
+                    FitTheWindow();
                 }
                 catch
                 {

@@ -112,6 +112,10 @@ namespace VOP
 
             ImageItem img = (ImageItem)sender;
 
+            img.CheckImage( true );
+            btnPrint.IsEnabled = true;
+            btnSave.IsEnabled = true;
+
             ScanPreview win = new ScanPreview();
             win.Owner       = m_MainWin;
 			win.m_images    = img.m_images;
