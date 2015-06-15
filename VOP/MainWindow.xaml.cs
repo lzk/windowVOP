@@ -852,7 +852,7 @@ namespace VOP
         /// <summary>
         /// Switch sub page. 
         /// </summary>
-        private bool SetTabItemFromIndex( EnumSubPage subpage )
+        private void SetTabItemFromIndex( EnumSubPage subpage )
         {       
             if (false == statusPanelPage.m_isSFP)
             {
@@ -896,10 +896,6 @@ namespace VOP
                     tabItem_Scan.IsSelect = false;
                     tabItem_Setting.IsSelect = true;
                 }
-                else
-                {
-                    return false;
-                }
             }
             else
             {
@@ -919,11 +915,6 @@ namespace VOP
                     tabItem_Print.IsSelect = false;
                     tabItem_Setting.IsSelect = true;
                 }
-                else
-                {
-                    return false;
-                }        
-                
             }
 
             if (winSettingPage.m_bOnlyDispalyAboutView)
@@ -936,8 +927,6 @@ namespace VOP
             {
                 tabItem_Setting.tabItemStyle = CustomTabItemStyle.Right;
             }
-
-            return true;
         }
 
 
