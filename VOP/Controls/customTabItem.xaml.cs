@@ -90,29 +90,7 @@ namespace VOP
         
         private static void OnIsSelect_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            VOP.customTabItem _this = sender as VOP.customTabItem;
-            if (null == _this) return;
-
-            if (_this.IsSelect) // On
-            {
-                _this.rectLeft_1.Fill = _this.rectLeft_2.Fill = 
-                _this.rectMiddle.Fill =
-                _this.rectRight_1.Fill = _this.rectRight_2.Fill =
-                _this.rectSingle_1.Fill = _this.rectSingle_2.Fill = _this.rectSingle_3.Fill = 
-                new SolidColorBrush(Color.FromRgb(0x6D, 0x6D, 0x6D));
-
-                _this.text.Foreground = new SolidColorBrush(Colors.White);
-            }
-            else // Default: Off
-            {
-                _this.rectLeft_1.Fill = _this.rectLeft_2.Fill =
-                _this.rectMiddle.Fill =
-                _this.rectRight_1.Fill = _this.rectRight_2.Fill =
-                _this.rectSingle_1.Fill = _this.rectSingle_2.Fill = _this.rectSingle_3.Fill = 
-               new SolidColorBrush(Colors.White);
-
-                _this.text.Foreground = new SolidColorBrush(Colors.Black);
-            }
+            (sender as customTabItem).ReDrawCtrl();
         }
 
         static customTabItem()
@@ -132,6 +110,51 @@ namespace VOP
                 "Text",
                 typeof(string),
                 typeof(customTabItem));
+
+            IsEnabledProperty.OverrideMetadata(typeof(customTabItem),
+            new FrameworkPropertyMetadata(true, new PropertyChangedCallback(OnIsEnabled_Changed)));
+        }
+
+        private static void OnIsEnabled_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            (sender as customTabItem).ReDrawCtrl();
+        }
+
+        private void ReDrawCtrl()
+        {
+            if (IsEnabled)
+            {
+                if (IsSelect) // On
+                {
+                    rectLeft_1.Fill = rectLeft_2.Fill =
+                    rectMiddle.Fill =
+                    rectRight_1.Fill = rectRight_2.Fill =
+                    rectSingle_1.Fill = rectSingle_2.Fill = rectSingle_3.Fill =
+                    new SolidColorBrush(Color.FromRgb(0x6D, 0x6D, 0x6D));
+
+                    text.Foreground = new SolidColorBrush(Colors.White);
+                }
+                else // Default: Off
+                {
+                    rectLeft_1.Fill = rectLeft_2.Fill =
+                    rectMiddle.Fill =
+                    rectRight_1.Fill = rectRight_2.Fill =
+                    rectSingle_1.Fill = rectSingle_2.Fill = rectSingle_3.Fill =
+                   new SolidColorBrush(Colors.White);
+
+                    text.Foreground = new SolidColorBrush(Color.FromRgb(0x2A, 0x2A, 0x2A));
+                }
+            }
+            else
+            {
+                rectLeft_1.Fill = rectLeft_2.Fill =
+                   rectMiddle.Fill =
+                   rectRight_1.Fill = rectRight_2.Fill =
+                   rectSingle_1.Fill = rectSingle_2.Fill = rectSingle_3.Fill =
+                  new SolidColorBrush(Colors.White);
+
+                text.Foreground = new SolidColorBrush(Color.FromRgb(0xDD, 0xDD, 0xDD));
+            }
         }
 
         public customTabItem()

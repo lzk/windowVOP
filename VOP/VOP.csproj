@@ -773,9 +773,5 @@
   <ItemGroup>
     <Resource Include="Images\BellForAbout.png" />
     <Resource Include="Images\LogoForAbout.png" />
-    <Resource Include="Images\btnCopyDisable.tif" />
-    <Resource Include="Images\btnPrintDisable.tif" />
-    <Resource Include="Images\btnScanDisable.tif" />
-    <Resource Include="Images\btnSettingDisable.tif" />
   </ItemGroup>
 </Project>

@@ -76,7 +76,7 @@
             </Setter>
         </Style>
 
-        <SolidColorBrush x:Key="lineColor_2" Color="#555555" />        
+        <SolidColorBrush x:Key="lineColor_2" Color="#838383" />        
     </Window.Resources>
 
     <Viewbox Stretch="Fill">
@@ -115,8 +115,7 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top" 
                 Height="39" 
-                Width="34" 
-                />
+                Width="34"/>
 
             <Image x:Name="imgLEDRed" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Red.png" Margin="8,24,0,0"/>
             <Image x:Name="imgLEDGray" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Gray.png" Margin="8,24,0,0"/>
@@ -128,9 +127,9 @@
                 </Grid>
                 <Grid Name="mainview">
                     <Grid.RowDefinitions>
-                    <RowDefinition Height="96*"></RowDefinition>
-                    <RowDefinition Height="25*"></RowDefinition>
-                    <RowDefinition Height="335*"></RowDefinition>
+                        <RowDefinition Height="96*"></RowDefinition>
+                        <RowDefinition Height="25*"></RowDefinition>
+                        <RowDefinition Height="335*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="91*"></ColumnDefinition>
@@ -163,54 +162,46 @@
                         <Image Name="tabItem_ImgSetting" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Source="Images\btnSetting.tif" />
                         <Button x:Name="btnSetting" Click="NvgBtnClick" Opacity="0.0" Style="{StaticResource tabItem_btnStyle}"/>
                     </Grid>
-             
 
-                <Grid Name="tabItem_Container" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="7" Margin="0,0,0,335" Grid.RowSpan="2">
-                    <Rectangle  RadiusX="7" RadiusY="7" Fill="Black" />
-                    <Rectangle RadiusX="7" RadiusY="7" Fill="White" Margin="1,1,1,3"/>
-                </Grid>
+                    <Grid Name="tabItem_Container" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="7" Margin="0,0,0,335" Grid.RowSpan="2">
+                        <Rectangle  RadiusX="7" RadiusY="7" Fill="Black" />
+                        <Rectangle RadiusX="7" RadiusY="7" Fill="White" Margin="1,1,1,3"/>
+                    </Grid>
 
-                <Rectangle Name="line1" Grid.Column="2" Grid.Row="1" Fill="{StaticResource lineColor_2}" />
-                <Rectangle Name="line2" Grid.Column="4" Grid.Row="1" Fill="{StaticResource lineColor_2}" />
-                <Rectangle Name="line3" Grid.Column="6" Grid.Row="1" Fill="{StaticResource lineColor_2}" />
-        
-                <mycontrol:customTabItem x:Name="tabItem_Print"   Grid.Column="1" Grid.Row="1"  Margin="1,1,0,1"                             
-                                 IsSelect="False" 
-                                 FontSize="16.99" 
-                                 Text="{StaticResource ResStr_ExtraAdd_Print}"
-                                 tabItemStyle="Left"/>
+                    <Rectangle Name="line1" Grid.Column="2" Grid.Row="1" Fill="#FF838383" />
+                    <Rectangle Name="line2" Grid.Column="4" Grid.Row="1" Fill="{StaticResource lineColor_2}" />
+                    <Rectangle Name="line3" Grid.Column="6" Grid.Row="1" Fill="{StaticResource lineColor_2}" />
 
-                <mycontrol:customTabItem x:Name="tabItem_Copy"   Grid.Column="3" Grid.Row="1" Margin="0,1"                               
-                                 IsSelect="False" 
-                                 FontSize="16.99" 
-                                 Text="{StaticResource ResStr_ExtraAdd_Copy}"
-                                 tabItemStyle="Middle"/>
-               
-                <mycontrol:customTabItem x:Name="tabItem_Scan"     Grid.Column="5" Grid.Row="1" Margin="0,1"                                 
-                                 IsSelect="False" 
-                                 FontSize="16.99" 
-                                 Text="{StaticResource ResStr_ExtraAdd_Scan}"
-                                 tabItemStyle="Middle"/>
-
-                <mycontrol:customTabItem x:Name="tabItem_Setting"   Grid.Column="7" Grid.Row="1"  Margin="0,1,1,1"                                
-                                 IsSelect="False" 
-                                 FontSize="16.99" 
-                                 Text="{StaticResource ResStr_Setting}"
-                                 tabItemStyle="Right">
-                </mycontrol:customTabItem>
-                    
-                    <Rectangle Name="rect_tabItemForeground" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="7" Fill="White" Opacity="0.4" />
+                    <mycontrol:customTabItem x:Name="tabItem_Print"   Grid.Column="1" Grid.Row="1" Margin="1,1,0,0"                            
+                                             IsSelect="False" 
+                                             FontSize="16.99" 
+                                             Text="{StaticResource ResStr_ExtraAdd_Print}"
+                                             tabItemStyle="Left"/>
+                    <mycontrol:customTabItem x:Name="tabItem_Copy"   Grid.Column="3" Grid.Row="1" Margin="0,1,0,0"                                
+                                             IsSelect="False" 
+                                             FontSize="16.99" 
+                                             Text="{StaticResource ResStr_ExtraAdd_Copy}"
+                                             tabItemStyle="Middle"/>
+                    <mycontrol:customTabItem x:Name="tabItem_Scan"     Grid.Column="5" Grid.Row="1" Margin="0,1,0,0"                               
+                                             IsSelect="False" 
+                                             FontSize="16.99" 
+                                             Text="{StaticResource ResStr_ExtraAdd_Scan}"
+                                             tabItemStyle="Middle"/>
+                    <mycontrol:customTabItem x:Name="tabItem_Setting"   Grid.Column="7" Grid.Row="1" Margin="0,1,1,0"                                 
+                                             IsSelect="False" 
+                                             FontSize="16.99" 
+                                             Text="{StaticResource ResStr_Setting}"
+                                             tabItemStyle="Right">
+                    </mycontrol:customTabItem>
 
                     <Grid Name="contentGrid" Grid.Row="1" Grid.ColumnSpan="9" Grid.Column="0" Grid.RowSpan="2">
                         <Border VerticalAlignment="Top" Name="subPageView" Width="{Binding ElementName=contentGrid, Path=Width}" Height="{Binding ElementName=contentGrid, Path=Height}"/>
                     </Grid>
-
                 </Grid>
             </Grid>
 
             <Border VerticalAlignment="Center" HorizontalAlignment="Center" Name="statusPageView" Grid.ColumnSpan="3" Grid.RowSpan="4" 
-                Height="638" Width="850"
-                />
+                    Height="638" Width="850"/>
         </Grid>
 
     </Viewbox>
