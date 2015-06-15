@@ -192,33 +192,33 @@ namespace VOP
         public delegate void HandlerPrinterSwitch();
         public event HandlerPrinterSwitch eventPrinterSwitch; // This event only throw when the StatusPanel had been loaded. 
 
+        // Update isSFP and isWiFiModel of current printer.
+        public void UpdatePrinterProperty()
+        {
+            string strDrvName = "";
+            if (false == common.GetPrinterDrvName( m_selectedPrinter, ref strDrvName))
+            {
+                m_isSFP = false;
+                m_isWiFiModel = false;
+            }
+            else
+            {
+                m_isSFP = common.IsSFPPrinter(strDrvName);
+                m_isWiFiModel = common.IsSupportWifi(strDrvName);
+            }
+        }
+
         private void cboPrinters_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if ( null != cboPrinters.SelectedItem )
             {
                 m_selectedPrinter = this.cboPrinters.SelectedItem.ToString();
 
-                string strDrvName = "";
-
-                if (false == common.GetPrinterDrvName(m_selectedPrinter, ref strDrvName))
-                {
-                    MessageBoxEx_Simple messageBox =
-                        new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)this.FindResource("ResStr_Error"));
-                    messageBox.Owner = App.Current.MainWindow;
-                    messageBox.ShowDialog();
-
-                    if (null != this.m_MainWin)
-                        this.m_MainWin.ShowTroubleshootingPage();
-                 
-                    return;
-                }
-
-                m_isSFP = common.IsSFPPrinter(strDrvName);
-                m_isWiFiModel = common.IsSupportWifi(strDrvName);
+                UpdatePrinterProperty();
 
                 if ( null != eventPrinterSwitch )
                     eventPrinterSwitch();
-                dll.InitPrinterData(m_MainWin.statusPanelPage.m_selectedPrinter);           
+                dll.InitPrinterData( m_selectedPrinter );           
                 FileSelectionPage.IsInitPrintSettingPage = true;
             }
         }

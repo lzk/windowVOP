@@ -22,6 +22,7 @@ using Newtonsoft;
 using System.IO;
 using System.Globalization;
 using System.Xml.Linq;
+using VOP.Controls;
 
 namespace VOP
 {
@@ -44,6 +45,8 @@ namespace VOP
 
     public partial class MainWindow : Window
     {
+        private EnumSubPage m_currentPage = EnumSubPage.Print;
+
         private bool bGrayIcon = false; // True if the tray icon was set to gray.
 
         public static RequestManager m_RequestManager = new RequestManager();
@@ -854,6 +857,8 @@ namespace VOP
         /// </summary>
         private void SetTabItemFromIndex( EnumSubPage subpage )
         {       
+            m_currentPage = subpage;
+
             if (false == statusPanelPage.m_isSFP)
             {
                 if (EnumSubPage.Print == subpage)
@@ -1117,10 +1122,11 @@ namespace VOP
                    }
                }
 
-               if ( false == m_isOnlineDetected )
+               if ( false == m_isOnlineDetected || EnumSubPage.Print == m_currentPage && winTroubleshootingPage == subPageView.Child )
                {
                    if ( false == common.IsOffline( status ) )
                    {
+                       statusPanelPage.UpdatePrinterProperty();
                        m_isOnlineDetected = true;                    
                        ExpandSubpage();
                    }
@@ -1267,12 +1273,27 @@ namespace VOP
             statusPanelPage.UpdateStatusPanel( (EnumStatus)status, (EnumMachineJob)job, toner );
             UpdateLED( (EnumStatus)status );
 
-            if ( m_isOnlineDetected || false == common.IsOffline( (EnumStatus)status) )
-            {              
-                ExpandSubpage();
-                m_isOnlineDetected = true;
+            // Move ShowTroubleshootingPage from statusPanel to here to make tab expand code together.
+            string strDrvName = "";
+            if (false == common.GetPrinterDrvName( statusPanelPage.m_selectedPrinter, ref strDrvName))
+            {
+                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple(
+                        (string)this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"),
+                        (string)this.FindResource("ResStr_Error")
+                        );
+                messageBox.Owner = this;
+                messageBox.ShowDialog();
+                ShowTroubleshootingPage();
+            }
+            else
+            {
+                if ( m_isOnlineDetected || false == common.IsOffline( (EnumStatus)status) )
+                {              
+                    ExpandSubpage();
+                    m_isOnlineDetected = true;
 
-                EnableTabItems(true);
+                    EnableTabItems(true);
+                }
             }
 
             statusUpdater = new Thread(UpdateStatusCaller);
