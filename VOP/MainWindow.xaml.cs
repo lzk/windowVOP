@@ -917,16 +917,7 @@ namespace VOP
                 }
             }
 
-            if (winSettingPage.m_bOnlyDispalyAboutView)
-            {
-                Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PagePrint.tif", UriKind.RelativeOrAbsolute));
-
-                tabItem_Setting.tabItemStyle = CustomTabItemStyle.Single;
-            }
-            else
-            {
-                tabItem_Setting.tabItemStyle = CustomTabItemStyle.Right;
-            }
+            tabItem_Setting.tabItemStyle = CustomTabItemStyle.Right;
         }
 
 
@@ -1378,7 +1369,6 @@ namespace VOP
 
                 Grid.SetColumnSpan(tabItem_Container, 3);
             }
-            winSettingPage.m_bOnlyDispalyAboutView = false;
         }
 
         public void RemoveScanImage()
@@ -1386,38 +1376,6 @@ namespace VOP
             winScanPage.image_wrappanel.Children.Clear();
         }
 
-        public void ShowAboutPageOnly()
-        {           
-            line1.Visibility = Visibility.Hidden;
-            line2.Visibility = Visibility.Hidden;
-            line3.Visibility = Visibility.Hidden;
-
-            Print_Grid.Visibility = Visibility.Hidden;
-            Scan_Grid.Visibility = Visibility.Hidden;
-            Copy_Grid.Visibility = Visibility.Hidden;
-            Grid.SetColumn(Setting_Grid, 1);
-            Grid.SetRow(Setting_Grid, 0);
-
-            tabItem_Print.Visibility = Visibility.Hidden;
-            tabItem_Copy.Visibility = Visibility.Hidden;
-            tabItem_Scan.Visibility = Visibility.Hidden;
-
-            Grid.SetColumn(tabItem_Setting, 1);
-            Grid.SetRow(tabItem_Setting, 1);
-
-            Grid.SetColumnSpan(tabItem_Container, 1);
-         
-            winSettingPage.m_bOnlyDispalyAboutView = true;
-            winSettingPage.InitWindowLayout();
-
-            SetTabItemFromIndex(EnumSubPage.Setting);
-
-            Background_SubPageView.Source = new BitmapImage(new Uri("Images\\PagePrint.tif", UriKind.RelativeOrAbsolute));
-
-            RemoveScanImage();            
-        }
-        
- 
         public enum EnumSubPage
         {
             Print   ,

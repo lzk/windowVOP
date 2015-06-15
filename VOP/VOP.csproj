@@ -175,9 +175,6 @@
     <Compile Include="Converter.cs" />
     <Compile Include="dll.cs" />
     <Compile Include="imageitem.cs" />
-    <Compile Include="AboutView.xaml.cs">
-      <DependentUpon>AboutView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PasswordView.xaml.cs">
       <DependentUpon>PasswordView.xaml</DependentUpon>
     </Compile>
@@ -372,10 +369,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="WifiView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -606,8 +599,6 @@
     <Resource Include="Images\ButtonIdCardSelect.png" />
     <Resource Include="Images\shopCart_Warn.png" />
     <Resource Include="Images\shopCart_Normal.png" />
-    <Resource Include="Images\About.png" />
-    <Resource Include="Images\About_Active.png" />
     <Resource Include="Images\Password.png" />
     <Resource Include="Images\Password_Active.png" />
     <Resource Include="Images\PowerSave.png" />
@@ -638,10 +629,6 @@
     <Resource Include="Images\ZoomIn.tif" />
     <Resource Include="Images\ZoomOut.tif" />
     <Resource Include="Images\Line.png" />
-    <Resource Include="Images\HotLine.png" />
-    <Resource Include="Images\Logo.png" />
-    <Resource Include="Images\Promotion.png" />
-    <Resource Include="Images\Update.png" />
     <Resource Include="Images\MainWindow_Close.PNG" />
     <Resource Include="Images\MainWindow_Min.PNG" />
     <Resource Include="Images\GreenLine.png" />

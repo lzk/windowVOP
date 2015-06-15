@@ -18,7 +18,6 @@ namespace VOP
         SettingButton btnPowerSave = new SettingButton(IconType.PowerSave);
         SettingButton btnUserConfig = new SettingButton(IconType.UserConfig);
         SettingButton btnPwd = new SettingButton(IconType.Password);
-        SettingButton btnAbout = new SettingButton(IconType.About);
 
         List<SettingButton> m_listSettingButton = new List<SettingButton>();
 
@@ -28,9 +27,6 @@ namespace VOP
         PowerSaveView powersaveView = new PowerSaveView();
         UserConfigView userconfigView = new UserConfigView();
         PasswordView passwordView = new PasswordView();
-        AboutView aboutView = new AboutView();
-
-        public bool m_bOnlyDispalyAboutView = false;
 
         public SettingPage()
         {
@@ -94,15 +90,6 @@ namespace VOP
             btnPwd.btn.Name = "btnPassword";
             btnPwd.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnPwd);
-
-            btnAbout.btn.Content = (string)this.FindResource("ResStr_About");
-            btnAbout.Margin = new Thickness(0, 1, 0, 9);
-            btnAbout.Width = tabbtn_width;
-            btnAbout.Height = tabbtn_height;
-            btnAbout.HorizontalAlignment = HorizontalAlignment.Left;
-            btnAbout.btn.Name = "btnAbout";
-            btnAbout.btn.Click += SettingBtnClick;
-            m_listSettingButton.Add(btnAbout);
         }
         
         private void SetActiveButton(IconType iconType)
@@ -141,34 +128,24 @@ namespace VOP
             Grid.SetColumnSpan(setting_tab_btn, 3);
             ((MainWindow)App.Current.MainWindow).m_strPassword = "";
 
-            if (false == m_bOnlyDispalyAboutView)
+            if (m_MainWin.statusPanelPage.m_isWiFiModel)
             {
-                if (m_MainWin.statusPanelPage.m_isWiFiModel)
-                {
-                    setting_tab_btn.Children.Add(btnwifi);
-                    setting_tab_btn.Children.Add(btnSoftAp);
-                    setting_tab_btn.Children.Add(btnTCPIP);
-                }
+                setting_tab_btn.Children.Add(btnwifi);
+                setting_tab_btn.Children.Add(btnSoftAp);
+                setting_tab_btn.Children.Add(btnTCPIP);
+            }
 
-                setting_tab_btn.Children.Add(btnPowerSave);
-                setting_tab_btn.Children.Add(btnUserConfig);
-                setting_tab_btn.Children.Add(btnPwd);
-//              setting_tab_btn.Children.Add(btnAbout);
+            setting_tab_btn.Children.Add(btnPowerSave);
+            setting_tab_btn.Children.Add(btnUserConfig);
+            setting_tab_btn.Children.Add(btnPwd);
 
-                if (m_MainWin.statusPanelPage.m_isWiFiModel)
-                {
-                    ClickSettingButton(IconType.Wireless);
-                }
-                else
-                {
-                    ClickSettingButton(IconType.PowerSave);
-                }
+            if (m_MainWin.statusPanelPage.m_isWiFiModel)
+            {
+                ClickSettingButton(IconType.Wireless);
             }
             else
             {
-                //Only display about view when no printer online.
-//              setting_tab_btn.Children.Add(btnAbout);
-//              ClickSettingButton(IconType.About);
+                ClickSettingButton(IconType.PowerSave);
             }
         }
 
@@ -211,11 +188,6 @@ namespace VOP
                 SetActiveButton(IconType.Password);
                 this.settingView.Child = passwordView;
             }
-            else if ("btnAbout" == srcButton.Name)
-            {
-                SetActiveButton(IconType.About);
-                this.settingView.Child = aboutView;
-            }
         }
 
         ///<summary>
@@ -246,7 +218,7 @@ namespace VOP
 
         public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
         {
-             if (null != m_MainWin && !m_bOnlyDispalyAboutView)
+            if (null != m_MainWin )
             {
                 if (m_MainWin.statusPanelPage.m_isWiFiModel)
                 {
