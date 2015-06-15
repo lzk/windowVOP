@@ -172,7 +172,8 @@
     </Style>
 
     <SolidColorBrush x:Key="ListBoxItemBackgroundOver" Color="#FF9B999A" Opacity="1"/>
-    
+    <SolidColorBrush x:Key="brushForeground" Color="White"/>
+
     <Style x:Key="CustomListBoxItem" TargetType="{x:Type ListBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <!--<Setter Property="OverridesDefaultStyle" Value="true"/>-->
@@ -183,28 +184,32 @@
                         <ContentPresenter />
                     </Border>
                     <ControlTemplate.Triggers>                       
-                            <Trigger Property="IsMouseOver" Value="true">
-                                 <Setter TargetName="Border" Property="Background" Value="{StaticResource ListBoxItemBackgroundOver}"/>
-                            </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ListBoxItemBackgroundOver}"/>
+                            <Setter Property="Foreground" Value="{StaticResource brushForeground}"/>
+                            <Setter Property="IsSelected" Value="True"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="true">
+                            <Setter Property="IsSelected" Value="True"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    <SolidColorBrush x:Key="brushForeground" Color="White"/>
-    
+
     <DataTemplate DataType="{x:Type local:IdCardTypeItem}">
         <StackPanel Orientation="Horizontal">
             <TextBlock Name="textBlock"  Text="{Binding Path=Name}" FontSize="14" SnapsToDevicePixels="True"
                        Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}}"
                        VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" />
         </StackPanel>
-        <DataTemplate.Triggers>
+        <!--<DataTemplate.Triggers>
             <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBoxItem}}}" Value="True" >
                 <Setter TargetName="textBlock" Property="Foreground" Value="{StaticResource brushForeground}" />
         </DataTrigger>
-        </DataTemplate.Triggers>
+        </DataTemplate.Triggers>-->
     </DataTemplate>
 
     <Color x:Key="ScrollViewerBackgroundColor">#FFE7E7E7</Color>

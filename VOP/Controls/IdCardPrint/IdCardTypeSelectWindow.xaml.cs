@@ -18,6 +18,7 @@ namespace VOP.Controls
     /// </summary>
     public partial class IdCardTypeSelectWindow : Window
     {
+        private bool _helpCanExecute = true;
         public IdCardTypeItem SelectedTypeItem { get; set; }
 
         public IdCardTypeSelectWindow()
@@ -42,6 +43,36 @@ namespace VOP.Controls
             ListBox lb = e.Source as ListBox;
             SelectedTypeItem = lb.SelectedItem as IdCardTypeItem;
             this.DialogResult = true;
+        }
+
+        private void ListBox_PreviewMouseLeftButtonDown(Object sender, MouseButtonEventArgs e)
+        {
+            ListBox lb = e.Source as ListBox;
+            SelectedTypeItem = lb.SelectedItem as IdCardTypeItem;
+            this.DialogResult = true;
+        }
+
+        private void HelpCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (listBox.SelectedIndex == -1)
+            {
+                e.CanExecute = false;
+            }
+            else
+            {
+                e.CanExecute = true;
+            }
+
+            e.Handled = true;
+        }
+
+        private void HelpExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            listBox.RaiseEvent(new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left)
+            {
+                RoutedEvent = Mouse.PreviewMouseDownEvent,
+                Source = this,
+            });
         }
     }
 }

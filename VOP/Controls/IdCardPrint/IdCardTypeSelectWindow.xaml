@@ -25,6 +25,16 @@
         <DropShadowEffect BlurRadius="30" Color="#FF858484" Direction="292" ShadowDepth="0" Opacity="1"/>
     </Window.Effect>
 
+    <Window.CommandBindings>
+        <CommandBinding Command="Help" 
+        CanExecute="HelpCanExecute"
+        Executed="HelpExecuted" />
+    </Window.CommandBindings>
+
+    <Window.InputBindings>
+        <KeyBinding Command="Help" Key="Enter" />
+    </Window.InputBindings>
+    
     <!--<Viewbox Stretch="Fill">-->
     <Grid>
         <Grid.ColumnDefinitions>
@@ -41,12 +51,13 @@
 
         <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
 
-        <ListBox Grid.Row="1"  
+        <ListBox Name="listBox"
+                 Grid.Row="1"  
                  Grid.Column="0" 
                  Grid.ColumnSpan="2"
                  Style="{ StaticResource ListBoxWithAutoScroll }" 
                  ItemsSource="{StaticResource IdCardTypeNameList}"
-                 Selector.SelectionChanged="verticalListBox_SelectionChanged"/>
+                 PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown"/>
     </Grid>
     <!--</Viewbox>-->
 </Window>
