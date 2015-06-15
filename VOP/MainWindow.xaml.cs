@@ -1265,7 +1265,7 @@ namespace VOP
             }
 
             statusPanelPage.UpdateStatusPanel( (EnumStatus)status, (EnumMachineJob)job, toner );
-            // TODO: update LED.
+            UpdateLED( (EnumStatus)status );
 
             if ( m_isOnlineDetected || false == common.IsOffline( (EnumStatus)status) )
             {              
