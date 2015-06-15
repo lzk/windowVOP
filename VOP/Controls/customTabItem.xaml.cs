@@ -130,7 +130,7 @@ namespace VOP
                     rectMiddle.Fill =
                     rectRight_1.Fill = rectRight_2.Fill =
                     rectSingle_1.Fill = rectSingle_2.Fill = rectSingle_3.Fill =
-                    new SolidColorBrush(Color.FromRgb(0x6D, 0x6D, 0x6D));
+                    (Brush)this.FindResource("selectedBrush");
 
                     text.Foreground = new SolidColorBrush(Colors.White);
                 }
@@ -153,7 +153,7 @@ namespace VOP
                    rectSingle_1.Fill = rectSingle_2.Fill = rectSingle_3.Fill =
                   new SolidColorBrush(Colors.White);
 
-                text.Foreground = new SolidColorBrush(Color.FromRgb(0xDD, 0xDD, 0xDD));
+                text.Foreground = new SolidColorBrush(Color.FromRgb(0xCE, 0xCE, 0xCE));
             }
         }
 

@@ -9,18 +9,9 @@
              mc:Ignorable="d">
     
     <UserControl.Resources>
-        <LinearGradientBrush x:Key="selectedBrush" StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Offset="0" Color="#F3F3F3" />
-            <GradientStop Offset="0.5" Color="#EBEBEB" />
-            <GradientStop Offset="0.5" Color="#DDDDDD" />
-            <GradientStop Offset="1" Color="#FF0000" />
-        </LinearGradientBrush>
-
-        <LinearGradientBrush x:Key="noSelectedBrush" StartPoint="0,0" EndPoint="0,1">
-            <GradientStop Offset="0" Color="#F3F3F3" />
-            <GradientStop Offset="0.5" Color="#EBEBEB" />
-            <GradientStop Offset="0.5" Color="#DDDDDD" />
-            <GradientStop Offset="1" Color="#CDCDCD" />
+        <LinearGradientBrush x:Key="selectedBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF878787" Offset="0.034"/>
+            <GradientStop Color="#FF5B5B5B" Offset="0.932"/>
         </LinearGradientBrush>
     </UserControl.Resources>
     
