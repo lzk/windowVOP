@@ -90,11 +90,11 @@ namespace VOP
         {
             if ( null != previewImg.Source )
             {
-                if (previewImg.ActualHeight > scrollPreview.ViewportHeight)
-                    scrollPreview.ScrollToVerticalOffset((previewImg.ActualHeight - scrollPreview.ViewportHeight) / 2);
+                if (previewImg.Height > scrollPreview.ViewportHeight)
+                    scrollPreview.ScrollToVerticalOffset((previewImg.Height - scrollPreview.ViewportHeight) / 2);
 
-                if (previewImg.ActualWidth > scrollPreview.ViewportWidth)
-                    scrollPreview.ScrollToHorizontalOffset((previewImg.ActualWidth - scrollPreview.ViewportWidth) / 2);
+                if (previewImg.Width > scrollPreview.ViewportWidth)
+                    scrollPreview.ScrollToHorizontalOffset((previewImg.Width - scrollPreview.ViewportWidth) / 2);
             }
         }
 
