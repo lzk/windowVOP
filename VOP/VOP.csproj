@@ -655,8 +655,8 @@
     <Resource Include="Images\Index.png" />
     <Resource Include="Images\Printer.png" />
     <Resource Include="Images\Wifi.png" />
-    <Resource Include="Images\RefreshNormal.tif" />
-    <Resource Include="Images\RefreshClick.tif" />
+    <Resource Include="Images\Status_RefreshDisable.tif" />
+    <Resource Include="Images\Status_RefreshEnable.tif" />
     <Resource Include="Media\JamAtExitNotReach.gif" />
     <Resource Include="Media\JamAtExitStayOn.gif" />
     <Resource Include="Media\JamAtRegistStayOn.gif" />

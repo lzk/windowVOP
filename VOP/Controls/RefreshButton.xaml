@@ -8,8 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="22.4" d:DesignWidth="22.4">
     <UserControl.Resources>
-        <ImageBrush x:Key="imgBrushNormal" ImageSource="..\Images\RefreshNormal.tif"/>
-        <ImageBrush x:Key="imgBrushClick" ImageSource="..\Images\RefreshClick.tif"/>
 
         <Style x:Key="RefreshFocus">
             <Setter Property="Control.Template">
@@ -22,14 +20,18 @@
         </Style>
 
         <ControlTemplate x:Key ="myButtonTemplate"  TargetType ="{x:Type Button}" >
-            <Rectangle Name="rect"/>
-         
+            <Image Name="img" />
+
             <ControlTemplate.Triggers>
                 <Trigger Property="IsEnabled" Value="True">
-                    <Setter TargetName="rect" Property="Fill" Value="{StaticResource imgBrushClick}"/>
+                    <Setter TargetName="img" Property="Source" Value="{Binding Path=(con:RefreshImagePath_Enable.Image),
+                                RelativeSource={RelativeSource FindAncestor,
+                                AncestorType={x:Type Button}}}"/>
                 </Trigger>
                 <Trigger Property="Button.IsEnabled" Value="False">
-                    <Setter TargetName="rect" Property="Fill" Value="{StaticResource imgBrushNormal}"/>
+                    <Setter TargetName="img" Property="Source" Value="{Binding Path=(con:RefreshImagePath_Disable.Image),
+                                RelativeSource={RelativeSource FindAncestor,
+                                AncestorType={x:Type Button}}}"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -42,7 +44,10 @@
 
 
     <Grid Name="grid">
-        <Button Name="refreshBtn" Style="{StaticResource RefreshButtonStyle}">
+        <Button Name="refreshBtn" Style="{StaticResource RefreshButtonStyle}"
+                con:RefreshImagePath_Disable.Image="{Binding ElementName=container, Path=ImageDisable}"
+                con:RefreshImagePath_Enable.Image="{Binding ElementName=container, Path=ImageEnable}"
+                >
         </Button>
     </Grid>
 </UserControl>

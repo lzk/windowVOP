@@ -22,6 +22,25 @@ namespace VOP
     public partial class RefreshButton : UserControl
     {
         DispatcherTimer timer = new DispatcherTimer();
+
+        public ImageSource ImageEnable
+        {
+            get { return (ImageSource)GetValue(ImageEnableProperty); }
+            set { SetValue(ImageEnableProperty, value); }
+        }
+
+        public static readonly DependencyProperty ImageEnableProperty =
+            DependencyProperty.Register("ImageEnable", typeof(ImageSource), typeof(RefreshButton));
+
+        public ImageSource ImageDisable
+        {
+            get { return (ImageSource)GetValue(ImageDisableProperty); }
+            set { SetValue(ImageDisableProperty, value); }
+        }
+
+        public static readonly DependencyProperty ImageDisableProperty =
+            DependencyProperty.Register("ImageDisable", typeof(ImageSource), typeof(RefreshButton));
+
         public bool IsRefresh
         {
             get { return (bool)GetValue(IsRefreshProperty); }
@@ -40,11 +59,6 @@ namespace VOP
             {
                 _This.timer.Start();
             }
-            else
-            {
-                _This.timer.Stop();
-                _This.CurRotateAngle = 0;
-            }
         }
 
         public RefreshButton()
@@ -55,8 +69,20 @@ namespace VOP
             timer.Tick += new EventHandler(timer_Tick);
         }
 
+        static int cnts = 0;
         void timer_Tick(object sender, EventArgs e)
         {
+            if (!IsRefresh)
+            {
+                cnts++;
+                if (36 == cnts)
+                {
+                    timer.Stop();
+                    CurRotateAngle = 0;
+                    cnts = 0;
+                }
+            }
+
             CurRotateAngle += 10;
         }
 
@@ -74,5 +100,54 @@ namespace VOP
                 container.RenderTransform = rotateTransform;
             }
         }    
+    }
+
+
+    public class RefreshImagePath_Disable
+    {
+        public static readonly DependencyProperty ImageProperty;
+
+        public static ImageSource GetImage(DependencyObject obj)
+        {
+            return (ImageSource)obj.GetValue(ImageProperty);
+        }
+
+        public static void SetImage(DependencyObject obj, ImageSource value)
+        {
+            obj.SetValue(ImageProperty, value);
+        }
+
+        static RefreshImagePath_Disable()
+        {
+            //register attached dependency property
+            var metadata = new FrameworkPropertyMetadata((ImageSource)null);
+            ImageProperty = DependencyProperty.RegisterAttached("Image",
+                                                                typeof(ImageSource),
+                                                                typeof(RefreshImagePath_Disable), metadata);
+        }
+    }
+
+    public class RefreshImagePath_Enable
+    {
+        public static readonly DependencyProperty ImageProperty;
+
+        public static ImageSource GetImage(DependencyObject obj)
+        {
+            return (ImageSource)obj.GetValue(ImageProperty);
+        }
+
+        public static void SetImage(DependencyObject obj, ImageSource value)
+        {
+            obj.SetValue(ImageProperty, value);
+        }
+
+        static RefreshImagePath_Enable()
+        {
+            //register attached dependency property
+            var metadata = new FrameworkPropertyMetadata((ImageSource)null);
+            ImageProperty = DependencyProperty.RegisterAttached("Image",
+                                                                typeof(ImageSource),
+                                                                typeof(RefreshImagePath_Enable), metadata);
+        }
     }
 }
