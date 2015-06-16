@@ -154,7 +154,7 @@ namespace VOP
                     try
                     {
                         string strMessage = String.Format("经销商信息已经{0}个月未更新，为保证信息的准确性，请在线更新。", m_nExpiredMonth);
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, strMessage, (string)this.FindResource("ResStr_Warning"));
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, strMessage, "警告");
                     }
                     catch
                     {
