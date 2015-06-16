@@ -7,7 +7,11 @@
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" 
         FontFamily="微软雅黑,SimSun"
-        Style="{StaticResource for_noresize_window}">
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        BorderThickness="24">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,7 +22,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+    </Window.Effect>
     <Viewbox Stretch="Fill">
         <Grid Height="280" Width="354">
             <Grid.RowDefinitions>
