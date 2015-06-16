@@ -10,7 +10,11 @@
         xmlns:mycontrol="clr-namespace:VOP" 
         Loaded="OnLoadWindow"
         FontFamily="微软雅黑,SimSun"
-        Style="{StaticResource for_noresize_window}">
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        BorderThickness="24">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -25,7 +29,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+    </Window.Effect>
     <Viewbox Stretch="Fill">
         <Grid Height="400" Width="350">
             <Grid>
@@ -37,7 +43,7 @@
                 <Grid Grid.Row="0" Background="#FF1F3345" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="30"></ColumnDefinition>
+                        <ColumnDefinition Width="38"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="维修网点查询" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="18"></TextBlock>
                     <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" VerticalAlignment="Center" Click="MinimizeCloseButton_Click"/>
