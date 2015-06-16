@@ -760,6 +760,7 @@ namespace VOP
 
         public void LoadedMainWindow( object sender, RoutedEventArgs e )
         {
+
             this.Visibility = System.Windows.Visibility.Hidden;
             dll.SaveDefaultPrinter(); //save default printer name before vop action
             statusPageView.Child = statusPanelPage;
@@ -769,9 +770,9 @@ namespace VOP
 
             ShowTroubleshootingPage();
 
-            AddMessageHook();
-
             ShowStartupWindow();
+
+            AddMessageHook();
             this.Visibility = System.Windows.Visibility.Visible;
         }
 
