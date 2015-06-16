@@ -1260,6 +1260,7 @@ namespace VOP
 
             winCopyPage.ResetToDefaultValue();
             winScanPage.ResetToDefaultValue();
+            winPrintPage.ResetToDefaultValue();
 
             byte toner  = 0;
             byte status = (byte)EnumStatus.Offline; 
