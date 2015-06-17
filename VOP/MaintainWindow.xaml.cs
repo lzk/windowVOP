@@ -226,7 +226,7 @@ namespace VOP
             {
                 System.Diagnostics.Process.Start(@"http://appserver.lenovo.com.cn/Lenovo_Series_List.aspx?CategoryCode=A06B12");
             }
-            catch
+            catch (Exception)
             {
 
             }

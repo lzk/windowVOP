@@ -227,7 +227,7 @@ namespace VOP
             {
                 System.Diagnostics.Process.Start(@"http://www.jd.com");
             }
-            catch
+            catch (Exception)
             {
 
             }
