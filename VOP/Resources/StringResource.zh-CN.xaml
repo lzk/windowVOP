@@ -14,7 +14,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Warning">警告</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Error">错误</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Offline">离线</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Toner">碳粉容量：</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Toner">墨粉</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printing">打印中</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_WarmingUp">预热</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Cancelling">打印取消</sys:String>
@@ -145,11 +145,11 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Contrast">对比度</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Brightness">亮度</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Wi_Fi">打印机Wi-Fi</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Soft_AP">打印机自主热点</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_TCP_IP">打印机网络设置</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Soft_AP">打印机热点</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_TCP_IP">打印机IP地址</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Power_Save">休眠</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_User_Config">用户设置</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Modify_Password">密码修改</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_User_Config">高级设置</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Modify_Password">管理员密码修改</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_About">关于</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_IP_Type">获取方式</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_DHCP">自动获取</sys:String>
@@ -183,8 +183,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_1_30_Minute">（1-30分钟）</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_SSID_2">网络标识</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Enable">使用</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Leading_Edge_Registration">顶端偏移量</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Side_to_side_Registration">左端偏移量</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Leading_Edge_Registration">顶端偏移量(mm)</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Side_to_side_Registration">左端偏移量(mm)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Image_Density">画像浓度</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Low_Hunidity_Mode">低湿度模式</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_of_Plate_Control_Mode">防止背面脏污模式</sys:String>
@@ -192,7 +192,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Fuser_Error_Remove">解除定影单元错误</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_New_Password">新密码</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Confirm_Password">确认密码</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Identity_Authentication">身份认证</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Identity_Authentication">管理员权限认证</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Login">登  录</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Supplies_Purchasing_Channels">耗材购买渠道</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Upgrade_Method">打印机升级方式</sys:String>
