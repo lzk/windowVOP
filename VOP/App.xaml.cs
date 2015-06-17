@@ -36,7 +36,7 @@ namespace VOP
         public static uint closeMsg = Win32.RegisterWindowMessage("vop_process_selfclose");
         public static double gScalingRate = 1.0; // Scaling rate used to scale windows's according the screen resolution.
 
-        private static Int32 gLanguage = 0x804;
+        private static Int32 gLanguage = 0x409;
         public static Int32 LangId
         {
             get{ return gLanguage; }
@@ -44,8 +44,6 @@ namespace VOP
 
         App()
         {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh-CN");
-
             gLanguage = GetLangID(); 
 
             double nWidth = SystemParameters.PrimaryScreenWidth;
@@ -68,7 +66,7 @@ namespace VOP
 
         private Int32 GetLangID()
         {
-            Int32 LangId = 0x804;
+            Int32 LangId = 0x409;
             RegistryKey rsg = null;
             rsg = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Lenovo\\Printer SSW\\Version", false);
            
@@ -170,7 +168,7 @@ namespace VOP
                     Culture = "zh-CN";
                     break;
                 default:
-                    Culture = "zh-CN";
+                    Culture = "en-US";
                     break;
             }
 
