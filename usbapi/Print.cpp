@@ -609,7 +609,7 @@ USBAPI_API int __stdcall DoPrintImage()
 								pDimensionIDs = NULL;
 							}
 						
-							error = Print_Operation_Fail;
+							//error = Print_Operation_Fail;
 							break;
 						}
 
@@ -775,7 +775,7 @@ USBAPI_API int __stdcall DoPrintImage()
 								pDimensionIDs = NULL;
 							}
 
-							error = Print_Operation_Fail;
+							//error = Print_Operation_Fail;
 							break;
 						}
 
@@ -804,6 +804,8 @@ USBAPI_API int __stdcall DoPrintImage()
 	}
 	else
 		error = Print_Operation_Fail;
+
+    int errorCode = GetLastError();
 
 	Gdiplus::GdiplusShutdown(gdiplusToken);
 
