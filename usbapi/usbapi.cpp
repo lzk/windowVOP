@@ -1230,6 +1230,8 @@ USBAPI_API bool __stdcall GetPrinterStatus( const wchar_t* szPrinter, BYTE* ptr_
 
 			if (bOffline)
 			{
+                ps.TonelStatusLevelK = 0;
+
 				if( __Ready == ps.PrinterStatus)
 					ps.PrinterStatus = __Offline;
 				else

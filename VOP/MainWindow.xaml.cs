@@ -1219,16 +1219,20 @@ namespace VOP
               
                 status = (byte)StatusXmlHelper.GetStatusTypeFormString(deviceStatus);
                 job    = (byte)StatusXmlHelper.GetJobTypeFormString(machineJob);
+                toner = 0; // Fixed #0059793.
 
-                double dToner = 0.0;
-                if (double.TryParse(tonerCapacity, out dToner))
+                if ( (byte)EnumStatus.Offline != status  )
                 {
-                    toner = (byte)(int)dToner;
+                    double dToner = 0.0;
+                    if (double.TryParse(tonerCapacity, out dToner))
+                    {
+                        toner = (byte)(int)dToner;
+                    }
+                    else
+                    {
+                        bIsOK = false;
+                    }              
                 }
-                else
-                {
-                    bIsOK = false;
-                }              
             }
             else 
             {
