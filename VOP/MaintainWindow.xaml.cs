@@ -222,7 +222,14 @@ namespace VOP
 
         private void ButtonEx_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start(@"http://appserver.lenovo.com.cn/Lenovo_Series_List.aspx?CategoryCode=A06B12");
+            try
+            {
+                System.Diagnostics.Process.Start(@"http://appserver.lenovo.com.cn/Lenovo_Series_List.aspx?CategoryCode=A06B12");
+            }
+            catch
+            {
+
+            }
         }
 
         private void MinimizeCloseButton_Click(object sender, RoutedEventArgs e)

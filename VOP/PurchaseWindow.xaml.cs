@@ -223,7 +223,14 @@ namespace VOP
 
         private void ButtonEx_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start(@"http://www.jd.com");
+            try
+            {
+                System.Diagnostics.Process.Start(@"http://www.jd.com");
+            }
+            catch
+            {
+
+            }
         }
 
         private void btn_Click(object sender, RoutedEventArgs e)
