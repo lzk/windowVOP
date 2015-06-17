@@ -87,28 +87,27 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
-
+                        
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.RowSpan="2" >
                         <TextBlock Name="textBox"
-                                   Grid.Row="1"                         
                                    HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
+                                   VerticalAlignment="Bottom"
                                    Background="{x:Null}"
                                    FontSize="12"
                                    Foreground="#555555"
                                    Text="{StaticResource ResStr_Model}"
                                    TextAlignment="Center">
                         </TextBlock>
-
-                        <mycontrol:RefreshButton Margin="-9,10,0,0"
+                        <mycontrol:RefreshButton Margin="7,0,0,-2"
                             x:Name="RefreshBtn"
-                            Grid.Column="1" Grid.RowSpan="2"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Left"
-                            Width="19" Height="19" 
+                            Width="21" Height="21" 
                             Button.Click="RefreshBtnClick"
                             ImageDisable="Images\Status_RefreshDisable.tif"
                             ImageEnable="Images\Status_RefreshEnable.tif">
                         </mycontrol:RefreshButton>
+                    </StackPanel>
                     </Grid>
 
                     <ComboBox Grid.Row="1" Grid.Column="1" Margin="0,6,0,-6"
