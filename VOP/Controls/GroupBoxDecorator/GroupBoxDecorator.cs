@@ -73,6 +73,34 @@ namespace VOP.Controls
                         textBlock.Foreground = brush;
                     }
                 }
+                else if(childVisual is ComboBox)
+                {
+                    ComboBox combobox = childVisual as ComboBox;
+                    if (enable)
+                    {
+                        SolidColorBrush brush = new SolidColorBrush();
+                        Color c = new Color();
+                        c.A = 255;
+                        c.R = 14;
+                        c.B = 14;
+                        c.G = 14;
+
+                        brush.Color = c;
+                        combobox.Foreground = brush;
+                    }
+                    else
+                    {
+                        SolidColorBrush brush = new SolidColorBrush();
+                        Color c = new Color();
+                        c.A = 100;
+                        c.R = 14;
+                        c.B = 14;
+                        c.G = 14;
+
+                        brush.Color = c;
+                        combobox.Foreground = brush;
+                    }
+                }
 
                 // Enumerate children of the child visual object.
                 EnableAllVisual(childVisual, enable);

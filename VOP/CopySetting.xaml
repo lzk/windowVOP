@@ -63,7 +63,7 @@
                 <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True"/>
 
                 <Grid Grid.Row="1" >
-                    <local:GroupBoxDecorator Margin="38,10,0,0" Header="{StaticResource ResStr_Scaling}" Height="80" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <local:GroupBoxDecorator x:Name="ScalingGroup" Margin="38,10,0,0" Header="{StaticResource ResStr_Scaling}" Height="80" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
 
                         <local:SpinnerControl
                             x:Name="spinnerScaling"
@@ -111,7 +111,7 @@
                     </local:GroupBoxDecorator>
 
 
-                    <local:GroupBoxDecorator Margin="38,10,0,0" Header="{StaticResource ResStr_Document_Size}" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                    <local:GroupBoxDecorator x:Name="DocGroup" Margin="38,10,0,0" Header="{StaticResource ResStr_Document_Size}" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center" >
                         <ComboBox x:Name="cboDocSize"
                         Style="{StaticResource customComboBox}"
                         Background="White"
@@ -154,7 +154,7 @@
                 </Grid>
 
 
-                <local:GroupBoxDecorator Grid.Row="2" Header="{StaticResource ResStr_N_in_1_Copy}" Height="140" Width="455" >
+                <local:GroupBoxDecorator x:Name="Nin1Group" Grid.Row="2" Header="{StaticResource ResStr_N_in_1_Copy}" Height="140" Width="455" >
 
                     <Grid>
                         <Grid.ColumnDefinitions>

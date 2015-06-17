@@ -348,12 +348,17 @@ namespace VOP
 
             if ( m_isIDCardCopy )
             {
-                spinnerScaling.IsEnabled = false;
+                //spinnerScaling.IsEnabled = false;
                 spinnerScaling.Value = 100;
+                ScalingGroup.IsEnabled = false;
             }
 
             if ( EnumNin1._1up != m_nin1 )
-                spinnerScaling.IsEnabled = false;
+            {
+                //spinnerScaling.IsEnabled = false;
+                ScalingGroup.IsEnabled = false;
+            }
+              
 
             TextBox tb = spinnerScaling.Template.FindName("tbTextBox", spinnerScaling) as TextBox;
             tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
@@ -442,10 +447,12 @@ namespace VOP
 
             if ( m_isIDCardCopy )
             {
-                foreach ( ComboBoxItem obj in cboDocSize.Items )
-                {
-                    obj.IsEnabled = false;
-                }
+                //foreach (ComboBoxItem obj in cboDocSize.Items)
+                //{
+                //    obj.IsEnabled = false;
+                //}
+
+                DocGroup.IsEnabled = false;
             }
         }
 
@@ -673,7 +680,11 @@ namespace VOP
             }
 
             if ( m_isIDCardCopy )
-                chkNin1.IsEnabled = false;
+            {
+                Nin1Group.IsEnabled = false;
+                //chkNin1.IsEnabled = false;
+            }
+              
 
             rdbtn2.IsEnabled = true == chkNin1.IsChecked;
             tk2in1.IsEnabled = true == chkNin1.IsChecked; 
