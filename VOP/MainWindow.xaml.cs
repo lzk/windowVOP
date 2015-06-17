@@ -1297,8 +1297,6 @@ namespace VOP
                 {              
                     ExpandSubpage();
                     m_isOnlineDetected = true;
-
-                    EnableTabItems(true);
                 }
             }
 
@@ -1396,6 +1394,8 @@ namespace VOP
 
                 Grid.SetColumnSpan(tabItem_Container, 3);
             }
+
+            EnableTabItems(true);
         }
 
         public void RemoveScanImage()
