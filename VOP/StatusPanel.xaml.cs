@@ -268,6 +268,7 @@ namespace VOP
                 case EnumStatus.CoverOpen                               : br = Brushes.Red   ; break;
                 case EnumStatus.NoTonerCartridge                        : br = Brushes.Red   ; break;
                 case EnumStatus.WasteTonerFull                          : br = Brushes.Orange; break;
+                case EnumStatus.PDLMemoryOver                          : br = Brushes.Red; break;
                 case EnumStatus.FWUpdate                                : br = Brushes.Black ; break;
                 case EnumStatus.OverHeat                                : br = Brushes.Orange; break;
                 case EnumStatus.PolygomotorOnTimeoutError               : br = Brushes.Red   ; break;

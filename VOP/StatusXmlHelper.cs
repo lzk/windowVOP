@@ -302,6 +302,7 @@ namespace VOP
                 case "CoverOpen": retStatus = EnumStatus.CoverOpen; break;
                 case "NoTonerCartridge": retStatus = EnumStatus.NoTonerCartridge; break;
                 case "WasteTonerFull": retStatus = EnumStatus.WasteTonerFull; break;
+                case "PDLMemoryOver": retStatus = EnumStatus.PDLMemoryOver; break;
                 case "FWUpdate": retStatus = EnumStatus.FWUpdate; break;
                 case "OverHeat": retStatus = EnumStatus.OverHeat; break;
                 case "PolygomotorOnTimeoutError": retStatus = EnumStatus.PolygomotorOnTimeoutError; break;

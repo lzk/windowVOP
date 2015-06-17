@@ -118,6 +118,7 @@
 #define        __CoverOpen                   0xC1
 #define        __NoTonerCartridge            0xC5
 #define        __WasteTonerFull              0xC6
+#define        __PDLMemoryOver               0xC2
 #define        __FWUpdate                    0xC7
 #define        __OverHeat                    0xC8
 #define        __PolygomotorOnTimeoutError   0xCD

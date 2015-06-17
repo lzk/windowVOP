@@ -263,4 +263,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Close">Close</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Open">Open</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Unsupported">The function is unsupported</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_PDL_Memory_Overflow">PDL Memory Overflow</sys:String>
 </ResourceDictionary>

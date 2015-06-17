@@ -63,6 +63,7 @@ namespace VOP
         CoverOpen                   = 0xC1,
         NoTonerCartridge            = 0xC5,
         WasteTonerFull              = 0xC6,
+        PDLMemoryOver              = 0xC2,
         FWUpdate                    = 0xC7,
         OverHeat                    = 0xC8,
         PolygomotorOnTimeoutError   = 0xCD,

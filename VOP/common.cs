@@ -172,6 +172,7 @@ namespace VOP
                     case EnumStatus.CoverOpen: errMsg = (string)_this.TryFindResource("ResStr_Cover_Open"); break;
                     case EnumStatus.NoTonerCartridge: errMsg = (string)_this.TryFindResource("ResStr_No_Toner_Cartridge"); break;
                     case EnumStatus.WasteTonerFull: errMsg = (string)_this.TryFindResource("ResStr_Please_Replace_Toner"); break;
+                    case EnumStatus.PDLMemoryOver: errMsg = (string)_this.TryFindResource("ResStr_PDL_Memory_Overflow"); break;
                     case EnumStatus.FWUpdate: errMsg = (string)_this.TryFindResource("ResStr_FW_Updating"); break;
                     case EnumStatus.OverHeat: errMsg = (string)_this.TryFindResource("ResStr_Overheat"); break;
                     case EnumStatus.PolygomotorOnTimeoutError:  errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "202"; break;
@@ -243,6 +244,7 @@ namespace VOP
                 case EnumStatus.CoverOpen                   : st = StatusDisplayType.Error; break;
                 case EnumStatus.NoTonerCartridge            : st = StatusDisplayType.Error; break;
                 case EnumStatus.WasteTonerFull              : st = StatusDisplayType.Ready; break;
+                case EnumStatus.PDLMemoryOver              : st = StatusDisplayType.Error; break;
                 case EnumStatus.FWUpdate                    : st = StatusDisplayType.Busy ; break;
                 case EnumStatus.OverHeat                    : st = StatusDisplayType.Busy ; break;
                 case EnumStatus.PolygomotorOnTimeoutError   : st = StatusDisplayType.Error; break;

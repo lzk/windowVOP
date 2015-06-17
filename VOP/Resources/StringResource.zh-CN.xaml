@@ -263,4 +263,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Close">关闭</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Open">开启</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Unsupported">功能不支持</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_PDL_Memory_Overflow">PDL內存溢出</sys:String>
 </ResourceDictionary>
