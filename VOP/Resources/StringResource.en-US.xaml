@@ -146,9 +146,9 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Brightness">Brightness</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Wi_Fi">Printer Wi-Fi</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Soft_AP">Soft AP</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_TCP_IP">TCP/IP</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_TCP_IP">Printer's IP Address</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Power_Save">Power Save</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_User_Config">User Config</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_User_Config">Advanced Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Modify_Password">Modify Password</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_About">About</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_IP_Type">IP Type</sys:String>
