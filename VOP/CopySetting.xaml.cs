@@ -45,11 +45,13 @@ namespace VOP
 	/// </summary>
 	public partial class CopySetting : Window
 	{
+        private SolidColorBrush m_brDisable = new SolidColorBrush();
+        private SolidColorBrush m_brEnable = new SolidColorBrush();
 
 #region Fields
         public EnumCopyScanMode    m_scanMode   = EnumCopyScanMode.Photo;
         public EnumPaperSizeInput  m_docSize    = EnumPaperSizeInput._A4;
-        public EnumPaperSizeOutput m_outputSize = EnumPaperSizeOutput._Letter;
+        private EnumPaperSizeOutput _outputSize = EnumPaperSizeOutput._Letter;
         public EnumCopyResln       m_dpi        = EnumCopyResln._300x300;
         public EnumMediaType       m_mediaType  = EnumMediaType.Plain;
 
@@ -65,9 +67,111 @@ namespace VOP
         private EnumNin1 m_preNin1 = EnumNin1._1up;
 
         public bool m_isIDCardCopy = false; // flag present is id card copy mode or not.
+
+        private bool m_disable4or9in1 = false; // Disable 4 or 9 in 1.
 #endregion
 
 #region Properties
+        public EnumPaperSizeOutput  m_outputSize
+        {
+            get
+            {
+                return _outputSize;
+            }
+
+            set
+            {
+                _outputSize = value;
+
+                switch ( value )
+                {
+                    case EnumPaperSizeOutput._Letter    : 
+                    case EnumPaperSizeOutput._A4        : 
+                        // All options enable.
+                        if ( false == m_isIDCardCopy )
+                        {
+                            Nin1Group.IsEnabled = true;
+
+                            if ( true == chkNin1.IsChecked )
+                            {
+                                rdbtn2.IsEnabled = true;
+                                rdbtn4.IsEnabled = true;
+                                rdbtn9.IsEnabled = true;
+
+                                tk2in1.IsEnabled = true; 
+                                tk4in1.IsEnabled = true; 
+                                tk9in1.IsEnabled = true; 
+
+                                tk2in1.Foreground = m_brEnable; 
+                                tk4in1.Foreground = m_brEnable; 
+                                tk9in1.Foreground = m_brEnable; 
+                            }
+                            else
+                            {
+                                rdbtn2.IsEnabled = false;
+                                rdbtn4.IsEnabled = false;
+                                rdbtn9.IsEnabled = false;
+
+                                tk2in1.IsEnabled = false; 
+                                tk4in1.IsEnabled = false; 
+                                tk9in1.IsEnabled = false; 
+
+                                tk2in1.Foreground = m_brDisable; 
+                                tk4in1.Foreground = m_brDisable; 
+                                tk9in1.Foreground = m_brDisable;
+                            }
+
+                            m_disable4or9in1 = false;
+                        }
+                        break;
+                    case EnumPaperSizeOutput._A6        : 
+                    case EnumPaperSizeOutput._B6        : 
+                        // All options disable.
+                        m_nin1 = EnumNin1._1up;
+                        Nin1Group.IsEnabled = false;
+                        break;
+                    case EnumPaperSizeOutput._A5        : 
+                    case EnumPaperSizeOutput._B5        : 
+                    case EnumPaperSizeOutput._Executive : 
+                    case EnumPaperSizeOutput._16K       : 
+                        // Only enable 2 in 1.
+                        if ( false == m_isIDCardCopy )
+                        {
+                            Nin1Group.IsEnabled = true;
+
+                            if ( EnumNin1._4up == m_preNin1 || EnumNin1._9up == m_preNin1 )
+                                m_preNin1 = EnumNin1._1up;
+
+                            m_disable4or9in1 = true;
+
+                            rdbtn4.IsEnabled = false;
+                            tk4in1.IsEnabled = false;
+                            rdbtn9.IsEnabled = false;
+                            tk9in1.IsEnabled = false;
+                            tk4in1.Foreground = m_brDisable; 
+                            tk9in1.Foreground = m_brDisable; 
+
+                            if ( true == chkNin1.IsChecked )
+                            {
+                                rdbtn2.IsEnabled = true;
+                                tk2in1.IsEnabled = true; 
+                                tk2in1.Foreground = m_brEnable; 
+                            }
+                            else
+                            {
+                                rdbtn2.IsEnabled = false;
+                                tk2in1.IsEnabled = false; 
+                                tk2in1.Foreground = m_brDisable;                            
+                            }
+
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
         private EnumNin1 _nin1 = EnumNin1._1up;
         public EnumNin1 m_nin1
         {
@@ -156,6 +260,20 @@ namespace VOP
 
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;
 			// Insert code required on object creation below this point.
+
+            Color c1 = new Color();
+            c1.A = 100;
+            c1.R = 14;
+            c1.B = 14;
+            c1.G = 14;
+            m_brDisable.Color = c1;
+
+            Color c2 = new Color();
+            c2.A = 255;
+            c2.R = 14;
+            c2.B = 14;
+            c2.G = 14;
+            m_brEnable.Color = c2;
 		}
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -238,11 +356,19 @@ namespace VOP
                 ScalingGroup.IsEnabled = EnumNin1._1up == m_nin1;
 
                 rdbtn2.IsEnabled = true; 
-                rdbtn4.IsEnabled = true; 
-                rdbtn9.IsEnabled = true;
                 tk2in1.IsEnabled = true;
-                tk4in1.IsEnabled = true;
-                tk9in1.IsEnabled = true;
+                tk2in1.Foreground = m_brEnable; 
+
+                if ( false == m_disable4or9in1 )
+                {
+                    rdbtn4.IsEnabled = true; 
+                    tk4in1.IsEnabled = true;
+                    tk9in1.IsEnabled = true;
+                    rdbtn9.IsEnabled = true;
+
+                    tk4in1.Foreground = m_brEnable; 
+                    tk9in1.Foreground = m_brEnable; 
+                }
             }
         }
 
@@ -260,6 +386,10 @@ namespace VOP
                 tk2in1.IsEnabled = false;
                 tk4in1.IsEnabled = false;
                 tk9in1.IsEnabled = false;
+
+                tk2in1.Foreground = m_brDisable; 
+                tk4in1.Foreground = m_brDisable; 
+                tk9in1.Foreground = m_brDisable;
             }
         }
 
@@ -684,16 +814,51 @@ namespace VOP
                 Nin1Group.IsEnabled = false;
                 //chkNin1.IsEnabled = false;
             }
+            else
+            {
+                if ( true == chkNin1.IsChecked )
+                {
+                    rdbtn2.IsEnabled = true;
+                    tk2in1.IsEnabled = true;
+                    tk2in1.Foreground = m_brEnable;
+
+                    if ( false == m_disable4or9in1 )
+                    {
+                        rdbtn4.IsEnabled = true;
+                        tk4in1.IsEnabled = true;
+                        rdbtn9.IsEnabled = true;
+                        tk9in1.IsEnabled = true;
+
+                        tk4in1.Foreground = m_brEnable; 
+                        tk9in1.Foreground = m_brEnable;
+                    }
+                    else
+                    {
+                        rdbtn4.IsEnabled = false;
+                        tk4in1.IsEnabled = false;
+                        rdbtn9.IsEnabled = false;
+                        tk9in1.IsEnabled = false;
+
+                        tk4in1.Foreground = m_brDisable; 
+                        tk9in1.Foreground = m_brDisable;
+                    }
+                }
+                else
+                {
+                    rdbtn2.IsEnabled = false;
+                    rdbtn4.IsEnabled = false;
+                    rdbtn9.IsEnabled = false;
+
+                    tk2in1.IsEnabled = false; 
+                    tk4in1.IsEnabled = false; 
+                    tk9in1.IsEnabled = false; 
+
+                    tk2in1.Foreground = m_brDisable; 
+                    tk4in1.Foreground = m_brDisable; 
+                    tk9in1.Foreground = m_brDisable; 
+                }
+            }
               
-
-            rdbtn2.IsEnabled = true == chkNin1.IsChecked;
-            tk2in1.IsEnabled = true == chkNin1.IsChecked; 
-
-            rdbtn4.IsEnabled = true == chkNin1.IsChecked;
-            tk4in1.IsEnabled = true == chkNin1.IsChecked; 
-
-            rdbtn9.IsEnabled = true == chkNin1.IsChecked;
-            tk9in1.IsEnabled = true == chkNin1.IsChecked; 
         }
 
         private void OnScalingValidationHasError(object sender, RoutedPropertyChangedEventArgs<bool> e)

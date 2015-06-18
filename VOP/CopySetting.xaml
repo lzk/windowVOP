@@ -27,14 +27,6 @@
                 <ResourceDictionary Source="Controls/CustomRadioButtonEx.xaml"/>
                 <ResourceDictionary Source="Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="TextBlockColorChange" TargetType="{x:Type TextBlock}">
-                <Setter Property="Foreground" Value="#FF7A7A7A"/>
-                <Style.Triggers>
-                    <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Foreground" Value="#7F6D6D6D"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -174,9 +166,9 @@
                         <CheckBox x:Name="chkNin1" Grid.Row="1" Template="{StaticResource customCheckBox}" IsChecked="true" VerticalAlignment="Center" Content="{StaticResource ResStr_N_in_1_Copy}"
                     HorizontalAlignment="Center" Checked="chkNin1_Checked" Unchecked="chkNin1_Unchecked" Height="24" Margin="0,30,0,0" />
 
-                        <TextBlock Name="tk2in1" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_2_in_1}" Height="16" Style="{StaticResource TextBlockColorChange}"/>
-                        <TextBlock Name="tk4in1" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_4_in_1}" Height="16" Style="{StaticResource TextBlockColorChange}"/>
-                        <TextBlock Name="tk9in1" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_9_in_1}" Height="16" Style="{StaticResource TextBlockColorChange}"/>
+                        <TextBlock Name="tk2in1" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_2_in_1}" Height="16" />
+                        <TextBlock Name="tk4in1" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_4_in_1}" Height="16" />
+                        <TextBlock Name="tk9in1" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_9_in_1}" Height="16" />
 
                         <RadioButton GroupName="Goup3"                              
 					        Checked="RdbtnChecked"
