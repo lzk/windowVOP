@@ -27,5 +27,11 @@ namespace VOP
         {
             this.DragMove();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            string strVersionInfo =(string)this.FindResource("ResStr_VirtualOperationPanel") + String.Format(" {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            tbkVersionInfo.Text = strVersionInfo;
+        }
     }
 }

@@ -8,7 +8,8 @@
         ShowInTaskbar="False" 
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" 
-        Style="{StaticResource for_noresize_window}">
+        Style="{StaticResource for_noresize_window}"
+        Loaded="Window_Loaded">
     <Viewbox Stretch="Fill">
         <Grid Height="250" Width="492">
             <Grid>
@@ -47,10 +48,10 @@
                         </Grid.RowDefinitions>
                         
                         <Image Source="Images\LogoForAbout.png" Stretch="None" HorizontalAlignment="Left"></Image>
-                        <TextBlock Text="联想打印1.1" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Name="tbkVersionInfo" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
                         <Grid  Grid.Row="3">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Copyright(C) (2014-2015) Lenovo (Beijing) Limited" TextTrimming="WordEllipsis"></TextBlock>
+                                <TextBlock Text="Copyright(C) (2015) Lenovo (Beijing) Limited" TextWrapping="Wrap"></TextBlock>
                                 <TextBlock Text="all right reserved."></TextBlock>
                             </StackPanel>
                         </Grid>
