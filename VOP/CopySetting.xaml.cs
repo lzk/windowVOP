@@ -183,69 +183,7 @@ namespace VOP
             set
             {
                 _nin1 = value;
-
-                // Make sure the cboOutputSize is ready.
-                if ( m_isWindowLoaded && false == m_isIDCardCopy )
-                {
-                    bool isNeedReselect = false;
-                    foreach ( ComboBoxItem obj in cboOutputSize.Items )
-                    {
-                        if ( null != obj.DataContext )
-                        {
-                            EnumPaperSizeOutput s = (EnumPaperSizeOutput)obj.DataContext;
-
-                            switch ( s )
-                            {
-                                case EnumPaperSizeOutput._Letter    :
-                                    obj.IsEnabled = true;
-                                    break;
-                                case EnumPaperSizeOutput._A4        :
-                                    obj.IsEnabled = true;
-                                    break;
-                                case EnumPaperSizeOutput._A5        :
-                                    obj.IsEnabled = (_nin1 == EnumNin1._1up || _nin1 == EnumNin1._2up);
-                                    break;
-                                case EnumPaperSizeOutput._A6        :
-                                    obj.IsEnabled = (_nin1 == EnumNin1._1up);
-                                    break;
-                                case EnumPaperSizeOutput._B5        :
-                                    obj.IsEnabled = (_nin1 == EnumNin1._1up || _nin1 == EnumNin1._2up);
-                                    break;
-                                case EnumPaperSizeOutput._B6        :
-                                    obj.IsEnabled = (_nin1 == EnumNin1._1up);
-                                    break;
-                                case EnumPaperSizeOutput._Executive :
-                                    obj.IsEnabled = (_nin1 == EnumNin1._1up || _nin1 == EnumNin1._2up);
-                                    break;
-                                case EnumPaperSizeOutput._16K       :
-                                    obj.IsEnabled = (_nin1 == EnumNin1._1up || _nin1 == EnumNin1._2up);
-                                    break;
-                                default:
-                                    obj.IsEnabled = true;
-                                    break;
-                            }
-
-                            if ( true == obj.IsSelected && false == obj.IsEnabled )
-                            {
-                                isNeedReselect = true;
-                            }
-                        }
-                    }
-
-                    if ( isNeedReselect )
-                    {
-                        bool bIsMetrice = dll.IsMetricCountry();
-                        foreach ( ComboBoxItem obj in cboOutputSize.Items )
-                        {
-                            if ( bIsMetrice && EnumPaperSizeOutput._A4 == (EnumPaperSizeOutput)obj.DataContext 
-                                    || false == bIsMetrice && EnumPaperSizeOutput._Letter == (EnumPaperSizeOutput)obj.DataContext )
-                            {
-                                obj.IsSelected = true;
-                                break;
-                            }
-                        }
-                    }
-                }
+                SetOutputSizeViaNin1();
             }
         }
 
@@ -474,6 +412,8 @@ namespace VOP
             m_preNin1 = m_nin1;
 
             m_isWindowLoaded = true;
+
+            SetOutputSizeViaNin1();
             spinnerScaling.Value = nOriginalScaling;
 
             if ( m_isIDCardCopy )
@@ -987,6 +927,73 @@ namespace VOP
                     m_preNin1 = EnumNin1._9up;
                     m_nin1 = EnumNin1._9up;
                     ScalingGroup.IsEnabled = EnumNin1._1up == m_nin1;
+                }
+            }
+        }
+
+        // Disable or enable output size combobox according Nin1.
+        private void SetOutputSizeViaNin1()
+        {
+            // Make sure the cboOutputSize is ready.
+            if ( m_isWindowLoaded && false == m_isIDCardCopy )
+            {
+                bool isNeedReselect = false;
+                foreach ( ComboBoxItem obj in cboOutputSize.Items )
+                {
+                    if ( null != obj.DataContext )
+                    {
+                        EnumPaperSizeOutput s = (EnumPaperSizeOutput)obj.DataContext;
+
+                        switch ( s )
+                        {
+                            case EnumPaperSizeOutput._Letter    :
+                                obj.IsEnabled = true;
+                                break;
+                            case EnumPaperSizeOutput._A4        :
+                                obj.IsEnabled = true;
+                                break;
+                            case EnumPaperSizeOutput._A5        :
+                                obj.IsEnabled = (_nin1 == EnumNin1._1up || _nin1 == EnumNin1._2up);
+                                break;
+                            case EnumPaperSizeOutput._A6        :
+                                obj.IsEnabled = (_nin1 == EnumNin1._1up);
+                                break;
+                            case EnumPaperSizeOutput._B5        :
+                                obj.IsEnabled = (_nin1 == EnumNin1._1up || _nin1 == EnumNin1._2up);
+                                break;
+                            case EnumPaperSizeOutput._B6        :
+                                obj.IsEnabled = (_nin1 == EnumNin1._1up);
+                                break;
+                            case EnumPaperSizeOutput._Executive :
+                                obj.IsEnabled = (_nin1 == EnumNin1._1up || _nin1 == EnumNin1._2up);
+                                break;
+                            case EnumPaperSizeOutput._16K       :
+                                obj.IsEnabled = (_nin1 == EnumNin1._1up || _nin1 == EnumNin1._2up);
+                                break;
+                            default:
+                                obj.IsEnabled = true;
+                                break;
+                        }
+
+                        if ( true == obj.IsSelected && false == obj.IsEnabled )
+                        {
+                            isNeedReselect = true;
+                        }
+                    }
+                }
+
+                if ( isNeedReselect )
+                {
+                    bool bIsMetrice = dll.IsMetricCountry();
+                    foreach ( ComboBoxItem obj in cboOutputSize.Items )
+                    {
+                        if ( bIsMetrice && EnumPaperSizeOutput._A4 == (EnumPaperSizeOutput)obj.DataContext 
+                                || false == bIsMetrice && EnumPaperSizeOutput._Letter == (EnumPaperSizeOutput)obj.DataContext )
+                        {
+                            obj.IsSelected = true;
+                            break;
+                        }
+                    }
                 }
             }
         }
