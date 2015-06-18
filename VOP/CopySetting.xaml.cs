@@ -235,7 +235,7 @@ namespace VOP
                     m_nin1 = EnumNin1._2up;
 
                 InitNin1();
-                spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
+                ScalingGroup.IsEnabled = EnumNin1._1up == m_nin1;
 
                 rdbtn2.IsEnabled = true; 
                 rdbtn4.IsEnabled = true; 
@@ -251,7 +251,7 @@ namespace VOP
             if ( m_isWindowLoaded )
             {
                 m_nin1 = EnumNin1._1up;
-                spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
+                ScalingGroup.IsEnabled = EnumNin1._1up == m_nin1;
                 InitNin1();
 
                 rdbtn2.IsEnabled = false; 
@@ -809,19 +809,19 @@ namespace VOP
                 {
                     m_preNin1 = EnumNin1._2up;
                     m_nin1 = EnumNin1._2up;
-                    spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
+                    ScalingGroup.IsEnabled = EnumNin1._1up == m_nin1;
                 }
                 else if ( true == rdbtn4.IsChecked ) 
                 {
                     m_preNin1 = EnumNin1._4up;
                     m_nin1 = EnumNin1._4up;
-                    spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
+                    ScalingGroup.IsEnabled = EnumNin1._1up == m_nin1;
                 }
                 else if ( true == rdbtn9.IsChecked ) 
                 {
                     m_preNin1 = EnumNin1._9up;
                     m_nin1 = EnumNin1._9up;
-                    spinnerScaling.IsEnabled = EnumNin1._1up == m_nin1;
+                    ScalingGroup.IsEnabled = EnumNin1._1up == m_nin1;
                 }
             }
         }

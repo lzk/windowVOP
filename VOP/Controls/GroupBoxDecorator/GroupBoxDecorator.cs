@@ -73,7 +73,7 @@ namespace VOP.Controls
                         textBlock.Foreground = brush;
                     }
                 }
-                else if(childVisual is ComboBox)
+                else if (childVisual is ComboBox)
                 {
                     ComboBox combobox = childVisual as ComboBox;
                     if (enable)
