@@ -38,9 +38,13 @@ namespace VOP
 
         void InitFontSize()
         {
-            if (App.LangId == 0x409) // en-US
+            switch(App.LangId)
             {
-                ImageButton.FontSize = FileButton.FontSize = IdCardButton.FontSize = 10.0;
+                case 0x804:
+                    break;
+                default:
+                    ImageButton.FontSize = FileButton.FontSize = IdCardButton.FontSize = 10.0;
+                    break;
             }
         }
 
