@@ -7,7 +7,8 @@
              xmlns:local="clr-namespace:VOP.Controls"
              xmlns:mycontrol="clr-namespace:VOP"
              Loaded="OnLoadWifiView"
-             d:DesignHeight="500" d:DesignWidth="300">
+             d:DesignHeight="500" d:DesignWidth="300"
+             IsEnabledChanged="UserControl_IsEnabledChanged">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -63,7 +64,7 @@
                             <ColumnDefinition Width="10"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="WLAN" FontWeight="Bold" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="WLAN" Style="{StaticResource ColorChangeTextBlock}" FontWeight="Bold" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
                         <CheckBox Name="chkWifi" Click="OnClickWifiCheckBox" IsChecked="True" Grid.Row="1" Grid.Column="3" Template="{StaticResource switchBox}" Height="22" Width="42" Checked="OnchkWifiChecked" Unchecked="OnchkWifiUnchecked"></CheckBox>
                         <local:ButtonEx x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="1" Grid.Column="5" Width="100" Content="{StaticResource ResStr_Manual_Wi_Fi}" HorizontalContentAlignment="Center" HorizontalAlignment="Right"></local:ButtonEx>
                     </Grid>
@@ -212,7 +213,7 @@
                                     <RowDefinition Height="*"></RowDefinition>
                                     <RowDefinition Height="2"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Column="0" Text="{StaticResource ResStr_WLAN_Network}" FontSize="16"></TextBlock>
+                                <TextBlock Grid.Column="0" Text="{StaticResource ResStr_WLAN_Network}" Style="{StaticResource ColorChangeTextBlock}" FontSize="16"></TextBlock>
                                 <mycontrol:RefreshButton 
                                         Grid.Column="1" 
                                         VerticalAlignment="Bottom"
@@ -221,10 +222,10 @@
                                         Height="17"
                                         Margin="0,0,0, 5"
 										ImageDisable="Images\Refresh_Disable.png"
-										ImageEnable="Images\Refresh_Enable.png" 
+										ImageEnable="Images\Status_RefreshEnable.tif"
                                         Button.Click="RefreshButton_MouseLeftButtonDown">
                                 </mycontrol:RefreshButton>
-                                <Image Source="Images/GreenLine.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Stretch="Fill"></Image>
+                                <Image Name="imgLine" Source="Images/GreenLine.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Stretch="Fill"></Image>
                             </Grid>     
                             <StackPanel Name="wifilist">
                                 

@@ -599,8 +599,23 @@ namespace VOP
         public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
         {
             m_currentStatus = st;
-            btnConnect.IsEnabled = (false == common.IsOffline(m_currentStatus));
-            autoConnect.IsEnabled = (false == common.IsOffline(m_currentStatus)); 
+            this.IsEnabled = (false == common.IsOffline(m_currentStatus));
+         // autoConnect.IsEnabled = (false == common.IsOffline(m_currentStatus)); 
+        }
+
+        private void UserControl_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (true == (bool)e.NewValue)
+                    imgLine.Source = new BitmapImage(new Uri("Images\\GreenLine.png", UriKind.RelativeOrAbsolute));
+                else
+                    imgLine.Source = new BitmapImage(new Uri("Images\\Line.png", UriKind.RelativeOrAbsolute));
+            }
+            catch
+            {
+
+            }
         }
     }
 }
