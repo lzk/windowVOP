@@ -94,6 +94,8 @@ namespace VOP
                 dll.SetPrinterSettingsInitData();
                 dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)CurrentPrintType);
             }
+
+            ResetToDefaultValue();
         }
         
         public void ResetToDefaultValue()
