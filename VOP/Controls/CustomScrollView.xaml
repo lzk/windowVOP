@@ -147,59 +147,72 @@
     <Setter.Value>
       <ControlTemplate TargetType="{x:Type Thumb}">
 
-          <Grid>
+                    <Grid Height="Auto" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4.5" />
+                            <ColumnDefinition Width="9*" />
+                            <ColumnDefinition Width="4.5" />
+                        </Grid.ColumnDefinitions>
+                        <Path Width="4.5" Height="11" Grid.Column="0" 
+                              Data="M100,160 C100,160 90,160 90,170 90,180 100,180 100,180"
+                              Stretch="Fill" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <Path.Fill>
+                                <RadialGradientBrush Center="0.175,1.361" GradientOrigin="-0.865,1.368" RadiusY="0.503" RadiusX="0.779">
+                                    <RadialGradientBrush.RelativeTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform CenterY="0.932" CenterX="0.504" ScaleY="1" ScaleX="1"/>
+                                            <SkewTransform AngleY="0" AngleX="0" CenterY="0.932" CenterX="0.504"/>
+                                            <RotateTransform Angle="-180.207" CenterY="0.932" CenterX="0.504"/>
+                                            <TranslateTransform Y="0"/>
+                                        </TransformGroup>
+                                    </RadialGradientBrush.RelativeTransform>
+                                    <GradientStop Color="#FFE5E5E5" Offset="0"/>
+                                    <GradientStop Color="#FFA0A0A0" Offset="1"/>
+                                    <GradientStop Color="#FFA5A6A6" Offset="0.885"/>
+                                    <GradientStop Color="#FFD8DBDA" Offset="0.624"/>
+                                    <GradientStop Color="#FFE8E7E8" Offset="0.206"/>
+                                </RadialGradientBrush>
+                            </Path.Fill>
+                        </Path>
 
-			<Ellipse HorizontalAlignment="Left" 
-                Margin="2,0"
-				Width="16" 
-                Height="{TemplateBinding ActualHeight}"
-				VerticalAlignment="Center"
-      >
-
-				<Ellipse.Fill>
-					<RadialGradientBrush Center="0.5,0.5">
-						<GradientStop Color="#FFABABAB" Offset="0.75"/>
-                        <GradientStop Color="#ffd4d4d4" />
-					</RadialGradientBrush>
-				</Ellipse.Fill>
-			</Ellipse>
-
-			<Ellipse HorizontalAlignment="Right" 
-                Margin="2,0"
-				Width="16" 
-                Height="{TemplateBinding ActualHeight}"
-				VerticalAlignment="Center"
-      >
-
-				<Ellipse.Fill>
-					<RadialGradientBrush Center="0.5,0.5">
-						<GradientStop Color="#FFABABAB" Offset="0.75"/>
-                        <GradientStop Color="#ffd4d4d4" />
-					</RadialGradientBrush>
-				</Ellipse.Fill>
-			</Ellipse>
-
-			<Rectangle Margin="10,0">
-
-				<Rectangle.Fill>
-					<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-						<LinearGradientBrush.GradientStops>
-							<GradientStopCollection>
-								<GradientStop Color="#ffababab" Offset="0.0" />
-								<GradientStop Color="#ffd4d4d4" Offset="0.5" />
-								<GradientStop Color="#ffababab" Offset="1.0" />
-							</GradientStopCollection>
-						</LinearGradientBrush.GradientStops>
-					</LinearGradientBrush>
-				</Rectangle.Fill>
-
-			</Rectangle>
-          </Grid>
+                        <Rectangle Grid.Column="1" Stretch="Fill">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="0,1" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
+                                    <GradientStop Color="#FFA1A1A1" Offset="0"/>
+                                    <GradientStop Color="#FFA3A4A4" Offset="1"/>
+                                    <GradientStop Color="#FFCDCFCF" Offset="0.831"/>
+                                    <GradientStop Color="#FFE2E3E3" Offset="0.558"/>
+                                    <GradientStop Color="#FFD7DAD9" Offset="0.229"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Path Width="4.5" Height="11" Grid.Column="2" 
+                              Data="M100,185 C100,185 110,185 110,195 110,205 100,205 100,205"
+                              Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <Path.Fill>
+                                <RadialGradientBrush Center="0.762,1.375" GradientOrigin="1.678,1.375" RadiusY="0.503" RadiusX="0.779">
+                                    <RadialGradientBrush.RelativeTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform CenterY="0.932" CenterX="0.504" ScaleY="1" ScaleX="1"/>
+                                            <SkewTransform AngleY="0" AngleX="0" CenterY="0.932" CenterX="0.504"/>
+                                            <RotateTransform Angle="-180.207" CenterY="0.932" CenterX="0.504"/>
+                                            <TranslateTransform Y="0"/>
+                                        </TransformGroup>
+                                    </RadialGradientBrush.RelativeTransform>
+                                    <GradientStop Color="#FFE5E5E5" Offset="0"/>
+                                    <GradientStop Color="#FFA0A0A0" Offset="1"/>
+                                    <GradientStop Color="#FFA5A6A6" Offset="0.885"/>
+                                    <GradientStop Color="#FFD8DBDA" Offset="0.624"/>
+                                    <GradientStop Color="#FFE8E7E8" Offset="0.206"/>
+                                </RadialGradientBrush>
+                            </Path.Fill>
+                        </Path>
+                    </Grid>
 
 
 
 
-      </ControlTemplate>
+                </ControlTemplate>
     </Setter.Value>
   </Setter>
 </Style>
@@ -219,66 +232,67 @@
   <Setter Property="Template">
     <Setter.Value>
       <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Grid Height="Auto" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="4.5" />
+                            <RowDefinition Height="9*" />
+                            <RowDefinition Height="4.5" />
+                        </Grid.RowDefinitions>
+                        <Path Height="4.5" Width="11" Grid.Row="0" 
+                              Data="M599.98763,199.02381 C599.98763,199.02381 599.50007,188.70539 619.50007,188.70539 639.50007,188.70539 639.01223,199.0238 639.01223,199.0238" 
+                              Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                            <Path.Fill>
+                                <RadialGradientBrush Center="0.504,0.932" GradientOrigin="0.504,1.265" RadiusY="0.96" RadiusX="0.492">
+                                    <GradientStop Color="#FFE5E5E5" Offset="0"/>
+                                    <GradientStop Color="#FFA0A0A0" Offset="1"/>
+                                    <GradientStop Color="#FFA5A6A6" Offset="0.903"/>
+                                    <GradientStop Color="#FFD8DBDA" Offset="0.576"/>
+                                    <GradientStop Color="#FFE8E7E8" Offset="0.242"/>
+                                </RadialGradientBrush>
+                            </Path.Fill>
+                        </Path>
+                     
+                        <Rectangle Grid.Row="1" Stretch="Fill">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1,0" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
+                                    <GradientStop Color="#FFA1A1A1" Offset="0"/>
+                                    <GradientStop Color="#FFA3A4A4" Offset="1"/>
+                                    <GradientStop Color="#FFCDCFCF" Offset="0.831"/>
+                                    <GradientStop Color="#FFE2E3E3" Offset="0.558"/>
+                                    <GradientStop Color="#FFD7DAD9" Offset="0.229"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Path Height="4.5" Width="11" Grid.Row="2" Data="M600,205 C600,205 600.45341,215.71339 620.45341,215.71339 640.45341,215.71339 640,205 640,205" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <Path.Fill>
+                                <RadialGradientBrush Center="0.504,1.832" GradientOrigin="0.504,2.165" RadiusY="0.96" RadiusX="0.492">
+                                    <RadialGradientBrush.RelativeTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform CenterY="0.932" CenterX="0.504" ScaleY="1" ScaleX="1"/>
+                                            <SkewTransform AngleY="0" AngleX="0" CenterY="0.932" CenterX="0.504"/>
+                                            <RotateTransform Angle="-180.207" CenterY="0.932" CenterX="0.504"/>
+                                            <TranslateTransform Y="0"/>
+                                        </TransformGroup>
+                                    </RadialGradientBrush.RelativeTransform>
+                                    <GradientStop Color="#FFE5E5E5" Offset="0"/>
+                                    <GradientStop Color="#FFA0A0A0" Offset="1"/>
+                                    <GradientStop Color="#FFA5A6A6" Offset="0.903"/>
+                                    <GradientStop Color="#FFD8DBDA" Offset="0.576"/>
+                                    <GradientStop Color="#FFE8E7E8" Offset="0.242"/>
+                                </RadialGradientBrush>
+                            </Path.Fill>
+                        </Path>
+                    </Grid>
 
-          <Grid>
 
-			<Ellipse HorizontalAlignment="Center" 
-                Margin="0,2"
-				Height="16" 
-                Width="{TemplateBinding ActualWidth}"
-				VerticalAlignment="Bottom"
-      >
-
-				<Ellipse.Fill>
-					<RadialGradientBrush Center="0.5,0.5">
-						<GradientStop Color="#FFABABAB" Offset="0.75"/>
-                        <GradientStop Color="#ffd4d4d4" />
-					</RadialGradientBrush>
-				</Ellipse.Fill>
-			</Ellipse>
-
-			<Ellipse HorizontalAlignment="Center" 
-                Margin="0,2"
-				Height="16" 
-                Width="{TemplateBinding ActualWidth}"
-				VerticalAlignment="Top"
-      >
-
-				<Ellipse.Fill>
-					<RadialGradientBrush Center="0.5,0.5">
-						<GradientStop Color="#FFABABAB" Offset="0.75"/>
-                        <GradientStop Color="#ffd4d4d4" />
-					</RadialGradientBrush>
-				</Ellipse.Fill>
-			</Ellipse>
-
-			<Rectangle Margin="0,10">
-
-				<Rectangle.Fill>
-					<LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-						<LinearGradientBrush.GradientStops>
-							<GradientStopCollection>
-								<GradientStop Color="#ffababab" Offset="0.0" />
-								<GradientStop Color="#ffd4d4d4" Offset="0.5" />
-								<GradientStop Color="#ffababab" Offset="1.0" />
-							</GradientStopCollection>
-						</LinearGradientBrush.GradientStops>
-					</LinearGradientBrush>
-				</Rectangle.Fill>
-
-			</Rectangle>
-          </Grid>
-
-
-
-
-      </ControlTemplate>
+                </ControlTemplate>
     </Setter.Value>
   </Setter>
 </Style>
 
 <ControlTemplate x:Key="VerticalScrollBar"
                  TargetType="{x:Type ScrollBar}">
+    
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition MaxHeight="18" />
@@ -342,7 +356,7 @@
       </Track.DecreaseRepeatButton>
       <Track.Thumb>
         <Thumb Style="{StaticResource ScrollBarThumbHorizontal}"
-               Margin="0,1,0,1">
+               Margin="0,2,0,2">
 
           <Thumb.BorderBrush>
 
