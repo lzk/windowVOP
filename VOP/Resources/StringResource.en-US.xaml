@@ -233,10 +233,10 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_1">Setting successfully, the parameters are valid after restart the machine.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_2">The password must be 5/13 ASCII characters or 10/26 hex characters, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_3">The password must be 8 to 63 ASCII characters or 64 hex characters, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_4">Please enter the phone number.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_4">Please enter your mobile number</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_5">Verification code sent successfully.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_6">Verification code sent failed.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_7">Mobile phone number is error, please confirm and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_6">Failed to send verification code.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_7">Invalid mobile number. Please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_8">Verification code's format is error, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_9">The SSID must be 1 to 32 characters, please confirm and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_10">The SSID must be 1 to 32 characters, please confirm and enter again.</sys:String>
@@ -264,4 +264,13 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Open">Open</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Unsupported">The function is unsupported</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_PDL_Memory_Overflow">PDL Memory Overflow</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Invalid_verification_code_Please_check_and_enter_again">Invalid verification code. Please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Tag1">联想小新</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Tag2">全球首款互联网打印机</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Tag3">打印 从此不同</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_USB_connection_troubleshooting">USB connection troubleshooting</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_WiFi_connection_troubleshooting">Wi-Fi connection troubleshooting</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Return">Return</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Prompt">Prompt</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit_the_Lenovo_Printer">Do you want to exit the Lenovo Printer?</sys:String>
 </ResourceDictionary>
