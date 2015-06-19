@@ -108,14 +108,14 @@
 
             <mycontrol:LogonButton  
                 x:Name="btnLogin"
-                Grid.Row="1" 
-                Margin="0,23,0,0"
+                Grid.Row="1"                 
                 btnClick="NvgBtnClick" 
                 IsLogon="False"
+                Margin="0,15,0,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top" 
-                Height="39" 
-                Width="34"/>
+                Height="45" 
+                Width="45"/>
 
             <Image x:Name="imgLEDRed" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Red.png" Margin="8,24,0,0"/>
             <Image x:Name="imgLEDGray" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Gray.png" Margin="8,24,0,0"/>
