@@ -104,6 +104,9 @@
       <DependentUpon>ScrollTextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MessageBoxEx\MessageBoxEx.cs" />
+    <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_YesNo_NoIcon.xaml.cs">
+      <DependentUpon>MessageBoxEx_YesNo_NoIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PopupEx.cs" />
     <Compile Include="Controls\TextBoxValidation\IPAddressValidationRule.cs" />
     <Compile Include="TroubleshootingPage.cs" />
@@ -235,6 +238,10 @@
     <Page Include="Controls\ImagePreview\ScrollTextControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_YesNo_NoIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="TroubleshootingPage.xaml">
       <Generator>MSBuild:Compile</Generator>

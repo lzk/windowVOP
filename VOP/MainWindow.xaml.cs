@@ -1439,6 +1439,20 @@ namespace VOP
                     e.Cancel = true;
                 }
             }
+            else
+            {
+                if (VOP.Controls.MessageBoxExResult.Yes !=
+                        VOP.Controls.MessageBoxEx.Show(
+                                                    VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
+                                                    this,
+                                                    "是否退出联想打印？",
+                                                    "提示"
+                                                    )
+                    )
+                {
+                    e.Cancel = true;
+                }
+            }
 
             if ( false == e.Cancel )
                 MainWindowExitPoint();
