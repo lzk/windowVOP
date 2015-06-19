@@ -14,7 +14,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Warning">Warning</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Error">Error</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Offline">Offline</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Toner">Toner:</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Toner">Toner</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printing">Printing</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_WarmingUp">WarmingUp</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Cancelling">Print Cancelling</sys:String>
