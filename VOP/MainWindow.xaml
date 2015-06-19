@@ -76,7 +76,7 @@
             </Setter>
         </Style>
 
-        <SolidColorBrush x:Key="lineColor_2" Color="#838383" />        
+        <SolidColorBrush x:Key="lineColor" Color="#838383" />        
     </Window.Resources>
 
     <Viewbox Stretch="Fill">
@@ -163,16 +163,16 @@
                         <Button x:Name="btnSetting" Click="NvgBtnClick" Opacity="0.0" Style="{StaticResource tabItem_btnStyle}"/>
                     </Grid>
 
-                    <Grid Name="tabItem_Container" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="7" Margin="0,0,0,335" Grid.RowSpan="2">
+                    <Grid Name="tabItem_Container" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="7" Margin="-1,0,-1,335" Grid.RowSpan="2">
                         <Rectangle  RadiusX="7" RadiusY="7" Fill="Black" />
                         <Rectangle RadiusX="7" RadiusY="7" Fill="White" Margin="1,1,1,3"/>
                     </Grid>
 
-                    <Rectangle Name="line1" Grid.Column="2" Grid.Row="1" Fill="#FF838383" />
-                    <Rectangle Name="line2" Grid.Column="4" Grid.Row="1" Fill="{StaticResource lineColor_2}" />
-                    <Rectangle Name="line3" Grid.Column="6" Grid.Row="1" Fill="{StaticResource lineColor_2}" />
+                    <Rectangle Name="line1" Grid.Column="2" Grid.Row="1" Fill="{StaticResource lineColor}" />
+                    <Rectangle Name="line2" Grid.Column="4" Grid.Row="1" Fill="{StaticResource lineColor}" />
+                    <Rectangle Name="line3" Grid.Column="6" Grid.Row="1" Fill="{StaticResource lineColor}" />
 
-                    <mycontrol:customTabItem x:Name="tabItem_Print"   Grid.Column="1" Grid.Row="1" Margin="1,1,0,0"                            
+                    <mycontrol:customTabItem x:Name="tabItem_Print"   Grid.Column="1" Grid.Row="1" Margin="0,1,0,0"                            
                                              IsSelect="False" 
                                              FontSize="16.99" 
                                              Text="{StaticResource ResStr_ExtraAdd_Print}"
@@ -187,7 +187,7 @@
                                              FontSize="16.99" 
                                              Text="{StaticResource ResStr_ExtraAdd_Scan}"
                                              tabItemStyle="Middle"/>
-                    <mycontrol:customTabItem x:Name="tabItem_Setting"   Grid.Column="7" Grid.Row="1" Margin="0,1,1,0"                                 
+                    <mycontrol:customTabItem x:Name="tabItem_Setting"   Grid.Column="7" Grid.Row="1" Margin="0,1,0,0"                                 
                                              IsSelect="False" 
                                              FontSize="16.99" 
                                              Text="{StaticResource ResStr_Setting}"
