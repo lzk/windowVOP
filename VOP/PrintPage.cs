@@ -91,6 +91,7 @@ namespace VOP
             
             if (FileSelectionPage.IsInitPrintSettingPage)
             {
+                dll.InitPrinterData(m_MainWin.statusPanelPage.m_selectedPrinter);
                 dll.SetPrinterSettingsInitData();
                 dll.SetPrinterInfo(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)CurrentPrintType);
             }

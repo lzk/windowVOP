@@ -2005,6 +2005,8 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 			if (GetPrinter(phandle, 2, (LPBYTE)printer_info, dmsize, &dmsize))
 			{
 				PCLDEVMODE inputDevmode;
+				PCLDEVMODE backupDevmode;
+				backupDevmode = *(LPPCLDEVMODE)printer_info->pDevMode;
 				if (isOpenDocumentProperties)
 				{
 					inputDevmode = getDocumentPropertiesData;					
@@ -2194,6 +2196,13 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 						isOpenDocumentProperties = true;
 
 //						SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
+					}
+					else
+					{
+						*((LPPCLDEVMODE)printer_info->pDevMode) = backupDevmode;
+//						getDocumentPropertiesData = backupDevmode;
+//						isOpenDocumentProperties = true;
+						SetPrinter(phandle, 2, (LPBYTE)printer_info, 0);
 					}
 				}
 			}
