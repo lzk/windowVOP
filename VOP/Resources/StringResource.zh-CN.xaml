@@ -183,8 +183,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_1_30_Minute">（1-30分钟）</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_SSID_2">网络标识</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Enable">使用</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Leading_Edge_Registration">顶端偏移量(mm)</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Side_to_side_Registration">左端偏移量(mm)</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Leading_Edge_Registration">顶端偏移量(毫米)</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Side_to_side_Registration">左端偏移量(毫米)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Image_Density">画像浓度</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Low_Hunidity_Mode">低湿度模式</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_of_Plate_Control_Mode">防止背面脏污模式</sys:String>

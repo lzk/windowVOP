@@ -183,8 +183,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_1_30_Minute">(1-30 Minutes)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_SSID_2">SSID</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Enable">Enable</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Leading_Edge_Registration">Top Offset Adjust</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Side_to_side_Registration">Side-to-side Adjust</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Leading_Edge_Registration">Top Offset Adjust(mm)</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Side_to_side_Registration">Side-to-side Adjust(mm)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Image_Density">Image Density</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Low_Hunidity_Mode">Low Humidity Mode</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_of_Plate_Control_Mode">Plate Control Mode</sys:String>
