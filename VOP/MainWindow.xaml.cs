@@ -1445,8 +1445,8 @@ namespace VOP
                         VOP.Controls.MessageBoxEx.Show(
                                                     VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
                                                     this,
-                                                    "是否退出联想打印？",
-                                                    "提示"
+                                                    (string)this.TryFindResource("ResStr_Do_you_want_to_exit_the_Lenovo_Printer"),
+                                                    (string)this.TryFindResource("ResStr_Prompt")
                                                     )
                     )
                 {

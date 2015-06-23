@@ -56,21 +56,21 @@
                            ImagePath="Images/TroubleshootingWiFi.png"
                            PreviewMouseLeftButtonDown="OnClickImageButton" />
         
-        <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,10,0,0" FontSize="16">
+        <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,10,0,0" FontSize="16" >
             <Hyperlink Name="UsbLink"
                 Style="{StaticResource HyperlinkStyle}"
                 RequestNavigate="Hyperlink_RequestNavigate" 
                 NavigateUri="">
-                <TextBlock Text="USB连接故障排除"/>
+                <TextBlock Text="{StaticResource ResStr_USB_connection_troubleshooting}" TextWrapping="Wrap"/>
             </Hyperlink>
         </TextBlock>
 
-        <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Margin="-30,10,0,0" FontSize="16">
+        <TextBlock Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Margin="-30,10,0,0" FontSize="16" >
             <Hyperlink Name="WiFilink"
                 Style="{StaticResource HyperlinkStyle}"
                 RequestNavigate="Hyperlink_RequestNavigate" 
                 NavigateUri="">
-                <TextBlock Text="Wi-Fi连接故障排除"/>
+                <TextBlock Text="{StaticResource ResStr_WiFi_connection_troubleshooting}" TextWrapping="Wrap"/>
             </Hyperlink>
         </TextBlock>
     </Grid>

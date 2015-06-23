@@ -132,7 +132,8 @@
                          Foreground="#FF71726F"
 			             FontSize="16" 
 			             HorizontalAlignment="Center" 
-			             VerticalAlignment="Top"/>  
+			             VerticalAlignment="Top"
+                         TextWrapping="Wrap"/>  
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
