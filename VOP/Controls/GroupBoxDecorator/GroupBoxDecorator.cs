@@ -16,6 +16,8 @@ namespace VOP.Controls
 {
     public class GroupBoxDecorator : ContentControl
     {
+        private List<Brush> colorList = new List<Brush>();
+        private int textElementIndex = 0;
 
         static GroupBoxDecorator()
         {
@@ -59,9 +61,24 @@ namespace VOP.Controls
 
                         brush.Color = c;
                         textBlock.Foreground = brush;
+
+                        if (textElementIndex < colorList.Count)
+                        {
+                            textBlock.Foreground = colorList[textElementIndex];
+                        }
                     }
                     else
                     {
+                        //save enable color
+                        if (textElementIndex < colorList.Count)
+                        {
+                            colorList[textElementIndex] = textBlock.Foreground;
+                        }
+                        else
+                        {
+                            colorList.Add(textBlock.Foreground);
+                        }
+                    
                         SolidColorBrush brush = new SolidColorBrush();
                         Color c = new Color();
                         c.A = 100;
@@ -72,6 +89,8 @@ namespace VOP.Controls
                         brush.Color = c;
                         textBlock.Foreground = brush;
                     }
+
+                    textElementIndex++;
                 }
                 else if (childVisual is ComboBox)
                 {
@@ -104,11 +123,13 @@ namespace VOP.Controls
 
                 // Enumerate children of the child visual object.
                 EnableAllVisual(childVisual, enable);
+              
             }
         }
 
         private void IsEnabledValueChanged(Object obj, DependencyPropertyChangedEventArgs args)
         {
+            textElementIndex = 0;
             EnableAllVisual(this, (bool)args.NewValue);
         }
     }
