@@ -18,7 +18,6 @@ namespace VOP.Controls
     /// </summary>
     public partial class IdCardTypeSelectWindow : Window
     {
-        private bool _helpCanExecute = true;
         public IdCardTypeItem SelectedTypeItem { get; set; }
 
         public IdCardTypeSelectWindow()

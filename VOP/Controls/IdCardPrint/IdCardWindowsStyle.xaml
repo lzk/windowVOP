@@ -176,7 +176,7 @@
 
     <Style x:Key="CustomListBoxItem" TargetType="{x:Type ListBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
-        <!--<Setter Property="OverridesDefaultStyle" Value="true"/>-->
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
@@ -191,6 +191,10 @@
                         </Trigger>
                         <Trigger Property="IsFocused" Value="true">
                             <Setter Property="IsSelected" Value="True"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ListBoxItemBackgroundOver}"/>
+                            <Setter Property="Foreground" Value="{StaticResource brushForeground}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -55,6 +55,7 @@
                  Grid.Row="1"  
                  Grid.Column="0" 
                  Grid.ColumnSpan="2"
+                 KeyboardNavigation.TabNavigation="Cycle" 
                  Style="{ StaticResource ListBoxWithAutoScroll }" 
                  ItemsSource="{StaticResource IdCardTypeNameList}"
                  PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown"/>
