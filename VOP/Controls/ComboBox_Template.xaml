@@ -269,7 +269,7 @@
                             <Setter TargetName="DropDownBorder" Property="Height" Value="95" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                            <Setter Property="Foreground" Value="#7F6D6D6D" />
                             <Setter Property="Background" Value="#FFF4F4F4" />
                         </Trigger>
                         <Trigger Property="IsGrouping" Value="true">

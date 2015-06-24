@@ -58,7 +58,7 @@
             </Trigger>
 
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="tbText" Property="Foreground" Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}"></Setter>
+                <Setter TargetName="tbText" Property="Foreground" Value="#7F6D6D6D"></Setter>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

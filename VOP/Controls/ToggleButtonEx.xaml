@@ -63,8 +63,8 @@
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="tbssid" Property="Foreground" Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}"></Setter>
-                            <Setter TargetName="tbEncrypt" Property="Foreground" Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}"></Setter>
+                            <Setter TargetName="tbssid" Property="Foreground" Value="#7F6D6D6D"></Setter>
+                            <Setter TargetName="tbEncrypt" Property="Foreground" Value="#7F6D6D6D"></Setter>
                             <Setter TargetName="imgSignal" Property="Source" Value="..\Images\Signal_Disable.png"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>

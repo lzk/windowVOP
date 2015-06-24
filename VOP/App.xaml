@@ -42,7 +42,7 @@
                 <Style.Triggers>
                     <Trigger Property="IsEnabled" Value="False">
                         <Setter Property="Foreground"
-                        Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        Value="#7F6D6D6D"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
