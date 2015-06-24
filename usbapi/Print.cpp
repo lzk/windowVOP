@@ -656,15 +656,15 @@ USBAPI_API int __stdcall DoPrintImage()
 							{
 								w = cxPage;
 								h = (int)round(((double)cxPage / whRatio));
-								//y = (cyPage - h) / 2;
-								y = 0;
+								y = (cyPage - h) / 2;
+								//y = 0;
 							}
 							else if (scaleRatioX < scaleRatioY)
 							{
 								w = (int)round(((double)cyPage * whRatio));
 								h = cyPage;
-								//x = (cxPage - w) / 2;
-								x = 0;
+								x = (cxPage - w) / 2;
+								//x = 0;
 							}
 							else
 							{
