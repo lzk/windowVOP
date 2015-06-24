@@ -818,6 +818,9 @@ namespace VOP
             }           
 
             m_nupNum = m_preNin1;
+            spinnerScaling.IsEnabled = false;
+            spinnerScaling.Value = 100;
+
         }
 
         private void chk_MultiplePagePrint_Unchecked(object sender, RoutedEventArgs e)
@@ -862,7 +865,15 @@ namespace VOP
             else
             {
                 chk_DuplexPrint.IsEnabled = true;
-            }                        
+            }
+            if (1 == m_booklet)
+            {
+                spinnerScaling.IsEnabled = false;
+            }
+            else
+            {
+                spinnerScaling.IsEnabled = true;
+            }
         }
 
         private void rdBtn2in1_Checked(object sender, RoutedEventArgs e)
@@ -999,20 +1010,20 @@ namespace VOP
 
         private void chk_FitToPaperSize_Checked(object sender, RoutedEventArgs e)
         {
-            spinnerScaling.Value = 100;
-            spinnerScaling.IsEnabled = false;
+ //           spinnerScaling.Value = 100;
+ //          spinnerScaling.IsEnabled = false;
         }
 
         private void chk_FitToPaperSize_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (1 == m_booklet)
-            {
-                spinnerScaling.IsEnabled = false;
-            }
-            else
-            {
-                spinnerScaling.IsEnabled = true;
-            }
+ //           if (1 == m_booklet)
+ //           {
+ //               spinnerScaling.IsEnabled = false;
+ //           }
+ //           else
+ //           {
+ //               spinnerScaling.IsEnabled = true;
+  //          }
         }
        
         private void GetScalingValues()
@@ -1230,7 +1241,7 @@ namespace VOP
                 chk_DuplexPrint.IsChecked = false;
                 rdBtnFlipOnShortEdger.IsEnabled = false;
                 rdBtnFlipOnLongEdge.IsEnabled = false;
-                spinnerScaling.IsEnabled = false;
+//                spinnerScaling.IsEnabled = false;
                 chk_FitToPaperSize.IsEnabled = true;
                 chk_FitToPaperSize.IsChecked = true;
                 rdBtnNormalPrint.IsEnabled = true;
@@ -1466,7 +1477,7 @@ namespace VOP
                 chk_DuplexPrint.IsChecked = false;
                 rdBtnFlipOnShortEdger.IsEnabled = false;
                 rdBtnFlipOnLongEdge.IsEnabled = false;
-                spinnerScaling.IsEnabled = false;
+//                spinnerScaling.IsEnabled = false;
                 chk_FitToPaperSize.IsEnabled = true;
                 chk_FitToPaperSize.IsChecked = true;
                 rdBtnNormalPrint.IsEnabled = true;
