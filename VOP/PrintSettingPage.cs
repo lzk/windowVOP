@@ -1780,6 +1780,14 @@ namespace VOP
             else
             {
                 chk_MultiplePagePrint.IsEnabled = true;
+                if (chk_MultiplePagePrint.IsChecked == true)
+                {
+                    spinnerScaling.IsEnabled = false;
+                }
+                else
+                {
+                    spinnerScaling.IsEnabled = true;
+                }                
                 if (m_mediaType != 4 && rdBtn1in2x2.IsChecked == false && rdBtn1in3x3.IsChecked == false && rdBtn1in4x4.IsChecked == false)
                 {
                     chk_DuplexPrint.IsEnabled = true;  
