@@ -273,4 +273,22 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Return">返回</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt">提示</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit_the_Lenovo_Printer">是否退出联想打印？</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Member_Center">会员中心</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Account_Name">账户名</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Change_Account_Information">修改账户信息</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Buy_consumables">耗材购买</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Check_consumables_points">耗材积分查询</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Nearest_service_station">最近服务站</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Download_printer_firmware">打印机固件下载</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Profile_picture">头像</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Full_name">姓名</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Birthday">生日</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Sex">性别</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Email">邮箱</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Address">地址</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Mobile_number">手机号</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Express_Login_using_mobile_number">使用手机号码快速登录</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Account">账户名</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Verification_Code">验证码</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Get_Verification_Code">获取验证码</sys:String>
 </ResourceDictionary>

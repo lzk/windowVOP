@@ -273,4 +273,22 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Return">Return</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt">Prompt</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit_the_Lenovo_Printer">Do you want to exit the Lenovo Printer?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Member_Center">Member Center</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Account_Name">Account name</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Change_Account_Information">Change Account Information</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Buy_consumables">Buy consumables</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Check_consumables_points">Check consumables points</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Nearest_service_station">Nearest service station</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Download_printer_firmware">Download printer firmware</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Profile_picture">Profile picture</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Full_name">Full name</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Birthday">Birthday</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Sex">Sex</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Email">Email</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Address">Address</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Mobile_number">Mobile number</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Express_Login_using_mobile_number">Express Login using mobile number</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Account">Account</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Verification_Code">Verification code</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Get_Verification_Code">Get verification code</sys:String>
 </ResourceDictionary>
