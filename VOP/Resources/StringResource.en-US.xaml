@@ -76,7 +76,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Orientation">Orientation</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Landscape">Landscape</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Portrait">Portrait</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Media_Type">Media Type</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Media_Type">Paper Type</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Plain_Paper">Plain Paper</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Thin_Paper">Thin Paper</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Thick_Paper">Thick Paper</sys:String>
@@ -124,7 +124,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_B5">B5</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_DPI">DPI</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_N_in_1_Copy">N in 1 Copy</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_Mode">Scanning Mode</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_Mode">Type of Document</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Photo">Photo</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Text">Text</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scanned_image_size">Scanned image size: </sys:String>
@@ -136,7 +136,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Color">Color</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Grayscale">Grayscale</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Black_White">Black &amp; White</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scan_Size">Scan Size</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scan_Size">Scan Area Size</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A4_210_297mm_">A4(210 x 297mm)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A5_148_x_210mm_">A5(148 x 210mm)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_B5_182_x_257mm_">B5(182 x 257mm)</sys:String>
@@ -192,7 +192,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Fuser_Error_Remove">Fuser Error Clear</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_New_Password">New Password</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Confirm_Password">Confirm Password</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Identity_Authentication">Identity Authentication</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Identity_Authentication">Administrator Authentication</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Login">Login</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Login_">Login</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Supplies_Purchasing_Channels">Consumables Purchase Channels</sys:String>
