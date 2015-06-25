@@ -891,6 +891,20 @@ namespace VOP
                     tabItem_Copy.IsSelect = false;
                     tabItem_Scan.IsSelect = true;
                     tabItem_Setting.IsSelect = false;
+
+                    //Add by KevinYin for BMS bug(0059861) begin
+                    byte toner         = 0;
+                    EnumStatus status  = EnumStatus.Offline;
+                    EnumMachineJob job = EnumMachineJob.UnknowJob;
+ 
+                    lock ( statusLock )
+                    {
+                        toner  = _toner ;
+                        status = (EnumStatus)_status;
+                        job    = (EnumMachineJob)_job   ;
+                    }
+                    winScanPage.PassStatus(status, job, toner);
+                    //Add by KevinYin for BMS bug(0059861) end
                 }
                 else if (EnumSubPage.Setting == subpage)
                 {
