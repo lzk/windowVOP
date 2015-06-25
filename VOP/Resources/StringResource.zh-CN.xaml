@@ -7,8 +7,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Scan">扫  描</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting">设置</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Model">机型</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Device_Status">状态</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Ready">待机</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Device_Status">设备状态</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Ready">就绪</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Busy">工作中</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Sleep">休眠</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Warning">警告</sys:String>
@@ -16,35 +16,35 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Offline">离线</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Toner">墨粉</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printing">打印中</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_WarmingUp">预热</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Print_Cancelling">打印取消</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Processing">正在处理中</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_WarmingUp">预热中</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Print_Cancelling">打印取消中</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Processing">处理中</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copying">复印中</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Place_Next_Page">放置下一页</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Turn_card_over_to_copy_the_reverse_">翻转卡片，并放在扫描板上</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Copy_Cancelling">复印取消</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Place_Next_Page">请放下一页</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Turn_card_over_to_copy_the_reverse_">将证件翻过来，复印背面</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Copy_Cancelling">复印取消中</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ID_Card_Mode">身份证复印模式</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scanning">扫描中</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scan_Cancelling">扫描取消</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanner_Busy">扫描仪工作中</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scan_Cancelling">扫描取消中</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanner_Busy">扫描仪忙</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Toner_End">墨粉空</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Toner_Near_End">墨粉快使用完毕</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Toner_Near_End">墨粉将空</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Waiting_2nd_pages_when_print_manual_duplex_job">手动双面打印中等待第二页</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Paper_Remained">卡纸JAM</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Nofeed">缺纸JAM</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Regist">Regist处卡纸JAM</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Exit">排纸口处卡纸JAM</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Cover_Open">打开上盖</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_No_Toner_Cartridge">缺少硒鼓墨粉组件</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Please_Replace_Toner">请更换硒鼓</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_FW_Updating">固件升级</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Paper_Remained">内部卡纸</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Nofeed">缺纸或进纸异常</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Regist">进纸处卡纸</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Exit">出纸处卡纸</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Cover_Open">上盖开启</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_No_Toner_Cartridge">没有鼓粉盒</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Please_Replace_Toner">请更换鼓粉盒</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_FW_Updating">固件升级中</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Overheat">过热</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_DMA_Error_SCxxx">内存存取错误：&#x000D;&#x000A;请关闭打印机后重新启动。&#x000D;&#x000A;SC</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：&#x000D;&#x000A;SC</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Please_contact_customer_support__SCxxx">请联系您的客户支持：&#x000D;&#x000A;SC</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">扫描起始位置未发现：&#x000D;&#x000A;请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：&#x000D;&#x000A;SC1001</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scan_Calibration_Error_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">扫描校准错误：&#x000D;&#x000A;请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：&#x000D;&#x000A;SC1001</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Wireless_Dongle_Config_Fail_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">无线模块配置失败；&#x000D;&#x000A;请关闭打印机后重新启动。如果该错误仍未解除请联系您的客户支持：&#x000D;&#x000A;SC</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_DMA_Error_SCxxx">设备DMA错误：&#x000D;&#x000A;请关闭打印机后重新启动。&#x000D;&#x000A;SC</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">请关闭打印机后重新启动。如果错误仍然存在,请联系客户服务中心：&#x000D;&#x000A;SC</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Please_contact_customer_support__SCxxx">请联系客户服务中心：&#x000D;&#x000A;SC</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">扫描仪归位错误；&#x000D;&#x000A;请重启本设备，如果故障依然存在，请联系联想客户服务中心：&#x000D;&#x000A;SC1001</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scan_Calibration_Error_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">扫描仪校准错误;&#x000D;&#x000A;请重启本设备，如果故障依然存在，请联系联想客户服务中心：&#x000D;&#x000A;SC1001</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Wireless_Dongle_Config_Fail_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">无线模块配置错误；&#x000D;&#x000A;请重启本设备，如果故障依然存在，请联系联想客户服务中心：&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Picture_Print">图片打印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_File_Print">文件打印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Credentials_Print">证件打印</sys:String>
@@ -70,8 +70,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_B6">B6</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Executive">Executive</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_16K">16K</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_A5_LEF_">A5长边</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_B6_LEF_">B6长边</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_A5_LEF_">A5（长边进纸）</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_B6_LEF_">B6（长边进纸）</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Defined_Size">用户自定义</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Orientation">纸张方向</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Landscape">横向</sys:String>
@@ -98,7 +98,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_1_in_3_3">1合3*3</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_1_in_4_4_">1合4*4</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Reverse_Print">反转打印</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_2_sided">双面打印</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_2_sided">手动双面打印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Flip_on_long_edge">长边翻页</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Flip_on_short_edge">短边翻页</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Toner_Save_Mode">省墨打印模式</sys:String>
@@ -147,7 +147,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Wi_Fi">打印机Wi-Fi</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Soft_AP">打印机热点</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_TCP_IP">打印机IP地址</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Power_Save">休眠</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Power_Save">休眠时间</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Config">高级设置</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Modify_Password">管理员密码修改</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_About">关于</sys:String>
@@ -159,9 +159,9 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Submask">子网掩码</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Apply">应  用</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_WLAN_Network">WLAN网络</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_WPA2">通过WPA2进行保护</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_WEP">通过WEP进行保护</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_Mixed_Mode_PSK">通过混合模式PSK进行保护</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_WPA2">通过 WPA2 进行保护</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_WEP">通过 WEP 进行保护</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_Mixed_Mode_PSK">通过混合模式 PSK 进行保护</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Manual_Wi_Fi">加入其他网络</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Password_">密码：</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Password">密码</sys:String>
@@ -172,19 +172,19 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Remember_the_network">记住该网络</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Encryption">加密方式</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Encryption_">加密方式：</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_No_Security">不使用</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_No_Security">无安全</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_WEP">WEP</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_WPA2_PSK_AES">WPA2-PSK-AES</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Mixed_Mode_PSK">混合模式PSK</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Mixed_Mode_PSK">混合模式 PSK</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Connect">连  接</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Find_and_join_the_Wi_Fi">查找并加入Wi-Fi网络</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Enter_SSID_and_security_type_">输入你想要加入的网络名称和安全性类型</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Find_and_join_the_Wi_Fi">查找并加入 Wi-Fi 网络</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Enter_SSID_and_security_type_">输入网络标识和安全类型</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Power_Save_Time">进入休眠时间</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_1_30_Minute">（1-30分钟）</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_SSID_2">网络标识</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Enable">使用</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Leading_Edge_Registration">顶端偏移量(毫米)</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Side_to_side_Registration">左端偏移量(毫米)</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Leading_Edge_Registration">顶端偏移量（毫米）</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Side_to_side_Registration">左端偏移量（毫米）</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Image_Density">画像浓度</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Low_Hunidity_Mode">低湿度模式</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_of_Plate_Control_Mode">防止背面脏污模式</sys:String>

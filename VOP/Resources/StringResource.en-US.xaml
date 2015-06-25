@@ -7,7 +7,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Scan">Scan</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting">Setting</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Model">Model</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Device_Status">Status</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Device_Status">Device Status</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Ready">Ready</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Busy">Busy</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Sleep">Sleep</sys:String>
@@ -48,14 +48,14 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Picture_Print">Picture Print</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_File_Print">File Print</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Credentials_Print">Credentials Print</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Certificate_Type">Certificate Type</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Certificate_Type">Type of Credential</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Residence_Booklet">Residence Booklet</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Marriage_Certificate">Marriage Certificate</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Passport">Passport</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Real_Estate_License">Real Estate License</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Driving_license">Driving license</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Real_Estate_License">Property Ownership Certificate</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Driving_license">Driving License</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Diploma">Diploma</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Student_ID_card">Student ID card</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Student_ID_card">Student ID Card</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Birth_Certificate">Birth Certificate</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Bank_SocialSecurity_Card">Bank Card/Social Security Card</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ID_Card">ID Card</sys:String>
@@ -98,7 +98,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_1_in_3_3">1 in 3*3</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_1_in_4_4_">1 in 4*4</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Reverse_Print">Reverse Print</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_2_sided">2-sided</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_2_sided">Duplex</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Flip_on_long_edge">Flip on long edge</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Flip_on_short_edge">Flip on short edge</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Toner_Save_Mode">Toner Save Mode</sys:String>
@@ -120,7 +120,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Density">Density</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ID_Card_Copy">ID Card Copy</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Document_Size">Document Size</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Output_Size">Output Size</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Output_Size">Output Paper Size</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_B5">B5</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_DPI">DPI</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_N_in_1_Copy">N in 1 Copy</sys:String>
@@ -131,7 +131,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Scanning_2">Scanning:</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Document_Type">Document Type</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Photo_2">Photo</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Text_and_Graph">Text and Graph</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Text_and_Graph">Text/Photo</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Color_Mode">Color Mode</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Color">Color</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Grayscale">Grayscale</sys:String>
@@ -144,9 +144,9 @@
     <sys:String xml:space="preserve" x:Key="ResStr_4_x_6_">4 x 6"</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Contrast">Contrast</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Brightness">Brightness</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Printer_Wi_Fi">Printer Wi-Fi</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Printer_Wi_Fi">Wi-Fi</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Soft_AP">Soft AP</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_TCP_IP">Printer's IP Address</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_TCP_IP">TCP/IP</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Power_Save">Power Save</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Config">Advanced Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Modify_Password">Modify Password</sys:String>
@@ -194,68 +194,68 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Confirm_Password">Confirm Password</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Identity_Authentication">Identity Authentication</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Login">Login</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Supplies_Purchasing_Channels">Supplies Purchasing Channels</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Supplies_Purchasing_Channels">Consumables Purchase Channels</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Upgrade_Method">Printer Upgrade Method</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printworks_Promotion">Printworks Promotion</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Version_Copyright">Version &amp; Copyright</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_DriverVersion_____">Printer Driver&#x000D;&#x000A;Version ****</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copyright__C___2014_2015__Lenovo__Beijing__Limited_All_Right_Reserved_">Copyright (C) (2014-2015) Lenovo (Beijing) Limited.&#x000D;&#x000A;All Right Reserved.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_This_file_is_not_supported__please_select_another_one_">This file is not supported, please select another one.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_">The valid range is 1 to 99, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_">The valid range is 25% to 400%, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_">The scanned images will be deleted after closing the VOP. Are you sure to close the VOP?</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_">Operation cannot be carried out due to insufficient memory or hard disk space.Please try again after freeing memory or hard disk space.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_">The valid range is 0 to 100, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_">Scanning image has been changed, please confirm whether save it or not?</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_">The entered IP address is wrong, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_">The entered Gateway is wrong, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation">The subnet mask input error, please input again after confirmation</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_30__please_confirm_and_enter_again_">The valid range is 1 to 30, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_">The valid range is from -6 to 6, please confirm and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_This_file_is_not_supported__please_select_another_one_">File format not supported. Please select another file.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_">The valid range is 1 to 99, please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_">The valid range is 25% to 400%, please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_">The scanned images will be deleted after the VOP is closed. Close VOP?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_">There is insufficient memory or disk space to complete the operation. Please free up some memory or disk space, then try again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_">The valid range is 0 to 100, please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_">The scanned image has been changed. Save changes?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_">The entered IP address is incorrect, please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_">Invalid Gateway address. Please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation">Invalid subnet mask. Please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_30__please_confirm_and_enter_again_">The valid range is 1 to 30, please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_">The valid range is from -6 to 6, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__2_to_2__please_confirm_and_enter_again_">The valid range is from -2 to 2, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__3_to_3__please_confirm_and_enter_again_">The valid range is from -3 to 3, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_1__please_confirm_and_enter_again_">The valid range is 0 to 1, please confirm and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__3_to_3__please_confirm_and_enter_again_">The valid range is from -3 to 3, please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_1__please_confirm_and_enter_again_">The valid range is 0 to 1, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_boot_the_machine_after_more_than_30_minutes_to_protect_the_machine_">Please boot the machine after more than 30 minutes to protect the machine.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_new_password_can_not_be_empty_">The new password can not be empty.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_new_password_can_not_be_empty_">The new password cannot be empty.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_passwords_you_entered__are_different__please_try_again_">The passwords you entered are different, please try again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Authentication_error__please_enter_the_password_again_">Authentication error, please enter the password again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_agent_information_hasn_t_updated_for_____months__please_update_online_">The agent information hasn't updated for * * months, please update online.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_service_station_information_hasn_t_updated_for_____months__please_update_online_">The service station information hasn't updated for * * months, please update online.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_agent_information_hasn_t_updated_for_____months__please_update_online_">The agent information hasn't been updated for * * months, please update online.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_service_station_information_hasn_t_updated_for_____months__please_update_online_">The service station information hasn't been updated for * * months, please update online.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_1__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">The combination of IP address and subnet mask is invalid. All of the bits in the host address portion of the IP address are set to 1. Please enter a valid combination of IP address and subnet mask.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_0__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">The combination of IP address and subnet mask is invalid. All of the bits in the host address portion of the IP address are set to 0. Please enter a valid combination of IP address and subnet mask.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_machine_is_busy__please_try_later_">The machine is busy, please try later.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_machine_is_busy__please_try_later_">The machine is busy, please try again later.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_fix_error_first_and_try_later_">Please fix error first and try later!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Setting_Successfully_">Setting Successfully</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Setting_Fail">Setting Fail</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scan_Fail">Scan Fail</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Print_Fail">Print Fail</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Copy_Fail">Copy Fail</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_1">Setting successfully, the parameters are valid after restart the machine.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_2">The password must be 5/13 ASCII characters or 10/26 hex characters, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_3">The password must be 8 to 63 ASCII characters or 64 hex characters, please confirm and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Setting_Successfully_">Configured successfully</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Setting_Fail">Configure failed</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scan_Fail">Scan failed</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Print_Fail">Print failed</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Copy_Fail">Copy failed</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_1">Configured successfully. Restart the machine to apply changes.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_2">The password must be 5 or 13 ASCII characters or 10 or 26 hex characters, please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_3">The password must be 8 to 63 ASCII characters or 64 hex characters, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_4">Please enter your mobile number</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_5">Verification code sent successfully.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_6">Failed to send verification code.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_7">Invalid mobile number. Please check and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_8">Verification code's format is error, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_9">The SSID must be 1 to 32 characters, please confirm and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_10">The SSID must be 1 to 32 characters, please confirm and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_8">Invalid verification code. Please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_9">The network name must be 1 to 32 characters long. Please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_10">The network name must be 1 to 32 characters long. Please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Exit">Exit</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Preview">Preview</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Certificate_Edit">Certificate Edit</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Certificate_Edit">Edit certificate</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Unable_to_preview">Unable to preview</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Memory_Alloc_Fail">Print memory allocation failed!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Memory_Alloc_Fail">Memory allocation failed during printing!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Defined_Settings">User Defined Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Login_Register">Login / Register</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_insufficient_system_disk_space">Operation cannot be carried out due to insufficient system disk space. Try again after freeing hard disk space.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_insufficient_system_disk_space">There is insufficient memory or disk space to complete the operation. Please free up some memory or disk space, then try again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Yes">Yes</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_No">No</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Warning_2">Warning</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Border_Color">Border Color</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Preview">Preview</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_paper_jam_occurred_please_follow_the_instructions_">The paper jam occurred, please follow the instructions!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_">Operation can not be carried out due to machine malfunction.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_">Operation can not be carried out due to software has error. Please try again after reinstall the driver and Virtual Operation Panel.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_paper_jam_occurred_please_follow_the_instructions_">A paper jam has occurred! Please follow the instructions to remove the jammed paper.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_">A malfunction occurred. The operation cannot be completed.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_">A software error has occurred. Please reinstall the printer drivers and the VOP, and then try again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Warning_Custom_Exceed">A maximun of 20 types of User defined paper sizes can be registered. If you would like to register more User defined paper sizes, you will need to first delete some existing ones.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Print">Print</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ExtraAdd_Copy">Copy</sys:String>
