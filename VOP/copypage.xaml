@@ -193,7 +193,7 @@
                         <Image x:Name="imgIDCard"
                                Source="Images/IDCardCopyIconDisable.png"
                                Stretch="None" > </Image>
-                        <TextBlock Margin="20,0" VerticalAlignment="Center" Text="{StaticResource ResStr_ID_Card_Copy}"></TextBlock>
+                        <TextBlock Name="txtBlk_IdCardCopy" Margin="20,0" VerticalAlignment="Center" Text="{StaticResource ResStr_ID_Card_Copy}"></TextBlock>
                         <CheckBox x:Name="chkBtnIDCardCopy" Template="{StaticResource switchBox}"
                                   IsChecked="False" Width="50" Height="25"
                                   Checked="CheckBox_Checked"

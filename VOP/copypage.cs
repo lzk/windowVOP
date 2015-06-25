@@ -346,6 +346,17 @@ namespace VOP
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
             tb.LostFocus += new RoutedEventHandler(SpinnerTextBox_LostFocus);
+
+            InitFontSize();
+        }
+
+        void InitFontSize()
+        {
+            if (App.LangId == 0x804) // zh-CN
+            {
+                btnSetting.FontSize = btnCopy.FontSize = 17.87;
+                txtBlk_IdCardCopy.FontSize = 17.74;
+            }
         }
         
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)

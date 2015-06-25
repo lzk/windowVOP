@@ -305,8 +305,18 @@ namespace VOP
                 btnPrint.IsEnabled = false;
                 btnSave.IsEnabled = false;
             }
+
+            InitFontSize();
         }
 
+        void InitFontSize()
+        {
+            if (App.LangId == 0x804) // zh-CN
+            {
+                btnPrint.FontSize = btnSave.FontSize = btnSetting.FontSize = btnScan.FontSize = 17.87;
+                txtBlk_ScannedImageSize.FontSize = txtBlkImgSize.FontSize = txtProgressLabel.FontSize = 14; 
+            }
+        }
 
         /// <summary>
         /// Scaning Image size in byte.

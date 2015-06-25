@@ -84,6 +84,16 @@ namespace VOP
 
                 this.Close();
             }
+
+            InitFontSize();
+        }
+
+        void InitFontSize()
+        {
+            if (App.LangId == 0x804) // zh-CN
+            {
+                btnOK.FontSize = btnPrint.FontSize = 17.87;
+            }
         }
 
         private void CenterImage()

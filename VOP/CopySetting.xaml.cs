@@ -434,6 +434,16 @@ namespace VOP
             tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
+
+            InitFontSize();
+        }
+
+        void InitFontSize()
+        {
+            if (App.LangId == 0x804) // zh-CN
+            {
+                btnDefault.FontSize = btnApply.FontSize = 17.87;
+            }
         }
         
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
