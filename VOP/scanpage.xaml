@@ -18,16 +18,12 @@
             </ResourceDictionary.MergedDictionaries>
 
 
-       <LinearGradientBrush x:Key="PressedBrush" StartPoint="0,0" EndPoint="0,1">
-            <GradientBrush.GradientStops>
-                <GradientStopCollection>
-                    <GradientStop Color="#aaa" Offset="0.0"/>
-                    <GradientStop Color="#bbb" Offset="0.1"/>
-                    <GradientStop Color="#bbb" Offset="0.9"/>
-                    <GradientStop Color="#ccc" Offset="1.0"/>
-                </GradientStopCollection>
-            </GradientBrush.GradientStops>
-        </LinearGradientBrush>
+            <LinearGradientBrush x:Key="PressedBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFBAB9B9" Offset="0"/>
+                <GradientStop Color="#FFCFCFCF" Offset="0.298"/>
+                <GradientStop Color="#FFD1D1D1" Offset="0.851"/>
+                <GradientStop Color="#FFE6E6E6" Offset="1"/>
+            </LinearGradientBrush>
     <LinearGradientBrush x:Key="OutsideBorderBrush" StartPoint="0,0" EndPoint="0,1">
         <GradientBrush.GradientStops>
             <GradientStopCollection>
@@ -80,8 +76,16 @@
 
                         <TextBlock x:Name="tbValue" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"
                             Text="{Binding Value, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource objPercentConverter}}" 
-                            FontWeight="Bold"
-                            />
+                                           FontFamily="Arial" FontWeight="Black" Opacity="0.6">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect
+                                            Direction="270"
+                                            Color="White"
+                                            Opacity="0.9"
+                                            BlurRadius="2" 
+                                            ShadowDepth="2"/>
+                                    </TextBlock.Effect>
+                                </TextBlock>
 
                     </Grid>
                 </ControlTemplate>
