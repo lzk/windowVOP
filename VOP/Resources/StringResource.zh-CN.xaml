@@ -167,8 +167,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Password">密码</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Display_Password">显示密码</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_WEP_KeyID">WEP KeyID</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_SSID">网络名称</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_SSID_">网络名称：</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_SSID">网络标识</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_SSID_">网络标识：</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Remember_the_network">记住该网络</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Encryption">加密方式</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Encryption_">加密方式：</sys:String>
