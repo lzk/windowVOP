@@ -105,7 +105,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Advanced_settings">高级设置</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Default">默  认</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_OK">确  定</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Back">返回</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Back">返  回</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Custom_Paper_Size_Name">自定义纸张大小名称</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Defined_Size_01">自定义尺寸01</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Unit">单位：</sys:String>
