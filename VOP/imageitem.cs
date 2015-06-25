@@ -10,6 +10,8 @@ namespace VOP
 {
     public partial class ImageItem : UserControl
     {
+        public int  m_num = -1;
+
         public bool m_ischeck = false;
         public bool m_iSimgReady = false; // false if image has not loaded.
 
@@ -34,16 +36,64 @@ namespace VOP
 
         public void CheckImage( bool ischeck ) 
         {
-            BitmapImage bi3 = new BitmapImage();
-            bi3.BeginInit();
-
             if ( ischeck )
-                bi3.UriSource = new Uri("Images/check.png", UriKind.Relative);
-            else
-                bi3.UriSource = new Uri("Images/close.png", UriKind.Relative);
-            bi3.EndInit();
+            {
+                // simple visual definition
+                var grid = new Grid { Width = 13, Height = 13 };
+                System.Windows.Shapes.Ellipse ell = new System.Windows.Shapes.Ellipse();
+                ell.Width = 13;
+                ell.Height = 13;
 
-            imgMark.Source = bi3;
+                RadialGradientBrush radialGradient = new RadialGradientBrush();
+                radialGradient.GradientOrigin = new Point(0.5, 0.5);
+                radialGradient.Center = new Point(0.5, 0.5);
+
+                radialGradient.RadiusX = 0.5; 
+                radialGradient.RadiusY = 0.5;
+
+                // Create four gradient stops.
+                radialGradient.GradientStops.Add(new GradientStop(Colors.Blue, 0.0));
+                radialGradient.GradientStops.Add(new GradientStop( Color.FromArgb( 0xFF, 0x54, 0x9C, 0xF1 ), 0.5));
+                radialGradient.GradientStops.Add(new GradientStop(Colors.White, 1.0));
+
+                // Freeze the brush (make it unmodifiable) for performance benefits.
+                radialGradient.Freeze();
+
+                ell.Fill = radialGradient;
+
+                TextBlock tb = new TextBlock();
+                tb.Text = m_num.ToString();
+                tb.Foreground = Brushes.White;
+                tb.FontWeight = FontWeights.Bold;
+                tb.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+                tb.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+
+                grid.Children.Add( ell );
+                grid.Children.Add( tb );
+
+                grid.Measure(new Size(grid.Width, grid.Height));
+                grid.Arrange(new Rect(new Size(grid.Width, grid.Height)));
+
+                // create a BitmapSource from the visual
+                var rtb = new RenderTargetBitmap(
+                        (int)grid.Width,
+                        (int)grid.Height,
+                        96,
+                        96,
+                        PixelFormats.Pbgra32);
+                rtb.Render(grid);
+
+                imgMark.Source = rtb;
+            }
+            else
+            {
+                BitmapImage bi3 = new BitmapImage();
+                bi3.BeginInit();
+                bi3.UriSource = new Uri("Images/close.png", UriKind.Relative);
+                bi3.EndInit();
+                imgMark.Source = bi3;
+            }
+
             m_ischeck = ischeck;
         }
 

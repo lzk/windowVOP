@@ -93,7 +93,14 @@ namespace VOP
             ImageItem img = (ImageItem)sender;
 
             img.m_ischeck = !img.m_ischeck;
+
+            if ( true == img.m_ischeck )
+                img.m_num = GetSelectedItemCount();
+            else
+                img.m_num = -1;
+            
             img.CheckImage( img.m_ischeck );
+            UpdateSelItemNum();
 
             if ( 0 < GetSelectedItemCount() )
             {
@@ -112,7 +119,10 @@ namespace VOP
 
             ImageItem img = (ImageItem)sender;
 
+            img.m_ischeck = true;
+            img.m_num = GetSelectedItemCount();
             img.CheckImage( true );
+
             btnPrint.IsEnabled = true;
             btnSave.IsEnabled = true;
 
@@ -162,7 +172,11 @@ namespace VOP
                         tmp.ImageSingleClick += ImageItemSingleClick;
                         tmp.ImageDoubleClick += ImageItemDoubleClick;
                         tmp.CloseIconClick += ImageItemCloseIconClick;
+
+                        tmp.m_ischeck = true;
+                        tmp.m_num = GetSelectedItemCount();
                         tmp.CheckImage( true );
+
                         tmp.Margin = new Thickness( 5 );
                         this.image_wrappanel.Children.Insert(index, tmp );
                         App.scanFileList.Add( tmp.m_images );
@@ -399,6 +413,8 @@ namespace VOP
                          img.ImageDoubleClick += ImageItemDoubleClick;
                          img.CloseIconClick += ImageItemCloseIconClick;
                          img.CheckImage( false );
+                         UpdateSelItemNum();
+
                          img.Margin = new Thickness( 5 );
                          this.image_wrappanel.Children.Insert(0, img );
                          App.scanFileList.Add( img.m_images );
@@ -476,15 +492,67 @@ namespace VOP
         {
             files.Clear();
 
-            foreach (object obj in image_wrappanel.Children)
-            {
-                ImageItem img = obj as ImageItem;
+            int nCount = GetSelectedItemCount();
 
-                if ( null != img && true == img.m_ischeck )
+            if ( nCount > 0 )
+            {
+                files.Capacity = nCount;
+
+                foreach (object obj in image_wrappanel.Children)
                 {
-                    files.Add( img.m_images.m_pathOrig );
+                    ImageItem img = obj as ImageItem;
+
+                    if ( null != img && true == img.m_ischeck )
+                    {
+                        files[img.m_num-1] = img.m_images.m_pathOrig;
+                    }
+                }  
+            }
+
+        }
+
+        /// <summary>
+        /// Update the number of selected image items.
+        /// </summary>
+        private void UpdateSelItemNum()
+        {
+            List<int> lst = new List<int>();
+
+            for ( int i=0; i<image_wrappanel.Children.Count; i++ )
+            {
+                ImageItem img1 = image_wrappanel.Children[i] as ImageItem;
+
+                if ( null != img1 && true == img1.m_ischeck )
+                {
+                    lst.Add( img1.m_num );
                 }
-            }  
+            }
+
+            lst.Sort();
+
+            int nMiss = 0;
+            for ( int i=0; i<lst.Count; i++ )
+            {
+                if ( lst[i] != i+1 )
+                {
+                    nMiss = i+1;
+                    break;
+                }
+            }
+
+            if ( nMiss > 0 )
+            {
+                for ( int i=0; i<image_wrappanel.Children.Count; i++ )
+                {
+                    ImageItem img1 = image_wrappanel.Children[i] as ImageItem;
+
+                    if ( null != img1 && true == img1.m_ischeck && nMiss <= img1.m_num )
+                    {
+                        img1.m_num--; 
+                        img1.CheckImage( true );
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -540,23 +608,21 @@ namespace VOP
                 // This index is 1-based, not 0-based
                 try
                 {
+                    List<string> files = new List<string>();
+                    GetSelectedFile( files );
+
                     if (3 == save.FilterIndex)
                     {
                         JpegBitmapEncoder encoder = new JpegBitmapEncoder();
 
-                        foreach (object obj in image_wrappanel.Children)
+                        foreach ( string path in files )
                         {
-                            ImageItem img = obj as ImageItem;
+                            Uri myUri = new Uri( path, UriKind.RelativeOrAbsolute);
+                            BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
+                            BitmapSource origSource = decoder.Frames[0];
 
-                            if ( null != img && true == img.m_ischeck )
-                            {
-                                Uri myUri = new Uri(img.m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
-                                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
-                                BitmapSource origSource = decoder.Frames[0];
-
-                                if (null != origSource)
-                                    encoder.Frames.Add(BitmapFrame.Create(origSource));
-                            }
+                            if (null != origSource)
+                                encoder.Frames.Add(BitmapFrame.Create(origSource));
                         }  
 
                         FileStream fs = File.Open(save.FileName, FileMode.Create);
@@ -567,22 +633,17 @@ namespace VOP
                     {
                         TiffBitmapEncoder encoder = new TiffBitmapEncoder();
 
-                        foreach (object obj in image_wrappanel.Children)
+                        foreach ( string path in files )
                         {
-                            ImageItem img = obj as ImageItem;
+                            Uri myUri = new Uri( path, UriKind.RelativeOrAbsolute );
+                            BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
+                            BitmapSource origSource = decoder.Frames[0];
 
-                            if (null != img && true == img.m_ischeck)
-                            {
-                                Uri myUri = new Uri(img.m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
-                                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
-                                BitmapSource origSource = decoder.Frames[0];
+                            BitmapMetadata bitmapMetadata = new BitmapMetadata("tiff");
+                            bitmapMetadata.ApplicationName = "Virtual Operation Panel";
 
-                                BitmapMetadata bitmapMetadata = new BitmapMetadata("tiff");
-                                bitmapMetadata.ApplicationName = "Virtual Operation Panel";
-
-                                if (null != origSource)
-                                    encoder.Frames.Add(BitmapFrame.Create(origSource, null, bitmapMetadata, null));
-                            }
+                            if (null != origSource)
+                                encoder.Frames.Add(BitmapFrame.Create(origSource, null, bitmapMetadata, null));
                         }  
 
                         FileStream fs = File.Open(save.FileName, FileMode.Create);
@@ -605,19 +666,14 @@ namespace VOP
                             {
                                 help.Open(save.FileName);
 
-                                foreach (object obj in image_wrappanel.Children)
+                                foreach ( string path in files )
                                 {
-                                    ImageItem img = obj as ImageItem;
+                                    Uri myUri = new Uri( path, UriKind.RelativeOrAbsolute );
+                                    BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
+                                    BitmapSource origSource = decoder.Frames[0];
 
-                                    if (null != img && true == img.m_ischeck)
-                                    {
-                                        Uri myUri = new Uri(img.m_images.m_pathOrig, UriKind.RelativeOrAbsolute);
-                                        BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
-                                        BitmapSource origSource = decoder.Frames[0];
-
-                                        if ( null != origSource )
-                                            help.AddImage(origSource, 0);
-                                    }
+                                    if ( null != origSource )
+                                        help.AddImage(origSource, 0);
                                 }  
 
                                 help.Close();
