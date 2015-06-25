@@ -39,16 +39,16 @@ namespace VOP
             {
                 if (false == VOP.MainWindow.m_RequestManager.SendVerifyCode(tbPhoneNumber.Text, ref js))
                 {
-                    tbkErrorInfo.Text = "验证码发送失败。";
+                    tbkErrorInfo.Text = (string)this.FindResource("ResStr_Msg_6");
                 }
                 else
                 {
-                    tbkErrorInfo.Text = "验证码发送成功。";
+                    tbkErrorInfo.Text = (string)this.FindResource("ResStr_Msg_5");
                 }
             }
             else
             {
-                tbkErrorInfo.Text = "手机号码错误，请确认后再次输入。";
+                tbkErrorInfo.Text = (string)this.FindResource("ResStr_Msg_7");
                 tbPhoneNumber.Focus();
             }
         }
@@ -70,19 +70,19 @@ namespace VOP
                 {
                     pbPwd.Focus();
                     pbPwd.SelectAll();
-                    tbkErrorInfo.Text = "验证码错误，请确认后再次输入。";
+                    tbkErrorInfo.Text = (string)this.FindResource("ResStr_Invalid_verification_code_Please_check_and_enter_again");
                 }
             }
             else
             {
                 if (tbPhoneNumber.Text.Length != 11)
                 {
-                    tbkErrorInfo.Text = "手机号码错误，请确认后再次输入。";
+                    tbkErrorInfo.Text = (string)this.FindResource("ResStr_Msg_7");
                     tbPhoneNumber.Focus();
                 }
                 else if (pbPwd.Password.Length != 6)
                 {
-                    tbkErrorInfo.Text = "验证码错误，请确认后再次输入。";
+                    tbkErrorInfo.Text = (string)this.FindResource("ResStr_Invalid_verification_code_Please_check_and_enter_again");
                     pbPwd.Focus();
                     pbPwd.SelectAll();
                 }
@@ -91,14 +91,14 @@ namespace VOP
 
         private void tbPhoneNumber_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (tbPhoneNumber.Text == "输入手机号")
+            if (tbPhoneNumber.Text == (string)this.FindResource("ResStr_Msg_4"))
                 tbPhoneNumber.Text = "";
         }
 
         private void tbPhoneNumber_LostFocus(object sender, RoutedEventArgs e)
         {
             if(tbPhoneNumber.Text.Length == 0)
-                tbPhoneNumber.Text = "输入手机号";
+                tbPhoneNumber.Text = (string)this.FindResource("ResStr_Msg_4");
         }
 
         private void tbPhoneNumber_PreviewTextInput(object sender, TextCompositionEventArgs e)

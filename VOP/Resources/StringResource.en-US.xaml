@@ -194,6 +194,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Confirm_Password">Confirm Password</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Identity_Authentication">Identity Authentication</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Login">Login</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Login_">Login</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Supplies_Purchasing_Channels">Consumables Purchase Channels</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Upgrade_Method">Printer Upgrade Method</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printworks_Promotion">Printworks Promotion</sys:String>
@@ -288,7 +289,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Address">Address</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Mobile_number">Mobile number</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Express_Login_using_mobile_number">Express Login using mobile number</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Account">Account</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Verification_Code">Verification code</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Get_Verification_Code">Get verification code</sys:String>
 </ResourceDictionary>

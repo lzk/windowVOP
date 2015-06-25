@@ -37,7 +37,7 @@
                     <DropShadowEffect Color="#FFA6A6A6" Direction="270" ShadowDepth="2"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <TextBlock Text="会员中心" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <TextBlock  Text="{StaticResource ResStr_Member_Center}"  FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
         </Grid>
 
         <Grid Grid.Row="3">
@@ -63,9 +63,9 @@
             <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
             <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
 
-            <Button Name="btnUserName" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" BorderThickness="0" Margin="2" Background="#FFE5E5E5" Content="账户名" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Left"></Button>
-            <Button Name="btnLogon" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" BorderThickness="0" Margin="2" Background="#FFE5E5E5" Content="登陆" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Left"></Button>
-            <Button Name="btnModifyUserInfo" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" BorderThickness="0" Margin="2" Background="#FFE5E5E5" Content="修改账户信息" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Left"></Button>
+            <Button Name="btnUserName" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" BorderThickness="0" Margin="2" Background="#FFE5E5E5" Content="{StaticResource ResStr_Account_Name}"  Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Left"></Button>
+            <Button Name="btnLogon" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" BorderThickness="0" Margin="2" Background="#FFE5E5E5" Content="{StaticResource ResStr_Login_}" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Left"></Button>
+            <Button Name="btnModifyUserInfo" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" BorderThickness="0" Margin="2" Background="#FFE5E5E5" Content="{StaticResource ResStr_Change_Account_Information}"  Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Left"></Button>
         </Grid>
 
         <Grid Grid.Row="5">
@@ -91,9 +91,9 @@
             <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
             <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
 
-            <Button Name="btnConsumable" Content="耗材购买" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" Grid.Row="0" Grid.Column="1" BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
-            <Button Name="btnRewardPoints" Content="耗材积分查询" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}"  Grid.Row="1" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
-            <Button Name="btnMaintainStation" Content="最近服务站" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}"  Grid.Row="2" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
+            <Button Name="btnConsumable" Content="{StaticResource ResStr_Buy_consumables}" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" Grid.Row="0" Grid.Column="1" BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
+            <Button Name="btnRewardPoints" Content="{StaticResource ResStr_Check_consumables_points}" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}"  Grid.Row="1" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
+            <Button Name="btnMaintainStation" Content="{StaticResource ResStr_Nearest_service_station}" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}"  Grid.Row="2" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
         </Grid>
 
 
@@ -117,8 +117,8 @@
 
             <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
 
-            <Button Name="btnFWDownload" Content="打印机固件下载" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" Grid.Row="0" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
-            <Button Name="btnAbout" Content="关于" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" Grid.Row="1" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
+            <Button Name="btnFWDownload" Content="{StaticResource ResStr_Download_printer_firmware}" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" Grid.Row="0" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
+            <Button Name="btnAbout" Content="{StaticResource ResStr_About}"  Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" Grid.Row="1" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
         </Grid>
     </Grid>
 </UserControl>

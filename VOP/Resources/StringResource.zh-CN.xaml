@@ -194,6 +194,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Confirm_Password">确认密码</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Identity_Authentication">管理员权限认证</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Login">登  录</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Login_">登录</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Supplies_Purchasing_Channels">耗材购买渠道</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Upgrade_Method">打印机升级方式</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printworks_Promotion">打印工场推广</sys:String>
@@ -288,7 +289,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Address">地址</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Mobile_number">手机号</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Express_Login_using_mobile_number">使用手机号码快速登录</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Account">账户名</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Verification_Code">验证码</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Get_Verification_Code">获取验证码</sys:String>
 </ResourceDictionary>

@@ -37,7 +37,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="30"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Text="登  录" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="18"></TextBlock>
+                <TextBlock Grid.Column="0" Grid.ColumnSpan="2"  Text="{StaticResource ResStr_Login}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="18"></TextBlock>
                 <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" VerticalAlignment="Center"/>
             </Grid>
             <Grid Grid.Row="1" Background="#FFE7E7E7">
@@ -46,7 +46,7 @@
                     <RowDefinition Height="2*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Text="使用手机号码快速登录" Foreground="#FF7A7A7A" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></TextBlock>
+                <TextBlock Text="{StaticResource ResStr_Express_Login_using_mobile_number}" Foreground="#FF7A7A7A" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></TextBlock>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1.5*"></RowDefinition>
@@ -59,13 +59,13 @@
                         <ColumnDefinition Width="6*"></ColumnDefinition>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="账户名" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="70" FontSize="18" Foreground="#FF7A7A7A"></TextBlock>
-                    <TextBox Name="tbPhoneNumber" Text="输入手机号" TextChanged="OnTextChanged" GotFocus="tbPhoneNumber_GotFocus" LostFocus="tbPhoneNumber_LostFocus" PreviewTextInput="tbPhoneNumber_PreviewTextInput" Template="{StaticResource customTextBox}" Grid.Column="2" VerticalAlignment="Center" Grid.Row="0" Margin="0,0,5,0" Height="30" MaxLength="11" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
+                    <TextBlock Text="{StaticResource ResStr_Account_Name}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="70" FontSize="18" Foreground="#FF7A7A7A"></TextBlock>
+                    <TextBox Name="tbPhoneNumber" Text="{StaticResource ResStr_Msg_4}" TextChanged="OnTextChanged" GotFocus="tbPhoneNumber_GotFocus" LostFocus="tbPhoneNumber_LostFocus" PreviewTextInput="tbPhoneNumber_PreviewTextInput" Template="{StaticResource customTextBox}" Grid.Column="2" VerticalAlignment="Center" Grid.Row="0" Margin="0,0,5,0" Height="30" MaxLength="11" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
                         <TextBox.InputBindings>
                             <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                         </TextBox.InputBindings>
                     </TextBox>
-                    <TextBlock Text="验证码" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="70" FontSize="18" Foreground="#FF7A7A7A"></TextBlock>
+                    <TextBlock Text="{StaticResource ResStr_Verification_Code}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="70" FontSize="18" Foreground="#FF7A7A7A"></TextBlock>
                     <Grid Grid.Column="2" Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="51*"></ColumnDefinition>
@@ -76,7 +76,7 @@
                                 <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                             </PasswordBox.InputBindings>
                         </PasswordBox>
-                        <Button Name="btnGetVerifyCode" Click="btnGetVerifyCode_Click" Grid.Column="1" Template="{StaticResource ResourceKey=btnpwd}"  Content="获取验证码" HorizontalAlignment="Right" Margin="0,1,5,0" VerticalAlignment="Center" Width="86"  Height="26" />
+                        <Button Name="btnGetVerifyCode"  Content="{StaticResource ResStr_Get_Verification_Code}"  Click="btnGetVerifyCode_Click" Grid.Column="1" Template="{StaticResource ResourceKey=btnpwd}" HorizontalAlignment="Right" Margin="0,1,5,0" VerticalAlignment="Center" Width="86"  Height="26" />
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5">
                         <TextBlock Name="tbkErrorInfo" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
@@ -84,7 +84,7 @@
                 </Grid>
 
                 <local:ButtonEx x:Name="btnLogin" Click="btnLogin_Click" HorizontalContentAlignment="Center"
-                Grid.Row="2" Grid.Column="2" IsDefault="True" Content="登  录" IsActiveEx="True"
+                Grid.Row="2" Grid.Column="2" IsDefault="True" Content="{StaticResource ResStr_Login}" IsActiveEx="True"
                 FontSize="18" HorizontalAlignment="Center" Height="30"
                 Width="120" VerticalAlignment="Center"/>
             </Grid>
