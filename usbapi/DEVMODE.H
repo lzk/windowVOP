@@ -490,6 +490,7 @@ typedef struct PirntSettingsData
 	short m_printQuality;
 	short m_scalingType;
 	short m_scalingRatio;
+	short m_drvScalingRatio;
 	short m_nupNum;
 	short m_typeofPB;
 	short m_posterType;

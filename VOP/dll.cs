@@ -251,7 +251,7 @@ namespace VOP
             sbyte PaperOrder,
             sbyte PrintQuality,
             sbyte ScalingType,
-            short ScalingRatio,
+            short DrvScalingRatio,
             sbyte NupNum,
             sbyte TypeofPB,
             sbyte PosterType,
@@ -285,7 +285,7 @@ namespace VOP
             ref sbyte PaperOrder,
             ref sbyte PrintQuality,
             ref sbyte ScalingType,
-            ref short ScalingRatio,
+            ref short DrvScalingRatio,
             ref sbyte NupNum,
             ref sbyte TypeofPB,
             ref sbyte PosterType,
@@ -309,7 +309,7 @@ namespace VOP
             ref sbyte PaperOrder,
             ref sbyte PrintQuality,
             ref sbyte ScalingType,
-            ref short ScalingRatio,
+            ref short DrvScalingRatio,
             ref sbyte NupNum,
             ref sbyte TypeofPB,
             ref sbyte PosterType,
@@ -334,7 +334,7 @@ namespace VOP
             ref sbyte PaperOrder,
             ref sbyte PrintQuality,
             ref sbyte ScalingType,
-            ref short ScalingRatio,
+            ref short DrvScalingRatio,
             ref sbyte NupNum,
             ref sbyte TypeofPB,
             ref sbyte PosterType,
@@ -364,9 +364,9 @@ namespace VOP
                 ref byte wifiInit);
 
         [DllImport("usbapi.dll")]
-        public static extern void GetFixToPaperSizeData(ref sbyte FixToPaperSiz);
+        public static extern void GetFixToPaperSizeData(ref sbyte FixToPaperSiz, ref short ScalingRatio);
         [DllImport("usbapi.dll")]
-        public static extern int SaveFixToPaperSizeData(sbyte PaperSize);
+        public static extern int SaveFixToPaperSizeData(sbyte PaperSize,short ScalingRatio);
     }
 
 }

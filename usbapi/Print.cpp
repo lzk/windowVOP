@@ -93,7 +93,7 @@ USBAPI_API void __stdcall SavePrinterSettingsData(const TCHAR * strPrinterName,
 	UINT8 PaperOrder,
 	UINT8 PrintQuality,//byte
 	UINT8 ScalingType,//byte
-	UINT16 ScalingRatio,
+	UINT16 DrvScalingRatio,
 	UINT8 NupNum,//byte
 	UINT8 TypeofPB,//byte
 	UINT8 PosterType,
@@ -117,7 +117,7 @@ USBAPI_API void __stdcall GetPrinterSettingsData(
 	BYTE* ptr_paperOrder,
 	BYTE* ptr_printQuality,//byte
 	BYTE* ptr_scalingType,//byte
-	UINT16* ptr_scalingRatio,
+	UINT16* ptr_drvScalingRatio,
 	BYTE* ptr_nupNum,//byte
 	BYTE* ptr_typeofPB,//byte
 	BYTE* ptr_posterType,
@@ -139,7 +139,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 	BYTE* ptr_paperOrder,
 	BYTE* ptr_printQuality,//byte
 	BYTE* ptr_scalingType,//byte
-	UINT16* ptr_scalingRatio,
+	UINT16* ptr_drvScalingRatio,
 	BYTE* ptr_nupNum,//byte
 	BYTE* ptr_typeofPB,//byte
 	BYTE* ptr_posterType,
@@ -161,7 +161,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 	BYTE* ptr_paperOrder,
 	BYTE* ptr_printQuality,//byte
 	BYTE* ptr_scalingType,//byte
-	UINT16* ptr_scalingRatio,
+	UINT16* ptr_drvScalingRatio,
 	BYTE* ptr_nupNum,//byte
 	BYTE* ptr_typeofPB,//byte
 	BYTE* ptr_posterType,
@@ -1356,7 +1356,7 @@ USBAPI_API void __stdcall SavePrinterSettingsData(
 	UINT8 PaperOrder,
 	UINT8 PrintQuality,//byte
 	UINT8 ScalingType,//byte
-	UINT16 ScalingRatio,
+	UINT16 DrvScalingRatio,
 	UINT8 NupNum,//byte
 	UINT8 TypeofPB,//byte
 	UINT8 PosterType,
@@ -1377,7 +1377,7 @@ USBAPI_API void __stdcall SavePrinterSettingsData(
 	g_PirntSettingsData.m_paperOrder = PaperOrder;
 	g_PirntSettingsData.m_printQuality = PrintQuality;
 	g_PirntSettingsData.m_scalingType = ScalingType;
-	g_PirntSettingsData.m_scalingRatio = ScalingRatio;
+	g_PirntSettingsData.m_drvScalingRatio = DrvScalingRatio;
 	g_PirntSettingsData.m_nupNum = NupNum;
 	g_PirntSettingsData.m_typeofPB = TypeofPB;
 	g_PirntSettingsData.m_posterType = PosterType;
@@ -1402,7 +1402,7 @@ USBAPI_API void __stdcall SetPrinterSettingsInitData()
 	g_PirntSettingsData.m_paperOrder = 1;
 	g_PirntSettingsData.m_printQuality = 0;
 	g_PirntSettingsData.m_scalingType = 0;
-	g_PirntSettingsData.m_scalingRatio = 100;
+	g_PirntSettingsData.m_drvScalingRatio = 100;
 	g_PirntSettingsData.m_nupNum = 1;
 	g_PirntSettingsData.m_typeofPB = 0;
 	g_PirntSettingsData.m_posterType = 0;
@@ -1553,7 +1553,7 @@ USBAPI_API void __stdcall SetPrinterInfo(const TCHAR * strPrinterName, UINT8 m_P
 				devmode.dmPrivate.poster.wPosterType = g_PirntSettingsData.m_posterType;// 0: 1 in 2x2, 1: 1 in 3x3, 2: 1 in 4x4 pages.
 
 				devmode.dmPrivate.sfp.ISFSet = static_cast<BYTE>(g_PirntSettingsData.m_scalingType);// scale 
-				devmode.dmPrivate.sfp.SRatio = g_PirntSettingsData.m_scalingRatio;//scale 25~400
+				devmode.dmPrivate.sfp.SRatio = g_PirntSettingsData.m_drvScalingRatio;//scale 25~400
 
 				devmode.dmPrivate.graphics.isADJColorBalance = g_PirntSettingsData.m_ADJColorBalance;
 				devmode.dmPrivate.graphics.bColorBalanceTo = static_cast<BYTE>(g_PirntSettingsData.m_colorBalanceTo);
@@ -1791,7 +1791,7 @@ USBAPI_API void __stdcall GetPrinterSettingsData(
 	BYTE* ptr_paperOrder,
 	BYTE* ptr_printQuality,//byte
 	BYTE* ptr_scalingType,//byte
-	UINT16* ptr_scalingRatio,
+	UINT16* ptr_drvScalingRatio,
 	BYTE* ptr_nupNum,//byte
 	BYTE* ptr_typeofPB,//byte
 	BYTE* ptr_posterType,
@@ -1812,7 +1812,7 @@ USBAPI_API void __stdcall GetPrinterSettingsData(
 	*ptr_paperOrder = static_cast<BYTE>(g_PirntSettingsData.m_paperOrder);
 	*ptr_printQuality = static_cast<BYTE>(g_PirntSettingsData.m_printQuality);
 	*ptr_scalingType = static_cast<BYTE>(g_PirntSettingsData.m_scalingType);
-	*ptr_scalingRatio = g_PirntSettingsData.m_scalingRatio;
+	*ptr_drvScalingRatio = g_PirntSettingsData.m_drvScalingRatio;
 	*ptr_nupNum = static_cast<BYTE>(g_PirntSettingsData.m_nupNum);
 	*ptr_typeofPB = static_cast<BYTE>(g_PirntSettingsData.m_typeofPB);
 	*ptr_posterType = static_cast<BYTE>(g_PirntSettingsData.m_posterType);
@@ -1836,7 +1836,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 	BYTE* ptr_paperOrder,
 	BYTE* ptr_printQuality,//byte
 	BYTE* ptr_scalingType,//byte
-	UINT16* ptr_scalingRatio,
+	UINT16* ptr_drvScalingRatio,
 	BYTE* ptr_nupNum,//byte
 	BYTE* ptr_typeofPB,//byte
 	BYTE* ptr_posterType,
@@ -1929,7 +1929,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 				*ptr_typeofPB = devmode.dmPrivate.bpmrdata.TypeofPB;
 				*ptr_posterType = static_cast<BYTE>(devmode.dmPrivate.poster.wPosterType);
 				*ptr_scalingType = devmode.dmPrivate.sfp.ISFSet;
-				*ptr_scalingRatio = static_cast<short>(devmode.dmPrivate.sfp.SRatio);
+				*ptr_drvScalingRatio = static_cast<short>(devmode.dmPrivate.sfp.SRatio);
 				*ptr_ADJColorBalance = devmode.dmPrivate.graphics.isADJColorBalance;
 				*ptr_colorBalanceTo = devmode.dmPrivate.graphics.bColorBalanceTo;
 				*ptr_density = devmode.dmPrivate.graphics.ColorBalanceIndex[0][0];
@@ -1967,7 +1967,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 	BYTE* ptr_paperOrder,
 	BYTE* ptr_printQuality,//byte
 	BYTE* ptr_scalingType,//byte
-	UINT16* ptr_scalingRatio,
+	UINT16* ptr_drvScalingRatio,
 	BYTE* ptr_nupNum,//byte
 	BYTE* ptr_typeofPB,//byte
 	BYTE* ptr_posterType,
@@ -2073,7 +2073,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 				inputDevmode.dmPrivate.poster.wPosterType = *ptr_posterType;// 0: 1 in 2x2, 1: 1 in 3x3, 2: 1 in 4x4 pages.
 
 				inputDevmode.dmPrivate.sfp.ISFSet = *ptr_scalingType;// scale 
-				inputDevmode.dmPrivate.sfp.SRatio = *ptr_scalingRatio;//scale 25~400
+				inputDevmode.dmPrivate.sfp.SRatio = *ptr_drvScalingRatio;//scale 25~400
 
 				inputDevmode.dmPrivate.graphics.isADJColorBalance = *ptr_ADJColorBalance;
 				inputDevmode.dmPrivate.graphics.bColorBalanceTo = *ptr_colorBalanceTo;
@@ -2179,7 +2179,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 						*ptr_typeofPB = devmode.dmPrivate.bpmrdata.TypeofPB;
 						*ptr_posterType = static_cast<BYTE>(devmode.dmPrivate.poster.wPosterType);
 						*ptr_scalingType = devmode.dmPrivate.sfp.ISFSet;
-						*ptr_scalingRatio = static_cast<short>(devmode.dmPrivate.sfp.SRatio);
+						*ptr_drvScalingRatio = static_cast<short>(devmode.dmPrivate.sfp.SRatio);
 						*ptr_ADJColorBalance = devmode.dmPrivate.graphics.isADJColorBalance;
 						*ptr_colorBalanceTo = devmode.dmPrivate.graphics.bColorBalanceTo;
 						*ptr_density = devmode.dmPrivate.graphics.ColorBalanceIndex[0][0];
@@ -2219,11 +2219,13 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 	}
 	return true;
 }
-USBAPI_API void __stdcall GetFixToPaperSizeData(BYTE* ptr_fixToPaperSize)
+USBAPI_API void __stdcall GetFixToPaperSizeData(BYTE* ptr_fixToPaperSize, UINT16* ptr_scalingRatio)
 {
 	*ptr_fixToPaperSize = static_cast<BYTE>(g_PirntSettingsData.m_fixToPaperSize);
+	*ptr_scalingRatio = g_PirntSettingsData.m_scalingRatio;
 }
-USBAPI_API void __stdcall SaveFixToPaperSizeData(UINT8 FixToPaperSize)
+USBAPI_API void __stdcall SaveFixToPaperSizeData(UINT8 FixToPaperSize, UINT16 ScalingRatio)
 {
 	g_PirntSettingsData.m_fixToPaperSize = FixToPaperSize;
+	g_PirntSettingsData.m_scalingRatio = ScalingRatio;
 }
