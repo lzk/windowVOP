@@ -198,7 +198,8 @@ namespace VOP
                 [In, MarshalAs(UnmanagedType.LPStruct)]IdCardSize size,
                 bool fitToPage,
                 int  duplexType,
-                bool IsPortrait);
+                bool IsPortrait,
+                int  scalingValue);
 
         [DllImport("usbapi.dll")]
         public static extern void AddImagePath(
@@ -232,7 +233,8 @@ namespace VOP
                bool fitToPage,
                int duplexType,
                bool IsPortrait,
-               int copies);
+               int copies,
+               int scalingValue);
 
         [DllImport("usbapi.dll")]
         public static extern int GetPaperNames(

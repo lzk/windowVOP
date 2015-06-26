@@ -75,8 +75,8 @@ typedef struct _IdCardSize
 USBAPI_API BOOL __stdcall IsMetricCountry();
 
 USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, SAFEARRAY** paperNames);
-USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int duplexType, bool IsPortrait, int copies);
-USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage, int duplexType, bool IsPortrait);
+USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int duplexType, bool IsPortrait, int copies, int scalingValue);
+USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage, int duplexType, bool IsPortrait, int scalingValue);
 USBAPI_API void __stdcall AddImagePath(const TCHAR * fileName);
 USBAPI_API void __stdcall AddImageSource(IStream * imageSource);
 USBAPI_API void __stdcall AddImageRotation(int rotation);
@@ -194,6 +194,8 @@ static IdCardSize currentIdCardSize = { 0 };
 static bool needFitToPage = false;
 static bool IsPrintSettingPortrait = true;
 static DuplexPrintType currentDuplexType = NonDuplex;
+static int ScalingValue = 100;
+
 static PCLDEVMODE getdevmode;
 static PCLDEVMODE getDocumentPropertiesData;
 static PCLDEVMODE getOutputData;
@@ -375,7 +377,7 @@ USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, SAFEARRAY** paper
 	return 1;
 }
 
-USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int duplexType, bool IsPortrait, int copies)
+USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int duplexType, bool IsPortrait, int copies, int scalingValue)
 {
 	PrintError error = Print_OK;
 	
@@ -420,7 +422,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 		||  strExt.compare(L".wmf") == 0
 		||  strExt.compare(L".emf") == 0)
 	{
-		if (PrintInit(strPrinterName, fileName, 0, NULL, fitToPage, duplexType, IsPortrait))
+		if (PrintInit(strPrinterName, fileName, 0, NULL, fitToPage, duplexType, IsPortrait, scalingValue))
 		{
 			AddImagePath(strFileName);
 			DoPrintImage();
@@ -469,7 +471,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	return error;
 }
 
-USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage, int duplexType, bool IsPortrait)
+USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage, int duplexType, bool IsPortrait, int scalingValue)
 {
 	g_vecImagePaths.clear();
 	g_vecIdCardImageSources.clear();
@@ -479,6 +481,7 @@ USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * 
 	needFitToPage = fitToPage;
 	currentDuplexType = (DuplexPrintType)duplexType;
 	IsPrintSettingPortrait = IsPortrait;
+	ScalingValue = scalingValue;
 
 	if (size != NULL)
 		currentIdCardSize = *size;
@@ -645,10 +648,12 @@ USBAPI_API int __stdcall DoPrintImage()
 						
 						if (IsFitted == TRUE)
 						{
-							w = (int)round(pImg->GetWidth() * (600 / dpiX));
-							h = (int)round(pImg->GetHeight()* (600 / dpiY));
-							x = 0; //Align Top left
-							y = 0;
+							w = (int)round(pImg->GetWidth() * (600 / dpiX) * (ScalingValue / 100.0));
+							h = (int)round(pImg->GetHeight()* (600 / dpiY) * (ScalingValue / 100.0));
+							//x = 0; //Align Top left
+							//y = 0;
+							x = (cxPage - w) / 2;
+							y = (cyPage - h) / 2;
 						}
 						else
 						{
@@ -679,7 +684,7 @@ USBAPI_API int __stdcall DoPrintImage()
 						pGraphics->SetPageUnit(Gdiplus::UnitPixel);
 
 
-						if (pageCount % 2 == 1 && IsFitted == TRUE)
+					/*	if (pageCount % 2 == 1 && IsFitted == TRUE)
 						{
 							switch (currentDuplexType)
 							{
@@ -718,7 +723,7 @@ USBAPI_API int __stdcall DoPrintImage()
 							default:
 								break;
 							}
-						}
+						}*/
 
 
 						if ((status = pGraphics->DrawImage(pImg, x, y, w, h)) != Gdiplus::Ok)

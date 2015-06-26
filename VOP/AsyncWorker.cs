@@ -24,7 +24,7 @@ namespace VOP
     public delegate int ScanDelegate(string printerName, string szOrig, string szView, string szThumb,
                                         int scanMode, int resolution, int width, int height,
                                         int contrast, int brightness, int docuType, uint uMsg );
-    public delegate int PrintFileDelegate(string printerName, string fileName, bool needFitToPage, int duplexType, bool IsPortrait, int copies);
+    public delegate int PrintFileDelegate(string printerName, string fileName, bool needFitToPage, int duplexType, bool IsPortrait, int copies, int scalingValue);
     public delegate bool RotateScannedFilesDelegate( ScanFiles objSrc, ScanFiles objDst, int nAngle );
     
     class AsyncWorker
@@ -124,14 +124,14 @@ namespace VOP
             return bSuccess;
         }
 
-        public PrintError InvokePrintFileMethod(PrintFileDelegate method, string printerName, string fileName, bool needFitToPage, int duplexType, bool IsPortrait, int copies)
+        public PrintError InvokePrintFileMethod(PrintFileDelegate method, string printerName, string fileName, bool needFitToPage, int duplexType, bool IsPortrait, int copies, int scalingValue)
         {
 
             if (method != null)
             {
                 PrintFileDelegate caller = method;
 
-                IAsyncResult result = caller.BeginInvoke(printerName, fileName, needFitToPage, duplexType, IsPortrait, copies, new AsyncCallback(CallbackMethod), null);
+                IAsyncResult result = caller.BeginInvoke(printerName, fileName, needFitToPage, duplexType, IsPortrait, copies, scalingValue, new AsyncCallback(CallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
