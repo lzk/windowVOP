@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <sys:String xml:space="preserve" x:Key="ResStr_VirtualOperationPanel">联想打印</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_VirtualOperationPanel">虚拟操作面板</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print">打  印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copy">复  印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan">扫  描</sys:String>
@@ -39,7 +39,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Please_Replace_Toner">请更换鼓粉盒</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_FW_Updating">固件升级中</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Overheat">过热</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_DMA_Error_SCxxx">设备DMA错误：&#x000D;&#x000A;请关闭打印机后重新启动。&#x000D;&#x000A;SC</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_DMA_Error_SCxxx">设备DMA错误:&#x000D;&#x000A;请关闭打印机后重新启动。&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">请关闭打印机后重新启动。如果错误仍然存在,请联系客户服务中心：&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_contact_customer_support__SCxxx">请联系客户服务中心：&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">扫描仪归位错误；&#x000D;&#x000A;请重启本设备，如果故障依然存在，请联系联想客户服务中心：&#x000D;&#x000A;SC1001</sys:String>
@@ -72,7 +72,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_16K">16K</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_A5_LEF_">A5（长边进纸）</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_B6_LEF_">B6（长边进纸）</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_User_Defined_Size">用户自定义</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_User_Defined_Size">自定义纸张尺寸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Orientation">纸张方向</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Landscape">横向</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Portrait">纵向</sys:String>
@@ -86,6 +86,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Normal_600_600_">标准（600*600）</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Fine_1200_600_">精细（1200*600）</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scaling">缩放比例</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Image_Scaling">图像缩放比例</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Fit_to_Paper_Size">调整至纸张大小</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Density_Adjustment">浓度调整</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Page_Order">页面顺序</sys:String>
@@ -200,7 +201,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Printworks_Promotion">打印工场推广</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Version_Copyright">版本和版权</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_DriverVersion_____">Printer Driver&#x000D;&#x000A;Version ****</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Copyright__C___2014_2015__Lenovo__Beijing__Limited_All_Right_Reserved_">Copyright (C) (2014-2015) Lenovo (Beijing) Limited.&#x000D;&#x000A;All Right Reserved.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Copyright__C___2014_2015__Lenovo__Beijing__Limited_All_Right_Reserved_">Copyright (C) (2015) Lenovo (Beijing) Limited.&#x000D;&#x000A;All Rights Reserved.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_This_file_is_not_supported__please_select_another_one_">暂不支持该文件的打印，请重新选择。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_">有效值输入范围为1到99，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_">有效值输入范围为25%到400%，请确认后再次输入。</sys:String>
@@ -224,7 +225,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_service_station_information_hasn_t_updated_for_____months__please_update_online_">维修网点信息已经**个月未更新，为保证信息的准确性，请在线更新。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_1__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">IP地址和子网掩码组合无效。已将IP地址的主机地址部分的所有位都设为1。请输入一个有效的IP地址和子网掩码组合。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_0__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">IP地址和子网掩码组合无效。已将IP地址的主机地址部分的所有位都设为0。请输入一个有效的IP地址和子网掩码组合。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_machine_is_busy__please_try_later_">机器正在工作中，请稍后再试！</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_machine_is_busy__please_try_later_">机器正在工作中，请稍后再试。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_fix_error_first_and_try_later_">请解决故障后再试一次！</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_Successfully_">设定成功</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_Fail">设定失败</sys:String>
@@ -238,7 +239,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_5">验证码发送成功。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_6">验证码发送失败。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_7">手机号码错误，请确认后再次输入。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_8">验证码格式错误，请确认后再次输入。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_8">验证码错误，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_9">网络名称必须是1到32个字符，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_10">网络名称必须是1到32个字符，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Exit">退出</sys:String>
@@ -251,7 +252,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_insufficient_system_disk_space">系统盘空间不足，请清理后再试。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Yes">是</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_No">否</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Warning_2">警告</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Border_Color">边框颜色</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Preview">预览</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_paper_jam_occurred_please_follow_the_instructions_">打印机卡纸，请按照提示操作！</sys:String>

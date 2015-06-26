@@ -1445,7 +1445,7 @@ namespace VOP
                                                     VOP.Controls.MessageBoxExStyle.YesNo,
                                                     this,
                                                     (string)this.TryFindResource("ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_"),
-                                                    (string)this.TryFindResource("ResStr_Warning_2")
+                                                    (string)this.TryFindResource("ResStr_Warning")
                                                     )
                     )
                 {

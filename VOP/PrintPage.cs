@@ -390,7 +390,7 @@ namespace VOP
                     {
                         if((uint)ex.ErrorCode == 0x80ff000d) //Open file is locked by other process
                         {
-                            MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple(ex.Message, (string)this.FindResource("ResStr_Warning_2"));
+                            MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple(ex.Message, (string)this.FindResource("ResStr_Warning"));
                             messageBox.Owner = App.Current.MainWindow;
                             messageBox.ShowDialog();
                         }
@@ -466,7 +466,7 @@ namespace VOP
  
             if (printRes == PrintError.Print_File_Not_Support)
             {
-                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_This_file_is_not_supported__please_select_another_one_"), (string)this.FindResource("ResStr_Warning_2"));
+                MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_This_file_is_not_supported__please_select_another_one_"), (string)this.FindResource("ResStr_Warning"));
                 messageBox.Owner = App.Current.MainWindow;
                 messageBox.ShowDialog();
                 this.m_MainWin.subPageView.Child = this.m_MainWin.winFileSelectionPage;
