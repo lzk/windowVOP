@@ -25,7 +25,7 @@
     </UserControl.Resources>       
     
     <Grid>
-        <Button Opacity="0">
+        <Button Name="btn" Opacity="0">
             <Button.Template>
                 <ControlTemplate>
                     <ControlTemplate.Triggers>

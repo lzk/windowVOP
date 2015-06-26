@@ -128,6 +128,7 @@ namespace VOP
             args.Handled = true;
 
             tmpImg = (ImageBrush)rect_Image.Fill;
+            btn.Focus();
             rect_Image.Fill = imgLogonPressed;
         }
 
