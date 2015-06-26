@@ -92,14 +92,11 @@ namespace VOP
         {
             ImageItem img = (ImageItem)sender;
 
-            img.m_ischeck = !img.m_ischeck;
-
-            if ( true == img.m_ischeck )
-                img.m_num = GetSelectedItemCount();
+            if ( 0 == img.m_num )
+                img.m_num = GetSelectedItemCount()+1;
             else
-                img.m_num = -1;
+                img.m_num = 0;
             
-            img.CheckImage( img.m_ischeck );
             UpdateSelItemNum();
 
             if ( 0 < GetSelectedItemCount() )
@@ -119,9 +116,7 @@ namespace VOP
 
             ImageItem img = (ImageItem)sender;
 
-            img.m_ischeck = true;
-            img.m_num = GetSelectedItemCount();
-            img.CheckImage( true );
+            img.m_num = GetSelectedItemCount()+1;
 
             btnPrint.IsEnabled = true;
             btnSave.IsEnabled = true;
@@ -173,9 +168,7 @@ namespace VOP
                         tmp.ImageDoubleClick += ImageItemDoubleClick;
                         tmp.CloseIconClick += ImageItemCloseIconClick;
 
-                        tmp.m_ischeck = true;
-                        tmp.m_num = GetSelectedItemCount();
-                        tmp.CheckImage( true );
+                        tmp.m_num = GetSelectedItemCount()+1;
 
                         tmp.Margin = new Thickness( 5 );
                         this.image_wrappanel.Children.Insert(index, tmp );
@@ -412,7 +405,7 @@ namespace VOP
                          img.ImageSingleClick += ImageItemSingleClick;
                          img.ImageDoubleClick += ImageItemDoubleClick;
                          img.CloseIconClick += ImageItemCloseIconClick;
-                         img.CheckImage( false );
+                         img.m_num = 0;
                          UpdateSelItemNum();
 
                          img.Margin = new Thickness( 5 );
@@ -502,7 +495,7 @@ namespace VOP
                 {
                     ImageItem img = obj as ImageItem;
 
-                    if ( null != img && true == img.m_ischeck )
+                    if ( null != img && 0 < img.m_num )
                     {
                         files[img.m_num-1] = img.m_images.m_pathOrig;
                     }
@@ -522,7 +515,7 @@ namespace VOP
             {
                 ImageItem img1 = image_wrappanel.Children[i] as ImageItem;
 
-                if ( null != img1 && true == img1.m_ischeck )
+                if ( null != img1 && 0 < img1.m_num )
                 {
                     lst.Add( img1.m_num );
                 }
@@ -546,10 +539,9 @@ namespace VOP
                 {
                     ImageItem img1 = image_wrappanel.Children[i] as ImageItem;
 
-                    if ( null != img1 && true == img1.m_ischeck && nMiss <= img1.m_num )
+                    if ( null != img1 && 0 < img1.m_num && nMiss <= img1.m_num )
                     {
                         img1.m_num--; 
-                        img1.CheckImage( true );
                     }
                 }
             }
@@ -565,7 +557,7 @@ namespace VOP
             {
                 ImageItem img = obj as ImageItem;
 
-                if ( null != img && true == img.m_ischeck )
+                if ( null != img && 0 < img.m_num )
                     nCount++;
             }
 
@@ -776,7 +768,7 @@ namespace VOP
                 {
                     ImageItem img = obj as ImageItem;
 
-                    if ( null != img && true == img.m_ischeck )
+                    if ( null != img && 0 < img.m_num )
                     {
                         System.IO.FileInfo fi = new System.IO.FileInfo( img.m_images.m_pathOrig );
                         lNeedSpace += fi.Length;

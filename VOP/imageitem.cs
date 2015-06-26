@@ -10,9 +10,6 @@ namespace VOP
 {
     public partial class ImageItem : UserControl
     {
-        public int  m_num = -1;
-
-        public bool m_ischeck = false;
         public bool m_iSimgReady = false; // false if image has not loaded.
 
         public ImageItem()
@@ -34,7 +31,21 @@ namespace VOP
             }
         }
 
-        public void CheckImage( bool ischeck ) 
+        private int  _num = 0; // Number mark in the right top corner. Assign zero when the item was unselected.
+        public int  m_num
+        {
+            get
+            {
+                return _num;
+            }
+            set
+            {
+                _num = value;
+                CheckImage( 0 < value );
+            }
+        }
+
+        private void CheckImage( bool ischeck ) 
         {
             if ( ischeck )
             {
@@ -93,8 +104,6 @@ namespace VOP
                 bi3.EndInit();
                 imgMark.Source = bi3;
             }
-
-            m_ischeck = ischeck;
         }
 
         private void MyMouseDownHandler(object sender, MouseButtonEventArgs e)
@@ -113,7 +122,7 @@ namespace VOP
 
         public void MouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
         {
-            if ( false == m_ischeck && CloseIconClick != null )
+            if ( 0 == m_num && CloseIconClick != null )
             {
                 this.CloseIconClick((object) this, (RoutedEventArgs) null);
                 e.Handled = true;
