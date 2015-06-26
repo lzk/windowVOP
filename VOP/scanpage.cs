@@ -489,7 +489,7 @@ namespace VOP
 
             if ( nCount > 0 )
             {
-                files.Capacity = nCount;
+                files.AddRange( new string[nCount] );
 
                 foreach (object obj in image_wrappanel.Children)
                 {
