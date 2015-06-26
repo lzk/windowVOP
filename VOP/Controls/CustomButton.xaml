@@ -139,9 +139,9 @@
                 <ControlTemplate TargetType="{x:Type Button}">                   
                     <Grid>
                         <Border Name="border1" Background="{TemplateBinding Background}">
-                              <ContentPresenter HorizontalAlignment="{TemplateBinding  HorizontalContentAlignment}"  VerticalAlignment="Center"/>
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding  HorizontalContentAlignment}"  VerticalAlignment="Center"  Margin="5"/>
                          </Border>
-                        <Image Source="..\Images\arrow.png" HorizontalAlignment="Right" Stretch="None"></Image>
+                        <Image Source="..\Images\arrow.png" HorizontalAlignment="Right" Stretch="None" Margin="5"></Image>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
