@@ -697,12 +697,9 @@ namespace VOP
         {
             TextBox tb = sender as TextBox;
             string strIP = tb.Text;
-            byte ip0 = 0;
-            byte ip1 = 0;
-            byte ip2 = 0;
-            byte ip3 = 0;
+            IPAddress ip;
 
-            if (false == ParseIP(strIP, ref ip0, ref ip1, ref ip2, ref ip3))
+            if (false == IPAddress.TryParse(strIP, out ip))
             {
                 tb.Text = "0.0.0.0";
             }
