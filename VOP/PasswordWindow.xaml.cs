@@ -67,6 +67,7 @@ namespace VOP
                     ((MainWindow)App.Current.MainWindow).m_strPassword = "";
                     pbPwd.Focus();
                     pbPwd.SelectAll();
+                    tbkErrorInfo.Foreground = new SolidColorBrush(Colors.Red);
                     tbkErrorInfo.Text = (string)this.FindResource("ResStr_Authentication_error__please_enter_the_password_again_"); 
                 }
                 else
@@ -77,13 +78,15 @@ namespace VOP
             }   
             else
             {
+                tbkErrorInfo.Foreground = new SolidColorBrush(Colors.Red);
                 tbkErrorInfo.Text = (string)this.FindResource("ResStr_The_new_password_can_not_be_empty_");
             }
         }
 
         private void pbPwd_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            tbkErrorInfo.Text = "";
+            tbkErrorInfo.Foreground = new SolidColorBrush(Colors.Black);
+            tbkErrorInfo.Text = (string)this.TryFindResource("ResStr_Password_Tip");
 
             if (pbPwd.Password.Length == 0)
                 btnLogin.IsEnabled = false;

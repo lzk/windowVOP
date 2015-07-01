@@ -291,4 +291,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Express_Login_using_mobile_number">使用手机号码快速登录</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Verification_Code">验证码</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Get_Verification_Code">获取验证码</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Password_Tip">本设备出厂默认密码为“888888”，为保证设备安全，请及时修改密码。</sys:String>
 </ResourceDictionary>
