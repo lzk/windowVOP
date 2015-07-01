@@ -16,7 +16,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Image Name="backgroundImage"/>
+        <Image Name="backgroundImage" Margin="7"/>
         <Canvas x:Name="DesignerCanvas"
             ClipToBounds="True"
             SnapsToDevicePixels="True">

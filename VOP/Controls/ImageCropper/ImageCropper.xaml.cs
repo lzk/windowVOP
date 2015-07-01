@@ -21,6 +21,7 @@ namespace VOP.Controls
 	public partial class ImageCropper : UserControl
 	{
 		public static double thumbCornerWidth = 0;
+        public static double imageMargin = 7;
         public static double designerItemWHRatio = 1;
         bool IsFitted = false;
         public static double imageToTop = 0;
@@ -129,15 +130,15 @@ namespace VOP.Controls
             double designerItemToTop = 0;
             double designerItemToLeft = 0;
 
-            imageToTop = 0;
-            imageToLeft = 0;
+            imageToTop = imageMargin;
+            imageToLeft = imageMargin;
             imageWidth = 0;
             imageHeight = 0;
 
             imageWidth = PixelToUnit(width, dpiX);
             imageHeight = PixelToUnit(height, dpiY);
 
-            if (imageWidth < this.ActualWidth && imageHeight < this.ActualHeight)
+            if (imageWidth < (this.ActualWidth - 2 * imageMargin) && imageHeight < (this.ActualHeight - 2 * imageMargin))
             {
                 this.backgroundImage.Stretch = Stretch.None;
                 IsFitted = true;
@@ -149,8 +150,8 @@ namespace VOP.Controls
             }
 
             whRatio = imageWidth / imageHeight;
-            scaleRatioX = imageWidth / this.ActualWidth;
-            scaleRatioY = imageHeight / this.ActualHeight;
+            scaleRatioX = imageWidth / (this.ActualWidth - 2 * imageMargin);
+            scaleRatioY = imageHeight / (this.ActualHeight - 2 * imageMargin);
 
             if (IsFitted == true)
             {
@@ -162,22 +163,22 @@ namespace VOP.Controls
                 //Image uniformlly strech to control, calculate the gap on unfitted side
                 if (scaleRatioX > scaleRatioY)
                 {
-                    imageWidth = this.ActualWidth;
-                    imageHeight = this.ActualWidth / whRatio;
+                    imageWidth = this.ActualWidth - 2 * imageMargin;
+                    imageHeight = imageWidth / whRatio;
                     imageToTop = (this.ActualHeight - imageHeight) / 2;
                     scaleRatioApply = scaleRatioX;       
                 }
                 else if (scaleRatioX < scaleRatioY)
                 {
-                    imageWidth = this.ActualHeight * whRatio;
-                    imageHeight = this.ActualHeight;
+                    imageHeight = this.ActualHeight - 2 * imageMargin;
+                    imageWidth = imageHeight * whRatio;
                     imageToLeft = (this.ActualWidth - imageWidth) / 2;
                     scaleRatioApply = scaleRatioY;
                 }
                 else
                 {
-                    imageWidth = this.ActualWidth;
-                    imageHeight = this.ActualHeight;
+                    imageWidth = this.ActualWidth - 2 * imageMargin;
+                    imageHeight = this.ActualHeight - 2 * imageMargin;
                     scaleRatioApply = scaleRatioX;
                 }
             }
