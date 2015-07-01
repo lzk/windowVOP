@@ -149,11 +149,11 @@
 
                     <Grid Height="Auto" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4.5" />
+                            <ColumnDefinition Width="4" />
                             <ColumnDefinition Width="9*" />
-                            <ColumnDefinition Width="4.5" />
+                            <ColumnDefinition Width="4" />
                         </Grid.ColumnDefinitions>
-                        <Path Width="4.5" Height="11" Grid.Column="0" 
+                        <Path Width="4" Height="11" Grid.Column="0" 
                               Data="M100,160 C100,160 90,160 90,170 90,180 100,180 100,180"
                               Stretch="Fill" HorizontalAlignment="Right" VerticalAlignment="Center">
                             <Path.Fill>
@@ -186,7 +186,7 @@
                                 </LinearGradientBrush>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Path Width="4.5" Height="11" Grid.Column="2" 
+                        <Path Width="4" Height="11" Grid.Column="2" 
                               Data="M100,185 C100,185 110,185 110,195 110,205 100,205 100,205"
                               Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <Path.Fill>
@@ -234,11 +234,11 @@
       <ControlTemplate TargetType="{x:Type Thumb}">
                     <Grid Height="Auto" >
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="4.5" />
+                            <RowDefinition Height="4" />
                             <RowDefinition Height="9*" />
-                            <RowDefinition Height="4.5" />
+                            <RowDefinition Height="4" />
                         </Grid.RowDefinitions>
-                        <Path Height="4.5" Width="11" Grid.Row="0" 
+                        <Path Height="4" Width="11" Grid.Row="0" 
                               Data="M599.98763,199.02381 C599.98763,199.02381 599.50007,188.70539 619.50007,188.70539 639.50007,188.70539 639.01223,199.0238 639.01223,199.0238" 
                               Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                             <Path.Fill>
@@ -263,7 +263,7 @@
                                 </LinearGradientBrush>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Path Height="4.5" Width="11" Grid.Row="2" Data="M600,205 C600,205 600.45341,215.71339 620.45341,215.71339 640.45341,215.71339 640,205 640,205" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Path Height="4" Width="11" Grid.Row="2" Data="M600,205 C600,205 600.45341,215.71339 620.45341,215.71339 640.45341,215.71339 640,205 640,205" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Top">
                             <Path.Fill>
                                 <RadialGradientBrush Center="0.504,1.832" GradientOrigin="0.504,2.165" RadiusY="0.96" RadiusX="0.492">
                                     <RadialGradientBrush.RelativeTransform>
