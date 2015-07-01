@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VOP.Controls;
 
 namespace VOP.Controls
 {
@@ -47,7 +48,37 @@ namespace VOP.Controls
                 Visual childVisual = (Visual)VisualTreeHelper.GetChild(myVisual, i);
                
                 // Do processing of the child visual object. 
-                if (childVisual is TextBlock)
+                if (childVisual is SpinnerControl)
+                {
+                    SpinnerControl control = childVisual as SpinnerControl;
+
+                    if (enable)
+                    {
+                        control.IsEnabled = true;
+                    }
+                    else
+                    {
+                        control.IsEnabled = false;
+                    }
+
+                    return;
+                }
+                else if (childVisual is CheckBox)
+                {
+                    CheckBox control = childVisual as CheckBox;
+
+                    if (enable)
+                    {
+                        control.IsEnabled = true;
+                    }
+                    else
+                    {
+                        control.IsEnabled = false;
+                    }
+
+                    return;
+                }
+                else if (childVisual is TextBlock)
                 {
                     TextBlock textBlock = childVisual as TextBlock;
                     if(enable)
