@@ -67,7 +67,7 @@
                         <Setter Property="Control.Template">
                             <Setter.Value>
                                 <ControlTemplate>
-                                    <Rectangle Margin="-3,13,-3,9" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                    <Rectangle Margin="0" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
@@ -143,24 +143,25 @@
                         <ColumnDefinition Width="89*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
     
-                    <Grid Name="Print_Grid" Grid.Column="1" Width="62" Margin="0,0,0, 7">
-                        <Image Name="tabItem_ImgPrint" HorizontalAlignment="Center" VerticalAlignment="Bottom"   Source="Images\btnPrint.tif" />
-                        <Button x:Name="btnPrint" Click="NvgBtnClick" Opacity="0.0" Style="{StaticResource tabItem_btnStyle}"/>
+                    <Grid Name="Print_Grid" Grid.Column="1">
+                        <Image Name="tabItem_ImgPrint" Width="62" Margin="0,0,0, 7" HorizontalAlignment="Center" VerticalAlignment="Bottom"   Source="Images\btnPrint.tif" />
+                        <Button x:Name="btnPrint" Click="NvgBtnClick" Opacity="0.0" Style="{StaticResource tabItem_btnStyle}" Margin="0,-4,0,0"/>                       
+                        
                     </Grid>
 
-                    <Grid Name="Scan_Grid" Grid.Column="3" Width="62" Margin="0,0,0, 7">
-                        <Image  Name="tabItem_ImgScan"  HorizontalAlignment="Center" VerticalAlignment="Bottom"  Source="Images\btnCopy.tif" />
-                        <Button x:Name="btnCopy" Click="NvgBtnClick" Opacity="0.0" Style="{StaticResource tabItem_btnStyle}"/>
+                    <Grid Name="Scan_Grid" Grid.Column="3">
+                        <Image  Name="tabItem_ImgScan"  Width="62" Margin="0,0,0, 7" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Source="Images\btnCopy.tif" />
+                        <Button x:Name="btnCopy" Click="NvgBtnClick" Opacity="0.0" Style="{StaticResource tabItem_btnStyle}" Margin="0,-4,0,0"/>
                     </Grid>
 
-                    <Grid Name="Copy_Grid" Grid.Column="5" Width="62" Margin="0,0,0, 7" >
-                        <Image Name="tabItem_ImgCopy" HorizontalAlignment="Center" VerticalAlignment="Bottom" Source="Images\btnScan.tif" />
-                        <Button x:Name="btnScan" Click="NvgBtnClick" Opacity="0.0" Style="{StaticResource tabItem_btnStyle}"/>
+                    <Grid Name="Copy_Grid" Grid.Column="5">
+                        <Image Name="tabItem_ImgCopy" Width="62" Margin="0,0,0, 7" HorizontalAlignment="Center" VerticalAlignment="Bottom" Source="Images\btnScan.tif" />
+                        <Button x:Name="btnScan" Click="NvgBtnClick" Opacity="0.0" Style="{StaticResource tabItem_btnStyle}" Margin="0,-4,0,0"/>
                     </Grid>
 
-                    <Grid Name="Setting_Grid" Grid.Column="7" Width="62" Margin="0,0,3, 7">
-                        <Image Name="tabItem_ImgSetting" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Source="Images\btnSetting.tif" />
-                        <Button x:Name="btnSetting" Click="NvgBtnClick" Opacity="0.0" Style="{StaticResource tabItem_btnStyle}"/>
+                    <Grid Name="Setting_Grid" Grid.Column="7">
+                        <Image Name="tabItem_ImgSetting" Width="62" Margin="0,0,3, 7" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Source="Images\btnSetting.tif" />
+                        <Button x:Name="btnSetting" Click="NvgBtnClick" Opacity="0.0" Style="{StaticResource tabItem_btnStyle}" Margin="0,-4,0,0"/>
                     </Grid>
 
                     <Grid Name="tabItem_Container" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="7" Margin="-1,0,-1,335" Grid.RowSpan="2">
@@ -175,22 +176,22 @@
                     <mycontrol:customTabItem x:Name="tabItem_Print"   Grid.Column="1" Grid.Row="1" Margin="0,1,0,0"                            
                                              IsSelect="False" 
                                              FontSize="16.99" 
-                                             Text="{StaticResource ResStr_ExtraAdd_Print}"
+                                             Text="{StaticResource ResStr_ExtraAdd_Print}" btnClick="NvgBtnClick"
                                              tabItemStyle="Left"/>
                     <mycontrol:customTabItem x:Name="tabItem_Copy"   Grid.Column="3" Grid.Row="1" Margin="0,1,0,0"                                
                                              IsSelect="False" 
                                              FontSize="16.99" 
-                                             Text="{StaticResource ResStr_ExtraAdd_Copy}"
+                                             Text="{StaticResource ResStr_ExtraAdd_Copy}" btnClick="NvgBtnClick"
                                              tabItemStyle="Middle"/>
                     <mycontrol:customTabItem x:Name="tabItem_Scan"     Grid.Column="5" Grid.Row="1" Margin="0,1,0,0"                               
                                              IsSelect="False" 
                                              FontSize="16.99" 
-                                             Text="{StaticResource ResStr_ExtraAdd_Scan}"
+                                             Text="{StaticResource ResStr_ExtraAdd_Scan}" btnClick="NvgBtnClick"
                                              tabItemStyle="Middle"/>
                     <mycontrol:customTabItem x:Name="tabItem_Setting"   Grid.Column="7" Grid.Row="1" Margin="0,1,0,0"                                 
                                              IsSelect="False" 
                                              FontSize="16.99" 
-                                             Text="{StaticResource ResStr_Setting}"
+                                             Text="{StaticResource ResStr_Setting}" btnClick="NvgBtnClick"
                                              tabItemStyle="Right">
                     </mycontrol:customTabItem>
 

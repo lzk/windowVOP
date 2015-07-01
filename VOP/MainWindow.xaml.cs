@@ -810,19 +810,19 @@ namespace VOP
 
             if ( null != btn )
             {
-                if ( "btnPrint" == btn.Name )
+                if ( "btnPrint" == btn.Name || "tabItem_Print" == btn.Name )
                 {                
                      SetTabItemFromIndex( EnumSubPage.Print );
                 }
-                else if ( "btnCopy" == btn.Name )
+                else if ("btnCopy" == btn.Name || "tabItem_Copy" == btn.Name)
                 {                   
                     SetTabItemFromIndex( EnumSubPage.Copy );
                 }
-                else if ( "btnScan" == btn.Name )
+                else if ("btnScan" == btn.Name || "tabItem_Scan" == btn.Name)
                 {                    
                     SetTabItemFromIndex( EnumSubPage.Scan );
                 }
-                else if ( "btnSetting" == btn.Name )
+                else if ( "btnSetting" == btn.Name || "tabItem_Setting" == btn.Name)
                 {                
                     SetTabItemFromIndex( EnumSubPage.Setting );
                 }

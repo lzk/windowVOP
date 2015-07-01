@@ -30,6 +30,7 @@ namespace VOP
     public partial class customTabItem : UserControl
     {
         public static readonly DependencyProperty IsSelectProperty;
+        
         public bool IsSelect
         {
             get { return (bool)GetValue(IsSelectProperty); }
@@ -113,6 +114,10 @@ namespace VOP
 
             IsEnabledProperty.OverrideMetadata(typeof(customTabItem),
             new FrameworkPropertyMetadata(true, new PropertyChangedCallback(OnIsEnabled_Changed)));
+
+            btnClickEvent =
+               EventManager.RegisterRoutedEvent("btnClick", RoutingStrategy.Bubble,
+                       typeof(RoutedEventHandler), typeof(customTabItem));
         }
 
         private static void OnIsEnabled_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -161,5 +166,78 @@ namespace VOP
         {
             InitializeComponent();
         }
+
+
+        #region Add ClickEvent Process 
+        bool isMouseReallyOver;
+        public static readonly RoutedEvent btnClickEvent;
+
+        public event RoutedEventHandler btnClick
+        {
+            add { AddHandler(btnClickEvent, value); }
+            remove { RemoveHandler(btnClickEvent, value); }
+        }
+
+        protected override void OnMouseEnter(MouseEventArgs args)
+        {
+            base.OnMouseEnter(args);
+            InvalidateVisual();
+        }
+        protected override void OnMouseLeave(MouseEventArgs args)
+        {
+            base.OnMouseLeave(args);
+            InvalidateVisual();
+        }
+        protected override void OnMouseMove(MouseEventArgs args)
+        {
+            base.OnMouseMove(args);
+
+            Point pt = args.GetPosition(this);
+            bool isReallyOverNow = (pt.X >= 0 && pt.X < ActualWidth &&
+                                    pt.Y >= 0 && pt.Y < ActualHeight);
+            if (isReallyOverNow != isMouseReallyOver)
+            {
+                isMouseReallyOver = isReallyOverNow;
+                InvalidateVisual();
+            }
+        }
+
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs args)
+        {
+            base.OnMouseLeftButtonDown(args);
+            CaptureMouse();
+            InvalidateVisual();
+            args.Handled = true;
+        }
+
+        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs args)
+        {
+            base.OnMouseLeftButtonUp(args);
+
+            if (IsMouseCaptured)
+            {
+                if (isMouseReallyOver)
+                {
+                    OnClick();
+                }
+                args.Handled = true;
+                Mouse.Capture(null);
+            }
+        }
+
+        protected override void OnLostMouseCapture(MouseEventArgs args)
+        {
+            base.OnLostMouseCapture(args);
+            InvalidateVisual();
+        }
+
+        protected virtual void OnClick()
+        {
+            RoutedEventArgs argsEvent = new RoutedEventArgs();
+            argsEvent.RoutedEvent = customTabItem.btnClickEvent;
+            argsEvent.Source = this;
+            RaiseEvent(argsEvent);
+        }
+        #endregion
     }
 }
