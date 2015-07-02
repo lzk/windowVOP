@@ -51,6 +51,10 @@
                             <Setter TargetName="BtnArrow"
                                     Property="Visibility" Value="Hidden"/>
                         </Trigger>
+                        
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="BtnArrow" Property="Fill" Value="#7F6D6D6D"></Setter>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
