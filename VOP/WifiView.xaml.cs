@@ -340,13 +340,17 @@ namespace VOP
                 m_rec = worker.GetApList(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
             }
 
+            WiFiInfoRecord m_wifi = null;
+            AsyncWorker worker1 = new AsyncWorker(Application.Current.MainWindow);
+
+            worker1.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_wifi, DllMethodType.GetWiFiInfo, this);
+
             if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
             {
                 for (int i = 0; i < m_rec.SsidList.Count; i++)
                 {
                     if (!String.IsNullOrEmpty(m_rec.SsidList[i]))
                     {
-
                         VOP.Controls.WiFiItem wifiitem = new VOP.Controls.WiFiItem();
                         wifiitem.SSIDText = m_rec.SsidList[i];
                         if ((byte)EnumEncryptType.NoSecurity == m_rec.EncryptionList[i])    //No Security
@@ -371,9 +375,55 @@ namespace VOP
                         }
                         wifiitem.WifiSignalLevel = VOP.Controls.EnumWifiSignalLevel.stronger;
 
+                        if (null != m_wifi.SSID && m_wifi.SSID == wifiitem.SSIDText)
+                        {
+                            wifiitem.Connected = true;
+                            wifiitem.EncryptionText = (string)this.FindResource("ResStr_Connected");
+                        }
+                        wifiitem.ConnectedPropertyChanged += wifiitem_ConnectedPropertyChanged;
+
                         wifilist.Children.Add(wifiitem);
                     }
                 }
+            }
+        }
+
+        private void wifiitem_ConnectedPropertyChanged(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                WiFiItem wi = sender as WiFiItem;
+
+                foreach (WiFiItem obj in wifilist.Children)
+                {
+                    if (wi.SSIDText != obj.SSIDText
+                        && obj.Connected == true
+                        && wi.Connected == true)
+                    {
+                        obj.Connected = false;
+
+                        if (EnumEncryptType.NoSecurity == obj.EncryptType)    //No Security
+                        {
+                            obj.EncryptionText = (string)this.FindResource("ResStr_No_Security");
+                        }
+                        else if (EnumEncryptType.WEP == obj.EncryptType) //WEP
+                        {
+                            obj.EncryptionText = (string)this.FindResource("ResStr_Protected_by_WEP");
+                        }
+                        else if (EnumEncryptType.WPA2_PSK_AES == obj.EncryptType)   //3. WPA2-PSK-AES 
+                        {
+                            obj.EncryptionText = (string)this.FindResource("ResStr_Protected_by_WPA2");
+                        }
+                        else if (EnumEncryptType.MixedModePSK == obj.EncryptType)   //4.Mixed Mode PSK
+                        {
+                            obj.EncryptionText = (string)this.FindResource("ResStr_Protected_by_Mixed_Mode_PSK");
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
             }
         }
 

@@ -24,6 +24,7 @@
                                     EncryptionText="{Binding Path=EncryptionText, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                     EncryptType="{Binding Path=EncryptType, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                     WifiSignalLevel="{Binding Path=WifiSignalLevel, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Connected="{Binding Path=Connected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                     >
                             </s:ToggleButtonEx>
                         </Grid>

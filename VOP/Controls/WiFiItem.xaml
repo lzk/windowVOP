@@ -30,6 +30,7 @@
                 EncryptionText="{Binding ElementName=WifiIten_Name, Path=EncryptionText, Mode=TwoWay}"
                 EncryptType="{Binding ElementName=WifiIten_Name, Path=EncryptType, Mode=TwoWay}"
                 WifiSignalLevel="{Binding ElementName=WifiIten_Name, Path=WifiSignalLevel, Mode=TwoWay}"
+                Connected="{Binding ElementName=WifiIten_Name, Path=Connected, Mode=TwoWay}"
                 IsExpanded="{Binding ElementName=WifiIten_Name, Path=IsExpanded, Mode=TwoWay}"
                 >
      

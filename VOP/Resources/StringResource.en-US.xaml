@@ -293,4 +293,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Get_Verification_Code">Get verification code</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Password_Tip">本设备出厂默认密码为“888888”，为保证设备安全，请及时修改密码。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Are_you_sure_to_delete_the_selected_picture">Are you sure to delete the selected picture?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Connected">Connected</sys:String>
 </ResourceDictionary>

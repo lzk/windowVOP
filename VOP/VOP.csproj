@@ -768,4 +768,7 @@
     <Resource Include="Images\BellForAbout.png" />
     <Resource Include="Images\LogoForAbout.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Signal_Connect.png" />
+  </ItemGroup>
 </Project>

@@ -225,6 +225,50 @@ namespace VOP.Controls
         }
         #endregion
 
+        #region Connected property
+        public static readonly DependencyProperty ConnectedProperty =
+                            DependencyProperty.Register("Connected",
+                            typeof(bool),
+                            typeof(WiFiItem),
+                            new PropertyMetadata(false, new PropertyChangedCallback(OnConnectedPropertyChanged)));
+
+        public static readonly RoutedEvent ConnectedPropertyEvent =
+                                           EventManager.RegisterRoutedEvent("ConnectedPropertyChanged", RoutingStrategy.Bubble,
+                                           typeof(RoutedEventHandler),
+                                           typeof(WiFiItem));
+
+        public bool Connected
+        {
+            get { return (bool)GetValue(ConnectedProperty); }
+            set { SetValue(ConnectedProperty, value); }
+        }
+
+        public event RoutedEventHandler ConnectedPropertyChanged
+        {
+            add { AddHandler(ConnectedPropertyEvent, value); }
+            remove { RemoveHandler(ConnectedPropertyEvent, value); }
+        }
+
+        private static void OnConnectedPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            WiFiItem control = sender as WiFiItem;
+            if (control != null)
+            {
+                var newValue = (bool)args.NewValue;
+                var oldValue = (bool)args.OldValue;
+
+                RoutedPropertyChangedEventArgs<bool> e =
+                    new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue, ConnectedPropertyEvent);
+
+                control.OnConnectedPropertyChanged(e);
+            }
+        }
+
+        virtual protected void OnConnectedPropertyChanged(RoutedPropertyChangedEventArgs<bool> e)
+        {
+            RaiseEvent(e);
+        }
+        #endregion
 
         #region IsExpanded property
         public static readonly DependencyProperty IsExpandedProperty =
@@ -512,6 +556,9 @@ namespace VOP.Controls
 
             if (isApplySuccess)
             {
+                Connected = true;
+                EncryptionText = (string)this.FindResource("ResStr_Connected");
+
                 tbPwd.Text = pwd;
                 pbPwd.Password = pwd;
             }

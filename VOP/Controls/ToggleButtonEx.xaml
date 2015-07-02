@@ -67,6 +67,10 @@
                             <Setter TargetName="tbEncrypt" Property="Foreground" Value="#7F6D6D6D"></Setter>
                             <Setter TargetName="imgSignal" Property="Source" Value="..\Images\Signal_Disable.png"></Setter>
                         </Trigger>
+                        
+                        <Trigger Property="Connected" Value="True">
+                            <Setter TargetName="imgSignal" Property="Source" Value="..\Images\Signal_Connect.png"></Setter>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
