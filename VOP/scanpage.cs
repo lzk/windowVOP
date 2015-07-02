@@ -12,6 +12,7 @@ using System.Windows.Interop; // for HwndSource
 using System.Threading;
 using Microsoft.Win32; // for SaveFileDialog
 using PdfEncoderClient;
+using VOP.Controls;
 
 namespace VOP
 {
@@ -73,19 +74,28 @@ namespace VOP
 
         private void ImageItemCloseIconClick(object sender, RoutedEventArgs e)
         {
-            ImageItem img = (ImageItem)sender;
-
-            int index = 0;
-            foreach ( object obj in image_wrappanel.Children )
+            if (VOP.Controls.MessageBoxExResult.Yes ==
+                    VOP.Controls.MessageBoxEx.Show(
+                        VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
+                        m_MainWin,
+                        (string)this.TryFindResource("ResStr_Are_you_sure_to_delete_the_selected_picture"),
+                        (string)this.TryFindResource("ResStr_Prompt")
+                        )
+               )
             {
-                if ( obj == img )
-                {
-                    image_wrappanel.Children.RemoveAt( index );
-                    break;
-                }
-                index++;
-            }
+                ImageItem img = (ImageItem)sender;
 
+                int index = 0;
+                foreach ( object obj in image_wrappanel.Children )
+                {
+                    if ( obj == img )
+                    {
+                        image_wrappanel.Children.RemoveAt( index );
+                        break;
+                    }
+                    index++;
+                }
+            }
         }
 
         private void ImageItemSingleClick(object sender, RoutedEventArgs e)
