@@ -165,6 +165,16 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!--<Style x:Key="SpinnerTextBoxFocus">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="-0.5" RadiusX="5" RadiusY="5" StrokeThickness="0" Stroke="Black" StrokeDashArray="1 3" StrokeDashCap="Square" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
     
     <Style TargetType="{x:Type btl:SpinnerControl}">
         <Setter Property="HorizontalAlignment" Value="Center" />
@@ -249,6 +259,11 @@
                             <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"></Setter>
                             <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"></Setter>
                         </Trigger>
+
+                        <!--<Trigger SourceName="tbTextBox" Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="{StaticResource TextBoxBorderBrush}"/>
+                        </Trigger>-->
+                     
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -292,7 +307,7 @@
                                  IsReadOnly="False"
                                  FontSize="26" 
                                  Style="{StaticResource TextBoxErrorTemplateStyle}" 
-                                 BorderThickness="2"
+                                 BorderThickness="0"
                                  BorderBrush="{x:Null}"
                                  MaxLength="4"
                                  InputMethod.IsInputMethodEnabled="False">
