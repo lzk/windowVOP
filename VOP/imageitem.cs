@@ -108,21 +108,26 @@ namespace VOP
 
         private void MyMouseDownHandler(object sender, MouseButtonEventArgs e)
         {
-            if (e.ClickCount > 1  )
+            if ( e.LeftButton == MouseButtonState.Pressed )
             {
-                if ( ImageDoubleClick != null )
-                    this.ImageDoubleClick((object) this, (RoutedEventArgs) null);
-            }
-            else
-            {
-                if ( ImageSingleClick != null )
-                    this.ImageSingleClick((object) this, (RoutedEventArgs) null);
+                if (e.ClickCount > 1  )
+                {
+                    if ( ImageDoubleClick != null )
+                        this.ImageDoubleClick((object) this, (RoutedEventArgs) null);
+                }
+                else
+                {
+                    if ( ImageSingleClick != null )
+                        this.ImageSingleClick((object) this, (RoutedEventArgs) null);
+                }
             }
         }
 
         public void MouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
         {
-            if ( 0 == m_num && CloseIconClick != null )
+            if ( MouseButtonState.Pressed == e.LeftButton 
+                    && 0 == m_num 
+                    && CloseIconClick != null )
             {
                 this.CloseIconClick((object) this, (RoutedEventArgs) null);
                 e.Handled = true;
