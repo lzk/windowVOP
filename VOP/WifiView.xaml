@@ -111,7 +111,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="{StaticResource ResStr_SSID}" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                                    <TextBox Name="tbSSID" Grid.Column="1" Margin="4" VerticalAlignment="Center" MaxLength="32" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
+                                    <TextBox Name="tbSSID" Grid.Column="1" Margin="4" VerticalAlignment="Center" MaxLength="32" InputMethod.IsInputMethodEnabled="False">
                                         <TextBox.InputBindings>
                                             <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                                         </TextBox.InputBindings>

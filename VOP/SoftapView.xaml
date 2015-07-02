@@ -54,7 +54,7 @@
                     <ColumnDefinition Width="3*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{StaticResource ResStr_SSID_2}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
-                <TextBox Name="tbSSID" Template="{StaticResource customTextBox}" Grid.Column="2" Grid.Row="0" Height="28" VerticalAlignment="Center" MaxLength="32" TextChanged="handler_text_changed" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
+                <TextBox Name="tbSSID" Template="{StaticResource customTextBox}" Grid.Column="2" Grid.Row="0" Height="28" VerticalAlignment="Center" MaxLength="32" TextChanged="handler_text_changed" InputMethod.IsInputMethodEnabled="False">
                     <TextBox.InputBindings>
                         <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                     </TextBox.InputBindings>

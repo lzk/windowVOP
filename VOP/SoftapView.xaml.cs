@@ -220,12 +220,6 @@ namespace VOP
             //UpdateApplyBtnStatus();
         }
 
-        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Space)
-                e.Handled = true;
-        }
-
         public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
         {
             btnApply.IsEnabled = (false == common.IsOffline(st));
