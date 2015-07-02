@@ -6,7 +6,7 @@
     >
 <Grid >
     <Grid>
-        <Image Name="imgBody" Width="64" Height="64" />
+        <Image Name="imgBody" Width="105" Height="140" Stretch="Fill" />
         <Image Name="imgMark" HorizontalAlignment="Right" VerticalAlignment="Top" Width="12" MouseDown="MouseButtonEventHandler" Height="12" />
     </Grid>
 </Grid>

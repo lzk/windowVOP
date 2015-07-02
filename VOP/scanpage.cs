@@ -408,7 +408,7 @@ namespace VOP
                          img.m_num = 0;
                          UpdateSelItemNum();
 
-                         img.Margin = new Thickness( 5 );
+                         img.Margin = new Thickness( 10 );
                          this.image_wrappanel.Children.Insert(0, img );
                          App.scanFileList.Add( img.m_images );
                      }

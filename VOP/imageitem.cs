@@ -153,8 +153,8 @@ namespace VOP
                 }
 
                 this.Background = Brushes.White;
-                this.Width = 64;
-                this.Height = 64;
+                this.Width = 105;
+                this.Height = 140;
                 imgBody.Source = bmpSrc;
             }
             catch
