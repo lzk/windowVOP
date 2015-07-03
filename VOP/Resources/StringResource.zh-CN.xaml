@@ -296,4 +296,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Connected">已连接</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_turn_off_the_printer_until_it_cools_to_room_temperature">请关闭打印机，直到打印机冷却到室温后再开启打印机。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Waiting">请稍后</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Lenovo_Printer">联想打印</sys:String>
 </ResourceDictionary>
