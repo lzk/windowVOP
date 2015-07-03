@@ -26,7 +26,7 @@
                     <DropShadowEffect Color="#FFA6A6A6" Direction="270" ShadowDepth="2"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <TextBlock  Text="修改账户信息"  FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <TextBlock  Text="{StaticResource ResStr_Change_Account_Information}"  FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
         </Grid>
 
         <Grid Grid.Row="3">
@@ -55,11 +55,11 @@
             <Rectangle Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
             <Rectangle Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
 
-            <TextBlock Name="tbName" Text="姓名" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-            <TextBlock Name="tbBirthDay" Text="生日" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-            <TextBlock Name="tbSex" Text="性别" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-            <TextBlock Name="tbMail" Text="邮箱" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-            <TextBlock Name="tbAddress" Text="地址" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Name="tbName" Text="{StaticResource ResStr_Full_name}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Name="tbBirthDay" Text="{StaticResource ResStr_Birthday}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Name="tbSex" Text="{StaticResource ResStr_Sex}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Name="tbMail" Text="{StaticResource ResStr_Email}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Name="tbAddress" Text="{StaticResource ResStr_Address}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
         </Grid>
         
         <Grid Grid.Row="4">
