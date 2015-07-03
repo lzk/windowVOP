@@ -46,6 +46,7 @@ namespace VOP
 
                 if (dialogResult == true)
                 {
+                    VOP.MainWindow.m_bLogon = true;
                     tbUserName.Text = VOP.MainWindow.m_strPhoneNumber = loginWnd.m_strPhoneNumber;
                     tbUserName.Visibility = Visibility.Visible;
                     btnLogon.Visibility = Visibility.Hidden;

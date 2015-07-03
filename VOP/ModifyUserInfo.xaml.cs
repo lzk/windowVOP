@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace VOP
+{
+    /// <summary>
+    /// Interaction logic for ModifyUserInfo.xaml
+    /// </summary>
+    public partial class ModifyUserInfo : UserControl
+    {
+        public ModifyUserInfo()
+        {
+            InitializeComponent();
+        }
+
+        private void OnLoadedView(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
+}

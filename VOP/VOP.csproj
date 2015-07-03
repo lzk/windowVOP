@@ -109,6 +109,9 @@
     </Compile>
     <Compile Include="Controls\PopupEx.cs" />
     <Compile Include="Controls\TextBoxValidation\IPAddressValidationRule.cs" />
+    <Compile Include="ModifyUserInfo.xaml.cs">
+      <DependentUpon>ModifyUserInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TroubleshootingPage.cs" />
     <Compile Include="MessageBoxEx_Video.xaml.cs">
       <DependentUpon>MessageBoxEx_Video.xaml</DependentUpon>
@@ -242,6 +245,10 @@
     <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_YesNo_NoIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ModifyUserInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TroubleshootingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
