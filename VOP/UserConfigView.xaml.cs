@@ -269,7 +269,8 @@ namespace VOP
             }
 
             if ( isApplySuccess )
-                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage( (string)this.FindResource("ResStr_Setting_Successfully_"), Brushes.Black );
+             // ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage( (string)this.FindResource("ResStr_Setting_Successfully_"), Brushes.Black );
+                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Please_turn_off_the_printer_until_it_cools_to_room_temperature"), Brushes.Black);
             else
                 ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage( (string)this.FindResource("ResStr_Setting_Fail"), Brushes.Red );
         }
