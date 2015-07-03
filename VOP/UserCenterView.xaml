@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             xmlns:local="clr-namespace:VOP.Controls"
              Height="465" 
              Width="624"
              Loaded="OnLoadedView">
@@ -22,13 +23,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="6*"></RowDefinition>
-            <RowDefinition Height="15"></RowDefinition>
-            <RowDefinition Height="15*"></RowDefinition>
-            <RowDefinition Height="15"></RowDefinition>
-            <RowDefinition Height="15*"></RowDefinition>
-            <RowDefinition Height="15"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="10*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="15*"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="15"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1" >
@@ -44,7 +46,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -57,15 +58,14 @@
                 </Rectangle.Effect>
             </Rectangle>
             <Image Source="Images\User.png" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None"></Image>
-            <Image Source="Images\Home.png" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None"></Image>
-            <Image Source="Images\Notepad.png" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None"></Image>
+            <Image Source="Images\Notepad.png" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None"></Image>
 
             <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
             <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
 
-            <Button Name="btnUserName" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" BorderThickness="0" Margin="2" Background="#FFE5E5E5" Content="{StaticResource ResStr_Account_Name}"  Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Left"></Button>
-            <Button Name="btnLogon" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" BorderThickness="0" Margin="2" Background="#FFE5E5E5" Content="{StaticResource ResStr_Login_}" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Left"></Button>
-            <Button Name="btnModifyUserInfo" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" BorderThickness="0" Margin="2" Background="#FFE5E5E5" Content="{StaticResource ResStr_Change_Account_Information}"  Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Left"></Button>
+            <TextBlock Name="btnUserName"  Margin="2" Background="#FFE5E5E5"  Grid.Row="0" Grid.Column="1"></TextBlock>
+            <Button Name="btnLogon" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" BorderThickness="0" Margin="2" Background="#FFE5E5E5" Content="{StaticResource ResStr_Login_}" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Left"></Button>
+            <Button Name="btnModifyUserInfo" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" BorderThickness="0" Margin="2" Background="#FFE5E5E5" Content="{StaticResource ResStr_Change_Account_Information}"  Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Left"></Button>
         </Grid>
 
         <Grid Grid.Row="5">
@@ -119,6 +119,11 @@
 
             <Button Name="btnFWDownload" Content="{StaticResource ResStr_Download_printer_firmware}" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" Grid.Row="0" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
             <Button Name="btnAbout" Content="{StaticResource ResStr_About}"  Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" Grid.Row="1" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
+        </Grid>
+        
+        <Grid Grid.Row="9">
+            <local:ButtonEx IsDefault="False" IsEnabled="True" Content="{StaticResource ResStr_Back}" IsActiveEx="True" 
+                            Width="150" Height="35" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"></local:ButtonEx>
         </Grid>
     </Grid>
 </UserControl>

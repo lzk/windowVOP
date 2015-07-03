@@ -68,7 +68,7 @@
                     <TextBlock Text="{StaticResource ResStr_Verification_Code}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="70" FontSize="18" Foreground="#FF7A7A7A"></TextBlock>
                     <Grid Grid.Column="2" Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="51*"></ColumnDefinition>
+                            <ColumnDefinition Width="42*"></ColumnDefinition>
                             <ColumnDefinition Width="40*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <PasswordBox Name="pbPwd" PasswordChanged="OnPasswordChanged" Template="{StaticResource textpwd}" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Height="30" MaxLength="6" Width="190" Grid.ColumnSpan="2" PreviewKeyDown="OnPreviewKeyDown">
@@ -76,7 +76,7 @@
                                 <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                             </PasswordBox.InputBindings>
                         </PasswordBox>
-                        <Button Name="btnGetVerifyCode"  Content="{StaticResource ResStr_Get_Verification_Code}"  Click="btnGetVerifyCode_Click" Grid.Column="1" Template="{StaticResource ResourceKey=btnpwd}" HorizontalAlignment="Right" Margin="0,1,5,0" VerticalAlignment="Center" Width="86"  Height="26" />
+                        <Button Name="btnGetVerifyCode"  Content="{StaticResource ResStr_Get_Verification_Code}"  Click="btnGetVerifyCode_Click" Grid.Column="1" Template="{StaticResource ResourceKey=btnpwd}" HorizontalAlignment="Right" Margin="0,1,5,0" VerticalAlignment="Center" Width="95"  Height="26" />
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5">
                         <TextBlock Name="tbkErrorInfo" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
