@@ -26,17 +26,18 @@ namespace VOP
 
         private void OnLoadedView(object sender, RoutedEventArgs e)
         {
-
+            if (true == VOP.MainWindow.m_bLogon)
+            {
+                tbUserName.Text = VOP.MainWindow.m_strPhoneNumber;
+                tbUserName.Visibility = Visibility.Visible;
+                btnLogon.Visibility = Visibility.Hidden;
+            }            
         }
 
         private void OnBtnClick(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-            if (btn.Name == "btnUserName")
-            {
-
-            }
-            else if (btn.Name == "btnLogon")
+            if (btn.Name == "btnLogon")
             {
                 LoginWindow loginWnd = new LoginWindow();
                 loginWnd.Owner = App.Current.MainWindow;
@@ -45,7 +46,10 @@ namespace VOP
 
                 if (dialogResult == true)
                 {
-                    VOP.MainWindow.m_strPhoneNumber = loginWnd.m_strPhoneNumber;
+                    tbUserName.Text = VOP.MainWindow.m_strPhoneNumber = loginWnd.m_strPhoneNumber;
+                    tbUserName.Visibility = Visibility.Visible;
+                    btnLogon.Visibility = Visibility.Hidden;
+
                     ((MainWindow)App.Current.MainWindow).UpdateLogonBtnStatus(true);
                 }
             }
@@ -78,7 +82,11 @@ namespace VOP
                 AboutWindow wnd = new AboutWindow();
                 wnd.Owner = App.Current.MainWindow;
                 wnd.ShowDialog();
-            }            
+            }
+            else if(btn.Name == "btnBack")
+            {
+                ((MainWindow)App.Current.MainWindow).HiddenLogonView();
+            }
         }
 
     }

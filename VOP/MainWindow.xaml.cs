@@ -75,6 +75,7 @@ namespace VOP
 
         public string m_strPassword = "";
         public static string m_strPhoneNumber = "";
+        public static bool m_bLogon = false;
         public static bool   m_bLocationIsChina = false;
         public static byte   m_byWifiInitStatus = 0;
         public static List<UploadPrintInfo> m_UploadPrintInfoSet = new List<UploadPrintInfo>();
@@ -172,7 +173,7 @@ namespace VOP
                     if (true == m_RequestManager.CheckVerifyCode(strUserName, strPassword, ref js))
                     {
                         m_strPhoneNumber = strUserName;
-                        btnLogin.IsLogon = true;
+                        m_bLogon = btnLogin.IsLogon = true;
                         btnLogin.bottomText = strUserName;
                     }
                 }
@@ -825,27 +826,6 @@ namespace VOP
                 else if ( "btnSetting" == btn.Name || "tabItem_Setting" == btn.Name)
                 {                
                     SetTabItemFromIndex( EnumSubPage.Setting );
-                }
-                else if ( "btnLogin" == btn.Name )
-                {
-                    m_bShowLogonView = !m_bShowLogonView;
-
-                    if (m_bShowLogonView)
-                    {
-                        logonview.Visibility = Visibility.Visible;
-                        mainview.Visibility = Visibility.Hidden;
-                        statusPageView.Visibility = Visibility.Hidden;
-                        UserCenterView ucv = new UserCenterView();
-                        logonview.Children.Add(ucv);
-                        Background_SubPageView.Visibility = Visibility.Hidden;
-                    }
-                    else
-                    {
-                        logonview.Visibility = Visibility.Hidden;
-                        mainview.Visibility = Visibility.Visible;
-                        statusPageView.Visibility = Visibility.Visible;
-                        Background_SubPageView.Visibility = Visibility.Visible;
-                    }
                 }
             }
 
@@ -1532,6 +1512,24 @@ namespace VOP
             {
 
             }
+        }
+
+        private void OnbtnLoginClicked(object sender, RoutedEventArgs e)
+        {
+            logonview.Visibility = Visibility.Visible;
+            mainview.Visibility = Visibility.Hidden;
+            statusPageView.Visibility = Visibility.Hidden;
+            UserCenterView ucv = new UserCenterView();
+            logonview.Children.Add(ucv);
+            Background_SubPageView.Visibility = Visibility.Hidden;
+        }
+
+        public void HiddenLogonView()
+        {
+            logonview.Visibility = Visibility.Hidden;
+            mainview.Visibility = Visibility.Visible;
+            statusPageView.Visibility = Visibility.Visible;
+            Background_SubPageView.Visibility = Visibility.Visible;
         }
     }
 

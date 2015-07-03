@@ -63,7 +63,7 @@
             <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
             <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
 
-            <TextBlock Name="btnUserName"  Margin="2" Background="#FFE5E5E5"  Grid.Row="0" Grid.Column="1"></TextBlock>
+            <TextBlock Name="tbUserName"  Margin="2" Background="#FFE5E5E5"  Grid.Row="0" Grid.Column="1" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
             <Button Name="btnLogon" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" BorderThickness="0" Margin="2" Background="#FFE5E5E5" Content="{StaticResource ResStr_Login_}" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Left"></Button>
             <Button Name="btnModifyUserInfo" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" BorderThickness="0" Margin="2" Background="#FFE5E5E5" Content="{StaticResource ResStr_Change_Account_Information}"  Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Left"></Button>
         </Grid>
@@ -122,8 +122,8 @@
         </Grid>
         
         <Grid Grid.Row="9">
-            <local:ButtonEx IsDefault="False" IsEnabled="True" Content="{StaticResource ResStr_Back}" IsActiveEx="True" 
-                            Width="150" Height="35" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"></local:ButtonEx>
+            <local:ButtonEx x:Name="btnBack" IsDefault="False" IsEnabled="True" Content="{StaticResource ResStr_Back}" IsActiveEx="True" 
+                            Width="150" Height="35" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top" Click="OnBtnClick"></local:ButtonEx>
         </Grid>
     </Grid>
 </UserControl>

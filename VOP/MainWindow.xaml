@@ -109,7 +109,7 @@
             <mycontrol:LogonButton  
                 x:Name="btnLogin"
                 Grid.Row="1"                 
-                btnClick="NvgBtnClick" 
+                btnClick="OnbtnLoginClicked" 
                 IsLogon="False"
                 Margin="0,15,0,0"
                 HorizontalAlignment="Right"
@@ -122,9 +122,9 @@
             <Image x:Name="imgLEDGreen" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Green.png" Margin="8,24,0,0"/>
 
             <Grid Grid.Row="2" Grid.Column="1">
-                <Grid Name="logonview" Panel.ZIndex="0">
-                    
-                </Grid>
+                <Grid Name="logonview" Panel.ZIndex="0"> </Grid>
+                <Grid Name="ModifyUserInfoview" Panel.ZIndex="1"> </Grid>
+                
                 <Grid Name="mainview">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="96*"></RowDefinition>
