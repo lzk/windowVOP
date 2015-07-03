@@ -61,16 +61,35 @@
                             <Setter TargetName="imgSignal"
                                     Property="Visibility" Value="Hidden"/>
                         </Trigger>
-
-                        <Trigger Property="IsEnabled" Value="False">
+                        
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsEnabled" Value="false" />
+                                <Condition Property="Connected" Value="false" />
+                            </MultiTrigger.Conditions>
                             <Setter TargetName="tbssid" Property="Foreground" Value="#7F6D6D6D"></Setter>
                             <Setter TargetName="tbEncrypt" Property="Foreground" Value="#7F6D6D6D"></Setter>
                             <Setter TargetName="imgSignal" Property="Source" Value="..\Images\Signal_Disable.png"></Setter>
-                        </Trigger>
-                        
-                        <Trigger Property="Connected" Value="True">
+                        </MultiTrigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Connected" Value="true" />
+                                <Condition Property="IsEnabled" Value="false" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="tbssid" Property="Foreground" Value="#7F6D6D6D"></Setter>
+                            <Setter TargetName="tbEncrypt" Property="Foreground" Value="#7F6D6D6D"></Setter>
+                            <Setter TargetName="imgSignal" Property="Source" Value="..\Images\Signal_Connect_Disable.png"></Setter>
+                        </MultiTrigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Connected" Value="true" />
+                                <Condition Property="IsEnabled" Value="true" />
+                            </MultiTrigger.Conditions>
                             <Setter TargetName="imgSignal" Property="Source" Value="..\Images\Signal_Connect.png"></Setter>
-                        </Trigger>
+                        </MultiTrigger>
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

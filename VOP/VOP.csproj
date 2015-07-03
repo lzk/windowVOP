@@ -771,4 +771,7 @@
   <ItemGroup>
     <Resource Include="Images\Signal_Connect.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Signal_Connect_Disable.png" />
+  </ItemGroup>
 </Project>
