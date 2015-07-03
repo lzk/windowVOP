@@ -50,27 +50,21 @@ namespace VOP
             if ( ischeck )
             {
                 // simple visual definition
-                var grid = new Grid { Width = 13, Height = 13 };
-                System.Windows.Shapes.Ellipse ell = new System.Windows.Shapes.Ellipse();
-                ell.Width = 13;
-                ell.Height = 13;
+                var grid = new Grid { Width = 22, Height = 22 };
 
-                RadialGradientBrush radialGradient = new RadialGradientBrush();
-                radialGradient.GradientOrigin = new Point(0.5, 0.5);
-                radialGradient.Center = new Point(0.5, 0.5);
+                System.Windows.Shapes.Ellipse ell1 = new System.Windows.Shapes.Ellipse();
+                ell1.Width = 22;
+                ell1.Height = 22;
+                ell1.Fill = Brushes.White;
 
-                radialGradient.RadiusX = 0.5; 
-                radialGradient.RadiusY = 0.5;
+                System.Windows.Shapes.Ellipse ell2 = new System.Windows.Shapes.Ellipse();
+                ell2.Width = 20;
+                ell2.Height = 20;
 
-                // Create four gradient stops.
-                radialGradient.GradientStops.Add(new GradientStop(Colors.Blue, 0.0));
-                radialGradient.GradientStops.Add(new GradientStop( Color.FromArgb( 0xFF, 0x54, 0x9C, 0xF1 ), 0.5));
-                radialGradient.GradientStops.Add(new GradientStop(Colors.White, 1.0));
+                SolidColorBrush br1 = new SolidColorBrush();
+                br1.Color = Color.FromArgb(255, 0x49, 0xA9, 0);
 
-                // Freeze the brush (make it unmodifiable) for performance benefits.
-                radialGradient.Freeze();
-
-                ell.Fill = radialGradient;
+                ell2.Fill = br1;
 
                 TextBlock tb = new TextBlock();
                 tb.Text = m_num.ToString();
@@ -79,7 +73,8 @@ namespace VOP
                 tb.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
                 tb.VerticalAlignment = System.Windows.VerticalAlignment.Center;
 
-                grid.Children.Add( ell );
+                grid.Children.Add( ell1 );
+                grid.Children.Add( ell2 );
                 grid.Children.Add( tb );
 
                 grid.Measure(new Size(grid.Width, grid.Height));
