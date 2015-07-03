@@ -206,35 +206,37 @@
                                       Style="{StaticResource CustomMinusButtonStyle}" 
                                       Command="{x:Static btl:SpinnerControl.DecreaseCommand}"/>
 
-                        <TextBox Name="tbTextBox"
-                                 Grid.Row="0"
-                                 Grid.Column="1"
+                        <Border   Grid.Row="0"
+                                  Grid.Column="1"
+                                  BorderBrush="{StaticResource TextBoxBorderBrush}" BorderThickness="2.5" >
+                            <TextBox Name="tbTextBox"   
                                  Background="{StaticResource TextBoxBackground}" 
-                                 BorderBrush="{StaticResource TextBoxBorderBrush}"
                                  Foreground="#FF707070"
                                  TextAlignment="Center"
                                  Padding="5"
                                  IsReadOnly="False"
-                                 BorderThickness="2.5"
                                  FontSize="26" 
                                  MaxLength="3"
+                                 BorderThickness="0"
                                  InputMethod.IsInputMethodEnabled="False"
                                  >
-                                    <TextBox.InputBindings>
-                                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
-                                    </TextBox.InputBindings>
-                            <TextBox.Text>
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                                <TextBox.InputBindings>
+                                    <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                                </TextBox.InputBindings>
+                                <TextBox.Text>
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
                                          Mode="TwoWay"
                                          Path="FormattedValue" 
                                          UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <local:PrintCopysValidationRule MinimumValue="1" MaximumValue="99" 
+                                        <Binding.ValidationRules>
+                                            <local:PrintCopysValidationRule MinimumValue="1" MaximumValue="99" 
 										 />
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </Border>
+                       
 
                         <RepeatButton Name="btnIncrease"
                                       Grid.Row="0"
