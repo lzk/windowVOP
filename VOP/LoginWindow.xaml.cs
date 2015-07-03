@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace VOP
 {
@@ -18,12 +19,33 @@ namespace VOP
     /// </summary>
     public partial class LoginWindow : Window
     {
+        DispatcherTimer timer = new DispatcherTimer();
+        Int16 m_nTick = 0;
+        Int16 m_nMaxTick = 60;
         public string m_strPhoneNumber;
         public LoginWindow()
         {
             InitializeComponent();
             this.Width = this.Width * App.gScalingRate;
             this.Height = this.Height * App.gScalingRate;
+
+            timer.Interval = new TimeSpan(0, 0, 0, 1, 0);
+            timer.Tick += new EventHandler(timer_Tick);
+
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            m_nTick++;
+            if (m_nTick < m_nMaxTick)
+                btnGetVerifyCode.Content = (string)this.TryFindResource("ResStr_Waiting") + String.Format("({0}s)", m_nMaxTick - m_nTick);
+            else
+            {
+                timer.Stop();
+                btnGetVerifyCode.IsEnabled = true;
+                btnGetVerifyCode.Content = (string)this.TryFindResource("ResStr_Get_Verification_Code");
+            }
+            
         }
 
         public void MyMouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
@@ -35,14 +57,18 @@ namespace VOP
         {
             JSONResultFormat1 js = new JSONResultFormat1();
             tbkErrorInfo.Text = "";
+            m_nTick = 0;
             if (tbPhoneNumber.Text.Length == 11)
             {
+                btnGetVerifyCode.IsEnabled = false;
                 if (false == VOP.MainWindow.m_RequestManager.SendVerifyCode(tbPhoneNumber.Text, ref js))
                 {
                     tbkErrorInfo.Text = (string)this.FindResource("ResStr_Msg_6");
+                    btnGetVerifyCode.IsEnabled = true;
                 }
                 else
                 {
+                    timer.Start();
                     tbkErrorInfo.Text = (string)this.FindResource("ResStr_Msg_5");
                 }
             }
