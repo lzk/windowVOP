@@ -601,7 +601,7 @@ namespace VOP
                 {
                     m_MediaType = (EnumMediaType)selItem.DataContext;
                 }
-                if (4 == m_mediaType||rdBtn1in2x2.IsChecked == true ||rdBtn1in3x3.IsChecked == true || rdBtn1in4x4.IsChecked == true||m_booklet == 1 )
+                if (4 == m_mediaType || rdBtn1in2x2.IsChecked == true || rdBtn1in3x3.IsChecked == true || rdBtn1in4x4.IsChecked == true)
                 {
                     chk_DuplexPrint.IsEnabled = false;
                     DuplexPrintGroup.IsEnabled = false;
