@@ -126,7 +126,8 @@ namespace VOP
 
             ImageItem img = (ImageItem)sender;
 
-            img.m_num = GetSelectedItemCount()+1;
+            if ( 0 == img.m_num )
+                img.m_num = GetSelectedItemCount()+1;
 
             btnPrint.IsEnabled = true;
             btnSave.IsEnabled = true;
