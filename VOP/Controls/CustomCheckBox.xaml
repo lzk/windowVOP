@@ -11,6 +11,8 @@
 
             <Image Height="25" Width="25" Name="imgCheck" Source="..\Images\Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
             <Image Height="25" Width="25" Name="imgUncheck" Source="..\Images\Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+            <Image Height="25" Width="25" Name="imgCheckDisable" Source="..\Images\Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+            <Image Height="25" Width="25" Name="imgUncheckDisable" Source="..\Images\Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
 
             <TextBlock  Name="tbText" Grid.Column="1"
                         VerticalAlignment="Center"
@@ -21,16 +23,47 @@
                         />
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsChecked" Value="false">
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsChecked" Value="true" />
+                    <Condition Property="IsEnabled" Value="true" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="imgCheck" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Hidden"/>
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsChecked" Value="false" />
+                    <Condition Property="IsEnabled" Value="true" />
+                </MultiTrigger.Conditions>
                 <Setter TargetName="imgCheck" Property="Visibility" Value="Hidden"/>
                 <Setter TargetName="imgUncheck" Property="Visibility" Value="Visible"/>
-            </Trigger>
-
-            <Trigger Property="IsChecked" Value="True">
-                <Setter TargetName="imgCheck" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>             
-            </Trigger>
-
+                <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Hidden"/>
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsChecked" Value="true" />
+                    <Condition Property="IsEnabled" Value="false" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="imgCheck" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Hidden"/>
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsChecked" Value="false" />
+                    <Condition Property="IsEnabled" Value="false" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="imgCheck" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Visible"/>
+            </MultiTrigger>
+            
             <Trigger  Property="IsFocused" Value="True">
                 <Setter Property="FocusVisualStyle">
                     <Setter.Value>
