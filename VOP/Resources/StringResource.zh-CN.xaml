@@ -40,7 +40,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_FW_Updating">固件升级中</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Overheat">过热</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_DMA_Error_SCxxx">设备DMA错误:&#x000D;&#x000A;请关闭打印机后重新启动。&#x000D;&#x000A;SC</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">请关闭打印机后重新启动。如果错误仍然存在,请联系客户服务中心：&#x000D;&#x000A;SC</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">请关闭打印机后重新启动。如果错误仍然存在，请联系客户服务中心：&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_contact_customer_support__SCxxx">请联系客户服务中心：&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">扫描仪归位错误；&#x000D;&#x000A;请重启本设备，如果故障依然存在，请联系联想客户服务中心：&#x000D;&#x000A;SC1001</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Calibration_Error_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">扫描仪校准错误;&#x000D;&#x000A;请重启本设备，如果故障依然存在，请联系联想客户服务中心：&#x000D;&#x000A;SC1001</sys:String>
@@ -129,7 +129,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Photo">照片</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Text">文本</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scanned_image_size">待扫描图片大小：</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_2">扫描进度：</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_2">扫描进度</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Document_Type">文档类型</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Photo_2">图片</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Text_and_Graph">图文</sys:String>
