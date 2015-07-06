@@ -225,6 +225,18 @@ namespace VOP
                             editWin.SelectedTypeItem = selectWin.SelectedTypeItem;
                             ImageCropper.designerItemWHRatio = selectWin.SelectedTypeItem.Width / selectWin.SelectedTypeItem.Height;
 
+                            editWin.TitleBarText.Text = selectWin.SelectedTypeItem.Name;
+
+                            if (selectWin.SelectedTypeItem.PrintSides == enumIdCardPrintSides.TwoSides)
+                            {
+                                editWin.TitleBarText.Text = selectWin.SelectedTypeItem.Name + " " + "正面";
+
+                                if (imageFileCount == 1)
+                                {
+                                    editWin.TitleBarText.Text = selectWin.SelectedTypeItem.Name + " " + "反面";
+                                }
+                            }
+
                             result = editWin.ShowDialog();
                             if (result == true)
                             {
