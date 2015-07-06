@@ -146,14 +146,14 @@
                 </Grid>
 
 
-                <local:GroupBoxDecorator x:Name="Nin1Group" Grid.Row="2" Header="{StaticResource ResStr_N_in_1_Copy}" Height="140" Width="455" >
+                <local:GroupBoxDecorator x:Name="Nin1Group" Grid.Row="2" Header="" Height="140" Width="280" HorizontalAlignment="Left" Margin="38,0,0,0" >
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150" />
-                            <ColumnDefinition Width="90" />
-                            <ColumnDefinition Width="90" />
-                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="12" />
+                            <ColumnDefinition Width="85" />
+                            <ColumnDefinition Width="85" />
+                            <ColumnDefinition Width="85" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
@@ -163,8 +163,8 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <CheckBox x:Name="chkNin1" Grid.Row="1" Template="{StaticResource customCheckBox}" IsChecked="true" VerticalAlignment="Center" Content="{StaticResource ResStr_N_in_1_Copy}"
-                    HorizontalAlignment="Center" Checked="chkNin1_Checked" Unchecked="chkNin1_Unchecked" Height="24" Margin="0,30,0,0" />
+                        <CheckBox x:Name="chkNin1" Template="{StaticResource customCheckBox}" IsChecked="true" VerticalAlignment="Center" Content="{StaticResource ResStr_N_in_1_Copy}"
+                    HorizontalAlignment="Center" Checked="chkNin1_Checked" Unchecked="chkNin1_Unchecked" Height="24" Margin="0,-38,0,0" Grid.ColumnSpan="4" />
 
                         <TextBlock Name="tk2in1" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_2_in_1}" Height="16" />
                         <TextBlock Name="tk4in1" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_4_in_1}" Height="16" />
@@ -216,6 +216,27 @@
                         </RadioButton>
                     </Grid>
 
+                </local:GroupBoxDecorator>
+
+                <local:GroupBoxDecorator x:Name="SwitchGroup" Grid.Row="2" Header="复印操作提示" Height="140" Width="160" HorizontalAlignment="Right" Margin="0,0,38,0" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="身份证" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="N合1" />
+
+                        <CheckBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource switchBox}" IsChecked="False" Width="50" Height="25" />
+                        <CheckBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource switchBox}" IsChecked="False" Width="50" Height="25" />
+
+                    </Grid>
                 </local:GroupBoxDecorator>
 
                 <StackPanel Grid.Row="5" Orientation="Horizontal"
