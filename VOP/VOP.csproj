@@ -640,6 +640,9 @@
     <Resource Include="Images\Fit.tif" />
     <Resource Include="Images\Turn.tif" />
     <Resource Include="Images\cancelIcon.png" />
+    <Resource Include="Images\cancelMouseMove.png" />
+    <Resource Include="Images\cancelPress.png" />
+    <Resource Include="Images\cancelDisable.png" />
     <Resource Include="Images\ZoomIn.tif" />
     <Resource Include="Images\ZoomOut.tif" />
     <Resource Include="Images\Line.png" />

@@ -103,19 +103,34 @@
     		<GradientStop Color="White" Offset="0"/>
     	</LinearGradientBrush>
 
-    	<LinearGradientBrush x:Key="brDisable" EndPoint="0.5,1" StartPoint="0.5,0">
+    	<LinearGradientBrush x:Key="brDisableFg" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FFD4D4D4" Offset="1"/>
+    		<GradientStop Color="#FFE1E1E1" Offset="0"/>
+    	</LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="brDisableBg" EndPoint="0.5,1" StartPoint="0.5,0">
     		<GradientStop Color="#FFE1E1E1" Offset="1"/>
-    		<GradientStop Color="White" Offset="0"/>
+    		<GradientStop Color="#FFE1E1E1" Offset="0"/>
     	</LinearGradientBrush>
 
-    	<LinearGradientBrush x:Key="brPressed" EndPoint="0.5,1" StartPoint="0.5,0">
-    		<GradientStop Color="#FFBBBBBB" Offset="1"/>
-    		<GradientStop Color="White" Offset="0"/>
+    	<LinearGradientBrush x:Key="brPressedBg" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FF272727" Offset="1"/>
+    		<GradientStop Color="#FFDADADA" Offset="0"/>
     	</LinearGradientBrush>
 
-    	<LinearGradientBrush x:Key="brMouseMove" EndPoint="0.5,1" StartPoint="0.5,0">
-    		<GradientStop Color="#FFCCCCCC" Offset="1"/>
-    		<GradientStop Color="White" Offset="0"/>
+    	<LinearGradientBrush x:Key="brPressedFg" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FF4B4B4B" Offset="0"/>
+    		<GradientStop Color="#FF959595" Offset="1"/>
+    	</LinearGradientBrush>
+
+    	<LinearGradientBrush x:Key="brMouseMoveBg" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FFAFAFAF" Offset="0"/>
+    		<GradientStop Color="#FFE1E1E1" Offset="1"/>
+    	</LinearGradientBrush>
+
+    	<LinearGradientBrush x:Key="brMouseMoveFg" EndPoint="0.5,1" StartPoint="0.5,0">
+    		<GradientStop Color="#FFACACAC" Offset="1"/>
+    		<GradientStop Color="#FFE8E8E8" Offset="0"/>
     	</LinearGradientBrush>
 
         <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
@@ -148,21 +163,24 @@
 
                                 <Ellipse x:Name="ellipse2" Margin="2" StrokeThickness="0" Stroke="Black" Fill="{DynamicResource Brush2}" >
                                 </Ellipse>
-                                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <Image x:Name="icon" Height="8" Width="8" Stretch="Fill" Source="Images/cancelIcon.png"/>
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brMouseMove}"/>
-                                <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brMouseMove}"/>
+                                <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brMouseMoveBg}"/>
+                                <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brMouseMoveFg}"/>
+                                <Setter Property="Source" TargetName="icon" Value="Images/cancelMouseMove.png"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brPressed}"/>
-                                <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brPressed}"/>
+                                <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brPressedBg}"/>
+                                <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brPressedFg}"/>
+                                <Setter Property="Source" TargetName="icon" Value="Images/cancelPress.png"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brDisable}"/>
-                                <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brDisable}"/>
+                                <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brDisableBg}"/>
+                                <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brDisableFg}"/>
+                                <Setter Property="Source" TargetName="icon" Value="Images/cancelDisable.png"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -235,7 +253,7 @@
         <TextBlock VerticalAlignment="Center" Grid.Column="0" x:Name="txtProgressLabel"   HorizontalAlignment="Left" Text="{StaticResource ResStr_Scanning_2}">  </TextBlock>
         <ProgressBar    Grid.Column="1" x:Name="progressBar1" Style="{StaticResource RoundedProgressBar}" Width="300" HorizontalAlignment="Center" Height="23" Value="50" Margin="0,0,4,0"/>
 
-        <Button Grid.Column="2" x:Name="btnCancel" HorizontalContentAlignment="Center" Width="20" Height="20" IsDefault="false" Click="btnCancel_Click" Style="{DynamicResource ButtonStyle1}" >
+        <Button Grid.Column="2" x:Name="btnCancel" HorizontalContentAlignment="Center" Width="20" Height="20" IsDefault="false" Click="btnCancel_Click" Style="{DynamicResource ButtonStyle1}" IsEnabled="False" >
             <Image Height="8" Width="8" Stretch="Fill" Source="Images/cancelIcon.png"/>
         </Button>
 
