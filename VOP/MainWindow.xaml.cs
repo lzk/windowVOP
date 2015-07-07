@@ -1422,10 +1422,10 @@ namespace VOP
             {
                 if (VOP.Controls.MessageBoxExResult.Yes !=
                         VOP.Controls.MessageBoxEx.Show(
-                                                    VOP.Controls.MessageBoxExStyle.YesNo,
+                                                    VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
                                                     this,
                                                     (string)this.TryFindResource("ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_"),
-                                                    (string)this.TryFindResource("ResStr_Warning")
+                                                    (string)this.TryFindResource("ResStr_Prompt")
                                                     )
                     )
                 {
