@@ -30,6 +30,7 @@ namespace VOP.Controls
     public enum MessageBoxExStyle
     {
         Simple,
+        Simple_Busy,
         YesNo,
         YesNo_NoIcon
     }
@@ -73,14 +74,16 @@ namespace VOP.Controls
             {
                 msg = new MessageBoxEx_Simple(messageBoxText, caption);
             }
+            else if (MessageBoxExStyle.Simple_Busy == style)
+            {
+                msg = new MessageBoxEx_Simple_Busy(messageBoxText, caption);
+            }
             else if (MessageBoxExStyle.YesNo == style)
             {
-
                 msg = new MessageBoxEx_YesNo(messageBoxText, caption);
             }
             else if (MessageBoxExStyle.YesNo_NoIcon == style)
             {
-
                 msg = new MessageBoxEx_YesNo_NoIcon(messageBoxText, caption);
             }
 

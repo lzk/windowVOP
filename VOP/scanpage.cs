@@ -462,10 +462,10 @@ namespace VOP
                      }
                      else if ( RETSCAN_BUSY == (int)wParam )
                      {
-                         VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                         VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple_Busy,
                                  m_MainWin,
                                  (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
-                                 (string)this.FindResource( "ResStr_Warning" ));
+                                 (string)this.FindResource("ResStr_Error"));
                      }
 
                  }
