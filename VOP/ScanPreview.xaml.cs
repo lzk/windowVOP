@@ -43,6 +43,8 @@ namespace VOP
         {
             try
             {
+                System.Drawing.Image img = System.Drawing.Image.FromFile( m_images.m_pathView );
+
                 BitmapImage bi3 = new BitmapImage();
                 bi3.BeginInit();
                 bi3.UriSource = new Uri( m_images.m_pathView, UriKind.RelativeOrAbsolute );
@@ -56,7 +58,7 @@ namespace VOP
                 // the size that is displayed. 
                 // Note: In order to preserve aspect ratio, set DecodePixelWidth 
                 // or DecodePixelHeight but not both.
-                bi3.DecodePixelWidth = 200;
+                bi3.DecodePixelWidth = img.Width;
 
                 bi3.EndInit();
 
