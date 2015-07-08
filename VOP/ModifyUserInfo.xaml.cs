@@ -132,7 +132,7 @@ namespace VOP
                 Regex reg = new Regex(ex);
                 if(false == reg.IsMatch(userInformation.m_strEmail))
                 {
-                    MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)"邮件地址格式不正确，请确认后再次输入。", (string)this.FindResource("ResStr_Warning"));
+                    MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)"邮件地址格式不正确，请确认后再次输入。", (string)this.FindResource("ResStr_Prompt"));
                     tbMail.Focus();
                     return;
                 }
@@ -144,7 +144,7 @@ namespace VOP
                 }    
                 else
                 {
-                    MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)"修改账户信息失败。", (string)this.FindResource("ResStr_Warning"));
+                    MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)"修改账户信息失败。", (string)this.FindResource("ResStr_Prompt"));
 
                 }
             }
