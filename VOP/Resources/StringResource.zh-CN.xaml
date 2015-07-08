@@ -194,8 +194,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_New_Password">新密码</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Confirm_Password">确认密码</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Identity_Authentication">管理员权限认证</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Login">登  录</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Login_">登录</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Login">登  陆</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Login_">登陆</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Supplies_Purchasing_Channels">耗材购买渠道</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Upgrade_Method">打印机升级方式</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printworks_Promotion">打印工场推广</sys:String>
