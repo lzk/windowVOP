@@ -49,7 +49,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="8*"></ColumnDefinition>
-                <ColumnDefinition Width="8*"></ColumnDefinition>
+                <ColumnDefinition Width="10*"></ColumnDefinition>
                 <ColumnDefinition Width="20"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Rectangle Fill="#FFE5E5E5" Grid.Row="0" Grid.RowSpan="8" Grid.Column="0" Grid.ColumnSpan="4">
@@ -71,8 +71,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <local:SpinnerControl
                             x:Name="scYear"
-                            Style="{StaticResource SpinnerCtrl}"
-                            Width="75"
+                            Style="{StaticResource SpinnerCtrl}"                            
                             Height="30"
                             Background="Transparent"
                             Change="1"                           
@@ -80,12 +79,13 @@
                             Minimum="1900"  
                             Value="1980"
                             ValueChanged="OnSpinnerCtrlValueChanged"
+                            MinWidth="70"
                             />
-                    <TextBlock Text="年" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text="{StaticResource ResStr_Year}" VerticalAlignment="Center" MinWidth="30"></TextBlock>
                     <local:SpinnerControl
                             x:Name="scMonth"
                             Style="{StaticResource SpinnerCtrl}"
-                            Width="75"
+                            MinWidth="50"
                             Height="30"
                             Background="Transparent"
                             Change="1"                           
@@ -94,11 +94,11 @@
                             Value="1"
                             ValueChanged="OnSpinnerCtrlValueChanged"
                             />
-                    <TextBlock Text="月" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text="{StaticResource ResStr_Month}" VerticalAlignment="Center" MinWidth="30"></TextBlock>
                     <local:SpinnerControl
                             x:Name="scDay"
                             Style="{StaticResource SpinnerCtrl}"
-                            Width="75"
+                            MinWidth="50"
                             Height="30"
                             Background="Transparent"
                             Change="1"                           
@@ -106,7 +106,7 @@
                             Minimum="1"  
                             Value="1"
                             />
-                    <TextBlock Text="日" VerticalAlignment="Center"></TextBlock>
+                    <TextBlock Text="{StaticResource ResStr_Day}" VerticalAlignment="Center" MinWidth="30"></TextBlock>
                 </StackPanel>
             </Grid>
             <TextBlock Name="tbSex" Text="{StaticResource ResStr_Sex}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
@@ -116,12 +116,12 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <TextBlock Text="男" VerticalAlignment="Center" Margin="30,0,10,0"></TextBlock>
+                    <TextBlock Text="{StaticResource ResStr_Man}" VerticalAlignment="Center" Margin="30,0,10,0"></TextBlock>
                     <RadioButton Name="rbMan" GroupName="Sex" Template="{StaticResource customRadioButton}" IsChecked="True"></RadioButton>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <TextBlock Text="女" VerticalAlignment="Center" Margin="30,0,10,0"></TextBlock>
-                    <RadioButton Name="rbFemale" GroupName="Sex" Template="{StaticResource customRadioButton}" ></RadioButton>
+                    <TextBlock Text="{StaticResource ResStr_Women}" VerticalAlignment="Center" Margin="30,0,10,0"></TextBlock>
+                    <RadioButton Name="rbWomen" GroupName="Sex" Template="{StaticResource customRadioButton}" ></RadioButton>
                 </StackPanel>
             </Grid>
             <TextBlock Text="{StaticResource ResStr_Email}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>

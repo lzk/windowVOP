@@ -297,4 +297,11 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Please_turn_off_the_printer_until_it_cools_to_room_temperature">Please turn off the printer until it cools to room temperature.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Waiting">Waiting</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Lenovo_Printer">Lenovo Printer</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Email_Format_Error">邮件地址格式不正确，请确认后再次输入。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Modify_UserInfo_Fail">修改账户信息失败。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Year">Year</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Month">Month</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Day">Day</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Man">men</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Women">women</sys:String>
 </ResourceDictionary>

@@ -86,7 +86,7 @@ namespace VOP
             if (userInformation.m_nSex == 0x01)
                 rbMan.IsChecked = true;
             else
-                rbFemale.IsChecked = true;
+                rbWomen.IsChecked = true;
 
             tbMail.Text = userInformation.m_strEmail;
             tbAddress.Text = userInformation.m_strAddress;
@@ -132,7 +132,7 @@ namespace VOP
                 Regex reg = new Regex(ex);
                 if(false == reg.IsMatch(userInformation.m_strEmail))
                 {
-                    MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)"邮件地址格式不正确，请确认后再次输入。", (string)this.FindResource("ResStr_Prompt"));
+                    MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.TryFindResource("ResStr_Email_Format_Error"), (string)this.FindResource("ResStr_Prompt"));
                     tbMail.Focus();
                     return;
                 }
@@ -144,7 +144,7 @@ namespace VOP
                 }    
                 else
                 {
-                    MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)"修改账户信息失败。", (string)this.FindResource("ResStr_Prompt"));
+                    MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.TryFindResource("ResStr_Modify_UserInfo_Fail"), (string)this.FindResource("ResStr_Prompt"));
 
                 }
             }
