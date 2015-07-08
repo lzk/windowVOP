@@ -1516,20 +1516,51 @@ namespace VOP
 
         private void OnbtnLoginClicked(object sender, RoutedEventArgs e)
         {
-            logonview.Visibility = Visibility.Visible;
-            mainview.Visibility = Visibility.Hidden;
-            statusPageView.Visibility = Visibility.Hidden;
-            UserCenterView ucv = new UserCenterView();
-            logonview.Children.Add(ucv);
-            Background_SubPageView.Visibility = Visibility.Hidden;
+            if (logonview.IsVisible == false && ModifyUserInfoview.IsVisible == false)
+            {
+                logonview.Visibility = Visibility.Visible;
+                ModifyUserInfoview.Visibility = Visibility.Hidden;
+                mainview.Visibility = Visibility.Hidden;
+                statusPageView.Visibility = Visibility.Hidden;
+                UserCenterView ucv = new UserCenterView();
+                logonview.Children.Add(ucv);
+                Background_SubPageView.Visibility = Visibility.Hidden;
+            }
         }
 
-        public void HiddenLogonView()
+        public void ShowUserCenterView(bool bShow)
         {
+            if (bShow)
+            {
+                logonview.Visibility = Visibility.Visible;
+                ModifyUserInfoview.Visibility = Visibility.Hidden;
+                mainview.Visibility = Visibility.Hidden;
+                statusPageView.Visibility = Visibility.Hidden;
+                UserCenterView ucv = new UserCenterView();
+                logonview.Children.Clear();
+                logonview.Children.Add(ucv);
+                Background_SubPageView.Visibility = Visibility.Hidden;
+
+            }
+            else
+            {
+                logonview.Visibility = Visibility.Hidden;
+                ModifyUserInfoview.Visibility = Visibility.Hidden;
+                mainview.Visibility = Visibility.Visible;
+                statusPageView.Visibility = Visibility.Visible;
+                Background_SubPageView.Visibility = Visibility.Visible;
+            }
+        }
+
+        public void ShowModifyUserInfoView()
+        {
+            ModifyUserInfoview.Visibility = Visibility.Visible;
+            mainview.Visibility = Visibility.Hidden;
             logonview.Visibility = Visibility.Hidden;
-            mainview.Visibility = Visibility.Visible;
-            statusPageView.Visibility = Visibility.Visible;
-            Background_SubPageView.Visibility = Visibility.Visible;
+            statusPageView.Visibility = Visibility.Hidden;
+            ModifyUserInfo ucv = new ModifyUserInfo();
+            ModifyUserInfoview.Children.Add(ucv);
+            Background_SubPageView.Visibility = Visibility.Hidden;
         }
     }
 

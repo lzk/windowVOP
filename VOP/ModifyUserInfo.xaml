@@ -7,7 +7,16 @@
              xmlns:local="clr-namespace:VOP.Controls"
              Height="465" 
              Width="624"
-             Loaded="OnLoadedView">
+             Loaded="OnLoadedView"
+             FontSize="20">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid >
         <Grid.Background>
             <ImageBrush ImageSource="Images\UserCenterBackground.png" />
@@ -16,8 +25,8 @@
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="6*"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="30*"></RowDefinition>
-            <RowDefinition Height="13*"></RowDefinition>
+            <RowDefinition Height="35*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1" >
@@ -40,7 +49,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="8*"></ColumnDefinition>
-                <ColumnDefinition Width="12*"></ColumnDefinition>
+                <ColumnDefinition Width="8*"></ColumnDefinition>
                 <ColumnDefinition Width="20"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Rectangle Fill="#FFE5E5E5" Grid.Row="0" Grid.RowSpan="8" Grid.Column="0" Grid.ColumnSpan="4">
@@ -55,13 +64,72 @@
             <Rectangle Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
             <Rectangle Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
 
-            <TextBlock Name="tbName" Text="{StaticResource ResStr_Full_name}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Text="{StaticResource ResStr_Full_name}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <TextBox Name="tbName" Grid.Row="0" Grid.Column="2" Height="30" TextChanged="OnTextChanged" MaxLength="15"></TextBox>
             <TextBlock Name="tbBirthDay" Text="{StaticResource ResStr_Birthday}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <Grid Grid.Row="1" Grid.Column="2">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <local:SpinnerControl
+                            x:Name="scYear"
+                            Style="{StaticResource SpinnerCtrl}"
+                            Width="75"
+                            Height="30"
+                            Background="Transparent"
+                            Change="1"                           
+                            Maximum="2050"
+                            Minimum="1900"  
+                            Value="1980"
+                            ValueChanged="OnSpinnerCtrlValueChanged"
+                            />
+                    <TextBlock Text="年" VerticalAlignment="Center"></TextBlock>
+                    <local:SpinnerControl
+                            x:Name="scMonth"
+                            Style="{StaticResource SpinnerCtrl}"
+                            Width="75"
+                            Height="30"
+                            Background="Transparent"
+                            Change="1"                           
+                            Maximum="12"
+                            Minimum="1"  
+                            Value="1"
+                            ValueChanged="OnSpinnerCtrlValueChanged"
+                            />
+                    <TextBlock Text="月" VerticalAlignment="Center"></TextBlock>
+                    <local:SpinnerControl
+                            x:Name="scDay"
+                            Style="{StaticResource SpinnerCtrl}"
+                            Width="75"
+                            Height="30"
+                            Background="Transparent"
+                            Change="1"                           
+                            Maximum="31"
+                            Minimum="1"  
+                            Value="1"
+                            />
+                    <TextBlock Text="日" VerticalAlignment="Center"></TextBlock>
+                </StackPanel>
+            </Grid>
             <TextBlock Name="tbSex" Text="{StaticResource ResStr_Sex}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-            <TextBlock Name="tbMail" Text="{StaticResource ResStr_Email}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-            <TextBlock Name="tbAddress" Text="{StaticResource ResStr_Address}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <Grid Grid.Row="2" Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="男" VerticalAlignment="Center" Margin="30,0,10,0"></TextBlock>
+                    <RadioButton Name="rbMan" GroupName="Sex" Template="{StaticResource customRadioButton}" IsChecked="True"></RadioButton>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="女" VerticalAlignment="Center" Margin="30,0,10,0"></TextBlock>
+                    <RadioButton Name="rbFemale" GroupName="Sex" Template="{StaticResource customRadioButton}" ></RadioButton>
+                </StackPanel>
+            </Grid>
+            <TextBlock Text="{StaticResource ResStr_Email}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <TextBox Name="tbMail"  Grid.Row="3" Grid.Column="2" Height="30" TextChanged="OnTextChanged"></TextBox>
+            <TextBlock Text="{StaticResource ResStr_Address}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+            <TextBox Name="tbAddress" Grid.Row="4" Grid.Column="2" Height="30" TextChanged="OnTextChanged"></TextBox>
         </Grid>
-        
+
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120"></ColumnDefinition>
@@ -70,10 +138,10 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="120"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <local:ButtonEx x:Name="btnCancel" IsDefault="False" IsEnabled="True" Content="{StaticResource ResStr_Cancel}"  
+            <local:ButtonEx x:Name="btnOk" IsDefault="False" IsEnabled="False" Content="{StaticResource ResStr_OK}"  IsActiveEx="True" Click="OnbtnClick"
                             Width="150" Height="35" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Column="1"></local:ButtonEx>
 
-            <local:ButtonEx x:Name="btnBack" IsDefault="False" IsEnabled="True" Content="{StaticResource ResStr_Back}" IsActiveEx="True" 
+            <local:ButtonEx x:Name="btnCancel" IsDefault="False" IsEnabled="True" Content="{StaticResource ResStr_Cancel}"   Click="OnbtnClick"
                             Width="150" Height="35" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" Grid.Column="3"></local:ButtonEx>
         </Grid>
     </Grid>

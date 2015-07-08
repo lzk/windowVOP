@@ -141,8 +141,14 @@
                         <Border Name="border1" Background="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="{TemplateBinding  HorizontalContentAlignment}"  VerticalAlignment="Center"  Margin="5"/>
                          </Border>
-                        <Image Source="..\Images\arrow.png" HorizontalAlignment="Right" Stretch="None" Margin="5"></Image>
+                        <Image Name="img" Source="..\Images\arrow.png" HorizontalAlignment="Right" Stretch="None" Margin="5"></Image>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#7F6D6D6D"/>
+                            <Setter TargetName="img" Property="Source" Value="..\Images\arrow_disable.png"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

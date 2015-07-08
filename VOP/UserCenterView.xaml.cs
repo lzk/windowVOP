@@ -28,10 +28,22 @@ namespace VOP
         {
             if (true == VOP.MainWindow.m_bLogon)
             {
-                tbUserName.Text = VOP.MainWindow.m_strPhoneNumber;
+                UserInformation userInformation = new UserInformation();
+                string strResult = "";
+                UserInformation.GetUserInfo(VOP.MainWindow.m_strPhoneNumber, ref userInformation, ref strResult);
+
+                if (userInformation.m_strRealName.Length > 0)
+                    tbUserName.Text = userInformation.m_strRealName;
+                else
+                    tbUserName.Text = VOP.MainWindow.m_strPhoneNumber;
+
                 tbUserName.Visibility = Visibility.Visible;
                 btnLogon.Visibility = Visibility.Hidden;
-            }            
+            }  
+            else
+            {
+                btnModifyUserInfo.IsEnabled = false;
+            }
         }
 
         private void OnBtnClick(object sender, RoutedEventArgs e)
@@ -47,16 +59,27 @@ namespace VOP
                 if (dialogResult == true)
                 {
                     VOP.MainWindow.m_bLogon = true;
-                    tbUserName.Text = VOP.MainWindow.m_strPhoneNumber = loginWnd.m_strPhoneNumber;
+                    VOP.MainWindow.m_strPhoneNumber = loginWnd.m_strPhoneNumber;
+                    
+                    UserInformation userInformation = new UserInformation();
+                    string strResult = "";
+                    UserInformation.GetUserInfo(VOP.MainWindow.m_strPhoneNumber, ref userInformation, ref strResult);
+
+                    if (userInformation.m_strRealName.Length > 0)
+                        tbUserName.Text = userInformation.m_strRealName;
+                    else
+                        tbUserName.Text = VOP.MainWindow.m_strPhoneNumber;
+
                     tbUserName.Visibility = Visibility.Visible;
                     btnLogon.Visibility = Visibility.Hidden;
 
                     ((MainWindow)App.Current.MainWindow).UpdateLogonBtnStatus(true);
+                    btnModifyUserInfo.IsEnabled = true;
                 }
             }
             else if (btn.Name == "btnModifyUserInfo")
             {
-
+                ((MainWindow)App.Current.MainWindow).ShowModifyUserInfoView();
             }
             else if (btn.Name == "btnConsumable")
             {
@@ -86,7 +109,7 @@ namespace VOP
             }
             else if(btn.Name == "btnBack")
             {
-                ((MainWindow)App.Current.MainWindow).HiddenLogonView();
+                ((MainWindow)App.Current.MainWindow).ShowUserCenterView(false);
             }
         }
 

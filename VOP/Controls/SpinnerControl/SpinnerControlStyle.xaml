@@ -485,5 +485,66 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <!--  Resource dictionary entries should be defined here.  -->
+
+
+    <Style x:Key="SpinnerCtrl" TargetType="{x:Type btl:SpinnerControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type btl:SpinnerControl}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBox Name="tbTextBox" 
+                                 Grid.Row="0" 
+                                 Grid.Column="0" 
+                                 Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FormattedValue, Mode=TwoWay}"
+                                 IsReadOnly="True"
+                                 InputMethod.IsInputMethodEnabled="False">
+                            <TextBox.InputBindings>
+                                <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
+                        <Grid Grid.Column="1" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <RepeatButton Grid.Row="0" Grid.Column="1" Command="{x:Static btl:SpinnerControl.IncreaseCommand}">
+                                <RepeatButton.Content>
+                                    <Path 
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    x:Name="BtnArrow2" Height="8" Width="8" 
+                                    Stretch="Uniform"
+                                    Fill="#ff818181"                                    
+                                    Data="F1 M 300,-183L 310,-183L 305,-190L
+                                    301,-183 Z " />
+                                </RepeatButton.Content>
+                            </RepeatButton>
+                            
+                            <RepeatButton Grid.Row="1" Grid.Column="1" Command="{x:Static btl:SpinnerControl.DecreaseCommand}">
+                                <RepeatButton.Content>
+                                    <Path 
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    x:Name="BtnArrow" Height="8" Width="8" 
+                                    Stretch="Uniform" 
+                                    Fill="#ff818181"
+                                    Data="F1 M 300,-190L 310,-190L 305,-183L 301,-190 Z " />
+                                </RepeatButton.Content>
+                            </RepeatButton>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+<!--  Resource dictionary entries should be defined here.  -->
 </ResourceDictionary>

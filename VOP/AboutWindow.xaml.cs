@@ -30,7 +30,7 @@ namespace VOP
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string strVersionInfo =(string)this.FindResource("ResStr_VirtualOperationPanel") + String.Format(" {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            string strVersionInfo = (string)this.FindResource("ResStr_Lenovo_Printer") + String.Format(" {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
             tbkVersionInfo.Text = strVersionInfo;
         }
     }

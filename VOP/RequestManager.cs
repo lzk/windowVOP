@@ -21,6 +21,7 @@ namespace VOP
         MerchantInfoSet,
         MaintainInfoSet,
         SessionInfo,
+        UserInfomation
     };
 
     public class SessionInfo
@@ -167,6 +168,16 @@ namespace VOP
 
     public class SystemInfo
     {
+        public string m_strMacAddress;
+        public string m_strDeviceBrand;
+        public string m_strDeviceModel;
+
+        public SystemInfo()
+        {
+            m_strMacAddress = GetMacAddress();
+            m_strDeviceBrand = m_strDeviceModel = "";
+        }
+
         public static string GetMacAddress()
         {
             try
@@ -299,10 +310,7 @@ namespace VOP
     {
         private readonly string m_strSignKey = "86c02972fba047b0b0a9adb8123029fb";
 
-        public string m_strMobileCode;    //Net card ID
         public string m_strMobileNumber;  //can not upload
-        public string m_strDeviceBrand;
-        public string m_strDeviceModel;
         public string m_strAppFrom; //always "VOP-WIN"
         public string m_strAppVersion;
         public DateTime m_time;   //yyyyMMddHHmmss, for example:20140219092408
@@ -310,10 +318,7 @@ namespace VOP
 
         public CRM_LocalInfo()
         {
-            m_strMobileCode = SystemInfo.GetMacAddress();
             m_strMobileNumber = "";
-            m_strDeviceBrand = "";
-            m_strDeviceModel = "";
             m_strAppFrom = "VOP-WIN";
             m_strAppVersion = "0.001";
             m_strSign = "";
@@ -325,10 +330,11 @@ namespace VOP
             string str = "";
             try
             {
-                m_strSign = MD5.MD5_Encrypt(m_strMobileCode + m_time.ToString("yyyyMMddHHmmss") + m_strSignKey);
+                SystemInfo systemInfo = new SystemInfo();    //Net card ID
+                m_strSign = MD5.MD5_Encrypt(systemInfo.m_strMacAddress + m_time.ToString("yyyyMMddHHmmss") + m_strSignKey);
 
                 str = String.Format("MobileCode={0}&Mobile={1}&DeviceBrand={2}&DeviceModel={3}&appFrom={4}&version={5}&time={6}&sign={7}"
-                    , m_strMobileCode, m_strMobileNumber, m_strDeviceBrand, m_strDeviceModel, m_strAppFrom, m_strAppVersion,
+                    , systemInfo.m_strMacAddress, m_strMobileNumber, systemInfo.m_strDeviceBrand, systemInfo.m_strDeviceModel, m_strAppFrom, m_strAppVersion,
                     m_time.ToString("yyyyMMddHHmmss"), m_strSign);
             }
             catch
@@ -339,6 +345,219 @@ namespace VOP
             return str;
         }
     }
+    
+    public class RequestManagerBase
+    {
+        protected static string m_strKey = "86c02972fba047b0b0a9adb8123029fb";
+        public static CookieContainer m_CookieContainer = new CookieContainer();
+
+        public static bool SendHttpWebRequest(string url, string httpRequestMtd, string strParam, ref string strResult)
+        {
+            bool bSuccess = false;
+            try
+            {
+                byte[] byteArray = Encoding.UTF8.GetBytes(strParam); // 转化
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);  //新建一个WebRequest对象用来请求或者响应url
+                dll.OutputDebugStringToFile_("####### SendHttpWebRequest WebRequest.Create(url) ######");
+                IWebProxy webProxy = WebRequest.DefaultWebProxy;
+                if (null != webProxy)
+                {
+                    dll.OutputDebugStringToFile_("####### WebRequest.DefaultWebProxy ######");
+                    webProxy.Credentials = CredentialCache.DefaultNetworkCredentials;
+                    dll.OutputDebugStringToFile_("####### DefaultNetworkCredentials ######");
+                    request.Proxy = webProxy;
+                    dll.OutputDebugStringToFile_("####### webProxy ######");
+                }
+                request.CookieContainer = m_CookieContainer;
+                dll.OutputDebugStringToFile_("####### m_CookieContainer ######");
+
+                request.Method = httpRequestMtd;                                          //请求方式是POST
+                dll.OutputDebugStringToFile_("####### httpRequestMtd ######");
+                request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";       //请求的内容格式为application/x-www-form-urlencoded
+                dll.OutputDebugStringToFile_("####### request.ContentType ######");
+                request.Credentials = CredentialCache.DefaultCredentials;
+                dll.OutputDebugStringToFile_("####### request.Credentials ######");
+                request.ContentLength = byteArray.Length;
+                dll.OutputDebugStringToFile_("####### request.ContentLength ######");
+                Stream newStream = request.GetRequestStream();           //返回用于将数据写入 Internet 资源的 Stream。
+                dll.OutputDebugStringToFile_("####### request.GetRequestStream() ######");
+
+                newStream.Write(byteArray, 0, byteArray.Length);    //写入参数
+                newStream.Flush();
+                newStream.Close();
+                dll.OutputDebugStringToFile_("####### Stream.Close() ######");
+
+                WebResponse response = (WebResponse)request.GetResponse();
+                dll.OutputDebugStringToFile_("####### request.GetResponse() ######");
+
+                StreamReader sr2 = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+
+                string text2 = sr2.ReadToEnd();
+                dll.OutputDebugStringToFile_(text2);
+                strResult = text2;
+                
+                bSuccess = true;
+
+                response.Close();
+            }
+            catch (Exception ex)
+            {
+                dll.OutputDebugStringToFile_(ex.Message);
+                bSuccess = false;
+            }
+
+            return bSuccess;
+        }
+    }
+
+    public class UserInformation : RequestManagerBase
+    {
+        public string m_strMobile;
+        public string m_strRealName;
+        public int m_nSex;  //1 Man 0 Woman
+        public DateTime m_dtBirthday;
+        public string m_strAddress;
+        public string m_strEmail;
+        public bool m_bSuccess;
+
+        public UserInformation()
+        {
+            m_bSuccess = false;
+            m_strMobile = "";
+            m_strRealName = "";
+            m_nSex = 0;
+            m_dtBirthday = System.DateTime.Now.ToLocalTime();
+            m_strAddress = "";
+            m_strEmail = "";
+        }
+
+        private static bool ParseJsonData(string strSrc, ref UserInformation record)
+        {
+            bool bSuccess = false;
+            try
+            {
+                JObject o = JObject.Parse(strSrc);
+                if (null != strSrc && null != record)
+                {
+                    string strValue = o.GetValue("success").ToString();
+                    
+                    if ("true" == strValue || "True" == strValue)
+                        record.m_bSuccess = true;
+                    else
+                        record.m_bSuccess = false;
+
+                    strValue = o.GetValue("user").ToString();
+                    {
+                        JObject jSub = JObject.Parse(strValue);
+                        string strItemValue = jSub.GetValue("mobile").ToString();
+                        record.m_strMobile = strItemValue;
+
+                        strItemValue = jSub.GetValue("realName").ToString();
+                        record.m_strRealName = strItemValue;
+
+                        strItemValue = jSub.GetValue("address").ToString();
+                        record.m_strAddress = strItemValue;
+
+                        strItemValue = jSub.GetValue("email").ToString();
+                        record.m_strEmail = strItemValue;
+
+                        try
+                        {
+                            strItemValue = jSub.GetValue("sex").ToString();
+                            
+                            if ("女" == strItemValue)
+                                record.m_nSex = 0;
+                            else
+                                record.m_nSex = 1;
+                        }
+                        catch
+                        {
+                            record.m_nSex = 1;
+                        }
+
+                        strItemValue = jSub.GetValue("birthDate").ToString();
+                        record.m_dtBirthday = Convert.ToDateTime(strItemValue);
+                    }
+                    bSuccess = true;                
+                }
+            }
+            catch
+            {
+
+            }
+
+            return bSuccess;
+        }
+
+        public static bool GetUserInfo(string _strMobile, ref UserInformation _UserInformation, ref string strResult)
+        {
+            bool bSuccess = false;
+            string url = "http://crm.iprintworks.cn/api/app_getuserinfo";
+            strResult = "";
+            DateTime time = System.DateTime.Now.ToLocalTime();
+            string strCMD = String.Format("mobile={0}&time={1}&Sign={2}", _strMobile, time.ToString("yyyyMMddHHmmss"), MD5.MD5_Encrypt(_strMobile + time.ToString("yyyyMMddHHmmss") + m_strKey));
+
+            if (SendHttpWebRequest(url, "POST", strCMD, ref strResult))
+            {
+                if (ParseJsonData(strResult, ref _UserInformation))
+                {
+                    bSuccess = true;
+                }
+            }
+
+            return bSuccess;
+        }
+
+        public static bool SetUserInfo(UserInformation _UserInformation, ref string strResult)
+        {
+            bool bSuccess = false;
+            string url = "http://crm.iprintworks.cn/api/app_userinfo";
+            strResult = "";
+            string strCMD = _UserInformation.ConvertToWebParams();
+
+            if (SendHttpWebRequest(url, "POST", strCMD, ref strResult))
+            {
+                try
+                {
+                    JObject o = JObject.Parse(strResult);
+                    string strValue = o.GetValue("success").ToString();
+                    if ("true" == strValue || "True" == strValue)
+                        bSuccess = true;
+                    else
+                        bSuccess = false;
+                }
+                catch
+                {
+
+                }
+            }
+
+            return bSuccess;
+        }
+
+        public string ConvertToWebParams()
+        {
+            string str = "";
+            try
+            {
+                DateTime time = System.DateTime.Now.ToLocalTime();
+                SystemInfo m_SystemInfo = new SystemInfo();    //Net card ID
+                string strSign = MD5.MD5_Encrypt(m_SystemInfo.m_strMacAddress + time.ToString("yyyyMMddHHmmss") + m_strKey);
+
+                str = String.Format("MobileCode={0}&Mobile={1}&DeviceBrand={2}&DeviceModel={3}&Truename={4}&Birthdate={5}&Sex={6}&Email={7}&Address={8}&time={9}&sign={10}"
+                    , m_SystemInfo.m_strMacAddress, m_strMobile, m_SystemInfo.m_strDeviceBrand, m_SystemInfo.m_strDeviceModel, m_strRealName, m_dtBirthday.ToString("yyyy-MM-dd"), m_nSex, m_strEmail, m_strAddress,
+                    time.ToString("yyyyMMddHHmmss"), strSign);
+            }
+            catch
+            {
+
+            }
+
+            return str;
+        }
+    }
+
+
 
     public class RequestManager
     {
@@ -551,6 +770,41 @@ namespace VOP
                                 ((SessionInfo)(dynamic)record).m_nCustomerID = Convert.ToInt32(strItemValue);
                             }
 
+                            bSuccess = true;
+                            break;
+                        case JSONReturnFormat.UserInfomation:
+
+                            strValue = o.GetValue("success").ToString();
+                            if ("true" == strValue || "True" == strValue)
+                                ((UserInformation)(dynamic)record).m_bSuccess = true;
+                            else
+                                ((UserInformation)(dynamic)record).m_bSuccess = false;
+
+                            strValue = o.GetValue("user").ToString();
+                            {
+                                JObject jSub = JObject.Parse(strValue);
+                                string strItemValue = jSub.GetValue("mobile").ToString();
+                                ((UserInformation)(dynamic)record).m_strMobile = strItemValue;
+
+                                strItemValue = jSub.GetValue("realName").ToString();
+                                ((UserInformation)(dynamic)record).m_strRealName = strItemValue;
+
+                                strItemValue = jSub.GetValue("address").ToString();
+                                ((UserInformation)(dynamic)record).m_strAddress = strItemValue;
+
+                                try
+                                {
+                                    strItemValue = jSub.GetValue("sex").ToString();
+                                    ((UserInformation)(dynamic)record).m_nSex = Convert.ToInt32(strItemValue);
+                                }
+                                catch
+                                {
+                                    ((UserInformation)(dynamic)record).m_nSex = 0;
+                                }
+
+                                strItemValue = jSub.GetValue("birthDate").ToString();
+                                ((UserInformation)(dynamic)record).m_dtBirthday = Convert.ToDateTime(strItemValue);
+                            }
                             bSuccess = true;
                             break;
                         default:
@@ -786,6 +1040,26 @@ namespace VOP
             if (SendHttpWebRequest<JSONResultFormat2>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat2, ref rtValue, ref strResult))
             {
                 if (rtValue.m_bSuccess)
+                {
+                    bSuccess = true;
+                }
+            }
+
+            return bSuccess;
+        }
+
+        public bool GetUserInfo(string _strMobile, ref UserInformation _UserInformation, ref string strResult)
+        {
+            string strKey = "86c02972fba047b0b0a9adb8123029fb";
+            bool bSuccess = false;
+            string url = "http://crm.iprintworks.cn/api/app_getuserinfo";
+            strResult = "";
+            DateTime time = System.DateTime.Now.ToLocalTime();
+            string strCMD =String.Format("mobile={0}&time={1}&Sign={2}", _strMobile, time.ToString("yyyyMMddHHmmss"), MD5.MD5_Encrypt(_strMobile + time.ToString("yyyyMMddHHmmss") + strKey));
+
+            if (SendHttpWebRequest<UserInformation>(url, "POST", strCMD, JSONReturnFormat.UserInfomation, ref _UserInformation, ref strResult))
+            {
+                if (_UserInformation.m_bSuccess)
                 {
                     bSuccess = true;
                 }

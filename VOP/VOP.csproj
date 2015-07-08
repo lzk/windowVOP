@@ -796,4 +796,7 @@
     <Resource Include="Images\Checked_Disable.png" />
     <Resource Include="Images\Uncheck_Disable.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\arrow_disable.png" />
+  </ItemGroup>
 </Project>
