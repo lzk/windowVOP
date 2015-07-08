@@ -42,9 +42,9 @@
             </Grid>
             <Grid Grid.Row="1" Background="#FFE7E7E7">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="2*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="5*"></RowDefinition>
+                    <RowDefinition Height="2*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Text="{StaticResource ResStr_Express_Login_using_mobile_number}" Foreground="#FF7A7A7A" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></TextBlock>
                 <Grid Grid.Row="1">
@@ -78,7 +78,7 @@
                         </PasswordBox>
                         <Button Name="btnGetVerifyCode"  Content="{StaticResource ResStr_Get_Verification_Code}"  Click="btnGetVerifyCode_Click" Grid.Column="1" Template="{StaticResource ResourceKey=btnpwd}" HorizontalAlignment="Right" Margin="0,1,5,0" VerticalAlignment="Center" Width="95"  Height="26" />
                     </Grid>
-                    <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5">
+                    <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
                         <TextBlock Name="tbkErrorInfo" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
                     </Grid>
                 </Grid>
