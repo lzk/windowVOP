@@ -22,6 +22,9 @@ namespace VOP
         private EnumMediaType       m_mediaType  = EnumMediaType.Plain;
 #endregion
 
+        private bool m_popupDlgIDCardCopy = true; // True if ID Card Copy confirm dialog need to pop up.
+        private bool m_popupDlgNIn1Copy = true;   // True if N in 1 Copy confirm dialog need to pop up.
+
         private EnumMachineJob m_oldJob = EnumMachineJob.UnknowJob; // Job used to monitor IDCardCopy job.
         private EnumStatus m_currentStatus = EnumStatus.Offline; 
 
@@ -136,6 +139,9 @@ namespace VOP
             win.m_dpi        = m_dpi        ;
             win.m_mediaType  = m_mediaType  ;
 
+            win.m_popupDlgIDCardCopy = m_popupDlgIDCardCopy;
+            win.m_popupDlgNIn1Copy   = m_popupDlgNIn1Copy;
+
             if ( true == win.ShowDialog() )
             {
                 m_scaling     = (ushort)win.spinnerScaling.Value;
@@ -145,6 +151,9 @@ namespace VOP
                 m_nin1        = win.m_nin1       ;
                 m_dpi         = win.m_dpi        ;
                 m_mediaType   = win.m_mediaType  ;
+
+                m_popupDlgIDCardCopy = win.m_popupDlgIDCardCopy;
+                m_popupDlgNIn1Copy   = win.m_popupDlgNIn1Copy;
             }
         }
 
@@ -180,10 +189,19 @@ namespace VOP
                 }
                 else
                 {
-                    IDCardCopyConfirm confirmDlg = new IDCardCopyConfirm();
-                    confirmDlg.Owner = m_MainWin;
+                    bool bIsSendCmd = true;
 
-                    if ( true == confirmDlg.ShowDialog() )
+                    if ( true == m_popupDlgIDCardCopy )
+                    {
+                        IDCardCopyConfirm confirmDlg = new IDCardCopyConfirm();
+                        confirmDlg.Owner = m_MainWin;
+
+                        bIsSendCmd = ( true == confirmDlg.ShowDialog() );
+
+                        m_popupDlgIDCardCopy = confirmDlg.m_popupDlg;
+                    }
+
+                    if ( true == bIsSendCmd )
                     {
                         EnumCmdResult ret = (EnumCmdResult)dll.SendCopyCmd( 
                                 m_MainWin.statusPanelPage.m_selectedPrinter,

@@ -233,8 +233,8 @@
                         <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="身份证" />
                         <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="N合1" />
 
-                        <CheckBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource switchBox}" IsChecked="False" Width="50" Height="25" />
-                        <CheckBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource switchBox}" IsChecked="False" Width="50" Height="25" />
+                        <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chkpopupIDCard" VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource switchBox}" IsChecked="False" Width="50" Height="25" Unchecked="chkpopupIDCard_Unchecked" Checked="chkpopupIDCard_Checked" />
+                        <CheckBox Grid.Row="1" Grid.Column="1" x:Name="chkpopupNIn1"   VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource switchBox}" IsChecked="False" Width="50" Height="25" Unchecked="chkpopupNIn1_Unchecked" Checked="chkpopupNIn1_Checked" />
 
                     </Grid>
                 </local:GroupBoxDecorator>

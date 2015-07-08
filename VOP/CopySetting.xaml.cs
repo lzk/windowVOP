@@ -45,6 +45,9 @@ namespace VOP
 	/// </summary>
 	public partial class CopySetting : Window
 	{
+        public bool m_popupDlgIDCardCopy = true; // True if ID Card Copy confirm dialog need to pop up.
+        public bool m_popupDlgNIn1Copy = true;   // True if N in 1 Copy confirm dialog need to pop up.
+
         private SolidColorBrush m_brDisable = new SolidColorBrush();
         private SolidColorBrush m_brEnable = new SolidColorBrush();
 
@@ -438,6 +441,9 @@ namespace VOP
             tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
+
+            chkpopupIDCard.IsChecked = m_popupDlgIDCardCopy; 
+            chkpopupNIn1.IsChecked = m_popupDlgNIn1Copy; 
 
             InitFontSize();
         }
@@ -1013,6 +1019,26 @@ namespace VOP
                     }
                 }
             }
+        }
+
+        private void chkpopupIDCard_Unchecked(object sender, RoutedEventArgs e)
+        {
+            m_popupDlgIDCardCopy = false; 
+        }
+
+        private void chkpopupNIn1_Unchecked(object sender, RoutedEventArgs e)
+        {
+            m_popupDlgNIn1Copy = false;  
+        }
+
+        private void chkpopupNIn1_Checked(object sender, RoutedEventArgs e)
+        {
+            m_popupDlgNIn1Copy = true;  
+        }
+
+        private void chkpopupIDCard_Checked(object sender, RoutedEventArgs e)
+        {
+            m_popupDlgIDCardCopy = true; 
         }
 	}
 }

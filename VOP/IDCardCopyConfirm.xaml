@@ -43,7 +43,7 @@
 
         <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" />
 
-        <CheckBox x:Name="chkNin1" Template="{StaticResource customCheckBox}" Grid.Row="2" IsChecked="true" VerticalAlignment="Center" Content="下次不再弹出些对话框" HorizontalAlignment="Left" Height="24" Margin="100,0" />
+        <CheckBox x:Name="chkPopupNextTime" Template="{StaticResource customCheckBox}" Grid.Row="2" IsChecked="false" VerticalAlignment="Center" Content="下次不再弹出些对话框" HorizontalAlignment="Left" Height="24" Margin="100,0" Checked="chkPopupNextTime_Checked" Unchecked="chkPopupNextTime_Unchecked" />
 
         <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" >
             <local:ButtonEx x:Name="btnOK"     IsActiveEx="False" Content="确定"  Width="150" Height="40" Margin="20,0" FontSize="16" HorizontalContentAlignment="Center" Click="btnOK_Click" />

@@ -18,6 +18,8 @@ namespace VOP
     /// </summary>
     public partial class IDCardCopyConfirm : Window
     {
+        public bool m_popupDlg = true;
+
         public IDCardCopyConfirm()
         {
             InitializeComponent();
@@ -56,6 +58,16 @@ namespace VOP
 
             if ( true == isAtTitle )
                 this.DragMove();
+        }
+
+        private void chkPopupNextTime_Checked(object sender, RoutedEventArgs e)
+        {
+            m_popupDlg = false;
+        }
+
+        private void chkPopupNextTime_Unchecked(object sender, RoutedEventArgs e)
+        {
+            m_popupDlg = true;
         }
     }
 }
