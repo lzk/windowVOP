@@ -180,47 +180,53 @@ namespace VOP
                 }
                 else
                 {
-                    EnumCmdResult ret = (EnumCmdResult)dll.SendCopyCmd( 
-                            m_MainWin.statusPanelPage.m_selectedPrinter,
-                            m_density,
-                            (byte)spinCtlCopies.Value,
-                            (byte)m_scanMode,
-                            (byte)m_docSize,
-                            (byte)m_outputSize,
-                            (byte)byteNin1,
-                            (byte)m_dpi,
-                            (ushort)m_scaling,
-                            (byte)m_mediaType );
+                    IDCardCopyConfirm confirmDlg = new IDCardCopyConfirm();
+                    confirmDlg.Owner = m_MainWin;
 
-                    switch ( ret )
+                    if ( true == confirmDlg.ShowDialog() )
                     {
-                        case EnumCmdResult._Do_not_support_this_function:
-                            m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
+                        EnumCmdResult ret = (EnumCmdResult)dll.SendCopyCmd( 
+                                m_MainWin.statusPanelPage.m_selectedPrinter,
+                                m_density,
+                                (byte)spinCtlCopies.Value,
+                                (byte)m_scanMode,
+                                (byte)m_docSize,
+                                (byte)m_outputSize,
+                                (byte)byteNin1,
+                                (byte)m_dpi,
+                                (ushort)m_scaling,
+                                (byte)m_mediaType );
 
-                            VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
-                                    m_MainWin,
-                                    (string)this.FindResource( "ResStr_Unsupported" ),
-                                    (string)this.FindResource( "ResStr_Error" ));
-                            break;
+                        switch ( ret )
+                        {
+                            case EnumCmdResult._Do_not_support_this_function:
+                                m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
 
-                        case EnumCmdResult._ACK:
-                            break;
-                        case EnumCmdResult._Printer_busy:
-                            m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
+                                VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                                        m_MainWin,
+                                        (string)this.FindResource( "ResStr_Unsupported" ),
+                                        (string)this.FindResource( "ResStr_Error" ));
+                                break;
 
-                            VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple_Busy,
-                                    m_MainWin,
-                                    (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
-                                    (string)this.FindResource("ResStr_Error"));
-                            break;
-                        default:
-                            m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
+                            case EnumCmdResult._ACK:
+                                break;
+                            case EnumCmdResult._Printer_busy:
+                                m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
 
-                            VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
-                                    m_MainWin,
-                                    (string)this.FindResource( "ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
-                                    (string)this.FindResource( "ResStr_Error" ));
-                            break;
+                                VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple_Busy,
+                                        m_MainWin,
+                                        (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
+                                        (string)this.FindResource("ResStr_Error"));
+                                break;
+                            default:
+                                m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
+
+                                VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                                        m_MainWin,
+                                        (string)this.FindResource( "ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
+                                        (string)this.FindResource( "ResStr_Error" ));
+                                break;
+                        }
                     }
                 }
             }
