@@ -304,4 +304,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Day">日</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Man">男</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Women">女</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_picture_file_occupied">图片文件被占用， 暂时无法执行此操作。</sys:String>
 </ResourceDictionary>

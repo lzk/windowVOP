@@ -685,6 +685,15 @@ namespace VOP
 
                     }
                 }
+                catch(IOException)
+                {
+                    VOP.Controls.MessageBoxEx.Show(
+                            VOP.Controls.MessageBoxExStyle.Simple,
+                            m_MainWin,
+                            (string)this.FindResource("ResStr_picture_file_occupied"),
+                            (string)this.FindResource("ResStr_Warning")
+                            );
+                }
                 catch
                 {
                     VOP.Controls.MessageBoxEx.Show(
