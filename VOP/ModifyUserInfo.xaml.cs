@@ -132,7 +132,7 @@ namespace VOP
                 Regex reg = new Regex(ex);
                 if(false == reg.IsMatch(userInformation.m_strEmail))
                 {
-                    MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.TryFindResource("ResStr_Email_Format_Error"), (string)this.FindResource("ResStr_Prompt"));
+                    MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.TryFindResource("ResStr_Email_Format_Error"), (string)this.FindResource("ResStr_Error"));
                     tbMail.Focus();
                     return;
                 }
@@ -144,7 +144,7 @@ namespace VOP
                 }    
                 else
                 {
-                    MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.TryFindResource("ResStr_Modify_UserInfo_Fail"), (string)this.FindResource("ResStr_Prompt"));
+                    MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.TryFindResource("ResStr_Modify_UserInfo_Fail"), (string)this.FindResource("ResStr_Error"));
 
                 }
             }

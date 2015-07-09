@@ -632,7 +632,13 @@ namespace VOP
             if (bSuccess)
             {
                 if (wifiEnable != VOP.MainWindow.m_byWifiInitStatus)
+                {
                     ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Msg_1"), Brushes.Black);
+                    MessageBoxEx.Show(MessageBoxExStyle.Simple,
+                                    Application.Current.MainWindow,
+                                    (string)this.TryFindResource("ResStr_Msg_1"),
+                                    (string)this.TryFindResource("ResStr_Prompt"));
+                }
                 else
                     ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Setting_Successfully_"), Brushes.Black);
             }

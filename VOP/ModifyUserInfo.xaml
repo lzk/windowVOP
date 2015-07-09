@@ -65,7 +65,7 @@
             <Rectangle Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
 
             <TextBlock Text="{StaticResource ResStr_Full_name}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-            <TextBox Name="tbName" Grid.Row="0" Grid.Column="2" Height="30" TextChanged="OnTextChanged" MaxLength="15"></TextBox>
+            <TextBox Name="tbName" Grid.Row="0" Grid.Column="2" Height="30" TextChanged="OnTextChanged" MaxLength="20"></TextBox>
             <TextBlock Name="tbBirthDay" Text="{StaticResource ResStr_Birthday}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
             <Grid Grid.Row="1" Grid.Column="2">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
