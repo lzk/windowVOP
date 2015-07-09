@@ -129,6 +129,10 @@ namespace VOP
                         // All options disable.
                         m_nin1 = EnumNin1._1up;
                         Nin1Group.IsEnabled = false;
+
+                        tk2in1.Foreground = m_brDisable;
+                        tk4in1.Foreground = m_brDisable;
+                        tk9in1.Foreground = m_brDisable; 
                         break;
                     case EnumPaperSizeOutput._A5        : 
                     case EnumPaperSizeOutput._B5        : 
@@ -762,6 +766,9 @@ namespace VOP
             if ( m_isIDCardCopy )
             {
                 Nin1Group.IsEnabled = false;
+                tk2in1.Foreground = m_brDisable;
+                tk4in1.Foreground = m_brDisable;
+                tk9in1.Foreground = m_brDisable; 
                 //chkNin1.IsEnabled = false;
             }
             else
