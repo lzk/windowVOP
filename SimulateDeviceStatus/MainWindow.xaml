@@ -98,6 +98,8 @@
             <ComboBoxItem>MotorThermistorError</ComboBoxItem>
             <ComboBoxItem>EEPROMCommunicationError</ComboBoxItem>
             <ComboBoxItem>CTL_PRREQ_NSignalNoCome</ComboBoxItem>
+            <ComboBoxItem>SCAN_USB_Disconnect</ComboBoxItem>
+            <ComboBoxItem>SCAN_NET_Disconnect</ComboBoxItem>
             <ComboBoxItem>ScanMotorError</ComboBoxItem>
             <ComboBoxItem>SCAN_DRV_CALIB_FAIL</ComboBoxItem>
             <ComboBoxItem>NetWirelessDongleCfgFail</ComboBoxItem>

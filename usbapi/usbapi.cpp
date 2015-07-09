@@ -139,6 +139,8 @@
 #define        __MotorThermistorError        0xDD
 #define        __EEPROMCommunicationError    0xDE
 #define        __CTL_PRREQ_NSignalNoCome     0xDF
+#define        __SCAN_USB_Disconnect         0xE1
+#define        __SCAN_NET_Disconnect         0xE4
 #define        __ScanMotorError              0xE5
 #define        __SCAN_DRV_CALIB_FAIL         0xE9
 #define        __NetWirelessDongleCfgFail    0xE8

@@ -323,6 +323,10 @@ namespace VOP
                 case "MotorThermistorError": retStatus = EnumStatus.MotorThermistorError; break;
                 case "EEPROMCommunicationError": retStatus = EnumStatus.EEPROMCommunicationError; break;
                 case "CTL_PRREQ_NSignalNoCome": retStatus = EnumStatus.CTL_PRREQ_NSignalNoCome; break;
+
+                case "SCAN_USB_Disconnect": retStatus = EnumStatus.SCAN_USB_Disconnect; break;
+                case "SCAN_NET_Disconnect": retStatus = EnumStatus.SCAN_NET_Disconnect; break;
+
                 case "ScanMotorError": retStatus = EnumStatus.ScanMotorError; break;
                 case "SCAN_DRV_CALIB_FAIL": retStatus = EnumStatus.SCAN_DRV_CALIB_FAIL; break;
                 case "NetWirelessDongleCfgFail": retStatus = EnumStatus.NetWirelessDongleCfgFail; break;

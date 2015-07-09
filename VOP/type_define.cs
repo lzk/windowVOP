@@ -84,6 +84,8 @@ namespace VOP
         MotorThermistorError        = 0xDD,
         EEPROMCommunicationError    = 0xDE,
         CTL_PRREQ_NSignalNoCome     = 0xDF,
+        SCAN_USB_Disconnect         = 0xE1,
+        SCAN_NET_Disconnect         = 0xE4,
         ScanMotorError              = 0xE5,
         SCAN_DRV_CALIB_FAIL         = 0xE9,
         NetWirelessDongleCfgFail    = 0xE8,
