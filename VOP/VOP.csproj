@@ -112,6 +112,11 @@
     </Compile>
     <Compile Include="Controls\PopupEx.cs" />
     <Compile Include="Controls\TextBoxValidation\IPAddressValidationRule.cs" />
+
+    <Compile Include="NIn1CopyConfirm.xaml.cs">
+      <DependentUpon>NIn1CopyConfirm.xaml</DependentUpon>
+    </Compile>
+
     <Compile Include="IDCardCopyConfirm.xaml.cs">
       <DependentUpon>IDCardCopyConfirm.xaml</DependentUpon>
     </Compile>
@@ -256,6 +261,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+
+    <Page Include="NIn1CopyConfirm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+
     <Page Include="IDCardCopyConfirm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

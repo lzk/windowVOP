@@ -14,13 +14,13 @@ using System.Windows.Shapes;
 namespace VOP
 {
     /// <summary>
-    /// Interaction logic for NIn1CopyConfirm.xaml
+    /// Interaction logic for IDCardCopyConfirm.xaml
     /// </summary>
-    public partial class NIn1CopyConfirm : Window
+    public partial class IDCardCopyConfirm : Window
     {
         public bool m_popupDlg = true;
 
-        public NIn1CopyConfirm()
+        public IDCardCopyConfirm()
         {
             InitializeComponent();
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;

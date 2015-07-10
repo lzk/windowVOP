@@ -190,7 +190,7 @@ namespace VOP
                 {
                     bool bIsSendCmd = true;
 
-                    if ( true == m_MainWin.m_popupIDCard )
+                    if ( true == chkBtnIDCardCopy.IsChecked && true == m_MainWin.m_popupIDCard )
                     {
                         IDCardCopyConfirm confirmDlg = new IDCardCopyConfirm();
                         confirmDlg.Owner = m_MainWin;
@@ -198,6 +198,15 @@ namespace VOP
                         bIsSendCmd = ( true == confirmDlg.ShowDialog() );
 
                         m_MainWin.m_popupIDCard = confirmDlg.m_popupDlg;
+                    }
+                    else if ( (byte)EnumNin1._1up != m_nin1 && true == m_MainWin.m_popupNIn1 )
+                    {
+                        NIn1CopyConfirm confirmDlg = new NIn1CopyConfirm();
+                        confirmDlg.Owner = m_MainWin;
+
+                        bIsSendCmd = ( true == confirmDlg.ShowDialog() );
+
+                        m_MainWin.m_popupNIn1 = confirmDlg.m_popupDlg;
                     }
 
                     if ( true == bIsSendCmd )
