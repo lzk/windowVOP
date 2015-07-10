@@ -28,6 +28,8 @@ namespace VOP
         private EnumMachineJob m_oldJob = EnumMachineJob.UnknowJob; // Job used to monitor IDCardCopy job.
         private EnumStatus m_currentStatus = EnumStatus.Offline; 
 
+        private bool m_isLoaded = false;
+
         private byte _density = 3;
         public byte m_density
         {
@@ -365,13 +367,18 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            TextBox tb = spinCtlCopies.Template.FindName("tbTextBox", spinCtlCopies) as TextBox;
-            tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
-            tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
-            tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
-            tb.LostFocus += new RoutedEventHandler(SpinnerTextBox_LostFocus);
+            if ( false == m_isLoaded )
+            {
+                TextBox tb = spinCtlCopies.Template.FindName("tbTextBox", spinCtlCopies) as TextBox;
+                tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
+                tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+                tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
+                tb.LostFocus += new RoutedEventHandler(SpinnerTextBox_LostFocus);
 
-            InitFontSize();
+                InitFontSize();
+
+                m_isLoaded = true;
+            }
         }
 
         void InitFontSize()
