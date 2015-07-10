@@ -1,7 +1,7 @@
 ﻿<Window x:Class="VOP.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="{StaticResource ResStr_VirtualOperationPanel}" Height="638" Width="850"
+        Title="{StaticResource ResStr_Lenovo_Printer}" Height="638" Width="850"
         AllowsTransparency="true"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
