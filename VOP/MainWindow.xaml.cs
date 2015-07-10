@@ -45,6 +45,10 @@ namespace VOP
 
     public partial class MainWindow : Window
     {
+        public bool m_popupIDCard = true; // True if ID Card Copy confirm dialog need to pop up.
+        public bool m_popupNIn1   = true; // True if N in 1 Copy confirm dialog need to pop up.
+        public bool m_popupError  = true; // True if error dialog need to pop up.
+
         private EnumSubPage m_currentPage = EnumSubPage.Print;
 
         private bool bGrayIcon = false; // True if the tray icon was set to gray.
@@ -775,6 +779,8 @@ namespace VOP
 
             AddMessageHook();
             this.Visibility = System.Windows.Visibility.Visible;
+
+            GetPopupSetting( App.cfgFile, ref m_popupIDCard, ref m_popupNIn1, ref m_popupError );
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -1039,6 +1045,7 @@ namespace VOP
             dll.ResetDefaultPrinter();
             PdfPrint.CloseAll();
 
+            SetPopupSetting( App.cfgFile, m_popupIDCard, m_popupNIn1, m_popupError );
         }
 
         private System.IntPtr _handle = IntPtr.Zero;
@@ -1561,6 +1568,67 @@ namespace VOP
             ModifyUserInfo ucv = new ModifyUserInfo();
             ModifyUserInfoview.Children.Add(ucv);
             Background_SubPageView.Visibility = Visibility.Hidden;
+        }
+
+        // Get the popup setting from register. 
+        private void GetPopupSetting( string xmlFile, ref bool popupIDCard, ref bool popupNIn1, ref bool popupError )
+        {
+            popupIDCard = true;
+            popupNIn1   = true;
+            popupError  = true;
+
+            try
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load( xmlFile );
+
+                XmlNode xmlNode = xmlDoc.SelectSingleNode( "VOPCfg" );
+                if (xmlNode != null)
+                {
+                    // TODO: how to read the node directly?
+                    foreach ( XmlNode subNote in xmlNode.ChildNodes )
+                    {
+                        if ( "elPopupIDCard" == subNote.Name )
+                        { popupIDCard = ( "True" == subNote.InnerXml ); }
+                        else if ( "elPopupNIn1" == subNote.Name )
+                        { popupNIn1 = ( "True" == subNote.InnerXml ); }
+                        else if ( "elPopupError" == subNote.Name )
+                        { popupError = ( "True" == subNote.InnerXml ); }
+                    }
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        // Set the popup setting from register. 
+        private void SetPopupSetting( string xmlFile, bool popupIDCard, bool popupNIn1, bool popupError )
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+
+            string version    = "1.0";
+            string encoding   = "gb2312";
+            string standalone = "yes";
+
+            XmlDeclaration xmlDeclaration = xmlDoc.CreateXmlDeclaration(version, encoding, standalone);
+            XmlNode root = xmlDoc.CreateElement( "VOPCfg" );
+            xmlDoc.AppendChild(xmlDeclaration);
+            xmlDoc.AppendChild(root);
+
+            XmlElement elPopupIDCard = xmlDoc.CreateElement( "elPopupIDCard" );
+            XmlElement elPopupNIn1   = xmlDoc.CreateElement( "elPopupNIn1" );
+            XmlElement elPopupError  = xmlDoc.CreateElement( "elPopupError" );
+
+            elPopupIDCard.InnerXml = popupIDCard.ToString();
+            elPopupNIn1.InnerXml   = popupNIn1.ToString();
+            elPopupError.InnerXml  = popupError.ToString();
+
+            root.AppendChild( elPopupIDCard );
+            root.AppendChild( elPopupNIn1   );
+            root.AppendChild( elPopupError  );
+
+            xmlDoc.Save( xmlFile );
         }
     }
 

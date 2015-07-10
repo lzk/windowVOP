@@ -20,6 +20,7 @@ namespace VOP
         public static string pathSimulationFile = currentFolder + "\\DeviceStatus.xml";
         public static string vopHelperExe = currentFolder + "\\VopHelper.exe";
         public static string cacheFolder = System.IO.Path.GetTempPath()+"VOPCache"; // Folder used to store the cache file for scanning.
+        public static string cfgFile = cacheFolder + "\\vopcfg.xml";
 
         /// <summary>
         /// Scanned images file list. The files in list need to be cleared, so

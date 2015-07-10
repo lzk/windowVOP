@@ -22,9 +22,6 @@ namespace VOP
         private EnumMediaType       m_mediaType  = EnumMediaType.Plain;
 #endregion
 
-        private bool m_popupDlgIDCardCopy = true; // True if ID Card Copy confirm dialog need to pop up.
-        private bool m_popupDlgNIn1Copy = true;   // True if N in 1 Copy confirm dialog need to pop up.
-
         private EnumMachineJob m_oldJob = EnumMachineJob.UnknowJob; // Job used to monitor IDCardCopy job.
         private EnumStatus m_currentStatus = EnumStatus.Offline; 
 
@@ -141,8 +138,8 @@ namespace VOP
             win.m_dpi        = m_dpi        ;
             win.m_mediaType  = m_mediaType  ;
 
-            win.m_popupDlgIDCardCopy = m_popupDlgIDCardCopy;
-            win.m_popupDlgNIn1Copy   = m_popupDlgNIn1Copy;
+            win.m_popupDlgIDCardCopy = m_MainWin.m_popupIDCard;
+            win.m_popupDlgNIn1Copy   = m_MainWin.m_popupNIn1;
 
             if ( true == win.ShowDialog() )
             {
@@ -154,8 +151,8 @@ namespace VOP
                 m_dpi         = win.m_dpi        ;
                 m_mediaType   = win.m_mediaType  ;
 
-                m_popupDlgIDCardCopy = win.m_popupDlgIDCardCopy;
-                m_popupDlgNIn1Copy   = win.m_popupDlgNIn1Copy;
+                m_MainWin.m_popupIDCard = win.m_popupDlgIDCardCopy;
+                m_MainWin.m_popupNIn1   = win.m_popupDlgNIn1Copy;
             }
         }
 
@@ -193,14 +190,14 @@ namespace VOP
                 {
                     bool bIsSendCmd = true;
 
-                    if ( true == m_popupDlgIDCardCopy )
+                    if ( true == m_MainWin.m_popupIDCard )
                     {
                         IDCardCopyConfirm confirmDlg = new IDCardCopyConfirm();
                         confirmDlg.Owner = m_MainWin;
 
                         bIsSendCmd = ( true == confirmDlg.ShowDialog() );
 
-                        m_popupDlgIDCardCopy = confirmDlg.m_popupDlg;
+                        m_MainWin.m_popupIDCard = confirmDlg.m_popupDlg;
                     }
 
                     if ( true == bIsSendCmd )
