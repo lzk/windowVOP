@@ -1145,6 +1145,7 @@ namespace VOP
                        || EnumStatus.JamAtExitNotReach == status
                        || EnumStatus.JamAtExitStayOn   == status )
                {
+                   statusPanelPage.btnErrorMarker.Visibility = System.Windows.Visibility.Visible;
                    if ( m_oldStatus != status )
                    {
                        string _animationUri = "";       // Animation Uri need to display
@@ -1173,6 +1174,7 @@ namespace VOP
                }
                else
                {
+                   statusPanelPage.btnErrorMarker.Visibility = System.Windows.Visibility.Hidden;
                    m_isCloseAnimation = true;  
                }
 
