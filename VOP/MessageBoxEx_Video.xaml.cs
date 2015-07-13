@@ -19,6 +19,8 @@ namespace VOP
     /// </summary>
     public partial class MessageBoxEx_Video : Window
     {
+        public bool m_popupError = true; // True if error dialog need to pop up.
+
         private System.Windows.Threading.DispatcherTimer m_timer = new System.Windows.Threading.DispatcherTimer();
 
         public MessageBoxEx_Video(Uri uri, string messageBoxText, string caption)
@@ -83,6 +85,21 @@ namespace VOP
                     return _MainWin;
                 }
             }
+        }
+
+        private void chkPopupDlg_Checked(object sender, RoutedEventArgs e)
+        {
+            m_popupError = false;
+        }
+
+        private void chkPopupDlg_Unchecked(object sender, RoutedEventArgs e)
+        {
+            m_popupError = true;
+        }
+
+        private void chkPopupDlg_Loaded(object sender, RoutedEventArgs e)
+        {
+            chkPopupDlg.IsChecked = ( false == m_popupError );
         }
     }
 }

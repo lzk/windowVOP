@@ -11,6 +11,21 @@
         WindowStartupLocation="CenterOwner" 
         Style="{StaticResource for_noresize_window}">
 
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomComboBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomRadioButtonEx.xaml"/>
+                <ResourceDictionary Source="Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid  Background="#FFEDEDED">
         <Grid.RowDefinitions>
             <RowDefinition Height="27*" />
@@ -48,5 +63,7 @@
 
             <Image x:Name="imgAnimation" Width="310" />
         </Grid>
+
+        <CheckBox x:Name="chkPopupDlg" Template="{StaticResource customCheckBox}" Grid.Row="3" Grid.Column="1" Content="下次不再弹出些对话框" Checked="chkPopupDlg_Checked" Unchecked="chkPopupDlg_Unchecked" Loaded="chkPopupDlg_Loaded" />
     </Grid>
 </Window>

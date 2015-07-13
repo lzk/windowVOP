@@ -1146,7 +1146,7 @@ namespace VOP
                        || EnumStatus.JamAtExitStayOn   == status )
                {
                    statusPanelPage.btnErrorMarker.Visibility = System.Windows.Visibility.Visible;
-                   if ( m_oldStatus != status )
+                   if ( m_oldStatus != status && true == m_popupError )
                    {
                        string _animationUri = "";       // Animation Uri need to display
 
@@ -1165,9 +1165,11 @@ namespace VOP
                            m_isCloseAnimation = false;  
                            m_isAnimationPopup = true;
                            MessageBoxEx_Video win = new MessageBoxEx_Video(new Uri(_animationUri), (string)this.TryFindResource("ResStr_The_paper_jam_occurred_please_follow_the_instructions_"), (string)this.FindResource("ResStr_Error"));
+                           win.m_popupError = m_popupError;
                            win.m_MainWin = this;
                            win.Owner = this;
                            win.ShowDialog(); // TODO: Why this modeless dialog will not block WndProc()?
+                           m_popupError = win.m_popupError;
                            m_isAnimationPopup = false;
                        }
                    }
@@ -1655,9 +1657,11 @@ namespace VOP
                 m_isCloseAnimation = false;  
                 m_isAnimationPopup = true;
                 MessageBoxEx_Video win = new MessageBoxEx_Video(new Uri(_animationUri), (string)this.TryFindResource("ResStr_The_paper_jam_occurred_please_follow_the_instructions_"), (string)this.FindResource("ResStr_Error"));
+                win.m_popupError = m_popupError;
                 win.m_MainWin = this;
                 win.Owner = this;
                 win.ShowDialog(); // TODO: Why this modeless dialog will not block WndProc()?
+                m_popupError = win.m_popupError;
                 m_isAnimationPopup = false;
             }
         }
