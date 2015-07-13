@@ -1530,7 +1530,7 @@ namespace VOP
                 mainview.Visibility = Visibility.Hidden;
                 statusPageView.Visibility = Visibility.Hidden;
                 UserCenterView ucv = new UserCenterView();
-                logonview.Children.Add(ucv);
+                logonview.Child = ucv;
                 Background_SubPageView.Visibility = Visibility.Hidden;
             }
         }
@@ -1544,8 +1544,7 @@ namespace VOP
                 mainview.Visibility = Visibility.Hidden;
                 statusPageView.Visibility = Visibility.Hidden;
                 UserCenterView ucv = new UserCenterView();
-                logonview.Children.Clear();
-                logonview.Children.Add(ucv);
+                logonview.Child = ucv;
                 Background_SubPageView.Visibility = Visibility.Hidden;
 
             }
@@ -1566,7 +1565,7 @@ namespace VOP
             logonview.Visibility = Visibility.Hidden;
             statusPageView.Visibility = Visibility.Hidden;
             ModifyUserInfo ucv = new ModifyUserInfo();
-            ModifyUserInfoview.Children.Add(ucv);
+            ModifyUserInfoview.Child = ucv;
             Background_SubPageView.Visibility = Visibility.Hidden;
         }
 

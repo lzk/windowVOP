@@ -122,8 +122,8 @@
             <Image x:Name="imgLEDGreen" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="27" Source="Images/LED_Green.png" Margin="8,24,0,0"/>
 
             <Grid Grid.Row="2" Grid.Column="1">
-                <Grid Name="logonview" Panel.ZIndex="0" Visibility="Hidden"> </Grid>
-                <Grid Name="ModifyUserInfoview" Panel.ZIndex="1" Visibility="Hidden"> </Grid>
+                <Border Name="logonview" Panel.ZIndex="0" Visibility="Hidden"> </Border>
+                <Border Name="ModifyUserInfoview" Panel.ZIndex="1" Visibility="Hidden"> </Border>
                 
                 <Grid Name="mainview">
                     <Grid.RowDefinitions>
