@@ -127,7 +127,7 @@
             <TextBlock Text="{StaticResource ResStr_Email}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
             <TextBox Name="tbMail"  Grid.Row="3" Grid.Column="2" Height="30" TextChanged="OnTextChanged"></TextBox>
             <TextBlock Text="{StaticResource ResStr_Address}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-            <TextBox Name="tbAddress" Grid.Row="4" Grid.Column="2" Height="30" TextChanged="OnTextChanged"></TextBox>
+            <TextBox Name="tbAddress" Grid.Row="4" Grid.Column="2" Height="30" TextChanged="OnTextChanged" MaxLength="100"></TextBox>
         </Grid>
 
         <Grid Grid.Row="4">
