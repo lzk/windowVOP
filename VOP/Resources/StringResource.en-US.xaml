@@ -95,6 +95,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_4_in_1">4 in 1</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_9_in_1">9 in 1</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_16_in_1">16 in 1</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_N_in_1">N in 1</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_1_in_2_2_">1 in 2*2</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_1_in_3_3">1 in 3*3</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_1_in_4_4_">1 in 4*4</sys:String>
@@ -291,12 +292,16 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Express_Login_using_mobile_number">Express Login using mobile number</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Verification_Code">Verification code</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Get_Verification_Code">Get verification code</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Password_Tip">本设备出厂默认密码为“888888”，为保证设备安全，请及时修改密码。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Are_you_sure_to_delete_the_selected_picture">Are you sure to delete the selected picture?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Password_Tip">The default password for this unit is "888888". For security of your equipment, please change this password.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Are_you_sure_to_delete_the_selected_picture">Delete selected image?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Connected">Connected</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Please_turn_off_the_printer_until_it_cools_to_room_temperature">Please turn off the printer until it cools to room temperature.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_maximum_password_length_is_32_characters_Please_check_you_password_and_enter_again">Turn off the printer and let it cool to room temperature before turning it on again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Please_turn_off_the_printer_until_it_cools_to_room_temperature">Turn off the printer and let it cool to room temperature before turning it on again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Waiting">Waiting</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Lenovo_Printer">Lenovo Printer</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Front">Front</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Back_2">Back</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Tips_for_Copying">Tips for Copying</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Email_Format_Error">邮件地址格式不正确，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Modify_UserInfo_Fail">修改账户信息失败。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Year">Year</sys:String>
@@ -305,4 +310,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Man">men</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Women">women</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_picture_file_occupied">The picture file is occupied, temporarily unable to perform this operation.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_USB_write_failed_during_scan_job_cancelling">USB write failed during scan, job cancelling.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_NET_write_failed_during_scan_job_cancelling">NET write failed during scan, job cancelling.</sys:String>
 </ResourceDictionary>

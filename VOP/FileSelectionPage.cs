@@ -229,11 +229,11 @@ namespace VOP
 
                             if (selectWin.SelectedTypeItem.PrintSides == enumIdCardPrintSides.TwoSides)
                             {
-                                editWin.TitleBarText.Text = selectWin.SelectedTypeItem.Name + " " + "正面";
+                                editWin.TitleBarText.Text = selectWin.SelectedTypeItem.Name + " " + this.FindResource("ResStr_Front");
 
                                 if (imageFileCount == 1)
                                 {
-                                    editWin.TitleBarText.Text = selectWin.SelectedTypeItem.Name + " " + "反面";
+                                    editWin.TitleBarText.Text = selectWin.SelectedTypeItem.Name + " " + this.FindResource("ResStr_Back_2");
                                 }
                             }
 

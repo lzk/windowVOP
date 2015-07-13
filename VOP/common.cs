@@ -194,8 +194,8 @@ namespace VOP
                     case EnumStatus.EEPROMCommunicationError:       errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "669"; break;
                     case EnumStatus.CTL_PRREQ_NSignalNoCome:        errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "688"; break;
 
-                    case EnumStatus.SCAN_USB_Disconnect:        errMsg = "USB write failed during scan, job cancelling."; break;
-                    case EnumStatus.SCAN_NET_Disconnect:        errMsg = "NET write failed during scan, job cancelling."; break;
+                    case EnumStatus.SCAN_USB_Disconnect:        errMsg = (string)_this.TryFindResource("ResStr_USB_write_failed_during_scan_job_cancelling"); break;
+                    case EnumStatus.SCAN_NET_Disconnect:        errMsg = (string)_this.TryFindResource("ResStr_NET_write_failed_during_scan_job_cancelling"); break;
 
                     case EnumStatus.ScanMotorError: errMsg = (string)_this.TryFindResource("ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001"); break;
                     case EnumStatus.SCAN_DRV_CALIB_FAIL: errMsg = (string)_this.TryFindResource("ResStr_Scan_Calibration_Error_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001"); break;

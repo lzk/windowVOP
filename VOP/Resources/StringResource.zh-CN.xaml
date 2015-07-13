@@ -95,6 +95,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_4_in_1">4合1</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_9_in_1">9合1</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_16_in_1">16合1</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_N_in_1">N合1</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_1_in_2_2_">1合2*2</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_1_in_3_3">1合3*3</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_1_in_4_4_">1合4*4</sys:String>
@@ -294,9 +295,13 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Password_Tip">本设备出厂默认密码为“888888”，为保证设备安全，请及时修改密码。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Are_you_sure_to_delete_the_selected_picture">确认是否删除选中图片？</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Connected">已连接</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_maximum_password_length_is_32_characters_Please_check_you_password_and_enter_again">密码长度最高为32位，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_turn_off_the_printer_until_it_cools_to_room_temperature">请关闭打印机，直到打印机冷却到室温后再开启打印机。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Waiting">请稍后</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Lenovo_Printer">联想打印</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Front">正面</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Back_2">反面</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Tips_for_Copying">复印操作提示</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Email_Format_Error">邮件地址格式不正确，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Modify_UserInfo_Fail">修改账户信息失败。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Year">年</sys:String>
@@ -305,4 +310,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Man">男</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Women">女</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_picture_file_occupied">图片文件被占用， 暂时无法执行此操作。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_USB_write_failed_during_scan_job_cancelling">扫描过程中通过USB传输的数据写入失败，扫描任务取消。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_NET_write_failed_during_scan_job_cancelling">扫描过程中通过网络传输的数据写入失败，扫描任务取消。</sys:String>
 </ResourceDictionary>

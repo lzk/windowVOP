@@ -218,7 +218,7 @@
 
                 </local:GroupBoxDecorator>
 
-                <local:GroupBoxDecorator x:Name="SwitchGroup" Grid.Row="2" Header="复印操作提示" Height="140" Width="160" HorizontalAlignment="Right" Margin="0,0,38,0" >
+                <local:GroupBoxDecorator x:Name="SwitchGroup" Grid.Row="2" Header="{StaticResource ResStr_Tips_for_Copying}" Height="140" Width="160" HorizontalAlignment="Right" Margin="0,0,38,0" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80" />
@@ -230,8 +230,8 @@
                             <RowDefinition Height="50" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="身份证" />
-                        <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="N合1" />
+                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_ID_Card}" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_N_in_1}" />
 
                         <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chkpopupIDCard" VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource switchBox}" IsChecked="False" Width="50" Height="25" Unchecked="chkpopupIDCard_Unchecked" Checked="chkpopupIDCard_Checked" />
                         <CheckBox Grid.Row="1" Grid.Column="1" x:Name="chkpopupNIn1"   VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource switchBox}" IsChecked="False" Width="50" Height="25" Unchecked="chkpopupNIn1_Unchecked" Checked="chkpopupNIn1_Checked" />
