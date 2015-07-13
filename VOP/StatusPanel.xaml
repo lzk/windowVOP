@@ -19,6 +19,47 @@
                 <GradientStop Color="#FFEBEAEA" Offset="0.436"/>
                 <GradientStop Color="#FFE4E3E3" Offset="1"/>
             </LinearGradientBrush>
+
+
+        <Style x:Key="ButtonErrorMarker" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle">
+                <Setter.Value>
+                    <Style>
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Ellipse Margin="0" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <Grid>
+                                <Image x:Name="icon" Height="23" Width="23" Stretch="Fill" Source="Images/errorMarkerNormal.tif"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Source" TargetName="icon" Value="Images/errorMarkerPress.tif"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
         </ResourceDictionary>    
     </UserControl.Resources>
 
@@ -65,7 +106,7 @@
                         <RowDefinition Height="34*" />
                         <RowDefinition Height="34*" />
                         <RowDefinition Height="13*" />
-                        <RowDefinition Height="16*" />                    
+                        <RowDefinition Height="23*" />                    
                         <RowDefinition Height="37*" />
                         <RowDefinition Height="17*" />
                         <RowDefinition Height="38*" />
@@ -124,6 +165,8 @@
                                Foreground="#555555"
                                Text="{StaticResource ResStr_Device_Status}"
                                TextAlignment="Center" />
+
+                   <Button Grid.Row="3" Grid.Column="1" Cursor="Hand" Width="23" Height="23" Style="{DynamicResource ButtonErrorMarker}" />
 
                     <mycontrol:StatusTextBlock x:Name="status" Grid.Row="4" 
                                                Grid.Column="1" 
