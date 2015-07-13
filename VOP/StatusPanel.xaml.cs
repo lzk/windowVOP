@@ -192,6 +192,9 @@ namespace VOP
         public delegate void HandlerPrinterSwitch();
         public event HandlerPrinterSwitch eventPrinterSwitch; // This event only throw when the StatusPanel had been loaded. 
 
+        public delegate void HandlerErrorMarkerClick();
+        public event HandlerErrorMarkerClick eventErrorMarkerClick;
+
         // Update isSFP and isWiFiModel of current printer.
         public void UpdatePrinterProperty()
         {
@@ -387,6 +390,12 @@ namespace VOP
         {
             RefreshBtn.IsEnabled = bEnable;
             cboPrinters.IsEnabled = bEnable;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if ( null != eventErrorMarkerClick )
+                eventErrorMarkerClick();
         }
     }
 }
