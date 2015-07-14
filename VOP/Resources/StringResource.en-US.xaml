@@ -274,7 +274,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_WiFi_connection_troubleshooting">Wi-Fi connection troubleshooting</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Return">Return</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt">Prompt</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit_the_Lenovo_Printer">Do you want to exit the Lenovo Printer?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit_the_Lenovo_Printer">Do you want to exit the Neo Printing?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Member_Center">Member Center</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Account_Name">Account name</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Change_Account_Information">Change Account Information</sys:String>
@@ -298,7 +298,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_maximum_password_length_is_32_characters_Please_check_you_password_and_enter_again">Turn off the printer and let it cool to room temperature before turning it on again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_turn_off_the_printer_until_it_cools_to_room_temperature">Turn off the printer and let it cool to room temperature before turning it on again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Waiting">Waiting</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Lenovo_Printer">Lenovo Printer</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Lenovo_Printer">Neo Printing</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Front">Front</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Back_2">Back</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Tips_for_Copying">Tips for Copying</sys:String>

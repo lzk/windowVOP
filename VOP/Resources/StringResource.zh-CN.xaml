@@ -274,7 +274,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_WiFi_connection_troubleshooting">Wi-Fi连接故障排除</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Return">返回</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt">提示</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit_the_Lenovo_Printer">是否退出联想打印？</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit_the_Lenovo_Printer">是否退出小新打印？</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Member_Center">会员中心</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Account_Name">账户名</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Change_Account_Information">修改账户信息</sys:String>
@@ -298,7 +298,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_maximum_password_length_is_32_characters_Please_check_you_password_and_enter_again">密码长度最高为32位，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_turn_off_the_printer_until_it_cools_to_room_temperature">请关闭打印机，直到打印机冷却到室温后再开启打印机。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Waiting">请稍后</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Lenovo_Printer">联想打印</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Lenovo_Printer">小新打印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Front">正面</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Back_2">反面</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Tips_for_Copying">复印操作提示</sys:String>
