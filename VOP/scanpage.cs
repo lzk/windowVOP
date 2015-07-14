@@ -18,6 +18,7 @@ namespace VOP
 {
     public partial class ScanPage : UserControl
     {
+        private int m_maxImgNum = 99;
 #region scan parameters
         private EnumScanDocType   m_docutype   = EnumScanDocType.Photo;
         private EnumScanResln     m_scanResln  = EnumScanResln._300x300;
@@ -103,9 +104,16 @@ namespace VOP
             ImageItem img = (ImageItem)sender;
 
             if ( 0 == img.m_num )
-                img.m_num = GetSelectedItemCount()+1;
+            {
+                if ( GetSelectedItemCount() < m_maxImgNum )
+                {
+                    img.m_num = GetSelectedItemCount()+1;
+                }
+            }
             else
+            {
                 img.m_num = 0;
+            }
             
             UpdateSelItemNum();
 
@@ -123,8 +131,10 @@ namespace VOP
 
         private void ImageItemDoubleClick(object sender, RoutedEventArgs e)
         {
-
             ImageItem img = (ImageItem)sender;
+
+            if ( 0 == img.m_num && GetSelectedItemCount() >= m_maxImgNum )
+                return;
 
             if ( 0 == img.m_num )
                 img.m_num = GetSelectedItemCount()+1;
