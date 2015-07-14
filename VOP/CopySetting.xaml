@@ -221,8 +221,8 @@
                 <local:GroupBoxDecorator x:Name="SwitchGroup" Grid.Row="2" Header="{StaticResource ResStr_Tips_for_Copying}" Height="140" Width="160" HorizontalAlignment="Right" Margin="0,0,38,0" >
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80" />
-                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="90" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -233,8 +233,18 @@
                         <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_ID_Card}" />
                         <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_N_in_1}" />
 
-                        <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chkpopupIDCard" VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource switchBox}" IsChecked="False" Width="50" Height="25" Unchecked="chkpopupIDCard_Unchecked" Checked="chkpopupIDCard_Checked" />
-                        <CheckBox Grid.Row="1" Grid.Column="1" x:Name="chkpopupNIn1"   VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource switchBox}" IsChecked="False" Width="50" Height="25" Unchecked="chkpopupNIn1_Unchecked" Checked="chkpopupNIn1_Checked" />
+                        <!-- TODO: Add translation of string "Off" and "On".  -->
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Text="Off" />
+                            <CheckBox x:Name="chkpopupIDCard" VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource switchBox}" IsChecked="False" Width="50" Height="25" Unchecked="chkpopupIDCard_Unchecked" Checked="chkpopupIDCard_Checked" />
+                            <TextBlock VerticalAlignment="Center" Text="On" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Text="Off" />
+                            <CheckBox x:Name="chkpopupNIn1"   VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource switchBox}" IsChecked="False" Width="50" Height="25" Unchecked="chkpopupNIn1_Unchecked" Checked="chkpopupNIn1_Checked" />
+                            <TextBlock VerticalAlignment="Center" Text="On" />
+                        </StackPanel>
 
                     </Grid>
                 </local:GroupBoxDecorator>
