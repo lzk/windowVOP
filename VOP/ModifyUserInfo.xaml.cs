@@ -173,5 +173,10 @@ namespace VOP
             }
         }
 
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text == "&" || e.Text == "+")
+                e.Handled = true;
+        }
     }
 }
