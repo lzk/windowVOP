@@ -99,7 +99,14 @@ namespace VOP
             }
             else if (btn.Name == "btnFWDownload")
             {
+                try
+                {
+                    System.Diagnostics.Process.Start(@"http://www.lenovo.com");
+                }
+                catch
+                {
 
+                }
             }
             else if (btn.Name == "btnAbout")
             {
