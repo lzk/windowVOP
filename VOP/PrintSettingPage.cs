@@ -758,12 +758,6 @@ namespace VOP
 
         private void chk_MultiplePagePrint_Checked(object sender, RoutedEventArgs e)
         {
-            if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
-            {
-                ScalingGroup.IsEnabled = false;
-                chk_FitToPaperSize.IsEnabled = false;
-                chk_FitToPaperSize.IsChecked = true;
-            }
             if (m_CurrentPrintType == PrintPage.PrintType.PrintFile || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Txt)
             {
                 spinnerScaling.IsEnabled = false;
@@ -829,13 +823,7 @@ namespace VOP
         private void chk_MultiplePagePrint_Unchecked(object sender, RoutedEventArgs e)
         {
             m_nupNum = 1;
-            m_typeofPB = 0;
-            if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
-            {
-                ScalingGroup.IsEnabled = true;
-                chk_FitToPaperSize.IsEnabled = true;
-                spinnerScaling.IsEnabled = false;
-            }
+            m_typeofPB = 0;            
             rdBtn2in1.IsEnabled = false;
             rdBtn2in1.IsChecked = false;
             rdBtn4in1.IsEnabled = false;
