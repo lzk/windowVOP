@@ -505,7 +505,8 @@
                                  Grid.Column="0" 
                                  Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FormattedValue, Mode=TwoWay}"
                                  IsReadOnly="True"
-                                 InputMethod.IsInputMethodEnabled="False">
+                                 InputMethod.IsInputMethodEnabled="False"
+                                 FontSize="18">
                             <TextBox.InputBindings>
                                 <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                             </TextBox.InputBindings>

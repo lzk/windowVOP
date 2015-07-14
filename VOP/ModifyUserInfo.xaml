@@ -65,7 +65,7 @@
             <Rectangle Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
 
             <TextBlock Text="{StaticResource ResStr_Full_name}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-            <TextBox Name="tbName" Grid.Row="0" Grid.Column="2" Height="32" TextChanged="OnTextChanged" MaxLength="20" TextWrapping="NoWrap"></TextBox>
+            <TextBox Name="tbName" Grid.Row="0" Grid.Column="2" Height="32" TextChanged="OnTextChanged" MaxLength="20" TextWrapping="NoWrap" FontSize="18"></TextBox>
             <TextBlock Name="tbBirthDay" Text="{StaticResource ResStr_Birthday}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
             <Grid Grid.Row="1" Grid.Column="2">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -125,9 +125,9 @@
                 </StackPanel>
             </Grid>
             <TextBlock Text="{StaticResource ResStr_Email}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-            <TextBox Name="tbMail"  Grid.Row="3" Grid.Column="2" Height="34" TextChanged="OnTextChanged" TextWrapping="NoWrap"></TextBox>
+            <TextBox Name="tbMail"  Grid.Row="3" Grid.Column="2" Height="32" TextChanged="OnTextChanged" TextWrapping="NoWrap" FontSize="18"></TextBox>
             <TextBlock Text="{StaticResource ResStr_Address}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-            <TextBox Name="tbAddress" Grid.Row="4" Grid.Column="2" Height="34" TextChanged="OnTextChanged" MaxLength="100" TextWrapping="NoWrap"></TextBox>
+            <TextBox Name="tbAddress" Grid.Row="4" Grid.Column="2" Height="32" TextChanged="OnTextChanged" MaxLength="100" TextWrapping="NoWrap" FontSize="18"></TextBox>
         </Grid>
 
         <Grid Grid.Row="4">
