@@ -206,13 +206,13 @@
     <sys:String xml:space="preserve" x:Key="ResStr_This_file_is_not_supported__please_select_another_one_">暂不支持该文件的打印，请重新选择。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_">有效值输入范围为1到99，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_">有效值输入范围为25%到400%，请确认后再次输入。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_">应用关闭后，扫描图片将会被删除，是否关闭，请确认</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_">应用关闭后，扫描图片将会被删除，是否关闭，请确认。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_">该操作所需内存或者磁盘空间不足，请重新选择文件或释放内存后再试。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_">有效值输入范围为0到100，请确认后再次输入。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_">扫描图片已被更改，是否保存，请确认</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_">IP地址输入有误，请确认后再次输入</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_">网关输入有误，请确认后再次输入</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation">子网掩码输入有误，请确认后再次输入</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_">扫描图片已被更改，是否保存，请确认。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_">IP地址输入有误，请确认后再次输入。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_">网关输入有误，请确认后再次输入。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation">子网掩码输入有误，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_30__please_confirm_and_enter_again_">有效值输入范围为1到30，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_">有效值输入范围为-6到6，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__2_to_2__please_confirm_and_enter_again_">有效值输入范围为-2到2，请确认后再次输入。</sys:String>
@@ -233,7 +233,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Fail">扫描失败</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Fail">打印失败</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copy_Fail">复印失败</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_1">设定成功，机器重启后生效</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_1">设定成功，机器重启后生效。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_2">密码必须是5/13个ASCII字符或者10/26个十六进制字符，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_3">密码必须是8到63个ASCII字符或者64个十六进制字符，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_4">输入手机号</sys:String>
