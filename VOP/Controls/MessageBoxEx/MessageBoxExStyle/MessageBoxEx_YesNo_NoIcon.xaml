@@ -21,9 +21,9 @@
             <RowDefinition Height="30*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*" />
+            <ColumnDefinition Width="50*" />
             <ColumnDefinition Width="350*" />
-            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
 
         <Grid Grid.ColumnSpan="3" Background="#213244" MouseLeftButtonDown="Title_MouseButtonEventHandler">
@@ -50,8 +50,8 @@
                 <RowDefinition Height="6*" />
             </Grid.RowDefinitions>
           
-            <TextBlock Name="messageBoxTextBlock" Grid.Row="1"  FontSize="14" Width="230" Margin="-15,0,0,0"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"           
+            <TextBlock Name="messageBoxTextBlock" Grid.Row="1"  FontSize="14"
+                       VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Left"           
                        TextWrapping="Wrap"
                        Foreground="#555555" >                
             </TextBlock>

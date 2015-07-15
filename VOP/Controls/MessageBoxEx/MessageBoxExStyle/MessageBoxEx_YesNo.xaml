@@ -55,7 +55,7 @@
             </Grid.ColumnDefinitions>
 
             <Image Source="..\..\..\Images\Warning.tif" Grid.Row="1"></Image>
-            <TextBlock Name="messageBoxTextBlock" Grid.RowSpan="3" Grid.Column="1" FontSize="14" Width="230" Margin="20,0"
+            <TextBlock Name="messageBoxTextBlock" Grid.RowSpan="3" Grid.Column="1" FontSize="14" Margin="20,0"
                        VerticalAlignment="Center" HorizontalAlignment="Left"               
                        TextWrapping="Wrap"
                        Foreground="#555555" >                
