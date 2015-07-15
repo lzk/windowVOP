@@ -222,8 +222,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_new_password_can_not_be_empty_">新密码不能为空。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_passwords_you_entered__are_different__please_try_again_">输入密码不一致，请重新输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Authentication_error__please_enter_the_password_again_">认证错误，请重新输入密码。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_agent_information_hasn_t_updated_for_____months__please_update_online_">经销商信息已经**个月未更新，为保证信息的准确性，请在线更新。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_service_station_information_hasn_t_updated_for_____months__please_update_online_">维修网点信息已经**个月未更新，为保证信息的准确性，请在线更新。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_agent_information_hasn_t_updated_for_____months__please_update_online_">经销商信息已经{0}个月未更新，为保证信息的准确性，请在线更新。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_service_station_information_hasn_t_updated_for_____months__please_update_online_">维修网点信息已经{0}个月未更新，为保证信息的准确性，请在线更新。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_1__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">IP地址和子网掩码组合无效。已将IP地址的主机地址部分的所有位都设为1。请输入一个有效的IP地址和子网掩码组合。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_0__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">IP地址和子网掩码组合无效。已将IP地址的主机地址部分的所有位都设为0。请输入一个有效的IP地址和子网掩码组合。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_machine_is_busy__please_try_later_">机器正在工作中，请稍后再试。</sys:String>

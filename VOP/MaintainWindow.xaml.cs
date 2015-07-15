@@ -146,8 +146,8 @@ namespace VOP
                 {
                     try
                     {
-                        string strMessage = String.Format("维修网点信息已经{0}个月未更新，为保证信息的准确性，请在线更新。", m_nExpiredMonth);
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, strMessage, "警告");
+                        string strMessage = String.Format((string)this.FindResource("ResStr_The_service_station_information_hasn_t_updated_for_____months__please_update_online_"), m_nExpiredMonth);
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, this, strMessage, (string)this.FindResource("ResStr_Warning"));
                     }
                     catch
                     {
