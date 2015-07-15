@@ -90,29 +90,54 @@
                             </Grid>
 
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
+
+                                <Trigger Property="IsEnabled" Value="False">
                                     <Setter TargetName="rect" Property="Stroke" >
                                         <Setter.Value>
                                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                 <LinearGradientBrush.GradientStops>
-                                                    <GradientStop
-                                                    Color="#ffd4d4d4" Offset="1"/>
-                                                    <GradientStop
-                                                    Color="#ff222222" Offset="0"/>
+                                                    <GradientStop Color="#ffD1D1D1" Offset="0"/>
+                                                    <GradientStop Color="#FF929292" Offset="1"/>
                                                 </LinearGradientBrush.GradientStops>
                                             </LinearGradientBrush>
                                         </Setter.Value>
                                     </Setter>
 
+                                    <Setter TargetName="rect" Property="Fill" >
+                                        <Setter.Value>
+
+                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                <LinearGradientBrush.GradientStops>
+                                                    <GradientStopCollection>
+                                                        <GradientStop Color="#FFD9D9D9" Offset="0"/>
+                                                        <GradientStop Color="#FFC4C4C4" Offset="0.5"/>
+                                                        <GradientStop Color="#FF929292" Offset="1"/>
+                                                    </GradientStopCollection>
+                                                </LinearGradientBrush.GradientStops>
+                                            </LinearGradientBrush>
+
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="rect" Property="Stroke" >
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                <LinearGradientBrush.GradientStops>
+                                                    <GradientStop Color="#ffd4d4d4" Offset="1"/>
+                                                    <GradientStop Color="#ff222222" Offset="0"/>
+                                                </LinearGradientBrush.GradientStops>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
 
                                     <Setter TargetName="rect" Property="Fill" >
                                         <Setter.Value>
                                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                                                 <LinearGradientBrush.GradientStops>
-                                                    <GradientStop
-                                                    Color="#ff959595" Offset="1"/>
-                                                    <GradientStop
-                                                    Color="#ff434343" Offset="0"/>
+                                                    <GradientStop Color="#ff959595" Offset="1"/>
+                                                    <GradientStop Color="#ff434343" Offset="0"/>
                                                 </LinearGradientBrush.GradientStops>
                                             </LinearGradientBrush>
                                         </Setter.Value>

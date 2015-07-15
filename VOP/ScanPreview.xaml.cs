@@ -29,6 +29,9 @@ namespace VOP
         public int m_rotatedAngle     = 0;        // Rotated angle of preview image. Value: { 0, 90, 180, 270 }.
         public ScanFiles m_rotatedObj = null;     
 
+        // Actual size of preview image in pixels.
+        private int m_actualWidth = 0;
+
         public ScanPreview()
         {
             InitializeComponent();
@@ -59,6 +62,7 @@ namespace VOP
                 // Note: In order to preserve aspect ratio, set DecodePixelWidth 
                 // or DecodePixelHeight but not both.
                 bi3.DecodePixelWidth = img.Width;
+                m_actualWidth = img.Width;
 
                 bi3.EndInit();
 
@@ -144,11 +148,8 @@ namespace VOP
                 else
                     scaling -= 0.1;
 
-                if ( previewImg.ActualHeight*scaling >= scrollPreview.ViewportHeight/2 )
-                {
-                    previewImg.Width = previewImg.ActualWidth*scaling;
-                    previewImg.Height = previewImg.ActualHeight*scaling;
-                }
+                previewImg.Width = previewImg.ActualWidth*scaling;
+                previewImg.Height = previewImg.ActualHeight*scaling;
             }
             else if ( name == "btn_normal" )
             {
@@ -187,6 +188,9 @@ namespace VOP
             }
 
             CenterImage();
+
+            btn_zoomout.IsEnabled = ( previewImg.Height > scrollPreview.ViewportHeight/2 );
+            btn_zoomin.IsEnabled  = ( previewImg.Width < m_actualWidth*4 );
         }
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
