@@ -33,6 +33,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Paper_Remained">内部卡纸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Nofeed">缺纸或进纸异常</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Regist">进纸处卡纸</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Exit_NotReach">内部卡纸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Exit">出纸处卡纸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Cover_Open">上盖开启</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_No_Toner_Cartridge">没有鼓粉盒</sys:String>

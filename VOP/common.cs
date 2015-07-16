@@ -167,7 +167,7 @@ namespace VOP
                     case EnumStatus.InitializeJam: errMsg = (string)_this.TryFindResource("ResStr_Paper_Jam__Paper_Remained"); break;
                     case EnumStatus.NofeedJam: errMsg = (string)_this.TryFindResource("ResStr_Paper_Jam__Nofeed"); break;
                     case EnumStatus.JamAtRegistStayOn: errMsg = (string)_this.TryFindResource("ResStr_Paper_Jam__Regist"); break;
-                    case EnumStatus.JamAtExitNotReach: errMsg = (string)_this.TryFindResource("ResStr_Paper_Jam__Exit"); break;
+                    case EnumStatus.JamAtExitNotReach: errMsg = (string)_this.TryFindResource("ResStr_Paper_Jam__Exit_NotReach"); break;
                     case EnumStatus.JamAtExitStayOn: errMsg = (string)_this.TryFindResource("ResStr_Paper_Jam__Exit"); break;
                     case EnumStatus.CoverOpen: errMsg = (string)_this.TryFindResource("ResStr_Cover_Open"); break;
                     case EnumStatus.NoTonerCartridge: errMsg = (string)_this.TryFindResource("ResStr_No_Toner_Cartridge"); break;

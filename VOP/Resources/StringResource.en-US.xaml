@@ -33,6 +33,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Paper_Remained">Paper Jam: Paper Remained</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Nofeed">Paper Jam: No feed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Regist">Paper Jam: Regist</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Exit_NotReach">Paper Jam: Inner</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Paper_Jam__Exit">Paper Jam: Exit</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Cover_Open">Cover Open</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_No_Toner_Cartridge">No Toner Cartridge</sys:String>
