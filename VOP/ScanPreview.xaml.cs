@@ -265,8 +265,8 @@ namespace VOP
         {
             if ( 0 != m_rotatedAngle )
             {
-                if ( VOP.Controls.MessageBoxExResult.Yes == 
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, 
+
+                VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, 
                             (string)this.TryFindResource("ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_"),
                             (string)this.TryFindResource("ResStr_Prompt")))
                 {
@@ -290,9 +290,13 @@ namespace VOP
                         m_rotatedAngle = 0; // Fixed #0059434.
                     }
                 }
-                else
+                else if ( VOP.Controls.MessageBoxExResult.No == ret )
                 {
                     m_rotatedAngle = 0;
+                }
+                else
+                {
+                    e.Cancel = true;
                 }
             }
         }
