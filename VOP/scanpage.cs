@@ -664,35 +664,23 @@ namespace VOP
                         fs.Close();
                     }
                     else if (2 == save.FilterIndex)
-                    {
-                        if ( false == DoseHasEnoughSpace( App.cacheFolder ) )
+                    {        
+                        using (PdfHelper help = new PdfHelper())
                         {
-                            VOP.Controls.MessageBoxEx.Show(
-                                    VOP.Controls.MessageBoxExStyle.Simple,
-                                    Application.Current.MainWindow,
-                                    (string)this.FindResource("ResStr_insufficient_system_disk_space"),
-                                    (string)this.FindResource("ResStr_Error"));
-                        }
-                        else
-                        {
-                            using (PdfHelper help = new PdfHelper())
+                            help.Open(save.FileName);
+
+                            foreach ( string path in files )
                             {
-                                help.Open(save.FileName);
+                                Uri myUri = new Uri( path, UriKind.RelativeOrAbsolute );
+                                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
+                                BitmapSource origSource = decoder.Frames[0];
 
-                                foreach ( string path in files )
-                                {
-                                    Uri myUri = new Uri( path, UriKind.RelativeOrAbsolute );
-                                    BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
-                                    BitmapSource origSource = decoder.Frames[0];
+                                if ( null != origSource )
+                                    help.AddImage(origSource, 0);
+                            }  
 
-                                    if ( null != origSource )
-                                        help.AddImage(origSource, 0);
-                                }  
-
-                                help.Close();
-                            }
+                            help.Close();
                         }
-
                     }
                 }
                 catch(IOException)
