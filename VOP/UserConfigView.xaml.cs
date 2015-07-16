@@ -273,7 +273,7 @@ namespace VOP
             {
                 ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage( (string)this.FindResource("ResStr_Setting_Successfully_"), Brushes.Black );
 
-                MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon, 
+                MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon, 
                     Application.Current.MainWindow, 
                     (string)this.TryFindResource("ResStr_Please_turn_off_the_printer_until_it_cools_to_room_temperature"), 
                     (string)this.TryFindResource("ResStr_Prompt"));

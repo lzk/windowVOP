@@ -634,7 +634,7 @@ namespace VOP
                 if (wifiEnable != VOP.MainWindow.m_byWifiInitStatus)
                 {
                     ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Msg_1"), Brushes.Black);
-                    MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
+                    MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                                     Application.Current.MainWindow,
                                     (string)this.TryFindResource("ResStr_Msg_1"),
                                     (string)this.TryFindResource("ResStr_Prompt"));

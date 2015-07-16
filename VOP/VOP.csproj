@@ -107,6 +107,9 @@
     <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple_Busy.xaml.cs">
       <DependentUpon>MessageBoxEx_Simple_Busy.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple_NoIcon.xaml.cs">
+      <DependentUpon>MessageBoxEx_Simple_NoIcon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_YesNo_NoIcon.xaml.cs">
       <DependentUpon>MessageBoxEx_YesNo_NoIcon.xaml</DependentUpon>
     </Compile>
@@ -254,6 +257,10 @@
     <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple_Busy.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple_NoIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_YesNo_NoIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
