@@ -312,21 +312,4 @@
     <sys:String xml:space="preserve" x:Key="ResStr_picture_file_occupied">The picture file is occupied, temporarily unable to perform this operation.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_USB_write_failed_during_scan_job_cancelling">USB write failed during scan, job cancelling.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_NET_write_failed_during_scan_job_cancelling">NET write failed during scan, job cancelling.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Load_paper_in_the_paper_tray__then_print_the_even_numbered_pages_">Load paper in the paper tray, then print the even-numbered pages.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_To_prevent_excess_paper_from_being_drawn_out__remove_excess_paper_from_the_paper_tray_">To prevent excess paper from being drawn out, remove excess paper from the paper tray.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Turn_over_the_printed_pages_as_shown_in_the_diagram__with_the_headers_pointing_upwards__then_replace_them_in_the_paper_tray_">Turn over the printed pages as shown in the diagram, with the headers pointing upwards, then replace them in the paper tray.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Press_the_power_button_to_print_the_odd_numbered_pages_and_manual_duplex_printing_is_complete_">Press the power button to print the odd-numbered pages and manual duplex printing is complete.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_All_even_numbered_pages_printed">All even-numbered pages printed</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Remove_excess_blank_paper">Remove excess blank paper</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Turn_over_the_printed_pages_such_that_the_headers_point_upwards__and_replace_them_into_the_printer">Turn over the printed pages such that the headers point upwards, and replace them into the printer</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Place_the_ID_card_on_the_top_left_corner_of_the_scanner_">Place the ID card on the top left corner of the scanner;</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Tap__Next__on_your_phone_">Tap "Next" on your phone;</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Wait_till_two_LED_lights_flash_on_the_printer_">Wait till two LED lights flash on the printer;</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Open_the_scanner_cover__turn_the_card_over_and_replace_it_in_the_original_position_">Open the scanner cover, turn the card over and replace it in the original position;</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Close_the_cover_and_tap_the_Start_button_">Close the cover and tap the Start button;</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Copying_is_complete_">Copying is complete;</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Tap__OK__on_the_computer_">Tap "OK" on the computer;</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Place_the_first_page_of_the_document_facing_down_on_the_scan_area_">Place the first page of the document facing down on the scan area;</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Open_the_scanner_cover__and_replace_with_the_next_page_of_the_document_">Open the scanner cover, and replace with the next page of the document;</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Continue_doing_the_same_for_the_rest_of_the_document__pressing_the_start_button_each_time_after_the_page_is_replaced_">Continue doing the same for the rest of the document, pressing the start button each time after the page is replaced.</sys:String>
 </ResourceDictionary>
