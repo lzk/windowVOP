@@ -14,13 +14,13 @@ using System.Windows.Shapes;
 namespace VOP
 {
     /// <summary>
-    /// Interaction logic for NIn1CopyConfirm.xaml
+    /// Interaction logic for IDCardCopyConfirm.xaml
     /// </summary>
-    public partial class NIn1CopyConfirm : Window
+    public partial class IDCardCopyConfirm : Window
     {
         public bool m_popupDlg = true;
 
-        public NIn1CopyConfirm()
+        public IDCardCopyConfirm()
         {
             InitializeComponent();
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;
@@ -68,6 +68,18 @@ namespace VOP
         private void chkPopupNextTime_Unchecked(object sender, RoutedEventArgs e)
         {
             m_popupDlg = true;
+        }
+
+        private void btnPre_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

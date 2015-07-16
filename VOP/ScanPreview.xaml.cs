@@ -268,7 +268,9 @@ namespace VOP
 
                 VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, 
                             (string)this.TryFindResource("ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_"),
-                            (string)this.TryFindResource("ResStr_Prompt")))
+                            (string)this.TryFindResource("ResStr_Prompt"));
+
+                if ( VOP.Controls.MessageBoxExResult.Yes == ret )
                 {
                     m_rotatedObj = new ScanFiles();
                     m_rotatedObj.m_colorMode = m_images.m_colorMode;

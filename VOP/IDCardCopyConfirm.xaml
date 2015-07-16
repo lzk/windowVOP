@@ -45,9 +45,9 @@
         <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" />
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" >
-            <Button Margin="5,0" Content="Prev" />
-            <Button Margin="5,0" Content="Start" />
-            <Button Margin="5,0" Content="Next" />
+            <Button x:Name="btnPrev"  Click="btnPre_Click" Margin ="5,0" Content="Prev" />
+            <Button x:Name="btnStart" Click="btnStart_Click" Margin ="5,0" Content="Start" />
+            <Button x:Name="btnNext"  Click="btnNext_Click" Margin ="5,0" Content="Next" />
         </StackPanel>
 
         <CheckBox x:Name="chkPopupNextTime" Template="{StaticResource customCheckBox}" Grid.Row="3" IsChecked="false" VerticalAlignment="Center" Content="下次不再弹出些对话框" HorizontalAlignment="Center" Height="24" Checked="chkPopupNextTime_Checked" Unchecked="chkPopupNextTime_Unchecked" />
