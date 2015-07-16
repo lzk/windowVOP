@@ -341,6 +341,15 @@ namespace VOP.Controls
                 wepGrid.Visibility = Visibility.Hidden;
             }
 
+            if (EncryptType == EnumEncryptType.NoSecurity)
+            {
+                tkPwd.IsEnabled = false;
+            }
+            else
+            {
+                tkPwd.IsEnabled = true;
+            }
+
             wifiSetting.m_ssid = wifiExpander.SSIDText;
             wifiSetting.m_encryption = (byte)wifiExpander.EncryptType;
         }
