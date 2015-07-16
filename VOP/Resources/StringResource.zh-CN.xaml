@@ -312,4 +312,21 @@
     <sys:String xml:space="preserve" x:Key="ResStr_picture_file_occupied">图片文件被占用， 暂时无法执行此操作。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_USB_write_failed_during_scan_job_cancelling">扫描过程中通过USB传输的数据写入失败，扫描任务取消。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_NET_write_failed_during_scan_job_cancelling">扫描过程中通过网络传输的数据写入失败，扫描任务取消。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Load_paper_in_the_paper_tray__then_print_the_even_numbered_pages_">在打印机纸盒内放入纸张，打印偶数页。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_To_prevent_excess_paper_from_being_drawn_out__remove_excess_paper_from_the_paper_tray_">为防止多余纸张被带出，请将纸盒内剩余纸张拿出。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Turn_over_the_printed_pages_as_shown_in_the_diagram__with_the_headers_pointing_upwards__then_replace_them_in_the_paper_tray_">将已经打印的纸张如图所示翻转，页眉朝上，重新放入打印机纸盒。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Press_the_power_button_to_print_the_odd_numbered_pages_and_manual_duplex_printing_is_complete_">请按电源按钮，打印奇数页，手动双面打印完成</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_All_even_numbered_pages_printed">打印完成全部偶数页</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Remove_excess_blank_paper">取出剩余白纸</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Turn_over_the_printed_pages_such_that_the_headers_point_upwards__and_replace_them_into_the_printer">将已打印纸张翻转，且页眉朝上，再次放入打印机</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Place_the_ID_card_on_the_top_left_corner_of_the_scanner_">将身份证放在扫描仪左上角；</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Tap__Next__on_your_phone_">在手机上点击“下一步”；</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Wait_till_two_LED_lights_flash_on_the_printer_">直到打印机双灯闪烁；</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Open_the_scanner_cover__turn_the_card_over_and_replace_it_in_the_original_position_">打开扫描仪盖板，将身份证翻面，放回原位；</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Close_the_cover_and_tap_the_Start_button_">关闭上盖，轻按启动按钮；</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Copying_is_complete_">复印完成；</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Tap__OK__on_the_computer_">在电脑上点击“确定”；</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Place_the_first_page_of_the_document_facing_down_on_the_scan_area_">将原稿第一页正面朝下放入扫描区域；</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Open_the_scanner_cover__and_replace_with_the_next_page_of_the_document_">打开扫描仪盖板，将下一页原稿放入；</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Continue_doing_the_same_for_the_rest_of_the_document__pressing_the_start_button_each_time_after_the_page_is_replaced_">继续放入后面的原稿，每次都轻按启动按钮</sys:String>
 </ResourceDictionary>
