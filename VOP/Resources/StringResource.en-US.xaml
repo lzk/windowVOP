@@ -251,7 +251,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Memory_Alloc_Fail">Memory allocation failed during printing!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Defined_Settings">User Defined Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Login_Register">Login / Register</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_insufficient_system_disk_space">There is insufficient memory or disk space to complete the operation. Please free up some memory or disk space, then try again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_insufficient_system_disk_space">There is insufficient system disk space to complete the operation. Please free up some disk space, then try again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Yes">Yes</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_No">No</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Border_Color">Border Color</sys:String>
@@ -298,7 +298,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Connected">Connected</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_maximum_password_length_is_32_characters_Please_check_you_password_and_enter_again">The maximum password length is 32 characters. Please check you password and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_turn_off_the_printer_until_it_cools_to_room_temperature">Turn off the printer and let it cool to room temperature before turning it on again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Waiting">Waiting</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Waiting">Waiting({0}s)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Lenovo_Printer">Neo Printing</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Front">Front</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Back_2">Back</sys:String>

@@ -298,7 +298,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Connected">已连接</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_maximum_password_length_is_32_characters_Please_check_you_password_and_enter_again">密码长度最高为32位，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_turn_off_the_printer_until_it_cools_to_room_temperature">请关闭打印机，直到打印机冷却到室温后再开启打印机。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Waiting">请稍后</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Waiting">请稍后({0}秒)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Lenovo_Printer">小新打印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Front">正面</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Back_2">反面</sys:String>

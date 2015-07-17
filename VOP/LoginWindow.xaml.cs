@@ -38,7 +38,7 @@ namespace VOP
         {
             m_nTick++;
             if (m_nTick < m_nMaxTick)
-                btnGetVerifyCode.Content = (string)this.TryFindResource("ResStr_Waiting") + String.Format("({0}s)", m_nMaxTick - m_nTick);
+                btnGetVerifyCode.Content = String.Format((string)this.TryFindResource("ResStr_Waiting"), m_nMaxTick - m_nTick);
             else
             {
                 timer.Stop();
