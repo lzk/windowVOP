@@ -33,7 +33,7 @@ namespace VOP
                 UserInformation.GetUserInfo(VOP.MainWindow.m_strPhoneNumber, ref userInformation, ref strResult);
 
                 if (userInformation.m_strRealName.Length > 0)
-                    tbUserName.Text = userInformation.m_strRealName;
+                    tbUserName.Text = userInformation.m_strRealName + String.Format("({0})", VOP.MainWindow.m_strPhoneNumber);
                 else
                     tbUserName.Text = VOP.MainWindow.m_strPhoneNumber;
 
