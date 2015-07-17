@@ -148,8 +148,13 @@ namespace VOP
 
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Space)
+            if (e.Key == Key.Space || (e.Key >= Key.Multiply && e.Key <= Key.Divide) ||
+                (e.Key >= Key.A && e.Key <= Key.Z) ||
+                (e.Key >= Key.Oem1 && e.Key <= Key.Oem8) ||
+                ((Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)) && ((e.Key >= Key.D0 && e.Key <= Key.D9))))
+            {
                 e.Handled = true;
+            }
         }
 
         private void OnTextChanged(object sender, TextChangedEventArgs e)
