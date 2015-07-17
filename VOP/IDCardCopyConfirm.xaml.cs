@@ -81,5 +81,16 @@ namespace VOP
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
         }
+
+        private void AnimationCompleted(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show( "helo" );
+
+            // _controller = ImageBehavior.GetAnimationController(img);
+            // _controller.GotoFrame( 0 );
+
+            // if (_controller != null)
+            //     _controller.Play();
+        }
     }
 }

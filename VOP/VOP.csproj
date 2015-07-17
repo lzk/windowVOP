@@ -707,6 +707,10 @@
     <Resource Include="Images\Wifi.png" />
     <Resource Include="Images\Status_RefreshDisable.tif" />
     <Resource Include="Images\Status_RefreshEnable.tif" />
+
+    <Resource Include="Media\IDCardCopy1_zh.gif" />
+    <Resource Include="Media\IDCardCopy2_zh.gif" />
+
     <Resource Include="Media\JamAtExitNotReach.gif" />
     <Resource Include="Media\JamAtExitStayOn.gif" />
     <Resource Include="Media\JamAtRegistStayOn.gif" />

@@ -113,6 +113,8 @@ $v1 $v2 $v3 $v4 \
 printf "\
 using System.Reflection;\n\
 using System.Runtime.InteropServices;\n\
+using System.Runtime.CompilerServices;\n\
+using System.Windows.Markup;\n\
 \n\
 [assembly: AssemblyConfiguration(\"\")]\n\
 [assembly: AssemblyProduct(\"Lenovo virtual panel\")]\n\
@@ -128,6 +130,8 @@ printf "\
 [assembly: AssemblyTitle(\"Lenovo virtual panel\")]\n\
 [assembly: AssemblyTrademark(\"\")]\n\
 [assembly: AssemblyVersion(\"%d.%d.%d.%d\")]\n\
+[assembly: XmlnsDefinition(\"http://wpfanimatedgif.codeplex.com\", \"WpfAnimatedGif\")]\n\
+[assembly: XmlnsPrefix(\"http://wpfanimatedgif.codeplex.com\", \"gif\")]\n\
 " \
 $v1 $v2 $v3 $v4 \
 $v1 $v2 $v3 $v4 \
