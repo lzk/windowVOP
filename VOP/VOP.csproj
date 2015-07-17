@@ -829,4 +829,18 @@
     <Resource Include="Images\errorMarkerNormal.tif" />
     <Resource Include="Images\errorMarkerPress.tif" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AnimationControl\leftHover.tif" />
+    <Resource Include="Images\AnimationControl\leftNormal.tif" />
+    <Resource Include="Images\AnimationControl\leftPress.tif" />
+    <Resource Include="Images\AnimationControl\pauseHover.tif" />
+    <Resource Include="Images\AnimationControl\pauseNormal.tif" />
+    <Resource Include="Images\AnimationControl\pausePress.tif" />
+    <Resource Include="Images\AnimationControl\playHover.tif" />
+    <Resource Include="Images\AnimationControl\playNormal.tif" />
+    <Resource Include="Images\AnimationControl\playPress.tif" />
+    <Resource Include="Images\AnimationControl\rightHover.tif" />
+    <Resource Include="Images\AnimationControl\rightNormal.tif" />
+    <Resource Include="Images\AnimationControl\rightPress.tif" />
+  </ItemGroup>
 </Project>
