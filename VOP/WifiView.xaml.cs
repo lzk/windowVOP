@@ -544,6 +544,15 @@ namespace VOP
                 if (null != wepGrid)
                     wepGrid.Visibility = Visibility.Hidden;
             }
+
+            if (encryption == (byte)EnumEncryptType.NoSecurity)
+            {
+                tbkPwd.IsEnabled = false;
+            }
+            else
+            {
+                tbkPwd.IsEnabled = true;
+            }
         }
         
         private void OnchkWifiChecked(object sender, RoutedEventArgs e)

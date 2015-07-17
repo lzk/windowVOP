@@ -425,7 +425,7 @@ namespace VOP
             m_bSuccess = false;
             m_strMobile = "";
             m_strRealName = "";
-            m_nSex = 0;
+            m_nSex = 1;
             m_dtBirthday = System.DateTime.Now.ToLocalTime();
             m_strAddress = "";
             m_strEmail = "";
@@ -503,6 +503,11 @@ namespace VOP
                 {
                     bSuccess = true;
                 }
+            }
+
+            if (false == bSuccess)
+            {
+                _UserInformation.m_dtBirthday = new DateTime((int)1980, (int)1, (int)1);
             }
 
             return bSuccess;
