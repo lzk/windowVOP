@@ -28,6 +28,8 @@ namespace VOP
 
         private int m_curIndex = 0;
 
+        private bool m_isStop = false;
+
         public bool m_popupDlg = true;
 
         public IDCardCopyConfirm()
@@ -82,35 +84,58 @@ namespace VOP
 
         private void btnPre_Click(object sender, RoutedEventArgs e)
         {
+            NextPic();
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
+            _controller = ImageBehavior.GetAnimationController(img);
+
+            if (_controller != null)
+            {
+                if ( m_isStop )
+                {
+                    _controller.Play();
+                    m_isStop = false;
+                }
+                else
+                {
+                    _controller.Pause();
+                    m_isStop = true;
+                }
+            }
         }
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
+            NextPic();
         }
 
         private void AnimationCompleted(object sender, RoutedEventArgs e)
         {
-             m_curIndex++;
-             m_curIndex = m_curIndex%2;
- 
-             var image = new BitmapImage();
-             image.BeginInit();
-             image.UriSource = new Uri( gifs[m_curIndex], UriKind.RelativeOrAbsolute  );
-             image.EndInit();
- 
-             ImageBehavior.SetAnimatedSource( img, image );
- 
-             _controller = ImageBehavior.GetAnimationController(img);
- 
-             if (_controller != null)
-             {
-                 _controller.GotoFrame( 0 );
-                 _controller.Play();
-             }
+            NextPic();
         }
+
+        private void NextPic()
+        {
+            m_curIndex++;
+            m_curIndex = m_curIndex%2;
+
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri( gifs[m_curIndex], UriKind.RelativeOrAbsolute  );
+            image.EndInit();
+
+            ImageBehavior.SetAnimatedSource( img, image );
+
+            _controller = ImageBehavior.GetAnimationController(img);
+
+            if (_controller != null)
+            {
+                _controller.GotoFrame( 0 );
+                _controller.Play();
+            }
+        }
+
     }
 }
