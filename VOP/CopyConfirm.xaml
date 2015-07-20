@@ -206,7 +206,6 @@
 
         <Image x:Name="img" HorizontalAlignment="Left" Height="368" Margin="26,22,0,0" Grid.Row="1" VerticalAlignment="Top" Width="320"
             Stretch="Fill"
-            gif:ImageBehavior.AnimatedSource="Media\IDCardCopy1_zh.gif"
             gif:ImageBehavior.RepeatBehavior="1x"
             gif:ImageBehavior.AutoStart="True" 
             gif:ImageBehavior.AnimationCompleted="AnimationCompleted" />

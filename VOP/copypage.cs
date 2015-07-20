@@ -196,8 +196,8 @@ namespace VOP
 
                         confirmDlg.gifs = new string[]
                         { 
-                            "F:\\VOP\\VOP\\Media\\IDCardCopy1_zh.gif",
-                            "F:\\VOP\\VOP\\Media\\IDCardCopy2_zh.gif",
+                          "pack://application:,,,/Media/IDCardCopy1_zh.gif",
+                          "pack://application:,,,/Media/IDCardCopy2_zh.gif",
                         };
 
                         confirmDlg.Owner = m_MainWin;
@@ -212,9 +212,9 @@ namespace VOP
 
                         confirmDlg.gifs = new string[]
                         { 
-                            "F:\\VOP\\VOP\\Media\\IDCardCopy1_zh.gif",
-                            "F:\\VOP\\VOP\\Media\\IDCardCopy2_zh.gif",
-                            "F:\\VOP\\VOP\\Media\\JamAtExitNotReach.gif",
+                          "pack://application:,,,/Media/NIn1Copy1_zh.gif",
+                          "pack://application:,,,/Media/NIn1Copy2_zh.gif",
+                          "pack://application:,,,/Media/NIn1Copy3_zh.gif",
                         };
 
 

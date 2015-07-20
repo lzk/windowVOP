@@ -150,6 +150,13 @@ namespace VOP
             {
                 btnPrev.IsEnabled = ( m_curIndex != 0 );
                 btnNext.IsEnabled = ( m_curIndex != gifs.Length-1 );
+
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.UriSource = new Uri( gifs[m_curIndex], UriKind.RelativeOrAbsolute  );
+                image.EndInit();
+
+                ImageBehavior.SetAnimatedSource( img, image );
             }
         }
 
