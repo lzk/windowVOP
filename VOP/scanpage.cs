@@ -133,11 +133,8 @@ namespace VOP
         {
             ImageItem img = (ImageItem)sender;
 
-            if ( 0 == img.m_num && GetSelectedItemCount() >= m_maxImgNum )
-                return;
-
-            if ( 0 == img.m_num )
-                img.m_num = GetSelectedItemCount()+1;
+            if (0 == img.m_num && GetSelectedItemCount() < m_maxImgNum)
+                img.m_num = GetSelectedItemCount() + 1;
 
             btnPrint.IsEnabled = true;
             btnSave.IsEnabled = true;
@@ -189,7 +186,12 @@ namespace VOP
                         tmp.ImageDoubleClick += ImageItemDoubleClick;
                         tmp.CloseIconClick += ImageItemCloseIconClick;
 
-                        tmp.m_num = GetSelectedItemCount()+1;
+                        if (GetSelectedItemCount() < m_maxImgNum)
+                            tmp.m_num = GetSelectedItemCount() + 1;
+                        else
+                        {
+                            tmp.m_num = 0;
+                        }
 
                         tmp.Margin = new Thickness( 5 );
                         this.image_wrappanel.Children.Insert(index, tmp );
