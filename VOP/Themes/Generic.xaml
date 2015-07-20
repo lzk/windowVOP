@@ -10,6 +10,7 @@
         <ResourceDictionary Source="/VOP;component/Controls/ToggleButtonEx.xaml" />
         <ResourceDictionary Source="/VOP;component/Controls/CustomExpander.xaml" />
         <ResourceDictionary Source="/VOP;component/Controls/SpinnerControl/SpinnerControlStyle.xaml" />
+        <ResourceDictionary Source="/VOP;component/Controls/SpinnerControl/SpinnerControlOnlySupportUpDowmKeyStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

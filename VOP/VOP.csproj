@@ -114,6 +114,7 @@
       <DependentUpon>MessageBoxEx_YesNo_NoIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PopupEx.cs" />
+    <Compile Include="Controls\SpinnerControl\SpinnerControlOnlySupportUpDowmKey.cs" />
     <Compile Include="Controls\TextBoxValidation\IPAddressValidationRule.cs" />
     <Compile Include="NIn1CopyConfirm.xaml.cs">
       <DependentUpon>NIn1CopyConfirm.xaml</DependentUpon>
@@ -265,6 +266,10 @@
     <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_YesNo_NoIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\SpinnerControl\SpinnerControlOnlySupportUpDowmKeyStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NIn1CopyConfirm.xaml">
       <SubType>Designer</SubType>

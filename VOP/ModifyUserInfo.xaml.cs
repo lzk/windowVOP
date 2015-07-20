@@ -156,7 +156,7 @@ namespace VOP
 
         private void OnSpinnerCtrlValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> e)
         {
-            SpinnerControl sp = sender as SpinnerControl;
+            SpinnerControlOnlySupportUpDowmKey sp = sender as SpinnerControlOnlySupportUpDowmKey;
             if (scMonth != null && scMonth != null && scDay != null)
             {
                 if (sp.Name == "scYear" || sp.Name == "scMonth")
