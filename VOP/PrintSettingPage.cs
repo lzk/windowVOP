@@ -378,7 +378,7 @@ namespace VOP
             if (App.LangId == 0x409) // en-US
             {
                 AdvancedSettingsButton.FontSize = DefaultButton.FontSize = OKButton.FontSize = 14.0;
-                chk_MultiplePagePrint.FontSize = 9.0;
+ //               chk_MultiplePagePrint.FontSize = 9.0;
 
   //              rdBtnPortrait.Margin = new Thickness(5, 0, 5, 0);
  //               rdBtnLandscape.Margin = new Thickness(70, 0, 5, 0);
@@ -1633,36 +1633,7 @@ namespace VOP
 
         private void SetDataFromPrinterInfo()
         {
-            if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
-            {
-                cboPaperSize.SelectedIndex = m_paperSize;
-                
-                if (1 == m_paperOrientation)
-                {
-                    rdBtnPortrait.IsChecked = true;
-                }
-                else
-                {
-                    rdBtnLandscape.IsChecked = true;
-                }
-                if (1 == m_paperOrder)
-                {
-                    rdBtnPagerOrder123123.IsChecked = true;
-                    rdBtnPagerOrder112233.IsChecked = false;
-                }
-                else
-                {
-                    rdBtnPagerOrder112233.IsChecked = true;
-                    rdBtnPagerOrder123123.IsChecked = false;
-                }
-            }
-            else if  (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf)
-            {
-                cboPaperSize.SelectedIndex = m_paperSize;
-                m_paperOrientation = 1;
-                m_paperOrder = 1;
-            }
-            else
+            if (m_CurrentPrintType == PrintPage.PrintType.PrintIdCard)
             {
                 bool bIsMetrice = dll.IsMetricCountry();
                 if (bIsMetrice)
@@ -1678,175 +1649,245 @@ namespace VOP
                 }
                 m_paperOrientation = 1;
                 m_paperOrder = 1;
+                cboMediaType.SelectedIndex = m_mediaType;                
+                cboPrintQuality.SelectedIndex = m_printQuality;
+                if (0 == m_tonerSaving)
+                {
+                    chk_TonerSaving.IsChecked = false;
+                }
+                else
+                {
+                    chk_TonerSaving.IsChecked = true;
+                }
+                if (m_ADJColorBalance == 1 && m_colorBalanceTo == 1)
+                {
+                    spinnerDensityAdjustment.IsEnabled = true;
+                    spinnerDensityAdjustment.Value = m_densityValue + 4;
+                }
+                else
+                {
+                    spinnerDensityAdjustment.Value = 4;
+                }
 
             }
-
-            cboMediaType.SelectedIndex = m_mediaType;
-            if (4 == m_mediaType)
+            else
             {
-                chk_DuplexPrint.IsEnabled = false;
-                DuplexPrintGroup.IsEnabled = false;
-                m_booklet = 0;
-                m_duplexPrint = 1;
-            }
-            cboPrintQuality.SelectedIndex = m_printQuality;                   
+                if (m_CurrentPrintType == PrintPage.PrintType.PrintImages || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Image)
+                {
+                    cboPaperSize.SelectedIndex = m_paperSize;
 
-            switch ( m_nupNum )
-            {
-                case 1:
-                    if (0 == m_typeofPB)
+                    if (1 == m_paperOrientation)
                     {
-                        chk_MultiplePagePrint.IsChecked = false;
+                        rdBtnPortrait.IsChecked = true;
                     }
-                    else if (1 == m_typeofPB)
+                    else
                     {
+                        rdBtnLandscape.IsChecked = true;
+                    }
+                    if (1 == m_paperOrder)
+                    {
+                        rdBtnPagerOrder123123.IsChecked = true;
+                        rdBtnPagerOrder112233.IsChecked = false;
+                    }
+                    else
+                    {
+                        rdBtnPagerOrder112233.IsChecked = true;
+                        rdBtnPagerOrder123123.IsChecked = false;
+                    }
+                }
+                else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf)
+                {
+                    cboPaperSize.SelectedIndex = m_paperSize;
+                    m_paperOrientation = 1;
+                    m_paperOrder = 1;
+                }
+                else
+                {
+                    bool bIsMetrice = dll.IsMetricCountry();
+                    if (bIsMetrice)
+                    {
+                        cboPaperSize.SelectedIndex = 0;
+                        m_paperSize = 0;
+
+                    }
+                    else
+                    {
+                        cboPaperSize.SelectedIndex = 1;
+                        m_paperSize = 1;
+                    }
+                    m_paperOrientation = 1;
+                    m_paperOrder = 1;
+
+                }
+
+                cboMediaType.SelectedIndex = m_mediaType;
+                if (4 == m_mediaType)
+                {
+                    chk_DuplexPrint.IsEnabled = false;
+                    DuplexPrintGroup.IsEnabled = false;
+                    m_booklet = 0;
+                    m_duplexPrint = 1;
+                }
+                cboPrintQuality.SelectedIndex = m_printQuality;
+
+                switch (m_nupNum)
+                {
+                    case 1:
+                        if (0 == m_typeofPB)
+                        {
+                            chk_MultiplePagePrint.IsChecked = false;
+                        }
+                        else if (1 == m_typeofPB)
+                        {
+                            MultiplePageGroup.IsEnabled = true;
+                            chk_MultiplePagePrint.IsEnabled = true;
+                            chk_MultiplePagePrint.IsChecked = true;
+                            if (0 == m_posterType)
+                            {
+                                rdBtn1in2x2.IsChecked = true;
+                            }
+                            else if (1 == m_posterType)
+                            {
+                                rdBtn1in3x3.IsChecked = true;
+                            }
+                            else if (2 == m_posterType)
+                            {
+                                rdBtn1in4x4.IsChecked = true;
+                            }
+                        }
+                        break;
+                    case 2:
                         MultiplePageGroup.IsEnabled = true;
                         chk_MultiplePagePrint.IsEnabled = true;
                         chk_MultiplePagePrint.IsChecked = true;
-                        if(0 == m_posterType)
-                        {
-                            rdBtn1in2x2.IsChecked = true;
-                        }
-                        else if(1 == m_posterType)
-                        {
-                            rdBtn1in3x3.IsChecked = true;
-                        }
-                        else if(2 == m_posterType)
-                        {
-                            rdBtn1in4x4.IsChecked = true;
-                        }
-                    }
-                    break;
-                case 2:
-                    MultiplePageGroup.IsEnabled = true;
-                    chk_MultiplePagePrint.IsEnabled = true;
-                    chk_MultiplePagePrint.IsChecked = true;
-                    rdBtn2in1.IsChecked = true;
-                    break;
-                case 4:
-                    MultiplePageGroup.IsEnabled = true;
-                    chk_MultiplePagePrint.IsEnabled = true;
-                    chk_MultiplePagePrint.IsChecked = true;
-                    rdBtn4in1.IsChecked = true;
-                    break;
-                case 9:
-                    MultiplePageGroup.IsEnabled = true;
-                    chk_MultiplePagePrint.IsEnabled = true;
-                    chk_MultiplePagePrint.IsChecked = true;
-                    rdBtn9in1.IsChecked = true;
-                    break;
-                case 16:
-                    MultiplePageGroup.IsEnabled = true;
-                    chk_MultiplePagePrint.IsEnabled = true;
-                    chk_MultiplePagePrint.IsChecked = true;
-                    rdBtn16in1.IsChecked = true;
-                    break;
-                default:
+                        rdBtn2in1.IsChecked = true;
+                        break;
+                    case 4:
+                        MultiplePageGroup.IsEnabled = true;
+                        chk_MultiplePagePrint.IsEnabled = true;
+                        chk_MultiplePagePrint.IsChecked = true;
+                        rdBtn4in1.IsChecked = true;
+                        break;
+                    case 9:
+                        MultiplePageGroup.IsEnabled = true;
+                        chk_MultiplePagePrint.IsEnabled = true;
+                        chk_MultiplePagePrint.IsChecked = true;
+                        rdBtn9in1.IsChecked = true;
+                        break;
+                    case 16:
+                        MultiplePageGroup.IsEnabled = true;
+                        chk_MultiplePagePrint.IsEnabled = true;
+                        chk_MultiplePagePrint.IsChecked = true;
+                        rdBtn16in1.IsChecked = true;
+                        break;
+                    default:
+                        chk_MultiplePagePrint.IsChecked = false;
+                        break;
+                }
+                switch (m_duplexPrint)
+                {
+                    case 1:
+                        chk_DuplexPrint.IsChecked = false;
+                        DuplexPrintGroup.IsEnabled = false;
+                        break;
+                    case 2:
+                        chk_DuplexPrint.IsChecked = true;
+                        DuplexPrintGroup.IsEnabled = true;
+                        rdBtnFlipOnLongEdge.IsChecked = true;
+                        break;
+                    case 3:
+                        chk_DuplexPrint.IsChecked = true;
+                        DuplexPrintGroup.IsEnabled = true;
+                        rdBtnFlipOnShortEdger.IsChecked = true;
+                        break;
+                    default:
+                        chk_DuplexPrint.IsChecked = false;
+                        DuplexPrintGroup.IsEnabled = false;
+                        break;
+                }
+                if (0 == m_reversePrint)
+                {
+                    rdBtnNormalPrint.IsChecked = true;
+                    rdBtnReversePrint.IsChecked = false;
+                }
+                else
+                {
+                    rdBtnNormalPrint.IsChecked = false;
+                    rdBtnReversePrint.IsChecked = true;
+                }
+                if (0 == m_tonerSaving)
+                {
+                    chk_TonerSaving.IsChecked = false;
+                }
+                else
+                {
+                    chk_TonerSaving.IsChecked = true;
+                }
+                if (1 == m_scalingType || 2 == m_scalingType)
+                {
+                    //spinnerScaling.Value = m_scalingRatio;
+                    //chk_FitToPaperSize.IsChecked = false;
+                    MultiplePageGroup.IsEnabled = false;
                     chk_MultiplePagePrint.IsChecked = false;
-                    break;
-            }
-            switch (m_duplexPrint)
-            {
-                case 1:
-                    chk_DuplexPrint.IsChecked = false;
-                    DuplexPrintGroup.IsEnabled = false;
-                    break;
-                case 2:
-                    chk_DuplexPrint.IsChecked = true;
-                    DuplexPrintGroup.IsEnabled = true;
-                    rdBtnFlipOnLongEdge.IsChecked = true;
-                    break;
-                case 3:
-                    chk_DuplexPrint.IsChecked = true;
-                    DuplexPrintGroup.IsEnabled = true;
-                    rdBtnFlipOnShortEdger.IsChecked = true;
-                    break;               
-                default:
-                    chk_DuplexPrint.IsChecked = false;
-                    DuplexPrintGroup.IsEnabled = false;
-                    break;
-            }
-            if (0 == m_reversePrint)
-            {
-                rdBtnNormalPrint.IsChecked = true;
-                rdBtnReversePrint.IsChecked = false;
-            }
-            else
-            {
-                rdBtnNormalPrint.IsChecked = false;
-                rdBtnReversePrint.IsChecked = true;
-            }
-            if (0 == m_tonerSaving   )
-            {
-                chk_TonerSaving.IsChecked = false;
-            }
-            else
-            {
-                chk_TonerSaving.IsChecked = true;
-            }
-            if (1 == m_scalingType || 2 == m_scalingType)
-            {
-                //spinnerScaling.Value = m_scalingRatio;
-                //chk_FitToPaperSize.IsChecked = false;
-                MultiplePageGroup.IsEnabled = false;
-                chk_MultiplePagePrint.IsChecked = false;
-                chk_MultiplePagePrint.IsEnabled = false;
-            }
-            else
-            {
-//                spinnerScaling.Value = 100;
+                    chk_MultiplePagePrint.IsEnabled = false;
+                }
+                else
+                {
+                    //                spinnerScaling.Value = 100;
 
-            }
-            if(0 == m_fixToPaperSize)
-            {
-                chk_FitToPaperSize.IsChecked = false;
-            }
-            else
-            {
-                chk_FitToPaperSize.IsChecked = true;
-            }
-            if (m_ADJColorBalance == 1 && m_colorBalanceTo == 1)
-            {
-                spinnerDensityAdjustment.IsEnabled = true;
-                spinnerDensityAdjustment.Value = m_densityValue + 4;
-            }
-            else
-            {
-                spinnerDensityAdjustment.Value = 4;
-            }
-            if(1 == m_booklet)
-            {
-                MultiplePageGroup.IsEnabled = false;
-                chk_MultiplePagePrint.IsChecked = false;
-                chk_MultiplePagePrint.IsEnabled = false;
-                rdBtnFlipOnShortEdger.IsEnabled = false;
-                chk_DuplexPrint.IsEnabled = false;
-                DuplexPrintGroup.IsEnabled = false;
-            }
-            else
-            {
-                if (0 == m_scalingType)
+                }
+                if (0 == m_fixToPaperSize)
                 {
-                    MultiplePageGroup.IsEnabled = true;
-                    chk_MultiplePagePrint.IsEnabled = true;
-                }                             
-                if (m_mediaType != 4 && rdBtn1in2x2.IsChecked == false && rdBtn1in3x3.IsChecked == false && rdBtn1in4x4.IsChecked == false)
+                    chk_FitToPaperSize.IsChecked = false;
+                }
+                else
                 {
-                    DuplexPrintGroup.IsEnabled = true;
-                    chk_DuplexPrint.IsEnabled = true;  
-                }                
+                    chk_FitToPaperSize.IsChecked = true;
+                }
+                if (m_ADJColorBalance == 1 && m_colorBalanceTo == 1)
+                {
+                    spinnerDensityAdjustment.IsEnabled = true;
+                    spinnerDensityAdjustment.Value = m_densityValue + 4;
+                }
+                else
+                {
+                    spinnerDensityAdjustment.Value = 4;
+                }
+                if (1 == m_booklet)
+                {
+                    MultiplePageGroup.IsEnabled = false;
+                    chk_MultiplePagePrint.IsChecked = false;
+                    chk_MultiplePagePrint.IsEnabled = false;
+                    rdBtnFlipOnShortEdger.IsEnabled = false;
+                    chk_DuplexPrint.IsEnabled = false;
+                    DuplexPrintGroup.IsEnabled = false;
+                }
+                else
+                {
+                    if (0 == m_scalingType)
+                    {
+                        MultiplePageGroup.IsEnabled = true;
+                        chk_MultiplePagePrint.IsEnabled = true;
+                    }
+                    if (m_mediaType != 4 && rdBtn1in2x2.IsChecked == false && rdBtn1in3x3.IsChecked == false && rdBtn1in4x4.IsChecked == false)
+                    {
+                        DuplexPrintGroup.IsEnabled = true;
+                        chk_DuplexPrint.IsEnabled = true;
+                    }
+                }
+                DisableLabelType();
+                if (1 == m_watermark)
+                {
+                    rdBtn1in2x2.IsEnabled = false;
+                    rdBtn1in3x3.IsEnabled = false;
+                    rdBtn1in4x4.IsEnabled = false;
+                    tk1in2x2.IsEnabled = false;
+                    tk1in3x3.IsEnabled = false;
+                    tk1in4x4.IsEnabled = false;
+                }
+                spinnerScaling.Value = m_scalingRatio;
             }
-            DisableLabelType();
-            if(1 == m_watermark)
-            {
-                rdBtn1in2x2.IsEnabled = false;
-                rdBtn1in3x3.IsEnabled = false;
-                rdBtn1in4x4.IsEnabled = false;
-                tk1in2x2.IsEnabled = false;
-                tk1in3x3.IsEnabled = false;
-                tk1in4x4.IsEnabled = false;
-            }
-            spinnerScaling.Value = m_scalingRatio;
+            
         }
 
         private void GetDataFromPrinterInfo()

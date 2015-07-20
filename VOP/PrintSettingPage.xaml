@@ -89,7 +89,7 @@
                         <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Hidden"/>
                         <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Visible"/>
                     </MultiTrigger>
-                    
+
                     <Trigger  Property="IsFocused" Value="True">
                         <Setter Property="FocusVisualStyle">
                             <Setter.Value>
@@ -112,7 +112,7 @@
                 </ControlTemplate.Triggers>
             </ControlTemplate>
             <Style x:Key="TextBlockColorChange" TargetType="{x:Type TextBlock}">
-                <Setter Property="Foreground" Value="#FF7A7A7A"/>
+                <!--<Setter Property="Foreground" Value="#FF7A7A7A"/>-->
                 <Style.Triggers>
                     <Trigger Property="IsEnabled" Value="False">
                         <Setter Property="Foreground" Value="#7F6D6D6D"/>
@@ -256,7 +256,8 @@
                         		IsChecked="False"
                         		Content="{StaticResource ResStr_Multiple_Page}"
                         		Checked="chk_MultiplePagePrint_Checked" 
-                        		Unchecked="chk_MultiplePagePrint_Unchecked" Height="28" Margin="-12,0,0,0"/>
+                        		Unchecked="chk_MultiplePagePrint_Unchecked" 
+                                FontSize="14" Height="28" Margin="-12,0,0,0"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" 
             				Grid.Row="2" Grid.ColumnSpan="3" Margin="30,0,60,0">
@@ -382,9 +383,9 @@
             		          Checked="chk_DuplexPrint_Checked" 
             		          Unchecked="chk_DuplexPrint_Unchecked"
             		          Content="{StaticResource ResStr_2_sided}"
-            		          Margin="146,0,0,0" Height="28" />
+            		          Margin="146,0,0,0" FontSize="14" Height="28" />
                         </StackPanel>
-                          
+
                         <StackPanel Orientation="Horizontal"                                     
             				Grid.ColumnSpan="2" Margin="0,0,0,-30" Grid.Row="1" >
 
@@ -461,7 +462,7 @@
 					Checked="chk_FitToPaperSize_Checked"
 					Unchecked="chk_FitToPaperSize_Unchecked"
 					Content="{StaticResource ResStr_Fit_to_Paper_Size}" 
-					HorizontalAlignment="Center" Margin="35,0,30,0" Width="117"/>
+					HorizontalAlignment="Center" Margin="35,0,30,0" Width="116"/>
                     </StackPanel>
                 </Controls:GroupBoxDecorator>
 
