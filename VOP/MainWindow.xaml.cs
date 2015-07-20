@@ -47,7 +47,6 @@ namespace VOP
     {
         public bool m_popupIDCard = true; // True if ID Card Copy confirm dialog need to pop up.
         public bool m_popupNIn1   = true; // True if N in 1 Copy confirm dialog need to pop up.
-        public bool m_popupError  = true; // True if error dialog need to pop up.
 
         private EnumSubPage m_currentPage = EnumSubPage.Print;
 
@@ -781,7 +780,7 @@ namespace VOP
             AddMessageHook();
             this.Visibility = System.Windows.Visibility.Visible;
 
-            GetPopupSetting( App.cfgFile, ref m_popupIDCard, ref m_popupNIn1, ref m_popupError );
+            GetPopupSetting( App.cfgFile, ref m_popupIDCard, ref m_popupNIn1 );
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -1046,7 +1045,7 @@ namespace VOP
             dll.ResetDefaultPrinter();
             PdfPrint.CloseAll();
 
-            SetPopupSetting( App.cfgFile, m_popupIDCard, m_popupNIn1, m_popupError );
+            SetPopupSetting( App.cfgFile, m_popupIDCard, m_popupNIn1 );
         }
 
         private System.IntPtr _handle = IntPtr.Zero;
@@ -1146,7 +1145,7 @@ namespace VOP
                        || EnumStatus.JamAtExitStayOn   == status )
                {
                    statusPanelPage.btnErrorMarker.Visibility = System.Windows.Visibility.Visible;
-                   if ( m_oldStatus != status && true == m_popupError )
+                   if ( m_oldStatus != status )
                    {
                        string _animationUri = "";       // Animation Uri need to display
 
@@ -1165,11 +1164,9 @@ namespace VOP
                            m_isCloseAnimation = false;  
                            m_isAnimationPopup = true;
                            MessageBoxEx_Video win = new MessageBoxEx_Video(new Uri(_animationUri), (string)this.TryFindResource("ResStr_The_paper_jam_occurred_please_follow_the_instructions_"), (string)this.FindResource("ResStr_Error"));
-                           win.m_popupError = m_popupError;
                            win.m_MainWin = this;
                            win.Owner = this;
                            win.ShowDialog(); // TODO: Why this modeless dialog will not block WndProc()?
-                           m_popupError = win.m_popupError;
                            m_isAnimationPopup = false;
                        }
                    }
@@ -1575,11 +1572,10 @@ namespace VOP
         }
 
         // Get the popup setting from register. 
-        private void GetPopupSetting( string xmlFile, ref bool popupIDCard, ref bool popupNIn1, ref bool popupError )
+        private void GetPopupSetting( string xmlFile, ref bool popupIDCard, ref bool popupNIn1 )
         {
             popupIDCard = true;
             popupNIn1   = true;
-            popupError  = true;
 
             try
             {
@@ -1596,8 +1592,6 @@ namespace VOP
                         { popupIDCard = ( "True" == subNote.InnerXml ); }
                         else if ( "elPopupNIn1" == subNote.Name )
                         { popupNIn1 = ( "True" == subNote.InnerXml ); }
-                        else if ( "elPopupError" == subNote.Name )
-                        { popupError = ( "True" == subNote.InnerXml ); }
                     }
                 }
             }
@@ -1607,7 +1601,7 @@ namespace VOP
         }
 
         // Set the popup setting from register. 
-        private void SetPopupSetting( string xmlFile, bool popupIDCard, bool popupNIn1, bool popupError )
+        private void SetPopupSetting( string xmlFile, bool popupIDCard, bool popupNIn1 )
         {
             // TODO: Improve this logic.
             if ( false == Directory.Exists(App.cacheFolder) ) 
@@ -1628,15 +1622,12 @@ namespace VOP
 
             XmlElement elPopupIDCard = xmlDoc.CreateElement( "elPopupIDCard" );
             XmlElement elPopupNIn1   = xmlDoc.CreateElement( "elPopupNIn1" );
-            XmlElement elPopupError  = xmlDoc.CreateElement( "elPopupError" );
 
             elPopupIDCard.InnerXml = popupIDCard.ToString();
             elPopupNIn1.InnerXml   = popupNIn1.ToString();
-            elPopupError.InnerXml  = popupError.ToString();
 
             root.AppendChild( elPopupIDCard );
             root.AppendChild( elPopupNIn1   );
-            root.AppendChild( elPopupError  );
 
             xmlDoc.Save( xmlFile );
         }
@@ -1663,11 +1654,9 @@ namespace VOP
                 m_isCloseAnimation = false;  
                 m_isAnimationPopup = true;
                 MessageBoxEx_Video win = new MessageBoxEx_Video(new Uri(_animationUri), (string)this.TryFindResource("ResStr_The_paper_jam_occurred_please_follow_the_instructions_"), (string)this.FindResource("ResStr_Error"));
-                win.m_popupError = m_popupError;
                 win.m_MainWin = this;
                 win.Owner = this;
                 win.ShowDialog(); // TODO: Why this modeless dialog will not block WndProc()?
-                m_popupError = win.m_popupError;
                 m_isAnimationPopup = false;
             }
         }

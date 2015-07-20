@@ -64,6 +64,5 @@
             <Image x:Name="imgAnimation" Width="310" />
         </Grid>
 
-        <CheckBox x:Name="chkPopupDlg" Template="{StaticResource customCheckBox}" Grid.Row="3" Grid.Column="1" Content="下次不再弹出些对话框" Checked="chkPopupDlg_Checked" Unchecked="chkPopupDlg_Unchecked" Loaded="chkPopupDlg_Loaded" />
     </Grid>
 </Window>
