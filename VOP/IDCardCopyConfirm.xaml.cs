@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfAnimatedGif;
 
 namespace VOP
 {
@@ -18,6 +19,15 @@ namespace VOP
     /// </summary>
     public partial class IDCardCopyConfirm : Window
     {
+        private ImageAnimationController _controller;
+        private string[] gifs = 
+        { 
+            "F:\\VOP\\VOP\\Media\\IDCardCopy1_zh.gif",
+            "F:\\VOP\\VOP\\Media\\IDCardCopy2_zh.gif"
+        };
+
+        private int m_curIndex = 0;
+
         public bool m_popupDlg = true;
 
         public IDCardCopyConfirm()
@@ -84,13 +94,23 @@ namespace VOP
 
         private void AnimationCompleted(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show( "helo" );
-
-            // _controller = ImageBehavior.GetAnimationController(img);
-            // _controller.GotoFrame( 0 );
-
-            // if (_controller != null)
-            //     _controller.Play();
+             m_curIndex++;
+             m_curIndex = m_curIndex%2;
+ 
+             var image = new BitmapImage();
+             image.BeginInit();
+             image.UriSource = new Uri( gifs[m_curIndex], UriKind.RelativeOrAbsolute  );
+             image.EndInit();
+ 
+             ImageBehavior.SetAnimatedSource( img, image );
+ 
+             _controller = ImageBehavior.GetAnimationController(img);
+ 
+             if (_controller != null)
+             {
+                 _controller.GotoFrame( 0 );
+                 _controller.Play();
+             }
         }
     }
 }
