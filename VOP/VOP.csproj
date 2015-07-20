@@ -707,10 +707,8 @@
     <Resource Include="Images\Wifi.png" />
     <Resource Include="Images\Status_RefreshDisable.tif" />
     <Resource Include="Images\Status_RefreshEnable.tif" />
-
     <Resource Include="Media\IDCardCopy1_zh.gif" />
     <Resource Include="Media\IDCardCopy2_zh.gif" />
-
     <Resource Include="Media\JamAtExitNotReach.gif" />
     <Resource Include="Media\JamAtExitStayOn.gif" />
     <Resource Include="Media\JamAtRegistStayOn.gif" />
@@ -846,5 +844,9 @@
     <Resource Include="Images\AnimationControl\rightHover.tif" />
     <Resource Include="Images\AnimationControl\rightNormal.tif" />
     <Resource Include="Images\AnimationControl\rightPress.tif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AnimationControl\leftDisable.tif" />
+    <Resource Include="Images\AnimationControl\rightDisable.tif" />
   </ItemGroup>
 </Project>

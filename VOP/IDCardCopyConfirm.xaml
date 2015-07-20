@@ -62,7 +62,7 @@
                                     <Setter Property="Source" TargetName="icon" Value="Images/AnimationControl/leftPress.tif"/>
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="False">
-                                    <Setter Property="Source" TargetName="icon" Value="Images/AnimationControl/leftNormal.tif"/>
+                                    <Setter Property="Source" TargetName="icon" Value="Images/AnimationControl/leftDisable.tif"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
 
@@ -110,7 +110,7 @@
                                     <Setter Property="Source" TargetName="icon" Value="Images/AnimationControl/rightPress.tif"/>
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="False">
-                                    <Setter Property="Source" TargetName="icon" Value="Images/AnimationControl/rightNormal.tif"/>
+                                    <Setter Property="Source" TargetName="icon" Value="Images/AnimationControl/rightDisable.tif"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
 

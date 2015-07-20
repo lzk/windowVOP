@@ -135,6 +135,9 @@ namespace VOP
                 _controller.GotoFrame( 0 );
                 _controller.Play();
             }
+
+            btnPrev.IsEnabled = ( m_curIndex == 1 );
+            btnNext.IsEnabled = ( m_curIndex == 0 );
         }
 
     }
