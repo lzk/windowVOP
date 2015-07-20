@@ -843,4 +843,13 @@
     <Resource Include="Media\NIn1Copy2_zh.gif" />
     <Resource Include="Media\NIn1Copy3_zh.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Media\NIn1Copy1_en.gif" />
+    <Resource Include="Media\NIn1Copy2_en.gif" />
+    <Resource Include="Media\NIn1Copy3_en.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Media\IDCardCopy1_en.gif" />
+    <Resource Include="Media\IDCardCopy2_en.gif" />
+  </ItemGroup>
 </Project>

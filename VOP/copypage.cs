@@ -194,11 +194,22 @@ namespace VOP
                     {
                         CopyConfirm confirmDlg = new CopyConfirm();
 
-                        confirmDlg.gifs = new string[]
-                        { 
-                          "pack://application:,,,/Media/IDCardCopy1_zh.gif",
-                          "pack://application:,,,/Media/IDCardCopy2_zh.gif",
-                        };
+                        if (0x804 == App.LangId)
+                        {
+                            confirmDlg.gifs = new string[]
+                            { 
+                                "pack://application:,,,/Media/IDCardCopy1_zh.gif",
+                                    "pack://application:,,,/Media/IDCardCopy2_zh.gif",
+                            };
+                        }
+                        else
+                        {
+                            confirmDlg.gifs = new string[]
+                            { 
+                                "pack://application:,,,/Media/IDCardCopy1_en.gif",
+                                    "pack://application:,,,/Media/IDCardCopy2_en.gif",
+                            };
+                        }
 
                         confirmDlg.Owner = m_MainWin;
 
@@ -210,14 +221,25 @@ namespace VOP
                     {
                         CopyConfirm confirmDlg = new CopyConfirm();
 
-                        confirmDlg.gifs = new string[]
-                        { 
-                          "pack://application:,,,/Media/NIn1Copy1_zh.gif",
-                          "pack://application:,,,/Media/NIn1Copy2_zh.gif",
-                          "pack://application:,,,/Media/NIn1Copy3_zh.gif",
-                        };
-
-
+                        if (0x804 == App.LangId)
+                        {
+                            confirmDlg.gifs = new string[]
+                            { 
+                                "pack://application:,,,/Media/NIn1Copy1_zh.gif",
+                                    "pack://application:,,,/Media/NIn1Copy2_zh.gif",
+                                    "pack://application:,,,/Media/NIn1Copy3_zh.gif",
+                            };
+                        }
+                        else
+                        {
+                            confirmDlg.gifs = new string[]
+                            { 
+                                "pack://application:,,,/Media/NIn1Copy1_en.gif",
+                                    "pack://application:,,,/Media/NIn1Copy2_en.gif",
+                                    "pack://application:,,,/Media/NIn1Copy3_en.gif",
+                            };
+                        }
+                        
                         confirmDlg.Owner = m_MainWin;
 
                         bIsSendCmd = ( true == confirmDlg.ShowDialog() );
