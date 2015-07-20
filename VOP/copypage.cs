@@ -192,7 +192,14 @@ namespace VOP
 
                     if ( true == chkBtnIDCardCopy.IsChecked && true == m_MainWin.m_popupIDCard )
                     {
-                        IDCardCopyConfirm confirmDlg = new IDCardCopyConfirm();
+                        CopyConfirm confirmDlg = new CopyConfirm();
+
+                        confirmDlg.gifs = new string[]
+                        { 
+                            "F:\\VOP\\VOP\\Media\\IDCardCopy1_zh.gif",
+                            "F:\\VOP\\VOP\\Media\\IDCardCopy2_zh.gif",
+                        };
+
                         confirmDlg.Owner = m_MainWin;
 
                         bIsSendCmd = ( true == confirmDlg.ShowDialog() );
@@ -201,7 +208,16 @@ namespace VOP
                     }
                     else if ( (byte)EnumNin1._1up != m_nin1 && true == m_MainWin.m_popupNIn1 )
                     {
-                        NIn1CopyConfirm confirmDlg = new NIn1CopyConfirm();
+                        CopyConfirm confirmDlg = new CopyConfirm();
+
+                        confirmDlg.gifs = new string[]
+                        { 
+                            "F:\\VOP\\VOP\\Media\\IDCardCopy1_zh.gif",
+                            "F:\\VOP\\VOP\\Media\\IDCardCopy2_zh.gif",
+                            "F:\\VOP\\VOP\\Media\\JamAtExitNotReach.gif",
+                        };
+
+
                         confirmDlg.Owner = m_MainWin;
 
                         bIsSendCmd = ( true == confirmDlg.ShowDialog() );
