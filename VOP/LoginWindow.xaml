@@ -1,7 +1,9 @@
 ﻿<Window x:Class="VOP.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="LoginWindow" Height="328" Width="402"        
+        Title="LoginWindow" 
+        Height="328" 
+        Width="603"        
         WindowStartupLocation="CenterOwner"  
         ShowInTaskbar="False" 
         xmlns:local="clr-namespace:VOP.Controls"
@@ -26,7 +28,7 @@
         <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
     </Window.Effect>
     <Viewbox Stretch="Fill">
-        <Grid Height="280" Width="354">
+        <Grid Height="280" Width="555">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
@@ -55,7 +57,7 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="6*"></ColumnDefinition>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -71,12 +73,12 @@
                             <ColumnDefinition Width="42*"></ColumnDefinition>
                             <ColumnDefinition Width="40*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <PasswordBox Name="pbPwd" PasswordChanged="OnPasswordChanged" Template="{StaticResource textpwd}" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Height="30" MaxLength="6" Width="190" Grid.ColumnSpan="2" PreviewKeyDown="OnPreviewKeyDown">
+                        <PasswordBox Name="pbPwd" PasswordChanged="OnPasswordChanged" Template="{StaticResource textpwd}" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Height="30" MaxLength="6" Width="328" Grid.ColumnSpan="2" PreviewKeyDown="OnPreviewKeyDown">
                             <PasswordBox.InputBindings>
                                 <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                             </PasswordBox.InputBindings>
                         </PasswordBox>
-                        <Button Name="btnGetVerifyCode"  Content="{StaticResource ResStr_Get_Verification_Code}"  Click="btnGetVerifyCode_Click" Grid.Column="1" Template="{StaticResource ResourceKey=btnpwd}" HorizontalAlignment="Right" Margin="0,1,5,0" VerticalAlignment="Center" Width="95"  Height="26" />
+                        <Button Name="btnGetVerifyCode"  Content="{StaticResource ResStr_Get_Verification_Code}"  Click="btnGetVerifyCode_Click" Grid.Column="1" Template="{StaticResource ResourceKey=btnpwd}" HorizontalAlignment="Right" Margin="0,6,5,6" VerticalAlignment="Center" Width="150"  Height="26" />
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
                         <TextBlock Name="tbkErrorInfo" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
