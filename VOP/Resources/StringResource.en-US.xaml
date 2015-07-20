@@ -105,7 +105,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Flip_on_long_edge">Flip on long edge</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Flip_on_short_edge">Flip on short edge</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Toner_Save_Mode">Toner Save Mode</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Advanced_settings">Advanced Settings</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Advanced_settings">More Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Default">Default</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_OK">OK</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Back">Return</sys:String>
@@ -151,7 +151,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Soft_AP">Soft AP</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_TCP_IP">TCP/IP</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Power_Save">Power Save</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_User_Config">Advanced Settings</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_User_Config">More Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Modify_Password">Modify Password</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_About">About</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_IP_Type">IP Type</sys:String>
@@ -186,8 +186,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_1_30_Minute">(1-30 Minutes)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_SSID_2">SSID</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Enable">Enable</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Leading_Edge_Registration">Top Offset Adjust(mm)</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Side_to_side_Registration">Side-to-side Adjust(mm)</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Leading_Edge_Registration">Top Margin(mm)</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Side_to_side_Registration">Left Margin(mm)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Image_Density">Image Density</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Low_Hunidity_Mode">Low Humidity Mode</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_of_Plate_Control_Mode">Plate Control Mode</sys:String>
