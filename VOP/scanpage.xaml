@@ -76,7 +76,7 @@
 
                         <TextBlock x:Name="tbValue" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"
                             Text="{Binding Value, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource objPercentConverter}}" 
-                                           FontFamily="Arial" FontWeight="Black" Opacity="0.6">
+                                           FontFamily="Arial" FontWeight="Black" Opacity="0.6" Margin="0, 1, 0, -1">
                                     <TextBlock.Effect>
                                         <DropShadowEffect
                                             Direction="270"

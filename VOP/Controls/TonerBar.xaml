@@ -127,7 +127,7 @@
                 </Border>               
             </Grid>
         </Grid>
-        <TextBlock Name="txtTonerPercent" Margin="0,0,0,3"  Grid.Row="2" Grid.ColumnSpan="2" Text="60%" TextAlignment="Center" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="12"
+        <TextBlock Name="txtTonerPercent" Margin="0,0,0,1" Grid.Row="2" Grid.ColumnSpan="2" Text="60%" TextAlignment="Center" HorizontalAlignment="Center"  VerticalAlignment="Center" FontSize="12"
                    FontFamily="Arial" FontWeight="Black" Opacity="0.6">
             <TextBlock.Effect>
                 <DropShadowEffect
