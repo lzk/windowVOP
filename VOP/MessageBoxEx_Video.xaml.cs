@@ -154,6 +154,9 @@ namespace VOP
         {
             if ( null != gifs )
             {
+                btnPrev.IsEnabled = ( m_curIndex != 0 );
+                btnNext.IsEnabled = ( m_curIndex != gifs.Length-1 );
+
                 var image = new BitmapImage();
                 image.BeginInit();
                 image.UriSource = new Uri( gifs[m_curIndex] );
