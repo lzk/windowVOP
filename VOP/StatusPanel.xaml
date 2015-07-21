@@ -157,7 +157,8 @@
                               Style="{StaticResource CboCommomStyle}" SelectionChanged="cboPrinters_SelectionChanged">
                     </ComboBox>
 
-                    <TextBlock Grid.Row="3" Grid.Column="1"
+                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock 
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
                                Background="{x:Null}"
@@ -166,8 +167,9 @@
                                Text="{StaticResource ResStr_Device_Status}"
                                TextAlignment="Center" />
 
-                   <Button Name="btnErrorMarker" Grid.Row="3" Grid.Column="1" Cursor="Hand" Width="23" Height="23" Style="{DynamicResource ButtonErrorMarker}" Click="Button_Click" Visibility="Hidden" />
-
+                    <Button Name="btnErrorMarker" Cursor="Hand" Width="23" Height="23" Margin="5,0,0,0" Style="{DynamicResource ButtonErrorMarker}" Click="Button_Click" Visibility="Hidden" />
+                </StackPanel>
+                   
                     <mycontrol:StatusTextBlock x:Name="status" Grid.Row="4" 
                                                Grid.Column="1" 
                                                Margin="0, 5, 0, 0"
