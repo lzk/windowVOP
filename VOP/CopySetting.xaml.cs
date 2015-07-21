@@ -383,6 +383,8 @@ namespace VOP
                 rdBtnScanModePhoto.IsChecked = true;
             }
 
+            chkpopupIDCard.IsChecked = true;
+            chkpopupNIn1.IsChecked = true;
         }
 
         private void rdBtnScanModePhoto_Checked(object sender, RoutedEventArgs e)
