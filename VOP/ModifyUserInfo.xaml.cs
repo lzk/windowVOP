@@ -127,7 +127,7 @@ namespace VOP
                 userInformation.m_strEmail = tbMail.Text;
                 userInformation.m_strAddress = tbAddress.Text;
 
-                System.String ex = "^([a-zA-Z0-9_\\-.]+)@(([0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.)|(([a-zA-Z0-9-]+.)+))([a-zA-Z]{2,4}|[0-9]{1,3})$";
+                System.String ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
 
                 Regex reg = new Regex(ex);
                 if(false == reg.IsMatch(userInformation.m_strEmail))
