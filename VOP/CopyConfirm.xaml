@@ -186,7 +186,7 @@
         </Grid.RowDefinitions>
 
         <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0" >
-            <TextBlock Text="{StaticResource ResStr_ID_Card_Copy}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock x:Name="txtTitle" Text="" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
 
         <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" />
@@ -197,11 +197,11 @@
             <Button x:Name="btnNext"  Style="{DynamicResource BtnStyleRight}" Click="btnNext_Click" Margin ="5,0" Content="Next" />
         </StackPanel>
 
-        <CheckBox x:Name="chkPopupNextTime" Template="{StaticResource customCheckBox}" Grid.Row="3" IsChecked="false" VerticalAlignment="Center" Content="下次不再弹出些对话框" HorizontalAlignment="Center" Height="24" Checked="chkPopupNextTime_Checked" Unchecked="chkPopupNextTime_Unchecked" />
+        <CheckBox x:Name="chkPopupNextTime" Template="{StaticResource customCheckBox}" Grid.Row="3" IsChecked="false" VerticalAlignment="Center" Content="下次不再弹出该提示框" HorizontalAlignment="Center" Height="24" Checked="chkPopupNextTime_Checked" Unchecked="chkPopupNextTime_Unchecked" />
 
         <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Center" >
-            <local:ButtonEx x:Name="btnOK"     IsActiveEx="True" Content="确定"  Width="120" Height="40" Margin="20,0" FontSize="16" HorizontalContentAlignment="Center" Click="btnOK_Click" />
-            <local:ButtonEx x:Name="btnCancel" IsActiveEx="False"  Content="取消" Width="120" Height="40" Margin="20,0" FontSize="16" HorizontalContentAlignment="Center" Click="btnCancel_Click"/>
+            <local:ButtonEx x:Name="btnOK"     IsActiveEx="True" Content="{StaticResource ResStr_OK}"  Width="120" Height="40" Margin="20,0" FontSize="16" HorizontalContentAlignment="Center" Click="btnOK_Click" />
+            <local:ButtonEx x:Name="btnCancel" IsActiveEx="False"  Content="{StaticResource ResStr_Cancel}" Width="120" Height="40" Margin="20,0" FontSize="16" HorizontalContentAlignment="Center" Click="btnCancel_Click"/>
         </StackPanel>
 
         <Image x:Name="img" HorizontalAlignment="Left" Height="368" Margin="26,22,0,0" Grid.Row="1" VerticalAlignment="Top" Width="320"

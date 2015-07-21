@@ -19,6 +19,8 @@ namespace VOP
     /// </summary>
     public partial class CopyConfirm : Window
     {
+        public string m_title;
+
         private ImageAnimationController _controller;
         public string[] gifs; 
 
@@ -146,6 +148,8 @@ namespace VOP
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            txtTitle.Text = m_title;
+
             if ( gifs != null )
             {
                 btnPrev.IsEnabled = ( m_curIndex != 0 );

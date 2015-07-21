@@ -317,4 +317,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Jam_front">前端卡纸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Jam_whole">整张卡纸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Jam_back">后端卡纸</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_On">开</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Off">关</sys:String>
 </ResourceDictionary>

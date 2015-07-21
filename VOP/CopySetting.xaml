@@ -233,17 +233,16 @@
                         <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_ID_Card}" />
                         <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_N_in_1}" />
 
-                        <!-- TODO: Add translation of string "Off" and "On".  -->
                         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="Off" />
+                            <TextBlock VerticalAlignment="Center" Text="{StaticResource ResStr_Off}" />
                             <CheckBox x:Name="chkpopupIDCard" VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource switchBox}" IsChecked="False" Width="50" Height="25" Unchecked="chkpopupIDCard_Unchecked" Checked="chkpopupIDCard_Checked" />
-                            <TextBlock VerticalAlignment="Center" Text="On" />
+                            <TextBlock VerticalAlignment="Center" Text="{StaticResource ResStr_On}" />
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                            <TextBlock VerticalAlignment="Center" Text="Off" />
+                            <TextBlock VerticalAlignment="Center" Text="{StaticResource ResStr_Off}" />
                             <CheckBox x:Name="chkpopupNIn1"   VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource switchBox}" IsChecked="False" Width="50" Height="25" Unchecked="chkpopupNIn1_Unchecked" Checked="chkpopupNIn1_Checked" />
-                            <TextBlock VerticalAlignment="Center" Text="On" />
+                            <TextBlock VerticalAlignment="Center" Text="{StaticResource ResStr_On}" />
                         </StackPanel>
 
                     </Grid>

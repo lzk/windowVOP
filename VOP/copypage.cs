@@ -193,6 +193,7 @@ namespace VOP
                     if ( true == chkBtnIDCardCopy.IsChecked && true == m_MainWin.m_popupIDCard )
                     {
                         CopyConfirm confirmDlg = new CopyConfirm();
+                        confirmDlg.m_title = (string)FindResource( "ResStr_ID_Card_Copy" );
 
                         if (0x804 == App.LangId)
                         {
@@ -220,6 +221,7 @@ namespace VOP
                     else if ( (byte)EnumNin1._1up != m_nin1 && true == m_MainWin.m_popupNIn1 )
                     {
                         CopyConfirm confirmDlg = new CopyConfirm();
+                        confirmDlg.m_title = (string)FindResource( "ResStr_N_in_1_Copy" );
 
                         if (0x804 == App.LangId)
                         {
