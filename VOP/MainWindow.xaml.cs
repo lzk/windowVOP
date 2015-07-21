@@ -1597,10 +1597,11 @@ namespace VOP
         // Set the popup setting from register. 
         private void SetPopupSetting( string xmlFile, bool popupIDCard, bool popupNIn1 )
         {
-            // TODO: Improve this logic.
-            if ( false == Directory.Exists(App.cacheFolder) ) 
+            string parentFolder = System.IO.Path.GetDirectoryName( xmlFile );
+
+            if ( false == Directory.Exists( parentFolder ) ) 
             {
-                Directory.CreateDirectory( App.cacheFolder );
+                Directory.CreateDirectory( parentFolder );
             }
 
             XmlDocument xmlDoc = new XmlDocument();
