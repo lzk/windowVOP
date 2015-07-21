@@ -25,6 +25,7 @@
                 <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
                 <ResourceDictionary Source="Controls/AdjustButton.xaml"/>
                 <ResourceDictionary Source="Controls/CustomComboBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomRadioButtonEx.xaml"/>
                 <ResourceDictionary Source="Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
@@ -179,41 +180,81 @@
                 </local:GroupBoxDecorator>
 
                 <Grid Grid.Row="2" >
-                    <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_DPI}" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_DPI}" Height="65" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
                         <ComboBox Name="cboScanResln" SelectionChanged="combo_sel_change"
                             Style="{StaticResource customComboBox}"
                             Background="White"
-                            Width="145" Height="25"
-                            VerticalAlignment="Center"
+                            Width="145" Height="24"
+                            VerticalAlignment="Center" Margin="38,4,37,9"
                             >
 
 
                         </ComboBox>
                     </local:GroupBoxDecorator>
 
-                    <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_Color_Mode}" Height="70" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center">
+                    <local:GroupBoxDecorator Margin="40,78,0,82" Header="{StaticResource ResStr_Color_Mode}" Height="80" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition Width="65" />
+                                <ColumnDefinition Width="65" />
+                                <ColumnDefinition Width="65" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
-                            <RadioButton GroupName="colorMode" IsChecked="True"
-                        Name="Color" Click="colorMode_Click"
-                        Template="{StaticResource customRadioButton}"
-                        Content="{StaticResource ResStr_Color}" VerticalAlignment="Center"
-                        Margin="5,0" ></RadioButton>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2" />
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
 
-                            <RadioButton GroupName="colorMode" IsChecked="false"
-                        Name="Grayscale" Click="colorMode_Click"
-                        Template="{StaticResource customRadioButton}"
-                        Content="{StaticResource ResStr_Grayscale}" VerticalAlignment="Center"
-                        Margin="5,0" ></RadioButton>
+                            <RadioButton GroupName="colorMode"  
+                            IsChecked="True"
+					        Checked="colorMode_Click"
+                            Grid.Row="1" Grid.Column="1"
+					        Cursor="Hand" 
+					        x:Name="Color" 
+					        Style="{StaticResource CustomRadioButtonEx}"
+                            ToolTip="{StaticResource ResStr_Color}"
+                            Width="55"
+                            Height="38">                                
+                            <RadioButton.BorderBrush>
+                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
+                                </RadioButton.BorderBrush>
+                                <Image Stretch="None" Source="Images/Color.png" />
+                            </RadioButton>
 
-                            <RadioButton GroupName="colorMode" IsChecked="false"
-                        Name="BlackAndWhite" Click="colorMode_Click"
-                        Template="{StaticResource customRadioButton}"
-                        Content="{StaticResource ResStr_Black_White}" VerticalAlignment="Center"
-                        Margin="5,0" ></RadioButton>
+                            <RadioButton GroupName="colorMode"  
+                            IsChecked="False"
+					        Checked="colorMode_Click"
+                            Grid.Row="1" Grid.Column="2"
+					        Cursor="Hand" 
+					        x:Name="Grayscale" 
+					        Style="{StaticResource CustomRadioButtonEx}" 
+                            ToolTip="{StaticResource ResStr_Grayscale}"
+                            Width="55"
+                            Height="38">                                
+                            <RadioButton.BorderBrush>
+                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
+                                </RadioButton.BorderBrush>
+                                <Image Stretch="None" Source="Images/Grayscale.png" />
+                            </RadioButton>
 
-                        </StackPanel>
+                            <RadioButton GroupName="colorMode"  
+                            IsChecked="False"
+					        Checked="colorMode_Click"
+                            Grid.Row="1" Grid.Column="3"
+					        Cursor="Hand" 
+					        x:Name="BlackAndWhite" 
+					        Style="{StaticResource CustomRadioButtonEx}"
+                            ToolTip="{StaticResource ResStr_Black_White}"
+                            Width="55"
+                            Height="38">                                
+                            <RadioButton.BorderBrush>
+                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
+                                </RadioButton.BorderBrush>
+                                <Image Stretch="None" Source="Images/BlackWhite.png" />
+                            </RadioButton>
+                        </Grid>
                     </local:GroupBoxDecorator>
 
                     <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_Scan_Size}" Height="70" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="220" >
