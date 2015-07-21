@@ -21,6 +21,8 @@
 
             <Image Height="25" Width="25" Name="imgCheck" Source="..\Images\Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
             <Image Height="25" Width="25" Name="imgUncheck" Source="..\Images\Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+            <Image Height="25" Width="25" Name="imgCheckDisable" Source="..\Images\Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+            <Image Height="25" Width="25" Name="imgUncheckDisable" Source="..\Images\Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
 
             <TextBlock Name="tbText" Grid.Column="1"
                         VerticalAlignment="Center"
@@ -31,16 +33,57 @@
                         />
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsChecked" Value="false">
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsChecked" Value="false"></Condition>
+                    <Condition Property="IsEnabled" Value="false"></Condition>
+                </MultiTrigger.Conditions>
+                
+                <Setter TargetName="tbText" Property="Foreground" Value="#7F6D6D6D"></Setter>                
                 <Setter TargetName="imgCheck" Property="Visibility" Value="Hidden"/>
-                <Setter TargetName="imgUncheck" Property="Visibility" Value="Visible"/>
-            </Trigger>
+                <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Visible"/>
+            </MultiTrigger>
 
-            <Trigger Property="IsChecked" Value="True">
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsChecked" Value="true"></Condition>
+                    <Condition Property="IsEnabled" Value="false"></Condition>
+                </MultiTrigger.Conditions>
+
+                <Setter TargetName="tbText" Property="Foreground" Value="#7F6D6D6D"></Setter>
+                <Setter TargetName="imgCheck" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Hidden"/>
+            </MultiTrigger>
+
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsChecked" Value="true"></Condition>
+                    <Condition Property="IsEnabled" Value="true"></Condition>
+                </MultiTrigger.Conditions>
+
                 <Setter TargetName="imgCheck" Property="Visibility" Value="Visible"/>
                 <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>
-            </Trigger>
+                <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Hidden"/>
+            </MultiTrigger>
 
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsChecked" Value="false"></Condition>
+                    <Condition Property="IsEnabled" Value="true"></Condition>
+                </MultiTrigger.Conditions>
+
+                <Setter TargetName="imgCheck" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgUncheck" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Hidden"/>
+                <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Hidden"/>
+            </MultiTrigger>
+            
             <Trigger  Property="IsFocused" Value="True">              
                 <Setter Property="FocusVisualStyle">                  
                     <Setter.Value>                      
@@ -57,9 +100,7 @@
                 </Setter>              
             </Trigger>
 
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="tbText" Property="Foreground" Value="#7F6D6D6D"></Setter>
-            </Trigger>
+
         </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>
