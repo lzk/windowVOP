@@ -264,12 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-
     <Page Include="Controls\SpinnerControl\SpinnerControlOnlySupportUpDowmKeyStyle.xaml">
-        <SubType>Designer</SubType>
-        <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-
     <Page Include="CopyConfirm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -704,10 +702,6 @@
     <Resource Include="Images\Status_RefreshEnable.tif" />
     <Resource Include="Media\IDCardCopy1_zh.gif" />
     <Resource Include="Media\IDCardCopy2_zh.gif" />
-    <Resource Include="Media\JamAtExitNotReach.gif" />
-    <Resource Include="Media\JamAtExitStayOn.gif" />
-    <Resource Include="Media\JamAtRegistStayOn.gif" />
-    <Resource Include="Media\NofeedJam.gif" />
     <Resource Include="Images\LED_Gray.png" />
     <Resource Include="Images\LED_Green.png" />
     <Resource Include="Images\LED_Red.png" />
@@ -857,5 +851,23 @@
   <ItemGroup>
     <Resource Include="Media\IDCardCopy1_en.gif" />
     <Resource Include="Media\IDCardCopy2_en.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Media\JamAtExitStayOn1_en.gif" />
+    <Resource Include="Media\JamAtExitStayOn1_zh.gif" />
+    <Resource Include="Media\JamAtExitStayOn2_en.gif" />
+    <Resource Include="Media\JamAtExitStayOn2_zh.gif" />
+    <Resource Include="Media\JamAtExitStayOn3_en.gif" />
+    <Resource Include="Media\JamAtExitStayOn3_zh.gif" />
+    <Resource Include="Media\JamInside1_en.gif" />
+    <Resource Include="Media\JamInside1_zh.gif" />
+    <Resource Include="Media\JamInside2_en.gif" />
+    <Resource Include="Media\JamInside2_zh.gif" />
+    <Resource Include="Media\JamInside3_en.gif" />
+    <Resource Include="Media\JamInside3_zh.gif" />
+    <Resource Include="Media\NofeedJam1_en.gif" />
+    <Resource Include="Media\NofeedJam1_zh.gif" />
+    <Resource Include="Media\NofeedJam2_en.gif" />
+    <Resource Include="Media\NofeedJam2_zh.gif" />
   </ItemGroup>
 </Project>

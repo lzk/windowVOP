@@ -25,7 +25,6 @@ namespace VOP
         {
             InitializeComponent();
 
-            messageBoxTextBlock.Text = messageBoxText;
             captionTextBlock.Text = caption;
 
             m_timer.Interval = new TimeSpan( 0, 0, 3 );
@@ -88,5 +87,18 @@ namespace VOP
         private void chkPopupDlg_Loaded(object sender, RoutedEventArgs e)
         {
         }
+
+        private void btnPre_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
     }
 }
