@@ -19,24 +19,24 @@ namespace VOP
     /// </summary>
     public partial class MessageBoxEx_Video : Window
     {
+        public string[] gifs = null; 
+        private int m_curIndex = 0;
+        private bool m_isStop = false;
+        private ImageAnimationController _controller;
+
         private System.Windows.Threading.DispatcherTimer m_timer = new System.Windows.Threading.DispatcherTimer();
 
-        public MessageBoxEx_Video(Uri uri, string messageBoxText, string caption)
+        public MessageBoxEx_Video( string[] _gifs, string caption)
         {
             InitializeComponent();
 
             captionTextBlock.Text = caption;
 
+            gifs = _gifs;
+
             m_timer.Interval = new TimeSpan( 0, 0, 3 );
             m_timer.Tick += new EventHandler( TimerHandler );
             m_timer.Start();
-
-            var image = new BitmapImage();
-            image.BeginInit();
-            image.UriSource = uri;
-            image.EndInit();
-
-            ImageBehavior.SetAnimatedSource( imgAnimation, image );
 
         }
         public void Title_MouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
@@ -84,21 +84,83 @@ namespace VOP
             }
         }
 
-        private void chkPopupDlg_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
-
         private void btnPre_Click(object sender, RoutedEventArgs e)
         {
+            SwitchPic( false );
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
-        {
+        { 
+            _controller = ImageBehavior.GetAnimationController( imgAnimation );
+
+            if (_controller != null)
+            {
+                if ( m_isStop )
+                {
+                    _controller.Play();
+                    m_isStop = false;
+                }
+                else
+                {
+                    _controller.Pause();
+                    m_isStop = true;
+                }
+            }
         }
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
+            SwitchPic( true );
         }
 
+        private void AnimationCompleted(object sender, RoutedEventArgs e)
+        {
+            SwitchPic( true );
+        }
+
+        private void SwitchPic( bool bNext )
+        {
+            if ( bNext )
+                m_curIndex++;
+            else
+                m_curIndex--;
+
+            m_curIndex = m_curIndex%gifs.Length;
+
+            if ( m_curIndex < 0 )
+                m_curIndex += gifs.Length;
+
+            btnPrev.IsEnabled = ( m_curIndex != 0 );
+            btnNext.IsEnabled = ( m_curIndex != gifs.Length-1 );
+
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri( gifs[m_curIndex], UriKind.RelativeOrAbsolute  );
+            image.EndInit();
+
+            ImageBehavior.SetAnimatedSource( imgAnimation, image );
+
+            _controller = ImageBehavior.GetAnimationController(imgAnimation);
+
+            if (_controller != null)
+            {
+                _controller.GotoFrame( 0 );
+                _controller.Play();
+            }
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if ( null != gifs )
+            {
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.UriSource = new Uri( gifs[m_curIndex] );
+                image.EndInit();
+
+                ImageBehavior.SetAnimatedSource( imgAnimation, image );
+            }
+        }
     }
 }

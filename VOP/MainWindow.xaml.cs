@@ -1147,23 +1147,32 @@ namespace VOP
                    statusPanelPage.btnErrorMarker.Visibility = System.Windows.Visibility.Visible;
                    if ( m_oldStatus != status )
                    {
-                       string _animationUri = "";       // Animation Uri need to display
+                       string[] _gifs = null;       // Animation Uri need to display
 
                        switch ( status )
                        {
-                           case EnumStatus.JamAtExitNotReach  : _animationUri = "pack://application:,,, /Media/JamAtExitNotReach.gif"; break;
-                           case EnumStatus.JamAtExitStayOn    : _animationUri = "pack://application:,,, /Media/JamAtExitStayOn.gif"  ; break;
-                           case EnumStatus.JamAtRegistStayOn  : _animationUri = "pack://application:,,, /Media/JamAtRegistStayOn.gif"; break;
-                           case EnumStatus.NofeedJam          : _animationUri = "pack://application:,,, /Media/NofeedJam.gif"        ; break;
+                           case EnumStatus.JamAtExitStayOn    : 
+                               _gifs = new string[2] { "pack://application:,,, /Media/JamAtExitStayOn1_en.gif", "pack://application:,,, /Media/JamAtExitStayOn2_en.gif" };
+                               break;
+                           case EnumStatus.NofeedJam          :
+                               _gifs = new string[2] { "pack://application:,,, /Media/NofeedJam1_en.gif", "pack://application:,,, /Media/NofeedJam2_en.gif" };
+                               break;
+                           case EnumStatus.JamAtRegistStayOn  : 
+                           case EnumStatus.JamAtExitNotReach  : 
                            default: 
-                                                                  _animationUri = "pack://application:,,, /Media/NofeedJam.gif"      ; break;
+                               _gifs = new string[3] {
+                                   "pack://application:,,, /Media/JamAtExitStayOn1_en.gif",
+                                       "pack://application:,,, /Media/JamAtExitStayOn2_en.gif",
+                                       "pack://application:,,, /Media/JamAtExitStayOn3_en.gif"
+                               };
+                               break;
                        }
 
                        if ( false == m_isAnimationPopup )
                        {
                            m_isCloseAnimation = false;  
                            m_isAnimationPopup = true;
-                           MessageBoxEx_Video win = new MessageBoxEx_Video(new Uri(_animationUri), (string)this.TryFindResource("ResStr_The_paper_jam_occurred_please_follow_the_instructions_"), (string)this.FindResource("ResStr_Error"));
+                           MessageBoxEx_Video win = new MessageBoxEx_Video( _gifs, (string)this.FindResource("ResStr_Error"));
                            win.m_MainWin = this;
                            win.Owner = this;
                            win.ShowDialog(); // TODO: Why this modeless dialog will not block WndProc()?
@@ -1639,21 +1648,30 @@ namespace VOP
                     || EnumStatus.JamAtExitNotReach == m_oldStatus
                     || EnumStatus.JamAtExitStayOn   == m_oldStatus )
             {
-                string _animationUri = "";       // Animation Uri need to display
+                string[] _gifs = null;       // Animation Uri need to display
 
                 switch ( m_oldStatus )
                 {
-                    case EnumStatus.JamAtExitNotReach  : _animationUri = "pack://application:,,, /Media/JamAtExitNotReach.gif"; break;
-                    case EnumStatus.JamAtExitStayOn    : _animationUri = "pack://application:,,, /Media/JamAtExitStayOn.gif"  ; break;
-                    case EnumStatus.JamAtRegistStayOn  : _animationUri = "pack://application:,,, /Media/JamAtRegistStayOn.gif"; break;
-                    case EnumStatus.NofeedJam          : _animationUri = "pack://application:,,, /Media/NofeedJam.gif"        ; break;
+                    case EnumStatus.JamAtExitStayOn    : 
+                        _gifs = new string[2] { "pack://application:,,, /Media/JamAtExitStayOn1_en.gif", "pack://application:,,, /Media/JamAtExitStayOn2_en.gif" };
+                        break;
+                    case EnumStatus.NofeedJam          :
+                        _gifs = new string[2] { "pack://application:,,, /Media/NofeedJam1_en.gif", "pack://application:,,, /Media/NofeedJam2_en.gif" };
+                        break;
+                    case EnumStatus.JamAtRegistStayOn  : 
+                    case EnumStatus.JamAtExitNotReach  : 
                     default: 
-                                                         _animationUri = "pack://application:,,, /Media/NofeedJam.gif"      ; break;
+                        _gifs = new string[3] {
+                            "pack://application:,,, /Media/JamAtExitStayOn1_en.gif",
+                                "pack://application:,,, /Media/JamAtExitStayOn2_en.gif",
+                                "pack://application:,,, /Media/JamAtExitStayOn3_en.gif"
+                        };
+                        break;
                 }
 
                 m_isCloseAnimation = false;  
                 m_isAnimationPopup = true;
-                MessageBoxEx_Video win = new MessageBoxEx_Video(new Uri(_animationUri), (string)this.TryFindResource("ResStr_The_paper_jam_occurred_please_follow_the_instructions_"), (string)this.FindResource("ResStr_Error"));
+                MessageBoxEx_Video win = new MessageBoxEx_Video( _gifs, (string)this.FindResource("ResStr_Error"));
                 win.m_MainWin = this;
                 win.Owner = this;
                 win.ShowDialog(); // TODO: Why this modeless dialog will not block WndProc()?
