@@ -20,7 +20,6 @@ namespace VOP
     /// </summary>
     public partial class MaintainWindow : Window
     {
-        MaintainInfoSet m_MaintainSet = new MaintainInfoSet();
         List<string> m_listProvince = new List<string>();
         List<KeyValuePair<string, string>> m_listProvinceCity = new List<KeyValuePair<string, string>>();
         bool m_bInit = false;
@@ -35,62 +34,33 @@ namespace VOP
 
         private void OnLoadWindow(object sender, RoutedEventArgs e)
         {
-            MaintainList.Children.Clear();           
-            MaintainInfoSet maintainSet = new MaintainInfoSet();
-            
-            bool bSuccess = false;
+            ((MainWindow)App.Current.MainWindow).m_thdGetDataFromServer.Join();
 
-            m_MaintainSet.Clear();
+            MaintainList.Children.Clear();           
+            MaintainInfoSet maintainSet = new MaintainInfoSet();            
             m_listProvince.Clear();
             m_listProvinceCity.Clear();
-            string strResult = "";
 
-            if (true == VOP.MainWindow.m_RequestManager.GetMaintainInfoSet(0, 5, ref maintainSet, ref strResult))
+            DateTime dtSaveTime = new DateTime();
+            string strMaintainInfo = "";
+            if ((true == VOP.MainWindow.ReadCRMDataFromXamlFile("Maintain.xaml", ref dtSaveTime, ref strMaintainInfo)) && strMaintainInfo.Length > 100)
             {
-                int nTotalCount = maintainSet.m_nTotalCount;
-
-                if (true == VOP.MainWindow.m_RequestManager.GetMaintainInfoSet(0, nTotalCount, ref m_MaintainSet, ref strResult))
-                {
-                    bSuccess = true;         
-                }
+                DateTime newDate = DateTime.Now;
+                TimeSpan ts = newDate - dtSaveTime;
+                int differenceInDays = ts.Days;
+                m_nExpiredMonth = differenceInDays / 30;
+                if (m_nExpiredMonth >= 3)
+                    Win32.PostMessage((IntPtr)0xffff, App.WM_CHECK_MAINTAIN_DATA_Expired, IntPtr.Zero, IntPtr.Zero);
             }
 
-            if (!bSuccess)
+            for (int nIdx = 0; nIdx < VOP.MainWindow.m_MaintainSet.m_nTotalCount; nIdx++)
             {
-                m_MaintainSet.Clear();
-
-                DateTime dtSaveTime = new DateTime();
-                string strMerchantInfo = "";
-                string strMaintainInfo = "";
-                if ((true == VOP.MainWindow.ReadCRMDataFromXamlFile("Maintain.xaml", ref dtSaveTime, ref strMaintainInfo)) && strMaintainInfo.Length > 100)
+                if (!m_listProvince.Contains(VOP.MainWindow.m_MaintainSet.m_listMaintainInfo[nIdx].m_strProvince))
                 {
-                    DateTime newDate = DateTime.Now;
-                    TimeSpan ts = newDate - dtSaveTime;
-                    int differenceInDays = ts.Days;
-                    m_nExpiredMonth = differenceInDays / 30;
-                    if (m_nExpiredMonth >= 3)
-                        Win32.PostMessage((IntPtr)0xffff, App.WM_CHECK_MAINTAIN_DATA_Expired, IntPtr.Zero, IntPtr.Zero);
-                }
-                else
-                {
-                    VOP.MainWindow.ReadInfoDataFromXamlFile(ref strMerchantInfo, ref strMaintainInfo);
-                    VOP.MainWindow.SaveCRMDataIntoXamlFile("Maintain.xaml", DateTime.Now, strMaintainInfo);
-                }
-                VOP.MainWindow.m_RequestManager.ParseJsonData<MaintainInfoSet>(strMaintainInfo, JSONReturnFormat.MaintainInfoSet, ref m_MaintainSet);
-            }
-            else
-            {
-                VOP.MainWindow.SaveCRMDataIntoXamlFile("Maintain.xaml", DateTime.Now, strResult);
-            }
-
-            for (int nIdx = 0; nIdx < m_MaintainSet.m_nTotalCount; nIdx++)
-            {
-                if (!m_listProvince.Contains(m_MaintainSet.m_listMaintainInfo[nIdx].m_strProvince))
-                {
-                    m_listProvince.Add(m_MaintainSet.m_listMaintainInfo[nIdx].m_strProvince);
+                    m_listProvince.Add(VOP.MainWindow.m_MaintainSet.m_listMaintainInfo[nIdx].m_strProvince);
                 }
 
-                KeyValuePair<string, string> pair = new KeyValuePair<string, string>(m_MaintainSet.m_listMaintainInfo[nIdx].m_strProvince, m_MaintainSet.m_listMaintainInfo[nIdx].m_strCity);
+                KeyValuePair<string, string> pair = new KeyValuePair<string, string>(VOP.MainWindow.m_MaintainSet.m_listMaintainInfo[nIdx].m_strProvince, VOP.MainWindow.m_MaintainSet.m_listMaintainInfo[nIdx].m_strCity);
                 if (!m_listProvinceCity.Contains(pair))
                 {
                     m_listProvinceCity.Add(pair);
@@ -207,7 +177,7 @@ namespace VOP
                 
                 if(cb.Items.Count > 0 && cboProvince.Items.Count > 0)
                 {
-                    foreach (MaintainInfoItem item in m_MaintainSet.m_listMaintainInfo)
+                    foreach (MaintainInfoItem item in VOP.MainWindow.m_MaintainSet.m_listMaintainInfo)
                     {
                         if (item.m_strProvince == ((ComboBoxItem)cboProvince.SelectedItem).Content.ToString() &&
                             item.m_strCity == ((ComboBoxItem)cboCity.SelectedItem).Content.ToString())

@@ -19,7 +19,6 @@ namespace VOP
     /// </summary>
     public partial class PurchaseWindow : Window
     {
-        MerchantInfoSet m_MerchantInfoSet = new MerchantInfoSet();
         List<string> m_listProvince = new List<string>();
         List<KeyValuePair<string, string>> m_listProvinceCity = new List<KeyValuePair<string, string>>();       
         bool m_bInit = false;
@@ -39,64 +38,33 @@ namespace VOP
 
         private void OnLoadWindow(object sender, RoutedEventArgs e)
         {
+            ((MainWindow)App.Current.MainWindow).m_thdGetDataFromServer.Join();
+
             MerchantList.Children.Clear();
-            MerchantInfoSet maintainSet = new MerchantInfoSet();
-
-            bool bSuccess = false;
-
-            m_MerchantInfoSet.Clear();
             m_listProvince.Clear();
             m_listProvinceCity.Clear();
-            string strResult = "";
 
-            if (true == VOP.MainWindow.m_RequestManager.GetMerchantSet(0, 5, ref maintainSet, ref strResult))
+            DateTime dtSaveTime = new DateTime();
+            string strMerchantInfo = "";
+            if (true == VOP.MainWindow.ReadCRMDataFromXamlFile("Merchant.xaml", ref dtSaveTime, ref strMerchantInfo) && strMerchantInfo.Length > 100)
             {
-                int nTotalCount = maintainSet.m_nTotalCount;
+                DateTime newDate = DateTime.Now;
+                TimeSpan ts = newDate - dtSaveTime;
+                int differenceInDays = ts.Days;
+                m_nExpiredMonth = differenceInDays / 30;
 
-                if (true == VOP.MainWindow.m_RequestManager.GetMerchantSet(0, nTotalCount, ref m_MerchantInfoSet, ref strResult))
-                {
-                    bSuccess = true;
-                }
+                if (m_nExpiredMonth >= 3)
+                    Win32.PostMessage((IntPtr)0xffff, App.WM_CHECK_MERCHANT_INFO_Expired, IntPtr.Zero, IntPtr.Zero);
             }
 
-            if (!bSuccess)
+            for (int nIdx = 0; nIdx < VOP.MainWindow.m_MerchantInfoSet.m_nTotalCount; nIdx++)
             {
-                m_MerchantInfoSet.Clear();
-
-                DateTime dtSaveTime = new DateTime();
-                string strMerchantInfo = "";
-                string strMaintainInfo = "";
-                if (true == VOP.MainWindow.ReadCRMDataFromXamlFile("Merchant.xaml", ref dtSaveTime, ref strMerchantInfo) && strMerchantInfo.Length > 100)
+                if (!m_listProvince.Contains(VOP.MainWindow.m_MerchantInfoSet.m_listMerchantInfo[nIdx].m_strProvince))
                 {
-                    DateTime newDate = DateTime.Now;
-                    TimeSpan ts = newDate - dtSaveTime;
-                    int differenceInDays = ts.Days;
-                    m_nExpiredMonth = differenceInDays / 30;
-
-                    if (m_nExpiredMonth >= 3)
-                        Win32.PostMessage((IntPtr)0xffff, App.WM_CHECK_MERCHANT_INFO_Expired, IntPtr.Zero, IntPtr.Zero);
-                }
-                else
-                {
-                    VOP.MainWindow.ReadInfoDataFromXamlFile(ref strMerchantInfo, ref strMaintainInfo);
-                    VOP.MainWindow.SaveCRMDataIntoXamlFile("Merchant.xaml", DateTime.Now, strMerchantInfo);
+                    m_listProvince.Add(VOP.MainWindow.m_MerchantInfoSet.m_listMerchantInfo[nIdx].m_strProvince);
                 }
 
-                VOP.MainWindow.m_RequestManager.ParseJsonData<MerchantInfoSet>(strMerchantInfo, JSONReturnFormat.MerchantInfoSet, ref m_MerchantInfoSet);
-            }
-            else
-            {
-                VOP.MainWindow.SaveCRMDataIntoXamlFile("Merchant.xaml", DateTime.Now, strResult);
-            }
-
-            for (int nIdx = 0; nIdx < m_MerchantInfoSet.m_nTotalCount; nIdx++)
-            {
-                if (!m_listProvince.Contains(m_MerchantInfoSet.m_listMerchantInfo[nIdx].m_strProvince))
-                {
-                    m_listProvince.Add(m_MerchantInfoSet.m_listMerchantInfo[nIdx].m_strProvince);
-                }
-
-                KeyValuePair<string, string> pair = new KeyValuePair<string, string>(m_MerchantInfoSet.m_listMerchantInfo[nIdx].m_strProvince, m_MerchantInfoSet.m_listMerchantInfo[nIdx].m_strCity);
+                KeyValuePair<string, string> pair = new KeyValuePair<string, string>(VOP.MainWindow.m_MerchantInfoSet.m_listMerchantInfo[nIdx].m_strProvince, VOP.MainWindow.m_MerchantInfoSet.m_listMerchantInfo[nIdx].m_strCity);
                 if (!m_listProvinceCity.Contains(pair))
                 {
                     m_listProvinceCity.Add(pair);
@@ -208,7 +176,7 @@ namespace VOP
 
                 if (cb.Items.Count > 0 && cboProvince.Items.Count > 0)
                 {
-                    foreach (MerchantInfoItem item in m_MerchantInfoSet.m_listMerchantInfo)
+                    foreach (MerchantInfoItem item in VOP.MainWindow.m_MerchantInfoSet.m_listMerchantInfo)
                     {
                         if (item.m_strProvince == ((ComboBoxItem)cboProvince.SelectedItem).Content.ToString() &&
                             item.m_strCity == ((ComboBoxItem)cboCity.SelectedItem).Content.ToString())
