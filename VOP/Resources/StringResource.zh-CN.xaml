@@ -313,4 +313,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_picture_file_occupied">图片文件被占用， 暂时无法执行此操作。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_USB_write_failed_during_scan_job_cancelling">扫描过程中通过USB传输的数据写入失败，扫描任务取消。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_NET_write_failed_during_scan_job_cancelling">扫描过程中通过网络传输的数据写入失败，扫描任务取消。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Out_of_Paper">缺纸</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Jam_front">前端卡纸</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Jam_whole">整张卡纸</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Jam_back">后端卡纸</sys:String>
 </ResourceDictionary>

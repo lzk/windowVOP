@@ -1149,14 +1149,17 @@ namespace VOP
                    if ( m_oldStatus != status )
                    {
                        string[] _gifs = null;       // Animation Uri need to display
+                       string title = "";
 
                        switch ( status )
                        {
                            case EnumStatus.JamAtExitStayOn    : 
                                _gifs = new string[2] { "pack://application:,,, /Media/JamAtExitStayOn1_en.gif", "pack://application:,,, /Media/JamAtExitStayOn2_en.gif" };
+                               title = (string)FindResource( "ResStr_Jam_back" );
                                break;
                            case EnumStatus.NofeedJam          :
                                _gifs = new string[2] { "pack://application:,,, /Media/NofeedJam1_en.gif", "pack://application:,,, /Media/NofeedJam2_en.gif" };
+                               title = (string)FindResource( "ResStr_Out_of_Paper" );
                                break;
                            case EnumStatus.JamAtRegistStayOn  : 
                            case EnumStatus.JamAtExitNotReach  : 
@@ -1167,6 +1170,7 @@ namespace VOP
                                        "pack://application:,,, /Media/JamAtExitStayOn2_en.gif",
                                        "pack://application:,,, /Media/JamAtExitStayOn3_en.gif"
                                };
+                               title = (string)FindResource( "ResStr_Jam_whole" );
                                break;
                        }
 
@@ -1174,7 +1178,7 @@ namespace VOP
                        {
                            m_isCloseAnimation = false;  
                            m_isAnimationPopup = true;
-                           MessageBoxEx_Video win = new MessageBoxEx_Video( _gifs, (string)this.FindResource("ResStr_Error"));
+                           MessageBoxEx_Video win = new MessageBoxEx_Video( _gifs, title );
                            win.m_MainWin = this;
                            win.Owner = this;
                            win.ShowDialog(); // TODO: Why this modeless dialog will not block WndProc()?
@@ -1652,19 +1656,23 @@ namespace VOP
                     || EnumStatus.JamAtExitStayOn   == m_oldStatus )
             {
                 string[] _gifs = null;       // Animation Uri need to display
+                string title = "";
 
                 switch ( m_oldStatus )
                 {
                     case EnumStatus.JamAtExitStayOn    : 
                         _gifs = new string[2] { "pack://application:,,, /Media/JamAtExitStayOn1_en.gif", "pack://application:,,, /Media/JamAtExitStayOn2_en.gif" };
+                        title = (string)FindResource( "ResStr_Jam_back" );
                         break;
                     case EnumStatus.NofeedJam          :
                         _gifs = new string[2] { "pack://application:,,, /Media/NofeedJam1_en.gif", "pack://application:,,, /Media/NofeedJam2_en.gif" };
+                        title = (string)FindResource( "ResStr_Out_of_Paper" );
                         break;
                     case EnumStatus.JamAtRegistStayOn  : 
                     case EnumStatus.JamAtExitNotReach  : 
                     case EnumStatus.InitializeJam      :
                     default: 
+                        title = (string)FindResource( "ResStr_Jam_whole" );
                         _gifs = new string[3] {
                             "pack://application:,,, /Media/JamAtExitStayOn1_en.gif",
                                 "pack://application:,,, /Media/JamAtExitStayOn2_en.gif",
@@ -1675,7 +1683,7 @@ namespace VOP
 
                 m_isCloseAnimation = false;  
                 m_isAnimationPopup = true;
-                MessageBoxEx_Video win = new MessageBoxEx_Video( _gifs, (string)this.FindResource("ResStr_Error"));
+                MessageBoxEx_Video win = new MessageBoxEx_Video( _gifs, title );
                 win.m_MainWin = this;
                 win.Owner = this;
                 win.ShowDialog(); // TODO: Why this modeless dialog will not block WndProc()?
