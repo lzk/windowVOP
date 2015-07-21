@@ -266,7 +266,7 @@ namespace VOP
             if ( 0 != m_rotatedAngle )
             {
 
-                VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo, this, 
+                VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon, this, 
                             (string)this.TryFindResource("ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_"),
                             (string)this.TryFindResource("ResStr_Prompt"));
 
