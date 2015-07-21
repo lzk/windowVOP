@@ -1700,11 +1700,9 @@ namespace VOP
                 {
                     case EnumStatus.JamAtExitStayOn    : 
                         _gifs = new string[2] { "pack://application:,,, /Media/JamAtExitStayOn1_zh.gif", "pack://application:,,, /Media/JamAtExitStayOn2_zh.gif" };
-                        title = (string)FindResource( "ResStr_Jam_back" );
                         break;
                     case EnumStatus.NofeedJam          :
                         _gifs = new string[2] { "pack://application:,,, /Media/NofeedJam1_zh.gif", "pack://application:,,, /Media/NofeedJam2_zh.gif" };
-                        title = (string)FindResource( "ResStr_Out_of_Paper" );
                         break;
                     case EnumStatus.JamAtRegistStayOn  : 
                     case EnumStatus.JamAtExitNotReach  : 
@@ -1715,7 +1713,6 @@ namespace VOP
                                 "pack://application:,,, /Media/JamAtExitStayOn2_zh.gif",
                                 "pack://application:,,, /Media/JamAtExitStayOn3_zh.gif"
                         };
-                        title = (string)FindResource( "ResStr_Jam_whole" );
                         break;
                 }
             }
@@ -1725,11 +1722,9 @@ namespace VOP
                 {
                     case EnumStatus.JamAtExitStayOn    : 
                         _gifs = new string[2] { "pack://application:,,, /Media/JamAtExitStayOn1_en.gif", "pack://application:,,, /Media/JamAtExitStayOn2_en.gif" };
-                        title = (string)FindResource( "ResStr_Jam_back" );
                         break;
                     case EnumStatus.NofeedJam          :
                         _gifs = new string[2] { "pack://application:,,, /Media/NofeedJam1_en.gif", "pack://application:,,, /Media/NofeedJam2_en.gif" };
-                        title = (string)FindResource( "ResStr_Out_of_Paper" );
                         break;
                     case EnumStatus.JamAtRegistStayOn  : 
                     case EnumStatus.JamAtExitNotReach  : 
@@ -1740,9 +1735,31 @@ namespace VOP
                                 "pack://application:,,, /Media/JamAtExitStayOn2_en.gif",
                                 "pack://application:,,, /Media/JamAtExitStayOn3_en.gif"
                         };
-                        title = (string)FindResource( "ResStr_Jam_whole" );
                         break;
                 }
+            }
+
+
+            switch ( status )
+            {
+                case EnumStatus.JamAtExitStayOn    : 
+                    title = (string)FindResource( "ResStr_Jam_back" );
+                    break;
+                case EnumStatus.NofeedJam          :
+                    title = (string)FindResource( "ResStr_Out_of_Paper" );
+                    break;
+                case EnumStatus.JamAtRegistStayOn  : 
+                    title = (string)FindResource( "ResStr_Jam_whole" );
+                    break;
+                case EnumStatus.JamAtExitNotReach  : 
+                    title = (string)FindResource( "ResStr_Jam_front" );
+                    break;
+                case EnumStatus.InitializeJam  : 
+                    title = (string)FindResource( "ResStr_Jam_whole" );
+                    break;
+                default: 
+                    title = (string)FindResource( "ResStr_Jam_whole" );
+                    break;
             }
 
         }
