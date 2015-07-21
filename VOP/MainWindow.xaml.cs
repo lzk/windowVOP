@@ -84,7 +84,6 @@ namespace VOP
         public static byte   m_byWifiInitStatus = 0;
         public static List<UploadPrintInfo> m_UploadPrintInfoSet = new List<UploadPrintInfo>();
 
-        private bool m_isAnimationPopup = false;  // True if animation window had popup.
         public  bool m_isCloseAnimation = false;  // True if animation window need to close.
 
         // Old status used to popup paper jam animation window.
@@ -1209,24 +1208,6 @@ namespace VOP
                        || EnumStatus.JamAtExitStayOn   == status )
                {
                    statusPanelPage.btnErrorMarker.Visibility = System.Windows.Visibility.Visible;
-                   if ( m_oldStatus != status )
-                   {
-                       string[] _gifs = null;       // Animation Uri need to display
-                       string title = "";
-
-                       GetPopupInfo( ref _gifs, ref title, status );
-
-                       if ( false == m_isAnimationPopup )
-                       {
-                           m_isCloseAnimation = false;  
-                           m_isAnimationPopup = true;
-                           MessageBoxEx_Video win = new MessageBoxEx_Video( _gifs, title );
-                           win.m_MainWin = this;
-                           win.Owner = this;
-                           win.ShowDialog(); // TODO: Why this modeless dialog will not block WndProc()?
-                           m_isAnimationPopup = false;
-                       }
-                   }
                }
                else
                {
@@ -1704,12 +1685,10 @@ namespace VOP
                 GetPopupInfo( ref _gifs, ref title, m_oldStatus );
 
                 m_isCloseAnimation = false;  
-                m_isAnimationPopup = true;
                 MessageBoxEx_Video win = new MessageBoxEx_Video( _gifs, title );
                 win.m_MainWin = this;
                 win.Owner = this;
                 win.ShowDialog(); // TODO: Why this modeless dialog will not block WndProc()?
-                m_isAnimationPopup = false;
             }
         }
 
