@@ -1151,28 +1151,7 @@ namespace VOP
                        string[] _gifs = null;       // Animation Uri need to display
                        string title = "";
 
-                       switch ( status )
-                       {
-                           case EnumStatus.JamAtExitStayOn    : 
-                               _gifs = new string[2] { "pack://application:,,, /Media/JamAtExitStayOn1_en.gif", "pack://application:,,, /Media/JamAtExitStayOn2_en.gif" };
-                               title = (string)FindResource( "ResStr_Jam_back" );
-                               break;
-                           case EnumStatus.NofeedJam          :
-                               _gifs = new string[2] { "pack://application:,,, /Media/NofeedJam1_en.gif", "pack://application:,,, /Media/NofeedJam2_en.gif" };
-                               title = (string)FindResource( "ResStr_Out_of_Paper" );
-                               break;
-                           case EnumStatus.JamAtRegistStayOn  : 
-                           case EnumStatus.JamAtExitNotReach  : 
-                           case EnumStatus.InitializeJam  : 
-                           default: 
-                               _gifs = new string[3] {
-                                   "pack://application:,,, /Media/JamAtExitStayOn1_en.gif",
-                                       "pack://application:,,, /Media/JamAtExitStayOn2_en.gif",
-                                       "pack://application:,,, /Media/JamAtExitStayOn3_en.gif"
-                               };
-                               title = (string)FindResource( "ResStr_Jam_whole" );
-                               break;
-                       }
+                       GetPopupInfo( ref _gifs, ref title, status );
 
                        if ( false == m_isAnimationPopup )
                        {
@@ -1658,7 +1637,48 @@ namespace VOP
                 string[] _gifs = null;       // Animation Uri need to display
                 string title = "";
 
-                switch ( m_oldStatus )
+                GetPopupInfo( ref _gifs, ref title, m_oldStatus );
+
+                m_isCloseAnimation = false;  
+                m_isAnimationPopup = true;
+                MessageBoxEx_Video win = new MessageBoxEx_Video( _gifs, title );
+                win.m_MainWin = this;
+                win.Owner = this;
+                win.ShowDialog(); // TODO: Why this modeless dialog will not block WndProc()?
+                m_isAnimationPopup = false;
+            }
+        }
+
+        private void GetPopupInfo( ref string[] _gifs, ref string title, EnumStatus status )
+        {
+            if (0x804 == App.LangId)
+            {
+                switch ( status )
+                {
+                    case EnumStatus.JamAtExitStayOn    : 
+                        _gifs = new string[2] { "pack://application:,,, /Media/JamAtExitStayOn1_zh.gif", "pack://application:,,, /Media/JamAtExitStayOn2_zh.gif" };
+                        title = (string)FindResource( "ResStr_Jam_back" );
+                        break;
+                    case EnumStatus.NofeedJam          :
+                        _gifs = new string[2] { "pack://application:,,, /Media/NofeedJam1_zh.gif", "pack://application:,,, /Media/NofeedJam2_zh.gif" };
+                        title = (string)FindResource( "ResStr_Out_of_Paper" );
+                        break;
+                    case EnumStatus.JamAtRegistStayOn  : 
+                    case EnumStatus.JamAtExitNotReach  : 
+                    case EnumStatus.InitializeJam  : 
+                    default: 
+                        _gifs = new string[3] {
+                            "pack://application:,,, /Media/JamAtExitStayOn1_zh.gif",
+                                "pack://application:,,, /Media/JamAtExitStayOn2_zh.gif",
+                                "pack://application:,,, /Media/JamAtExitStayOn3_zh.gif"
+                        };
+                        title = (string)FindResource( "ResStr_Jam_whole" );
+                        break;
+                }
+            }
+            else
+            {
+                switch ( status )
                 {
                     case EnumStatus.JamAtExitStayOn    : 
                         _gifs = new string[2] { "pack://application:,,, /Media/JamAtExitStayOn1_en.gif", "pack://application:,,, /Media/JamAtExitStayOn2_en.gif" };
@@ -1670,25 +1690,19 @@ namespace VOP
                         break;
                     case EnumStatus.JamAtRegistStayOn  : 
                     case EnumStatus.JamAtExitNotReach  : 
-                    case EnumStatus.InitializeJam      :
+                    case EnumStatus.InitializeJam  : 
                     default: 
-                        title = (string)FindResource( "ResStr_Jam_whole" );
                         _gifs = new string[3] {
                             "pack://application:,,, /Media/JamAtExitStayOn1_en.gif",
                                 "pack://application:,,, /Media/JamAtExitStayOn2_en.gif",
                                 "pack://application:,,, /Media/JamAtExitStayOn3_en.gif"
                         };
+                        title = (string)FindResource( "ResStr_Jam_whole" );
                         break;
                 }
-
-                m_isCloseAnimation = false;  
-                m_isAnimationPopup = true;
-                MessageBoxEx_Video win = new MessageBoxEx_Video( _gifs, title );
-                win.m_MainWin = this;
-                win.Owner = this;
-                win.ShowDialog(); // TODO: Why this modeless dialog will not block WndProc()?
-                m_isAnimationPopup = false;
             }
+
         }
+
     }
 }
