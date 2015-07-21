@@ -51,7 +51,7 @@
             </Grid.RowDefinitions>
           
             <TextBlock Name="messageBoxTextBlock" Grid.Row="1"  FontSize="14"
-                       VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Left"           
+                       VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left"           
                        TextWrapping="Wrap"
                        Foreground="#555555" >                
             </TextBlock>
