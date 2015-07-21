@@ -1140,6 +1140,7 @@ namespace VOP
                winSettingPage.PassStatus(status, job, toner);
 
                if ( EnumStatus.NofeedJam               == status
+                       || EnumStatus.InitializeJam     == status
                        || EnumStatus.JamAtRegistStayOn == status
                        || EnumStatus.JamAtExitNotReach == status
                        || EnumStatus.JamAtExitStayOn   == status )
@@ -1159,6 +1160,7 @@ namespace VOP
                                break;
                            case EnumStatus.JamAtRegistStayOn  : 
                            case EnumStatus.JamAtExitNotReach  : 
+                           case EnumStatus.InitializeJam  : 
                            default: 
                                _gifs = new string[3] {
                                    "pack://application:,,, /Media/JamAtExitStayOn1_en.gif",
@@ -1645,6 +1647,7 @@ namespace VOP
         {
             if ( EnumStatus.NofeedJam               == m_oldStatus
                     || EnumStatus.JamAtRegistStayOn == m_oldStatus
+                    || EnumStatus.InitializeJam     == m_oldStatus
                     || EnumStatus.JamAtExitNotReach == m_oldStatus
                     || EnumStatus.JamAtExitStayOn   == m_oldStatus )
             {
@@ -1660,6 +1663,7 @@ namespace VOP
                         break;
                     case EnumStatus.JamAtRegistStayOn  : 
                     case EnumStatus.JamAtExitNotReach  : 
+                    case EnumStatus.InitializeJam      :
                     default: 
                         _gifs = new string[3] {
                             "pack://application:,,, /Media/JamAtExitStayOn1_en.gif",
