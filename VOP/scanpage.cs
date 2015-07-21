@@ -307,6 +307,7 @@ namespace VOP
             this.image_wrappanel.IsEnabled = false;
             btnPrint.IsEnabled = false;
             btnSave.IsEnabled = false;
+            m_MainWin.EnableTabItems(false);
 
             _isScanning = true;
             scanningThread = new Thread(DoScanning);
@@ -388,6 +389,7 @@ namespace VOP
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+           
             if ( WM_VOPSCAN_PROGRESS == msg )
             {                        
                  handled = true;
@@ -411,6 +413,7 @@ namespace VOP
                  }
                  
                  btnScan.IsEnabled = ( false == common.IsOffline(m_currentStatus) && false == m_isScanning );
+                 m_MainWin.EnableTabItems(true);
 
                  progressBar1.Value = 0;
 
@@ -447,13 +450,16 @@ namespace VOP
                  }
                  else if ( RETSCAN_CANCEL == (int)wParam )
                  {
+                     m_MainWin.EnableTabItems(true);
                  }
                  else if ( RETSCAN_NO_ENOUGH_SPACE == (int)wParam )
                  {
+                     m_MainWin.EnableTabItems(true);
                      VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_insufficient_system_disk_space"), (string)this.FindResource("ResStr_Error"));
                  }
                  else
                  {
+                     m_MainWin.EnableTabItems(true);
                      m_MainWin.statusPanelPage.ShowMessage( (string)this.FindResource("ResStr_Scan_Fail"), Brushes.Red );
 
                      if ( RETSCAN_OPENFAIL == (int)wParam

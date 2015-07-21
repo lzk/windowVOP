@@ -1505,7 +1505,7 @@ namespace VOP
             EnableTabItems(false);
         }
 		
-		private void EnableTabItems(bool isEnable)
+		public void EnableTabItems(bool isEnable)
         {
             btnPrint.IsEnabled = btnCopy.IsEnabled = btnScan.IsEnabled = btnSetting.IsEnabled = isEnable;
             tabItem_Print.IsEnabled = tabItem_Copy.IsEnabled = tabItem_Scan.IsEnabled = tabItem_Setting.IsEnabled = isEnable;
