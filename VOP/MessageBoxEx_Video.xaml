@@ -195,9 +195,9 @@
         </Grid>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" >
-            <Button x:Name="btnPrev"  Style="{DynamicResource BtnStyleLeft}" Click="btnPre_Click" Margin ="5,0" Content="Prev" />
-            <Button x:Name="btnStart" Style="{DynamicResource BtnStylePlay}" Click="btnStart_Click" Margin ="5,0" Content="Start" />
-            <Button x:Name="btnNext"  Style="{DynamicResource BtnStyleRight}" Click="btnNext_Click" Margin ="5,0" Content="Next" />
+            <Button x:Name="btnPrev"  Style="{DynamicResource BtnStyleLeft}"  Width="35" Height="35" Click="btnPre_Click" Margin ="5,0" />
+            <Button x:Name="btnStart" Style="{DynamicResource BtnStylePlay}"  Width="46" Height="46" Click="btnStart_Click" Margin ="5,0" />
+            <Button x:Name="btnNext"  Style="{DynamicResource BtnStyleRight}" Width="35" Height="35" Click="btnNext_Click" Margin ="5,0" />
         </StackPanel>
 
     </Grid>
