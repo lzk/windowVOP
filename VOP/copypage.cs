@@ -178,122 +178,110 @@ namespace VOP
                     byteNin1 = 4; // This value present sending ID Card Copy command.
                 }
 
-                if ( m_oldJob == EnumMachineJob.IDCardCopyJob
-                        || m_oldJob == EnumMachineJob.NormalCopyJob )
+                bool bIsSendCmd = true;
+
+                if ( true == chkBtnIDCardCopy.IsChecked && true == m_MainWin.m_popupIDCard )
                 {
-                    m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
-                    VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple_Busy,
-                            m_MainWin,
-                            (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
-                            (string)this.FindResource("ResStr_Error"));
+                    CopyConfirm confirmDlg = new CopyConfirm();
+                    confirmDlg.m_title = (string)FindResource( "ResStr_ID_Card_Copy" );
+
+                    if (0x804 == App.LangId)
+                    {
+                        confirmDlg.gifs = new string[]
+                        { 
+                            "pack://application:,,,/Media/IDCardCopy1_zh.gif",
+                                "pack://application:,,,/Media/IDCardCopy2_zh.gif",
+                        };
+                    }
+                    else
+                    {
+                        confirmDlg.gifs = new string[]
+                        { 
+                            "pack://application:,,,/Media/IDCardCopy1_en.gif",
+                                "pack://application:,,,/Media/IDCardCopy2_en.gif",
+                        };
+                    }
+
+                    confirmDlg.Owner = m_MainWin;
+
+                    bIsSendCmd = ( true == confirmDlg.ShowDialog() );
+
+                    m_MainWin.m_popupIDCard = confirmDlg.m_popupDlg;
                 }
-                else
+                else if ( (byte)EnumNin1._1up != m_nin1 && true == m_MainWin.m_popupNIn1 )
                 {
-                    bool bIsSendCmd = true;
+                    CopyConfirm confirmDlg = new CopyConfirm();
+                    confirmDlg.m_title = (string)FindResource( "ResStr_N_in_1_Copy" );
 
-                    if ( true == chkBtnIDCardCopy.IsChecked && true == m_MainWin.m_popupIDCard )
+                    if (0x804 == App.LangId)
                     {
-                        CopyConfirm confirmDlg = new CopyConfirm();
-                        confirmDlg.m_title = (string)FindResource( "ResStr_ID_Card_Copy" );
-
-                        if (0x804 == App.LangId)
-                        {
-                            confirmDlg.gifs = new string[]
-                            { 
-                                "pack://application:,,,/Media/IDCardCopy1_zh.gif",
-                                    "pack://application:,,,/Media/IDCardCopy2_zh.gif",
-                            };
-                        }
-                        else
-                        {
-                            confirmDlg.gifs = new string[]
-                            { 
-                                "pack://application:,,,/Media/IDCardCopy1_en.gif",
-                                    "pack://application:,,,/Media/IDCardCopy2_en.gif",
-                            };
-                        }
-
-                        confirmDlg.Owner = m_MainWin;
-
-                        bIsSendCmd = ( true == confirmDlg.ShowDialog() );
-
-                        m_MainWin.m_popupIDCard = confirmDlg.m_popupDlg;
+                        confirmDlg.gifs = new string[]
+                        { 
+                            "pack://application:,,,/Media/NIn1Copy1_zh.gif",
+                                "pack://application:,,,/Media/NIn1Copy2_zh.gif",
+                                "pack://application:,,,/Media/NIn1Copy3_zh.gif",
+                        };
                     }
-                    else if ( (byte)EnumNin1._1up != m_nin1 && true == m_MainWin.m_popupNIn1 )
+                    else
                     {
-                        CopyConfirm confirmDlg = new CopyConfirm();
-                        confirmDlg.m_title = (string)FindResource( "ResStr_N_in_1_Copy" );
-
-                        if (0x804 == App.LangId)
-                        {
-                            confirmDlg.gifs = new string[]
-                            { 
-                                "pack://application:,,,/Media/NIn1Copy1_zh.gif",
-                                    "pack://application:,,,/Media/NIn1Copy2_zh.gif",
-                                    "pack://application:,,,/Media/NIn1Copy3_zh.gif",
-                            };
-                        }
-                        else
-                        {
-                            confirmDlg.gifs = new string[]
-                            { 
-                                "pack://application:,,,/Media/NIn1Copy1_en.gif",
-                                    "pack://application:,,,/Media/NIn1Copy2_en.gif",
-                                    "pack://application:,,,/Media/NIn1Copy3_en.gif",
-                            };
-                        }
-                        
-                        confirmDlg.Owner = m_MainWin;
-
-                        bIsSendCmd = ( true == confirmDlg.ShowDialog() );
-
-                        m_MainWin.m_popupNIn1 = confirmDlg.m_popupDlg;
+                        confirmDlg.gifs = new string[]
+                        { 
+                            "pack://application:,,,/Media/NIn1Copy1_en.gif",
+                                "pack://application:,,,/Media/NIn1Copy2_en.gif",
+                                "pack://application:,,,/Media/NIn1Copy3_en.gif",
+                        };
                     }
 
-                    if ( true == bIsSendCmd )
+                    confirmDlg.Owner = m_MainWin;
+
+                    bIsSendCmd = ( true == confirmDlg.ShowDialog() );
+
+                    m_MainWin.m_popupNIn1 = confirmDlg.m_popupDlg;
+                }
+
+                if ( true == bIsSendCmd )
+                {
+                    EnumCmdResult ret = (EnumCmdResult)dll.SendCopyCmd( 
+                            m_MainWin.statusPanelPage.m_selectedPrinter,
+                            m_density,
+                            (byte)spinCtlCopies.Value,
+                            (byte)m_scanMode,
+                            (byte)m_docSize,
+                            (byte)m_outputSize,
+                            (byte)byteNin1,
+                            (byte)m_dpi,
+                            (ushort)m_scaling,
+                            (byte)m_mediaType );
+
+                    switch ( ret )
                     {
-                        EnumCmdResult ret = (EnumCmdResult)dll.SendCopyCmd( 
-                                m_MainWin.statusPanelPage.m_selectedPrinter,
-                                m_density,
-                                (byte)spinCtlCopies.Value,
-                                (byte)m_scanMode,
-                                (byte)m_docSize,
-                                (byte)m_outputSize,
-                                (byte)byteNin1,
-                                (byte)m_dpi,
-                                (ushort)m_scaling,
-                                (byte)m_mediaType );
+                        case EnumCmdResult._Do_not_support_this_function:
+                            m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
 
-                        switch ( ret )
-                        {
-                            case EnumCmdResult._Do_not_support_this_function:
-                                m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
+                            VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                                    m_MainWin,
+                                    (string)this.FindResource( "ResStr_Unsupported" ),
+                                    (string)this.FindResource( "ResStr_Error" ));
+                            break;
 
-                                VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
-                                        m_MainWin,
-                                        (string)this.FindResource( "ResStr_Unsupported" ),
-                                        (string)this.FindResource( "ResStr_Error" ));
-                                break;
+                        case EnumCmdResult._ACK:
+                            break;
+                        case EnumCmdResult._Printer_busy:
+                            m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
 
-                            case EnumCmdResult._ACK:
-                                break;
-                            case EnumCmdResult._Printer_busy:
-                                m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
+                            VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple_Busy,
+                                    m_MainWin,
+                                    (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
+                                    (string)this.FindResource("ResStr_Error"));
+                            break;
+                        default:
+                            m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
 
-                                VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple_Busy,
-                                        m_MainWin,
-                                        (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
-                                        (string)this.FindResource("ResStr_Error"));
-                                break;
-                            default:
-                                m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
-
-                                VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
-                                        m_MainWin,
-                                        (string)this.FindResource( "ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
-                                        (string)this.FindResource( "ResStr_Error" ));
-                                break;
-                        }
+                            VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
+                                    m_MainWin,
+                                    (string)this.FindResource( "ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
+                                    (string)this.FindResource( "ResStr_Error" ));
+                            break;
                     }
                 }
             }
