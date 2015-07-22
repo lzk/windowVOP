@@ -211,11 +211,10 @@
             gif:ImageBehavior.AutoStart="True" 
             gif:ImageBehavior.AnimationCompleted="AnimationCompleted" />
 
-<!-- TODO: Add translation -->
-<StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
-    <TextBlock HorizontalAlignment="Center"> 温馨提示：</TextBlock>
-    <TextBlock>如果1分钟之内不进行操作，任务将会自动取消。</TextBlock>
-</StackPanel>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <TextBlock HorizontalAlignment="Center" Text="{StaticResource ResStr_Prompt1 }" />
+            <TextBlock HorizontalAlignment="Center" Text="{StaticResource ResStr_Prompt2 }" />
+        </StackPanel>
 
     </Grid>
 </Window>

@@ -319,4 +319,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Jam_back">后端卡纸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_On">开</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Off">关</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Prompt1">温馨提示：</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Prompt2">如果1分钟之内不进行操作，任务将会自动取消。</sys:String>
 </ResourceDictionary>

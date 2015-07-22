@@ -319,4 +319,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Jam_back">Paper Jam</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_On">On</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Off">Off</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Prompt1">Prompt:</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Prompt2">If the operation is not performed within 1 minute, the task will be automatically canceled.</sys:String>
 </ResourceDictionary>
