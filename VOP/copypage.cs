@@ -181,6 +181,7 @@ namespace VOP
                 if ( m_oldJob == EnumMachineJob.IDCardCopyJob
                         || m_oldJob == EnumMachineJob.NormalCopyJob )
                 {
+                    m_MainWin.statusPanelPage.ShowMessage( (string)this.TryFindResource("ResStr_Copy_Fail"), Brushes.Red );
                     VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple_Busy,
                             m_MainWin,
                             (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
