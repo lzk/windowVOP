@@ -84,8 +84,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Recycled_Paper">Recycled Paper</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Label">Label</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Quality">Print Quality</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Normal_600_600_">Normal（600*600）</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Fine_1200_600_">Fine（1200*600）</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Normal_600_600_">Normal(600*600)</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Fine_1200_600_">Fine(1200*600)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scaling">Scaling</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Image_Scaling">Image Scaling</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Fit_to_Paper_Size">Fit to Paper Size</sys:String>
