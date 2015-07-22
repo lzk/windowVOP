@@ -857,6 +857,10 @@
     <Resource Include="Media\JamAtExitStayOn1_zh.gif" />
     <Resource Include="Media\JamAtExitStayOn2_en.gif" />
     <Resource Include="Media\JamAtExitStayOn2_zh.gif" />
+    <Resource Include="Images\BlackWhite.png" />
+    <Resource Include="Images\Color.png" />
+    <Resource Include="Images\Grayscale.png" />
+  
     <Resource Include="Media\JamAtExitStayOn3_en.gif" />
     <Resource Include="Media\JamAtExitStayOn3_zh.gif" />
     <Resource Include="Media\JamInside1_en.gif" />
