@@ -1620,17 +1620,13 @@ namespace VOP
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load( xmlFile );
 
-                XmlNode xmlNode = xmlDoc.SelectSingleNode( "VOPCfg" );
-                if (xmlNode != null)
+                XmlNode xmlNode1 = xmlDoc.SelectSingleNode( "/VOPCfg/elPopupIDCard" );
+                XmlNode xmlNode2 = xmlDoc.SelectSingleNode( "/VOPCfg/elPopupNIn1" );
+
+                if ( null != xmlNode1 && null != xmlNode2 )
                 {
-                    // TODO: how to read the node directly?
-                    foreach ( XmlNode subNote in xmlNode.ChildNodes )
-                    {
-                        if ( "elPopupIDCard" == subNote.Name )
-                        { popupIDCard = ( "True" == subNote.InnerXml ); }
-                        else if ( "elPopupNIn1" == subNote.Name )
-                        { popupNIn1 = ( "True" == subNote.InnerXml ); }
-                    }
+                    popupIDCard = ( "True" == xmlNode1.InnerText ); 
+                    popupNIn1 = ( "True" == xmlNode2.InnerText ); 
                 }
             }
             catch
