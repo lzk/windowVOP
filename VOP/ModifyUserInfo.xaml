@@ -81,7 +81,7 @@
                             ValueChanged="OnSpinnerCtrlValueChanged"
                             MinWidth="70"
                             />
-                    <TextBlock Text="{StaticResource ResStr_Year}" VerticalAlignment="Center" MinWidth="30"></TextBlock>
+                    <TextBlock Text="{StaticResource ResStr_Year}" VerticalAlignment="Center" MinWidth="30" Margin="1"></TextBlock>
                     <local:SpinnerControlOnlySupportUpDowmKey
                             x:Name="scMonth"
                             MinWidth="50"
@@ -92,8 +92,9 @@
                             Minimum="1"  
                             Value="1"
                             ValueChanged="OnSpinnerCtrlValueChanged"
+                            Margin="1"
                             />
-                    <TextBlock Text="{StaticResource ResStr_Month}" VerticalAlignment="Center" MinWidth="30"></TextBlock>
+                    <TextBlock Text="{StaticResource ResStr_Month}" VerticalAlignment="Center" MinWidth="30" Margin="1"></TextBlock>
                     <local:SpinnerControlOnlySupportUpDowmKey
                             x:Name="scDay"
                             MinWidth="50"
@@ -103,8 +104,9 @@
                             Maximum="31"
                             Minimum="1"  
                             Value="1"
+                            Margin="1"
                             />
-                    <TextBlock Text="{StaticResource ResStr_Day}" VerticalAlignment="Center" MinWidth="30"></TextBlock>
+                    <TextBlock Text="{StaticResource ResStr_Day}" VerticalAlignment="Center" MinWidth="30" Margin="1,0,0,0"></TextBlock>
                 </StackPanel>
             </Grid>
             <TextBlock Name="tbSex" Text="{StaticResource ResStr_Sex}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
