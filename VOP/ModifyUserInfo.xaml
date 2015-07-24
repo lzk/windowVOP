@@ -125,7 +125,7 @@
                 </StackPanel>
             </Grid>
             <TextBlock Text="{StaticResource ResStr_Email}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-            <TextBox Name="tbMail"  Grid.Row="3" Grid.Column="2" Height="32" TextChanged="OnTextChanged" TextWrapping="NoWrap" FontSize="18" MaxLength="51"  PreviewTextInput="OnPreviewTextInput"></TextBox>
+            <TextBox Name="tbMail"  Grid.Row="3" Grid.Column="2" Height="32" TextChanged="OnTextChanged" TextWrapping="NoWrap" FontSize="18" MaxLength="50"  PreviewTextInput="OnPreviewTextInput"></TextBox>
             <TextBlock Text="{StaticResource ResStr_Address}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
             <TextBox Name="tbAddress" Grid.Row="4" Grid.Column="2" Height="32" TextChanged="OnTextChanged" MaxLength="255" TextWrapping="NoWrap" FontSize="18"  PreviewTextInput="OnPreviewTextInput"></TextBox>
         </Grid>
