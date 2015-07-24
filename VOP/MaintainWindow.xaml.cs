@@ -34,7 +34,7 @@ namespace VOP
 
         private void OnLoadWindow(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)App.Current.MainWindow).m_InitDataEvent.WaitOne();
+            ((MainWindow)App.Current.MainWindow).m_InitMaintainInfoEvent.WaitOne();
 
             MaintainList.Children.Clear();           
             MaintainInfoSet maintainSet = new MaintainInfoSet();            

@@ -68,8 +68,10 @@ namespace VOP
         /// </summary>
         private Thread statusUpdater = null;
         private Thread uploadCRMThread = null;
-        public  Thread m_thdGetDataFromServer = null;
-        public ManualResetEvent m_InitDataEvent = new ManualResetEvent(false);  
+        public Thread m_thdMerchantInfoFromServer = null;
+        public ManualResetEvent m_InitMerchantInfoEvent = new ManualResetEvent(false);
+        public Thread m_thdMaintainInfoFromServer = null;
+        public ManualResetEvent m_InitMaintainInfoEvent = new ManualResetEvent(false);  
 
         /// <summary>
         /// Event used to sync between status update thread and main UI.
@@ -188,9 +190,13 @@ namespace VOP
                 uploadCRMThread = new Thread(UploadCRM_LocalInfoToServerCaller);
                 uploadCRMThread.Start();
 
-                m_thdGetDataFromServer = new Thread(GetDataFromServerProc);
-                m_thdGetDataFromServer.Priority = ThreadPriority.Highest;
-                m_thdGetDataFromServer.Start();
+                m_thdMerchantInfoFromServer = new Thread(GetMerchantInfoFromServerProc);
+                m_thdMerchantInfoFromServer.Priority = ThreadPriority.Highest;
+                m_thdMerchantInfoFromServer.Start();
+
+                m_thdMaintainInfoFromServer = new Thread(GetMaintainInfoFromServerProc);
+                m_thdMaintainInfoFromServer.Priority = ThreadPriority.Highest;
+                m_thdMaintainInfoFromServer.Start();
             }
 
             Thread uploadPrintInfoThread = new Thread(UploadPrintInfoToServerCaller);
@@ -199,7 +205,39 @@ namespace VOP
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
         }
 
-        public void GetDataFromServerProc()
+        public void GetMaintainInfoFromServerProc()
+        {
+            VOP.MainWindow.m_MaintainSet.Clear();
+
+            DateTime dtSaveTime = new DateTime();
+            string strMerchantInfo = "";
+            string strMaintainInfo = "";
+            if ((false == VOP.MainWindow.ReadCRMDataFromXamlFile("Maintain.xaml", ref dtSaveTime, ref strMaintainInfo)) || strMaintainInfo.Length < 100)
+            {
+                VOP.MainWindow.ReadInfoDataFromXamlFile(ref strMerchantInfo, ref strMaintainInfo);
+                VOP.MainWindow.SaveCRMDataIntoXamlFile("Maintain.xaml", DateTime.Now, strMaintainInfo);
+            }
+            VOP.MainWindow.m_RequestManager.ParseJsonData<MaintainInfoSet>(strMaintainInfo, JSONReturnFormat.MaintainInfoSet, ref VOP.MainWindow.m_MaintainSet);
+
+            m_InitMaintainInfoEvent.Set();
+
+            MerchantInfoSet merchantInfoSet = new MerchantInfoSet();
+            MaintainInfoSet maintainSet = new MaintainInfoSet();
+
+            string strResult = "";
+            if (true == VOP.MainWindow.m_RequestManager.GetMaintainInfoSet(0, 5, ref maintainSet, ref strResult))
+            {
+                int nTotalCount = maintainSet.m_nTotalCount;
+                maintainSet.Clear();
+
+                if (true == VOP.MainWindow.m_RequestManager.GetMaintainInfoSet(0, nTotalCount, ref maintainSet, ref strResult))
+                {
+                    VOP.MainWindow.SaveCRMDataIntoXamlFile("Maintain.xaml", DateTime.Now, strResult);
+                }
+            }
+        }
+
+        public void GetMerchantInfoFromServerProc()
         {
             VOP.MainWindow.m_MerchantInfoSet.Clear();
 
@@ -214,17 +252,7 @@ namespace VOP
 
             VOP.MainWindow.m_RequestManager.ParseJsonData<MerchantInfoSet>(strMerchantInfo, JSONReturnFormat.MerchantInfoSet, ref VOP.MainWindow.m_MerchantInfoSet);
 
-            VOP.MainWindow.m_MaintainSet.Clear();
-            strMerchantInfo = "";
-            strMaintainInfo = "";
-            if ((false == VOP.MainWindow.ReadCRMDataFromXamlFile("Maintain.xaml", ref dtSaveTime, ref strMaintainInfo)) || strMaintainInfo.Length < 100)
-            {
-                VOP.MainWindow.ReadInfoDataFromXamlFile(ref strMerchantInfo, ref strMaintainInfo);
-                VOP.MainWindow.SaveCRMDataIntoXamlFile("Maintain.xaml", DateTime.Now, strMaintainInfo);
-            }
-            VOP.MainWindow.m_RequestManager.ParseJsonData<MaintainInfoSet>(strMaintainInfo, JSONReturnFormat.MaintainInfoSet, ref VOP.MainWindow.m_MaintainSet);
-
-            m_InitDataEvent.Set();
+            m_InitMerchantInfoEvent.Set();
 
             MerchantInfoSet merchantInfoSet = new MerchantInfoSet();
             MaintainInfoSet maintainSet = new MaintainInfoSet();
@@ -238,18 +266,6 @@ namespace VOP
                 if (true == VOP.MainWindow.m_RequestManager.GetMerchantSet(0, nTotalCount, ref merchantInfoSet, ref strResult))
                 {
                     VOP.MainWindow.SaveCRMDataIntoXamlFile("Merchant.xaml", DateTime.Now, strResult);
-                }
-            }
-
-            strResult = "";
-            if (true == VOP.MainWindow.m_RequestManager.GetMaintainInfoSet(0, 5, ref maintainSet, ref strResult))
-            {
-                int nTotalCount = maintainSet.m_nTotalCount;
-                maintainSet.Clear();
-
-                if (true == VOP.MainWindow.m_RequestManager.GetMaintainInfoSet(0, nTotalCount, ref maintainSet, ref strResult))
-                {
-                    VOP.MainWindow.SaveCRMDataIntoXamlFile("Maintain.xaml", DateTime.Now, strResult);
                 }
             }
         }

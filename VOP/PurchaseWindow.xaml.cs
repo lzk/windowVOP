@@ -38,7 +38,7 @@ namespace VOP
 
         private void OnLoadWindow(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)App.Current.MainWindow).m_InitDataEvent.WaitOne();
+            ((MainWindow)App.Current.MainWindow).m_InitMerchantInfoEvent.WaitOne();
 
             MerchantList.Children.Clear();
             m_listProvince.Clear();
