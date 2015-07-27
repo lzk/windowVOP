@@ -256,7 +256,7 @@
             gif:ImageBehavior.AnimationCompleted="AnimationCompleted" />
 
         <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{StaticResource ResStr_Prompt1 }" />
+            <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{StaticResource ResStr_Prompt1 }" FontSize="20" />
             <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{StaticResource ResStr_Prompt2 }" />
         </StackPanel>
 
