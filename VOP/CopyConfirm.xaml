@@ -247,6 +247,8 @@
             <local:ButtonEx x:Name="btnCancel" IsActiveEx="False"  Content="{StaticResource ResStr_Cancel}" Width="120" Height="40" Margin="20,0" FontSize="16" HorizontalContentAlignment="Center" Click="btnCancel_Click"/>
         </StackPanel>
 
+        <Rectangle Grid.Row="1" StrokeThickness="0" Fill="#ffd9d9d9" Margin="20,20,20,10" />
+
         <Image x:Name="img" HorizontalAlignment="Left" Height="368" Margin="26,22,0,0" Grid.Row="1" VerticalAlignment="Top" Width="320"
             Stretch="Fill"
             gif:ImageBehavior.RepeatBehavior="1x"

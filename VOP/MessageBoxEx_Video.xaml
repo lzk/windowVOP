@@ -227,8 +227,11 @@
         </Grid>
 
         <Grid Name="MediaGrid" Grid.Row="1" >
-            <Rectangle Stroke="Black" StrokeThickness="1" />
+            <Rectangle Stroke="Black" StrokeThickness="0" Fill="#ffd9d9d9" Margin="20,20,20,10" />
+
             <Image x:Name="imgAnimation" Width="310" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
             Stretch="Fill"
             gif:ImageBehavior.RepeatBehavior="1x"
             gif:ImageBehavior.AutoStart="True" 
