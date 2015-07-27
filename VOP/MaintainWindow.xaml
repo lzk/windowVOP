@@ -71,7 +71,7 @@
 
                             <Grid Margin="10" Grid.ColumnSpan="2">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                                    <TextBlock Text="您所在的位置：" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="您所在位置：" VerticalAlignment="Center"></TextBlock>
                                     <ComboBox Width="80" Margin="6,0,0,2" Style="{StaticResource RadiusComboBox}" FontSize="13" Name="cboProvince" SelectionChanged="cboProvince_SelectionChanged">
                                     </ComboBox>
                                     <TextBlock Text="省" Margin="6,0,0,2" VerticalAlignment="Center"></TextBlock>
