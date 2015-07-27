@@ -61,7 +61,7 @@
                         <ColumnDefinition Width="6*"></ColumnDefinition>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Margin="0,0,10,0" Text="{StaticResource ResStr_Account_Name}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14"></TextBlock>
+                    <TextBlock Margin="0,0,10,0" Text="{StaticResource ResStr_Account}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14"></TextBlock>
                     <TextBox Name="tbPhoneNumber" Text="{StaticResource ResStr_Msg_4}" TextChanged="OnTextChanged" GotFocus="tbPhoneNumber_GotFocus" LostFocus="tbPhoneNumber_LostFocus" PreviewTextInput="tbPhoneNumber_PreviewTextInput" Template="{StaticResource customTextBox}" Grid.Column="2" VerticalAlignment="Center" Grid.Row="0" Margin="0,0,5,0" Height="30" MaxLength="11" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="OnPreviewKeyDown">
                         <TextBox.InputBindings>
                             <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>

@@ -277,7 +277,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt">Prompt</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit_the_Lenovo_Printer">Do you want to exit the Neo Printing?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Member_Center">Member Center</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Account_Name">Account name</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Account">Account</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Change_Account_Information">Change Account Information</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Buy_consumables">Buy consumables</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Check_consumables_points">Check consumables points</sys:String>

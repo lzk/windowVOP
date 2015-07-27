@@ -277,7 +277,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt">提示</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit_the_Lenovo_Printer">是否退出小新打印？</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Member_Center">会员中心</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Account_Name">账户名</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Account">账户名</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Change_Account_Information">修改账户信息</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Buy_consumables">耗材购买</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Check_consumables_points">耗材积分查询</sys:String>
