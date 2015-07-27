@@ -148,8 +148,21 @@ namespace VOP
                 else
                     scaling -= 0.1;
 
-                previewImg.Width = previewImg.ActualWidth*scaling;
-                previewImg.Height = previewImg.ActualHeight*scaling;
+         
+                switch (m_rotatedAngle)
+                {
+                    case 0:
+                    case 180:
+                            previewImg.Width = previewImg.Width * scaling;
+                            previewImg.Height = previewImg.Height * scaling;
+                        break;
+                    case 90:
+                    case 270:
+                            previewImg.Width = previewImg.Height * scaling;
+                            previewImg.Height = previewImg.Width * scaling;
+                        break;
+                }
+
             }
             else if ( name == "btn_normal" )
             {
@@ -162,11 +175,13 @@ namespace VOP
 
                 try
                 {
-                    double oldWidth = previewImg.ActualWidth;
-                    double oldHeight = previewImg.ActualHeight;
+                    double oldWidth = previewImg.Width;
+                    double oldHeight = previewImg.Height;
 
-                    CachedBitmap cache = new CachedBitmap(previewImg.Source as BitmapSource, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                    previewImg.Source = BitmapFrame.Create(new TransformedBitmap(cache, new RotateTransform(90)));
+                    //CachedBitmap cache = new CachedBitmap(previewImg.Source as BitmapSource, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                    //previewImg.Source = BitmapFrame.Create(new TransformedBitmap(cache, new RotateTransform(90)));
+
+                    previewImg.LayoutTransform = new RotateTransform(m_rotatedAngle);
 
                     previewImg.Width = oldHeight;
                     previewImg.Height = oldWidth;
@@ -310,13 +325,24 @@ namespace VOP
             double scaling2 = 0.0;
             double scaling0 = 0.0;
 
-            scaling1 = ( this.scrollPreview.ActualWidth  -10 ) / previewImg.Source.Width;
-            scaling2 = ( this.scrollPreview.ActualHeight -10 ) / previewImg.Source.Height;
-            scaling0 = (scaling1 < scaling2) ? scaling1 : scaling2;
+            switch(m_rotatedAngle)
+            {
+                case 0:
+                case 180:
+                    scaling1 = ( this.scrollPreview.ActualWidth  -10 ) / previewImg.Source.Width;
+                    scaling2 = ( this.scrollPreview.ActualHeight -10 ) / previewImg.Source.Height;
+                    scaling0 = (scaling1 < scaling2) ? scaling1 : scaling2;                  
+                    break;
+                case 90:
+                case 270:
+                    scaling1 = ( this.scrollPreview.ActualWidth  -10 ) / previewImg.Source.Height;
+                    scaling2 = ( this.scrollPreview.ActualHeight -10 ) / previewImg.Source.Width;
+                    scaling0 = (scaling1 < scaling2) ? scaling1 : scaling2;                
+                    break;            
+            }
 
             previewImg.Width  = previewImg.Source.Width * scaling0;
             previewImg.Height = previewImg.Source.Height * scaling0;
         }
-
     }
 }

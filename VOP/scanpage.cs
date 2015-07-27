@@ -279,7 +279,7 @@ namespace VOP
             int docutype   = (int)m_docutype;
 
             common.GetPaperSize( m_paperSize, ref nWidth, ref nHeight );
-
+       
             int nResult = dll.ScanEx(
                     m_MainWin.statusPanelPage.m_selectedPrinter ,
                     m_shareObj.m_pathOrig     ,
