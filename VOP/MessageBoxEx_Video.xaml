@@ -122,7 +122,7 @@
             </Style>
 
 
-            <Style x:Key="BtnStylePlay" TargetType="{x:Type Button}">
+            <Style x:Key="BtnStylePlay" TargetType="{x:Type CheckBox}">
                 <Setter Property="FocusVisualStyle">
                     <Setter.Value>
                         <Style>
@@ -145,23 +145,64 @@
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
+                        <ControlTemplate TargetType="{x:Type CheckBox}">
                             <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
                                 <Grid>
-                                    <Image x:Name="icon" Height="45" Width="45" Stretch="Fill" Source="Images/AnimationControl/pauseNormal.tif"/>
+                                    <Image x:Name="icon" Height="45" Width="45" Stretch="Fill" Source="Images/AnimationControl/playNormal.tif"/>
                                 </Grid>
                             </Border>
 
                             <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="true"></Condition>
+                                        <Condition Property="IsChecked" Value="false"></Condition>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="icon" Value="Images/AnimationControl/playHover.tif"/>
+                                </MultiTrigger>
+
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsPressed" Value="true"></Condition>
+                                        <Condition Property="IsChecked" Value="false"></Condition>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="icon" Value="Images/AnimationControl/playPress.tif"/>
+                                </MultiTrigger>
+
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsEnabled" Value="true"></Condition>
+                                        <Condition Property="IsChecked" Value="false"></Condition>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Source" TargetName="icon" Value="Images/AnimationControl/playNormal.tif"/>
+                                </MultiTrigger>
+
+                                <!-- seperator --> 
+
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="true"></Condition>
+                                        <Condition Property="IsChecked" Value="true"></Condition>
+                                    </MultiTrigger.Conditions>
                                     <Setter Property="Source" TargetName="icon" Value="Images/AnimationControl/pauseHover.tif"/>
-                                </Trigger>
-                                <Trigger Property="IsPressed" Value="True">
+                                </MultiTrigger>
+
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsPressed" Value="true"></Condition>
+                                        <Condition Property="IsChecked" Value="true"></Condition>
+                                    </MultiTrigger.Conditions>
                                     <Setter Property="Source" TargetName="icon" Value="Images/AnimationControl/pausePress.tif"/>
-                                </Trigger>
-                                <Trigger Property="IsEnabled" Value="False">
+                                </MultiTrigger>
+
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsEnabled" Value="true"></Condition>
+                                        <Condition Property="IsChecked" Value="true"></Condition>
+                                    </MultiTrigger.Conditions>
                                     <Setter Property="Source" TargetName="icon" Value="Images/AnimationControl/pauseNormal.tif"/>
-                                </Trigger>
+                                </MultiTrigger>
+
                             </ControlTemplate.Triggers>
 
                         </ControlTemplate>
@@ -196,7 +237,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" >
             <Button x:Name="btnPrev"  Style="{DynamicResource BtnStyleLeft}"  Width="35" Height="35" Click="btnPre_Click" Margin ="5,0" />
-            <Button x:Name="btnStart" Style="{DynamicResource BtnStylePlay}"  Width="46" Height="46" Click="btnStart_Click" Margin ="5,0" />
+            <CheckBox x:Name="btnStart" Style="{DynamicResource BtnStylePlay}"  Width="46" Height="46" Margin ="5,0" Unchecked="btnStart_Unchecked" Checked="btnStart_Checked" />
             <Button x:Name="btnNext"  Style="{DynamicResource BtnStyleRight}" Width="35" Height="35" Click="btnNext_Click" Margin ="5,0" />
         </StackPanel>
 

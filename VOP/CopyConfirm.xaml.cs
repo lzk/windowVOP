@@ -26,8 +26,6 @@ namespace VOP
 
         private int m_curIndex = 0;
 
-        private bool m_isStop = false;
-
         public bool m_popupDlg = true;
 
         public CopyConfirm()
@@ -83,25 +81,6 @@ namespace VOP
         private void btnPre_Click(object sender, RoutedEventArgs e)
         {
             SwitchPic( false );
-        }
-
-        private void btnStart_Click(object sender, RoutedEventArgs e)
-        {
-            _controller = ImageBehavior.GetAnimationController(img);
-
-            if (_controller != null)
-            {
-                if ( m_isStop )
-                {
-                    _controller.Play();
-                    m_isStop = false;
-                }
-                else
-                {
-                    _controller.Pause();
-                    m_isStop = true;
-                }
-            }
         }
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
@@ -162,6 +141,28 @@ namespace VOP
 
                 ImageBehavior.SetAnimatedSource( img, image );
             }
+        }
+
+        private void btnStart_Checked(object sender, RoutedEventArgs e)
+        {
+            _controller = ImageBehavior.GetAnimationController(img);
+
+            if (_controller != null)
+                _controller.Pause();
+
+            btnPrev.Visibility = Visibility.Hidden;
+            btnNext.Visibility = Visibility.Hidden;
+        }
+
+        private void btnStart_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _controller = ImageBehavior.GetAnimationController(img);
+
+            if (_controller != null)
+                _controller.Play();
+
+            btnPrev.Visibility = Visibility.Visible;
+            btnNext.Visibility = Visibility.Visible;
         }
 
     }

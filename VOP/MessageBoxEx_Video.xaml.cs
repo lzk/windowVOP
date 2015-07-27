@@ -21,7 +21,6 @@ namespace VOP
     {
         public string[] gifs = null; 
         private int m_curIndex = 0;
-        private bool m_isStop = false;
         private ImageAnimationController _controller;
 
         private System.Windows.Threading.DispatcherTimer m_timer = new System.Windows.Threading.DispatcherTimer();
@@ -89,25 +88,6 @@ namespace VOP
             SwitchPic( false );
         }
 
-        private void btnStart_Click(object sender, RoutedEventArgs e)
-        { 
-            _controller = ImageBehavior.GetAnimationController( imgAnimation );
-
-            if (_controller != null)
-            {
-                if ( m_isStop )
-                {
-                    _controller.Play();
-                    m_isStop = false;
-                }
-                else
-                {
-                    _controller.Pause();
-                    m_isStop = true;
-                }
-            }
-        }
-
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             SwitchPic( true );
@@ -164,6 +144,28 @@ namespace VOP
 
                 ImageBehavior.SetAnimatedSource( imgAnimation, image );
             }
+        }
+
+        private void btnStart_Unchecked(object sender, RoutedEventArgs e)
+        {
+            _controller = ImageBehavior.GetAnimationController(imgAnimation);
+
+            if (_controller != null)
+                _controller.Play();
+
+            btnPrev.Visibility = Visibility.Visible;
+            btnNext.Visibility = Visibility.Visible;
+        }
+
+        private void btnStart_Checked(object sender, RoutedEventArgs e)
+        {
+            _controller = ImageBehavior.GetAnimationController(imgAnimation);
+
+            if (_controller != null)
+                _controller.Pause();
+
+            btnPrev.Visibility = Visibility.Hidden;
+            btnNext.Visibility = Visibility.Hidden;
         }
     }
 }
