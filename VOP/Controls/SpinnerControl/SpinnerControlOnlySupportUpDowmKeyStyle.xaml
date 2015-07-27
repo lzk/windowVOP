@@ -9,6 +9,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type btl:SpinnerControlOnlySupportUpDowmKey}">
+        <Setter Property="Focusable" Value="False"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type btl:SpinnerControlOnlySupportUpDowmKey}">
@@ -37,8 +38,7 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <!--<RepeatButton Grid.Row="0" Grid.Column="1" Command="{x:Static btl:SpinnerControlOnlySupportUpDowmKey.IncreaseCommand}">-->
-                                <RepeatButton Grid.Row="0" Grid.Column="1">
+                            <RepeatButton Grid.Row="0" Grid.Column="1" Command="{x:Static btl:SpinnerControlOnlySupportUpDowmKey.IncreaseCommand}">                              
                                     <RepeatButton.Content>
                                     <Path 
                                     HorizontalAlignment="Right"
@@ -51,7 +51,7 @@
                                 </RepeatButton.Content>
                             </RepeatButton>
 
-                            <RepeatButton Grid.Row="1" Grid.Column="1">                            
+                            <RepeatButton Grid.Row="1" Grid.Column="1" Command="{x:Static btl:SpinnerControlOnlySupportUpDowmKey.DecreaseCommand}">
                                     <RepeatButton.Content>
                                     <Path 
                                     HorizontalAlignment="Right"

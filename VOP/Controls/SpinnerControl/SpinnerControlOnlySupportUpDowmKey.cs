@@ -312,6 +312,12 @@ namespace VOP.Controls
             Value = LimitValueByBounds(Value - Change, this);
         }
 
+        public static RoutedCommand DoNothingCommand { get; set; }
+
+        protected static void OnDoNothingCommand(Object sender, ExecutedRoutedEventArgs e)
+        {
+            
+        }
         /// <summary>
         /// Since we're using RoutedCommands for the up/down buttons, we need to
         /// register them with the command manager so we can tie the events
@@ -322,13 +328,17 @@ namespace VOP.Controls
             //  create instances
             IncreaseCommand = new RoutedCommand("IncreaseCommand", typeof(SpinnerControlOnlySupportUpDowmKey));
             DecreaseCommand = new RoutedCommand("DecreaseCommand", typeof(SpinnerControlOnlySupportUpDowmKey));
+            DoNothingCommand = new RoutedCommand("DoNothingCommand", typeof(SpinnerControlOnlySupportUpDowmKey));
 
             //  register the command bindings - if the buttons get clicked, call these methods.
             CommandManager.RegisterClassCommandBinding(typeof(SpinnerControlOnlySupportUpDowmKey), new CommandBinding(IncreaseCommand, OnIncreaseCommand));
             CommandManager.RegisterClassCommandBinding(typeof(SpinnerControlOnlySupportUpDowmKey), new CommandBinding(DecreaseCommand, OnDecreaseCommand));
+            CommandManager.RegisterClassCommandBinding(typeof(SpinnerControlOnlySupportUpDowmKey), new CommandBinding(DoNothingCommand, OnDoNothingCommand));
 
             CommandManager.RegisterClassInputBinding(typeof(SpinnerControlOnlySupportUpDowmKey), new InputBinding(IncreaseCommand, new KeyGesture(Key.Up)));
             CommandManager.RegisterClassInputBinding(typeof(SpinnerControlOnlySupportUpDowmKey), new InputBinding(DecreaseCommand, new KeyGesture(Key.Down)));
+            CommandManager.RegisterClassInputBinding(typeof(SpinnerControlOnlySupportUpDowmKey), new InputBinding(DoNothingCommand, new KeyGesture(Key.Left)));
+            CommandManager.RegisterClassInputBinding(typeof(SpinnerControlOnlySupportUpDowmKey), new InputBinding(DoNothingCommand, new KeyGesture(Key.Right)));
         }
         #endregion
 
