@@ -1310,6 +1310,9 @@ namespace VOP
                 statusUpdater.Abort();
             }
 
+            m_popupIDCard = true; 
+            m_popupNIn1   = true; 
+
             winCopyPage.ResetToDefaultValue();
             winScanPage.ResetToDefaultValue();
             winPrintPage.ResetToDefaultValue();
