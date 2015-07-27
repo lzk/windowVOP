@@ -204,9 +204,16 @@ namespace VOP
 
                     confirmDlg.Owner = m_MainWin;
 
-                    bIsSendCmd = ( true == confirmDlg.ShowDialog() );
+                    if ( true == confirmDlg.ShowDialog() )
+                    {
+                        m_MainWin.m_popupIDCard = confirmDlg.m_popupDlg;
+                        bIsSendCmd = true;
+                    }
+                    else
+                    {
+                        bIsSendCmd = false;
+                    }
 
-                    m_MainWin.m_popupIDCard = confirmDlg.m_popupDlg;
                 }
                 else if ( (byte)EnumNin1._1up != m_nin1 && true == m_MainWin.m_popupNIn1 )
                 {
@@ -234,9 +241,15 @@ namespace VOP
 
                     confirmDlg.Owner = m_MainWin;
 
-                    bIsSendCmd = ( true == confirmDlg.ShowDialog() );
-
-                    m_MainWin.m_popupNIn1 = confirmDlg.m_popupDlg;
+                    if ( true == confirmDlg.ShowDialog() )
+                    {
+                        m_MainWin.m_popupNIn1 = confirmDlg.m_popupDlg;
+                        bIsSendCmd = true;
+                    }
+                    else
+                    {
+                        bIsSendCmd = false;
+                    }
                 }
 
                 if ( true == bIsSendCmd )
