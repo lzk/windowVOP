@@ -1230,7 +1230,8 @@ namespace VOP
            }
            else if (msg == App.closeMsg)
            {
-               Application.Current.Shutdown(0);
+               notifyIcon1.Dispose();
+               Environment.Exit(0);
            }
 
             return IntPtr.Zero;
