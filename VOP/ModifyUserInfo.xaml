@@ -73,8 +73,15 @@
             </TextBox>
             <TextBlock Name="tbBirthDay" Text="{StaticResource ResStr_Birthday}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
             <Grid Grid.Row="1" Grid.Column="2">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <local:SpinnerControlOnlySupportUpDowmKey
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="55*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="60*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="40*" />
+                </Grid.ColumnDefinitions>
+                <local:SpinnerControlOnlySupportUpDowmKey
                             x:Name="scYear"                                                      
                             Height="30"
                             Background="Transparent"
@@ -85,8 +92,8 @@
                             ValueChanged="OnSpinnerCtrlValueChanged"
                             MinWidth="70"
                             />
-                    <TextBlock Text="{StaticResource ResStr_Year}" VerticalAlignment="Center" MinWidth="30" Margin="1"></TextBlock>
-                    <local:SpinnerControlOnlySupportUpDowmKey
+                <TextBlock Text="{StaticResource ResStr_Year}" VerticalAlignment="Center" MinWidth="30" Margin="1" Grid.Column="1"></TextBlock>
+                <local:SpinnerControlOnlySupportUpDowmKey
                             x:Name="scMonth"
                             MinWidth="50"
                             Height="30"
@@ -96,10 +103,10 @@
                             Minimum="1"  
                             Value="1"
                             ValueChanged="OnSpinnerCtrlValueChanged"
-                            Margin="1"
+                            Margin="1" Grid.Column="2"
                             />
-                    <TextBlock Text="{StaticResource ResStr_Month}" VerticalAlignment="Center" MinWidth="30" Margin="1"></TextBlock>
-                    <local:SpinnerControlOnlySupportUpDowmKey
+                <TextBlock Text="{StaticResource ResStr_Month}" VerticalAlignment="Center" MinWidth="30" Margin="1" Grid.Column="3"></TextBlock>
+                <local:SpinnerControlOnlySupportUpDowmKey
                             x:Name="scDay"
                             MinWidth="50"
                             Height="30"
@@ -108,10 +115,9 @@
                             Maximum="31"
                             Minimum="1"  
                             Value="1"
-                            Margin="1"
+                            Margin="1" Grid.Column="4"
                             />
-                    <TextBlock Text="{StaticResource ResStr_Day}" VerticalAlignment="Center" MinWidth="30" Margin="1,0,0,0"></TextBlock>
-                </StackPanel>
+                <TextBlock Text="{StaticResource ResStr_Day}" VerticalAlignment="Center" MinWidth="30" Margin="1,0,0,0" Grid.Column="5"></TextBlock>
             </Grid>
             <TextBlock Name="tbSex" Text="{StaticResource ResStr_Sex}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
             <Grid Grid.Row="2" Grid.Column="2">
