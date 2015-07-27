@@ -290,7 +290,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Email">Email</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Address">Address</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Mobile_number">Mobile number</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Express_Login_using_mobile_number">Express Login using mobile number</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Express_Login_using_mobile_number">Use mobile number to login</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Verification_Code">Verification code</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Get_Verification_Code">Get verification code</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Password_Tip">The default password for this unit is "888888". For security of your equipment, please change this password.</sys:String>
