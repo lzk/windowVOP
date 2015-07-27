@@ -251,7 +251,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Memory_Alloc_Fail">Memory allocation failed during printing!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Defined_Settings">User Defined Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Login_Register">Login / Register</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_insufficient_system_disk_space">There is insufficient disk space to complete the operation. Please free up some disk space, then try again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_insufficient_system_disk_space">There is insufficient system disk space to complete the operation. Please free up some disk space, then try again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Yes">Yes</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_No">No</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Border_Color">Border Color</sys:String>
