@@ -120,6 +120,9 @@ namespace VOP
                 app.InitializeComponent();
                 app.Run();
 
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+
                 foreach( ScanFiles obj in App.scanFileList )
                 {
                     try

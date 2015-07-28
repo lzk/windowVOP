@@ -321,4 +321,10 @@ namespace VOP
         Error,
     }
 
+    public enum ScanFileSaveError
+    {
+        FileSave_OK,
+        FileSave_OutOfMemory,
+        FileSave_FileOccupied,
+    }
 }

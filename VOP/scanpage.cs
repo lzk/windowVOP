@@ -13,6 +13,7 @@ using System.Threading;
 using Microsoft.Win32; // for SaveFileDialog
 using PdfEncoderClient;
 using VOP.Controls;
+using System.ComponentModel;
 
 namespace VOP
 {
@@ -43,6 +44,9 @@ namespace VOP
 
         public Thread scanningThread = null;
 
+        private ProgressBarWindow pbw = null;
+        ScanFileSaveError fileSaveStatus = ScanFileSaveError.FileSave_OK;
+
         private uint WM_VOPSCAN_PROGRESS = Win32.RegisterWindowMessage("vop_scan_progress2");
         private uint WM_VOPSCAN_COMPLETED = Win32.RegisterWindowMessage("vop_scan_completed");
 
@@ -70,6 +74,21 @@ namespace VOP
         {
             InitializeComponent();
             ResetToDefaultValue();
+
+        }
+
+        void CallbackMethod(IAsyncResult ar)
+        {
+            if (pbw != null)
+            {
+                pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                 new Action(
+                 delegate()
+                 {
+                     pbw.Close();
+                 }
+                 ));
+            }
 
         }
 
@@ -279,7 +298,7 @@ namespace VOP
             int docutype   = (int)m_docutype;
 
             common.GetPaperSize( m_paperSize, ref nWidth, ref nHeight );
-       
+
             int nResult = dll.ScanEx(
                     m_MainWin.statusPanelPage.m_selectedPrinter ,
                     m_shareObj.m_pathOrig     ,
@@ -605,6 +624,7 @@ namespace VOP
                 save.Filter = "TIF|*.tif|PDF|*.pdf|JPG|*.jpg";
 
             bool? result = save.ShowDialog();
+            fileSaveStatus = ScanFileSaveError.FileSave_OK;
 
             if (result == true)
             {
@@ -626,89 +646,124 @@ namespace VOP
                     return;
                 }
 
-                // This index is 1-based, not 0-based
-                try
+                // This index is 1-based, not 0-based        
+                List<string> files = new List<string>();
+                GetSelectedFile( files );
+
+                Thread thread = new Thread(() =>
                 {
-                    List<string> files = new List<string>();
-                    GetSelectedFile( files );
-
-                    if (3 == save.FilterIndex)
+                    try
                     {
-                        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-
-                        foreach ( string path in files )
+                        if (3 == save.FilterIndex)
                         {
-                            Uri myUri = new Uri( path, UriKind.RelativeOrAbsolute);
-                            BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
-                            BitmapSource origSource = decoder.Frames[0];
+                            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
 
-                            if (null != origSource)
-                                encoder.Frames.Add(BitmapFrame.Create(origSource));
-                        }  
-
-                        FileStream fs = File.Open(save.FileName, FileMode.Create);
-                        encoder.Save(fs);
-                        fs.Close();
-                    }
-                    else if (1 == save.FilterIndex)
-                    {
-                        TiffBitmapEncoder encoder = new TiffBitmapEncoder();
-
-                        foreach ( string path in files )
-                        {
-                            Uri myUri = new Uri( path, UriKind.RelativeOrAbsolute );
-                            BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
-                            BitmapSource origSource = decoder.Frames[0];
-
-                            BitmapMetadata bitmapMetadata = new BitmapMetadata("tiff");
-                            bitmapMetadata.ApplicationName = "Virtual Operation Panel";
-
-                            if (null != origSource)
-                                encoder.Frames.Add(BitmapFrame.Create(origSource, null, bitmapMetadata, null));
-                        }  
-
-                        FileStream fs = File.Open(save.FileName, FileMode.Create);
-                        encoder.Save(fs);
-                        fs.Close();
-                    }
-                    else if (2 == save.FilterIndex)
-                    {        
-                        using (PdfHelper help = new PdfHelper())
-                        {
-                            help.Open(save.FileName);
-
-                            foreach ( string path in files )
+                            foreach (string path in files)
                             {
-                                Uri myUri = new Uri( path, UriKind.RelativeOrAbsolute );
-                                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.OnLoad );
+                                Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
+                                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
                                 BitmapSource origSource = decoder.Frames[0];
 
-                                if ( null != origSource )
-                                    help.AddImage(origSource, 0);
-                            }  
+                                if (null != origSource)
+                                    encoder.Frames.Add(BitmapFrame.Create(origSource));
+                            }
 
-                            help.Close();
+                            FileStream fs = File.Open(save.FileName, FileMode.Create);
+                            encoder.Save(fs);
+                            fs.Close();
+                        }
+                        else if (1 == save.FilterIndex)
+                        {
+                            TiffBitmapEncoder encoder = new TiffBitmapEncoder();
+
+                            foreach (string path in files)
+                            {
+                                Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
+                                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
+                                BitmapSource origSource = decoder.Frames[0];
+
+                                BitmapMetadata bitmapMetadata = new BitmapMetadata("tiff");
+                                bitmapMetadata.ApplicationName = "Virtual Operation Panel";
+
+                                if (null != origSource)
+                                    encoder.Frames.Add(BitmapFrame.Create(origSource, null, bitmapMetadata, null));
+                            }
+
+                            FileStream fs = File.Open(save.FileName, FileMode.Create);
+                            encoder.Save(fs);
+                            fs.Close();
+                        }
+                        else if (2 == save.FilterIndex)
+                        {
+                            using (PdfHelper help = new PdfHelper())
+                            {
+                                help.Open(save.FileName);
+
+                                foreach (string path in files)
+                                {
+                                    Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
+                                    BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
+                                    BitmapSource origSource = decoder.Frames[0];
+
+                                    if (null != origSource)
+                                        help.AddImage(origSource, 0);
+                                }
+
+                                help.Close();
+                            }
                         }
                     }
-                }
-                catch(IOException)
+                    catch (Win32Exception)
+                    {
+                        fileSaveStatus = ScanFileSaveError.FileSave_OutOfMemory;
+                    }
+                    catch (COMException)
+                    {
+                        fileSaveStatus = ScanFileSaveError.FileSave_OutOfMemory;
+                    }
+                    catch (IOException)
+                    {
+                        fileSaveStatus = ScanFileSaveError.FileSave_FileOccupied;
+                    }
+                    catch
+                    {
+                        fileSaveStatus = ScanFileSaveError.FileSave_OutOfMemory;
+                    }
+                        
+                    CallbackMethod(null);
+                });
+
+                thread.Start();
+
+                if (!thread.Join(100))
                 {
-                    VOP.Controls.MessageBoxEx.Show(
-                            VOP.Controls.MessageBoxExStyle.Simple,
-                            m_MainWin,
-                            (string)this.FindResource("ResStr_picture_file_occupied"),
-                            (string)this.FindResource("ResStr_Warning")
-                            );
+                    pbw = new ProgressBarWindow();
+
+                    pbw.Owner = App.Current.MainWindow;
+                    pbw.ShowDialog();
                 }
-                catch
+
+                thread.Join();
+                     
+                if(fileSaveStatus == ScanFileSaveError.FileSave_OutOfMemory)
                 {
-                    VOP.Controls.MessageBoxEx.Show(
+                     VOP.Controls.MessageBoxEx.Show(
                             VOP.Controls.MessageBoxExStyle.Simple,
                             m_MainWin,
                             (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
                             (string)this.FindResource( "ResStr_Error" )
                             );
                 }
+                else if(fileSaveStatus == ScanFileSaveError.FileSave_FileOccupied)
+                {
+                        VOP.Controls.MessageBoxEx.Show(
+                            VOP.Controls.MessageBoxExStyle.Simple,
+                            m_MainWin,
+                            (string)this.FindResource("ResStr_picture_file_occupied"),
+                            (string)this.FindResource("ResStr_Warning")
+                            );
+                }
+             
             }
             
         }
