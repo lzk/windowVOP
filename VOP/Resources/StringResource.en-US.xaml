@@ -303,13 +303,13 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Front">Front</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Back_2">Back</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Tips_for_Copying">Tips for Copying</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Email_Format_Error">邮件地址格式不正确，请确认后再次输入。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Modify_UserInfo_Fail">修改账户信息失败。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Email_Format_Error">The E-mail address format is incorrect, Please check you E-mail address and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Modify_UserInfo_Fail">Modify account information failed.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Year">Year</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Month">Month</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Day">Day</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Man">men</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Women">women</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Man">male</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Women">female</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_picture_file_occupied">The picture file is occupied, temporarily unable to perform this operation.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_USB_write_failed_during_scan_job_cancelling">USB write failed during scan, job cancelling.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_NET_write_failed_during_scan_job_cancelling">NET write failed during scan, job cancelling.</sys:String>
@@ -321,4 +321,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Off">Off</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt1">Prompt:</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt2">If the operation is not performed within 1 minute, the task will be automatically canceled.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Prompt_Box_will_not_pop_up_next_time">The prompt box will not pop up next time.</sys:String>
 </ResourceDictionary>
