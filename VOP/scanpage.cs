@@ -733,6 +733,8 @@ namespace VOP
                     CallbackMethod(null);
                 });
 
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.IsBackground = false;
                 thread.Start();
 
                 if (!thread.Join(100))
