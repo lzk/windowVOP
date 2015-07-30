@@ -86,16 +86,19 @@ namespace VOP
         private void btnPre_Click(object sender, RoutedEventArgs e)
         {
             SwitchPic( false );
+            btnStart.IsChecked = false;
         }
 
         private void btnNext_Click(object sender, RoutedEventArgs e)
         {
             SwitchPic( true );
+            btnStart.IsChecked = false;
         }
 
         private void AnimationCompleted(object sender, RoutedEventArgs e)
         {
             SwitchPic( true );
+            btnStart.IsChecked = false;
         }
 
         private void SwitchPic( bool bNext )
@@ -109,9 +112,6 @@ namespace VOP
 
             if ( m_curIndex < 0 )
                 m_curIndex += gifs.Length;
-
-            btnPrev.IsEnabled = ( m_curIndex != 0 );
-            btnNext.IsEnabled = ( m_curIndex != gifs.Length-1 );
 
             var image = new BitmapImage();
             image.BeginInit();
@@ -134,15 +134,16 @@ namespace VOP
         {
             if ( null != gifs )
             {
-                btnPrev.IsEnabled = ( m_curIndex != 0 );
-                btnNext.IsEnabled = ( m_curIndex != gifs.Length-1 );
-
                 var image = new BitmapImage();
                 image.BeginInit();
                 image.UriSource = new Uri( gifs[m_curIndex] );
                 image.EndInit();
 
                 ImageBehavior.SetAnimatedSource( imgAnimation, image );
+
+                btnStart.IsChecked = false;
+                btnPrev.Visibility = Visibility.Hidden;
+                btnNext.Visibility = Visibility.Hidden;
             }
         }
 
@@ -153,8 +154,8 @@ namespace VOP
             if (_controller != null)
                 _controller.Play();
 
-            btnPrev.Visibility = Visibility.Visible;
-            btnNext.Visibility = Visibility.Visible;
+            btnPrev.Visibility = Visibility.Hidden;
+            btnNext.Visibility = Visibility.Hidden;
         }
 
         private void btnStart_Checked(object sender, RoutedEventArgs e)
@@ -164,8 +165,11 @@ namespace VOP
             if (_controller != null)
                 _controller.Pause();
 
-            btnPrev.Visibility = Visibility.Hidden;
-            btnNext.Visibility = Visibility.Hidden;
+            btnPrev.Visibility = Visibility.Visible;
+            btnNext.Visibility = Visibility.Visible;
+
+            btnPrev.IsEnabled = ( m_curIndex != 0 );
+            btnNext.IsEnabled = ( m_curIndex != gifs.Length-1 );
         }
     }
 }
