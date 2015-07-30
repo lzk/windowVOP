@@ -524,9 +524,9 @@
                 	Content="{StaticResource ResStr_Advanced_settings}" 
                 	Style="{StaticResource CustomGrayButtonStyle}"
                 	Height="34" 
-                	Width="150" 
-                	Margin="11,16,0,16"
-                	FontSize="17"
+                	Width="130" 
+                	Margin="25,16,0,16"
+                	FontSize="14"
                 	Click="AdvancedSettingButtonClick"/>
                     <Button IsDefault="False"
 				x:Name="DefaultButton"
@@ -535,7 +535,7 @@
 				Height="34" 
 				Width="130" 
 				Margin="10,16,0,16"
-				FontSize="18"
+				FontSize="14"
 				Click="DefaultButtonClick"/>
                     <Button 
 				x:Name="OKButton"
@@ -544,7 +544,7 @@
 				Height="34" 
 				Width="130" 
 				Margin="10,16,0,16"
-				FontSize="18"
+				FontSize="14"
 				Click="OKButtonClick"/>
                 </StackPanel>
 

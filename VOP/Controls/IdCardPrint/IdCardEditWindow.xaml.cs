@@ -65,7 +65,11 @@ namespace VOP.Controls
 
         void InitFontSize()
         {
-            if (App.LangId == 0x409) // en-US
+            if (App.LangId == 0x804) // en-US
+            {
+                colorPanel.FontSize = 16.0;
+            }
+            else
             {
                 colorPanel.FontSize = 12.0;
             }

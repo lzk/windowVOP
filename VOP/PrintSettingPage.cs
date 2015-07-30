@@ -375,13 +375,16 @@ namespace VOP
 
         void InitFontSize()
         {
-            if (App.LangId == 0x409) // en-US
+            if (App.LangId == 0x804) // en-US
+            {
+                AdvancedSettingsButton.FontSize = DefaultButton.FontSize = OKButton.FontSize = 18.0;
+ //               chk_MultiplePagePrint.FontSize = 9.0;
+ //              rdBtnPortrait.Margin = new Thickness(5, 0, 5, 0);
+ //               rdBtnLandscape.Margin = new Thickness(70, 0, 5, 0);
+            }
+            else
             {
                 AdvancedSettingsButton.FontSize = DefaultButton.FontSize = OKButton.FontSize = 14.0;
- //               chk_MultiplePagePrint.FontSize = 9.0;
-
-  //              rdBtnPortrait.Margin = new Thickness(5, 0, 5, 0);
- //               rdBtnLandscape.Margin = new Thickness(70, 0, 5, 0);
             }
         }
 

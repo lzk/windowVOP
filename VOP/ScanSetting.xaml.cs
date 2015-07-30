@@ -359,14 +359,14 @@ namespace VOP
         }
 
         private void InitFontSize()
-        {
-            if (App.LangId == 0x409) // en-US
-            {
-                Color.FontSize = Grayscale.FontSize = BlackAndWhite.FontSize = 8.0;
-            }
-            else if (App.LangId == 0x804) // zh-CN
+        {            
+            if (App.LangId == 0x804) // zh-CN
             {
                 btnDefault.FontSize = btnOk.FontSize = 17.87;
+            }
+            else// en-US
+            {
+                Color.FontSize = Grayscale.FontSize = BlackAndWhite.FontSize = 8.0;
             }
         }
 
