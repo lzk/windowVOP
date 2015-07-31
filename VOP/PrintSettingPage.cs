@@ -613,8 +613,11 @@ namespace VOP
                 }
                 else
                 {
-                    DuplexPrintGroup.IsEnabled = true;
-                    chk_DuplexPrint.IsEnabled = true;
+                    if (0 == m_booklet)
+                    {
+                        DuplexPrintGroup.IsEnabled = true;
+                        chk_DuplexPrint.IsEnabled = true;
+                    }
                     
                 }
             }          
