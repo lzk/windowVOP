@@ -269,7 +269,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_PDL_Memory_Overflow">PDL內存溢出</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Invalid_verification_code_Please_check_and_enter_again">验证码错误，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Tag1">联想小新</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Tag2">全球首款互联网打印机</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Tag2">全新互联网打印机</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Tag3">打印 从此不同</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_USB_connection_troubleshooting">USB连接故障排除</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_WiFi_connection_troubleshooting">Wi-Fi连接故障排除</sys:String>

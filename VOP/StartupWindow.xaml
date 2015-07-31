@@ -22,9 +22,9 @@
                 <RowDefinition Height="40*"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="1" Name="HelloTextBlock" Text="Hello" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF2E3032"/>
-            <TextBlock Grid.Row="2" Name="NewLenovo" Text="联想小新" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF474F51" FontWeight="Light"/>
-            <TextBlock Grid.Row="3" Name="FirstNetPrint" Text="全新互联网打印机" FontSize="52" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF529E19" FontWeight="Light"/>
-            <TextBlock Grid.Row="4" Name="PrintDiff" Text="打印 从此不同" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF2E3032" FontWeight="Light"/>
+            <TextBlock Grid.Row="2" Name="NewLenovo" Text="{StaticResource ResStr_Tag1}" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF474F51" FontWeight="Light"/>
+            <TextBlock Grid.Row="3" Name="FirstNetPrint" Text="{StaticResource ResStr_Tag2}" FontSize="52" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF529E19" FontWeight="Light"/>
+            <TextBlock Grid.Row="4" Name="PrintDiff" Text="{StaticResource ResStr_Tag3}" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF2E3032" FontWeight="Light"/>
         </Grid>
     </Viewbox>
     
