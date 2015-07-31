@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:gif="clr-namespace:WpfAnimatedGif;assembly=WpfAnimatedGif" 
-        Title="CopyConfirm" Height="660" Width="420"
+        Title="CopyConfirm" Height="665" Width="420"
         ShowInTaskbar="False" 
         AllowsTransparency="true"
         WindowStartupLocation="CenterOwner"
@@ -243,7 +243,7 @@
         <CheckBox x:Name="chkPopupNextTime" Template="{StaticResource customCheckBox}" Grid.Row="4" IsChecked="false" VerticalAlignment="Center" Content="{StaticResource ResStr_Prompt_Box_will_not_pop_up_next_time
 }" HorizontalAlignment="Center" Height="24" Checked="chkPopupNextTime_Checked" Unchecked="chkPopupNextTime_Unchecked" />
 
-        <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center" >
+        <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Top">
             <local:ButtonEx x:Name="btnOK"     IsActiveEx="True" Content="{StaticResource ResStr_OK}"  Width="120" Height="40" Margin="20,0" FontSize="16" HorizontalContentAlignment="Center" Click="btnOK_Click" />
             <local:ButtonEx x:Name="btnCancel" IsActiveEx="False"  Content="{StaticResource ResStr_Cancel}" Width="120" Height="40" Margin="20,0" FontSize="16" HorizontalContentAlignment="Center" Click="btnCancel_Click"/>
         </StackPanel>
