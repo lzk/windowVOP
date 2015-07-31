@@ -540,9 +540,6 @@ USBAPI_API int __stdcall DoPrintImage()
 
 	if (StartDoc(hdcPrn, &di) > 0)
 	{
-		cxPage = GetDeviceCaps(hdcPrn, HORZRES);
-		cyPage = GetDeviceCaps(hdcPrn, VERTRES);
-
 		// Start the page
 		for (UINT i = 0; i < g_vecImagePaths.size(); i++)
 		{
@@ -618,15 +615,31 @@ USBAPI_API int __stdcall DoPrintImage()
 
 						int x = 0; 
 						int y = 0;
+						double imageToLeft = 0;
+						double imageToTop = 0;
 						Gdiplus::REAL dpiX = pImg->GetHorizontalResolution();
 						Gdiplus::REAL dpiY = pImg->GetVerticalResolution();
+						cxPage = GetDeviceCaps(hdcPrn, HORZRES);
+						cyPage = GetDeviceCaps(hdcPrn, VERTRES);
 
 						int w = (int)round(pImg->GetWidth() * (600 / dpiX));
 						int h = (int)round(pImg->GetHeight()* (600 / dpiY));
 		
+						//Combined document all needed protrait
+						if (w > h && strExt.compare(L".tif") == 0)
+						{
+							int temp = cyPage;
+							cyPage = cxPage;
+							cxPage = temp;
+						}
+
 						double whRatio = (double)w / h;
 						double scaleRatioX = (double)w / cxPage;
 						double scaleRatioY = (double)h / cyPage;
+
+						Gdiplus::Graphics *pGraphics = NULL;
+						pGraphics = Gdiplus::Graphics::FromHDC(hdcPrn);
+						pGraphics->SetPageUnit(Gdiplus::UnitPixel);
 
 						if (needFitToPage)
 						{
@@ -635,15 +648,6 @@ USBAPI_API int __stdcall DoPrintImage()
 						else
 						{
 							IsFitted = TRUE;
-
-						/*	if (w < cxPage && h < cyPage)
-							{
-								IsFitted = TRUE;
-							}
-							else
-							{
-								IsFitted = FALSE;
-							}*/
 						}
 						
 						if (IsFitted == TRUE)
@@ -654,6 +658,19 @@ USBAPI_API int __stdcall DoPrintImage()
 							//y = 0;
 							x = (cxPage - w) / 2;
 							y = (cyPage - h) / 2;
+
+							//Combined document all needed protrait
+							if (w > h && strExt.compare(L".tif") == 0)
+							{
+								x = 0;
+								y = 0;
+
+								imageToLeft = (cyPage - h) / 2 + h;
+								imageToTop = (cxPage - w) / 2;
+
+								pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
+								pGraphics->RotateTransform(90.0f);
+							}
 						}
 						else
 						{
@@ -676,13 +693,20 @@ USBAPI_API int __stdcall DoPrintImage()
 								w = cxPage;
 								h = cyPage;
 							}
+
+							//Combined document all needed protrait
+							if (w > h && strExt.compare(L".tif") == 0)
+							{
+								x = 0;
+								y = 0;
+
+								imageToLeft = (cyPage - h) / 2 + h;
+								imageToTop = (cxPage - w) / 2;
+
+								pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
+								pGraphics->RotateTransform(90.0f);
+							}
 						}
-
-
-						Gdiplus::Graphics *pGraphics = NULL;
-						pGraphics = Gdiplus::Graphics::FromHDC(hdcPrn);
-						pGraphics->SetPageUnit(Gdiplus::UnitPixel);
-
 
 					/*	if (pageCount % 2 == 1 && IsFitted == TRUE)
 						{
