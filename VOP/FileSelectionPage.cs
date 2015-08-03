@@ -144,6 +144,10 @@ namespace VOP
                     {
                         this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile_Pdf;
                     }
+                    else if (fileExt == ".ppt" || fileExt == ".pptx")
+                    {
+                        this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile_PPT;
+                    }
                     else
                     {
                         this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintFile;

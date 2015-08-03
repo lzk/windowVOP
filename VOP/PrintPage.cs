@@ -38,7 +38,8 @@ namespace VOP
             PrintIdCard,
             PrintFile_Image,
             PrintFile_Txt,
-            PrintFile_Pdf
+            PrintFile_Pdf,
+            PrintFile_PPT
         }
 
         public PrintType CurrentPrintType { get; set; }
@@ -311,6 +312,7 @@ namespace VOP
                 case PrintType.PrintFile_Image:
                 case PrintType.PrintFile_Txt:
                 case PrintType.PrintFile_Pdf:
+                case PrintType.PrintFile_PPT:
 
                     try
                     {

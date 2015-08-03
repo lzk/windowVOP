@@ -764,7 +764,7 @@ namespace VOP
 
         private void chk_MultiplePagePrint_Checked(object sender, RoutedEventArgs e)
         {
-            if (m_CurrentPrintType == PrintPage.PrintType.PrintFile || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Txt)
+            if (m_CurrentPrintType == PrintPage.PrintType.PrintFile || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf || m_CurrentPrintType == PrintPage.PrintType.PrintFile_Txt || m_CurrentPrintType == PrintPage.PrintType.PrintFile_PPT)
             {
                 spinnerScaling.IsEnabled = false;
             }
@@ -1315,7 +1315,7 @@ namespace VOP
                 PaperOrderGroup.IsEnabled = false;
 
             }
-            else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf)
+            else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf || m_CurrentPrintType == PrintPage.PrintType.PrintFile_PPT)
             {
                 cboPaperSize.IsEnabled = true;
                 rdBtnPortrait.IsEnabled = false;
@@ -1562,7 +1562,7 @@ namespace VOP
                 PaperOrientationGroup.IsEnabled = false;                
                 PaperOrderGroup.IsEnabled = false;
             }
-            else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf)
+            else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf || m_CurrentPrintType == PrintPage.PrintType.PrintFile_PPT)
             {
                 cboPaperSize.IsEnabled = true;
                 rdBtnPortrait.IsEnabled = false;
@@ -1701,7 +1701,7 @@ namespace VOP
                         rdBtnPagerOrder123123.IsChecked = false;
                     }
                 }
-                else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf)
+                else if (m_CurrentPrintType == PrintPage.PrintType.PrintFile_Pdf || m_CurrentPrintType == PrintPage.PrintType.PrintFile_PPT)
                 {
                     cboPaperSize.SelectedIndex = m_paperSize;
                     m_paperOrientation = 1;
