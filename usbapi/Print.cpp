@@ -626,11 +626,12 @@ USBAPI_API int __stdcall DoPrintImage()
 						int h = (int)round(pImg->GetHeight()* (600 / dpiY));
 		
 						//Combined document all needed protrait
-						if (w > h && strExt.compare(L".tif") == 0)
-						{
+						if ((IsPrintSettingPortrait && w > h && strExt.compare(L".tif") == 0) 
+							|| (!IsPrintSettingPortrait && w < h && strExt.compare(L".tif") == 0))
+						{	
 							int temp = cyPage;
 							cyPage = cxPage;
-							cxPage = temp;
+							cxPage = temp;				
 						}
 
 						double whRatio = (double)w / h;
@@ -658,19 +659,6 @@ USBAPI_API int __stdcall DoPrintImage()
 							//y = 0;
 							x = (cxPage - w) / 2;
 							y = (cyPage - h) / 2;
-
-							//Combined document all needed protrait
-							if (w > h && strExt.compare(L".tif") == 0)
-							{
-								x = 0;
-								y = 0;
-
-								imageToLeft = (cyPage - h) / 2 + h;
-								imageToTop = (cxPage - w) / 2;
-
-								pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
-								pGraphics->RotateTransform(90.0f);
-							}
 						}
 						else
 						{
@@ -693,19 +681,30 @@ USBAPI_API int __stdcall DoPrintImage()
 								w = cxPage;
 								h = cyPage;
 							}
+						}
 
-							//Combined document all needed protrait
-							if (w > h && strExt.compare(L".tif") == 0)
-							{
-								x = 0;
-								y = 0;
+						//Combined document all needed protrait
+						if (IsPrintSettingPortrait && w > h && strExt.compare(L".tif") == 0)
+						{
+							x = 0;
+							y = 0;
 
-								imageToLeft = (cyPage - h) / 2 + h;
-								imageToTop = (cxPage - w) / 2;
+							imageToLeft = (cyPage - h) / 2 + h;
+							imageToTop = (cxPage - w) / 2;
 
-								pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
-								pGraphics->RotateTransform(90.0f);
-							}
+							pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
+							pGraphics->RotateTransform(90.0f);
+						}
+						else if (!IsPrintSettingPortrait && w < h && strExt.compare(L".tif") == 0)
+						{
+							x = 0;
+							y = 0;
+
+							imageToLeft = (cyPage - h) / 2;
+							imageToTop = (cxPage - w) / 2 + w;
+
+							pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
+							pGraphics->RotateTransform(-90.0f);
 						}
 
 					/*	if (pageCount % 2 == 1 && IsFitted == TRUE)
