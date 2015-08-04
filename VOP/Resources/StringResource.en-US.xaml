@@ -151,7 +151,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Soft_AP">Soft AP</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_TCP_IP">TCP/IP</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Power_Save">Power Save</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_User_Config">More Settings</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_User_Config">Advanced Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Modify_Password">Modify Password</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_About">About</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_IP_Type">IP Type</sys:String>
