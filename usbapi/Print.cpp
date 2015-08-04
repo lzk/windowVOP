@@ -626,8 +626,8 @@ USBAPI_API int __stdcall DoPrintImage()
 						int h = (int)round(pImg->GetHeight()* (600 / dpiY));
 		
 						//Combined document all needed protrait
-						if ((IsPrintSettingPortrait && w > h && strExt.compare(L".tif") == 0 && count > 1)
-							|| (!IsPrintSettingPortrait && w < h && strExt.compare(L".tif") == 0 && count > 1))
+						if ((IsPrintSettingPortrait && w > h && strExt.compare(L".tif") == 0 && frameCount > 1)
+							|| (!IsPrintSettingPortrait && w < h && strExt.compare(L".tif") == 0 && frameCount > 1))
 						{	
 							int temp = cyPage;
 							cyPage = cxPage;
@@ -684,7 +684,7 @@ USBAPI_API int __stdcall DoPrintImage()
 						}
 
 						//Combined document all needed protrait
-						if (IsPrintSettingPortrait && w > h && strExt.compare(L".tif") == 0 && count > 1)
+						if (IsPrintSettingPortrait && w > h && strExt.compare(L".tif") == 0 && frameCount > 1)
 						{
 							x = 0;
 							y = 0;
@@ -695,7 +695,7 @@ USBAPI_API int __stdcall DoPrintImage()
 							pGraphics->TranslateTransform((Gdiplus::REAL)imageToLeft, (Gdiplus::REAL)imageToTop);
 							pGraphics->RotateTransform(90.0f);
 						}
-						else if (!IsPrintSettingPortrait && w < h && strExt.compare(L".tif") == 0 && count > 1)
+						else if (!IsPrintSettingPortrait && w < h && strExt.compare(L".tif") == 0 && frameCount > 1)
 						{
 							x = 0;
 							y = 0;

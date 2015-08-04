@@ -423,20 +423,34 @@ namespace VOP
                     break;
                 case PrintType.PrintImages:
 
-                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print",
-                                     (int)enumIdCardType.NonIdCard, new IdCardSize(), needFitToPage, (int)CurrentDuplexType, IsPortrait, scalingValue))
+                    if (FilePaths.Count == 1)
                     {
-
-                        foreach (string path in FilePaths)
-                        {
-                            dll.AddImagePath(path);
-                        }
-
-                        printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintImage);
+                        printRes = worker.InvokePrintFileMethod(dll.PrintFile,
+                                        m_MainWin.statusPanelPage.m_selectedPrinter,
+                                        FilePaths[0],
+                                        needFitToPage,
+                                        (int)CurrentDuplexType,
+                                        IsPortrait,
+                                        (int)spinnerControl1.Value,
+                                        scalingValue);
                     }
                     else
                     {
-                        printRes = PrintError.Print_Operation_Fail;
+                        if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print",
+                                  (int)enumIdCardType.NonIdCard, new IdCardSize(), needFitToPage, (int)CurrentDuplexType, IsPortrait, scalingValue))
+                        {
+
+                            foreach (string path in FilePaths)
+                            {
+                                dll.AddImagePath(path);
+                            }
+
+                            printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintImage);
+                        }
+                        else
+                        {
+                            printRes = PrintError.Print_Operation_Fail;
+                        }
                     }
 
                     break;
