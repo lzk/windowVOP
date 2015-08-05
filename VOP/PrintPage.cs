@@ -436,7 +436,7 @@ namespace VOP
                     }
                     else
                     {
-                        if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print",
+                        if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "Neo_Mult_Pictures",
                                   (int)enumIdCardType.NonIdCard, new IdCardSize(), needFitToPage, (int)CurrentDuplexType, IsPortrait, scalingValue))
                         {
 
@@ -460,7 +460,7 @@ namespace VOP
                     idCardSize.Width = SelectedTypeItem.Width;
                     idCardSize.Height = SelectedTypeItem.Height;
 
-                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "VOP Print", (int)SelectedTypeItem.TypeId, 
+                    if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, SelectedTypeItem.Name, (int)SelectedTypeItem.TypeId, 
                                                                      idCardSize, needFitToPage, (int)DuplexPrintType.NonDuplex, IsPortrait, scalingValue))
                     {
                         using(IdCardPrintHelper helper = new IdCardPrintHelper())
