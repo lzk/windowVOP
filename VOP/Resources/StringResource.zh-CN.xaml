@@ -21,7 +21,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Processing">处理中</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copying">复印中</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Place_Next_Page">请放下一页</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Turn_card_over_to_copy_the_reverse_">将证件翻过来，复印背面</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Turn_card_over_to_copy_the_reverse_">将证件翻过来，复印背面。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copy_Cancelling">复印取消中</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ID_Card_Mode">身份证复印模式</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scanning">扫描中</sys:String>
@@ -207,10 +207,10 @@
     <sys:String xml:space="preserve" x:Key="ResStr_This_file_is_not_supported__please_select_another_one_">暂不支持该文件的打印，请重新选择。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_99__please_confirm_and_enter_again_">有效值输入范围为1到99，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_25_400__please_confirm_and_enter_again_">有效值输入范围为25%到400%，请确认后再次输入。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_">应用关闭后，扫描图片将会被删除，是否关闭，请确认。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_">应用关闭后，扫描图片将会被删除，是否关闭，请确认？</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_">该操作所需内存或者磁盘空间不足，请重新选择文件或释放内存后再试。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_">有效值输入范围为0到100，请确认后再次输入。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_">扫描图片已被更改，是否保存，请确认。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_">扫描图片已被更改，是否保存，请确认？</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_">IP地址输入有误，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_">网关输入有误，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation">子网掩码输入有误，请确认后再次输入。</sys:String>
