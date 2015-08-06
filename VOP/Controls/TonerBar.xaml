@@ -52,7 +52,7 @@
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Rectangle Margin="2" StrokeThickness="1" Stroke="red" StrokeDashArray="1 2"/>
+                        <Rectangle Margin="2" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 2"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
