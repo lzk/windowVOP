@@ -159,6 +159,8 @@ namespace VOP
            txtTonerPercent.Text = ((int)Math.Round(CurValue)).ToString() + "%";
 
             // Draw ShopCart Image
+           this.shopGrid.IsEnabled = IsEnabled;
+
             if(IsEnabled)
             {
                 if (curPercet <= 10)

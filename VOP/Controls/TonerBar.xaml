@@ -52,7 +52,7 @@
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Rectangle Margin="2" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 2"/>
+                        <Rectangle Margin="0,-2,0,-1" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 2"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -82,8 +82,8 @@
                    Foreground="#555555"                   
                    TextAlignment="Center" />
 
-        <Grid Name="shopGrid" Grid.Column="2" Grid.RowSpan="3" Width="20" Height="17" VerticalAlignment="Bottom" Margin="0,0,0, 5" >
-            <Rectangle Name="shopCart_Img"/>
+        <Grid Name="shopGrid" Grid.Column="2" Grid.RowSpan="3" VerticalAlignment="Bottom" Margin="0,0,0, 5" >
+            <Rectangle Name="shopCart_Img" Width="20" Height="17"/>
             <Button Click="Button_Click" Margin="-2">
                 <Button.Template>
                     <ControlTemplate >
