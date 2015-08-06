@@ -95,7 +95,10 @@ namespace VOP.Controls
             }
             else
             {
-                formattedValue = newValue.ToString("f", numberFormatInfo);
+                if (newValue < 10)
+                    formattedValue =  "0" + newValue.ToString("f", numberFormatInfo);
+                else
+                    formattedValue = newValue.ToString("f", numberFormatInfo);
             }
 
 
