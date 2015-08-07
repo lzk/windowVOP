@@ -220,6 +220,10 @@
                                  BorderThickness="0"
                                  InputMethod.IsInputMethodEnabled="False"
                                  >
+                                <TextBox.ContextMenu>
+                                    <ContextMenu Visibility="Collapsed">
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
                                 <TextBox.InputBindings>
                                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                                 </TextBox.InputBindings>
@@ -313,6 +317,10 @@
                                  BorderBrush="{x:Null}"
                                  MaxLength="4"
                                  InputMethod.IsInputMethodEnabled="False">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu Visibility="Collapsed">
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
                                 <TextBox.InputBindings>
                                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                                 </TextBox.InputBindings>

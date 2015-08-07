@@ -115,17 +115,29 @@
                                         <TextBox.InputBindings>
                                             <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                                         </TextBox.InputBindings>
+                                        <TextBox.ContextMenu>
+                                            <ContextMenu Visibility="Collapsed">
+                                            </ContextMenu>
+                                        </TextBox.ContextMenu>
                                     </TextBox>
                                     <TextBlock Name="tbkPwd" Grid.Row="1" Text="{StaticResource ResStr_Password}" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource ColorChangeTextBlock}"></TextBlock>
                                     <TextBox Name="tbPwd" Grid.Row="1" Grid.Column="1" Margin="4" Visibility="Hidden" VerticalAlignment="Center" MaxLength="64" InputMethod.IsInputMethodEnabled="False">
                                         <TextBox.InputBindings>
                                             <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                                         </TextBox.InputBindings>
+                                        <TextBox.ContextMenu>
+                                            <ContextMenu Visibility="Collapsed">
+                                            </ContextMenu>
+                                        </TextBox.ContextMenu>
                                     </TextBox>
                                     <PasswordBox Name="pbPwd" Grid.Row="1"  Grid.Column="1" Margin="4"   VerticalAlignment="Center" MaxLength="64">
                                         <PasswordBox.InputBindings>
                                             <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                                         </PasswordBox.InputBindings>
+                                        <PasswordBox.ContextMenu>
+                                            <ContextMenu Visibility="Collapsed">
+                                            </ContextMenu>
+                                        </PasswordBox.ContextMenu>
                                     </PasswordBox>
                                 </Grid>
                                 

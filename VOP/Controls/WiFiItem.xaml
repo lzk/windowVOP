@@ -54,11 +54,19 @@
                                     <TextBox.InputBindings>
                                         <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                                     </TextBox.InputBindings>
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu Visibility="Collapsed">
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu>
                                 </TextBox>
                                 <PasswordBox Name="pbPwd" Grid.Column="1" VerticalAlignment="Center" MaxLength="64" PasswordChanged="pbPwd_PasswordChanged">
                                     <PasswordBox.InputBindings>
                                         <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                                     </PasswordBox.InputBindings>
+                                    <PasswordBox.ContextMenu>
+                                        <ContextMenu Visibility="Collapsed">
+                                        </ContextMenu>
+                                    </PasswordBox.ContextMenu>
                                 </PasswordBox>
                             </Grid>
                         </StackPanel>

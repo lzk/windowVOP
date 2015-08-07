@@ -70,6 +70,10 @@
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>
+                <TextBox.ContextMenu>
+                    <ContextMenu Visibility="Collapsed">
+                    </ContextMenu>
+                </TextBox.ContextMenu>
             </TextBox>
             <TextBlock Name="tbBirthDay" Text="{StaticResource ResStr_Birthday}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
             <Grid Grid.Row="1" Grid.Column="2">
@@ -139,12 +143,20 @@
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>
+                <TextBox.ContextMenu>
+                    <ContextMenu Visibility="Collapsed">
+                    </ContextMenu>
+                </TextBox.ContextMenu>
             </TextBox>
             <TextBlock Text="{StaticResource ResStr_Address}" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
             <TextBox Name="tbAddress" Grid.Row="4" Grid.Column="2" Height="32" TextChanged="OnTextChanged" MaxLength="255" TextWrapping="NoWrap" FontSize="18"  PreviewTextInput="OnPreviewTextInput">
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>
+                <TextBox.ContextMenu>
+                    <ContextMenu Visibility="Collapsed">
+                    </ContextMenu>
+                </TextBox.ContextMenu>
             </TextBox>
         </Grid>
 

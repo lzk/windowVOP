@@ -41,7 +41,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -860,7 +860,6 @@
     <Resource Include="Images\BlackWhite.png" />
     <Resource Include="Images\Color.png" />
     <Resource Include="Images\Grayscale.png" />
-  
     <Resource Include="Media\JamAtExitStayOn3_en.gif" />
     <Resource Include="Media\JamAtExitStayOn3_zh.gif" />
     <Resource Include="Media\JamInside1_en.gif" />

@@ -106,6 +106,10 @@
                                     <TextBox.InputBindings>
                                         <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                                     </TextBox.InputBindings>
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu Visibility="Collapsed">
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu>
                                     <TextBox.Text>
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" 
                                          Mode="TwoWay"

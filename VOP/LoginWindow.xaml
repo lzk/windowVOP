@@ -66,6 +66,10 @@
                         <TextBox.InputBindings>
                             <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                         </TextBox.InputBindings>
+                        <TextBox.ContextMenu>
+                            <ContextMenu Visibility="Collapsed">
+                            </ContextMenu>
+                        </TextBox.ContextMenu>
                     </TextBox>
                     <TextBlock Margin="0,0,10,0" Text="{StaticResource ResStr_Verification_Code}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14"></TextBlock>
                     <Grid Grid.Column="2" Grid.Row="1">
@@ -77,6 +81,10 @@
                             <PasswordBox.InputBindings>
                                 <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                             </PasswordBox.InputBindings>
+                            <PasswordBox.ContextMenu>
+                                <ContextMenu Visibility="Collapsed">
+                                </ContextMenu>
+                            </PasswordBox.ContextMenu>
                         </PasswordBox>
                         <Button Name="btnGetVerifyCode"  Content="{StaticResource ResStr_Get_Verification_Code}"  Click="btnGetVerifyCode_Click" Grid.Column="1" Template="{StaticResource ResourceKey=btnpwd}" HorizontalAlignment="Right" Margin="0,6,5,6" VerticalAlignment="Center" Width="150"  Height="26" />
                     </Grid>

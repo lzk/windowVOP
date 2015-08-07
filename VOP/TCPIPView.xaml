@@ -179,6 +179,10 @@
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>
+                <TextBox.ContextMenu>
+                    <ContextMenu Visibility="Collapsed">
+                    </ContextMenu>
+                </TextBox.ContextMenu>
                 <TextBox.Text>
                     <Binding 
                         Path="IP" 
@@ -210,6 +214,10 @@
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>
+                <TextBox.ContextMenu>
+                    <ContextMenu Visibility="Collapsed">
+                    </ContextMenu>
+                </TextBox.ContextMenu>
                 <TextBox.Text>
                     <Binding 
                         Path="Gateway" 
@@ -241,6 +249,10 @@
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>
+                <TextBox.ContextMenu>
+                    <ContextMenu Visibility="Collapsed">
+                    </ContextMenu>
+                </TextBox.ContextMenu>
                 <TextBox.Text>
                     <Binding 
                         Path="Submask" 

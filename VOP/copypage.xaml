@@ -66,6 +66,10 @@
                                          InputMethod.IsInputMethodEnabled="False"
                                          VerticalAlignment="Center"
                                          >
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu Visibility="Collapsed">
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu>
                                     <TextBox.InputBindings>
                                         <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                                     </TextBox.InputBindings>
