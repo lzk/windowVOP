@@ -1705,7 +1705,12 @@ namespace VOP
                 switch ( status )
                 {
                     case EnumStatus.JamAtExitStayOn    : 
-                        _gifs = new string[2] { "pack://application:,,, /Media/JamAtExitStayOn1_zh.gif", "pack://application:,,, /Media/JamAtExitStayOn2_zh.gif" };
+
+                        _gifs = new string[3] { 
+                            "pack://application:,,, /Media/JamAtExitStayOn1_zh.gif",
+                                "pack://application:,,, /Media/JamAtExitStayOn2_zh.gif",
+                                "pack://application:,,, /Media/JamAtExitStayOn3_zh.gif" };
+
                         break;
                     case EnumStatus.NofeedJam          :
                         _gifs = new string[2] { "pack://application:,,, /Media/NofeedJam1_zh.gif", "pack://application:,,, /Media/NofeedJam2_zh.gif" };
@@ -1715,9 +1720,9 @@ namespace VOP
                     case EnumStatus.InitializeJam  : 
                     default: 
                         _gifs = new string[3] {
-                            "pack://application:,,, /Media/JamAtExitStayOn1_zh.gif",
-                                "pack://application:,,, /Media/JamAtExitStayOn2_zh.gif",
-                                "pack://application:,,, /Media/JamAtExitStayOn3_zh.gif"
+                            "pack://application:,,, /Media/JamInside1_zh.gif",
+                                "pack://application:,,, /Media/JamInside2_zh.gif",
+                                "pack://application:,,, /Media/JamInside3_zh.gif"
                         };
                         break;
                 }
@@ -1727,7 +1732,11 @@ namespace VOP
                 switch ( status )
                 {
                     case EnumStatus.JamAtExitStayOn    : 
-                        _gifs = new string[2] { "pack://application:,,, /Media/JamAtExitStayOn1_en.gif", "pack://application:,,, /Media/JamAtExitStayOn2_en.gif" };
+                        _gifs = new string[3] { 
+                            "pack://application:,,, /Media/JamAtExitStayOn1_en.gif",
+                                "pack://application:,,, /Media/JamAtExitStayOn2_en.gif",
+                                "pack://application:,,, /Media/JamAtExitStayOn3_en.gif"
+                        };
                         break;
                     case EnumStatus.NofeedJam          :
                         _gifs = new string[2] { "pack://application:,,, /Media/NofeedJam1_en.gif", "pack://application:,,, /Media/NofeedJam2_en.gif" };
@@ -1737,9 +1746,9 @@ namespace VOP
                     case EnumStatus.InitializeJam  : 
                     default: 
                         _gifs = new string[3] {
-                            "pack://application:,,, /Media/JamAtExitStayOn1_en.gif",
-                                "pack://application:,,, /Media/JamAtExitStayOn2_en.gif",
-                                "pack://application:,,, /Media/JamAtExitStayOn3_en.gif"
+                            "pack://application:,,, /Media/JamInside1_en.gif",
+                                "pack://application:,,, /Media/JamInside2_en.gif",
+                                "pack://application:,,, /Media/JamInside3_en.gif"
                         };
                         break;
                 }
