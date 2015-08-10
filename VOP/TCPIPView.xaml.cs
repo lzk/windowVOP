@@ -705,11 +705,20 @@ namespace VOP
             }
             else
             {
+                byte[] arr = new byte[4];
+                arr[0] = 127;
+                arr[1] = 0;
+                arr[2] = 0;
+                arr[3] = 0;
+
                 IPAddress ipAddress;
                 IPAddress.TryParse(strIP, out ipAddress);
                 if (null != ipAddress)
                 {
-                    tb.Text = ipAddress.ToString();
+                    if (true == ipAddress.Equals(new IPAddress(arr)))
+                        tb.Text = "0.0.0.0";
+                    else
+                        tb.Text = ipAddress.ToString();
                 }
             }
         }
