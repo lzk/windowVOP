@@ -10,7 +10,13 @@
         ShowInTaskbar="False"
         VerticalAlignment="Center"
         WindowStartupLocation="CenterOwner" 
-        Style="{StaticResource for_noresize_window}" Loaded="Window_Loaded">
+
+        ResizeMode="NoResize"
+        AllowsTransparency="true"
+        WindowStyle="None" 
+        BorderThickness="24" 
+
+        Loaded="Window_Loaded">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -27,6 +33,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+    </Window.Effect>
 
     <Grid  Background="#FFEDEDED">
         <Grid.RowDefinitions>

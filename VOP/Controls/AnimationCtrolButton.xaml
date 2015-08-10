@@ -132,7 +132,7 @@
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
                                         <Condition Property="IsEnabled" Value="true"></Condition>
-                                        <Condition Property="IsChecked" Value="false"></Condition>
+                                        <Condition Property="IsChecked" Value="true"></Condition>
                                     </MultiTrigger.Conditions>
                                     <Setter Property="Source" TargetName="icon" Value="../Images/AnimationControl/playNormal.tif"/>
                                 </MultiTrigger>
@@ -140,7 +140,7 @@
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
                                         <Condition Property="IsMouseOver" Value="true"></Condition>
-                                        <Condition Property="IsChecked" Value="false"></Condition>
+                                        <Condition Property="IsChecked" Value="true"></Condition>
                                     </MultiTrigger.Conditions>
                                     <Setter Property="Source" TargetName="icon" Value="../Images/AnimationControl/playHover.tif"/>
                                 </MultiTrigger>
@@ -148,7 +148,7 @@
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
                                         <Condition Property="IsPressed" Value="true"></Condition>
-                                        <Condition Property="IsChecked" Value="false"></Condition>
+                                        <Condition Property="IsChecked" Value="true"></Condition>
                                     </MultiTrigger.Conditions>
                                     <Setter Property="Source" TargetName="icon" Value="../Images/AnimationControl/playPress.tif"/>
                                 </MultiTrigger>
@@ -158,7 +158,7 @@
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
                                         <Condition Property="IsEnabled" Value="true"></Condition>
-                                        <Condition Property="IsChecked" Value="true"></Condition>
+                                        <Condition Property="IsChecked" Value="false"></Condition>
                                     </MultiTrigger.Conditions>
                                     <Setter Property="Source" TargetName="icon" Value="../Images/AnimationControl/pauseNormal.tif"/>
                                 </MultiTrigger>
@@ -166,7 +166,7 @@
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
                                         <Condition Property="IsMouseOver" Value="true"></Condition>
-                                        <Condition Property="IsChecked" Value="true"></Condition>
+                                        <Condition Property="IsChecked" Value="false"></Condition>
                                     </MultiTrigger.Conditions>
                                     <Setter Property="Source" TargetName="icon" Value="../Images/AnimationControl/pauseHover.tif"/>
                                 </MultiTrigger>
@@ -174,7 +174,7 @@
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
                                         <Condition Property="IsPressed" Value="true"></Condition>
-                                        <Condition Property="IsChecked" Value="true"></Condition>
+                                        <Condition Property="IsChecked" Value="false"></Condition>
                                     </MultiTrigger.Conditions>
                                     <Setter Property="Source" TargetName="icon" Value="../Images/AnimationControl/pausePress.tif"/>
                                 </MultiTrigger>
