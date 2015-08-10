@@ -45,7 +45,13 @@ namespace VOP.Controls
         public string SSIDText
         {
             get { return (string)GetValue(SSIDTextProperty); }
-            set { SetValue(SSIDTextProperty, value); }
+            set { 
+                SetValue(SSIDTextProperty, value);
+                wepKey0.GroupName = "WepKeyRadio" + value;
+                wepKey1.GroupName = "WepKeyRadio" + value;
+                wepKey2.GroupName = "WepKeyRadio" + value;
+                wepKey3.GroupName = "WepKeyRadio" + value;
+            }
         }
 
         public event RoutedEventHandler SSIDTextPropertyChanged
