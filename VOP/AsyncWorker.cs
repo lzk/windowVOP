@@ -482,9 +482,28 @@ namespace VOP
             byte encryption8 = (byte)EnumEncryptType.NoSecurity;
             byte encryption9 = (byte)EnumEncryptType.NoSecurity;
 
-            int result = dll.GetApList(printerName, ssid0, ref encryption0, ssid1, ref encryption1, ssid2, ref encryption2,
-                                          ssid3, ref encryption3, ssid4, ref encryption4, ssid5, ref encryption5, ssid6, ref encryption6,
-                                          ssid7, ref encryption7, ssid8, ref encryption8, ssid9, ref encryption9);
+            byte connected0 = 0;
+            byte connected1 = 0;
+            byte connected2 = 0;
+            byte connected3 = 0;
+            byte connected4 = 0;
+            byte connected5 = 0;
+            byte connected6 = 0;
+            byte connected7 = 0;
+            byte connected8 = 0;
+            byte connected9 = 0;
+
+            int result = dll.GetApList(printerName,
+                                        ssid0, ref encryption0, ref connected0,
+                                        ssid1, ref encryption1, ref connected1,
+                                        ssid2, ref encryption2, ref connected2,
+                                        ssid3, ref encryption3, ref connected3,
+                                        ssid4, ref encryption4, ref connected4,
+                                        ssid5, ref encryption5, ref connected5,
+                                        ssid6, ref encryption6, ref connected6,
+                                        ssid7, ref encryption7, ref connected7,
+                                        ssid8, ref encryption8, ref connected8,
+                                        ssid9, ref encryption9, ref connected9);
 
             rec.PrinterName = printerName;
 
@@ -509,8 +528,18 @@ namespace VOP
             rec.EncryptionList.Add(encryption7);
             rec.EncryptionList.Add(encryption8);
             rec.EncryptionList.Add(encryption9);
-         
 
+            rec.ConnectedStatusList.Add(connected0 == 0x80);
+            rec.ConnectedStatusList.Add(connected1 == 0x80);
+            rec.ConnectedStatusList.Add(connected2 == 0x80);
+            rec.ConnectedStatusList.Add(connected3 == 0x80);
+            rec.ConnectedStatusList.Add(connected4 == 0x80);
+            rec.ConnectedStatusList.Add(connected5 == 0x80);
+            rec.ConnectedStatusList.Add(connected6 == 0x80);
+            rec.ConnectedStatusList.Add(connected7 == 0x80);
+            rec.ConnectedStatusList.Add(connected8 == 0x80);
+            rec.ConnectedStatusList.Add(connected9 == 0x80);
+          
             rec.CmdResult = (EnumCmdResult)result;
 
             return rec;
@@ -829,6 +858,7 @@ namespace VOP
         private string printerName;
         private List<string> ssidList;
         private List<byte> encryptionList;
+        private List<bool> connectedStatusList;
         private EnumCmdResult cmdResult;
 
         public string PrinterName
@@ -861,6 +891,16 @@ namespace VOP
             }
         }
 
+        public List<bool> ConnectedStatusList
+        {
+            get { return this.connectedStatusList; }
+            set
+            {
+                this.connectedStatusList = value;
+                OnPropertyChanged("ConnectedStatusList");
+            }
+        }
+
         public EnumCmdResult CmdResult
         {
             get { return this.cmdResult; }
@@ -876,14 +916,16 @@ namespace VOP
             printerName = "";
             ssidList = new List<string>();
             encryptionList = new List<byte>();
+            connectedStatusList = new List<bool>();
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public ApListRecord(string printerName, List<string> ssidList, List<byte> encryptionList)
+        public ApListRecord(string printerName, List<string> ssidList, List<byte> encryptionList, List<bool> connectedStatusList)
         {
             this.printerName = printerName;
             this.ssidList = ssidList;
             this.encryptionList = encryptionList;
+            this.connectedStatusList = connectedStatusList;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 

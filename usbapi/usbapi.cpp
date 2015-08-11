@@ -423,17 +423,17 @@ USBAPI_API int __stdcall GetIPInfo(
         BYTE* ptr_gate3);
 
 
-USBAPI_API int __stdcall GetApList( const wchar_t* szPrinter, 
-        char* pssid0,  BYTE* ptr_encryption0,
-        char* pssid1,  BYTE* ptr_encryption1,
-        char* pssid2,  BYTE* ptr_encryption2,
-        char* pssid3,  BYTE* ptr_encryption3,
-        char* pssid4,  BYTE* ptr_encryption4,
-        char* pssid5,  BYTE* ptr_encryption5,
-        char* pssid6,  BYTE* ptr_encryption6,
-        char* pssid7,  BYTE* ptr_encryption7,
-        char* pssid8,  BYTE* ptr_encryption8,
-        char* pssid9,  BYTE* ptr_encryption9 );
+USBAPI_API int __stdcall GetApList(const wchar_t* szPrinter,
+	char* pssid0, BYTE* ptr_encryption0, BYTE* ptr_connected0,
+	char* pssid1, BYTE* ptr_encryption1, BYTE* ptr_connected1,
+	char* pssid2, BYTE* ptr_encryption2, BYTE* ptr_connected2,
+	char* pssid3, BYTE* ptr_encryption3, BYTE* ptr_connected3,
+	char* pssid4, BYTE* ptr_encryption4, BYTE* ptr_connected4,
+	char* pssid5, BYTE* ptr_encryption5, BYTE* ptr_connected5,
+	char* pssid6, BYTE* ptr_encryption6, BYTE* ptr_connected6,
+	char* pssid7, BYTE* ptr_encryption7, BYTE* ptr_connected7,
+	char* pssid8, BYTE* ptr_encryption8, BYTE* ptr_connected8,
+	char* pssid9, BYTE* ptr_encryption9, BYTE* ptr_connected9);
 
 USBAPI_API int __stdcall SendCopyCmd( const wchar_t* szPrinter, UINT8 Density, UINT8 copyNum, UINT8 scanMode, UINT8 orgSize, UINT8 paperSize, UINT8 nUp, UINT8 dpi, UINT16 scale, UINT8 mediaType );
 USBAPI_API int __stdcall SetWiFiInfo(const wchar_t* szPrinter, UINT8 wifiEnable, UINT8 wifichangeflag, const wchar_t* ws_ssid, const wchar_t* ws_pwd, UINT8 encryption, UINT8 wepKeyId);
@@ -1936,16 +1936,16 @@ USBAPI_API int __stdcall SetWiFiInfo(const wchar_t* szPrinter, UINT8 wifiEnable,
 
 // wchar_t will have problem with StringBuilder
 USBAPI_API int __stdcall GetApList( const wchar_t* szPrinter, 
-        char* pssid0,  BYTE* ptr_encryption0,
-        char* pssid1,  BYTE* ptr_encryption1,
-        char* pssid2,  BYTE* ptr_encryption2,
-        char* pssid3,  BYTE* ptr_encryption3,
-        char* pssid4,  BYTE* ptr_encryption4,
-        char* pssid5,  BYTE* ptr_encryption5,
-        char* pssid6,  BYTE* ptr_encryption6,
-        char* pssid7,  BYTE* ptr_encryption7,
-        char* pssid8,  BYTE* ptr_encryption8,
-        char* pssid9,  BYTE* ptr_encryption9 )
+	char* pssid0, BYTE* ptr_encryption0, BYTE* ptr_connected0,
+	char* pssid1, BYTE* ptr_encryption1, BYTE* ptr_connected1,
+	char* pssid2, BYTE* ptr_encryption2, BYTE* ptr_connected2,
+	char* pssid3, BYTE* ptr_encryption3, BYTE* ptr_connected3,
+	char* pssid4, BYTE* ptr_encryption4, BYTE* ptr_connected4,
+	char* pssid5, BYTE* ptr_encryption5, BYTE* ptr_connected5,
+	char* pssid6, BYTE* ptr_encryption6, BYTE* ptr_connected6,
+	char* pssid7, BYTE* ptr_encryption7, BYTE* ptr_connected7,
+	char* pssid8, BYTE* ptr_encryption8, BYTE* ptr_connected8,
+	char* pssid9, BYTE* ptr_encryption9, BYTE* ptr_connected9 )
 {
     if ( NULL == szPrinter )
         return _SW_INVALID_PARAMETER;
@@ -2003,17 +2003,17 @@ USBAPI_API int __stdcall GetApList( const wchar_t* szPrinter,
                     break;
 
                 switch ( i )
-                {
-                    case 0: *ptr_encryption0 = ptr_ap_info[i].encryption; memcpy(pssid0, ptr_ap_info[i].ssid, 33); pssid0[33] = 0; break;
-                    case 1: *ptr_encryption1 = ptr_ap_info[i].encryption; memcpy(pssid1, ptr_ap_info[i].ssid, 33); pssid0[33] = 0; break;
-                    case 2: *ptr_encryption2 = ptr_ap_info[i].encryption; memcpy(pssid2, ptr_ap_info[i].ssid, 33); pssid0[33] = 0; break;
-                    case 3: *ptr_encryption3 = ptr_ap_info[i].encryption; memcpy(pssid3, ptr_ap_info[i].ssid, 33); pssid0[33] = 0; break;
-                    case 4: *ptr_encryption4 = ptr_ap_info[i].encryption; memcpy(pssid4, ptr_ap_info[i].ssid, 33); pssid0[33] = 0; break;
-                    case 5: *ptr_encryption5 = ptr_ap_info[i].encryption; memcpy(pssid5, ptr_ap_info[i].ssid, 33); pssid0[33] = 0; break;
-                    case 6: *ptr_encryption6 = ptr_ap_info[i].encryption; memcpy(pssid6, ptr_ap_info[i].ssid, 33); pssid0[33] = 0; break;
-                    case 7: *ptr_encryption7 = ptr_ap_info[i].encryption; memcpy(pssid7, ptr_ap_info[i].ssid, 33); pssid0[33] = 0; break;
-                    case 8: *ptr_encryption8 = ptr_ap_info[i].encryption; memcpy(pssid8, ptr_ap_info[i].ssid, 33); pssid0[33] = 0; break;
-                    case 9: *ptr_encryption9 = ptr_ap_info[i].encryption; memcpy(pssid9, ptr_ap_info[i].ssid, 33); pssid0[33] = 0; break;
+                {   //If most significant bit is 1 (0x80) indicate connected status is true
+                    case 0: *ptr_encryption0 = ptr_ap_info[i].encryption & 0x0f; *ptr_connected0 = ptr_ap_info[i].encryption & 0xf0; memcpy(pssid0, ptr_ap_info[i].ssid, 33); pssid0[33] = 0; break;
+					case 1: *ptr_encryption1 = ptr_ap_info[i].encryption & 0x0f; *ptr_connected1 = ptr_ap_info[i].encryption & 0xf0; memcpy(pssid1, ptr_ap_info[i].ssid, 33); pssid1[33] = 0; break;
+					case 2: *ptr_encryption2 = ptr_ap_info[i].encryption & 0x0f; *ptr_connected2 = ptr_ap_info[i].encryption & 0xf0; memcpy(pssid2, ptr_ap_info[i].ssid, 33); pssid2[33] = 0; break;
+					case 3: *ptr_encryption3 = ptr_ap_info[i].encryption & 0x0f; *ptr_connected3 = ptr_ap_info[i].encryption & 0xf0; memcpy(pssid3, ptr_ap_info[i].ssid, 33); pssid3[33] = 0; break;
+					case 4: *ptr_encryption4 = ptr_ap_info[i].encryption & 0x0f; *ptr_connected4 = ptr_ap_info[i].encryption & 0xf0; memcpy(pssid4, ptr_ap_info[i].ssid, 33); pssid4[33] = 0; break;
+					case 5: *ptr_encryption5 = ptr_ap_info[i].encryption & 0x0f; *ptr_connected5 = ptr_ap_info[i].encryption & 0xf0; memcpy(pssid5, ptr_ap_info[i].ssid, 33); pssid5[33] = 0; break;
+					case 6: *ptr_encryption6 = ptr_ap_info[i].encryption & 0x0f; *ptr_connected6 = ptr_ap_info[i].encryption & 0xf0; memcpy(pssid6, ptr_ap_info[i].ssid, 33); pssid6[33] = 0; break;
+					case 7: *ptr_encryption7 = ptr_ap_info[i].encryption & 0x0f; *ptr_connected7 = ptr_ap_info[i].encryption & 0xf0; memcpy(pssid7, ptr_ap_info[i].ssid, 33); pssid7[33] = 0; break;
+					case 8: *ptr_encryption8 = ptr_ap_info[i].encryption & 0x0f; *ptr_connected8 = ptr_ap_info[i].encryption & 0xf0; memcpy(pssid8, ptr_ap_info[i].ssid, 33); pssid8[33] = 0; break;
+					case 9: *ptr_encryption9 = ptr_ap_info[i].encryption & 0x0f; *ptr_connected9 = ptr_ap_info[i].encryption & 0xf0; memcpy(pssid9, ptr_ap_info[i].ssid, 33); pssid9[33] = 0; break;
                 }
             }
 

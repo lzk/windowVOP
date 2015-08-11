@@ -37,16 +37,16 @@ namespace VOP
         [DllImport("usbapi.dll")]
         public static extern int GetApList(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
-                StringBuilder ssid0,  ref byte encryption0,
-                StringBuilder ssid1,  ref byte encryption1,
-                StringBuilder ssid2,  ref byte encryption2,
-                StringBuilder ssid3,  ref byte encryption3,
-                StringBuilder ssid4,  ref byte encryption4,
-                StringBuilder ssid5,  ref byte encryption5,
-                StringBuilder ssid6,  ref byte encryption6,
-                StringBuilder ssid7,  ref byte encryption7,
-                StringBuilder ssid8,  ref byte encryption8,
-                StringBuilder ssid9,  ref byte encryption9 );
+                StringBuilder ssid0,  ref byte encryption0, ref byte connectedStatus0,
+                StringBuilder ssid1,  ref byte encryption1, ref byte connectedStatus1,
+                StringBuilder ssid2,  ref byte encryption2, ref byte connectedStatus2,
+                StringBuilder ssid3,  ref byte encryption3, ref byte connectedStatus3,
+                StringBuilder ssid4,  ref byte encryption4, ref byte connectedStatus4,
+                StringBuilder ssid5,  ref byte encryption5, ref byte connectedStatus5,
+                StringBuilder ssid6,  ref byte encryption6, ref byte connectedStatus6,
+                StringBuilder ssid7,  ref byte encryption7, ref byte connectedStatus7,
+                StringBuilder ssid8,  ref byte encryption8, ref byte connectedStatus8,
+                StringBuilder ssid9,  ref byte encryption9, ref byte connectedStatus9 );
 
         [DllImport("usbapi.dll")]
             public static extern int GetIPInfo(

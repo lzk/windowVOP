@@ -340,10 +340,10 @@ namespace VOP
                 m_rec = worker.GetApList(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
             }
 
-            WiFiInfoRecord m_wifi = null;
-            AsyncWorker worker1 = new AsyncWorker(Application.Current.MainWindow);
+            //WiFiInfoRecord m_wifi = null;
+            //AsyncWorker worker1 = new AsyncWorker(Application.Current.MainWindow);
 
-            worker1.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_wifi, DllMethodType.GetWiFiInfo, this);
+            //worker1.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_wifi, DllMethodType.GetWiFiInfo, this);
 
             if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
             {
@@ -375,7 +375,7 @@ namespace VOP
                         }
                         wifiitem.WifiSignalLevel = VOP.Controls.EnumWifiSignalLevel.stronger;
 
-                        if (null != m_wifi.SSID && m_wifi.SSID == wifiitem.SSIDText)
+                        if (m_rec.ConnectedStatusList[i] == true)
                         {
                             wifiitem.Connected = true;
                             wifiitem.EncryptionText = (string)this.FindResource("ResStr_Connected");
