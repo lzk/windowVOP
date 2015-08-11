@@ -634,6 +634,22 @@ namespace VOP
                 if (position > 0)
                     strInitalDirectory = strInitalDirectory.Substring( 0, position );
                 
+                try
+                {
+                    TestImageExist();
+                }
+                catch(FileNotFoundException ex)
+                {
+                    VOP.Controls.MessageBoxEx.Show(
+                      VOP.Controls.MessageBoxExStyle.Simple,
+                      m_MainWin,
+                      ex.Message,
+                      (string)this.FindResource("ResStr_Error")
+                      );
+
+                    return;
+                }
+              
                 if ( false == DoseHasEnoughSpace(save.FileName) )
                 {
                     VOP.Controls.MessageBoxEx.Show(
@@ -862,6 +878,20 @@ namespace VOP
             }
 
             return bIsHasEnoughSpace;
+        }
+
+        private void TestImageExist()
+        {
+            foreach (object obj in image_wrappanel.Children)
+            {
+                ImageItem img = obj as ImageItem;
+
+                if (null != img && 0 < img.m_num)
+                {
+                    System.IO.FileInfo fi = new System.IO.FileInfo(img.m_images.m_pathOrig);
+                    long len = fi.Length;
+                }
+            }  
         }
 
         /// <summary>

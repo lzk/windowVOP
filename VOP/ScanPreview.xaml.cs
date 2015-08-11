@@ -30,7 +30,7 @@ namespace VOP
         public ScanFiles m_rotatedObj = null;     
 
         // Actual size of preview image in pixels.
-        private int m_actualWidth = 0;
+        private double m_actualWidth = 0;
 
         public ScanPreview()
         {
@@ -46,7 +46,7 @@ namespace VOP
         {
             try
             {
-                System.Drawing.Image img = System.Drawing.Image.FromFile( m_images.m_pathView );
+                //System.Drawing.Image img = System.Drawing.Image.FromFile( m_images.m_pathView );
 
                 BitmapImage bi3 = new BitmapImage();
                 bi3.BeginInit();
@@ -61,11 +61,12 @@ namespace VOP
                 // the size that is displayed. 
                 // Note: In order to preserve aspect ratio, set DecodePixelWidth 
                 // or DecodePixelHeight but not both.
-                bi3.DecodePixelWidth = img.Width;
-                m_actualWidth = img.Width;
+                //bi3.DecodePixelWidth = img.Width;
+                //m_actualWidth = img.Width;
 
                 bi3.EndInit();
 
+                m_actualWidth = bi3.PixelWidth;
                 BitmapSource bmpSrc = bi3;
 
                 if (m_images.m_colorMode == EnumColorType.black_white)
@@ -79,12 +80,12 @@ namespace VOP
 
                 bmpSrc = null;
             }
-            catch
+            catch(Exception ex)
             {
                 VOP.Controls.MessageBoxEx.Show(
                         VOP.Controls.MessageBoxExStyle.Simple,
                         this,
-                        (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
+                        ex.Message,
                         (string)this.FindResource( "ResStr_Error" )
                         );
 
