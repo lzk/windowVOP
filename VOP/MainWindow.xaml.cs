@@ -1761,10 +1761,10 @@ namespace VOP
                     title = (string)FindResource( "ResStr_Out_of_Paper" );
                     break;
                 case EnumStatus.JamAtRegistStayOn  : 
-                    title = (string)FindResource( "ResStr_Jam_whole" );
+                    title = (string)FindResource( "ResStr_Jam_front" );
                     break;
                 case EnumStatus.JamAtExitNotReach  : 
-                    title = (string)FindResource( "ResStr_Jam_front" );
+                    title = (string)FindResource( "ResStr_Jam_whole" );
                     break;
                 case EnumStatus.InitializeJam  : 
                     title = (string)FindResource( "ResStr_Jam_whole" );
