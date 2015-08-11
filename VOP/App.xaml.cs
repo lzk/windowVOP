@@ -21,6 +21,7 @@ namespace VOP
         public static string vopHelperExe = currentFolder + "\\VopHelper.exe";
         public static string cacheFolder = System.IO.Path.GetTempPath()+"VOPCache"; // Folder used to store the cache file for scanning.
         public static string cfgFile = "";
+        public static string cfgFolder = "";
 
         /// <summary>
         /// Scanned images file list. The files in list need to be cleared, so
@@ -52,12 +53,15 @@ namespace VOP
 
             CalcScalingRate(nWidth, nHeight);
 
-            // Set path of cfgFile.
+            // Initial configuration foler.
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
             var directory = new DirectoryInfo(documentsPath);
             string strUsersPublic = directory.Parent.FullName;
-            string strDirectory = strUsersPublic + "\\Lenovo\\";
-            cfgFile = strDirectory + "\\vopcfg.xml";
+            cfgFolder = strUsersPublic + "\\Lenovo\\";
+            Directory.CreateDirectory( cfgFolder );
+
+            cfgFile = cfgFolder + "vopcfg.xml";
+
         }
 
         // Calculate the scaling rate for resolution.

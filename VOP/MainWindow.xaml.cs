@@ -341,12 +341,7 @@ namespace VOP
             bool bSuccess = false;
             try
             {
-                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
-                var directory = new DirectoryInfo(documentsPath);
-                string strUsersPublic = directory.Parent.FullName;
-                string strDirectory = strUsersPublic + "\\Lenovo\\";
-                Directory.CreateDirectory(strDirectory);
-                string path = strDirectory + "PrintInfo.xaml";
+                string path = App.cfgFolder + "PrintInfo.xaml";
 
                 XmlDocument doc = new XmlDocument();
 
@@ -401,13 +396,7 @@ namespace VOP
             bool bSuccess = false;
             try
             {
-                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
-                var directory = new DirectoryInfo(documentsPath);
-                string strUsersPublic = directory.Parent.FullName;
-                string strDirectory = strUsersPublic + "\\Lenovo\\";
-                Directory.CreateDirectory(strDirectory);
-
-                string path = strDirectory + "PrintInfo.xaml";
+                string path = App.cfgFolder + "PrintInfo.xaml";
                 XDocument doc = XDocument.Load(path);
 
                 var query = (from item in doc.Element("printinfoset").Elements() select item).ToList();
@@ -535,12 +524,6 @@ namespace VOP
             bool bSuccess = false;
             try
             {
-                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
-                var directory = new DirectoryInfo(documentsPath);
-                string strUsersPublic = directory.Parent.FullName;
-                string strDirectory = strUsersPublic + "\\Lenovo\\";
-                Directory.CreateDirectory(strDirectory);
-
                 XmlDocument doc = new XmlDocument();
 
                 XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -562,7 +545,7 @@ namespace VOP
                 eleData.AppendChild(textData);
                 eleBody.AppendChild(eleData);
 
-                doc.Save(strDirectory + "Data.xaml");
+                doc.Save( App.cfgFolder + "Data.xaml");
 
                 bSuccess = true;
             }
@@ -608,12 +591,6 @@ namespace VOP
             bool bSuccess = false;
             try
             {
-                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
-                var directory = new DirectoryInfo(documentsPath);
-                string strUsersPublic = directory.Parent.FullName;
-                string strDirectory = strUsersPublic + "\\Lenovo\\";
-                Directory.CreateDirectory(strDirectory);
-
                 XmlDocument doc = new XmlDocument();
 
                 XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -633,7 +610,7 @@ namespace VOP
                 eleData.AppendChild(textData);
                 eleBody.AppendChild(eleData);
 
-                doc.Save(strDirectory + "UserInfo.xaml");
+                doc.Save( App.cfgFolder + "UserInfo.xaml");
 
                 bSuccess = true;
             }
@@ -651,10 +628,7 @@ namespace VOP
 
             try
             {
-                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
-                var directory = new DirectoryInfo(documentsPath);
-                string strUsersPublic = directory.Parent.FullName;
-                string strPath = strUsersPublic + "\\Lenovo\\UserInfo.xaml";
+                string strPath = App.cfgFolder + "UserInfo.xaml";
 
                 if (File.Exists(strPath))
                 {
@@ -682,12 +656,6 @@ namespace VOP
             bool bSuccess = false;
             try
             {
-                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
-                var directory = new DirectoryInfo(documentsPath);
-                string strUsersPublic = directory.Parent.FullName;
-                string strDirectory = strUsersPublic + "\\Lenovo\\";
-                Directory.CreateDirectory(strDirectory);
-
                 XmlDocument doc = new XmlDocument();
 
                 XmlDeclaration xmlDeclaration = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -707,7 +675,7 @@ namespace VOP
                 eleData.AppendChild(textData);
                 eleBody.AppendChild(eleData);
 
-                doc.Save(strDirectory + strFileName);
+                doc.Save( App.cfgFolder + strFileName);
 
                 bSuccess = true;
             }
@@ -725,10 +693,7 @@ namespace VOP
            
             try
             {
-                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
-                var directory = new DirectoryInfo(documentsPath);
-                string strUsersPublic = directory.Parent.FullName;
-                string strPath = strUsersPublic + "\\Lenovo\\" + strFileName;
+                string strPath = App.cfgFolder + strFileName;
 
                 if (File.Exists(strPath))
                 {
