@@ -100,7 +100,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_1_in_2_2_">1合2*2</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_1_in_3_3">1合3*3</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_1_in_4_4_">1合4*4</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Reverse_Print">反转打印</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Reverse_Print">逆序打印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_2_sided">手动双面打印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Flip_on_long_edge">长边翻页</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Flip_on_short_edge">短边翻页</sys:String>
