@@ -101,7 +101,7 @@ namespace VOP
             {
                 try
                 {
-                    System.Diagnostics.Process.Start(@"http://www.lenovo.com");
+                    System.Diagnostics.Process.Start(@"http://function.iprintworks.cn/downapp/down.html");
                 }
                 catch
                 {

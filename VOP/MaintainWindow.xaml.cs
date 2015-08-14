@@ -194,7 +194,7 @@ namespace VOP
         {
             try
             {
-                System.Diagnostics.Process.Start(@"http://appserver.lenovo.com.cn/Lenovo_Series_List.aspx?CategoryCode=A06B12");
+                System.Diagnostics.Process.Start(@"http://function.iprintworks.cn/downapp/web.html");
             }
             catch (Exception)
             {

@@ -193,7 +193,7 @@ namespace VOP
         {
             try
             {
-                System.Diagnostics.Process.Start(@"http://www.jd.com");
+                System.Diagnostics.Process.Start(@"http://function.iprintworks.cn/downapp/buy.html");
             }
             catch (Exception)
             {
