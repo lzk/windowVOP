@@ -29,6 +29,8 @@ namespace VOP
         public int m_rotatedAngle     = 0;        // Rotated angle of preview image. Value: { 0, 90, 180, 270 }.
         public ScanFiles m_rotatedObj = null;     
 
+        private bool oldValueForPrintSettingPage = FileSelectionPage.IsInitPrintSettingPage;
+
         // Actual size of preview image in pixels.
         private double m_actualWidth = 0;
 
@@ -227,6 +229,7 @@ namespace VOP
         private void btnPrint_Click(object sender, RoutedEventArgs e)
         {
             isPrint = true;
+            oldValueForPrintSettingPage = FileSelectionPage.IsInitPrintSettingPage;
             FileSelectionPage.IsInitPrintSettingPage = true;////Init print setting
             this.Close();
         }
@@ -320,6 +323,8 @@ namespace VOP
                 else
                 {
                     e.Cancel = true;
+                    isPrint = false;
+                    FileSelectionPage.IsInitPrintSettingPage = oldValueForPrintSettingPage;
                 }
             }
         }
