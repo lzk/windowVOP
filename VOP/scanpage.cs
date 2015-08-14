@@ -634,16 +634,12 @@ namespace VOP
                 if (position > 0)
                     strInitalDirectory = strInitalDirectory.Substring( 0, position );
                 
-                try
+                if(!IsTempImageExist())
                 {
-                    TestImageExist();
-                }
-                catch(FileNotFoundException ex)
-                {
-                    VOP.Controls.MessageBoxEx.Show(
+                     VOP.Controls.MessageBoxEx.Show(
                       VOP.Controls.MessageBoxExStyle.Simple,
                       m_MainWin,
-                      ex.Message,
+                      (string)this.FindResource("ResStr_Image_file_not_found"),
                       (string)this.FindResource("ResStr_Error")
                       );
 
@@ -880,7 +876,7 @@ namespace VOP
             return bIsHasEnoughSpace;
         }
 
-        private void TestImageExist()
+        private bool IsTempImageExist()
         {
             foreach (object obj in image_wrappanel.Children)
             {
@@ -888,10 +884,12 @@ namespace VOP
 
                 if (null != img && 0 < img.m_num)
                 {
-                    System.IO.FileInfo fi = new System.IO.FileInfo(img.m_images.m_pathOrig);
-                    long len = fi.Length;
+                    if (!File.Exists(img.m_images.m_pathOrig))
+                        return false;
                 }
-            }  
+            }
+
+            return true;
         }
 
         /// <summary>

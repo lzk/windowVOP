@@ -48,6 +48,18 @@ namespace VOP
             {
                 //System.Drawing.Image img = System.Drawing.Image.FromFile( m_images.m_pathView );
 
+                if (!File.Exists(m_images.m_pathView))
+                {
+                    VOP.Controls.MessageBoxEx.Show(
+                       VOP.Controls.MessageBoxExStyle.Simple,
+                       this,
+                       (string)this.FindResource("ResStr_Image_file_not_found"),
+                       (string)this.FindResource("ResStr_Error")
+                       );
+
+                    this.Close();
+                }
+
                 BitmapImage bi3 = new BitmapImage();
                 bi3.BeginInit();
                 bi3.UriSource = new Uri( m_images.m_pathView, UriKind.RelativeOrAbsolute );
@@ -82,14 +94,7 @@ namespace VOP
             }
             catch(Exception ex)
             {
-                VOP.Controls.MessageBoxEx.Show(
-                        VOP.Controls.MessageBoxExStyle.Simple,
-                        this,
-                        ex.Message,
-                        (string)this.FindResource( "ResStr_Error" )
-                        );
-
-                this.Close();
+              
             }
 
             InitFontSize();

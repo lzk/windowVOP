@@ -322,4 +322,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt1">温馨提示：</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt2">如果1分钟之内不进行操作，任务将会自动取消。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt_Box_will_not_pop_up_next_time">下次不再弹出该提示框</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Image_file_not_found">图片文件丢失。</sys:String>
 </ResourceDictionary>
