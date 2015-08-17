@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
+using VOP.Controls;
 
 namespace VOP
 {
@@ -697,54 +698,35 @@ namespace VOP
         {
             TextBox tb = sender as TextBox;
             string strIP = tb.Text;
-            IPAddress ip;
 
-            if (false == IPAddress.TryParse(strIP, out ip))
+            IPAddressValidationRule rule = new IPAddressValidationRule();
+            ValidationResult result = rule.Validate(strIP, null);
+
+            if (result.IsValid == true)
             {
-                tb.Text = "0.0.0.0";
+                tb.Text = strIP;
             }
             else
             {
-                byte[] arr = new byte[4];
-                arr[0] = 127;
-                arr[1] = 0;
-                arr[2] = 0;
-                arr[3] = 0;
-
-                IPAddress ipAddress;
-                IPAddress.TryParse(strIP, out ipAddress);
-                if (null != ipAddress)
-                {
-                    if (true == ipAddress.Equals(new IPAddress(arr)))
-                        tb.Text = "0.0.0.0";
-                    else
-                        tb.Text = ipAddress.ToString();
-                }
-            }
+                tb.Text = "0.0.0.0";
+            }       
         }
 
         private void tb_mask_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox tb = sender as TextBox;
             string strIP = tb.Text;
-           
-            byte mask0 = 0;
-            byte mask1 = 0;
-            byte mask2 = 0;
-            byte mask3 = 0;
 
-            if (false == ParseNetworkMask(strIP, ref mask0, ref mask1, ref mask2, ref mask3))
+            SubmaskValidationRule rule = new SubmaskValidationRule();
+            ValidationResult result = rule.Validate(strIP, null);
+
+            if (result.IsValid == true)
             {
-                tb.Text = "255.255.255.0";
+                tb.Text = strIP;
             }
             else
             {
-                IPAddress ipAddress;
-                IPAddress.TryParse(strIP, out ipAddress);
-                if (null != ipAddress)
-                {
-                    tb.Text = ipAddress.ToString();
-                }
+                tb.Text = "255.255.255.0";
             }
         }
 
