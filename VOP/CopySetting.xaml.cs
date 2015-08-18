@@ -361,6 +361,9 @@ namespace VOP
                 m_outputSize = EnumPaperSizeOutput._Letter;
             }
 
+            if ( true == m_isIDCardCopy )
+                m_docSize = EnumPaperSizeInput._A4;
+
             m_nin1       = EnumNin1._1up;
             m_dpi        = m_isIDCardCopy ? EnumCopyResln._600x600 : EnumCopyResln._300x300;
             m_mediaType  = EnumMediaType.Plain;
@@ -668,13 +671,13 @@ namespace VOP
                     {
                         EnumPaperSizeOutput s = (EnumPaperSizeOutput)obj.DataContext;
 
-                        if ( EnumPaperSizeOutput._A6 == s || EnumPaperSizeOutput._B6 == s )
+                        if ( EnumPaperSizeOutput._A4 == s )
                         {
-                            obj.IsEnabled = false;
+                            obj.IsEnabled = true;
                         }
                         else
                         {
-                            obj.IsEnabled = true;
+                            obj.IsEnabled = false;
                         }
                     }
 

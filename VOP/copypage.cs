@@ -27,7 +27,7 @@ namespace VOP
 
         private bool m_isLoaded = false;
 
-        private byte _density = 3;
+        private byte _density = 2;
         public byte m_density
         {
             get
@@ -330,20 +330,7 @@ namespace VOP
             m_scaling    = 100;
             m_nin1       = EnumNin1._1up;
             m_dpi        = EnumCopyResln._600x600;
-
-            if ( EnumPaperSizeOutput._A6 == m_outputSize || EnumPaperSizeOutput._B6 == m_outputSize )
-            {
-                bool bIsMetrice = dll.IsMetricCountry();
-
-                if ( bIsMetrice )
-                {
-                    m_outputSize = EnumPaperSizeOutput._A4;
-                }
-                else
-                {
-                    m_outputSize = EnumPaperSizeOutput._Letter;
-                }
-            }
+            m_outputSize = EnumPaperSizeOutput._A4;
         }
 
         private void btnDecDensity_Click(object sender, RoutedEventArgs e)
@@ -380,7 +367,7 @@ namespace VOP
             m_dpi        = EnumCopyResln._300x300;
             m_mediaType  = EnumMediaType.Plain;
 
-            m_density = 3;
+            m_density = 2;
             chkBtnIDCardCopy.IsChecked = false;
             spinCtlCopies.Value = 1;
 
