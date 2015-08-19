@@ -74,8 +74,8 @@
                             <Grid>
                                 <StackPanel>
                                     <Image Source="Images/Printer.png" Margin="10" Height="70" Width="150"></Image>
-                                    <TextBlock Text="硒鼓LD201   12000页(5%覆盖率)" TextAlignment="Center" TextWrapping="NoWrap"></TextBlock>
-                                    <TextBlock Text="适用于LJ2600D、LJ2600D、LJ2600D、LJ2600D" TextAlignment="Center" TextWrapping="NoWrap"></TextBlock>
+                                    <TextBlock Text="鼓粉盒LD228   1500页(5%覆盖率)" TextAlignment="Center" TextWrapping="NoWrap"></TextBlock>
+                                    <TextBlock Text="适用于LJ2208、LJ2208W、M7208、M7208W" TextAlignment="Center" TextWrapping="NoWrap"></TextBlock>
                                 </StackPanel>
                             </Grid>
                             <Grid Margin="8" Grid.Row="1" Grid.ColumnSpan="2">
