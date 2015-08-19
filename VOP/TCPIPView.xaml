@@ -193,16 +193,51 @@
                             <local:IPAddressValidationRule ErrorMessage="{StaticResource ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_}"/>
                         </Binding.ValidationRules>
                     </Binding>
-                </TextBox.Text>
-                
+                </TextBox.Text>         
             </TextBox>
-            <TextBlock Text="{StaticResource ResStr_Gateway}" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
+
+            <TextBlock Text="{StaticResource ResStr_Submask}" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
+            <TextBox 
+                TextChanged="handler_text_changed" 
+                Name="tb_mask" 
+                PreviewTextInput="OnTextBoxPreviewTextInput" 
+                Template="{StaticResource customTextBox}" 
+                Grid.Row="2"
+                Grid.Column="1" 
+                Height="28" 
+                VerticalAlignment="Center" 
+                MaxLength="15" 
+                Style="{StaticResource SubmaskErrorTemplateStyle}"
+                InputMethod.IsInputMethodEnabled="False" 
+                PreviewKeyDown="OnPreviewKeyDown"
+                LostFocus="tb_mask_LostFocus">
+                <TextBox.InputBindings>
+                    <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                </TextBox.InputBindings>
+                <TextBox.ContextMenu>
+                    <ContextMenu Visibility="Collapsed">
+                    </ContextMenu>
+                </TextBox.ContextMenu>
+                <TextBox.Text>
+                    <Binding 
+                        Path="Submask" 
+                        ElementName="MyView"
+                        Mode="TwoWay"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:SubmaskValidationRule ErrorMessage="{StaticResource ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation}"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            
+            <TextBlock Text="{StaticResource ResStr_Gateway}" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
             <TextBox 
                 TextChanged="handler_text_changed" 
                 Name="tb_gate" 
                 PreviewTextInput="OnTextBoxPreviewTextInput" 
                 Template="{StaticResource customTextBox}"  
-                Grid.Row="2" 
+                Grid.Row="3" 
                 Grid.Column="1" 
                 Height="28" 
                 VerticalAlignment="Center" 
@@ -231,40 +266,7 @@
                 </TextBox.Text>
             </TextBox>
 
-            <TextBlock Text="{StaticResource ResStr_Submask}" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
-            <TextBox 
-                TextChanged="handler_text_changed" 
-                Name="tb_mask" 
-                PreviewTextInput="OnTextBoxPreviewTextInput" 
-                Template="{StaticResource customTextBox}" 
-                Grid.Row="3"
-                Grid.Column="1" 
-                Height="28" 
-                VerticalAlignment="Center" 
-                MaxLength="15" 
-                Style="{StaticResource SubmaskErrorTemplateStyle}"
-                InputMethod.IsInputMethodEnabled="False" 
-                PreviewKeyDown="OnPreviewKeyDown"
-                LostFocus="tb_mask_LostFocus">
-                <TextBox.InputBindings>
-                    <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
-                </TextBox.InputBindings>
-                <TextBox.ContextMenu>
-                    <ContextMenu Visibility="Collapsed">
-                    </ContextMenu>
-                </TextBox.ContextMenu>
-                <TextBox.Text>
-                    <Binding 
-                        Path="Submask" 
-                        ElementName="MyView"
-                        Mode="TwoWay"
-                        UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <local:SubmaskValidationRule ErrorMessage="{StaticResource ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation}"/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+           
 
             <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="{StaticResource ResStr_Apply}" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
         </Grid>
