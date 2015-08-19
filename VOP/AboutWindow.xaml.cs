@@ -30,8 +30,18 @@ namespace VOP
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            this.Width = this.Width * App.gScalingRate;
+            this.Height = this.Height * App.gScalingRate;
+
+            TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
+
             string strVersionInfo = (string)this.FindResource("ResStr_Lenovo_Printer") + String.Format(" {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
             tbkVersionInfo.Text = strVersionInfo;
+        }
+
+        private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }
