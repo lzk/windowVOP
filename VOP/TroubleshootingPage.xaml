@@ -36,7 +36,12 @@
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
 
-        <Image Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Source="Images/TroubleshootingMachine.png"/>
+        <Image Grid.Row="1" 
+               Grid.Column="1" 
+               Grid.ColumnSpan="3"
+               Source="Images/TroubleshootingMachine.png" 
+               Width="220" 
+               RenderOptions.BitmapScalingMode="NearestNeighbor"/>
         <local:ImageButton x:Name="UsbLinkButton"
                            Width="75" 
                            Height="75" 
