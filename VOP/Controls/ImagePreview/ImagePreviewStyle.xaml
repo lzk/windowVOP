@@ -99,7 +99,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ContentControl}">
-                    <Grid Background="#FFD4EAC3">
+                    <Grid Background="White">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="15" />
                             <RowDefinition Height="*" />
@@ -114,7 +114,8 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="15" />
                         </Grid.ColumnDefinitions>
-                        <Rectangle Grid.Row="1" Grid.Column="1" Fill="#FF71726F" Width="10" Height="10" Margin="-30,0,0,0"  />
+                        <Image Source="..\..\Images\Unvalid.tif" Grid.RowSpan="7" Grid.ColumnSpan="3"/>
+                        <!--<Rectangle Grid.Row="1" Grid.Column="1" Fill="#FF71726F" Width="10" Height="10" Margin="-30,0,0,0"  />
                         <Rectangle Grid.Row="1" Grid.Column="1" Fill="#FF71726F" Width="10" Height="10" Margin="30,0,0,0"/>
                         <Rectangle Grid.Row="2" Grid.Column="1" Fill="#FF71726F" Width="8" Height="18" />
                         <Path Grid.Row="3" Grid.Column="1" 
@@ -127,7 +128,7 @@
                                     <GradientStop Color="#FFD4EAC3" Offset="1"/>
                                 </RadialGradientBrush>
                             </Ellipse.Fill>
-                        </Ellipse>
+                        </Ellipse>-->
                         <TextBlock Grid.Row="5" Grid.Column="1" Text="{StaticResource ResStr_Unable_to_preview}"
                          Foreground="#FF71726F"
 			             FontSize="16" 

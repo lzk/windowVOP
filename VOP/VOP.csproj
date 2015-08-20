@@ -877,6 +877,9 @@
     <Resource Include="Media\NofeedJam2_en.gif" />
     <Resource Include="Media\NofeedJam2_zh.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Unvalid.tif" />
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(SolutionDir)HelpFile\*" "$(TargetDir)" /E /Y</PostBuildEvent>
   </PropertyGroup>
