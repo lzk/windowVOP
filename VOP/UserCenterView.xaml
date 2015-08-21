@@ -25,11 +25,11 @@
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="6*"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="15*"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="15*"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="15*"></RowDefinition>
             <RowDefinition Height="15"></RowDefinition>
             <RowDefinition Height="8*"></RowDefinition>
         </Grid.RowDefinitions>
@@ -73,28 +73,27 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="10*"></ColumnDefinition>
                 <ColumnDefinition Width="20"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Rectangle Fill="#FFE5E5E5" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="3">
+            <Rectangle Fill="#FFE5E5E5" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="3">
                 <Rectangle.Effect>
                     <DropShadowEffect Color="#FFA6A6A6" Direction="270" ShadowDepth="2"/>
                 </Rectangle.Effect>
             </Rectangle>
             <Image Source="Images\Shopping.png" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None"></Image>
-            <Image Source="Images\Document.png" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None"></Image>
-            <Image Source="Images\Position.png" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None"></Image>
+            <!--<Image Source="Images\Document.png" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None"></Image>-->
+            <Image Source="Images\Position.png" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="None"></Image>
 
             <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
             <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
 
             <Button Name="btnConsumable" Content="{StaticResource ResStr_Buy_consumables}" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" Grid.Row="0" Grid.Column="1" BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
-            <Button Name="btnRewardPoints" Content="{StaticResource ResStr_Check_consumables_points}" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}"  Grid.Row="1" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
-            <Button Name="btnMaintainStation" Content="{StaticResource ResStr_Nearest_service_station}" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}"  Grid.Row="2" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
+            <!--<Button Name="btnRewardPoints" Content="{StaticResource ResStr_Check_consumables_points}" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}"  Grid.Row="1" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>-->
+            <Button Name="btnMaintainStation" Content="{StaticResource ResStr_Nearest_service_station}" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}"  Grid.Row="1" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
         </Grid>
 
 
