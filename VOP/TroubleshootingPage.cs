@@ -45,6 +45,11 @@ namespace VOP
                 url = btn.Name == "UsbLinkButton" ?
                     help_path_CH + help_file_usb : help_path_CH + help_file_wifi;
             }
+            else
+            {
+                url = btn.Name == "UsbLinkButton" ?
+                 help_path_En + help_file_usb : help_path_En + help_file_wifi;
+            }
 
             try
             {
@@ -72,6 +77,11 @@ namespace VOP
                 url = btn.Name == "UsbLink" ?
                     help_path_CH + help_file_usb : help_path_CH + help_file_wifi;
             }
+            else
+            {
+                url = btn.Name == "UsbLink" ?
+                    help_path_En + help_file_usb : help_path_En + help_file_wifi;
+            }
 
             try
             {
@@ -79,7 +89,7 @@ namespace VOP
             }
             catch(Exception)
             {
-
+              
             } 
         }
 
