@@ -164,7 +164,7 @@
                         </Grid.RowDefinitions>
 
                         <CheckBox x:Name="chkNin1" Template="{StaticResource customCheckBox}" IsChecked="true" VerticalAlignment="Center" Content="{StaticResource ResStr_N_in_1_Copy}"
-                    HorizontalAlignment="Center" Checked="chkNin1_Checked" Unchecked="chkNin1_Unchecked" Height="24" Margin="0,-38,0,0" Grid.ColumnSpan="4" />
+                    HorizontalAlignment="Center" Checked="chkNin1_Checked" Unchecked="chkNin1_Unchecked" Height="24" Margin="0,-38,0,0" Grid.ColumnSpan="4" FontSize="14" />
 
                         <TextBlock Name="tk2in1" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_2_in_1}" Height="16" />
                         <TextBlock Name="tk4in1" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{StaticResource ResStr_4_in_1}" Height="16" />
