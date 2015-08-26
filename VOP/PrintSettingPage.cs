@@ -1879,6 +1879,12 @@ namespace VOP
                     {
                         DuplexPrintGroup.IsEnabled = true;
                         chk_DuplexPrint.IsEnabled = true;
+                        if (chk_DuplexPrint.IsChecked == true)
+                        {
+                            rdBtnFlipOnShortEdger.IsEnabled = true;
+                            rdBtnFlipOnLongEdge.IsEnabled = true;
+                        }
+                        
                     }
                 }
                 DisableLabelType();
