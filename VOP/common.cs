@@ -276,9 +276,9 @@ namespace VOP
                 case EnumStatus.NetWirelessDongleCfgFail    : st = StatusDisplayType.Error; break;
                 case EnumStatus.DMAError                    : st = StatusDisplayType.Error; break;
 
-                case EnumStatus.Offline                     : 
-                case EnumStatus.PowerOff                    : 
-                case EnumStatus.Unknown                     : st = StatusDisplayType.Offline ; break ;
+                case EnumStatus.Offline                     :
+                case EnumStatus.PowerOff                    :
+                case EnumStatus.Unknown                     : st = StatusDisplayType.Offline; break;
 
                 default                                     :
                                                               st = StatusDisplayType.Offline;

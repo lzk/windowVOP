@@ -355,6 +355,7 @@ typedef int (* LPFN_NETWORK_READ    ) (int sd, void* buff, DWORD len       ) ;
 typedef int (* LPFN_NETWORK_WRITE   ) (int sd, void* buff, DWORD len       ) ;
 typedef void(* LPFN_NETWORK_CLOSE   ) (int sd                              ) ;
 typedef int (__cdecl *LPFNNETWORKREADSTATUSEX) (char *server, char *community, PRINTER_STATUS *status, char* pMfg, char* pMdl);
+typedef int(__cdecl *LPFNNETWORKREADSTATUSEXPRO) (char *server, char *community, PRINTER_STATUS *status, char* pMfg, char* pMdl, int timeout, int redundant_packets);
 
 //--------------------------------declare-internal----------------------------
 static bool DoseHasEnoughSpace(
@@ -1252,6 +1253,9 @@ USBAPI_API bool __stdcall GetPrinterStatus( const wchar_t* szPrinter, BYTE* ptr_
             LPFNNETWORKREADSTATUSEX lpfn_net_getstatus = NULL;
             lpfn_net_getstatus = ( LPFNNETWORKREADSTATUSEX ) GetProcAddress( hmod , "NetworkReadStatusEx"    );
 
+			LPFNNETWORKREADSTATUSEXPRO lpfn_net_getstatus_pro = NULL;
+			lpfn_net_getstatus_pro = (LPFNNETWORKREADSTATUSEXPRO)GetProcAddress(hmod, "NetworkReadStatusExPro");
+
 			int nCount = 0;
 			if (lpfn_net_getstatus)
             {
@@ -1266,7 +1270,8 @@ USBAPI_API bool __stdcall GetPrinterStatus( const wchar_t* szPrinter, BYTE* ptr_
 					char sz_mfg[1024] = {0};
 					char sz_mdl[1024] = {0};
 
-					if (lpfn_net_getstatus(sz_ip, sz_community, &ps, sz_mfg, sz_mdl))
+				/*	if (lpfn_net_getstatus(sz_ip, sz_community, &ps, sz_mfg, sz_mdl))*/
+					if (lpfn_net_getstatus_pro(sz_ip, sz_community, &ps, sz_mfg, sz_mdl, 2000, 0)) //justin provided new NetIo dll 2015/8/27
 					{
 						OutputDebugStringA("\r\n####VP:GetPrinterStatus(): lpfn_net_getstatus Success");
 

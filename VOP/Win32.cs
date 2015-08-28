@@ -19,6 +19,9 @@ namespace VOP
         [DllImport("user32")]
         public static extern bool PostMessage(IntPtr hwnd, uint msg, IntPtr wparam, IntPtr lparam);
 
+        [DllImport("user32")]
+        public static extern bool SendMessage(IntPtr hwnd, uint msg, IntPtr wparam, IntPtr lparam);
+
         [DllImport("kernel32.dll", ExactSpelling = true)]
         public static extern IntPtr GlobalUnlock(IntPtr handle);
 
