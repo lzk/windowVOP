@@ -449,21 +449,21 @@ namespace VOP
                     strValue = o.GetValue("user").ToString();
                     {
                         JObject jSub = JObject.Parse(strValue);
-                        string strItemValue = jSub.GetValue("mobile").ToString();
+                        string strItemValue = jSub.GetValue("mobile").ToString().Trim(new char[] { '\r', '\n' ,' '});
                         record.m_strMobile = strItemValue;
 
-                        strItemValue = jSub.GetValue("realName").ToString();
+                        strItemValue = jSub.GetValue("realName").ToString().Trim(new char[] { '\r', '\n', ' ' });
                         record.m_strRealName = strItemValue;
 
-                        strItemValue = jSub.GetValue("address").ToString();
+                        strItemValue = jSub.GetValue("address").ToString().Trim(new char[] { '\r', '\n', ' ' });
                         record.m_strAddress = strItemValue;
 
-                        strItemValue = jSub.GetValue("email").ToString();
+                        strItemValue = jSub.GetValue("email").ToString().Trim(new char[] { '\r', '\n', ' ' });
                         record.m_strEmail = strItemValue;
 
                         try
                         {
-                            strItemValue = jSub.GetValue("sex").ToString();
+                            strItemValue = jSub.GetValue("sex").ToString().Trim(new char[] { '\r', '\n', ' ' });
                             
                             if ("女" == strItemValue)
                                 record.m_nSex = 0;
@@ -475,7 +475,7 @@ namespace VOP
                             record.m_nSex = 1;
                         }
 
-                        strItemValue = jSub.GetValue("birthDate").ToString();
+                        strItemValue = jSub.GetValue("birthDate").ToString().Trim(new char[] { '\r', '\n', ' ' });
                         record.m_dtBirthday = Convert.ToDateTime(strItemValue);
                     }
                     bSuccess = true;                
@@ -634,50 +634,50 @@ namespace VOP
                                 MerchantInfoItem merchantInfo = new MerchantInfoItem();
                                 JArray ja = (JArray)JsonConvert.DeserializeObject(strValue);
 
-                                string strItemValue = ja[nIdx]["merchant_id"].ToString();
+                                string strItemValue = ja[nIdx]["merchant_id"].ToString().Trim(new char[] { '\r', '\n', ' ' });
                                 merchantInfo.m_nID = Convert.ToInt32(strItemValue);
 
-                                strItemValue = ja[nIdx]["user_id"].ToString();
+                                strItemValue = ja[nIdx]["user_id"].ToString().Trim(new char[] { '\r', '\n', ' ' });
                                 merchantInfo.m_nUserID = Convert.ToInt32(strItemValue);
 
-                                merchantInfo.m_strCode = ja[nIdx]["merchant_code"].ToString();
-                                merchantInfo.m_strCompanyName = ja[nIdx]["merchant_name"].ToString();
-                                merchantInfo.m_strMail = ja[nIdx]["merchant_email"].ToString();
-                                merchantInfo.m_strImagePath = ja[nIdx]["merchant_image"].ToString();
-                                merchantInfo.m_strPassword = ja[nIdx]["merchant_password"].ToString();
+                                merchantInfo.m_strCode = ja[nIdx]["merchant_code"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strCompanyName = ja[nIdx]["merchant_name"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strMail = ja[nIdx]["merchant_email"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strImagePath = ja[nIdx]["merchant_image"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strPassword = ja[nIdx]["merchant_password"].ToString().Trim(new char[] { '\r', '\n', ' ' });
 
-                                merchantInfo.m_strType = ja[nIdx]["merchant_type"].ToString();
-                                merchantInfo.m_strProductCategory = ja[nIdx]["merchant_product_category"].ToString();
-                                merchantInfo.m_strPhone = ja[nIdx]["merchant_phone"].ToString();
-                                merchantInfo.m_strContact = ja[nIdx]["merchant_contact"].ToString();
-                                merchantInfo.m_strProvince = ja[nIdx]["merchant_province"].ToString();
+                                merchantInfo.m_strType = ja[nIdx]["merchant_type"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strProductCategory = ja[nIdx]["merchant_product_category"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strPhone = ja[nIdx]["merchant_phone"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strContact = ja[nIdx]["merchant_contact"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strProvince = ja[nIdx]["merchant_province"].ToString().Trim(new char[] { '\r', '\n', ' ' });
                                 if (merchantInfo.m_strProvince.EndsWith("省"))
                                 {
                                     merchantInfo.m_strProvince = merchantInfo.m_strProvince.Substring(0,merchantInfo.m_strProvince.Length-1);
                                 }
 
-                                merchantInfo.m_strCity = ja[nIdx]["merchant_city"].ToString();
+                                merchantInfo.m_strCity = ja[nIdx]["merchant_city"].ToString().Trim(new char[] { '\r', '\n', ' ' });
 
                                 if (merchantInfo.m_strCity.EndsWith("市"))
                                 {
                                     merchantInfo.m_strCity = merchantInfo.m_strCity.Substring(0, merchantInfo.m_strCity.Length - 1);
                                 }
 
-                                merchantInfo.m_strDistrict = ja[nIdx]["merchant_district"].ToString();
-                                merchantInfo.m_strAddress = ja[nIdx]["merchant_address"].ToString();
-                                merchantInfo.m_strLongitude = ja[nIdx]["merchant_longitude"].ToString();
-                                merchantInfo.m_strLatitude = ja[nIdx]["merchant_latitude"].ToString();
+                                merchantInfo.m_strDistrict = ja[nIdx]["merchant_district"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strAddress = ja[nIdx]["merchant_address"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strLongitude = ja[nIdx]["merchant_longitude"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strLatitude = ja[nIdx]["merchant_latitude"].ToString().Trim(new char[] { '\r', '\n', ' ' });
 
-                                merchantInfo.m_strDesctiption = ja[nIdx]["merchant_desc"].ToString();
-                                merchantInfo.m_strContactName = ja[nIdx]["merchant_contact_name"].ToString();
-                                merchantInfo.m_strContactPhone = ja[nIdx]["merchant_contact_phone"].ToString();
-                                merchantInfo.m_strRemark = ja[nIdx]["merchant_remark"].ToString();
-                                merchantInfo.m_strConfigFreight = ja[nIdx]["merchant_config_freight"].ToString();
+                                merchantInfo.m_strDesctiption = ja[nIdx]["merchant_desc"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strContactName = ja[nIdx]["merchant_contact_name"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strContactPhone = ja[nIdx]["merchant_contact_phone"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strRemark = ja[nIdx]["merchant_remark"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strConfigFreight = ja[nIdx]["merchant_config_freight"].ToString().Trim(new char[] { '\r', '\n', ' ' });
 
-                                merchantInfo.m_strStatus = ja[nIdx]["merchant_status"].ToString();
-                                merchantInfo.m_strStatusChange = ja[nIdx]["merchant_status_change"].ToString();
-                                merchantInfo.m_strTimeCreate = ja[nIdx]["merchant_time_create"].ToString();
-                                merchantInfo.m_strTimeLastModify = ja[nIdx]["merchant_time_lastmodify"].ToString();
+                                merchantInfo.m_strStatus = ja[nIdx]["merchant_status"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strStatusChange = ja[nIdx]["merchant_status_change"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strTimeCreate = ja[nIdx]["merchant_time_create"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                merchantInfo.m_strTimeLastModify = ja[nIdx]["merchant_time_lastmodify"].ToString().Trim(new char[] { '\r', '\n', ' ' });
 
                                 merchantInfo.OutputDebugStringIntoFile();
                                 ((MerchantInfoSet)(dynamic)record).m_listMerchantInfo.Add(merchantInfo);
@@ -713,34 +713,34 @@ namespace VOP
                                 MaintainInfoItem maintainInfoItem = new MaintainInfoItem();
                                 JArray ja = (JArray)JsonConvert.DeserializeObject(strValue);
 
-                                string strItemValue = ja[nIdx]["service_station_id"].ToString();
+                                string strItemValue = ja[nIdx]["service_station_id"].ToString().Trim(new char[] { '\r', '\n', ' ' });
                                 maintainInfoItem.m_nID = Convert.ToInt32(strItemValue);
 
-                                strItemValue = ja[nIdx]["user_id"].ToString();
+                                strItemValue = ja[nIdx]["user_id"].ToString().Trim(new char[] { '\r', '\n', ' ' });
                                 maintainInfoItem.m_nUserID = Convert.ToInt32(strItemValue);
-                                maintainInfoItem.m_strName = ja[nIdx]["service_station_name"].ToString();
-                                maintainInfoItem.m_strProvince = ja[nIdx]["service_station_province"].ToString();
+                                maintainInfoItem.m_strName = ja[nIdx]["service_station_name"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                maintainInfoItem.m_strProvince = ja[nIdx]["service_station_province"].ToString().Trim(new char[] { '\r', '\n', ' ' });
                                 if (maintainInfoItem.m_strProvince.EndsWith("省"))
                                 {
                                     maintainInfoItem.m_strProvince = maintainInfoItem.m_strProvince.Substring(0, maintainInfoItem.m_strProvince.Length - 1);
                                 }
 
-                                maintainInfoItem.m_strCity = ja[nIdx]["service_station_city"].ToString();
+                                maintainInfoItem.m_strCity = ja[nIdx]["service_station_city"].ToString().Trim(new char[] { '\r', '\n', ' ' });
                                 if (maintainInfoItem.m_strCity.EndsWith("市"))
                                 {
                                     maintainInfoItem.m_strCity = maintainInfoItem.m_strCity.Substring(0, maintainInfoItem.m_strCity.Length - 1);
                                 }
 
-                                maintainInfoItem.m_strAddress = ja[nIdx]["service_station_address"].ToString();
-                                maintainInfoItem.m_strProductLine = ja[nIdx]["service_station_product_line"].ToString();
-                                maintainInfoItem.m_strPhone = ja[nIdx]["service_station_phone"].ToString();
-                                maintainInfoItem.m_strHours = ja[nIdx]["service_station_hours"].ToString();
-                                maintainInfoItem.m_strRemark = ja[nIdx]["service_station_remark"].ToString();
-                                maintainInfoItem.m_strLongitude = ja[nIdx]["service_station_longitude"].ToString();
-                                maintainInfoItem.m_strLatitude = ja[nIdx]["service_station_latitude"].ToString();
+                                maintainInfoItem.m_strAddress = ja[nIdx]["service_station_address"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                maintainInfoItem.m_strProductLine = ja[nIdx]["service_station_product_line"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                maintainInfoItem.m_strPhone = ja[nIdx]["service_station_phone"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                maintainInfoItem.m_strHours = ja[nIdx]["service_station_hours"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                maintainInfoItem.m_strRemark = ja[nIdx]["service_station_remark"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                maintainInfoItem.m_strLongitude = ja[nIdx]["service_station_longitude"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                maintainInfoItem.m_strLatitude = ja[nIdx]["service_station_latitude"].ToString().Trim(new char[] { '\r', '\n', ' ' });
 
-                                maintainInfoItem.m_strStatus = ja[nIdx]["service_station_status"].ToString();
-                                maintainInfoItem.m_strTimeCreate = ja[nIdx]["service_station_time_create"].ToString();
+                                maintainInfoItem.m_strStatus = ja[nIdx]["service_station_status"].ToString().Trim(new char[] { '\r', '\n', ' ' });
+                                maintainInfoItem.m_strTimeCreate = ja[nIdx]["service_station_time_create"].ToString().Trim(new char[] { '\r', '\n', ' ' });
 
                                 ((MaintainInfoSet)(dynamic)record).m_listMaintainInfo.Add(maintainInfoItem);
                             }
@@ -766,12 +766,12 @@ namespace VOP
                             strValue = o.GetValue("addon").ToString();
                             {
                                 JObject jSub = JObject.Parse(strValue);
-                                string strItemValue = jSub.GetValue("merchant_id").ToString();
+                                string strItemValue = jSub.GetValue("merchant_id").ToString().Trim(new char[] { '\r', '\n', ' ' });
                                 ((SessionInfo)(dynamic)record).m_nMerchantID = Convert.ToInt32(strItemValue);
 
-                                strItemValue = jSub.GetValue("customer").ToString();
+                                strItemValue = jSub.GetValue("customer").ToString().Trim(new char[] { '\r', '\n', ' ' });
                                 jSub = JObject.Parse(strItemValue);
-                                strItemValue = jSub.GetValue("customer_id").ToString();
+                                strItemValue = jSub.GetValue("customer_id").ToString().Trim(new char[] { '\r', '\n', ' ' });
                                 ((SessionInfo)(dynamic)record).m_nCustomerID = Convert.ToInt32(strItemValue);
                             }
 
@@ -788,18 +788,18 @@ namespace VOP
                             strValue = o.GetValue("user").ToString();
                             {
                                 JObject jSub = JObject.Parse(strValue);
-                                string strItemValue = jSub.GetValue("mobile").ToString();
+                                string strItemValue = jSub.GetValue("mobile").ToString().Trim(new char[] { '\r', '\n', ' ' });
                                 ((UserInformation)(dynamic)record).m_strMobile = strItemValue;
 
-                                strItemValue = jSub.GetValue("realName").ToString();
+                                strItemValue = jSub.GetValue("realName").ToString().Trim(new char[] { '\r', '\n', ' ' });
                                 ((UserInformation)(dynamic)record).m_strRealName = strItemValue;
 
-                                strItemValue = jSub.GetValue("address").ToString();
+                                strItemValue = jSub.GetValue("address").ToString().Trim(new char[] { '\r', '\n', ' ' });
                                 ((UserInformation)(dynamic)record).m_strAddress = strItemValue;
 
                                 try
                                 {
-                                    strItemValue = jSub.GetValue("sex").ToString();
+                                    strItemValue = jSub.GetValue("sex").ToString().Trim(new char[] { '\r', '\n', ' ' });
                                     ((UserInformation)(dynamic)record).m_nSex = Convert.ToInt32(strItemValue);
                                 }
                                 catch
@@ -807,7 +807,7 @@ namespace VOP
                                     ((UserInformation)(dynamic)record).m_nSex = 0;
                                 }
 
-                                strItemValue = jSub.GetValue("birthDate").ToString();
+                                strItemValue = jSub.GetValue("birthDate").ToString().Trim(new char[] { '\r', '\n', ' ' });
                                 ((UserInformation)(dynamic)record).m_dtBirthday = Convert.ToDateTime(strItemValue);
                             }
                             bSuccess = true;
@@ -1019,7 +1019,7 @@ namespace VOP
         {
             bool bSuccess = false;
             //http://crm.iprintworks.cn/api/app_print
-            string url = "http://123.57.255.92/api/app_print";//debug 
+            string url = "http://crm.iprintworks.cn/api/app_print";//debug 
             string strCMD = _PrintInfo.ConvertToWebParams();
             string strResult = "";
 
@@ -1038,7 +1038,7 @@ namespace VOP
         {
             bool bSuccess = false;
             //http://crm.iprintworks.cn/api/app_open
-            string url = "http://123.57.255.92/api/app_open";//debug 
+            string url = "http://crm.iprintworks.cn/api/app_open";//debug 
             string strCMD = _lci.ConvertToWebParams();
             string strResult = "";
 
