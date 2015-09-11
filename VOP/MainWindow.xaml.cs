@@ -1034,7 +1034,7 @@ namespace VOP
                 // TODO: post the status message to the main window
                 if (_status != (byte)EnumStatus.Unknown)
                 {
-                    Win32.SendMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, IntPtr.Zero, IntPtr.Zero);
+                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, IntPtr.Zero, IntPtr.Zero);
                 }
                       
                 for ( int i=0; i<6; i++ )
