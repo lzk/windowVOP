@@ -74,9 +74,9 @@
 
         <TextBlock Name="textblock_Tip"  
                    Grid.ColumnSpan="3"
-                   Margin="3, 0, 0, 0"
-                   HorizontalAlignment="Left"
+                   Margin="0, -2, 0, 0"
                    VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
                    Background="{x:Null}"
                    FontSize="12"
                    Foreground="#555555"                   

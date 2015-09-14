@@ -7,7 +7,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Scan">扫  描</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting">设置</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Model">机型</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Device_Status">设备状态</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Device_Status">状态</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Ready">待机</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Busy">工作中</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Sleep">休眠</sys:String>
