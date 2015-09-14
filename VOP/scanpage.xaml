@@ -213,8 +213,8 @@
         Style="{StaticResource LeftScrollViewer}" Margin="0"
         >
         <ScrollViewer.Effect>
-            <DropShadowEffect BlurRadius="24" Color="#FF808080" Direction="90" ShadowDepth="2"/>
-        </ScrollViewer.Effect>
+                <DropShadowEffect BlurRadius="14" Color="#FFA1A0A0" Direction="270"  ShadowDepth="1" Opacity="0.9"/>
+            </ScrollViewer.Effect>
 
         <WrapPanel Name="image_wrappanel" Width="377" HorizontalAlignment="Center">
         </WrapPanel>
@@ -228,9 +228,9 @@
         <local:ButtonEx x:Name="btnSave" HorizontalContentAlignment="Center" Margin="5,0" IsDefault="False"
             Content="{StaticResource ResStr_Save}" Height="35" Width="73" HorizontalAlignment="Center" Click="btnSave_Click" />
         <local:ButtonEx x:Name="btnSetting" Click="SettingBtnClick" HorizontalContentAlignment="Center" Margin="5,10" IsDefault="False"
-            Content="{StaticResource ResStr_More_Settings}" Height="35" Width="102" HorizontalAlignment="Center" />
+            Content="{StaticResource ResStr_More_Settings}" Height="35" Width="106" HorizontalAlignment="Center" />
         <local:ButtonEx x:Name="btnScan" HorizontalContentAlignment="Center" Margin="10,0" IsDefault="True" IsActiveEx="True"
-            Content="{StaticResource ResStr_Scan}" Height="35" Width="104" Click="btnScan_Click" />
+            Content="{StaticResource ResStr_Scan}" Height="35" Width="106" Click="btnScan_Click" />
     </StackPanel>
 
     <Grid Grid.Column="1" Grid.Row="2">

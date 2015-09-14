@@ -206,7 +206,7 @@
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">                        
                         <local:ButtonEx IsDefault="False" IsEnabled="True" Content="{StaticResource ResStr_More_Settings}" 
-                                        x:Name="btnSetting" Width="120" Height="35"
+                                        x:Name="btnSetting" Width="120" Height="33"
                                         Margin="0,0,40,0" Click="SettingBtnClick" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
 
                         <local:ButtonEx x:Name="btnCopy" HorizontalContentAlignment="Center"

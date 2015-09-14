@@ -151,7 +151,7 @@
                 <!-- Title bar end -->
 
 
-                <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Document_Type}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="450" Height="75" >
+                <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Document_Type}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="455" Height="75" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100*" />

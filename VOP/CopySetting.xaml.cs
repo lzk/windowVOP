@@ -459,6 +459,10 @@ namespace VOP
             {
                 btnDefault.FontSize = btnApply.FontSize = 17.87;
             }
+            else
+            {
+                btnDefault.FontSize = btnApply.FontSize = 14;
+            }
         }
         
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)

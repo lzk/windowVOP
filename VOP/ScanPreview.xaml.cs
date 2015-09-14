@@ -108,6 +108,10 @@ namespace VOP
             {
                 btnOK.FontSize = btnPrint.FontSize = 17.87;
             }
+            else
+            {
+                btnOK.FontSize = btnPrint.FontSize = 14;
+            }
         }
 
         private void CenterImage()

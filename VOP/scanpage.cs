@@ -366,6 +366,10 @@ namespace VOP
                 btnPrint.FontSize = btnSave.FontSize = btnSetting.FontSize = btnScan.FontSize = 17.87;
                 txtBlk_ScannedImageSize.FontSize = txtBlkImgSize.FontSize = txtProgressLabel.FontSize = 14; 
             }
+            else
+            {
+                btnPrint.FontSize = btnSave.FontSize = btnSetting.FontSize = btnScan.FontSize = 14;
+            }
         }
 
         /// <summary>

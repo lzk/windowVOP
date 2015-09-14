@@ -423,6 +423,11 @@ namespace VOP
                 btnSetting.FontSize = btnCopy.FontSize = 17.87;
                 txtBlk_IdCardCopy.FontSize = 17.74;
             }
+            else
+            {
+                btnSetting.FontSize = btnCopy.FontSize = 14;
+                txtBlk_IdCardCopy.FontSize = 14;
+            }
         }
         
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)

@@ -367,6 +367,7 @@ namespace VOP
             else// en-US
             {
                 Color.FontSize = Grayscale.FontSize = BlackAndWhite.FontSize = 8.0;
+                btnDefault.FontSize = btnOk.FontSize = 14;
             }
         }
 
