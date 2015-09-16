@@ -712,14 +712,14 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = (string)this.FindResource( "ResStr_Thick_Paper" );
-            cboItem.DataContext = EnumMediaType.Thin;
+            cboItem.DataContext = EnumMediaType.Thick;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboMediaType.Items.Add( cboItem );
 
             cboItem = new ComboBoxItem();
             cboItem.Content = (string)this.FindResource( "ResStr_Thin_Paper" );
-            cboItem.DataContext = EnumMediaType.Thick;
+            cboItem.DataContext = EnumMediaType.Thin;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboMediaType.Items.Add( cboItem );
