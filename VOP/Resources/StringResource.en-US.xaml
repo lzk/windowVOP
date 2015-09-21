@@ -323,4 +323,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt2">If the operation is not performed within 1 minute, the task will be automatically canceled.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt_Box_will_not_pop_up_next_time">The prompt box will not pop up next time.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Image_file_not_found">Image file cannot be found.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_TCP_IPv4">TCP/IPv4</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_TCP_IPv6">TCP/IPv6</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Status">Status</sys:String>
 </ResourceDictionary>
