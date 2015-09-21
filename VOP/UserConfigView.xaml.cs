@@ -221,7 +221,7 @@ namespace VOP
             GetUIValues(out leadingedge, out sidetoside, out imagedensity, out lowhumiditymode, out platecontrolmode, out primarycoolingmode);
 
             string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
-            UserCfgRecord m_rec = new UserCfgRecord(strPrinterName, leadingedge, sidetoside, imagedensity, lowhumiditymode, platecontrolmode, primarycoolingmode);
+            UserCfgRecord m_rec = new UserCfgRecord(strPrinterName, leadingedge, sidetoside, imagedensity, lowhumiditymode, platecontrolmode, primarycoolingmode, true);
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
             if (worker.InvokeMethod<UserCfgRecord>(strPrinterName, ref m_rec, DllMethodType.SetUserConfig, this))

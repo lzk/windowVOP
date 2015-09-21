@@ -114,6 +114,8 @@ namespace VOP
         SetFusingResetCmd       = 13,
         SetPassword             = 14,
         ConfirmPassword         = 15,
+        GetIpv6Info             = 16,
+        SetIpv6Info             = 17,
     }
 
     /// <summary>

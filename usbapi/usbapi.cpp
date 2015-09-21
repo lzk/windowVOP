@@ -47,6 +47,10 @@
 #define _PRN_PASSWD_COMFIRM	0x08
 #define _Fusing_SC_Reset    0x0B
 
+#define _PRN_POWEROFF_GET   0x0E
+#define _PRN_POWEROFF_SET   0x0F
+#define _PRN_TONEREND_GET   0x11
+#define _PRN_TONEREND_SET   0x12
 #define     MAGIC_NUM           0x1A2B3C4D
 
 #define  _ACK                          0
@@ -226,6 +230,20 @@ typedef struct net_info_st
     UINT8 GatewayAddress[4] ; // 0.0.0.0 ~ 223.255.255.255
 } net_info_st;
 
+typedef struct net_ipv6info_st
+{
+	UINT8 UseManualAddress;	//0 Disabled,1 Enabled
+	char ManualAddress[40];
+	UINT32 ManualMask;
+	char StatelessAddress1[40];
+	char StatelessAddress2[40];
+	char StatelessAddress3[40];
+	char LinkLocalAddress[40];
+	char IPv6ManualGatewayAddress[40];
+	char AutoGatewayAddress[40];
+	char AutoStatefulAddress[40];
+	UINT8 DHCPv6;
+} net_ipv6info_st;
 typedef struct _COMM_HEADER
 {
 	UINT32 magic;
@@ -423,6 +441,18 @@ USBAPI_API int __stdcall GetIPInfo(
         BYTE* ptr_gate2,
         BYTE* ptr_gate3);
 
+USBAPI_API int __stdcall GetIpv6Info(const wchar_t* szPrinter,
+	BYTE* UseManualAddress,
+	char* ManualAddress,
+	UINT32 *ManualMask,
+	char* StatelessAddress1,
+	char* StatelessAddress2,
+	char* StatelessAddress3,
+	char* LinkLocalAddress,
+	char* IPv6ManualGatewayAddress,
+	char* AutoGatewayAddress,
+	char* AutoStatefulAddress,
+	BYTE* DHCPv6);
 
 USBAPI_API int __stdcall GetApList(const wchar_t* szPrinter,
 	char* pssid0, BYTE* ptr_encryption0, BYTE* ptr_connected0,
@@ -463,6 +493,25 @@ USBAPI_API int __stdcall SetIPInfo(
         BYTE* ptr_gate1,
         BYTE* ptr_gate2,
         BYTE* ptr_gate3);
+USBAPI_API int __stdcall SetIPv6Info(
+	const wchar_t* _szPrinter,
+	BYTE _UseManualAddress,
+	wchar_t* _wsManualAddress,
+	UINT32 _ManualMask,
+	wchar_t* _wsStatelessAddress1,
+	wchar_t* _wsStatelessAddress2,
+	wchar_t* _wsStatelessAddress3,
+	wchar_t* _wsLinkLocalAddress,
+	wchar_t* _wsIPv6ManualGatewayAddress,
+	wchar_t* _wsAutoGatewayAddress,
+	wchar_t* _wsAutoStatefulAddress,
+	BYTE _DHCPv6);
+
+USBAPI_API int __stdcall SetPowerOff(const wchar_t* szPrinter, BYTE isEnable);
+USBAPI_API int __stdcall GetPowerOff(const wchar_t* szPrinter, BYTE* ptrIsEnable);
+
+USBAPI_API int __stdcall SetTonerEnd(const wchar_t* szPrinter, BYTE isEnable);
+USBAPI_API int __stdcall GetTonerEnd(const wchar_t* szPrinter, BYTE* ptrIsEnable);
 
 USBAPI_API int __stdcall ConfirmPassword(const wchar_t* szPrinter, const wchar_t* ws_pwd);
 USBAPI_API int __stdcall GetPassword(const wchar_t* szPrinter, char* pwd);
@@ -1100,6 +1149,102 @@ USBAPI_API int __stdcall SetIPInfo(
     return nResult;
 }
 
+USBAPI_API int __stdcall SetIPv6Info(
+	const wchar_t* _szPrinter,
+	BYTE _UseManualAddress,
+	wchar_t* _wsManualAddress,
+	UINT32 _ManualMask,
+	wchar_t* _wsStatelessAddress1,
+	wchar_t* _wsStatelessAddress2,
+	wchar_t* _wsStatelessAddress3,
+	wchar_t* _wsLinkLocalAddress,
+	wchar_t* _wsIPv6ManualGatewayAddress,
+	wchar_t* _wsAutoGatewayAddress,
+	wchar_t* _wsAutoStatefulAddress,
+	BYTE _DHCPv6)
+{
+	if (NULL == _szPrinter)
+		return _SW_INVALID_PARAMETER;
+
+	OutputDebugStringToFileA("\r\n####VP:SetIPv6Info() begin");
+
+	int nResult = _ACK;
+	wchar_t szIP[MAX_PATH];
+	int nPortType = CheckPort(_szPrinter, szIP);
+
+	if (PT_UNKNOWN == nPortType)
+	{
+		nResult = _SW_UNKNOWN_PORT;
+	}
+	else
+	{
+		char* buffer = new char[sizeof(COMM_HEADER)+340];
+		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+340);
+		COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>(buffer);
+
+		ppkg->magic = MAGIC_NUM;
+		ppkg->id = _LS_NETCMD;
+		ppkg->len = 3 + 340;
+
+		// For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+		// it just stand for the sub id. The real data length is defined by the lib
+		ppkg->subid = 0x13;
+		ppkg->len2 = 1;
+
+		net_ipv6info_st* ptr_net_info = reinterpret_cast<net_ipv6info_st*>(buffer + sizeof(COMM_HEADER));
+
+		ppkg->subcmd = 0x03;   // _NET_SETV6 0x03
+
+		char cbManualAddress[40] = { 0 };
+		char cbStatelessAddress1[40] = { 0 };
+		char cbStatelessAddress2[40] = { 0 };
+		char cbStatelessAddress3[40] = { 0 };
+		char cbLinkLocalAddress[40] = { 0 };
+		char cbIPv6ManualGatewayAddress[40] = { 0 };
+		char cbAutoGatewayAddress[40] = { 0 };
+		char cbAutoStatefulAddress[40] = { 0 };
+
+		::WideCharToMultiByte(CP_ACP, 0, _wsManualAddress, -1, cbManualAddress, 40, NULL, NULL);
+		::WideCharToMultiByte(CP_ACP, 0, _wsStatelessAddress1, -1, cbStatelessAddress1, 40, NULL, NULL);
+		::WideCharToMultiByte(CP_ACP, 0, _wsStatelessAddress2, -1, cbStatelessAddress2, 40, NULL, NULL);
+		::WideCharToMultiByte(CP_ACP, 0, _wsStatelessAddress3, -1, cbStatelessAddress3, 40, NULL, NULL);
+		::WideCharToMultiByte(CP_ACP, 0, _wsLinkLocalAddress, -1, cbLinkLocalAddress, 40, NULL, NULL);
+		::WideCharToMultiByte(CP_ACP, 0, _wsIPv6ManualGatewayAddress, -1, cbIPv6ManualGatewayAddress, 40, NULL, NULL);
+		::WideCharToMultiByte(CP_ACP, 0, _wsAutoGatewayAddress, -1, cbAutoGatewayAddress, 40, NULL, NULL);
+		::WideCharToMultiByte(CP_ACP, 0, _wsAutoStatefulAddress, -1, cbAutoStatefulAddress, 40, NULL, NULL);
+
+		ptr_net_info->UseManualAddress = _UseManualAddress;
+		ptr_net_info->ManualMask = _ManualMask;
+		ptr_net_info->DHCPv6 = _DHCPv6;
+		memcpy(ptr_net_info->ManualAddress, cbManualAddress, 40);
+		memcpy(ptr_net_info->StatelessAddress1, cbStatelessAddress1, 40);
+		memcpy(ptr_net_info->StatelessAddress2, cbStatelessAddress2, 40);
+		memcpy(ptr_net_info->StatelessAddress3, cbStatelessAddress3, 40);
+		memcpy(ptr_net_info->LinkLocalAddress, cbLinkLocalAddress, 40);
+		memcpy(ptr_net_info->IPv6ManualGatewayAddress, cbIPv6ManualGatewayAddress, 40);
+		memcpy(ptr_net_info->AutoGatewayAddress, cbAutoGatewayAddress, 40);
+		memcpy(ptr_net_info->AutoStatefulAddress, cbAutoStatefulAddress, 40);
+
+
+		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
+		{
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER)+340, NULL, 0);
+		}
+		else if (PT_USB == nPortType)
+		{
+			nResult = WriteDataViaUSB(_szPrinter, buffer, sizeof(COMM_HEADER)+340, NULL, 0);
+		}
+
+		if (buffer)
+		{
+			delete[] buffer;
+			buffer = NULL;
+		}
+	}
+	OutputDebugStringToFileA("\r\n####VP:SetIPv6Info(): nResult == 0x%x", nResult);
+	OutputDebugStringToFileA("\r\n####VP:SetIPv6Info() end");
+	return nResult;
+}
 USBAPI_API bool __stdcall GetPrinterStatus( const wchar_t* szPrinter, BYTE* ptr_status, BYTE* ptr_toner, BYTE* pJob )
 {
     bool isSuccess = false;
@@ -2408,6 +2553,93 @@ USBAPI_API int __stdcall GetIPInfo(
     return nResult;
 }
 
+USBAPI_API int __stdcall GetIpv6Info(const wchar_t* szPrinter,
+	BYTE* UseManualAddress,
+	char* ManualAddress,
+	UINT32 *ManualMask,
+	char* StatelessAddress1,
+	char* StatelessAddress2,
+	char* StatelessAddress3,
+	char* LinkLocalAddress,
+	char* IPv6ManualGatewayAddress,
+	char* AutoGatewayAddress,
+	char* AutoStatefulAddress,
+	BYTE* DHCPv6)
+{
+	OutputDebugStringToFileA("\r\n####VP:GetIpv6Info() begin");
+
+	int nResult = _ACK;
+	wchar_t szIP[MAX_PATH];
+	int nPortType = CheckPort(szPrinter, szIP);
+
+	if (PT_UNKNOWN == nPortType)
+	{
+		nResult = _SW_UNKNOWN_PORT;
+	}
+	else
+	{
+		char* buffer = new char[sizeof(COMM_HEADER)+340];
+		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+340);
+		COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>(buffer);
+
+		ppkg->magic = MAGIC_NUM;
+		ppkg->id = _LS_NETCMD;
+		ppkg->len = 3;
+
+		// For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+		// it just stand for the sub id. The real data length is defined by the lib
+		ppkg->subid = 0x13;
+		ppkg->len2 = 0x01;
+
+		net_ipv6info_st* ptr_net_info = reinterpret_cast<net_ipv6info_st*>(buffer + sizeof(COMM_HEADER));
+
+		ppkg->subcmd = 02;       // _NET_GETV6  0x02
+
+		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
+		{
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+340);
+		}
+		else if (PT_USB == nPortType)
+		{
+			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+340);
+		}
+
+		if (_ACK == nResult)
+		{
+			if (ptr_net_info->UseManualAddress == 0
+				|| ptr_net_info->UseManualAddress == 1)
+			{
+				*UseManualAddress = ptr_net_info->UseManualAddress;
+				memcpy(ManualAddress, ptr_net_info->ManualAddress, 40); ManualAddress[40] = 0;
+				*ManualMask = ptr_net_info->ManualMask;
+				memcpy(StatelessAddress1, ptr_net_info->StatelessAddress1, 40); StatelessAddress1[40] = 0;
+				memcpy(StatelessAddress2, ptr_net_info->StatelessAddress2, 40); StatelessAddress2[40] = 0;
+				memcpy(StatelessAddress3, ptr_net_info->StatelessAddress3, 40); StatelessAddress3[40] = 0;
+				memcpy(LinkLocalAddress, ptr_net_info->LinkLocalAddress, 40); LinkLocalAddress[40] = 0;
+				memcpy(IPv6ManualGatewayAddress, ptr_net_info->IPv6ManualGatewayAddress, 40); IPv6ManualGatewayAddress[40] = 0;
+				memcpy(AutoGatewayAddress, ptr_net_info->AutoGatewayAddress, 40); AutoGatewayAddress[40] = 0;
+				memcpy(AutoStatefulAddress, ptr_net_info->AutoStatefulAddress, 40); AutoStatefulAddress[40] = 0;
+				*DHCPv6 = ptr_net_info->DHCPv6;
+
+				nResult = _ACK;
+			}
+			else
+			{
+				nResult = _SW_INVALID_RETURN_VALUE;
+			}
+		}
+
+		if (buffer)
+		{
+			delete[] buffer;
+			buffer = NULL;
+		}
+	}
+
+	OutputDebugStringToFileA("\r\n####VP:GetIpv6Info(): nResult == 0x%x", nResult);
+	OutputDebugStringToFileA("\r\n####VP:GetIpv6Info() end");
+	return nResult;
+}
 USBAPI_API int __stdcall GetWiFiInfo(const wchar_t* szPrinter, UINT8* ptr_wifienable, char* ssid, char* pwd, UINT8* ptr_encryption, UINT8* ptr_wepKeyId)
 {
     if ( NULL == szPrinter )
@@ -2600,6 +2832,250 @@ USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, BYTE* ptrTi
 	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime(): nResult == 0x%x", nResult);
 	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime() end");
     return nResult;
+}
+
+USBAPI_API int __stdcall SetTonerEnd(const wchar_t* szPrinter, BYTE isEnable)
+{
+	if (NULL == szPrinter)
+		return _SW_INVALID_PARAMETER;
+	OutputDebugStringToFileA("\r\n####VP:SetTonerEnd() begin");
+
+	int nResult = _ACK;
+	wchar_t szIP[MAX_PATH];
+	int nPortType = CheckPort(szPrinter, szIP);
+
+	if (PT_UNKNOWN == nPortType)
+	{
+		nResult = _SW_UNKNOWN_PORT;
+	}
+	else
+	{
+		char* buffer = new char[sizeof(COMM_HEADER)+1];
+		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+1);
+		COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>(buffer);
+
+		ppkg->magic = MAGIC_NUM;
+		ppkg->id = _LS_PRNCMD;
+		ppkg->len = 3 + 1;
+
+		// For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+		// it just stand for the sub id. The real data length is defined by the lib
+		ppkg->subid = 0x13;
+		ppkg->len2 = 1;
+		ppkg->subcmd = _PRN_TONEREND_SET;
+
+		BYTE* ptrData = reinterpret_cast<BYTE*>(buffer + sizeof(COMM_HEADER));
+		*ptrData = isEnable;
+
+		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
+		{
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER)+1, NULL, 0);
+		}
+		else if (PT_USB == nPortType)
+		{
+			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER)+1, NULL, 0);
+		}
+
+		if (buffer)
+		{
+			delete[] buffer;
+			buffer = NULL;
+		}
+	}
+
+	OutputDebugStringToFileA("\r\n####VP:SetTonerEnd(): nResult == 0x%x", nResult);
+	OutputDebugStringToFileA("\r\n####VP:SetTonerEnd() end");
+	return nResult;
+}
+
+USBAPI_API int __stdcall GetTonerEnd(const wchar_t* szPrinter, BYTE* ptrIsEnable)
+{
+	if (NULL == szPrinter)
+		return _SW_INVALID_PARAMETER;
+
+	OutputDebugStringToFileA("\r\n####VP:GetTonerEnd() begin");
+
+	int nResult = _ACK;
+	wchar_t szIP[MAX_PATH];
+
+	int nPortType = CheckPort(szPrinter, szIP);
+
+	if (PT_UNKNOWN == nPortType)
+	{
+		nResult = _SW_UNKNOWN_PORT;
+	}
+	else
+	{
+		char* buffer = new char[sizeof(COMM_HEADER)+1];
+		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+1);
+		COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>(buffer);
+
+		ppkg->magic = MAGIC_NUM;
+		ppkg->id = _LS_PRNCMD;
+		ppkg->len = 3;
+
+		// For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+		// it just stand for the sub id. The real data length is defined by the lib
+		ppkg->subid = 0x13;
+		ppkg->len2 = 1;
+		ppkg->subcmd = _PRN_TONEREND_GET;
+
+		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
+		{
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1);
+		}
+		else if (PT_USB == nPortType)
+		{
+			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1);
+		}
+
+		if (_ACK == nResult)
+		{
+			BYTE* ptr = reinterpret_cast<BYTE*>(buffer + sizeof(COMM_HEADER));
+
+			if (1 == *ptr || 0 == *ptr)
+			{
+				*ptrIsEnable = *ptr;
+				nResult = _ACK;
+			}
+			else
+			{
+				nResult = _SW_INVALID_RETURN_VALUE;
+			}
+		}
+
+		if (buffer)
+		{
+			delete[] buffer;
+			buffer = NULL;
+		}
+	}
+
+	OutputDebugStringToFileA("\r\n####VP:GetTonerEnd(): nResult == 0x%x", nResult);
+	OutputDebugStringToFileA("\r\n####VP:GetTonerEnd() end");
+	return nResult;
+}
+
+USBAPI_API int __stdcall SetPowerOff(const wchar_t* szPrinter, BYTE isEnable)
+{
+	if (NULL == szPrinter)
+		return _SW_INVALID_PARAMETER;
+	OutputDebugStringToFileA("\r\n####VP:SetPowerOff() begin");
+
+	int nResult = _ACK;
+	wchar_t szIP[MAX_PATH];
+	int nPortType = CheckPort(szPrinter, szIP);
+
+	if (PT_UNKNOWN == nPortType)
+	{
+		nResult = _SW_UNKNOWN_PORT;
+	}
+	else
+	{
+		char* buffer = new char[sizeof(COMM_HEADER)+1];
+		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+1);
+		COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>(buffer);
+
+		ppkg->magic = MAGIC_NUM;
+		ppkg->id = _LS_PRNCMD;
+		ppkg->len = 3 + 1;
+
+		// For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+		// it just stand for the sub id. The real data length is defined by the lib
+		ppkg->subid = 0x13;
+		ppkg->len2 = 1;
+		ppkg->subcmd = _PRN_POWEROFF_SET;
+
+		BYTE* ptrData = reinterpret_cast<BYTE*>(buffer + sizeof(COMM_HEADER));
+		*ptrData = isEnable;
+
+		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
+		{
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER)+1, NULL, 0);
+		}
+		else if (PT_USB == nPortType)
+		{
+			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER)+1, NULL, 0);
+		}
+
+		if (buffer)
+		{
+			delete[] buffer;
+			buffer = NULL;
+		}
+	}
+
+	OutputDebugStringToFileA("\r\n####VP:SetPowerOff(): nResult == 0x%x", nResult);
+	OutputDebugStringToFileA("\r\n####VP:SetPowerOff() end");
+	return nResult;
+}
+
+USBAPI_API int __stdcall GetPowerOff(const wchar_t* szPrinter, BYTE* ptrIsEnable)
+{
+	if (NULL == szPrinter)
+		return _SW_INVALID_PARAMETER;
+
+	OutputDebugStringToFileA("\r\n####VP:GetPowerOff() begin");
+
+	int nResult = _ACK;
+	wchar_t szIP[MAX_PATH];
+
+	int nPortType = CheckPort(szPrinter, szIP);
+
+	if (PT_UNKNOWN == nPortType)
+	{
+		nResult = _SW_UNKNOWN_PORT;
+	}
+	else
+	{
+		char* buffer = new char[sizeof(COMM_HEADER)+1];
+		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+1);
+		COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>(buffer);
+
+		ppkg->magic = MAGIC_NUM;
+		ppkg->id = _LS_PRNCMD;
+		ppkg->len = 3;
+
+		// For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+		// it just stand for the sub id. The real data length is defined by the lib
+		ppkg->subid = 0x13;
+		ppkg->len2 = 1;
+		ppkg->subcmd = _PRN_POWEROFF_GET;
+
+		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
+		{
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1);
+		}
+		else if (PT_USB == nPortType)
+		{
+			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1);
+		}
+
+		if (_ACK == nResult)
+		{
+			BYTE* ptr = reinterpret_cast<BYTE*>(buffer + sizeof(COMM_HEADER));
+
+			if (1 == *ptr || 0 == *ptr)
+			{
+				*ptrIsEnable = *ptr;
+				nResult = _ACK;
+			}
+			else
+			{
+				nResult = _SW_INVALID_RETURN_VALUE;
+			}
+		}
+
+		if (buffer)
+		{
+			delete[] buffer;
+			buffer = NULL;
+		}
+	}
+
+	OutputDebugStringToFileA("\r\n####VP:GetPowerOff(): nResult == 0x%x", nResult);
+	OutputDebugStringToFileA("\r\n####VP:GetPowerOff() end");
+	return nResult;
 }
 
 // width  unit: mil ( 0.001 inch ) 

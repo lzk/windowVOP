@@ -15,7 +15,7 @@ namespace VOP
 
         [DllImport("usbapi.dll")]
         public static extern int CheckPortAPI(
-                [MarshalAs(UnmanagedType.LPWStr)]String printername );
+                [MarshalAs(UnmanagedType.LPWStr)]String printername);
 
         [DllImport("usbapi.dll")]
         public static extern int SetPowerSaveTime(
@@ -28,6 +28,26 @@ namespace VOP
                 ref byte time);
 
         [DllImport("usbapi.dll")]
+        public static extern int SetPowerOff(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                byte isEnable);
+
+        [DllImport("usbapi.dll")]
+        public static extern int GetPowerOff(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                ref byte isEnable);
+
+        [DllImport("usbapi.dll")]
+        public static extern int SetTonerEnd(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                byte isEnable);
+
+        [DllImport("usbapi.dll")]
+        public static extern int GetTonerEnd(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                ref byte isEnable);
+
+        [DllImport("usbapi.dll")]
         public static extern int GetSoftAp(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
                 StringBuilder ssid,
@@ -37,67 +57,97 @@ namespace VOP
         [DllImport("usbapi.dll")]
         public static extern int GetApList(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
-                StringBuilder ssid0,  ref byte encryption0, ref byte connectedStatus0,
-                StringBuilder ssid1,  ref byte encryption1, ref byte connectedStatus1,
-                StringBuilder ssid2,  ref byte encryption2, ref byte connectedStatus2,
-                StringBuilder ssid3,  ref byte encryption3, ref byte connectedStatus3,
-                StringBuilder ssid4,  ref byte encryption4, ref byte connectedStatus4,
-                StringBuilder ssid5,  ref byte encryption5, ref byte connectedStatus5,
-                StringBuilder ssid6,  ref byte encryption6, ref byte connectedStatus6,
-                StringBuilder ssid7,  ref byte encryption7, ref byte connectedStatus7,
-                StringBuilder ssid8,  ref byte encryption8, ref byte connectedStatus8,
-                StringBuilder ssid9,  ref byte encryption9, ref byte connectedStatus9 );
+                StringBuilder ssid0, ref byte encryption0, ref byte connectedStatus0,
+                StringBuilder ssid1, ref byte encryption1, ref byte connectedStatus1,
+                StringBuilder ssid2, ref byte encryption2, ref byte connectedStatus2,
+                StringBuilder ssid3, ref byte encryption3, ref byte connectedStatus3,
+                StringBuilder ssid4, ref byte encryption4, ref byte connectedStatus4,
+                StringBuilder ssid5, ref byte encryption5, ref byte connectedStatus5,
+                StringBuilder ssid6, ref byte encryption6, ref byte connectedStatus6,
+                StringBuilder ssid7, ref byte encryption7, ref byte connectedStatus7,
+                StringBuilder ssid8, ref byte encryption8, ref byte connectedStatus8,
+                StringBuilder ssid9, ref byte encryption9, ref byte connectedStatus9);
 
         [DllImport("usbapi.dll")]
-            public static extern int GetIPInfo(
-                    [MarshalAs(UnmanagedType.LPWStr)]String printername,
-                    ref byte mode_ipversion,
-                    ref byte mode_ipaddress,
+        public static extern int GetIPInfo(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                ref byte mode_ipversion,
+                ref byte mode_ipaddress,
 
-                    ref byte ip0,
-                    ref byte ip1,
-                    ref byte ip2,
-                    ref byte ip3,
+                ref byte ip0,
+                ref byte ip1,
+                ref byte ip2,
+                ref byte ip3,
 
-                    ref byte mask0,
-                    ref byte mask1,
-                    ref byte mask2,
-                    ref byte mask3,
+                ref byte mask0,
+                ref byte mask1,
+                ref byte mask2,
+                ref byte mask3,
 
-                    ref byte gate0,
-                    ref byte gate1,
-                    ref byte gate2,
-                    ref byte gate3);
-
-        [DllImport("usbapi.dll")]
-            public static extern int SetIPInfo(
-                    [MarshalAs(UnmanagedType.LPWStr)]String printername,
-                    ref byte mode_ipversion,
-                    ref byte mode_ipaddress,
-
-                    ref byte ip0,
-                    ref byte ip1,
-                    ref byte ip2,
-                    ref byte ip3,
-
-                    ref byte mask0,
-                    ref byte mask1,
-                    ref byte mask2,
-                    ref byte mask3,
-
-                    ref byte gate0,
-                    ref byte gate1,
-                    ref byte gate2,
-                    ref byte gate3);
+                ref byte gate0,
+                ref byte gate1,
+                ref byte gate2,
+                ref byte gate3);
 
         [DllImport("usbapi.dll")]
-            public static extern int GetWiFiInfo(
-                    [MarshalAs(UnmanagedType.LPWStr)]String printername,
-                    ref byte bWifiEnable,
-                    StringBuilder ssid,
-                    StringBuilder pwd,
-                    ref byte encryption,
-                    ref byte wepKeyId );
+        public static extern int SetIPInfo(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                ref byte mode_ipversion,
+                ref byte mode_ipaddress,
+
+                ref byte ip0,
+                ref byte ip1,
+                ref byte ip2,
+                ref byte ip3,
+
+                ref byte mask0,
+                ref byte mask1,
+                ref byte mask2,
+                ref byte mask3,
+
+                ref byte gate0,
+                ref byte gate1,
+                ref byte gate2,
+                ref byte gate3);
+
+        [DllImport("usbapi.dll")]
+        public static extern int GetIpv6Info([MarshalAs(UnmanagedType.LPWStr)]String printername,
+                    ref byte UseManualAddress,
+                    StringBuilder ManualAddress,
+                    ref UInt32 ManualMask,
+                    StringBuilder StatelessAddress1,
+                    StringBuilder StatelessAddress2,
+                    StringBuilder StatelessAddress3,
+                    StringBuilder LinkLocalAddress,
+                    StringBuilder IPv6ManualGatewayAddress,
+                    StringBuilder AutoGatewayAddress,
+                    StringBuilder AutoStatefulAddress,
+                    ref byte DHCPv6);
+
+        [DllImport("usbapi.dll")]
+        public static extern int SetIPv6Info(
+               [MarshalAs(UnmanagedType.LPWStr)]String printername,
+               byte UseManualAddress,
+               [MarshalAs(UnmanagedType.LPWStr)]String ManualAddress,
+               UInt32 ManualMask,
+               [MarshalAs(UnmanagedType.LPWStr)]String StatelessAddress1,
+               [MarshalAs(UnmanagedType.LPWStr)]String StatelessAddress2,
+               [MarshalAs(UnmanagedType.LPWStr)]String StatelessAddress3,
+               [MarshalAs(UnmanagedType.LPWStr)]String LinkLocalAddress,
+               [MarshalAs(UnmanagedType.LPWStr)]String IPv6ManualGatewayAddress,
+               [MarshalAs(UnmanagedType.LPWStr)]String AutoGatewayAddress,
+               [MarshalAs(UnmanagedType.LPWStr)]String AutoStatefulAddress,
+               byte DHCPv6
+                );
+
+        [DllImport("usbapi.dll")]
+        public static extern int GetWiFiInfo(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                ref byte bWifiEnable,
+                StringBuilder ssid,
+                StringBuilder pwd,
+                ref byte encryption,
+                ref byte wepKeyId);
 
         [DllImport("usbapi.dll")]
         public static extern int SetWiFiInfo(
@@ -106,30 +156,30 @@ namespace VOP
                 byte wifiChangeFlag,
                 [MarshalAs(UnmanagedType.LPWStr)]String ssid,
                 [MarshalAs(UnmanagedType.LPWStr)]String pwd,
-                byte encryption, 
-                byte wepKeyId );
+                byte encryption,
+                byte wepKeyId);
 
         [DllImport("usbapi.dll")]
         public static extern int SetSoftAp(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
                 [MarshalAs(UnmanagedType.LPWStr)]String ssid,
                 [MarshalAs(UnmanagedType.LPWStr)]String pwd,
-                bool isEnableSoftAp );
+                bool isEnableSoftAp);
 
         [DllImport("usbapi.dll")]
-            public static extern int ScanEx(
-                    [MarshalAs(UnmanagedType.LPWStr)]String sz_printer,
-                    [MarshalAs(UnmanagedType.LPWStr)]String szOrig,
-                    [MarshalAs(UnmanagedType.LPWStr)]String szView,
-                    [MarshalAs(UnmanagedType.LPWStr)]String szThumb,
-                    int scanMode,
-                    int resolution,
-                    int width,
-                    int height,
-                    int contrast,
-                    int brightness,
-                    int docutype,
-                    uint uMsg );
+        public static extern int ScanEx(
+                [MarshalAs(UnmanagedType.LPWStr)]String sz_printer,
+                [MarshalAs(UnmanagedType.LPWStr)]String szOrig,
+                [MarshalAs(UnmanagedType.LPWStr)]String szView,
+                [MarshalAs(UnmanagedType.LPWStr)]String szThumb,
+                int scanMode,
+                int resolution,
+                int width,
+                int height,
+                int contrast,
+                int brightness,
+                int docutype,
+                uint uMsg);
 
         [DllImport("usbapi.dll")]
         public static extern int GetUserCfg(
@@ -150,12 +200,12 @@ namespace VOP
                 sbyte LowHumidityMode,
                 sbyte platecontrolmode,
                 sbyte primarycoolingmode);
-        
-		[DllImport("usbapi.dll")]
+
+        [DllImport("usbapi.dll")]
         public static extern int SetFusingSCReset(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername);
-        
-		[DllImport("usbapi.dll")]
+
+        [DllImport("usbapi.dll")]
         public static extern int SendCopyCmd(
                 [MarshalAs(UnmanagedType.LPWStr)]String wsString1,
                 byte Density,
@@ -166,14 +216,14 @@ namespace VOP
                 byte nUp,
                 byte dpi,
                 ushort scale,
-                byte mediaType );
+                byte mediaType);
 
         [DllImport("usbapi.dll")]
         public static extern bool GetPrinterStatus(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
-                ref byte status, 
+                ref byte status,
                 ref byte toner,
-                ref byte job );
+                ref byte job);
 
         [DllImport("usbapi.dll")]
         public static extern int ConfirmPassword(
@@ -197,9 +247,9 @@ namespace VOP
                 int idCardType,
                 [In, MarshalAs(UnmanagedType.LPStruct)]IdCardSize size,
                 bool fitToPage,
-                int  duplexType,
+                int duplexType,
                 bool IsPortrait,
-                int  scalingValue);
+                int scalingValue);
 
         [DllImport("usbapi.dll")]
         public static extern void AddImagePath(
@@ -228,7 +278,7 @@ namespace VOP
 
         [DllImport("usbapi.dll")]
         public static extern int PrintFile(
-               [MarshalAs(UnmanagedType.LPWStr)]string printerName, 
+               [MarshalAs(UnmanagedType.LPWStr)]string printerName,
                [MarshalAs(UnmanagedType.LPWStr)]string fileName,
                bool fitToPage,
                int duplexType,
@@ -368,7 +418,7 @@ namespace VOP
         [DllImport("usbapi.dll")]
         public static extern void GetFixToPaperSizeData(ref sbyte FixToPaperSiz, ref short ScalingRatio);
         [DllImport("usbapi.dll")]
-        public static extern int SaveFixToPaperSizeData(sbyte PaperSize,short ScalingRatio);
+        public static extern int SaveFixToPaperSizeData(sbyte PaperSize, short ScalingRatio);
     }
 
 }

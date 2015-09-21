@@ -49,3 +49,9 @@ EXPORTS
     CancelScanning
     IsMetricCountry
 	GetWifiChangeStatus
+	GetIpv6Info
+	SetIPv6Info
+	SetPowerOff
+	GetPowerOff
+	SetTonerEnd
+	GetTonerEnd

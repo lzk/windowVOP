@@ -15,6 +15,7 @@ namespace VOP
         SettingButton btnwifi = new SettingButton(IconType.Wireless);
         SettingButton btnSoftAp = new SettingButton(IconType.SoftAP);
         SettingButton btnTCPIP = new SettingButton(IconType.TCPIP);
+        SettingButton btnTCPIPv6 = new SettingButton(IconType.TCPIPv6);
         SettingButton btnPowerSave = new SettingButton(IconType.PowerSave);
         SettingButton btnUserConfig = new SettingButton(IconType.UserConfig);
         SettingButton btnPwd = new SettingButton(IconType.Password);
@@ -24,6 +25,7 @@ namespace VOP
         WifiView    wifiView = new WifiView();
         SoftapView  softapView = new SoftapView();
         TcpipView   tcpipView = new TcpipView();
+        IPV6CatalogsView ipv6View = new IPV6CatalogsView();
         PowerSaveView powersaveView = new PowerSaveView();
         UserConfigView userconfigView = new UserConfigView();
         PasswordView passwordView = new PasswordView();
@@ -55,7 +57,7 @@ namespace VOP
             btnSoftAp.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnSoftAp);
 
-            btnTCPIP.btn.Content = (string)this.FindResource("ResStr_TCP_IP");
+            btnTCPIP.btn.Content = (string)this.FindResource("ResStr_TCP_IPv4");
             btnTCPIP.Margin = new Thickness(0, 1, 0, 9);
             btnTCPIP.Width = tabbtn_width;
             btnTCPIP.Height = tabbtn_height;
@@ -63,6 +65,15 @@ namespace VOP
             btnTCPIP.btn.Name = "btnTCPIP";
             btnTCPIP.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnTCPIP);
+
+            btnTCPIPv6.btn.Content = (string)this.FindResource("ResStr_TCP_IPv6");
+            btnTCPIPv6.Margin = new Thickness(0, 1, 0, 9);
+            btnTCPIPv6.Width = tabbtn_width;
+            btnTCPIPv6.Height = tabbtn_height;
+            btnTCPIPv6.HorizontalAlignment = HorizontalAlignment.Left;
+            btnTCPIPv6.btn.Name = "btnTCPIPv6";
+            btnTCPIPv6.btn.Click += SettingBtnClick;
+            m_listSettingButton.Add(btnTCPIPv6);
 
             btnPowerSave.btn.Content = (string)this.FindResource("ResStr_Power_Save");
             btnPowerSave.Margin = new Thickness(0, 1, 0, 9);
@@ -133,6 +144,7 @@ namespace VOP
                 setting_tab_btn.Children.Add(btnwifi);
                 setting_tab_btn.Children.Add(btnSoftAp);
                 setting_tab_btn.Children.Add(btnTCPIP);
+                setting_tab_btn.Children.Add(btnTCPIPv6);
             }
 
             setting_tab_btn.Children.Add(btnPowerSave);
@@ -172,6 +184,11 @@ namespace VOP
             {
                 SetActiveButton(IconType.TCPIP);
                 this.settingView.Child = tcpipView;
+            }
+            else if ("btnTCPIPv6" == srcButton.Name)
+            {
+                SetActiveButton(IconType.TCPIPv6);
+                this.settingView.Child = ipv6View;
             }
             else if ("btnPowerSave" == srcButton.Name)
             {

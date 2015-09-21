@@ -4,7 +4,7 @@
     <Color x:Key="clrDisableText_TextBox">#FFEFEFEF</Color>
     <Color x:Key="clrEnableBK_TextBox">#FFF7F7F7</Color>
 
-    <ControlTemplate x:Key="customTextBox" TargetType="{x:Type TextBox}" >             
+    <ControlTemplate x:Key="customTextBox" TargetType="{x:Type TextBox}" >
         <Grid Width="{TemplateBinding Width}"
                       Height="{TemplateBinding Height}">
             <Rectangle Name="Border"
@@ -25,7 +25,7 @@
                      Margin="1"
                 >
                 <Rectangle.Fill>
-                    <SolidColorBrush Color="{StaticResource clrEnableBK_TextBox}"></SolidColorBrush>                  
+                    <SolidColorBrush Color="{StaticResource clrEnableBK_TextBox}"></SolidColorBrush>
                 </Rectangle.Fill>
             </Rectangle>
             <ScrollViewer 
@@ -37,8 +37,8 @@
                 IsEnabled="{TemplateBinding IsEnabled}"
                 />
         </Grid>
-        
-        <ControlTemplate.Triggers>          
+
+        <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Foreground">
                     <Setter.Value>
@@ -57,11 +57,11 @@
                     <Setter.Value>
                         <SolidColorBrush Color="{StaticResource clrDisableBK_TextBox}"></SolidColorBrush>
                     </Setter.Value>
-                </Setter>                
+                </Setter>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-   
+
     <ControlTemplate x:Key="customTextBox1" TargetType="{x:Type TextBox}" >
         <Grid Width="{TemplateBinding Width}"
                       Height="{TemplateBinding Height}">
@@ -112,27 +112,58 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <Style x:Key="TextFocusStyle">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="-0.5" RadiusX="15" RadiusY="15" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 3" StrokeDashCap="Square" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <ControlTemplate x:Key="customTextBox2" TargetType="{x:Type TextBox}" >
         <Grid Width="{TemplateBinding Width}"
                       Height="{TemplateBinding Height}">
-            <Rectangle Name="rect"
-                       RadiusX="15"
-                       RadiusY="15"
-                >
-                <Rectangle.Fill>
-                    <SolidColorBrush Color="#FFBFBFBF"></SolidColorBrush>
-                </Rectangle.Fill>
-            </Rectangle>
-            
-            <ScrollViewer                
+
+            <Border x:Name="tbBorder" 
+                    Background="#FFC3C3C3"
+                    BorderBrush="Red" 
+                    BorderThickness="{TemplateBinding BorderThickness}" 
+                    CornerRadius="15" 
+                    Margin="1" >
+                <ScrollViewer                
                 x:Name="PART_ContentHost" 
                 VerticalAlignment="Center"            
                 FontSize="{TemplateBinding FontSize}"
                 Foreground="{TemplateBinding Foreground}" 
                 IsEnabled="{TemplateBinding IsEnabled}"
+                Margin="6,2,6,2" 
                 />
-        </Grid>
 
+            </Border>
+
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <SolidColorBrush Color="#FF8D8D8D" />
+                    </Setter.Value>
+                </Setter>
+
+                <Setter TargetName="tbBorder" Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="#FFD4D4D4"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+            <Trigger  Property="IsFocused" Value="True">
+                <Setter Property="FocusVisualStyle" Value="{StaticResource TextFocusStyle}"/>
+            </Trigger>
+
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 
 </ResourceDictionary>

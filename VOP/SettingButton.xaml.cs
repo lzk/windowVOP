@@ -22,6 +22,7 @@ namespace VOP
         Wireless,
         SoftAP,
         TCPIP,
+        TCPIPv6,
         PowerSave,
         UserConfig,
         Password,
@@ -45,7 +46,7 @@ namespace VOP
                 imgActive.Source = new BitmapImage(new Uri("Images\\SoftAP_Active.png", UriKind.RelativeOrAbsolute));
                 imgInactive.Source = new BitmapImage(new Uri("Images\\SoftAP.png", UriKind.RelativeOrAbsolute));
             }
-            else if (iconType == IconType.TCPIP)
+            else if (iconType == IconType.TCPIP || iconType == IconType.TCPIPv6)
             {
                 imgActive.Source = new BitmapImage(new Uri("Images\\TCPIP_Active.png", UriKind.RelativeOrAbsolute));
                 imgInactive.Source = new BitmapImage(new Uri("Images\\TCPIP.png", UriKind.RelativeOrAbsolute));

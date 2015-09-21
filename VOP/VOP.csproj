@@ -119,6 +119,9 @@
     <Compile Include="CopyConfirm.xaml.cs">
       <DependentUpon>CopyConfirm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IPV6CatalogsView.xaml.cs" />
+    <Compile Include="IPV6SettingWindow.xaml.cs" />
+    <Compile Include="IPV6StatusWindow.xaml.cs" />
     <Compile Include="ModifyUserInfo.xaml.cs">
       <DependentUpon>ModifyUserInfo.xaml</DependentUpon>
     </Compile>
@@ -244,6 +247,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\CustomTickCheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\ImagePreview\ImagePreview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -275,6 +282,18 @@
     <Page Include="CopyConfirm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="IPV6CatalogsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="IPV6SettingWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="IPV6StatusWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ModifyUserInfo.xaml">
       <SubType>Designer</SubType>
@@ -879,6 +898,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Unvalid.tif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Checked_Agreement.tif" />
+    <Resource Include="Images\UnChecked_Agreement.tif" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(SolutionDir)HelpFile\*" "$(TargetDir)" /E /Y</PostBuildEvent>

@@ -23,15 +23,15 @@ namespace VOP
     public delegate int DoWorkDelegate();
     public delegate int ScanDelegate(string printerName, string szOrig, string szView, string szThumb,
                                         int scanMode, int resolution, int width, int height,
-                                        int contrast, int brightness, int docuType, uint uMsg );
+                                        int contrast, int brightness, int docuType, uint uMsg);
     public delegate int PrintFileDelegate(string printerName, string fileName, bool needFitToPage, int duplexType, bool IsPortrait, int copies, int scalingValue);
-    public delegate bool RotateScannedFilesDelegate( ScanFiles objSrc, ScanFiles objDst, int nAngle );
-    
+    public delegate bool RotateScannedFilesDelegate(ScanFiles objSrc, ScanFiles objDst, int nAngle);
+
     class AsyncWorker
     {
         private Window owner = null;
         private ProgressBarWindow pbw = null;
-//        private ScanProgressBarWindow scanPbw = null;
+        //        private ScanProgressBarWindow scanPbw = null;
         private ProgressBarWindow scanPbw = null;
 
         public AsyncWorker(Window owner)
@@ -41,17 +41,17 @@ namespace VOP
 
         void CallbackMethod(IAsyncResult ar)
         {
-            if(pbw != null)
+            if (pbw != null)
             {
                 pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
                  new Action(
                  delegate()
                  {
-                   pbw.Close();
+                     pbw.Close();
                  }
                  ));
             }
-           
+
         }
 
         void ScanCallbackMethod(IAsyncResult ar)
@@ -71,7 +71,7 @@ namespace VOP
 
         public int InvokeScanMethod(ScanDelegate method, string printerName, string szOrig, string szView, string szThumb,
                                                                       int scanMode, int resolution, int width, int height,
-                                                                      int contrast, int brightness, int docuType, uint uMsg )
+                                                                      int contrast, int brightness, int docuType, uint uMsg)
         {
 
             if (method != null)
@@ -79,16 +79,16 @@ namespace VOP
                 ScanDelegate caller = method;
 
 
-                IAsyncResult result = caller.BeginInvoke(printerName, szOrig, szView, szThumb, scanMode, resolution, width, height,contrast, brightness, docuType, uMsg,
+                IAsyncResult result = caller.BeginInvoke(printerName, szOrig, szView, szThumb, scanMode, resolution, width, height, contrast, brightness, docuType, uMsg,
                                                          new AsyncCallback(ScanCallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
-//                    scanPbw = new ScanProgressBarWindow();
+                    //                    scanPbw = new ScanProgressBarWindow();
                     scanPbw.Owner = this.owner;
                     scanPbw.ShowDialog();
                 }
-                            
+
                 if (result.AsyncWaitHandle.WaitOne(100, false))
                 {
                     return caller.EndInvoke(result);
@@ -100,7 +100,7 @@ namespace VOP
         }
 
 
-        public bool InvokeRotateScannedFiles(RotateScannedFilesDelegate method, ScanFiles objSrc, ScanFiles objDst, int nAngle )
+        public bool InvokeRotateScannedFiles(RotateScannedFilesDelegate method, ScanFiles objSrc, ScanFiles objDst, int nAngle)
         {
             bool bSuccess = false;
 
@@ -108,7 +108,7 @@ namespace VOP
             {
                 RotateScannedFilesDelegate caller = method;
 
-                IAsyncResult result = caller.BeginInvoke( objSrc, objDst, nAngle, new AsyncCallback(CallbackMethod), null);
+                IAsyncResult result = caller.BeginInvoke(objSrc, objDst, nAngle, new AsyncCallback(CallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
@@ -117,8 +117,8 @@ namespace VOP
                     pbw.ShowDialog();
                 }
 
-                if ( result.AsyncWaitHandle.WaitOne(100, false) )
-                    bSuccess = caller.EndInvoke( result );
+                if (result.AsyncWaitHandle.WaitOne(100, false))
+                    bSuccess = caller.EndInvoke(result);
             }
 
             return bSuccess;
@@ -177,7 +177,7 @@ namespace VOP
             return 1;
         }
 
-        public bool InvokeMethod<T>(string printerName, ref T rec,  DllMethodType methodType, object frameworkElement) where T : class
+        public bool InvokeMethod<T>(string printerName, ref T rec, DllMethodType methodType, object frameworkElement) where T : class
         {
             T record = rec;
 
@@ -190,11 +190,12 @@ namespace VOP
                 case DllMethodType.SetUserConfig:
                 case DllMethodType.SetPassword:
                 case DllMethodType.SetFusingResetCmd:
+                case DllMethodType.SetIpv6Info:
                     string strDrvName = "";
                     if (false == common.GetPrinterDrvName(printerName, ref strDrvName))
                     {
                         FrameworkElement _this = frameworkElement as FrameworkElement;
-                        if(null != _this)
+                        if (null != _this)
                         {
                             MessageBoxEx_Simple messageBox =
                                 new MessageBoxEx_Simple((string)_this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)_this.FindResource("ResStr_Error"));
@@ -223,47 +224,53 @@ namespace VOP
                 switch (methodType)
                 {
                     case DllMethodType.GetIpInfo:
-                           record = (T)(dynamic)GetIpInfo(printerName);
-                           break;
+                        record = (T)(dynamic)GetIpInfo(printerName);
+                        break;
                     case DllMethodType.SetIpInfo:
-                           record = (T)(dynamic)SetIpInfo((IpInfoRecord)(dynamic)record);
-                           break;
+                        record = (T)(dynamic)SetIpInfo((IpInfoRecord)(dynamic)record);
+                        break;
+                    case DllMethodType.GetIpv6Info:
+                        record = (T)(dynamic)GetIpv6Info(printerName);
+                        break;
+                    case DllMethodType.SetIpv6Info:
+                        record = (T)(dynamic)SetIpv6Info((IPV6InfoRecord)(dynamic)record);
+                        break;
                     case DllMethodType.GetPowerSaveTime:
-                           record = (T)(dynamic)GetPowerSaveTime(printerName);
-                           break;
+                        record = (T)(dynamic)GetPowerSaveTime(printerName);
+                        break;
                     case DllMethodType.SetPowerSaveTime:
-                           record = (T)(dynamic)SetPowerSaveTime((PowerSaveTimeRecord)(dynamic)record);
-                           break;
+                        record = (T)(dynamic)SetPowerSaveTime((PowerSaveTimeRecord)(dynamic)record);
+                        break;
                     case DllMethodType.GetSoftAp:
-                           record = (T)(dynamic)GetSoftAp(printerName);
-                           break;
+                        record = (T)(dynamic)GetSoftAp(printerName);
+                        break;
                     case DllMethodType.SetSoftAp:
-                           record = (T)(dynamic)SetSoftAp((SoftApRecord)(dynamic)record);
-                           break;
+                        record = (T)(dynamic)SetSoftAp((SoftApRecord)(dynamic)record);
+                        break;
                     case DllMethodType.GetApList:
-                           record = (T)(dynamic)GetApList(printerName);
-                           break;
+                        record = (T)(dynamic)GetApList(printerName);
+                        break;
                     case DllMethodType.GetWiFiInfo:
-                           record = (T)(dynamic)GetWiFiInfo(printerName);
-                           break;
+                        record = (T)(dynamic)GetWiFiInfo(printerName);
+                        break;
                     case DllMethodType.SetWiFiInfo:
-                           record = (T)(dynamic)SetWiFiInfo((WiFiInfoRecord)(dynamic)record);
-                           break;
+                        record = (T)(dynamic)SetWiFiInfo((WiFiInfoRecord)(dynamic)record);
+                        break;
                     case DllMethodType.GetUserConfig:
-                           record = (T)(dynamic)GetUserCfg(printerName);
-                           break;
+                        record = (T)(dynamic)GetUserCfg(printerName);
+                        break;
                     case DllMethodType.SetUserConfig:
-                           record = (T)(dynamic)SetUserCfg((UserCfgRecord)(dynamic)record);
-                           break;
+                        record = (T)(dynamic)SetUserCfg((UserCfgRecord)(dynamic)record);
+                        break;
                     case DllMethodType.SetFusingResetCmd:
-                           record = (T)(dynamic)SetFusingReset((FusingResetRecord)(dynamic)record);
-                           break;
+                        record = (T)(dynamic)SetFusingReset((FusingResetRecord)(dynamic)record);
+                        break;
                     case DllMethodType.SetPassword:
-                           record = (T)(dynamic)SetPassword((PasswordRecord)(dynamic)record);
-                           break;
+                        record = (T)(dynamic)SetPassword((PasswordRecord)(dynamic)record);
+                        break;
                     case DllMethodType.ConfirmPassword:
-                           record = (T)(dynamic)ConfirmPassword((PasswordRecord)(dynamic)record);
-                           break;
+                        record = (T)(dynamic)ConfirmPassword((PasswordRecord)(dynamic)record);
+                        break;
                     default: break;
                 }
 
@@ -275,7 +282,7 @@ namespace VOP
             if (!thread.Join(100))
             {
 #if (DEBUG)
-                pbw = new ProgressBarWindow(6);
+                pbw = new ProgressBarWindow(30);
 #else
                 pbw = new ProgressBarWindow(30);
 #endif
@@ -304,9 +311,11 @@ namespace VOP
             sbyte lowHumidityMode = 0;
             sbyte platecontrolmode = 2;
             sbyte primarycoolingmode = 0;
+            byte isTonerEnd = 1;
 
-            int result = dll.GetUserCfg(printerName, ref leadingEdge, ref sideToSide, ref imageDensity, ref lowHumidityMode, ref platecontrolmode, ref primarycoolingmode);
-
+            int result = dll.GetTonerEnd(printerName, ref isTonerEnd);
+            result = dll.GetUserCfg(printerName, ref leadingEdge, ref sideToSide, ref imageDensity, ref lowHumidityMode, ref platecontrolmode, ref primarycoolingmode);
+          
             rec.PrinterName = printerName;
 
             rec.LeadingEdge = leadingEdge;
@@ -315,6 +324,7 @@ namespace VOP
             rec.LowHumidityMode = lowHumidityMode;
             rec.PlateControlMode = platecontrolmode;
             rec.PrimaryCoolingMode = primarycoolingmode;
+            rec.IsTonerEnd = isTonerEnd == 0 ? false : true;
 
             rec.CmdResult = (EnumCmdResult)result;
 
@@ -330,6 +340,7 @@ namespace VOP
             sbyte lowHumidityMode = 0;
             sbyte platecontrolmode = 2;
             sbyte primarycoolingmode = 0;
+            byte isTonerEnd = 1;
 
             if (rec != null)
             {
@@ -341,9 +352,11 @@ namespace VOP
                 lowHumidityMode = rec.LowHumidityMode;
                 platecontrolmode = rec.PlateControlMode;
                 primarycoolingmode = rec.PrimaryCoolingMode;
+                isTonerEnd = (byte)(rec.IsTonerEnd ? 1 : 0);
 
-                int result = dll.SetUserCfg(printerName, leadingEdge, sideToSide, imageDensity, lowHumidityMode, platecontrolmode, primarycoolingmode);
-
+                int result = dll.SetTonerEnd(printerName, isTonerEnd);
+                result = dll.SetUserCfg(printerName, leadingEdge, sideToSide, imageDensity, lowHumidityMode, platecontrolmode, primarycoolingmode);
+               
                 rec.CmdResult = (EnumCmdResult)result;
 
             }
@@ -407,7 +420,7 @@ namespace VOP
         public WiFiInfoRecord GetWiFiInfo(string printerName)
         {
             WiFiInfoRecord rec = new WiFiInfoRecord();
-       
+
             StringBuilder ssid = new StringBuilder(128);
             StringBuilder pwd = new StringBuilder(128);
             byte encryption = (byte)EnumEncryptType.WPA2_PSK_AES;
@@ -539,7 +552,7 @@ namespace VOP
             rec.ConnectedStatusList.Add(connected7 == 0x80);
             rec.ConnectedStatusList.Add(connected8 == 0x80);
             rec.ConnectedStatusList.Add(connected9 == 0x80);
-          
+
             rec.CmdResult = (EnumCmdResult)result;
 
             return rec;
@@ -590,12 +603,15 @@ namespace VOP
         {
             PowerSaveTimeRecord rec = new PowerSaveTimeRecord();
             byte time = 0;
+            byte isPowerOff = 1;
 
             int result = dll.GetPowerSaveTime(printerName, ref time);
- 
+            // result = dll.GetPowerOff(printerName, ref isPowerOff);
+
             rec.PrinterName = printerName;
             rec.Time = time;
-    
+            rec.IsPowerOff = isPowerOff == 0 ? false : true;
+
             rec.CmdResult = (EnumCmdResult)result;
 
             return rec;
@@ -605,13 +621,16 @@ namespace VOP
         {
             string printerName = "";
             byte time = 0;
+            byte isPowerOff = 1;
 
             if (rec != null)
             {
                 printerName = rec.PrinterName;
                 time = rec.Time;
+                isPowerOff = (byte)(rec.IsPowerOff ? 1 : 0);
 
                 int result = dll.SetPowerSaveTime(printerName, time);
+                // result = dll.SetPowerOff(printerName, isPowerOff);
 
                 rec.CmdResult = (EnumCmdResult)result;
 
@@ -626,9 +645,9 @@ namespace VOP
 
             int result = dll.GetIPInfo(printerName, ref mode_ipversion, ref mode_ipaddress, ref ip0, ref ip1, ref ip2, ref ip3,
                                     ref mask0, ref mask1, ref mask2, ref mask3, ref gate0, ref gate1, ref gate2, ref gate3);
-         
+
             byte[] arr = new byte[4];
-               
+
             rec.PrinterName = printerName;
             rec.IpVersion = mode_ipversion;
             rec.IpAddressMode = (EnumIPType)mode_ipaddress;
@@ -699,17 +718,86 @@ namespace VOP
 
 
                 rec.CmdResult = (EnumCmdResult)result;
-          
+
             }
             return rec;
         }
+
+        public IPV6InfoRecord GetIpv6Info(string printerName)
+        {
+            IPV6InfoRecord rec = new IPV6InfoRecord();
+            byte byUseManualAddress = 0;
+            byte byDHCPv6 = 0;
+            UInt32 nManualMask = 0;
+            StringBuilder sbManualAddress = new StringBuilder(41);
+            StringBuilder sbStatelessAddress1 = new StringBuilder(41);
+            StringBuilder sbStatelessAddress2 = new StringBuilder(41);
+            StringBuilder sbStatelessAddress3 = new StringBuilder(41);
+            StringBuilder sbLinkLocalAddress = new StringBuilder(41);
+            StringBuilder sbIPv6ManualGatewayAddress = new StringBuilder(41);
+            StringBuilder sbAutoGatewayAddress = new StringBuilder(41);
+            StringBuilder sbAutoStatefulAddress = new StringBuilder(41);
+
+            int result = dll.GetIpv6Info(printerName, ref byUseManualAddress, sbManualAddress, ref nManualMask, sbStatelessAddress1, sbStatelessAddress2, sbStatelessAddress3,
+                        sbLinkLocalAddress, sbIPv6ManualGatewayAddress, sbAutoGatewayAddress, sbAutoStatefulAddress, ref byDHCPv6);
+
+            if ((EnumCmdResult)result == EnumCmdResult._ACK)
+            {
+                rec.PrinterName = printerName;
+
+                rec.DHCPv6 = byDHCPv6;
+                rec.UseManualAddress = byUseManualAddress;
+
+                rec.IPManualAddress = sbManualAddress.ToString();
+                rec.ManualMask = nManualMask;
+                rec.StatelessAddress1 = sbStatelessAddress1.ToString();
+                rec.StatelessAddress2 = sbStatelessAddress2.ToString();
+                rec.StatelessAddress3 = sbStatelessAddress3.ToString();
+                rec.AutoStatefulAddress = sbAutoStatefulAddress.ToString();
+                rec.IPLinkLocalAddress = sbLinkLocalAddress.ToString();
+                rec.AutoGatewayAddress = sbAutoGatewayAddress.ToString();
+
+                string strIPv6ManualGatewayAddress = sbIPv6ManualGatewayAddress.ToString();
+                string[] parts_ip = strIPv6ManualGatewayAddress.Split('/');
+
+                if (parts_ip.Length == 2)
+                {
+                    rec.IPv6ManualGatewayAddress = parts_ip[0];
+                    rec.ManualGatewayAddressMask = Convert.ToUInt32(parts_ip[1]);
+                }
+
+            }
+
+            rec.CmdResult = (EnumCmdResult)result;
+
+            return rec;
+        }
+
+        public IPV6InfoRecord SetIpv6Info(IPV6InfoRecord rec)
+        {
+            string printerName = "";
+
+            if (rec != null)
+            {
+                printerName = rec.PrinterName;
+
+                int result = dll.SetIPv6Info(printerName, rec.UseManualAddress, rec.IPManualAddress.ToString(), rec.ManualMask,
+                            rec.StatelessAddress1, rec.StatelessAddress2, rec.StatelessAddress3, rec.IPLinkLocalAddress.ToString(),
+                            rec.IPv6ManualGatewayAddress.ToString() + String.Format("/{0}", rec.ManualGatewayAddressMask), rec.AutoGatewayAddress, rec.AutoStatefulAddress, rec.DHCPv6);
+
+                rec.CmdResult = (EnumCmdResult)result;
+
+            }
+            return rec;
+        }
+
+
     }
 
-    public class PowerSaveTimeRecord : INotifyPropertyChanged
+    public class BaseRecord : INotifyPropertyChanged
     {
-        private string printerName;
-        private byte time;
-        private EnumCmdResult cmdResult;
+        protected string printerName;
+        protected EnumCmdResult cmdResult;
 
         public string PrinterName
         {
@@ -718,16 +806,6 @@ namespace VOP
             {
                 this.printerName = value;
                 OnPropertyChanged("PrinterName");
-            }
-        }
-
-        public byte Time
-        {
-            get { return this.time; }
-            set
-            {
-                this.time = value;
-                OnPropertyChanged("Time");
             }
         }
 
@@ -741,17 +819,14 @@ namespace VOP
             }
         }
 
-        public PowerSaveTimeRecord()
+        public BaseRecord()
         {
             printerName = "";
-            time = 1;
-            cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public PowerSaveTimeRecord(string printerName, byte time)
+        public BaseRecord(string printerName)
         {
             this.printerName = printerName;
-            this.time = time;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
@@ -763,26 +838,55 @@ namespace VOP
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-
     }
 
-    public class SoftApRecord : INotifyPropertyChanged
+    public class PowerSaveTimeRecord : BaseRecord
     {
-        private string printerName;
+        private byte time;
+        private bool isPowerOff;
+
+        public byte Time
+        {
+            get { return this.time; }
+            set
+            {
+                this.time = value;
+                OnPropertyChanged("Time");
+            }
+        }
+
+        public bool IsPowerOff
+        {
+            get { return isPowerOff; }
+            set
+            {
+                isPowerOff = value;
+                OnPropertyChanged("IsPowerOff");
+            }
+        }
+
+        public PowerSaveTimeRecord()
+        {
+            printerName = "";
+            time = 1;
+            isPowerOff = true;
+            cmdResult = EnumCmdResult._CMD_invalid;
+        }
+
+        public PowerSaveTimeRecord(string printerName, byte time, bool isPowerOff = true)
+        {
+            this.printerName = printerName;
+            this.time = time;
+            this.isPowerOff = isPowerOff;
+            cmdResult = EnumCmdResult._CMD_invalid;
+        }
+    }
+
+    public class SoftApRecord : BaseRecord
+    {
         private string ssid;
         private string pwd;
         private bool wifiEnable;
-        private EnumCmdResult cmdResult;
-
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
-            }
-        }
 
         public string SSID
         {
@@ -814,16 +918,6 @@ namespace VOP
             }
         }
 
-        public EnumCmdResult CmdResult
-        {
-            get { return this.cmdResult; }
-            set
-            {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
-            }
-        }
-
         public SoftApRecord()
         {
             printerName = "";
@@ -841,35 +935,13 @@ namespace VOP
             this.wifiEnable = wifiEnable;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
     }
 
-    public class ApListRecord : INotifyPropertyChanged
+    public class ApListRecord : BaseRecord
     {
-        private string printerName;
         private List<string> ssidList;
         private List<byte> encryptionList;
         private List<bool> connectedStatusList;
-        private EnumCmdResult cmdResult;
-
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
-            }
-        }
 
         public List<string> SsidList
         {
@@ -901,16 +973,6 @@ namespace VOP
             }
         }
 
-        public EnumCmdResult CmdResult
-        {
-            get { return this.cmdResult; }
-            set
-            {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
-            }
-        }
-
         public ApListRecord()
         {
             printerName = "";
@@ -928,28 +990,16 @@ namespace VOP
             this.connectedStatusList = connectedStatusList;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
     }
 
-    public class WiFiInfoRecord : INotifyPropertyChanged
+    public class WiFiInfoRecord : BaseRecord
     {
-        private string printerName;
         private byte wifiEnable;    // bit0: Wi-Fi Enable, bit1: GO Enable, bit2: P2P Enable
         private byte wifiChangeFlag; // For fw request enable or disable wifi set 1
         private string ssid;
         private string pwd;
         private EnumEncryptType encryption;
         private byte wepKeyId;
-        private EnumCmdResult cmdResult;
 
         public byte WifiEnable
         {
@@ -968,16 +1018,6 @@ namespace VOP
             {
                 this.wifiChangeFlag = value;
                 OnPropertyChanged("WifiChangeFlag");
-            }
-        }
-
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
             }
         }
 
@@ -1021,16 +1061,6 @@ namespace VOP
             }
         }
 
-        public EnumCmdResult CmdResult
-        {
-            get { return this.cmdResult; }
-            set
-            {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
-            }
-        }
-
         public WiFiInfoRecord()
         {
             printerName = "";
@@ -1055,30 +1085,11 @@ namespace VOP
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
     }
-    public class PasswordRecord : INotifyPropertyChanged
+
+    public class PasswordRecord : BaseRecord
     {
-        private string printerName;
         private string pwd;
-        private EnumCmdResult cmdResult;
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
-            }
-        }
 
         public string PWD
         {
@@ -1102,40 +1113,10 @@ namespace VOP
             this.pwd = pwd;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
-
-        public EnumCmdResult CmdResult
-        {
-            get { return this.cmdResult; }
-            set
-            {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
     }
 
-    public class FusingResetRecord : INotifyPropertyChanged
+    public class FusingResetRecord : BaseRecord
     {
-        private string printerName;
-        private EnumCmdResult cmdResult;
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
-            }
-        }
 
         public FusingResetRecord()
         {
@@ -1149,46 +1130,17 @@ namespace VOP
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public EnumCmdResult CmdResult
-        {
-            get { return this.cmdResult; }
-            set
-            {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
     }
-    public class UserCfgRecord : INotifyPropertyChanged
+
+    public class UserCfgRecord : BaseRecord
     {
-        private string printerName;
         private sbyte leadingEdge;
         private sbyte sideToSide;
         private sbyte imageDensity;
         private sbyte lowHumidityMode;
         private sbyte platecontrolmode;
         private sbyte primarycoolingmode;
- 
-        private EnumCmdResult cmdResult;
-
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
-            }
-        }
+        private bool isTonerEnd;
 
         public sbyte LeadingEdge
         {
@@ -1250,13 +1202,13 @@ namespace VOP
             }
         }
 
-        public EnumCmdResult CmdResult
+        public bool IsTonerEnd
         {
-            get { return this.cmdResult; }
+            get { return isTonerEnd; }
             set
             {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
+                isTonerEnd = value;
+                OnPropertyChanged("IsTonerEnd");
             }
         }
 
@@ -1269,16 +1221,18 @@ namespace VOP
             lowHumidityMode = 0;
             platecontrolmode = 2;
             primarycoolingmode = 0;
+            isTonerEnd = true;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public UserCfgRecord(string printerName, 
-                            sbyte leadingEdge, 
-                            sbyte sideToSide, 
-                            sbyte imageDensity, 
-                            sbyte lowHumidityMode, 
+        public UserCfgRecord(string printerName,
+                            sbyte leadingEdge,
+                            sbyte sideToSide,
+                            sbyte imageDensity,
+                            sbyte lowHumidityMode,
                             sbyte platecontrolmode,
-                            sbyte primarycoolingmode)
+                            sbyte primarycoolingmode,
+                            bool isTonerEnd)
         {
             this.printerName = printerName;
             this.leadingEdge = leadingEdge;
@@ -1287,44 +1241,23 @@ namespace VOP
             this.lowHumidityMode = lowHumidityMode;
             this.platecontrolmode = platecontrolmode;
             this.primarycoolingmode = primarycoolingmode;
+            this.isTonerEnd = isTonerEnd;
             cmdResult = EnumCmdResult._CMD_invalid;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
         }
 
     }
 
-    public class CopyCmdRecord : INotifyPropertyChanged
+    public class CopyCmdRecord : BaseRecord
     {
-        private string printerName;
         private byte density;
         private byte copyNum;
         private byte scanMode;
         private byte orgSize;
         private byte paperSize;
-        private byte nUp;       
+        private byte nUp;
         private byte dpi;
         private ushort scale;
         private byte startAtOnceFlag;
-      
-        private EnumCmdResult cmdResult;
-
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
-            }
-        }
 
         public byte Density
         {
@@ -1416,16 +1349,6 @@ namespace VOP
             }
         }
 
-        public EnumCmdResult CmdResult
-        {
-            get { return this.cmdResult; }
-            set
-            {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
-            }
-        }
-
         public CopyCmdRecord()
         {
             printerName = "";
@@ -1434,7 +1357,7 @@ namespace VOP
             scanMode = 0;
             orgSize = 0;
             paperSize = 0;
-            nUp = 0;       
+            nUp = 0;
             dpi = 0;
             scale = 0;
             startAtOnceFlag = 0;
@@ -1456,37 +1379,15 @@ namespace VOP
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
     }
 
-    public class IpInfoRecord : INotifyPropertyChanged
+    public class IpInfoRecord : BaseRecord
     {
-        private string printerName;
         private byte ipVersion;
         private EnumIPType ipAddressMode;
         private IPAddress ip;
         private IPAddress mask;
         private IPAddress gate;
-        private EnumCmdResult cmdResult;
-
-
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
-            }
-        }
 
         public byte IpVersion
         {
@@ -1538,16 +1439,6 @@ namespace VOP
             }
         }
 
-        public EnumCmdResult CmdResult
-        {
-            get { return this.cmdResult; }
-            set
-            {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
-            }
-        }
-
         public IpInfoRecord()
         {
             printerName = "";
@@ -1570,13 +1461,189 @@ namespace VOP
             this.cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
+    }
+
+    public class IPV6InfoRecord : BaseRecord
+    {
+        private byte byDHCPv6;
+        private byte byUseManualAddress;    //0 Disabled,1 Enabled
+
+        private string ipManualAddress;
+        private UInt32 nManualMask;
+        private string ipIPv6ManualGatewayAddress;
+        private UInt32 nManualGatewayAddressMask;
+
+        private string strStatelessAddress1;
+        private string strStatelessAddress2;
+        private string strStatelessAddress3;
+        private string strAutoStatefulAddress;
+        private string ipLinkLocalAddress;
+        private string strAutoGatewayAddress;
+
+
+
+        ////0 Disabled,1 Enabled
+        public byte UseManualAddress
         {
-            if (PropertyChanged != null)
+            get { return this.byUseManualAddress; }
+            set
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
+                this.byUseManualAddress = value;
+                OnPropertyChanged("UseManualAddress");
             }
+        }
+
+        public string IPManualAddress
+        {
+            get { return this.ipManualAddress; }
+            set
+            {
+                this.ipManualAddress = value;
+                OnPropertyChanged("IPManualAddress");
+            }
+        }
+
+        public UInt32 ManualMask
+        {
+            get { return this.nManualMask; }
+            set
+            {
+                this.nManualMask = value;
+                OnPropertyChanged("ManualMask");
+            }
+        }
+
+        public string StatelessAddress1
+        {
+            get { return this.strStatelessAddress1; }
+            set
+            {
+                this.strStatelessAddress1 = value;
+                OnPropertyChanged("StatelessAddress1");
+            }
+        }
+
+        public string StatelessAddress2
+        {
+            get { return this.strStatelessAddress2; }
+            set
+            {
+                this.strStatelessAddress2 = value;
+                OnPropertyChanged("StatelessAddress2");
+            }
+        }
+
+        public string StatelessAddress3
+        {
+            get { return this.strStatelessAddress3; }
+            set
+            {
+                this.strStatelessAddress3 = value;
+                OnPropertyChanged("StatelessAddress3");
+            }
+        }
+
+        public string IPLinkLocalAddress
+        {
+            get { return this.ipLinkLocalAddress; }
+            set
+            {
+                this.ipLinkLocalAddress = value;
+                OnPropertyChanged("IPLinkLocalAddress");
+            }
+        }
+
+        public string IPv6ManualGatewayAddress
+        {
+            get { return this.ipIPv6ManualGatewayAddress; }
+            set
+            {
+                this.ipIPv6ManualGatewayAddress = value;
+                OnPropertyChanged("IPv6ManualGatewayAddress");
+            }
+        }
+
+        public UInt32 ManualGatewayAddressMask
+        {
+            get { return this.nManualGatewayAddressMask; }
+            set
+            {
+                this.nManualGatewayAddressMask = value;
+                OnPropertyChanged("ManualGatewayAddressMask");
+            }
+        }
+
+        public string AutoGatewayAddress
+        {
+            get { return this.strAutoGatewayAddress; }
+            set
+            {
+                this.strAutoGatewayAddress = value;
+                OnPropertyChanged("AutoGatewayAddress");
+            }
+        }
+
+        public string AutoStatefulAddress
+        {
+            get { return this.strAutoStatefulAddress; }
+            set
+            {
+                this.strAutoStatefulAddress = value;
+                OnPropertyChanged("AutoStatefulAddress");
+            }
+        }
+
+        public byte DHCPv6
+        {
+            get { return this.byDHCPv6; }
+            set
+            {
+                this.byDHCPv6 = value;
+                OnPropertyChanged("DHCPv6");
+            }
+        }
+
+        public IPV6InfoRecord()
+        {
+            this.printerName = "";
+            this.byDHCPv6 = 0;
+            this.byUseManualAddress = 0;
+
+            this.ipManualAddress = "::";
+            this.nManualMask = 0;
+            this.ipIPv6ManualGatewayAddress = "::";
+            this.nManualGatewayAddressMask = 0;
+
+            this.strStatelessAddress1 = "::/0";
+            this.strStatelessAddress2 = "::/0";
+            this.strStatelessAddress3 = "::/0";
+            this.strAutoStatefulAddress = "::/0";
+            this.ipLinkLocalAddress = "::/0";
+            this.strAutoGatewayAddress = "::/0";
+
+
+            this.cmdResult = EnumCmdResult._CMD_invalid;
+        }
+
+        public IPV6InfoRecord(string printerName, string ipManualAddress, UInt32 nManualMask, string ipIPv6ManualGatewayAddress)
+        {
+            this.printerName = printerName;
+            this.byDHCPv6 = 0;
+            this.byUseManualAddress = 0;
+
+            this.ipManualAddress = ipManualAddress;
+            this.nManualMask = nManualMask;
+            this.ipIPv6ManualGatewayAddress = ipIPv6ManualGatewayAddress;
+            this.nManualGatewayAddressMask = 0;
+
+            this.strStatelessAddress1 = "::/0";
+            this.strStatelessAddress2 = "::/0";
+            this.strStatelessAddress3 = "::/0";
+            this.strAutoStatefulAddress = "::/0";
+            this.ipLinkLocalAddress = "::/0";
+            this.strAutoGatewayAddress = "::/0";
+
+            this.cmdResult = EnumCmdResult._CMD_invalid;
         }
     }
 
