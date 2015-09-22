@@ -1,0 +1,108 @@
+﻿<Window x:Class="VOP.IPV6StatusWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="428" 
+        Width="644"        
+        WindowStartupLocation="CenterOwner"  
+        ShowInTaskbar="False" 
+        xmlns:local="clr-namespace:VOP.Controls"
+        xmlns:mycontrol="clr-namespace:VOP" 
+        FontFamily="微软雅黑,SimSun"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        BorderThickness="24"
+        Loaded="OnLoadedIPV6View">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="Controls/CustomPasswordBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomTickCheckBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+ 
+    <Viewbox Stretch="Fill">
+        <Grid Height="380" Width="596">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Rectangle Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"  Fill="#FFE7E7E7"  
+                                    RadiusX="0" RadiusY="0">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            
+            <Grid Grid.Row="0" Background="#FF1F3345" MouseLeftButtonDown="MyMouseButtonEventHandler">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Grid.ColumnSpan="2"  Text="{StaticResource ResStr_Status}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="16"></TextBlock>
+                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" VerticalAlignment="Center"/>
+            </Grid>
+            
+            <Grid Grid.Row="1" Background="#FFE7E7E7">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="6*"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="6*"></ColumnDefinition>
+                    <ColumnDefinition Width="9*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="Stateless Address 1" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="::/0" Name="tbStatelessAddress1" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="Stateless Address 2"  VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="3" Grid.Column="2" Text="::/0" Name="tbStatelessAddress2" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="5" Grid.Column="1" Text="Stateless Address 3"  VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="5" Grid.Column="2" Text="::/0" Name="tbStatelessAddress3" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="7" Grid.Column="1" Text="Auto Statefull Address"  VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="7" Grid.Column="2" Text="::/0" Name="tbAutoStatefullAddress" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="9" Grid.Column="1" Text="Link Local Address"  VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="9" Grid.Column="2" Text="::/0" Name="tbLinkLocalAddress" VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="11" Grid.Column="1" Text="Auto Configure Gateway Address"  VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="11" Grid.Column="2" Text="::/0" Name="tbAutoConfigureGatewayAddress" VerticalAlignment="Center"/>
+
+                <Button 
+                    Grid.Row="13" 
+                    Grid.Column="2" 
+				    x:Name="btnBack"
+				    Content="{StaticResource ResStr_Back}" 
+				    Style="{StaticResource CustomGreenButtonStyle}"  
+				    Height="35" 
+				    Width="150" 
+				    Margin="-240,0,0,0"
+				    FontSize="14"
+				    IsCancel="True"/>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

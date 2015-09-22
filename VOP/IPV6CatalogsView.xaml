@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="VOP.IPV6CatalogsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vop="clr-namespace:VOP"
+             xmlns:local="clr-namespace:VOP.Controls"
+             Loaded="OnLoadedIPV6CatalogsView"
+             Name="MyView"
+             mc:Ignorable="d" 
+             d:DesignHeight="240"
+             d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="Controls/CustomScrollView.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid >
+      
+        <Grid.Background>
+            <ImageBrush ImageSource="Images\SettingViewBackground.png" />
+        </Grid.Background>
+       
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        
+        <local:ButtonEx x:Name="btnSetting" 
+                        Click="OnbtnClicked" 
+                        Content="{StaticResource ResStr_Setting}" 
+                        FontSize="16" 
+                        IsActiveEx="True" 
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalAlignment="Center" 
+                        HorizontalContentAlignment="Center" 
+                        VerticalAlignment="Center" 
+                        Width="120" 
+                        Height="30"/>
+        
+        <local:ButtonEx x:Name="btnStatus" 
+                        Click="OnbtnClicked" 
+                        Content="{StaticResource ResStr_Status}" 
+                        FontSize="16" 
+                        IsActiveEx="True" 
+                        Grid.Row="3" 
+                        Grid.Column="1" 
+                        HorizontalAlignment="Center" 
+                        HorizontalContentAlignment="Center" 
+                        VerticalAlignment="Center" 
+                        Width="120" 
+                        Height="30"/>
+
+    </Grid>
+
+</UserControl>
