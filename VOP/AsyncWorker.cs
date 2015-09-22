@@ -781,9 +781,9 @@ namespace VOP
             {
                 printerName = rec.PrinterName;
 
-                int result = dll.SetIPv6Info(printerName, rec.UseManualAddress, rec.IPManualAddress.ToString(), rec.ManualMask,
-                            rec.StatelessAddress1, rec.StatelessAddress2, rec.StatelessAddress3, rec.IPLinkLocalAddress.ToString(),
-                            rec.IPv6ManualGatewayAddress.ToString() + String.Format("/{0}", rec.ManualGatewayAddressMask), rec.AutoGatewayAddress, rec.AutoStatefulAddress, rec.DHCPv6);
+                int result = dll.SetIPv6Info(printerName, rec.UseManualAddress, rec.IPManualAddress, rec.ManualMask,
+                            rec.StatelessAddress1, rec.StatelessAddress2, rec.StatelessAddress3, rec.IPLinkLocalAddress,
+                            rec.IPv6ManualGatewayAddress + String.Format("/{0}", rec.ManualGatewayAddressMask), rec.AutoGatewayAddress, rec.AutoStatefulAddress, rec.DHCPv6);
 
                 rec.CmdResult = (EnumCmdResult)result;
 
