@@ -117,6 +117,13 @@ namespace VOP
                 bool isEnableSoftAp );
 
         [DllImport("usbapi.dll")]
+        public static extern int GetUserCenterInfo(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                StringBuilder _2ndSerialNO,
+                ref uint _totalCounter,
+                StringBuilder _serialNO4AIO);
+
+        [DllImport("usbapi.dll")]
             public static extern int ScanEx(
                     [MarshalAs(UnmanagedType.LPWStr)]String sz_printer,
                     [MarshalAs(UnmanagedType.LPWStr)]String szOrig,

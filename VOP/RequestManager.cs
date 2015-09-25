@@ -345,7 +345,49 @@ namespace VOP
             return str;
         }
     }
-    
+
+    public class CRM_PrintInfo2
+    {
+        private readonly string m_strSignKey = "m4q89zvjgf49b9ml9ee3";
+
+        public string m_strDeviceCode;    //Net card ID
+        public string m_strMobileNumber;  //can not upload
+        public string m_strPlatform;
+        public string m_strPrintData;
+        public string m_strVersion;
+        public DateTime m_time;   //yyyyMMddHHmmss, for example:20140219092408
+        public string m_strSign; //MobileCode+time+key using MD5
+
+        public CRM_PrintInfo2()
+        {
+            m_strDeviceCode = SystemInfo.GetMacAddress();
+            m_strMobileNumber = VOP.MainWindow.m_strPhoneNumber;
+            m_strPlatform = "WinPC";
+            m_strVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            System.Guid guid = System.Guid.NewGuid();
+            m_time = System.DateTime.Now.ToLocalTime();
+        }
+
+        public void AddPrintData(string printerModel, string printerId, string tonerId, uint totalPrint, uint inkLevel=0)
+        {
+            m_strPrintData = String.Format("[{\"PrinterModel\":\"{0}\",\"PrinterId\":\"{1}\",\"TonerId\":\"{2}\",\"TotalPrint\":\"{3}\",\"InkLevel\":\"{4}\"}]",
+                                              printerModel, printerId, tonerId, totalPrint.ToString(), inkLevel.ToString());
+        }
+
+        public string ConvertToWebParams()
+        {
+            string str = "";
+           
+            m_strSign = MD5.MD5_Encrypt(m_strDeviceCode + m_time.ToString("yyyyMMddHHmmss") + m_strSignKey);
+
+            str = String.Format("DeviceCode={0}&Mobile={1}&Platform={2}&PrinterData={3}&Version={4}&Time={5}&Sign={6}"
+                , m_strDeviceCode, m_strMobileNumber, m_strPlatform, m_strPrintData, m_strVersion, m_time.ToString("yyyyMMddHHmmss"), m_strSign);
+
+            return str;
+        }
+
+    }
+
     public class RequestManagerBase
     {
         protected static string m_strKey = "86c02972fba047b0b0a9adb8123029fb";
@@ -1040,6 +1082,24 @@ namespace VOP
             //http://crm.iprintworks.cn/api/app_open
             string url = "http://crm.iprintworks.cn/api/app_open";//debug 
             string strCMD = _lci.ConvertToWebParams();
+            string strResult = "";
+
+            if (SendHttpWebRequest<JSONResultFormat2>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat2, ref rtValue, ref strResult))
+            {
+                if (rtValue.m_bSuccess)
+                {
+                    bSuccess = true;
+                }
+            }
+
+            return bSuccess;
+        }
+
+        public bool UploadCRM_PrintInfo2ToServer(ref CRM_PrintInfo2 _PrintInfo, ref JSONResultFormat2 rtValue)
+        {
+            bool bSuccess = false;
+            string url = "http://crm.iprintworks.cn/api/printerinfo";
+            string strCMD = _PrintInfo.ConvertToWebParams();
             string strResult = "";
 
             if (SendHttpWebRequest<JSONResultFormat2>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat2, ref rtValue, ref strResult))

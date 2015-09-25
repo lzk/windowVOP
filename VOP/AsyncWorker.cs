@@ -703,13 +703,32 @@ namespace VOP
             }
             return rec;
         }
+
+        public UserCenterInfoRecord GetUserCenterInfo(string printerName)
+        {
+            UserCenterInfoRecord rec = new UserCenterInfoRecord();
+
+            StringBuilder _2ndSerialNO = new StringBuilder(128);
+            StringBuilder _serialNO4AIO = new StringBuilder(128);
+            uint totalCount = 0;
+
+            int result = dll.GetUserCenterInfo(printerName, _2ndSerialNO, ref totalCount, _serialNO4AIO);
+
+            rec.PrinterName = printerName;
+            rec.TotalCounter = totalCount;
+            rec.SecondSerialNO = _2ndSerialNO.ToString();
+            rec.SerialNO4AIO = _serialNO4AIO.ToString();
+
+            rec.CmdResult = (EnumCmdResult)result;
+
+            return rec;
+        }
     }
 
-    public class PowerSaveTimeRecord : INotifyPropertyChanged
+    public class BaseRecord : INotifyPropertyChanged
     {
-        private string printerName;
-        private byte time;
-        private EnumCmdResult cmdResult;
+        protected string printerName;
+        protected EnumCmdResult cmdResult;
 
         public string PrinterName
         {
@@ -718,16 +737,6 @@ namespace VOP
             {
                 this.printerName = value;
                 OnPropertyChanged("PrinterName");
-            }
-        }
-
-        public byte Time
-        {
-            get { return this.time; }
-            set
-            {
-                this.time = value;
-                OnPropertyChanged("Time");
             }
         }
 
@@ -741,17 +750,14 @@ namespace VOP
             }
         }
 
-        public PowerSaveTimeRecord()
+        public BaseRecord()
         {
             printerName = "";
-            time = 1;
-            cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public PowerSaveTimeRecord(string printerName, byte time)
+        public BaseRecord(string printerName)
         {
             this.printerName = printerName;
-            this.time = time;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
@@ -763,26 +769,55 @@ namespace VOP
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-
     }
 
-    public class SoftApRecord : INotifyPropertyChanged
+    public class PowerSaveTimeRecord : BaseRecord
     {
-        private string printerName;
+        private byte time;
+        private bool isPowerOff;
+
+        public byte Time
+        {
+            get { return this.time; }
+            set
+            {
+                this.time = value;
+                OnPropertyChanged("Time");
+            }
+        }
+
+        public bool IsPowerOff
+        {
+            get { return isPowerOff; }
+            set
+            {
+                isPowerOff = value;
+                OnPropertyChanged("IsPowerOff");
+            }
+        }
+
+        public PowerSaveTimeRecord()
+        {
+            printerName = "";
+            time = 1;
+            isPowerOff = true;
+            cmdResult = EnumCmdResult._CMD_invalid;
+        }
+
+        public PowerSaveTimeRecord(string printerName, byte time, bool isPowerOff = true)
+        {
+            this.printerName = printerName;
+            this.time = time;
+            this.isPowerOff = isPowerOff;
+            cmdResult = EnumCmdResult._CMD_invalid;
+        }
+    }
+
+    public class SoftApRecord : BaseRecord
+    {
         private string ssid;
         private string pwd;
         private bool wifiEnable;
-        private EnumCmdResult cmdResult;
-
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
-            }
-        }
 
         public string SSID
         {
@@ -814,16 +849,6 @@ namespace VOP
             }
         }
 
-        public EnumCmdResult CmdResult
-        {
-            get { return this.cmdResult; }
-            set
-            {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
-            }
-        }
-
         public SoftApRecord()
         {
             printerName = "";
@@ -841,35 +866,13 @@ namespace VOP
             this.wifiEnable = wifiEnable;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
     }
 
-    public class ApListRecord : INotifyPropertyChanged
+    public class ApListRecord : BaseRecord
     {
-        private string printerName;
         private List<string> ssidList;
         private List<byte> encryptionList;
         private List<bool> connectedStatusList;
-        private EnumCmdResult cmdResult;
-
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
-            }
-        }
 
         public List<string> SsidList
         {
@@ -901,16 +904,6 @@ namespace VOP
             }
         }
 
-        public EnumCmdResult CmdResult
-        {
-            get { return this.cmdResult; }
-            set
-            {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
-            }
-        }
-
         public ApListRecord()
         {
             printerName = "";
@@ -928,28 +921,16 @@ namespace VOP
             this.connectedStatusList = connectedStatusList;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
     }
 
-    public class WiFiInfoRecord : INotifyPropertyChanged
+    public class WiFiInfoRecord : BaseRecord
     {
-        private string printerName;
         private byte wifiEnable;    // bit0: Wi-Fi Enable, bit1: GO Enable, bit2: P2P Enable
         private byte wifiChangeFlag; // For fw request enable or disable wifi set 1
         private string ssid;
         private string pwd;
         private EnumEncryptType encryption;
         private byte wepKeyId;
-        private EnumCmdResult cmdResult;
 
         public byte WifiEnable
         {
@@ -968,16 +949,6 @@ namespace VOP
             {
                 this.wifiChangeFlag = value;
                 OnPropertyChanged("WifiChangeFlag");
-            }
-        }
-
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
             }
         }
 
@@ -1021,16 +992,6 @@ namespace VOP
             }
         }
 
-        public EnumCmdResult CmdResult
-        {
-            get { return this.cmdResult; }
-            set
-            {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
-            }
-        }
-
         public WiFiInfoRecord()
         {
             printerName = "";
@@ -1055,30 +1016,11 @@ namespace VOP
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
     }
-    public class PasswordRecord : INotifyPropertyChanged
+
+    public class PasswordRecord : BaseRecord
     {
-        private string printerName;
         private string pwd;
-        private EnumCmdResult cmdResult;
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
-            }
-        }
 
         public string PWD
         {
@@ -1102,40 +1044,10 @@ namespace VOP
             this.pwd = pwd;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
-
-        public EnumCmdResult CmdResult
-        {
-            get { return this.cmdResult; }
-            set
-            {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
     }
 
-    public class FusingResetRecord : INotifyPropertyChanged
+    public class FusingResetRecord : BaseRecord
     {
-        private string printerName;
-        private EnumCmdResult cmdResult;
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
-            }
-        }
 
         public FusingResetRecord()
         {
@@ -1149,46 +1061,17 @@ namespace VOP
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public EnumCmdResult CmdResult
-        {
-            get { return this.cmdResult; }
-            set
-            {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
     }
-    public class UserCfgRecord : INotifyPropertyChanged
+
+    public class UserCfgRecord : BaseRecord
     {
-        private string printerName;
         private sbyte leadingEdge;
         private sbyte sideToSide;
         private sbyte imageDensity;
         private sbyte lowHumidityMode;
         private sbyte platecontrolmode;
         private sbyte primarycoolingmode;
- 
-        private EnumCmdResult cmdResult;
-
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
-            }
-        }
+        private bool isTonerEnd;
 
         public sbyte LeadingEdge
         {
@@ -1250,13 +1133,13 @@ namespace VOP
             }
         }
 
-        public EnumCmdResult CmdResult
+        public bool IsTonerEnd
         {
-            get { return this.cmdResult; }
+            get { return isTonerEnd; }
             set
             {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
+                isTonerEnd = value;
+                OnPropertyChanged("IsTonerEnd");
             }
         }
 
@@ -1269,16 +1152,18 @@ namespace VOP
             lowHumidityMode = 0;
             platecontrolmode = 2;
             primarycoolingmode = 0;
+            isTonerEnd = true;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public UserCfgRecord(string printerName, 
-                            sbyte leadingEdge, 
-                            sbyte sideToSide, 
-                            sbyte imageDensity, 
-                            sbyte lowHumidityMode, 
+        public UserCfgRecord(string printerName,
+                            sbyte leadingEdge,
+                            sbyte sideToSide,
+                            sbyte imageDensity,
+                            sbyte lowHumidityMode,
                             sbyte platecontrolmode,
-                            sbyte primarycoolingmode)
+                            sbyte primarycoolingmode,
+                            bool isTonerEnd)
         {
             this.printerName = printerName;
             this.leadingEdge = leadingEdge;
@@ -1287,44 +1172,23 @@ namespace VOP
             this.lowHumidityMode = lowHumidityMode;
             this.platecontrolmode = platecontrolmode;
             this.primarycoolingmode = primarycoolingmode;
+            this.isTonerEnd = isTonerEnd;
             cmdResult = EnumCmdResult._CMD_invalid;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
         }
 
     }
 
-    public class CopyCmdRecord : INotifyPropertyChanged
+    public class CopyCmdRecord : BaseRecord
     {
-        private string printerName;
         private byte density;
         private byte copyNum;
         private byte scanMode;
         private byte orgSize;
         private byte paperSize;
-        private byte nUp;       
+        private byte nUp;
         private byte dpi;
         private ushort scale;
         private byte startAtOnceFlag;
-      
-        private EnumCmdResult cmdResult;
-
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
-            }
-        }
 
         public byte Density
         {
@@ -1416,16 +1280,6 @@ namespace VOP
             }
         }
 
-        public EnumCmdResult CmdResult
-        {
-            get { return this.cmdResult; }
-            set
-            {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
-            }
-        }
-
         public CopyCmdRecord()
         {
             printerName = "";
@@ -1434,7 +1288,7 @@ namespace VOP
             scanMode = 0;
             orgSize = 0;
             paperSize = 0;
-            nUp = 0;       
+            nUp = 0;
             dpi = 0;
             scale = 0;
             startAtOnceFlag = 0;
@@ -1456,37 +1310,15 @@ namespace VOP
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
     }
 
-    public class IpInfoRecord : INotifyPropertyChanged
+    public class IpInfoRecord : BaseRecord
     {
-        private string printerName;
         private byte ipVersion;
         private EnumIPType ipAddressMode;
         private IPAddress ip;
         private IPAddress mask;
         private IPAddress gate;
-        private EnumCmdResult cmdResult;
-
-
-        public string PrinterName
-        {
-            get { return this.printerName; }
-            set
-            {
-                this.printerName = value;
-                OnPropertyChanged("PrinterName");
-            }
-        }
 
         public byte IpVersion
         {
@@ -1538,16 +1370,6 @@ namespace VOP
             }
         }
 
-        public EnumCmdResult CmdResult
-        {
-            get { return this.cmdResult; }
-            set
-            {
-                this.cmdResult = value;
-                OnPropertyChanged("CmdResult");
-            }
-        }
-
         public IpInfoRecord()
         {
             printerName = "";
@@ -1569,15 +1391,63 @@ namespace VOP
             this.gate = gate;
             this.cmdResult = EnumCmdResult._CMD_invalid;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
     }
 
+    public class UserCenterInfoRecord : BaseRecord
+    {
+        private uint    _totalCounter;
+        private string  _2ndSerialNO;
+        private string  _serialNO4AIO;
+
+        public uint TotalCounter
+        {
+            get { return this._totalCounter; }
+            set
+            {
+                this._totalCounter = value;
+                OnPropertyChanged("TotalCounter");
+            }
+        }
+
+        public string SecondSerialNO
+        {
+            get { return this._2ndSerialNO; }
+            set
+            {
+                this._2ndSerialNO = value;
+                OnPropertyChanged("SecondSerialNO");
+            }
+        }
+
+        public string SerialNO4AIO
+        {
+            get { return this._serialNO4AIO; }
+            set
+            {
+                this._serialNO4AIO = value;
+                OnPropertyChanged("SerialNO4AIO");
+            }
+        }
+
+        public UserCenterInfoRecord()
+        {
+            printerName = "";
+            _totalCounter = 0;
+            _2ndSerialNO = "";
+            _serialNO4AIO = "";
+       
+            cmdResult = EnumCmdResult._CMD_invalid;
+        }
+
+        public UserCenterInfoRecord(string printerName, uint _totalCounter, string _2ndSerialNO, string _serialNO4AIO)
+        {
+            this.printerName = printerName;
+            this._totalCounter = _totalCounter;
+            this._2ndSerialNO = _2ndSerialNO;
+            this._serialNO4AIO = _serialNO4AIO;
+
+            cmdResult = EnumCmdResult._CMD_invalid;
+        }
+
+    }
 }

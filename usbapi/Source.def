@@ -49,3 +49,4 @@ EXPORTS
     CancelScanning
     IsMetricCountry
 	GetWifiChangeStatus
+	GetUserCenterInfo

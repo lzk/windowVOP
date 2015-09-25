@@ -46,6 +46,7 @@
 #define _PRN_PASSWD_GET		0x07
 #define _PRN_PASSWD_COMFIRM	0x08
 #define _Fusing_SC_Reset    0x0B
+#define _PRN_USER_CENTER    0x10
 
 #define     MAGIC_NUM           0x1A2B3C4D
 
@@ -349,6 +350,14 @@ typedef struct cmdst_wifi_set
     char  pwd[64]    ; // used by both Legacy WiFi Passphrase & WEPKey and Wi-Fi Direct GO Passphrase
 }cmdst_wifi_set;
 
+
+typedef struct _cmdst_user_center
+{
+	char	_2ndSerialNO[20];
+	UINT32	_totalCounter;
+	char	_SerialNO4AIO[16];
+}cmdst_user_center;
+
 typedef int (* LPFN_NETWORK_CONNECT ) (char *server, int port, int timeout ) ;
 // return the number of bytes successfully read.
 typedef int (* LPFN_NETWORK_READ    ) (int sd, void* buff, DWORD len       ) ;
@@ -471,6 +480,7 @@ USBAPI_API int __stdcall SetPassword(const wchar_t* szPrinter, const wchar_t* ws
 USBAPI_API void __stdcall CancelScanning();
 USBAPI_API BOOL __stdcall IsMetricCountry();
 USBAPI_API int __stdcall GetWifiChangeStatus(const wchar_t* szPrinter, BYTE* wifiInit);
+USBAPI_API int __stdcall GetUserCenterInfo(const wchar_t* szPrinter, char* _2ndSerialNO, UINT32* _totalCounter, char* _serialNO4AIO);
 
 //--------------------------------global--------------------------------------
 static const unsigned char INIT_VALUE = 0xfe;
@@ -2600,6 +2610,67 @@ USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, BYTE* ptrTi
 	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime(): nResult == 0x%x", nResult);
 	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime() end");
     return nResult;
+}
+
+USBAPI_API int __stdcall GetUserCenterInfo(const wchar_t* szPrinter, char* _2ndSerialNO, UINT32* _totalCounter, char* _serialNO4AIO)
+{
+	if (NULL == szPrinter)
+		return _SW_INVALID_PARAMETER;
+
+	OutputDebugStringToFileA("\r\n####VP:GetUserCenterInfo() begin");
+
+	int nResult = _ACK;
+	wchar_t szIP[MAX_PATH];
+	int nPortType = CheckPort(szPrinter, szIP);
+
+	if (PT_UNKNOWN == nPortType)
+	{
+		nResult = _SW_UNKNOWN_PORT;
+	}
+	else
+	{
+		char* buffer = new char[sizeof(COMM_HEADER)+64];
+		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+64);
+		COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>(buffer);
+
+		ppkg->magic = MAGIC_NUM;
+		ppkg->id = _LS_PRNCMD;
+		ppkg->len = 3;
+
+		// For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+		// it just stand for the sub id. The real data length is defined by the lib
+		ppkg->subid = 0x13;
+		ppkg->len2 = 1;
+		ppkg->subcmd = _PRN_USER_CENTER;
+
+		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
+		{
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+64);
+		}
+		else if (PT_USB == nPortType)
+		{
+			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+64);
+		}
+
+		if (_ACK == nResult)
+		{
+			cmdst_user_center* pcmd_user_center = reinterpret_cast<cmdst_user_center*>(buffer + sizeof(COMM_HEADER));
+
+			*_totalCounter = pcmd_user_center->_totalCounter;
+			memcpy(_2ndSerialNO,  pcmd_user_center->_2ndSerialNO,  20); _2ndSerialNO[20] = 0;
+			memcpy(_serialNO4AIO, pcmd_user_center->_SerialNO4AIO, 16); _2ndSerialNO[16] = 0;
+		}
+
+		if (buffer)
+		{
+			delete[] buffer;
+			buffer = NULL;
+		}
+	}
+
+	OutputDebugStringToFileA("\r\n####VP:GetUserCenterInfo(): nResult == 0x%x", nResult);
+	OutputDebugStringToFileA("\r\n####VP:GetUserCenterInfo() end");
+	return nResult;
 }
 
 // width  unit: mil ( 0.001 inch ) 
