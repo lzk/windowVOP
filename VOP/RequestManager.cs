@@ -883,6 +883,7 @@ namespace VOP
             bool bSuccess = false;
             try
             {
+                dll.OutputDebugStringToFile_(String.Format("HttpRequest {0} {1}", url, strParam));
                 byte[] byteArray = Encoding.UTF8.GetBytes(strParam); // 转化
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);  //新建一个WebRequest对象用来请求或者响应url
                 dll.OutputDebugStringToFile_("####### SendHttpWebRequest WebRequest.Create(url) ######");
@@ -920,7 +921,7 @@ namespace VOP
                 StreamReader sr2 = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
 
                 string text2 = sr2.ReadToEnd();
-                dll.OutputDebugStringToFile_(text2);
+                dll.OutputDebugStringToFile_(String.Format("HttpResponse {0} {1}", url, text2));
                 strResult = text2;
                 if (ParseJsonData<T>(text2, rtFormat, ref record))
                 {
