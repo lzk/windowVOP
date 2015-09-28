@@ -95,6 +95,8 @@ namespace VOP
         public static MerchantInfoSet m_MerchantInfoSet = new MerchantInfoSet();
         public static MaintainInfoSet m_MaintainSet = new MaintainInfoSet();
 
+        private Thread thread_PrinterInfo2 = null;
+
         public bool PasswordCorrect()
         {
             bool bCorrect = false;
@@ -201,8 +203,49 @@ namespace VOP
 
             Thread uploadPrintInfoThread = new Thread(UploadPrintInfoToServerCaller);
             uploadPrintInfoThread.Start();
-           
+
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
+        }
+
+        public void UploadPrinterInfo2()
+        {
+            string strPrinterModel = "";
+            string strDrvName = "";
+            string strPrinterName = statusPanelPage.m_selectedPrinter;
+
+            CRM_PrintInfo2 info = new CRM_PrintInfo2();
+            AsyncWorker worker = new AsyncWorker();
+
+            UserCenterInfoRecord rec = worker.GetUserCenterInfo(statusPanelPage.m_selectedPrinter);
+
+            if(rec.CmdResult == EnumCmdResult._ACK)
+            {
+                common.GetPrinterDrvName(strPrinterName, ref strDrvName);
+
+                bool isSFP = common.IsSFPPrinter(strDrvName);
+                bool isWiFiModel = common.IsSupportWifi(strDrvName);
+
+                if (isSFP)
+                {
+                    if (isWiFiModel)
+                        strPrinterModel = "Lenovo LJ2208W";
+                    else
+                        strPrinterModel = "Lenovo LJ2208";
+                }
+                else
+                {
+                    if (isWiFiModel)
+                        strPrinterModel = "Lenovo M7208W";
+                    else
+                        strPrinterModel = "Lenovo M7208";
+                }
+
+                info.AddPrintData(strPrinterModel, rec.SecondSerialNO, rec.SerialNO4AIO, rec.TotalCounter);
+
+                JSONResultFormat2 rtValue = new JSONResultFormat2();
+
+                m_RequestManager.UploadCRM_PrintInfo2ToServer(ref info, ref rtValue);
+            }
         }
 
         public void GetMaintainInfoFromServerProc()
@@ -814,6 +857,9 @@ namespace VOP
             this.Visibility = System.Windows.Visibility.Visible;
 
             GetPopupSetting( App.cfgFile, ref m_popupIDCard, ref m_popupNIn1 );
+
+            thread_PrinterInfo2 = new Thread(UploadPrinterInfo2);
+            thread_PrinterInfo2.Start();
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -1070,6 +1116,10 @@ namespace VOP
                 }
             }
 
+            if (thread_PrinterInfo2.IsAlive == true)
+            {
+                thread_PrinterInfo2.Join();
+            }
 
             bExit = true;
             bExitUpdater = true;

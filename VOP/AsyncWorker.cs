@@ -34,6 +34,10 @@ namespace VOP
 //        private ScanProgressBarWindow scanPbw = null;
         private ProgressBarWindow scanPbw = null;
 
+        public AsyncWorker()
+        {
+        }
+
         public AsyncWorker(Window owner)
         {
             this.owner = owner;
@@ -1071,7 +1075,6 @@ namespace VOP
         private sbyte lowHumidityMode;
         private sbyte platecontrolmode;
         private sbyte primarycoolingmode;
-        private bool isTonerEnd;
 
         public sbyte LeadingEdge
         {
@@ -1133,16 +1136,6 @@ namespace VOP
             }
         }
 
-        public bool IsTonerEnd
-        {
-            get { return isTonerEnd; }
-            set
-            {
-                isTonerEnd = value;
-                OnPropertyChanged("IsTonerEnd");
-            }
-        }
-
         public UserCfgRecord()
         {
             printerName = "";
@@ -1152,7 +1145,6 @@ namespace VOP
             lowHumidityMode = 0;
             platecontrolmode = 2;
             primarycoolingmode = 0;
-            isTonerEnd = true;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
@@ -1162,8 +1154,7 @@ namespace VOP
                             sbyte imageDensity,
                             sbyte lowHumidityMode,
                             sbyte platecontrolmode,
-                            sbyte primarycoolingmode,
-                            bool isTonerEnd)
+                            sbyte primarycoolingmode)
         {
             this.printerName = printerName;
             this.leadingEdge = leadingEdge;
@@ -1172,7 +1163,6 @@ namespace VOP
             this.lowHumidityMode = lowHumidityMode;
             this.platecontrolmode = platecontrolmode;
             this.primarycoolingmode = primarycoolingmode;
-            this.isTonerEnd = isTonerEnd;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 

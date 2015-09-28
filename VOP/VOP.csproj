@@ -55,6 +55,9 @@
   <PropertyGroup>
     <ApplicationIcon>Images\printer.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.PdfEncoderLib">
       <HintPath>..\PdfDll\32bit\Interop.PdfEncoderLib.dll</HintPath>

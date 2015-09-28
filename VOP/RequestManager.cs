@@ -364,13 +364,12 @@ namespace VOP
             m_strMobileNumber = VOP.MainWindow.m_strPhoneNumber;
             m_strPlatform = "WinPC";
             m_strVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            System.Guid guid = System.Guid.NewGuid();
             m_time = System.DateTime.Now.ToLocalTime();
         }
 
         public void AddPrintData(string printerModel, string printerId, string tonerId, uint totalPrint, uint inkLevel=0)
         {
-            m_strPrintData = String.Format("[{\"PrinterModel\":\"{0}\",\"PrinterId\":\"{1}\",\"TonerId\":\"{2}\",\"TotalPrint\":\"{3}\",\"InkLevel\":\"{4}\"}]",
+            m_strPrintData = String.Format("[{{\"PrinterModel\":\"{0}\",\"PrinterId\":\"{1}\",\"TonerId\":\"{2}\",\"TotalPrint\":\"{3}\",\"InkLevel\":\"{4}\"}}]",
                                               printerModel, printerId, tonerId, totalPrint.ToString(), inkLevel.ToString());
         }
 
