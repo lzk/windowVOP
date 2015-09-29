@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using System.Timers;
 using System.Management;
 using System.Configuration;
+using System.Xml.Serialization;
 
 namespace VOP
 {
@@ -346,6 +347,7 @@ namespace VOP
         }
     }
 
+    [Serializable()]
     public class CRM_PrintInfo2
     {
         private readonly string m_strSignKey = "m4q89zvjgf49b9ml9ee3";
@@ -1131,6 +1133,46 @@ namespace VOP
             }
 
             return bSuccess;
+        }
+
+        public static bool Serialize<T>(T value, String filename)
+        {
+            if (value == null)
+            {
+                return false;
+            }
+            try
+            {
+                XmlSerializer _xmlserializer = new XmlSerializer(typeof(T));
+                TextWriter stream = new StreamWriter(filename, false);
+                _xmlserializer.Serialize(stream, value);
+                stream.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public static T Deserialize<T>(String filename)
+        {
+            if (string.IsNullOrEmpty(filename))
+            {
+                return default(T);
+            }
+            try
+            {
+                XmlSerializer _xmlSerializer = new XmlSerializer(typeof(T));
+                TextReader stream = new StreamReader(filename);
+                var result = (T)_xmlSerializer.Deserialize(stream);
+                stream.Close();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return default(T);
+            }
         }
     }
 }

@@ -24,6 +24,7 @@ using System.Globalization;
 using System.Xml.Linq;
 using VOP.Controls;
 
+
 namespace VOP
 {
     /// <summary>
@@ -242,9 +243,13 @@ namespace VOP
 
                 info.AddPrintData(strPrinterModel, rec.SecondSerialNO, rec.SerialNO4AIO, rec.TotalCounter);
 
-                JSONResultFormat2 rtValue = new JSONResultFormat2();
+                //Serialization to xml file, locate in system temp VOP_CRM folder
+                string fileName = statusPanelPage.m_selectedPrinter + ".xml";
+                RequestManager.Serialize<CRM_PrintInfo2>(info, App.crmFolder + @"\" + fileName);
 
-                m_RequestManager.UploadCRM_PrintInfo2ToServer(ref info, ref rtValue);
+                //CRM_PrintInfo2 info2 = RequestManager.Deserialize<CRM_PrintInfo2>(App.crmFolder + @"\" + fileName);
+                //JSONResultFormat2 rtValue = new JSONResultFormat2();
+                //m_RequestManager.UploadCRM_PrintInfo2ToServer(ref info, ref rtValue);
             }
         }
 
@@ -857,9 +862,6 @@ namespace VOP
             this.Visibility = System.Windows.Visibility.Visible;
 
             GetPopupSetting( App.cfgFile, ref m_popupIDCard, ref m_popupNIn1 );
-
-            thread_PrinterInfo2 = new Thread(UploadPrinterInfo2);
-            thread_PrinterInfo2.Start();
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -1116,7 +1118,7 @@ namespace VOP
                 }
             }
 
-            if (thread_PrinterInfo2.IsAlive == true)
+            if (thread_PrinterInfo2 != null && thread_PrinterInfo2.IsAlive == true)
             {
                 thread_PrinterInfo2.Join();
             }
@@ -1327,6 +1329,11 @@ namespace VOP
                 statusUpdater.Abort();
             }
 
+            if (thread_PrinterInfo2 != null && thread_PrinterInfo2.IsAlive == true)
+            {
+                thread_PrinterInfo2.Join();
+            }
+
             winCopyPage.ResetToDefaultValue();
             winScanPage.ResetToDefaultValue();
             winPrintPage.ResetToDefaultValue();
@@ -1367,6 +1374,9 @@ namespace VOP
 
             statusUpdater = new Thread(UpdateStatusCaller);
             statusUpdater.Start();
+
+            thread_PrinterInfo2 = new Thread(UploadPrinterInfo2);
+            thread_PrinterInfo2.Start();
         }
 
         /// <summary>
