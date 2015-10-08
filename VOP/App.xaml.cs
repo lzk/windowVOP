@@ -65,6 +65,17 @@ namespace VOP
             {
                 Directory.CreateDirectory(App.crmFolder);
             }
+            else
+            {
+                DirectoryInfo dir = new DirectoryInfo(App.crmFolder);
+
+                IEnumerable<FileInfo> fileList = dir.GetFiles("*.xml", SearchOption.TopDirectoryOnly);
+
+                foreach (FileInfo fileInfo in fileList)
+                {
+                    fileInfo.Delete();
+                }
+            }
 
             cfgFile = cfgFolder + "vopcfg.xml";
 

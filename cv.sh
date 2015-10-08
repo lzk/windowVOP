@@ -134,3 +134,28 @@ printf "\
 $v1 $v2 $v3 $v4 \
 $v1 $v2 $v3 $v4 \
 >> WpfAnimatedGif/Properties/VersionInfo.cs
+
+printf "\
+using System.Reflection;\n\
+using System.Runtime.InteropServices;\n\
+using System.Runtime.CompilerServices;\n\
+using System.Windows.Markup;\n\
+\n\
+[assembly: AssemblyConfiguration(\"\")]\n\
+[assembly: AssemblyProduct(\"Lenovo virtual panel\")]\n\
+" > CRMUploader/Properties/AssemblyInfo.cs
+
+git log --format="[assembly: AssemblyDescription(\"%H\")]" -1 >> CRMUploader/Properties/AssemblyInfo.cs
+
+printf "\
+[assembly: AssemblyFileVersion(\"%d.%d.%d.%d\")]\n\
+[assembly: AssemblyCompany(\"Lenovo Co., Ltd.\")]\n\
+[assembly: AssemblyCopyright(\"(C) Lenovo Co., Ltd. (2015)\")]\n\
+[assembly: ComVisible(false)]\n\
+[assembly: AssemblyTitle(\"Lenovo virtual panel\")]\n\
+[assembly: AssemblyTrademark(\"\")]\n\
+[assembly: AssemblyVersion(\"%d.%d.%d.%d\")]\n\
+" \
+$v1 $v2 $v3 $v4 \
+$v1 $v2 $v3 $v4 \
+>> CRMUploader/Properties/AssemblyInfo.cs

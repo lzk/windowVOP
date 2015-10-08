@@ -1149,7 +1149,7 @@ namespace VOP
                 stream.Close();
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -1169,7 +1169,7 @@ namespace VOP
                 stream.Close();
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return default(T);
             }

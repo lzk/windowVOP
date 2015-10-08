@@ -23,7 +23,7 @@ using System.IO;
 using System.Globalization;
 using System.Xml.Linq;
 using VOP.Controls;
-
+using System.Diagnostics;
 
 namespace VOP
 {
@@ -208,6 +208,15 @@ namespace VOP
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
         }
 
+        public bool CheckProcessExist(string name)
+        {
+            Process[] processes = Process.GetProcessesByName(name);
+            if (processes.Length > 0)
+                return true;
+            else
+                return false;
+        }
+
         public void UploadPrinterInfo2()
         {
             string strPrinterModel = "";
@@ -219,7 +228,7 @@ namespace VOP
 
             UserCenterInfoRecord rec = worker.GetUserCenterInfo(statusPanelPage.m_selectedPrinter);
 
-            if(rec.CmdResult == EnumCmdResult._ACK)
+         //   if(rec.CmdResult == EnumCmdResult._ACK)
             {
                 common.GetPrinterDrvName(strPrinterName, ref strDrvName);
 
@@ -246,6 +255,27 @@ namespace VOP
                 //Serialization to xml file, locate in system temp VOP_CRM folder
                 string fileName = statusPanelPage.m_selectedPrinter + ".xml";
                 RequestManager.Serialize<CRM_PrintInfo2>(info, App.crmFolder + @"\" + fileName);
+
+
+                if(CheckProcessExist("CRMUploader") == false)
+                {
+                    ProcessStartInfo procInfo = new ProcessStartInfo();
+                    procInfo.FileName = @".\CRMUploader.exe";
+
+                    procInfo.CreateNoWindow = true;
+                    procInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    procInfo.UseShellExecute = false;
+
+                    try
+                    {
+                        Process p = Process.Start(procInfo);
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                }
+
 
                 //CRM_PrintInfo2 info2 = RequestManager.Deserialize<CRM_PrintInfo2>(App.crmFolder + @"\" + fileName);
                 //JSONResultFormat2 rtValue = new JSONResultFormat2();
