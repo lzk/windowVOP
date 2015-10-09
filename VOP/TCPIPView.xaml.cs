@@ -170,6 +170,7 @@ namespace VOP
                 TcpIpSetting.m_gate2 = arr[2];
                 TcpIpSetting.m_gate3 = arr[3];
 
+                TcpIpSetting.m_mode_ipversion = m_rec.IpVersion;
                 TcpIpSetting.m_mode_ipaddress = (byte)m_rec.IpAddressMode;
             }
 
@@ -489,7 +490,7 @@ namespace VOP
             enum_addr_mode addr_mode = enum_addr_mode.Manual;
             addr_mode = rdbtn_dhcp.IsChecked == true ? enum_addr_mode.DHCP : enum_addr_mode.Manual;
 
-            byte mode_ipversion = 0;  // 0-ipv4,1-ipv6
+           // byte mode_ipversion = 0;  // 0-ipv4,1-ipv6
             byte mode_ipaddress = (byte)EnumIPType.DHCP;
             byte ip0 = 0;
             byte ip1 = 0;
@@ -582,7 +583,7 @@ namespace VOP
 
                 string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
                 m_rec.PrinterName = strPrinterName;
-                m_rec.IpVersion = mode_ipversion;
+                m_rec.IpVersion = TcpIpSetting.m_mode_ipversion;
                 m_rec.IpAddressMode = (EnumIPType)mode_ipaddress;
 
                 arr[0] = ip0;
@@ -608,7 +609,7 @@ namespace VOP
                 {
                     if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                     {
-                        TcpIpSetting.m_mode_ipversion = mode_ipversion;
+                       // TcpIpSetting.m_mode_ipversion = mode_ipversion;
                         TcpIpSetting.m_mode_ipaddress = mode_ipaddress;
                         TcpIpSetting.m_ip0 = ip0;
                         TcpIpSetting.m_ip1 = ip1;
