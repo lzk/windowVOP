@@ -7,7 +7,6 @@
         ShowInTaskbar="False" 
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" 
-        FontFamily="微软雅黑,SimSun"
         AllowsTransparency="True"
         Background="Transparent"
         ResizeMode="NoResize"
