@@ -350,7 +350,7 @@ namespace VOP
     [Serializable()]
     public class CRM_PrintInfo2
     {
-        private readonly string m_strSignKey = "m4q89zvjgf49b9ml9ee3";
+        private readonly string m_strSignKey = "86c02972fba047b0b0a9adb8123029fb";
 
         public string m_strDeviceCode;    //Net card ID
         public string m_strMobileNumber;  //can not upload
@@ -369,7 +369,7 @@ namespace VOP
             m_time = System.DateTime.Now.ToLocalTime();
         }
 
-        public void AddPrintData(string printerModel, string printerId, string tonerId, uint totalPrint, uint inkLevel=0)
+        public void AddPrintData(string printerModel, string printerId, string tonerId, uint totalPrint, int inkLevel=-1)
         {
             m_strPrintData = String.Format("[{{\"PrinterModel\":\"{0}\",\"PrinterId\":\"{1}\",\"TonerId\":\"{2}\",\"TotalPrint\":\"{3}\",\"InkLevel\":\"{4}\"}}]",
                                               printerModel, printerId, tonerId, totalPrint.ToString(), inkLevel.ToString());
