@@ -253,6 +253,12 @@ namespace VOP.Controls
                             BitmapSource bitmapSource;
                             if (currentFileExt == ".tif")
                             {
+                                if (currentTiffDecoder == null)
+                                {
+                                    currentState = ImagePreviewState.Unvalid;
+                                    break;
+                                }
+
                                 bitmapSource = currentTiffDecoder.Frames[currentTiffIndex];
 
                                 JpegBitmapEncoder encoder = new JpegBitmapEncoder();
@@ -337,7 +343,18 @@ namespace VOP.Controls
                                     if(File.Exists(imagePaths[currentListIndex]))
                                     {
                                         Uri myUri = new Uri(imagePaths[currentListIndex], UriKind.RelativeOrAbsolute);
-                                        currentTiffDecoder = new TiffBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
+
+                                        try
+                                        {
+                                            currentTiffDecoder = new TiffBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
+                                        }
+                                        catch (Exception)
+                                        {
+                                            currentTiffDecoder = null;
+                                            currentState = ImagePreviewState.Render;
+                                            break;
+                                        }
+
                                         TiffCount = currentTiffDecoder.Frames.Count();
 
                                         if (TiffCount == 1)
