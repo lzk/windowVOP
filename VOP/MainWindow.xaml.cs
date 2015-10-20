@@ -228,7 +228,7 @@ namespace VOP
 
             UserCenterInfoRecord rec = worker.GetUserCenterInfo(statusPanelPage.m_selectedPrinter);
 
-         //   if(rec.CmdResult == EnumCmdResult._ACK)
+            if(rec.CmdResult == EnumCmdResult._ACK)
             {
                 common.GetPrinterDrvName(strPrinterName, ref strDrvName);
 

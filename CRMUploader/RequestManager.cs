@@ -206,7 +206,7 @@ namespace CRMUploader
     [Serializable()]
     public class CRM_PrintInfo2
     {
-        private readonly string m_strSignKey = "m4q89zvjgf49b9ml9ee3";
+        private readonly string m_strSignKey = "86c02972fba047b0b0a9adb8123029fb";
 
         public string m_strDeviceCode;    //Net card ID
         public string m_strMobileNumber;  //can not upload
@@ -234,11 +234,30 @@ namespace CRMUploader
         public string ConvertToWebParams()
         {
             string str = "";
+            string format = "";
            
             m_strSign = MD5.MD5_Encrypt(m_strDeviceCode + m_time.ToString("yyyyMMddHHmmss") + m_strSignKey);
 
-            str = String.Format("DeviceCode={0}&Mobile={1}&Platform={2}&PrinterData={3}&Version={4}&Time={5}&Sign={6}"
-                , m_strDeviceCode, m_strMobileNumber, m_strPlatform, m_strPrintData, m_strVersion, m_time.ToString("yyyyMMddHHmmss"), m_strSign);
+            format = "{{" +
+                     "\"devicecode\":\"{0}\"," + 
+                     "\"mobile\":\"{1}\"," +
+                     "\"platform\":\"{2}\"," +
+                     "\"version\":\"{3}\"," +
+                     "\"time\":\"{4}\"," +
+                     "\"sign\":\"{5}\"," +
+                     "\"location\":\"\"," +
+                     "\"printerdata\":{6}" +
+                     "}}";
+
+
+            str = String.Format(format, 
+                                m_strDeviceCode,
+                                m_strMobileNumber,
+                                m_strPlatform,
+                                m_strVersion,
+                                m_time.ToString("yyyyMMddHHmmss"), 
+                                m_strSign,
+                                m_strPrintData);
 
             return str;
         }
@@ -338,7 +357,7 @@ namespace CRMUploader
             try
             {
                 Trace.WriteLine(String.Format("HttpRequest {0} {1}", url, strParam));
-                byte[] byteArray = Encoding.UTF8.GetBytes(strParam); 
+              //  byte[] byteArray = Encoding.UTF8.GetBytes(strParam); 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url); 
                 IWebProxy webProxy = WebRequest.DefaultWebProxy;
                 if (null != webProxy)
@@ -347,13 +366,13 @@ namespace CRMUploader
                     request.Proxy = webProxy;
                 }
                 request.CookieContainer = m_CookieContainer;
-                request.Method = httpRequestMtd;                                          
-                request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";      
+                request.Method = httpRequestMtd;
+                request.ContentType = "application/json; charset=UTF-8";      
                 request.Credentials = CredentialCache.DefaultCredentials;
-                request.ContentLength = byteArray.Length;
-                Stream newStream = request.GetRequestStream();         
+              //  request.ContentLength = byteArray.Length;
+                StreamWriter newStream = new StreamWriter(request.GetRequestStream(), Encoding.UTF8);
 
-                newStream.Write(byteArray, 0, byteArray.Length);    
+                newStream.Write(strParam);    
                 newStream.Flush();
                 newStream.Close();
 
