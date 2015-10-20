@@ -266,7 +266,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Close">Close</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Open">Open</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Unsupported">The function is unsupported</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_PDL_Memory_Overflow">PDL Memory Overflow</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_PDL_Memory_Overflow">PDL Memory Overflow! Press power key to clear this error.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Invalid_verification_code_Please_check_and_enter_again">Invalid verification code. Please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Tag1">Lenovo  Neo</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Tag2">Smart &amp; elegant printer</sys:String>
