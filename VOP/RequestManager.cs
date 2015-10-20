@@ -369,20 +369,39 @@ namespace VOP
             m_time = System.DateTime.Now.ToLocalTime();
         }
 
-        public void AddPrintData(string printerModel, string printerId, string tonerId, uint totalPrint, int inkLevel=-1)
+        public void AddPrintData(string printerModel, string printerId, string tonerId, uint totalPrint, uint inkLevel = 0)
         {
-            m_strPrintData = String.Format("[{{\"PrinterModel\":\"{0}\",\"PrinterId\":\"{1}\",\"TonerId\":\"{2}\",\"TotalPrint\":\"{3}\",\"InkLevel\":\"{4}\"}}]",
+            m_strPrintData = String.Format("[{{\"printermodel\":\"{0}\",\"printerid\":\"{1}\",\"tonerid\":\"{2}\",\"totalprint\":\"{3}\",\"inklevel\":\"{4}\"}}]",
                                               printerModel, printerId, tonerId, totalPrint.ToString(), inkLevel.ToString());
         }
 
         public string ConvertToWebParams()
         {
             string str = "";
-           
+            string format = "";
+
             m_strSign = MD5.MD5_Encrypt(m_strDeviceCode + m_time.ToString("yyyyMMddHHmmss") + m_strSignKey);
 
-            str = String.Format("DeviceCode={0}&Mobile={1}&Platform={2}&PrinterData={3}&Version={4}&Time={5}&Sign={6}"
-                , m_strDeviceCode, m_strMobileNumber, m_strPlatform, m_strPrintData, m_strVersion, m_time.ToString("yyyyMMddHHmmss"), m_strSign);
+            format = "{{" +
+                     "\"devicecode\":\"{0}\"," +
+                     "\"mobile\":\"{1}\"," +
+                     "\"platform\":\"{2}\"," +
+                     "\"version\":\"{3}\"," +
+                     "\"time\":\"{4}\"," +
+                     "\"sign\":\"{5}\"," +
+                     "\"location\":\"\"," +
+                     "\"printerdata\":{6}" +
+                     "}}";
+
+
+            str = String.Format(format,
+                                m_strDeviceCode,
+                                m_strMobileNumber,
+                                m_strPlatform,
+                                m_strVersion,
+                                m_time.ToString("yyyyMMddHHmmss"),
+                                m_strSign,
+                                m_strPrintData);
 
             return str;
         }

@@ -33,7 +33,7 @@ namespace CRMUploader
             Exit 
         }
 
-        public static bool IsSendInOne = true;
+        public static bool IsSendInOne = false;
 
         public static string crmFolder = System.IO.Path.GetTempPath() + "VOP_CRM";
 

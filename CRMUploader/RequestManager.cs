@@ -227,8 +227,8 @@ namespace CRMUploader
 
         public void AddPrintData(string printerModel, string printerId, string tonerId, uint totalPrint, uint inkLevel=0)
         {
-            m_strPrintData = String.Format("[{{\"PrinterModel\":\"{0}\",\"PrinterId\":\"{1}\",\"TonerId\":\"{2}\",\"TotalPrint\":\"{3}\",\"InkLevel\":\"{4}\"}}]",
-                                              printerModel, printerId, tonerId, totalPrint.ToString(), inkLevel.ToString());
+            m_strPrintData = String.Format("[{{\"printermodel\":\"{0}\",\"printerid\":\"{1}\",\"tonerid\":\"{2}\",\"totalprint\":\"{3}\",\"inklevel\":\"{4}\"}}]",
+                                            printerModel, printerId, tonerId, totalPrint.ToString(), inkLevel.ToString());
         }
 
         public string ConvertToWebParams()
