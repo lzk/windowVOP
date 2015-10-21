@@ -48,6 +48,41 @@ namespace VOP
             }
         }
 
+        private bool IsValidImage(string fileName)
+        {
+            try
+            {
+                string fileExt = System.IO.Path.GetExtension(fileName).ToLower();
+
+                if (fileExt == ".bmp"
+                     || fileExt == ".ico"
+                     || fileExt == ".gif"
+                     || fileExt == ".jpg"
+                     || fileExt == ".exif"
+                     || fileExt == ".png"
+                     || fileExt == ".tif"
+                     || fileExt == ".wmf"
+                     || fileExt == ".emf")
+                {
+                    BitmapImage bi = new BitmapImage();
+                    bi.BeginInit();
+                    bi.UriSource = new Uri(fileName, UriKind.RelativeOrAbsolute);
+                    bi.EndInit();
+                }
+                else
+                {
+                    return false;
+                }
+             
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         private void OnClickImagePrint(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             OpenFileDialog open = null;
@@ -62,29 +97,20 @@ namespace VOP
             {
                 try
                 {
-                    string fileExt = System.IO.Path.GetExtension(open.FileName).ToLower();
+                     for(int i = 0; i < open.FileNames.Length; i++)
+                     { 
+                        if (!IsValidImage(open.FileNames[i]))
+                        {
+                            MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_This_file_is_not_supported__please_select_another_one_") + " -- " + open.SafeFileNames[i], (string)this.FindResource("ResStr_Warning"));
+                            messageBox.Owner = App.Current.MainWindow;
+                            messageBox.ShowDialog();
+                            return;
+                        }
+                     }
 
-                    if (fileExt == ".bmp"
-                        || fileExt == ".ico"
-                        || fileExt == ".gif"
-                        || fileExt == ".jpg"
-                        || fileExt == ".exif"
-                        || fileExt == ".png"
-                        || fileExt == ".tif"
-                        || fileExt == ".wmf"
-                        || fileExt == ".emf")
-                    {
-                        this.m_MainWin.winPrintPage.FilePaths = new List<string>(open.FileNames);
-                        this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
-                        this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintImages;
-                    }
-                    else
-                    {
-                        MessageBoxEx_Simple messageBox = new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_This_file_is_not_supported__please_select_another_one_"), (string)this.FindResource("ResStr_Warning"));
-                        messageBox.Owner = App.Current.MainWindow;
-                        messageBox.ShowDialog();
-                    }
-                 
+                     this.m_MainWin.winPrintPage.FilePaths = new List<string>(open.FileNames);
+                     this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
+                     this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintImages;
                 }
                 catch(OutOfMemoryException)
                 {
