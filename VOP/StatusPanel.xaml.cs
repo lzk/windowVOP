@@ -259,8 +259,8 @@ namespace VOP
                 case EnumStatus.ScanSending                             : br = Brushes.Black ; break;
                 case EnumStatus.ScanCanceling                           : br = Brushes.Black ; break;
                 case EnumStatus.ScannerBusy                             : br = Brushes.Black ; break;
-                case EnumStatus.TonerEnd1                               : br = Brushes.Orange; break;
-                case EnumStatus.TonerEnd2                               : br = Brushes.Orange; break;
+                case EnumStatus.TonerEnd1                               : br = Brushes.Red; break;
+                case EnumStatus.TonerEnd2                               : br = Brushes.Red; break;
                 case EnumStatus.TonerNearEnd                            : br = Brushes.Orange; break;
                 case EnumStatus.ManualFeedRequired                      : br = Brushes.Black ; break;
                 case EnumStatus.InitializeJam                           : br = Brushes.Red   ; break;
@@ -270,7 +270,7 @@ namespace VOP
                 case EnumStatus.JamAtExitStayOn                         : br = Brushes.Red   ; break;
                 case EnumStatus.CoverOpen                               : br = Brushes.Red   ; break;
                 case EnumStatus.NoTonerCartridge                        : br = Brushes.Red   ; break;
-                case EnumStatus.WasteTonerFull                          : br = Brushes.Orange; break;
+                case EnumStatus.WasteTonerFull                          : br = Brushes.Red; break;
                 case EnumStatus.PDLMemoryOver                          : br = Brushes.Red; break;
                 case EnumStatus.FWUpdate                                : br = Brushes.Black ; break;
                 case EnumStatus.OverHeat                                : br = Brushes.Orange; break;
