@@ -109,13 +109,13 @@
                             BorderThickness="0"
                             LostFocus="tbLostFocus"
                             >
-                        <TextBox.InputBindings>
+                        <!--<TextBox.InputBindings>
                              <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                         </TextBox.InputBindings>
                         <TextBox.ContextMenu>
                             <ContextMenu Visibility="Collapsed">
                             </ContextMenu>
-                        </TextBox.ContextMenu>
+                        </TextBox.ContextMenu>-->
                     </TextBox>
 
                     <TextBlock Text=" / " VerticalAlignment="Center"></TextBlock>
@@ -168,13 +168,13 @@
                             BorderThickness="0"
                             LostFocus="tbLostFocus"
                             >
-                        <TextBox.InputBindings>
+                        <!--<TextBox.InputBindings>
                             <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                         </TextBox.InputBindings>
                         <TextBox.ContextMenu>
                             <ContextMenu Visibility="Collapsed">
                             </ContextMenu>
-                        </TextBox.ContextMenu>
+                        </TextBox.ContextMenu>-->
                     </TextBox>
                     <TextBlock Text=" / " VerticalAlignment="Center"></TextBlock>
                     <TextBox 
