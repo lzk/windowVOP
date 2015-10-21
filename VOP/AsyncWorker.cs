@@ -205,7 +205,7 @@ namespace VOP
                         return false;
                     }
 
-                    if (!((MainWindow)App.Current.MainWindow).PasswordCorrect())
+                    if (!((MainWindow)App.Current.MainWindow).PasswordCorrect(this.owner))
                     {
                         PasswordWindow pw = new PasswordWindow();
                         pw.Owner = App.Current.MainWindow;

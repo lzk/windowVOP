@@ -95,20 +95,21 @@ namespace VOP
         public static MerchantInfoSet m_MerchantInfoSet = new MerchantInfoSet();
         public static MaintainInfoSet m_MaintainSet = new MaintainInfoSet();
 
-        public bool PasswordCorrect()
+        public bool PasswordCorrect(Window parent)
         {
             bool bCorrect = false;
             if (m_strPassword.Length > 0)
             {
                 string strPrinterName = statusPanelPage.m_selectedPrinter;
                 PasswordRecord m_rec = new PasswordRecord(strPrinterName, m_strPassword);
-                AsyncWorker worker = new AsyncWorker(this);
+                AsyncWorker worker = new AsyncWorker(parent);
 
-                m_rec = worker.ConfirmPassword(m_rec);
-
-                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+                if (worker.InvokeMethod<PasswordRecord>(strPrinterName, ref m_rec, DllMethodType.ConfirmPassword, this))
                 {
-                    bCorrect = true;
+                    if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+                    {
+                        bCorrect = true;
+                    }
                 }
 
             }     
