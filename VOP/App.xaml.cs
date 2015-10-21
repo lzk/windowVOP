@@ -135,7 +135,7 @@ namespace VOP
                 return;
             }
 
-          //  if(mutex.WaitOne(TimeSpan.Zero, true)) 
+            if(mutex.WaitOne(TimeSpan.Zero, true)) 
             {
                 VOP.App app = new VOP.App();
                 app.InitializeComponent();
@@ -172,10 +172,10 @@ namespace VOP
 
                 mutex.ReleaseMutex();
             }
-            //else
-            //{
-            //    Win32.PostMessage( (IntPtr)0xffff, WM_VOP, IntPtr.Zero , IntPtr.Zero );
-            //}
+            else
+            {
+                Win32.PostMessage((IntPtr)0xffff, WM_VOP, IntPtr.Zero, IntPtr.Zero);
+            }
 
         }
 
