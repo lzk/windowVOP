@@ -8,12 +8,22 @@
         ShowInTaskbar="False" 
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" 
-        Style="{StaticResource for_noresize_window}"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        BorderThickness="24"
         Loaded="Window_Loaded">
     
     <Viewbox Stretch="Fill">
-        <Grid Height="250" Width="490">
-            <Grid>
+        <Grid >
+            <Rectangle Grid.Row="0" Grid.RowSpan="14" Grid.Column="0" Grid.ColumnSpan="7" Fill="#FFE7E7E7"  
+                                    RadiusX="0" RadiusY="0">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <Grid Height="221" Width="442" Background="#FFE7E7E7">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="40"/>
@@ -64,7 +74,7 @@
                         <TextBlock Name="tbkVersionInfo" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
                         <Grid  Grid.Row="3">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Copyright (C) (2015)" TextWrapping="Wrap"></TextBlock>
+                                <TextBlock Text="Copyright (C) (2016)" TextWrapping="Wrap"></TextBlock>
                                 <TextBlock Text="Lenovo (Beijing) Limited."/>
                                 <TextBlock Text="All Rights Reserved."></TextBlock>
                             </StackPanel>
