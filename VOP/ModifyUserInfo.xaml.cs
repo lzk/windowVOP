@@ -137,6 +137,20 @@ namespace VOP
                     return;
                 }
 
+                if (tbName.Text.Contains("&") || tbName.Text.Contains("+"))
+                {
+                    MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.TryFindResource("ResStr_AndPlus_Format_Error"), (string)this.FindResource("ResStr_Error"));
+                    tbName.Focus();
+                    return;
+                }
+
+                if (tbAddress.Text.Contains("&") || tbAddress.Text.Contains("+"))
+                {
+                    MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.TryFindResource("ResStr_AndPlus_Format_Error"), (string)this.FindResource("ResStr_Error"));
+                    tbAddress.Focus();
+                    return;
+                }
+
                 string strResult = "";
                 if (true == UserInformation.SetUserInfo(userInformation, ref strResult))
                 {

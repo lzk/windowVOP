@@ -326,4 +326,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_TCP_IPv4">TCP/IPv4</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_TCP_IPv6">TCP/IPv6</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Status">Status</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_AndPlus_Format_Error">Input cannot contain characters '&amp;' and '+', Please check and enter again.</sys:String>
 </ResourceDictionary>
