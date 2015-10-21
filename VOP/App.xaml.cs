@@ -157,7 +157,7 @@ namespace VOP
             }
             else
             {
-                Win32.PostMessage( (IntPtr)0xffff, WM_VOP, IntPtr.Zero , IntPtr.Zero );
+                Win32.PostMessage((IntPtr)0xffff, WM_VOP, IntPtr.Zero, IntPtr.Zero);
             }
 
         }
