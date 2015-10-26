@@ -23,7 +23,7 @@
 								Margin="5" 
 								FontSize="12"
 								Text="{Binding ElementName=MyAdorner, 
-                                Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                                Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" IsEnabled="False">
                                 </TextBlock>
                             </Border>
                         </local:PopupEx>

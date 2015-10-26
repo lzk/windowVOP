@@ -197,14 +197,14 @@
                         <Image x:Name="imgIDCard"
                                Source="Images/IDCardCopyIconDisable.png"
                                Stretch="None" > </Image>
-                        <TextBlock Name="txtBlk_IdCardCopy" Margin="20,0" VerticalAlignment="Center" Text="{StaticResource ResStr_ID_Card_Copy}"></TextBlock>
+                        <TextBlock Name="txtBlk_IdCardCopy" Margin="20,0" VerticalAlignment="Center" Text="{StaticResource ResStr_ID_Card_Copy}" IsEnabled="False"></TextBlock>
                         <CheckBox x:Name="chkBtnIDCardCopy" Template="{StaticResource switchBox}"
                                   IsChecked="False" Width="50" Height="25"
                                   Checked="CheckBox_Checked"
                                   Unchecked="CheckBox_Checked" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">                        
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <local:ButtonEx IsDefault="False" IsEnabled="True" Content="{StaticResource ResStr_More_Settings}" 
                                         x:Name="btnSetting" Width="120" Height="33"
                                         Margin="0,0,40,0" Click="SettingBtnClick" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
