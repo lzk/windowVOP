@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Threading;
 using System.Net.NetworkInformation;
+using System.Diagnostics;
 
 namespace CRMUploader
 {
@@ -49,13 +50,14 @@ namespace CRMUploader
                    
                     case ProgramState.OnIdle:
                         {
-                            Thread.Sleep(new TimeSpan(0, 0, 5));
+                            Trace.WriteLine("CRM Uploader enter sleep.");
+                            Thread.Sleep(new TimeSpan(0, 10, 0));
                             currentState = ProgramState.CheckIsReady;
                         }
                         break;
                     case ProgramState.CheckIsReady:
                         {
-
+                            Trace.WriteLine("CRM Uploader check is ready.");
                             if(IsDirectoryFileExist(crmFolder))
                             {
                                 if (NetworkInterface.GetIsNetworkAvailable())
@@ -103,21 +105,35 @@ namespace CRMUploader
                         break;
                     case ProgramState.Send_Separated:
                         {
+                            bool isNetWorkReachable = true;
+
                             foreach (SendInfo info in infoList)
                             {
+                             
                                 JSONResultFormat2 rtValue = new JSONResultFormat2();
                                 
                                 if(RequestManager.UploadCRM_PrintInfo2ToServer(info.m_printInfo, ref rtValue))
                                 {
                                     info.m_fileInfo.Delete();
+                                    isNetWorkReachable = true;
+                                }
+                                else
+                                {
+                                    isNetWorkReachable = false;
+                                    break;
                                 }
                             }
 
-                            currentState = ProgramState.OnIdle;
+                            if (isNetWorkReachable == true)
+                                currentState = ProgramState.CheckIsReady;
+                            else
+                                currentState = ProgramState.OnIdle;
                         }
                         break;
                     case ProgramState.Send_In_One:
                         {
+                            bool isNetWorkReachable = true;
+
                             string printData = "[";
 
                             foreach (SendInfo info in infoList)
@@ -138,9 +154,18 @@ namespace CRMUploader
                                 {
                                     info.m_fileInfo.Delete();
                                 }
+
+                                isNetWorkReachable = true;
+                            }
+                            else
+                            {
+                                isNetWorkReachable = false;
                             }
 
-                            currentState = ProgramState.OnIdle;
+                            if (isNetWorkReachable == true)
+                                currentState = ProgramState.CheckIsReady;
+                            else
+                                currentState = ProgramState.OnIdle;
                         }
                         break;
                     default:
