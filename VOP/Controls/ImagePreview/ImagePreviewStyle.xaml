@@ -110,11 +110,11 @@
                             <RowDefinition Height="15" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="5" />
                         </Grid.ColumnDefinitions>
-                        <Image Source="..\..\Images\Unvalid.tif" Grid.RowSpan="7" Grid.ColumnSpan="3"/>
+                        <Image Source="..\..\Images\Unvalid.tif" Grid.RowSpan="5" Grid.ColumnSpan="3"/>
                         <!--<Rectangle Grid.Row="1" Grid.Column="1" Fill="#FF71726F" Width="10" Height="10" Margin="-30,0,0,0"  />
                         <Rectangle Grid.Row="1" Grid.Column="1" Fill="#FF71726F" Width="10" Height="10" Margin="30,0,0,0"/>
                         <Rectangle Grid.Row="2" Grid.Column="1" Fill="#FF71726F" Width="8" Height="18" />
@@ -129,12 +129,13 @@
                                 </RadialGradientBrush>
                             </Ellipse.Fill>
                         </Ellipse>-->
-                        <TextBlock Grid.Row="5" Grid.Column="1" Text="{StaticResource ResStr_Unable_to_preview}"
+                        <TextBlock Grid.Row="4" Grid.RowSpan="3" Grid.Column="1" Text="{StaticResource ResStr_Unable_to_preview}"
                          Foreground="#FF71726F"
 			             FontSize="16" 
 			             HorizontalAlignment="Center" 
 			             VerticalAlignment="Top"
-                         TextWrapping="Wrap"/>  
+                         TextWrapping="Wrap"
+                         Style="{x:Null}"/>  
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

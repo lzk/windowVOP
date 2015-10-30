@@ -32,6 +32,9 @@ namespace VOP
         {
             InitializeComponent();
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;
+
+            this.Width = this.Width * App.gScalingRate;
+            this.Height = this.Height * App.gScalingRate;
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)

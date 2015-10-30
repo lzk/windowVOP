@@ -43,7 +43,7 @@
             </Button>-->
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="1">
+        <Grid Grid.Row="1" Grid.ColumnSpan="3" Margin="10,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="6*" />
                 <RowDefinition Height="58*" />
@@ -53,6 +53,7 @@
             <TextBlock Name="messageBoxTextBlock" Grid.Row="1"  FontSize="14"
                        VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left"           
                        TextWrapping="Wrap"
+                       Style="{x:Null}"
                        Foreground="#555555" >                
             </TextBlock>
         </Grid>
