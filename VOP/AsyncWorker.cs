@@ -26,6 +26,16 @@ namespace VOP
                                         int contrast, int brightness, int docuType, uint uMsg);
     public delegate int PrintFileDelegate(string printerName, string fileName, bool needFitToPage, int duplexType, bool IsPortrait, int copies, int scalingValue);
     public delegate bool RotateScannedFilesDelegate(ScanFiles objSrc, ScanFiles objDst, int nAngle);
+    public delegate int CopyDelegate(string printerName,
+                                    byte Density,
+                                    byte copyNum,
+                                    byte scanMode,
+                                    byte orgSize,
+                                    byte paperSize,
+                                    byte nUp,
+                                    byte dpi,
+                                    ushort scale,
+                                    byte mediaType);
 
     class AsyncWorker
     {
@@ -41,6 +51,9 @@ namespace VOP
 
         void CallbackMethod(IAsyncResult ar)
         {
+            if (ar != null)
+                ar.AsyncWaitHandle.WaitOne();
+
             if (pbw != null)
             {
                 pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
@@ -148,6 +161,42 @@ namespace VOP
             }
 
             return PrintError.Print_File_Not_Support;
+        }
+
+        public int InvokeCopyMethod(CopyDelegate method,
+                                      string printerName,
+                                      byte Density,
+                                      byte copyNum,
+                                      byte scanMode,
+                                      byte orgSize,
+                                      byte paperSize,
+                                      byte nUp,
+                                      byte dpi,
+                                      ushort scale,
+                                      byte mediaType)
+        {
+
+            if (method != null)
+            {
+                CopyDelegate caller = method;
+
+                IAsyncResult result = caller.BeginInvoke(printerName, Density, copyNum, scanMode, orgSize, paperSize, nUp, dpi, scale, mediaType, new AsyncCallback(CallbackMethod), null);
+
+                if (!result.AsyncWaitHandle.WaitOne(100, false))
+                {
+                    pbw = new ProgressBarWindow();
+                    pbw.Owner = this.owner;
+                    pbw.ShowDialog();
+                }
+
+                if (result.AsyncWaitHandle.WaitOne(100, false))
+                {
+                    return caller.EndInvoke(result);
+                }
+
+            }
+
+            return 1;
         }
 
         public int InvokeDoWorkMethod(DoWorkDelegate method)
