@@ -254,17 +254,19 @@ namespace VOP
 
                 if ( true == bIsSendCmd )
                 {
-                    EnumCmdResult ret = (EnumCmdResult)dll.SendCopyCmd( 
-                            m_MainWin.statusPanelPage.m_selectedPrinter,
-                            m_density,
-                            (byte)spinCtlCopies.Value,
-                            (byte)m_scanMode,
-                            (byte)m_docSize,
-                            (byte)m_outputSize,
-                            (byte)byteNin1,
-                            (byte)m_dpi,
-                            (ushort)m_scaling,
-                            (byte)m_mediaType );
+                    AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+
+                    EnumCmdResult ret = (EnumCmdResult)worker.InvokeCopyMethod(dll.SendCopyCmd,
+                                                                                m_MainWin.statusPanelPage.m_selectedPrinter,
+                                                                                m_density,
+                                                                                (byte)spinCtlCopies.Value,
+                                                                                (byte)m_scanMode,
+                                                                                (byte)m_docSize,
+                                                                                (byte)m_outputSize,
+                                                                                (byte)byteNin1,
+                                                                                (byte)m_dpi,
+                                                                                (ushort)m_scaling,
+                                                                                (byte)m_mediaType);
 
                     switch ( ret )
                     {
