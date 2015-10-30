@@ -729,14 +729,14 @@ namespace VOP
             byte byUseManualAddress = 0;
             byte byDHCPv6 = 0;
             UInt32 nManualMask = 0;
-            StringBuilder sbManualAddress = new StringBuilder(41);
-            StringBuilder sbStatelessAddress1 = new StringBuilder(41);
-            StringBuilder sbStatelessAddress2 = new StringBuilder(41);
-            StringBuilder sbStatelessAddress3 = new StringBuilder(41);
-            StringBuilder sbLinkLocalAddress = new StringBuilder(41);
-            StringBuilder sbIPv6ManualGatewayAddress = new StringBuilder(41);
-            StringBuilder sbAutoGatewayAddress = new StringBuilder(41);
-            StringBuilder sbAutoStatefulAddress = new StringBuilder(41);
+            StringBuilder sbManualAddress = new StringBuilder(60);
+            StringBuilder sbStatelessAddress1 = new StringBuilder(60);
+            StringBuilder sbStatelessAddress2 = new StringBuilder(60);
+            StringBuilder sbStatelessAddress3 = new StringBuilder(60);
+            StringBuilder sbLinkLocalAddress = new StringBuilder(60);
+            StringBuilder sbIPv6ManualGatewayAddress = new StringBuilder(60);
+            StringBuilder sbAutoGatewayAddress = new StringBuilder(60);
+            StringBuilder sbAutoStatefulAddress = new StringBuilder(60);
 
             int result = dll.GetIpv6Info(printerName, ref byUseManualAddress, sbManualAddress, ref nManualMask, sbStatelessAddress1, sbStatelessAddress2, sbStatelessAddress3,
                         sbLinkLocalAddress, sbIPv6ManualGatewayAddress, sbAutoGatewayAddress, sbAutoStatefulAddress, ref byDHCPv6);
@@ -756,16 +756,7 @@ namespace VOP
                 rec.AutoStatefulAddress = sbAutoStatefulAddress.ToString();
                 rec.IPLinkLocalAddress = sbLinkLocalAddress.ToString();
                 rec.AutoGatewayAddress = sbAutoGatewayAddress.ToString();
-
-                string strIPv6ManualGatewayAddress = sbIPv6ManualGatewayAddress.ToString();
-                string[] parts_ip = strIPv6ManualGatewayAddress.Split('/');
-
-                if (parts_ip.Length == 2)
-                {
-                    rec.IPv6ManualGatewayAddress = parts_ip[0];
-                    rec.ManualGatewayAddressMask = Convert.ToUInt32(parts_ip[1]);
-                }
-
+                rec.IPv6ManualGatewayAddress = sbIPv6ManualGatewayAddress.ToString();
             }
 
             rec.CmdResult = (EnumCmdResult)result;
@@ -782,8 +773,8 @@ namespace VOP
                 printerName = rec.PrinterName;
 
                 int result = dll.SetIPv6Info(printerName, rec.UseManualAddress, rec.IPManualAddress, rec.ManualMask,
-                            rec.StatelessAddress1, rec.StatelessAddress2, rec.StatelessAddress3, rec.IPLinkLocalAddress,
-                            rec.IPv6ManualGatewayAddress + String.Format("/{0}", rec.ManualGatewayAddressMask), rec.AutoGatewayAddress, rec.AutoStatefulAddress, rec.DHCPv6);
+                           rec.StatelessAddress1, rec.StatelessAddress2, rec.StatelessAddress3, rec.IPLinkLocalAddress,
+                           rec.IPv6ManualGatewayAddress, rec.AutoGatewayAddress, rec.AutoStatefulAddress, rec.DHCPv6);
 
                 rec.CmdResult = (EnumCmdResult)result;
 

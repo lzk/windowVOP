@@ -24,7 +24,7 @@ namespace VOP
         bool isIPOK = false;
         bool isIPMaskOK = false;
         bool isGateOK = false;
-        bool isGateMaskOK = false;
+        //bool isGateMaskOK = false;
 
         private EnumStatus m_currentStatus = EnumStatus.Offline;
         private bool m_bIPValidate = true;
@@ -88,12 +88,12 @@ namespace VOP
                 if (1 == m_rec.UseManualAddress)
                 {
                     tb_Gateway.Text = m_rec.IPv6ManualGatewayAddress;
-                    tb_GatewayPreSubMask.Text = String.Format("{0}", m_rec.ManualGatewayAddressMask);
+                  //  tb_GatewayPreSubMask.Text = String.Format("{0}", m_rec.ManualGatewayAddressMask);
                 }
                 else
                 {
                     tb_Gateway.Text = "::";
-                    tb_GatewayPreSubMask.Text = String.Format("{0}", 0);
+                  //  tb_GatewayPreSubMask.Text = String.Format("{0}", 0);
                 }
 
             }
@@ -146,8 +146,7 @@ namespace VOP
             if (btnManual == null ||
                 tb_ip == null ||
                 tb_PreSubMask == null ||
-                tb_Gateway == null ||
-                tb_GatewayPreSubMask == null)
+                tb_Gateway == null)
                 return;
 
             if (btnManual.IsChecked == false)
@@ -155,13 +154,13 @@ namespace VOP
                 tb_ip.IsEnabled = false;
                 tb_PreSubMask.IsEnabled = false;
                 tb_Gateway.IsEnabled = false;
-                tb_GatewayPreSubMask.IsEnabled = false;
+              //  tb_GatewayPreSubMask.IsEnabled = false;
 
                 // Begin: Fixed bug #61083
                 SetTextBoxBorder(tb_ip, false);
                 SetTextBoxBorder(tb_PreSubMask, false);
                 SetTextBoxBorder(tb_Gateway, false);
-                SetTextBoxBorder(tb_GatewayPreSubMask, false);
+              //  SetTextBoxBorder(tb_GatewayPreSubMask, false);
                 // End: Fixed bug #61083
 
                 //tb_ip.Text = "::";
@@ -176,7 +175,7 @@ namespace VOP
                 tb_ip.IsEnabled = true;
                 tb_PreSubMask.IsEnabled = true;
                 tb_Gateway.IsEnabled = true;
-                tb_GatewayPreSubMask.IsEnabled = true;
+              //  tb_GatewayPreSubMask.IsEnabled = true;
 
                 //if (tb_ip.Text.Length == 0 ||
                 //    tb_PreSubMask.Text.Length == 0 ||
@@ -381,44 +380,44 @@ namespace VOP
 
 
 
-            uint gatewayMaskValue;
+            //uint gatewayMaskValue;
 
-            if (uint.TryParse(tb_GatewayPreSubMask.Text, out gatewayMaskValue))
-            {
-                if (gatewayMaskValue >= 0 && gatewayMaskValue <= 128)
-                {
-                    isGateMaskOK = true;
-                }
-                else
-                {
-                    isGateMaskOK = false;
-                }
-            }
-            else
-            {
-                isGateMaskOK = false;
-            }
+            //if (uint.TryParse(tb_GatewayPreSubMask.Text, out gatewayMaskValue))
+            //{
+            //    if (gatewayMaskValue >= 0 && gatewayMaskValue <= 128)
+            //    {
+            //        isGateMaskOK = true;
+            //    }
+            //    else
+            //    {
+            //        isGateMaskOK = false;
+            //    }
+            //}
+            //else
+            //{
+            //    isGateMaskOK = false;
+            //}
 
 
-            if (btnManual.IsChecked == true)
-            {
-                if (isGateMaskOK == true)
-                {
-                    m_rec.ManualGatewayAddressMask = gatewayMaskValue;
-                }
-                else
-                {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation"), (string)this.FindResource("ResStr_Warning"));
-                    tb_GatewayPreSubMask.Text = "";
-                    tb_GatewayPreSubMask.Focus();
-                    SetTextBoxBorder(tb_GatewayPreSubMask, true);
-                    return;
-                }
-            }
-            else
-            {
-                m_rec.ManualGatewayAddressMask = 0;
-            }
+            //if (btnManual.IsChecked == true)
+            //{
+            //    if (isGateMaskOK == true)
+            //    {
+            //        m_rec.ManualGatewayAddressMask = gatewayMaskValue;
+            //    }
+            //    else
+            //    {
+            //        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation"), (string)this.FindResource("ResStr_Warning"));
+            //        tb_GatewayPreSubMask.Text = "";
+            //        tb_GatewayPreSubMask.Focus();
+            //        SetTextBoxBorder(tb_GatewayPreSubMask, true);
+            //        return;
+            //    }
+            //}
+            //else
+            //{
+            //    m_rec.ManualGatewayAddressMask = 0;
+            //}
 
 
 

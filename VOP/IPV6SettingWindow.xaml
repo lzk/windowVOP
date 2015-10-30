@@ -102,7 +102,7 @@
                             Width="280"
                             Height="28" 
                             VerticalAlignment="Center" 
-                            MaxLength="40" 
+                            MaxLength="39" 
                             InputMethod.IsInputMethodEnabled="False" 
                             PreviewKeyDown="OnPreviewKeyDown" 
                             Template="{StaticResource customTextBox2}" 
@@ -161,7 +161,7 @@
                             Width="280"
                             Height="28" 
                             VerticalAlignment="Center" 
-                            MaxLength="40" 
+                            MaxLength="39" 
                             InputMethod.IsInputMethodEnabled="False" 
                             PreviewKeyDown="OnPreviewKeyDown" 
                             Template="{StaticResource customTextBox2}" 
@@ -176,7 +176,7 @@
                             </ContextMenu>
                         </TextBox.ContextMenu>-->
                     </TextBox>
-                    <TextBlock Text=" / " VerticalAlignment="Center"></TextBlock>
+                    <!--<TextBlock Text=" / " VerticalAlignment="Center"></TextBlock>
                     <TextBox 
                             TextChanged="handler_text_changed" 
                             Name="tb_GatewayPreSubMask" 
@@ -199,7 +199,7 @@
                             <ContextMenu Visibility="Collapsed">
                             </ContextMenu>
                         </TextBox.ContextMenu>
-                    </TextBox>
+                    </TextBox>-->
                 </StackPanel>
                 
                 <StackPanel 

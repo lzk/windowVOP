@@ -235,15 +235,16 @@ typedef struct net_ipv6info_st
 	UINT8 UseManualAddress;	//0 Disabled,1 Enabled
 	char ManualAddress[40];
 	UINT32 ManualMask;
-	char StatelessAddress1[40];
-	char StatelessAddress2[40];
-	char StatelessAddress3[40];
+	char StatelessAddress1[44];
+	char StatelessAddress2[44];
+	char StatelessAddress3[44];
 	char LinkLocalAddress[40];
 	char IPv6ManualGatewayAddress[40];
 	char AutoGatewayAddress[40];
-	char AutoStatefulAddress[40];
+	char AutoStatefulAddress[44];
 	UINT8 DHCPv6;
 } net_ipv6info_st;
+
 typedef struct _COMM_HEADER
 {
 	UINT32 magic;
@@ -1178,13 +1179,13 @@ USBAPI_API int __stdcall SetIPv6Info(
 	}
 	else
 	{
-		char* buffer = new char[sizeof(COMM_HEADER)+340];
-		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+340);
+		char* buffer = new char[sizeof(COMM_HEADER)+360];
+		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+360);
 		COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>(buffer);
 
 		ppkg->magic = MAGIC_NUM;
 		ppkg->id = _LS_NETCMD;
-		ppkg->len = 3 + 340;
+		ppkg->len = 3 + 360;
 
 		// For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
 		// it just stand for the sub id. The real data length is defined by the lib
@@ -1196,43 +1197,43 @@ USBAPI_API int __stdcall SetIPv6Info(
 		ppkg->subcmd = 0x03;   // _NET_SETV6 0x03
 
 		char cbManualAddress[40] = { 0 };
-		char cbStatelessAddress1[40] = { 0 };
-		char cbStatelessAddress2[40] = { 0 };
-		char cbStatelessAddress3[40] = { 0 };
+		char cbStatelessAddress1[44] = { 0 };
+		char cbStatelessAddress2[44] = { 0 };
+		char cbStatelessAddress3[44] = { 0 };
 		char cbLinkLocalAddress[40] = { 0 };
 		char cbIPv6ManualGatewayAddress[40] = { 0 };
 		char cbAutoGatewayAddress[40] = { 0 };
-		char cbAutoStatefulAddress[40] = { 0 };
+		char cbAutoStatefulAddress[44] = { 0 };
 
 		::WideCharToMultiByte(CP_ACP, 0, _wsManualAddress, -1, cbManualAddress, 40, NULL, NULL);
-		::WideCharToMultiByte(CP_ACP, 0, _wsStatelessAddress1, -1, cbStatelessAddress1, 40, NULL, NULL);
-		::WideCharToMultiByte(CP_ACP, 0, _wsStatelessAddress2, -1, cbStatelessAddress2, 40, NULL, NULL);
-		::WideCharToMultiByte(CP_ACP, 0, _wsStatelessAddress3, -1, cbStatelessAddress3, 40, NULL, NULL);
+		::WideCharToMultiByte(CP_ACP, 0, _wsStatelessAddress1, -1, cbStatelessAddress1, 44, NULL, NULL);
+		::WideCharToMultiByte(CP_ACP, 0, _wsStatelessAddress2, -1, cbStatelessAddress2, 44, NULL, NULL);
+		::WideCharToMultiByte(CP_ACP, 0, _wsStatelessAddress3, -1, cbStatelessAddress3, 44, NULL, NULL);
 		::WideCharToMultiByte(CP_ACP, 0, _wsLinkLocalAddress, -1, cbLinkLocalAddress, 40, NULL, NULL);
 		::WideCharToMultiByte(CP_ACP, 0, _wsIPv6ManualGatewayAddress, -1, cbIPv6ManualGatewayAddress, 40, NULL, NULL);
 		::WideCharToMultiByte(CP_ACP, 0, _wsAutoGatewayAddress, -1, cbAutoGatewayAddress, 40, NULL, NULL);
-		::WideCharToMultiByte(CP_ACP, 0, _wsAutoStatefulAddress, -1, cbAutoStatefulAddress, 40, NULL, NULL);
+		::WideCharToMultiByte(CP_ACP, 0, _wsAutoStatefulAddress, -1, cbAutoStatefulAddress, 44, NULL, NULL);
 
 		ptr_net_info->UseManualAddress = _UseManualAddress;
 		ptr_net_info->ManualMask = _ManualMask;
 		ptr_net_info->DHCPv6 = _DHCPv6;
 		memcpy(ptr_net_info->ManualAddress, cbManualAddress, 40);
-		memcpy(ptr_net_info->StatelessAddress1, cbStatelessAddress1, 40);
-		memcpy(ptr_net_info->StatelessAddress2, cbStatelessAddress2, 40);
-		memcpy(ptr_net_info->StatelessAddress3, cbStatelessAddress3, 40);
+		memcpy(ptr_net_info->StatelessAddress1, cbStatelessAddress1, 44);
+		memcpy(ptr_net_info->StatelessAddress2, cbStatelessAddress2, 44);
+		memcpy(ptr_net_info->StatelessAddress3, cbStatelessAddress3, 44);
 		memcpy(ptr_net_info->LinkLocalAddress, cbLinkLocalAddress, 40);
 		memcpy(ptr_net_info->IPv6ManualGatewayAddress, cbIPv6ManualGatewayAddress, 40);
 		memcpy(ptr_net_info->AutoGatewayAddress, cbAutoGatewayAddress, 40);
-		memcpy(ptr_net_info->AutoStatefulAddress, cbAutoStatefulAddress, 40);
+		memcpy(ptr_net_info->AutoStatefulAddress, cbAutoStatefulAddress, 44);
 
 
 		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
 		{
-			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER)+340, NULL, 0);
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER)+360, NULL, 0);
 		}
 		else if (PT_USB == nPortType)
 		{
-			nResult = WriteDataViaUSB(_szPrinter, buffer, sizeof(COMM_HEADER)+340, NULL, 0);
+			nResult = WriteDataViaUSB(_szPrinter, buffer, sizeof(COMM_HEADER)+360, NULL, 0);
 		}
 
 		if (buffer)
@@ -1245,6 +1246,7 @@ USBAPI_API int __stdcall SetIPv6Info(
 	OutputDebugStringToFileA("\r\n####VP:SetIPv6Info() end");
 	return nResult;
 }
+
 USBAPI_API bool __stdcall GetPrinterStatus( const wchar_t* szPrinter, BYTE* ptr_status, BYTE* ptr_toner, BYTE* pJob )
 {
     bool isSuccess = false;
@@ -2578,8 +2580,8 @@ USBAPI_API int __stdcall GetIpv6Info(const wchar_t* szPrinter,
 	}
 	else
 	{
-		char* buffer = new char[sizeof(COMM_HEADER)+340];
-		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+340);
+		char* buffer = new char[sizeof(COMM_HEADER)+360];
+		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+360);
 		COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>(buffer);
 
 		ppkg->magic = MAGIC_NUM;
@@ -2597,11 +2599,11 @@ USBAPI_API int __stdcall GetIpv6Info(const wchar_t* szPrinter,
 
 		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
 		{
-			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+340);
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+360);
 		}
 		else if (PT_USB == nPortType)
 		{
-			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+340);
+			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+360);
 		}
 
 		if (_ACK == nResult)
@@ -2612,13 +2614,13 @@ USBAPI_API int __stdcall GetIpv6Info(const wchar_t* szPrinter,
 				*UseManualAddress = ptr_net_info->UseManualAddress;
 				memcpy(ManualAddress, ptr_net_info->ManualAddress, 40); ManualAddress[40] = 0;
 				*ManualMask = ptr_net_info->ManualMask;
-				memcpy(StatelessAddress1, ptr_net_info->StatelessAddress1, 40); StatelessAddress1[40] = 0;
-				memcpy(StatelessAddress2, ptr_net_info->StatelessAddress2, 40); StatelessAddress2[40] = 0;
-				memcpy(StatelessAddress3, ptr_net_info->StatelessAddress3, 40); StatelessAddress3[40] = 0;
+				memcpy(StatelessAddress1, ptr_net_info->StatelessAddress1, 44); StatelessAddress1[44] = 0;
+				memcpy(StatelessAddress2, ptr_net_info->StatelessAddress2, 44); StatelessAddress2[44] = 0;
+				memcpy(StatelessAddress3, ptr_net_info->StatelessAddress3, 44); StatelessAddress3[44] = 0;
 				memcpy(LinkLocalAddress, ptr_net_info->LinkLocalAddress, 40); LinkLocalAddress[40] = 0;
 				memcpy(IPv6ManualGatewayAddress, ptr_net_info->IPv6ManualGatewayAddress, 40); IPv6ManualGatewayAddress[40] = 0;
 				memcpy(AutoGatewayAddress, ptr_net_info->AutoGatewayAddress, 40); AutoGatewayAddress[40] = 0;
-				memcpy(AutoStatefulAddress, ptr_net_info->AutoStatefulAddress, 40); AutoStatefulAddress[40] = 0;
+				memcpy(AutoStatefulAddress, ptr_net_info->AutoStatefulAddress, 44); AutoStatefulAddress[44] = 0;
 				*DHCPv6 = ptr_net_info->DHCPv6;
 
 				nResult = _ACK;
@@ -2640,6 +2642,7 @@ USBAPI_API int __stdcall GetIpv6Info(const wchar_t* szPrinter,
 	OutputDebugStringToFileA("\r\n####VP:GetIpv6Info() end");
 	return nResult;
 }
+
 USBAPI_API int __stdcall GetWiFiInfo(const wchar_t* szPrinter, UINT8* ptr_wifienable, char* ssid, char* pwd, UINT8* ptr_encryption, UINT8* ptr_wepKeyId)
 {
     if ( NULL == szPrinter )
