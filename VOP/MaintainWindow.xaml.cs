@@ -177,13 +177,15 @@ namespace VOP
                 
                 if(cb.Items.Count > 0 && cboProvince.Items.Count > 0)
                 {
+                    int count = 1;
                     foreach (MaintainInfoItem item in VOP.MainWindow.m_MaintainSet.m_listMaintainInfo)
                     {
                         if (item.m_strProvince == ((ComboBoxItem)cboProvince.SelectedItem).Content.ToString() &&
                             item.m_strCity == ((ComboBoxItem)cboCity.SelectedItem).Content.ToString())
                         {
-                            MaintainInfo maintainInfo = new MaintainInfo(1, "地址：" + item.m_strAddress, "电话：" + item.m_strPhone);
+                            MaintainInfo maintainInfo = new MaintainInfo(count, "地址：" + item.m_strAddress, "电话：" + item.m_strPhone);
                             MaintainList.Children.Add(maintainInfo);
+                            count++;
                         }
                     }
                 }
