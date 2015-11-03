@@ -4,7 +4,7 @@
         Title="PurchaseWindow" 
         WindowStartupLocation="CenterOwner"  
         Height="500" 
-        Width="410"
+        Width="440"
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" 
         Loaded="OnLoadWindow"
@@ -35,7 +35,7 @@
     </Window.Effect>
     
     <Viewbox Stretch="Fill">
-        <Grid   Height="452" Width="362">
+        <Grid   Height="452" Width="392">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"></RowDefinition>
@@ -57,12 +57,12 @@
                         SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
                         VerticalScrollBarVisibility="Auto"
                         HorizontalScrollBarVisibility="Disabled"
-                        HorizontalAlignment="Left"
+                        HorizontalAlignment="Center"
                         VerticalAlignment="Top"
                         Background="#FFE7E7E7"
                         Style="{StaticResource LeftScrollViewer}"
                         Margin="4"      
-                        Width="352">
+                        Width="382">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"></RowDefinition>

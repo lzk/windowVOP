@@ -176,13 +176,15 @@ namespace VOP
 
                 if (cb.Items.Count > 0 && cboProvince.Items.Count > 0)
                 {
+                    int count = 1;
                     foreach (MerchantInfoItem item in VOP.MainWindow.m_MerchantInfoSet.m_listMerchantInfo)
                     {
                         if (item.m_strProvince == ((ComboBoxItem)cboProvince.SelectedItem).Content.ToString() &&
                             item.m_strCity == ((ComboBoxItem)cboCity.SelectedItem).Content.ToString())
                         {
-                            MerchantInfo maintainInfo = new MerchantInfo(item.m_strCompanyName, "电话：" + item.m_strPhone);
+                            MerchantInfo maintainInfo = new MerchantInfo(count, item.m_strCompanyName, "电话：" + item.m_strPhone, "地址：" + item.m_strAddress);
                             MerchantList.Children.Add(maintainInfo);
+                            count++;
                         }
                     }
                 }

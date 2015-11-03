@@ -4,15 +4,38 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Width="340"
+             Width="370"
              Height="Auto">
-    <Grid Margin="8,2,8,2">
+    <Grid Margin="4,4,4,4">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6*"></ColumnDefinition>
-            <ColumnDefinition Width="4"></ColumnDefinition>
-            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Name="tbCompany" Grid.Column="0" Text="江苏华杰通力科技公司" VerticalAlignment="Center" TextWrapping="Wrap" ></TextBlock>
-        <TextBlock Name="tbTelephone" Grid.Column="2" Text="电话：010-88888888" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+
+        <Grid Grid.Column="0" VerticalAlignment="Top" Margin="0,5,0,0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Source="Images\Index.png"></Image>
+            <TextBlock Name="tbIdx" Text="13" HorizontalAlignment="Center" Margin="2"></TextBlock>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid Margin="4,0,4,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"></ColumnDefinition>
+                    <ColumnDefinition Width="4"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Name="tbCompany" Grid.Column="0" Text="江苏华杰通力科技公司" VerticalAlignment="Center" TextWrapping="Wrap" ></TextBlock>
+                <TextBlock Name="tbTelephone" Grid.Column="2" Text="电话：010-88888888" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                <TextBlock Name="tbAddress" Grid.Row="1" Grid.ColumnSpan="3" Text="地址：江苏省南通市人民中路18号联想打印机店" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+            </Grid>
+        </Grid>
     </Grid>
+    
 </UserControl>

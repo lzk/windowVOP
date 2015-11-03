@@ -19,12 +19,14 @@ namespace VOP
     /// </summary>
     public partial class MerchantInfo : UserControl
     {
-        public MerchantInfo(string strCompany, string strTelephone)
+        public MerchantInfo(int nIdx, string strCompany, string strTelephone, string strAddress)
         {
             InitializeComponent();
 
+            tbIdx.Text = String.Format("{0}", nIdx);
             tbCompany.Text = strCompany;
             tbTelephone.Text = strTelephone;
+            tbAddress.Text = strAddress;
         }
     }
 }
