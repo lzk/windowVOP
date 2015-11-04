@@ -71,7 +71,7 @@ namespace VOP
             {
                 ComboBoxItem item = new ComboBoxItem();
                 item.Content = m_listProvince[nIdx];
-                item.Width = 80;
+                item.MinWidth = 80;
                 item.IsSelected = false;
                 item.Style = (Style)this.FindResource("customComboBoxItem");
                 cboProvince.Items.Add(item);
@@ -164,7 +164,7 @@ namespace VOP
                     {
                         ComboBoxItem item = new ComboBoxItem();
                         item.Content = str;
-                        item.Width = 80;
+                        item.MinWidth = 80;
                         item.IsSelected = false;
                         item.Style = (Style)this.FindResource("customComboBoxItem");
                         cboCity.Items.Add(item);

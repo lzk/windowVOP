@@ -228,7 +228,7 @@ namespace VOP
 
             UserCenterInfoRecord rec = worker.GetUserCenterInfo(statusPanelPage.m_selectedPrinter);
 
-            if(rec.CmdResult == EnumCmdResult._ACK)
+            if (rec.CmdResult == EnumCmdResult._ACK)
             {
                 common.GetPrinterDrvName(strPrinterName, ref strDrvName);
 
@@ -257,7 +257,7 @@ namespace VOP
                 RequestManager.Serialize<CRM_PrintInfo2>(info, App.crmFolder + @"\" + fileName);
 
 
-                if(CheckProcessExist("CRMUploader") == false)
+                if (CheckProcessExist("CRMUploader") == false)
                 {
                     ProcessStartInfo procInfo = new ProcessStartInfo();
                     procInfo.FileName = @".\CRMUploader.exe";
