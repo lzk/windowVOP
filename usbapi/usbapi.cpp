@@ -960,13 +960,15 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 
 				DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_GET_COMMAND, buffMax, 0, buffMax, 0x3FF, &dwActualSize, NULL);
 
-				while (0 == DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_SET_COMMAND, ptrInput, cbInput, NULL, 0, &dwActualSize, NULL)
+				/*while (0 == DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_SET_COMMAND, ptrInput, cbInput, NULL, 0, &dwActualSize, NULL)
 					&& nWriteTry--)
 				{
 					Sleep(200);
-				}
+				}*/
 
-				if (nWriteTry > 0)
+				DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_SET_COMMAND, ptrInput, cbInput, NULL, 0, &dwActualSize, NULL);
+
+				//if (nWriteTry > 0)
 				{
 					int nErrCnt = 0;
 					memset(buffMax, INIT_VALUE, sizeof(buffMax));
@@ -1007,11 +1009,11 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 						}
 					}
 				}
-				else
+				/*else
 				{
 					OutputDebugStringToFileA("\r\n####VP:WriteDataViaUSB(): write usb timeout.");
 					nResult = _SW_USB_WRITE_TIMEOUT;
-				}
+				}*/
 
 				LeaveCriticalSection(&g_csCriticalSection);
 				OutputDebugStringToFileA("\r\n### vop LeaveCriticalSection ######\r\n");
