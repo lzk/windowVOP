@@ -256,29 +256,34 @@ namespace VOP
                 {
                     AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-                    //EnumCmdResult ret = (EnumCmdResult)worker.InvokeCopyMethod(dll.SendCopyCmd,
-                    //                                                            m_MainWin.statusPanelPage.m_selectedPrinter,
-                    //                                                            m_density,
-                    //                                                            (byte)spinCtlCopies.Value,
-                    //                                                            (byte)m_scanMode,
-                    //                                                            (byte)m_docSize,
-                    //                                                            (byte)m_outputSize,
-                    //                                                            (byte)byteNin1,
-                    //                                                            (byte)m_dpi,
-                    //                                                            (ushort)m_scaling,
-                    //                                                            (byte)m_mediaType);
 
-                    EnumCmdResult ret = (EnumCmdResult)dll.SendCopyCmd(m_MainWin.statusPanelPage.m_selectedPrinter,
-                                                                        m_density,
-                                                                        (byte)spinCtlCopies.Value,
-                                                                        (byte)m_scanMode,
-                                                                        (byte)m_docSize,
-                                                                        (byte)m_outputSize,
-                                                                        (byte)byteNin1,
-                                                                        (byte)m_dpi,
-                                                                        (ushort)m_scaling,
-                                                                        (byte)m_mediaType);
+                    dll.OutputDebugStringToFile_("CopyPage Start Invoke()\r\n");
 
+                    EnumCmdResult ret = (EnumCmdResult)worker.InvokeCopyMethod(dll.SendCopyCmd,
+                                                                                m_MainWin.statusPanelPage.m_selectedPrinter,
+                                                                                m_density,
+                                                                                (byte)spinCtlCopies.Value,
+                                                                                (byte)m_scanMode,
+                                                                                (byte)m_docSize,
+                                                                                (byte)m_outputSize,
+                                                                                (byte)byteNin1,
+                                                                                (byte)m_dpi,
+                                                                                (ushort)m_scaling,
+                                                                                (byte)m_mediaType);
+
+                    //EnumCmdResult ret = (EnumCmdResult)dll.SendCopyCmd(m_MainWin.statusPanelPage.m_selectedPrinter,
+                    //                                                    m_density,
+                    //                                                    (byte)spinCtlCopies.Value,
+                    //                                                    (byte)m_scanMode,
+                    //                                                    (byte)m_docSize,
+                    //                                                    (byte)m_outputSize,
+                    //                                                    (byte)byteNin1,
+                    //                                                    (byte)m_dpi,
+                    //                                                    (ushort)m_scaling,
+                    //                                                    (byte)m_mediaType);
+
+                    string strText = String.Format("CopyPage End Invoke()  {0} \r\n", ret);
+                    dll.OutputDebugStringToFile_(strText);
                     switch ( ret )
                     {
                         case EnumCmdResult._Do_not_support_this_function:

@@ -48,6 +48,10 @@ namespace VOP
     {
         public bool m_popupIDCard = true; // True if ID Card Copy confirm dialog need to pop up.
         public bool m_popupNIn1   = true; // True if N in 1 Copy confirm dialog need to pop up.
+        public bool m_crmAgreement = false;
+        public bool m_crmAgreementDialogShowed = false;
+        public bool m_isMainWinLoaded = false;
+
 
         private EnumSubPage m_currentPage = EnumSubPage.Print;
 
@@ -219,6 +223,11 @@ namespace VOP
 
         public void UploadPrinterInfo2()
         {
+
+            if (m_bLocationIsChina == false || m_crmAgreement == false)
+                return;
+
+
             string strPrinterModel = "";
             string strDrvName = "";
             string strPrinterName = statusPanelPage.m_selectedPrinter;
@@ -520,6 +529,10 @@ namespace VOP
 
         public void UploadPrintInfoToServerCaller()
         {
+
+            if (m_bLocationIsChina == false || m_crmAgreement == false)
+                return;
+
             try
             {
                 ReadPrintInfoIntoXamlFile();
@@ -570,6 +583,10 @@ namespace VOP
 
         public void UploadPrintInfo(CRM_PrintInfo printInfo)
         {
+
+            if (m_bLocationIsChina == false || m_crmAgreement == false)
+                return;
+
             try
             {
                 UploadPrintInfo upi = new UploadPrintInfo();
@@ -892,6 +909,17 @@ namespace VOP
             this.Visibility = System.Windows.Visibility.Visible;
 
             GetPopupSetting( App.cfgFile, ref m_popupIDCard, ref m_popupNIn1 );
+
+            if(!m_crmAgreementDialogShowed)
+            {
+                ShowCRMAgreementWindow();
+                m_crmAgreementDialogShowed = true;
+            }
+
+            thread_PrinterInfo2 = new Thread(UploadPrinterInfo2);
+            thread_PrinterInfo2.Start();
+
+            m_isMainWinLoaded = true;
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -1405,8 +1433,11 @@ namespace VOP
             statusUpdater = new Thread(UpdateStatusCaller);
             statusUpdater.Start();
 
-            thread_PrinterInfo2 = new Thread(UploadPrinterInfo2);
-            thread_PrinterInfo2.Start();
+            if (m_isMainWinLoaded == true)
+            {
+                thread_PrinterInfo2 = new Thread(UploadPrinterInfo2);
+                thread_PrinterInfo2.Start();
+            }
         }
 
         /// <summary>
@@ -1599,6 +1630,19 @@ namespace VOP
             win.ShowDialog();
         }
 
+        public void ShowCRMAgreementWindow()
+        {
+            bool? result = null;
+            CRMAgreementWindow win = new CRMAgreementWindow();
+            win.Owner = this;
+            result = win.ShowDialog();
+
+            if (result == true)
+            {
+                m_crmAgreement = win.IsAgreementChecked;
+            }
+        }
+
         public void ShowTroubleshootingPage()
         {
             SetTabItemFromIndex(EnumSubPage.Print);
@@ -1686,11 +1730,15 @@ namespace VOP
 
                 XmlNode xmlNode1 = xmlDoc.SelectSingleNode( "/VOPCfg/elPopupIDCard" );
                 XmlNode xmlNode2 = xmlDoc.SelectSingleNode( "/VOPCfg/elPopupNIn1" );
+                XmlNode xmlNode3 = xmlDoc.SelectSingleNode("/VOPCfg/crmAgreement");
+                XmlNode xmlNode4 = xmlDoc.SelectSingleNode("/VOPCfg/crmAgreementDialogShowed");
 
-                if ( null != xmlNode1 && null != xmlNode2 )
+                if (null != xmlNode1 && null != xmlNode2 && xmlNode3 != null && xmlNode4 != null)
                 {
                     popupIDCard = ( "True" == xmlNode1.InnerText ); 
-                    popupNIn1 = ( "True" == xmlNode2.InnerText ); 
+                    popupNIn1 = ( "True" == xmlNode2.InnerText );
+                    m_crmAgreement = ("True" == xmlNode3.InnerText); 
+                    m_crmAgreementDialogShowed = ("True" == xmlNode4.InnerText);
                 }
             }
             catch
@@ -1721,12 +1769,18 @@ namespace VOP
 
             XmlElement elPopupIDCard = xmlDoc.CreateElement( "elPopupIDCard" );
             XmlElement elPopupNIn1   = xmlDoc.CreateElement( "elPopupNIn1" );
-
+            XmlElement crmAgreement   = xmlDoc.CreateElement( "crmAgreement" );
+            XmlElement crmAgreementDialogShowed = xmlDoc.CreateElement("crmAgreementDialogShowed");
+            
             elPopupIDCard.InnerXml = popupIDCard.ToString();
             elPopupNIn1.InnerXml   = popupNIn1.ToString();
+            crmAgreement.InnerXml  = m_crmAgreement.ToString();
+            crmAgreementDialogShowed.InnerXml = m_crmAgreementDialogShowed.ToString();
 
             root.AppendChild( elPopupIDCard );
             root.AppendChild( elPopupNIn1   );
+            root.AppendChild(crmAgreement);
+            root.AppendChild(crmAgreementDialogShowed);
 
             xmlDoc.Save( xmlFile );
         }

@@ -55,8 +55,11 @@ namespace VOP
 
         void CallbackMethod(IAsyncResult ar)
         {
+            dll.OutputDebugStringToFile_("CopyPage CallbackMethod()\r\n");
             if (ar != null)
                 ar.AsyncWaitHandle.WaitOne();
+
+            dll.OutputDebugStringToFile_("CopyPage AsyncWaitHandle.WaitOne() end\r\n");
 
             if(pbw != null)
             {
@@ -64,6 +67,7 @@ namespace VOP
                  new Action(
                  delegate()
                  {
+                     dll.OutputDebugStringToFile_("CopyPage  pbw.Close()\r\n");
                    pbw.Close();
                  }
                  ));
@@ -188,13 +192,16 @@ namespace VOP
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
+                    dll.OutputDebugStringToFile_("CopyPage new ProgressBarWindow()\r\n");
                     pbw = new ProgressBarWindow();
                     pbw.Owner = this.owner;
                     pbw.ShowDialog();
+                    dll.OutputDebugStringToFile_("CopyPage end ShowDialog()\r\n");
                 }
 
                 if (result.AsyncWaitHandle.WaitOne(100, false))
                 {
+                    dll.OutputDebugStringToFile_("CopyPage caller.EndInvoke(result)\r\n");
                     return caller.EndInvoke(result);
                 }
 
