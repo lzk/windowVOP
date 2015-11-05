@@ -69,7 +69,7 @@
                     <!--<TextBlock Text="{StaticResource ResStr_IP_Address}" VerticalAlignment="Center"/>-->
                     <CheckBox 
                             Name="btnDHCP"
-                            Content="Obtain address from DHCP" 
+                            Content="{StaticResource ResStr_Obtain_address_from_DHCP}"
                             IsChecked="true" 
                             Height="25" 
                             Template="{StaticResource customTickCheckBox}" 
@@ -79,7 +79,7 @@
                             Name="btnManual" 
                             Checked="OnCheckBoxChecked"
                             Unchecked="OnCheckBoxChecked"
-                            Content="Use Manual Address"  
+                            Content="{StaticResource ResStr_Use_Manual_Address}" 
                             IsChecked="True" 
                             Height="25"  
                             Template="{StaticResource customTickCheckBox}" 
@@ -89,7 +89,7 @@
                 <TextBlock 
                     Grid.Row="3" 
                     Grid.Column="0"
-                    Text="Manual Address" 
+                    Text="{StaticResource ResStr_Manual_Address}" 
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
@@ -145,7 +145,7 @@
                 </StackPanel>
 
                 <TextBlock 
-                    Text="Manual Gateway Address" 
+                    Text="{StaticResource ResStr_Manual_Gateway_Address}"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
                     Grid.Row="5" 

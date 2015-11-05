@@ -327,4 +327,14 @@
     <sys:String xml:space="preserve" x:Key="ResStr_TCP_IPv6">TCP/IPv6</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Status">Status</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AndPlus_Format_Error">Input cannot contain characters '&amp;' and '+', Please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Obtain_address_from_DHCP">Obtain address from DHCP</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Use_Manual_Address">Use Manual Address</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Manual_Address">Manual Address</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Manual_Gateway_Address">Manual Gateway Address</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Stateless_Address_1">Stateless Address 1</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Stateless_Address_2">Stateless Address 2</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Stateless_Address_3">Stateless Address 3</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Auto_Statefull_Address">Auto Statefull Address</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Link_Local_Address">Link Local Address</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Auto_Configure_Gateway_Address">Auto Configure Gateway Address</sys:String>
 </ResourceDictionary>

@@ -24,7 +24,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
- 
+
     <Viewbox Stretch="Fill">
         <Grid Height="380" Width="596">
             <Grid.RowDefinitions>
@@ -37,7 +37,7 @@
                     <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
                 </Rectangle.Effect>
             </Rectangle>
-            
+
             <Grid Grid.Row="0" Background="#FF1F3345" MouseLeftButtonDown="MyMouseButtonEventHandler">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -46,7 +46,7 @@
                 <TextBlock Grid.Column="0" Grid.ColumnSpan="2"  Text="{StaticResource ResStr_Status}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="16"></TextBlock>
                 <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" VerticalAlignment="Center"/>
             </Grid>
-            
+
             <Grid Grid.Row="1" Background="#FFE7E7E7">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"></RowDefinition>
@@ -66,41 +66,42 @@
                     <RowDefinition Height="3*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="6*"></ColumnDefinition>
-                    <ColumnDefinition Width="9*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="66*"></ColumnDefinition>
+                    <ColumnDefinition Width="199*"></ColumnDefinition>
+                    <ColumnDefinition Width="39*"></ColumnDefinition>
+                    <ColumnDefinition Width="259*"/>
+                    <ColumnDefinition Width="33*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="Stateless Address 1" VerticalAlignment="Center"/>
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="::/0" Name="tbStatelessAddress1" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{StaticResource ResStr_Stateless_Address_1}" VerticalAlignment="Center" Margin="0,7,0,6"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="::/0" Name="tbStatelessAddress1" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,7,0,6"/>
 
-                <TextBlock Grid.Row="3" Grid.Column="1" Text="Stateless Address 2"  VerticalAlignment="Center"/>
-                <TextBlock Grid.Row="3" Grid.Column="2" Text="::/0" Name="tbStatelessAddress2" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{StaticResource ResStr_Stateless_Address_2}"  VerticalAlignment="Center" Margin="0,7,0,6"/>
+                <TextBlock Grid.Row="3" Grid.Column="2" Text="::/0" Name="tbStatelessAddress2" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,7,0,6"/>
 
-                <TextBlock Grid.Row="5" Grid.Column="1" Text="Stateless Address 3"  VerticalAlignment="Center"/>
-                <TextBlock Grid.Row="5" Grid.Column="2" Text="::/0" Name="tbStatelessAddress3" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" Text="{StaticResource ResStr_Stateless_Address_3}"  VerticalAlignment="Center" Margin="0,7,0,6"/>
+                <TextBlock Grid.Row="5" Grid.Column="2" Text="::/0" Name="tbStatelessAddress3" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,7,0,6"/>
 
-                <TextBlock Grid.Row="7" Grid.Column="1" Text="Auto Statefull Address"  VerticalAlignment="Center"/>
-                <TextBlock Grid.Row="7" Grid.Column="2" Text="::/0" Name="tbAutoStatefullAddress" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="7" Grid.Column="1" Text="{StaticResource ResStr_Auto_Statefull_Address}"  VerticalAlignment="Center" Margin="0,7,0,6"/>
+                <TextBlock Grid.Row="7" Grid.Column="2" Text="::/0" Name="tbAutoStatefullAddress" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,7,0,6"/>
 
-                <TextBlock Grid.Row="9" Grid.Column="1" Text="Link Local Address"  VerticalAlignment="Center"/>
-                <TextBlock Grid.Row="9" Grid.Column="2" Text="::/0" Name="tbLinkLocalAddress" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="9" Grid.Column="1" Text="{StaticResource ResStr_Link_Local_Address}"  VerticalAlignment="Center" Margin="0,7,0,6"/>
+                <TextBlock Grid.Row="9" Grid.Column="2" Text="::/0" Name="tbLinkLocalAddress" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,7,0,6"/>
 
-                <TextBlock Grid.Row="11" Grid.Column="1" Text="Auto Configure Gateway Address"  VerticalAlignment="Center"/>
-                <TextBlock Grid.Row="11" Grid.Column="2" Text="::/0" Name="tbAutoConfigureGatewayAddress" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="11" Grid.Column="1" Text="{StaticResource ResStr_Auto_Configure_Gateway_Address}"  VerticalAlignment="Center" Margin="0,7"/>
+                <TextBlock Grid.Row="11" Grid.Column="2" Text="::/0" Name="tbAutoConfigureGatewayAddress" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,7"/>
 
                 <Button 
                     Grid.Row="13" 
-                    Grid.Column="2" 
+                    Grid.Column="1" 
 				    x:Name="btnBack"
 				    Content="{StaticResource ResStr_Back}" 
 				    Style="{StaticResource CustomGreenButtonStyle}"  
 				    Height="35" 
 				    Width="150" 
-				    Margin="-240,0,0,0"
+				    Margin="153,11,194,11"
 				    FontSize="14"
-				    IsCancel="True"/>
+				    IsCancel="True" Grid.ColumnSpan="3"/>
             </Grid>
         </Grid>
     </Viewbox>
