@@ -183,7 +183,7 @@ namespace VOP
                         if (item.m_strProvince == ((ComboBoxItem)cboProvince.SelectedItem).Content.ToString() &&
                             item.m_strCity == ((ComboBoxItem)cboCity.SelectedItem).Content.ToString())
                         {
-                            MaintainInfo maintainInfo = new MaintainInfo(count, "地址：" + item.m_strAddress, "电话：" + item.m_strPhone);
+                            MaintainInfo maintainInfo = new MaintainInfo(count, item.m_strName, "地址：" + item.m_strAddress, "电话：" + item.m_strPhone);
                             MaintainList.Children.Add(maintainInfo);
                             count++;
                         }

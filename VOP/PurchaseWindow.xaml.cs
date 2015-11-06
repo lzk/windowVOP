@@ -182,7 +182,7 @@ namespace VOP
                         if (item.m_strProvince == ((ComboBoxItem)cboProvince.SelectedItem).Content.ToString() &&
                             item.m_strCity == ((ComboBoxItem)cboCity.SelectedItem).Content.ToString())
                         {
-                            MerchantInfo maintainInfo = new MerchantInfo(count, item.m_strCompanyName, "电话：" + item.m_strPhone, "地址：" + item.m_strAddress);
+                            MerchantInfo maintainInfo = new MerchantInfo(count, item.m_strCompanyName, "地址：" + item.m_strAddress, "电话：" + item.m_strPhone);
                             MerchantList.Children.Add(maintainInfo);
                             count++;
                         }

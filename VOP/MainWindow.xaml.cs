@@ -235,61 +235,61 @@ namespace VOP
             CRM_PrintInfo2 info = new CRM_PrintInfo2();
             AsyncWorker worker = new AsyncWorker();
 
-            UserCenterInfoRecord rec = worker.GetUserCenterInfo(statusPanelPage.m_selectedPrinter);
+            //UserCenterInfoRecord rec = worker.GetUserCenterInfo(statusPanelPage.m_selectedPrinter);
 
-            if (rec.CmdResult == EnumCmdResult._ACK)
-            {
-                common.GetPrinterDrvName(strPrinterName, ref strDrvName);
+            //if (rec.CmdResult == EnumCmdResult._ACK)
+            //{
+            //    common.GetPrinterDrvName(strPrinterName, ref strDrvName);
 
-                bool isSFP = common.IsSFPPrinter(strDrvName);
-                bool isWiFiModel = common.IsSupportWifi(strDrvName);
+            //    bool isSFP = common.IsSFPPrinter(strDrvName);
+            //    bool isWiFiModel = common.IsSupportWifi(strDrvName);
 
-                if (isSFP)
-                {
-                    if (isWiFiModel)
-                        strPrinterModel = "Lenovo LJ2208W";
-                    else
-                        strPrinterModel = "Lenovo LJ2208";
-                }
-                else
-                {
-                    if (isWiFiModel)
-                        strPrinterModel = "Lenovo M7208W";
-                    else
-                        strPrinterModel = "Lenovo M7208";
-                }
+            //    if (isSFP)
+            //    {
+            //        if (isWiFiModel)
+            //            strPrinterModel = "Lenovo LJ2208W";
+            //        else
+            //            strPrinterModel = "Lenovo LJ2208";
+            //    }
+            //    else
+            //    {
+            //        if (isWiFiModel)
+            //            strPrinterModel = "Lenovo M7208W";
+            //        else
+            //            strPrinterModel = "Lenovo M7208";
+            //    }
 
-                info.AddPrintData(strPrinterModel, rec.SecondSerialNO, rec.SerialNO4AIO, rec.TotalCounter);
+            //    info.AddPrintData(strPrinterModel, rec.SecondSerialNO, rec.SerialNO4AIO, rec.TotalCounter);
 
-                //Serialization to xml file, locate in system temp VOP_CRM folder
-                string fileName = statusPanelPage.m_selectedPrinter + ".xml";
-                RequestManager.Serialize<CRM_PrintInfo2>(info, App.crmFolder + @"\" + fileName);
-
-
-                if (CheckProcessExist("CRMUploader") == false)
-                {
-                    ProcessStartInfo procInfo = new ProcessStartInfo();
-                    procInfo.FileName = @".\CRMUploader.exe";
-
-                    procInfo.CreateNoWindow = true;
-                    procInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    procInfo.UseShellExecute = false;
-
-                    try
-                    {
-                        Process p = Process.Start(procInfo);
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-                }
+            //    //Serialization to xml file, locate in system temp VOP_CRM folder
+            //    string fileName = statusPanelPage.m_selectedPrinter + ".xml";
+            //    RequestManager.Serialize<CRM_PrintInfo2>(info, App.crmFolder + @"\" + fileName);
 
 
-                //CRM_PrintInfo2 info2 = RequestManager.Deserialize<CRM_PrintInfo2>(App.crmFolder + @"\" + fileName);
-                //JSONResultFormat2 rtValue = new JSONResultFormat2();
-                //m_RequestManager.UploadCRM_PrintInfo2ToServer(ref info, ref rtValue);
-            }
+            //    if (CheckProcessExist("CRMUploader") == false)
+            //    {
+            //        ProcessStartInfo procInfo = new ProcessStartInfo();
+            //        procInfo.FileName = @".\CRMUploader.exe";
+
+            //        procInfo.CreateNoWindow = true;
+            //        procInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            //        procInfo.UseShellExecute = false;
+
+            //        try
+            //        {
+            //            Process p = Process.Start(procInfo);
+            //        }
+            //        catch (Exception)
+            //        {
+
+            //        }
+            //    }
+
+
+            //    //CRM_PrintInfo2 info2 = RequestManager.Deserialize<CRM_PrintInfo2>(App.crmFolder + @"\" + fileName);
+            //    //JSONResultFormat2 rtValue = new JSONResultFormat2();
+            //    //m_RequestManager.UploadCRM_PrintInfo2ToServer(ref info, ref rtValue);
+            //}
         }
 
         public void GetMaintainInfoFromServerProc()
@@ -319,6 +319,7 @@ namespace VOP
 
                 if (true == VOP.MainWindow.m_RequestManager.GetMaintainInfoSet(0, nTotalCount, ref maintainSet, ref strResult))
                 {
+                    VOP.MainWindow.m_MaintainSet = maintainSet;
                     VOP.MainWindow.SaveCRMDataIntoXamlFile("Maintain.xaml", DateTime.Now, strResult);
                 }
             }
@@ -352,6 +353,7 @@ namespace VOP
 
                 if (true == VOP.MainWindow.m_RequestManager.GetMerchantSet(0, nTotalCount, ref merchantInfoSet, ref strResult))
                 {
+                    VOP.MainWindow.m_MerchantInfoSet = merchantInfoSet;
                     VOP.MainWindow.SaveCRMDataIntoXamlFile("Merchant.xaml", DateTime.Now, strResult);
                 }
             }

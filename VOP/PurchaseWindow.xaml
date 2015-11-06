@@ -57,7 +57,7 @@
                         SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
                         VerticalScrollBarVisibility="Auto"
                         HorizontalScrollBarVisibility="Disabled"
-                        HorizontalAlignment="Center"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Background="#FFE7E7E7"
                         Style="{StaticResource LeftScrollViewer}"
