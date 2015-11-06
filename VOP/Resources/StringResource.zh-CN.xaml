@@ -282,7 +282,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Buy_consumables">耗材购买</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Check_consumables_points">耗材积分查询</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Nearest_service_station">最近服务站</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Download_printer_firmware">打印机固件下载</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Download_printer_firmware">打印机软件下载</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Profile_picture">头像</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Full_name">姓名</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Birthday">生日</sys:String>
