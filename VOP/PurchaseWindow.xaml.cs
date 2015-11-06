@@ -82,6 +82,14 @@ namespace VOP
             }
 
             cboCity.IsEnabled = false;
+
+            MerchantInfoSet merchantInfoSet = new MerchantInfoSet();
+            string strResult = "";
+            if (!VOP.MainWindow.m_RequestManager.GetMerchantSet(0, 5, ref merchantInfoSet, ref strResult))
+            {
+                noNetWarning.Visibility = System.Windows.Visibility.Visible;
+            }
+
             m_bInit = true;
 
             AddMessageHook();

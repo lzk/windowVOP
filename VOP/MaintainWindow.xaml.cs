@@ -36,8 +36,7 @@ namespace VOP
         {
             ((MainWindow)App.Current.MainWindow).m_InitMaintainInfoEvent.WaitOne();
 
-            MaintainList.Children.Clear();           
-            MaintainInfoSet maintainSet = new MaintainInfoSet();            
+            MaintainList.Children.Clear();                 
             m_listProvince.Clear();
             m_listProvinceCity.Clear();
 
@@ -78,6 +77,14 @@ namespace VOP
             }
 
             cboCity.IsEnabled = false;
+
+            MaintainInfoSet maintainSet = new MaintainInfoSet();      
+            string strResult = "";
+            if (!VOP.MainWindow.m_RequestManager.GetMaintainInfoSet(0, 5, ref maintainSet, ref strResult))
+            {
+                noNetWarning.Visibility = System.Windows.Visibility.Visible;
+            }
+
             m_bInit = true;
             AddMessageHook();
         }
