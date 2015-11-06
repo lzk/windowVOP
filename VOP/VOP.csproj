@@ -898,6 +898,12 @@
     <Resource Include="Images\Checked_Agreement.tif" />
     <Resource Include="Images\UnChecked_Agreement.tif" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Improve.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Improve.tif" />
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(SolutionDir)HelpFile\*" "$(TargetDir)" /E /Y</PostBuildEvent>
   </PropertyGroup>
