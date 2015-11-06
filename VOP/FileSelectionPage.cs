@@ -261,10 +261,14 @@ namespace VOP
                             if (selectWin.SelectedTypeItem.PrintSides == enumIdCardPrintSides.TwoSides)
                             {
                                 editWin.TitleBarText.Text = selectWin.SelectedTypeItem.Name + " " + this.FindResource("ResStr_Front");
+                                editWin.GreenOkButton.Content = "下一步";
+                                editWin.GreenOkButton.ToolTip = "选择反面照片";
 
                                 if (imageFileCount == 1)
                                 {
                                     editWin.TitleBarText.Text = selectWin.SelectedTypeItem.Name + " " + this.FindResource("ResStr_Back_2");
+                                    editWin.GreenOkButton.Content = this.FindResource("ResStr_OK");
+                                    editWin.GreenOkButton.ToolTip = null;
                                 }
                             }
 
