@@ -118,6 +118,10 @@ namespace VOP
             {
                 ((MainWindow)App.Current.MainWindow).ShowUserCenterView(false);
             }
+            else if (btn.Name == "btnImprovePlan")
+            {
+                ((MainWindow)App.Current.MainWindow).ShowCRMAgreementWindow();
+            }
         }
 
     }

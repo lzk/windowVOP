@@ -532,41 +532,41 @@ namespace VOP
         public void UploadPrintInfoToServerCaller()
         {
 
-            if (m_bLocationIsChina == false || m_crmAgreement == false)
-                return;
-
             try
             {
                 ReadPrintInfoIntoXamlFile();
 
                 while (!bExit)
                 {
-                    SessionInfo session = new SessionInfo();
-                    if (true == m_RequestManager.GetSession(ref session))
-                    {//if network is ok
-                        lock (printinfoLock)
-                        {
-                            for (int i = m_UploadPrintInfoSet.Count - 1; i >= 0; i--)
+                    if (m_bLocationIsChina == true && m_crmAgreement == true)
+                    {
+                        SessionInfo session = new SessionInfo();
+                        if (true == m_RequestManager.GetSession(ref session))
+                        {//if network is ok
+                            lock (printinfoLock)
                             {
-                                if (m_UploadPrintInfoSet[i].m_bUploadSuccess)
-                                    m_UploadPrintInfoSet.Remove(m_UploadPrintInfoSet[i]);
+                                for (int i = m_UploadPrintInfoSet.Count - 1; i >= 0; i--)
+                                {
+                                    if (m_UploadPrintInfoSet[i].m_bUploadSuccess)
+                                        m_UploadPrintInfoSet.Remove(m_UploadPrintInfoSet[i]);
+                                }
+                            }
+
+
+                            for (int i = 0; i < m_UploadPrintInfoSet.Count; i++)
+                            {
+                                JSONResultFormat2 rtValue = new JSONResultFormat2();
+                                m_UploadPrintInfoSet[i].m_bUploadSuccess = m_RequestManager.UploadCRM_PrintInfoToServer(ref m_UploadPrintInfoSet[i].m_PrintInfo, ref rtValue);
+                                if (!m_UploadPrintInfoSet[i].m_bUploadSuccess)
+                                {
+                                    if (rtValue.m_strMessage == "flag重复")
+                                        m_UploadPrintInfoSet[i].m_bUploadSuccess = true;
+                                }
                             }
                         }
 
-
-                        for (int i = 0; i < m_UploadPrintInfoSet.Count; i++)
-                        {
-                            JSONResultFormat2 rtValue = new JSONResultFormat2();
-                            m_UploadPrintInfoSet[i].m_bUploadSuccess = m_RequestManager.UploadCRM_PrintInfoToServer(ref m_UploadPrintInfoSet[i].m_PrintInfo, ref rtValue);
-                            if (!m_UploadPrintInfoSet[i].m_bUploadSuccess)
-                            {
-                                if (rtValue.m_strMessage == "flag重复")
-                                    m_UploadPrintInfoSet[i].m_bUploadSuccess = true;
-                            }
-                         }
+                        SavePrintInfoIntoXamlFile();
                     }
-                   
-                    SavePrintInfoIntoXamlFile();
 
                     for (int i = 0; i < 500; i++)
                     {
@@ -820,9 +820,12 @@ namespace VOP
         {
             while(!bExit)
             {
-                if (true == UploadCRM_LocalInfoToServer())
-                    break;
-
+                if (m_bLocationIsChina == true && m_crmAgreement == true)
+                {
+                    if (true == UploadCRM_LocalInfoToServer())
+                        break;
+                }
+             
                 for (int i = 0; i < 1200; i++)
                 {
                     if (bExit)
