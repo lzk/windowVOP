@@ -98,7 +98,7 @@
                         Padding="0, 0, 0, 0"
                         FontSize="16"
                         Style="{StaticResource CustomGreenButtonStyle}"
-                        Content="确 定"
+                        Content="完 成"
                         Grid.Row="3"
                         Click="OkButton_Click"
                         />
