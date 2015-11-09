@@ -81,20 +81,27 @@ namespace VOP
                 bi3.EndInit();
 
                 m_actualWidth = bi3.PixelWidth;
-                BitmapSource bmpSrc = bi3;
 
+                // Begin: Fix 61368
                 if (m_images.m_colorMode == EnumColorType.black_white)
                 {
-                    bmpSrc = BitmapFrame.Create(new TransformedBitmap(bmpSrc, new ScaleTransform(0.4, 0.4)));
+                    FormatConvertedBitmap bmpSrc = new FormatConvertedBitmap();
+                    bmpSrc.BeginInit();
+                    bmpSrc.Source = bi3;
+                    bmpSrc.DestinationFormat = PixelFormats.Gray32Float;
+                    bmpSrc.EndInit();
+                    previewImg.Source = bmpSrc;
                 }
+                else
+                {
+                    previewImg.Source = bi3;
+                }
+                // End: Fix 61368
 
-                previewImg.Source = bmpSrc;
                 FitTheWindow();
                 CenterImage();
-
-                bmpSrc = null;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
               
             }

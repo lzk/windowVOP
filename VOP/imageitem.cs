@@ -139,18 +139,29 @@ namespace VOP
             try
             {
                 Uri myUri = new Uri(m_images.m_pathThumb, UriKind.RelativeOrAbsolute);
-                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad );
-                BitmapSource bmpSrc = decoder.Frames[0];
+                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
+                BitmapSource bi3 = decoder.Frames[0];
 
+                // Begin: Fix 61368
                 if (m_images.m_colorMode == EnumColorType.black_white)
                 {
-                    bmpSrc = BitmapFrame.Create(new TransformedBitmap(bmpSrc, new ScaleTransform(0.1, 0.1)));
+                    FormatConvertedBitmap bmpSrc = new FormatConvertedBitmap();
+                    bmpSrc.BeginInit();
+                    bmpSrc.Source = bi3;
+                    bmpSrc.DestinationFormat = PixelFormats.Gray32Float;
+                    bmpSrc.EndInit();
+
+                    imgBody.Source = bmpSrc;
                 }
+                else
+                {
+                    imgBody.Source = bi3;
+                }
+                // End: Fix 61368
 
                 this.Background = Brushes.White;
                 this.Width = 105;
                 this.Height = 140;
-                imgBody.Source = bmpSrc;
             }
             catch
             {
