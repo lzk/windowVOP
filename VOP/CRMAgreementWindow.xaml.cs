@@ -58,7 +58,7 @@ namespace VOP
         {
             try
             {
-                System.Diagnostics.Process.Start(@"");
+                System.Diagnostics.Process.Start(@"http://appserver.lenovo.com.cn/Public/public_bottom/privacy.shtml");
             }
             catch (Exception)
             {

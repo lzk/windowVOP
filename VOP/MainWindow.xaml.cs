@@ -915,7 +915,7 @@ namespace VOP
 
             GetPopupSetting( App.cfgFile, ref m_popupIDCard, ref m_popupNIn1 );
 
-            if(!m_crmAgreementDialogShowed)
+            if(!m_crmAgreementDialogShowed && m_bLocationIsChina)
             {
                 ShowCRMAgreementWindow();
                 m_crmAgreementDialogShowed = true;
