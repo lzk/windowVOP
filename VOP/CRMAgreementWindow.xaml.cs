@@ -37,7 +37,7 @@ namespace VOP
 
         private void OnLoadWindow(object sender, RoutedEventArgs e)
         {
-          
+            agreementCheckBox.IsChecked = IsAgreementChecked;
         }
 
         private void agreementCheckBox_Checked(object sender, RoutedEventArgs e)

@@ -1640,6 +1640,7 @@ namespace VOP
             bool? result = null;
             CRMAgreementWindow win = new CRMAgreementWindow();
             win.Owner = this;
+            win.IsAgreementChecked = m_crmAgreement;
             result = win.ShowDialog();
 
             if (result == true)
