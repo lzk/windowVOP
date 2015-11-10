@@ -57,6 +57,11 @@ namespace VOP
             this.owner = owner;
         }
 
+        private void pbw_Loaded(object sender, RoutedEventArgs e)
+        {
+            asyncEvent.Set();
+        }
+
         void CallbackMethod(IAsyncResult ar)
         {
             dll.OutputDebugStringToFile_("CopyPage CallbackMethod()\r\n");
@@ -164,12 +169,18 @@ namespace VOP
             {
                 PrintFileDelegate caller = method;
 
+                isNeededProgress = false;
+                asyncEvent.Reset();
+
                 IAsyncResult result = caller.BeginInvoke(printerName, fileName, needFitToPage, duplexType, IsPortrait, copies, scalingValue, new AsyncCallback(CallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
+                    isNeededProgress = true;
+
                     pbw = new ProgressBarWindow();
                     pbw.Owner = this.owner;
+                    pbw.Loaded += pbw_Loaded;
                     pbw.ShowDialog();
                 }
 
@@ -183,10 +194,7 @@ namespace VOP
             return PrintError.Print_File_Not_Support;
         }
 
-        private void pbw_Loaded(object sender, RoutedEventArgs e)
-        {
-            asyncEvent.Set();
-        }
+
 
         public int InvokeCopyMethod(CopyDelegate method,
                                        string printerName,
@@ -242,13 +250,18 @@ namespace VOP
             {
                 DoWorkDelegate caller = method;
 
+                isNeededProgress = false;
+                asyncEvent.Reset();
 
                 IAsyncResult result = caller.BeginInvoke(new AsyncCallback(CallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
+                    isNeededProgress = true;
+
                     pbw = new ProgressBarWindow();
                     pbw.Owner = this.owner;
+                    pbw.Loaded += pbw_Loaded;
                     pbw.ShowDialog();
                 }
 
