@@ -21,7 +21,7 @@ USBAPI_API int __stdcall OutputDebugStringToFile(TCHAR *_lpFormat, ...)
 		StringCbCatA(szFile, MAX_PATH, "\\vopdbg.txt");
 	}
 
-	file.open(szFile, ios_base::out | ios_base::trunc);
+	file.open(szFile, ios_base::out | ios_base::app | ios_base::ate);
 	
 	if(!file.good())
 		return -1;
@@ -133,7 +133,7 @@ USBAPI_API int OutputDebugStringToFileA(const char *_lpFormat, ...)
 		StringCbCatA(szFile, MAX_PATH, "\\vopdbg.txt");
 	}
 
-	file.open(szFile, ios_base::out | ios_base::trunc);
+	file.open(szFile, ios_base::out | ios_base::app | ios_base::ate);
 	
 	if(!file.good())
 		return -1;
@@ -241,7 +241,7 @@ int OutputDebugStringToFileA_(LPCSTR _lpFileName, char *_lpFormat, ...)
 		StringCbCatA(szFile, MAX_PATH, _lpFileName);
 	}
 
-	file.open(szFile, ios_base::out | ios_base::trunc);
+	file.open(szFile, ios_base::out | ios_base::app | ios_base::ate);
 
 	if (!file.good())
 		return -1;

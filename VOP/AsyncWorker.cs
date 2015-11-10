@@ -36,6 +36,8 @@ namespace VOP
                                     byte dpi,
                                     ushort scale,
                                     byte mediaType);
+
+   
     
     class AsyncWorker
     {
@@ -43,6 +45,8 @@ namespace VOP
         private ProgressBarWindow pbw = null;
 //        private ScanProgressBarWindow scanPbw = null;
         private ProgressBarWindow scanPbw = null;
+        private ManualResetEvent asyncEvent = new ManualResetEvent(false);
+        private bool isNeededProgress = false;
 
         public AsyncWorker()
         {
@@ -61,17 +65,25 @@ namespace VOP
 
             dll.OutputDebugStringToFile_("CopyPage AsyncWaitHandle.WaitOne() end\r\n");
 
-            if(pbw != null)
+
+            if (isNeededProgress)
             {
-                pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
-                 new Action(
-                 delegate()
-                 {
-                     dll.OutputDebugStringToFile_("CopyPage  pbw.Close()\r\n");
-                   pbw.Close();
-                 }
-                 ));
-            }
+                asyncEvent.WaitOne();
+
+                if (pbw != null)
+                {
+                    pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                    new Action(
+                    delegate()
+                    {
+                        dll.OutputDebugStringToFile_("CopyPage  pbw.Close()\r\n");
+
+                        pbw.Close();
+
+                    }
+                    ));
+                }
+            } 
            
         }
 
@@ -171,6 +183,11 @@ namespace VOP
             return PrintError.Print_File_Not_Support;
         }
 
+        private void pbw_Loaded(object sender, RoutedEventArgs e)
+        {
+            asyncEvent.Set();
+        }
+
         public int InvokeCopyMethod(CopyDelegate method,
                                        string printerName,
                                        byte Density,
@@ -188,15 +205,23 @@ namespace VOP
             {
                 CopyDelegate caller = method;
 
+                isNeededProgress = false;
+                asyncEvent.Reset();
+
                 IAsyncResult result = caller.BeginInvoke(printerName, Density, copyNum, scanMode, orgSize, paperSize, nUp, dpi, scale, mediaType, new AsyncCallback(CallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
+                    isNeededProgress = true;
+
                     dll.OutputDebugStringToFile_("CopyPage new ProgressBarWindow()\r\n");
                     pbw = new ProgressBarWindow();
                     pbw.Owner = this.owner;
+                    pbw.Loaded += pbw_Loaded;
+                   
                     pbw.ShowDialog();
                     dll.OutputDebugStringToFile_("CopyPage end ShowDialog()\r\n");
+
                 }
 
                 if (result.AsyncWaitHandle.WaitOne(100, false))
