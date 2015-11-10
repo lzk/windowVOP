@@ -36,10 +36,21 @@ namespace CRMUploader
 
         public static bool IsSendInOne = false;
 
+
         public static string crmFolder = System.IO.Path.GetTempPath() + "VOP_CRM";
 
         ProgramState currentState = ProgramState.CheckIsReady;
         List<SendInfo> infoList = new List<SendInfo>();
+
+        public Program()
+        {
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+            DirectoryInfo directory = new DirectoryInfo(documentsPath);
+            string strUsersPublic = directory.Parent.FullName;
+
+            crmFolder = strUsersPublic + "\\Lenovo\\VOP_CRM";
+        }
+
 
         void Execute()
         {

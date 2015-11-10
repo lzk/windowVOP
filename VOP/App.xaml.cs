@@ -61,6 +61,8 @@ namespace VOP
             cfgFolder = strUsersPublic + "\\Lenovo\\";
             Directory.CreateDirectory( cfgFolder );
 
+            crmFolder = strUsersPublic + "\\Lenovo\\VOP_CRM";
+
             if (false == Directory.Exists(App.crmFolder))
             {
                 Directory.CreateDirectory(App.crmFolder);
