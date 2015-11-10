@@ -121,7 +121,7 @@
             <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Stroke="#FFCDCDCD" StrokeThickness="2"></Rectangle>
 
             <Button Name="btnFWDownload" Content="{StaticResource ResStr_Download_printer_firmware}" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" Grid.Row="0" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
-            <Button Name="btnImprovePlan" Content="用户体验改善计划" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" Grid.Row="1" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
+            <Button Name="btnImprovePlan" Content="{StaticResource ResStr_User_Experience}" Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" Grid.Row="1" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
             <Button Name="btnAbout" Content="{StaticResource ResStr_About}"  Click="OnBtnClick" Style="{StaticResource ButtonWithArrowPicture}" Grid.Row="2" Grid.Column="1"  BorderThickness="0" Margin="2" Background="#FFE5E5E5" HorizontalContentAlignment="Left"></Button>
         </Grid>
 

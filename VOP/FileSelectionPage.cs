@@ -261,8 +261,8 @@ namespace VOP
                             if (selectWin.SelectedTypeItem.PrintSides == enumIdCardPrintSides.TwoSides)
                             {
                                 editWin.TitleBarText.Text = selectWin.SelectedTypeItem.Name + " " + this.FindResource("ResStr_Front");
-                                editWin.GreenOkButton.Content = "下一步";
-                                editWin.GreenOkButton.ToolTip = "选择反面照片";
+                                editWin.GreenOkButton.Content = this.FindResource("ResStr_Next");
+                                editWin.GreenOkButton.ToolTip = this.FindResource("ResStr_Select_photo_of_the_reverse_side");
 
                                 if (imageFileCount == 1)
                                 {

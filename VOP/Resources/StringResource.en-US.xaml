@@ -282,7 +282,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Buy_consumables">Buy consumables</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Check_consumables_points">Check consumables points</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Nearest_service_station">Nearest service station</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Download_printer_firmware">Download printer firmware</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Download_printer_firmware">Download printer software</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Profile_picture">Profile picture</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Full_name">Full name</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Birthday">Birthday</sys:String>
@@ -324,4 +324,11 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt_Box_will_not_pop_up_next_time">The prompt box will not pop up next time.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Image_file_not_found">Image file cannot be found.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AndPlus_Format_Error">Input cannot contain characters '&amp;' and '+', Please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_User_Experience">User Experience Improvement Program</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Help_us_improve">Help us improve our services to you</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_In_order_to_deliver_improved">In order to deliver improved versions of the "Neo Printing" software and better user services, Lenovo would like to gather user data on a regular basis; the data include mobile numbers of registered users, the type of documents printed and the frequency of printing, printer model and related information, mobile equipment location and identifier, computer identifier, etc.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_I_have_read_and_agree">I have read and agree to the Lenovo Online Privacy Statement, and I hereby give my permission for automatic data collection</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Lenovo_Online_Privacy_Statement">Lenovo Online Privacy Statement</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Next">Next</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Select_photo_of_the_reverse_side">Select photo of the reverse side</sys:String>
 </ResourceDictionary>

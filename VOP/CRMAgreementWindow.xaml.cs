@@ -38,6 +38,19 @@ namespace VOP
         private void OnLoadWindow(object sender, RoutedEventArgs e)
         {
             agreementCheckBox.IsChecked = IsAgreementChecked;
+            InitFontSize();
+        }
+
+        void InitFontSize()
+        {
+            if (App.LangId == 0x804) // zh-CN
+            {
+                agreementCheckBox.FontSize = tb_online_Privay.FontSize = 16;
+            }
+            else
+            {
+                agreementCheckBox.FontSize = tb_online_Privay.FontSize = 14;
+            }
         }
 
         private void agreementCheckBox_Checked(object sender, RoutedEventArgs e)
