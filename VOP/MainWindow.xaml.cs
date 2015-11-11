@@ -48,7 +48,7 @@ namespace VOP
     {
         public bool m_popupIDCard = true; // True if ID Card Copy confirm dialog need to pop up.
         public bool m_popupNIn1   = true; // True if N in 1 Copy confirm dialog need to pop up.
-        public bool m_crmAgreement = false;
+        public bool m_crmAgreement = true;
         public bool m_crmAgreementDialogShowed = false;
         public bool m_isMainWinLoaded = false;
 
