@@ -42,6 +42,7 @@
 #define _PSAVE_TIME_SET     0x01
 #define _USER_CONFIG_GET    0x02
 #define _USER_CONFIG_SET    0x03
+#define _PRN_INFO		    0x04
 #define _PRN_PASSWD_SET		0x06
 #define _PRN_PASSWD_GET		0x07
 #define _PRN_PASSWD_COMFIRM	0x08
@@ -358,6 +359,24 @@ typedef struct _cmdst_user_center
 	char	_SerialNO4AIO[16];
 }cmdst_user_center;
 
+typedef struct _fw_info_st
+{
+	char ServTag[32];
+	char cPrinterSerialNumber[32];
+	char cPrinterType[32];
+	char cAssetTagNumber[32];
+	char cMemoryCapacity[32];
+	char cProcessorSpeed[32];
+	char cFirmwareVersion[32];
+	char cNetworkFirmwareVersion[32];
+	char cEngFirmwareVersion[32];
+	char cPrintingSpeedColor[32];
+	char cPrintingSpeedMonochrome[32];
+	char cBootCodeVersion[32];
+	char cColorTableVersion[32];
+	char cMacAddress[32];
+} fw_info_st;
+
 typedef int (* LPFN_NETWORK_CONNECT ) (char *server, int port, int timeout ) ;
 // return the number of bytes successfully read.
 typedef int (* LPFN_NETWORK_READ    ) (int sd, void* buff, DWORD len       ) ;
@@ -481,6 +500,7 @@ USBAPI_API void __stdcall CancelScanning();
 USBAPI_API BOOL __stdcall IsMetricCountry();
 USBAPI_API int __stdcall GetWifiChangeStatus(const wchar_t* szPrinter, BYTE* wifiInit);
 USBAPI_API int __stdcall GetUserCenterInfo(const wchar_t* szPrinter, char* _2ndSerialNO, UINT32* _totalCounter, char* _serialNO4AIO);
+USBAPI_API int __stdcall GetFWInfo(const wchar_t* szPrinter, char * FWVersion);
 
 //--------------------------------global--------------------------------------
 static const unsigned char INIT_VALUE = 0xfe;
@@ -2672,6 +2692,64 @@ USBAPI_API int __stdcall GetUserCenterInfo(const wchar_t* szPrinter, char* _2ndS
 
 	OutputDebugStringToFileA("\r\n####VP:GetUserCenterInfo(): nResult == 0x%x", nResult);
 	OutputDebugStringToFileA("\r\n####VP:GetUserCenterInfo() end");
+	return nResult;
+}
+
+USBAPI_API int __stdcall GetFWInfo(const wchar_t* szPrinter, char * FWVersion)
+{
+	OutputDebugStringToFileA("\r\n####VP:GetFWInfo() begin");
+
+	int nResult = _ACK;
+	wchar_t szIP[MAX_PATH];
+	int nPortType = CheckPort(szPrinter, szIP);
+
+	if (PT_UNKNOWN == nPortType)
+	{
+		nResult = _SW_UNKNOWN_PORT;
+	}
+	else
+	{
+		char* buffer = new char[sizeof(COMM_HEADER)+480];
+		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+480);
+		COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>(buffer);
+
+		ppkg->magic = MAGIC_NUM;
+		ppkg->id = _LS_PRNCMD;
+		ppkg->len = 3;
+
+		// For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+		// it just stand for the sub id. The real data length is defined by the lib
+		ppkg->subid = 0x13;
+		ppkg->len2 = 0x01;
+
+		fw_info_st* ptr_info = reinterpret_cast<fw_info_st*>(buffer + sizeof(COMM_HEADER));
+
+		ppkg->subcmd = _PRN_INFO;    
+
+		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
+		{
+			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+480);
+		}
+		else if (PT_USB == nPortType)
+		{
+			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+480);
+		}
+
+		if (_ACK == nResult)
+		{
+			memcpy(FWVersion, ptr_info->cFirmwareVersion, 32); FWVersion[32] = 0;
+			nResult = _ACK;		
+		}
+
+		if (buffer)
+		{
+			delete[] buffer;
+			buffer = NULL;
+		}
+	}
+
+	OutputDebugStringToFileA("\r\n####VP:GetFWInfo(): nResult == 0x%x", nResult);
+	OutputDebugStringToFileA("\r\n####VP:GetFWInfo() end");
 	return nResult;
 }
 

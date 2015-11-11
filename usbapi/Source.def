@@ -50,3 +50,4 @@ EXPORTS
     IsMetricCountry
 	GetWifiChangeStatus
 	GetUserCenterInfo
+	GetFWInfo

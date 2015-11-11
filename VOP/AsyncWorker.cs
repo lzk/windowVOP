@@ -65,11 +65,6 @@ namespace VOP
         void CallbackMethod(IAsyncResult ar)
         {
             dll.OutputDebugStringToFile_("CopyPage CallbackMethod()\r\n");
-            if (ar != null)
-                ar.AsyncWaitHandle.WaitOne();
-
-            dll.OutputDebugStringToFile_("CopyPage AsyncWaitHandle.WaitOne() end\r\n");
-
 
             if (isNeededProgress)
             {
@@ -82,14 +77,28 @@ namespace VOP
                     delegate()
                     {
                         dll.OutputDebugStringToFile_("CopyPage  pbw.Close()\r\n");
-
                         pbw.Close();
-
                     }
                     ));
                 }
             } 
            
+        }
+
+        void SettingsCallbackMethod()
+        {
+
+            if (pbw != null)
+            {
+                pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action(
+                delegate()
+                {
+                     pbw.Close();
+                }
+                ));
+            }
+
         }
 
         void ScanCallbackMethod(IAsyncResult ar)
@@ -146,12 +155,16 @@ namespace VOP
             {
                 RotateScannedFilesDelegate caller = method;
 
+                isNeededProgress = false;
+                asyncEvent.Reset();
+
                 IAsyncResult result = caller.BeginInvoke( objSrc, objDst, nAngle, new AsyncCallback(CallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
                     pbw = new ProgressBarWindow();
                     pbw.Owner = this.owner;
+                    pbw.Loaded += pbw_Loaded;
                     pbw.ShowDialog();
                 }
 
@@ -365,7 +378,7 @@ namespace VOP
                     default: break;
                 }
 
-                CallbackMethod(null);
+                SettingsCallbackMethod();
             });
 
             thread.Start();
@@ -821,6 +834,26 @@ namespace VOP
 
             return rec;
         }
+
+        //public UserCenterInfoRecord GetUserCenterInfo(string printerName)
+        //{
+        //    UserCenterInfoRecord rec = new UserCenterInfoRecord();
+
+        //    StringBuilder _2ndSerialNO = new StringBuilder(128);
+        //    StringBuilder _serialNO4AIO = new StringBuilder(128);
+        //    uint totalCount = 0;
+
+        //    int result = dll.GetUserCenterInfo(printerName, _2ndSerialNO, ref totalCount, _serialNO4AIO);
+
+        //    rec.PrinterName = printerName;
+        //    rec.TotalCounter = totalCount;
+        //    rec.SecondSerialNO = _2ndSerialNO.ToString();
+        //    rec.SerialNO4AIO = _serialNO4AIO.ToString();
+
+        //    rec.CmdResult = (EnumCmdResult)result;
+
+        //    return rec;
+        //}
     }
 
     public class BaseRecord : INotifyPropertyChanged

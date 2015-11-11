@@ -124,6 +124,11 @@ namespace VOP
                 StringBuilder _serialNO4AIO);
 
         [DllImport("usbapi.dll")]
+        public static extern int GetFWInfo(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                StringBuilder FWVersion);
+
+        [DllImport("usbapi.dll")]
             public static extern int ScanEx(
                     [MarshalAs(UnmanagedType.LPWStr)]String sz_printer,
                     [MarshalAs(UnmanagedType.LPWStr)]String szOrig,

@@ -331,4 +331,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Lenovo_Online_Privacy_Statement">Lenovo Online Privacy Statement</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Next">Next</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Select_photo_of_the_reverse_side">Select photo of the reverse side</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_OK_2">OK</sys:String>
 </ResourceDictionary>

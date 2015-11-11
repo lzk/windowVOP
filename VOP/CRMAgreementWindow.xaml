@@ -93,7 +93,7 @@
                         Padding="0, 0, 0, 0"
                         FontSize="16"
                         Style="{StaticResource CustomGreenButtonStyle}"
-                        Content="{StaticResource ResStr_OK}"
+                        Content="{StaticResource ResStr_OK_2}"
                         Grid.Row="3"
                         Click="OkButton_Click"
                         />
