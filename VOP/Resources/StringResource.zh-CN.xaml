@@ -335,7 +335,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_TCP_IPv4">打印机IPv4地址</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_TCP_IPv6">打印机IPv6地址</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Status">状态</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_AndPlus_Format_Error">输入不能包含字符 '&amp;' 和 '+'，请检查并重新输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Obtain_address_from_DHCP">获取自动分配地址</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Use_Manual_Address">使用手动输入地址</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Manual_Address">手动输入地址</sys:String>

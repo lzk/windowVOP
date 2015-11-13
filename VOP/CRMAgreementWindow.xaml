@@ -71,7 +71,7 @@
 
                         <CheckBox 
                           x:Name="agreementCheckBox"
-                          Template="{StaticResource customTickCheckBox}" 
+                          Template="{StaticResource customTickCheckBox2}" 
                           IsChecked="True" 
                           Content="{StaticResource ResStr_I_have_read_and_agree}"
                           Foreground="Black" 
@@ -82,7 +82,7 @@
                         <TextBlock 
                             x:Name="tb_online_Privay"
                             Margin="0,20,0,0"
-                            Style="{StaticResource AgreementTextBlockStyle}" 
+                            Style="{StaticResource AgreementTextBlockStyle2}" 
                             MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"
                             Text="{StaticResource ResStr_Lenovo_Online_Privacy_Statement}">
                         </TextBlock>
