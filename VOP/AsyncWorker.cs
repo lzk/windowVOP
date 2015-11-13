@@ -162,6 +162,8 @@ namespace VOP
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
+                    isNeededProgress = true;
+
                     pbw = new ProgressBarWindow();
                     pbw.Owner = this.owner;
                     pbw.Loaded += pbw_Loaded;
