@@ -93,10 +93,10 @@
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
 
-                                    <RadioButton GroupName="WepKeyRadio" Name="wepKey0" IsChecked="True" Template="{StaticResource customRadioButton}" Content="Key1" VerticalAlignment="Center"></RadioButton>
-                                    <RadioButton GroupName="WepKeyRadio" Name="wepKey1" Grid.Column="1" Template="{StaticResource customRadioButton}" Content="Key2" VerticalAlignment="Center"></RadioButton>
-                                    <RadioButton GroupName="WepKeyRadio" Name="wepKey2" Grid.Column="2" Template="{StaticResource customRadioButton}" Content="Key3" VerticalAlignment="Center"></RadioButton>
-                                    <RadioButton GroupName="WepKeyRadio" Name="wepKey3" Grid.Column="3" Template="{StaticResource customRadioButton}" Content="Key4" VerticalAlignment="Center"></RadioButton>
+                                    <RadioButton GroupName="WepKeyRadio" Name="wepKey0" IsChecked="True" FontSize="10" Template="{StaticResource customRadioButton}" Content="Key1" VerticalAlignment="Center"></RadioButton>
+                                    <RadioButton GroupName="WepKeyRadio" Name="wepKey1" Grid.Column="1" FontSize="10" Template="{StaticResource customRadioButton}" Content="Key2" VerticalAlignment="Center"></RadioButton>
+                                    <RadioButton GroupName="WepKeyRadio" Name="wepKey2" Grid.Column="2" FontSize="10" Template="{StaticResource customRadioButton}" Content="Key3" VerticalAlignment="Center"></RadioButton>
+                                    <RadioButton GroupName="WepKeyRadio" Name="wepKey3" Grid.Column="3" FontSize="10" Template="{StaticResource customRadioButton}" Content="Key4" VerticalAlignment="Center"></RadioButton>
                                 </Grid>
                             </Grid>
                         </StackPanel>               
