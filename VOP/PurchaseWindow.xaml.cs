@@ -75,13 +75,21 @@ namespace VOP
             {
                 ComboBoxItem item = new ComboBoxItem();
                 item.Content = m_listProvince[nIdx];
-                item.Width = 80;
+                item.MinWidth = 80;
                 item.IsSelected = false;
                 item.Style = (Style)this.FindResource("customComboBoxItem");
                 cboProvince.Items.Add(item);
             }
 
             cboCity.IsEnabled = false;
+
+            MerchantInfoSet merchantInfoSet = new MerchantInfoSet();
+            string strResult = "";
+            if (!VOP.MainWindow.m_RequestManager.GetMerchantSet(0, 5, ref merchantInfoSet, ref strResult))
+            {
+                noNetWarning.Visibility = System.Windows.Visibility.Visible;
+            }
+
             m_bInit = true;
 
             AddMessageHook();
@@ -163,7 +171,7 @@ namespace VOP
                     {
                         ComboBoxItem item = new ComboBoxItem();
                         item.Content = str;
-                        item.Width = 80;
+                        item.MinWidth = 80;
                         item.IsSelected = false;
                         item.Style = (Style)this.FindResource("customComboBoxItem");
                         cboCity.Items.Add(item);
@@ -176,13 +184,15 @@ namespace VOP
 
                 if (cb.Items.Count > 0 && cboProvince.Items.Count > 0)
                 {
+                    int count = 1;
                     foreach (MerchantInfoItem item in VOP.MainWindow.m_MerchantInfoSet.m_listMerchantInfo)
                     {
                         if (item.m_strProvince == ((ComboBoxItem)cboProvince.SelectedItem).Content.ToString() &&
                             item.m_strCity == ((ComboBoxItem)cboCity.SelectedItem).Content.ToString())
                         {
-                            MerchantInfo maintainInfo = new MerchantInfo(item.m_strCompanyName, "电话：" + item.m_strPhone);
+                            MerchantInfo maintainInfo = new MerchantInfo(count, item.m_strCompanyName, "地址：" + item.m_strAddress, "电话：" + item.m_strPhone);
                             MerchantList.Children.Add(maintainInfo);
+                            count++;
                         }
                     }
                 }

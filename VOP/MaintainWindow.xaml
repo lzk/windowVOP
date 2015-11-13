@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MaintainWindow"         
         WindowStartupLocation="CenterOwner"  
-        Height="448" 
-        Width="398"
+        Height="530" 
+        Width="440"
         ShowInTaskbar="False" 
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" 
@@ -33,7 +33,7 @@
         <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
     </Window.Effect>
     <Viewbox Stretch="Fill">
-        <Grid Height="400" Width="350">
+        <Grid Height="482" Width="392">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"></RowDefinition>
@@ -55,28 +55,29 @@
                     SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
                     VerticalScrollBarVisibility="Auto"
                     HorizontalScrollBarVisibility="Disabled"
-                    HorizontalAlignment="Left"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Top"                    
                     Style="{StaticResource LeftScrollViewer}"
                     Margin="4"
-                    Width="340">
+                    Width="382">
                         <Grid>
 
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="60"></RowDefinition>
                                 <RowDefinition Height="40"></RowDefinition>
                                 <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
 
-                            <Grid Margin="10" Grid.ColumnSpan="2">
+                            <Grid Margin="8">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                                     <TextBlock Text="您所在位置：" VerticalAlignment="Center"></TextBlock>
-                                    <ComboBox Width="80" Margin="6,0,0,2" Style="{StaticResource RadiusComboBox}" FontSize="13" Name="cboProvince" SelectionChanged="cboProvince_SelectionChanged">
+                                    <ComboBox Width="100" Height="25" Margin="6,0,0,0" Style="{StaticResource RadiusComboBox}" FontSize="13" Name="cboProvince" SelectionChanged="cboProvince_SelectionChanged">
                                     </ComboBox>
-                                    <TextBlock Text="省" Margin="6,0,0,2" VerticalAlignment="Center"></TextBlock>
-                                    <ComboBox Width="80" Margin="6,0,0,2" Style="{StaticResource RadiusComboBox}"  FontSize="13" Name="cboCity" SelectionChanged="cboProvince_SelectionChanged"></ComboBox>
-                                    <TextBlock Text="市" Margin="6,0,0,2" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="省" Margin="6,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                    <ComboBox Width="100" Height="25" Margin="6,0,0,0" Style="{StaticResource RadiusComboBox}"  FontSize="13" Name="cboCity" SelectionChanged="cboProvince_SelectionChanged"></ComboBox>
+                                    <TextBlock Text="市" Margin="6,0,0,0" VerticalAlignment="Center"></TextBlock>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Row="1" Grid.ColumnSpan="2">
@@ -85,7 +86,10 @@
                             <Grid Grid.Row="2" Grid.ColumnSpan="2">
                                 <TextBlock IsEnabled="False" Text="附近维修网点" TextAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
-                            <StackPanel Name="MaintainList" Grid.Row="3" Orientation="Vertical" Margin="0,10,0,0" Grid.ColumnSpan="2">
+                            <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                                <TextBlock Name="noNetWarning" Visibility="Hidden" IsEnabled="False" Text="请联网更新最新维修网点" Foreground="Red" TextAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                            <StackPanel Name="MaintainList" Grid.Row="4" Orientation="Vertical" Margin="0,10,0,0" Grid.ColumnSpan="2">
 
                             </StackPanel>
                         </Grid>

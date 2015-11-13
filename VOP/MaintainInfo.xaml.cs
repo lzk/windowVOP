@@ -19,13 +19,14 @@ namespace VOP
     /// </summary>
     public partial class MaintainInfo : UserControl
     {
-        public MaintainInfo(int nIdx, string strAddress, string strTelephone)
+        public MaintainInfo(int nIdx, string strCompany, string strAddress, string strTelephone)
         {
             InitializeComponent();
 
             tbIdx.Text = String.Format("{0}", nIdx);
+            tbCompany.Text = strCompany;
             tbAddress.Text = strAddress;
-            tbTelephone.Text = strTelephone;
+            tbTelephone.Text = strTelephone; 
         }
     }
 }

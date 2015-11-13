@@ -282,7 +282,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Buy_consumables">耗材购买</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Check_consumables_points">耗材积分查询</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Nearest_service_station">最近服务站</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Download_printer_firmware">打印机固件下载</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Download_printer_firmware">打印机软件下载</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Profile_picture">头像</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Full_name">姓名</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Birthday">生日</sys:String>
@@ -323,6 +323,15 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt2">如果1分钟之内不进行操作，任务将会自动取消。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt_Box_will_not_pop_up_next_time">下次不再弹出该提示框</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Image_file_not_found">图片文件丢失。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_AndPlus_Format_Error">输入不能包含字符 '&amp;' 和 '+'，请检查并重新输入。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_User_Experience">用户体验改善计划</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Help_us_improve">帮助我们为您提供更好的服务</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_In_order_to_deliver_improved">为了帮助我们持续提供更好版本的“小新打印”和更好的用户服务，Lenovo希望定期收集用户数据，如注册会员手机号、打印文件类型与频率、打印机型号及相关信息、手持设备位置与标识、PC标识等。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_I_have_read_and_agree">我已阅读并同意Lenovo在线隐私声明，并允许自动数据收集</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Lenovo_Online_Privacy_Statement">Lenovo在线隐私声明</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Next">下一步</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Select_photo_of_the_reverse_side">选择反面照片</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_OK_2">确  认</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_TCP_IPv4">打印机IPv4地址</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_TCP_IPv6">打印机IPv6地址</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Status">状态</sys:String>

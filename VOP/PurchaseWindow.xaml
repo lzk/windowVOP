@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="PurchaseWindow" 
         WindowStartupLocation="CenterOwner"  
-        Height="500" 
-        Width="410"
+        Height="530" 
+        Width="440"
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:mycontrol="clr-namespace:VOP" 
         Loaded="OnLoadWindow"
@@ -35,7 +35,7 @@
     </Window.Effect>
     
     <Viewbox Stretch="Fill">
-        <Grid   Height="452" Width="362">
+        <Grid Height="482" Width="392">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"></RowDefinition>
@@ -62,13 +62,14 @@
                         Background="#FFE7E7E7"
                         Style="{StaticResource LeftScrollViewer}"
                         Margin="4"      
-                        Width="352">
+                        Width="382">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"></RowDefinition>
                                 <RowDefinition Height="55"></RowDefinition>
                                 <RowDefinition Height="40"></RowDefinition>
                                 <RowDefinition Height="40"></RowDefinition>
+                                <RowDefinition Height="20"></RowDefinition>
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
                             <Grid>
@@ -78,14 +79,14 @@
                                     <TextBlock Text="适用于LJ2208、LJ2208W、M7208、M7208W" TextAlignment="Center" TextWrapping="NoWrap"></TextBlock>
                                 </StackPanel>
                             </Grid>
-                            <Grid Margin="8" Grid.Row="1" Grid.ColumnSpan="2">
+                            <Grid Margin="8" Grid.Row="1" >
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                                     <TextBlock Text="您所在位置：" VerticalAlignment="Center"></TextBlock>
-                                    <ComboBox Width="80" Margin="6,0,0,2" Style="{StaticResource RadiusComboBox}" FontSize="13" Name="cboProvince" SelectionChanged="cboProvince_SelectionChanged">
+                                    <ComboBox Width="100" Height="25" Margin="6,0,0,0" Style="{StaticResource RadiusComboBox}" FontSize="13" Name="cboProvince" SelectionChanged="cboProvince_SelectionChanged">
                                     </ComboBox>
-                                    <TextBlock Text="省" Margin="6,0,0,2" VerticalAlignment="Center"></TextBlock>
-                                    <ComboBox Width="80" Margin="6,0,0,2" Style="{StaticResource RadiusComboBox}"  FontSize="13" Name="cboCity" SelectionChanged="cboProvince_SelectionChanged"></ComboBox>
-                                    <TextBlock Text="市" Margin="6,0,0,2" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Text="省" Margin="6,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                    <ComboBox Width="100" Height="25" Margin="6,0,0,0" Style="{StaticResource RadiusComboBox}"  FontSize="13" Name="cboCity" SelectionChanged="cboProvince_SelectionChanged"></ComboBox>
+                                    <TextBlock Text="市" Margin="6,0,0,0" VerticalAlignment="Center"></TextBlock>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Row="2" Grid.ColumnSpan="2">
@@ -94,7 +95,10 @@
                             <Grid Grid.Row="3" Grid.ColumnSpan="2">
                                 <TextBlock IsEnabled="False" Text="附近经销商" TextAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
-                            <StackPanel Name="MerchantList" Grid.Row="4" Orientation="Vertical" Margin="0,10,0,0">
+                            <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                                <TextBlock Name="noNetWarning" Visibility="Hidden" IsEnabled="False" Text="请联网更新最新经销商信息" Foreground="Red" TextAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                            <StackPanel Name="MerchantList" Grid.Row="5" Orientation="Vertical" Margin="0,10,0,0">
 
                             </StackPanel>
                         </Grid>

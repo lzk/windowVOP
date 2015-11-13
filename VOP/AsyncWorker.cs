@@ -37,32 +37,67 @@ namespace VOP
                                     ushort scale,
                                     byte mediaType);
 
+    
+   
+    
     class AsyncWorker
     {
         private Window owner = null;
         private ProgressBarWindow pbw = null;
         //        private ScanProgressBarWindow scanPbw = null;
         private ProgressBarWindow scanPbw = null;
+        private ManualResetEvent asyncEvent = new ManualResetEvent(false);
+        private bool isNeededProgress = false;
+
+        public AsyncWorker()
+        {
+        }
 
         public AsyncWorker(Window owner)
         {
             this.owner = owner;
         }
 
+        private void pbw_Loaded(object sender, RoutedEventArgs e)
+        {
+            asyncEvent.Set();
+        }
+
         void CallbackMethod(IAsyncResult ar)
         {
-            if (ar != null)
-                ar.AsyncWaitHandle.WaitOne();
+            dll.OutputDebugStringToFile_("CopyPage CallbackMethod()\r\n");
+
+            if (isNeededProgress)
+            {
+                asyncEvent.WaitOne();
+
+                if (pbw != null)
+                {
+                    pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                    new Action(
+                    delegate()
+                    {
+                        dll.OutputDebugStringToFile_("CopyPage  pbw.Close()\r\n");
+                        pbw.Close();
+                    }
+                    ));
+                }
+            } 
+           
+        }
+
+        void SettingsCallbackMethod()
+        {
 
             if (pbw != null)
             {
                 pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
-                 new Action(
-                 delegate()
-                 {
+                new Action(
+                delegate()
+                {
                      pbw.Close();
-                 }
-                 ));
+                }
+                ));
             }
 
         }
@@ -121,12 +156,18 @@ namespace VOP
             {
                 RotateScannedFilesDelegate caller = method;
 
+                isNeededProgress = false;
+                asyncEvent.Reset();
                 IAsyncResult result = caller.BeginInvoke(objSrc, objDst, nAngle, new AsyncCallback(CallbackMethod), null);
+
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
+                    isNeededProgress = true;
+
                     pbw = new ProgressBarWindow();
                     pbw.Owner = this.owner;
+                    pbw.Loaded += pbw_Loaded;
                     pbw.ShowDialog();
                 }
 
@@ -144,12 +185,18 @@ namespace VOP
             {
                 PrintFileDelegate caller = method;
 
+                isNeededProgress = false;
+                asyncEvent.Reset();
+
                 IAsyncResult result = caller.BeginInvoke(printerName, fileName, needFitToPage, duplexType, IsPortrait, copies, scalingValue, new AsyncCallback(CallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
+                    isNeededProgress = true;
+
                     pbw = new ProgressBarWindow();
                     pbw.Owner = this.owner;
+                    pbw.Loaded += pbw_Loaded;
                     pbw.ShowDialog();
                 }
 
@@ -163,34 +210,47 @@ namespace VOP
             return PrintError.Print_File_Not_Support;
         }
 
+
+
         public int InvokeCopyMethod(CopyDelegate method,
-                                      string printerName,
-                                      byte Density,
-                                      byte copyNum,
-                                      byte scanMode,
-                                      byte orgSize,
-                                      byte paperSize,
-                                      byte nUp,
-                                      byte dpi,
-                                      ushort scale,
-                                      byte mediaType)
+                                       string printerName,
+                                       byte Density,
+                                       byte copyNum,
+                                       byte scanMode,
+                                       byte orgSize,
+                                       byte paperSize,
+                                       byte nUp,
+                                       byte dpi,
+                                       ushort scale,
+                                       byte mediaType)
         {
 
             if (method != null)
             {
                 CopyDelegate caller = method;
 
+                isNeededProgress = false;
+                asyncEvent.Reset();
+
                 IAsyncResult result = caller.BeginInvoke(printerName, Density, copyNum, scanMode, orgSize, paperSize, nUp, dpi, scale, mediaType, new AsyncCallback(CallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
+                    isNeededProgress = true;
+
+                    dll.OutputDebugStringToFile_("CopyPage new ProgressBarWindow()\r\n");
                     pbw = new ProgressBarWindow();
                     pbw.Owner = this.owner;
+                    pbw.Loaded += pbw_Loaded;
+                   
                     pbw.ShowDialog();
+                    dll.OutputDebugStringToFile_("CopyPage end ShowDialog()\r\n");
+
                 }
 
                 if (result.AsyncWaitHandle.WaitOne(100, false))
                 {
+                    dll.OutputDebugStringToFile_("CopyPage caller.EndInvoke(result)\r\n");
                     return caller.EndInvoke(result);
                 }
 
@@ -206,13 +266,18 @@ namespace VOP
             {
                 DoWorkDelegate caller = method;
 
+                isNeededProgress = false;
+                asyncEvent.Reset();
 
                 IAsyncResult result = caller.BeginInvoke(new AsyncCallback(CallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
+                    isNeededProgress = true;
+
                     pbw = new ProgressBarWindow();
                     pbw.Owner = this.owner;
+                    pbw.Loaded += pbw_Loaded;
                     pbw.ShowDialog();
                 }
 
@@ -323,7 +388,7 @@ namespace VOP
                     default: break;
                 }
 
-                CallbackMethod(null);
+                SettingsCallbackMethod();
             });
 
             thread.Start();
@@ -331,7 +396,7 @@ namespace VOP
             if (!thread.Join(100))
             {
 #if (DEBUG)
-                pbw = new ProgressBarWindow(30);
+                pbw = new ProgressBarWindow(6);
 #else
                 pbw = new ProgressBarWindow(30);
 #endif
@@ -360,11 +425,9 @@ namespace VOP
             sbyte lowHumidityMode = 0;
             sbyte platecontrolmode = 2;
             sbyte primarycoolingmode = 0;
-            byte isTonerEnd = 1;
 
-            int result = dll.GetTonerEnd(printerName, ref isTonerEnd);
-            result = dll.GetUserCfg(printerName, ref leadingEdge, ref sideToSide, ref imageDensity, ref lowHumidityMode, ref platecontrolmode, ref primarycoolingmode);
-          
+            int result = dll.GetUserCfg(printerName, ref leadingEdge, ref sideToSide, ref imageDensity, ref lowHumidityMode, ref platecontrolmode, ref primarycoolingmode);
+
             rec.PrinterName = printerName;
 
             rec.LeadingEdge = leadingEdge;
@@ -373,7 +436,6 @@ namespace VOP
             rec.LowHumidityMode = lowHumidityMode;
             rec.PlateControlMode = platecontrolmode;
             rec.PrimaryCoolingMode = primarycoolingmode;
-            rec.IsTonerEnd = isTonerEnd == 0 ? false : true;
 
             rec.CmdResult = (EnumCmdResult)result;
 
@@ -389,7 +451,6 @@ namespace VOP
             sbyte lowHumidityMode = 0;
             sbyte platecontrolmode = 2;
             sbyte primarycoolingmode = 0;
-            byte isTonerEnd = 1;
 
             if (rec != null)
             {
@@ -401,11 +462,9 @@ namespace VOP
                 lowHumidityMode = rec.LowHumidityMode;
                 platecontrolmode = rec.PlateControlMode;
                 primarycoolingmode = rec.PrimaryCoolingMode;
-                isTonerEnd = (byte)(rec.IsTonerEnd ? 1 : 0);
 
-                int result = dll.SetTonerEnd(printerName, isTonerEnd);
-                result = dll.SetUserCfg(printerName, leadingEdge, sideToSide, imageDensity, lowHumidityMode, platecontrolmode, primarycoolingmode);
-               
+                int result = dll.SetUserCfg(printerName, leadingEdge, sideToSide, imageDensity, lowHumidityMode, platecontrolmode, primarycoolingmode);
+
                 rec.CmdResult = (EnumCmdResult)result;
 
             }
@@ -652,15 +711,12 @@ namespace VOP
         {
             PowerSaveTimeRecord rec = new PowerSaveTimeRecord();
             byte time = 0;
-            byte isPowerOff = 1;
 
             int result = dll.GetPowerSaveTime(printerName, ref time);
-            // result = dll.GetPowerOff(printerName, ref isPowerOff);
-
+ 
             rec.PrinterName = printerName;
             rec.Time = time;
-            rec.IsPowerOff = isPowerOff == 0 ? false : true;
-
+    
             rec.CmdResult = (EnumCmdResult)result;
 
             return rec;
@@ -670,16 +726,13 @@ namespace VOP
         {
             string printerName = "";
             byte time = 0;
-            byte isPowerOff = 1;
 
             if (rec != null)
             {
                 printerName = rec.PrinterName;
                 time = rec.Time;
-                isPowerOff = (byte)(rec.IsPowerOff ? 1 : 0);
 
                 int result = dll.SetPowerSaveTime(printerName, time);
-                // result = dll.SetPowerOff(printerName, isPowerOff);
 
                 rec.CmdResult = (EnumCmdResult)result;
 
@@ -772,6 +825,45 @@ namespace VOP
             return rec;
         }
 
+        public UserCenterInfoRecord GetUserCenterInfo(string printerName)
+        {
+            UserCenterInfoRecord rec = new UserCenterInfoRecord();
+
+            StringBuilder _2ndSerialNO = new StringBuilder(128);
+            StringBuilder _serialNO4AIO = new StringBuilder(128);
+            uint totalCount = 0;
+
+            int result = dll.GetUserCenterInfo(printerName, _2ndSerialNO, ref totalCount, _serialNO4AIO);
+
+            rec.PrinterName = printerName;
+            rec.TotalCounter = totalCount;
+            rec.SecondSerialNO = _2ndSerialNO.ToString();
+            rec.SerialNO4AIO = _serialNO4AIO.ToString();
+
+            rec.CmdResult = (EnumCmdResult)result;
+
+            return rec;
+        }
+
+        //public UserCenterInfoRecord GetUserCenterInfo(string printerName)
+        //{
+        //    UserCenterInfoRecord rec = new UserCenterInfoRecord();
+
+        //    StringBuilder _2ndSerialNO = new StringBuilder(128);
+        //    StringBuilder _serialNO4AIO = new StringBuilder(128);
+        //    uint totalCount = 0;
+
+        //    int result = dll.GetUserCenterInfo(printerName, _2ndSerialNO, ref totalCount, _serialNO4AIO);
+
+        //    rec.PrinterName = printerName;
+        //    rec.TotalCounter = totalCount;
+        //    rec.SecondSerialNO = _2ndSerialNO.ToString();
+        //    rec.SerialNO4AIO = _serialNO4AIO.ToString();
+
+        //    rec.CmdResult = (EnumCmdResult)result;
+
+        //    return rec;
+        //}
         public IPV6InfoRecord GetIpv6Info(string printerName)
         {
             IPV6InfoRecord rec = new IPV6InfoRecord();
@@ -1180,8 +1272,11 @@ namespace VOP
         private sbyte lowHumidityMode;
         private sbyte platecontrolmode;
         private sbyte primarycoolingmode;
-        private bool isTonerEnd;
+ 
+        private EnumCmdResult cmdResult;
 
+
+        private bool isTonerEnd;
         public sbyte LeadingEdge
         {
             get { return this.leadingEdge; }
@@ -1239,6 +1334,16 @@ namespace VOP
             {
                 this.primarycoolingmode = value;
                 OnPropertyChanged("PrimaryCoolingMode");
+            }
+        }
+
+        public EnumCmdResult CmdResult
+        {
+            get { return this.cmdResult; }
+            set
+            {
+                this.cmdResult = value;
+                OnPropertyChanged("CmdResult");
             }
         }
 
@@ -1503,7 +1608,7 @@ namespace VOP
 
     }
 
-    public class IPV6InfoRecord : BaseRecord
+ 	public class IPV6InfoRecord : BaseRecord
     {
         private byte byDHCPv6;
         private byte byUseManualAddress;    //0 Disabled,1 Enabled
@@ -1687,4 +1792,61 @@ namespace VOP
         }
     }
 
+    public class UserCenterInfoRecord : BaseRecord
+    {
+        private uint    _totalCounter;
+        private string  _2ndSerialNO;
+        private string  _serialNO4AIO;
+
+        public uint TotalCounter
+        {
+            get { return this._totalCounter; }
+            set
+            {
+                this._totalCounter = value;
+                OnPropertyChanged("TotalCounter");
+            }
+        }
+
+        public string SecondSerialNO
+        {
+            get { return this._2ndSerialNO; }
+            set
+            {
+                this._2ndSerialNO = value;
+                OnPropertyChanged("SecondSerialNO");
+            }
+        }
+
+        public string SerialNO4AIO
+        {
+            get { return this._serialNO4AIO; }
+            set
+            {
+                this._serialNO4AIO = value;
+                OnPropertyChanged("SerialNO4AIO");
+            }
+        }
+
+        public UserCenterInfoRecord()
+        {
+            printerName = "";
+            _totalCounter = 0;
+            _2ndSerialNO = "";
+            _serialNO4AIO = "";
+       
+            cmdResult = EnumCmdResult._CMD_invalid;
+        }
+
+        public UserCenterInfoRecord(string printerName, uint _totalCounter, string _2ndSerialNO, string _serialNO4AIO)
+        {
+            this.printerName = printerName;
+            this._totalCounter = _totalCounter;
+            this._2ndSerialNO = _2ndSerialNO;
+            this._serialNO4AIO = _serialNO4AIO;
+
+            cmdResult = EnumCmdResult._CMD_invalid;
+        }
+
+    }
 }

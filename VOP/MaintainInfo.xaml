@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              Height="Auto"
-             Width="300"
+             Width="350"
              >
-    <Grid Margin="8,0,8,0">
+    <Grid Margin="8,8,8,8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -23,8 +23,9 @@
         </Grid>
         <Grid Grid.Column="1">
             <StackPanel Orientation="Vertical">
-                <TextBlock Name="tbAddress" Text="地址：江苏省南通市人民中路18号联想打印机店" VerticalAlignment="Top" Margin="0,6,0,0" TextWrapping="Wrap"></TextBlock>
-                <TextBlock Name="tbTelephone" Grid.Row="1" Text="电话：0513-88888888" VerticalAlignment="Top" TextWrapping="Wrap" Margin="0,2,0,2"></TextBlock>
+                <TextBlock Name="tbCompany" Text="江苏华杰通力科技公司" VerticalAlignment="Top" TextWrapping="Wrap" />
+                <TextBlock Name="tbAddress" Text="地址：江苏省南通市人民中路18号联想打印机店" VerticalAlignment="Top" Margin="0,2,0,0" TextWrapping="Wrap"/>
+                <TextBlock Name="tbTelephone" Text="电话：0513-88888888" VerticalAlignment="Top" TextWrapping="Wrap" Margin="0,2,0,0"/>
             </StackPanel>
         </Grid>
     </Grid>

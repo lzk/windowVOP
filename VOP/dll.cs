@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
@@ -167,19 +167,31 @@ namespace VOP
                 bool isEnableSoftAp);
 
         [DllImport("usbapi.dll")]
-        public static extern int ScanEx(
-                [MarshalAs(UnmanagedType.LPWStr)]String sz_printer,
-                [MarshalAs(UnmanagedType.LPWStr)]String szOrig,
-                [MarshalAs(UnmanagedType.LPWStr)]String szView,
-                [MarshalAs(UnmanagedType.LPWStr)]String szThumb,
-                int scanMode,
-                int resolution,
-                int width,
-                int height,
-                int contrast,
-                int brightness,
-                int docutype,
-                uint uMsg);
+        public static extern int GetUserCenterInfo(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                StringBuilder _2ndSerialNO,
+                ref uint _totalCounter,
+                StringBuilder _serialNO4AIO);
+
+        [DllImport("usbapi.dll")]
+        public static extern int GetFWInfo(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                StringBuilder FWVersion);
+
+        [DllImport("usbapi.dll")]
+            public static extern int ScanEx(
+                    [MarshalAs(UnmanagedType.LPWStr)]String sz_printer,
+                    [MarshalAs(UnmanagedType.LPWStr)]String szOrig,
+                    [MarshalAs(UnmanagedType.LPWStr)]String szView,
+                    [MarshalAs(UnmanagedType.LPWStr)]String szThumb,
+                    int scanMode,
+                    int resolution,
+                    int width,
+                    int height,
+                    int contrast,
+                    int brightness,
+                    int docutype,
+                    uint uMsg );
 
         [DllImport("usbapi.dll")]
         public static extern int GetUserCfg(

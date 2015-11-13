@@ -48,10 +48,15 @@ namespace VOP
             m_lowhumiditymode = 0;
             m_platecontrolmode = 2;
             m_primarycoolingmode = 0;
- 
+
+            StringBuilder fw_version = new StringBuilder(128);
+           
+
             UserCfgRecord m_rec = null;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
             string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
+
+           // dll.GetFWInfo(strPrinterName, fw_version);
 
             if (_bDisplayProgressBar)
             {

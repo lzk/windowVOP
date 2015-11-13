@@ -1,4 +1,4 @@
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Media;
 using System;
@@ -73,6 +73,7 @@ namespace VOP
                 {
                     return false;
                 }
+
              
             }
             catch (Exception)
@@ -107,7 +108,6 @@ namespace VOP
                             return;
                         }
                      }
-
                      this.m_MainWin.winPrintPage.FilePaths = new List<string>(open.FileNames);
                      this.m_MainWin.subPageView.Child = this.m_MainWin.winPrintPage;
                      this.m_MainWin.winPrintPage.CurrentPrintType = PrintPage.PrintType.PrintImages;
@@ -260,10 +260,14 @@ namespace VOP
                             if (selectWin.SelectedTypeItem.PrintSides == enumIdCardPrintSides.TwoSides)
                             {
                                 editWin.TitleBarText.Text = selectWin.SelectedTypeItem.Name + " " + this.FindResource("ResStr_Front");
+                                editWin.GreenOkButton.Content = this.FindResource("ResStr_Next");
+                                editWin.GreenOkButton.ToolTip = this.FindResource("ResStr_Select_photo_of_the_reverse_side");
 
                                 if (imageFileCount == 1)
                                 {
                                     editWin.TitleBarText.Text = selectWin.SelectedTypeItem.Name + " " + this.FindResource("ResStr_Back_2");
+                                    editWin.GreenOkButton.Content = this.FindResource("ResStr_OK");
+                                    editWin.GreenOkButton.ToolTip = null;
                                 }
                             }
 

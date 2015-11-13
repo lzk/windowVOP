@@ -1,4 +1,4 @@
-LIBRARY      "usbdll"
+﻿LIBRARY      "usbdll"
 
 EXPORTS
     SendCopyCmd
@@ -49,6 +49,8 @@ EXPORTS
     CancelScanning
     IsMetricCountry
 	GetWifiChangeStatus
+	GetUserCenterInfo
+	GetFWInfo
 	GetIpv6Info
 	SetIPv6Info
 	SetPowerOff

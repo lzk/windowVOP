@@ -436,7 +436,7 @@ namespace VOP
                     }
                     else
                     {
-                        if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "Neo_Mult_Pictures",
+                        if (dll.PrintInit(m_MainWin.statusPanelPage.m_selectedPrinter, "Neo_Multi_Pictures",
                                   (int)enumIdCardType.NonIdCard, new IdCardSize(), needFitToPage, (int)CurrentDuplexType, IsPortrait, scalingValue))
                         {
 

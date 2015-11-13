@@ -20,6 +20,7 @@ namespace VOP
         public static string pathSimulationFile = currentFolder + "\\DeviceStatus.xml";
         public static string vopHelperExe = currentFolder + "\\VopHelper.exe";
         public static string cacheFolder = System.IO.Path.GetTempPath()+"VOPCache"; // Folder used to store the cache file for scanning.
+        public static string crmFolder = System.IO.Path.GetTempPath() + "VOP_CRM";
         public static string cfgFile = "";
         public static string cfgFolder = "";
 
@@ -59,6 +60,24 @@ namespace VOP
             string strUsersPublic = directory.Parent.FullName;
             cfgFolder = strUsersPublic + "\\Lenovo\\";
             Directory.CreateDirectory( cfgFolder );
+
+            crmFolder = strUsersPublic + "\\Lenovo\\VOP_CRM";
+
+            if (false == Directory.Exists(App.crmFolder))
+            {
+                Directory.CreateDirectory(App.crmFolder);
+            }
+            else
+            {
+                DirectoryInfo dir = new DirectoryInfo(App.crmFolder);
+
+                IEnumerable<FileInfo> fileList = dir.GetFiles("*.xml", SearchOption.TopDirectoryOnly);
+
+                foreach (FileInfo fileInfo in fileList)
+                {
+                    fileInfo.Delete();
+                }
+            }
 
             cfgFile = cfgFolder + "vopcfg.xml";
 

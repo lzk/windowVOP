@@ -55,6 +55,9 @@
   <PropertyGroup>
     <ApplicationIcon>Images\printer.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.PdfEncoderLib">
       <HintPath>..\PdfDll\32bit\Interop.PdfEncoderLib.dll</HintPath>
@@ -124,6 +127,9 @@
     <Compile Include="IPV6StatusWindow.xaml.cs" />
     <Compile Include="ModifyUserInfo.xaml.cs">
       <DependentUpon>ModifyUserInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CRMAgreementWindow.xaml.cs">
+      <DependentUpon>CRMAgreementWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="TroubleshootingPage.cs" />
     <Compile Include="MessageBoxEx_Video.xaml.cs">
@@ -298,6 +304,10 @@
     <Page Include="ModifyUserInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CRMAgreementWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="TroubleshootingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -902,6 +912,9 @@
   <ItemGroup>
     <Resource Include="Images\Checked_Agreement.tif" />
     <Resource Include="Images\UnChecked_Agreement.tif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Improve.png" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(SolutionDir)HelpFile\*" "$(TargetDir)" /E /Y</PostBuildEvent>

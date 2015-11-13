@@ -36,8 +36,7 @@ namespace VOP
         {
             ((MainWindow)App.Current.MainWindow).m_InitMaintainInfoEvent.WaitOne();
 
-            MaintainList.Children.Clear();           
-            MaintainInfoSet maintainSet = new MaintainInfoSet();            
+            MaintainList.Children.Clear();                 
             m_listProvince.Clear();
             m_listProvinceCity.Clear();
 
@@ -71,13 +70,21 @@ namespace VOP
             {
                 ComboBoxItem item = new ComboBoxItem();
                 item.Content = m_listProvince[nIdx];
-                item.Width = 80;
+                item.MinWidth = 80;
                 item.IsSelected = false;
                 item.Style = (Style)this.FindResource("customComboBoxItem");
                 cboProvince.Items.Add(item);
             }
 
             cboCity.IsEnabled = false;
+
+            MaintainInfoSet maintainSet = new MaintainInfoSet();      
+            string strResult = "";
+            if (!VOP.MainWindow.m_RequestManager.GetMaintainInfoSet(0, 5, ref maintainSet, ref strResult))
+            {
+                noNetWarning.Visibility = System.Windows.Visibility.Visible;
+            }
+
             m_bInit = true;
             AddMessageHook();
         }
@@ -164,7 +171,7 @@ namespace VOP
                     {
                         ComboBoxItem item = new ComboBoxItem();
                         item.Content = str;
-                        item.Width = 80;
+                        item.MinWidth = 80;
                         item.IsSelected = false;
                         item.Style = (Style)this.FindResource("customComboBoxItem");
                         cboCity.Items.Add(item);
@@ -177,13 +184,15 @@ namespace VOP
                 
                 if(cb.Items.Count > 0 && cboProvince.Items.Count > 0)
                 {
+                    int count = 1;
                     foreach (MaintainInfoItem item in VOP.MainWindow.m_MaintainSet.m_listMaintainInfo)
                     {
                         if (item.m_strProvince == ((ComboBoxItem)cboProvince.SelectedItem).Content.ToString() &&
                             item.m_strCity == ((ComboBoxItem)cboCity.SelectedItem).Content.ToString())
                         {
-                            MaintainInfo maintainInfo = new MaintainInfo(1, "地址：" + item.m_strAddress, "电话：" + item.m_strPhone);
+                            MaintainInfo maintainInfo = new MaintainInfo(count, item.m_strName, "地址：" + item.m_strAddress, "电话：" + item.m_strPhone);
                             MaintainList.Children.Add(maintainInfo);
+                            count++;
                         }
                     }
                 }

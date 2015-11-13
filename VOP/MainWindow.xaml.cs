@@ -23,6 +23,7 @@ using System.IO;
 using System.Globalization;
 using System.Xml.Linq;
 using VOP.Controls;
+using System.Diagnostics;
 
 namespace VOP
 {
@@ -47,6 +48,10 @@ namespace VOP
     {
         public bool m_popupIDCard = true; // True if ID Card Copy confirm dialog need to pop up.
         public bool m_popupNIn1   = true; // True if N in 1 Copy confirm dialog need to pop up.
+        public bool m_crmAgreement = true;
+        public bool m_crmAgreementDialogShowed = false;
+        public bool m_isMainWinLoaded = false;
+
 
         private EnumSubPage m_currentPage = EnumSubPage.Print;
 
@@ -94,6 +99,8 @@ namespace VOP
 
         public static MerchantInfoSet m_MerchantInfoSet = new MerchantInfoSet();
         public static MaintainInfoSet m_MaintainSet = new MaintainInfoSet();
+
+		private Thread thread_PrinterInfo2 = null;
 
         public bool PasswordCorrect(Window parent)
         {
@@ -202,8 +209,90 @@ namespace VOP
 
             Thread uploadPrintInfoThread = new Thread(UploadPrintInfoToServerCaller);
             uploadPrintInfoThread.Start();
-           
+
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
+        }
+
+        public bool CheckProcessExist(string name)
+        {
+            Process[] processes = Process.GetProcessesByName(name);
+            if (processes.Length > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public void UploadPrinterInfo2()
+        {
+
+            if (m_bLocationIsChina == false || m_crmAgreement == false)
+                return;
+
+
+            string strPrinterModel = "";
+            string strDrvName = "";
+            string strPrinterName = statusPanelPage.m_selectedPrinter;
+
+            CRM_PrintInfo2 info = new CRM_PrintInfo2();
+            AsyncWorker worker = new AsyncWorker();
+
+            UserCenterInfoRecord rec = worker.GetUserCenterInfo(statusPanelPage.m_selectedPrinter);
+
+            dll.OutputDebugStringToFile_(string.Format("GetUserCenterInfo {0}\r\n", rec.CmdResult));
+
+            if (rec.CmdResult == EnumCmdResult._ACK)
+            {
+                common.GetPrinterDrvName(strPrinterName, ref strDrvName);
+
+                bool isSFP = common.IsSFPPrinter(strDrvName);
+                bool isWiFiModel = common.IsSupportWifi(strDrvName);
+
+                if (isSFP)
+                {
+                    if (isWiFiModel)
+                        strPrinterModel = "Lenovo LJ2208W";
+                    else
+                        strPrinterModel = "Lenovo LJ2208";
+                }
+                else
+                {
+                    if (isWiFiModel)
+                        strPrinterModel = "Lenovo M7208W";
+                    else
+                        strPrinterModel = "Lenovo M7208";
+                }
+
+                info.AddPrintData(strPrinterModel, rec.SecondSerialNO, rec.SerialNO4AIO, rec.TotalCounter);
+
+                //Serialization to xml file, locate in system temp VOP_CRM folder
+                string fileName = statusPanelPage.m_selectedPrinter + ".xml";
+                RequestManager.Serialize<CRM_PrintInfo2>(info, App.crmFolder + @"\" + fileName);
+
+
+                if (CheckProcessExist("CRMUploader") == false)
+                {
+                    ProcessStartInfo procInfo = new ProcessStartInfo();
+                    procInfo.FileName = @".\CRMUploader.exe";
+
+                    procInfo.CreateNoWindow = true;
+                    procInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    procInfo.UseShellExecute = false;
+
+                    try
+                    {
+                        Process p = Process.Start(procInfo);
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                }
+
+
+                //CRM_PrintInfo2 info2 = RequestManager.Deserialize<CRM_PrintInfo2>(App.crmFolder + @"\" + fileName);
+                //JSONResultFormat2 rtValue = new JSONResultFormat2();
+                //m_RequestManager.UploadCRM_PrintInfo2ToServer(ref info, ref rtValue);
+            }
         }
 
         public void GetMaintainInfoFromServerProc()
@@ -233,6 +322,7 @@ namespace VOP
 
                 if (true == VOP.MainWindow.m_RequestManager.GetMaintainInfoSet(0, nTotalCount, ref maintainSet, ref strResult))
                 {
+                    VOP.MainWindow.m_MaintainSet = maintainSet;
                     VOP.MainWindow.SaveCRMDataIntoXamlFile("Maintain.xaml", DateTime.Now, strResult);
                 }
             }
@@ -266,6 +356,7 @@ namespace VOP
 
                 if (true == VOP.MainWindow.m_RequestManager.GetMerchantSet(0, nTotalCount, ref merchantInfoSet, ref strResult))
                 {
+                    VOP.MainWindow.m_MerchantInfoSet = merchantInfoSet;
                     VOP.MainWindow.SaveCRMDataIntoXamlFile("Merchant.xaml", DateTime.Now, strResult);
                 }
             }
@@ -443,38 +534,42 @@ namespace VOP
 
         public void UploadPrintInfoToServerCaller()
         {
+
             try
             {
                 ReadPrintInfoIntoXamlFile();
 
                 while (!bExit)
                 {
-                    SessionInfo session = new SessionInfo();
-                    if (true == m_RequestManager.GetSession(ref session))
-                    {//if network is ok
-                        lock (printinfoLock)
-                        {
-                            for (int i = m_UploadPrintInfoSet.Count - 1; i >= 0; i--)
+                    if (m_bLocationIsChina == true && m_crmAgreement == true)
+                    {
+                        SessionInfo session = new SessionInfo();
+                        if (true == m_RequestManager.GetSession(ref session))
+                        {//if network is ok
+                            lock (printinfoLock)
                             {
-                                if (m_UploadPrintInfoSet[i].m_bUploadSuccess)
-                                    m_UploadPrintInfoSet.Remove(m_UploadPrintInfoSet[i]);
+                                for (int i = m_UploadPrintInfoSet.Count - 1; i >= 0; i--)
+                                {
+                                    if (m_UploadPrintInfoSet[i].m_bUploadSuccess)
+                                        m_UploadPrintInfoSet.Remove(m_UploadPrintInfoSet[i]);
+                                }
+                            }
+
+
+                            for (int i = 0; i < m_UploadPrintInfoSet.Count; i++)
+                            {
+                                JSONResultFormat2 rtValue = new JSONResultFormat2();
+                                m_UploadPrintInfoSet[i].m_bUploadSuccess = m_RequestManager.UploadCRM_PrintInfoToServer(ref m_UploadPrintInfoSet[i].m_PrintInfo, ref rtValue);
+                                if (!m_UploadPrintInfoSet[i].m_bUploadSuccess)
+                                {
+                                    if (rtValue.m_strMessage == "flag重复")
+                                        m_UploadPrintInfoSet[i].m_bUploadSuccess = true;
+                                }
                             }
                         }
 
-
-                        for (int i = 0; i < m_UploadPrintInfoSet.Count; i++)
-                        {
-                            JSONResultFormat2 rtValue = new JSONResultFormat2();
-                            m_UploadPrintInfoSet[i].m_bUploadSuccess = m_RequestManager.UploadCRM_PrintInfoToServer(ref m_UploadPrintInfoSet[i].m_PrintInfo, ref rtValue);
-                            if (!m_UploadPrintInfoSet[i].m_bUploadSuccess)
-                            {
-                                if (rtValue.m_strMessage == "flag重复")
-                                    m_UploadPrintInfoSet[i].m_bUploadSuccess = true;
-                            }
-                         }
+                        SavePrintInfoIntoXamlFile();
                     }
-                   
-                    SavePrintInfoIntoXamlFile();
 
                     for (int i = 0; i < 500; i++)
                     {
@@ -493,6 +588,10 @@ namespace VOP
 
         public void UploadPrintInfo(CRM_PrintInfo printInfo)
         {
+
+            if (m_bLocationIsChina == false || m_crmAgreement == false)
+                return;
+
             try
             {
                 UploadPrintInfo upi = new UploadPrintInfo();
@@ -724,9 +823,12 @@ namespace VOP
         {
             while(!bExit)
             {
-                if (true == UploadCRM_LocalInfoToServer())
-                    break;
-
+                if (m_bLocationIsChina == true && m_crmAgreement == true)
+                {
+                    if (true == UploadCRM_LocalInfoToServer())
+                        break;
+                }
+             
                 for (int i = 0; i < 1200; i++)
                 {
                     if (bExit)
@@ -815,6 +917,17 @@ namespace VOP
             this.Visibility = System.Windows.Visibility.Visible;
 
             GetPopupSetting( App.cfgFile, ref m_popupIDCard, ref m_popupNIn1 );
+
+            if(!m_crmAgreementDialogShowed && m_bLocationIsChina)
+            {
+                ShowCRMAgreementWindow();
+                m_crmAgreementDialogShowed = true;
+            }
+
+            thread_PrinterInfo2 = new Thread(UploadPrinterInfo2);
+            thread_PrinterInfo2.Start();
+
+            m_isMainWinLoaded = true;
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
@@ -1071,6 +1184,10 @@ namespace VOP
                 }
             }
 
+            if (thread_PrinterInfo2 != null && thread_PrinterInfo2.IsAlive == true)
+            {
+                thread_PrinterInfo2.Join();
+            }
 
             bExit = true;
             bExitUpdater = true;
@@ -1278,6 +1395,11 @@ namespace VOP
                 statusUpdater.Abort();
             }
 
+            if (thread_PrinterInfo2 != null && thread_PrinterInfo2.IsAlive == true)
+            {
+                thread_PrinterInfo2.Join();
+            }
+
             winCopyPage.ResetToDefaultValue();
             winScanPage.ResetToDefaultValue();
             winPrintPage.ResetToDefaultValue();
@@ -1318,6 +1440,12 @@ namespace VOP
 
             statusUpdater = new Thread(UpdateStatusCaller);
             statusUpdater.Start();
+
+            if (m_isMainWinLoaded == true)
+            {
+                thread_PrinterInfo2 = new Thread(UploadPrinterInfo2);
+                thread_PrinterInfo2.Start();
+            }
         }
 
         /// <summary>
@@ -1510,6 +1638,20 @@ namespace VOP
             win.ShowDialog();
         }
 
+        public void ShowCRMAgreementWindow()
+        {
+            bool? result = null;
+            CRMAgreementWindow win = new CRMAgreementWindow();
+            win.Owner = this;
+            win.IsAgreementChecked = m_crmAgreement;
+            result = win.ShowDialog();
+
+            if (result == true)
+            {
+                m_crmAgreement = win.IsAgreementChecked;
+            }
+        }
+
         public void ShowTroubleshootingPage()
         {
             SetTabItemFromIndex(EnumSubPage.Print);
@@ -1597,11 +1739,15 @@ namespace VOP
 
                 XmlNode xmlNode1 = xmlDoc.SelectSingleNode( "/VOPCfg/elPopupIDCard" );
                 XmlNode xmlNode2 = xmlDoc.SelectSingleNode( "/VOPCfg/elPopupNIn1" );
+                XmlNode xmlNode3 = xmlDoc.SelectSingleNode("/VOPCfg/crmAgreement");
+                XmlNode xmlNode4 = xmlDoc.SelectSingleNode("/VOPCfg/crmAgreementDialogShowed");
 
-                if ( null != xmlNode1 && null != xmlNode2 )
+                if (null != xmlNode1 && null != xmlNode2 && xmlNode3 != null && xmlNode4 != null)
                 {
                     popupIDCard = ( "True" == xmlNode1.InnerText ); 
-                    popupNIn1 = ( "True" == xmlNode2.InnerText ); 
+                    popupNIn1 = ( "True" == xmlNode2.InnerText );
+                    m_crmAgreement = ("True" == xmlNode3.InnerText); 
+                    m_crmAgreementDialogShowed = ("True" == xmlNode4.InnerText);
                 }
             }
             catch
@@ -1632,12 +1778,18 @@ namespace VOP
 
             XmlElement elPopupIDCard = xmlDoc.CreateElement( "elPopupIDCard" );
             XmlElement elPopupNIn1   = xmlDoc.CreateElement( "elPopupNIn1" );
-
+            XmlElement crmAgreement   = xmlDoc.CreateElement( "crmAgreement" );
+            XmlElement crmAgreementDialogShowed = xmlDoc.CreateElement("crmAgreementDialogShowed");
+            
             elPopupIDCard.InnerXml = popupIDCard.ToString();
             elPopupNIn1.InnerXml   = popupNIn1.ToString();
+            crmAgreement.InnerXml  = m_crmAgreement.ToString();
+            crmAgreementDialogShowed.InnerXml = m_crmAgreementDialogShowed.ToString();
 
             root.AppendChild( elPopupIDCard );
             root.AppendChild( elPopupNIn1   );
+            root.AppendChild(crmAgreement);
+            root.AppendChild(crmAgreementDialogShowed);
 
             xmlDoc.Save( xmlFile );
         }

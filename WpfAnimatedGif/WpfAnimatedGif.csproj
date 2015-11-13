@@ -63,7 +63,7 @@
     <Compile Include="Decoding\GifTrailer.cs" />
     <Compile Include="ImageAnimationController.cs" />
     <Compile Include="ImageBehavior.cs" />
-    <Compile Include="Properties\VersionInfo.cs"/>
+    <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

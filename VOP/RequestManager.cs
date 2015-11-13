@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using System.Timers;
 using System.Management;
 using System.Configuration;
+using System.Xml.Serialization;
 
 namespace VOP
 {
@@ -345,7 +346,68 @@ namespace VOP
             return str;
         }
     }
-    
+
+    [Serializable()]
+    public class CRM_PrintInfo2
+    {
+        private readonly string m_strSignKey = "86c02972fba047b0b0a9adb8123029fb";
+
+        public string m_strDeviceCode;    //Net card ID
+        public string m_strMobileNumber;  //can not upload
+        public string m_strPlatform;
+        public string m_strPrintData;
+        public string m_strVersion;
+        public DateTime m_time;   //yyyyMMddHHmmss, for example:20140219092408
+        public string m_strSign; //MobileCode+time+key using MD5
+
+        public CRM_PrintInfo2()
+        {
+            m_strDeviceCode = SystemInfo.GetMacAddress();
+            m_strMobileNumber = VOP.MainWindow.m_strPhoneNumber;
+            m_strPlatform = "WinPC";
+            m_strVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            m_time = System.DateTime.Now.ToLocalTime();
+        }
+
+        public void AddPrintData(string printerModel, string printerId, string tonerId, uint totalPrint, uint inkLevel = 0)
+        {
+            m_strPrintData = String.Format("[{{\"printermodel\":\"{0}\",\"printerid\":\"{1}\",\"tonerid\":\"{2}\",\"totalprint\":\"{3}\",\"inklevel\":\"{4}\"}}]",
+                                              printerModel, printerId, tonerId, totalPrint.ToString(), inkLevel.ToString());
+        }
+
+        public string ConvertToWebParams()
+        {
+            string str = "";
+            string format = "";
+
+            m_strSign = MD5.MD5_Encrypt(m_strDeviceCode + m_time.ToString("yyyyMMddHHmmss") + m_strSignKey);
+
+            format = "{{" +
+                     "\"devicecode\":\"{0}\"," +
+                     "\"mobile\":\"{1}\"," +
+                     "\"platform\":\"{2}\"," +
+                     "\"version\":\"{3}\"," +
+                     "\"time\":\"{4}\"," +
+                     "\"sign\":\"{5}\"," +
+                     "\"location\":\"\"," +
+                     "\"printerdata\":{6}" +
+                     "}}";
+
+
+            str = String.Format(format,
+                                m_strDeviceCode,
+                                m_strMobileNumber,
+                                m_strPlatform,
+                                m_strVersion,
+                                m_time.ToString("yyyyMMddHHmmss"),
+                                m_strSign,
+                                m_strPrintData);
+
+            return str;
+        }
+
+    }
+
     public class RequestManagerBase
     {
         protected static string m_strKey = "86c02972fba047b0b0a9adb8123029fb";
@@ -842,6 +904,7 @@ namespace VOP
             bool bSuccess = false;
             try
             {
+                dll.OutputDebugStringToFile_(String.Format("HttpRequest {0} {1}", url, strParam));
                 byte[] byteArray = Encoding.UTF8.GetBytes(strParam); // 转化
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);  //新建一个WebRequest对象用来请求或者响应url
                 dll.OutputDebugStringToFile_("####### SendHttpWebRequest WebRequest.Create(url) ######");
@@ -879,7 +942,7 @@ namespace VOP
                 StreamReader sr2 = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
 
                 string text2 = sr2.ReadToEnd();
-                dll.OutputDebugStringToFile_(text2);
+                dll.OutputDebugStringToFile_(String.Format("HttpResponse {0} {1}", url, text2));
                 strResult = text2;
                 if (ParseJsonData<T>(text2, rtFormat, ref record))
                 {
@@ -1053,6 +1116,24 @@ namespace VOP
             return bSuccess;
         }
 
+        public bool UploadCRM_PrintInfo2ToServer(ref CRM_PrintInfo2 _PrintInfo, ref JSONResultFormat2 rtValue)
+        {
+            bool bSuccess = false;
+            string url = "http://crm.iprintworks.cn/api/printerinfo";
+            string strCMD = _PrintInfo.ConvertToWebParams();
+            string strResult = "";
+
+            if (SendHttpWebRequest<JSONResultFormat2>(url, "POST", strCMD, JSONReturnFormat.JSONResultFormat2, ref rtValue, ref strResult))
+            {
+                if (rtValue.m_bSuccess)
+                {
+                    bSuccess = true;
+                }
+            }
+
+            return bSuccess;
+        }
+
         public bool GetUserInfo(string _strMobile, ref UserInformation _UserInformation, ref string strResult)
         {
             string strKey = "86c02972fba047b0b0a9adb8123029fb";
@@ -1071,6 +1152,46 @@ namespace VOP
             }
 
             return bSuccess;
+        }
+
+        public static bool Serialize<T>(T value, String filename)
+        {
+            if (value == null)
+            {
+                return false;
+            }
+            try
+            {
+                XmlSerializer _xmlserializer = new XmlSerializer(typeof(T));
+                TextWriter stream = new StreamWriter(filename, false);
+                _xmlserializer.Serialize(stream, value);
+                stream.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public static T Deserialize<T>(String filename)
+        {
+            if (string.IsNullOrEmpty(filename))
+            {
+                return default(T);
+            }
+            try
+            {
+                XmlSerializer _xmlSerializer = new XmlSerializer(typeof(T));
+                TextReader stream = new StreamReader(filename);
+                var result = (T)_xmlSerializer.Deserialize(stream);
+                stream.Close();
+                return result;
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
         }
     }
 }
