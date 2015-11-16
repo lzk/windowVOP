@@ -145,10 +145,13 @@ namespace VOP
                 // Begin: Fix 61368
                 if (m_images.m_colorMode == EnumColorType.black_white)
                 {
+                    bi3 = BitmapFrame.Create(new TransformedBitmap(bi3, new ScaleTransform(0.1, 0.1)));
+
+                    // https://msdn.microsoft.com/en-us/library/system.windows.media.imaging.formatconvertedbitmap(v=vs.100).aspx
                     FormatConvertedBitmap bmpSrc = new FormatConvertedBitmap();
                     bmpSrc.BeginInit();
                     bmpSrc.Source = bi3;
-                    bmpSrc.DestinationFormat = PixelFormats.Gray32Float;
+                    bmpSrc.DestinationFormat = PixelFormats.Gray2;
                     bmpSrc.EndInit();
 
                     imgBody.Source = bmpSrc;
