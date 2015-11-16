@@ -27,7 +27,7 @@ namespace VOP
        
         public WifiView()
         {
-            InitializeComponent();           
+            InitializeComponent();
         }
 
         private void OnLoadWifiView(object sender, RoutedEventArgs e)
@@ -263,8 +263,17 @@ namespace VOP
                 }
 
                 byte wifiInit = 0;
-                dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);
-                VOP.MainWindow.m_byWifiInitStatus = wifiInit;
+                // Begin: Fix bug # 61388
+                int result = dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);
+                if ( 0 == result) // success?
+                {
+                    VOP.MainWindow.m_byWifiInitStatus = wifiInit;
+                }
+                else
+                {                    
+                    Win32.OutputDebugString("apply->dll.GetWifiChangeStatus() ---> failed...  ， Result =    " + result.ToString());
+                }
+                // End: Fix bug # 61388
 
                 WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, wifiEnable, 0, ssid, (encryption != (byte)EnumEncryptType.NoSecurity) ? pwd : "", (EnumEncryptType)encryption, wepKeyId);
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
@@ -323,8 +332,19 @@ namespace VOP
             wifilist.Children.Clear();
 
             byte wifiInit = 0;
-            dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);
-            VOP.MainWindow.m_byWifiInitStatus = wifiInit;
+
+            int result = dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);
+            // Begin: Fix bug # 61388
+            if (0 == result) // success?
+            {
+                VOP.MainWindow.m_byWifiInitStatus = wifiInit;
+            }
+            else
+            {
+                Win32.OutputDebugString("cbo_ssid_refresh->dll.GetWifiChangeStatus() ---> failed...  ， Result =    " + result.ToString());
+            }
+            // End: Fix bug # 61388
+
             if (wifiInit == 0x00)
                 return;
 
@@ -603,9 +623,18 @@ namespace VOP
                 wifiEnable = 1;
             
             byte wifiInit = 0;
-            dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);
-            VOP.MainWindow.m_byWifiInitStatus = wifiInit;
-
+            // Begin: Fix bug # 61388
+            int result = dll.GetWifiChangeStatus(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref wifiInit);         
+            if (0 == result) // success?
+            {
+                VOP.MainWindow.m_byWifiInitStatus = wifiInit;
+            }
+            else
+            {
+                Win32.OutputDebugString("OnClickWifiCheckBox->dll.GetWifiChangeStatus() ---> failed...  ， Result =    " + result.ToString());
+            }
+            // End: Fix bug # 61388
+            
             WiFiInfoRecord m_rec = new WiFiInfoRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, wifiEnable, 1, "", "", EnumEncryptType.WPA2_PSK_AES, 0);
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
