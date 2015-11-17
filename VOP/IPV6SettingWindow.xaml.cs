@@ -291,7 +291,7 @@ namespace VOP
 
             if (uint.TryParse(tb_PreSubMask.Text, out maskValue))
             {
-                if (maskValue >= 0 && maskValue <= 128)
+                if (maskValue >= 1 && maskValue <= 128)
                 {
                     isIPMaskOK = true;
                 }
