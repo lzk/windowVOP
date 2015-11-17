@@ -82,7 +82,7 @@ namespace VOP
                 else
                 {
                     tb_ip.Text = "::";
-                    tb_PreSubMask.Text = String.Format("{0}", 0);
+                    tb_PreSubMask.Text = String.Format("{0}", 1);
                 }
 
                 if (1 == m_rec.UseManualAddress)
@@ -323,7 +323,7 @@ namespace VOP
             }
             else
             {
-                m_rec.ManualMask = 0;
+                m_rec.ManualMask = 1;
             }
 
 
