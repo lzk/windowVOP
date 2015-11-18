@@ -918,14 +918,15 @@ namespace VOP
 
             ShowStartupWindow();
 
-            AddMessageHook();
-            this.Visibility = System.Windows.Visibility.Visible;
-
             GetPopupSetting( App.cfgFile, ref m_popupIDCard, ref m_popupNIn1 );
+
+            this.Visibility = System.Windows.Visibility.Visible;
 
             if(!m_crmAgreementDialogShowed && m_bLocationIsChina)
             {
+                this.IsEnabled = false;
                 ShowCRMAgreementWindow();
+                this.IsEnabled = true;
                 m_crmAgreementDialogShowed = true;
             }
 
@@ -933,6 +934,9 @@ namespace VOP
             thread_PrinterInfo2.Start();
 
             m_isMainWinLoaded = true;
+
+            AddMessageHook();
+          
         }
 
         public void MyMouseButtonEventHandler( Object sender, MouseButtonEventArgs e)
