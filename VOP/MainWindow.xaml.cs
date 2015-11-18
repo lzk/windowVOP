@@ -592,31 +592,36 @@ namespace VOP
             if (m_bLocationIsChina == false || m_crmAgreement == false)
                 return;
 
-            try
+            Thread thread = new Thread(() =>
             {
-                UploadPrintInfo upi = new UploadPrintInfo();
-                upi.m_PrintInfo = printInfo;
-    
-                JSONResultFormat2 rtValue = new JSONResultFormat2();
-                upi.m_bUploadSuccess = m_RequestManager.UploadCRM_PrintInfoToServer(ref upi.m_PrintInfo, ref rtValue);
-                if (!upi.m_bUploadSuccess)
+                try
                 {
-                    if (rtValue.m_strMessage == "flag重复")
-                        upi.m_bUploadSuccess = true;
-                }
+                    UploadPrintInfo upi = new UploadPrintInfo();
+                    upi.m_PrintInfo = printInfo;
 
-                if (false == upi.m_bUploadSuccess)
-                {
-                    lock (printinfoLock)
+                    JSONResultFormat2 rtValue = new JSONResultFormat2();
+                    upi.m_bUploadSuccess = m_RequestManager.UploadCRM_PrintInfoToServer(ref upi.m_PrintInfo, ref rtValue);
+                    if (!upi.m_bUploadSuccess)
                     {
-                        m_UploadPrintInfoSet.Add(upi);
+                        if (rtValue.m_strMessage == "flag重复")
+                            upi.m_bUploadSuccess = true;
+                    }
+
+                    if (false == upi.m_bUploadSuccess)
+                    {
+                        lock (printinfoLock)
+                        {
+                            m_UploadPrintInfoSet.Add(upi);
+                        }
                     }
                 }
-            }
-            catch
-            {
+                catch
+                {
 
-            }
+                }
+            });
+
+            thread.Start();
         }
 
         public static bool SaveInfoDataIntoXamlFile(string strMerInfo, string strMaintainInfo)
