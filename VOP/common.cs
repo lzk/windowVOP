@@ -538,6 +538,7 @@ namespace VOP
                 case EnumStatus.SCAN_DRV_CALIB_FAIL:
                 case EnumStatus.NetWirelessDongleCfgFail:
                 case EnumStatus.DMAError:
+                case EnumStatus.PDLMemoryOver:
                 case EnumStatus.SCAN_USB_Disconnect:
                 case EnumStatus.SCAN_NET_Disconnect:
                     bError = true;
