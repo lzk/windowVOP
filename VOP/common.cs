@@ -269,8 +269,8 @@ namespace VOP
                 case EnumStatus.MotorThermistorError        : st = StatusDisplayType.Error; break;
                 case EnumStatus.EEPROMCommunicationError    : st = StatusDisplayType.Error; break;
                 case EnumStatus.CTL_PRREQ_NSignalNoCome     : st = StatusDisplayType.Error; break;
-                case EnumStatus.SCAN_USB_Disconnect         : st = StatusDisplayType.Busy; break; 
-                case EnumStatus.SCAN_NET_Disconnect         : st = StatusDisplayType.Busy; break;
+                case EnumStatus.SCAN_USB_Disconnect         : st = StatusDisplayType.Error; break; 
+                case EnumStatus.SCAN_NET_Disconnect         : st = StatusDisplayType.Error; break;
                 case EnumStatus.ScanMotorError              : st = StatusDisplayType.Error; break;
                 case EnumStatus.SCAN_DRV_CALIB_FAIL         : st = StatusDisplayType.Error; break;
                 case EnumStatus.NetWirelessDongleCfgFail    : st = StatusDisplayType.Error; break;
@@ -538,6 +538,8 @@ namespace VOP
                 case EnumStatus.SCAN_DRV_CALIB_FAIL:
                 case EnumStatus.NetWirelessDongleCfgFail:
                 case EnumStatus.DMAError:
+                case EnumStatus.SCAN_USB_Disconnect:
+                case EnumStatus.SCAN_NET_Disconnect:
                     bError = true;
                 break;
                 default:
