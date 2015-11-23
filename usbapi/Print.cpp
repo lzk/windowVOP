@@ -388,13 +388,13 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	SHELLEXECUTEINFO ShExecInfo;
 
 	ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
-	ShExecInfo.fMask = SEE_MASK_FLAG_NO_UI | SEE_MASK_NOASYNC;
+	ShExecInfo.fMask = SEE_MASK_FLAG_NO_UI;
 	ShExecInfo.hwnd = NULL;
 	ShExecInfo.lpVerb = L"Print";
 	ShExecInfo.lpFile = strFileName;
 	ShExecInfo.lpParameters = NULL;
 	ShExecInfo.lpDirectory = NULL;
-	ShExecInfo.nShow = SW_HIDE;
+	ShExecInfo.nShow = SW_SHOW;
 	ShExecInfo.hInstApp = NULL;
 
 	fileExt = PathFindExtension(strFileName);
