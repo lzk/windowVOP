@@ -4,6 +4,7 @@
 
 USBAPI_API int __stdcall OutputDebugStringToFile(TCHAR *_lpFormat, ...)
 {
+#if 0
 	fstream file;
 	char szFile[MAX_PATH] = {0};
 
@@ -110,12 +111,13 @@ USBAPI_API int __stdcall OutputDebugStringToFile(TCHAR *_lpFormat, ...)
 	file << tmp << szInfo << endl;
 
 	file.close();
-
+#endif
 	return 0;
 }
 
 USBAPI_API int OutputDebugStringToFileA(const char *_lpFormat, ...)
 {
+#if 0
 	fstream file;
 	char szFile[MAX_PATH] = {0};
 
@@ -218,12 +220,13 @@ USBAPI_API int OutputDebugStringToFileA(const char *_lpFormat, ...)
 	file << tmp << szInfo << endl;
 
 	file.close();
-
+#endif
 	return 0;
 }
 
 int OutputDebugStringToFileA_(LPCSTR _lpFileName, char *_lpFormat, ...)
 {
+#if 0
 	fstream file;
 	char szFile[MAX_PATH];
 
@@ -326,7 +329,7 @@ int OutputDebugStringToFileA_(LPCSTR _lpFileName, char *_lpFormat, ...)
 	file << tmp << szInfo << endl;
 
 	file.close();
-
+#endif
 	return 0;
 }
 
