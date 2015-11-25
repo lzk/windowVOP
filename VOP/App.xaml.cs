@@ -8,6 +8,7 @@ using System.Windows;
 using System.Threading; // for Mutex
 using System.Globalization; // for Multi-Langulage UI
 using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace VOP
 {
@@ -133,6 +134,13 @@ namespace VOP
 
             if (argLine.Contains("EXIT") || regStr == "EXIT")
             {
+                Process p = null;
+                if (App.CheckProcessExist("CRMUploader", ref p) == true)
+                {
+                    if (p != null)
+                        p.Kill();
+                }
+
                 Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
                 return;
             }
@@ -224,5 +232,21 @@ namespace VOP
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Culture);
         }
         #endregion  //Multi-Langulage
+
+        public static bool CheckProcessExist(string name, ref Process p)
+        {
+            Process[] processes = Process.GetProcessesByName(name);
+            if (processes.Length > 0)
+            {
+                p = processes[0];
+                return true;
+            }
+            else
+            {
+                p = null;
+                return false;
+            }
+                
+        }
     }
 }

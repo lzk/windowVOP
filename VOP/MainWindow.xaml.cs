@@ -213,14 +213,7 @@ namespace VOP
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
         }
 
-        public bool CheckProcessExist(string name)
-        {
-            Process[] processes = Process.GetProcessesByName(name);
-            if (processes.Length > 0)
-                return true;
-            else
-                return false;
-        }
+    
 
         public void UploadPrinterInfo2()
         {
@@ -268,8 +261,8 @@ namespace VOP
                 string fileName = statusPanelPage.m_selectedPrinter + ".xml";
                 RequestManager.Serialize<CRM_PrintInfo2>(info, App.crmFolder + @"\" + fileName);
 
-
-                if (CheckProcessExist("CRMUploader") == false)
+                Process p = null;
+                if (App.CheckProcessExist("CRMUploader", ref p) == false)
                 {
                     ProcessStartInfo procInfo = new ProcessStartInfo();
                     procInfo.FileName = @".\CRMUploader.exe";
