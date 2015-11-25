@@ -19,6 +19,9 @@ namespace VOP.Controls
     /// </summary>
     public partial class ImageButton : UserControl
     {
+        public static RoutedUICommand ButtonEnterCommand = new RoutedUICommand("ButtonEnterCommand", "ButtonEnterCommand",
+                      typeof(ImageButton), null);
+
         private bool _helpCanExecute = true;
 
         public ImageButton()
@@ -54,13 +57,13 @@ namespace VOP.Controls
             }
         }
 
-        private void HelpCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void ImageButtonCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = _helpCanExecute;
             e.Handled = true;
         }
 
-        private void HelpExecuted(object sender, ExecutedRoutedEventArgs e)
+        private void ImageButtonExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             myButton.RaiseEvent(new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left)
             {
