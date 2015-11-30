@@ -88,16 +88,20 @@ namespace VOP
 
         void SettingsCallbackMethod()
         {
-
-            if (pbw != null)
+            if (isNeededProgress)
             {
-                pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
-                new Action(
-                delegate()
+                asyncEvent.WaitOne();
+
+                if (pbw != null)
                 {
-                     pbw.Close();
+                    pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                    new Action(
+                    delegate()
+                    {
+                        pbw.Close();
+                    }
+                    ));
                 }
-                ));
             }
 
         }
@@ -391,16 +395,21 @@ namespace VOP
                 SettingsCallbackMethod();
             });
 
+            isNeededProgress = false;
+            asyncEvent.Reset();
+
             thread.Start();
 
             if (!thread.Join(100))
             {
+                isNeededProgress = true;
 #if (DEBUG)
                 pbw = new ProgressBarWindow(6);
 #else
                 pbw = new ProgressBarWindow(30);
 #endif
                 pbw.Owner = this.owner;
+                pbw.Loaded += pbw_Loaded;
                 pbw.ShowDialog();
             }
 
