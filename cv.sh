@@ -41,7 +41,7 @@ BEGIN\n\
         BEGIN\n\
             VALUE \"CompanyName\"      , \"Lenovo Co., Ltd.\"\n\
             VALUE \"ProductName\"      , \"Lenovo virtual panel\"\n\
-            VALUE \"LegalCopyright\"   , \"(C) Lenovo Co., Ltd. (2015)\"\n\
+            VALUE \"LegalCopyright\"   , \"(C) Lenovo Co., Ltd. (2016)\"\n\
             VALUE \"FileDescription\"  , \"usbapi\"\n\
             VALUE \"InternalName\"     , \"usbapi.dll\"\n\
             VALUE \"OriginalFilename\" , \"usbapi.dll\"\n\
@@ -76,7 +76,7 @@ git log --format="[assembly: AssemblyDescription(\"%H\")]" -1 >> VOP/Properties/
 printf "\
 [assembly: AssemblyFileVersion(\"%d.%d.%d.%d\")]\n\
 [assembly: AssemblyCompany(\"Lenovo Co., Ltd.\")]\n\
-[assembly: AssemblyCopyright(\"(C) Lenovo Co., Ltd. (2015)\")]\n\
+[assembly: AssemblyCopyright(\"(C) Lenovo Co., Ltd. (2016)\")]\n\
 [assembly: ComVisible(false)]\n\
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]\n\
 [assembly: AssemblyTitle(\"Lenovo virtual panel\")]\n\
@@ -100,7 +100,7 @@ git log --format="[assembly: AssemblyDescription(\"%H\")]" -1 >> VopHelper/Prope
 printf "\
 [assembly: AssemblyFileVersion(\"%d.%d.%d.%d\")]\n\
 [assembly: AssemblyCompany(\"Lenovo Co., Ltd.\")]\n\
-[assembly: AssemblyCopyright(\"(C) Lenovo Co., Ltd. (2015)\")]\n\
+[assembly: AssemblyCopyright(\"(C) Lenovo Co., Ltd. (2016)\")]\n\
 [assembly: ComVisible(false)]\n\
 [assembly: AssemblyTitle(\"Lenovo virtual panel\")]\n\
 [assembly: AssemblyTrademark(\"\")]\n\
@@ -125,7 +125,7 @@ git log --format="[assembly: AssemblyDescription(\"%H\")]" -1 >> WpfAnimatedGif/
 printf "\
 [assembly: AssemblyFileVersion(\"%d.%d.%d.%d\")]\n\
 [assembly: AssemblyCompany(\"Lenovo Co., Ltd.\")]\n\
-[assembly: AssemblyCopyright(\"(C) Lenovo Co., Ltd. (2015)\")]\n\
+[assembly: AssemblyCopyright(\"(C) Lenovo Co., Ltd. (2016)\")]\n\
 [assembly: ComVisible(false)]\n\
 [assembly: AssemblyTitle(\"Lenovo virtual panel\")]\n\
 [assembly: AssemblyTrademark(\"\")]\n\
@@ -148,7 +148,7 @@ git log --format="[assembly: AssemblyDescription(\"%H\")]" -1 >> CRMUploader/Pro
 printf "\
 [assembly: AssemblyFileVersion(\"%d.%d.%d.%d\")]\n\
 [assembly: AssemblyCompany(\"Lenovo Co., Ltd.\")]\n\
-[assembly: AssemblyCopyright(\"(C) Lenovo Co., Ltd. (2015)\")]\n\
+[assembly: AssemblyCopyright(\"(C) Lenovo Co., Ltd. (2016)\")]\n\
 [assembly: ComVisible(false)]\n\
 [assembly: AssemblyTitle(\"CRMUploader\")]\n\
 [assembly: AssemblyTrademark(\"\")]\n\
