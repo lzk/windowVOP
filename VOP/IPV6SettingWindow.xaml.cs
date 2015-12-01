@@ -242,7 +242,9 @@ namespace VOP
             {
                 if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
                 {
-                    if (ip.Equals(IPAddress.IPv6Loopback) || ip.Equals(IPAddress.IPv6None))
+                    if (ip.Equals(IPAddress.IPv6Loopback)
+                    || ip.Equals(IPAddress.IPv6None)
+                    || ip.IsIPv6LinkLocal)
                     {
                         isIPOK = false;
                     }
@@ -335,7 +337,9 @@ namespace VOP
             {
                 if (ipGate.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
                 {
-                    if (ipGate.Equals(IPAddress.IPv6Loopback) || ipGate.Equals(IPAddress.IPv6None))
+                    if (ipGate.Equals(IPAddress.IPv6Loopback)
+                      || ipGate.Equals(IPAddress.IPv6None)
+                      || ipGate.IsIPv6LinkLocal)
                     {
                         isGateOK = false;
                     }
