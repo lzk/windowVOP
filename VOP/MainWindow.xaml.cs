@@ -261,8 +261,8 @@ namespace VOP
                 string fileName = statusPanelPage.m_selectedPrinter + ".xml";
                 RequestManager.Serialize<CRM_PrintInfo2>(info, App.crmFolder + @"\" + fileName);
 
-                Process p = null;
-                if (App.CheckProcessExist("CRMUploader", ref p) == false)
+                Process crm_p = null;
+                if (App.CheckProcessExist("CRMUploader", ref crm_p) == false)
                 {
                     ProcessStartInfo procInfo = new ProcessStartInfo();
                     procInfo.FileName = @".\CRMUploader.exe";
