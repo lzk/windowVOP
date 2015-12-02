@@ -80,7 +80,7 @@
                             <ColumnDefinition Width="42*"></ColumnDefinition>
                             <ColumnDefinition Width="40*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <PasswordBox Name="pbPwd" PasswordChanged="OnPasswordChanged" Template="{StaticResource textpwd}" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Height="30" MaxLength="6" Width="328" Grid.ColumnSpan="2" PreviewKeyDown="OnPreviewKeyDown">
+                        <PasswordBox Name="pbPwd" PasswordChanged="OnPasswordChanged" Style="{StaticResource textpwd}" FontFamily="Arial" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Height="30" MaxLength="6" Width="328" Grid.ColumnSpan="2" PreviewKeyDown="OnPreviewKeyDown">
                             <PasswordBox.InputBindings>
                                 <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                             </PasswordBox.InputBindings>
