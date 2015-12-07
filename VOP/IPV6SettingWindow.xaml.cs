@@ -244,7 +244,8 @@ namespace VOP
                 {
                     if (ip.Equals(IPAddress.IPv6Loopback)
                     || ip.Equals(IPAddress.IPv6None)
-                    || ip.IsIPv6LinkLocal)
+                    || ip.IsIPv6LinkLocal
+                    || ip.IsIPv6Multicast)
                     {
                         isIPOK = false;
                     }
@@ -339,7 +340,8 @@ namespace VOP
                 {
                     if (ipGate.Equals(IPAddress.IPv6Loopback)
                       || ipGate.Equals(IPAddress.IPv6None)
-                      || ipGate.IsIPv6LinkLocal)
+                      || ipGate.IsIPv6LinkLocal
+                      || ipGate.IsIPv6Multicast)
                     {
                         isGateOK = false;
                     }
