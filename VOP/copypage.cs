@@ -326,11 +326,17 @@ namespace VOP
 
             if ( true == chkBtnIDCardCopy.IsChecked ) 
             {
+                if (App.LangId != 0x804) // zh-CN
+                    btnCopy.FontSize = 11.5;
+
                 this.btnCopy.Content = (string)this.FindResource("ResStr_ID_Card_Copy");
                 bi.UriSource = new Uri("Images/IDCardCopyIconEnable.png", UriKind.Relative);
             }
             else
             {
+                if (App.LangId != 0x804) // zh-CN
+                    btnCopy.FontSize = 14;
+
                 this.btnCopy.Content = (string)this.FindResource("ResStr_Copy");
                 bi.UriSource = new Uri("Images/IDCardCopyIconDisable.png", UriKind.Relative);
             }
