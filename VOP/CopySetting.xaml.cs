@@ -361,8 +361,8 @@ namespace VOP
                 m_outputSize = EnumPaperSizeOutput._Letter;
             }
 
-            if ( true == m_isIDCardCopy )
-                m_outputSize = EnumPaperSizeOutput._A4;
+            //if ( true == m_isIDCardCopy )
+            //    m_outputSize = EnumPaperSizeOutput._A4;
 
             m_nin1       = EnumNin1._1up;
             m_dpi        = m_isIDCardCopy ? EnumCopyResln._600x600 : EnumCopyResln._300x300;
@@ -667,6 +667,8 @@ namespace VOP
                 }
             }
 
+            bool bIsMetrice = dll.IsMetricCountry();
+
             if ( m_isIDCardCopy )
             {
                 foreach ( ComboBoxItem obj in cboOutputSize.Items )
@@ -675,7 +677,7 @@ namespace VOP
                     {
                         EnumPaperSizeOutput s = (EnumPaperSizeOutput)obj.DataContext;
 
-                        if ( EnumPaperSizeOutput._A4 == s )
+                        if ((bIsMetrice ? EnumPaperSizeOutput._A4 : EnumPaperSizeOutput._Letter) == s)
                         {
                             obj.IsEnabled = true;
                         }

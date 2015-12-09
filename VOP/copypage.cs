@@ -348,7 +348,7 @@ namespace VOP
             m_scaling    = 100;
             m_nin1       = EnumNin1._1up;
             m_dpi        = EnumCopyResln._600x600;
-            m_outputSize = EnumPaperSizeOutput._A4;
+            //m_outputSize = EnumPaperSizeOutput._A4;
         }
 
         private void btnDecDensity_Click(object sender, RoutedEventArgs e)
