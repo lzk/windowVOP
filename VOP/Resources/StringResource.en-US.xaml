@@ -121,7 +121,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Cancel">Cancel</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copies_2">Copies</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Density">Density</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_ID_Card_Copy">ID Card Copy</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ID_Card_Copy">Credentials Duplex Copy</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Document_Size">Document Size</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Output_Size">Output Paper Size</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_B5">B5</sys:String>
