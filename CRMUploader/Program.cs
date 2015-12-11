@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
+using VOP;
 
 namespace CRMUploader
 {
@@ -13,6 +14,18 @@ namespace CRMUploader
     {
         public CRM_PrintInfo2 m_printInfo = null;
         public FileInfo m_fileInfo = null;
+        public bool IsDirty = false;
+        
+        public bool CheckedIsDirty(SendInfo obj)
+        {
+            return IsDirty = (m_printInfo.m_strPrintData != obj.m_printInfo.m_strPrintData)
+                || (m_printInfo.m_strMobileNumber != obj.m_printInfo.m_strMobileNumber);
+        }
+
+        public bool HasFileInfo()
+        {
+            return m_fileInfo != null;
+        }
 
         public SendInfo(CRM_PrintInfo2 printInfo, FileInfo fileInfo)
         {
@@ -28,6 +41,7 @@ namespace CRMUploader
             Init,
             CheckIsReady,
             OnIdle,
+            GetData, 
             ReadFile, 
             Send_In_One,
             Send_Separated,
@@ -36,19 +50,27 @@ namespace CRMUploader
 
         public static bool IsSendInOne = false;
 
+        const int GEOCLASS_NATION = 16;
+        public bool m_bLocationIsChina = false;
+        public bool m_crmAgreement = true;
 
         public static string crmFolder = System.IO.Path.GetTempPath() + "VOP_CRM";
 
         ProgramState currentState = ProgramState.CheckIsReady;
-        List<SendInfo> infoList = new List<SendInfo>();
+        Dictionary<string, SendInfo> infoList = new Dictionary<string, SendInfo>();
 
         public Program()
         {
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
             DirectoryInfo directory = new DirectoryInfo(documentsPath);
             string strUsersPublic = directory.Parent.FullName;
-
             crmFolder = strUsersPublic + "\\Lenovo\\VOP_CRM";
+
+            int nGeoID = Win32.GetUserGeoID(GEOCLASS_NATION);
+            if (45 == nGeoID)
+            {
+                m_bLocationIsChina = true;
+            }
         }
 
 
@@ -61,124 +83,145 @@ namespace CRMUploader
                    
                     case ProgramState.OnIdle:
                         {
-                            Trace.WriteLine("CRM Uploader enter sleep.");
-                            Thread.Sleep(new TimeSpan(0, 10, 0));
+                            Trace.WriteLine("CRM Uploader: Enter sleep.");
+                            Thread.Sleep(new TimeSpan(0, 0, 10));
                             currentState = ProgramState.CheckIsReady;
                         }
                         break;
                     case ProgramState.CheckIsReady:
                         {
-                            Trace.WriteLine("CRM Uploader check is ready.");
-                            if(IsDirectoryFileExist(crmFolder))
-                            {
-                                if (NetworkInterface.GetIsNetworkAvailable())
-                                {
-                                    currentState = ProgramState.ReadFile;
-                                }
-                                else
-                                {
-                                    currentState = ProgramState.OnIdle;
-                                }
-                            }
-                            else
+                            if (m_bLocationIsChina == false || m_crmAgreement == false)
                             {
                                 currentState = ProgramState.Exit;
+                                break;
                             }
-                          
+
+                            Trace.WriteLine(String.Format("CRM Uploader: CheckIsReady."));                        
+
+                        }
+                        break;
+                    case ProgramState.GetData:
+                        {
+                            string strPrinterModel = "";
+                            string strDrvName = "";
+
+                            AsyncWorker worker = new AsyncWorker();
+                            List<string> listPrinters = new List<string>();
+
+                            common.GetSupportPrinters(listPrinters);
+
+                            foreach(string printerName in listPrinters)
+                            {
+                                CRM_PrintInfo2 info = new CRM_PrintInfo2();
+
+                                UserCenterInfoRecord rec = worker.GetUserCenterInfo(printerName);
+
+                                Trace.WriteLine(String.Format("CRM Uploader: GetData {0}.", printerName));       
+
+                                if (rec.CmdResult == EnumCmdResult._ACK)
+                                {
+                                    common.GetPrinterDrvName(printerName, ref strDrvName);
+
+                                    bool isSFP = common.IsSFPPrinter(strDrvName);
+                                    bool isWiFiModel = common.IsSupportWifi(strDrvName);
+
+                                    if (isSFP)
+                                    {
+                                        if (isWiFiModel)
+                                            strPrinterModel = "Lenovo LJ2208W";
+                                        else
+                                            strPrinterModel = "Lenovo LJ2208";
+                                    }
+                                    else
+                                    {
+                                        if (isWiFiModel)
+                                            strPrinterModel = "Lenovo M7208W";
+                                        else
+                                            strPrinterModel = "Lenovo M7208";
+                                    }
+
+                                    info.AddPrintData(strPrinterModel, rec.SecondSerialNO, rec.SerialNO4AIO, rec.TotalCounter);
+
+                                    if (infoList.ContainsKey(printerName))
+                                    {
+                                        SendInfo oldData = infoList[printerName];
+                                        SendInfo newData = new SendInfo(info, null);
+                                        newData.CheckedIsDirty(oldData);
+                                        infoList[printerName] = newData;
+                                    }
+                                    else
+                                    {
+                                        infoList.Add(printerName, new SendInfo(info, null));
+                                    }
+                                }
+                            }
+                       
+                            currentState = ProgramState.ReadFile;     
                         }
                         break;
                     case ProgramState.ReadFile:
                         {
-                            infoList.Clear();
 
                             IEnumerable<FileInfo> fileList = GetDirectoryFiles(crmFolder);
 
                             foreach (FileInfo fileInfo in fileList)
                             {
-                                CRM_PrintInfo2 rec = null;
+                                CRM_PrintInfo2 info = null;
 
-                                if (RequestManager.Deserialize<CRM_PrintInfo2>(fileInfo.FullName, ref rec) == true)
+                                if (RequestManager.Deserialize<CRM_PrintInfo2>(fileInfo.FullName, ref info) == true)
                                 {
-                                    infoList.Add(new SendInfo(rec, fileInfo));
+                                    Trace.WriteLine(String.Format("CRM Uploader: ReadFile {0}.", fileInfo.FullName));       
+                                    if (infoList.ContainsKey(fileInfo.Name))
+                                    {
+                                        SendInfo oldData = infoList[fileInfo.Name];
+                                        SendInfo newData = new SendInfo(info, fileInfo);
+                                        newData.CheckedIsDirty(oldData);
+                                        infoList[fileInfo.Name] = newData;
+                                    }
+                                    else
+                                    {
+                                        infoList.Add(fileInfo.Name, new SendInfo(info, fileInfo));
+                                    }
+
                                 }
                             }
 
-                            if(IsSendInOne)
-                            {
-                                currentState = ProgramState.Send_In_One;
-                            }
-                            else
-                            {
-                                currentState = ProgramState.Send_Separated;
-                            }
-
+           
+                            currentState = ProgramState.Send_Separated;
+                            
                         }
                         break;
                     case ProgramState.Send_Separated:
                         {
-                            bool isNetWorkReachable = true;
 
-                            foreach (SendInfo info in infoList)
+                            foreach (KeyValuePair<string, SendInfo> item in infoList)
                             {
-                             
+                                string printerName = item.Key;
+                                SendInfo info = item.Value;
                                 JSONResultFormat2 rtValue = new JSONResultFormat2();
-                                
-                                if(RequestManager.UploadCRM_PrintInfo2ToServer(info.m_printInfo, ref rtValue))
+
+                                if (info.IsDirty)
                                 {
-                                    info.m_fileInfo.Delete();
-                                    isNetWorkReachable = true;
+                                    if (RequestManager.UploadCRM_PrintInfo2ToServer(info.m_printInfo, ref rtValue))
+                                    {
+                                        Trace.WriteLine(String.Format("CRM Uploader: Sended {0}.", printerName));      
+
+                                        if (info.HasFileInfo())
+                                            info.m_fileInfo.Delete();
+                                    }
+                                    else
+                                    {
+                                        if (!info.HasFileInfo())
+                                            RequestManager.Serialize<CRM_PrintInfo2>(info.m_printInfo, crmFolder + @"\" + printerName);
+                                    }
                                 }
-                                else
-                                {
-                                    isNetWorkReachable = false;
-                                    break;
-                                }
+                               
                             }
 
-                            if (isNetWorkReachable == true)
-                                currentState = ProgramState.CheckIsReady;
-                            else
-                                currentState = ProgramState.OnIdle;
+                            currentState = ProgramState.OnIdle;
                         }
                         break;
-                    case ProgramState.Send_In_One:
-                        {
-                            bool isNetWorkReachable = true;
-
-                            string printData = "[";
-
-                            foreach (SendInfo info in infoList)
-                            {
-                                printData += info.m_printInfo.m_strPrintData.Trim(new Char[] { '[', ']' }) + ",";
-                            }
-
-                            printData = printData.TrimEnd(',');
-                            printData += "]";
-
-                            CRM_PrintInfo2 lastRecord = infoList[infoList.Count - 1].m_printInfo;
-                            lastRecord.m_strPrintData = printData;
-
-                            JSONResultFormat2 rtValue = new JSONResultFormat2();
-                            if(RequestManager.UploadCRM_PrintInfo2ToServer(lastRecord, ref rtValue))
-                            {
-                                foreach (SendInfo info in infoList)
-                                {
-                                    info.m_fileInfo.Delete();
-                                }
-
-                                isNetWorkReachable = true;
-                            }
-                            else
-                            {
-                                isNetWorkReachable = false;
-                            }
-
-                            if (isNetWorkReachable == true)
-                                currentState = ProgramState.CheckIsReady;
-                            else
-                                currentState = ProgramState.OnIdle;
-                        }
-                        break;
+                  
                     default:
                         currentState = ProgramState.Exit;
                         break;
