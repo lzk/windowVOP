@@ -92,7 +92,7 @@ namespace CRMUploader
                     case ProgramState.OnIdle:
                         {
                             Trace.WriteLine("CRM Uploader: Enter sleep.");
-                            Thread.Sleep(new TimeSpan(0, 0, 10));
+                            Thread.Sleep(new TimeSpan(0, 30, 0));
                             currentState = ProgramState.GetData;
                         }
                         break;
