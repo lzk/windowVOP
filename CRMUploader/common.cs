@@ -6,9 +6,115 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.IO;
 using System.Text;
+using Microsoft.Win32;
 
 namespace VOP
 {
+    public class SelfCloseRegistry
+    {
+
+        static RegistryKey LocalKey = Registry.LocalMachine;
+        static RegistryKey rootKey = null;
+        static string openKeyString = @"Software\Lenovo\Printer SSW\Version";
+
+
+        public static bool Open()
+        {
+            try
+            {
+                rootKey = LocalKey.OpenSubKey(openKeyString, false);
+
+                if (rootKey == null)
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                return false;
+            }
+
+            return true;
+        }
+
+        public static void Close()
+        {
+            rootKey.Close();
+            LocalKey.Close();
+        }
+
+        public static string GetEXIT()
+        {
+            string str = "";
+            try
+            {
+                str = rootKey.GetValue("VOP").ToString();
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return str;
+        }
+
+        public static bool DeleteEXIT()
+        {
+            try
+            {
+                rootKey.DeleteValue("VOP", false);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static string GetAgreement()
+        {
+            string str = "";
+            try
+            {
+                str = rootKey.GetValue("CrmStatus").ToString();
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return str;
+        }
+
+        public static bool SetAgreement(bool agree)
+        {
+            try
+            {
+                rootKey.SetValue("CrmStatus", agree.ToString(), RegistryValueKind.String);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool DeleteAgreement()
+        {
+            try
+            {
+                rootKey.DeleteValue("CrmStatus", false);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
     public class PrinterInfo
     {
         public string m_name;   // Name of the printer driver

@@ -14,12 +14,12 @@ namespace CRMUploader
     {
         public CRM_PrintInfo2 m_printInfo = null;
         public FileInfo m_fileInfo = null;
-        public bool IsDirty = false;
+        public bool IsDirty = true;
         
-        public bool CheckedIsDirty(SendInfo obj)
+        public bool CheckedIsDirty(SendInfo old)
         {
-            return IsDirty = (m_printInfo.m_strPrintData != obj.m_printInfo.m_strPrintData)
-                || (m_printInfo.m_strMobileNumber != obj.m_printInfo.m_strMobileNumber);
+            return IsDirty = (m_printInfo.m_strPrintData != old.m_printInfo.m_strPrintData)
+                || (m_printInfo.m_strMobileNumber != old.m_printInfo.m_strMobileNumber);
         }
 
         public bool HasFileInfo()
@@ -36,6 +36,8 @@ namespace CRMUploader
 
     public class Program
     {
+        static Mutex mutex = new Mutex(true, "{AAC063E2-7DF9-478E-A92B-E2F83BD65C17}");
+
         private enum ProgramState 
         { 
             Init,
@@ -71,8 +73,14 @@ namespace CRMUploader
             {
                 m_bLocationIsChina = true;
             }
-        }
 
+            if (SelfCloseRegistry.Open())
+            {
+                string regStr = SelfCloseRegistry.GetAgreement();
+                m_crmAgreement = ("true" == regStr.ToLower());
+                SelfCloseRegistry.Close();
+            }
+        }
 
         void Execute()
         {
@@ -85,19 +93,20 @@ namespace CRMUploader
                         {
                             Trace.WriteLine("CRM Uploader: Enter sleep.");
                             Thread.Sleep(new TimeSpan(0, 0, 10));
-                            currentState = ProgramState.CheckIsReady;
+                            currentState = ProgramState.GetData;
                         }
                         break;
                     case ProgramState.CheckIsReady:
                         {
+
                             if (m_bLocationIsChina == false || m_crmAgreement == false)
                             {
                                 currentState = ProgramState.Exit;
                                 break;
                             }
 
-                            Trace.WriteLine(String.Format("CRM Uploader: CheckIsReady."));                        
-
+                            Trace.WriteLine(String.Format("CRM Uploader: CheckIsReady."));
+                            currentState = ProgramState.GetData;
                         }
                         break;
                     case ProgramState.GetData:
@@ -251,10 +260,16 @@ namespace CRMUploader
         {
             try
             {
-                Program p = new Program();
-                p.Execute();
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
+                if (mutex.WaitOne(TimeSpan.Zero, true))
+                {
+                    Program p = new Program();
+                    p.Execute();
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+
+                    mutex.ReleaseMutex();
+                }
+
             }
             catch(Exception)
             {

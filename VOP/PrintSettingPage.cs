@@ -98,6 +98,49 @@ namespace VOP
 
             return true;
         }
+
+        public static string GetAgreement()
+        {
+            string str = "";
+            try
+            {
+                str = rootKey.GetValue("CrmStatus").ToString();
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return str;
+        }
+
+        public static bool SetAgreement(bool agree)
+        {
+            try
+            {
+                rootKey.SetValue("CrmStatus", agree.ToString(), RegistryValueKind.String);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool DeleteAgreement()
+        {
+            try
+            {
+                rootKey.DeleteValue("CrmStatus", false);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 
     public class UserDefinedSizeRegistry
