@@ -64,21 +64,21 @@ namespace VOP
 
             crmFolder = strUsersPublic + "\\Lenovo\\VOP_CRM";
 
-            if (false == Directory.Exists(App.crmFolder))
-            {
-                Directory.CreateDirectory(App.crmFolder);
-            }
-            else
-            {
-                DirectoryInfo dir = new DirectoryInfo(App.crmFolder);
+            //if (false == Directory.Exists(App.crmFolder))
+            //{
+            //    Directory.CreateDirectory(App.crmFolder);
+            //}
+            //else
+            //{
+            //    DirectoryInfo dir = new DirectoryInfo(App.crmFolder);
 
-                IEnumerable<FileInfo> fileList = dir.GetFiles("*.xml", SearchOption.TopDirectoryOnly);
+            //    IEnumerable<FileInfo> fileList = dir.GetFiles("*.xml", SearchOption.TopDirectoryOnly);
 
-                foreach (FileInfo fileInfo in fileList)
-                {
-                    fileInfo.Delete();
-                }
-            }
+            //    foreach (FileInfo fileInfo in fileList)
+            //    {
+            //        fileInfo.Delete();
+            //    }
+            //}
 
             cfgFile = cfgFolder + "vopcfg.xml";
 

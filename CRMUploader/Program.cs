@@ -92,19 +92,34 @@ namespace CRMUploader
                     case ProgramState.OnIdle:
                         {
                             Trace.WriteLine("CRM Uploader: Enter sleep.");
-                            Thread.Sleep(new TimeSpan(0, 30, 0));
+                            Thread.Sleep(new TimeSpan(0, 0, 10));
                             currentState = ProgramState.GetData;
                         }
                         break;
                     case ProgramState.CheckIsReady:
                         {
+                            if (false == Directory.Exists(crmFolder))
+                            {
+                                Directory.CreateDirectory(crmFolder);
+                            }
+                            else
+                            {
+                                DirectoryInfo dir = new DirectoryInfo(crmFolder);
 
+                                IEnumerable<FileInfo> fileList = dir.GetFiles("*.xml", SearchOption.TopDirectoryOnly);
+
+                                foreach (FileInfo fileInfo in fileList)
+                                {
+                                    fileInfo.Delete();
+                                }
+                            }
+
+                            Trace.WriteLine(String.Format("CRM Uploader: LocationIsChina {0}, crmAgreement {1}.", m_bLocationIsChina.ToString(), m_crmAgreement.ToString()));
                             if (m_bLocationIsChina == false || m_crmAgreement == false)
                             {
                                 currentState = ProgramState.Exit;
                                 break;
                             }
-
                             Trace.WriteLine(String.Format("CRM Uploader: CheckIsReady."));
                             currentState = ProgramState.GetData;
                         }
@@ -262,6 +277,7 @@ namespace CRMUploader
             {
                 if (mutex.WaitOne(TimeSpan.Zero, true))
                 {
+                    Trace.WriteLine(String.Format("CRM Uploader: Start."));
                     Program p = new Program();
                     p.Execute();
                     GC.Collect();
@@ -271,9 +287,9 @@ namespace CRMUploader
                 }
 
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-
+                Trace.WriteLine(String.Format("CRM Uploader: Exception {0}.", ex.Message));
             }
         }
     }
