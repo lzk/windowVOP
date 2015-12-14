@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
+using System.Xml;
 using VOP;
 
 namespace CRMUploader
@@ -57,6 +58,7 @@ namespace CRMUploader
         public bool m_crmAgreement = true;
 
         public static string crmFolder = System.IO.Path.GetTempPath() + "VOP_CRM";
+        public static string cfgFile = "";
 
         ProgramState currentState = ProgramState.CheckIsReady;
         Dictionary<string, SendInfo> infoList = new Dictionary<string, SendInfo>();
@@ -67,6 +69,23 @@ namespace CRMUploader
             DirectoryInfo directory = new DirectoryInfo(documentsPath);
             string strUsersPublic = directory.Parent.FullName;
             crmFolder = strUsersPublic + "\\Lenovo\\VOP_CRM";
+            cfgFile = strUsersPublic + "\\Lenovo\\vopcfg.xml";
+
+            if (false == Directory.Exists(crmFolder))
+            {
+                Directory.CreateDirectory(crmFolder);
+            }
+            else
+            {
+                DirectoryInfo dir = new DirectoryInfo(crmFolder);
+
+                IEnumerable<FileInfo> fileList = dir.GetFiles("*.xml", SearchOption.TopDirectoryOnly);
+
+                foreach (FileInfo fileInfo in fileList)
+                {
+                    fileInfo.Delete();
+                }
+            }
 
             int nGeoID = Win32.GetUserGeoID(GEOCLASS_NATION);
             if (45 == nGeoID)
@@ -79,6 +98,18 @@ namespace CRMUploader
                 string regStr = SelfCloseRegistry.GetAgreement();
                 m_crmAgreement = ("true" == regStr.ToLower());
                 SelfCloseRegistry.Close();
+            }
+
+            if(File.Exists(cfgFile))
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(cfgFile);
+                XmlNode xmlNode = xmlDoc.SelectSingleNode("/VOPCfg/crmAgreement");
+
+                if (null != xmlNode)
+                {
+                    m_crmAgreement = ("True" == xmlNode.InnerText);
+                }
             }
         }
 
@@ -98,22 +129,7 @@ namespace CRMUploader
                         break;
                     case ProgramState.CheckIsReady:
                         {
-                            if (false == Directory.Exists(crmFolder))
-                            {
-                                Directory.CreateDirectory(crmFolder);
-                            }
-                            else
-                            {
-                                DirectoryInfo dir = new DirectoryInfo(crmFolder);
-
-                                IEnumerable<FileInfo> fileList = dir.GetFiles("*.xml", SearchOption.TopDirectoryOnly);
-
-                                foreach (FileInfo fileInfo in fileList)
-                                {
-                                    fileInfo.Delete();
-                                }
-                            }
-
+                            
                             Trace.WriteLine(String.Format("CRM Uploader: LocationIsChina {0}, crmAgreement {1}.", m_bLocationIsChina.ToString(), m_crmAgreement.ToString()));
                             if (m_bLocationIsChina == false || m_crmAgreement == false)
                             {

@@ -114,33 +114,33 @@ namespace VOP
             return str;
         }
 
-        public static bool SetAgreement(bool agree)
-        {
-            try
-            {
-                rootKey.SetValue("CrmStatus", agree.ToString(), RegistryValueKind.String);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+        //public static bool SetAgreement(bool agree)
+        //{
+        //    try
+        //    {
+        //        rootKey.SetValue("CrmStatus", agree.ToString(), RegistryValueKind.String);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return false;
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
-        public static bool DeleteAgreement()
-        {
-            try
-            {
-                rootKey.DeleteValue("CrmStatus", false);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+        //public static bool DeleteAgreement()
+        //{
+        //    try
+        //    {
+        //        rootKey.DeleteValue("CrmStatus", false);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return false;
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
     }
 
     public class UserDefinedSizeRegistry

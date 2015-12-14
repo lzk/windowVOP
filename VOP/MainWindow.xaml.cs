@@ -915,12 +915,23 @@ namespace VOP
 
             this.Visibility = System.Windows.Visibility.Visible;
 
-            if(!m_crmAgreementDialogShowed && m_bLocationIsChina && !m_crmAgreement)
+            if(!m_crmAgreementDialogShowed && m_bLocationIsChina)
             {
-                m_crmAgreement = true;
-                this.IsEnabled = false;
-                ShowCRMAgreementWindow();
-                this.IsEnabled = true;
+                if (SelfCloseRegistry.Open())
+                {
+                    string regStr = SelfCloseRegistry.GetAgreement();
+                    m_crmAgreement = ("true" == regStr.ToLower());
+                    SelfCloseRegistry.Close();
+                }
+
+                if (!m_crmAgreement)
+                {
+                    m_crmAgreement = true;
+                    this.IsEnabled = false;
+                    ShowCRMAgreementWindow();
+                    this.IsEnabled = true;
+                  
+                }
                 m_crmAgreementDialogShowed = true;
             }
 
@@ -1742,14 +1753,14 @@ namespace VOP
 
                 XmlNode xmlNode1 = xmlDoc.SelectSingleNode( "/VOPCfg/elPopupIDCard" );
                 XmlNode xmlNode2 = xmlDoc.SelectSingleNode( "/VOPCfg/elPopupNIn1" );
-               // XmlNode xmlNode3 = xmlDoc.SelectSingleNode("/VOPCfg/crmAgreement");
+                XmlNode xmlNode3 = xmlDoc.SelectSingleNode("/VOPCfg/crmAgreement");
                 XmlNode xmlNode4 = xmlDoc.SelectSingleNode("/VOPCfg/crmAgreementDialogShowed");
 
                 if (null != xmlNode1 && null != xmlNode2 && xmlNode4 != null)
                 {
                     popupIDCard = ( "True" == xmlNode1.InnerText ); 
                     popupNIn1 = ( "True" == xmlNode2.InnerText );
-                 //   m_crmAgreement = ("True" == xmlNode3.InnerText); 
+                    m_crmAgreement = ("True" == xmlNode3.InnerText); 
                     m_crmAgreementDialogShowed = ("True" == xmlNode4.InnerText);
                 }
  
@@ -1758,12 +1769,6 @@ namespace VOP
             {
             }
 
-            if (SelfCloseRegistry.Open())
-            {
-                string regStr = SelfCloseRegistry.GetAgreement();
-                m_crmAgreement = ("true" == regStr.ToLower());
-                SelfCloseRegistry.Close();
-            }
         }
 
         // Set the popup setting from register. 
@@ -1789,26 +1794,21 @@ namespace VOP
 
             XmlElement elPopupIDCard = xmlDoc.CreateElement( "elPopupIDCard" );
             XmlElement elPopupNIn1   = xmlDoc.CreateElement( "elPopupNIn1" );
-          //  XmlElement crmAgreement   = xmlDoc.CreateElement( "crmAgreement" );
+            XmlElement crmAgreement   = xmlDoc.CreateElement( "crmAgreement" );
             XmlElement crmAgreementDialogShowed = xmlDoc.CreateElement("crmAgreementDialogShowed");
             
             elPopupIDCard.InnerXml = popupIDCard.ToString();
             elPopupNIn1.InnerXml   = popupNIn1.ToString();
-          //  crmAgreement.InnerXml  = m_crmAgreement.ToString();
+            crmAgreement.InnerXml  = m_crmAgreement.ToString();
             crmAgreementDialogShowed.InnerXml = m_crmAgreementDialogShowed.ToString();
 
             root.AppendChild( elPopupIDCard );
             root.AppendChild( elPopupNIn1   );
-         //   root.AppendChild(crmAgreement);
+            root.AppendChild(crmAgreement);
             root.AppendChild(crmAgreementDialogShowed);
 
             xmlDoc.Save( xmlFile );
 
-            if (SelfCloseRegistry.Open())
-            {
-                SelfCloseRegistry.SetAgreement(m_crmAgreement);
-                SelfCloseRegistry.Close();
-            }
         }
 
         public void ErrorMarkerClick()

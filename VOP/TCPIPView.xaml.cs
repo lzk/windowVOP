@@ -672,11 +672,6 @@ namespace VOP
             apply();
         }
 
-        private void btnReset_Click(object sender, RoutedEventArgs e)
-        {
-           
-        }
-
         private void OnTextBoxPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             string strText = e.Text;
@@ -746,6 +741,11 @@ namespace VOP
             {
                 btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
             }
+        }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
