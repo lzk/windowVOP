@@ -292,8 +292,8 @@ namespace VOP
                 case EnumStatus.MotorThermistorError                    : br = Brushes.Red   ; break;
                 case EnumStatus.EEPROMCommunicationError                : br = Brushes.Red   ; break;
                 case EnumStatus.CTL_PRREQ_NSignalNoCome                 : br = Brushes.Red   ; break;
-                case EnumStatus.SCAN_USB_Disconnect                     : br = Brushes.Orange; break;
-                case EnumStatus.SCAN_NET_Disconnect                     : br = Brushes.Orange; break;
+                case EnumStatus.SCAN_USB_Disconnect                     : br = Brushes.Red   ; break;
+                case EnumStatus.SCAN_NET_Disconnect                     : br = Brushes.Red   ; break;
                 case EnumStatus.ScanMotorError                          : br = Brushes.Red   ; break;
                 case EnumStatus.SCAN_DRV_CALIB_FAIL                     : br = Brushes.Red   ; break;
                 case EnumStatus.NetWirelessDongleCfgFail                : br = Brushes.Red   ; break;

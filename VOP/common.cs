@@ -236,8 +236,8 @@ namespace VOP
                 case EnumStatus.ScanSending                 : st = StatusDisplayType.Busy ; break;
                 case EnumStatus.ScanCanceling               : st = StatusDisplayType.Busy ; break;
                 case EnumStatus.ScannerBusy                 : st = StatusDisplayType.Busy ; break;
-                case EnumStatus.TonerEnd1                   : st = StatusDisplayType.Ready; break;
-                case EnumStatus.TonerEnd2                   : st = StatusDisplayType.Ready; break;
+                case EnumStatus.TonerEnd1                   : st = StatusDisplayType.Error; break;
+                case EnumStatus.TonerEnd2                   : st = StatusDisplayType.Error; break;
                 case EnumStatus.TonerNearEnd                : st = StatusDisplayType.Ready; break;
                 case EnumStatus.ManualFeedRequired          : st = StatusDisplayType.Busy ; break;
                 case EnumStatus.InitializeJam               : st = StatusDisplayType.Error; break;
@@ -247,7 +247,7 @@ namespace VOP
                 case EnumStatus.JamAtExitStayOn             : st = StatusDisplayType.Error; break;
                 case EnumStatus.CoverOpen                   : st = StatusDisplayType.Error; break;
                 case EnumStatus.NoTonerCartridge            : st = StatusDisplayType.Error; break;
-                case EnumStatus.WasteTonerFull              : st = StatusDisplayType.Ready; break;
+                case EnumStatus.WasteTonerFull              : st = StatusDisplayType.Error; break;
                 case EnumStatus.PDLMemoryOver              : st = StatusDisplayType.Error; break;
                 case EnumStatus.FWUpdate                    : st = StatusDisplayType.Busy ; break;
                 case EnumStatus.OverHeat                    : st = StatusDisplayType.Busy ; break;
@@ -539,6 +539,9 @@ namespace VOP
                 case EnumStatus.NetWirelessDongleCfgFail:
                 case EnumStatus.DMAError:
                 case EnumStatus.PDLMemoryOver:
+                case EnumStatus.TonerEnd1:
+                case EnumStatus.TonerEnd2:
+                case EnumStatus.WasteTonerFull:
                 case EnumStatus.SCAN_USB_Disconnect:
                 case EnumStatus.SCAN_NET_Disconnect:
                     bError = true;
