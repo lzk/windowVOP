@@ -129,9 +129,9 @@
             <ImageBrush ImageSource="Images\SettingViewBackground.png" />
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"></ColumnDefinition>
@@ -144,7 +144,8 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="1.4*"></RowDefinition>
+                <RowDefinition Height="1.2*"></RowDefinition>
+                <RowDefinition Height="1.2*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -266,9 +267,33 @@
                 </TextBox.Text>
             </TextBox>
 
-           
 
-            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="{StaticResource ResStr_Apply}" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
+            <local:ButtonEx x:Name="btnReset"
+                            Click="btnReset_Click" 
+                            Content="Reset IP" 
+                            FontSize="16"  
+                            IsActiveEx="True" 
+                            Grid.Row="4" 
+                            Grid.Column="0" 
+                            Grid.ColumnSpan="2" 
+                            HorizontalAlignment="Center" 
+                            HorizontalContentAlignment="Center" 
+                            VerticalAlignment="Bottom" 
+                            Width="125" 
+                            Height="32"></local:ButtonEx>
+            <local:ButtonEx x:Name="btnApply"
+                            Click="btnApply_Click" 
+                            Content="{StaticResource ResStr_Apply}" 
+                            FontSize="18"  
+                            IsActiveEx="True"
+                            Grid.Row="5" 
+                            Grid.Column="0" 
+                            Grid.ColumnSpan="2" 
+                            HorizontalAlignment="Center" 
+                            HorizontalContentAlignment="Center" 
+                            VerticalAlignment="Bottom" 
+                            Width="125" 
+                            Height="32"></local:ButtonEx>
         </Grid>
     </Grid>
 </UserControl>

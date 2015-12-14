@@ -672,6 +672,11 @@ namespace VOP
             apply();
         }
 
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
         private void OnTextBoxPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             string strText = e.Text;
