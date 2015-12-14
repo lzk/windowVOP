@@ -21,6 +21,8 @@ using VOP.Controls;
 namespace VOP
 {
     public delegate int DoWorkDelegate();
+    public delegate bool CheckVerifyCodeDelegate(string strPhoneNumber, string strVerifyCode, ref JSONResultFormat1 rtValue);
+    public delegate bool SendVerifyCodeDelegate(string strPhoneNumber, ref JSONResultFormat1 rtValue);
     public delegate int ScanDelegate(string printerName, string szOrig, string szView, string szThumb,
                                         int scanMode, int resolution, int width, int height,
                                         int contrast, int brightness, int docuType, uint uMsg);
@@ -293,6 +295,70 @@ namespace VOP
             }
 
             return 1;
+        }
+
+        public bool InvokeCheckVerifyCode(CheckVerifyCodeDelegate method, string strPhoneNumber, string strVerifyCode, ref JSONResultFormat1 rtValue)
+        {
+
+            if (method != null)
+            {
+                CheckVerifyCodeDelegate caller = method;
+
+                isNeededProgress = false;
+                asyncEvent.Reset();
+
+                IAsyncResult result = caller.BeginInvoke(strPhoneNumber, strVerifyCode, ref rtValue, new AsyncCallback(CallbackMethod), null);
+
+                if (!result.AsyncWaitHandle.WaitOne(100, false))
+                {
+                    isNeededProgress = true;
+
+                    pbw = new ProgressBarWindow();
+                    pbw.Owner = this.owner;
+                    pbw.Loaded += pbw_Loaded;
+                    pbw.ShowDialog();
+                }
+
+                if (result.AsyncWaitHandle.WaitOne(100, true))
+                {
+                    return caller.EndInvoke(ref rtValue, result);
+                }
+
+            }
+
+            return true;
+        }
+
+        public bool InvokeSendVerifyCode(SendVerifyCodeDelegate method, string strPhoneNumber, ref JSONResultFormat1 rtValue)
+        {
+
+            if (method != null)
+            {
+                SendVerifyCodeDelegate caller = method;
+
+                isNeededProgress = false;
+                asyncEvent.Reset();
+
+                IAsyncResult result = caller.BeginInvoke(strPhoneNumber, ref rtValue, new AsyncCallback(CallbackMethod), null);
+
+                if (!result.AsyncWaitHandle.WaitOne(100, false))
+                {
+                    isNeededProgress = true;
+
+                    pbw = new ProgressBarWindow();
+                    pbw.Owner = this.owner;
+                    pbw.Loaded += pbw_Loaded;
+                    pbw.ShowDialog();
+                }
+
+                if (result.AsyncWaitHandle.WaitOne(100, true))
+                {
+                    return caller.EndInvoke(ref rtValue, result);
+                }
+
+            }
+
+            return true;
         }
 
         public bool InvokeMethod<T>(string printerName, ref T rec, DllMethodType methodType, object frameworkElement) where T : class

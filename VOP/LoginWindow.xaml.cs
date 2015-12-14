@@ -55,13 +55,14 @@ namespace VOP
 
         private void btnGetVerifyCode_Click(object sender, RoutedEventArgs e)
         {
+            AsyncWorker worker = new AsyncWorker(this);
             JSONResultFormat1 js = new JSONResultFormat1();
             tbkErrorInfo.Text = "";
             m_nTick = 0;
             if (tbPhoneNumber.Text.Length == 11)
             {
                 btnGetVerifyCode.IsEnabled = false;
-                if (false == VOP.MainWindow.m_RequestManager.SendVerifyCode(tbPhoneNumber.Text, ref js))
+                if (false == worker.InvokeSendVerifyCode(VOP.MainWindow.m_RequestManager.SendVerifyCode, tbPhoneNumber.Text, ref js))
                 {
                     tbkErrorInfo.Text = (string)this.FindResource("ResStr_Msg_6");
                     btnGetVerifyCode.IsEnabled = true;
@@ -82,10 +83,11 @@ namespace VOP
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             JSONResultFormat1 js = new JSONResultFormat1();
+            AsyncWorker worker = new AsyncWorker(this);
 
             if (tbPhoneNumber.Text.Length == 11 && pbPwd.Password.Length == 6)
             {
-                if (true == VOP.MainWindow.m_RequestManager.CheckVerifyCode(tbPhoneNumber.Text, pbPwd.Password, ref js))
+                if (true == worker.InvokeCheckVerifyCode(VOP.MainWindow.m_RequestManager.CheckVerifyCode, tbPhoneNumber.Text, pbPwd.Password, ref js))
                 {
                     m_strPhoneNumber = tbPhoneNumber.Text;
                     VOP.MainWindow.SaveUserInfoIntoXamlFile(tbPhoneNumber.Text, pbPwd.Password);
