@@ -252,7 +252,7 @@ namespace CRMUploader
                                     else
                                     {
                                         if (!info.HasFileInfo())
-                                            RequestManager.Serialize<CRM_PrintInfo2>(info.m_printInfo, crmFolder + @"\" + printerName);
+                                            RequestManager.Serialize<CRM_PrintInfo2>(info.m_printInfo, crmFolder + @"\" + printerName + ".xml");
                                     }
                                 }
                                
