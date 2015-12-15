@@ -57,3 +57,4 @@ EXPORTS
 	GetPowerOff
 	SetTonerEnd
 	GetTonerEnd
+	CheckPortAPI2

@@ -18,6 +18,11 @@ namespace VOP
                 [MarshalAs(UnmanagedType.LPWStr)]String printername);
 
         [DllImport("usbapi.dll")]
+        public static extern int CheckPortAPI2(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                StringBuilder ipAddress);
+
+        [DllImport("usbapi.dll")]
         public static extern int SetPowerSaveTime(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
                 byte time);

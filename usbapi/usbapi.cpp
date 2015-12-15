@@ -432,6 +432,7 @@ static int CheckPort( const wchar_t* pprintername_, wchar_t* str_ );
 
 //--------------------------------declare-external----------------------------
 USBAPI_API int __stdcall CheckPortAPI( const wchar_t* szPrinter );
+USBAPI_API int __stdcall CheckPortAPI2(const wchar_t* szPrinter, wchar_t* ipAddress);
 
 USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
         const wchar_t* szOrig,
@@ -3695,6 +3696,11 @@ static bool DoseHasEnoughSpace(
 USBAPI_API int __stdcall CheckPortAPI( const wchar_t* szPrinter )
 {
     return CheckPort( szPrinter, NULL );
+}
+
+USBAPI_API int __stdcall CheckPortAPI2(const wchar_t* szPrinter, wchar_t* ipAddress)
+{
+	return CheckPort(szPrinter, ipAddress);
 }
 
 USBAPI_API void __stdcall CancelScanning()
