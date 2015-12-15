@@ -18,7 +18,7 @@ namespace CRMUploader
         public bool IsDirty = true;
         
         public bool CheckedIsDirty(SendInfo old)
-        {
+        {  
             return IsDirty = (m_printInfo.m_strPrintData != old.m_printInfo.m_strPrintData)
                 || (m_printInfo.m_strMobileNumber != old.m_printInfo.m_strMobileNumber);
         }
@@ -188,6 +188,8 @@ namespace CRMUploader
                                         SendInfo newData = new SendInfo(info, null);
                                         newData.CheckedIsDirty(oldData);
                                         infoList[printerName] = newData;
+
+                                        Trace.WriteLine(String.Format("CRM Uploader: GetData key {0} newData {1}.", printerName, newData.IsDirty));       
                                     }
                                     else
                                     {
@@ -210,17 +212,22 @@ namespace CRMUploader
 
                                 if (RequestManager.Deserialize<CRM_PrintInfo2>(fileInfo.FullName, ref info) == true)
                                 {
-                                    Trace.WriteLine(String.Format("CRM Uploader: ReadFile {0}.", fileInfo.FullName));       
-                                    if (infoList.ContainsKey(fileInfo.Name))
+                                    Trace.WriteLine(String.Format("CRM Uploader: ReadFile {0}.", fileInfo.FullName));
+
+                                    string fileName = Path.GetFileNameWithoutExtension(fileInfo.FullName);
+
+                                    if (infoList.ContainsKey(fileName))
                                     {
-                                        SendInfo oldData = infoList[fileInfo.Name];
+                                        SendInfo oldData = infoList[fileName];
                                         SendInfo newData = new SendInfo(info, fileInfo);
                                         newData.CheckedIsDirty(oldData);
-                                        infoList[fileInfo.Name] = newData;
+                                        infoList[fileName] = newData;
+
+                                        Trace.WriteLine(String.Format("CRM Uploader: ReadFile key {0} newData {1}.", fileName, newData.IsDirty));   
                                     }
                                     else
                                     {
-                                        infoList.Add(fileInfo.Name, new SendInfo(info, fileInfo));
+                                        infoList.Add(fileName, new SendInfo(info, fileInfo));
                                     }
 
                                 }
