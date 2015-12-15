@@ -743,9 +743,19 @@ namespace VOP
             }
         }
 
+        private int ResetPortIP()
+        {
+            string printerName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
+            return 1;
+        }
+
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
-
+            bool isSuccess = true;
+            if (isSuccess)
+                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Msg_1"), Brushes.Black);
+            else
+                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Setting_Fail"), Brushes.Red); 
         }
     }
 }
