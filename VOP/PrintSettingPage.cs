@@ -38,6 +38,60 @@ namespace VOP
         public short paperSizeID;
     }
 
+    public class MacAddressRegistry
+    {
+        static string strDrvName = "";
+        static string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
+
+        static RegistryKey LocalKey = Registry.LocalMachine;
+        static RegistryKey rootKey = null;
+        static string openKeyString = "";
+
+
+        public static bool Open()
+        {
+            try
+            {
+                common.GetPrinterDrvName(strPrinterName, ref strDrvName);
+                openKeyString = @"Software\Lenovo\" + strDrvName + @"\Launcher\" + strPrinterName;
+
+                rootKey = LocalKey.OpenSubKey(openKeyString, false);
+
+                if (rootKey == null)
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                return false;
+            }
+
+            return true;
+        }
+
+        public static void Close()
+        {
+            rootKey.Close();
+            LocalKey.Close();
+        }
+
+        public static string GetMacAddress()
+        {
+            string str = "";
+            try
+            {
+                str = rootKey.GetValue("MacAddress").ToString();
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return str;
+        }
+
+    }
+
     public class SelfCloseRegistry
     {
 

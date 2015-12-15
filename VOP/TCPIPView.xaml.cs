@@ -746,6 +746,33 @@ namespace VOP
         private int ResetPortIP()
         {
             string printerName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
+
+            StringBuilder ipAddress = new StringBuilder(180);
+            EnumPortType type = (EnumPortType)dll.CheckPortAPI2(printerName, ipAddress);
+
+            if (type != EnumPortType.PT_TCPIP || type != EnumPortType.PT_WSD)
+                return 0;
+
+            IPAddress ip;
+            if (!IPAddress.TryParse(ipAddress.ToString(), out ip))
+                return 0;
+
+            string mac = "";
+
+            if(MacAddressRegistry.Open())
+            {
+                mac = MacAddressRegistry.GetMacAddress();
+                MacAddressRegistry.Close();
+            }
+
+            if (mac == "")
+                return 0;
+
+            string strDrvName = "";
+            common.GetPrinterDrvName(printerName, ref strDrvName);
+            bool isSFP = common.IsSFPPrinter(strDrvName);
+
+
             return 1;
         }
 
