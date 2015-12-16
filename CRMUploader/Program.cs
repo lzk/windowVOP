@@ -56,6 +56,7 @@ namespace CRMUploader
         const int GEOCLASS_NATION = 16;
         public bool m_bLocationIsChina = false;
         public bool m_crmAgreement = true;
+        public bool m_crmAgreementDialogShowed = false;
 
         public static string crmFolder = System.IO.Path.GetTempPath() + "VOP_CRM";
         public static string cfgFile = "";
@@ -93,22 +94,37 @@ namespace CRMUploader
                 m_bLocationIsChina = true;
             }
 
-            if (SelfCloseRegistry.Open())
-            {
-                string regStr = SelfCloseRegistry.GetAgreement();
-                m_crmAgreement = ("true" == regStr.ToLower());
-                SelfCloseRegistry.Close();
-            }
-
+           
             if(File.Exists(cfgFile))
             {
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(cfgFile);
                 XmlNode xmlNode = xmlDoc.SelectSingleNode("/VOPCfg/crmAgreement");
+                XmlNode xmlNode2 = xmlDoc.SelectSingleNode("/VOPCfg/crmAgreementDialogShowed");
 
-                if (null != xmlNode)
+                if (null != xmlNode && null != xmlNode2)
                 {
                     m_crmAgreement = ("True" == xmlNode.InnerText);
+                    m_crmAgreementDialogShowed = ("True" == xmlNode2.InnerText);
+                }
+
+                if(m_crmAgreementDialogShowed == false)
+                {
+                    if (SelfCloseRegistry.Open())
+                    {
+                        string regStr = SelfCloseRegistry.GetAgreement();
+                        m_crmAgreement = ("true" == regStr.ToLower());
+                        SelfCloseRegistry.Close();
+                    }
+                }
+            }
+            else
+            {
+                if (SelfCloseRegistry.Open())
+                {
+                    string regStr = SelfCloseRegistry.GetAgreement();
+                    m_crmAgreement = ("true" == regStr.ToLower());
+                    SelfCloseRegistry.Close();
                 }
             }
         }
@@ -123,7 +139,7 @@ namespace CRMUploader
                     case ProgramState.OnIdle:
                         {
                             Trace.WriteLine("CRM Uploader: Enter sleep.");
-                            Thread.Sleep(new TimeSpan(0, 30, 0));
+                            Thread.Sleep(new TimeSpan(0, 0, 5));
                             currentState = ProgramState.GetData;
                         }
                         break;
@@ -251,7 +267,9 @@ namespace CRMUploader
                                 {
                                     if (RequestManager.UploadCRM_PrintInfo2ToServer(info.m_printInfo, ref rtValue))
                                     {
-                                        Trace.WriteLine(String.Format("CRM Uploader: Sended {0}.", printerName));      
+                                        Trace.WriteLine(String.Format("CRM Uploader: Sended {0}.", printerName));
+
+                                        info.IsDirty = false;
 
                                         if (info.HasFileInfo())
                                             info.m_fileInfo.Delete();

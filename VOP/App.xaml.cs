@@ -9,6 +9,7 @@ using System.Threading; // for Mutex
 using System.Globalization; // for Multi-Langulage UI
 using Microsoft.Win32;
 using System.Diagnostics;
+using System.Xml;
 
 namespace VOP
 {
@@ -54,34 +55,6 @@ namespace VOP
             double nHeight = SystemParameters.PrimaryScreenHeight;
 
             CalcScalingRate(nWidth, nHeight);
-
-            // Initial configuration foler.
-            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
-            var directory = new DirectoryInfo(documentsPath);
-            string strUsersPublic = directory.Parent.FullName;
-            cfgFolder = strUsersPublic + "\\Lenovo\\";
-            Directory.CreateDirectory( cfgFolder );
-
-            crmFolder = strUsersPublic + "\\Lenovo\\VOP_CRM";
-
-            //if (false == Directory.Exists(App.crmFolder))
-            //{
-            //    Directory.CreateDirectory(App.crmFolder);
-            //}
-            //else
-            //{
-            //    DirectoryInfo dir = new DirectoryInfo(App.crmFolder);
-
-            //    IEnumerable<FileInfo> fileList = dir.GetFiles("*.xml", SearchOption.TopDirectoryOnly);
-
-            //    foreach (FileInfo fileInfo in fileList)
-            //    {
-            //        fileInfo.Delete();
-            //    }
-            //}
-
-            cfgFile = cfgFolder + "vopcfg.xml";
-
         }
 
         // Calculate the scaling rate for resolution.
@@ -114,6 +87,42 @@ namespace VOP
             return LangId;
         }
 
+        public static void ResetVopCfg()
+        {
+            if (File.Exists(App.cfgFile))
+            {
+
+                XmlDocument xmlDoc = new XmlDocument();
+
+                string version = "1.0";
+                string encoding = "gb2312";
+                string standalone = "yes";
+
+                XmlDeclaration xmlDeclaration = xmlDoc.CreateXmlDeclaration(version, encoding, standalone);
+                XmlNode root = xmlDoc.CreateElement("VOPCfg");
+                xmlDoc.AppendChild(xmlDeclaration);
+                xmlDoc.AppendChild(root);
+
+                XmlElement elPopupIDCard = xmlDoc.CreateElement("elPopupIDCard");
+                XmlElement elPopupNIn1 = xmlDoc.CreateElement("elPopupNIn1");
+                XmlElement crmAgreement = xmlDoc.CreateElement("crmAgreement");
+                XmlElement crmAgreementDialogShowed = xmlDoc.CreateElement("crmAgreementDialogShowed");
+
+                elPopupIDCard.InnerXml = "True";
+                elPopupNIn1.InnerXml = "True";
+                crmAgreement.InnerXml = "False";
+                crmAgreementDialogShowed.InnerXml = "False";
+
+                root.AppendChild(elPopupIDCard);
+                root.AppendChild(elPopupNIn1);
+                root.AppendChild(crmAgreement);
+                root.AppendChild(crmAgreementDialogShowed);
+
+                xmlDoc.Save(App.cfgFile);
+            }
+
+        }
+
         /// <summary>
         /// Application Entry Point.
         /// </summary>
@@ -122,6 +131,15 @@ namespace VOP
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
         public static void Main() 
         {
+            // Initial configuration foler.
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
+            var directory = new DirectoryInfo(documentsPath);
+            string strUsersPublic = directory.Parent.FullName;
+            cfgFolder = strUsersPublic + "\\Lenovo\\";
+            Directory.CreateDirectory(cfgFolder);
+            crmFolder = strUsersPublic + "\\Lenovo\\VOP_CRM";
+            cfgFile = cfgFolder + "vopcfg.xml";
+
             string argLine = Environment.CommandLine;
             string regStr = "";
 
@@ -140,6 +158,8 @@ namespace VOP
                     if (p != null)
                         p.Kill();
                 }
+
+                App.ResetVopCfg();
 
                 Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
                 return;

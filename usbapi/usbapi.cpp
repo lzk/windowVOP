@@ -404,6 +404,11 @@ typedef void(* LPFN_NETWORK_CLOSE   ) (int sd                              ) ;
 typedef int (__cdecl *LPFNNETWORKREADSTATUSEX) (char *server, char *community, PRINTER_STATUS *status, char* pMfg, char* pMdl);
 typedef int(__cdecl *LPFNNETWORKREADSTATUSEXPRO) (char *server, char *community, PRINTER_STATUS *status, char* pMfg, char* pMdl, int timeout, int redundant_packets);
 
+typedef BOOL(*LPFNADDHOSTV4EX2)(char* ip, char* hostname, char* mfgname, char* mdlname);
+typedef BOOL(*LPFNADDHOSTV6EX2)(BYTE* ip, DWORD scope_id, char* hostname, char* mfgname, char* mdlname);
+typedef BOOL(*LPFINDSNMPAGENTPROEX2)(char* community, BOOL isBroadcast, char* ipV4, char* ipv6, int pktCount, int pktInterval, int delay, int loops, char* oidlist, LPFNADDHOSTV4EX2  addHostV4, LPFNADDHOSTV6EX2 addHostV6);
+typedef BOOL(*LPGETREMOTEPHYSADDRESS)(char* host, char* community, int timeout, int index, BYTE* physAddr, int* physAddrLen);
+
 //--------------------------------declare-internal----------------------------
 static bool DoseHasEnoughSpace(
         const wchar_t* szPath,
@@ -557,7 +562,45 @@ USBAPI_API int __stdcall GetFWInfo(const wchar_t* szPrinter, char * FWVersion);
 static const unsigned char INIT_VALUE = 0xfe;
 static bool bCancelScanning = false; // Scanning cancel falg, only use in ScanEx(). 
 extern CRITICAL_SECTION g_csCriticalSection;
+
+
 //--------------------------------implement-----------------------------------
+static int SearchValidedIP(const wchar_t* szPrinterName, char* ptrInput, int cbInput, char* ptrOutput, int cbOutput)
+{
+	int nResult = _ACK;
+
+	HMODULE hmod = LoadLibrary(DLL_NAME_NET);
+
+	LPFINDSNMPAGENTPROEX2 FindAgentProEX2 = NULL;
+	LPGETREMOTEPHYSADDRESS lpfnGetRemotePhysAddress = NULL;
+
+	FindAgentProEX2 = (LPFINDSNMPAGENTPROEX2)GetProcAddress(hmod, "FindSnmpAgentProEx2");
+	lpfnGetRemotePhysAddress = (LPGETREMOTEPHYSADDRESS)GetProcAddress(hmod, "GetRemotePhysAddress");
+
+	if (FindAgentProEX2)
+	{
+		char community[129] = { 0 };
+		strcpy(community, "public");
+
+		//FindAgentProEX2(community, TRUE, "255.255.255.255", "", 3, 30, 6000, 2, g_cbOID, AddHostV4EX2, AddHostV6EX2);
+
+		OutputDebugStringA("\r\n####VP:SearchValidedIP() FindAgentProEX2 End.");
+	}
+	else
+	{
+		OutputDebugStringA("\r\n####VP:SearchValidedIP() FindAgentProNBNEX2 NULL.");
+	}
+
+
+
+	FindAgentProEX2 = NULL;
+	lpfnGetRemotePhysAddress = NULL;
+
+	FreeLibrary(hmod);
+
+	return nResult;
+}
+
 static BOOL GetPrinterPortName(wchar_t *pPrinterName, wchar_t* portName, size_t portName_len)
 {
 	HANDLE		hPrinter;
