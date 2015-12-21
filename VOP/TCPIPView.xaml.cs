@@ -48,6 +48,7 @@ namespace VOP
         private bool m_bIPValidate = true;
         private bool m_bSubmaskValidate = true;
         private bool m_bGatewayValidate = true;
+        private string m_printerName = "";
 
         #region IP
         private static readonly DependencyProperty IPProperty =
@@ -140,6 +141,7 @@ namespace VOP
             IpInfoRecord m_rec = null;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
             string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
+            m_printerName = strPrinterName;
             
             if (_bDisplayProgressBar)
             {
@@ -745,21 +747,37 @@ namespace VOP
 
         private int ResetPortIP()
         {
-            string printerName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
+            string printerName = "";
+            string strIpAddress = "";
+            StringBuilder ipAddress = null;
+            string mac = "";
+            bool isSFP = true;
+            bool isIpv4 = true;
+            StringBuilder ipFound = null;
 
-            StringBuilder ipAddress = new StringBuilder(180);
+            printerName = m_printerName;
+
+            ipAddress = new StringBuilder(50);
             EnumPortType type = (EnumPortType)dll.CheckPortAPI2(printerName, ipAddress);
 
-            if (type != EnumPortType.PT_TCPIP || type != EnumPortType.PT_WSD)
+            if (type != EnumPortType.PT_TCPIP && type != EnumPortType.PT_WSD)
                 return 0;
+
+            strIpAddress = ipAddress.ToString();
+            if (strIpAddress.Contains("%"))
+            {
+                string[] a = strIpAddress.Split(new char[] { '%' });
+                strIpAddress = a[0];
+            }
 
             IPAddress ip;
             if (!IPAddress.TryParse(ipAddress.ToString(), out ip))
                 return 0;
 
-            string mac = "";
+            if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                isIpv4 = false;
 
-            if(MacAddressRegistry.Open())
+            if (MacAddressRegistry.Open(printerName))
             {
                 mac = MacAddressRegistry.GetMacAddress();
                 MacAddressRegistry.Close();
@@ -770,8 +788,15 @@ namespace VOP
 
             string strDrvName = "";
             common.GetPrinterDrvName(printerName, ref strDrvName);
-            bool isSFP = common.IsSFPPrinter(strDrvName);
+            isSFP = common.IsSFPPrinter(strDrvName);
 
+            ipFound= new StringBuilder(50);
+            dll.SearchValidedIP(mac, isIpv4, isSFP, ipFound);
+
+            if (ipFound.Length != 0)
+            {
+
+            }
 
             return 1;
         }
@@ -779,6 +804,13 @@ namespace VOP
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
             bool isSuccess = true;
+            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+
+            if (worker.InvokeDoWorkMethod(ResetPortIP) == 1)
+                isSuccess = true;
+            else
+                isSuccess = false;
+
             if (isSuccess)
                 ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Msg_1"), Brushes.Black);
             else

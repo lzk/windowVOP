@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Net;
+using System.Diagnostics;
 
 namespace VOP
 {
@@ -64,6 +65,7 @@ namespace VOP
 
             if (null != m_rec)
             {
+
                 if (1 == m_rec.DHCPv6)
                     btnDHCP.IsChecked = true;
                 else
@@ -424,7 +426,6 @@ namespace VOP
             //{
             //    m_rec.ManualGatewayAddressMask = 0;
             //}
-
 
 
 

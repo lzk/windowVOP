@@ -23,6 +23,12 @@ namespace VOP
                 StringBuilder ipAddress);
 
         [DllImport("usbapi.dll")]
+        public static extern int SearchValidedIP(
+                [MarshalAs(UnmanagedType.LPStr)]String macAddress,
+                bool ipV4, bool isSFP,
+                StringBuilder ipFound);
+
+        [DllImport("usbapi.dll")]
         public static extern int SetPowerSaveTime(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
                 byte time);

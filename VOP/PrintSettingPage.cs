@@ -40,29 +40,31 @@ namespace VOP
 
     public class MacAddressRegistry
     {
-        static string strDrvName = "";
-        static string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
-
         static RegistryKey LocalKey = Registry.LocalMachine;
         static RegistryKey rootKey = null;
-        static string openKeyString = "";
 
-
-        public static bool Open()
+        public static bool Open(string printerName)
         {
+            string strDrvName = "";
+            string openKeyString = "";
+
             try
             {
-                common.GetPrinterDrvName(strPrinterName, ref strDrvName);
-                openKeyString = @"Software\Lenovo\" + strDrvName + @"\Launcher\" + strPrinterName;
+                common.GetPrinterDrvName(printerName, ref strDrvName);
+                openKeyString = @"Software\Lenovo\" + strDrvName + @"\Launcher\" + printerName;
 
                 rootKey = LocalKey.OpenSubKey(openKeyString, false);
 
                 if (rootKey == null)
+                {
+                    Close();
                     return false;
+                }
+                  
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string s = ex.Message;
+                Close();
                 return false;
             }
 
@@ -71,8 +73,11 @@ namespace VOP
 
         public static void Close()
         {
-            rootKey.Close();
-            LocalKey.Close();
+            if (rootKey != null)
+                rootKey.Close();
+
+            if (LocalKey != null)
+                LocalKey.Close();
         }
 
         public static string GetMacAddress()

@@ -16,6 +16,9 @@
 #include "Global.h"
 #include <winsock.h>
 #include <Iphlpapi.h>
+#include <string>
+#include <algorithm>
+#include <cctype>
 
 #pragma comment(lib, "Ws2_32.lib")
 #pragma comment(lib, "Iphlpapi.lib")
@@ -437,7 +440,7 @@ static int CheckPort( const wchar_t* pprintername_, wchar_t* str_ );
 
 //--------------------------------declare-external----------------------------
 USBAPI_API int __stdcall CheckPortAPI( const wchar_t* szPrinter );
-USBAPI_API int __stdcall CheckPortAPI2(const wchar_t* szPrinter, wchar_t* ipAddress);
+USBAPI_API int __stdcall CheckPortAPI2(const wchar_t* szPrinter, char* ipAddress);
 
 USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
         const wchar_t* szOrig,
@@ -558,6 +561,8 @@ USBAPI_API int __stdcall GetWifiChangeStatus(const wchar_t* szPrinter, BYTE* wif
 USBAPI_API int __stdcall GetUserCenterInfo(const wchar_t* szPrinter, char* _2ndSerialNO, UINT32* _totalCounter, char* _serialNO4AIO);
 USBAPI_API int __stdcall GetFWInfo(const wchar_t* szPrinter, char * FWVersion);
 
+USBAPI_API int __stdcall SearchValidedIP(const char* macAddress, BOOL ipV4, BOOL isSFP, char * ipFound);
+USBAPI_API int __stdcall SetPortIP(const wchar_t * pPrinterName, const char * ipAddress);
 //--------------------------------global--------------------------------------
 static const unsigned char INIT_VALUE = 0xfe;
 static bool bCancelScanning = false; // Scanning cancel falg, only use in ScanEx(). 
@@ -565,41 +570,322 @@ extern CRITICAL_SECTION g_csCriticalSection;
 
 
 //--------------------------------implement-----------------------------------
-static int SearchValidedIP(const wchar_t* szPrinterName, char* ptrInput, int cbInput, char* ptrOutput, int cbOutput)
+
+//-----Search machine ip------------//
+typedef struct _NODE_INFO {
+	char		ip[50];
+	char		hostname[64];
+	char		modelname[64];
+	char		mfgname[64];
+	BOOL		isV4;
+	char        macAddress[18];
+	BOOL		bSNMPV3;
+}NODE_INFO, FAR * LPNODE_INFO;
+
+int g_nTotalPrinter = 0;
+NODE_INFO g_ip_listbuf[32];
+NODE_INFO g_ip_listbuftemp[32];
+LPGETREMOTEPHYSADDRESS g_lpfnGetRemotePhysAddress = NULL;
+
+void Addr6toStr(BYTE* ipv6addr, DWORD scope_id, char* addrstr)
 {
-	int nResult = _ACK;
+	char temp[128];
+	int  state = 0; // 0:nonzero, 1:zero, 2:nonzero
+	int i;
+
+	if (NULL == addrstr)
+		return;
+	addrstr[0] = '\0';
+	for (i = 0; i<8; i++)
+	{
+		switch (state)
+		{
+		case 0:
+			if (ipv6addr[i * 2] == 0x00 && ipv6addr[i * 2 + 1] == 0x00)
+			{
+				if (i == 0)
+					strcat(addrstr, ":");
+				strcat(addrstr, ":");
+				state = 1;
+			}
+			else
+			{
+				sprintf(temp, "%02x", (unsigned char)ipv6addr[i * 2]);
+				strcat(addrstr, temp);
+				sprintf(temp, "%02x", (unsigned char)ipv6addr[i * 2 + 1]);
+				strcat(addrstr, temp);
+				if (i<7)
+					strcat(addrstr, ":");
+			}
+			break;
+		case 1:
+
+			if (ipv6addr[i * 2] == 0x00 && ipv6addr[i * 2 + 1] == 0x00) {
+			}
+			else {
+				sprintf(temp, "%02x", (unsigned char)ipv6addr[i * 2]);
+				strcat(addrstr, temp);
+				sprintf(temp, "%02x", (unsigned char)ipv6addr[i * 2 + 1]);
+				strcat(addrstr, temp);
+				if (i<7)
+					strcat(addrstr, ":");
+				state = 2;
+			}
+			break;
+		case 2:
+		default:
+			sprintf(temp, "%02x", (unsigned char)ipv6addr[i * 2]);
+			strcat(addrstr, temp);
+			sprintf(temp, "%02x", (unsigned char)ipv6addr[i * 2 + 1]);
+			strcat(addrstr, temp);
+			if (i<7)
+				strcat(addrstr, ":");
+			break;
+		}
+	}
+
+	//Add by kevinYin for BMS Bug(50921) begin[2014.06.17]
+	//#if defined(XC6027)
+	if (scope_id > 0)
+	{
+		sprintf(temp, "%%%d", scope_id);
+		strcat(addrstr, temp);
+	}
+	//#endif
+	//Add by kevinYin for BMS Bug(50921) End[2014.06.17]
+
+	return;
+}
+
+BOOL AddHostV4EX2(char* ip, char* hostname, char* mfgname, char* mdlname)
+{
+	if (g_nTotalPrinter < 32 && NULL != ip)
+	{
+		memset(&g_ip_listbuftemp[g_nTotalPrinter], 0, sizeof (NODE_INFO));
+
+		g_ip_listbuftemp[g_nTotalPrinter].bSNMPV3 = FALSE;
+		strcpy(g_ip_listbuftemp[g_nTotalPrinter].ip, ip);
+		strcpy(g_ip_listbuftemp[g_nTotalPrinter].hostname, hostname);
+		strcpy(g_ip_listbuftemp[g_nTotalPrinter].modelname, mdlname);
+		strcpy(g_ip_listbuftemp[g_nTotalPrinter].mfgname, mfgname);
+		g_ip_listbuftemp[g_nTotalPrinter].isV4 = TRUE;
+		g_nTotalPrinter++;
+	}
+	return TRUE;
+}
+
+
+
+BOOL AddHostV6EX2(BYTE* ip, DWORD scope_id, char* hostname, char* mfgname, char* mdlname)
+{
+	char	temp[256];
+
+	if (g_nTotalPrinter < 32)
+	{
+		memcpy(temp, ip, 16);
+		memset(&g_ip_listbuftemp[g_nTotalPrinter], 0, sizeof (NODE_INFO));
+
+		g_ip_listbuftemp[g_nTotalPrinter].bSNMPV3 = FALSE;
+		Addr6toStr((BYTE*)temp, scope_id, g_ip_listbuftemp[g_nTotalPrinter].ip);
+
+		strcpy(g_ip_listbuftemp[g_nTotalPrinter].modelname, mdlname);
+		strcpy(g_ip_listbuftemp[g_nTotalPrinter].mfgname, mfgname);
+		g_ip_listbuftemp[g_nTotalPrinter].isV4 = FALSE;
+
+		//	strcpy(ip_listbuf[totalprinter].hostname,hostname);
+		// add by power hu by power hu 
+
+		std::string strTemp1, strTemp2;
+
+		strTemp1 = "fe80";
+		strTemp2 = g_ip_listbuftemp[g_nTotalPrinter].ip;
+		strTemp2 = strTemp2.substr(0, 4);
+
+		if (strTemp2 == strTemp1)
+		{
+			g_nTotalPrinter++;
+		}
+		else
+		{
+			memset(&g_ip_listbuftemp[g_nTotalPrinter], 0, sizeof (NODE_INFO));
+		}
+
+	}
+
+	return TRUE;
+}
+
+static int GetMacAddress(char *pIPAddress, char *pMacAddress)
+{
+	OutputDebugString(L"### ACT:GetMacAddress ");
+	OutputDebugStringA(pIPAddress);
+	char strTemp[MAX_PATH];
+	memset(strTemp, 0, sizeof(strTemp));
+	char szTemp[MAX_PATH];
+	memset(szTemp, 0, sizeof(szTemp));
+	int nLen = MAX_PATH;
+	int nRet = 0;
+
+	nRet = g_lpfnGetRemotePhysAddress(pIPAddress, "public", 3000, 2, (BYTE*)strTemp, &nLen);	
+
+	int iWaitTime = 0;
+	while (FALSE == nRet && iWaitTime < 3)
+	{
+
+		nRet = g_lpfnGetRemotePhysAddress(pIPAddress, "public", 3000, 2, (BYTE*)strTemp, &nLen);	
+
+		iWaitTime++;
+		Sleep(100);
+		//		if(!nRet)
+		//		OutputDebugString(_T("### ACT:GetMacAddress fail"));
+	}
+	//	sprintf(pMacAddress, "%.2X：%.2X：%.2X：%.2X：%.2X：%.2X", strTemp[0] & 0x00ff, strTemp[1] & 0x00ff, strTemp[2] & 0x00ff,
+	//					strTemp[3] & 0x00ff, strTemp[4] & 0x00ff, strTemp[5] & 0x00ff);
+
+	if (nRet)
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			sprintf(szTemp, "%.2X", strTemp[i] & 0x00ff);
+			strcat(pMacAddress, szTemp);
+			if (i<5)
+			{
+				strcat(pMacAddress, ":");
+			}
+		}
+		OutputDebugStringA(pMacAddress);
+	}
+	else
+	{
+		OutputDebugString(_T("### ACT:GetMacAddress fail"));
+	}
+	return nRet;
+}
+
+static BOOL ProcessMacAddress(const char * mac, BOOL ipV4, char * ipFound)
+{
+	for (int i = 0; i < g_nTotalPrinter; i++)
+	{
+		GetMacAddress(g_ip_listbuftemp[i].ip, g_ip_listbuftemp[i].macAddress);
+
+		if (strcmp(mac, g_ip_listbuftemp[i].macAddress) == 0)
+		{
+			if (ipV4 == g_ip_listbuftemp[i].isV4)
+			{
+				strcpy(ipFound, g_ip_listbuftemp[i].ip);
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+USBAPI_API int __stdcall SearchValidedIP(const char * macAddress, BOOL ipV4, BOOL isSFP, char * ipFound)
+{
+	int nResult = 1;
+	char cbOID_M[] = "1.3.6.1.4.1.19046.101.2.1\000";
+	char cbOID_S[] = "1.3.6.1.4.1.19046.101.1.1\000";
+	DWORD dwEngineEnterpriseId = 0;
 
 	HMODULE hmod = LoadLibrary(DLL_NAME_NET);
 
 	LPFINDSNMPAGENTPROEX2 FindAgentProEX2 = NULL;
-	LPGETREMOTEPHYSADDRESS lpfnGetRemotePhysAddress = NULL;
 
 	FindAgentProEX2 = (LPFINDSNMPAGENTPROEX2)GetProcAddress(hmod, "FindSnmpAgentProEx2");
-	lpfnGetRemotePhysAddress = (LPGETREMOTEPHYSADDRESS)GetProcAddress(hmod, "GetRemotePhysAddress");
+	g_lpfnGetRemotePhysAddress = (LPGETREMOTEPHYSADDRESS)GetProcAddress(hmod, "GetRemotePhysAddress");
 
 	if (FindAgentProEX2)
 	{
 		char community[129] = { 0 };
 		strcpy(community, "public");
+		g_nTotalPrinter = 0;
 
-		//FindAgentProEX2(community, TRUE, "255.255.255.255", "", 3, 30, 6000, 2, g_cbOID, AddHostV4EX2, AddHostV6EX2);
+		FindAgentProEX2(community, TRUE, "255.255.255.255", "", 3, 30, 6000, 2, isSFP ? cbOID_S : cbOID_M, AddHostV4EX2, AddHostV6EX2);
+
+		if (g_lpfnGetRemotePhysAddress)
+		{
+			ProcessMacAddress(macAddress, ipV4, ipFound);
+		}
 
 		OutputDebugStringA("\r\n####VP:SearchValidedIP() FindAgentProEX2 End.");
 	}
 	else
 	{
+		nResult = 0;
 		OutputDebugStringA("\r\n####VP:SearchValidedIP() FindAgentProNBNEX2 NULL.");
 	}
 
-
-
 	FindAgentProEX2 = NULL;
-	lpfnGetRemotePhysAddress = NULL;
+	g_lpfnGetRemotePhysAddress = NULL;
 
 	FreeLibrary(hmod);
 
 	return nResult;
 }
+//-----------------------------------//
+
+//---------Set printer port ip---------//
+BOOL CheckPort(std::wstring szPortName)
+{
+
+	//////////////////////enum current add port name /////
+	PORT_INFO_2	*info2 = NULL;
+	DWORD		sizeneed = 0;
+	DWORD		nBuffer = 0;
+	BOOL		ret = FALSE;
+	int			i = 0;
+	//	TCHAR portname[256];
+
+	ret = EnumPorts(NULL, 2, NULL, 0, &sizeneed, &nBuffer);
+	if (!ret && GetLastError() == ERROR_INSUFFICIENT_BUFFER)
+	{
+		info2 = (PORT_INFO_2*)malloc(sizeneed);
+		ret = EnumPorts(NULL, 2, (LPBYTE)info2, sizeneed, &sizeneed, &nBuffer);
+		if (!ret)
+		{
+			goto clean_up;
+		}
+	}
+	if ((int)nBuffer > 0)
+	{
+		for (i = 0; i<(int)nBuffer; i++)
+		{
+			std::wstring strTemp1, strTemp2;
+			strTemp1 = szPortName;
+			strTemp2 = info2[i].pPortName;
+
+			if (_wcsicmp(strTemp1.c_str(), strTemp2.c_str()) == 0)
+			{
+				free(info2);
+				return FALSE;
+			}
+		}
+	}
+clean_up:
+	if (info2 != NULL)
+	{
+		free(info2);
+		info2 = NULL;
+	}
+
+	//////////////////////enum current add port name  end//
+	return TRUE;
+}
+
+USBAPI_API int __stdcall SetPortIP(const wchar_t * pPrinterName, const char * ipAddress)
+{
+	wchar_t	PortName[MAX_PATH];
+	if (!GetPortName(pPrinterName, PortName, MAX_PATH)) 
+	{
+		return 0;
+	}
+
+
+
+	return 1;
+}
+//-------------------------------------//
 
 static BOOL GetPrinterPortName(wchar_t *pPrinterName, wchar_t* portName, size_t portName_len)
 {
@@ -3741,9 +4027,17 @@ USBAPI_API int __stdcall CheckPortAPI( const wchar_t* szPrinter )
     return CheckPort( szPrinter, NULL );
 }
 
-USBAPI_API int __stdcall CheckPortAPI2(const wchar_t* szPrinter, wchar_t* ipAddress)
+USBAPI_API int __stdcall CheckPortAPI2(const wchar_t* szPrinter, char* ipAddress)
 {
-	return CheckPort(szPrinter, ipAddress);
+	wchar_t szIP[MAX_PATH] = { 0 };
+	char ip[100] = { 0 };
+
+	int nPortType = CheckPort(szPrinter, szIP);
+	::WideCharToMultiByte(CP_ACP, 0, szIP, -1, ip, 100, NULL, NULL);
+
+	memcpy(ipAddress, ip, 100);
+
+	return nPortType;
 }
 
 USBAPI_API void __stdcall CancelScanning()

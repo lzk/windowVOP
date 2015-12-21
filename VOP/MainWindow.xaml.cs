@@ -261,25 +261,25 @@ namespace VOP
                 string fileName = statusPanelPage.m_selectedPrinter + ".xml";
                 RequestManager.Serialize<CRM_PrintInfo2>(info, App.crmFolder + @"\" + fileName);
 
-                Process crm_p = null;
-                if (App.CheckProcessExist("CRMUploader", ref crm_p) == false)
-                {
-                    ProcessStartInfo procInfo = new ProcessStartInfo();
-                    procInfo.FileName = @".\CRMUploader.exe";
+                //Process crm_p = null;
+                //if (App.CheckProcessExist("CRMUploader", ref crm_p) == false)
+                //{
+                //    ProcessStartInfo procInfo = new ProcessStartInfo();
+                //    procInfo.FileName = @".\CRMUploader.exe";
 
-                    procInfo.CreateNoWindow = true;
-                    procInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    procInfo.UseShellExecute = false;
+                //    procInfo.CreateNoWindow = true;
+                //    procInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                //    procInfo.UseShellExecute = false;
 
-                    try
-                    {
-                        Process p = Process.Start(procInfo);
-                    }
-                    catch (Exception)
-                    {
+                //    try
+                //    {
+                //        Process p = Process.Start(procInfo);
+                //    }
+                //    catch (Exception)
+                //    {
 
-                    }
-                }
+                //    }
+                //}
 
 
                 //CRM_PrintInfo2 info2 = RequestManager.Deserialize<CRM_PrintInfo2>(App.crmFolder + @"\" + fileName);
