@@ -745,6 +745,17 @@ namespace VOP
             }
         }
 
+        private string IpRemovePercentMark(string ip)
+        {
+            if (ip.Contains("%"))
+            {
+                string[] a = ip.Split(new char[] { '%' });
+                return a[0];
+            }
+
+            return ip;
+        }
+
         private int ResetPortIP()
         {
             string printerName = "";
@@ -763,15 +774,13 @@ namespace VOP
             if (type != EnumPortType.PT_TCPIP && type != EnumPortType.PT_WSD)
                 return 0;
 
-            strIpAddress = ipAddress.ToString();
-            if (strIpAddress.Contains("%"))
-            {
-                string[] a = strIpAddress.Split(new char[] { '%' });
-                strIpAddress = a[0];
-            }
+            if (ipAddress.Length == 0)
+                return 0;
+
+            strIpAddress = IpRemovePercentMark(ipAddress.ToString());            
 
             IPAddress ip;
-            if (!IPAddress.TryParse(ipAddress.ToString(), out ip))
+            if (!IPAddress.TryParse(strIpAddress, out ip))
                 return 0;
 
             if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
@@ -795,7 +804,15 @@ namespace VOP
 
             if (ipFound.Length != 0)
             {
-
+                string strIpFound = IpRemovePercentMark(ipFound.ToString());
+                if(strIpAddress != strIpFound)
+                {
+                    dll.SetPortIP(printerName, ipFound.ToString());
+                }
+            }
+            else
+            {
+                return 0;
             }
 
             return 1;

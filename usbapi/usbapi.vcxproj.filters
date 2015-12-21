@@ -45,6 +45,9 @@
     <ClInclude Include="DM2OEM.H">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\TestSetPort\TestSetPort\tcpxcv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

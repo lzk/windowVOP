@@ -19,6 +19,7 @@
 #include <string>
 #include <algorithm>
 #include <cctype>
+#include "tcpxcv.h"
 
 #pragma comment(lib, "Ws2_32.lib")
 #pragma comment(lib, "Iphlpapi.lib")
@@ -826,7 +827,93 @@ USBAPI_API int __stdcall SearchValidedIP(const char * macAddress, BOOL ipV4, BOO
 //-----------------------------------//
 
 //---------Set printer port ip---------//
-BOOL CheckPort(std::wstring szPortName)
+void AddTCPIPPort(wchar_t* strPortName, const wchar_t* strIPAddress)
+{
+
+	char szText[256];
+	DWORD errorcode;
+
+	DWORD				cbInputData = 100;
+	PBYTE				pOutputData = NULL;
+	DWORD				cbOutputNeeded = 0;
+
+	HANDLE hXcv = INVALID_HANDLE_VALUE;
+	PORT_DATA_1			portData;
+	DELETE_PORT_DATA_1  DelPortData;
+	ZeroMemory(&portData, sizeof(PORT_DATA_1));
+	ZeroMemory(&DelPortData, sizeof(DELETE_PORT_DATA_1));
+
+	WCHAR wszTemp[64], wszTemp1[49];//, wsztSNMPCommunity[64];
+	//char szTemp[256];
+	//WCHAR pwstr;
+	//memcpy(szTemp,InstallInfo.szPrinterName,sizeof(szTemp));
+	char szTemp[64] = "lp";
+	mbstowcs(wszTemp, szTemp, sizeof(szTemp));
+
+	int jj = 0;
+
+	wcscpy(portData.sztPortName, strPortName);
+	wcscpy(DelPortData.psztPortName, strPortName);
+
+	//*/
+
+	DelPortData.dwVersion = 1;
+	DelPortData.dwReserved = 0;
+	portData.dwVersion = 1;
+	portData.dwProtocol = PROTOCOL_LPR_TYPE;
+	portData.cbSize = sizeof(PORT_DATA_1);
+	portData.dwReserved = 0L;
+
+	WCHAR wszTempQue[64];
+
+	char szTempQue[64] = "lp";
+	mbstowcs(wszTempQue, szTempQue, sizeof(szTempQue));
+	wcscpy(portData.sztQueue, wszTempQue);
+	portData.dwSNMPDevIndex = 1;
+
+
+	wcscpy(portData.sztHostAddress, strIPAddress);
+	wcscpy(portData.sztIPAddress, strIPAddress);
+
+
+	portData.dwDoubleSpool = FALSE;
+	//	portData.dwSNMPEnabled = TRUE;
+
+	portData.dwPortNumber = 515;
+
+	DWORD code = 0;
+	PRINTER_DEFAULTS Defaults = { NULL, NULL, SERVER_ACCESS_ADMINISTER };
+	DWORD dwStatus = 0;
+
+	pOutputData = new BYTE[cbInputData];
+
+	if (OpenPrinter(L",XcvMonitor Standard TCP/IP Port", &hXcv, &Defaults))
+	{
+		// hXcv contains an Xcv data handle to the monitor <MonitorName>
+		XcvData(hXcv, L"DeletePort", (PBYTE)&DelPortData, sizeof(DELETE_PORT_DATA_1), pOutputData, cbInputData, &cbOutputNeeded, &dwStatus);
+		code = GetLastError();
+		sprintf(szText, "delete port driver%d", code);
+
+		::OutputDebugStringA(szText);
+
+		XcvData(hXcv, L"AddPort", (PBYTE)&portData, sizeof(PORT_DATA_1), pOutputData, cbInputData, &cbOutputNeeded, &dwStatus);
+		code = GetLastError();
+		sprintf(szText, "delete port driver%d", code);
+
+		::OutputDebugStringA(szText);
+
+	}
+
+
+	//
+	code = GetLastError();
+	errorcode = GetLastError();
+	sprintf(szText, "add port error%d", errorcode);
+
+	::OutputDebugStringA(szText);
+}
+
+BOOL CheckPortExist(wchar_t* szPortName)
 {
 
 	//////////////////////enum current add port name /////
@@ -851,11 +938,11 @@ BOOL CheckPort(std::wstring szPortName)
 	{
 		for (i = 0; i<(int)nBuffer; i++)
 		{
-			std::wstring strTemp1, strTemp2;
+			wchar_t *strTemp1, *strTemp2;
 			strTemp1 = szPortName;
 			strTemp2 = info2[i].pPortName;
 
-			if (_wcsicmp(strTemp1.c_str(), strTemp2.c_str()) == 0)
+			if (_wcsicmp(strTemp1, strTemp2) == 0)
 			{
 				free(info2);
 				return FALSE;
@@ -873,15 +960,128 @@ clean_up:
 	return TRUE;
 }
 
-USBAPI_API int __stdcall SetPortIP(const wchar_t * pPrinterName, const char * ipAddress)
+BOOL SetPrinterPro(TCHAR szPrinterName[MAX_PATH * 2], TCHAR szPortName[MAX_PATH * 2])
 {
-	wchar_t	PortName[MAX_PATH];
-	if (!GetPortName(pPrinterName, PortName, MAX_PATH)) 
+	HANDLE hPrinter = NULL;
+	DWORD dwNeeded;
+	PRINTER_INFO_2 *pi2 = NULL;
+	DEVMODE *pDevMode = NULL;
+	PRINTER_DEFAULTS pd;
+	BOOL bFlag;
+	LONG lFlag;
+
+	::OutputDebugString(szPrinterName);
+	DWORD errorcode;
+	char sztext[256];
+
+	ZeroMemory(&pd, sizeof(pd));
+	pd.DesiredAccess = PRINTER_ALL_ACCESS;
+	bFlag = OpenPrinter(szPrinterName, &hPrinter, &pd);
+	if (!bFlag || (hPrinter == NULL))
+		return FALSE;
+	errorcode = ::GetLastError();
+
+	sprintf(sztext, "OpenPrinter  is %d", errorcode);
+	::OutputDebugStringA(sztext);
+	// The first GetPrinter tells you how big the buffer should be in 
+	// order to hold all of PRINTER_INFO_2. Note that this should fail with 
+	// ERROR_INSUFFICIENT_BUFFER.  If GetPrinter fails for any other reason 
+	// or dwNeeded isn't set for some reason, then there is a problem...
+	SetLastError(0);
+	bFlag = GetPrinter(hPrinter, 2, 0, 0, &dwNeeded);
+	if ((!bFlag) && (GetLastError() != ERROR_INSUFFICIENT_BUFFER) ||
+		(dwNeeded == 0))
 	{
-		return 0;
+		ClosePrinter(hPrinter);
+		return FALSE;
 	}
 
+	errorcode = ::GetLastError();
 
+
+
+	SetLastError(0);
+
+	pi2 = (PRINTER_INFO_2 *)GlobalAlloc(GPTR, dwNeeded + 4);
+	errorcode = ::GetLastError();
+
+
+
+	if (pi2 == NULL)
+	{
+		ClosePrinter(hPrinter);
+		return FALSE;
+	}
+
+	// The second GetPrinter fills in all the current settings, so all you
+	// need to do is modify what you're interested in...
+	bFlag = GetPrinter(hPrinter, 2, (LPBYTE)pi2, dwNeeded, &dwNeeded);
+	errorcode = 0;
+	errorcode = ::GetLastError();
+
+
+	if (!bFlag)
+	{
+		GlobalFree(pi2);
+		ClosePrinter(hPrinter);
+		return FALSE;
+	}
+
+	// change printer port 
+
+	pi2->pPortName = LPWSTR(szPortName);//
+
+	// Update printer information...
+	bFlag = SetPrinter(hPrinter, 2, (LPBYTE)pi2, 0);
+	errorcode = ::GetLastError();
+	sprintf(sztext, "SetPrinter  is %d", errorcode);
+	::OutputDebugStringA(sztext);
+
+
+	if (!bFlag)
+		// The driver doesn't support, or it is unable to make the change...
+	{
+		GlobalFree(pi2);
+		ClosePrinter(hPrinter);
+		if (pDevMode)
+			GlobalFree(pDevMode);
+		return FALSE;
+	}
+
+	// Tell other apps that there was a change...
+
+	// Clean up...
+	if (pi2)
+		GlobalFree(pi2);
+	if (hPrinter)
+		ClosePrinter(hPrinter);
+	if (pDevMode)
+		GlobalFree(pDevMode);
+
+	return TRUE;
+
+}
+
+USBAPI_API int __stdcall SetPortIP(const wchar_t * pPrinterName, const wchar_t * ipAddress)
+{
+	TCHAR strPortName[100] = { 0 };
+	int i = 0;
+
+	wsprintfW(strPortName, _T("NtwkPort%02d"), i);
+
+	while (!CheckPortExist(strPortName))
+	{
+		i++;
+		wsprintfW(strPortName, _T("NtwkPort%02d"), i);
+	}
+
+	// add port 
+	AddTCPIPPort(strPortName, ipAddress);
+
+	TCHAR tPrinterName[MAX_PATH * 2], tPortName[MAX_PATH * 2];
+	wcscpy(tPrinterName, pPrinterName);
+	wcscpy(tPortName, strPortName);
+	SetPrinterPro(tPrinterName, tPortName);
 
 	return 1;
 }

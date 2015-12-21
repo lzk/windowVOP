@@ -85,6 +85,7 @@
     <ResourceCompile Include="usbapi.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\TestSetPort\TestSetPort\tcpxcv.h" />
     <ClInclude Include="bitmapScaling.h" />
     <ClInclude Include="DEVMODE.H" />
     <ClInclude Include="DibHelp.h" />

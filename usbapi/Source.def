@@ -59,3 +59,4 @@ EXPORTS
 	GetTonerEnd
 	CheckPortAPI2
 	SearchValidedIP
+	SetPortIP

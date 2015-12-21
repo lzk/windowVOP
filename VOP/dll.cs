@@ -29,6 +29,11 @@ namespace VOP
                 StringBuilder ipFound);
 
         [DllImport("usbapi.dll")]
+        public static extern int SetPortIP(
+                [MarshalAs(UnmanagedType.LPWStr)]String printername,
+                [MarshalAs(UnmanagedType.LPWStr)]String ipAddress);
+
+        [DllImport("usbapi.dll")]
         public static extern int SetPowerSaveTime(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
                 byte time);
