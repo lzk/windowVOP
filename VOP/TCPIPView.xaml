@@ -144,7 +144,7 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="1.2*"></RowDefinition>
+                <RowDefinition Height="0*"></RowDefinition>
                 <RowDefinition Height="1.2*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -268,7 +268,7 @@
             </TextBox>
 
 
-            <local:ButtonEx x:Name="btnReset"
+            <!--<local:ButtonEx x:Name="btnReset"
                             Click="btnReset_Click" 
                             Content="Reset IP" 
                             FontSize="16"  
@@ -280,7 +280,7 @@
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Bottom" 
                             Width="125" 
-                            Height="32"></local:ButtonEx>
+                            Height="32"></local:ButtonEx>-->
             <local:ButtonEx x:Name="btnApply"
                             Click="btnApply_Click" 
                             Content="{StaticResource ResStr_Apply}" 

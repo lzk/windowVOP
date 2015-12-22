@@ -960,7 +960,7 @@ clean_up:
 	return TRUE;
 }
 
-BOOL SetPrinterPro(TCHAR szPrinterName[MAX_PATH * 2], TCHAR szPortName[MAX_PATH * 2])
+BOOL SetPrinterPort(TCHAR szPrinterName[MAX_PATH * 2], TCHAR szPortName[MAX_PATH * 2])
 {
 	HANDLE hPrinter = NULL;
 	DWORD dwNeeded;
@@ -977,6 +977,7 @@ BOOL SetPrinterPro(TCHAR szPrinterName[MAX_PATH * 2], TCHAR szPortName[MAX_PATH 
 	ZeroMemory(&pd, sizeof(pd));
 	pd.DesiredAccess = PRINTER_ALL_ACCESS;
 	bFlag = OpenPrinter(szPrinterName, &hPrinter, &pd);
+	errorcode = ::GetLastError();
 	if (!bFlag || (hPrinter == NULL))
 		return FALSE;
 	errorcode = ::GetLastError();
@@ -1081,7 +1082,11 @@ USBAPI_API int __stdcall SetPortIP(const wchar_t * pPrinterName, const wchar_t *
 	TCHAR tPrinterName[MAX_PATH * 2], tPortName[MAX_PATH * 2];
 	wcscpy(tPrinterName, pPrinterName);
 	wcscpy(tPortName, strPortName);
-	SetPrinterPro(tPrinterName, tPortName);
+
+	if (!SetPrinterPort(tPrinterName, tPortName))
+	{
+		return 0;
+	}
 
 	return 1;
 }

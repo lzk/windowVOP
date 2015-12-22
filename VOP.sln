@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAnimatedGif", "WpfAnimat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMUploader", "CRMUploader\CRMUploader.csproj", "{6C5A52B8-1F8E-49CD-B802-9E8E685964C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetPortAdmin", "SetPortAdmin\SetPortAdmin.csproj", "{1B036138-94BB-4BFB-8C8A-219F3DB78863}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,19 @@ Global
 		{6C5A52B8-1F8E-49CD-B802-9E8E685964C5}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{6C5A52B8-1F8E-49CD-B802-9E8E685964C5}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{6C5A52B8-1F8E-49CD-B802-9E8E685964C5}.Release|x86.ActiveCfg = Release|x86
+		{6C5A52B8-1F8E-49CD-B802-9E8E685964C5}.Release|x86.Build.0 = Release|x86
+		{1B036138-94BB-4BFB-8C8A-219F3DB78863}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B036138-94BB-4BFB-8C8A-219F3DB78863}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B036138-94BB-4BFB-8C8A-219F3DB78863}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1B036138-94BB-4BFB-8C8A-219F3DB78863}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1B036138-94BB-4BFB-8C8A-219F3DB78863}.Debug|x86.ActiveCfg = Debug|x86
+		{1B036138-94BB-4BFB-8C8A-219F3DB78863}.Debug|x86.Build.0 = Debug|x86
+		{1B036138-94BB-4BFB-8C8A-219F3DB78863}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B036138-94BB-4BFB-8C8A-219F3DB78863}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B036138-94BB-4BFB-8C8A-219F3DB78863}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1B036138-94BB-4BFB-8C8A-219F3DB78863}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1B036138-94BB-4BFB-8C8A-219F3DB78863}.Release|x86.ActiveCfg = Release|x86
+		{1B036138-94BB-4BFB-8C8A-219F3DB78863}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

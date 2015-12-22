@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
+using System.Diagnostics;
 using VOP.Controls;
 
 namespace VOP
@@ -801,13 +802,49 @@ namespace VOP
 
             ipFound= new StringBuilder(50);
             dll.SearchValidedIP(mac, isIpv4, isSFP, ipFound);
-
+            ipFound.Append("192.168.6.115");
             if (ipFound.Length != 0)
             {
                 string strIpFound = IpRemovePercentMark(ipFound.ToString());
-                if(strIpAddress != strIpFound)
+              //  if(strIpAddress != strIpFound)
                 {
-                    dll.SetPortIP(printerName, ipFound.ToString());
+
+                    ProcessStartInfo procInfo = new ProcessStartInfo();
+
+                    //string pass = "123";
+                    //string name = "sonnyzhang";
+                    //System.Security.SecureString str;
+
+                    //char[] chArray = pass.ToCharArray();
+
+                    //unsafe
+                    //{
+                    //    fixed (char* chRef = chArray)
+                    //    {
+                    //        str = new System.Security.SecureString(chRef, chArray.Length);
+                    //    }
+                    //}
+
+                    //procInfo.Password = str;
+                    //procInfo.UserName = name;
+
+                    procInfo.FileName = @".\SetPortAdmin.exe";
+                    procInfo.Arguments = string.Format("/p {0} /p {1}", printerName, ipFound.ToString());
+                    procInfo.CreateNoWindow = true;
+                    procInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    procInfo.UseShellExecute = true;
+                    procInfo.Verb = "runas";
+
+                    try
+                    {
+                        Process p = Process.Start(procInfo);
+                        p.WaitForExit();
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                    
                 }
             }
             else
