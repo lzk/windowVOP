@@ -472,7 +472,7 @@ namespace VOP
 #if (DEBUG)
                 pbw = new ProgressBarWindow(6);
 #else
-                pbw = new ProgressBarWindow(30);
+                pbw = new ProgressBarWindow(10);
 #endif
                 pbw.Owner = this.owner;
                 pbw.Loaded += pbw_Loaded;

@@ -1523,18 +1523,22 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 				EnterCriticalSection(&g_csCriticalSection);
 				OutputDebugStringToFileA("\r\n### vop EnterCriticalSection ######\r\n");
 
-				DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_GET_COMMAND, buffMax, 0, buffMax, 0x3FF, &dwActualSize, NULL);
+				DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_GET_COMMAND, buffMax, 0, buffMax, MAX_SIZE_BUFF, &dwActualSize, NULL);
 
-				Sleep(100);
-				/*while (0 == DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_SET_COMMAND, ptrInput, cbInput, NULL, 0, &dwActualSize, NULL)
+			/*	while (0 == DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_SET_COMMAND, ptrInput, cbInput, NULL, 0, &dwActualSize, NULL)
 					&& nWriteTry--)
 				{
 					Sleep(200);
-				}*/
+				}
+*/
+				DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_SET_COMMAND, ptrInput, cbInput, buffMax, MAX_SIZE_BUFF, &dwActualSize, NULL);
 
-				DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_SET_COMMAND, ptrInput, cbInput, NULL, 0, &dwActualSize, NULL);
+				DWORD error = GetLastError();
 
-				Sleep(100);
+				TCHAR szDebug[256] = { 0 };
+				wsprintf(szDebug, _T("GetLastError() = %d"), error);
+				OutputDebugString(szDebug);
+
 			//	if (nWriteTry > 0)
 				{
 					int nErrCnt = 0;
@@ -1738,6 +1742,10 @@ USBAPI_API int __stdcall SetIPv6Info(
 
 	OutputDebugStringToFileA("\r\n####VP:SetIPv6Info() begin");
 
+	//TCHAR szDebug[256] = { 0 };
+	//wsprintf(szDebug, _T("\r\n####VP:SetIPv6Info() begin."));
+	//OutputDebugString(szDebug);
+
 	int nResult = _ACK;
 	wchar_t szIP[MAX_PATH];
 	int nPortType = CheckPort(_szPrinter, szIP);
@@ -1811,6 +1819,11 @@ USBAPI_API int __stdcall SetIPv6Info(
 			buffer = NULL;
 		}
 	}
+
+	//TCHAR szDebug2[256] = { 0 };
+	//wsprintf(szDebug2, _T("\r\n####VP:SetIPv6Info() end."));
+	//OutputDebugString(szDebug2);
+
 	OutputDebugStringToFileA("\r\n####VP:SetIPv6Info(): nResult == 0x%x", nResult);
 	OutputDebugStringToFileA("\r\n####VP:SetIPv6Info() end");
 	return nResult;
