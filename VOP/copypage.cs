@@ -355,6 +355,17 @@ namespace VOP
             m_nin1       = EnumNin1._1up;
             m_dpi        = EnumCopyResln._600x600;
             //m_outputSize = EnumPaperSizeOutput._A4;
+
+            bool bIsMetrice = dll.IsMetricCountry();
+
+            if (bIsMetrice)
+            {
+                m_outputSize = EnumPaperSizeOutput._A4;
+            }
+            else
+            {
+                m_outputSize = EnumPaperSizeOutput._Letter;
+            }
         }
 
         private void btnDecDensity_Click(object sender, RoutedEventArgs e)
