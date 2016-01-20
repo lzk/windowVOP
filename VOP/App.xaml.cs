@@ -169,8 +169,13 @@ namespace VOP
             {
                 VOP.App app = new VOP.App();
                 app.InitializeComponent();
-                app.Run();
 
+                try
+                {
+                    app.Run();
+                }
+                catch (Exception) { }
+              
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
 
