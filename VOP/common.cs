@@ -190,7 +190,7 @@ namespace VOP
                     case EnumStatus.JoinerFullHeaterError:      errMsg = (string)_this.TryFindResource("ResStr_Please_contact_customer_support__SCxxx") + "545"; break;
                     case EnumStatus.Joiner3timesJamError:       errMsg = (string)_this.TryFindResource("ResStr_Please_contact_customer_support__SCxxx") + "559"; break;
                     case EnumStatus.LowVoltageJoinerReloadError:    errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "560"; break;
-                    case EnumStatus.MotorThermistorError:           errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "587"; break;
+                    case EnumStatus.MotorThermistorError:           errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "497"; break;
                     case EnumStatus.EEPROMCommunicationError:       errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "669"; break;
                     case EnumStatus.CTL_PRREQ_NSignalNoCome:        errMsg = (string)_this.TryFindResource("ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx") + "688"; break;
 
