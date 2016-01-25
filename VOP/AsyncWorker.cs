@@ -245,7 +245,7 @@ namespace VOP
                     isNeededProgress = true;
 
                     dll.OutputDebugStringToFile_("CopyPage new ProgressBarWindow()\r\n");
-                    pbw = new ProgressBarWindow();
+                    pbw = new ProgressBarWindow(7);
                     pbw.Owner = this.owner;
                     pbw.Loaded += pbw_Loaded;
                    
