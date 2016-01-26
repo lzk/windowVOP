@@ -167,11 +167,11 @@ namespace VOP
 
             if(mutex.WaitOne(TimeSpan.Zero, true)) 
             {
-                VOP.App app = new VOP.App();
-                app.InitializeComponent();
 
                 try
                 {
+                    VOP.App app = new VOP.App();
+                    app.InitializeComponent();
                     app.Run();
                 }
                 catch (Exception) { }
