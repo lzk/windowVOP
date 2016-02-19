@@ -101,6 +101,7 @@ namespace VOP
         public static MaintainInfoSet m_MaintainSet = new MaintainInfoSet();
 
 		private Thread thread_PrinterInfo2 = null;
+        public Thread thread_InitHostname = null;
 
         public bool PasswordCorrect(Window parent)
         {
@@ -213,7 +214,11 @@ namespace VOP
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
         }
 
-    
+        public void InitHostname()
+        {
+            string strPrinterName = statusPanelPage.m_selectedPrinter;
+            dll.CheckPortAPI(strPrinterName);
+        }
 
         public void UploadPrinterInfo2()
         {
@@ -938,6 +943,9 @@ namespace VOP
             thread_PrinterInfo2 = new Thread(UploadPrinterInfo2);
             thread_PrinterInfo2.Start();
 
+            thread_InitHostname = new Thread(InitHostname);
+            thread_InitHostname.Start();
+
             m_isMainWinLoaded = true;
 
             AddMessageHook();
@@ -1203,6 +1211,12 @@ namespace VOP
                 thread_PrinterInfo2.Join();
             }
 
+
+            if (thread_InitHostname != null && thread_InitHostname.IsAlive == true)
+            {
+                thread_InitHostname.Join();
+            }
+
             bExit = true;
             bExitUpdater = true;
             m_updaterAndUIEvent.WaitOne();
@@ -1414,6 +1428,11 @@ namespace VOP
                 thread_PrinterInfo2.Join();
             }
 
+            if (thread_InitHostname != null && thread_InitHostname.IsAlive == true)
+            {
+                thread_InitHostname.Join();
+            }
+
             winCopyPage.ResetToDefaultValue();
             winScanPage.ResetToDefaultValue();
             winPrintPage.ResetToDefaultValue();
@@ -1459,6 +1478,9 @@ namespace VOP
             {
                 thread_PrinterInfo2 = new Thread(UploadPrinterInfo2);
                 thread_PrinterInfo2.Start();
+
+                thread_InitHostname = new Thread(InitHostname);
+                thread_InitHostname.Start();
             }
         }
 

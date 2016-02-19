@@ -164,6 +164,11 @@ namespace VOP
         public void handler_loaded_settingpage( object sender, RoutedEventArgs e )
         {
             InitWindowLayout();
+
+            if (((MainWindow)App.Current.MainWindow).thread_InitHostname != null && ((MainWindow)App.Current.MainWindow).thread_InitHostname.IsAlive == true)
+            {
+                ((MainWindow)App.Current.MainWindow).thread_InitHostname.Join();
+            }
         }
 
         private void SettingBtnClick(object sender, RoutedEventArgs e)

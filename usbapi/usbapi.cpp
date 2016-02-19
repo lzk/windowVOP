@@ -6,7 +6,6 @@
 #include "scanner.h"
 #include "bitmapScaling.h"
 
-#include <windows.h>
 #include <usbprint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,13 +13,17 @@
 #include <StrSafe.h>
 #include <Winspool.h>
 #include "Global.h"
-#include <winsock.h>
 #include <Iphlpapi.h>
 #include <string>
 #include <algorithm>
 #include <cctype>
 #include "tcpxcv.h"
 
+#include <ws2tcpip.h>
+#include "dns_sd.h"
+
+
+#pragma comment(lib, "dnssd.lib")
 #pragma comment(lib, "Ws2_32.lib")
 #pragma comment(lib, "Iphlpapi.lib")
 //--------------------------------macro---------------------------------------
@@ -1188,9 +1191,178 @@ static BOOL USBGetSymbolicNameByPortEx(wchar_t *pPortName, WORD wVid, WORD wPid,
 	else	return FALSE;
 }
 
+//Bonjour tranlate hostname to ip address//
+
+// Note: the select() implementation on Windows (Winsock2) fails with any timeout much larger than this
+typedef int        pid_t;
+#define getpid     _getpid
+#define strcasecmp _stricmp
+#define snprintf   _snprintf
+static const char kFilePathSep = '\\';
+#ifndef HeapEnableTerminationOnCorruption
+#     define HeapEnableTerminationOnCorruption (HEAP_INFORMATION_CLASS)1
+#endif
+#if !defined(IFNAMSIZ)
+#define IFNAMSIZ 16
+#endif
+#define if_nametoindex if_nametoindex_win
+#define if_indextoname if_indextoname_win
+
+typedef PCHAR(WINAPI * if_indextoname_funcptr_t)(ULONG index, PCHAR name);
+typedef ULONG(WINAPI * if_nametoindex_funcptr_t)(PCSTR name);
+
+unsigned if_nametoindex_win(const char *ifname)
+{
+	HMODULE library;
+	unsigned index = 0;
+
+	// Try and load the IP helper library dll
+	if ((library = LoadLibrary(TEXT("Iphlpapi"))) != NULL)
+	{
+		if_nametoindex_funcptr_t if_nametoindex_funcptr;
+
+		// On Vista and above there is a Posix like implementation of if_nametoindex
+		if ((if_nametoindex_funcptr = (if_nametoindex_funcptr_t)GetProcAddress(library, "if_nametoindex")) != NULL)
+		{
+			index = if_nametoindex_funcptr(ifname);
+		}
+
+		FreeLibrary(library);
+	}
+
+	return index;
+}
+
+char * if_indextoname_win(unsigned ifindex, char *ifname)
+{
+	HMODULE library;
+	char * name = NULL;
+
+	// Try and load the IP helper library dll
+	if ((library = LoadLibrary(TEXT("Iphlpapi"))) != NULL)
+	{
+		if_indextoname_funcptr_t if_indextoname_funcptr;
+
+		// On Vista and above there is a Posix like implementation of if_indextoname
+		if ((if_indextoname_funcptr = (if_indextoname_funcptr_t)GetProcAddress(library, "if_indextoname")) != NULL)
+		{
+			name = if_indextoname_funcptr(ifindex, ifname);
+		}
+
+		FreeLibrary(library);
+	}
+
+	return name;
+}
+
+static size_t _sa_len(const struct sockaddr *addr)
+{
+	if (addr->sa_family == AF_INET) return (sizeof(struct sockaddr_in));
+	else if (addr->sa_family == AF_INET6) return (sizeof(struct sockaddr_in6));
+	else return (sizeof(struct sockaddr));
+}
+
+#   define SA_LEN(addr) (_sa_len(addr))
+
+
+#define LONG_TIME 100000000
+
+static volatile int stopNow = 0;
+static volatile int timeOut = LONG_TIME;
+static DNSServiceRef client = NULL;
+static char addr[256] = "";
+
+static void DNSSD_API addrinfo_reply(DNSServiceRef sdref, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *hostname, const struct sockaddr *address, uint32_t ttl, void *context)
+{
+	if (address && address->sa_family == AF_INET)
+	{
+		const unsigned char *b = (const unsigned char *)&((struct sockaddr_in *)address)->sin_addr;
+		snprintf(addr, sizeof(addr), "%d.%d.%d.%d", b[0], b[1], b[2], b[3]);
+	}
+	else if (address && address->sa_family == AF_INET6)
+	{
+		char if_name[IFNAMSIZ];		// Older Linux distributions don't define IF_NAMESIZE
+		const struct sockaddr_in6 *s6 = (const struct sockaddr_in6 *)address;
+		const unsigned char       *b = (const unsigned char *)&(s6->sin6_addr);
+		if (!if_indextoname(s6->sin6_scope_id, if_name))
+			snprintf(if_name, sizeof(if_name), "<%d>", s6->sin6_scope_id);
+		snprintf(addr, sizeof(addr), "%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X%%%s",
+			b[0x0], b[0x1], b[0x2], b[0x3], b[0x4], b[0x5], b[0x6], b[0x7],
+			b[0x8], b[0x9], b[0xA], b[0xB], b[0xC], b[0xD], b[0xE], b[0xF], if_name);
+	}
+}
+
+static void HandleEvents(void)
+{
+	int dns_sd_fd = client ? DNSServiceRefSockFD(client) : -1;
+	int nfds = dns_sd_fd + 1;
+	fd_set readfds;
+	struct timeval tv;
+	int result;
+
+	while (!stopNow)
+	{
+		// 1. Set up the fd_set as usual here.
+		// This example client has no file descriptors of its own,
+		// but a real application would call FD_SET to add them to the set here
+		FD_ZERO(&readfds);
+
+		// 2. Add the fd for our client(s) to the fd_set
+		if (client) FD_SET(dns_sd_fd, &readfds);
+
+		// 3. Set up the timeout.
+		tv.tv_sec = timeOut;
+		tv.tv_usec = 0;
+
+		result = select(nfds, &readfds, (fd_set*)NULL, (fd_set*)NULL, &tv);
+		if (result > 0)
+		{
+			DNSServiceErrorType err = kDNSServiceErr_NoError;
+			if (client && FD_ISSET(dns_sd_fd, &readfds)) 
+				err = DNSServiceProcessResult(client);
+			if (err) { 
+				stopNow = 1; 
+			}
+		}
+		else if (result == 0)
+			stopNow = 1;
+		else
+		{
+			if (errno != EINTR) stopNow = 1;
+		}
+	}
+}
+
+static bool BonjourGetAddrInfo(wchar_t* hostname, wchar_t* ipAddress)
+{
+	DNSServiceErrorType err;
+
+	wchar_t szIP[MAX_PATH] = { 0 };
+	char _hostname[100] = { 0 };
+
+	::WideCharToMultiByte(CP_ACP, 0, hostname, -1, _hostname, 100, NULL, NULL);
+
+	::memset(addr, 0, 256);
+	err = DNSServiceGetAddrInfo(&client,
+		kDNSServiceFlagsReturnIntermediates, kDNSServiceInterfaceIndexLocalOnly, kDNSServiceProtocol_IPv4, _hostname, addrinfo_reply, NULL);
+
+	if (!client || err != kDNSServiceErr_NoError)
+	{ 
+		return FALSE;
+	}
+
+	HandleEvents();
+
+	::MultiByteToWideChar(CP_ACP, 0, addr, strlen(addr), ipAddress, 0);
+
+	return TRUE;
+}
+//--------------------------------------//
+
 static int CheckPort( const wchar_t* pprintername_, wchar_t* str_ )
 {
     wchar_t pprintername[MAX_PATH];
+	wchar_t ipString[MAX_PATH] = { 0 };
     wcscpy_s(pprintername, MAX_PATH, pprintername_ );
 
 	HANDLE hPrinter = NULL;
@@ -1259,9 +1431,19 @@ static int CheckPort( const wchar_t* pprintername_, wchar_t* str_ )
                 PRINTER_DEFAULTS Defaults = { NULL, NULL, SERVER_READ};
                 if (OpenPrinter(szPrinterName, &hXcv, &Defaults )) 
                 {
-                    XcvData(hXcv, L"IPAddress", NULL, 0, (PBYTE)str_, 256, &cReturned, &dwStatus);
+					XcvData(hXcv, L"IPAddress", NULL, 0, (PBYTE)ipString, 256, &cReturned, &dwStatus);
                     ClosePrinter(hXcv);
                 }
+
+				std::wstring str(ipString);
+				if (str.substr(str.length() - 1, 1) == L".") //Is a hostname?
+				{
+					BonjourGetAddrInfo(ipString, str_);
+				}
+				else
+				{
+					wcscpy(ipString, str_);
+				}
             }
         }
 	}
