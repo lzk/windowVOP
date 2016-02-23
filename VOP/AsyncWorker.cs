@@ -470,7 +470,7 @@ namespace VOP
             {
                 isNeededProgress = true;
 #if (DEBUG)
-                pbw = new ProgressBarWindow(6);
+                pbw = new ProgressBarWindow(10);
 #else
                 pbw = new ProgressBarWindow(10);
 #endif

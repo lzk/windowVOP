@@ -1265,7 +1265,7 @@ static size_t _sa_len(const struct sockaddr *addr)
 #   define SA_LEN(addr) (_sa_len(addr))
 
 
-#define LONG_TIME 100000000
+#define LONG_TIME 1
 
 static volatile int stopNow = 0;
 static volatile int timeOut = LONG_TIME;
@@ -1281,14 +1281,28 @@ static void DNSSD_API addrinfo_reply(DNSServiceRef sdref, DNSServiceFlags flags,
 	}
 	else if (address && address->sa_family == AF_INET6)
 	{
-		char if_name[IFNAMSIZ];		// Older Linux distributions don't define IF_NAMESIZE
+		char tempAddr[256] = "";
+		char if_name[IFNAMSIZ] = { 0 };		// Older Linux distributions don't define IF_NAMESIZE
 		const struct sockaddr_in6 *s6 = (const struct sockaddr_in6 *)address;
 		const unsigned char       *b = (const unsigned char *)&(s6->sin6_addr);
-		if (!if_indextoname(s6->sin6_scope_id, if_name))
-			snprintf(if_name, sizeof(if_name), "<%d>", s6->sin6_scope_id);
-		snprintf(addr, sizeof(addr), "%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X:%02X%02X%%%s",
-			b[0x0], b[0x1], b[0x2], b[0x3], b[0x4], b[0x5], b[0x6], b[0x7],
-			b[0x8], b[0x9], b[0xA], b[0xB], b[0xC], b[0xD], b[0xE], b[0xF], if_name);
+
+		Addr6toStr((BYTE*)b, s6->sin6_scope_id, tempAddr);
+
+		std::string strTemp;
+		strTemp = tempAddr;
+		strTemp = strTemp.substr(0, 4);
+
+		if (strTemp != "fe80")
+		{
+			memcpy(addr, tempAddr, 256);
+			//snprintf(addr, sizeof(addr), "%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x%%%s",
+			//	b[0x0], b[0x1], b[0x2], b[0x3], b[0x4], b[0x5], b[0x6], b[0x7],
+			//	b[0x8], b[0x9], b[0xA], b[0xB], b[0xC], b[0xD], b[0xE], b[0xF], if_name);
+		}
+
+	/*	if (!if_indextoname(s6->sin6_scope_id, if_name))
+			snprintf(if_name, sizeof(if_name), "%d", s6->sin6_scope_id);*/
+
 	}
 }
 
@@ -1299,6 +1313,8 @@ static void HandleEvents(void)
 	fd_set readfds;
 	struct timeval tv;
 	int result;
+
+	stopNow = 0;
 
 	while (!stopNow)
 	{
@@ -1333,6 +1349,49 @@ static void HandleEvents(void)
 	}
 }
 
+static BOOL TestIpConnected(char* szIP)
+{
+	int nResult = TRUE;
+	HMODULE hmod = LoadLibrary(DLL_NAME_NET);
+
+	LPFN_NETWORK_CONNECT  lpfnNetworkConnect = NULL;
+	LPFN_NETWORK_CLOSE    lpfnNetworkClose = NULL;
+
+	lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(hmod, "NetworkConnectNonBlock");
+	lpfnNetworkClose = (LPFN_NETWORK_CLOSE)GetProcAddress(hmod, "NetworkClose");
+
+	if (hmod && \
+		lpfnNetworkConnect && \
+		lpfnNetworkClose)
+	{
+
+		int socketID = lpfnNetworkConnect(szIP, 9100, 1000);
+
+		if (-1 == socketID)
+		{
+			nResult = FALSE;
+		}
+		else
+		{
+			nResult = TRUE;
+		}
+
+		lpfnNetworkClose(socketID);
+
+	}
+	else
+	{
+		nResult = FALSE;
+	}
+
+	lpfnNetworkConnect = NULL;
+	lpfnNetworkClose = NULL;
+
+	FreeLibrary(hmod);
+
+	return nResult;
+}
+
 static bool BonjourGetAddrInfo(wchar_t* hostname, wchar_t* ipAddress)
 {
 	DNSServiceErrorType err;
@@ -1344,7 +1403,7 @@ static bool BonjourGetAddrInfo(wchar_t* hostname, wchar_t* ipAddress)
 
 	::memset(addr, 0, 256);
 	err = DNSServiceGetAddrInfo(&client,
-		kDNSServiceFlagsReturnIntermediates, kDNSServiceInterfaceIndexLocalOnly, kDNSServiceProtocol_IPv4, _hostname, addrinfo_reply, NULL);
+		kDNSServiceFlagsReturnIntermediates, kDNSServiceInterfaceIndexAny, kDNSServiceProtocol_IPv4, _hostname, addrinfo_reply, NULL);
 
 	if (!client || err != kDNSServiceErr_NoError)
 	{ 
@@ -1352,11 +1411,32 @@ static bool BonjourGetAddrInfo(wchar_t* hostname, wchar_t* ipAddress)
 	}
 
 	HandleEvents();
+	if (client) DNSServiceRefDeallocate(client);
 
-	::MultiByteToWideChar(CP_ACP, 0, addr, strlen(addr), ipAddress, 0);
+	if (TestIpConnected(addr))
+	{
+		::MultiByteToWideChar(CP_ACP, 0, addr, strlen(addr), ipAddress, 100);
+	}
+	else
+	{
+		::memset(addr, 0, 256);
+		err = DNSServiceGetAddrInfo(&client,
+			kDNSServiceFlagsReturnIntermediates, kDNSServiceInterfaceIndexAny, kDNSServiceProtocol_IPv6, _hostname, addrinfo_reply, NULL);
+
+		if (!client || err != kDNSServiceErr_NoError)
+		{
+			return FALSE;
+		}
+
+		HandleEvents();
+		if (client) DNSServiceRefDeallocate(client);
+
+		::MultiByteToWideChar(CP_ACP, 0, addr, strlen(addr), ipAddress, 100);
+	}
 
 	return TRUE;
 }
+
 //--------------------------------------//
 
 static int CheckPort( const wchar_t* pprintername_, wchar_t* str_ )
@@ -1432,17 +1512,26 @@ static int CheckPort( const wchar_t* pprintername_, wchar_t* str_ )
                 if (OpenPrinter(szPrinterName, &hXcv, &Defaults )) 
                 {
 					XcvData(hXcv, L"IPAddress", NULL, 0, (PBYTE)ipString, 256, &cReturned, &dwStatus);
+					//XcvData(hXcv, L"IPAddress", NULL, 0, (PBYTE)str_, 256, &cReturned, &dwStatus);
                     ClosePrinter(hXcv);
                 }
 
 				std::wstring str(ipString);
 				if (str.substr(str.length() - 1, 1) == L".") //Is a hostname?
 				{
-					BonjourGetAddrInfo(ipString, str_);
+					if (TestIpConnected(addr))
+					{
+						::MultiByteToWideChar(CP_ACP, 0, addr, strlen(addr), str_, 100);
+					}
+					else
+					{
+						BonjourGetAddrInfo(ipString, str_);
+					}
+				
 				}
 				else
 				{
-					wcscpy(ipString, str_);
+					wmemcpy(str_, ipString, 100);
 				}
             }
         }
@@ -1572,7 +1661,8 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
 
 			if (ptrOutput && cbOutput > 0)
 			{
-				if (cbOutput == lpfnNetworkRead(m_iSocketID, ptrOutput, cbOutput))
+				int cbRead = lpfnNetworkRead(m_iSocketID, ptrOutput, cbOutput);
+				if (cbOutput == cbRead)
 				{
 					nResult = _ACK;
 					bWriteSuccess = true;
@@ -1844,7 +1934,7 @@ USBAPI_API int __stdcall SetIPInfo(
 	OutputDebugStringToFileA("\r\n####VP:SetIPInfo() begin");
 
 	int nResult = _ACK;
-    wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
     int nPortType = CheckPort( szPrinter, szIP );
 
     if ( PT_UNKNOWN == nPortType ) 
@@ -1929,7 +2019,7 @@ USBAPI_API int __stdcall SetIPv6Info(
 	//OutputDebugString(szDebug);
 
 	int nResult = _ACK;
-	wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
 	int nPortType = CheckPort(_szPrinter, szIP);
 
 	if (PT_UNKNOWN == nPortType)
@@ -2018,7 +2108,7 @@ USBAPI_API bool __stdcall GetPrinterStatus( const wchar_t* szPrinter, BYTE* ptr_
     if ( NULL == szPrinter )
         return isSuccess;
 
-    wchar_t ip_address[MAX_PATH];
+	wchar_t ip_address[MAX_PATH] = { 0 };
     int port_type = PT_UNKNOWN;
 	port_type = CheckPort(szPrinter, ip_address);
 
@@ -2402,7 +2492,7 @@ USBAPI_API int __stdcall SetUserCfg(const wchar_t* szPrinter, UINT8 LeadingEdge,
 
 	OutputDebugStringToFileA("\r\n####VP:SetUserCfg() begin");
 	int nResult = _ACK;
-    wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
     int nPortType = CheckPort( szPrinter, szIP );
 
     if ( PT_UNKNOWN == nPortType ) 
@@ -2461,7 +2551,7 @@ USBAPI_API int __stdcall GetSoftAp( const wchar_t* szPrinter, char* ssid, char* 
 
 	OutputDebugStringToFileA("\r\n####VP:GetSoftAp() begin");
 	int nResult = _ACK;
-    wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
     int nPortType = CheckPort( szPrinter, szIP );
 
     if ( PT_UNKNOWN == nPortType ) 
@@ -2787,7 +2877,7 @@ USBAPI_API int __stdcall SetWiFiInfo(const wchar_t* szPrinter, UINT8 wifiEnable,
 
 	OutputDebugStringToFileA("\r\n####VP:SetWiFiInfo() begin");
 	int nResult = _ACK;
-    wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
     int nPortType = CheckPort( szPrinter, szIP );
 
     if ( PT_UNKNOWN == nPortType ) 
@@ -2868,7 +2958,7 @@ USBAPI_API int __stdcall GetApList( const wchar_t* szPrinter,
 
 	OutputDebugStringToFileA("\r\n####VP:GetApList() begin");
     int nResult = _ACK;
-    wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
     int nPortType = CheckPort( szPrinter, szIP );
 
     if ( PT_UNKNOWN == nPortType ) 
@@ -2975,7 +3065,7 @@ USBAPI_API int __stdcall GetUserCfg(const wchar_t* szPrinter, BYTE* ptr_leadinge
 	OutputDebugStringToFileA("\r\n####VP:GetUserCfg() begin");
 
 	int nResult = _ACK;
-    wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
     int nPortType = CheckPort( szPrinter, szIP );
 
     if ( PT_UNKNOWN == nPortType ) 
@@ -3052,7 +3142,7 @@ USBAPI_API int __stdcall SetFusingSCReset(const wchar_t* szPrinter)
 	OutputDebugStringToFileA("\r\n####VP:SetFusingSCReset() begin");
 
 	int nResult = _ACK;
-	wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
 	int nPortType = CheckPort(szPrinter, szIP);
 
 	if (PT_UNKNOWN == nPortType)
@@ -3222,7 +3312,7 @@ USBAPI_API int __stdcall GetIPInfo(
 	OutputDebugStringToFileA("\r\n####VP:GetIPInfo() begin");
 
     int nResult = _ACK;
-    wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
     int nPortType = CheckPort( szPrinter, szIP );
 	
     if ( PT_UNKNOWN == nPortType ) 
@@ -3335,7 +3425,7 @@ USBAPI_API int __stdcall GetIpv6Info(const wchar_t* szPrinter,
 	OutputDebugStringToFileA("\r\n####VP:GetIpv6Info() begin");
 
 	int nResult = _ACK;
-	wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
 	int nPortType = CheckPort(szPrinter, szIP);
 
 	if (PT_UNKNOWN == nPortType)
@@ -3415,7 +3505,7 @@ USBAPI_API int __stdcall GetWiFiInfo(const wchar_t* szPrinter, UINT8* ptr_wifien
 	OutputDebugStringToFileA("\r\n####VP:GetWiFiInfo() begin");
 
     int nResult = _ACK;
-    wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
     int nPortType = CheckPort( szPrinter, szIP );
 
     if ( PT_UNKNOWN == nPortType ) 
@@ -3486,7 +3576,7 @@ USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, BYTE time )
 	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime() begin");
 
     int nResult = _ACK;
-    wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
     int nPortType = CheckPort( szPrinter, szIP );
 
     if ( PT_UNKNOWN == nPortType ) 
@@ -3541,7 +3631,7 @@ USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, BYTE* ptrTi
 	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime() begin");
 
     int nResult = _ACK;
-    wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
 
     int nPortType = CheckPort( szPrinter, szIP );
 
@@ -3609,7 +3699,7 @@ USBAPI_API int __stdcall GetUserCenterInfo(const wchar_t* szPrinter, char* _2ndS
 	OutputDebugStringToFileA("\r\n####VP:GetUserCenterInfo() begin");
 
 	int nResult = _ACK;
-	wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
 	int nPortType = CheckPort(szPrinter, szIP);
 
 	if (PT_UNKNOWN == nPortType)
@@ -3667,7 +3757,7 @@ USBAPI_API int __stdcall GetFWInfo(const wchar_t* szPrinter, char * FWVersion)
 	OutputDebugStringToFileA("\r\n####VP:GetFWInfo() begin");
 
 	int nResult = _ACK;
-	wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
 	int nPortType = CheckPort(szPrinter, szIP);
 
 	if (PT_UNKNOWN == nPortType)
@@ -3727,7 +3817,7 @@ USBAPI_API int __stdcall SetTonerEnd(const wchar_t* szPrinter, BYTE isEnable)
 	OutputDebugStringToFileA("\r\n####VP:SetTonerEnd() begin");
 
 	int nResult = _ACK;
-	wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
 	int nPortType = CheckPort(szPrinter, szIP);
 
 	if (PT_UNKNOWN == nPortType)
@@ -3782,7 +3872,7 @@ USBAPI_API int __stdcall GetTonerEnd(const wchar_t* szPrinter, BYTE* ptrIsEnable
 	OutputDebugStringToFileA("\r\n####VP:GetTonerEnd() begin");
 
 	int nResult = _ACK;
-	wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
 
 	int nPortType = CheckPort(szPrinter, szIP);
 
@@ -3849,7 +3939,7 @@ USBAPI_API int __stdcall SetPowerOff(const wchar_t* szPrinter, BYTE isEnable)
 	OutputDebugStringToFileA("\r\n####VP:SetPowerOff() begin");
 
 	int nResult = _ACK;
-	wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
 	int nPortType = CheckPort(szPrinter, szIP);
 
 	if (PT_UNKNOWN == nPortType)
@@ -3904,7 +3994,7 @@ USBAPI_API int __stdcall GetPowerOff(const wchar_t* szPrinter, BYTE* ptrIsEnable
 	OutputDebugStringToFileA("\r\n####VP:GetPowerOff() begin");
 
 	int nResult = _ACK;
-	wchar_t szIP[MAX_PATH];
+	wchar_t szIP[MAX_PATH] = { 0 };
 
 	int nPortType = CheckPort(szPrinter, szIP);
 
