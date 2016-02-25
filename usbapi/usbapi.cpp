@@ -1534,15 +1534,21 @@ static int CheckPort( const wchar_t* pprintername_, wchar_t* str_ )
 				std::wstring str(ipString);
 				if (str.substr(str.length() - 1, 1) == L".") //Is a hostname?
 				{
-					/*if (TestIpConnected(addr))
-					{
-						::MultiByteToWideChar(CP_ACP, 0, addr, strlen(addr), str_, 100);
-					}
-					else*/
+					if (strcmp(addr, "") == 0)
 					{
 						BonjourGetAddrInfo(ipString, str_);
 					}
-				
+					else
+					{
+						if (TestIpConnected(addr))
+						{
+							::MultiByteToWideChar(CP_ACP, 0, addr, strlen(addr), str_, 100);
+						}
+						else
+						{
+							BonjourGetAddrInfo(ipString, str_);
+						}
+					}
 				}
 				else
 				{

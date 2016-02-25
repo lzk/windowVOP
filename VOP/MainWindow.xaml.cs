@@ -945,8 +945,8 @@ namespace VOP
             thread_PrinterInfo2 = new Thread(UploadPrinterInfo2);
             thread_PrinterInfo2.Start();
 
-            thread_InitHostname = new Thread(InitHostname);
-            thread_InitHostname.Start();
+            //thread_InitHostname = new Thread(InitHostname);
+            //thread_InitHostname.Start();
 
             m_isMainWinLoaded = true;
 
@@ -1214,11 +1214,6 @@ namespace VOP
             }
 
 
-            if (thread_InitHostname != null && thread_InitHostname.IsAlive == true)
-            {
-                thread_InitHostname.Join();
-            }
-
             bExit = true;
             bExitUpdater = true;
             m_updaterAndUIEvent.WaitOne();
@@ -1430,10 +1425,6 @@ namespace VOP
                 thread_PrinterInfo2.Join();
             }
 
-            if (thread_InitHostname != null && thread_InitHostname.IsAlive == true)
-            {
-                thread_InitHostname.Join();
-            }
 
             winCopyPage.ResetToDefaultValue();
             winScanPage.ResetToDefaultValue();
@@ -1480,9 +1471,6 @@ namespace VOP
             {
                 thread_PrinterInfo2 = new Thread(UploadPrinterInfo2);
                 thread_PrinterInfo2.Start();
-
-                thread_InitHostname = new Thread(InitHostname);
-                thread_InitHostname.Start();
             }
         }
 
