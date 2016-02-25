@@ -571,6 +571,8 @@ USBAPI_API int __stdcall SetPortIP(const wchar_t * pPrinterName, const char * ip
 static const unsigned char INIT_VALUE = 0xfe;
 static bool bCancelScanning = false; // Scanning cancel falg, only use in ScanEx(). 
 extern CRITICAL_SECTION g_csCriticalSection;
+extern CRITICAL_SECTION g_csCriticalSection_bonjour;
+extern CRITICAL_SECTION g_csCriticalSection_connect;
 
 
 //--------------------------------implement-----------------------------------
@@ -1276,8 +1278,10 @@ static void DNSSD_API addrinfo_reply(DNSServiceRef sdref, DNSServiceFlags flags,
 {
 	if (address && address->sa_family == AF_INET)
 	{
+		OutputDebugString(L"addrinfo_reply(v4)1");
 		const unsigned char *b = (const unsigned char *)&((struct sockaddr_in *)address)->sin_addr;
 		snprintf(addr, sizeof(addr), "%d.%d.%d.%d", b[0], b[1], b[2], b[3]);
+		OutputDebugString(L"addrinfo_reply(v4)2");
 	}
 	else if (address && address->sa_family == AF_INET6)
 	{
@@ -1285,7 +1289,7 @@ static void DNSSD_API addrinfo_reply(DNSServiceRef sdref, DNSServiceFlags flags,
 		char if_name[IFNAMSIZ] = { 0 };		// Older Linux distributions don't define IF_NAMESIZE
 		const struct sockaddr_in6 *s6 = (const struct sockaddr_in6 *)address;
 		const unsigned char       *b = (const unsigned char *)&(s6->sin6_addr);
-
+		OutputDebugString(L"addrinfo_reply(v6)1");
 		Addr6toStr((BYTE*)b, s6->sin6_scope_id, tempAddr);
 
 		std::string strTemp;
@@ -1299,7 +1303,7 @@ static void DNSSD_API addrinfo_reply(DNSServiceRef sdref, DNSServiceFlags flags,
 			//	b[0x0], b[0x1], b[0x2], b[0x3], b[0x4], b[0x5], b[0x6], b[0x7],
 			//	b[0x8], b[0x9], b[0xA], b[0xB], b[0xC], b[0xD], b[0xE], b[0xF], if_name);
 		}
-
+		OutputDebugString(L"addrinfo_reply(v6)2");
 	/*	if (!if_indextoname(s6->sin6_scope_id, if_name))
 			snprintf(if_name, sizeof(if_name), "%d", s6->sin6_scope_id);*/
 
@@ -1352,6 +1356,7 @@ static void HandleEvents(void)
 static BOOL TestIpConnected(char* szIP)
 {
 	int nResult = TRUE;
+
 	HMODULE hmod = LoadLibrary(DLL_NAME_NET);
 
 	LPFN_NETWORK_CONNECT  lpfnNetworkConnect = NULL;
@@ -1360,11 +1365,13 @@ static BOOL TestIpConnected(char* szIP)
 	lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(hmod, "NetworkConnectNonBlock");
 	lpfnNetworkClose = (LPFN_NETWORK_CLOSE)GetProcAddress(hmod, "NetworkClose");
 
+	OutputDebugString(L"TestIpConnected()1");
 	if (hmod && \
 		lpfnNetworkConnect && \
 		lpfnNetworkClose)
 	{
-
+		OutputDebugString(L"TestIpConnected()2");
+	
 		int socketID = lpfnNetworkConnect(szIP, 9100, 1000);
 
 		if (-1 == socketID)
@@ -1377,7 +1384,7 @@ static BOOL TestIpConnected(char* szIP)
 		}
 
 		lpfnNetworkClose(socketID);
-
+		
 	}
 	else
 	{
@@ -1401,7 +1408,10 @@ static bool BonjourGetAddrInfo(wchar_t* hostname, wchar_t* ipAddress)
 
 	::WideCharToMultiByte(CP_ACP, 0, hostname, -1, _hostname, 100, NULL, NULL);
 
+	OutputDebugString(L"DNSServiceGetAddrInfo(v4)");
 	::memset(addr, 0, 256);
+
+	EnterCriticalSection(&g_csCriticalSection_bonjour);
 	err = DNSServiceGetAddrInfo(&client,
 		kDNSServiceFlagsReturnIntermediates, kDNSServiceInterfaceIndexAny, kDNSServiceProtocol_IPv4, _hostname, addrinfo_reply, NULL);
 
@@ -1412,6 +1422,7 @@ static bool BonjourGetAddrInfo(wchar_t* hostname, wchar_t* ipAddress)
 
 	HandleEvents();
 	if (client) DNSServiceRefDeallocate(client);
+	
 
 	if (TestIpConnected(addr))
 	{
@@ -1419,7 +1430,10 @@ static bool BonjourGetAddrInfo(wchar_t* hostname, wchar_t* ipAddress)
 	}
 	else
 	{
+		OutputDebugString(L"DNSServiceGetAddrInfo(v6)");
 		::memset(addr, 0, 256);
+
+		//EnterCriticalSection(&g_csCriticalSection_bonjour);
 		err = DNSServiceGetAddrInfo(&client,
 			kDNSServiceFlagsReturnIntermediates, kDNSServiceInterfaceIndexAny, kDNSServiceProtocol_IPv6, _hostname, addrinfo_reply, NULL);
 
@@ -1430,10 +1444,11 @@ static bool BonjourGetAddrInfo(wchar_t* hostname, wchar_t* ipAddress)
 
 		HandleEvents();
 		if (client) DNSServiceRefDeallocate(client);
+		//LeaveCriticalSection(&g_csCriticalSection_bonjour);
 
 		::MultiByteToWideChar(CP_ACP, 0, addr, strlen(addr), ipAddress, 100);
 	}
-
+	LeaveCriticalSection(&g_csCriticalSection_bonjour);
 	return TRUE;
 }
 
@@ -1515,15 +1530,15 @@ static int CheckPort( const wchar_t* pprintername_, wchar_t* str_ )
 					//XcvData(hXcv, L"IPAddress", NULL, 0, (PBYTE)str_, 256, &cReturned, &dwStatus);
                     ClosePrinter(hXcv);
                 }
-
+				OutputDebugString(L"CheckPort()1");
 				std::wstring str(ipString);
 				if (str.substr(str.length() - 1, 1) == L".") //Is a hostname?
 				{
-					if (TestIpConnected(addr))
+					/*if (TestIpConnected(addr))
 					{
 						::MultiByteToWideChar(CP_ACP, 0, addr, strlen(addr), str_, 100);
 					}
-					else
+					else*/
 					{
 						BonjourGetAddrInfo(ipString, str_);
 					}
@@ -1533,6 +1548,7 @@ static int CheckPort( const wchar_t* pprintername_, wchar_t* str_ )
 				{
 					wmemcpy(str_, ipString, 100);
 				}
+				OutputDebugString(L"CheckPort()2");
             }
         }
 	}
@@ -1609,6 +1625,7 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
 {
     int nResult = _ACK;
 
+	EnterCriticalSection(&g_csCriticalSection_connect);
     HMODULE hmod = LoadLibrary( DLL_NAME_NET );
 
     LPFN_NETWORK_CONNECT  lpfnNetworkConnect   = NULL;
@@ -1655,7 +1672,7 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
 			//	nResult = _SW_NET_DATA_FORMAT_ERROR;
 			//	break;
 			//}
-
+		
 			int m_iSocketID = lpfnNetworkConnect(szAsciiIP, 9100, 1000);
 			lpfnNetworkWrite(m_iSocketID, ptrInput, cbInput);
 
@@ -1695,6 +1712,7 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
 			}
 
 			lpfnNetworkClose(m_iSocketID);
+			
 		}
     }
     else
@@ -1709,6 +1727,7 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
     lpfnNetworkClose   = NULL;
 
     FreeLibrary( hmod );
+	LeaveCriticalSection(&g_csCriticalSection_connect);
 
     return nResult;
 }

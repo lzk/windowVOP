@@ -217,8 +217,9 @@ namespace VOP
         public void InitHostname()
         {
             string strPrinterName = statusPanelPage.m_selectedPrinter;
-            StringBuilder ipAddress = new StringBuilder(50);
-            EnumPortType type = (EnumPortType)dll.CheckPortAPI2(strPrinterName, ipAddress);
+            StringBuilder ipAddress = new StringBuilder(100);
+            Trace.WriteLine("InitHostname().");
+            dll.CheckPortAPI2(strPrinterName, ipAddress);
         }
 
         public void UploadPrinterInfo2()
