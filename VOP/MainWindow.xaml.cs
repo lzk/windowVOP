@@ -101,7 +101,7 @@ namespace VOP
         public static MaintainInfoSet m_MaintainSet = new MaintainInfoSet();
 
 		private Thread thread_PrinterInfo2 = null;
-        public Thread thread_InitHostname = null;
+        //public Thread thread_InitHostname = null;
 
         public bool PasswordCorrect(Window parent)
         {

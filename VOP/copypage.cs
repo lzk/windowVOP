@@ -450,10 +450,6 @@ namespace VOP
                 m_isLoaded = true;
             }
 
-            if (((MainWindow)App.Current.MainWindow).thread_InitHostname != null && ((MainWindow)App.Current.MainWindow).thread_InitHostname.IsAlive == true)
-            {
-                ((MainWindow)App.Current.MainWindow).thread_InitHostname.Join();
-            }
         }
 
         void InitFontSize()
