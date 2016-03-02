@@ -38,6 +38,57 @@ namespace VOP
         public short paperSizeID;
     }
 
+    public class LanguageRegistry
+    {
+
+        static RegistryKey LocalKey = Registry.LocalMachine;
+        static RegistryKey rootKey = null;
+        static string openKeyString = @"Software\Lenovo\Printer SSW\Version";
+
+
+        public static bool Open()
+        {
+            try
+            {
+                rootKey = LocalKey.OpenSubKey(openKeyString, false);
+
+                if (rootKey == null)
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static void Close()
+        {
+            if (rootKey != null)
+                rootKey.Close();
+
+            if (LocalKey != null)
+                LocalKey.Close();
+        }
+
+        public static Int32 GetLangID()
+        {
+            Int32 LangId = 0x409;
+            try
+            {
+                LangId = (Int32)rootKey.GetValue("language", RegistryValueKind.DWord);
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return LangId;
+        }
+
+    }
+
     public class MacAddressRegistry
     {
         static RegistryKey LocalKey = Registry.LocalMachine;

@@ -72,16 +72,27 @@ namespace VOP
         private Int32 GetLangID()
         {
             Int32 LangId = 0x409;
-            RegistryKey rsg = null;
-            rsg = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Lenovo\\Printer SSW\\Version", false);
+            //RegistryKey rsg = null;
+            //rsg = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Lenovo\\Printer SSW\\Version", false);
            
-            object obj = null;
-            if (null != rsg)
-            {
-                obj = rsg.GetValue("language", RegistryValueKind.DWord);
-                LangId = (Int32)obj;
+            //object obj = null;
+            //if (null != rsg)
+            //{
+            //    obj = rsg.GetValue("language", RegistryValueKind.DWord);
+            //    LangId = (Int32)obj;
 
-                rsg.Close();
+            //    rsg.Close();
+            //}
+
+            if (LanguageRegistry.Open())
+            {
+                LangId = LanguageRegistry.GetLangID();
+                LanguageRegistry.Close();
+            }
+            else
+            {
+                CultureInfo ci = CultureInfo.InstalledUICulture;
+                LangId = ci.LCID;
             }
 
             return LangId;
