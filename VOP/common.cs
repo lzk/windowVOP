@@ -534,9 +534,9 @@ namespace VOP
                 case EnumStatus.MotorThermistorError:
                 case EnumStatus.EEPROMCommunicationError:
                 case EnumStatus.CTL_PRREQ_NSignalNoCome:
-                case EnumStatus.ScanMotorError:
-                case EnumStatus.SCAN_DRV_CALIB_FAIL:
-                case EnumStatus.NetWirelessDongleCfgFail:
+               // case EnumStatus.ScanMotorError:
+               // case EnumStatus.SCAN_DRV_CALIB_FAIL:
+               // case EnumStatus.NetWirelessDongleCfgFail:
                 case EnumStatus.DMAError:
                 case EnumStatus.PDLMemoryOver:
                 case EnumStatus.SCAN_USB_Disconnect:
