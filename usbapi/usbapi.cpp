@@ -654,7 +654,7 @@ void Addr6toStr(BYTE* ipv6addr, DWORD scope_id, char* addrstr)
 	//#if defined(XC6027)
 	if (scope_id > 0)
 	{
-		sprintf(temp, "%%%d", scope_id);
+		sprintf(temp, "%%%d", scope_id%100);
 		strcat(addrstr, temp);
 	}
 	//#endif
@@ -1273,15 +1273,71 @@ static volatile int stopNow = 0;
 static volatile int timeOut = LONG_TIME;
 static DNSServiceRef client = NULL;
 static char addr[256] = "";
+static BOOL HasObtainIPv6 = FALSE;
+
+static BOOL TestIpConnected(char* szIP)
+{
+	int nResult = TRUE;
+
+	HMODULE hmod = LoadLibrary(DLL_NAME_NET);
+
+	LPFN_NETWORK_CONNECT  lpfnNetworkConnect = NULL;
+	LPFN_NETWORK_CLOSE    lpfnNetworkClose = NULL;
+
+	lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(hmod, "NetworkConnectNonBlock");
+	lpfnNetworkClose = (LPFN_NETWORK_CLOSE)GetProcAddress(hmod, "NetworkClose");
+
+
+	if (hmod && \
+		lpfnNetworkConnect && \
+		lpfnNetworkClose)
+	{
+
+		int socketID = lpfnNetworkConnect(szIP, 9100, 1000);
+
+		if (-1 == socketID)
+		{
+			char showIp[256] = "";
+			snprintf(showIp, sizeof(showIp), "\nTestIpConnected() Fail %s", szIP);
+			OutputDebugStringA(showIp);
+
+			nResult = FALSE;
+		}
+		else
+		{
+			char showIp[256] = "";
+			snprintf(showIp, sizeof(showIp), "\nTestIpConnected() success %s", szIP);
+			OutputDebugStringA(showIp);
+
+			nResult = TRUE;
+		}
+
+		lpfnNetworkClose(socketID);
+
+	}
+	else
+	{
+		nResult = FALSE;
+	}
+
+	lpfnNetworkConnect = NULL;
+	lpfnNetworkClose = NULL;
+
+	FreeLibrary(hmod);
+
+	return nResult;
+}
 
 static void DNSSD_API addrinfo_reply(DNSServiceRef sdref, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *hostname, const struct sockaddr *address, uint32_t ttl, void *context)
 {
 	if (address && address->sa_family == AF_INET)
 	{
-		OutputDebugString(L"addrinfo_reply(v4)1");
 		const unsigned char *b = (const unsigned char *)&((struct sockaddr_in *)address)->sin_addr;
 		snprintf(addr, sizeof(addr), "%d.%d.%d.%d", b[0], b[1], b[2], b[3]);
-		OutputDebugString(L"addrinfo_reply(v4)2");
+
+		char showIp[256] = "";
+		snprintf(showIp, sizeof(showIp), "\naddrinfo_reply(IPv4) %s", addr);
+		OutputDebugStringA(showIp);
 	}
 	else if (address && address->sa_family == AF_INET6)
 	{
@@ -1289,21 +1345,38 @@ static void DNSSD_API addrinfo_reply(DNSServiceRef sdref, DNSServiceFlags flags,
 		char if_name[IFNAMSIZ] = { 0 };		// Older Linux distributions don't define IF_NAMESIZE
 		const struct sockaddr_in6 *s6 = (const struct sockaddr_in6 *)address;
 		const unsigned char       *b = (const unsigned char *)&(s6->sin6_addr);
-		OutputDebugString(L"addrinfo_reply(v6)1");
+
 		Addr6toStr((BYTE*)b, s6->sin6_scope_id, tempAddr);
 
-		std::string strTemp;
-		strTemp = tempAddr;
-		strTemp = strTemp.substr(0, 4);
+		char showIp[256] = "";
+		snprintf(showIp, sizeof(showIp), "\naddrinfo_reply(IPv6) %s", tempAddr);
+		OutputDebugStringA(showIp);
 
-		if (strTemp != "fe80")
+		if (HasObtainIPv6 == FALSE)
 		{
-			memcpy(addr, tempAddr, 256);
-			//snprintf(addr, sizeof(addr), "%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x%%%s",
-			//	b[0x0], b[0x1], b[0x2], b[0x3], b[0x4], b[0x5], b[0x6], b[0x7],
-			//	b[0x8], b[0x9], b[0xA], b[0xB], b[0xC], b[0xD], b[0xE], b[0xF], if_name);
+			if (TestIpConnected(tempAddr))
+			{
+				snprintf(showIp, sizeof(showIp), "\naddrinfo_reply(IPv6) available %s", tempAddr);
+				OutputDebugStringA(showIp);
+
+				memcpy(addr, tempAddr, 256);
+				HasObtainIPv6 = TRUE;
+			}
 		}
-		OutputDebugString(L"addrinfo_reply(v6)2");
+
+		//std::string strTemp;
+		//strTemp = tempAddr;
+		//strTemp = strTemp.substr(0, 4);
+
+		//if (strTemp != "fe80")
+		//{
+		//	memcpy(addr, tempAddr, 256);
+		//	//snprintf(addr, sizeof(addr), "%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x%%%s",
+		//	//	b[0x0], b[0x1], b[0x2], b[0x3], b[0x4], b[0x5], b[0x6], b[0x7],
+		//	//	b[0x8], b[0x9], b[0xA], b[0xB], b[0xC], b[0xD], b[0xE], b[0xF], if_name);
+		//}
+
+
 	/*	if (!if_indextoname(s6->sin6_scope_id, if_name))
 			snprintf(if_name, sizeof(if_name), "%d", s6->sin6_scope_id);*/
 
@@ -1353,52 +1426,6 @@ static void HandleEvents(void)
 	}
 }
 
-static BOOL TestIpConnected(char* szIP)
-{
-	int nResult = TRUE;
-
-	HMODULE hmod = LoadLibrary(DLL_NAME_NET);
-
-	LPFN_NETWORK_CONNECT  lpfnNetworkConnect = NULL;
-	LPFN_NETWORK_CLOSE    lpfnNetworkClose = NULL;
-
-	lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(hmod, "NetworkConnectNonBlock");
-	lpfnNetworkClose = (LPFN_NETWORK_CLOSE)GetProcAddress(hmod, "NetworkClose");
-
-	OutputDebugString(L"TestIpConnected()1");
-	if (hmod && \
-		lpfnNetworkConnect && \
-		lpfnNetworkClose)
-	{
-		OutputDebugString(L"TestIpConnected()2");
-	
-		int socketID = lpfnNetworkConnect(szIP, 9100, 1000);
-
-		if (-1 == socketID)
-		{
-			nResult = FALSE;
-		}
-		else
-		{
-			nResult = TRUE;
-		}
-
-		lpfnNetworkClose(socketID);
-		
-	}
-	else
-	{
-		nResult = FALSE;
-	}
-
-	lpfnNetworkConnect = NULL;
-	lpfnNetworkClose = NULL;
-
-	FreeLibrary(hmod);
-
-	return nResult;
-}
-
 static bool BonjourGetAddrInfo(wchar_t* hostname, wchar_t* ipAddress)
 {
 	DNSServiceErrorType err;
@@ -1408,10 +1435,12 @@ static bool BonjourGetAddrInfo(wchar_t* hostname, wchar_t* ipAddress)
 
 	::WideCharToMultiByte(CP_ACP, 0, hostname, -1, _hostname, 100, NULL, NULL);
 
-	OutputDebugString(L"DNSServiceGetAddrInfo(v4)");
 	::memset(addr, 0, 256);
 
 	EnterCriticalSection(&g_csCriticalSection_bonjour);
+
+	HasObtainIPv6 = FALSE;
+
 	err = DNSServiceGetAddrInfo(&client,
 		kDNSServiceFlagsReturnIntermediates, kDNSServiceInterfaceIndexAny, kDNSServiceProtocol_IPv4, _hostname, addrinfo_reply, NULL);
 
@@ -1430,7 +1459,7 @@ static bool BonjourGetAddrInfo(wchar_t* hostname, wchar_t* ipAddress)
 	}
 	else
 	{
-		OutputDebugString(L"DNSServiceGetAddrInfo(v6)");
+
 		::memset(addr, 0, 256);
 
 		//EnterCriticalSection(&g_csCriticalSection_bonjour);
@@ -1530,7 +1559,11 @@ static int CheckPort( const wchar_t* pprintername_, wchar_t* str_ )
 					//XcvData(hXcv, L"IPAddress", NULL, 0, (PBYTE)str_, 256, &cReturned, &dwStatus);
                     ClosePrinter(hXcv);
                 }
-				OutputDebugString(L"CheckPort()1");
+
+				TCHAR showIp[256] = L"";
+				wsprintf(showIp, L"\nCheckPort() hostname %s", ipString);
+				OutputDebugString(showIp);
+
 				std::wstring str(ipString);
 				if (str.substr(str.length() - 1, 1) == L".") //Is a hostname?
 				{
@@ -1554,7 +1587,7 @@ static int CheckPort( const wchar_t* pprintername_, wchar_t* str_ )
 				{
 					wmemcpy(str_, ipString, 100);
 				}
-				OutputDebugString(L"CheckPort()2");
+
             }
         }
 	}
