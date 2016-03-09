@@ -14,6 +14,9 @@ namespace VOP
         public static extern void CancelScanning();
 
         [DllImport("usbapi.dll")]
+        public static extern void ResetBonjourAddr();
+
+        [DllImport("usbapi.dll")]
         public static extern int CheckPortAPI(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername);
 

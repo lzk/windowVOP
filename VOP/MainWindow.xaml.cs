@@ -1425,10 +1425,11 @@ namespace VOP
                 thread_PrinterInfo2.Join();
             }
 
-
             winCopyPage.ResetToDefaultValue();
             winScanPage.ResetToDefaultValue();
             winPrintPage.ResetToDefaultValue();
+
+            dll.ResetBonjourAddr();
 
             byte toner  = 0;
             byte status = (byte)EnumStatus.Offline; 

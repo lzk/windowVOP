@@ -567,6 +567,7 @@ USBAPI_API int __stdcall GetFWInfo(const wchar_t* szPrinter, char * FWVersion);
 
 USBAPI_API int __stdcall SearchValidedIP(const char* macAddress, BOOL ipV4, BOOL isSFP, char * ipFound);
 USBAPI_API int __stdcall SetPortIP(const wchar_t * pPrinterName, const char * ipAddress);
+USBAPI_API void __stdcall ResetBonjourAddr();
 //--------------------------------global--------------------------------------
 static const unsigned char INIT_VALUE = 0xfe;
 static bool bCancelScanning = false; // Scanning cancel falg, only use in ScanEx(). 
@@ -1274,6 +1275,11 @@ static volatile int timeOut = LONG_TIME;
 static DNSServiceRef client = NULL;
 static char addr[256] = "";
 static BOOL HasObtainIPv6 = FALSE;
+
+USBAPI_API void __stdcall ResetBonjourAddr()
+{
+	::memset(addr, 0, 256);
+}
 
 static BOOL TestIpConnected(char* szIP)
 {

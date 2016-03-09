@@ -60,3 +60,4 @@ EXPORTS
 	CheckPortAPI2
 	SearchValidedIP
 	SetPortIP
+	ResetBonjourAddr
