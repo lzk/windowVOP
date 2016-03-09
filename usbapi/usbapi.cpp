@@ -1414,11 +1414,14 @@ static void HandleEvents(void)
 		tv.tv_usec = 0;
 
 		result = select(nfds, &readfds, (fd_set*)NULL, (fd_set*)NULL, &tv);
+
 		if (result > 0)
 		{
 			DNSServiceErrorType err = kDNSServiceErr_NoError;
-			if (client && FD_ISSET(dns_sd_fd, &readfds)) 
+			if (client && FD_ISSET(dns_sd_fd, &readfds))
+			{
 				err = DNSServiceProcessResult(client);
+			}	
 			if (err) { 
 				stopNow = 1; 
 			}
@@ -1450,8 +1453,10 @@ static bool BonjourGetAddrInfo(wchar_t* hostname, wchar_t* ipAddress)
 	err = DNSServiceGetAddrInfo(&client,
 		kDNSServiceFlagsReturnIntermediates, kDNSServiceInterfaceIndexAny, kDNSServiceProtocol_IPv4, _hostname, addrinfo_reply, NULL);
 
+
 	if (!client || err != kDNSServiceErr_NoError)
 	{ 
+		LeaveCriticalSection(&g_csCriticalSection_bonjour);
 		return FALSE;
 	}
 
@@ -1474,6 +1479,7 @@ static bool BonjourGetAddrInfo(wchar_t* hostname, wchar_t* ipAddress)
 
 		if (!client || err != kDNSServiceErr_NoError)
 		{
+			LeaveCriticalSection(&g_csCriticalSection_bonjour);
 			return FALSE;
 		}
 
