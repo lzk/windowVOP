@@ -214,12 +214,54 @@ namespace VOP
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
         }
 
-        public void InitHostname()
+        public bool RestartBonjourService()
         {
+            bool result = true;
+
             string strPrinterName = statusPanelPage.m_selectedPrinter;
-            StringBuilder ipAddress = new StringBuilder(100);
-            Trace.WriteLine("InitHostname().");
-            dll.CheckPortAPI2(strPrinterName, ipAddress);
+            EnumPortType type = (EnumPortType)dll.CheckPortAPI(strPrinterName);
+
+            if (EnumPortType.PT_TCPIP == type || EnumPortType.PT_WSD == type)
+            {
+                //Process p = null;
+                //if (App.CheckProcessExist("Bonjour Service", ref p) == true)
+                {
+                    System.ServiceProcess.ServiceController service = new System.ServiceProcess.ServiceController("Bonjour Service");
+
+                    if (service.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
+                    {
+
+                        try
+                        {
+                            // Start the service, and wait until its status is "Running".
+                            service.Start();
+                            service.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running);
+
+                        }
+                        catch (Exception)
+                        {
+                            result = false;
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public int CheckBonjourService()
+        {
+            if (!RestartBonjourService())
+            {
+                VOP.Controls.MessageBoxEx.Show(
+                         VOP.Controls.MessageBoxExStyle.Simple,
+                         this,
+                         "In order to communicate with printer, please restart Bonjour Service!",
+                         (string)this.FindResource("ResStr_Warning")
+                         );
+            }
+
+            return 1;
         }
 
         public void UploadPrinterInfo2()
@@ -945,8 +987,7 @@ namespace VOP
             thread_PrinterInfo2 = new Thread(UploadPrinterInfo2);
             thread_PrinterInfo2.Start();
 
-            //thread_InitHostname = new Thread(InitHostname);
-            //thread_InitHostname.Start();
+            CheckBonjourService();
 
             m_isMainWinLoaded = true;
 
@@ -1428,6 +1469,11 @@ namespace VOP
             winCopyPage.ResetToDefaultValue();
             winScanPage.ResetToDefaultValue();
             winPrintPage.ResetToDefaultValue();
+
+            if (m_isMainWinLoaded == true)
+            {
+                CheckBonjourService();
+            }
 
             dll.ResetBonjourAddr();
 
