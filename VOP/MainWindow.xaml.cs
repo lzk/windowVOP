@@ -223,29 +223,22 @@ namespace VOP
 
             if (EnumPortType.PT_TCPIP == type || EnumPortType.PT_WSD == type)
             {
-                //Process p = null;
-                //if (App.CheckProcessExist("Bonjour Service", ref p) == true)
+                try
                 {
                     System.ServiceProcess.ServiceController service = new System.ServiceProcess.ServiceController("Bonjour Service");
 
                     if (service.Status == System.ServiceProcess.ServiceControllerStatus.Stopped)
                     {
-
-                        try
-                        {
-                            // Start the service, and wait until its status is "Running".
-                            service.Start();
-                            service.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running);
-
-                        }
-                        catch (Exception)
-                        {
-                            result = false;
-                        }
+                        // Start the service, and wait until its status is "Running".
+                        service.Start();
+                        service.WaitForStatus(System.ServiceProcess.ServiceControllerStatus.Running);
                     }
                 }
+                catch (Exception)
+                {
+                    result = false;
+                }        
             }
-
             return result;
         }
 
