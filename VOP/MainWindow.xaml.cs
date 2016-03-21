@@ -214,6 +214,20 @@ namespace VOP
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
         }
 
+        public bool IsBonjourServiceExist()
+        {
+            try
+            {
+                return System.ServiceProcess.ServiceController.GetServices()
+                                          .Any(s => s.ServiceName == "Bonjour Service");
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+       
+        }
+
         public bool RestartBonjourService()
         {
             bool result = true;
@@ -244,14 +258,17 @@ namespace VOP
 
         public int CheckBonjourService()
         {
-            if (!RestartBonjourService())
+            if (IsBonjourServiceExist())
             {
-                VOP.Controls.MessageBoxEx.Show(
-                         VOP.Controls.MessageBoxExStyle.Simple,
-                         this,
-                         "In order to communicate with printer, please restart Bonjour Service!",
-                         (string)this.FindResource("ResStr_Warning")
-                         );
+                if (!RestartBonjourService())
+                {
+                    VOP.Controls.MessageBoxEx.Show(
+                             VOP.Controls.MessageBoxExStyle.Simple,
+                             this,
+                             "In order to communicate with printer, please restart Bonjour Service!",
+                             (string)this.FindResource("ResStr_Warning")
+                             );
+                }
             }
 
             return 1;
