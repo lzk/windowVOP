@@ -178,23 +178,24 @@ namespace CRMUploader
                                 {
                                     common.GetPrinterDrvName(printerName, ref strDrvName);
 
-                                    bool isSFP = common.IsSFPPrinter(strDrvName);
-                                    bool isWiFiModel = common.IsSupportWifi(strDrvName);
+                                    //bool isSFP = common.IsSFPPrinter(strDrvName);
+                                    //bool isWiFiModel = common.IsSupportWifi(strDrvName);
 
-                                    if (isSFP)
-                                    {
-                                        if (isWiFiModel)
-                                            strPrinterModel = "Lenovo LJ2208W";
-                                        else
-                                            strPrinterModel = "Lenovo LJ2208";
-                                    }
-                                    else
-                                    {
-                                        if (isWiFiModel)
-                                            strPrinterModel = "Lenovo M7208W";
-                                        else
-                                            strPrinterModel = "Lenovo M7208";
-                                    }
+                                    //if (isSFP)
+                                    //{
+                                    //    if (isWiFiModel)
+                                    //        strPrinterModel = "Lenovo LJ2208W";
+                                    //    else
+                                    //        strPrinterModel = "Lenovo LJ2208";
+                                    //}
+                                    //else
+                                    //{
+                                    //    if (isWiFiModel)
+                                    //        strPrinterModel = "Lenovo M7208W";
+                                    //    else
+                                    //        strPrinterModel = "Lenovo M7208";
+                                    //}
+                                    strPrinterModel = strDrvName;
 
                                     info.AddPrintData(strPrinterModel, rec.SecondSerialNO, rec.SerialNO4AIO, rec.TotalCounter);
 

@@ -141,6 +141,11 @@ namespace VOP
             new PrinterInfo("Lenovo M7208W"  , false , true)  ,
             new PrinterInfo("Lenovo LJ2208"  , true  , false) ,
             new PrinterInfo("Lenovo LJ2208W" , true  , true)  ,
+
+            new PrinterInfo("Lenovo M7218"   , false , false) ,
+            new PrinterInfo("Lenovo M7218W"  , false , true)  ,
+            new PrinterInfo("Lenovo LJ2218"  , true  , false) ,
+            new PrinterInfo("Lenovo LJ2218W" , true  , true)  ,
         };
 
         /// <summary> Get the support printer list.  </summary>

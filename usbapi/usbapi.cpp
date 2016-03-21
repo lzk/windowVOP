@@ -89,6 +89,8 @@
 #define MAX_SIZE_BUFF  1460 
 #define REGKEY_UTILITY_LENOVO_3in1  L"SOFTWARE\\Lenovo\\Lenovo M7208\\Express Scan Manager"
 #define REGKEY_UTILITY_LENOVO_SFP   L"SOFTWARE\\Lenovo\\Lenovo LJ2208\\Express Scan Manager"
+#define REGKEY_UTILITY_LENOVO_3in1_7218  L"SOFTWARE\\Lenovo\\Lenovo M7218\\Express Scan Manager"
+#define REGKEY_UTILITY_LENOVO_SFP_2218   L"SOFTWARE\\Lenovo\\Lenovo LJ2218\\Express Scan Manager"
 #define _COMM_ERROR_NUM				0x2D1C
 
 #define DLL_NAME_NET L"NetIO"
@@ -3305,6 +3307,11 @@ static bool GetDevMonPath( const wchar_t* sz_printer, LPTSTR lptstrDevMonPath, i
         { L"Lenovo M7208W"  , REGKEY_UTILITY_LENOVO_3in1 } ,
         { L"Lenovo LJ2208"  , REGKEY_UTILITY_LENOVO_SFP  } ,
         { L"Lenovo LJ2208W" , REGKEY_UTILITY_LENOVO_SFP  } ,
+
+		{ L"Lenovo M7218", REGKEY_UTILITY_LENOVO_3in1_7218 },
+		{ L"Lenovo M7218W", REGKEY_UTILITY_LENOVO_3in1_7218 },
+		{ L"Lenovo LJ2218", REGKEY_UTILITY_LENOVO_SFP_2218 },
+		{ L"Lenovo LJ2218W", REGKEY_UTILITY_LENOVO_SFP_2218 },
     } ;
 
     wchar_t sz_driver[1024] = { 0 };

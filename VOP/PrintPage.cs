@@ -277,24 +277,25 @@ namespace VOP
             crmPrintInfo.m_strPrinterName = strPrinterName;
             crmPrintInfo.m_strPrintCopys = String.Format("{0}", (sbyte)spinnerControl1.Value);
 
-            bool isSFP = common.IsSFPPrinter(strDrvName);
-            bool isWiFiModel = common.IsSupportWifi(strDrvName);
+            //bool isSFP = common.IsSFPPrinter(strDrvName);
+            //bool isWiFiModel = common.IsSupportWifi(strDrvName);
+           
+            //if (isSFP)
+            //{
+            //    if (isWiFiModel)
+            //        crmPrintInfo.m_strPrinterModel = "Lenovo LJ2208W";
+            //    else
+            //        crmPrintInfo.m_strPrinterModel = "Lenovo LJ2208";
+            //}
+            //else
+            //{
+            //    if (isWiFiModel)
+            //        crmPrintInfo.m_strPrinterModel = "Lenovo M7208W";
+            //    else
+            //        crmPrintInfo.m_strPrinterModel = "Lenovo M7208";
+            //}
 
-            if (isSFP)
-            {
-                if (isWiFiModel)
-                    crmPrintInfo.m_strPrinterModel = "Lenovo LJ2208W";
-                else
-                    crmPrintInfo.m_strPrinterModel = "Lenovo LJ2208";
-            }
-            else
-            {
-                if (isWiFiModel)
-                    crmPrintInfo.m_strPrinterModel = "Lenovo M7208W";
-                else
-                    crmPrintInfo.m_strPrinterModel = "Lenovo M7208";
-            } 
-
+            crmPrintInfo.m_strPrinterModel = strDrvName;
   
             if (CurrentPrintType == PrintType.PrintFile_Txt)
             {
