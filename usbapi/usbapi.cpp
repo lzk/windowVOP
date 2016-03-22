@@ -406,6 +406,7 @@ typedef struct _fw_info_st
 } fw_info_st;
 
 typedef int (* LPFN_NETWORK_CONNECT ) (char *server, int port, int timeout ) ;
+typedef int(*LPFN_NETWORK_CONNECT_BLOCK) (char *server, int port);
 // return the number of bytes successfully read.
 typedef int (* LPFN_NETWORK_READ    ) (int sd, void* buff, DWORD len       ) ;
 typedef int (* LPFN_NETWORK_WRITE   ) (int sd, void* buff, DWORD len       ) ;
@@ -1289,19 +1290,23 @@ static BOOL TestIpConnected(char* szIP)
 
 	HMODULE hmod = LoadLibrary(DLL_NAME_NET);
 
+	LPFN_NETWORK_CONNECT_BLOCK lpfnNetworkConnectBlock = NULL;
 	LPFN_NETWORK_CONNECT  lpfnNetworkConnect = NULL;
 	LPFN_NETWORK_CLOSE    lpfnNetworkClose = NULL;
 
+	lpfnNetworkConnectBlock = (LPFN_NETWORK_CONNECT_BLOCK)GetProcAddress(hmod, "NetworkConnect");
 	lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(hmod, "NetworkConnectNonBlock");
 	lpfnNetworkClose = (LPFN_NETWORK_CLOSE)GetProcAddress(hmod, "NetworkClose");
 
 
 	if (hmod && \
-		lpfnNetworkConnect && \
+		//lpfnNetworkConnect && 
+		lpfnNetworkConnectBlock && \
 		lpfnNetworkClose)
 	{
 
-		int socketID = lpfnNetworkConnect(szIP, 9100, 1000);
+		//int socketID = lpfnNetworkConnect(szIP, 9100, 1000);
+		int socketID = lpfnNetworkConnectBlock(szIP, 9100);
 
 		if (-1 == socketID)
 		{
