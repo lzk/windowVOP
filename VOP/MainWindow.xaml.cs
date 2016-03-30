@@ -998,7 +998,7 @@ namespace VOP
             thread_PrinterInfo2 = new Thread(UploadPrinterInfo2);
             thread_PrinterInfo2.Start();
 
-            CheckBonjourService();
+            //CheckBonjourService();
 
             m_isMainWinLoaded = true;
 
@@ -1481,12 +1481,12 @@ namespace VOP
             winScanPage.ResetToDefaultValue();
             winPrintPage.ResetToDefaultValue();
 
-            if (m_isMainWinLoaded == true)
-            {
-                CheckBonjourService();
-            }
+            //if (m_isMainWinLoaded == true)
+            //{
+            //    CheckBonjourService();
+            //}
 
-            dll.ResetBonjourAddr();
+            //dll.ResetBonjourAddr();
 
             byte toner  = 0;
             byte status = (byte)EnumStatus.Offline; 
