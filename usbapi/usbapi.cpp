@@ -87,8 +87,8 @@
 
 
 #define MAX_SIZE_BUFF  1460 
-#define REGKEY_UTILITY_LENOVO_3in1  L"SOFTWARE\\Lenovo\\Lenovo M7208\\Express Scan Manager"
-#define REGKEY_UTILITY_LENOVO_SFP   L"SOFTWARE\\Lenovo\\Lenovo LJ2208\\Express Scan Manager"
+#define REGKEY_UTILITY_LENOVO_3in1  L"SOFTWARE\\Lenovo\\Lenovo M72X8\\Express Scan Manager"
+#define REGKEY_UTILITY_LENOVO_SFP   L"SOFTWARE\\Lenovo\\Lenovo LJ22X8\\Express Scan Manager"
 #define REGKEY_UTILITY_LENOVO_3in1_7218  L"SOFTWARE\\Lenovo\\Lenovo M72X8\\Express Scan Manager"
 #define REGKEY_UTILITY_LENOVO_SFP_2218   L"SOFTWARE\\Lenovo\\Lenovo LJ22X8\\Express Scan Manager"
 #define _COMM_ERROR_NUM				0x2D1C
