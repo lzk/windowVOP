@@ -406,7 +406,7 @@ namespace VOP
                     break;
             }
 
-            size = nWidth/1000*nHeight/1000*dpi*dpi*fClrDeep;
+            size = (float)nWidth/1000*(float)nHeight/1000*dpi*dpi*fClrDeep;
 
             return (int)size;
         }
