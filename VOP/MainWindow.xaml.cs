@@ -1844,41 +1844,49 @@ namespace VOP
         // Set the popup setting from register. 
         private void SetPopupSetting( string xmlFile, bool popupIDCard, bool popupNIn1 )
         {
-            string parentFolder = System.IO.Path.GetDirectoryName( xmlFile );
-
-            if ( false == Directory.Exists( parentFolder ) ) 
+            try
             {
-                Directory.CreateDirectory( parentFolder );
+                string parentFolder = System.IO.Path.GetDirectoryName(xmlFile);
+
+                if (false == Directory.Exists(parentFolder))
+                {
+                    Directory.CreateDirectory(parentFolder);
+                }
+
+                XmlDocument xmlDoc = new XmlDocument();
+
+                string version = "1.0";
+                string encoding = "gb2312";
+                string standalone = "yes";
+
+                XmlDeclaration xmlDeclaration = xmlDoc.CreateXmlDeclaration(version, encoding, standalone);
+                XmlNode root = xmlDoc.CreateElement("VOPCfg");
+                xmlDoc.AppendChild(xmlDeclaration);
+                xmlDoc.AppendChild(root);
+
+                XmlElement elPopupIDCard = xmlDoc.CreateElement("elPopupIDCard");
+                XmlElement elPopupNIn1 = xmlDoc.CreateElement("elPopupNIn1");
+                XmlElement crmAgreement = xmlDoc.CreateElement("crmAgreement");
+                XmlElement crmAgreementDialogShowed = xmlDoc.CreateElement("crmAgreementDialogShowed");
+
+                elPopupIDCard.InnerXml = popupIDCard.ToString();
+                elPopupNIn1.InnerXml = popupNIn1.ToString();
+                crmAgreement.InnerXml = m_crmAgreement.ToString();
+                crmAgreementDialogShowed.InnerXml = m_crmAgreementDialogShowed.ToString();
+
+                root.AppendChild(elPopupIDCard);
+                root.AppendChild(elPopupNIn1);
+                root.AppendChild(crmAgreement);
+                root.AppendChild(crmAgreementDialogShowed);
+
+                xmlDoc.Save(xmlFile);
+
             }
+            catch(Exception)
+            {
 
-            XmlDocument xmlDoc = new XmlDocument();
-
-            string version    = "1.0";
-            string encoding   = "gb2312";
-            string standalone = "yes";
-
-            XmlDeclaration xmlDeclaration = xmlDoc.CreateXmlDeclaration(version, encoding, standalone);
-            XmlNode root = xmlDoc.CreateElement( "VOPCfg" );
-            xmlDoc.AppendChild(xmlDeclaration);
-            xmlDoc.AppendChild(root);
-
-            XmlElement elPopupIDCard = xmlDoc.CreateElement( "elPopupIDCard" );
-            XmlElement elPopupNIn1   = xmlDoc.CreateElement( "elPopupNIn1" );
-            XmlElement crmAgreement   = xmlDoc.CreateElement( "crmAgreement" );
-            XmlElement crmAgreementDialogShowed = xmlDoc.CreateElement("crmAgreementDialogShowed");
-            
-            elPopupIDCard.InnerXml = popupIDCard.ToString();
-            elPopupNIn1.InnerXml   = popupNIn1.ToString();
-            crmAgreement.InnerXml  = m_crmAgreement.ToString();
-            crmAgreementDialogShowed.InnerXml = m_crmAgreementDialogShowed.ToString();
-
-            root.AppendChild( elPopupIDCard );
-            root.AppendChild( elPopupNIn1   );
-            root.AppendChild(crmAgreement);
-            root.AppendChild(crmAgreementDialogShowed);
-
-            xmlDoc.Save( xmlFile );
-
+            }
+          
         }
 
         public void ErrorMarkerClick()
