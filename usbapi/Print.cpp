@@ -430,6 +430,9 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 		else
 		{
 			error = Print_Operation_Fail;
+
+			char Debug[256] = "PrintInit fail";
+			OutputDebugStringA(Debug);
 		}
 	}
 	else
@@ -494,11 +497,22 @@ USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * 
 	dc = CreateDCW(L"WINSPOOL", strPrinterName, NULL, NULL);
 
 	if (dc == NULL)
+	{
+		int errorCode = GetLastError();
+		TCHAR Debug[256] = L"";
+		_snwprintf(Debug, sizeof(Debug), L"\nPrintInit CreateDCW error code %d name %s", errorCode, strPrinterName);
+		OutputDebugString(Debug);
 		return FALSE;
+	}
+		
 
 	Gdiplus::Status status;
 	if ((status = Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL)) != Gdiplus::Ok)
 	{
+		int errorCode = GetLastError();
+		char Debug[256] = "";
+		_snprintf(Debug, sizeof(Debug), "\nPrintInit GdiplusStartup Fail %d", errorCode);
+		OutputDebugStringA(Debug);
 		return FALSE;
 	}
 
@@ -831,9 +845,19 @@ USBAPI_API int __stdcall DoPrintImage()
 		}
 	}
 	else
+	{
 		error = Print_Operation_Fail;
+		char Debug[256] = "DoPrintImage startdoc Fail";
+		OutputDebugStringA(Debug);
+	}
+		
 
     int errorCode = GetLastError();
+
+	char Debug[256] = "";
+	_snprintf(Debug, sizeof(Debug), "\nDoPrintImage startdoc Fail %d", errorCode);
+	OutputDebugStringA(Debug);
+
 
 	Gdiplus::GdiplusShutdown(gdiplusToken);
 
