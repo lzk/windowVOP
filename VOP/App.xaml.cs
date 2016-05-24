@@ -100,37 +100,42 @@ namespace VOP
 
         public static void ResetVopCfg()
         {
-            if (File.Exists(App.cfgFile))
+            try
             {
+                if (File.Exists(App.cfgFile))
+                {
 
-                XmlDocument xmlDoc = new XmlDocument();
+                    XmlDocument xmlDoc = new XmlDocument();
 
-                string version = "1.0";
-                string encoding = "gb2312";
-                string standalone = "yes";
+                    string version = "1.0";
+                    string encoding = "gb2312";
+                    string standalone = "yes";
 
-                XmlDeclaration xmlDeclaration = xmlDoc.CreateXmlDeclaration(version, encoding, standalone);
-                XmlNode root = xmlDoc.CreateElement("VOPCfg");
-                xmlDoc.AppendChild(xmlDeclaration);
-                xmlDoc.AppendChild(root);
+                    XmlDeclaration xmlDeclaration = xmlDoc.CreateXmlDeclaration(version, encoding, standalone);
+                    XmlNode root = xmlDoc.CreateElement("VOPCfg");
+                    xmlDoc.AppendChild(xmlDeclaration);
+                    xmlDoc.AppendChild(root);
 
-                XmlElement elPopupIDCard = xmlDoc.CreateElement("elPopupIDCard");
-                XmlElement elPopupNIn1 = xmlDoc.CreateElement("elPopupNIn1");
-                XmlElement crmAgreement = xmlDoc.CreateElement("crmAgreement");
-                XmlElement crmAgreementDialogShowed = xmlDoc.CreateElement("crmAgreementDialogShowed");
+                    XmlElement elPopupIDCard = xmlDoc.CreateElement("elPopupIDCard");
+                    XmlElement elPopupNIn1 = xmlDoc.CreateElement("elPopupNIn1");
+                    XmlElement crmAgreement = xmlDoc.CreateElement("crmAgreement");
+                    XmlElement crmAgreementDialogShowed = xmlDoc.CreateElement("crmAgreementDialogShowed");
 
-                elPopupIDCard.InnerXml = "True";
-                elPopupNIn1.InnerXml = "True";
-                crmAgreement.InnerXml = "False";
-                crmAgreementDialogShowed.InnerXml = "False";
+                    elPopupIDCard.InnerXml = "True";
+                    elPopupNIn1.InnerXml = "True";
+                    crmAgreement.InnerXml = "False";
+                    crmAgreementDialogShowed.InnerXml = "False";
 
-                root.AppendChild(elPopupIDCard);
-                root.AppendChild(elPopupNIn1);
-                root.AppendChild(crmAgreement);
-                root.AppendChild(crmAgreementDialogShowed);
+                    root.AppendChild(elPopupIDCard);
+                    root.AppendChild(elPopupNIn1);
+                    root.AppendChild(crmAgreement);
+                    root.AppendChild(crmAgreementDialogShowed);
 
-                xmlDoc.Save(App.cfgFile);
+                    xmlDoc.Save(App.cfgFile);
+                }
             }
+            catch(Exception)
+            { }
 
         }
 
