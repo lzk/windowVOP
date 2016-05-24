@@ -1882,9 +1882,9 @@ namespace VOP
                 xmlDoc.Save(xmlFile);
 
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-
+                Trace.WriteLine(String.Format("SetPopupSetting: {0} {1}.", ex.Message, ex.StackTrace));
             }
           
         }
