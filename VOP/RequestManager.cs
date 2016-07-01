@@ -1034,7 +1034,7 @@ namespace VOP
                     }
                 }
 
-                if ((!bSuccess) && (!rtValue.m_bSuccess) && m_CookieContainer.Count == 0)
+                if ((!bSuccess) && (!rtValue.m_bSuccess) && rtValue.m_nErrorCode == 401)
                 {
                     SessionInfo session = new SessionInfo();
                     GetSession(ref session);
