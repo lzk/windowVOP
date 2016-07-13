@@ -3819,7 +3819,7 @@ USBAPI_API int __stdcall GetUserCenterInfo(const wchar_t* szPrinter, char* _2ndS
 
 			*_totalCounter = pcmd_user_center->_totalCounter;
 			memcpy(_2ndSerialNO,  pcmd_user_center->_2ndSerialNO,  20); _2ndSerialNO[20] = 0;
-			memcpy(_serialNO4AIO, pcmd_user_center->_SerialNO4AIO, 16); _2ndSerialNO[16] = 0;
+			memcpy(_serialNO4AIO, pcmd_user_center->_SerialNO4AIO, 16); _serialNO4AIO[16] = 0;
 		}
 
 		if (buffer)
