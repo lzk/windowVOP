@@ -36,6 +36,9 @@ tags
 VersionInfo.rc
 **/VersionInfo.cs
 VOP/Properties/VersionInfo.cs
+**/AssemblyInfo.cs
+CRMUploader/Properties/AssemblyInfo.cs
+SetPortAdmin/Properties/AssemblyInfo.cs
 
 MultiLangTool/
 MultiLangTool/*
