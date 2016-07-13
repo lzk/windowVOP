@@ -469,7 +469,7 @@ namespace VOP
         private sbyte m_preduplexPrint = 3;
         public  sbyte m_colorBalanceTo = 0;
         public sbyte m_ADJColorBalance = 0;
-        public sbyte m_copies = 1;
+        public short m_copies = 1;
         public sbyte m_booklet = 0;
         public sbyte m_watermark = 0;
         public EnumMediaType m_MediaType = EnumMediaType.Plain;

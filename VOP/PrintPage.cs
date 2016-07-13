@@ -200,11 +200,11 @@ namespace VOP
         private void AdvancedSettingButtonClick(object sender, RoutedEventArgs e)
         {
             bool? result = null;
-            dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (sbyte)spinnerControl1.Value);
+            dll.SetCopies(m_MainWin.statusPanelPage.m_selectedPrinter, (short)spinnerControl1.Value);
             PrintSettingPage printWin = new PrintSettingPage();
             printWin.Owner = App.Current.MainWindow;
             printWin.m_MainWin = m_MainWin;
-            printWin.m_copies = (sbyte)spinnerControl1.Value;
+            printWin.m_copies = (short)spinnerControl1.Value;
             
             printWin.m_CurrentPrintType = CurrentPrintType;
 
@@ -213,7 +213,7 @@ namespace VOP
             {
                 needFitToPage = (bool)printWin.chk_FitToPaperSize.IsChecked;
                 IsPortrait = (bool)printWin.rdBtnPortrait.IsChecked;
-                spinnerControl1.Value = printWin.m_copies;
+                spinnerControl1.Value = (short)printWin.m_copies;
                 scalingValue = (int)printWin.spinnerScaling.Value;
 
                 if(printWin.chk_DuplexPrint.IsChecked == true)

@@ -345,7 +345,7 @@ namespace VOP
             sbyte DocumentStyle,
             sbyte ReversePrint,
             sbyte TonerSaving,
-            sbyte Copies,
+            short Copies,
             sbyte Booklet,
             sbyte Watermark);
 
@@ -379,7 +379,7 @@ namespace VOP
             ref sbyte DocumentStyle,
             ref sbyte ReversePrint,
             ref sbyte TonerSaving,
-            ref sbyte Copies,
+            ref short Copies,
             ref sbyte Booklet,
             ref sbyte Watermark);
 
@@ -403,7 +403,7 @@ namespace VOP
             ref sbyte DocumentStyle,
             ref sbyte ReversePrint,
             ref sbyte TonerSaving,
-            ref sbyte Copies,
+            ref short Copies,
             ref sbyte Booklet,
             ref sbyte Watermark);
 
@@ -428,12 +428,12 @@ namespace VOP
             ref sbyte DocumentStyle,
             ref sbyte ReversePrint,
             ref sbyte TonerSaving,
-            ref sbyte Copies,
+            ref short Copies,
             ref sbyte Booklet,
             ref sbyte Watermark);
 
         [DllImport("usbapi.dll")]
-        public static extern void SetCopies([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName, sbyte Copies);
+        public static extern void SetCopies([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName, short Copies);
 
         [DllImport("usbapi.dll")]
         public static extern void InitPrinterData([MarshalAs(UnmanagedType.LPWStr)]string strPrinterName);

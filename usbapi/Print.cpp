@@ -104,7 +104,7 @@ USBAPI_API void __stdcall SavePrinterSettingsData(const TCHAR * strPrinterName,
 	UINT8 DocumentStyle,
 	UINT8 ReversePrint,//byte
 	UINT8 TonerSaving,
-	UINT8 Copies,
+	short Copies,
 	UINT8 Booklet,
 	UINT8 Watermark);
 USBAPI_API void __stdcall GetPrinterDefaultInfo(const TCHAR * strPrinterName);
@@ -128,7 +128,7 @@ USBAPI_API void __stdcall GetPrinterSettingsData(
 	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
-	BYTE* ptr_copies,
+	short* ptr_copies,
 	BYTE* ptr_booklet,
 	BYTE* ptr_watermark);//byte
 
@@ -150,7 +150,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
-	BYTE* ptr_copies,
+	short* ptr_copies,
 	BYTE* ptr_booklet,
 	BYTE* ptr_watermark);//byte
 
@@ -172,11 +172,11 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
-	BYTE* ptr_copies,
+	short* ptr_copies,
 	BYTE* ptr_booklet,
 	BYTE* ptr_watermark);//byte
 
-USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies);
+USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, short Copies);
 USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName);
 USBAPI_API void __stdcall RecoverDevModeData();
 USBAPI_API void __stdcall SetInitData(const TCHAR * strPrinterName);
@@ -1419,7 +1419,7 @@ USBAPI_API void __stdcall SavePrinterSettingsData(
 	UINT8 DocumentStyle,
 	UINT8 ReversePrint,//byte
 	UINT8 TonerSaving,
-	UINT8 Copies,
+	short Copies,
 	UINT8 Booklet,
 	UINT8 Watermark)//byte
 {
@@ -1791,7 +1791,7 @@ USBAPI_API void __stdcall InitPrinterData(const TCHAR * strPrinterName)
 	}
 }
 
-USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, UINT8 Copies)
+USBAPI_API void __stdcall SetCopies(const TCHAR * strPrinterName, short Copies)
 {
 	HANDLE   phandle;
 	DWORD dmsize = 0;
@@ -1854,7 +1854,7 @@ USBAPI_API void __stdcall GetPrinterSettingsData(
 	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
-	BYTE* ptr_copies,
+	short* ptr_copies,
 	BYTE* ptr_booklet,
 	BYTE* ptr_watermark)//byte
 {
@@ -1875,7 +1875,7 @@ USBAPI_API void __stdcall GetPrinterSettingsData(
 	*ptr_documentStyle = static_cast<BYTE>(g_PrintSettingsData.m_documentStyle);
 	*ptr_reversePrint = static_cast<BYTE>(g_PrintSettingsData.m_reversePrint);
 	*ptr_tonerSaving = static_cast<BYTE>(g_PrintSettingsData.m_tonerSaving);
-	*ptr_copies = static_cast<BYTE>(g_PrintSettingsData.m_copies);
+	*ptr_copies = g_PrintSettingsData.m_copies;
 	*ptr_booklet = static_cast<BYTE>(g_PrintSettingsData.m_booklet);
 	*ptr_watermark = static_cast<BYTE>(g_PrintSettingsData.m_watermark);
 	getDocumentPropertiesData = getOutputData;
@@ -1899,7 +1899,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
-	BYTE* ptr_copies,
+	short* ptr_copies,
 	BYTE* ptr_booklet,
 	BYTE* ptr_watermark)//byte
 {
@@ -1989,7 +1989,7 @@ USBAPI_API int __stdcall GetPrinterInfo(const TCHAR * strPrinterName,
 				*ptr_documentStyle = devmode.dmPrivate.bDocumentStyle;
 				*ptr_reversePrint = devmode.dmPrivate.bPaperReverseOrder;
 				*ptr_tonerSaving = devmode.dmPrivate.graphics.TonerSaving;
-				*ptr_copies = static_cast<BYTE>(devmode.dmPublic.dmCopies);
+				*ptr_copies = devmode.dmPublic.dmCopies;
 				*ptr_booklet = devmode.dmPrivate.bEnableBooklet;
 				*ptr_watermark = devmode.dmPrivate.bEnableWM;
 
@@ -2030,7 +2030,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 	BYTE* ptr_documentStyle,
 	BYTE* ptr_reversePrint,//byte
 	BYTE* ptr_tonerSaving,
-	BYTE* ptr_copies,
+	short* ptr_copies,
 	BYTE* ptr_booklet,
 	BYTE* ptr_watermark)//byte
 {
@@ -2239,7 +2239,7 @@ USBAPI_API int __stdcall OpenDocumentProperties(HWND hWnd,const TCHAR * strPrint
 						*ptr_documentStyle = devmode.dmPrivate.bDocumentStyle;
 						*ptr_reversePrint = devmode.dmPrivate.bPaperReverseOrder;
 						*ptr_tonerSaving = devmode.dmPrivate.graphics.TonerSaving;
-						*ptr_copies = static_cast<BYTE>(devmode.dmPublic.dmCopies);
+						*ptr_copies = devmode.dmPublic.dmCopies;
 						*ptr_booklet = devmode.dmPrivate.bEnableBooklet;
 						*ptr_watermark = devmode.dmPrivate.bEnableWM;
 
