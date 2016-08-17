@@ -114,7 +114,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
-                    <Grid Name="root">
+                    <Grid Name="root" >
                         <ToggleButton x:Name="DropDownToggle"
                             Style="{StaticResource customToggle}"
                             BorderBrush="Transparent"

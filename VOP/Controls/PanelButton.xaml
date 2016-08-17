@@ -1,0 +1,182 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+
+    <Style x:Key="BackButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Grid ClipToBounds="True">
+                        <Image Name="backgroundImage" Source="../Images/back_normal.png"/>
+                    
+                        <!-- Present Content (text) of the button. -->
+                        <DockPanel Name="myContentPresenterDockPanel">
+                            <ContentPresenter x:Name="myContentPresenter" Margin="20"  
+                            Content="{TemplateBinding  Content}"  
+                            TextBlock.Foreground="Black" />
+                        </DockPanel>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/back_over.png"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="true" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/back_press.png"/>
+                        </MultiTrigger>
+                    
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <Style x:Key="LeftButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Grid ClipToBounds="True">
+                        <Image Name="backgroundImage" Source="../Images/left_normal.png"/>
+                        <!-- Present Content (text) of the button. -->
+                        <DockPanel Name="myContentPresenterDockPanel">
+                            <ContentPresenter x:Name="myContentPresenter" Margin="20"  
+                            Content="{TemplateBinding  Content}"  
+                            TextBlock.Foreground="Black" />
+                        </DockPanel>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/left_over.png"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="true" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/left_press.png"/>
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <Style x:Key="RightButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Grid ClipToBounds="True">
+
+                        <Image Name="backgroundImage" Source="../Images/right_normal.png"/>
+
+
+                        <!-- Present Content (text) of the button. -->
+                        <DockPanel Name="myContentPresenterDockPanel">
+                            <ContentPresenter x:Name="myContentPresenter" Margin="20"  
+                            Content="{TemplateBinding  Content}"  
+                            TextBlock.Foreground="Black" />
+                        </DockPanel>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/right_over.png"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="true" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/right_press.png"/>
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+
+    <Style x:Key="ScreenButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Grid ClipToBounds="True">
+
+                        <Image Name="backgroundImage" Source="../Images/screen_normal.png"/>
+
+
+                        <!-- Present Content (text) of the button. -->
+                        <StackPanel Name="myContentPresenterDockPanel" 
+                                    Orientation="Vertical"
+                                    VerticalAlignment="Center" 
+                                    HorizontalAlignment="Center" 
+                                    Margin="0,0,0,0">
+                                        <ContentPresenter x:Name="myContentPresenter"  
+                                                Style="{StaticResource DsDigital}"     
+                                                Content="{TemplateBinding  Content}" 
+                                                TextBlock.FontSize="144"
+                                                TextBlock.Foreground="#FF48C6E0" 
+                                                HorizontalAlignment="Center" 
+                                                />
+                                        <TextBlock 
+                                            x:Name="DetailText"
+                                            Text="Scan To Email"
+                                            FontSize="20"
+                                            Foreground="#FF48C6E0"
+                                            Style="{StaticResource DsDigital}"     
+                                            HorizontalAlignment="Center" 
+                                            Margin="0,0,0,0"
+                                                />          
+                        </StackPanel>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/screen_over.png"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="true" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/screen_press.png"/>
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+</ResourceDictionary>

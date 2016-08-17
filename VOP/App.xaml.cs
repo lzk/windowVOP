@@ -33,7 +33,7 @@ namespace VOP
         public static List<ScanFiles> scanFileList = new List<ScanFiles>(); 
         public static List<ScanFiles> rubbishFiles = new List<ScanFiles>(); // Rubbish files list, delete them when exit.
 
-        static Mutex mutex = new Mutex(true, "4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_mutex");
+        static Mutex mutex = new Mutex(true, "4d8526fa07abfc03085ef2899b5b4d2ecaa3d712_mutex");
         public static uint WM_STATUS_UPDATE = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_status");
         public static uint WM_CHECK_MAINTAIN_DATA_Expired = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_maintain");
         public static uint WM_CHECK_MERCHANT_INFO_Expired = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_merchant");
@@ -181,7 +181,7 @@ namespace VOP
                 return;
             }
 
-            if(mutex.WaitOne(TimeSpan.Zero, true)) 
+          //  if(mutex.WaitOne(TimeSpan.Zero, true)) 
             {
 
                 try
@@ -221,11 +221,11 @@ namespace VOP
                     }
                 }
 
-                mutex.ReleaseMutex();
+               // mutex.ReleaseMutex();
             }
-            else
+           // else
             {
-                Win32.PostMessage((IntPtr)0xffff, WM_VOP, IntPtr.Zero, IntPtr.Zero);
+              //  Win32.PostMessage((IntPtr)0xffff, WM_VOP, IntPtr.Zero, IntPtr.Zero);
             }
 
         }

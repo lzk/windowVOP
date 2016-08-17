@@ -204,9 +204,9 @@
                     ResStr_Back}" HorizontalAlignment="Center" Height="33"
                 HorizontalContentAlignment="Center"
                 Width="110" VerticalAlignment="Center" Click="btnOK_Click"/>
-                <local:ButtonEx x:Name="btnPrint"  Content="{StaticResource ResStr_Print}" HorizontalAlignment="Center" Height="33"
+                <!--<local:ButtonEx x:Name="btnPrint"  Content="{StaticResource ResStr_Print}" HorizontalAlignment="Center" Height="33"
                 HorizontalContentAlignment="Center"
-                Margin="25,0,0,0" Width="110" IsActiveEx="true" VerticalAlignment="Center" Click="btnPrint_Click" />
+                Margin="25,0,0,0" Width="110" IsActiveEx="true" VerticalAlignment="Center" Click="btnPrint_Click" />-->
             </StackPanel>
 
         </Grid>

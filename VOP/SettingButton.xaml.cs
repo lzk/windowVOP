@@ -26,6 +26,9 @@ namespace VOP
         PowerSave,
         UserConfig,
         Password,
+        ScanParameter,
+        ScanToFile,
+        Unknown,
     };
 
     public partial class SettingButton : UserControl
@@ -58,8 +61,8 @@ namespace VOP
             }
             else if (iconType == IconType.UserConfig)
             {
-                imgActive.Source = new BitmapImage(new Uri("Images\\UserConfig_Active.png", UriKind.RelativeOrAbsolute));
-                imgInactive.Source = new BitmapImage(new Uri("Images\\UserConfig.png", UriKind.RelativeOrAbsolute));
+               // imgActive.Source = new BitmapImage(new Uri("Images\\UserConfig_Active.png", UriKind.RelativeOrAbsolute));
+               // imgInactive.Source = new BitmapImage(new Uri("Images\\UserConfig.png", UriKind.RelativeOrAbsolute));
             }
             else if (iconType == IconType.Password)
             {

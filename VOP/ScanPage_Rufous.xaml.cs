@@ -17,7 +17,7 @@ using System.ComponentModel;
 
 namespace VOP
 {
-    public partial class ScanPage : UserControl
+    public partial class ScanPage_Rufous : UserControl
     {
         private int m_maxImgNum = 99;
 #region scan parameters
@@ -70,7 +70,7 @@ namespace VOP
             }
         }
 
-        public ScanPage()
+        public ScanPage_Rufous()
         {
             InitializeComponent();
             ResetToDefaultValue();
@@ -138,13 +138,13 @@ namespace VOP
 
             if ( 0 < GetSelectedItemCount() )
             {
-                btnPrint.IsEnabled = true;
-                btnSave.IsEnabled = true;
+               // btnPrint.IsEnabled = true;
+              //  btnSave.IsEnabled = true;
             }
             else
             {
-                btnPrint.IsEnabled = false;
-                btnSave.IsEnabled = false;
+              //  btnPrint.IsEnabled = false;
+              //  btnSave.IsEnabled = false;
             }
         }
 
@@ -155,8 +155,8 @@ namespace VOP
             if (0 == img.m_num && GetSelectedItemCount() < m_maxImgNum)
                 img.m_num = GetSelectedItemCount() + 1;
 
-            btnPrint.IsEnabled = true;
-            btnSave.IsEnabled = true;
+          //  btnPrint.IsEnabled = true;
+          //  btnSave.IsEnabled = true;
 
             ScanPreview win = new ScanPreview();
             win.Owner       = m_MainWin;
@@ -174,7 +174,7 @@ namespace VOP
                 else
                     files.Add( img.m_images.m_pathOrig );
 
-                m_MainWin.SwitchToPrintingPage( files );
+               // m_MainWin.SwitchToPrintingPage( files );
             }
 
             if ( 0 != win.m_rotatedAngle && null != win.m_rotatedObj )
@@ -242,7 +242,7 @@ namespace VOP
                 m_brightness = win.m_brightness;
                 m_contrast   = win.m_contrast;
 
-                txtBlkImgSize.Text = FormatSize( GetScanSize() );
+               // txtBlkImgSize.Text = FormatSize( GetScanSize() );
             }
         }
 
@@ -250,8 +250,8 @@ namespace VOP
         /// Pointer to the MainWindow, in order to use global data more
         /// conveniently 
         ///</summary>
-        private MainWindow _MainWin = null;
-        public MainWindow m_MainWin
+        private MainWindow_Rufous _MainWin = null;
+        public MainWindow_Rufous m_MainWin
         {
             set
             {
@@ -262,7 +262,7 @@ namespace VOP
             {
                 if ( null == _MainWin )
                 {
-                    return ( MainWindow )App.Current.MainWindow;
+                    return (MainWindow_Rufous)App.Current.MainWindow;
                 }
                 else
                 {
@@ -284,13 +284,9 @@ namespace VOP
             {
                 m_shareObj = new ScanFiles();
                 m_shareObj.m_colorMode = m_color;
-                m_shareObj.m_pathOrig = App.cacheFolder + "\\vopOrig" + strSuffix + ".bmp";
-                m_shareObj.m_pathView = App.cacheFolder + "\\vopView" + strSuffix + ".bmp";
+                m_shareObj.m_pathOrig  = App.cacheFolder + "\\vopOrig" + strSuffix + ".bmp";
+                m_shareObj.m_pathView  = App.cacheFolder + "\\vopView" + strSuffix + ".bmp";
                 m_shareObj.m_pathThumb = App.cacheFolder + "\\vopThum" + strSuffix + ".bmp";
-
-                //m_shareObj.m_pathOrig = @"F:\PdfSave\300dpiOrig.bmp";
-                //m_shareObj.m_pathView = @"F:\PdfSave\300dpiView.bmp";
-                //m_shareObj.m_pathThumb = @"F:\PdfSave\300dpiThum.bmp";
             }
 
             int scanMode   = (int)m_color;
@@ -303,19 +299,20 @@ namespace VOP
 
             common.GetPaperSize( m_paperSize, ref nWidth, ref nHeight );
 
-            int nResult = dll.ScanEx(
-                    m_MainWin.statusPanelPage.m_selectedPrinter,
-                    m_shareObj.m_pathOrig,
-                    m_shareObj.m_pathView,
-                    m_shareObj.m_pathThumb,
-                    scanMode,
-                    resolution,
-                    nWidth,
-                    nHeight,
-                    contrast,
-                    brightness,
-                    docutype,
-                    WM_VOPSCAN_PROGRESS);
+            int nResult = RETSCAN_OK;
+            //int nResult = dll.ScanEx(
+            //        m_MainWin.statusPanelPage.m_selectedPrinter ,
+            //        m_shareObj.m_pathOrig     ,
+            //        m_shareObj.m_pathView     ,
+            //        m_shareObj.m_pathThumb    ,
+            //        scanMode   ,
+            //        resolution ,
+            //        nWidth     ,
+            //        nHeight    ,
+            //        contrast   ,
+            //        brightness ,
+            //        docutype   ,
+            //        WM_VOPSCAN_PROGRESS);
 
             Win32.PostMessage( (IntPtr)0xffff, WM_VOPSCAN_COMPLETED, (IntPtr)nResult, IntPtr.Zero );
 
@@ -323,14 +320,14 @@ namespace VOP
 
         private void btnScan_Click(object sender, RoutedEventArgs e)
         {
-            btnCancel.IsEnabled  = true;
-            btnScan.IsEnabled    = false;
-            btnSetting.IsEnabled = false;
-            m_MainWin.statusPanelPage.EnableSwitchPrinter( false );
+           // btnCancel.IsEnabled  = true;
+           // btnScan.IsEnabled    = false;
+            //btnSetting.IsEnabled = false;
+           // m_MainWin.statusPanelPage.EnableSwitchPrinter( false );
             this.image_wrappanel.IsEnabled = false;
-            btnPrint.IsEnabled = false;
-            btnSave.IsEnabled = false;
-            m_MainWin.EnableTabItems(false);
+          //  btnPrint.IsEnabled = false;
+          //  btnSave.IsEnabled = false;
+          //  m_MainWin.EnableTabItems(false);
 
             _isScanning = true;
             scanningThread = new Thread(DoScanning);
@@ -351,29 +348,62 @@ namespace VOP
 
             if ( 0 < GetSelectedItemCount() )
             {
-                btnPrint.IsEnabled = true;
-                btnSave.IsEnabled = true;
+                //btnPrint.IsEnabled = true;
+               // btnSave.IsEnabled = true;
             }
             else
             {
-                btnPrint.IsEnabled = false;
-                btnSave.IsEnabled = false;
+               // btnPrint.IsEnabled = false;
+                //btnSave.IsEnabled = false;
             }
 
             InitFontSize();
 
+            ScanWaitWindow_Rufous wait = new ScanWaitWindow_Rufous(0);
+            wait.Owner = App.Current.MainWindow;
+            wait.ShowDialog();
+
+            ImageItem newImage = new ImageItem();
+            ScanFiles newFiles = new ScanFiles();
+            newFiles.m_colorMode = EnumColorType.color_24bit;
+            newFiles.m_pathOrig = @"F:\PdfSave\300dpiOrig.bmp";
+            newFiles.m_pathView = @"F:\PdfSave\300dpiView.bmp";
+            newFiles.m_pathThumb = @"F:\PdfSave\300dpiThum.bmp";
+            newImage.m_images = newFiles;
+            newImage.ImageSingleClick += ImageItemSingleClick;
+            newImage.ImageDoubleClick += ImageItemDoubleClick;
+            newImage.CloseIconClick += ImageItemCloseIconClick;
+            newImage.m_num = 0;
+            UpdateSelItemNum();
+            newImage.Margin = new Thickness(10);
+            this.image_wrappanel.Children.Insert(0, newImage);
+
+            //ImageItem newImage2 = new ImageItem();
+            //ScanFiles newFiles2 = new ScanFiles();
+            //newFiles2.m_colorMode = EnumColorType.color_24bit;
+            //newFiles2.m_pathOrig = @"F:\PdfSave\vopOrig0001748203.bmp";
+            //newFiles2.m_pathView = @"F:\PdfSave\vopView0001748203.bmp";
+            //newFiles2.m_pathThumb = @"F:\PdfSave\vopThum0001748203.bmp";
+            //newImage2.m_images = newFiles2;
+            //newImage2.ImageSingleClick += ImageItemSingleClick;
+            //newImage2.ImageDoubleClick += ImageItemDoubleClick;
+            //newImage2.CloseIconClick += ImageItemCloseIconClick;
+            //newImage2.m_num = 1;
+            //UpdateSelItemNum();
+            //newImage2.Margin = new Thickness(10);
+            //this.image_wrappanel.Children.Insert(0, newImage2);
         }
 
         void InitFontSize()
         {
             if (App.LangId == 0x804) // zh-CN
             {
-                btnPrint.FontSize = btnSave.FontSize = btnSetting.FontSize = btnScan.FontSize = 17.87;
-                txtBlk_ScannedImageSize.FontSize = txtBlkImgSize.FontSize = txtProgressLabel.FontSize = 14; 
+                //btnPrint.FontSize = btnSave.FontSize = btnSetting.FontSize = btnScan.FontSize = 17.87;
+                //txtBlk_ScannedImageSize.FontSize = txtBlkImgSize.FontSize = txtProgressLabel.FontSize = 14; 
             }
             else
             {
-                btnPrint.FontSize = btnSave.FontSize = btnSetting.FontSize = btnScan.FontSize = 14;
+                //btnPrint.FontSize = btnSave.FontSize = btnSetting.FontSize = btnScan.FontSize = 14;
             }
         }
 
@@ -422,28 +452,28 @@ namespace VOP
             {                        
                  handled = true;
 
-                 progressBar1.Value = wParam.ToInt32();
+                // progressBar1.Value = wParam.ToInt32();
             } 
             else if ( WM_VOPSCAN_COMPLETED == msg )
             {
                 _isScanning = false;
                  handled = true;
 
-                 btnCancel.IsEnabled  = false;
-                 btnSetting.IsEnabled = true;
-                 m_MainWin.statusPanelPage.EnableSwitchPrinter( true );
+                // btnCancel.IsEnabled  = false;
+                // btnSetting.IsEnabled = true;
+                // m_MainWin.statusPanelPage.EnableSwitchPrinter( true );
                  this.image_wrappanel.IsEnabled = true;
 
                  if ( 0 < GetSelectedItemCount() )
                  {
-                     btnPrint.IsEnabled = true;
-                     btnSave.IsEnabled = true;
+                //     btnPrint.IsEnabled = true;
+                //     btnSave.IsEnabled = true;
                  }
                  
-                 btnScan.IsEnabled = ( false == common.IsOffline(m_currentStatus) && false == m_isScanning );
-                 m_MainWin.EnableTabItems(true);
+                 //btnScan.IsEnabled = ( false == common.IsOffline(m_currentStatus) && false == m_isScanning );
+              //   m_MainWin.EnableTabItems(true);
 
-                 progressBar1.Value = 0;
+               //  progressBar1.Value = 0;
 
                  if ( RETSCAN_OK == (int)wParam )
                  {
@@ -478,17 +508,17 @@ namespace VOP
                  }
                  else if ( RETSCAN_CANCEL == (int)wParam )
                  {
-                     m_MainWin.EnableTabItems(true);
+                   //  m_MainWin.EnableTabItems(true);
                  }
                  else if ( RETSCAN_NO_ENOUGH_SPACE == (int)wParam )
                  {
-                     m_MainWin.EnableTabItems(true);
+                   //  m_MainWin.EnableTabItems(true);
                      VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_insufficient_system_disk_space"), (string)this.FindResource("ResStr_Error"));
                  }
                  else
                  {
-                     m_MainWin.EnableTabItems(true);
-                     m_MainWin.statusPanelPage.ShowMessage( (string)this.FindResource("ResStr_Scan_Fail"), Brushes.Red );
+                   //  m_MainWin.EnableTabItems(true);
+                   //  m_MainWin.statusPanelPage.ShowMessage( (string)this.FindResource("ResStr_Scan_Fail"), Brushes.Red );
 
                      if ( RETSCAN_OPENFAIL == (int)wParam
                              || RETSCAN_ERRORDLL == (int)wParam
@@ -531,7 +561,7 @@ namespace VOP
             GetSelectedFile( files );
             FileSelectionPage.IsInitPrintSettingPage = true;//Init print setting
 
-            m_MainWin.SwitchToPrintingPage( files );
+           // m_MainWin.SwitchToPrintingPage( files );
         }
 
         /// <summary>
@@ -839,18 +869,18 @@ namespace VOP
 
             strInitalDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
-            btnPrint.IsEnabled   = false;
-            btnSave.IsEnabled    = false;
-            btnCancel.IsEnabled  = false;
-            btnSetting.IsEnabled = true;
-            btnScan.IsEnabled = ( false == common.IsOffline(m_currentStatus) && false == m_isScanning );
+            //btnPrint.IsEnabled   = false;
+            //btnSave.IsEnabled    = false;
+            //btnCancel.IsEnabled  = false;
+            //btnSetting.IsEnabled = true;
+            //btnScan.IsEnabled = true;
 
 			//Configure the ProgressBar
-            progressBar1.Minimum    = 0;
-            progressBar1.Maximum    = 100;
-            progressBar1.Value      = 0;
+           // progressBar1.Minimum    = 0;
+          //  progressBar1.Maximum    = 100;
+           // progressBar1.Value      = 0;
 
-            txtBlkImgSize.Text = FormatSize( GetScanSize() );
+          //  txtBlkImgSize.Text = FormatSize( GetScanSize() );
         }
 
         /// <summary>
@@ -924,7 +954,7 @@ namespace VOP
         public void PassStatus( EnumStatus st, EnumMachineJob job, byte toner )
         {
             m_currentStatus = st;
-            btnScan.IsEnabled = ( false == common.IsOffline(m_currentStatus) && false == m_isScanning );
+            //btnScan.IsEnabled = ( false == common.IsOffline(m_currentStatus) && false == m_isScanning );
         }
     }
 }

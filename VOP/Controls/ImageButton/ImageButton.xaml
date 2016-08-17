@@ -22,7 +22,7 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Button Name="myButton"  
-        Style="{StaticResource fileSelectionButtonStyle}"
+        Style="{StaticResource coolBlueButtonStyle}"
         local:EyeCandy.Image="{Binding ElementName=myControl, Path=ImagePath}" Margin="10,0">
             <Button.CommandBindings>
                 <CommandBinding Command="{x:Static local:ImageButton.ButtonEnterCommand}" 

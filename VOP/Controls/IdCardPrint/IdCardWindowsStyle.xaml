@@ -202,6 +202,34 @@
         </Setter>
     </Style>
 
+    <Style x:Key="DeviceListBoxItem" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border  Name="Border" Padding="0,2.5,0,2.5" SnapsToDevicePixels="true">
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ListBoxItemBackgroundOver}"/>
+                            <Setter Property="Foreground" Value="{StaticResource brushForeground}"/>
+                            <Setter Property="IsSelected" Value="True"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="true">
+                            <Setter Property="IsSelected" Value="True"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ListBoxItemBackgroundOver}"/>
+                            <Setter Property="Foreground" Value="{StaticResource brushForeground}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
     <DataTemplate DataType="{x:Type local:IdCardTypeItem}">
         <StackPanel Orientation="Horizontal">

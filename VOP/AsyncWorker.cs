@@ -47,7 +47,7 @@ namespace VOP
         private Window owner = null;
         private ProgressBarWindow pbw = null;
         //        private ScanProgressBarWindow scanPbw = null;
-        private ProgressBarWindow scanPbw = null;
+        private ScanWaitWindow_Rufous scanPbw = null;
         private ManualResetEvent asyncEvent = new ManualResetEvent(false);
         private bool isNeededProgress = false;
 
@@ -110,20 +110,24 @@ namespace VOP
 
         void ScanCallbackMethod(IAsyncResult ar)
         {
-            if (scanPbw != null)
+            if (isNeededProgress)
             {
-                scanPbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
-                 new Action(
-                 delegate()
-                 {
-                     scanPbw.Close();
-                 }
-                 ));
-            }
+                asyncEvent.WaitOne();
 
+                if (scanPbw != null)
+                {
+                    scanPbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                     new Action(
+                     delegate()
+                     {
+                         scanPbw.Close();
+                     }
+                     ));
+                }
+            } 
         }
 
-        public int InvokeScanMethod(ScanDelegate method, string printerName, string szOrig, string szView, string szThumb,
+        public int InvokeScanMethod(ScanDelegate method, string deviceName, string szOrig, string szView, string szThumb,
                                                                       int scanMode, int resolution, int width, int height,
                                                                       int contrast, int brightness, int docuType, uint uMsg)
         {
@@ -132,13 +136,14 @@ namespace VOP
             {
                 ScanDelegate caller = method;
 
-
-                IAsyncResult result = caller.BeginInvoke(printerName, szOrig, szView, szThumb, scanMode, resolution, width, height, contrast, brightness, docuType, uMsg,
+                isNeededProgress = false;
+                asyncEvent.Reset();
+                IAsyncResult result = caller.BeginInvoke(deviceName, szOrig, szView, szThumb, scanMode, resolution, width, height, contrast, brightness, docuType, uMsg,
                                                          new AsyncCallback(ScanCallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
-                    //                    scanPbw = new ScanProgressBarWindow();
+                    scanPbw = new ScanWaitWindow_Rufous();
                     scanPbw.Owner = this.owner;
                     scanPbw.ShowDialog();
                 }

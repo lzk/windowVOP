@@ -117,11 +117,11 @@ namespace VOP
         {
             if (App.LangId == 0x804) // zh-CN
             {
-                btnOK.FontSize = btnPrint.FontSize = 17.87;
+                //btnOK.FontSize = btnPrint.FontSize = 17.87;
             }
             else
             {
-                btnOK.FontSize = btnPrint.FontSize = 14;
+               // btnOK.FontSize = btnPrint.FontSize = 14;
             }
         }
 

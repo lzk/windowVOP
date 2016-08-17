@@ -1,0 +1,157 @@
+﻿<UserControl x:Class="VOP.ScanSelectionPage_Rufous"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VOP.Controls"
+             mc:Ignorable="d" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:Name="myControl"
+             Width="700" 
+             Height="500" 
+             UseLayoutRounding="True"
+             Loaded="FileSelectionPageOnLoaded">
+    
+    <UserControl.Resources>
+        <ResourceDictionary Source="Controls/PanelButton.xaml"/>
+    </UserControl.Resources>
+    
+    <Grid Name="rootGrid" >    
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+
+        <Button    
+            Grid.Row="0"
+            Grid.Column="1"
+            Style="{StaticResource LeftButtonStyle}" 
+            Width="80"
+            Height="80"
+            Margin="0,-70,-80,0"
+            />
+
+        <Button    
+            Grid.Row="0"
+            Grid.Column="2"
+            Style="{StaticResource ScreenButtonStyle}" 
+            Margin="0,-70,0,0"
+            Content="9"
+            />
+      
+
+        <Button    
+            Grid.Row="0"
+            Grid.Column="3"
+            Style="{StaticResource RightButtonStyle}" 
+            Width="80"
+            Height="80"
+            Margin="-80,-70,0,0"
+            />
+        
+       
+        <Image 
+            Grid.Row="1"
+            Grid.Column="1"
+            Grid.RowSpan="3"
+            Grid.ColumnSpan="3"
+            Stretch="Fill"
+            Source="Images/panel_group.png" 
+            Margin="0"/>
+        
+        <local:ImageButton  x:Name="ImageButton1"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Grid.RowSpan="1"
+                            ImagePath="Images/QRCode.png" 
+                            BottomText="QR Code" 
+                            Height="120" Width="102"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0,-40,0,0"
+                            FontSize="16"
+                            Foreground="#FF48C6E0"
+                            FontFamily="Verdana"
+                            />
+
+        <local:ImageButton  x:Name="ImageButton2"
+                            Grid.Row="2"
+                            Grid.Column="2"
+                            Grid.RowSpan="1"
+                            ImagePath="Images/BarCode.png" 
+                            BottomText="Bar Code" 
+                            Height="120" Width="102"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0,-40,0,0"
+                            FontSize="16"
+                            Foreground="#FF48C6E0"
+                            FontFamily="Verdana"/>
+
+        <local:ImageButton  x:Name="ImageButton3"
+                            Grid.Row="2"
+                            Grid.Column="3"
+                            Grid.RowSpan="1"
+                            ImagePath="Images/ScanTo.png" 
+                            BottomText="Scan To" 
+                            Height="120" Width="102"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0,-40,0,0"
+                            FontSize="16"
+                            Foreground="#FF48C6E0"
+                            FontFamily="Verdana"/>
+    
+        <local:ImageButton  x:Name="ImageButton4"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Grid.RowSpan="1"
+                            ImagePath="Images/A3Scan.png" 
+                            BottomText="A3 Scan" 
+                            Height="120" Width="102"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0,-10,0,0"
+                            FontSize="16"
+                            Foreground="#FF48C6E0"
+                            FontFamily="Verdana"/>
+
+        <local:ImageButton  x:Name="ImageButton5"
+                            Grid.Row="3"
+                            Grid.Column="2"
+                            Grid.RowSpan="2"
+                            ImagePath="Images/ScanDevice.png" 
+                            BottomText="Device" 
+                            Height="120" Width="102"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0,-10,0,0"
+                            FontSize="16"
+                            Foreground="#FF48C6E0"
+                            FontFamily="Verdana"/>
+
+        <local:ImageButton  x:Name="ImageButton6"
+                            Grid.Row="3"
+                            Grid.Column="3"
+                            Grid.RowSpan="2"
+                            ImagePath="Images/ScanSettings.png" 
+                            BottomText="Settings" 
+                            Height="120" Width="102"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0,-10,0,0"
+                            FontSize="16"
+                            Foreground="#FF48C6E0"
+                            FontFamily="Verdana"/>
+    </Grid>
+</UserControl>

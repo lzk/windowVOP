@@ -329,4 +329,18 @@ namespace VOP
         FileSave_OutOfMemory,
         FileSave_FileOccupied,
     }
+
+    public enum Scan_RET
+    {
+        RETSCAN_OK             = 0,
+        RETSCAN_ERRORDLL       = 1,
+        RETSCAN_OPENFAIL       = 2,
+        RETSCAN_ERRORPARAMETER = 3,
+        RETSCAN_NO_ENOUGH_SPACE= 5,
+        RETSCAN_ERROR_PORT     = 6,
+        RETSCAN_CANCEL         = 7,
+        RETSCAN_BUSY           = 8,
+        RETSCAN_ERROR          = 9,
+    }
+     
 }

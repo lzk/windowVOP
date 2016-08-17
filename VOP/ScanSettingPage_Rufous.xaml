@@ -1,0 +1,36 @@
+<UserControl x:Class="VOP.ScanSettingPage_Rufous"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="700" 
+             Height="500" 
+             x:Name="Control1" 
+             Loaded="handler_loaded_settingpage"
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Name="mainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0"/>
+            <ColumnDefinition Width="165"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="setting_tab_btn" Orientation="Vertical" Panel.ZIndex="100" />
+        <Border Name="settingView" Grid.Row="1" Grid.Column="2"/>
+
+    </Grid>
+</UserControl>

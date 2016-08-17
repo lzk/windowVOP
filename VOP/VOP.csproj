@@ -124,14 +124,32 @@
     <Compile Include="CopyConfirm.xaml.cs">
       <DependentUpon>CopyConfirm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ScanDevicePage_Rufous.cs" />
+    <Compile Include="ScanPage_Rufous.xaml.cs">
+      <DependentUpon>ScanPage_Rufous.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ScanSelectionPage_Rufous.cs" />
     <Compile Include="IPV6CatalogsView.xaml.cs" />
     <Compile Include="IPV6SettingWindow.xaml.cs" />
     <Compile Include="IPV6StatusWindow.xaml.cs" />
+    <Compile Include="MainWindow_Rufous.xaml.cs">
+      <DependentUpon>MainWindow_Rufous.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ModifyUserInfo.xaml.cs">
       <DependentUpon>ModifyUserInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="CRMAgreementWindow.xaml.cs">
       <DependentUpon>CRMAgreementWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ScanSettingPage_Rufous.cs" />
+    <Compile Include="ScanParameterView.xaml.cs">
+      <DependentUpon>ScanParameterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ScanToFileView.xaml.cs">
+      <DependentUpon>ScanToFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ScanWaitWindow_Rufous.xaml.cs">
+      <DependentUpon>ScanWaitWindow_Rufous.xaml</DependentUpon>
     </Compile>
     <Compile Include="TroubleshootingPage.cs" />
     <Compile Include="MessageBoxEx_Video.xaml.cs">
@@ -247,6 +265,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\PanelButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\CustomExpander.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -291,6 +313,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ScanDevicePage_Rufous.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ScanPage_Rufous.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ScanSelectionPage_Rufous.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="IPV6CatalogsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -303,11 +336,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MainWindow_Rufous.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ModifyUserInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CRMAgreementWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ScanSettingPage_Rufous.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ScanParameterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ScanToFileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ScanWaitWindow_Rufous.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -648,6 +700,10 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\font\DS-DIGI.TTF" />
+    <Resource Include="Resources\font\DS-DIGIB.TTF" />
+    <Resource Include="Resources\font\DS-DIGII.TTF" />
+    <Resource Include="Resources\font\DS-DIGIT.TTF" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -917,6 +973,88 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Improve.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\BarCode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\QRCode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ScanToPrint.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ScanToEmail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ScanDevice.png" />
+    <Resource Include="Images\ScanSettings.png" />
+    <Resource Include="Images\ScanToCloud.png" />
+    <Resource Include="Images\ScanToFile.png" />
+    <Resource Include="Images\ScanToFtp.png" />
+    <Resource Include="Images\ScanToProgram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\A3Scan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\back-button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ScanTo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\background2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bluebutton.png" />
+    <Resource Include="Images\bluebuttonlight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\background3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bluebutton_normal.png" />
+    <Resource Include="Images\bluebutton_over.png" />
+    <Resource Include="Images\bluebutton_press.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\lightbutton.png" />
+    <Resource Include="Images\lightbutton_over.png" />
+    <Resource Include="Images\lightbutton_press.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\back_normal.png" />
+    <Resource Include="Images\back_over.png" />
+    <Resource Include="Images\back_press.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\left_normal.png" />
+    <Resource Include="Images\left_over.png" />
+    <Resource Include="Images\left_press.png" />
+    <Resource Include="Images\right_normal.png" />
+    <Resource Include="Images\right_over.png" />
+    <Resource Include="Images\right_press.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\screen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\panel_group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\button_3dborder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\screen_normal.png" />
+    <Resource Include="Images\screen_over.png" />
+    <Resource Include="Images\screen_press.png" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(SolutionDir)HelpFile\*" "$(TargetDir)" /E /Y</PostBuildEvent>
