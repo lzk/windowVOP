@@ -42,6 +42,9 @@ namespace VOP
         [DllImport("kernel32.dll")]
         public static extern void OutputDebugString( string message );
 
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr hObject);
+
     }
 
 }

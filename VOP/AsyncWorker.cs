@@ -16,14 +16,20 @@ using System.Runtime.Remoting.Messaging;
 using System.Net;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
+using ZXing;
+using ZXing.Client.Result;
+using ZXing.Common;
+using ZXing.Rendering;
 using VOP.Controls;
 
 namespace VOP
 {
+    public delegate Result[] QRCodeDelegate(Bitmap bitmap);
     public delegate int DoWorkDelegate();
     public delegate bool CheckVerifyCodeDelegate(string strPhoneNumber, string strVerifyCode, ref JSONResultFormat1 rtValue);
     public delegate bool SendVerifyCodeDelegate(string strPhoneNumber, ref JSONResultFormat1 rtValue);
-    public delegate int ScanDelegate(string printerName, string szOrig, string szView, string szThumb,
+    public delegate int ScanDelegate(string deviceName, string szOrig, string szView, string szThumb,
                                         int scanMode, int resolution, int width, int height,
                                         int contrast, int brightness, int docuType, uint uMsg);
     public delegate int PrintFileDelegate(string printerName, string fileName, bool needFitToPage, int duplexType, bool IsPortrait, int copies, int scalingValue);
@@ -45,6 +51,7 @@ namespace VOP
     class AsyncWorker
     {
         private Window owner = null;
+        private MessageBoxEx_Simple_Busy_QRCode qr_pbw = null;
         private ProgressBarWindow pbw = null;
         //        private ScanProgressBarWindow scanPbw = null;
         private ScanWaitWindow_Rufous scanPbw = null;
@@ -127,6 +134,57 @@ namespace VOP
             } 
         }
 
+        void QRCodeCallbackMethod(IAsyncResult ar)
+        {
+            if (isNeededProgress)
+            {
+                asyncEvent.WaitOne();
+
+                if (qr_pbw != null)
+                {
+                    qr_pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                     new Action(
+                     delegate()
+                     {
+                         qr_pbw.Close();
+                     }
+                     ));
+                }
+            }
+        }
+
+        public Result[] InvokeQRCodeMethod(QRCodeDelegate method, Bitmap bitmap)
+        {
+
+            if (method != null)
+            {
+                QRCodeDelegate caller = method;
+
+                isNeededProgress = false;
+                asyncEvent.Reset();
+
+                IAsyncResult result = caller.BeginInvoke(bitmap, new AsyncCallback(QRCodeCallbackMethod), null);
+
+                if (!result.AsyncWaitHandle.WaitOne(100, false))
+                {
+                    isNeededProgress = true;
+
+                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode("Decoding QR Code, please wait ...");
+                    qr_pbw.Owner = this.owner;
+                    qr_pbw.Loaded += pbw_Loaded;
+                    qr_pbw.ShowDialog();
+                }
+
+                if (result.AsyncWaitHandle.WaitOne(100, true))
+                {
+                    return caller.EndInvoke(result);
+                }
+
+            }
+
+            return null;
+        }
+
         public int InvokeScanMethod(ScanDelegate method, string deviceName, string szOrig, string szView, string szThumb,
                                                                       int scanMode, int resolution, int width, int height,
                                                                       int contrast, int brightness, int docuType, uint uMsg)
@@ -143,8 +201,11 @@ namespace VOP
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
+                    isNeededProgress = true;
+
                     scanPbw = new ScanWaitWindow_Rufous();
                     scanPbw.Owner = this.owner;
+                    scanPbw.Loaded += pbw_Loaded;
                     scanPbw.ShowDialog();
                 }
 

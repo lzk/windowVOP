@@ -48,5 +48,24 @@ namespace VOP
             dispatcherTimer.Stop();
             this.Close();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
+            source.AddHook(WndProc);
+        }
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+
+            if (ScanTask.WM_VOPSCAN_PROGRESS == msg)
+            {
+                handled = true;
+
+                progressBar1.Value = wParam.ToInt32();
+            }
+        
+            return IntPtr.Zero;
+        }
+
     }
 }

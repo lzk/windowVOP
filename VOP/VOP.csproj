@@ -89,6 +89,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="zxing">
+      <HintPath>..\qrcodelib\zxing.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutWindow.xaml.cs">
@@ -97,6 +100,18 @@
     <Compile Include="AsyncWorker.cs" />
     <Compile Include="common.cs" />
     <Compile Include="Controls\CustomExpander.cs" />
+    <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple_Busy_QRCode.xaml.cs">
+      <DependentUpon>MessageBoxEx_Simple_Busy_QRCode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\QRCodeWindow\QRCodeManualPage.xaml.cs">
+      <DependentUpon>QRCodeManualPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\QRCodeWindow\QRCodeResultPage.xaml.cs">
+      <DependentUpon>QRCodeResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\QRCodeWindow\QRCodeWindow.xaml.cs">
+      <DependentUpon>QRCodeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ImagePreview\ImagePreview.xaml.cs">
       <DependentUpon>ImagePreview.xaml</DependentUpon>
     </Compile>
@@ -145,6 +160,8 @@
     <Compile Include="ScanParameterView.xaml.cs">
       <DependentUpon>ScanParameterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ScanParam.cs" />
+    <Compile Include="ScanTask.cs" />
     <Compile Include="ScanToFileView.xaml.cs">
       <DependentUpon>ScanToFileView.xaml</DependentUpon>
     </Compile>
@@ -264,6 +281,26 @@
     <Page Include="Controls\AnimationCtrolButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple_Busy_QRCode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\QRCodeWindow\QRCodeManualPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\QRCodeWindow\QRCodeResultPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\QRCodeWindow\QRCodeWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\QRCodeWindow\QRCodePageStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\PanelButton.xaml">
       <Generator>MSBuild:Compile</Generator>

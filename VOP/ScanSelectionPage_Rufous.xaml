@@ -10,7 +10,7 @@
              Width="700" 
              Height="500" 
              UseLayoutRounding="True"
-             Loaded="FileSelectionPageOnLoaded">
+             >
     
     <UserControl.Resources>
         <ResourceDictionary Source="Controls/PanelButton.xaml"/>
@@ -82,7 +82,10 @@
                             FontSize="16"
                             Foreground="#FF48C6E0"
                             FontFamily="Verdana"
+                            PreviewMouseLeftButtonDown="QRCodeButtonClick" 
                             />
+
+        
 
         <local:ImageButton  x:Name="ImageButton2"
                             Grid.Row="2"

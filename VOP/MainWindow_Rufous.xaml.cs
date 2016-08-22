@@ -49,6 +49,7 @@ namespace VOP
         public void LoadedMainWindow(object sender, RoutedEventArgs e)
         {
             MainPageView.Child = scanSelectionPage;
+            scanSelectionPage.m_MainWin = this;
             AddMessageHook();
         }
 

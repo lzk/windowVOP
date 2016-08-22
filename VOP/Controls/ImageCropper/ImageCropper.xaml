@@ -26,12 +26,12 @@
                             Tag="{Binding ElementName=userControl, Path=DesignerItemColor}"
                             Style="{StaticResource DesignerItemStyle}"
                             Focusable="False">
-                <Path Data="M0.5,20.5 L60.5,20.5 M0.5,40.5 L60.5,40.5 M20.5,0.5 L20.5,60.5 M40.5,0.5 L40.5,60.5"  
+                <!--<Path Data="M0.5,20.5 L60.5,20.5 M0.5,40.5 L60.5,40.5 M20.5,0.5 L20.5,60.5 M40.5,0.5 L40.5,60.5"  
                       Stretch="Fill" Stroke="{Binding ElementName=userControl, Path=DesignerItemColor}"
                       StrokeDashArray="2" 
                       StrokeDashCap="Square" 
                       StrokeDashOffset="35"
-                      Opacity="0.6"/>
+                      Opacity="0.6"/>-->
             </ContentControl>
         </Canvas>
     </Grid>

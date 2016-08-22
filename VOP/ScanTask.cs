@@ -20,8 +20,8 @@ namespace VOP
  
     public class ScanTask
     {
-        private uint WM_VOPSCAN_PROGRESS = Win32.RegisterWindowMessage("vop_scan_progress2");
-        private uint WM_VOPSCAN_COMPLETED = Win32.RegisterWindowMessage("vop_scan_completed");
+        public static uint WM_VOPSCAN_PROGRESS = Win32.RegisterWindowMessage("vop_scan_progress");
+        public Scan_RET ScanResult = Scan_RET.RETSCAN_OK;
 
         public ScanFiles DoScan(string deviceName, ScanParam param)
         {
@@ -50,7 +50,9 @@ namespace VOP
 
             common.GetPaperSize(param.PaperSize, ref nWidth, ref nHeight);
 
-            int nResult = dll.ScanEx(
+            AsyncWorker worker = new AsyncWorker();
+
+            int nResult = worker.InvokeScanMethod(dll.ScanEx,
                     deviceName,
                     files.m_pathOrig,
                     files.m_pathView,
@@ -64,6 +66,8 @@ namespace VOP
                     (int)param.DocType,
                     WM_VOPSCAN_PROGRESS);
 
+            ScanResult = (Scan_RET)nResult;
+          
             return files;
         }
     }
