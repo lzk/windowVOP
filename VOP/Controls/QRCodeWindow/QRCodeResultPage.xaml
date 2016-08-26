@@ -20,8 +20,8 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="15*"/>
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
@@ -47,26 +47,25 @@
                 Name="ImageView"
                 />
         </Border>
-     
-        <StackPanel 
-            Grid.Row="2"
-            Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Orientation="Horizontal"
-            >
-            <TextBlock Text="Code Type" Margin="20,14,0,0"/>
-            <Border Margin="30,0,0,0" Width="200" Height="30" Background="White">
-                <TextBlock Name="CodeType" Text="QR_Code" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
-          
-        </StackPanel>
-        
-        <RichTextBox 
+
+        <FlowDocumentScrollViewer
             Name="ResultView"
             Grid.Row="3"
             Grid.Column="1"
             Grid.ColumnSpan="2"
-            />
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            >
+            <FlowDocument x:Name="flowDoc" >
+                <Table x:Name="flowTable">
+                    <Table.Columns>
+                        <TableColumn Width="12*"/>
+                        <TableColumn Width="15*"/>
+                        <TableColumn Width="20*"/>
+                    </Table.Columns>
+                </Table>
+              
+            </FlowDocument>
+        </FlowDocumentScrollViewer>
 
     </Grid>
 </UserControl>

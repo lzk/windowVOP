@@ -99,7 +99,9 @@
                             Margin="0,-40,0,0"
                             FontSize="16"
                             Foreground="#FF48C6E0"
-                            FontFamily="Verdana"/>
+                            FontFamily="Verdana"
+                            PreviewMouseLeftButtonDown="QRCodeButtonClick" 
+                            />
 
         <local:ImageButton  x:Name="ImageButton3"
                             Grid.Row="2"

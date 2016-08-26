@@ -93,7 +93,7 @@ namespace VOP.Controls
         private void ImageCropper_Loaded(Object sender, RoutedEventArgs e)
         {
             SolidColorBrush brush = new SolidColorBrush();
-            brush.Color = Colors.White;
+            brush.Color = Colors.Green;
             SetDesignerItemColor(brush);
 
             BitmapSource src = imageSource as BitmapSource;

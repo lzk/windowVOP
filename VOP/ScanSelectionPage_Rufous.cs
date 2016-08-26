@@ -25,6 +25,8 @@ namespace VOP
 
         private void QRCodeButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            ImageButton btn = sender as ImageButton;
+
             ScanTask task = new ScanTask();
             ScanParam param = new ScanParam(
                 EnumScanDocType.Graphic,
@@ -39,9 +41,32 @@ namespace VOP
           //  if(task.ScanResult == Scan_RET.RETSCAN_OK)
             {
               //  QRCodeWindow win = new QRCodeWindow(files.m_pathOrig);
-                QRCodeWindow win = new QRCodeWindow(@"E:\BarCode\pic\try\bar_g300_2.jpg");
-                win.Owner = m_MainWin;
-                win.ShowDialog();
+
+                  OpenFileDialog open = null;
+                    bool? result = null;
+                    open = new OpenFileDialog();
+                    open.Filter = "All Images|*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
+                    open.Multiselect = false;
+
+                    result = open.ShowDialog();
+                    if (result == true)
+                    {
+                        QRCodeWindow win = new QRCodeWindow(open.FileName);
+
+                        if (btn.Name == "ImageButton1")
+                        {
+                            win.IsQRCode = true;
+                        }
+                        else
+                        {
+                            win.IsQRCode = false;
+                        }
+
+                        win.Owner = m_MainWin;
+                        win.ShowDialog();
+                    }
+            
+               
             }
         }
     }
