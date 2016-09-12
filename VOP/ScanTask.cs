@@ -23,12 +23,12 @@ namespace VOP
         public static uint WM_VOPSCAN_PROGRESS = Win32.RegisterWindowMessage("vop_scan_progress");
         public Scan_RET ScanResult = Scan_RET.RETSCAN_OK;
 
-        public ScanFiles DoScan(string deviceName, ScanParam param)
+        public List<ScanFiles> DoScan(string deviceName, ScanParam param)
         {
             if (param == null)
                 return null;
 
-            ScanFiles files = new ScanFiles();
+            List<ScanFiles> files = new List<ScanFiles>();
             string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
 
             if (false == Directory.Exists(App.cacheFolder))
@@ -36,35 +36,40 @@ namespace VOP
                 Directory.CreateDirectory(App.cacheFolder);
             }
 
-            files.m_colorMode = param.ColorType;
-            files.m_pathOrig = App.cacheFolder + "\\vopOrig" + strSuffix + ".bmp";
-            files.m_pathView = App.cacheFolder + "\\vopView" + strSuffix + ".bmp";
-            files.m_pathThumb = App.cacheFolder + "\\vopThum" + strSuffix + ".bmp";
 
-            //m_shareObj.m_pathOrig = @"F:\PdfSave\300dpiOrig.bmp";
-            //m_shareObj.m_pathView = @"F:\PdfSave\300dpiView.bmp";
-            //m_shareObj.m_pathThumb = @"F:\PdfSave\300dpiThum.bmp";
+            string tempPath = @"G:\work\Rufous\pic\" + strSuffix;
+
             
             int nWidth = 0;
             int nHeight = 0;
+            string[] fileNames = null;
 
             common.GetPaperSize(param.PaperSize, ref nWidth, ref nHeight);
 
             AsyncWorker worker = new AsyncWorker();
 
-            int nResult = worker.InvokeScanMethod(dll.ScanEx,
+            int nResult = worker.InvokeScanMethod(dll.ADFScan,
                     deviceName,
-                    files.m_pathOrig,
-                    files.m_pathView,
-                    files.m_pathThumb,
+                    tempPath,
                     (int)param.ColorType,
                     (int)param.ScanResolution,
                     nWidth,
                     nHeight,
                     param.Contrast,
                     param.Brightness,
-                    (int)param.DocType,
-                    WM_VOPSCAN_PROGRESS);
+                    param.ADFMode,
+                    WM_VOPSCAN_PROGRESS,
+                    out fileNames);
+
+            foreach(string name in fileNames)
+            {
+                ScanFiles file = new ScanFiles();
+                file.m_colorMode = param.ColorType;
+                file.m_pathOrig = name;
+                file.m_pathView = name;
+                file.m_pathThumb = name;
+                files.Add(file);
+            }
 
             ScanResult = (Scan_RET)nResult;
           

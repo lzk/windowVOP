@@ -179,4 +179,43 @@
         </Setter>
 
     </Style>
+
+    <Style x:Key="DeviceButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Grid ClipToBounds="True">
+                        <Image Name="backgroundImage" Source="../Images/device_normal.png"/>
+                        <!-- Present Content (text) of the button. -->
+                        <DockPanel Name="myContentPresenterDockPanel">
+                            <ContentPresenter x:Name="myContentPresenter" Margin="20"  
+                            Content="{TemplateBinding  Content}"  
+                            TextBlock.Foreground="Black" />
+                        </DockPanel>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/device_over.png"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="true" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/device_press.png"/>
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
 </ResourceDictionary>

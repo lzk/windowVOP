@@ -61,3 +61,4 @@ EXPORTS
 	SearchValidedIP
 	SetPortIP
 	ResetBonjourAddr
+	ADFScan

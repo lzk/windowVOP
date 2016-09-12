@@ -18,6 +18,7 @@ using ZXing.OneD;
 using ZXing.QrCode;
 using ZXing.Multi;
 using ZXing.Multi.QrCode;
+using ZXing.Multi.QrCode.Internal;
 using ZXing.Client.Result;
 using ZXing.Common;
 using ZXing.Rendering;
@@ -48,6 +49,7 @@ namespace VOP.Controls
 
         private QRCodeMultiReader qr_reader;
         private GenericMultipleBarcodeReader oneD_reader;
+        private GenericMultipleBarcodeReader byquad_reader;
         private Dictionary<DecodeHintType, object> hints;
         private List<CropLocation> cropLocationList;
 
@@ -143,6 +145,7 @@ namespace VOP.Controls
             hints = new Dictionary<DecodeHintType, object>();
             hints.Add(DecodeHintType.TRY_HARDER, true);
 
+            byquad_reader = new GenericMultipleBarcodeReader(new ByQuadrantReader(new QRCodeReader()));
             qr_reader = new QRCodeMultiReader();
             oneD_reader = new GenericMultipleBarcodeReader(new MultiFormatOneDReader(hints));
 
@@ -471,6 +474,15 @@ namespace VOP.Controls
         {
             CroppedBitmap bitmap = null;
 
+            if (intRect.X + intRect.Width > src.PixelWidth)
+            {
+                intRect.Width = intRect.Width - (intRect.X + intRect.Width - src.PixelWidth);
+            }
+
+            if (intRect.Y + intRect.Height > src.PixelHeight)
+            {
+                intRect.Height = intRect.Height - (intRect.Y + intRect.Height - src.PixelHeight);
+            }
 
             if (intRect.X >= 0
                 && intRect.Y >= 0

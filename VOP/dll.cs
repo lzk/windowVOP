@@ -213,6 +213,20 @@ namespace VOP
                     uint uMsg );
 
         [DllImport("usbapi.dll")]
+        public static extern int ADFScan(
+                [MarshalAs(UnmanagedType.LPWStr)]String sz_printer,
+                [MarshalAs(UnmanagedType.LPWStr)]String tempPath,
+                int BitsPerPixel,
+                int resolution,
+                int width,
+                int height,
+                int contrast,
+                int brightness,
+                bool ADFMode,
+                uint uMsg,
+                [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)]out string[] fileNames);
+
+        [DllImport("usbapi.dll")]
         public static extern int GetUserCfg(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
                 ref sbyte leadingedge,

@@ -29,29 +29,29 @@ namespace VOP
 
             ScanTask task = new ScanTask();
             ScanParam param = new ScanParam(
-                EnumScanDocType.Graphic,
                 EnumScanResln._300x300,
                 EnumPaperSizeScan._A4,
                 EnumColorType.color_24bit,
+                true,
                 50,
                 50);
 
-         //   ScanFiles files = task.DoScan("Lenovo M7208W (副本 1)", param);
+            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", param);
 
-          //  if(task.ScanResult == Scan_RET.RETSCAN_OK)
+            if(task.ScanResult == Scan_RET.RETSCAN_OK)
             {
-              //  QRCodeWindow win = new QRCodeWindow(files.m_pathOrig);
+                QRCodeWindow win = new QRCodeWindow(files[0].m_pathOrig);
 
-                  OpenFileDialog open = null;
-                    bool? result = null;
-                    open = new OpenFileDialog();
-                    open.Filter = "All Images|*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
-                    open.Multiselect = false;
+                  //OpenFileDialog open = null;
+                  //  bool? result = null;
+                  //  open = new OpenFileDialog();
+                  //  open.Filter = "All Images|*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
+                  //  open.Multiselect = false;
 
-                    result = open.ShowDialog();
-                    if (result == true)
+                  //  result = open.ShowDialog();
+                  //  if (result == true)
                     {
-                        QRCodeWindow win = new QRCodeWindow(open.FileName);
+                      //  QRCodeWindow win = new QRCodeWindow(open.FileName);
 
                         if (btn.Name == "ImageButton1")
                         {

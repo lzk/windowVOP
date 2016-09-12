@@ -432,9 +432,7 @@ namespace VOP
                 case EnumColorType.color_24bit :
                     fClrDeep = 3;
                     break;
-                case EnumColorType.color_48bit :
-                    fClrDeep = 6;
-                    break;
+
                 default:
                     fClrDeep = 1;
                     break;

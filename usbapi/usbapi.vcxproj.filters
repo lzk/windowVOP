@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\LTC">
+      <UniqueIdentifier>{e467a9be-2cff-49f3-882d-580f33ee0538}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LTC">
+      <UniqueIdentifier>{f2163b8d-24d3-43f1-a757-26b3d1e42498}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -45,8 +51,59 @@
     <ClInclude Include="DM2OEM.H">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\TestSetPort\TestSetPort\tcpxcv.h">
+    <ClInclude Include="hpgtblues.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\debug.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\utility.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\utype.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="ImgFile\ImgFile.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="LTCInterface\GLScan.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="LTCInterface\GLScanStruct.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="LTCInterface\GLUsbio.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="LTCInterface\GLUtype.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="LTCInterface\jconfig.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="LTCInterface\jmorecfg.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="LTCInterface\jpeg.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="LTCInterface\jpeg_resize.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="LTCInterface\jpeglib.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="LTCInterface\LTCDriveApi.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="LTCInterface\LTCPrintf.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="LTCInterface\LTCStructure.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="LTCInterface\resample.h">
+      <Filter>Header Files\LTC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -57,9 +114,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scanner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="bitmapScaling.cpp">
@@ -73,6 +127,48 @@
     </ClCompile>
     <ClCompile Include="Global.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LTCScan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LTCInterface\GLScan.cpp">
+      <Filter>Source Files\LTC</Filter>
+    </ClCompile>
+    <ClCompile Include="LTCInterface\GLUsbio.cpp">
+      <Filter>Source Files\LTC</Filter>
+    </ClCompile>
+    <ClCompile Include="LTCInterface\jpeg_resize.cpp">
+      <Filter>Source Files\LTC</Filter>
+    </ClCompile>
+    <ClCompile Include="LTCInterface\LTCDriveApi.cpp">
+      <Filter>Source Files\LTC</Filter>
+    </ClCompile>
+    <ClCompile Include="LTCInterface\LTCPrintf.cpp">
+      <Filter>Source Files\LTC</Filter>
+    </ClCompile>
+    <ClCompile Include="LTCInterface\resample.cpp">
+      <Filter>Source Files\LTC</Filter>
+    </ClCompile>
+    <ClCompile Include="ImgFile\Bmp.cpp">
+      <Filter>Source Files\LTC</Filter>
+    </ClCompile>
+    <ClCompile Include="ImgFile\ImgFile.cpp">
+      <Filter>Source Files\LTC</Filter>
+    </ClCompile>
+    <ClCompile Include="ImgFile\Jpeg.cpp">
+      <Filter>Source Files\LTC</Filter>
+    </ClCompile>
+    <ClCompile Include="ImgFile\Tiff.cpp">
+      <Filter>Source Files\LTC</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Breath.cpp">
+      <Filter>Source Files\LTC</Filter>
+    </ClCompile>
+    <ClCompile Include="LTCInterface\jpg.cpp">
+      <Filter>Source Files\LTC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

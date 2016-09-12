@@ -32,6 +32,7 @@
             Width="40" 
             Height="40" 
             Style="{StaticResource BackButtonStyle}" 
+            ToolTip="Click to manual select code area"
             Margin="-150,-150,0,0" Click="Button_Click"/>
         
         <Border

@@ -29,9 +29,8 @@ namespace VOP
     public delegate int DoWorkDelegate();
     public delegate bool CheckVerifyCodeDelegate(string strPhoneNumber, string strVerifyCode, ref JSONResultFormat1 rtValue);
     public delegate bool SendVerifyCodeDelegate(string strPhoneNumber, ref JSONResultFormat1 rtValue);
-    public delegate int ScanDelegate(string deviceName, string szOrig, string szView, string szThumb,
-                                        int scanMode, int resolution, int width, int height,
-                                        int contrast, int brightness, int docuType, uint uMsg);
+    public delegate int ScanDelegate(string deviceName, string tempPath, int colorType, int resolution, int width, int height,
+                                        int contrast, int brightness, bool ADFMode, uint uMsg, out string[] fileNames);
     public delegate int PrintFileDelegate(string printerName, string fileName, bool needFitToPage, int duplexType, bool IsPortrait, int copies, int scalingValue);
     public delegate bool RotateScannedFilesDelegate(ScanFiles objSrc, ScanFiles objDst, int nAngle);
     public delegate int CopyDelegate(string printerName,
@@ -169,7 +168,7 @@ namespace VOP
                 {
                     isNeededProgress = true;
 
-                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode("Decoding QR Code, please wait ...");
+                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode("Decoding, please wait ...");
                     qr_pbw.Owner = this.owner;
                     qr_pbw.Loaded += pbw_Loaded;
                     qr_pbw.ShowDialog();
@@ -185,9 +184,9 @@ namespace VOP
             return null;
         }
 
-        public int InvokeScanMethod(ScanDelegate method, string deviceName, string szOrig, string szView, string szThumb,
-                                                                      int scanMode, int resolution, int width, int height,
-                                                                      int contrast, int brightness, int docuType, uint uMsg)
+        public int InvokeScanMethod(ScanDelegate method, string deviceName, string tempPath,
+                                                                      int colorType, int resolution, int width, int height,
+                                                                      int contrast, int brightness, bool ADFMode, uint uMsg, out string[] fileNames)
         {
 
             if (method != null)
@@ -196,7 +195,7 @@ namespace VOP
 
                 isNeededProgress = false;
                 asyncEvent.Reset();
-                IAsyncResult result = caller.BeginInvoke(deviceName, szOrig, szView, szThumb, scanMode, resolution, width, height, contrast, brightness, docuType, uMsg,
+                IAsyncResult result = caller.BeginInvoke(deviceName, tempPath, colorType, resolution, width, height, contrast, brightness, ADFMode, uMsg, out fileNames,
                                                          new AsyncCallback(ScanCallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
@@ -211,11 +210,12 @@ namespace VOP
 
                 if (result.AsyncWaitHandle.WaitOne(100, false))
                 {
-                    return caller.EndInvoke(result);
+                    return caller.EndInvoke(out fileNames, result);
                 }
 
             }
 
+            fileNames = null;
             return 1;
         }
 

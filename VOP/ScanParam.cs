@@ -26,18 +26,8 @@ namespace VOP
         private EnumColorType m_color = EnumColorType.grayscale_8bit;
         private int m_brightness = 50;
         private int m_contrast = 50;
+        private bool m_ADFMode = false;
 
-        public EnumScanDocType DocType
-        {
-            get 
-            {
-                return this.m_docutype;
-            }
-            set
-            {
-                this.m_docutype = value;
-            }
-        }
 
         public EnumScanResln ScanResolution
         {
@@ -99,17 +89,29 @@ namespace VOP
             }
         }
 
+        public bool ADFMode
+        {
+            get
+            {
+                return this.m_ADFMode;
+            }
+            set
+            {
+                this.m_ADFMode = value;
+            }
+        }
+
         public ScanParam()
         {
 
         }
 
-        public ScanParam(EnumScanDocType docType, EnumScanResln res, EnumPaperSizeScan paperSize, EnumColorType color, int b, int c)
+        public ScanParam(EnumScanResln res, EnumPaperSizeScan paperSize, EnumColorType color, bool ADFMode, int b, int c)
         {
-            this.m_docutype = docType;
             this.m_scanResln = res;
             this.m_paperSize = paperSize;
             this.m_color = color;
+            this.m_ADFMode = ADFMode;
             this.m_brightness = b;
             this.m_contrast = c;
         }

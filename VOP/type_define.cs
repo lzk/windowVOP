@@ -143,13 +143,11 @@ namespace VOP
     /// <summary>
     /// The value of value types are defined with low level drive. Don't change the value.
     /// </summary>
-    public enum EnumColorType : byte
+    public enum  EnumColorType : byte
     {
-        black_white    = 0,
-        grayscale_8bit = 1,
-        color_24bit    = 2,
-        preview        = 3,
-        color_48bit    = 4,
+        black_white    = 1,
+        grayscale_8bit = 8,
+        color_24bit    = 24,
     }
 
     public enum EnumScanDocType : byte
