@@ -54,6 +54,21 @@ namespace VOP
             AddMessageHook();
         }
 
+        public void GotoPage(string pageName, object arg)
+        {
+            if(pageName == "ScanPage")
+            {
+                MainPageView.Child = scanPage;
+                scanPage.m_MainWin = this;
+                scanPage.ScanFileList = (List<ScanFiles>)arg;
+            }
+            else if(pageName == "ScanSelectionPage")
+            {
+                MainPageView.Child = scanSelectionPage;
+                scanSelectionPage.m_MainWin = this;
+            }
+        }
+
         public void MyMouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
         {
             this.DragMove();

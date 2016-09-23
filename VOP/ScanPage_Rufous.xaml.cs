@@ -14,81 +14,62 @@ using Microsoft.Win32; // for SaveFileDialog
 using PdfEncoderClient;
 using VOP.Controls;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace VOP
 {
     public partial class ScanPage_Rufous : UserControl
     {
         private int m_maxImgNum = 99;
-#region scan parameters
-        private EnumScanDocType   m_docutype   = EnumScanDocType.Photo;
-        private EnumScanResln     m_scanResln  = EnumScanResln._300x300;
-        private EnumPaperSizeScan m_paperSize  = EnumPaperSizeScan._A4;
-        private EnumColorType     m_color      = EnumColorType.color_24bit;
-        private int               m_brightness = 50;
-        private int               m_contrast   = 50;
-#endregion
-
-#region Return value of dll.ScanEx
-        private const int RETSCAN_OK             = 0;
-        private const int RETSCAN_ERRORDLL       = 1;
-        private const int RETSCAN_OPENFAIL       = 2;
-        private const int RETSCAN_ERRORPARAMETER = 3;
-        private const int RETSCAN_NO_ENOUGH_SPACE= 5;
-        private const int RETSCAN_ERROR_PORT     = 6;
-        private const int RETSCAN_CANCEL         = 7;
-        private const int RETSCAN_BUSY           = 8;
-        private const int RETSCAN_ERROR          = 9;
-#endregion
-        private EnumStatus m_currentStatus = EnumStatus.Offline;
-
         public Thread scanningThread = null;
 
-        private ProgressBarWindow pbw = null;
-        ScanFileSaveError fileSaveStatus = ScanFileSaveError.FileSave_OK;
 
-        private uint WM_VOPSCAN_PROGRESS = Win32.RegisterWindowMessage("vop_scan_progress2");
-        private uint WM_VOPSCAN_COMPLETED = Win32.RegisterWindowMessage("vop_scan_completed");
+        private List<ScanFiles> scanFileList = null; 
 
-        // share data between UI thread and scanning thread. 
-        private ScanFiles m_shareObj = null; 
-        private object objLock = new object(); 
 
-        // InitialDirectory for SaveFileDialog.
-        private string strInitalDirectory = "";
-
-        // Flags present the WndProc had been hooked or not.
-        private bool m_bHooked = false;
-
-        // Flag present the whether doing scanning job.
-        private bool _isScanning = false; 
-        public bool m_isScanning 
+        public List<ScanFiles> ScanFileList
         {
-            get 
+            set
             {
-                return _isScanning;
+                scanFileList = value;
+
+                if(scanFileList != null)
+                {
+                    foreach(ScanFiles files in scanFileList)
+                    {
+                        ImageItem newImage = new ImageItem();
+                        newImage.m_images = files;
+                        newImage.ImageSingleClick += ImageItemSingleClick;
+                        newImage.ImageDoubleClick += ImageItemDoubleClick;
+                        newImage.CloseIconClick += ImageItemCloseIconClick;
+                        newImage.m_num = scanFileList.IndexOf(files) + 1;
+                        UpdateSelItemNum();
+                        newImage.Margin = new Thickness(10);
+                        this.image_wrappanel.Children.Insert(0, newImage);
+
+                    }
+                }
             }
         }
+
 
         public ScanPage_Rufous()
         {
             InitializeComponent();
-            ResetToDefaultValue();
-
         }
 
-        void CallbackMethod(IAsyncResult ar)
+        private void ScanToCloudButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (pbw != null)
-            {
-                pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
-                 new Action(
-                 delegate()
-                 {
-                     pbw.Close();
-                 }
-                 ));
-            }
+            ImageButton btn = sender as ImageButton;
+
+            List<string> files = new List<string>();
+            GetSelectedFile(files);
+
+            DropBoxFlow flow = new DropBoxFlow();
+            flow.ParentWin = m_MainWin;
+            flow.FileList = files;
+
+            flow.Run();
 
         }
 
@@ -145,6 +126,31 @@ namespace VOP
             {
               //  btnPrint.IsEnabled = false;
               //  btnSave.IsEnabled = false;
+            }
+        }
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            SelectAll((bool)SelectAllCheckBox.IsChecked);
+        }
+
+        private void SelectAll(bool isCheck)
+        {
+            int index = 1;
+            for (int i = image_wrappanel.Children.Count - 1; i >=0 ; i--)
+            {
+                ImageItem img = image_wrappanel.Children[i] as ImageItem;
+
+                if (isCheck)
+                {
+                    img.m_num = index;
+                }
+                else
+                {
+                    img.m_num = 0;
+                }
+              
+                index++;
             }
         }
 
@@ -220,31 +226,6 @@ namespace VOP
             }
         }
 
-        private void SettingBtnClick(object sender, RoutedEventArgs e)
-        {
-            ScanSetting win = new ScanSetting();
-
-            win.m_docutype   = m_docutype;
-            win.m_scanResln  = m_scanResln;
-            win.m_paperSize  = m_paperSize;
-            win.m_color      = m_color;
-            win.m_brightness = m_brightness;
-            win.m_contrast   = m_contrast;
-
-            win.Owner = m_MainWin;
-         
-            if (true == win.ShowDialog())
-            {
-                m_docutype   = win.m_docutype;
-                m_scanResln  = win.m_scanResln;
-                m_paperSize  = win.m_paperSize;
-                m_color      = win.m_color;
-                m_brightness = win.m_brightness;
-                m_contrast   = win.m_contrast;
-
-               // txtBlkImgSize.Text = FormatSize( GetScanSize() );
-            }
-        }
 
         ///<summary>
         /// Pointer to the MainWindow, in order to use global data more
@@ -271,81 +252,9 @@ namespace VOP
             }
         }
 
-        public void DoScanning()
-        {
-            string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString( "D10" );
-
-            if ( false == Directory.Exists(App.cacheFolder) ) 
-            {
-                Directory.CreateDirectory( App.cacheFolder );
-            }
-
-            lock ( objLock )
-            {
-                m_shareObj = new ScanFiles();
-                m_shareObj.m_colorMode = m_color;
-                m_shareObj.m_pathOrig  = App.cacheFolder + "\\vopOrig" + strSuffix + ".bmp";
-                m_shareObj.m_pathView  = App.cacheFolder + "\\vopView" + strSuffix + ".bmp";
-                m_shareObj.m_pathThumb = App.cacheFolder + "\\vopThum" + strSuffix + ".bmp";
-            }
-
-            int scanMode   = (int)m_color;
-            int resolution = (int)m_scanResln;
-            int nWidth     = 0;
-            int nHeight    = 0;
-            int contrast   = m_contrast;
-            int brightness = m_brightness;
-            int docutype   = (int)m_docutype;
-
-            common.GetPaperSize( m_paperSize, ref nWidth, ref nHeight );
-
-            int nResult = RETSCAN_OK;
-            //int nResult = dll.ScanEx(
-            //        m_MainWin.statusPanelPage.m_selectedPrinter ,
-            //        m_shareObj.m_pathOrig     ,
-            //        m_shareObj.m_pathView     ,
-            //        m_shareObj.m_pathThumb    ,
-            //        scanMode   ,
-            //        resolution ,
-            //        nWidth     ,
-            //        nHeight    ,
-            //        contrast   ,
-            //        brightness ,
-            //        docutype   ,
-            //        WM_VOPSCAN_PROGRESS);
-
-            Win32.PostMessage( (IntPtr)0xffff, WM_VOPSCAN_COMPLETED, (IntPtr)nResult, IntPtr.Zero );
-
-        }
-
-        private void btnScan_Click(object sender, RoutedEventArgs e)
-        {
-           // btnCancel.IsEnabled  = true;
-           // btnScan.IsEnabled    = false;
-            //btnSetting.IsEnabled = false;
-           // m_MainWin.statusPanelPage.EnableSwitchPrinter( false );
-            this.image_wrappanel.IsEnabled = false;
-          //  btnPrint.IsEnabled = false;
-          //  btnSave.IsEnabled = false;
-          //  m_MainWin.EnableTabItems(false);
-
-            _isScanning = true;
-            scanningThread = new Thread(DoScanning);
-            scanningThread.Start();
-
-        }
-
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            if ( false == m_bHooked )
-            {
-                HwndSource source = PresentationSource.FromVisual(this) as HwndSource;
-                source.AddHook(WndProc);
-
-                m_bHooked = true;
-
-            }
-
+           
             if ( 0 < GetSelectedItemCount() )
             {
                 //btnPrint.IsEnabled = true;
@@ -359,39 +268,6 @@ namespace VOP
 
             InitFontSize();
 
-            ScanWaitWindow_Rufous wait = new ScanWaitWindow_Rufous(0);
-            wait.Owner = App.Current.MainWindow;
-            wait.ShowDialog();
-
-            ImageItem newImage = new ImageItem();
-            ScanFiles newFiles = new ScanFiles();
-            newFiles.m_colorMode = EnumColorType.color_24bit;
-            newFiles.m_pathOrig = @"F:\PdfSave\300dpiOrig.bmp";
-            newFiles.m_pathView = @"F:\PdfSave\300dpiView.bmp";
-            newFiles.m_pathThumb = @"F:\PdfSave\300dpiThum.bmp";
-            newImage.m_images = newFiles;
-            newImage.ImageSingleClick += ImageItemSingleClick;
-            newImage.ImageDoubleClick += ImageItemDoubleClick;
-            newImage.CloseIconClick += ImageItemCloseIconClick;
-            newImage.m_num = 0;
-            UpdateSelItemNum();
-            newImage.Margin = new Thickness(10);
-            this.image_wrappanel.Children.Insert(0, newImage);
-
-            //ImageItem newImage2 = new ImageItem();
-            //ScanFiles newFiles2 = new ScanFiles();
-            //newFiles2.m_colorMode = EnumColorType.color_24bit;
-            //newFiles2.m_pathOrig = @"F:\PdfSave\vopOrig0001748203.bmp";
-            //newFiles2.m_pathView = @"F:\PdfSave\vopView0001748203.bmp";
-            //newFiles2.m_pathThumb = @"F:\PdfSave\vopThum0001748203.bmp";
-            //newImage2.m_images = newFiles2;
-            //newImage2.ImageSingleClick += ImageItemSingleClick;
-            //newImage2.ImageDoubleClick += ImageItemDoubleClick;
-            //newImage2.CloseIconClick += ImageItemCloseIconClick;
-            //newImage2.m_num = 1;
-            //UpdateSelItemNum();
-            //newImage2.Margin = new Thickness(10);
-            //this.image_wrappanel.Children.Insert(0, newImage2);
         }
 
         void InitFontSize()
@@ -405,161 +281,6 @@ namespace VOP
             {
                 //btnPrint.FontSize = btnSave.FontSize = btnSetting.FontSize = btnScan.FontSize = 14;
             }
-        }
-
-        /// <summary>
-        /// Scaning Image size in byte.
-        /// </summary>
-        private int GetScanSize()
-        {
-            double size = 0;
-
-            int nWidth = 0;
-            int nHeight = 0;
-            int dpi = (int)m_scanResln;
-            double fClrDeep = 1;
-
-            common.GetPaperSize( m_paperSize, ref nWidth, ref nHeight );
-
-            switch ( m_color )
-            {
-                case EnumColorType.black_white :
-                    fClrDeep = 1.0/8;
-                    break;
-                case EnumColorType.grayscale_8bit :
-                    fClrDeep = 1;
-                    break;
-                case EnumColorType.color_24bit :
-                    fClrDeep = 3;
-                    break;
-
-                default:
-                    fClrDeep = 1;
-                    break;
-            }
-
-            size = (float)nWidth/1000*(float)nHeight/1000*dpi*dpi*fClrDeep;
-
-            return (int)size;
-        }
-
-        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-           
-            if ( WM_VOPSCAN_PROGRESS == msg )
-            {                        
-                 handled = true;
-
-                // progressBar1.Value = wParam.ToInt32();
-            } 
-            else if ( WM_VOPSCAN_COMPLETED == msg )
-            {
-                _isScanning = false;
-                 handled = true;
-
-                // btnCancel.IsEnabled  = false;
-                // btnSetting.IsEnabled = true;
-                // m_MainWin.statusPanelPage.EnableSwitchPrinter( true );
-                 this.image_wrappanel.IsEnabled = true;
-
-                 if ( 0 < GetSelectedItemCount() )
-                 {
-                //     btnPrint.IsEnabled = true;
-                //     btnSave.IsEnabled = true;
-                 }
-                 
-                 //btnScan.IsEnabled = ( false == common.IsOffline(m_currentStatus) && false == m_isScanning );
-              //   m_MainWin.EnableTabItems(true);
-
-               //  progressBar1.Value = 0;
-
-                 if ( RETSCAN_OK == (int)wParam )
-                 {
-                     ImageItem img  = new ImageItem();
-
-                     lock ( objLock )
-                     {
-                         img.m_images = m_shareObj;
-                     }
-
-                     if ( img.m_iSimgReady )
-                     {
-                         img.ImageSingleClick += ImageItemSingleClick;
-                         img.ImageDoubleClick += ImageItemDoubleClick;
-                         img.CloseIconClick += ImageItemCloseIconClick;
-                         img.m_num = 0;
-                         UpdateSelItemNum();
-
-                         img.Margin = new Thickness( 10 );
-                         this.image_wrappanel.Children.Insert(0, img );
-                         App.scanFileList.Add( img.m_images );
-                     }
-                     else
-                     {
-                         VOP.Controls.MessageBoxEx.Show(
-                                 VOP.Controls.MessageBoxExStyle.Simple,
-                                 m_MainWin,
-                                 (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
-                                 (string)this.FindResource( "ResStr_Error" )
-                                 );
-                     }
-                 }
-                 else if ( RETSCAN_CANCEL == (int)wParam )
-                 {
-                   //  m_MainWin.EnableTabItems(true);
-                 }
-                 else if ( RETSCAN_NO_ENOUGH_SPACE == (int)wParam )
-                 {
-                   //  m_MainWin.EnableTabItems(true);
-                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_insufficient_system_disk_space"), (string)this.FindResource("ResStr_Error"));
-                 }
-                 else
-                 {
-                   //  m_MainWin.EnableTabItems(true);
-                   //  m_MainWin.statusPanelPage.ShowMessage( (string)this.FindResource("ResStr_Scan_Fail"), Brushes.Red );
-
-                     if ( RETSCAN_OPENFAIL == (int)wParam
-                             || RETSCAN_ERRORDLL == (int)wParam
-                             || RETSCAN_ERROR_PORT == (int)wParam)
-                     {
-                         VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
-                                 m_MainWin,
-                                 (string)this.FindResource( "ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_" ),
-                                 (string)this.FindResource( "ResStr_Error" ));
-                     }
-                     else if ( RETSCAN_ERROR == (int)wParam )
-                     {
-                         VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple,
-                                 m_MainWin,
-                                 (string)this.FindResource( "ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_"),
-                                 (string)this.FindResource( "ResStr_Error" ));
-                     }
-                     else if ( RETSCAN_BUSY == (int)wParam )
-                     {
-                         VOP.Controls.MessageBoxEx.Show( VOP.Controls.MessageBoxExStyle.Simple_Busy,
-                                 m_MainWin,
-                                 (string)this.FindResource( "ResStr_The_machine_is_busy__please_try_later_" ),
-                                 (string)this.FindResource("ResStr_Error"));
-                     }
-
-                 }
-            }
-
-            return IntPtr.Zero;
-        }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            dll.CancelScanning();
-        }
-
-        private void btnPrint_Click(object sender, RoutedEventArgs e)
-        {
-            List<string> files = new List<string>();
-            GetSelectedFile( files );
-            FileSelectionPage.IsInitPrintSettingPage = true;//Init print setting
-
-           // m_MainWin.SwitchToPrintingPage( files );
         }
 
         /// <summary>
@@ -649,237 +370,6 @@ namespace VOP
             return nCount;
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            SaveFileDialog save = new SaveFileDialog();
-
-            save.InitialDirectory = strInitalDirectory; 
-
-            if ( 1 < GetSelectedItemCount() )
-                save.Filter = "TIF|*.tif|PDF|*.pdf";
-            else 
-                save.Filter = "TIF|*.tif|PDF|*.pdf|JPG|*.jpg";
-
-            bool? result = save.ShowDialog();
-            fileSaveStatus = ScanFileSaveError.FileSave_OK;
-
-            if (result == true)
-            {
-                strInitalDirectory = save.FileName;
-
-                int position = strInitalDirectory.LastIndexOf('\\'); 
-                if (position > 0)
-                    strInitalDirectory = strInitalDirectory.Substring( 0, position );
-                
-                if(!IsTempImageExist())
-                {
-                     VOP.Controls.MessageBoxEx.Show(
-                      VOP.Controls.MessageBoxExStyle.Simple,
-                      m_MainWin,
-                      (string)this.FindResource("ResStr_Image_file_not_found"),
-                      (string)this.FindResource("ResStr_Error")
-                      );
-
-                    return;
-                }
-              
-                if ( false == DoseHasEnoughSpace(save.FileName) )
-                {
-                    VOP.Controls.MessageBoxEx.Show(
-                            VOP.Controls.MessageBoxExStyle.Simple,
-                            m_MainWin,
-                            (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
-                            (string)this.FindResource( "ResStr_Error" )
-                            );
-
-                    return;
-                }
-
-                // This index is 1-based, not 0-based        
-                List<string> files = new List<string>();
-                GetSelectedFile( files );
-
-                Thread thread = new Thread(() =>
-                {
-                    try
-                    {
-                        if (3 == save.FilterIndex)
-                        {
-                            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-
-                            foreach (string path in files)
-                            {
-                                Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
-                                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
-                                BitmapSource origSource = decoder.Frames[0];
-
-                                if (null != origSource)
-                                    encoder.Frames.Add(BitmapFrame.Create(origSource));
-                            }
-
-                            FileStream fs = File.Open(save.FileName, FileMode.Create);
-                            encoder.Save(fs);
-                            fs.Close();
-                        }
-                        else if (1 == save.FilterIndex)
-                        {
-                            TiffBitmapEncoder encoder = new TiffBitmapEncoder();
-
-                            foreach (string path in files)
-                            {
-                                Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
-                                BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
-                                BitmapSource origSource = decoder.Frames[0];
-
-                                BitmapMetadata bitmapMetadata = new BitmapMetadata("tiff");
-                                bitmapMetadata.ApplicationName = "Virtual Operation Panel";
-
-                                if (null != origSource)
-                                    encoder.Frames.Add(BitmapFrame.Create(origSource, null, bitmapMetadata, null));
-                            }
-
-                            FileStream fs = File.Open(save.FileName, FileMode.Create);
-                            encoder.Save(fs);
-                            fs.Close();
-                        }
-                        else if (2 == save.FilterIndex)
-                        {
-                            using (PdfHelper help = new PdfHelper())
-                            {
-                                help.Open(save.FileName);
-
-                                foreach (string path in files)
-                                {
-                                    Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
-                                    BmpBitmapDecoder decoder = new BmpBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
-                                    BitmapSource origSource = decoder.Frames[0];
-
-                                    if (null != origSource)
-                                        help.AddImage(origSource, 0);
-                                }
-
-                                help.Close();
-                            }
-                        }
-                    }
-                    catch (Win32Exception)
-                    {
-                        fileSaveStatus = ScanFileSaveError.FileSave_OutOfMemory;
-                    }
-                    catch (COMException)
-                    {
-                        fileSaveStatus = ScanFileSaveError.FileSave_OutOfMemory;
-                    }
-                    catch (IOException)
-                    {
-                        fileSaveStatus = ScanFileSaveError.FileSave_FileOccupied;
-                    }
-                    catch
-                    {
-                        fileSaveStatus = ScanFileSaveError.FileSave_OutOfMemory;
-                    }
-                        
-                    CallbackMethod(null);
-                });
-
-                thread.SetApartmentState(ApartmentState.STA);
-                thread.IsBackground = false;
-                thread.Start();
-
-                if (!thread.Join(100))
-                {
-                    pbw = new ProgressBarWindow();
-
-                    pbw.Owner = App.Current.MainWindow;
-                    pbw.ShowDialog();
-                }
-
-                thread.Join();
-                     
-                if(fileSaveStatus == ScanFileSaveError.FileSave_OutOfMemory)
-                {
-                     VOP.Controls.MessageBoxEx.Show(
-                            VOP.Controls.MessageBoxExStyle.Simple,
-                            m_MainWin,
-                            (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
-                            (string)this.FindResource( "ResStr_Error" )
-                            );
-                }
-                else if(fileSaveStatus == ScanFileSaveError.FileSave_FileOccupied)
-                {
-                        VOP.Controls.MessageBoxEx.Show(
-                            VOP.Controls.MessageBoxExStyle.Simple,
-                            m_MainWin,
-                            (string)this.FindResource("ResStr_picture_file_occupied"),
-                            (string)this.FindResource("ResStr_Warning")
-                            );
-                }
-             
-            }
-            
-        }
-
-        /// <summary>
-        /// Format size in byte to string, leave two fraction if size large
-        /// than 1 kb.
-        /// </summary>
-        private string FormatSize( int size )
-        {
-            int _1k = 1024;
-            int _1m = _1k*1024;
-            int _1g = _1m*1024;
-
-            double fSize = size;
-
-            string str = "";
-
-            if ( _1k > size )
-            {
-                str = size.ToString()+"B";
-            }
-            else if ( _1m > size )
-            {
-                fSize/=_1k;
-                str = fSize.ToString("F2")+"KB";
-            }
-            else if ( _1g > size )
-            {
-                fSize/=_1m;
-                str = fSize.ToString("F2")+"MB";
-            }
-            else
-            {
-                fSize/=_1g;
-                str = fSize.ToString("F2")+"GB";
-            }
-
-            return str;
-        }
-
-        public void ResetToDefaultValue()
-        {
-            m_docutype   = EnumScanDocType.Photo;
-            m_scanResln  = EnumScanResln._300x300;
-            m_paperSize  = EnumPaperSizeScan._A4;
-            m_color      = EnumColorType.color_24bit;
-            m_brightness = 50;
-            m_contrast   = 50;
-
-            strInitalDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-
-            //btnPrint.IsEnabled   = false;
-            //btnSave.IsEnabled    = false;
-            //btnCancel.IsEnabled  = false;
-            //btnSetting.IsEnabled = true;
-            //btnScan.IsEnabled = true;
-
-			//Configure the ProgressBar
-           // progressBar1.Minimum    = 0;
-          //  progressBar1.Maximum    = 100;
-           // progressBar1.Value      = 0;
-
-          //  txtBlkImgSize.Text = FormatSize( GetScanSize() );
-        }
 
         /// <summary>
         /// Get free space of disk specified by strPath.
@@ -946,13 +436,31 @@ namespace VOP
             return -1;
         }
 
-        /// <summary>
-        /// Status update thread will invoke this interface to update status of subpage.
-        /// </summary>
-        public void PassStatus( EnumStatus st, EnumMachineJob job, byte toner )
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            m_currentStatus = st;
-            //btnScan.IsEnabled = ( false == common.IsOffline(m_currentStatus) && false == m_isScanning );
+
+            if(image_wrappanel.Children.Count > 0)
+            {
+                if (VOP.Controls.MessageBoxExResult.Yes ==
+                 VOP.Controls.MessageBoxEx.Show(
+                     VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
+                     m_MainWin,
+                     "Do you want to delete all images before leaving scan page?",
+                     (string)this.TryFindResource("ResStr_Prompt")
+                     )
+            )
+                {
+
+                    image_wrappanel.Children.Clear();
+                    m_MainWin.GotoPage("ScanSelectionPage", null);
+                }
+            }
+            else
+            {
+                m_MainWin.GotoPage("ScanSelectionPage", null);
+            }
+  
         }
+ 
     }
 }

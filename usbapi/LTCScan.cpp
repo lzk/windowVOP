@@ -87,13 +87,6 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	UINT32 uMsg,
 	SAFEARRAY** fileNames)
 {
-	/*Sleep(2000);
-
-	for (int i = 0; i < 100; i+=10)
-	{
-		::SendNotifyMessage(HWND_BROADCAST, uMsg, i, 0);
-		Sleep(20);
-	}*/
 	
 	BSTR bstrArray[500] = { 0 };
 	CGLDrv glDrv;

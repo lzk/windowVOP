@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VOP</RootNamespace>
     <AssemblyName>VOP</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -29,6 +29,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -42,6 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -52,6 +54,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Images\printer.ico</ApplicationIcon>
@@ -68,6 +71,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -78,6 +82,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.PdfEncoderLib">
@@ -88,12 +93,17 @@
     <Reference Include="Microsoft.Office.Interop.Publisher, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dropbox-sdk-dotnet-master\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Printing" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web" />
@@ -120,6 +130,9 @@
     <Compile Include="AsyncWorker.cs" />
     <Compile Include="common.cs" />
     <Compile Include="Controls\CustomExpander.cs" />
+    <Compile Include="Controls\ImageButton\ImageButton2.xaml.cs">
+      <DependentUpon>ImageButton2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple_Busy_QRCode.xaml.cs">
       <DependentUpon>MessageBoxEx_Simple_Busy_QRCode.xaml</DependentUpon>
     </Compile>
@@ -154,6 +167,9 @@
       <DependentUpon>MessageBoxEx_YesNo_NoIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PopupEx.cs" />
+    <Compile Include="Controls\ScanTo\ScanToCloud\DropBoxFlow.cs" />
+    <Compile Include="Controls\ScanTo\ScanToCloud\FileViewer.xaml.cs" />
+    <Compile Include="Controls\ScanTo\ScanToCloud\LoginForm.xaml.cs" />
     <Compile Include="Controls\SpinnerControl\SpinnerControlOnlySupportUpDowmKey.cs" />
     <Compile Include="Controls\TextBoxValidation\IPAddressValidationRule.cs" />
     <Compile Include="CopyConfirm.xaml.cs">
@@ -302,6 +318,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\ImageButton\ImageButton2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple_Busy_QRCode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -359,6 +379,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_YesNo_NoIcon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ScanTo\ScanToCloud\FileViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ScanTo\ScanToCloud\LoginForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -753,7 +781,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
@@ -906,6 +934,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\dropbox-sdk-dotnet-master\Dropbox.Api\Dropbox.Api.csproj">
+      <Project>{68180b54-4724-4cd1-baa6-ee7bc309797c}</Project>
+      <Name>Dropbox.Api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WpfAnimatedGif\WpfAnimatedGif.csproj">
       <Project>{d129789c-3096-4d0b-8dd7-fe24a4df4b21}</Project>
       <Name>WpfAnimatedGif</Name>
@@ -1118,7 +1150,20 @@
     <Resource Include="Images\device_over.png" />
     <Resource Include="Images\device_press.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ScanView.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder_with_arrow_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Folder-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\file.png" />
+  </ItemGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(SolutionDir)HelpFile\*" "$(TargetDir)" /E /Y</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

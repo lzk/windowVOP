@@ -38,6 +38,9 @@ namespace VOP
 
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", param);
 
+            if (files == null)
+                return;
+
             if(task.ScanResult == Scan_RET.RETSCAN_OK)
             {
                 QRCodeWindow win = new QRCodeWindow(files[0].m_pathOrig);
@@ -67,6 +70,38 @@ namespace VOP
                     }
             
                
+            }
+        }
+
+        private void ScanToButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ImageButton btn = sender as ImageButton;
+
+            //ScanTask task = new ScanTask();
+            //ScanParam param = new ScanParam(
+            //    EnumScanResln._300x300,
+            //    EnumPaperSizeScan._A4,
+            //    EnumColorType.color_24bit,
+            //    true,
+            //    50,
+            //    50);
+
+            // List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", param);
+
+            //if (files == null)
+            //    return;
+
+            // if (task.ScanResult == Scan_RET.RETSCAN_OK)
+            {
+                List<ScanFiles> files = new List<ScanFiles>();
+                files.Add(new ScanFiles(@"G:\work\Rufous\pic\1313783656_C300_A00.JPG"));
+                files.Add(new ScanFiles(@"G:\work\Rufous\pic\1313783656_C300_A01.JPG"));
+                files.Add(new ScanFiles(@"G:\work\Rufous\pic\1313783656_C300_A02.JPG"));
+                files.Add(new ScanFiles(@"G:\work\Rufous\pic\1313783656_C300_B00.JPG"));
+                files.Add(new ScanFiles(@"G:\work\Rufous\pic\1313783656_C300_B01.JPG"));
+                files.Add(new ScanFiles(@"G:\work\Rufous\pic\1313783656_C300_B02.JPG"));
+
+                m_MainWin.GotoPage("ScanPage", files);
             }
         }
     }

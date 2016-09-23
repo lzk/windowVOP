@@ -31,7 +31,7 @@
                             <Border.Background>
                                 <ImageBrush ImageSource="{Binding Path=(local:EyeCandy.Image),
                                 RelativeSource={RelativeSource FindAncestor,
-                                AncestorType={x:Type Button}}}"/>
+                                AncestorType={x:Type Button}}}" RenderOptions.BitmapScalingMode="HighQuality"/>
                             </Border.Background>
                             <Border.BorderBrush>
                                 <SolidColorBrush x:Name="MyBorderBrush" Color="SteelBlue" />
@@ -160,7 +160,7 @@
                                 <Border.Background>
                                     <ImageBrush  ImageSource="{Binding Path=(local:EyeCandy.Image),
                                 RelativeSource={RelativeSource FindAncestor,
-                                AncestorType={x:Type Button}}}"/>
+                                AncestorType={x:Type Button}}}" RenderOptions.BitmapScalingMode="HighQuality"/>
                                 </Border.Background>
                                 <Border.BorderBrush>
                                     <SolidColorBrush x:Name="MyBorderBrush" Color="SteelBlue" />

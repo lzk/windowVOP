@@ -61,19 +61,22 @@ namespace VOP
                     WM_VOPSCAN_PROGRESS,
                     out fileNames);
 
-            foreach(string name in fileNames)
+            if(fileNames != null)
             {
-                ScanFiles file = new ScanFiles();
-                file.m_colorMode = param.ColorType;
-                file.m_pathOrig = name;
-                file.m_pathView = name;
-                file.m_pathThumb = name;
-                files.Add(file);
+                foreach (string name in fileNames)
+                {
+                    ScanFiles file = new ScanFiles();
+                    file.m_colorMode = param.ColorType;
+                    file.m_pathOrig = name;
+                    file.m_pathView = name;
+                    file.m_pathThumb = name;
+                    files.Add(file);
+                }
             }
-
+          
             ScanResult = (Scan_RET)nResult;
           
-            return files;
+            return files.Count > 0 ? files : null;
         }
     }
 }

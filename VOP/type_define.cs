@@ -9,6 +9,19 @@ namespace VOP
         public string m_pathThumb;
         
         public EnumColorType m_colorMode = 0;
+
+        public ScanFiles()
+        {
+
+        }
+
+        public ScanFiles(string pathAll, EnumColorType colorMode=EnumColorType.color_24bit)
+        {
+            m_pathOrig = pathAll;
+            m_pathView = pathAll;
+            m_pathThumb = pathAll;
+            m_colorMode = colorMode;
+        }
     }
 
     public enum EnumCmdResult : int

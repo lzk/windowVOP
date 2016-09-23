@@ -126,7 +126,8 @@
                             Margin="0,-20,0,0"
                             FontSize="16"
                             Foreground="#FF48C6E0"
-                            FontFamily="Verdana"/>
+                            FontFamily="Verdana"
+                            PreviewMouseLeftButtonDown="ScanToButtonClick" />
     
       
 
