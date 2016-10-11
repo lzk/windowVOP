@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              x:Name="myControl"
-             d:DesignHeight="480" d:DesignWidth="500">
+             d:DesignHeight="480" d:DesignWidth="500" Loaded="myControl_Loaded">
     
     <UserControl.Resources>
-        <ResourceDictionary Source="../PanelButton.xaml"/>
+        <ResourceDictionary Source="../../Controls/PanelButton.xaml"/>
     </UserControl.Resources>
     
     <Grid>
@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
-            <RowDefinition Height="15*"/>
+            <RowDefinition Height="30*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="15*"/>
             <RowDefinition Height="30" />
@@ -36,17 +36,42 @@
             Margin="-150,-150,0,0" Click="Button_Click"/>
         
         <Border
-            Margin="-200,0,0,0"
+            Name="ImageContainer"
+            HorizontalAlignment="Center"
             Grid.Row="1"
-            Grid.Column="2"
-            Width="250"
-            Background="White">
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Width="280"
+            Background="White"
+            >
             <Border.Effect>
                 <DropShadowEffect BlurRadius="10" Color="#FF858484" Direction="292" ShadowDepth="1" Opacity="0.5"/>
             </Border.Effect>
-            <Image 
-                Name="ImageView"
-                />
+            <Grid>
+                <Image Name="ImageView"  Margin="7"/>
+                <Canvas x:Name="DesignerCanvas"
+                ClipToBounds="True"
+                SnapsToDevicePixels="True">
+                    <Rectangle x:Name="BarcodeRect" 
+                            Width="50"
+                            Height="50" 
+                            Canvas.Top="15" 
+                            Canvas.Left="15"    
+                            Focusable="False"
+                            StrokeThickness="2" 
+                            Stroke="Red" 
+                            Visibility="Hidden"
+                               />
+                    <Line x:Name="BarcodeLine" 
+                            X1="5" Y1="5"
+                            X2="20" Y2="5"  
+                            Focusable="False"
+                            StrokeThickness="2" 
+                            Stroke="Red" 
+                            Visibility="Hidden"
+                               />
+                </Canvas>
+            </Grid>
         </Border>
 
         <FlowDocumentScrollViewer

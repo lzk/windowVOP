@@ -13,10 +13,10 @@
              >
     
     <UserControl.Resources>
-        <ResourceDictionary Source="Controls/PanelButton.xaml"/>
+        <ResourceDictionary Source="../Controls/PanelButton.xaml"/>
     </UserControl.Resources>
     
-    <Grid Name="rootGrid" >    
+    <Grid Name="rootGrid">    
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
             <ColumnDefinition Width="*" />
@@ -77,14 +77,14 @@
             Grid.RowSpan="2"
             Grid.ColumnSpan="4"
             Stretch="Fill"
-            Source="Images/panel_group.png" 
+            Source="../Images/panel_group.png" 
             Margin="0"/>
         
         <local:ImageButton  x:Name="ImageButton1"
                             Grid.Row="2"
                             Grid.Column="1"
                             Grid.RowSpan="1"
-                            ImagePath="Images/QRCode.png" 
+                            ImagePath="../Images/QRCode.png" 
                             BottomText="QR Code" 
                             Height="120" Width="102"
                             HorizontalAlignment="Center"
@@ -102,7 +102,7 @@
                             Grid.Row="2"
                             Grid.Column="2"
                             Grid.RowSpan="1"
-                            ImagePath="Images/BarCode.png" 
+                            ImagePath="../Images/BarCode.png" 
                             BottomText="Bar Code" 
                             Height="120" Width="102"
                             HorizontalAlignment="Center"
@@ -118,7 +118,7 @@
                             Grid.Row="2"
                             Grid.Column="3"
                             Grid.RowSpan="1"
-                            ImagePath="Images/ScanTo.png" 
+                            ImagePath="../Images/ScanTo.png" 
                             BottomText="Scan To" 
                             Height="120" Width="102"
                             HorizontalAlignment="Center"
@@ -135,7 +135,7 @@
                             Grid.Row="2"
                             Grid.Column="4"
                             Grid.RowSpan="1"
-                            ImagePath="Images/ScanSettings.png" 
+                            ImagePath="../Images/ScanSettings.png" 
                             BottomText="Settings" 
                             Height="120" Width="102"
                             HorizontalAlignment="Center"
@@ -143,6 +143,7 @@
                             Margin="0,-20,0,0"
                             FontSize="16"
                             Foreground="#FF48C6E0"
-                            FontFamily="Verdana"/>
+                            FontFamily="Verdana"
+                            PreviewMouseLeftButtonDown="SettingsButtonClick"/>
     </Grid>
 </UserControl>

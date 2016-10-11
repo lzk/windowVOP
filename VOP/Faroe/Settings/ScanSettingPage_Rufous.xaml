@@ -9,10 +9,10 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
-                <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
-                <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
-                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>

@@ -67,6 +67,11 @@ namespace VOP
                 MainPageView.Child = scanSelectionPage;
                 scanSelectionPage.m_MainWin = this;
             }
+            else if (pageName == "SettingsPage")
+            {
+                MainPageView.Child = scanSettingsPage;
+                scanSettingsPage.m_MainWin = this;
+            }
         }
 
         public void MyMouseButtonEventHandler(Object sender, MouseButtonEventArgs e)

@@ -1,0 +1,145 @@
+﻿<UserControl x:Class="VOP.ScanPage_Rufous"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:VOP.Controls"
+             xmlns:localvop="clr-namespace:VOP"
+             Width="700" 
+             Height="550" 
+             Loaded="UserControl_Loaded"
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="../Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="../Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="../Controls/CustomScrollView.xaml"/>
+                <ResourceDictionary Source="../Controls/CustomTickCheckBox.xaml"/>
+                <ResourceDictionary Source="../Controls/PanelButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+
+<Grid Name="grid1" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="350" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="0" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="20" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+
+        <CheckBox   Name="SelectAllCheckBox"
+                    Grid.Row="1" 
+                    Grid.Column="1"
+                    Content="Select All"
+                    Foreground="White"
+                    IsChecked="true" 
+                    Height="25" 
+                    Template="{StaticResource customTickCheckBox}" 
+                    Margin="0,0,25,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom" 
+                    Click="CheckBox_Click"/>
+
+        <Button Grid.Row="1" 
+                Grid.Column="1"
+                Grid.RowSpan="2"
+                Width="55" 
+                Height="55" 
+                Style="{StaticResource BackButtonStyle}" 
+                Margin="-50,-20,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top" Click="Button_Click"/>
+
+        <ScrollViewer Grid.Row="2" Grid.Column="1" Name="scrollview" CanContentScroll="true"
+        SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" VerticalScrollBarVisibility="Auto"
+        HorizontalScrollBarVisibility="Disabled"
+        Style="{StaticResource LeftScrollViewer}" 
+        >
+            <ScrollViewer.Background>
+                <ImageBrush ImageSource="../Images/ScanView.png"/>
+            </ScrollViewer.Background>
+
+            <WrapPanel x:Name="image_wrappanel" Margin="10">
+            </WrapPanel>
+
+        </ScrollViewer>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center">
+
+            <local:ImageButton2 
+                            ImagePath="../Images/ScanToPrint.png" 
+                            BottomText="To Print" 
+                            Height="90" Width="80"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0,0,0,0"
+                            Foreground="White"
+                            FontSize="12"/>
+            <local:ImageButton2  
+                            ImagePath="../Images/ScanToEmail.png" 
+                            BottomText="To Email" 
+                            Height="90" Width="80"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="12,5,0,5"
+                            Foreground="White"
+                            FontSize="12"/>
+
+            <local:ImageButton2  
+                            ImagePath="../Images/ScanToFile.png" 
+                            BottomText="To File" 
+                            Height="90" Width="80"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="12,0,0,0"
+                            Foreground="White"
+                            FontSize="12"/>
+
+             <local:ImageButton2 
+                            ImagePath="../Images/ScanToFtp.png" 
+                            BottomText="To FTP" 
+                            Height="90" Width="80"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="12,0,0,0"
+                            Foreground="White"
+                            FontSize="12"/>
+
+             <local:ImageButton2 
+                            ImagePath="../Images/ScanToProgram.png" 
+                            BottomText="To AP" 
+                            Height="90" Width="80"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="12,0,0,0"
+                            Foreground="White"
+                            FontSize="12"/>
+
+             <local:ImageButton2
+                            ImagePath="../Images/ScanToCloud.png" 
+                            BottomText="To Cloud" 
+                            Height="90" Width="80"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="12,0,0,0"
+                            Foreground="White"
+                            FontSize="12"
+                            PreviewMouseLeftButtonDown="ScanToCloudButtonClick" />
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

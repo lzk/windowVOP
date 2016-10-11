@@ -40,6 +40,24 @@ namespace VOP.Controls
         BOTTOM_MIDDLE,
         BOTTOM_RIGHT,
     }
+
+    public class QRCodeResult
+    {
+        public Result[] results = null;
+        public Int32Rect subRect;
+
+        public QRCodeResult()
+        {
+
+        }
+
+        public QRCodeResult(Result[] results, Int32Rect subRect)
+        {
+            this.results = results;
+            this.subRect = subRect;
+        }
+    }
+
     /// <summary>
     /// Interaction logic for IdCardTypeSelectWindow.xaml
     /// </summary>
@@ -175,11 +193,11 @@ namespace VOP.Controls
                 Bitmap bitmap = GetBitmap(imagePath);
 
                 AsyncWorker worker = new AsyncWorker(this);
-                Result[] results = worker.InvokeQRCodeMethod(Decode, bitmap);
+                QRCodeResult result = worker.InvokeQRCodeMethod(Decode, bitmap);
 
-                if (results != null)
+                if (result != null)
                 {
-                    GotoResultPage(results, ConvertBitmap(bitmap));
+                    GotoResultPage(result, ConvertBitmap(bitmap));
                 }
                 else
                 {
@@ -190,7 +208,7 @@ namespace VOP.Controls
             GC.Collect();
         }
 
-        public Result[] Decode(Bitmap bitmap)
+        public QRCodeResult Decode(Bitmap bitmap)
         {
             try
             {
@@ -198,21 +216,21 @@ namespace VOP.Controls
                 LuminanceSource source = new BitmapLuminanceSource(bitmap);
                 BinaryBitmap bbitmap = new BinaryBitmap(new GlobalHistogramBinarizer(source));
 
-                Result[] results = null;
+                QRCodeResult result = new QRCodeResult();
 
                 if(IsQRCode)
                 {
-                    results = qr_reader.decodeMultiple(bbitmap, hints);
+                    result.results = qr_reader.decodeMultiple(bbitmap, hints);
                 }
                 else
                 {
-                    results = oneD_reader.decodeMultiple(bbitmap, hints);
+                    result.results = oneD_reader.decodeMultiple(bbitmap, hints);
                 }
              
                 
-                if(results != null)
+                if (result.results != null)
                 {
-                    return results;
+                    return result;
                 }
                 else
                 {
@@ -225,68 +243,15 @@ namespace VOP.Controls
             }
         }
 
-        public Result[] GoDeeper(Bitmap bitmap)
+        public QRCodeResult GoDeeper(Bitmap bitmap)
         {
-            Result[] results = null;
-           
-
+            QRCodeResult result = new QRCodeResult();
             BitmapSource src = ConvertBitmap(bitmap);
 
             if (src != null)
             {
                 int w = src.PixelWidth;
                 int h = src.PixelHeight;
-
-                //for (int L = 0; L <= 1; L++)
-                //{
-                //    for (int k = 1; k <= 2; k++)
-                //    {
-                //        for (int j = 2; j <= 3; j++)
-                //        {
-                //            for (int i = 0; i < j; i++)
-                //            {
-
-                //                Int32Rect intRect = new Int32Rect((int)w/2*L + offset, (int)(h * i / j) + offset, w / k - offset, (int)h / j - offset);
-                //                BitmapSource rectImage = Crop(src, intRect);
-                //                if (rectImage != null)
-                //                {
-                //                    LuminanceSource source = new BitmapLuminanceSource(BitmapFromSource(rectImage));
-                //                    BinaryBitmap bbitmap = new BinaryBitmap(new GlobalHistogramBinarizer(source));
-
-                //                    Result[] anyResults = null;
-
-                //                    if (IsQRCode)
-                //                    {
-                //                        anyResults = qr_reader.decodeMultiple(bbitmap, hints);
-                //                    }
-                //                    else
-                //                    {
-                //                        anyResults = oneD_reader.decodeMultiple(bbitmap, hints);
-                //                    }
-
-                //                    if (results != null)
-                //                    {
-                //                        if (anyResults != null)
-                //                        {
-                //                            results.Concat(anyResults);
-                //                        }
-                //                    }
-                //                    else
-                //                    {
-                //                        results = anyResults;
-                //                    }
-
-                //                }
-                //            }
-             
-                //        }
-                //    }
-                //}
-
-                //if (results != null)
-                //{
-                //    return results;
-                //}
 
                 double offset = 0d;
                 for (offset = 0d; offset < 200; offset+=50)
@@ -337,6 +302,7 @@ namespace VOP.Controls
                             Int32Rect intRect = new Int32Rect((int)(rect.X), (int)(rect.Y), (int)rect.Width, (int)rect.Height);
 
                             BitmapSource rectImage = Crop(src, intRect);
+                            result.subRect = intRect;
 
                           //  string filename = string.Format("pic_{0}_scale{1}_offset{2}.jpg", loc.ToString(), tempid.ToString(), offset.ToString());
                           //  SaveImageToTemp(rectImage, @"E:\BarCode\pic\temp\" + filename);
@@ -360,11 +326,11 @@ namespace VOP.Controls
                                         anyResults = oneD_reader.decodeMultiple(bbitmap, hints);
                                     }
 
-                                    results = anyResults;
+                                    result.results = anyResults;
 
-                                    if (results != null)
+                                    if (result.results != null)
                                     {
-                                        return results;
+                                        return result;
                                     }
                                 }
                                 catch (Exception)
@@ -379,7 +345,7 @@ namespace VOP.Controls
    
             }
 
-            return results;
+            return result;
         }
 
         private void SaveImageToTemp(BitmapSource src, string path)
@@ -397,7 +363,7 @@ namespace VOP.Controls
             DragMove();
         }
 
-        public void GotoResultPage(Result[] results, BitmapSource src, bool isManual = false)
+        public void GotoResultPage(QRCodeResult result, BitmapSource src, bool isManual = false)
         {
             QRCodeResultPage resultPage = new QRCodeResultPage(this);
             PageView.Child = resultPage;
@@ -411,7 +377,7 @@ namespace VOP.Controls
                 resultPage.QRCodeImageSource = src;
             }
 
-            resultPage.QRCodeResult = results;
+            resultPage.QRCodeResult = result;
         }
 
         public void GotoManualPage()
@@ -423,16 +389,31 @@ namespace VOP.Controls
 
         public static BitmapSource ConvertBitmap(Bitmap bmp)
         {
+            float dpiX = 0;
+            float dpiY = 0;
             IntPtr hBitmap = bmp.GetHbitmap();
             try
             {
+                dpiX = bmp.HorizontalResolution;
+                dpiY = bmp.VerticalResolution;
 
+                //System.Drawing.Imaging.BitmapData data = bmp.LockBits(new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height),
+                //    System.Drawing.Imaging.ImageLockMode.ReadOnly, bmp.PixelFormat);
 
-                return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                //BitmapSource returnSrc = BitmapSource.Create(bmp.Width, bmp.Height, 96, 96, PixelFormats.Bgr24, null,
+                //    data.Scan0, data.Stride * bmp.Height, data.Stride);
+
+                //bmp.UnlockBits(data);
+
+                BitmapSource returnSrc = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
                                 hBitmap,
                                 IntPtr.Zero,
                                 Int32Rect.Empty,
                                 BitmapSizeOptions.FromEmptyOptions());
+
+
+
+                return returnSrc;
             }
             finally
             {
@@ -444,12 +425,19 @@ namespace VOP.Controls
         public static Bitmap BitmapFromSource(BitmapSource bitmapsource)
         {
             Bitmap bitmap;
+            double dpiX = 0;
+            double dpiY = 0;
+
+            dpiX = bitmapsource.DpiX;
+            dpiY = bitmapsource.DpiY;
+
             using (var outStream = new MemoryStream())
             {
                 BitmapEncoder enc = new BmpBitmapEncoder();
                 enc.Frames.Add(BitmapFrame.Create(bitmapsource));
                 enc.Save(outStream);
                 bitmap = new Bitmap(outStream);
+                bitmap.SetResolution((float)dpiX, (float)dpiY);
             }
             return bitmap;
         }
@@ -461,8 +449,17 @@ namespace VOP.Controls
 
             using (var fs = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
             {
+                float dpiX = 0;
+                float dpiY = 0;
+
                 tmpImage = System.Drawing.Image.FromStream(fs);
+
+                dpiX = tmpImage.HorizontalResolution;
+                dpiY = tmpImage.VerticalResolution;
+
                 returnImage = new Bitmap(tmpImage);
+                returnImage.SetResolution(dpiX, dpiY);
+
                 tmpImage.Dispose();
                 fs.Dispose();
             }

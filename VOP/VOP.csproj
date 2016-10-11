@@ -136,13 +136,13 @@
     <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple_Busy_QRCode.xaml.cs">
       <DependentUpon>MessageBoxEx_Simple_Busy_QRCode.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\QRCodeWindow\QRCodeManualPage.xaml.cs">
+    <Compile Include="Faroe\QRCodeWindow\QRCodeManualPage.xaml.cs">
       <DependentUpon>QRCodeManualPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\QRCodeWindow\QRCodeResultPage.xaml.cs">
+    <Compile Include="Faroe\QRCodeWindow\QRCodeResultPage.xaml.cs">
       <DependentUpon>QRCodeResultPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\QRCodeWindow\QRCodeWindow.xaml.cs">
+    <Compile Include="Faroe\QRCodeWindow\QRCodeWindow.xaml.cs">
       <DependentUpon>QRCodeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ImagePreview\ImagePreview.xaml.cs">
@@ -167,23 +167,23 @@
       <DependentUpon>MessageBoxEx_YesNo_NoIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PopupEx.cs" />
-    <Compile Include="Controls\ScanTo\ScanToCloud\DropBoxFlow.cs" />
-    <Compile Include="Controls\ScanTo\ScanToCloud\FileViewer.xaml.cs" />
-    <Compile Include="Controls\ScanTo\ScanToCloud\LoginForm.xaml.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToCloud\DropBoxFlow.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToCloud\FileViewer.xaml.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToCloud\LoginForm.xaml.cs" />
     <Compile Include="Controls\SpinnerControl\SpinnerControlOnlySupportUpDowmKey.cs" />
     <Compile Include="Controls\TextBoxValidation\IPAddressValidationRule.cs" />
     <Compile Include="CopyConfirm.xaml.cs">
       <DependentUpon>CopyConfirm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ScanDevicePage_Rufous.cs" />
-    <Compile Include="ScanPage_Rufous.xaml.cs">
+    <Compile Include="Faroe\ScanDevicePage_Rufous.cs" />
+    <Compile Include="Faroe\ScanPage_Rufous.xaml.cs">
       <DependentUpon>ScanPage_Rufous.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ScanSelectionPage_Rufous.cs" />
+    <Compile Include="Faroe\ScanSelectionPage_Rufous.cs" />
     <Compile Include="IPV6CatalogsView.xaml.cs" />
     <Compile Include="IPV6SettingWindow.xaml.cs" />
     <Compile Include="IPV6StatusWindow.xaml.cs" />
-    <Compile Include="MainWindow_Rufous.xaml.cs">
+    <Compile Include="Faroe\MainWindow_Rufous.xaml.cs">
       <DependentUpon>MainWindow_Rufous.xaml</DependentUpon>
     </Compile>
     <Compile Include="ModifyUserInfo.xaml.cs">
@@ -192,17 +192,20 @@
     <Compile Include="CRMAgreementWindow.xaml.cs">
       <DependentUpon>CRMAgreementWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ScanSettingPage_Rufous.cs" />
-    <Compile Include="ScanParameterView.xaml.cs">
+    <Compile Include="Faroe\Settings\ScanSettingPage_Rufous.cs" />
+    <Compile Include="Faroe\Settings\ScanParameterView.xaml.cs">
       <DependentUpon>ScanParameterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ScanParam.cs" />
-    <Compile Include="ScanTask.cs" />
-    <Compile Include="ScanToFileView.xaml.cs">
+    <Compile Include="Faroe\ScanParam.cs" />
+    <Compile Include="Faroe\ScanTask.cs" />
+    <Compile Include="Faroe\Settings\ScanToFileView.xaml.cs">
       <DependentUpon>ScanToFileView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ScanWaitWindow_Rufous.xaml.cs">
+    <Compile Include="Faroe\ScanWaitWindow_Rufous.xaml.cs">
       <DependentUpon>ScanWaitWindow_Rufous.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Faroe\Settings\ScanSettingDialog.xaml.cs">
+      <DependentUpon>ScanSettingDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="TroubleshootingPage.cs" />
     <Compile Include="MessageBoxEx_Video.xaml.cs">
@@ -326,19 +329,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\QRCodeWindow\QRCodeManualPage.xaml">
+    <Page Include="Faroe\QRCodeWindow\QRCodeManualPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\QRCodeWindow\QRCodeResultPage.xaml">
+    <Page Include="Faroe\QRCodeWindow\QRCodeResultPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\QRCodeWindow\QRCodeWindow.xaml">
+    <Page Include="Faroe\QRCodeWindow\QRCodeWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\QRCodeWindow\QRCodePageStyle.xaml">
+    <Page Include="Faroe\QRCodeWindow\QRCodePageStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -382,11 +385,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\ScanTo\ScanToCloud\FileViewer.xaml">
+    <Page Include="Faroe\ScanTo\ScanToCloud\FileViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\ScanTo\ScanToCloud\LoginForm.xaml">
+    <Page Include="Faroe\ScanTo\ScanToCloud\LoginForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -398,14 +401,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ScanDevicePage_Rufous.xaml">
+    <Page Include="Faroe\ScanDevicePage_Rufous.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ScanPage_Rufous.xaml">
+    <Page Include="Faroe\ScanPage_Rufous.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ScanSelectionPage_Rufous.xaml">
+    <Page Include="Faroe\ScanSelectionPage_Rufous.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -421,7 +424,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow_Rufous.xaml">
+    <Page Include="Faroe\MainWindow_Rufous.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -433,18 +436,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ScanSettingPage_Rufous.xaml">
+    <Page Include="Faroe\Settings\ScanSettingPage_Rufous.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ScanParameterView.xaml">
+    <Page Include="Faroe\Settings\ScanParameterView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ScanToFileView.xaml">
+    <Page Include="Faroe\Settings\ScanToFileView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ScanWaitWindow_Rufous.xaml">
+    <Page Include="Faroe\ScanWaitWindow_Rufous.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\Settings\ScanSettingDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1162,6 +1169,7 @@
   <ItemGroup>
     <Resource Include="Images\file.png" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>

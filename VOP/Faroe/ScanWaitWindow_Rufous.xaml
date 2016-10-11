@@ -15,12 +15,12 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
-                <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
-                <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
-                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
-                <ResourceDictionary Source="Controls/AdjustButton.xaml"/>
-                <ResourceDictionary Source="Controls/CustomScrollView.xaml"/>
+                <ResourceDictionary Source="../Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="../Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="../Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="../Controls/CustomScrollView.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
 
@@ -169,24 +169,24 @@
 
                                     <Ellipse x:Name="ellipse2" Margin="2" StrokeThickness="0" Stroke="Black" Fill="{DynamicResource Brush2}" >
                                     </Ellipse>
-                                    <Image x:Name="icon" Height="12" Width="12" Stretch="Fill" Source="Images/cancelIcon.png"/>
+                                    <Image x:Name="icon" Height="12" Width="12" Stretch="Fill" Source="../Images/cancelIcon.png"/>
                                 </Grid>
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brMouseMoveBg}"/>
                                     <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brMouseMoveFg}"/>
-                                    <Setter Property="Source" TargetName="icon" Value="Images/cancelMouseMove.png"/>
+                                    <Setter Property="Source" TargetName="icon" Value="../Images/cancelMouseMove.png"/>
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="True">
                                     <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brPressedBg}"/>
                                     <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brPressedFg}"/>
-                                    <Setter Property="Source" TargetName="icon" Value="Images/cancelPress.png"/>
+                                    <Setter Property="Source" TargetName="icon" Value="../Images/cancelPress.png"/>
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="False">
                                     <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brDisableBg}"/>
                                     <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brDisableFg}"/>
-                                    <Setter Property="Source" TargetName="icon" Value="Images/cancelDisable.png"/>
+                                    <Setter Property="Source" TargetName="icon" Value="../Images/cancelDisable.png"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

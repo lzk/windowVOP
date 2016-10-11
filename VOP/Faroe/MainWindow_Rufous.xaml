@@ -13,13 +13,13 @@
         Name="mainWindow"
         >
     <Window.Resources>
-        <ResourceDictionary Source="Controls/PanelButton.xaml"/>
+        <ResourceDictionary Source="../Controls/PanelButton.xaml"/>
     </Window.Resources>
 
     <Viewbox Stretch="Fill">
         <Grid Width="850" Height="638">
             <Grid.Background>
-                <ImageBrush ImageSource="Images/background3.png"/>
+                <ImageBrush ImageSource="../Images/background3.png"/>
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="45*"/>

@@ -23,6 +23,21 @@ namespace VOP.Controls
     /// </summary>
     public partial class QRCodeResultPage : UserControl
     {
+        public static double rectMargin = 5;
+        public double imageMargin = 7;
+        public double designerItemWHRatio = 1;
+        bool IsFitted = false;
+        public double imageToTop = 0;
+        public double imageToLeft = 0;
+        public double imageWidth = 0;
+        public double imageHeight = 0;
+        double scaleRatioApply = 1.0;
+        double whRatio = 1.0;
+        double scaleRatioX = 1.0;
+        double scaleRatioY = 1.0;
+
+        public static Rect redRect;
+
         public QRCodeWindow ParentWin { get; set; }
 
         public QRCodeResultPage()
@@ -36,12 +51,14 @@ namespace VOP.Controls
             ParentWin = win;
         }
 
+        private BitmapSource qRCodeImageSource = null;
         public BitmapSource QRCodeImageSource
         {
             set
             {
                 if (value != null)
                 {
+                    qRCodeImageSource = value;
                     JpegBitmapEncoder encoder = new JpegBitmapEncoder();
                     encoder.Frames.Add(BitmapFrame.Create(value));
 
@@ -59,17 +76,23 @@ namespace VOP.Controls
 
                 }
             }
+            get
+            {
+                return qRCodeImageSource;
+            }
+
         }
 
-
-        public Result[] QRCodeResult
+        private QRCodeResult qRCodeResult = null;
+        public QRCodeResult QRCodeResult
         {
             set
             {
                 flowTable.RowGroups.Clear();
 
-                if (value != null)
+                if (value != null && value.results != null)
                 {
+                    qRCodeResult = value;
                     TableRowGroup trg = new TableRowGroup();
                     trg.SetValue(Paragraph.TextAlignmentProperty, TextAlignment.Left);
 
@@ -92,11 +115,17 @@ namespace VOP.Controls
 
                     trg.Rows.Add(tr);
 
-                    foreach(var v in value)
+                    foreach(var v in value.results)
                     {
                         ParsedResult res = ResultParser.parseResult(v);
 
                         tr = new TableRow();
+
+                        tr.MouseLeftButtonDown += new MouseButtonEventHandler(TableRow_MouseLeftButtonDown);
+                        tr.MouseEnter += new MouseEventHandler(TableRow_MouseEnter);
+                        tr.MouseLeave += new MouseEventHandler(TableRow_MouseLeave);
+                        tr.Tag = v;
+
                         tr.FontFamily = new FontFamily("Arial");
                         tr.FontSize = 12;
                         tr.Background = Brushes.LightGray;
@@ -166,6 +195,157 @@ namespace VOP.Controls
                     flowTable.RowGroups.Add(trg);
                 }
             }
+            get
+            {
+                return qRCodeResult;
+            }
+        }
+
+        private void TableRow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            TableRow tr = sender as TableRow;
+
+            Result res = (Result)tr.Tag;
+            Int32Rect subRec = QRCodeResult.subRect;
+
+            ResultPoint[] points = res.ResultPoints;
+
+            if (points.Length >= 3)
+            {
+                Rect rect = new Rect(points[1].X, points[1].Y, ResultPoint.distance(points[1], points[2]), ResultPoint.distance(points[0], points[1]));
+
+                if (!subRec.IsEmpty)
+                {
+                    rect.X += (double)subRec.X;
+                    rect.Y += (double)subRec.Y;
+                }
+
+                redRect = rect;
+
+                rect.Scale(1 / scaleRatioApply, 1 / scaleRatioApply);
+
+                Rectangle designerItem = BarcodeRect;
+                Canvas canvas = VisualTreeHelper.GetParent(designerItem) as Canvas;
+                designerItem.Width = rect.Width + rectMargin * 2;
+                designerItem.Height = rect.Height + rectMargin * 2;
+                Canvas.SetTop(designerItem, imageToTop + rect.Y - rectMargin);
+                Canvas.SetLeft(designerItem, imageToLeft + rect.X - rectMargin);
+                BarcodeRect.Visibility = Visibility.Visible;
+            }
+            else if (points.Length == 2)
+            {
+                float w = ResultPoint.distance(points[0], points[1]);
+                Rect rect = new Rect(points[0].X, points[0].Y - w/2, w, w);
+
+                if (!subRec.IsEmpty)
+                {
+                    rect.X += (double)subRec.X;
+                    rect.Y += (double)subRec.Y;
+                }
+
+                redRect = rect;
+
+                rect.Scale(1 / scaleRatioApply, 1 / scaleRatioApply);
+
+                Line designerItem = BarcodeLine;
+                Canvas canvas = VisualTreeHelper.GetParent(designerItem) as Canvas;
+
+                designerItem.X1 = imageToLeft + rect.X;
+                designerItem.Y1 = imageToTop + rect.Y + w/(1.2 * scaleRatioApply);
+
+                designerItem.X2 = imageToLeft + rect.X + rect.Width;
+                designerItem.Y2 = imageToTop + rect.Y + w/(1.2 * scaleRatioApply);
+
+                BarcodeLine.Visibility = Visibility.Visible;
+            }
+   
+        }
+
+        private double PixelToUnit(int p, double dpi)
+        {
+            return (double)p / dpi * 96;
+        }
+
+        private int UnitToPixel(double u, double dpi)
+        {
+            return (int)(u / 96 * dpi);
+        }
+        private void ReArrangeDesignerItem(int width, int height, double dpiX, double dpiY)
+        {
+     
+            imageToTop = imageMargin;
+            imageToLeft = imageMargin;
+            imageWidth = 0;
+            imageHeight = 0;
+
+            //imageWidth = PixelToUnit(width, dpiX);
+            //imageHeight = PixelToUnit(height, dpiY);
+
+            imageWidth = width;
+            imageHeight = height;
+
+            if (imageWidth < (this.ImageContainer.ActualWidth - 2 * imageMargin )&& imageHeight < (this.ImageContainer.ActualHeight - 2 * imageMargin))
+            {
+                this.ImageView.Stretch = Stretch.None;
+                IsFitted = true;
+            }
+            else
+            {
+                this.ImageView.Stretch = Stretch.Uniform;
+                IsFitted = false;
+            }
+
+            whRatio = imageWidth / imageHeight;
+            scaleRatioX = imageWidth / (this.ImageContainer.ActualWidth - 2 * imageMargin);
+            scaleRatioY = imageHeight / (this.ImageContainer.ActualHeight - 2 * imageMargin);
+
+            if (IsFitted == true)
+            {
+                imageToTop = (this.ImageContainer.ActualHeight - imageHeight) / 2;
+                imageToLeft = (this.ImageContainer.ActualWidth - imageWidth) / 2;
+            }
+            else
+            {
+                //Image uniformlly strech to control, calculate the gap on unfitted side
+                if (scaleRatioX > scaleRatioY)
+                {
+                    imageWidth = this.ImageContainer.ActualWidth - 2 * imageMargin;
+                    imageHeight = imageWidth / whRatio;
+                    imageToTop = (this.ImageContainer.ActualHeight - imageHeight) / 2;
+                    scaleRatioApply = scaleRatioX;
+                }
+                else if (scaleRatioX < scaleRatioY)
+                {
+                    imageHeight = this.ImageContainer.ActualHeight - 2 * imageMargin;
+                    imageWidth = imageHeight * whRatio;
+                    imageToLeft = (this.ImageContainer.ActualWidth - imageWidth) / 2;
+                    scaleRatioApply = scaleRatioY;
+                }
+                else
+                {
+                    imageWidth = this.ImageContainer.ActualWidth - 2 * imageMargin;
+                    imageHeight = this.ImageContainer.ActualHeight - 2 * imageMargin;
+                    scaleRatioApply = scaleRatioX;
+                }
+            }
+
+        }
+
+        private void TableRow_MouseEnter(object sender, MouseEventArgs e)
+        {
+            TableRow tr = sender as TableRow;
+
+            Mouse.OverrideCursor = Cursors.Hand;
+            tr.Background = Brushes.LightGray;
+            
+        }
+
+        private void TableRow_MouseLeave(object sender, MouseEventArgs e)
+        {
+            TableRow tr = sender as TableRow;
+
+            Mouse.OverrideCursor = Cursors.Arrow;
+            tr.Background = Brushes.AliceBlue;
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -230,6 +410,7 @@ namespace VOP.Controls
             ImageView.RenderTransformOrigin = new Point(0.5, 0.5);
             ImageView.RenderTransform = transformGroup;
             ImageView.Source = QRCodeManualPage.croppedImageList[0];
+            QRCodeImageSource = QRCodeManualPage.croppedImageList[0];
 
         }
 
@@ -237,6 +418,31 @@ namespace VOP.Controls
         {
             if (ParentWin != null)
                 ParentWin.GotoManualPage();
+        }
+
+        private void myControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            BitmapSource src = QRCodeImageSource as BitmapSource;
+
+            if (src != null)
+            {
+                ReArrangeDesignerItem(src.PixelWidth, src.PixelHeight, src.DpiX, src.DpiY);
+            }
+
+            if (flowTable.RowGroups != null)
+            {
+                if(flowTable.RowGroups.Count == 1)
+                {
+                    if(flowTable.RowGroups[0].Rows.Count > 1)
+                    {
+                        flowTable.RowGroups[0].Rows[1].RaiseEvent(new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left)
+                        {
+                            RoutedEvent = Mouse.MouseDownEvent,
+                            Source = this,
+                        });
+                    }
+                }
+            }
         }
     }
 }

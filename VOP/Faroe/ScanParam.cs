@@ -20,7 +20,6 @@ namespace VOP
     //[Serializable()]
     public class ScanParam
     {
-        private EnumScanDocType m_docutype = EnumScanDocType.Photo;
         private EnumScanResln m_scanResln = EnumScanResln._300x300;
         private EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._A4;
         private EnumColorType m_color = EnumColorType.grayscale_8bit;

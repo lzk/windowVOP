@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="VOP.ScanParameterView"
+﻿<UserControl x:Class="VOP.ScanToFileView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -10,18 +10,18 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Controls/CustomPasswordBox.xaml"/>
-                <ResourceDictionary Source="Controls/CustomCheckBox.xaml"/>
-                <ResourceDictionary Source="Controls/CustomTextBoxRes.xaml"/>
-                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
-                <ResourceDictionary Source="Controls/AdjustButton.xaml"/>
-                <ResourceDictionary Source="Controls/CustomScrollView.xaml"/>
-                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
-                <ResourceDictionary Source="Controls/CustomRadioButton.xaml"/>
-                <ResourceDictionary Source="Controls/AdjustButton.xaml"/>
-                <ResourceDictionary Source="Controls/CustomComboBox.xaml"/>
-                <ResourceDictionary Source="Controls/CustomRadioButtonEx.xaml"/>
-                <ResourceDictionary Source="Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomPasswordBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomScrollView.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomComboBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButtonEx.xaml"/>
+                <ResourceDictionary Source="../../Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key ="SpinnerControl1"  TargetType="{x:Type local:SpinnerControl}">
                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -119,13 +119,13 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="Images\SettingViewBackground.png" />
+            <ImageBrush ImageSource="..\..\Images\SettingViewBackground.png" />
         </Grid.Background>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"></ColumnDefinition>
@@ -135,11 +135,16 @@
 
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition Height="0"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="20"></RowDefinition>
                 <RowDefinition Height="60"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
@@ -151,45 +156,36 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
+
             <TextBlock 
-                Grid.Row="0"
+                Grid.Row="5"
                 Grid.Column="0"
+                VerticalAlignment="Center"
                 FontSize="14"
                 FontWeight="Bold"
-                VerticalAlignment="Center"
-                Text="Scan Settings :"/>
+                Text="File Settings :"/>
 
             <TextBlock 
-                Grid.Row="1"
+                Grid.Row="6"
                 Grid.Column="0"
                 VerticalAlignment="Center"
-                Text="Document Type :"/>
-
-            <ComboBox 
-                Grid.Row="1"
-                Grid.Column="1"
-                Background="#FFDDE5E7"
-                Width="110" Height="24"
-                VerticalAlignment="Center" 
-                HorizontalAlignment="Left"
-                Margin="0,0,0,0" 
-                BorderThickness="1"
-                SelectedIndex="0"
-                >
-                <ComboBoxItem >Photo</ComboBoxItem>
-                <ComboBoxItem >Text/Photo</ComboBoxItem>
-                <ComboBoxItem >Text</ComboBoxItem>
-            </ComboBox>
-
+                Text="File Name :"/>
+            <TextBox Template="{StaticResource customTextBox}" 
+                     Grid.Row="6"
+                     Grid.Column="1"
+                     Height="28" 
+                     VerticalAlignment="Center" 
+                     MaxLength="32" 
+                     />
 
             <TextBlock 
-                Grid.Row="1"
+                Grid.Row="6"
                 Grid.Column="3"
                 VerticalAlignment="Center"
-                Text="DPI :"/>
+                Text="File Type :"/>
 
             <ComboBox 
-                Grid.Row="1"
+                Grid.Row="6"
                 Grid.Column="4"
                 Background="#FFDDE5E7"
                 Width="110" Height="24"
@@ -199,97 +195,39 @@
                 BorderThickness="1"
                 SelectedIndex="0"
                 >
-                <ComboBoxItem >300x300</ComboBoxItem>
+                <ComboBoxItem >PDF</ComboBoxItem>
+                <ComboBoxItem >Tiff</ComboBoxItem>
             </ComboBox>
 
 
-
-            <TextBlock 
-                Grid.Row="2"
-                Grid.Column="0"
-                VerticalAlignment="Center"
-                Text="Contrast :"/>
+            <TextBox Template="{StaticResource customTextBox}" 
+                     Grid.Row="7"
+                     Grid.Column="0"
+                     Grid.RowSpan="2"
+                     Grid.ColumnSpan="2"
+                     Width="230"
+                     Height="28" 
+                     VerticalAlignment="Top" 
+                     HorizontalAlignment="Right"
+                     Margin="5,10,0,0"
+                     />
             
-            <local:SpinnerControl 
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Style="{StaticResource SpinnerControl1}"
-                        Width="120" 
-                        Background="Transparent"
-                        Change="1"
-                        DecimalPlaces="0"
-                        Maximum="100"
-                        Minimum="0"  
-                        Value="50"
-                        IsPercentFormat="False"
-                        HorizontalAlignment="Left">
-            </local:SpinnerControl>
-
-            <TextBlock 
-                Grid.Row="2"
-                Grid.Column="3"
-                VerticalAlignment="Center"
-                Text="Brightness :"/>
-
-            <local:SpinnerControl 
-                        Grid.Row="2"
-                        Grid.Column="4"
-                        Style="{StaticResource SpinnerControl1}"
-                        Width="120" 
-                        Background="Transparent"
-                        Change="1"
-                        DecimalPlaces="0"
-                        Maximum="100"
-                        Minimum="0"  
-                        Value="50"
-                        IsPercentFormat="False"
-                        HorizontalAlignment="Left">
-            </local:SpinnerControl>
-
-            <TextBlock 
-                Grid.Row="3"
-                Grid.Column="0"
-                VerticalAlignment="Center"
-                Text="Color Mode :"/>
-
-            <ComboBox 
-                Grid.Row="3"
-                Grid.Column="1"
-                Background="#FFDDE5E7"
-                Width="110" Height="24"
-                VerticalAlignment="Center" 
-                HorizontalAlignment="Left"
-                Margin="0,0,0,0" 
-                BorderThickness="1"
-                SelectedIndex="0"
-                >
-                <ComboBoxItem >Color</ComboBoxItem>
-                <ComboBoxItem >GrayScale</ComboBoxItem>
-            </ComboBox>
-
-            <TextBlock 
-                Grid.Row="3"
-                Grid.Column="3"
-                VerticalAlignment="Center"
-                Text="Scan Area Size :"/>
-
-            <ComboBox 
-                Grid.Row="3"
-                Grid.Column="4"
-                Background="#FFDDE5E7"
-                Width="110" Height="24"
-                VerticalAlignment="Center" 
-                HorizontalAlignment="Left"
-                Margin="0,0,0,0" 
-                BorderThickness="1"
-                SelectedIndex="0"
-                >
-                <ComboBoxItem >A4</ComboBoxItem>
-            </ComboBox>
-
- 
             <Button
-                Grid.Row="5"
+                Grid.Row="7"
+                Grid.Column="3"
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="3"
+                Width="70"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                Height="30" 
+                Margin="0,10,0,0"
+                Content="Browse" 
+                Style="{StaticResource CustomGreenButtonStyle}"
+                />
+
+            <Button
+                Grid.Row="10"
                 Grid.Column="1"
                 Width="90"
                 Height="35" 
@@ -301,7 +239,7 @@
                 />
             
             <Button
-                Grid.Row="5"
+                Grid.Row="10"
                 Grid.Column="3"
                 Grid.ColumnSpan="2"
                 Width="120"

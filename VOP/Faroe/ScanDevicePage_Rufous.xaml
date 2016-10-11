@@ -14,8 +14,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Controls/CustomButton.xaml"/>
-                <ResourceDictionary Source="Controls/IdCardPrint/IdCardWindowsStyle.xaml"/>
+                <ResourceDictionary Source="../Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="../Controls/IdCardPrint/IdCardWindowsStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -32,7 +32,7 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <Image Grid.Row="1" Grid.Column="2" Source="Images/Refresh.png" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Image Grid.Row="1" Grid.Column="2" Source="../Images/Refresh.png" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Width="400" Background="#FF999693">
             <Border Height="60" CornerRadius="5" Margin="0,1,0,1" BorderThickness="2" BorderBrush="#FF86D34C">
                 <Border.Background>

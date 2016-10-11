@@ -19,8 +19,6 @@ namespace VOP
         SettingButton btnScanToFtp = new SettingButton(IconType.Unknown);
         SettingButton btnScanToAP = new SettingButton(IconType.Unknown);
         SettingButton btnScanToCloud = new SettingButton(IconType.Unknown);
-        SettingButton btnScanToA3 = new SettingButton(IconType.Unknown);
-        SettingButton btnScanToQRCode = new SettingButton(IconType.Unknown);
 
         List<SettingButton> m_listSettingButton = new List<SettingButton>();
 
@@ -37,7 +35,7 @@ namespace VOP
             int tabbtn_width = 175;
             int tabbtn_height = 35;
 
-            btnScanParameter.btn.Content = "Scan";
+            btnScanParameter.btn.Content = "Common";
             btnScanParameter.Margin = new Thickness(0, 1, 0, 9);
             btnScanParameter.Width = tabbtn_width;
             btnScanParameter.Height = tabbtn_height;
@@ -99,24 +97,6 @@ namespace VOP
             btnScanToCloud.btn.Name = "btnScanToCloud";
             btnScanToCloud.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnScanToCloud);
-
-            btnScanToA3.btn.Content = "A3 Scan";
-            btnScanToA3.Margin = new Thickness(0, 1, 0, 9);
-            btnScanToA3.Width = tabbtn_width;
-            btnScanToA3.Height = tabbtn_height;
-            btnScanToA3.HorizontalAlignment = HorizontalAlignment.Left;
-            btnScanToA3.btn.Name = "btnScanToA3";
-            btnScanToA3.btn.Click += SettingBtnClick;
-            m_listSettingButton.Add(btnScanToA3);
-
-            btnScanToQRCode.btn.Content = "QR Code Scan";
-            btnScanToQRCode.Margin = new Thickness(0, 1, 0, 9);
-            btnScanToQRCode.Width = tabbtn_width;
-            btnScanToQRCode.Height = tabbtn_height;
-            btnScanToQRCode.HorizontalAlignment = HorizontalAlignment.Left;
-            btnScanToQRCode.btn.Name = "btnScanToQRCode";
-            btnScanToQRCode.btn.Click += SettingBtnClick;
-            m_listSettingButton.Add(btnScanToQRCode);
 
         }
         
@@ -203,6 +183,7 @@ namespace VOP
             else if ("btnScanParameter" == srcButton.Name)
             {
                 SetActiveButton(IconType.ScanParameter);
+                scanParameterView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = scanParameterView;
             }
             else if ("btnScanToFile" == srcButton.Name)

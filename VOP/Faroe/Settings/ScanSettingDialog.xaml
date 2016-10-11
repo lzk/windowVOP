@@ -1,0 +1,335 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:VOP.Controls"
+	x:Class="VOP.ScanSettingDialog"
+	x:Name="Window"
+	Title="ScanSetting"
+    Width="585" 
+	Height="493"
+    AllowsTransparency="true"
+    WindowStartupLocation="CenterOwner"
+    ResizeMode="NoResize"
+    WindowStyle="None" 
+    BorderThickness="24"
+    xmlns:vop="clr-namespace:VOP"
+    ShowInTaskbar="False" 
+    Loaded="handler_loaded"
+    >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomComboBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButtonEx.xaml"/>
+                <ResourceDictionary Source="../../Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key ="SpinnerControl1"  TargetType="{x:Type local:SpinnerControl}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Focusable" Value="False"></Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:SpinnerControl}">
+
+                            <Grid Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <!--
+                                    we use the TemplatedParent binding to get a reference to the control
+                                    this template has been applied to, so we can access the property on it
+                                -->
+                                <RepeatButton Name="btnDecrease"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="30"
+                                      Height="30"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
+
+                                <TextBox Name="tbTextBox"
+                                 Grid.Row="0"
+                                 Grid.Column="1"
+                                 Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                 BorderBrush="{StaticResource TextBoxBorderBrush}"
+                                 Foreground="#FF707070"
+                                 TextAlignment="Center"
+                                 IsReadOnly="False"
+                                 BorderThickness="0"
+                                 FontSize="30" 
+                                 Margin="0,0,0,2"
+                                 MaxLength="3"
+                                 Style="{StaticResource TextBoxErrorTemplateStyle}"
+                                 InputMethod.IsInputMethodEnabled="False"
+                                 VerticalAlignment="Center"
+                                 >
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                                    </TextBox.InputBindings>
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu Visibility="Collapsed">
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu>
+                                    <TextBox.Text>
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" 
+                                         Mode="TwoWay"
+                                         Path="FormattedValue" 
+                                         UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <local:PrintCopysValidationRule MinimumValue="0" MaximumValue="100" 
+										ErrorMessage="{StaticResource ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_}" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+
+
+                                <RepeatButton Name="btnIncrease"
+                                      Grid.Row="0"
+                                      Grid.Column="2"
+                                      Width="30"
+                                      Height="30"
+                                      Style="{StaticResource CustomPlusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger SourceName="tbTextBox" Property="Validation.HasError"  Value="true">
+                                    <Setter Property="ValidationHasError" Value="True"></Setter>
+                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="False"></Setter>
+                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="False"></Setter>
+                                </Trigger>
+
+                                <Trigger SourceName="tbTextBox"  Property="Validation.HasError" Value="False">
+                                    <Setter Property="ValidationHasError" Value="False"></Setter>
+                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"></Setter>
+                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Viewbox Stretch="Fill">
+        <Grid>
+            <Rectangle Fill="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"  
+                                    RadiusX="5" RadiusY="5">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <Grid x:Name="LayoutRoot" Background="AliceBlue" Width="537" Height="445" >
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="110" />
+                    <RowDefinition Height="240" />
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <!-- Title bar begin -->
+                <Border Name="TitleBar"  Background="Transparent" Grid.Row="0">
+                    <TextBlock Text="Scan Settings" FontSize="15" Foreground="#FF48C6E0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+
+                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" />
+                <!-- Title bar end -->
+
+
+                <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Document_Type}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="455" Height="75" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="100*" />
+                        </Grid.ColumnDefinitions>
+
+                        <RadioButton GroupName="docType" IsChecked="true"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    Name="docutype_photo" Click="docutype_click"
+                    Template="{StaticResource customRadioButton}"
+                    Content="{StaticResource ResStr_Photo_2}" VerticalAlignment="Center" ></RadioButton>
+
+                        <RadioButton GroupName="docType" IsChecked="false"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Name="docutype_graphic" Click="docutype_click"
+                    Template="{StaticResource customRadioButton}"
+                    Content="{StaticResource ResStr_Text_and_Graph}" VerticalAlignment="Center" ></RadioButton>
+
+                        <RadioButton GroupName="docType" IsChecked="false"
+                    Grid.Column="2"
+                    HorizontalAlignment="Center"
+                    Name="docutype_text" Click="docutype_click"
+                    Template="{StaticResource customRadioButton}"
+                    Content="{StaticResource ResStr_Text}" VerticalAlignment="Center" ></RadioButton>
+                    </Grid>
+
+                </local:GroupBoxDecorator>
+
+                <Grid Grid.Row="2" >
+                    <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_DPI}" Height="65" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                        <ComboBox Name="cboScanResln" SelectionChanged="combo_sel_change"
+                            Style="{StaticResource customComboBox}"
+                            Background="White"
+                            Width="145" Height="24"
+                            VerticalAlignment="Center" Margin="38,4,37,9"
+                            >
+
+
+                        </ComboBox>
+                    </local:GroupBoxDecorator>
+
+                    <local:GroupBoxDecorator Margin="40,78,0,82" Header="{StaticResource ResStr_Color_Mode}" Height="80" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Grid Margin="0,0,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition Width="65" />
+                                <ColumnDefinition Width="65" />
+                                <ColumnDefinition Width="65" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2" />
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <RadioButton GroupName="colorMode"  
+                            IsChecked="True"
+					        Checked="colorMode_Click"
+                            Grid.Row="1" Grid.Column="1"
+					        Cursor="Hand" 
+					        x:Name="Color" 
+					        Style="{StaticResource CustomRadioButtonEx}"
+                            ToolTip="{StaticResource ResStr_Color}"
+                            Width="55"
+                            Height="38">                                
+                            <RadioButton.BorderBrush>
+                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
+                                </RadioButton.BorderBrush>
+                                <Image Stretch="None" Source="../../Images/Color.png" />
+                            </RadioButton>
+
+                            <RadioButton GroupName="colorMode"  
+                            IsChecked="False"
+					        Checked="colorMode_Click"
+                            Grid.Row="1" Grid.Column="2"
+					        Cursor="Hand" 
+					        x:Name="Grayscale" 
+					        Style="{StaticResource CustomRadioButtonEx}" 
+                            ToolTip="{StaticResource ResStr_Grayscale}"
+                            Width="55"
+                            Height="38">                                
+                            <RadioButton.BorderBrush>
+                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
+                                </RadioButton.BorderBrush>
+                                <Image Stretch="None" Source="../../Images/Grayscale.png" />
+                            </RadioButton>
+
+                            <RadioButton GroupName="colorMode"  
+                            IsChecked="False"
+					        Checked="colorMode_Click"
+                            Grid.Row="1" Grid.Column="3"
+					        Cursor="Hand" 
+					        x:Name="BlackAndWhite" 
+					        Style="{StaticResource CustomRadioButtonEx}"
+                            ToolTip="{StaticResource ResStr_Black_White}"
+                            Width="55"
+                            Height="38">                                
+                            <RadioButton.BorderBrush>
+                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
+                                </RadioButton.BorderBrush>
+                                <Image Stretch="None" Source="../../Images/BlackWhite.png" />
+                            </RadioButton>
+                        </Grid>
+                    </local:GroupBoxDecorator>
+
+                    <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_Scan_Size}" Height="70" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="220" >
+                        <ComboBox Name="cboScanSize" SelectionChanged="cbo_selchg_scansize"
+                    Style="{StaticResource customComboBox}"
+                    Background="White"
+                    Width="145" Height="25"
+                    VerticalAlignment="Center"
+                    >
+                        </ComboBox>
+                    </local:GroupBoxDecorator>
+
+
+
+                    <!-- Right side -->
+                    <local:GroupBoxDecorator Margin="0,0,40,0" Header="{StaticResource ResStr_Contrast}" Height="115" HorizontalAlignment="Right" VerticalAlignment="Top" Width="220" >
+                        <StackPanel>
+                            <Image Stretch="None" VerticalAlignment="Top"
+                        Margin="0,5" Source="../../Images/Constrast.png" />
+                            <Slider HorizontalAlignment="Center"  Minimum="0" Name="sldr_contrast" ValueChanged="sldr_value_change"
+                        Maximum="100" Value="50" Height="18" Width="154" Template="{StaticResource HorizontalSlider}"/>
+
+                            <local:SpinnerControl x:Name="spinCtlConstrast" Style="{StaticResource SpinnerControl1}"
+                        Width="210" 
+                        Background="Transparent"
+                        Change="1"
+                        DecimalPlaces="0"
+                        Maximum="100"
+                        Minimum="0"  
+                        Value="{Binding ElementName=sldr_contrast, Path=Value}"
+                        IsPercentFormat="False"
+                        ValidationHasErrorChanged="OnValidationHasErrorChanged"
+                        LostFocus="SpinnerTextBox_LostFocus">
+                            </local:SpinnerControl>
+
+                        </StackPanel>
+                    </local:GroupBoxDecorator>
+
+                    <local:GroupBoxDecorator Margin="0,0,40,0" Header="{StaticResource ResStr_Brightness}" Height="115" Width="220" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+                        <StackPanel>
+                            <Image Stretch="None" VerticalAlignment="Top"
+                        Margin="0,5" Source="../../Images/Brightness.png" />
+                            <Slider HorizontalAlignment="Center"  Minimum="0" Name="sldr_brightness" ValueChanged="sldr_value_change"
+                        Maximum="100" Value="50" Height="18" Width="154" Template="{StaticResource HorizontalSlider}"/>
+
+                            <local:SpinnerControl x:Name="spinCtlBrightness" Style="{StaticResource SpinnerControl1}"
+                        Width="210" 
+                        Background="Transparent"
+                        Change="1"
+                        DecimalPlaces="0"
+                        Maximum="100"
+                        Minimum="0"  
+                        Value="{Binding ElementName=sldr_brightness, Path=Value}"
+                        IsPercentFormat="False"
+                        ValidationHasErrorChanged="OnValidationHasErrorChanged"
+                        LostFocus="SpinnerTextBox_LostFocus">
+                            </local:SpinnerControl>
+
+                        </StackPanel>
+                    </local:GroupBoxDecorator>
+                </Grid>
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="False" x:Name="btnDefault" Click="btnDefault_Click"
+                Content="{StaticResource ResStr_Default}" 
+                Height="35" Width="120" Margin="0,0,20,0" />
+                    <local:ButtonEx HorizontalContentAlignment="Center" x:Name="btnOk" Click="btnOk_Click"
+                Content="{StaticResource ResStr_OK}"  Height="35" Width="120" IsActiveEx="True" />
+                </StackPanel>
+
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

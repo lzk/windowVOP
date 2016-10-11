@@ -37,6 +37,8 @@ namespace VOP.Controls
         double m_DpiX = 0;
         double m_DpiY = 0;
 
+        public static Int32Rect intRectOffset;
+
         BitmapImage imageSource = null;
 
 		public ImageCropper()
@@ -109,8 +111,8 @@ namespace VOP.Controls
 
                 //scale down image
                 ScaleTransform scaleTransform = new ScaleTransform();
-                scaleTransform.ScaleX = imageWidth / PixelToUnit(src.PixelWidth, src.DpiX);
-                scaleTransform.ScaleY = imageHeight / PixelToUnit(src.PixelHeight, src.DpiY);
+                scaleTransform.ScaleX = imageWidth / src.PixelWidth;
+                scaleTransform.ScaleY = imageHeight / src.PixelHeight;
 
                 TransformedBitmap tb = new TransformedBitmap();
                 tb.BeginInit();
@@ -135,8 +137,11 @@ namespace VOP.Controls
             imageWidth = 0;
             imageHeight = 0;
 
-            imageWidth = PixelToUnit(width, dpiX);
-            imageHeight = PixelToUnit(height, dpiY);
+            //imageWidth = PixelToUnit(width, dpiX);
+            //imageHeight = PixelToUnit(height, dpiY);
+
+            imageWidth = width;
+            imageHeight = height;
 
             if (imageWidth < (this.ActualWidth - 2 * imageMargin) && imageHeight < (this.ActualHeight - 2 * imageMargin))
             {
@@ -190,31 +195,54 @@ namespace VOP.Controls
             designerItem.MinWidth = 16;
             designerItem.MinHeight = 16 / designerItemWHRatio;
 
-            if(whRatio > designerItemWHRatio)
+            if(!QRCodeResultPage.redRect.IsEmpty)
             {
-                designerItem.Height = imageHeight - thumbCornerWidth * 2;
-                designerItem.Width = designerItem.Height * designerItemWHRatio;
-                designerItemToLeft = (imageWidth - designerItem.Width) / 2;
-                Canvas.SetLeft(designerItem, imageToLeft + designerItemToLeft);
-                Canvas.SetTop(designerItem, imageToTop + thumbCornerWidth);
-                  
-            }
-            else if(whRatio < designerItemWHRatio)
-            {
-                designerItem.Width = imageWidth - thumbCornerWidth * 2;
-                designerItem.Height = designerItem.Width / designerItemWHRatio;
-                designerItemToTop = (imageHeight - designerItem.Height) / 2;
-                Canvas.SetTop(designerItem, imageToTop + designerItemToTop);
-                Canvas.SetLeft(designerItem, imageToLeft + thumbCornerWidth);
+                Rect rect = QRCodeResultPage.redRect;
+
+                if(!intRectOffset.IsEmpty)
+                {
+                    rect.X += (double)intRectOffset.X;
+                    rect.Y += (double)intRectOffset.Y;
+                }
+
+                rect.Scale(1 / scaleRatioApply, 1 / scaleRatioApply);
+
+                designerItem.Width = rect.Width + QRCodeResultPage.rectMargin * 2;
+                designerItem.Height = rect.Height + QRCodeResultPage.rectMargin * 2;
+                Canvas.SetTop(designerItem, imageToTop + rect.Y - QRCodeResultPage.rectMargin);
+                Canvas.SetLeft(designerItem, imageToLeft + rect.X - QRCodeResultPage.rectMargin);
+
+                QRCodeResultPage.redRect = new Rect();
             }
             else
             {
-                designerItem.Width = imageWidth - thumbCornerWidth * 2;
-                designerItem.Height = imageHeight - thumbCornerWidth * 2;
-                Canvas.SetTop(designerItem, imageToTop + thumbCornerWidth);
-                Canvas.SetLeft(designerItem, imageToLeft + thumbCornerWidth);
+                if (whRatio > designerItemWHRatio)
+                {
+                    designerItem.Height = imageHeight - thumbCornerWidth * 2;
+                    designerItem.Width = designerItem.Height * designerItemWHRatio;
+                    designerItemToLeft = (imageWidth - designerItem.Width) / 2;
+                    Canvas.SetLeft(designerItem, imageToLeft + designerItemToLeft);
+                    Canvas.SetTop(designerItem, imageToTop + thumbCornerWidth);
+
+                }
+                else if (whRatio < designerItemWHRatio)
+                {
+                    designerItem.Width = imageWidth - thumbCornerWidth * 2;
+                    designerItem.Height = designerItem.Width / designerItemWHRatio;
+                    designerItemToTop = (imageHeight - designerItem.Height) / 2;
+                    Canvas.SetTop(designerItem, imageToTop + designerItemToTop);
+                    Canvas.SetLeft(designerItem, imageToLeft + thumbCornerWidth);
+                }
+                else
+                {
+                    designerItem.Width = imageWidth - thumbCornerWidth * 2;
+                    designerItem.Height = imageHeight - thumbCornerWidth * 2;
+                    Canvas.SetTop(designerItem, imageToTop + thumbCornerWidth);
+                    Canvas.SetLeft(designerItem, imageToLeft + thumbCornerWidth);
+                }
+
             }
-            
+
         }
 
         private static void ImagePathProperty_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -300,10 +328,15 @@ namespace VOP.Controls
                                                                     designerItem.ActualWidth,
                                                                     designerItem.ActualHeight));
 
-            double toLeft = UnitToPixel(rectOut.X, src.DpiX);
-            double toTop = UnitToPixel(rectOut.Y, src.DpiY);
-            double designerItemWidth = UnitToPixel(rectOut.Width, src.DpiX);
-            double designerItemHeight = UnitToPixel(rectOut.Height, src.DpiY);
+            //double toLeft = UnitToPixel(rectOut.X, src.DpiX);
+            //double toTop = UnitToPixel(rectOut.Y, src.DpiY);
+            //double designerItemWidth = UnitToPixel(rectOut.Width, src.DpiX);
+            //double designerItemHeight = UnitToPixel(rectOut.Height, src.DpiY);
+
+            double toLeft = rectOut.X;
+            double toTop = rectOut.Y;
+            double designerItemWidth = rectOut.Width;
+            double designerItemHeight = rectOut.Height;
 
             Rect rect = new Rect(toLeft, toTop, designerItemWidth, designerItemHeight);
 
@@ -319,6 +352,7 @@ namespace VOP.Controls
                 && intRect.X + intRect.Width <= w
                 && intRect.Y + intRect.Height <= h)
             {
+                intRectOffset = intRect;
                 croppedImage = new CroppedBitmap(src, intRect);
             }
        

@@ -121,10 +121,10 @@ namespace VOP.Controls
             }
 
             AsyncWorker worker = new AsyncWorker(ParentWin);
-            Result[] results = worker.InvokeQRCodeMethod(ParentWin.Decode, QRCodeWindow.BitmapFromSource(croppedImageList[0]));
+            QRCodeResult result = worker.InvokeQRCodeMethod(ParentWin.Decode, QRCodeWindow.BitmapFromSource(croppedImageList[0]));
 
             if (ParentWin != null)
-                ParentWin.GotoResultPage(results, null, true);
+                ParentWin.GotoResultPage(result, null, true);
         }
     }
 }

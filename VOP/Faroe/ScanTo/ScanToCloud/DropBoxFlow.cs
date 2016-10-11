@@ -137,7 +137,7 @@ namespace VOP.Controls
             string accessToken = "";
             string uId = "";
 
-          //  Properties.Settings.Default.Reset();
+            Properties.Settings.Default.Reset();
             accessToken = Properties.Settings.Default.AccessToken;
 
             if (string.IsNullOrEmpty(accessToken))
