@@ -366,6 +366,69 @@ namespace VOP
 
         }
 
+        public static void GetAllPrinters(List<string> listPrinters)
+        {
+            listPrinters.Clear();
+
+            try
+            {
+                // If spooler was stopped, new PrintServer( null ) will throw
+                // a exception.
+
+                string strDefPrinter = "";
+
+                PrinterSettings settings = new PrinterSettings();
+                PrintServer myPrintServer = new PrintServer(null);
+                PrintQueueCollection myPrintQueues = myPrintServer.GetPrintQueues();
+                foreach (PrintQueue pq in myPrintQueues)
+                {
+                    PrintDriver queuedrv = pq.QueueDriver;
+                   
+                    listPrinters.Add(pq.Name);
+            
+                    settings.PrinterName = pq.Name;
+                    if (settings.IsDefaultPrinter)
+                    {
+                        strDefPrinter = pq.Name;
+                    }
+                }
+
+                // Store the printer name list
+                for (int i = 0; i < listPrinters.Count; i++)
+                {
+                    for (int j = i + 1; j < listPrinters.Count; j++)
+                    {
+                        if (-1 == string.Compare(listPrinters[j], listPrinters[i]))
+                        {
+                            // swrap the value 
+                            string t = listPrinters[i];
+                            listPrinters[i] = listPrinters[j];
+                            listPrinters[j] = t;
+                        }
+                    }
+                }
+
+                // If the default printer is in the support list, make it the
+                // 1st item.
+                int index = listPrinters.FindIndex(
+                        delegate (string s)
+                        {
+                            return s == strDefPrinter;
+                        }
+                        );
+
+                if (index != -1 && index != 0)
+                {
+                    listPrinters.RemoveAt(index);
+                    listPrinters.Insert(0, strDefPrinter);
+                }
+            }
+            catch
+            {
+            }
+
+        }
+
         public static bool IsSupportPrinter(
                 string strDrvName       // Name of printer driver
                 )

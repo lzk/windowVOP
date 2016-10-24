@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace VOP.Controls
+namespace VOP
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml

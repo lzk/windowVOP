@@ -18,6 +18,7 @@
 #include "dns_sd.h"
 #include "LTCInterface\LTCDriveApi.h"
 #include "ImgFile\ImgFile.h"
+#include <usbscan.h>
 
 #pragma comment(lib, "dnssd.lib")
 #pragma comment(lib, "Ws2_32.lib")
@@ -419,4 +420,85 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 	return RETSCAN_OK;
 
+}
+
+#define USBSCANSTRING	  L"\\\\.\\usbscan"
+#define MAX_DEVICES       127
+USBAPI_API int __stdcall TestUsbScanInit(
+	TCHAR* interfaceName,
+	SAFEARRAY** endPointNames)
+{
+	HANDLE hDev = NULL;
+	BSTR bstrArray[500] = { 0 };
+	TCHAR strPort[32] = { 0 };
+	int  iCnt;
+
+	for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++) {
+		_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
+		 hDev = CreateFile(strPort,
+			GENERIC_READ | GENERIC_WRITE,
+			FILE_SHARE_READ | FILE_SHARE_WRITE,
+			NULL,
+			OPEN_EXISTING,
+			FILE_FLAG_OVERLAPPED, NULL);
+
+		if (hDev != INVALID_HANDLE_VALUE) {
+			_tcscpy_s(interfaceName, 32, strPort);
+			break;
+		}
+	}
+
+	if (hDev == INVALID_HANDLE_VALUE)
+		return 0;
+
+	USBSCAN_PIPE_CONFIGURATION PipeConfig;
+	DWORD cbRet;
+
+	int result = DeviceIoControl(hDev,
+		(DWORD)IOCTL_GET_PIPE_CONFIGURATION,
+		NULL,
+		0,
+		&PipeConfig,
+		sizeof(PipeConfig),
+		&cbRet,
+		NULL);
+
+
+	TCHAR usbscan_out[256];
+	TCHAR usbscan[256];
+	HANDLE handle;
+	int i = 0;
+	if (result) {
+		for (i = 0; i < (int)PipeConfig.NumberOfPipes; i++)
+		{
+			if (PipeConfig.PipeInfo[i].PipeType == USBSCAN_PIPE_BULK) {
+				_stprintf_s(usbscan, L"%s\\%d  USBSCAN_PIPE_BULK", strPort, i);
+				bstrArray[i] = ::SysAllocString(usbscan);
+			}
+			else if (PipeConfig.PipeInfo[i].PipeType == USBSCAN_PIPE_CONTROL) {
+				_stprintf_s(usbscan, L"%s\\%d  USBSCAN_PIPE_CONTROL", strPort, i);
+				bstrArray[i] = ::SysAllocString(usbscan);
+			}
+			else if (PipeConfig.PipeInfo[i].PipeType == USBSCAN_PIPE_ISOCHRONOUS) {
+				_stprintf_s(usbscan, L"%s\\%d  USBSCAN_PIPE_ISOCHRONOUS", strPort, i);
+				bstrArray[i] = ::SysAllocString(usbscan);
+			}
+			else if (PipeConfig.PipeInfo[i].PipeType == USBSCAN_PIPE_INTERRUPT) {
+				_stprintf_s(usbscan, L"%s\\%d  USBSCAN_PIPE_INTERRUPT", strPort, i);
+				bstrArray[i] = ::SysAllocString(usbscan);
+			}
+		}
+	}
+	
+	CreateSafeArrayFromBSTRArray
+		(
+			bstrArray,
+			i,
+			endPointNames
+			);
+
+	for (UINT j = 0; j < 1; j++)
+	{
+		::SysFreeString(bstrArray[j]);
+	}
 }

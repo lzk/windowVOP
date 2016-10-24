@@ -14,25 +14,38 @@ using Dropbox.Api.Team;
 using System.Threading;
 
 
-namespace VOP.Controls
+namespace VOP
 {
+    public enum CloudFlowType
+    {
+        View,
+        SimpleView,
+        Quick,
+    };
+
     public class DropBoxFlow
     {
         private const string ApiKey = "odlfrurcifss4yc";
         public List<string> FileList { get; set; }
         public Window ParentWin { get; set; }
+        public static CloudFlowType FlowType = CloudFlowType.View; 
+        public static string SavePath = "";
+        DropboxClient m_client = null;
 
-        public int Run()
+        public bool Run()
         {
             if (FileList == null || FileList.Count == 0)
-                return 1;
-
+            {
+                if(FlowType != CloudFlowType.SimpleView)
+                    return false;
+            }
+                
             DropboxCertHelper.InitializeCertPinning();
 
             var accessToken = this.GetAccessToken();
             if (string.IsNullOrEmpty(accessToken))
             {
-                return 1;
+                return false;
             }
 
             IWebProxy webProxy = WebRequest.DefaultWebProxy;
@@ -63,7 +76,18 @@ namespace VOP.Controls
                 };
 
                 var client = new DropboxClient(accessToken, config);
-                RunUploadTask(client);
+                m_client = client;
+
+                if (FlowType == CloudFlowType.Quick)
+                {
+                    AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+                    return worker.InvokeQuickScanMethod(RunUpload, "Uploading picture to DropBox, please wait...");
+                }
+                else
+                {
+                    RunUploadTask(client);
+                }
+            
 
                 // Tests below are for Dropbox Business endpoints. To run these tests, make sure the ApiKey is for
                 // a Dropbox Business app and you have an admin account to log in.
@@ -78,7 +102,7 @@ namespace VOP.Controls
              
             }
 
-            return 0;
+            return true;
         }
 
 
@@ -137,7 +161,6 @@ namespace VOP.Controls
             string accessToken = "";
             string uId = "";
 
-            Properties.Settings.Default.Reset();
             accessToken = Properties.Settings.Default.AccessToken;
 
             if (string.IsNullOrEmpty(accessToken))
@@ -169,7 +192,46 @@ namespace VOP.Controls
 
             return accessToken;
         }
- 
+
+        private bool RunUpload()
+        {
+            try
+            {
+                var task = Task.Run((Func<Task<bool>>)UploadFilesToDefaultPath);
+                task.Wait();
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+
+        private async Task<bool> UploadFilesToDefaultPath()
+        {   
+            if (FileList == null)
+                return false;
+
+            foreach (string filePath in FileList)
+            {
+                string fileName = System.IO.Path.GetFileName(filePath);
+                await Upload(m_client, MainWindow_Rufous.g_settingData.m_dropBoxDefaultPath, fileName, filePath);
+            }
+
+            return true;
+        }
+
+
+        private async Task Upload(DropboxClient client, string folder, string fileName, string fileContent)
+        {
+
+            using (var stream = new MemoryStream(System.Text.UTF8Encoding.UTF8.GetBytes(fileContent)))
+            {
+                var response = await client.Files.UploadAsync(folder + "/" + fileName, WriteMode.Overwrite.Instance, body: stream);
+            }
+        }
+
         private async Task Download(DropboxClient client, string folder, FileMetadata file)
         {
 

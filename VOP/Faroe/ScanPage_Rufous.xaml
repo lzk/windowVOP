@@ -87,7 +87,9 @@
                             VerticalAlignment="Center"
                             Margin="0,0,0,0"
                             Foreground="White"
-                            FontSize="12"/>
+                            FontSize="12"
+                 PreviewMouseLeftButtonDown="ScanToPrintButtonClick"
+                />
             <local:ImageButton2  
                             ImagePath="../Images/ScanToEmail.png" 
                             BottomText="To Email" 
@@ -96,7 +98,9 @@
                             VerticalAlignment="Center"
                             Margin="12,5,0,5"
                             Foreground="White"
-                            FontSize="12"/>
+                            FontSize="12"
+                  PreviewMouseLeftButtonDown="ScanToEmailButtonClick"
+                />
 
             <local:ImageButton2  
                             ImagePath="../Images/ScanToFile.png" 
@@ -106,6 +110,7 @@
                             VerticalAlignment="Center"
                             Margin="12,0,0,0"
                             Foreground="White"
+                  PreviewMouseLeftButtonDown="ScanToFileButtonClick"
                             FontSize="12"/>
 
              <local:ImageButton2 
@@ -116,7 +121,9 @@
                             VerticalAlignment="Center"
                             Margin="12,0,0,0"
                             Foreground="White"
-                            FontSize="12"/>
+                            FontSize="12"
+                  PreviewMouseLeftButtonDown="ScanToFtpButtonClick"
+                 />
 
              <local:ImageButton2 
                             ImagePath="../Images/ScanToProgram.png" 
@@ -126,7 +133,9 @@
                             VerticalAlignment="Center"
                             Margin="12,0,0,0"
                             Foreground="White"
-                            FontSize="12"/>
+                            FontSize="12"
+                  PreviewMouseLeftButtonDown="ScanToAPButtonClick"
+                 />
 
              <local:ImageButton2
                             ImagePath="../Images/ScanToCloud.png" 

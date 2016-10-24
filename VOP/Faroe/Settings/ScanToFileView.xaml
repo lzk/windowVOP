@@ -6,6 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="500"
              xmlns:local="clr-namespace:VOP.Controls"
+             Loaded="UserControl_Loaded"
              >
     <UserControl.Resources>
         <ResourceDictionary>
@@ -123,135 +124,180 @@
         </Grid.Background>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="35"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0"></RowDefinition>
-                <RowDefinition Height="0"></RowDefinition>
-                <RowDefinition Height="0"></RowDefinition>
-                <RowDefinition Height="0"></RowDefinition>
-                <RowDefinition Height="0"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="20"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
 
             <TextBlock 
-                Grid.Row="5"
+                Grid.Row="1"
                 Grid.Column="0"
-                VerticalAlignment="Center"
                 FontSize="14"
                 FontWeight="Bold"
-                Text="File Settings :"/>
-
-            <TextBlock 
-                Grid.Row="6"
-                Grid.Column="0"
                 VerticalAlignment="Center"
-                Text="File Name :"/>
-            <TextBox Template="{StaticResource customTextBox}" 
-                     Grid.Row="6"
-                     Grid.Column="1"
-                     Height="28" 
-                     VerticalAlignment="Center" 
-                     MaxLength="32" 
-                     />
-
-            <TextBlock 
-                Grid.Row="6"
-                Grid.Column="3"
-                VerticalAlignment="Center"
-                Text="File Type :"/>
-
-            <ComboBox 
-                Grid.Row="6"
-                Grid.Column="4"
-                Background="#FFDDE5E7"
-                Width="110" Height="24"
-                VerticalAlignment="Center" 
-                HorizontalAlignment="Left"
-                Margin="0,0,0,0" 
-                BorderThickness="1"
-                SelectedIndex="0"
-                >
-                <ComboBoxItem >PDF</ComboBoxItem>
-                <ComboBoxItem >Tiff</ComboBoxItem>
-            </ComboBox>
-
-
-            <TextBox Template="{StaticResource customTextBox}" 
-                     Grid.Row="7"
-                     Grid.Column="0"
-                     Grid.RowSpan="2"
-                     Grid.ColumnSpan="2"
-                     Width="230"
-                     Height="28" 
-                     VerticalAlignment="Top" 
-                     HorizontalAlignment="Right"
-                     Margin="5,10,0,0"
-                     />
-            
-            <Button
-                Grid.Row="7"
-                Grid.Column="3"
-                Grid.RowSpan="2"
-                Grid.ColumnSpan="3"
-                Width="70"
-                VerticalAlignment="Top" 
-                HorizontalAlignment="Left"
-                Height="30" 
-                Margin="0,10,0,0"
-                Content="Browse" 
-                Style="{StaticResource CustomGreenButtonStyle}"
-                />
+                Text="Scan Settings :"/>
 
             <Button
-                Grid.Row="10"
-                Grid.Column="1"
-                Width="90"
-                Height="35" 
-                Margin="0,0,0,0"
-                Content="Default" 
-                FontSize="14"
-                HorizontalAlignment="Left"
-                Style="{StaticResource CustomGrayButtonStyle}"
-                />
-            
-            <Button
-                Grid.Row="10"
-                Grid.Column="3"
-                Grid.ColumnSpan="2"
+                Grid.Row="1"
+                Grid.Column="2"
                 Width="120"
                 Height="35" 
-                Margin="-150,0,0,0"
-                Content="Apply" 
+                Margin="-90,0,0,0"
+                Content="Settings..." 
                 FontSize="16"
-                Style="{StaticResource CustomGreenButtonStyle}"
+                Style="{StaticResource CustomGreenButtonStyle}" 
+                Click="Button_Click"
                 />
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="15"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock 
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                FontSize="14"
+                FontWeight="Bold"
+                VerticalAlignment="Center"
+                Text="File Settings :"/>
+
+            <Grid Grid.Row="1" Grid.Column="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="21*" />
+                    <ColumnDefinition Width="26*"/>
+                    <ColumnDefinition Width="378*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock 
+                                Text="Save File Type :" 
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                FontSize="12"
+                                />
+                        <ComboBox 
+                                Name="cbFileType"
+                                VerticalAlignment="Center" 
+                                VerticalContentAlignment="Center"
+                                Width="100" 
+                                Height="30" 
+                                Margin="60,0,0,0" 
+                                FontSize="14"
+                            SelectionChanged="cbFileType_SelectionChanged"
+                                >
+                            <ComboBoxItem >PDF</ComboBoxItem>
+                            <ComboBoxItem >TIFF</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock 
+                                Text="File Name :" 
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                FontSize="12"
+                                />
+                        <TextBox 
+                                Name="tbFileName"
+                              Template="{StaticResource customTextBox}" 
+                                VerticalAlignment="Center" 
+                                Width="250" 
+                                Height="30" 
+                                Margin="45,0,0,0" 
+                                Text=""
+                                VerticalContentAlignment="Center"
+                                FontSize="14"
+                                />
+                    </StackPanel>
+                </Border>
 
 
-         
+                <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="1">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+
+                            <TextBlock 
+                                Text="File Path :" 
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                FontSize="12"
+                                />
+                            <TextBox 
+                                Name="tbFilePath"
+                                  Template="{StaticResource customTextBox}" 
+                                VerticalAlignment="Center" 
+                                Width="250" 
+                                Height="30" 
+                                Margin="53,0,0,0" 
+                                Text=""
+                                VerticalContentAlignment="Center"
+                                FontSize="14"
+                                />
+                          
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                            <Button 
+                            Margin="280,0,0,0"
+                            Width="85" 
+                            Height="35"
+                            FontSize="16"
+                            Click="BrowseClick"
+                            Style="{StaticResource CustomGreenButtonStyle}"
+                            >Browse</Button>
+                        </StackPanel>
+                    </StackPanel>
+                   
+                </Border>
+
+                <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="1"
+                            HorizontalAlignment="Center" 
+                            Width="85" 
+                            Height="35"
+                            FontSize="16"
+                            Click="OkClick"
+                            Style="{StaticResource CustomGreenButtonStyle}"
+                            >OK</Button>
+            </Grid>
+
         </Grid>
     </Grid>
 </UserControl>

@@ -22,7 +22,7 @@ using System.Windows.Shapes;
 using System.IO;
 
 
-namespace VOP.Controls
+namespace VOP
 {
     public class ViewItemInfo
     {
@@ -64,6 +64,11 @@ namespace VOP.Controls
         {
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
 
+            if(DropBoxFlow.FlowType == CloudFlowType.SimpleView)
+            {
+                UploadButton.Content = "OK";
+            }
+
             await Start();
         }
 
@@ -79,14 +84,6 @@ namespace VOP.Controls
 
             }
           
-        }
-
-        private async Task<FolderMetadata> CreateFolder(DropboxClient client, string path)
-        {
-            var folderArg = new CreateFolderArg(path);
-            var folder = await client.Files.CreateFolderAsync(folderArg);
-
-            return folder;
         }
 
         private ListViewItem CreateViewItem(string fileName, string fileType="Folder", int fileIndex=0, Stream imageStream=null)
@@ -151,6 +148,42 @@ namespace VOP.Controls
         private async Task GetCurrentAccount(DropboxClient client)
         {
             var full = await client.Users.GetCurrentAccountAsync();
+        }
+
+        private async void CreateFolderButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            try
+            {
+                bool? result = null;
+                FolderNameForm frm = new FolderNameForm();
+                frm.Owner = Application.Current.MainWindow;
+
+                result = frm.ShowDialog();
+
+                if(result == true)
+                {
+                    string folderName = frm.m_folderName;
+
+                    if(folderName != "")
+                    {
+                        string folderPath = currentPath + "/" + folderName;
+
+                        await CreateFolder(client, folderPath);
+                        await ListFolder(client, currentPath);
+                    }
+                 
+                }
+
+            }
+            catch (Exception) { }
+        }
+
+        private async Task<FolderMetadata> CreateFolder(DropboxClient client, string path)
+        {
+            var folderArg = new CreateFolderArg(path);
+            var folder = await client.Files.CreateFolderAsync(folderArg);
+
+            return folder;
         }
 
         private async void UpFolderButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -290,23 +323,30 @@ namespace VOP.Controls
 
         private async void UploadButton_Click(object sender, RoutedEventArgs e)
         {
-            if (FileList == null)
-                return;
-
-            try
+            if (DropBoxFlow.FlowType == CloudFlowType.SimpleView)
             {
-                foreach (string filePath in FileList)
-                {
-                    string fileName = System.IO.Path.GetFileName(filePath);
-                    UploadStaus.Text = "Uploading file " + fileName;
-                    await Upload(client, currentPath, fileName, filePath);
-                }
-
-                UploadStaus.Text = "";
-                await ListFolder(client, currentPath);
+                DropBoxFlow.SavePath = currentPath;
+                this.Close();
             }
-            catch (Exception) { }
-          
+            else
+            {
+                if (FileList == null)
+                    return;
+
+                try
+                {
+                    foreach (string filePath in FileList)
+                    {
+                        string fileName = System.IO.Path.GetFileName(filePath);
+                        UploadStaus.Text = "Uploading file " + fileName;
+                        await Upload(client, currentPath, fileName, filePath);
+                    }
+
+                    UploadStaus.Text = "";
+                    await ListFolder(client, currentPath);
+                }
+                catch (Exception) { }
+            }
         }
 
         private async Task Upload(DropboxClient client, string folder, string fileName, string fileContent)

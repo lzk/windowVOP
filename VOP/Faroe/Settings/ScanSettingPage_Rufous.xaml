@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="../../Controls/CustomCheckBox.xaml"/>
                 <ResourceDictionary Source="../../Controls/CustomTextBoxRes.xaml"/>
                 <ResourceDictionary Source="../../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/PanelButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -29,6 +30,17 @@
             <RowDefinition Height="0"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <Button Grid.Row="0" 
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="2"
+                Width="55" 
+                Height="55" 
+                Style="{StaticResource BackButtonStyle}" 
+                Margin="-50,-50,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top" Click="Button_Click"/>
+        
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="setting_tab_btn" Orientation="Vertical" Panel.ZIndex="100" />
         <Border Name="settingView" Grid.Row="1" Grid.Column="2"/>
 

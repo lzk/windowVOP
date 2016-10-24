@@ -30,6 +30,9 @@ namespace VOP
 
     public partial class MainWindow_Rufous : Window
     {
+        
+        public static SettingData g_settingData = new SettingData();
+        public static List<string> g_printerList = new List<string>();
 
         public ScanSelectionPage_Rufous scanSelectionPage = new ScanSelectionPage_Rufous();
         public ScanSettingPage_Rufous scanSettingsPage = new ScanSettingPage_Rufous();
@@ -44,11 +47,16 @@ namespace VOP
             this.Width = this.Width * App.gScalingRate;
             this.Height = this.Height * App.gScalingRate;
 
+            g_settingData.InitSettingData();
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
         }
 
         public void LoadedMainWindow(object sender, RoutedEventArgs e)
         {
+            g_settingData = SettingData.Deserialize(App.cfgFile);
+
+            common.GetAllPrinters(g_printerList);
+
             MainPageView.Child = scanSelectionPage;
             scanSelectionPage.m_MainWin = this;
             AddMessageHook();
@@ -177,14 +185,15 @@ namespace VOP
             {
                 if ("btnClose" == btn.Name)
                 {
+                    SettingData.Serialize(g_settingData, App.cfgFile);
                     this.Close();
                 }
                 else if ("btnMinimize" == btn.Name)
                 {
-                    btnMinimize.Focusable = true;
-                    btnMinimize.Focus();
-                    this.Hide();
-                    btnMinimize.Focusable = false;
+                    //btnMinimize.Focusable = true;
+                    //btnMinimize.Focus();
+                    //this.Hide();
+                    //btnMinimize.Focusable = false;
                 }
             }
         }

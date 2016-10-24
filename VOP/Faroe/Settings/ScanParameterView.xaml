@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="500"
-             xmlns:local="clr-namespace:VOP.Controls"
+             xmlns:local="clr-namespace:VOP.Controls" 
+             Loaded="UserControl_Loaded"
              >
     <UserControl.Resources>
         <ResourceDictionary>
@@ -171,12 +172,12 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="0"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="0"/>
             </Grid.ColumnDefinitions>
             
             <TextBlock 
@@ -195,21 +196,7 @@
                 ScrollViewer.CanContentScroll="True"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                 />
-            
-            <Button
-                Grid.Row="2"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Width="120"
-                Height="35" 
-                Margin="0,0,0,0"
-                Content="Apply" 
-                FontSize="16"
-                Style="{StaticResource CustomGreenButtonStyle}"
-                />
-
-
-         
+     
         </Grid>
     </Grid>
 </UserControl>

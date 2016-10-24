@@ -27,6 +27,7 @@ namespace VOP
 {
     public delegate QRCodeResult QRCodeDelegate(Bitmap bitmap);
     public delegate int DoWorkDelegate();
+    public delegate bool QuickScanDelegate();
     public delegate bool CheckVerifyCodeDelegate(string strPhoneNumber, string strVerifyCode, ref JSONResultFormat1 rtValue);
     public delegate bool SendVerifyCodeDelegate(string strPhoneNumber, ref JSONResultFormat1 rtValue);
     public delegate int ScanDelegate(string deviceName, string tempPath, int colorType, int resolution, int width, int height,
@@ -73,7 +74,6 @@ namespace VOP
 
         void CallbackMethod(IAsyncResult ar)
         {
-            dll.OutputDebugStringToFile_("CopyPage CallbackMethod()\r\n");
 
             if (isNeededProgress)
             {
@@ -85,13 +85,33 @@ namespace VOP
                     new Action(
                     delegate()
                     {
-                        dll.OutputDebugStringToFile_("CopyPage  pbw.Close()\r\n");
                         pbw.Close();
                     }
                     ));
                 }
             } 
            
+        }
+
+        void QuickScanCallbackMethod(IAsyncResult ar)
+        {
+
+            if (isNeededProgress)
+            {
+                asyncEvent.WaitOne();
+
+                if (qr_pbw != null)
+                {
+                    qr_pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                    new Action(
+                    delegate ()
+                    {
+                        qr_pbw.Close();
+                    }
+                    ));
+                }
+            }
+
         }
 
         void SettingsCallbackMethod()
@@ -331,7 +351,39 @@ namespace VOP
             return 1;
         }
 
-        public int InvokeDoWorkMethod(DoWorkDelegate method)
+        public bool InvokeQuickScanMethod(QuickScanDelegate method, string msgBoxText)
+        {
+
+            if (method != null)
+            {
+                QuickScanDelegate caller = method;
+
+                isNeededProgress = false;
+                asyncEvent.Reset();
+
+                IAsyncResult result = caller.BeginInvoke(new AsyncCallback(QuickScanCallbackMethod), null);
+
+                if (!result.AsyncWaitHandle.WaitOne(100, false))
+                {
+                    isNeededProgress = true;
+
+                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode(msgBoxText);
+                    qr_pbw.Owner = this.owner;
+                    qr_pbw.Loaded += pbw_Loaded;
+                    qr_pbw.ShowDialog();
+                }
+
+                if (result.AsyncWaitHandle.WaitOne(100, true))
+                {
+                    return caller.EndInvoke(result);
+                }
+
+            }
+
+            return true;
+        }
+
+        public int InvokeDoWorkMethod(DoWorkDelegate method, string msgBoxText)
         {
 
             if (method != null)
@@ -341,16 +393,16 @@ namespace VOP
                 isNeededProgress = false;
                 asyncEvent.Reset();
 
-                IAsyncResult result = caller.BeginInvoke(new AsyncCallback(CallbackMethod), null);
+                IAsyncResult result = caller.BeginInvoke(new AsyncCallback(QuickScanCallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))
                 {
                     isNeededProgress = true;
 
-                    pbw = new ProgressBarWindow();
-                    pbw.Owner = this.owner;
-                    pbw.Loaded += pbw_Loaded;
-                    pbw.ShowDialog();
+                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode(msgBoxText);
+                    qr_pbw.Owner = this.owner;
+                    qr_pbw.Loaded += pbw_Loaded;
+                    qr_pbw.ShowDialog();
                 }
 
                 if (result.AsyncWaitHandle.WaitOne(100, true))

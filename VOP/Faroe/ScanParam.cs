@@ -17,7 +17,7 @@ using System.ComponentModel;
 
 namespace VOP
 {
-    //[Serializable()]
+    [Serializable()]
     public class ScanParam
     {
         private EnumScanResln m_scanResln = EnumScanResln._300x300;

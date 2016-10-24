@@ -16,6 +16,7 @@ EXPORTS
     SetPowerSaveTime
     ScanEx
 	PrintInit
+	PrintInitDialog
 	AddImagePath
     AddImageSource
 	AddImageRotation
@@ -62,3 +63,4 @@ EXPORTS
 	SetPortIP
 	ResetBonjourAddr
 	ADFScan
+	TestUsbScanInit

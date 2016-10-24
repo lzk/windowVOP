@@ -90,6 +90,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.Expression.Controls" />
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Publisher, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -167,8 +170,16 @@
       <DependentUpon>MessageBoxEx_YesNo_NoIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PopupEx.cs" />
+    <Compile Include="Faroe\ScanTo\QuickScan.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\DropBoxFlow.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\FileViewer.xaml.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToAP\APFlow.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToFile\FileFlow.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToEmail\EmailFlow.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToAP\APSelectForm.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToPrint\PrintFlow.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToFtp\FtpLoginForm.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToCloud\FolderNameForm.xaml.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\LoginForm.xaml.cs" />
     <Compile Include="Controls\SpinnerControl\SpinnerControlOnlySupportUpDowmKey.cs" />
     <Compile Include="Controls\TextBoxValidation\IPAddressValidationRule.cs" />
@@ -180,6 +191,20 @@
       <DependentUpon>ScanPage_Rufous.xaml</DependentUpon>
     </Compile>
     <Compile Include="Faroe\ScanSelectionPage_Rufous.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToFtp\FtpFlow.cs" />
+    <Compile Include="Faroe\Settings\ScanToEmailView.xaml.cs">
+      <DependentUpon>ScanToEmailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Faroe\Settings\ScanToPrintView.xaml.cs">
+      <DependentUpon>ScanToPrintView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Faroe\Settings\ScanToFtpView.xaml.cs">
+      <DependentUpon>ScanToFtpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Faroe\Settings\ScanToCloudView.xaml.cs">
+      <DependentUpon>ScanToCloudView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Faroe\Settings\SettingData.cs" />
     <Compile Include="IPV6CatalogsView.xaml.cs" />
     <Compile Include="IPV6SettingWindow.xaml.cs" />
     <Compile Include="IPV6StatusWindow.xaml.cs" />
@@ -206,6 +231,9 @@
     </Compile>
     <Compile Include="Faroe\Settings\ScanSettingDialog.xaml.cs">
       <DependentUpon>ScanSettingDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Faroe\Settings\SettingButton_Rufous.xaml.cs">
+      <DependentUpon>SettingButton_Rufous.xaml</DependentUpon>
     </Compile>
     <Compile Include="TroubleshootingPage.cs" />
     <Compile Include="MessageBoxEx_Video.xaml.cs">
@@ -389,6 +417,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Faroe\ScanTo\ScanToAP\APSelectForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\ScanTo\ScanToFtp\FtpLoginForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\ScanTo\ScanToCloud\FolderNameForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Faroe\ScanTo\ScanToCloud\LoginForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -409,6 +449,22 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Faroe\ScanSelectionPage_Rufous.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\Settings\ScanToEmailView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\Settings\ScanToPrintView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\Settings\ScanToFtpView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\Settings\ScanToCloudView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -452,6 +508,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Faroe\Settings\ScanSettingDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\Settings\SettingButton_Rufous.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -945,10 +1005,6 @@
       <Project>{68180b54-4724-4cd1-baa6-ee7bc309797c}</Project>
       <Name>Dropbox.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WpfAnimatedGif\WpfAnimatedGif.csproj">
-      <Project>{d129789c-3096-4d0b-8dd7-fe24a4df4b21}</Project>
-      <Name>WpfAnimatedGif</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\CheckBox_Close.png" />
@@ -1169,7 +1225,18 @@
   <ItemGroup>
     <Resource Include="Images\file.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\folder_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Adobe Photoshop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\mspaint.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WindowsPhotoViewer.png" />
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>

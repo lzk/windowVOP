@@ -10,7 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using WpfAnimatedGif;
+//using WpfAnimatedGif;
 
 namespace VOP
 {
@@ -21,7 +21,7 @@ namespace VOP
     {
         public string[] gifs = null; 
         private int m_curIndex = 0;
-        private ImageAnimationController _controller;
+       // private ImageAnimationController _controller;
 
         private System.Windows.Threading.DispatcherTimer m_timer = new System.Windows.Threading.DispatcherTimer();
 
@@ -118,15 +118,15 @@ namespace VOP
             image.UriSource = new Uri( gifs[m_curIndex], UriKind.RelativeOrAbsolute  );
             image.EndInit();
 
-            ImageBehavior.SetAnimatedSource( imgAnimation, image );
+            //ImageBehavior.SetAnimatedSource( imgAnimation, image );
 
-            _controller = ImageBehavior.GetAnimationController(imgAnimation);
+            //_controller = ImageBehavior.GetAnimationController(imgAnimation);
 
-            if (_controller != null)
-            {
-                _controller.GotoFrame( 0 );
-                _controller.Play();
-            }
+            //if (_controller != null)
+            //{
+            //    _controller.GotoFrame( 0 );
+            //    _controller.Play();
+            //}
 
         }
 
@@ -139,7 +139,7 @@ namespace VOP
                 image.UriSource = new Uri( gifs[m_curIndex] );
                 image.EndInit();
 
-                ImageBehavior.SetAnimatedSource( imgAnimation, image );
+              //  ImageBehavior.SetAnimatedSource( imgAnimation, image );
 
                 btnStart.IsChecked = false;
                 btnPrev.Visibility = Visibility.Hidden;
@@ -149,10 +149,10 @@ namespace VOP
 
         private void btnStart_Unchecked(object sender, RoutedEventArgs e)
         {
-            _controller = ImageBehavior.GetAnimationController(imgAnimation);
+            //_controller = ImageBehavior.GetAnimationController(imgAnimation);
 
-            if (_controller != null)
-                _controller.Play();
+            //if (_controller != null)
+            //    _controller.Play();
 
             btnPrev.Visibility = Visibility.Hidden;
             btnNext.Visibility = Visibility.Hidden;
@@ -160,10 +160,10 @@ namespace VOP
 
         private void btnStart_Checked(object sender, RoutedEventArgs e)
         {
-            _controller = ImageBehavior.GetAnimationController(imgAnimation);
+            //_controller = ImageBehavior.GetAnimationController(imgAnimation);
 
-            if (_controller != null)
-                _controller.Pause();
+            //if (_controller != null)
+            //    _controller.Pause();
 
             btnPrev.Visibility = Visibility.Visible;
             btnNext.Visibility = Visibility.Visible;

@@ -493,6 +493,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-<!--  Resource dictionary entries should be defined here.  -->
+
+    <!--  Resource dictionary entries should be defined here.  -->
 </ResourceDictionary>

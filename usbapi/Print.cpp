@@ -74,6 +74,7 @@ typedef struct _IdCardSize
 
 USBAPI_API BOOL __stdcall IsMetricCountry();
 
+USBAPI_API BOOL __stdcall PrintInitDialog(const TCHAR * jobDescription, HWND hwnd);
 USBAPI_API int __stdcall GetPaperNames(TCHAR * strPrinterName, SAFEARRAY** paperNames);
 USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * strFileName, bool fitToPage, int duplexType, bool IsPortrait, int copies, int scalingValue);
 USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage, int duplexType, bool IsPortrait, int scalingValue);
@@ -186,12 +187,15 @@ static std::vector<IStream*>  g_vecIdCardImageSources;
 static std::vector<int>  g_vecIdCardImageRotation;
 static DOCINFO  di = { sizeof (DOCINFO) };
 static HDC dc = NULL;
+static PRINTDLGEX pdx;
+LPPRINTPAGERANGE pPageRanges = NULL;
+
 
 static Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 static ULONG_PTR gdiplusToken;
 static int currentIdCardType = 0;
 static IdCardSize currentIdCardSize = { 0 };
-static bool needFitToPage = false;
+static bool needFitToPage = true;
 static bool IsPrintSettingPortrait = true;
 static DuplexPrintType currentDuplexType = NonDuplex;
 static int ScalingValue = 100;
@@ -472,6 +476,63 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	}
 
 	return error;
+}
+
+USBAPI_API BOOL __stdcall PrintInitDialog(const TCHAR * jobDescription, HWND hwnd)
+{
+	g_vecImagePaths.clear();
+
+	ZeroMemory(&di, sizeof(di));
+	di.cbSize = sizeof(di);
+	di.lpszDocName = jobDescription;
+
+	// Allocate an array of PRINTPAGERANGE structures.
+	pPageRanges = (LPPRINTPAGERANGE)GlobalAlloc(GPTR, 10 * sizeof(PRINTPAGERANGE));
+	if (!pPageRanges)
+		return E_OUTOFMEMORY;
+
+	pdx.lStructSize = sizeof(PRINTDLGEX);
+	pdx.hwndOwner = hwnd;
+	pdx.hDevMode = NULL;
+	pdx.hDevNames = NULL;
+	pdx.hDC = NULL;
+	pdx.Flags = PD_RETURNDC | PD_COLLATE;
+	pdx.Flags2 = 0;
+	pdx.ExclusionFlags = 0;
+	pdx.nPageRanges = 0;
+	pdx.nMaxPageRanges = 10;
+	pdx.lpPageRanges = pPageRanges;
+	pdx.nMinPage = 1;
+	pdx.nMaxPage = 1000;
+	pdx.nCopies = 1;
+	pdx.hInstance = 0;
+	pdx.lpPrintTemplateName = NULL;
+	pdx.lpCallback = NULL;
+	pdx.nPropertyPages = 0;
+	pdx.lphPropertyPages = NULL;
+	pdx.nStartPage = START_PAGE_GENERAL;
+	pdx.dwResultAction = 0;
+
+
+	if (PrintDlgEx(&pdx) != S_OK || pdx.dwResultAction != PD_RESULT_PRINT)
+		return FALSE;
+
+	if (NULL == pdx.hDC)
+		return FALSE;
+
+	dc = pdx.hDC;
+
+	Gdiplus::Status status;
+	if ((status = Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL)) != Gdiplus::Ok)
+	{
+		int errorCode = GetLastError();
+		char Debug[256] = "";
+		_snprintf(Debug, sizeof(Debug), "\nPrintInit GdiplusStartup Fail %d", errorCode);
+		OutputDebugStringA(Debug);
+		return FALSE;
+	}
+
+	return TRUE;
 }
 
 USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage, int duplexType, bool IsPortrait, int scalingValue)

@@ -58,6 +58,81 @@ namespace VOP
             InitializeComponent();
         }
 
+        private void ScanToAPButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ImageButton btn = sender as ImageButton;
+
+            List<string> files = new List<string>();
+            GetSelectedFile(files);
+
+            APFlow flow = new APFlow();
+            flow.ParentWin = m_MainWin;
+            flow.FileList = files;
+            APFlow.FlowType = APFlowType.View;
+            flow.Run();
+
+        }
+
+        private void ScanToFileButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ImageButton btn = sender as ImageButton;
+
+            List<string> files = new List<string>();
+            GetSelectedFile(files);
+
+            FileFlow flow = new FileFlow();
+            flow.ParentWin = m_MainWin;
+            flow.FileList = files;
+            FileFlow.FlowType = FileFlowType.View;
+            flow.Run();
+
+        }
+
+        private void ScanToEmailButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ImageButton btn = sender as ImageButton;
+
+            List<string> files = new List<string>();
+            GetSelectedFile(files);
+
+            EmailFlow flow = new EmailFlow();
+            flow.ParentWin = m_MainWin;
+            flow.FileList = files;
+            EmailFlow.FlowType = EmailFlowType.View;
+            flow.Run();
+
+        }
+
+        private void ScanToPrintButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ImageButton btn = sender as ImageButton;
+
+            List<string> files = new List<string>();
+            GetSelectedFile(files);
+
+            PrintFlow flow = new PrintFlow();
+            flow.ParentWin = m_MainWin;
+            flow.FileList = files;
+            PrintFlow.FlowType = PrintFlowType.View;
+            flow.Run();
+
+        }
+
+        private void ScanToFtpButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ImageButton btn = sender as ImageButton;
+
+            List<string> files = new List<string>();
+            GetSelectedFile(files);
+
+            FtpFlow flow = new FtpFlow();
+            flow.ParentWin = m_MainWin;
+            flow.FileList = files;
+            FtpFlow.FlowType = FtpFlowType.View;
+            flow.Run();
+
+        }
+
         private void ScanToCloudButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             ImageButton btn = sender as ImageButton;

@@ -10,6 +10,7 @@
              Width="700" 
              Height="500" 
              UseLayoutRounding="True"
+             Loaded="UserControl_Loaded"
              >
     
     <UserControl.Resources>
@@ -33,15 +34,18 @@
         </Grid.RowDefinitions>
 
         <Button    
+            Name="LeftBtn"
             Grid.Row="0"
             Grid.Column="1"
             Style="{StaticResource LeftButtonStyle}" 
             Width="80"
             Height="80"
             Margin="0,-50,-100,0"
+            Click="LeftButton_Click"
             />
 
         <Button  
+            Name="ScreenBtn"
             Width="250"
             Grid.Row="0"
             Grid.Column="2"
@@ -49,16 +53,19 @@
             Style="{StaticResource ScreenButtonStyle}" 
             Margin="0,-50,0,0"
             Content="9"
+            Click="ScreenButton_Click"
             />
       
 
-        <Button    
+        <Button  
+            Name="RightBtn"
             Grid.Row="0"
             Grid.Column="4"
             Style="{StaticResource RightButtonStyle}" 
             Width="80"
             Height="80"
             Margin="-100,-50,0,0"
+            Click="RightButton_Click"
             />
 
         <Button    

@@ -46,7 +46,8 @@
                         Height="35"
                         Margin="20, 0, 0, 5" 
                         Style="{StaticResource RotationButtonStyle}"
-                        Click="RotatedButton_Click">
+                        Click="RotatedButton_Click"
+                        Visibility="Hidden">
             </Button>
 
             <Button  Name="GreenOkButton"

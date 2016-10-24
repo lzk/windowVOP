@@ -446,7 +446,7 @@ namespace VOP
                                 dll.AddImagePath(path);
                             }
 
-                            printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintImage);
+                            printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintImage, "");
                         }
                         else
                         {
@@ -474,7 +474,7 @@ namespace VOP
                                 i++;
                             }
 
-                            printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintIdCard);
+                            printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintIdCard, "");
                         }
                     }
                     else

@@ -12,17 +12,21 @@ namespace VOP
 {
     public partial class ScanSettingPage_Rufous : UserControl
     {
-        SettingButton btnScanParameter = new SettingButton(IconType.ScanParameter);
-        SettingButton btnScanToFile = new SettingButton(IconType.ScanToFile);
-        SettingButton btnScanToPrint = new SettingButton(IconType.Unknown);
-        SettingButton btnScanToEmail = new SettingButton(IconType.Unknown);
-        SettingButton btnScanToFtp = new SettingButton(IconType.Unknown);
-        SettingButton btnScanToAP = new SettingButton(IconType.Unknown);
-        SettingButton btnScanToCloud = new SettingButton(IconType.Unknown);
+        SettingButton_Rufous btnScanParameter = new SettingButton_Rufous(SettingType.ScanParameter);
+        SettingButton_Rufous btnScanToFile = new SettingButton_Rufous(SettingType.ScanToFile);
+        SettingButton_Rufous btnScanToPrint = new SettingButton_Rufous(SettingType.ScanToPrint);
+        SettingButton_Rufous btnScanToEmail = new SettingButton_Rufous(SettingType.ScanToEmail);
+        SettingButton_Rufous btnScanToFtp = new SettingButton_Rufous(SettingType.ScanToFtp);
+        SettingButton_Rufous btnScanToAP = new SettingButton_Rufous(SettingType.ScanToAP);
+        SettingButton_Rufous btnScanToCloud = new SettingButton_Rufous(SettingType.ScanToCloud);
 
-        List<SettingButton> m_listSettingButton = new List<SettingButton>();
+        List<SettingButton_Rufous> m_listSettingButton = new List<SettingButton_Rufous>();
 
         ScanParameterView scanParameterView = new ScanParameterView();
+        ScanToCloudView scanToCloudView = new ScanToCloudView();
+        ScanToFtpView scanToFtpView = new ScanToFtpView();
+        ScanToPrintView scanToPrintView = new ScanToPrintView();
+        ScanToEmailView scanToEmailView = new ScanToEmailView();
         ScanToFileView scanToFileView = new ScanToFileView();
 
 
@@ -100,11 +104,11 @@ namespace VOP
 
         }
         
-        private void SetActiveButton(IconType iconType)
+        private void SetActiveButton(SettingType settingType)
         {
-            foreach(SettingButton btn in m_listSettingButton)
+            foreach(SettingButton_Rufous btn in m_listSettingButton)
             {
-                if(btn.m_nIconType == iconType)
+                if(btn.m_settingType == settingType)
                 {
                     btn.btn.IsActiveEx = true;
                 }
@@ -115,11 +119,11 @@ namespace VOP
             }
         }
 
-        private void ClickSettingButton(IconType iconType)
+        private void ClickSettingButton(SettingType settingType)
         {
-            foreach (SettingButton btn in m_listSettingButton)
+            foreach (SettingButton_Rufous btn in m_listSettingButton)
             {
-                if (btn.m_nIconType == iconType)
+                if (btn.m_settingType == settingType)
                 {
                     RoutedEventArgs argsEvent = new RoutedEventArgs();
                     argsEvent.RoutedEvent = Button.ClickEvent;
@@ -132,17 +136,17 @@ namespace VOP
 
         public void InitWindowLayout()
         {
+            setting_tab_btn.Children.Clear();
             setting_tab_btn.Children.Add(btnScanParameter);
             setting_tab_btn.Children.Add(btnScanToFile);
-          //  setting_tab_btn.Children.Add(btnScanToPrint);
+            setting_tab_btn.Children.Add(btnScanToPrint);
             setting_tab_btn.Children.Add(btnScanToEmail);
-          //  setting_tab_btn.Children.Add(btnScanToFtp);
-            setting_tab_btn.Children.Add(btnScanToAP);
-          //  setting_tab_btn.Children.Add(btnScanToCloud);
-          //  setting_tab_btn.Children.Add(btnScanToA3);
-          //  setting_tab_btn.Children.Add(btnScanToQRCode);
+            setting_tab_btn.Children.Add(btnScanToFtp);
+          //  setting_tab_btn.Children.Add(btnScanToAP);
+            setting_tab_btn.Children.Add(btnScanToCloud);
 
-            ClickSettingButton(IconType.ScanParameter);
+
+            ClickSettingButton(SettingType.ScanParameter);
           
         }
 
@@ -154,48 +158,52 @@ namespace VOP
         private void SettingBtnClick(object sender, RoutedEventArgs e)
         {
             VOP.Controls.ButtonEx srcButton = e.Source as VOP.Controls.ButtonEx;
-            if ( "btnwifi" == srcButton.Name )
+
+            if ("btnScanParameter" == srcButton.Name)
             {
-                srcButton.IsActiveEx = true;
-                SetActiveButton(IconType.Wireless);
-               // this.settingView.Child = wifiView;
-            }
-            else if ("btnSoftAp" == srcButton.Name)
-            {
-                SetActiveButton(IconType.SoftAP);
-               // this.settingView.Child = softapView;
-            }
-            else if ("btnTCPIP" == srcButton.Name)
-            {
-                SetActiveButton(IconType.TCPIP);
-               // this.settingView.Child = tcpipView;
-            }
-            else if ("btnTCPIPv6" == srcButton.Name)
-            {
-                SetActiveButton(IconType.TCPIPv6);
-               // this.settingView.Child = ipv6View;
-            }
-            else if ("btnPowerSave" == srcButton.Name)
-            {
-                SetActiveButton(IconType.PowerSave);
-                //this.settingView.Child = powersaveView;
-            }
-            else if ("btnScanParameter" == srcButton.Name)
-            {
-                SetActiveButton(IconType.ScanParameter);
+                SetActiveButton(SettingType.ScanParameter);
                 scanParameterView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = scanParameterView;
             }
             else if ("btnScanToFile" == srcButton.Name)
             {
-                SetActiveButton(IconType.ScanToFile);
+                SetActiveButton(SettingType.ScanToFile);
                 this.settingView.Child = scanToFileView;
             }
-            else if ("btnPassword" == srcButton.Name)
+            else if ("btnScanToPrint" == srcButton.Name )
             {
-                SetActiveButton(IconType.Password);
-               // this.settingView.Child = passwordView;
+                SetActiveButton(SettingType.ScanToPrint);
+                this.settingView.Child = scanToPrintView;
             }
+            else if ("btnScanToEmail" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.ScanToEmail);
+                this.settingView.Child = scanToEmailView;
+            }
+            else if ("btnScanToFTP" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.ScanToFtp);
+                this.settingView.Child = scanToFtpView;
+            }
+            else if ("btnScanToAP" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.ScanToAP);
+               // this.settingView.Child = ipv6View;
+            }
+            else if ("btnScanToCloud" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.ScanToCloud);
+                scanToCloudView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = scanToCloudView;
+            }
+          
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+             m_MainWin.GotoPage("ScanSelectionPage", null);
+
         }
 
         ///<summary>

@@ -860,7 +860,7 @@ namespace VOP
             bool isSuccess = true;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-            if (worker.InvokeDoWorkMethod(ResetPortIP) == 1)
+            if (worker.InvokeDoWorkMethod(ResetPortIP, "") == 1)
                 isSuccess = true;
             else
                 isSuccess = false;

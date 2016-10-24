@@ -286,6 +286,11 @@ namespace VOP
                 [MarshalAs(UnmanagedType.LPWStr)]String pwd);
 
         [DllImport("usbapi.dll")]
+        public static extern bool PrintInitDialog(
+         [MarshalAs(UnmanagedType.LPWStr)]string jobDescription,
+         IntPtr hwnd);
+
+        [DllImport("usbapi.dll")]
         public static extern bool PrintInit(
                 [MarshalAs(UnmanagedType.LPWStr)]string printerName,
                 [MarshalAs(UnmanagedType.LPWStr)]string jobDescription,

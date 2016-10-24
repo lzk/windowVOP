@@ -12,6 +12,7 @@
 #endif
 #define USBSCANSTRING	  L"\\\\.\\usbscan"
 #define MAX_DEVICES       127
+
 CGLUsb::CGLUsb():
 m_GLUSBDev(INVALID_HANDLE_VALUE)
 {
