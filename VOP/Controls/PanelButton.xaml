@@ -1,7 +1,44 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <Style x:Key="RefreshButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
 
+                    <Grid ClipToBounds="True">
+                        <Image Name="backgroundImage" Source="../Images/reload.png"/>
+
+                        <!-- Present Content (text) of the button. -->
+                        <DockPanel Name="myContentPresenterDockPanel">
+                            <ContentPresenter x:Name="myContentPresenter" Margin="20"  
+                            Content="{TemplateBinding  Content}"  
+                            TextBlock.Foreground="Black" />
+                        </DockPanel>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/reload.png"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="true" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/reload.png"/>
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
 
     <Style x:Key="BackButtonStyle" TargetType="Button">
         <Setter Property="Template">
@@ -123,6 +160,7 @@
 
 
     <Style x:Key="ScreenButtonStyle" TargetType="Button">
+        <Setter Property="Cursor"  Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">

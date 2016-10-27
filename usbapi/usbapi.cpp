@@ -791,6 +791,63 @@ static BOOL ProcessMacAddress(const char * mac, BOOL ipV4, char * ipFound)
 	return FALSE;
 }
 
+USBAPI_API int __stdcall SearchValidedIP2(SAFEARRAY** ipList)
+{
+	BSTR bstrArray[500] = { 0 };
+	int nResult = 1;
+	char cbOID_M[] = "1.3.6.1.4.1.19046.101.4.1\000";
+	char cbOID_S[] = "1.3.6.1.4.1.19046.101.3.1\000";
+	DWORD dwEngineEnterpriseId = 0;
+
+	HMODULE hmod = LoadLibrary(DLL_NAME_NET);
+
+	LPFINDSNMPAGENTPROEX2 FindAgentProEX2 = NULL;
+
+	FindAgentProEX2 = (LPFINDSNMPAGENTPROEX2)GetProcAddress(hmod, "FindSnmpAgentProEx2");
+
+	if (FindAgentProEX2)
+	{
+		char community[129] = { 0 };
+		strcpy(community, "public");
+		g_nTotalPrinter = 0;
+
+		FindAgentProEX2(community, TRUE, "255.255.255.255", "", 3, 30, 6000, 2, cbOID_M, AddHostV4EX2, AddHostV6EX2);
+
+		for (int i = 0; i < g_nTotalPrinter; i++)
+		{
+			TCHAR ipAddress[256] = { 0 };
+			::MultiByteToWideChar(CP_ACP, 0, g_ip_listbuftemp[i].ip, strlen(g_ip_listbuftemp[i].ip), ipAddress, 256);
+			
+			bstrArray[i] = ::SysAllocString(ipAddress);
+		}
+
+
+		CreateSafeArrayFromBSTRArray
+			(
+				bstrArray,
+				g_nTotalPrinter,
+				ipList
+				);
+
+		for (int i = 0; i < g_nTotalPrinter; i++)
+		{
+			::SysFreeString(bstrArray[i]);
+		}
+
+		OutputDebugStringA("\r\n####VP:SearchValidedIP() FindAgentProEX2 End.");
+	}
+	else
+	{
+		nResult = 0;
+		OutputDebugStringA("\r\n####VP:SearchValidedIP() FindAgentProNBNEX2 NULL.");
+	}
+
+	FindAgentProEX2 = NULL;
+
+	FreeLibrary(hmod);
+
+	return nResult;
+}
 USBAPI_API int __stdcall SearchValidedIP(const char * macAddress, BOOL ipV4, BOOL isSFP, char * ipFound)
 {
 	int nResult = 1;

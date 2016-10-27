@@ -251,10 +251,10 @@ namespace VOP.Controls
                 Canvas canvas = VisualTreeHelper.GetParent(designerItem) as Canvas;
 
                 designerItem.X1 = imageToLeft + rect.X;
-                designerItem.Y1 = imageToTop + rect.Y + w/(1.2 * scaleRatioApply);
+                designerItem.Y1 = imageToTop + rect.Y;
 
                 designerItem.X2 = imageToLeft + rect.X + rect.Width;
-                designerItem.Y2 = imageToTop + rect.Y + w/(1.2 * scaleRatioApply);
+                designerItem.Y2 = imageToTop + rect.Y;
 
                 BarcodeLine.Visibility = Visibility.Visible;
             }

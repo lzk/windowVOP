@@ -78,9 +78,9 @@ namespace VOP
             if (files == null)
                 return;
 
-            if(task.ScanResult == Scan_RET.RETSCAN_OK)
+            if (task.ScanResult == Scan_RET.RETSCAN_OK)
             {
-                 QRCodeWindow win = new QRCodeWindow(files[0].m_pathOrig);
+                    QRCodeWindow win = new QRCodeWindow(files[0].m_pathOrig);
 
                 //OpenFileDialog open = null;
                 //bool? result = null;
@@ -91,7 +91,7 @@ namespace VOP
                 //result = open.ShowDialog();
                 //if (result == true)
                 {
-                      //  QRCodeWindow win = new QRCodeWindow(open.FileName);
+                       // QRCodeWindow win = new QRCodeWindow(open.FileName);
 
                         if (btn.Name == "ImageButton1")
                         {
@@ -140,6 +140,11 @@ namespace VOP
 
                 m_MainWin.GotoPage("ScanPage", files);
             }
+        }
+
+        private void DeviceButton_Click(object sender, RoutedEventArgs e)
+        {
+            m_MainWin.GotoPage("DevicePage", null);
         }
 
         private void SettingsButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

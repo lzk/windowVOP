@@ -26,6 +26,16 @@ namespace VOP
                 StringBuilder ipAddress);
 
         [DllImport("usbapi.dll")]
+        public static extern int SearchValidedIP2(
+         [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)]out string[] ipList);
+
+        [DllImport("usbapi.dll")]
+        public static extern int CheckUsbScan(StringBuilder interfaceName);
+
+        [DllImport("usbapi.dll")]
+        public static extern void SetConnectionMode([MarshalAs(UnmanagedType.LPWStr)]String ipAddress, bool isUsb);
+
+        [DllImport("usbapi.dll")]
         public static extern int SearchValidedIP(
                 [MarshalAs(UnmanagedType.LPStr)]String macAddress,
                 bool ipV4, bool isSFP,

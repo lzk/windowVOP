@@ -28,6 +28,7 @@ namespace VOP
         ScanToPrintView scanToPrintView = new ScanToPrintView();
         ScanToEmailView scanToEmailView = new ScanToEmailView();
         ScanToFileView scanToFileView = new ScanToFileView();
+        ScanToAPView scanToAPView = new ScanToAPView();
 
 
         public ScanSettingPage_Rufous()
@@ -142,7 +143,7 @@ namespace VOP
             setting_tab_btn.Children.Add(btnScanToPrint);
             setting_tab_btn.Children.Add(btnScanToEmail);
             setting_tab_btn.Children.Add(btnScanToFtp);
-          //  setting_tab_btn.Children.Add(btnScanToAP);
+            setting_tab_btn.Children.Add(btnScanToAP);
             setting_tab_btn.Children.Add(btnScanToCloud);
 
 
@@ -188,7 +189,7 @@ namespace VOP
             else if ("btnScanToAP" == srcButton.Name)
             {
                 SetActiveButton(SettingType.ScanToAP);
-               // this.settingView.Child = ipv6View;
+                this.settingView.Child = scanToAPView;
             }
             else if ("btnScanToCloud" == srcButton.Name)
             {

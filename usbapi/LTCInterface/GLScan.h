@@ -9,6 +9,7 @@ public:
 	CGLDrv();
 	~CGLDrv();
 	CGLUsb *m_GLusb;
+	CGLNet *m_GLnet;
 	BYTE _OpenDevice();
 	BYTE _OpenDevice(LPCTSTR lpModuleName);
 	BYTE _JobCreate();

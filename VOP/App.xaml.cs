@@ -25,6 +25,7 @@ namespace VOP
         public static string crmFolder = System.IO.Path.GetTempPath() + "VOP_CRM";
         public static string cfgFile = "";
         public static string cfgFolder = "";
+        public static string PictureFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonPictures);
 
         /// <summary>
         /// Scanned images file list. The files in list need to be cleared, so

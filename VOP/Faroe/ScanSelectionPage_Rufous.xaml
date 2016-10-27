@@ -17,14 +17,14 @@
         <ResourceDictionary Source="../Controls/PanelButton.xaml"/>
     </UserControl.Resources>
     
-    <Grid Name="rootGrid">    
+    <Grid Name="rootGrid" ClipToBounds="False">    
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="40" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="40" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="80*"/>
@@ -68,13 +68,15 @@
             Click="RightButton_Click"
             />
 
-        <Button    
+        <local:DeviceButton   
+            x:Name="DeviceButton"
             Grid.Row="0"
             Grid.Column="4"
-            Style="{StaticResource DeviceButtonStyle}" 
+            Grid.ColumnSpan="3"
             Width="70"
             Height="70"
-            Margin="90,-280,0,0"
+            Margin="120,-250,0,0"
+            Click="DeviceButton_Click"
             />
 
 

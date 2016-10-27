@@ -58,12 +58,15 @@ namespace VOP
         //File
         public ScanParam m_fileScanSettings = new ScanParam();
         public string m_fileSaveType = "PDF";
-        public string m_fileName = "";
-        public string m_filePath = "";
+        public string m_fileName = "ScanPictures";
+        public string m_filePath = App.PictureFolder;
 
         //Application
         public ScanParam m_apScanSettings = new ScanParam();
         public string m_programType = "Paint";
+
+
+        public string m_DeviceName = "";
 
         public SettingData()
         {

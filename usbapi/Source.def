@@ -64,3 +64,6 @@ EXPORTS
 	ResetBonjourAddr
 	ADFScan
 	TestUsbScanInit
+	SearchValidedIP2
+	CheckUsbScan
+	SetConnectionMode

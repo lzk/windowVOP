@@ -57,4 +57,27 @@ public:
 	HANDLE m_hDevice[5];
 	HANDLE m_GLUSBDev;	
 };
+
+typedef int(*LPFN_NETWORK_CONNECT) (char *server, int port, int timeout);
+typedef int(*LPFN_NETWORK_CONNECT_BLOCK) (char *server, int port);
+typedef int(*LPFN_NETWORK_READ) (int sd, void* buff, DWORD len);
+typedef int(*LPFN_NETWORK_WRITE) (int sd, void* buff, DWORD len);
+typedef void(*LPFN_NETWORK_CLOSE) (int sd);
+
+class CGLNet
+{
+public:
+	CGLNet();
+	~CGLNet();
+	int CMDIO_Connect(const wchar_t* ipAddress);
+	int CMDIO_Close();
+	int CMDIO_Write(void* buffer, unsigned int dwLen);
+	int CMDIO_Read(void *buffer, unsigned int dwLen);
+	int m_socketId;
+	HMODULE m_hmod;
+	LPFN_NETWORK_CONNECT  m_lpfnNetworkConnect;
+	LPFN_NETWORK_READ     m_lpfnNetworkRead;
+	LPFN_NETWORK_WRITE    m_lpfnNetworkWrite;
+	LPFN_NETWORK_CLOSE    m_lpfnNetworkClose;
+};
 #endif

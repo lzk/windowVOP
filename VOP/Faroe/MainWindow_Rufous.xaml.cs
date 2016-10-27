@@ -40,6 +40,7 @@ namespace VOP
         public ScanPage_Rufous scanPage = new ScanPage_Rufous();
         public PrintPage printPage = new PrintPage();
 
+        private Thread thread_searchIP = null;
         public MainWindow_Rufous()
         {
             InitializeComponent();
@@ -48,6 +49,10 @@ namespace VOP
             this.Height = this.Height * App.gScalingRate;
 
             g_settingData.InitSettingData();
+
+            thread_searchIP = new Thread(InitIPList);
+            thread_searchIP.Start();
+
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
         }
 
@@ -60,6 +65,47 @@ namespace VOP
             MainPageView.Child = scanSelectionPage;
             scanSelectionPage.m_MainWin = this;
             AddMessageHook();
+        }
+
+        public void InitIPList()
+        {
+            ScanDevicePage_Rufous.ListIP();
+
+            StringBuilder usbName = new StringBuilder(50);
+            if (dll.CheckUsbScan(usbName) == 1)
+            {
+                if (MainWindow_Rufous.g_settingData.m_DeviceName == usbName.ToString())
+                {
+                    dll.SetConnectionMode(usbName.ToString(), true);
+                    SetDeviceButtonState(true);
+                }
+            }
+
+            if (ScanDevicePage_Rufous.ipList != null)
+            {
+                foreach (string ip in ScanDevicePage_Rufous.ipList)
+                {
+                    if (MainWindow_Rufous.g_settingData.m_DeviceName == ip)
+                    {
+                        dll.SetConnectionMode(ip, false);
+                        SetDeviceButtonState(true);
+                    }
+                }
+            }
+        }
+
+        public void SetDeviceButtonState(bool isConnected)
+        {
+            if (scanSelectionPage.DeviceButton != null)
+            {
+                scanSelectionPage.DeviceButton.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                new Action<bool>(
+                (x) =>
+                {
+                    scanSelectionPage.DeviceButton.Connected = x;
+                }
+                ), isConnected);
+            }
         }
 
         public void GotoPage(string pageName, object arg)
@@ -79,6 +125,11 @@ namespace VOP
             {
                 MainPageView.Child = scanSettingsPage;
                 scanSettingsPage.m_MainWin = this;
+            }
+            else if (pageName == "DevicePage")
+            {
+                MainPageView.Child = scanDevicePage;
+                scanDevicePage.m_MainWin = this;
             }
         }
 

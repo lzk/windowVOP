@@ -41,6 +41,10 @@ enum Scan_RET
 	RETSCAN_ERROR = 9,
 };
 
+wchar_t g_ipAddress[256] = { 0 };
+BOOL g_connectMode_usb = TRUE;
+
+
 USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	const wchar_t* tempPath,
 	int BitsPerPixel,
@@ -501,4 +505,46 @@ USBAPI_API int __stdcall TestUsbScanInit(
 	{
 		::SysFreeString(bstrArray[j]);
 	}
+
+	if (hDev != INVALID_HANDLE_VALUE) {
+		CloseHandle(hDev);
+	}
+}
+
+USBAPI_API int __stdcall CheckUsbScan(
+	char* interfaceName)
+{
+	HANDLE hDev = NULL;
+	TCHAR strPort[32] = { 0 };
+	int  iCnt;
+
+	for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++) {
+		_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
+		hDev = CreateFile(strPort,
+			GENERIC_READ | GENERIC_WRITE,
+			FILE_SHARE_READ | FILE_SHARE_WRITE,
+			NULL,
+			OPEN_EXISTING,
+			FILE_FLAG_OVERLAPPED, NULL);
+
+		if (hDev != INVALID_HANDLE_VALUE) {
+			::WideCharToMultiByte(CP_ACP, 0, strPort, -1, interfaceName, 32, NULL, NULL);
+			break;
+		}
+	}
+
+	if (hDev == INVALID_HANDLE_VALUE)
+		return 0;
+
+	
+	if (hDev != INVALID_HANDLE_VALUE) {
+		CloseHandle(hDev);
+	}
+}
+
+USBAPI_API void __stdcall SetConnectionMode(
+	const wchar_t* deviceName, BOOL isUsb)
+{
+	_tcscpy_s(g_ipAddress, 256, deviceName);
+	g_connectMode_usb = isUsb;
 }

@@ -12,11 +12,13 @@
 #endif
 #define USBSCANSTRING	  L"\\\\.\\usbscan"
 #define MAX_DEVICES       127
+#define DLL_NAME_NET L"NetIO"
 
 CGLUsb::CGLUsb():
 m_GLUSBDev(INVALID_HANDLE_VALUE)
 {
 }
+
 CGLUsb::~CGLUsb()
 {
 }
@@ -232,4 +234,86 @@ int CGLUsb::_SetIOHandle(HANDLE dwDevice, WORD wType)
 	wType = wType;
 	m_GLUSBDev = dwDevice;
 	return TRUE;
+}
+
+CGLNet::CGLNet()
+{
+	m_hmod = LoadLibrary(DLL_NAME_NET);
+
+	m_lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(m_hmod, "NetworkConnectNonBlock");
+	m_lpfnNetworkRead = (LPFN_NETWORK_READ)GetProcAddress(m_hmod, "NetworkRead");
+	m_lpfnNetworkWrite = (LPFN_NETWORK_WRITE)GetProcAddress(m_hmod, "NetworkWrite");
+	m_lpfnNetworkClose = (LPFN_NETWORK_CLOSE)GetProcAddress(m_hmod, "NetworkClose");
+
+	m_socketId = 0;
+}
+
+CGLNet::~CGLNet()
+{
+	m_lpfnNetworkConnect = NULL;
+	m_lpfnNetworkRead = NULL;
+	m_lpfnNetworkWrite = NULL;
+	m_lpfnNetworkClose = NULL;
+
+	FreeLibrary(m_hmod);
+}
+
+int CGLNet::CMDIO_Connect(const wchar_t* ipAddress)
+{
+	if (m_hmod && m_lpfnNetworkConnect)
+	{
+		char szAsciiIP[1024] = { 0 };
+		::WideCharToMultiByte(CP_ACP, 0, ipAddress, -1, szAsciiIP, 1024, NULL, NULL);
+		m_socketId = m_lpfnNetworkConnect(szAsciiIP, 9100, 1000);
+		return True;
+	}
+	return False;
+}
+
+int CGLNet::CMDIO_Write(void* buffer, unsigned int dwLen)
+{
+	int cbWrite = 0;
+	if (m_hmod && m_lpfnNetworkWrite)
+	{
+		cbWrite = m_lpfnNetworkWrite(m_socketId, buffer, dwLen);
+	}
+
+	if (cbWrite == dwLen)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+int CGLNet::CMDIO_Read(void* buffer, unsigned int dwLen)
+{
+	int cbRead = 0;
+	if (m_hmod && m_lpfnNetworkRead)
+	{
+		cbRead = m_lpfnNetworkRead(m_socketId, buffer, dwLen);
+	}
+
+	if (cbRead == dwLen)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
+int CGLNet::CMDIO_Close()
+{
+	if (m_hmod && m_lpfnNetworkClose)
+	{
+		m_lpfnNetworkClose(m_socketId);
+
+		return True;
+	}
+
+	return False;
 }

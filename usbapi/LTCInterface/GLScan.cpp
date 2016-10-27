@@ -10,6 +10,7 @@ U8	buf[0x100000];
 CGLDrv::CGLDrv()
 {
 	m_GLusb					= new CGLUsb;
+	m_GLnet					= new CGLNet;
 	sc_job_create.code		= I3('JOB');
 	sc_job_create.request	= ('C');
 	sc_job_end.code			= I3('JOB');
@@ -34,19 +35,45 @@ CGLDrv::~CGLDrv()
 
 BYTE CGLDrv::_OpenDevice()
 {
-	return (BYTE)(m_GLusb->CMDIO_OpenDevice());
+	if (g_connectMode_usb == TRUE)
+	{
+		return (BYTE)(m_GLusb->CMDIO_OpenDevice());
+	}
+	else
+	{
+		return (BYTE)(m_GLnet->CMDIO_Connect(g_ipAddress));
+	}
 }
 
 BYTE CGLDrv::_OpenDevice(LPCTSTR lpModuleName)
 {
-	return (BYTE)(m_GLusb->CMDIO_OpenDevice(lpModuleName));
+	if (g_connectMode_usb == TRUE)
+	{
+		return (BYTE)(m_GLusb->CMDIO_OpenDevice(lpModuleName));
+	}
+	else
+	{
+		return (BYTE)(m_GLnet->CMDIO_Connect(lpModuleName));
+	}
+
 }
 
 BYTE CGLDrv::_JobCreate()
 {
 	int result;
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_job_create, sizeof(sc_job_create)) &&
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_job_create, sizeof(sc_job_create)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &job_status, sizeof(job_status));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_job_create, sizeof(sc_job_create)) &&
+			m_GLnet->CMDIO_Read(&job_status, sizeof(job_status));
+		
+	}
+
 	if(!result || job_status.ack == 'E') {
 #if _GLDEBUG_
 		LTCPrintf("Job create error (#%d)\n", job_status.err);
@@ -65,8 +92,18 @@ BYTE CGLDrv::_JobEnd()
 {
 	int result;
 	sc_job_end.id = (unsigned char)JobID;
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_job_end, sizeof(sc_job_end)) &&
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_job_end, sizeof(sc_job_end)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &job_status, sizeof(job_status));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_job_end, sizeof(sc_job_end)) &&
+			m_GLnet->CMDIO_Read(&job_status, sizeof(job_status));
+	}
+
 	if(!result || job_status.ack == 'E' || job_status.id != JobID) {
 #if _GLDEBUG_
 		LTCPrintf("Job end error. err(%d), ID(%d)\n", job_status.err, job_status.id);
@@ -84,9 +121,21 @@ BYTE CGLDrv::_parameters()
 {
 	int result;
 	sc_par.id = (unsigned char)JobID;
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_par, sizeof(sc_par)) &&
+	
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_par, sizeof(sc_par)) &&
 			m_GLusb->CMDIO_BulkWriteEx(0, &sc_pardata, sizeof(sc_pardata)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &par_status, sizeof(par_status));
+
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_par, sizeof(sc_par)) &&
+			m_GLnet->CMDIO_Write(&sc_pardata, sizeof(sc_pardata)) &&
+			m_GLnet->CMDIO_Read(&par_status, sizeof(par_status));
+	}
+
 	if(!result || par_status.ack == 'E' || par_status.id != JobID) {
 #if _GLDEBUG_
 		LTCPrintf("Set parameter error. err(%d), ID(%d)\n", par_status.err, par_status.id);
@@ -104,8 +153,19 @@ BYTE CGLDrv::_StartScan()
 {
 	int result;
 	sc_scan.id = (unsigned char)JobID;
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_scan, sizeof(sc_scan)) &&
+	
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_scan, sizeof(sc_scan)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &scan_status, sizeof(scan_status));
+
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_scan, sizeof(sc_scan)) &&
+			m_GLnet->CMDIO_Read(&scan_status, sizeof(scan_status));
+	}
+
 	if(!result || scan_status.ack == 'E' || scan_status.id != JobID) {
 #if _GLDEBUG_
 		LTCPrintf("Start scan error. err(%d), ID(%d)\n", scan_status.err, scan_status.id);
@@ -153,8 +213,19 @@ BYTE CGLDrv::_stop()
 {
 	int result;
 	sc_stop.id = (unsigned char)JobID;
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_stop, sizeof(sc_stop)) &&
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_stop, sizeof(sc_stop)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &stop_status, sizeof(stop_status));
+
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_stop, sizeof(sc_stop)) &&
+			m_GLnet->CMDIO_Read(&stop_status, sizeof(stop_status));
+	}
+
 	if(!result || stop_status.ack == 'E' || stop_status.id != JobID) {
 #if _GLDEBUG_
 		LTCPrintf("Stop scan error. err(%d), ID(%d)\n", stop_status.err, stop_status.id);
@@ -172,15 +243,33 @@ BYTE CGLDrv::_info()
 {
 	int result;
 	sc_info.id = 0;
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_info, sizeof(sc_info));
-	if(!result)
+	
+	if (g_connectMode_usb == TRUE)
 	{
-		LTCPrintf("_info Bulkwrite Fail\n");
-		result = 0;
-		goto exit_info;
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_info, sizeof(sc_info));
+		if (!result)
+		{
+			LTCPrintf("_info Bulkwrite Fail\n");
+			result = 0;
+			goto exit_info;
+		}
+		//Sleep(3);
+		result = result && m_GLusb->CMDIO_BulkReadEx(0, &sc_infodata, sizeof(sc_infodata));
+
 	}
-	//Sleep(3);
-	result = result && m_GLusb->CMDIO_BulkReadEx(0, &sc_infodata, sizeof(sc_infodata));
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_info, sizeof(sc_info));
+		if (!result)
+		{
+			LTCPrintf("_info Bulkwrite Fail\n");
+			result = 0;
+			goto exit_info;
+		}
+		//Sleep(3);
+		result = result && m_GLnet->CMDIO_Read(&sc_infodata, sizeof(sc_infodata));
+	}
+
 	/*if(sc_infodata.CoverOpen || sc_infodata.PaperJam || sc_infodata.Cancel)
 	{
 #if _GLDEBUG_
@@ -225,8 +314,20 @@ BYTE CGLDrv::_cancel()
 	LTCPrintf("\n\tCancel Scan...");
 #endif
 	sc_cancel.id = (unsigned char)JobID;
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_cancel, sizeof(sc_cancel)) &&
+	
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_cancel, sizeof(sc_cancel)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &cancel_status, sizeof(cancel_status));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_cancel, sizeof(sc_cancel)) &&
+			m_GLnet->CMDIO_Read(&cancel_status, sizeof(cancel_status));
+	}
+
+
 	if(!result || cancel_status.ack == 'E' || cancel_status.id != JobID) {
 #if _GLDEBUG_
 		LTCPrintf("Fail\n");
@@ -242,7 +343,15 @@ exit_cancel:
 }
 BYTE CGLDrv::_CloseDevice()
 {
-	return (BYTE)(m_GLusb->CMDIO_CloseDevice());
+	if (g_connectMode_usb == TRUE)
+	{
+		return (BYTE)(m_GLusb->CMDIO_CloseDevice());
+	}
+	else
+	{
+		return (BYTE)(m_GLnet->CMDIO_Close());
+	}
+	
 }
 BYTE CGLDrv::_ReadImageEX(int dup, int *ImgSize,BYTE* Buffer,int ReadSize)
 {
@@ -255,8 +364,18 @@ BYTE CGLDrv::_ReadImageEX(int dup, int *ImgSize,BYTE* Buffer,int ReadSize)
 	{
 		sc_img.length = sc_infodata.ValidPageSize[dup];
 	}
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_img, sizeof(sc_img)) &&
+	
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_img, sizeof(sc_img)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &img_status, sizeof(img_status));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_img, sizeof(sc_img)) &&
+			m_GLnet->CMDIO_Read(&img_status, sizeof(img_status));
+	}
+
 	if(!result || img_status.ack == 'E')
 	{
 #if _GLDEBUG_
@@ -265,7 +384,16 @@ BYTE CGLDrv::_ReadImageEX(int dup, int *ImgSize,BYTE* Buffer,int ReadSize)
 		result = 0;
 		return FALSE;
 	}
-	result = m_GLusb->CMDIO_BulkReadEx(0, Buffer, img_status.length);
+	
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkReadEx(0, Buffer, img_status.length);
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Read(Buffer, img_status.length);
+	}
+
 	if(!result) {
 #if _GLDEBUG_
 		LTCPrintf("Get image data error.\n");
@@ -289,9 +417,20 @@ BYTE CGLDrv::_NVRAM_W(unsigned char addr, BYTE *pbData, unsigned char len )
 	NVW.straddr = addr;
 	NVW.length = len;
 
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &NVW, sizeof(S_NVRW)) &&
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &NVW, sizeof(S_NVRW)) &&
 			m_GLusb->CMDIO_BulkWriteEx(0, pbData, NVW.length) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &NVRW_status, sizeof(NVRW_status));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&NVW, sizeof(S_NVRW)) &&
+			m_GLnet->CMDIO_Write(pbData, NVW.length) &&
+			m_GLnet->CMDIO_Read(&NVRW_status, sizeof(NVRW_status));
+	}
+
 	if(!result || NVRW_status.ack == 'E') {
 		LTCPrintf("NVW test error (#%d)\n", NVRW_status.err);
 		result = 0;
@@ -311,15 +450,33 @@ BYTE CGLDrv::_NVRAM_R(unsigned char addr, BYTE *pbData, unsigned char len )
 	NVR.straddr = addr;
 	NVR.length = len;
 
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &NVR, sizeof(S_NVRW)) &&
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &NVR, sizeof(S_NVRW)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &NVRW_status, sizeof(NVRW_status));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&NVR, sizeof(S_NVRW)) &&
+			m_GLnet->CMDIO_Read(&NVRW_status, sizeof(NVRW_status));
+	}
+
 	if(!result || NVRW_status.ack == 'E') {
 		LTCPrintf("NVR test error (#%d)\n", NVRW_status.err);
 		result = 0;
 		goto exit_NVTEST_R;
 	}
 
-	result = m_GLusb->CMDIO_BulkReadEx(0, pbData, NVR.length);
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkReadEx(0, pbData, NVR.length);
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Read(pbData, NVR.length);
+	}
+
 #if _GLDEBUG_
 	LTCPrintf("NVR test OK.\n");
 #endif
@@ -331,8 +488,18 @@ exit_NVTEST_R:
 BYTE CGLDrv::_ADFCheck()
 {
 	int result;
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_adf_check, sizeof(SC_ADF_CHECK_T)) &&
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_adf_check, sizeof(SC_ADF_CHECK_T)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &sc_adf_check_status, sizeof(SC_ADF_CHECK_STA_T));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_adf_check, sizeof(SC_ADF_CHECK_T)) &&
+			m_GLnet->CMDIO_Read(&sc_adf_check_status, sizeof(SC_ADF_CHECK_STA_T));
+	}
+
 	if(!result ||  sc_adf_check_status.ack == 'E') {
 #if _GLDEBUG_
 		LTCPrintf("ADF check error (#%d)\n", sc_adf_check_status.err);
@@ -355,9 +522,20 @@ BYTE CGLDrv::_matrix(float *Matrix)
 	for(i=0;i<9;i++)
 		ColorMatrix[i]= *(Matrix+i);
 
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_matrix, sizeof(SC_PAR_T)) &&
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_matrix, sizeof(SC_PAR_T)) &&
 			m_GLusb->CMDIO_BulkWriteEx(0, ColorMatrix, sc_matrix.length) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &sc_matrix_status, sizeof(SC_PAR_STA_T));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_matrix, sizeof(SC_PAR_T)) &&
+			m_GLnet->CMDIO_Write(ColorMatrix, sc_matrix.length) &&
+			m_GLnet->CMDIO_Read(&sc_matrix_status, sizeof(SC_PAR_STA_T));
+	}
+
 	if(!result || sc_matrix_status.ack == 'E' || sc_matrix_status.id != JobID) {
 #if _GLDEBUG_
 		LTCPrintf("Load matrix table error. err(%d), ID(%d)\n", sc_matrix_status.err, sc_matrix_status.id);
@@ -387,9 +565,19 @@ BYTE CGLDrv::_SetTime(unsigned int sleep, unsigned int auto_off)
 
 	sc_time.length = sizeof(time_minsec);
 
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_time, sizeof(SC_PAR_T)) &&
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_time, sizeof(SC_PAR_T)) &&
 			m_GLusb->CMDIO_BulkWriteEx(0, &time_minsec, sc_time.length) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &sc_time_status, sizeof(SC_PAR_STA_T));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_time, sizeof(SC_PAR_T)) &&
+			m_GLnet->CMDIO_Write(&time_minsec, sc_time.length) &&
+			m_GLnet->CMDIO_Read(&sc_time_status, sizeof(SC_PAR_STA_T));
+	}
+
 	if(!result || sc_time_status.ack == 'E') {
 #if _GLDEBUG_
 		LTCPrintf("Time set error.\n");
@@ -413,9 +601,20 @@ BYTE CGLDrv::_gamma(unsigned int *gammatbl)
 	sc_gamma.id = (unsigned char)JobID;
 	sc_gamma.length = sizeof(int)*768;
 
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_gamma, sizeof(SC_PAR_T)) &&
+	
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_gamma, sizeof(SC_PAR_T)) &&
 			m_GLusb->CMDIO_BulkWriteEx(0, gammatbl, sc_gamma.length) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &sc_gamma_status, sizeof(SC_PAR_STA_T));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_gamma, sizeof(SC_PAR_T)) &&
+			m_GLnet->CMDIO_Write(gammatbl, sc_gamma.length) &&
+			m_GLnet->CMDIO_Read(&sc_gamma_status, sizeof(SC_PAR_STA_T));
+	}
+
 	if(!result || sc_gamma_status.ack == 'E' || sc_gamma_status.id != JobID) {
 #if _GLDEBUG_
 		LTCPrintf("Load gamma table error. err(%d), ID(%d)\n", sc_gamma_status.err, sc_gamma_status.id);
@@ -442,8 +641,17 @@ BYTE CGLDrv::_GetTime(unsigned int *sleep, unsigned int *auto_off ,unsigned int 
 	//=====================================
 	sc_time.length = sizeof(time_minsec);
 	
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_time, sizeof(SC_PAR_T)) &&
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_time, sizeof(SC_PAR_T)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &sc_time_status, sizeof(SC_PAR_STA_T));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_time, sizeof(SC_PAR_T)) &&
+			m_GLnet->CMDIO_Read(&sc_time_status, sizeof(SC_PAR_STA_T));
+	}
 	
 	if(!result || sc_time_status.ack == 'E') {
 #if _GLDEBUG_
@@ -453,7 +661,14 @@ BYTE CGLDrv::_GetTime(unsigned int *sleep, unsigned int *auto_off ,unsigned int 
 		goto exit;
 	}
 
-	result = m_GLusb->CMDIO_BulkReadEx(0, &time_minsec, sc_time.length);
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkReadEx(0, &time_minsec, sc_time.length);
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Read(&time_minsec, sc_time.length);
+	}
 			
 	*sleep = time_minsec[0]/1000/60;
 	*auto_off = time_minsec[1]/1000/60;
@@ -493,10 +708,21 @@ BYTE CGLDrv::_Get_fw_version(char *version)
 {
 	int result;
 	
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &GFWV, sizeof(fw_version_ack)) &&
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &GFWV, sizeof(fw_version_ack)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &FWV, sizeof(fw_version_get));
-	
-	result = m_GLusb->CMDIO_BulkReadEx(0, version, FWV.length);
+
+		result = m_GLusb->CMDIO_BulkReadEx(0, version, FWV.length);
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&GFWV, sizeof(fw_version_ack)) &&
+			m_GLnet->CMDIO_Read(&FWV, sizeof(fw_version_get));
+
+		result = m_GLnet->CMDIO_Read(version, FWV.length);
+	}
+
 	version[FWV.length]='\0';
 	if(!result || (FWV.check == 'E')) {
 #if _GLDEBUG_
@@ -519,8 +745,19 @@ BYTE CGLDrv::_ButtonStatusGet(unsigned char *duplex, unsigned char *mode)
 	int result;
 	unsigned char button_status[4];
 
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &get_button, sizeof(SC_PAR_T)) &&
-              m_GLusb->CMDIO_BulkReadEx(0, button_status, sizeof(button_status));
+
+	if (g_connectMode_usb == TRUE)
+	{
+
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &get_button, sizeof(SC_PAR_T)) &&
+			m_GLusb->CMDIO_BulkReadEx(0, button_status, sizeof(button_status));
+	}
+	else
+	{
+
+		result = m_GLnet->CMDIO_Write(&get_button, sizeof(SC_PAR_T)) &&
+			m_GLnet->CMDIO_Read(button_status, sizeof(button_status));
+	}
 
      *duplex = button_status[0];
      *mode = button_status[1];
@@ -536,8 +773,21 @@ BYTE CGLDrv::_ButtonStatusGet(unsigned char *duplex, unsigned char *mode)
 BYTE CGLDrv::_ResetScan()
 {
      int result;
-     result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_reset, sizeof(sc_reset)) &&
-               m_GLusb->CMDIO_BulkReadEx(0, &reset_status, sizeof(reset_status));
+   
+	 if (g_connectMode_usb == TRUE)
+	 {
+
+		 result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_reset, sizeof(sc_reset)) &&
+			 m_GLusb->CMDIO_BulkReadEx(0, &reset_status, sizeof(reset_status));
+	 }
+	 else
+	 {
+
+		 result = m_GLnet->CMDIO_Write(&sc_reset, sizeof(sc_reset)) &&
+			 m_GLnet->CMDIO_Read(&reset_status, sizeof(reset_status));
+	 }
+
+
      if(!result || reset_status.ack == 'E') {
 #if _GLDEBUG_
           printf("Reset scan flow error. err(%d), ID(%d)\n", reset_status.err, reset_status.id);
@@ -554,8 +804,17 @@ exit_StartScan:
 BYTE CGLDrv::_InitializeScanner()
 {
 	BYTE result=1;
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_status, sizeof(SC_STATUS_T)) &&
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_status, sizeof(SC_STATUS_T)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &sc_status_data, sizeof(SC_STATUS_DATA_T));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_status, sizeof(SC_STATUS_T)) &&
+			m_GLnet->CMDIO_Read(&sc_status_data, sizeof(SC_STATUS_DATA_T));
+	}
 	
 	if(!result) {
 #if _GLDEBUG_
@@ -577,8 +836,18 @@ exit__InitializeScanner:
 BYTE CGLDrv::_CheckScanningMode()
 {
 	BYTE result=1;
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_status, sizeof(SC_STATUS_T)) &&
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_status, sizeof(SC_STATUS_T)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &sc_status_data, sizeof(SC_STATUS_DATA_T));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_status, sizeof(SC_STATUS_T)) &&
+			m_GLnet->CMDIO_Read(&sc_status_data, sizeof(SC_STATUS_DATA_T));
+	}
+
 	
 	if(!result) {
 #if _GLDEBUG_
@@ -592,8 +861,18 @@ BYTE CGLDrv::_CheckScanningMode()
 BYTE CGLDrv::_StatusGet()
 {
 	BYTE result=1;
-	result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_status, sizeof(SC_STATUS_T)) &&
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_status, sizeof(SC_STATUS_T)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, &sc_status_data, sizeof(SC_STATUS_DATA_T));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_status, sizeof(SC_STATUS_T)) &&
+			m_GLnet->CMDIO_Read(&sc_status_data, sizeof(SC_STATUS_DATA_T));
+	}
+
 	
 	if(!result) {
 #if _GLDEBUG_

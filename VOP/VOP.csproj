@@ -139,6 +139,8 @@
     <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple_Busy_QRCode.xaml.cs">
       <DependentUpon>MessageBoxEx_Simple_Busy_QRCode.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\DeviceButton.cs" />
+    <Compile Include="Faroe\DeviceListBoxItem.cs" />
     <Compile Include="Faroe\QRCodeWindow\QRCodeManualPage.xaml.cs">
       <DependentUpon>QRCodeManualPage.xaml</DependentUpon>
     </Compile>
@@ -192,6 +194,9 @@
     </Compile>
     <Compile Include="Faroe\ScanSelectionPage_Rufous.cs" />
     <Compile Include="Faroe\ScanTo\ScanToFtp\FtpFlow.cs" />
+    <Compile Include="Faroe\Settings\ScanToAPView.xaml.cs">
+      <DependentUpon>ScanToAPView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Faroe\Settings\ScanToEmailView.xaml.cs">
       <DependentUpon>ScanToEmailView.xaml</DependentUpon>
     </Compile>
@@ -349,6 +354,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\DeviceButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\DeviceListBoxItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\ImageButton\ImageButton2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -449,6 +462,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Faroe\ScanSelectionPage_Rufous.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\Settings\ScanToAPView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1236,6 +1253,17 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\WindowsPhotoViewer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\reload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\clockwise-arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\device_normal_blue.png" />
+    <Resource Include="Images\device_over_blue.png" />
+    <Resource Include="Images\device_press_blue.png" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>
