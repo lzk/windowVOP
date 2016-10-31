@@ -240,6 +240,9 @@
     <Compile Include="Faroe\Settings\SettingButton_Rufous.xaml.cs">
       <DependentUpon>SettingButton_Rufous.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Faroe\Settings\TcpipView_Rufous.xaml.cs">
+      <DependentUpon>TcpipView_Rufous.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TroubleshootingPage.cs" />
     <Compile Include="MessageBoxEx_Video.xaml.cs">
       <DependentUpon>MessageBoxEx_Video.xaml</DependentUpon>
@@ -332,6 +335,9 @@
       <DependentUpon>UserConfigView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserDefinedSetting.cs" />
+    <Compile Include="Faroe\Settings\WifiView_Rufous.xaml.cs">
+      <DependentUpon>WifiView_Rufous.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WifiView.xaml.cs">
       <DependentUpon>WifiView.xaml</DependentUpon>
     </Compile>
@@ -532,6 +538,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Faroe\Settings\TcpipView_Rufous.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="TroubleshootingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -661,6 +671,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserDefinedSetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\Settings\WifiView_Rufous.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

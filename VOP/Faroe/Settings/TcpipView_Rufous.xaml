@@ -1,0 +1,299 @@
+﻿<UserControl x:Class="VOP.TcpipView_Rufous"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:vop="clr-namespace:VOP"
+             xmlns:local="clr-namespace:VOP.Controls"
+             Loaded="OnLoadedTcpipView"
+             Name="MyView"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/AdjustButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+           
+            <Style x:Key="IPErrorTemplateStyle" TargetType="{x:Type TextBox}">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <local:PopupEx IsOpen="True" 
+                               AllowsTransparency="True"
+                               PlacementTarget="{Binding ElementName=MyAdorner}"
+                               Placement="Top"
+                               VerticalOffset="-5"
+                               HorizontalOffset="-50"
+                               Topmost="False"
+                               PopupPlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" 
+                               >
+                                    <Border Background="#FFD3EAC3" BorderBrush="#FF727272" BorderThickness="0.5">
+                                        <TextBlock 
+								            Foreground="#FF727272"
+								            Margin="5" 
+								            FontSize="12"
+								            Text="{Binding ElementName=MyAdorner, 
+                                                    Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                                        </TextBlock>
+                                    </Border>
+                                </local:PopupEx>
+
+                                <Border BorderBrush="Red" BorderThickness="2.5" CornerRadius="16">
+                                    <AdornedElementPlaceholder Name="MyAdorner"/>
+                                </Border>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="GatewayErrorTemplateStyle" TargetType="{x:Type TextBox}">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <local:PopupEx IsOpen="True" 
+                               AllowsTransparency="True"
+                               PlacementTarget="{Binding ElementName=MyAdorner}"
+                               Placement="Top"
+                               VerticalOffset="-5"
+                               HorizontalOffset="-50"
+                               Topmost="False"
+                               PopupPlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" 
+                               >
+                                    <Border Background="#FFD3EAC3" BorderBrush="#FF727272" BorderThickness="0.5">
+                                        <TextBlock 
+								            Foreground="#FF727272"
+								            Margin="5" 
+								            FontSize="12"
+								            Text="{Binding ElementName=MyAdorner, 
+                                                    Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                                        </TextBlock>
+                                    </Border>
+                                </local:PopupEx>
+
+                                <Border BorderBrush="Red" BorderThickness="2.5" CornerRadius="16">
+                                    <AdornedElementPlaceholder Name="MyAdorner"/>
+                                </Border>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="SubmaskErrorTemplateStyle" TargetType="{x:Type TextBox}">
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <local:PopupEx IsOpen="True" 
+                               AllowsTransparency="True"
+                               PlacementTarget="{Binding ElementName=MyAdorner}"
+                               Placement="Top"
+                               VerticalOffset="-5"
+                               HorizontalOffset="-50"
+                               Topmost="False"
+                               PopupPlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" 
+                               >
+                                    <Border Background="#FFD3EAC3" BorderBrush="#FF727272" BorderThickness="0.5">
+                                        <TextBlock 
+								            Foreground="#FF727272"
+								            Margin="5" 
+								            FontSize="12"
+								            Text="{Binding ElementName=MyAdorner, 
+                                                    Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                                        </TextBlock>
+                                    </Border>
+                                </local:PopupEx>
+
+                                <Border BorderBrush="Red" BorderThickness="2.5" CornerRadius="16">
+                                    <AdornedElementPlaceholder Name="MyAdorner"/>
+                                </Border>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="..\..\Images\SettingViewBackground.png" />
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="80"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.4*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="0*"></RowDefinition>
+                <RowDefinition Height="1.2*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="2.4*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{StaticResource ResStr_IP_Type}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <RadioButton Click="btn_click" Name="rdbtn_dhcp" GroupName="ipaddress" Grid.Column="0" Content="{StaticResource ResStr_DHCP}" IsChecked="true" Height="25" Template="{StaticResource customRadioButton}" />
+                <RadioButton Click="btn_click" Name="rdbtn_static" GroupName="ipaddress" Grid.Column="1"  Content="{StaticResource ResStr_Static}"  IsChecked="False" Height="25"  Template="{StaticResource customRadioButton}" />
+            </Grid>
+
+            <TextBlock Text="{StaticResource ResStr_IP_Address}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
+            <TextBox 
+                TextChanged="handler_text_changed" 
+                x:Name="tb_ip" 
+                PreviewTextInput="OnTextBoxPreviewTextInput" 
+                Template="{StaticResource customTextBox}" 
+                Grid.Row="1" 
+                Grid.Column="1" 
+                Height="28" 
+                VerticalAlignment="Center" 
+                MaxLength="15" 
+                Style="{StaticResource IPErrorTemplateStyle}"
+                InputMethod.IsInputMethodEnabled="False" 
+                PreviewKeyDown="OnPreviewKeyDown"
+                LostFocus="tb_ip_LostFocus">
+                <TextBox.InputBindings>
+                    <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                </TextBox.InputBindings>
+                <TextBox.ContextMenu>
+                    <ContextMenu Visibility="Collapsed">
+                    </ContextMenu>
+                </TextBox.ContextMenu>
+                <TextBox.Text>
+                    <Binding 
+                        Path="IP" 
+                        ElementName="MyView"
+                        Mode="TwoWay"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:IPAddressValidationRule ErrorMessage="{StaticResource ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_}"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>         
+            </TextBox>
+
+            <TextBlock Text="{StaticResource ResStr_Submask}" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
+            <TextBox 
+                TextChanged="handler_text_changed" 
+                Name="tb_mask" 
+                PreviewTextInput="OnTextBoxPreviewTextInput" 
+                Template="{StaticResource customTextBox}" 
+                Grid.Row="2"
+                Grid.Column="1" 
+                Height="28" 
+                VerticalAlignment="Center" 
+                MaxLength="15" 
+                Style="{StaticResource SubmaskErrorTemplateStyle}"
+                InputMethod.IsInputMethodEnabled="False" 
+                PreviewKeyDown="OnPreviewKeyDown"
+                LostFocus="tb_mask_LostFocus">
+                <TextBox.InputBindings>
+                    <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                </TextBox.InputBindings>
+                <TextBox.ContextMenu>
+                    <ContextMenu Visibility="Collapsed">
+                    </ContextMenu>
+                </TextBox.ContextMenu>
+                <TextBox.Text>
+                    <Binding 
+                        Path="Submask" 
+                        ElementName="MyView"
+                        Mode="TwoWay"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:SubmaskValidationRule ErrorMessage="{StaticResource ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation}"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            
+            <TextBlock Text="{StaticResource ResStr_Gateway}" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
+            <TextBox 
+                TextChanged="handler_text_changed" 
+                Name="tb_gate" 
+                PreviewTextInput="OnTextBoxPreviewTextInput" 
+                Template="{StaticResource customTextBox}"  
+                Grid.Row="3" 
+                Grid.Column="1" 
+                Height="28" 
+                VerticalAlignment="Center" 
+                MaxLength="15" 
+                Style="{StaticResource GatewayErrorTemplateStyle}"
+                InputMethod.IsInputMethodEnabled="False" 
+                PreviewKeyDown="OnPreviewKeyDown"
+                LostFocus="tb_ip_LostFocus">
+                <TextBox.InputBindings>
+                    <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                </TextBox.InputBindings>
+                <TextBox.ContextMenu>
+                    <ContextMenu Visibility="Collapsed">
+                    </ContextMenu>
+                </TextBox.ContextMenu>
+                <TextBox.Text>
+                    <Binding 
+                        Path="Gateway" 
+                        ElementName="MyView"
+                        Mode="TwoWay"
+                        UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <local:IPAddressValidationRule ErrorMessage="{StaticResource ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_}"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+
+            <!--<local:ButtonEx x:Name="btnReset"
+                            Click="btnReset_Click" 
+                            Content="Reset IP" 
+                            FontSize="16"  
+                            IsActiveEx="True" 
+                            Grid.Row="4" 
+                            Grid.Column="0" 
+                            Grid.ColumnSpan="2" 
+                            HorizontalAlignment="Center" 
+                            HorizontalContentAlignment="Center" 
+                            VerticalAlignment="Bottom" 
+                            Width="125" 
+                            Height="32"></local:ButtonEx>-->
+            <local:ButtonEx x:Name="btnApply"
+                            Click="btnApply_Click" 
+                            Content="{StaticResource ResStr_Apply}" 
+                            FontSize="18"  
+                            IsActiveEx="True"
+                            Grid.Row="5" 
+                            Grid.Column="0" 
+                            Grid.ColumnSpan="2" 
+                            HorizontalAlignment="Center" 
+                            HorizontalContentAlignment="Center" 
+                            VerticalAlignment="Bottom" 
+                            Width="125" 
+                            Height="32"></local:ButtonEx>
+        </Grid>
+    </Grid>
+</UserControl>

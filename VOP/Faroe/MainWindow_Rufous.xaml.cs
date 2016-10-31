@@ -41,6 +41,10 @@ namespace VOP
         public PrintPage printPage = new PrintPage();
 
         private Thread thread_searchIP = null;
+
+        public static byte m_byWifiInitStatus = 0;
+        public string m_strPassword = "";
+
         public MainWindow_Rufous()
         {
             InitializeComponent();
@@ -65,6 +69,26 @@ namespace VOP
             MainPageView.Child = scanSelectionPage;
             scanSelectionPage.m_MainWin = this;
             AddMessageHook();
+        }
+
+        public bool PasswordCorrect(Window parent)
+        {
+            bool bCorrect = false;
+            if (m_strPassword.Length > 0)
+            {
+                PasswordRecord m_rec = new PasswordRecord("", m_strPassword);
+                AsyncWorker worker = new AsyncWorker(parent);
+
+                if (worker.InvokeMethod<PasswordRecord>("", ref m_rec, DllMethodType.ConfirmPassword, this))
+                {
+                    if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+                    {
+                        bCorrect = true;
+                    }
+                }
+
+            }
+            return bCorrect;
         }
 
         public void InitIPList()

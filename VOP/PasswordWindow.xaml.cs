@@ -36,35 +36,35 @@ namespace VOP
             bool isApplySuccess = false;
 
             string strpwd = pbPwd.Password;
-            string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
-            string strDrvName = "";
-            if (false == common.GetPrinterDrvName(strPrinterName, ref strDrvName))
-            {
-                MessageBoxEx_Simple messageBox =
-                    new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)this.FindResource("ResStr_Error"));
-                messageBox.Owner = App.Current.MainWindow;
-                messageBox.ShowDialog();
+            //string strPrinterName = ((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter;
+            //string strDrvName = "";
+            //if (false == common.GetPrinterDrvName(strPrinterName, ref strDrvName))
+            //{
+            //    MessageBoxEx_Simple messageBox =
+            //        new MessageBoxEx_Simple((string)this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)this.FindResource("ResStr_Error"));
+            //    messageBox.Owner = App.Current.MainWindow;
+            //    messageBox.ShowDialog();
 
-                return;
-            }
+            //    return;
+            //}
 
             if (strpwd.Length > 0)
             {
-                PasswordRecord m_rec = new PasswordRecord(strPrinterName, strpwd);
+                PasswordRecord m_rec = new PasswordRecord("", strpwd);
                 AsyncWorker worker = new AsyncWorker(this);
 
-                if (worker.InvokeMethod<PasswordRecord>(strPrinterName, ref m_rec, DllMethodType.ConfirmPassword, this))
+                if (worker.InvokeMethod<PasswordRecord>("", ref m_rec, DllMethodType.ConfirmPassword, this))
                 {
                     if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                     {
-                        ((MainWindow)App.Current.MainWindow).m_strPassword = strpwd;
+                        ((MainWindow_Rufous)App.Current.MainWindow).m_strPassword = strpwd;
                         isApplySuccess = true;
                     }
                 }
 
                 if (!isApplySuccess)
                 {
-                    ((MainWindow)App.Current.MainWindow).m_strPassword = "";
+                    ((MainWindow_Rufous)App.Current.MainWindow).m_strPassword = "";
                     pbPwd.Focus();
                     pbPwd.SelectAll();
                     tbkErrorInfo.Foreground = new SolidColorBrush(Colors.Red);

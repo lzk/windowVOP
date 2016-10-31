@@ -20,6 +20,9 @@ namespace VOP
         SettingButton_Rufous btnScanToAP = new SettingButton_Rufous(SettingType.ScanToAP);
         SettingButton_Rufous btnScanToCloud = new SettingButton_Rufous(SettingType.ScanToCloud);
 
+        SettingButton_Rufous btnwifi = new SettingButton_Rufous(SettingType.Wireless);
+        SettingButton_Rufous btnTCPIP = new SettingButton_Rufous(SettingType.TCPIP);
+
         List<SettingButton_Rufous> m_listSettingButton = new List<SettingButton_Rufous>();
 
         ScanParameterView scanParameterView = new ScanParameterView();
@@ -30,6 +33,8 @@ namespace VOP
         ScanToFileView scanToFileView = new ScanToFileView();
         ScanToAPView scanToAPView = new ScanToAPView();
 
+        WifiView_Rufous wifiView = new WifiView_Rufous();
+        TcpipView_Rufous tcpipView = new TcpipView_Rufous();
 
         public ScanSettingPage_Rufous()
         {
@@ -103,6 +108,23 @@ namespace VOP
             btnScanToCloud.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnScanToCloud);
 
+            btnwifi.btn.Content = "Wi-Fi";
+            btnwifi.Margin = new Thickness(0, 1, 0, 9);
+            btnwifi.Width = tabbtn_width;
+            btnwifi.Height = tabbtn_height;
+            btnwifi.HorizontalAlignment = HorizontalAlignment.Left;
+            btnwifi.btn.Name = "btnwifi";
+            btnwifi.btn.Click += SettingBtnClick;
+            m_listSettingButton.Add(btnwifi);
+
+            btnTCPIP.btn.Content = "IPv4";
+            btnTCPIP.Margin = new Thickness(0, 1, 0, 9);
+            btnTCPIP.Width = tabbtn_width;
+            btnTCPIP.Height = tabbtn_height;
+            btnTCPIP.HorizontalAlignment = HorizontalAlignment.Left;
+            btnTCPIP.btn.Name = "btnTCPIP";
+            btnTCPIP.btn.Click += SettingBtnClick;
+            m_listSettingButton.Add(btnTCPIP);
         }
         
         private void SetActiveButton(SettingType settingType)
@@ -145,7 +167,8 @@ namespace VOP
             setting_tab_btn.Children.Add(btnScanToFtp);
             setting_tab_btn.Children.Add(btnScanToAP);
             setting_tab_btn.Children.Add(btnScanToCloud);
-
+            setting_tab_btn.Children.Add(btnwifi);
+            setting_tab_btn.Children.Add(btnTCPIP);
 
             ClickSettingButton(SettingType.ScanParameter);
           
@@ -169,26 +192,31 @@ namespace VOP
             else if ("btnScanToFile" == srcButton.Name)
             {
                 SetActiveButton(SettingType.ScanToFile);
+                scanToFileView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = scanToFileView;
             }
             else if ("btnScanToPrint" == srcButton.Name )
             {
                 SetActiveButton(SettingType.ScanToPrint);
+                scanToPrintView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = scanToPrintView;
             }
             else if ("btnScanToEmail" == srcButton.Name)
             {
                 SetActiveButton(SettingType.ScanToEmail);
+                scanToEmailView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = scanToEmailView;
             }
             else if ("btnScanToFTP" == srcButton.Name)
             {
                 SetActiveButton(SettingType.ScanToFtp);
+                scanToFtpView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = scanToFtpView;
             }
             else if ("btnScanToAP" == srcButton.Name)
             {
                 SetActiveButton(SettingType.ScanToAP);
+                scanToAPView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = scanToAPView;
             }
             else if ("btnScanToCloud" == srcButton.Name)
@@ -197,7 +225,18 @@ namespace VOP
                 scanToCloudView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = scanToCloudView;
             }
-          
+            else if ("btnwifi" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.Wireless);
+                wifiView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = wifiView;
+            }
+            else if ("btnTCPIP" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.TCPIP);
+                tcpipView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = tcpipView;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

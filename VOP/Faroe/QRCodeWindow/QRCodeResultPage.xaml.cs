@@ -143,15 +143,23 @@ namespace VOP.Controls
                         {
                             case ParsedResultType.URI:
                                 {
-                                    Paragraph paraResult = new Paragraph();
-                                    Hyperlink hl = new Hyperlink(new Run(v.Text));
-                                    hl.FontSize = 11;
-                                    hl.FontFamily = new FontFamily("Arial");
-                                    hl.NavigateUri = new Uri(v.Text);
-                                    hl.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigate);
-                                    paraResult.Inlines.Add(hl);
+                                    try
+                                    {
+                                        Paragraph paraResult = new Paragraph();
+                                        Hyperlink hl = new Hyperlink(new Run(v.Text));
+                                        hl.FontSize = 11;
+                                        hl.FontFamily = new FontFamily("Arial");
+                                        hl.NavigateUri = new Uri(v.Text);
+                                        hl.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigate);
+                                        paraResult.Inlines.Add(hl);
 
-                                    tr.Cells.Add(new TableCell(paraResult));
+                                        tr.Cells.Add(new TableCell(paraResult));
+                                    }
+                                    catch(Exception ex)
+                                    {
+                                        goto default;
+                                    }
+                                 
                                 }
                                 break;
                             default:

@@ -1,0 +1,252 @@
+﻿<UserControl x:Class="VOP.WifiView_Rufous"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:VOP.Controls"
+             xmlns:mycontrol="clr-namespace:VOP"
+             Loaded="OnLoadWifiView"
+             d:DesignHeight="500" d:DesignWidth="300"
+             IsEnabledChanged="UserControl_IsEnabledChanged">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomComboBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomScrollView.xaml"/>
+                <ResourceDictionary Source="../../Controls/ComboBox_Template.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="../../Images\SettingViewBackground.png" />
+            </Grid.Background>            
+        </Grid>
+        <ScrollViewer Grid.Column="1" Name="scrollview" CanContentScroll="true"
+        SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
+        VerticalScrollBarVisibility="Auto"
+        HorizontalScrollBarVisibility="Disabled"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top"
+        Background="White"
+        Style="{StaticResource LeftScrollViewer}"
+        Margin="40,20,40,20"
+                     
+        >
+            <StackPanel Name="wifiPanel" Margin="0,1,0,1" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid Height="45"  Background="#FFD1D1D1" Margin="6,2,6,2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="8"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="8"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4"></ColumnDefinition>
+                            <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                            <ColumnDefinition Width="2"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="2"></ColumnDefinition>
+                            <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="WLAN" Style="{StaticResource ColorChangeTextBlock}" FontWeight="Bold" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+                        <CheckBox Name="chkWifi" Click="OnClickWifiCheckBox" IsChecked="True" Grid.Row="1" Grid.Column="3" Template="{StaticResource switchBox}" Height="22" Width="42" Checked="OnchkWifiChecked" Unchecked="OnchkWifiUnchecked"></CheckBox>
+                        <local:ButtonEx x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="1" Grid.Column="5" Width="100" Content="{StaticResource ResStr_Manual_Wi_Fi}" HorizontalContentAlignment="Center" HorizontalAlignment="Right"></local:ButtonEx>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Name="rowManual" Height="0"></RowDefinition>
+                            <RowDefinition Height="auto" Name="rowAuto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Name="manualConnect" Margin="6,5,6,5" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                    <RowDefinition Height="70"></RowDefinition>
+                                    <RowDefinition Height="35"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="38"></ColumnDefinition>
+                                        <ColumnDefinition Width="6"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="../../Images/Wifi.png" Height="28" Width="28" ></Image>
+                                    <Grid Grid.Column="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock FontSize="15" Text="{StaticResource ResStr_Find_and_join_the_Wi_Fi}" Style="{StaticResource ColorChangeTextBlock}"></TextBlock>
+                                        <TextBlock Text="{StaticResource ResStr_Enter_SSID_and_security_type_}" Grid.Row="1" TextWrapping="Wrap" Style="{StaticResource ColorChangeTextBlock}"></TextBlock>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="{StaticResource ResStr_SSID}" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource ColorChangeTextBlock}"></TextBlock>
+                                    <TextBox Name="tbSSID" Grid.Column="1" Margin="4" VerticalAlignment="Center" MaxLength="32" InputMethod.IsInputMethodEnabled="False">
+                                        <TextBox.InputBindings>
+                                            <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                                        </TextBox.InputBindings>
+                                        <TextBox.ContextMenu>
+                                            <ContextMenu Visibility="Collapsed">
+                                            </ContextMenu>
+                                        </TextBox.ContextMenu>
+                                    </TextBox>
+                                    <TextBlock Name="tbkPwd" Grid.Row="1" Text="{StaticResource ResStr_Password}" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource ColorChangeTextBlock}"></TextBlock>
+                                    <TextBox Name="tbPwd" Grid.Row="1" Grid.Column="1" Margin="4" Visibility="Hidden" VerticalAlignment="Center" MaxLength="64" InputMethod.IsInputMethodEnabled="False">
+                                        <TextBox.InputBindings>
+                                            <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                                        </TextBox.InputBindings>
+                                        <TextBox.ContextMenu>
+                                            <ContextMenu Visibility="Collapsed">
+                                            </ContextMenu>
+                                        </TextBox.ContextMenu>
+                                    </TextBox>
+                                    <PasswordBox Name="pbPwd" Grid.Row="1"  Grid.Column="1" Margin="4"   VerticalAlignment="Center" MaxLength="64">
+                                        <PasswordBox.InputBindings>
+                                            <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                                        </PasswordBox.InputBindings>
+                                        <PasswordBox.ContextMenu>
+                                            <ContextMenu Visibility="Collapsed">
+                                            </ContextMenu>
+                                        </PasswordBox.ContextMenu>
+                                    </PasswordBox>
+                                </Grid>
+                                
+                                <StackPanel Grid.Row="2">
+                                    <Grid Height="30">
+                                        <CheckBox Name="chkDisplayPwd" Content="{StaticResource ResStr_Display_Password}" IsChecked="False" Template="{StaticResource customCheckBox}"  Checked="OnClickDisplayPWD" Unchecked="OnClickDisplayPWD"></CheckBox>
+                                    </Grid>
+                                </StackPanel>
+                                
+                                <Grid Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="4"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{StaticResource ResStr_Encryption}" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource ColorChangeTextBlock}"></TextBlock>
+                                    <ComboBox Name="cboEncrytion" Grid.Column="2" Background="White" Foreground="Black" VerticalAlignment="Center" Height="24" Style="{StaticResource CboCommomStyle1}" SelectionChanged="OncboEncrytionSelectionChanged">
+                                        <ComboBoxItem IsSelected="false" Content="{StaticResource ResStr_No_Security}" >
+                                            <ComboBoxItem.DataContext>
+                                                <mycontrol:EnumEncryptType>NoSecurity</mycontrol:EnumEncryptType>
+                                            </ComboBoxItem.DataContext>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem IsSelected="false" Content="{StaticResource ResStr_WEP}" >
+                                            <ComboBoxItem.DataContext>
+                                                <mycontrol:EnumEncryptType>WEP</mycontrol:EnumEncryptType>
+                                            </ComboBoxItem.DataContext>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem IsSelected="True" Content="{StaticResource ResStr_WPA2_PSK_AES}" >
+                                            <ComboBoxItem.DataContext>
+                                                <mycontrol:EnumEncryptType>WPA2_PSK_AES</mycontrol:EnumEncryptType>
+                                            </ComboBoxItem.DataContext>
+                                        </ComboBoxItem>
+                                        <ComboBoxItem IsSelected="false" Content="{StaticResource ResStr_Mixed_Mode_PSK}" >
+                                            <ComboBoxItem.DataContext>
+                                                <mycontrol:EnumEncryptType>MixedModePSK</mycontrol:EnumEncryptType>
+                                            </ComboBoxItem.DataContext>
+                                        </ComboBoxItem>
+                                    </ComboBox>
+                                </Grid>
+
+                                <StackPanel Grid.Row="4" Name="wepGrid" Visibility="Hidden">
+                                    <Grid Grid.Row="1" Height="50">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Name="tkWEPKeyID" Text="WEP KeyID" VerticalAlignment="Center" Margin="3,0,3,0"  Style="{StaticResource ColorChangeTextBlock}"></TextBlock>
+                                        <Grid Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <RadioButton Name="wepKey0" GroupName="WepKeyRadio1" IsChecked="False" FontSize="10" Template="{StaticResource customRadioButton}" Content="Key1" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton Name="wepKey1" GroupName="WepKeyRadio1" IsChecked="False" FontSize="10" Grid.Column="1" Template="{StaticResource customRadioButton}" Content="Key2" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton Name="wepKey2" GroupName="WepKeyRadio1" IsChecked="False" FontSize="10" Grid.Column="2" Template="{StaticResource customRadioButton}" Content="Key3" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton Name="wepKey3" GroupName="WepKeyRadio1"  IsChecked="False" FontSize="10" Grid.Column="3" Template="{StaticResource customRadioButton}" Content="Key4" VerticalAlignment="Center"></RadioButton>
+                                        </Grid>
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="5" Margin="0,10,0,0">
+                                    <Grid Height="30" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="6"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <local:ButtonEx x:Name="btnCancel" Click="btn_Click" IsActiveEx="False" Content="{StaticResource ResStr_Cancel}" HorizontalContentAlignment="Center"></local:ButtonEx>
+                                        <local:ButtonEx x:Name="btnConnect" Click="btn_Click" Grid.Column="2" IsActiveEx="True" Content="{StaticResource ResStr_Connect}" HorizontalContentAlignment="Center"></local:ButtonEx>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Name="autoConnect">
+                            <Grid  Height="30" Margin="6,5,6,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="20"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="2"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Column="0" Text="{StaticResource ResStr_WLAN_Network}" Style="{StaticResource ColorChangeTextBlock}" FontSize="16"></TextBlock>
+                                <mycontrol:RefreshButton 
+                                        Grid.Column="1" 
+                                        VerticalAlignment="Bottom"
+                                        HorizontalAlignment="Left"
+                                        Width="17" 
+                                        Height="17"
+                                        Margin="0,0,0, 5"
+										ImageDisable="../../Images\Refresh_Disable.png"
+										ImageEnable="../../Images\Status_RefreshEnable.tif"
+                                        Button.Click="RefreshButton_MouseLeftButtonDown">
+                                </mycontrol:RefreshButton>
+                                <Image Name="imgLine" Source="../../Images/GreenLine.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Stretch="Fill"></Image>
+                            </Grid>     
+                            <StackPanel Name="wifilist">
+                                
+                            </StackPanel>
+
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

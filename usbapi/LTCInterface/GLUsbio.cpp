@@ -25,12 +25,12 @@ CGLUsb::~CGLUsb()
 
 int CGLUsb::CMDIO_OpenDevice()
 {
-	TCHAR strPort[32] = { 0 };
+	m_strPort[32] = { 0 };
 	int  iCnt;
 
 	for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++) {
-		_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
-		m_hDev = CreateFile(strPort,
+		_stprintf_s(m_strPort, L"%s%d", USBSCANSTRING, iCnt);
+		m_hDev = CreateFile(m_strPort,
 			GENERIC_READ | GENERIC_WRITE,
 			FILE_SHARE_READ | FILE_SHARE_WRITE,
 			NULL,
@@ -59,7 +59,7 @@ int CGLUsb::CMDIO_OpenDevice()
 #endif
 			m_hIntrEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
 			m_hDevice[0] = m_hDev;
-			OpenBulkPipes(m_hDevice, strPort);	// Jason 140408
+			OpenBulkPipes(m_hDevice, m_strPort);	// Jason 140408
 			break;
 		}
 	}
@@ -208,6 +208,18 @@ int CGLUsb::CMDIO_BulkWriteEx(int pipe, void* buffer, unsigned int dwLen)
 	bRet = AsyncWriteFile(m_hDevice[pipe*2+2] ,(BYTE*)buffer, dwLen, &dwByteCount,NULL);
 	return bRet;
 }
+
+int CGLUsb::CMDIO_BulkWriteEx(int pipe, void* buffer, unsigned int dwLen, DWORD	*dwByteCount)
+{
+	BOOL	bRet;
+
+	if (dwByteCount == NULL)
+		return FALSE;
+
+	bRet = AsyncWriteFile(m_hDevice[pipe * 2 + 2], (BYTE*)buffer, dwLen, dwByteCount, NULL);
+	return bRet;
+}
+
 int CGLUsb::CMDIO_BulkReadEx(int pipe, void *buffer, unsigned int dwLen)
 {
 	BOOL	bRet;
@@ -215,11 +227,28 @@ int CGLUsb::CMDIO_BulkReadEx(int pipe, void *buffer, unsigned int dwLen)
 	bRet = AsyncReadFile(m_hDevice[pipe*2+1], (BYTE*)buffer, dwLen, &dwByteCount, NULL);
 	if(dwLen!=dwByteCount)
 	{
-		printf(" <length mismatch>\n");
+		//printf(" <length mismatch>\n");
 		return FALSE;
 	}
 	return bRet;
 }
+
+int CGLUsb::CMDIO_BulkReadEx(int pipe, void *buffer, unsigned int dwLen, DWORD	*dwByteCount)
+{
+	BOOL	bRet;
+
+	if (dwByteCount == NULL)
+		return FALSE;
+
+	bRet = AsyncReadFile(m_hDevice[pipe * 2 + 1], (BYTE*)buffer, dwLen, dwByteCount, NULL);
+	if (dwLen != *dwByteCount)
+	{
+		//printf(" <length mismatch>\n");
+		return FALSE;
+	}
+	return bRet;
+}
+
 int CGLUsb::CMDIO_CloseDevice()
 {
 	int i;

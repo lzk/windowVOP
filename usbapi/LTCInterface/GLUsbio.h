@@ -48,14 +48,20 @@ public:
 	int CMDIO_OpenDevice(LPCTSTR lpModuleName);
 	int CMDIO_CloseDevice();
 	int OpenBulkPipes(HANDLE *hPipe,  LPCTSTR lpModuleName);
+
 	int CMDIO_BulkWriteEx(int pipe, void* buffer, unsigned int dwLen);
+	int CMDIO_BulkWriteEx(int pipe, void* buffer, unsigned int dwLen, DWORD	*dwByteCount);
+
 	int CMDIO_BulkReadEx(int pipe, void *buffer, unsigned int dwLen);
+	int CMDIO_BulkReadEx(int pipe, void *buffer, unsigned int dwLen,  DWORD *dwByteCount);
+
 	int _SetIOHandle(HANDLE dwDevice, WORD wType);
 	BOOL AsyncWriteFile(HANDLE hFile, BYTE *Buf, DWORD dwBufSize, DWORD *dwWrite, HANDLE hEvent);
 	BOOL AsyncReadFile(HANDLE hFile, BYTE *Buf, DWORD dwBufSize, DWORD *dwWrite, HANDLE hEvent);
 	HANDLE m_hDev, m_hIntrEvent;
 	HANDLE m_hDevice[5];
 	HANDLE m_GLUSBDev;	
+	TCHAR  m_strPort[32];
 };
 
 typedef int(*LPFN_NETWORK_CONNECT) (char *server, int port, int timeout);

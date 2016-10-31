@@ -26,6 +26,8 @@ namespace VOP
         ScanToFtp,
         ScanToAP,
         ScanToCloud,
+        Wireless,
+        TCPIP,
         Unknown,
     };
 

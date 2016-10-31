@@ -493,31 +493,31 @@ namespace VOP
                 case DllMethodType.SetPassword:
                 case DllMethodType.SetFusingResetCmd:
                 case DllMethodType.SetIpv6Info:
-                    string strDrvName = "";
-                    if (false == common.GetPrinterDrvName(printerName, ref strDrvName))
-                    {
-                        FrameworkElement _this = frameworkElement as FrameworkElement;
-                        if (null != _this)
-                        {
-                            MessageBoxEx_Simple messageBox =
-                                new MessageBoxEx_Simple((string)_this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)_this.FindResource("ResStr_Error"));
-                            messageBox.Owner = App.Current.MainWindow;
-                            messageBox.ShowDialog();
-                        }
-                        return false;
-                    }
+                    //string strDrvName = "";
+                    //if (false == common.GetPrinterDrvName(printerName, ref strDrvName))
+                    //{
+                    //    FrameworkElement _this = frameworkElement as FrameworkElement;
+                    //    if (null != _this)
+                    //    {
+                    //        MessageBoxEx_Simple messageBox =
+                    //            new MessageBoxEx_Simple((string)_this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)_this.FindResource("ResStr_Error"));
+                    //        messageBox.Owner = App.Current.MainWindow;
+                    //        messageBox.ShowDialog();
+                    //    }
+                    //    return false;
+                    //}
 
-                    if (!((MainWindow)App.Current.MainWindow).PasswordCorrect(this.owner))
-                    {
-                        PasswordWindow pw = new PasswordWindow();
-                        pw.Owner = App.Current.MainWindow;
-                        Nullable<bool> dialogResult = pw.ShowDialog();
+                    //if (!((MainWindow_Rufous)App.Current.MainWindow).PasswordCorrect(this.owner))
+                    //{
+                    //    PasswordWindow pw = new PasswordWindow();
+                    //    pw.Owner = App.Current.MainWindow;
+                    //    Nullable<bool> dialogResult = pw.ShowDialog();
 
-                        if (dialogResult != true)
-                        {
-                            return false;
-                        }
-                    }
+                    //    if (dialogResult != true)
+                    //    {
+                    //        return false;
+                    //    }
+                    //}
                     break;
             }
 
