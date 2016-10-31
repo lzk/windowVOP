@@ -270,6 +270,10 @@ BYTE CGLDrv::_info()
 		result = result && m_GLnet->CMDIO_Read(&sc_infodata, sizeof(sc_infodata));
 	}
 
+	if (start_cancel) {
+		sc_infodata.Cancel = 1;
+	}
+
 	/*if(sc_infodata.CoverOpen || sc_infodata.PaperJam || sc_infodata.Cancel)
 	{
 #if _GLDEBUG_
@@ -313,9 +317,8 @@ BYTE CGLDrv::_cancel()
 #if _GLDEBUG_
 	LTCPrintf("\n\tCancel Scan...");
 #endif
-	sc_cancel.id = (unsigned char)JobID;
-	
 
+	sc_cancel.id = (unsigned char)JobID;
 	if (g_connectMode_usb == TRUE)
 	{
 		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_cancel, sizeof(sc_cancel)) &&

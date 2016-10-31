@@ -38,7 +38,7 @@ namespace VOP
             }
 
 
-            string tempPath = @"G:\work\Rufous\pic\" + strSuffix;
+            string tempPath = App.cacheFolder + @"\" + strSuffix;
 
             
             int nWidth = 0;

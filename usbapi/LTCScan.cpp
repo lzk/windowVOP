@@ -79,7 +79,21 @@ static int GetByteNumPerLineWidthPad(int scanMode, int nPixels)
 	return cbPerLine;
 }
 
+
+CGLDrv *g_pointer_lDrv = NULL;
 int start_cancel = 0;
+USBAPI_API int __stdcall ADFCancel()
+{
+	start_cancel = 1;
+
+	if (g_pointer_lDrv != NULL)
+	{
+		return g_pointer_lDrv->_cancel();
+	}
+
+	return 1;
+}
+
 USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	const wchar_t* tempPath,
 	int BitsPerPixel,
@@ -95,6 +109,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	
 	BSTR bstrArray[500] = { 0 };
 	CGLDrv glDrv;
+	g_pointer_lDrv = &glDrv;
 
 	int lineNumber = 1000;
 	int nColPixelNumOrig = 0;   
@@ -104,7 +119,10 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	BYTE* imgBuffer = NULL; 
 
 	nLinePixelNumOrig = width*resolution / 1000;
+	nLinePixelNumOrig = nLinePixelNumOrig - nLinePixelNumOrig % 8;
+
 	nColPixelNumOrig = height*resolution / 1000;
+	nColPixelNumOrig = nColPixelNumOrig - nColPixelNumOrig % 8;
 
 	imgBufferSize = GetByteNumPerLineWidthPad(BitsPerPixel, nLinePixelNumOrig) * lineNumber;
 
@@ -117,19 +135,19 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	ImgFile[0].img.org.x = ADF_SideEdge * resolution;
 	ImgFile[0].img.org.y = 0;
 
-	if (resolution == 200) //ADF test chart 8.4528
-		ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 1696;
-	if (resolution == 300)
-		ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 2536;
-	if (resolution == 600)
-		ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 5072;
-	if (resolution == 1200)
-		ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 10176;
+	//if (resolution == 200) //ADF test chart 8.4528
+	//	ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 1696;
+	//if (resolution == 300)
+	//	ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 2536;
+	//if (resolution == 600)
+	//	ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 5072;
+	//if (resolution == 1200)
+	//	ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 10176;
 
-	ImgFile[0].img.dot.h = ImgFile[1].img.dot.h = 15 * resolution;
+	//ImgFile[0].img.dot.h = ImgFile[1].img.dot.h = 15 * resolution;
 
-	//ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = nLinePixelNumOrig = 1696;
-	//ImgFile[0].img.dot.h = ImgFile[1].img.dot.h = nColPixelNumOrig = 3000;
+	ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = nLinePixelNumOrig;
+	ImgFile[0].img.dot.h = ImgFile[1].img.dot.h = nColPixelNumOrig;
 
 
 	ImgFile[0].img.format = ImgFile[1].img.format = I3('JPG');
@@ -313,7 +331,16 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 						if (start_cancel) {
 							start_cancel = 0;
 							glDrv._JobEnd();
-							return RETSCAN_ERROR;
+							if ((duplex & 1) && open[0]) {
+								ImgFile_Close(&ImgFile[0], page_line[0]);
+								open[0] = 0;
+							}
+							if ((duplex & 2) && open[1]) {
+								ImgFile_Close(&ImgFile[1], page_line[1]);
+								open[1] = 0;
+							}
+
+							return RETSCAN_OK;
 						}
 						else
 						{

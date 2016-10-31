@@ -63,6 +63,7 @@ EXPORTS
 	SetPortIP
 	ResetBonjourAddr
 	ADFScan
+	ADFCancel
 	TestUsbScanInit
 	SearchValidedIP2
 	CheckUsbScan

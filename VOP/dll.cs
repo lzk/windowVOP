@@ -237,6 +237,9 @@ namespace VOP
                 [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)]out string[] fileNames);
 
         [DllImport("usbapi.dll")]
+        public static extern int ADFCancel();
+
+        [DllImport("usbapi.dll")]
         public static extern int GetUserCfg(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
                 ref sbyte leadingedge,

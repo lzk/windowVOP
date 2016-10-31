@@ -67,5 +67,9 @@ namespace VOP
             return IntPtr.Zero;
         }
 
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            dll.ADFCancel();
+        }
     }
 }
