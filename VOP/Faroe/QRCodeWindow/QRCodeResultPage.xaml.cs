@@ -36,7 +36,7 @@ namespace VOP.Controls
         double scaleRatioX = 1.0;
         double scaleRatioY = 1.0;
 
-        public static Rect redRect;
+        public static Rect redRect = Rect.Empty;
 
         public QRCodeWindow ParentWin { get; set; }
 
@@ -201,6 +201,25 @@ namespace VOP.Controls
             }
         }
 
+        private bool IsResultPointValided(ResultPoint[] points)
+        {
+            if (points == null)
+                return false;
+
+            foreach(ResultPoint point in points)
+            {
+                if (point.X < 0
+                 || point.Y < 0
+                 || point.X > qRCodeImageSource.PixelWidth
+                 || point.Y > qRCodeImageSource.PixelHeight)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private void TableRow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             TableRow tr = sender as TableRow;
@@ -210,10 +229,16 @@ namespace VOP.Controls
 
             ResultPoint[] points = res.ResultPoints;
 
+            if(IsResultPointValided(points) == false)
+            {
+                return;
+            }
+
             if (points.Length >= 3)
             {
-                Rect rect = new Rect(points[1].X, points[1].Y, ResultPoint.distance(points[1], points[2]), ResultPoint.distance(points[0], points[1]));
-
+                Rect rect = Rect.Empty;
+                rect = new Rect(new Point(points[0].X, points[0].Y), new Point(points[2].X, points[2].Y));
+               
                 if (!subRec.IsEmpty)
                 {
                     rect.X += (double)subRec.X;
@@ -235,8 +260,17 @@ namespace VOP.Controls
             else if (points.Length == 2)
             {
                 float w = ResultPoint.distance(points[0], points[1]);
-                Rect rect = new Rect(points[0].X, points[0].Y - w/2, w, w);
+                Rect rect = Rect.Empty;
 
+                if(points[0].X < points[1].X)
+                {
+                    rect = new Rect(points[0].X, points[0].Y, w, w);
+                }
+                else
+                {
+                    rect = new Rect(points[1].X, points[1].Y, w, w);
+                }
+                 
                 if (!subRec.IsEmpty)
                 {
                     rect.X += (double)subRec.X;
@@ -246,7 +280,7 @@ namespace VOP.Controls
                 redRect = rect;
 
                 rect.Scale(1 / scaleRatioApply, 1 / scaleRatioApply);
-
+             
                 Line designerItem = BarcodeLine;
                 Canvas canvas = VisualTreeHelper.GetParent(designerItem) as Canvas;
 

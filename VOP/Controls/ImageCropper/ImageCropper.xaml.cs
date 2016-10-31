@@ -37,7 +37,7 @@ namespace VOP.Controls
         double m_DpiX = 0;
         double m_DpiY = 0;
 
-        public static Int32Rect intRectOffset;
+        public static Int32Rect intRectOffset = Int32Rect.Empty;
 
         BitmapImage imageSource = null;
 
@@ -203,6 +203,8 @@ namespace VOP.Controls
                 {
                     rect.X += (double)intRectOffset.X;
                     rect.Y += (double)intRectOffset.Y;
+
+                    intRectOffset = Int32Rect.Empty;
                 }
 
                 rect.Scale(1 / scaleRatioApply, 1 / scaleRatioApply);
@@ -212,7 +214,7 @@ namespace VOP.Controls
                 Canvas.SetTop(designerItem, imageToTop + rect.Y - QRCodeResultPage.rectMargin);
                 Canvas.SetLeft(designerItem, imageToLeft + rect.X - QRCodeResultPage.rectMargin);
 
-                QRCodeResultPage.redRect = new Rect();
+                QRCodeResultPage.redRect = Rect.Empty;
             }
             else
             {

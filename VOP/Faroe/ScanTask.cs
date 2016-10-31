@@ -14,6 +14,7 @@ using Microsoft.Win32; // for SaveFileDialog
 using PdfEncoderClient;
 using VOP.Controls;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace VOP
 {
@@ -47,7 +48,8 @@ namespace VOP
             common.GetPaperSize(param.PaperSize, ref nWidth, ref nHeight);
 
             AsyncWorker worker = new AsyncWorker();
-
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             int nResult = worker.InvokeScanMethod(dll.ADFScan,
                     deviceName,
                     tempPath,
@@ -61,7 +63,10 @@ namespace VOP
                     WM_VOPSCAN_PROGRESS,
                     out fileNames);
 
-            if(fileNames != null)
+            sw.Stop();
+            Trace.WriteLine(string.Format("Elapsed={0}", sw.Elapsed));
+
+            if (fileNames != null)
             {
                 foreach (string name in fileNames)
                 {

@@ -116,8 +116,20 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 	ImgFile[0].img.org.x = ADF_SideEdge * resolution;
 	ImgFile[0].img.org.y = 0;
-	ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = nLinePixelNumOrig;
-	ImgFile[0].img.dot.h = ImgFile[1].img.dot.h = nColPixelNumOrig;
+
+	if (resolution == 200) //ADF test chart 8.4528
+		ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 1696;
+	if (resolution == 300)
+		ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 2536;
+	if (resolution == 600)
+		ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 5072;
+	if (resolution == 1200)
+		ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 10176;
+
+	ImgFile[0].img.dot.h = ImgFile[1].img.dot.h = 15 * resolution;
+
+	//ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = nLinePixelNumOrig = 1696;
+	//ImgFile[0].img.dot.h = ImgFile[1].img.dot.h = nColPixelNumOrig = 3000;
 
 
 	ImgFile[0].img.format = ImgFile[1].img.format = I3('JPG');
