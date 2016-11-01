@@ -1,9 +1,10 @@
+#include "../stdafx.h"
+#include "ImgFile.h"
 
 #ifdef WIN32
 #pragma pack(1)
 #endif
 
-#include "ImgFile.h"
 
 typedef struct BMP_HEADER
 {

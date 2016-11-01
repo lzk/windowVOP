@@ -186,7 +186,6 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	int page[2] = { 0 };
 	int fileCount = 0;
 	
-
 	if (glDrv._OpenDevice() == TRUE)
 	{
 		

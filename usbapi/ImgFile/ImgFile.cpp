@@ -1,8 +1,9 @@
+#include "../stdafx.h"
+#include "ImgFile.h"
 #ifdef WIN32
 #pragma pack(1)
 #endif
 
-#include "ImgFile.h"
 
 int ImgFile_Open(IMG_FILE_T *imgfile, char *filename)
 {

@@ -1,8 +1,11 @@
+#include "../stdafx.h"
+#include "ImgFile.h"
+
 #ifdef WIN32
 #pragma pack(1)
 #endif
 
-#include "ImgFile.h"
+
 
 int Jpeg_OpenFile(IMG_FILE_T *imgfile, char *filename)
 {

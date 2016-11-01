@@ -39,9 +39,9 @@ BEGIN\n\
     BEGIN\n\
         BLOCK \"040904B0\"\n\
         BEGIN\n\
-            VALUE \"CompanyName\"      , \"Lenovo Co., Ltd.\"\n\
-            VALUE \"ProductName\"      , \"Lenovo virtual panel\"\n\
-            VALUE \"LegalCopyright\"   , \"(C) Lenovo Co., Ltd. (2015-2016)\"\n\
+            VALUE \"CompanyName\"      , \"Liteon\"\n\
+            VALUE \"ProductName\"      , \"Faroe virtual panel\"\n\
+            VALUE \"LegalCopyright\"   , \"(C) Liteon\"\n\
             VALUE \"FileDescription\"  , \"usbapi\"\n\
             VALUE \"InternalName\"     , \"usbapi.dll\"\n\
             VALUE \"OriginalFilename\" , \"usbapi.dll\"\n\
@@ -68,18 +68,18 @@ using System.Runtime.InteropServices;\n\
 using System.Windows;\n\
 \n\
 [assembly: AssemblyConfiguration(\"\")]\n\
-[assembly: AssemblyProduct(\"Lenovo virtual panel\")]\n\
+[assembly: AssemblyProduct(\"Faroe virtual panel\")]\n\
 " > VOP/Properties/VersionInfo.cs
 
 git log --format="[assembly: AssemblyDescription(\"%H\")]" -1 >> VOP/Properties/VersionInfo.cs
 
 printf "\
 [assembly: AssemblyFileVersion(\"%d.%d.%d.%d\")]\n\
-[assembly: AssemblyCompany(\"Lenovo Co., Ltd.\")]\n\
-[assembly: AssemblyCopyright(\"(C) Lenovo Co., Ltd. (2015-2016)\")]\n\
+[assembly: AssemblyCompany(\"Liteon\")]\n\
+[assembly: AssemblyCopyright(\"(C) Liteon\")]\n\
 [assembly: ComVisible(false)]\n\
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]\n\
-[assembly: AssemblyTitle(\"Lenovo virtual panel\")]\n\
+[assembly: AssemblyTitle(\"Faroe virtual panel\")]\n\
 [assembly: AssemblyTrademark(\"\")]\n\
 [assembly: AssemblyVersion(\"%d.%d.%d.%d\")]\n\
 " \

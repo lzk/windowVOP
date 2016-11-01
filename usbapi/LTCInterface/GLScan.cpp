@@ -31,6 +31,11 @@ CGLDrv::CGLDrv()
 }
 CGLDrv::~CGLDrv()
 {
+	/*if (m_GLusb != NULL)
+		delete m_GLusb;*/
+
+	if (m_GLnet != NULL)
+		delete m_GLnet;
 }
 
 BYTE CGLDrv::_OpenDevice()

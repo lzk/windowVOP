@@ -269,10 +269,13 @@ CGLNet::CGLNet()
 {
 	m_hmod = LoadLibrary(DLL_NAME_NET);
 
-	m_lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(m_hmod, "NetworkConnectNonBlock");
-	m_lpfnNetworkRead = (LPFN_NETWORK_READ)GetProcAddress(m_hmod, "NetworkRead");
-	m_lpfnNetworkWrite = (LPFN_NETWORK_WRITE)GetProcAddress(m_hmod, "NetworkWrite");
-	m_lpfnNetworkClose = (LPFN_NETWORK_CLOSE)GetProcAddress(m_hmod, "NetworkClose");
+	if (m_hmod)
+	{
+		m_lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(m_hmod, "NetworkConnectNonBlock");
+		m_lpfnNetworkRead = (LPFN_NETWORK_READ)GetProcAddress(m_hmod, "NetworkRead");
+		m_lpfnNetworkWrite = (LPFN_NETWORK_WRITE)GetProcAddress(m_hmod, "NetworkWrite");
+		m_lpfnNetworkClose = (LPFN_NETWORK_CLOSE)GetProcAddress(m_hmod, "NetworkClose");
+	}
 
 	m_socketId = 0;
 }
@@ -284,7 +287,11 @@ CGLNet::~CGLNet()
 	m_lpfnNetworkWrite = NULL;
 	m_lpfnNetworkClose = NULL;
 
-	FreeLibrary(m_hmod);
+	if (m_hmod)
+	{
+		FreeLibrary(m_hmod);
+	}
+
 }
 
 int CGLNet::CMDIO_Connect(const wchar_t* ipAddress)

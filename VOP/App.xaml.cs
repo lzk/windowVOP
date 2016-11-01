@@ -182,7 +182,7 @@ namespace VOP
                 return;
             }
 
-          //  if(mutex.WaitOne(TimeSpan.Zero, true)) 
+            if(mutex.WaitOne(TimeSpan.Zero, true)) 
             {
 
                 try
@@ -222,12 +222,12 @@ namespace VOP
                     }
                 }
 
-               // mutex.ReleaseMutex();
+                mutex.ReleaseMutex();
             }
-           // else
-            {
-              //  Win32.PostMessage((IntPtr)0xffff, WM_VOP, IntPtr.Zero, IntPtr.Zero);
-            }
+            //else
+            //{
+            //    Win32.PostMessage((IntPtr)0xffff, WM_VOP, IntPtr.Zero, IntPtr.Zero);
+            //}
 
         }
 

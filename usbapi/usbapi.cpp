@@ -2049,7 +2049,7 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 		OutputDebugStringToFileA("\r\n####VP:WriteDataViaUSB(): GetPrinterPortName error.");
 	}*/
 
-
+	//delete m_GLusb;
 	OutputDebugStringToFileA("\r\n####VP:WriteDataViaUSB(): nResult == 0x%x", nResult);
 	OutputDebugStringToFileA("\r\n####VP:WriteDataViaUSB() end");
     return nResult;
