@@ -78,30 +78,6 @@
     <ClInclude Include="LTCInterface\GLUtype.h">
       <Filter>Header Files\LTC</Filter>
     </ClInclude>
-    <ClInclude Include="LTCInterface\jconfig.h">
-      <Filter>Header Files\LTC</Filter>
-    </ClInclude>
-    <ClInclude Include="LTCInterface\jmorecfg.h">
-      <Filter>Header Files\LTC</Filter>
-    </ClInclude>
-    <ClInclude Include="LTCInterface\jpeg.h">
-      <Filter>Header Files\LTC</Filter>
-    </ClInclude>
-    <ClInclude Include="LTCInterface\jpeg_resize.h">
-      <Filter>Header Files\LTC</Filter>
-    </ClInclude>
-    <ClInclude Include="LTCInterface\jpeglib.h">
-      <Filter>Header Files\LTC</Filter>
-    </ClInclude>
-    <ClInclude Include="LTCInterface\LTCDriveApi.h">
-      <Filter>Header Files\LTC</Filter>
-    </ClInclude>
-    <ClInclude Include="LTCInterface\LTCPrintf.h">
-      <Filter>Header Files\LTC</Filter>
-    </ClInclude>
-    <ClInclude Include="LTCInterface\LTCStructure.h">
-      <Filter>Header Files\LTC</Filter>
-    </ClInclude>
     <ClInclude Include="LTCInterface\resample.h">
       <Filter>Header Files\LTC</Filter>
     </ClInclude>
@@ -140,15 +116,6 @@
     <ClCompile Include="LTCInterface\GLUsbio.cpp">
       <Filter>Source Files\LTC</Filter>
     </ClCompile>
-    <ClCompile Include="LTCInterface\jpeg_resize.cpp">
-      <Filter>Source Files\LTC</Filter>
-    </ClCompile>
-    <ClCompile Include="LTCInterface\LTCDriveApi.cpp">
-      <Filter>Source Files\LTC</Filter>
-    </ClCompile>
-    <ClCompile Include="LTCInterface\LTCPrintf.cpp">
-      <Filter>Source Files\LTC</Filter>
-    </ClCompile>
     <ClCompile Include="LTCInterface\resample.cpp">
       <Filter>Source Files\LTC</Filter>
     </ClCompile>
@@ -165,9 +132,6 @@
       <Filter>Source Files\LTC</Filter>
     </ClCompile>
     <ClCompile Include="Common\Breath.cpp">
-      <Filter>Source Files\LTC</Filter>
-    </ClCompile>
-    <ClCompile Include="LTCInterface\jpg.cpp">
       <Filter>Source Files\LTC</Filter>
     </ClCompile>
   </ItemGroup>

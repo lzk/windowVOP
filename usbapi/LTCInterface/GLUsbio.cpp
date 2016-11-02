@@ -25,12 +25,12 @@ CGLUsb::~CGLUsb()
 
 int CGLUsb::CMDIO_OpenDevice()
 {
-	m_strPort[32] = { 0 };
+	TCHAR strPort[32] = { 0 };
 	int  iCnt;
 
 	for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++) {
-		_stprintf_s(m_strPort, L"%s%d", USBSCANSTRING, iCnt);
-		m_hDev = CreateFile(m_strPort,
+		_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
+		m_hDev = CreateFile(strPort,
 			GENERIC_READ | GENERIC_WRITE,
 			FILE_SHARE_READ | FILE_SHARE_WRITE,
 			NULL,
@@ -59,7 +59,7 @@ int CGLUsb::CMDIO_OpenDevice()
 #endif
 			m_hIntrEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
 			m_hDevice[0] = m_hDev;
-			OpenBulkPipes(m_hDevice, m_strPort);	// Jason 140408
+			OpenBulkPipes(m_hDevice, strPort);	// Jason 140408
 			break;
 		}
 	}

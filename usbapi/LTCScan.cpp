@@ -16,7 +16,6 @@
 
 #include <ws2tcpip.h>
 #include "dns_sd.h"
-#include "LTCInterface\LTCDriveApi.h"
 #include "ImgFile\ImgFile.h"
 #include <usbscan.h>
 
@@ -109,7 +108,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	
 	BSTR bstrArray[500] = { 0 };
 	CGLDrv glDrv;
-	g_pointer_lDrv = &glDrv;
+	//g_pointer_lDrv = &glDrv;
 
 	int lineNumber = 1000;
 	int nColPixelNumOrig = 0;   

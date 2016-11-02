@@ -62,7 +62,6 @@
 #include "LTCInterface\GLUsbio.h"
 #include "LTCInterface\jpeg.h"
 #include "LTCInterface\resample.h"
-#include "LTCInterface\jpeglib.h"
 #include "LTCInterface\jpeg_resize.h"
 #include "LTCInterface\LTCPrintf.h"
 

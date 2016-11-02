@@ -141,6 +141,7 @@
     </Compile>
     <Compile Include="Controls\DeviceButton.cs" />
     <Compile Include="Faroe\DeviceListBoxItem.cs" />
+    <Compile Include="Faroe\QRCodeWindow\Otsu.cs" />
     <Compile Include="Faroe\QRCodeWindow\QRCodeManualPage.xaml.cs">
       <DependentUpon>QRCodeManualPage.xaml</DependentUpon>
     </Compile>

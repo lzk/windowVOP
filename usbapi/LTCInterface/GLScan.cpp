@@ -10,7 +10,7 @@ U8	buf[0x100000];
 CGLDrv::CGLDrv()
 {
 	m_GLusb					= new CGLUsb;
-	m_GLnet					= new CGLNet;
+	m_GLnet					= new CGLNet();
 	sc_job_create.code		= I3('JOB');
 	sc_job_create.request	= ('C');
 	sc_job_end.code			= I3('JOB');
@@ -35,7 +35,7 @@ CGLDrv::~CGLDrv()
 		delete m_GLusb;*/
 
 	if (m_GLnet != NULL)
-		delete m_GLnet;
+		delete(m_GLnet);
 }
 
 BYTE CGLDrv::_OpenDevice()

@@ -61,7 +61,7 @@ public:
 	HANDLE m_hDev, m_hIntrEvent;
 	HANDLE m_hDevice[5];
 	HANDLE m_GLUSBDev;	
-	TCHAR  m_strPort[32];
+	//TCHAR  m_strPort[32];
 };
 
 typedef int(*LPFN_NETWORK_CONNECT) (char *server, int port, int timeout);
