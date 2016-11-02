@@ -80,7 +80,15 @@ namespace VOP
             }
           
             ScanResult = (Scan_RET)nResult;
-          
+
+            if (ScanResult != Scan_RET.RETSCAN_OK)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                           Application.Current.MainWindow,
+                          "Scan failed",
+                          "Error");
+            }
+
             return files.Count > 0 ? files : null;
         }
     }

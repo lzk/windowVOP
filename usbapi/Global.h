@@ -55,6 +55,20 @@ inline void A2U(char* lpszDest, wchar_t* lpwszSrc)
 	wszUnicode = NULL;
 }
 
+inline void MyOutputString(wchar_t* txt)
+{
+	TCHAR szDebug[256] = { 0 };
+	wsprintf(szDebug, _T("\nVOP ADFScan = %s"), txt);
+	OutputDebugString(szDebug);
+}
+
+inline void MyOutputString(wchar_t* txt, int error)
+{
+	TCHAR szDebug[256] = { 0 };
+	wsprintf(szDebug, _T("\nVOP ADFScan %s = %d"), txt, error);
+	OutputDebugString(szDebug);
+}
+
 USBAPI_API int OutputDebugStringToFileA(const char *_lpFormat, ...);
 USBAPI_API int __stdcall OutputDebugStringToFile(TCHAR *_lpFormat, ...);
 USBAPI_API int __stdcall OutputDebugStringToFile_(TCHAR *_lpString);

@@ -190,7 +190,7 @@ namespace VOP.Controls
                     tr.Background = Brushes.Beige;
 
                     Paragraph paraHeader1 = new Paragraph();
-                    paraHeader1.Inlines.Add(new Run("No barcode recognized"));
+                    paraHeader1.Inlines.Add(new Run("No code recognized"));
 
                     TableCell tc = new TableCell();
                     tc.ColumnSpan = 3;

@@ -2,6 +2,8 @@
 
 #include <usbscan.h>
 #include <tchar.h>
+#include "../usbapi.h"
+#include "../Global.h"
 
 
 #ifndef True
@@ -60,6 +62,7 @@ int CGLUsb::CMDIO_OpenDevice()
 			m_hIntrEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
 			m_hDevice[0] = m_hDev;
 			OpenBulkPipes(m_hDevice, strPort);	// Jason 140408
+			MyOutputString(L"OpenDevice OK");
 			break;
 		}
 	}

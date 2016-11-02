@@ -1,5 +1,7 @@
 #include "../stdafx.h"
 #include "GLUtype.h"
+#include "../usbapi.h"
+#include "../Global.h"
 
 #if _CANOPUS_DEBUG_
 #define _GLDEBUG_ 1
@@ -80,6 +82,7 @@ BYTE CGLDrv::_JobCreate()
 	}
 
 	if(!result || job_status.ack == 'E') {
+	MyOutputString(L"Job create error", job_status.err);
 #if _GLDEBUG_
 		LTCPrintf("Job create error (#%d)\n", job_status.err);
 #endif
@@ -110,6 +113,7 @@ BYTE CGLDrv::_JobEnd()
 	}
 
 	if(!result || job_status.ack == 'E' || job_status.id != JobID) {
+		MyOutputString(L"Job end error", job_status.err);
 #if _GLDEBUG_
 		LTCPrintf("Job end error. err(%d), ID(%d)\n", job_status.err, job_status.id);
 #endif
@@ -142,6 +146,7 @@ BYTE CGLDrv::_parameters()
 	}
 
 	if(!result || par_status.ack == 'E' || par_status.id != JobID) {
+		MyOutputString(L"Set parameter error", par_status.err);
 #if _GLDEBUG_
 		LTCPrintf("Set parameter error. err(%d), ID(%d)\n", par_status.err, par_status.id);
 #endif
@@ -172,6 +177,7 @@ BYTE CGLDrv::_StartScan()
 	}
 
 	if(!result || scan_status.ack == 'E' || scan_status.id != JobID) {
+		MyOutputString(L"Start scan error", scan_status.err);
 #if _GLDEBUG_
 		LTCPrintf("Start scan error. err(%d), ID(%d)\n", scan_status.err, scan_status.id);
 #endif
@@ -232,6 +238,7 @@ BYTE CGLDrv::_stop()
 	}
 
 	if(!result || stop_status.ack == 'E' || stop_status.id != JobID) {
+		MyOutputString(L"Stop scan error", stop_status.err);
 #if _GLDEBUG_
 		LTCPrintf("Stop scan error. err(%d), ID(%d)\n", stop_status.err, stop_status.id);
 #endif
@@ -298,6 +305,7 @@ BYTE CGLDrv::_info()
 		goto exit_info;
 	}*/
 	if(!result || sc_infodata.Error || sc_infodata.Cancel) {
+		MyOutputString(L"Scan info error", sc_infodata.Error);
 #if _GLDEBUG_
 		if(sc_infodata.Error)
 			LTCPrintf("Status error!\n");
@@ -337,6 +345,7 @@ BYTE CGLDrv::_cancel()
 
 
 	if(!result || cancel_status.ack == 'E' || cancel_status.id != JobID) {
+		MyOutputString(L"Scan cancel error", cancel_status.err);
 #if _GLDEBUG_
 		LTCPrintf("Fail\n");
 #endif
@@ -386,6 +395,7 @@ BYTE CGLDrv::_ReadImageEX(int dup, int *ImgSize,BYTE* Buffer,int ReadSize)
 
 	if(!result || img_status.ack == 'E')
 	{
+		MyOutputString(L"Get image status error");
 #if _GLDEBUG_
 		LTCPrintf("Get image status error.\n");
 #endif
@@ -403,6 +413,7 @@ BYTE CGLDrv::_ReadImageEX(int dup, int *ImgSize,BYTE* Buffer,int ReadSize)
 	}
 
 	if(!result) {
+		MyOutputString(L"Get image data error");
 #if _GLDEBUG_
 		LTCPrintf("Get image data error.\n");
 #endif
@@ -509,6 +520,7 @@ BYTE CGLDrv::_ADFCheck()
 	}
 
 	if(!result ||  sc_adf_check_status.ack == 'E') {
+		MyOutputString(L"ADF check error", sc_adf_check_status.err);
 #if _GLDEBUG_
 		LTCPrintf("ADF check error (#%d)\n", sc_adf_check_status.err);
 #endif
@@ -797,6 +809,7 @@ BYTE CGLDrv::_ResetScan()
 
 
      if(!result || reset_status.ack == 'E') {
+		 MyOutputString(L"Reset scan flow error", reset_status.err);
 #if _GLDEBUG_
           printf("Reset scan flow error. err(%d), ID(%d)\n", reset_status.err, reset_status.id);
 #endif
@@ -883,6 +896,7 @@ BYTE CGLDrv::_StatusGet()
 
 	
 	if(!result) {
+		MyOutputString(L"Get status error");
 #if _GLDEBUG_
 		LTCPrintf("Get status error!\n");
 #endif

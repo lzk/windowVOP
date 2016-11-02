@@ -21,7 +21,7 @@ namespace VOP
 
             if (files == null)
                 return false;
-
+      
             List<string> fileLs = new List<string>();
 
             foreach (ScanFiles f in files)
@@ -44,7 +44,7 @@ namespace VOP
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_fileScanSettings);
 
             if (files == null)
-                return false;
+                return false; 
 
             List<string> fileLs = new List<string>();
 

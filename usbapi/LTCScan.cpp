@@ -18,6 +18,7 @@
 #include "dns_sd.h"
 #include "ImgFile\ImgFile.h"
 #include <usbscan.h>
+#include "Global.h"
 
 #pragma comment(lib, "dnssd.lib")
 #pragma comment(lib, "Ws2_32.lib")
@@ -108,7 +109,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	
 	BSTR bstrArray[500] = { 0 };
 	CGLDrv glDrv;
-	//g_pointer_lDrv = &glDrv;
+	g_pointer_lDrv = &glDrv;
 
 	int lineNumber = 1000;
 	int nColPixelNumOrig = 0;   
@@ -185,6 +186,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	int page[2] = { 0 };
 	int fileCount = 0;
 	
+	MyOutputString(L"ADF Enter");
 	if (glDrv._OpenDevice() == TRUE)
 	{
 		
@@ -192,19 +194,23 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		if (!result) {
 			return RETSCAN_ERROR;
 		}
+		MyOutputString(L"_StatusGet");
 
 		result = glDrv._StatusCheck_Start();
 		if (!result) {
 			return RETSCAN_ERROR;
 		}
+		MyOutputString(L"_StatusCheck_Start");
 
 		if (glDrv.sc_status_data.system & 0x10) {
 			result = glDrv._ResetScan();
+			MyOutputString(L"_ResetScan");
 			if (!result)
 				return RETSCAN_ERROR;
 		}
 
 		result = glDrv._JobCreate();
+		MyOutputString(L"_JobCreate");
 
 		if (glDrv.sc_pardata.source == I3('ADF')) {
 			if (!(glDrv.sc_pardata.acquire & ACQ_RODLENS)){ //set for Rod lens calibration
@@ -214,6 +220,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 					return RETSCAN_ERROR;
 				}
 				result = glDrv._StatusCheck_ADF_Check();
+				MyOutputString(L"_StatusCheck_ADF_Check");
 				if (!result) {
 					glDrv._JobEnd();
 					return RETSCAN_ERROR;
@@ -222,6 +229,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		}
 
 		result = glDrv._parameters();
+		MyOutputString(L"_parameters");
 		if (!result)
 			return RETSCAN_ERROR;
 
@@ -263,6 +271,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		}*/
 
 		result = glDrv._StartScan();
+		MyOutputString(L"_StartScan");
 		if (!result)
 		{
 			glDrv._JobEnd();
@@ -280,7 +289,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 			Sleep(200);
 			result = glDrv._info();
-
+			MyOutputString(L"_info");
 			if (!result) {
 				glDrv._StatusGet();
 				glDrv._StatusCheck_Scanning();
@@ -301,19 +310,25 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				if (duplex & 1) {		
 					sprintf(fileName, "%s_%c%d_A%02d.%s", filePath, (ImgFile[0].img.bit > 16) ? 'C' : 'G', ImgFile[0].img.dpi.x, page[0], &ImgFile[0].img.format);
 					ImgFile_Open(&ImgFile[0], fileName);
+					MyOutputString(L"ImgFile_Open 0");
+
 					open[0] = 1;
 
 					::MultiByteToWideChar(CP_ACP, 0, fileName, strlen(fileName), fileNameOut, 256);
 					bstrArray[fileCount] = ::SysAllocString(fileNameOut);
+					MyOutputString(fileNameOut);
 					fileCount++;
 				}
 				if (duplex & 2) {
 					sprintf(fileName, "%s_%c%d_B%02d.%s", filePath, (ImgFile[1].img.bit > 16) ? 'C' : 'G', ImgFile[1].img.dpi.x, page[1], &ImgFile[1].img.format);
 					ImgFile_Open(&ImgFile[1], fileName);
+					MyOutputString(L"ImgFile_Open 1");
+
 					open[1] = 1;
 
 					::MultiByteToWideChar(CP_ACP, 0, fileName, strlen(fileName), fileNameOut, 256);
 					bstrArray[fileCount] = ::SysAllocString(fileNameOut);
+					MyOutputString(fileNameOut);
 					fileCount++;
 				}
 				
@@ -362,8 +377,11 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 						if (glDrv.sc_infodata.ValidPageSize[0] > 0) {
 							result = glDrv._ReadImageEX(0, &ImgSize, imgBuffer, imgBufferSize) &&
 								ImgFile_Write(&ImgFile[0], imgBuffer, ImgSize);
+
+							MyOutputString(L"_ReadImageEX ImgFile_Write 0");
 							if (!result)
 							{
+								MyOutputString(L"_ReadImageEX Fail 0");
 								if ((duplex & 1) && open[0]) {
 									ImgFile_Close(&ImgFile[0], page_line[0]);
 									open[0] = 0;
@@ -383,9 +401,12 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 						if (glDrv.sc_infodata.ValidPageSize[1] > 0) {
 							result = glDrv._ReadImageEX(1, &ImgSize, imgBuffer, imgBufferSize) &&
 								ImgFile_Write(&ImgFile[1], imgBuffer, ImgSize);
+
+							MyOutputString(L"_ReadImageEX ImgFile_Write 1");
+
 							if (!result)
 							{
-							
+								MyOutputString(L"_ReadImageEX Fail 1");
 								if ((duplex & 2) && open[1]) {
 									ImgFile_Close(&ImgFile[1], page_line[1]);
 									open[1] = 0;
@@ -434,12 +455,20 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 
 		if (glDrv.sc_infodata.Cancel == 0)
+		{
+			MyOutputString(L"_stop");
 			glDrv._stop();
+		}
 		else
+		{
+			MyOutputString(L"_cancel");
 			glDrv._cancel();
+		}
+			
 
 	
 		glDrv._JobEnd();
+		MyOutputString(L"_JobEnd");
 
 		CreateSafeArrayFromBSTRArray
 			(
