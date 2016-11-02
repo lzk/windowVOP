@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
 using System.Drawing;
+using System.Windows.Forms;
 
 using ZXing;
 using ZXing.OneD;
@@ -22,7 +23,7 @@ using ZXing.Multi.QrCode.Internal;
 using ZXing.Client.Result;
 using ZXing.Common;
 using ZXing.Rendering;
-
+using System.ComponentModel;
 using System.Threading;
 
 
@@ -73,7 +74,7 @@ namespace VOP.Controls
 
         string imagePath = null;
 
-
+        private Otsu ot = new Otsu();
         //public BitmapSource PictureSource { get; set; }
 
         //public int GetPictureSourceWidth()
@@ -191,19 +192,27 @@ namespace VOP.Controls
             if (File.Exists(imagePath))
             {
                 Bitmap bitmap = GetBitmap(imagePath);
+                Bitmap temp = bitmap;
 
-                Otsu ot = new Otsu();
-                Bitmap temp = (Bitmap)bitmap.Clone();
-                ot.Convert2GrayScaleFast(temp);
-                int otsuThreshold = ot.getOtsuThreshold((Bitmap)temp);
-                ot.threshold(temp, otsuThreshold);
+                if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format24bppRgb)
+                {
+                    try
+                    {
+                        temp = (Bitmap)bitmap.Clone();
+                        ot.Convert2GrayScaleFast(temp);
+                        int otsuThreshold = ot.getOtsuThreshold((Bitmap)temp);
+                        ot.threshold(temp, otsuThreshold);
+                    }
+                    catch (Exception) { }
+                  
+                }
 
                 AsyncWorker worker = new AsyncWorker(this);
                 QRCodeResult result = worker.InvokeQRCodeMethod(Decode, temp);
 
                 if (result != null)
                 {
-                    GotoResultPage(result, ConvertBitmap(temp));
+                    GotoResultPage(result, ConvertBitmap(bitmap));
                 }
                 else
                 {
@@ -453,22 +462,26 @@ namespace VOP.Controls
             System.Drawing.Image tmpImage;
             Bitmap returnImage;
 
-            using (var fs = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
-            {
-                float dpiX = 0;
-                float dpiY = 0;
+            //using (var fs = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
+            //{
+            //    float dpiX = 0;
+            //    float dpiY = 0;
 
-                tmpImage = System.Drawing.Image.FromStream(fs);
+            //    tmpImage = System.Drawing.Image.FromStream(fs);
 
-                dpiX = tmpImage.HorizontalResolution;
-                dpiY = tmpImage.VerticalResolution;
+            //    dpiX = tmpImage.HorizontalResolution;
+            //    dpiY = tmpImage.VerticalResolution;
 
-                returnImage = new Bitmap(tmpImage);
-                returnImage.SetResolution(dpiX, dpiY);
+            //    returnImage = new Bitmap(tmpImage);
+            //    returnImage.SetResolution(dpiX, dpiY);
 
-                tmpImage.Dispose();
-                fs.Dispose();
-            }
+            //    tmpImage.Dispose();
+            //    fs.Dispose();
+            //}
+
+            tmpImage = Bitmap.FromFile(imagePath);
+            returnImage = (Bitmap)tmpImage.Clone();
+            tmpImage.Dispose();
 
             return returnImage;
         }
