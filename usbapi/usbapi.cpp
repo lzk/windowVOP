@@ -1948,7 +1948,12 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 				}
 */
 				//DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_SET_COMMAND, ptrInput, cbInput, buffMax, MAX_SIZE_BUFF, &dwActualSize, NULL);
-				m_GLusb->CMDIO_BulkWriteEx(0, ptrInput, cbInput, &dwActualSize);
+
+				//First 8 bytes header
+				m_GLusb->CMDIO_BulkWriteEx(0, ptrInput, 8, &dwActualSize);
+
+				//the rest
+				m_GLusb->CMDIO_BulkWriteEx(0, ptrInput + 8, cbInput - 8, &dwActualSize);
 
 				DWORD error = GetLastError();
 

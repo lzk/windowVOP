@@ -192,12 +192,18 @@ namespace VOP.Controls
             {
                 Bitmap bitmap = GetBitmap(imagePath);
 
+                Otsu ot = new Otsu();
+                Bitmap temp = (Bitmap)bitmap.Clone();
+                ot.Convert2GrayScaleFast(temp);
+                int otsuThreshold = ot.getOtsuThreshold((Bitmap)temp);
+                ot.threshold(temp, otsuThreshold);
+
                 AsyncWorker worker = new AsyncWorker(this);
-                QRCodeResult result = worker.InvokeQRCodeMethod(Decode, bitmap);
+                QRCodeResult result = worker.InvokeQRCodeMethod(Decode, temp);
 
                 if (result != null)
                 {
-                    GotoResultPage(result, ConvertBitmap(bitmap));
+                    GotoResultPage(result, ConvertBitmap(temp));
                 }
                 else
                 {
