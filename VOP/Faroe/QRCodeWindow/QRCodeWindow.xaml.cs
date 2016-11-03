@@ -201,10 +201,10 @@ namespace VOP.Controls
                         temp = (Bitmap)bitmap.Clone();
                         ot.Convert2GrayScaleFast(temp);
                         int otsuThreshold = ot.getOtsuThreshold((Bitmap)temp);
-                        ot.threshold(temp, otsuThreshold);
+                        ot.threshold(temp, otsuThreshold - 10);
                     }
                     catch (Exception) { }
-                  
+
                 }
 
                 AsyncWorker worker = new AsyncWorker(this);

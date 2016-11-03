@@ -117,62 +117,67 @@ namespace VOP.Controls
 
                     foreach(var v in value.results)
                     {
-                        ParsedResult res = ResultParser.parseResult(v);
-
-                        tr = new TableRow();
-
-                        tr.MouseLeftButtonDown += new MouseButtonEventHandler(TableRow_MouseLeftButtonDown);
-                        tr.MouseEnter += new MouseEventHandler(TableRow_MouseEnter);
-                        tr.MouseLeave += new MouseEventHandler(TableRow_MouseLeave);
-                        tr.Tag = v;
-
-                        tr.FontFamily = new FontFamily("Arial");
-                        tr.FontSize = 12;
-                        tr.Background = Brushes.LightGray;
-
-                        Paragraph paraCodeType = new Paragraph();
-                        paraCodeType.Inlines.Add(new Run(v.BarcodeFormat.ToString()));
-
-                        Paragraph paraResultType = new Paragraph();
-                        paraResultType.Inlines.Add(new Run(res.Type.ToString()));
-
-                        tr.Cells.Add(new TableCell(paraCodeType));
-                        tr.Cells.Add(new TableCell(paraResultType));
-
-                        switch(res.Type)
+                        //Exclude Rss_14
+                        if (v.BarcodeFormat != BarcodeFormat.RSS_14)
                         {
-                            case ParsedResultType.URI:
-                                {
-                                    try
+                            ParsedResult res = ResultParser.parseResult(v);
+
+                            tr = new TableRow();
+
+                            tr.MouseLeftButtonDown += new MouseButtonEventHandler(TableRow_MouseLeftButtonDown);
+                            tr.MouseEnter += new MouseEventHandler(TableRow_MouseEnter);
+                            tr.MouseLeave += new MouseEventHandler(TableRow_MouseLeave);
+                            tr.Tag = v;
+
+                            tr.FontFamily = new FontFamily("Arial");
+                            tr.FontSize = 12;
+                            tr.Background = Brushes.LightGray;
+
+                            Paragraph paraCodeType = new Paragraph();
+                            paraCodeType.Inlines.Add(new Run(v.BarcodeFormat.ToString()));
+
+                            Paragraph paraResultType = new Paragraph();
+                            paraResultType.Inlines.Add(new Run(res.Type.ToString()));
+
+                            tr.Cells.Add(new TableCell(paraCodeType));
+                            tr.Cells.Add(new TableCell(paraResultType));
+
+                            switch (res.Type)
+                            {
+                                case ParsedResultType.URI:
+                                    {
+                                        try
+                                        {
+                                            Paragraph paraResult = new Paragraph();
+                                            Hyperlink hl = new Hyperlink(new Run(v.Text));
+                                            hl.FontSize = 11;
+                                            hl.FontFamily = new FontFamily("Arial");
+                                            hl.NavigateUri = new Uri(v.Text);
+                                            hl.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigate);
+                                            paraResult.Inlines.Add(hl);
+
+                                            tr.Cells.Add(new TableCell(paraResult));
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            goto default;
+                                        }
+
+                                    }
+                                    break;
+                                default:
                                     {
                                         Paragraph paraResult = new Paragraph();
-                                        Hyperlink hl = new Hyperlink(new Run(v.Text));
-                                        hl.FontSize = 11;
-                                        hl.FontFamily = new FontFamily("Arial");
-                                        hl.NavigateUri = new Uri(v.Text);
-                                        hl.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigate);
-                                        paraResult.Inlines.Add(hl);
+                                        paraResult.Inlines.Add(new Run(v.Text));
 
                                         tr.Cells.Add(new TableCell(paraResult));
                                     }
-                                    catch(Exception ex)
-                                    {
-                                        goto default;
-                                    }
-                                 
-                                }
-                                break;
-                            default:
-                                {
-                                    Paragraph paraResult = new Paragraph();
-                                    paraResult.Inlines.Add(new Run(v.Text));
+                                    break;
+                            }
 
-                                    tr.Cells.Add(new TableCell(paraResult));
-                                }
-                                break;
+                            trg.Rows.Add(tr);
                         }
 
-                        trg.Rows.Add(tr);
                     }
 
                     flowTable.RowGroups.Add(trg);
