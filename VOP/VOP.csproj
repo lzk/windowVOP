@@ -244,6 +244,9 @@
     <Compile Include="Faroe\Settings\TcpipView_Rufous.xaml.cs">
       <DependentUpon>TcpipView_Rufous.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Faroe\ScanTo\ScanPreview_Rufous.xaml.cs">
+      <DependentUpon>ScanPreview_Rufous.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TroubleshootingPage.cs" />
     <Compile Include="MessageBoxEx_Video.xaml.cs">
       <DependentUpon>MessageBoxEx_Video.xaml</DependentUpon>
@@ -540,6 +543,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Faroe\Settings\TcpipView_Rufous.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\ScanTo\ScanPreview_Rufous.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

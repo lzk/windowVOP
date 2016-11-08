@@ -72,7 +72,7 @@ namespace VOP.Controls
         private Dictionary<DecodeHintType, object> hints;
         private List<CropLocation> cropLocationList;
 
-        string imagePath = null;
+        List<string> imagePath = null;
 
         private Otsu ot = new Otsu();
         //public BitmapSource PictureSource { get; set; }
@@ -154,7 +154,7 @@ namespace VOP.Controls
             InitializeComponent();
         }
 
-        public QRCodeWindow(string path)
+        public QRCodeWindow(List<string> path)
         {
             InitializeComponent();
 
@@ -189,9 +189,9 @@ namespace VOP.Controls
 
         private void Execute()
         {
-            if (File.Exists(imagePath))
+            if (File.Exists(imagePath[0]))
             {
-                Bitmap bitmap = GetBitmap(imagePath);
+                Bitmap bitmap = GetBitmap(imagePath[0]);
                 Bitmap temp = bitmap;
 
                 if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format24bppRgb)
@@ -201,7 +201,7 @@ namespace VOP.Controls
                         temp = (Bitmap)bitmap.Clone();
                         ot.Convert2GrayScaleFast(temp);
                         int otsuThreshold = ot.getOtsuThreshold((Bitmap)temp);
-                        ot.threshold(temp, otsuThreshold - 10);
+                        ot.threshold(temp, 40);
                     }
                     catch (Exception) { }
 
@@ -398,7 +398,7 @@ namespace VOP.Controls
         public void GotoManualPage()
         {
             QRCodeManualPage manualPage = new QRCodeManualPage(this);
-            manualPage.ImageUri = new Uri(imagePath);
+            manualPage.ImageUri = new Uri(imagePath[0]);
             PageView.Child = manualPage;
         }
 

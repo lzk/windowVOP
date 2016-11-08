@@ -354,8 +354,13 @@ namespace VOP.Controls
                 && intRect.X + intRect.Width <= w
                 && intRect.Y + intRect.Height <= h)
             {
-                intRectOffset = intRect;
-                croppedImage = new CroppedBitmap(src, intRect);
+                try
+                {
+                    intRectOffset = intRect;
+                    croppedImage = new CroppedBitmap(src, intRect);
+                }
+                catch (Exception) { }
+              
             }
        
             return croppedImage;

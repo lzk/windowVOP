@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VOP.Controls"
              mc:Ignorable="d" 
              x:Name="myControl"
              d:DesignHeight="480" d:DesignWidth="500" Loaded="myControl_Loaded">
@@ -48,7 +49,7 @@
                 <DropShadowEffect BlurRadius="10" Color="#FF858484" Direction="292" ShadowDepth="1" Opacity="0.5"/>
             </Border.Effect>
             <Grid>
-                <Image Name="ImageView"  Margin="7"/>
+                <Image x:Name="ImageView"  Margin="7"/>
                 <Canvas x:Name="DesignerCanvas"
                 ClipToBounds="True"
                 SnapsToDevicePixels="True">

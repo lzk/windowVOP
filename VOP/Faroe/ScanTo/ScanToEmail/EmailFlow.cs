@@ -125,10 +125,10 @@ namespace VOP
                 return false;
             }
 
-            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                                  Application.Current.MainWindow,
-                                 "Send Email completed",
-                                 "Prompt");
+            //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+            //                      Application.Current.MainWindow,
+            //                     "Send Email completed",
+            //                     "Prompt");
             return true;
         }
 

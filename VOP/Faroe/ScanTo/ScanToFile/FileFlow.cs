@@ -61,10 +61,10 @@ namespace VOP
 
             if (result == true)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                               Application.Current.MainWindow,
-                              "Save files completed",
-                              "Prompt");
+                //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                //               Application.Current.MainWindow,
+                //              "Save files completed",
+                //              "Prompt");
             }
             else
             {

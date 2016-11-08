@@ -236,14 +236,17 @@ namespace VOP
             if (0 == img.m_num && GetSelectedItemCount() < m_maxImgNum)
                 img.m_num = GetSelectedItemCount() + 1;
 
-          //  btnPrint.IsEnabled = true;
-          //  btnSave.IsEnabled = true;
+            //  btnPrint.IsEnabled = true;
+            //  btnSave.IsEnabled = true;
+
+            List<string> selectfiles = new List<string>();
+            GetSelectedFile(selectfiles);
 
             ScanPreview win = new ScanPreview();
             win.Owner       = m_MainWin;
 			win.m_images    = img.m_images;
             win.isPrint     = false;
-
+            win.selectFileList = selectfiles;
             win.ShowDialog();
 
             if ( true == win.isPrint )

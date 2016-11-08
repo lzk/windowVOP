@@ -36,7 +36,7 @@ namespace VopHelper
                         break;
                 }
 
-                i.Save( pathDst, System.Drawing.Imaging.ImageFormat.Bmp );
+                i.Save( pathDst, System.Drawing.Imaging.ImageFormat.Jpeg );
             }
         }
         

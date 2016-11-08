@@ -14,6 +14,14 @@ namespace VOP
 
         }
 
+        private void DebugAddScanFiles(ref List<ScanFiles> files)
+        {
+            files = new List<ScanFiles>();
+            files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
+            files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00_180.JPG"));
+            files.Add(new ScanFiles(@"G:\work\Rufous\pic\temp-000.JPG"));
+        }
+
         public bool ScanToAP()
         {
             ScanTask task = new ScanTask();
@@ -57,7 +65,15 @@ namespace VOP
             flow.ParentWin = Application.Current.MainWindow;
             flow.FileList = fileLs;
             FileFlow.FlowType = FileFlowType.Quick;
-            flow.Run();
+
+            if(flow.Run())
+            {
+                ScanPreview_Rufous win = new ScanPreview_Rufous();
+                win.Owner = Application.Current.MainWindow;
+                win.ImagePaths = fileLs;
+                win.messageBlock.Text = "Save files completed";
+                win.ShowDialog();
+            }
 
             return true;
         }
@@ -82,7 +98,15 @@ namespace VOP
             flow.ParentWin = Application.Current.MainWindow;
             flow.FileList = fileLs;
             EmailFlow.FlowType = EmailFlowType.Quick;
-            flow.Run();
+
+            if (flow.Run())
+            {
+                ScanPreview_Rufous win = new ScanPreview_Rufous();
+                win.Owner = Application.Current.MainWindow;
+                win.ImagePaths = fileLs;
+                win.messageBlock.Text = "Send Email completed";
+                win.ShowDialog();
+            }
 
             return true;
         }
@@ -106,7 +130,15 @@ namespace VOP
             flow.ParentWin = Application.Current.MainWindow;
             flow.FileList = fileLs;
             PrintFlow.FlowType = PrintFlowType.Quick;
-            flow.Run();
+
+            if (flow.Run())
+            {
+                ScanPreview_Rufous win = new ScanPreview_Rufous();
+                win.Owner = Application.Current.MainWindow;
+                win.ImagePaths = fileLs;
+                win.messageBlock.Text = "Print completed";
+                win.ShowDialog();
+            }
 
             return true;
         }
@@ -130,7 +162,15 @@ namespace VOP
             flow.ParentWin = Application.Current.MainWindow;
             flow.FileList = fileLs;
             FtpFlow.FlowType = FtpFlowType.Quick;
-            flow.Run();
+
+            if (flow.Run())
+            {
+                ScanPreview_Rufous win = new ScanPreview_Rufous();
+                win.Owner = Application.Current.MainWindow;
+                win.ImagePaths = fileLs;
+                win.messageBlock.Text = "Upload completed";
+                win.ShowDialog();
+            }
 
             return true;
         }
@@ -139,14 +179,6 @@ namespace VOP
         {
             ScanTask task = new ScanTask();
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_cloudScanSettings);
-
-            //List<ScanFiles> files = new List<ScanFiles>();
-            //files.Add(new ScanFiles(@"G:\work\Rufous\pic\1313783656_C300_A00.JPG"));
-            //files.Add(new ScanFiles(@"G:\work\Rufous\pic\1313783656_C300_A01.JPG"));
-            //files.Add(new ScanFiles(@"G:\work\Rufous\pic\1313783656_C300_A02.JPG"));
-            //files.Add(new ScanFiles(@"G:\work\Rufous\pic\1313783656_C300_B00.JPG"));
-            //files.Add(new ScanFiles(@"G:\work\Rufous\pic\1313783656_C300_B01.JPG"));
-            //files.Add(new ScanFiles(@"G:\work\Rufous\pic\1313783656_C300_B02.JPG"));
 
             if (files == null)
                 return false;
@@ -164,10 +196,16 @@ namespace VOP
 
             if(flow.Run())
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                               Application.Current.MainWindow,
-                              "Upload completed",
-                              "Prompt");
+                //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                //               Application.Current.MainWindow,
+                //              "Upload completed",
+                //              "Prompt");
+
+                ScanPreview_Rufous win = new ScanPreview_Rufous();
+                win.Owner = Application.Current.MainWindow;
+                win.ImagePaths = fileLs;
+                win.messageBlock.Text = "Upload completed";
+                win.ShowDialog();
             }
             else
             {

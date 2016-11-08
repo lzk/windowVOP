@@ -77,10 +77,10 @@ namespace VOP
 
             if (printRes == PrintError.Print_OK)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                                         Application.Current.MainWindow,
-                                        "Print completed",
-                                        "Prompt");
+                //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                //                         Application.Current.MainWindow,
+                //                        "Print completed",
+                //                        "Prompt");
             }
             else
             {

@@ -34,6 +34,8 @@ namespace VOP
         // Actual size of preview image in pixels.
         private double m_actualWidth = 0;
 
+        public List<string> selectFileList = null;
+
         public ScanPreview()
         {
             InitializeComponent();
@@ -258,15 +260,15 @@ namespace VOP
             bool bSuccess = true;
 
             string args1 = "\"" + objSrc.m_pathOrig  + "\" \"" + objDst.m_pathOrig  + "\" \"" + nAngle.ToString();
-            string args2 = "\"" + objSrc.m_pathView  + "\" \"" + objDst.m_pathView  + "\" \"" + nAngle.ToString();
-            string args3 = "\"" + objSrc.m_pathThumb + "\" \"" + objDst.m_pathThumb + "\" \"" + nAngle.ToString();
+            //string args2 = "\"" + objSrc.m_pathView  + "\" \"" + objDst.m_pathView  + "\" \"" + nAngle.ToString();
+            //string args3 = "\"" + objSrc.m_pathThumb + "\" \"" + objDst.m_pathThumb + "\" \"" + nAngle.ToString();
 
             try
             {
                 // Get the ExitCode of VopHelper. 0 success, otherwise fail.
                 int nExitCode1 = 0;
-                int nExitCode2 = 0;
-                int nExitCode3 = 0;
+                //int nExitCode2 = 0;
+                //int nExitCode3 = 0;
 
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -278,19 +280,17 @@ namespace VOP
                 exeProcess.WaitForExit();
                 nExitCode1 = exeProcess.ExitCode;
 
-                startInfo.Arguments = args2;
-                exeProcess = Process.Start(startInfo);
-                exeProcess.WaitForExit();
-                nExitCode2 = exeProcess.ExitCode;
+                //startInfo.Arguments = args2;
+                //exeProcess = Process.Start(startInfo);
+                //exeProcess.WaitForExit();
+                //nExitCode2 = exeProcess.ExitCode;
 
-                startInfo.Arguments = args3;
-                exeProcess = Process.Start(startInfo);
-                exeProcess.WaitForExit();
-                nExitCode3 = exeProcess.ExitCode;
+                //startInfo.Arguments = args3;
+                //exeProcess = Process.Start(startInfo);
+                //exeProcess.WaitForExit();
+                //nExitCode3 = exeProcess.ExitCode;
 
-                bSuccess = ( 0 == nExitCode1 
-                        && 0 == nExitCode2 
-                        && 0 == nExitCode3);
+                bSuccess = ( 0 == nExitCode1 );
             }
             catch
             {
