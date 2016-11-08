@@ -122,7 +122,6 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	nLinePixelNumOrig = nLinePixelNumOrig - nLinePixelNumOrig % 8;
 
 	nColPixelNumOrig = height*resolution / 1000;
-	nColPixelNumOrig = nColPixelNumOrig - nColPixelNumOrig % 8;
 
 	imgBufferSize = GetByteNumPerLineWidthPad(BitsPerPixel, nLinePixelNumOrig) * lineNumber;
 

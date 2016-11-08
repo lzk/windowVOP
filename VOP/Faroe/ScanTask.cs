@@ -47,7 +47,7 @@ namespace VOP
 
             common.GetPaperSize(param.PaperSize, ref nWidth, ref nHeight);
 
-            AsyncWorker worker = new AsyncWorker();
+            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
             Stopwatch sw = new Stopwatch();
             sw.Start();
             int nResult = worker.InvokeScanMethod(dll.ADFScan,

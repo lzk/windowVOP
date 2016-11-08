@@ -290,12 +290,12 @@ namespace VOP
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboScanResln.Items.Add( cboItem );
 
-            cboItem = new ComboBoxItem();
-            cboItem.Content = "1200 x 1200dpi" ;
-            cboItem.DataContext = EnumScanResln._1200x1200;
-            cboItem.MinWidth = 145;
-            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            cboScanResln.Items.Add( cboItem );
+            //cboItem = new ComboBoxItem();
+            //cboItem.Content = "1200 x 1200dpi" ;
+            //cboItem.DataContext = EnumScanResln._1200x1200;
+            //cboItem.MinWidth = 145;
+            //cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            //cboScanResln.Items.Add( cboItem );
 
             foreach ( ComboBoxItem obj in cboScanResln.Items )
             {

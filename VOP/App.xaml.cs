@@ -85,16 +85,16 @@ namespace VOP
             //    rsg.Close();
             //}
 
-            if (LanguageRegistry.Open())
-            {
-                LangId = LanguageRegistry.GetLangID();
-                LanguageRegistry.Close();
-            }
-            else
-            {
-                CultureInfo ci = CultureInfo.InstalledUICulture;
-                LangId = ci.LCID;
-            }
+            //if (LanguageRegistry.Open())
+            //{
+            //    LangId = LanguageRegistry.GetLangID();
+            //    LanguageRegistry.Close();
+            //}
+            //else
+            //{
+            //    CultureInfo ci = CultureInfo.InstalledUICulture;
+            //    LangId = ci.LCID;
+            //}
 
             return LangId;
         }
