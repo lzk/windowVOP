@@ -137,7 +137,7 @@
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="110" />
+                    <RowDefinition Height="50" />
                     <RowDefinition Height="240" />
                     <RowDefinition/>
                 </Grid.RowDefinitions>
@@ -151,7 +151,7 @@
                 <!-- Title bar end -->
 
 
-                <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Document_Type}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="455" Height="75" >
+                <!--<local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Document_Type}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="455" Height="75" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100*" />
@@ -181,7 +181,7 @@
                     Content="{StaticResource ResStr_Text}" VerticalAlignment="Center" ></RadioButton>
                     </Grid>
 
-                </local:GroupBoxDecorator>
+                </local:GroupBoxDecorator>-->
 
                 <Grid Grid.Row="2" >
                     <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_DPI}" Height="65" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
@@ -199,10 +199,10 @@
                     <local:GroupBoxDecorator Margin="40,78,0,82" Header="{StaticResource ResStr_Color_Mode}" Height="80" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <Grid Margin="0,0,0,5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition Width="45" />
                                 <ColumnDefinition Width="65" />
                                 <ColumnDefinition Width="65" />
-                                <ColumnDefinition Width="65" />
+
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
@@ -243,7 +243,7 @@
                                 <Image Stretch="None" Source="../../Images/Grayscale.png" />
                             </RadioButton>
 
-                            <RadioButton GroupName="colorMode"  
+                            <!--<RadioButton GroupName="colorMode"  
                             IsChecked="False"
 					        Checked="colorMode_Click"
                             Grid.Row="1" Grid.Column="3"
@@ -257,7 +257,7 @@
                                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
                                 </RadioButton.BorderBrush>
                                 <Image Stretch="None" Source="../../Images/BlackWhite.png" />
-                            </RadioButton>
+                            </RadioButton>-->
                         </Grid>
                     </local:GroupBoxDecorator>
 

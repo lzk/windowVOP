@@ -76,18 +76,18 @@ namespace VOP
         /// </summary>
         private void InitControls()
         {
-            switch(m_docutype)
-            {
-                case EnumScanDocType.Photo:
-                    docutype_photo.IsChecked = true;
-                    break;
-                case EnumScanDocType.Text:
-                    docutype_text.IsChecked = true;
-                    break;
-                case EnumScanDocType.Graphic:
-                    docutype_graphic.IsChecked = true;
-                    break;                   
-            }
+            //switch(m_docutype)
+            //{
+            //    case EnumScanDocType.Photo:
+            //        docutype_photo.IsChecked = true;
+            //        break;
+            //    case EnumScanDocType.Text:
+            //        docutype_text.IsChecked = true;
+            //        break;
+            //    case EnumScanDocType.Graphic:
+            //        docutype_graphic.IsChecked = true;
+            //        break;                   
+            //}
 
             switch(m_color)
             {
@@ -98,7 +98,7 @@ namespace VOP
                     Grayscale.IsChecked = true;
                     break;
                 case EnumColorType.black_white:
-                    BlackAndWhite.IsChecked = true;
+                  //  BlackAndWhite.IsChecked = true;
                     break;     
             }
 
@@ -373,7 +373,7 @@ namespace VOP
             }
             else// en-US
             {
-                Color.FontSize = Grayscale.FontSize = BlackAndWhite.FontSize = 8.0;
+                Color.FontSize = Grayscale.FontSize = 8.0;
                 btnDefault.FontSize = btnOk.FontSize = 14;
             }
         }

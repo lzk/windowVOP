@@ -591,7 +591,7 @@ USBAPI_API int __stdcall CheckUsbScan(
 	TCHAR strPort[32] = { 0 };
 	int  iCnt;
 
-	EnterCriticalSection(&g_csCriticalSection_UsbTest);
+	//EnterCriticalSection(&g_csCriticalSection_UsbTest);
 
 	for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++) {
 		_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
@@ -618,7 +618,7 @@ USBAPI_API int __stdcall CheckUsbScan(
 		CloseHandle(hDev);
 	}
 
-	LeaveCriticalSection(&g_csCriticalSection_UsbTest);
+	//LeaveCriticalSection(&g_csCriticalSection_UsbTest);
 
 	return 1;
 }

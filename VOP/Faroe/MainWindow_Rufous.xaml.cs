@@ -107,7 +107,8 @@ namespace VOP
                 if (MainWindow_Rufous.g_settingData.m_DeviceName == usbName.ToString())
                 {
                     dll.SetConnectionMode(usbName.ToString(), true);
-                    SetDeviceButtonState(true);
+                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                    // SetDeviceButtonState(true);
                 }
             }
 
@@ -118,7 +119,8 @@ namespace VOP
                     if (MainWindow_Rufous.g_settingData.m_DeviceName == ip)
                     {
                         dll.SetConnectionMode(ip, false);
-                        SetDeviceButtonState(true);
+                        //SetDeviceButtonState(true);
+                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                     }
                 }
             }
@@ -134,11 +136,13 @@ namespace VOP
 
                 if(dll.CheckConnection())
                 {
-                    SetDeviceButtonState(true);
+                    //SetDeviceButtonState(true);
+                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                 }
                 else
                 {
-                    SetDeviceButtonState(false);
+                    //SetDeviceButtonState(false);
+                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
                 }
 
                 for (int i = 0; i < 6; i++)
@@ -273,7 +277,14 @@ namespace VOP
 
             if (msg == App.WM_STATUS_UPDATE)
             {
-
+                if((int)wParam == 1)
+                {
+                    scanSelectionPage.DeviceButton.Connected = true;
+                }
+                else
+                {
+                    scanSelectionPage.DeviceButton.Connected = false;
+                }
             }
             else if (msg == App.WM_VOP)
             {

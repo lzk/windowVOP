@@ -1346,7 +1346,6 @@ BOOL TestIpConnected(char* szIP)
 {
 	int nResult = TRUE;
 
-	EnterCriticalSection(&g_csCriticalSection_NetWorkTest);
 	HMODULE hmod = LoadLibrary(DLL_NAME_NET);
 
 	LPFN_NETWORK_CONNECT_BLOCK lpfnNetworkConnectBlock = NULL;
@@ -1397,7 +1396,6 @@ BOOL TestIpConnected(char* szIP)
 
 	FreeLibrary(hmod);
 
-	LeaveCriticalSection(&g_csCriticalSection_NetWorkTest);
 	return nResult;
 }
 
