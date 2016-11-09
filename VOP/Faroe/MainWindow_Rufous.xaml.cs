@@ -41,6 +41,9 @@ namespace VOP
         public PrintPage printPage = new PrintPage();
 
         private Thread thread_searchIP = null;
+        private Thread statusUpdater = null;
+        private ManualResetEvent m_updaterAndUIEvent = new ManualResetEvent(true);
+        private bool _bExitUpdater = false;
 
         public static byte m_byWifiInitStatus = 0;
         public string m_strPassword = "";
@@ -56,6 +59,9 @@ namespace VOP
 
             thread_searchIP = new Thread(InitIPList);
             thread_searchIP.Start();
+
+            statusUpdater = new Thread(UpdateStatusCaller);
+            statusUpdater.Start();
 
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
         }
@@ -116,6 +122,35 @@ namespace VOP
                     }
                 }
             }
+        }
+
+        public void UpdateStatusCaller()
+        {
+            m_updaterAndUIEvent.Reset();
+
+            _bExitUpdater = false;
+            while (!_bExitUpdater)
+            {
+
+                if(dll.CheckConnection())
+                {
+                    SetDeviceButtonState(true);
+                }
+                else
+                {
+                    SetDeviceButtonState(false);
+                }
+
+                for (int i = 0; i < 6; i++)
+                {
+                    if (_bExitUpdater)
+                        break;
+
+                    System.Threading.Thread.Sleep(500);
+                }
+            }
+
+            m_updaterAndUIEvent.Set();
         }
 
         public void SetDeviceButtonState(bool isConnected)
@@ -252,6 +287,41 @@ namespace VOP
             return IntPtr.Zero;
         }
 
+        private void mainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = false;
+
+            if (VOP.Controls.MessageBoxExResult.Yes !=
+                    VOP.Controls.MessageBoxEx.Show(
+                                                VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
+                                                this,
+                                                "Do you want to exit the Faroe VOP?",
+                                                (string)this.TryFindResource("ResStr_Prompt")
+                                                )
+                )
+            {
+                e.Cancel = true;
+            }
+           
+
+            if (false == e.Cancel)
+                MainWindowExitPoint();
+        }
+
+        private void MainWindowExitPoint()
+        {
+
+            if (thread_searchIP != null && thread_searchIP.IsAlive == true)
+            {
+                thread_searchIP.Join();
+            }
+
+            _bExitUpdater = true;
+            m_updaterAndUIEvent.WaitOne();
+
+            SettingData.Serialize(g_settingData, App.cfgFile);
+        }
+
         private void ControlBtnClick(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.Button btn = sender as System.Windows.Controls.Button;
@@ -259,8 +329,7 @@ namespace VOP
             if (null != btn)
             {
                 if ("btnClose" == btn.Name)
-                {
-                    SettingData.Serialize(g_settingData, App.cfgFile);
+                {         
                     this.Close();
                 }
                 else if ("btnMinimize" == btn.Name)

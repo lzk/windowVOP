@@ -577,7 +577,8 @@ static bool bCancelScanning = false; // Scanning cancel falg, only use in ScanEx
 extern CRITICAL_SECTION g_csCriticalSection;
 extern CRITICAL_SECTION g_csCriticalSection_bonjour;
 extern CRITICAL_SECTION g_csCriticalSection_connect;
-
+extern CRITICAL_SECTION g_csCriticalSection_UsbTest;
+extern CRITICAL_SECTION g_csCriticalSection_NetWorkTest;
 
 //--------------------------------implement-----------------------------------
 
@@ -1341,10 +1342,11 @@ USBAPI_API void __stdcall ResetBonjourAddr()
 	::memset(addr, 0, 256);
 }
 
-static BOOL TestIpConnected(char* szIP)
+BOOL TestIpConnected(char* szIP)
 {
 	int nResult = TRUE;
 
+	EnterCriticalSection(&g_csCriticalSection_NetWorkTest);
 	HMODULE hmod = LoadLibrary(DLL_NAME_NET);
 
 	LPFN_NETWORK_CONNECT_BLOCK lpfnNetworkConnectBlock = NULL;
@@ -1395,6 +1397,7 @@ static BOOL TestIpConnected(char* szIP)
 
 	FreeLibrary(hmod);
 
+	LeaveCriticalSection(&g_csCriticalSection_NetWorkTest);
 	return nResult;
 }
 

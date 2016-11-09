@@ -68,3 +68,4 @@ EXPORTS
 	SearchValidedIP2
 	CheckUsbScan
 	SetConnectionMode
+	CheckConnection

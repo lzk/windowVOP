@@ -11,6 +11,7 @@
         xmlns:mycontrol="clr-namespace:VOP"
         UseLayoutRounding="True"
         Name="mainWindow"
+        Closing="mainWindow_Closing"
         >
     <Window.Resources>
         <ResourceDictionary Source="../Controls/PanelButton.xaml"/>

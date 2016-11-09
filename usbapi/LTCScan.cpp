@@ -42,6 +42,10 @@ enum Scan_RET
 	RETSCAN_OPENFAIL_NET = 10,
 };
 
+extern CRITICAL_SECTION g_csCriticalSection_UsbTest;
+extern CRITICAL_SECTION g_csCriticalSection_NetWorkTest;
+extern BOOL TestIpConnected(char* szIP);
+
 wchar_t g_ipAddress[256] = { 0 };
 BOOL g_connectMode_usb = TRUE;
 
@@ -587,6 +591,8 @@ USBAPI_API int __stdcall CheckUsbScan(
 	TCHAR strPort[32] = { 0 };
 	int  iCnt;
 
+	EnterCriticalSection(&g_csCriticalSection_UsbTest);
+
 	for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++) {
 		_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
 		hDev = CreateFile(strPort,
@@ -603,12 +609,18 @@ USBAPI_API int __stdcall CheckUsbScan(
 	}
 
 	if (hDev == INVALID_HANDLE_VALUE)
+	{
+		LeaveCriticalSection(&g_csCriticalSection_UsbTest);
 		return 0;
-
-	
+	}
+		
 	if (hDev != INVALID_HANDLE_VALUE) {
 		CloseHandle(hDev);
 	}
+
+	LeaveCriticalSection(&g_csCriticalSection_UsbTest);
+
+	return 1;
 }
 
 USBAPI_API void __stdcall SetConnectionMode(
@@ -616,4 +628,22 @@ USBAPI_API void __stdcall SetConnectionMode(
 {
 	_tcscpy_s(g_ipAddress, 256, deviceName);
 	g_connectMode_usb = isUsb;
+}
+
+USBAPI_API BOOL __stdcall CheckConnection()
+{
+
+	if (g_connectMode_usb)
+	{
+		char interfaceName[32] = { 0 };
+		return (BOOL)CheckUsbScan(interfaceName);
+	}
+	else
+	{
+		char _hostname[256] = { 0 };
+		::WideCharToMultiByte(CP_ACP, 0, g_ipAddress, -1, _hostname, 256, NULL, NULL);
+
+		return TestIpConnected(_hostname);
+	}
+
 }

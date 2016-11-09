@@ -21,7 +21,7 @@ namespace VOP
 #region scan parameters
         public EnumScanDocType   m_docutype   = EnumScanDocType.Photo;
         public EnumScanResln     m_scanResln  = EnumScanResln._300x300;
-        public EnumPaperSizeScan m_paperSize  = EnumPaperSizeScan._A4;
+        public EnumPaperSizeScan m_paperSize  = EnumPaperSizeScan._Auto;
         public EnumColorType     m_color      = EnumColorType.color_24bit;
         public int               m_brightness = 50;
         public int               m_contrast   = 50;
@@ -240,7 +240,7 @@ namespace VOP
         {
             m_docutype   = EnumScanDocType.Photo;
             m_scanResln  = EnumScanResln._300x300;
-            m_paperSize  = EnumPaperSizeScan._A4;
+            m_paperSize  = EnumPaperSizeScan._Auto;
             m_color      = EnumColorType.color_24bit;
             m_brightness = 50;
             m_contrast   = 50;
