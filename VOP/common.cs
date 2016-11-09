@@ -523,7 +523,11 @@ namespace VOP
         public static void GetPaperSize( EnumPaperSizeScan s, ref int nWidth, ref int nHeight )
         {
             switch ( s )
-            { 
+            {
+                case EnumPaperSizeScan._Auto:
+                    nWidth = 8500;
+                    nHeight = 11000*10;
+                    break;
                 case EnumPaperSizeScan._A4         :
                     nWidth  = 8268;
                     nHeight = 11693;

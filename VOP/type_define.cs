@@ -215,6 +215,7 @@ namespace VOP
     /// </summary>
     public enum EnumPaperSizeScan
     { 
+        _Auto    ,
         _A4      ,
         _A5      ,
         _B5      ,
