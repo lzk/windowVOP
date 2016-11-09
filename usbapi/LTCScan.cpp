@@ -39,6 +39,7 @@ enum Scan_RET
 	RETSCAN_CANCEL = 7,
 	RETSCAN_BUSY = 8,
 	RETSCAN_ERROR = 9,
+	RETSCAN_OPENFAIL_NET = 10,
 };
 
 wchar_t g_ipAddress[256] = { 0 };
@@ -483,7 +484,10 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	}
 	else
 	{
-		return RETSCAN_OPENFAIL;
+		if(g_connectMode_usb == TRUE)
+			return RETSCAN_OPENFAIL;
+		else
+			return RETSCAN_OPENFAIL_NET;
 	}
 
 

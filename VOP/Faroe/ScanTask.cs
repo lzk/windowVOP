@@ -83,11 +83,28 @@ namespace VOP
 
             if (ScanResult != Scan_RET.RETSCAN_OK)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                           Application.Current.MainWindow,
-                          "Scan failed",
-                          "Error");
-            }
+                if (ScanResult == Scan_RET.RETSCAN_OPENFAIL)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                               Application.Current.MainWindow,
+                               "USB scan connection failed",
+                               "Error");
+                }
+                else if (ScanResult == Scan_RET.RETSCAN_OPENFAIL_NET)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                               Application.Current.MainWindow,
+                               "Network scan connection failed",
+                               "Error");
+                }
+                else
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                Application.Current.MainWindow,
+                                "Scan failed",
+                                "Error");
+                }
+            } 
 
             return files.Count > 0 ? files : null;
         }

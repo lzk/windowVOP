@@ -354,6 +354,7 @@ namespace VOP
         RETSCAN_CANCEL         = 7,
         RETSCAN_BUSY           = 8,
         RETSCAN_ERROR          = 9,
+        RETSCAN_OPENFAIL_NET   = 10,
     }
      
 }
