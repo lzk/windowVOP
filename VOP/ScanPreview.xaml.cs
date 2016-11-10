@@ -67,6 +67,7 @@ namespace VOP
                 BitmapImage bi3 = new BitmapImage();
                 bi3.BeginInit();
                 bi3.UriSource = new Uri( m_images.m_pathView, UriKind.RelativeOrAbsolute );
+                bi3.CacheOption = BitmapCacheOption.None;
 
                 // Fixed bms bug #0059616: Set the DecodePixelWidth to avoid rotation operation cached memory.
                 // Comment from MSDN:
@@ -77,12 +78,12 @@ namespace VOP
                 // the size that is displayed. 
                 // Note: In order to preserve aspect ratio, set DecodePixelWidth 
                 // or DecodePixelHeight but not both.
-                //bi3.DecodePixelWidth = img.Width;
-                //m_actualWidth = img.Width;
-
+           
+                bi3.DecodePixelWidth = 1000;
+                m_actualWidth = 1000;
+              
                 bi3.EndInit();
 
-                m_actualWidth = bi3.PixelWidth;
 
                 // Begin: Fix 61368
                 if (m_images.m_colorMode == EnumColorType.black_white)

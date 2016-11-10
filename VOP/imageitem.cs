@@ -139,7 +139,7 @@ namespace VOP
             try
             {
                 Uri myUri = new Uri(m_images.m_pathThumb, UriKind.RelativeOrAbsolute);
-                JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
+                JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
                 BitmapSource bi3 = decoder.Frames[0];
 
                 // Begin: Fix 61368
@@ -158,7 +158,45 @@ namespace VOP
                 }
                 else
                 {
-                    imgBody.Source = bi3;
+                    //scale down image
+                    ScaleTransform scaleTransform = new ScaleTransform();
+
+                    if (bi3.PixelWidth < 2000)
+                    {
+                        scaleTransform.ScaleX = 1.0;
+                        scaleTransform.ScaleY = 1.0;
+                    }
+                    else if (bi3.PixelWidth >= 2000 && bi3.PixelWidth < 3000)
+                    {
+                        scaleTransform.ScaleX = 1.0 / 2.0;
+                        scaleTransform.ScaleY = 1.0 / 2.0;
+                    }
+                    else if (bi3.PixelWidth >= 3000 && bi3.PixelWidth < 4000)
+                    {
+                        scaleTransform.ScaleX = 1.0 / 3.0;
+                        scaleTransform.ScaleY = 1.0 / 3.0;
+
+                    }
+                    else if (bi3.PixelWidth >= 4000 && bi3.PixelWidth < 5000)
+                    {
+                        scaleTransform.ScaleX = 1.0 / 4.0;
+                        scaleTransform.ScaleY = 1.0 / 4.0;
+                    }
+                    else if (bi3.PixelWidth >= 5000)
+                    {
+                        scaleTransform.ScaleX = 1.0 / 6.0;
+                        scaleTransform.ScaleY = 1.0 / 6.0;
+                    }
+                   
+                
+                    TransformedBitmap tb = new TransformedBitmap();
+                    tb.BeginInit();
+                    tb.Source = bi3;
+                    tb.Transform = scaleTransform;
+                    tb.EndInit();
+
+                    imgBody.Source = tb;
+                    GC.Collect();
                 }
                 // End: Fix 61368
 
