@@ -98,7 +98,7 @@ namespace VOP
                 //result = open.ShowDialog();
                 //if (result == true)
                 {
-                       // QRCodeWindow win = new QRCodeWindow(new List<string>(open.FileNames));
+                   // QRCodeWindow win = new QRCodeWindow(new List<string>(open.FileNames));
 
                         if (btn.Name == "ImageButton1")
                         {
@@ -123,27 +123,20 @@ namespace VOP
         {
             ImageButton btn = sender as ImageButton;
 
-            //ScanTask task = new ScanTask();
-            //ScanParam param = new ScanParam(
-            //    EnumScanResln._300x300,
-            //    EnumPaperSizeScan._A4,
-            //    EnumColorType.color_24bit,
-            //    true,
-            //    50,
-            //    50);
+            ScanTask task = new ScanTask();
 
-            //List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
+            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
 
-            //if (files == null)
-            //    return;
+            if (files == null)
+                return;
 
-            //if (task.ScanResult == Scan_RET.RETSCAN_OK)
+            if (task.ScanResult == Scan_RET.RETSCAN_OK)
             {
-                List<ScanFiles> files = new List<ScanFiles>();
-                files.Add(new ScanFiles(@"G:\work\Rufous\pic\0011507242_C600_A02.JPG"));
-                files.Add(new ScanFiles(@"G:\work\Rufous\pic\0009882444_G600_A00.JPG"));
-                files.Add(new ScanFiles(@"G:\work\Rufous\pic\0009841993_C600_A00.JPG"));
-                files.Add(new ScanFiles(@"G:\work\Rufous\pic\0000636359_C600_A00.JPG"));
+                //List<ScanFiles> files = new List<ScanFiles>();
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0011507242_C600_A02.JPG"));
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0009882444_G600_A00.JPG"));
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0009841993_C600_A00.JPG"));
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0000636359_C600_A00.JPG"));
 
                 m_MainWin.GotoPage("ScanPage", files);
             }

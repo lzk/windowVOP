@@ -214,6 +214,36 @@ namespace VOP.Controls
                 Canvas.SetTop(designerItem, imageToTop + rect.Y - QRCodeResultPage.rectMargin);
                 Canvas.SetLeft(designerItem, imageToLeft + rect.X - QRCodeResultPage.rectMargin);
 
+                if (rect.X + rect.Width + QRCodeResultPage.rectMargin * 2 > imageWidth
+                    || rect.Y + rect.Height + QRCodeResultPage.rectMargin * 2 > imageHeight)
+                {
+                    if (whRatio > designerItemWHRatio)
+                    {
+                        designerItem.Height = imageHeight - thumbCornerWidth * 2;
+                        designerItem.Width = designerItem.Height * designerItemWHRatio;
+                        designerItemToLeft = (imageWidth - designerItem.Width) / 2;
+                        Canvas.SetLeft(designerItem, imageToLeft + designerItemToLeft);
+                        Canvas.SetTop(designerItem, imageToTop + thumbCornerWidth);
+
+                    }
+                    else if (whRatio < designerItemWHRatio)
+                    {
+                        designerItem.Width = imageWidth - thumbCornerWidth * 2;
+                        designerItem.Height = designerItem.Width / designerItemWHRatio;
+                        designerItemToTop = (imageHeight - designerItem.Height) / 2;
+                        Canvas.SetTop(designerItem, imageToTop + designerItemToTop);
+                        Canvas.SetLeft(designerItem, imageToLeft + thumbCornerWidth);
+                    }
+                    else
+                    {
+                        designerItem.Width = imageWidth - thumbCornerWidth * 2;
+                        designerItem.Height = imageHeight - thumbCornerWidth * 2;
+                        Canvas.SetTop(designerItem, imageToTop + thumbCornerWidth);
+                        Canvas.SetLeft(designerItem, imageToLeft + thumbCornerWidth);
+                    }
+
+                }
+
                 QRCodeResultPage.redRect = Rect.Empty;
             }
             else

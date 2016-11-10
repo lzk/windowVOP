@@ -45,7 +45,7 @@ namespace VOP.Controls
     public class QRCodeResult
     {
         public Result[] results = null;
-        public Int32Rect subRect;
+        public Int32Rect subRect = Int32Rect.Empty;
 
         public QRCodeResult()
         {
@@ -194,18 +194,18 @@ namespace VOP.Controls
                 Bitmap bitmap = GetBitmap(imagePath[0]);
                 Bitmap temp = bitmap;
 
-                if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format24bppRgb)
-                {
-                    try
-                    {
-                        temp = (Bitmap)bitmap.Clone();
-                        ot.Convert2GrayScaleFast(temp);
-                        int otsuThreshold = ot.getOtsuThreshold((Bitmap)temp);
-                        ot.threshold(temp, 40);
-                    }
-                    catch (Exception) { }
+                //if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format24bppRgb)
+                //{
+                //    try
+                //    {
+                //        temp = (Bitmap)bitmap.Clone();
+                //        ot.Convert2GrayScaleFast(temp);
+                //        int otsuThreshold = ot.getOtsuThreshold((Bitmap)temp);
+                //        ot.threshold(temp, 40);
+                //    }
+                //    catch (Exception) { }
 
-                }
+                //}
 
                 AsyncWorker worker = new AsyncWorker(this);
                 QRCodeResult result = worker.InvokeQRCodeMethod(Decode, temp);
