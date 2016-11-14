@@ -76,6 +76,23 @@ namespace VOP
             return true;
         }
 
+        void CreateFtpFolder(string targetUri)
+        {
+            try
+            {
+                FtpWebRequest ftpReq = WebRequest.Create(targetUri) as FtpWebRequest;
+                ftpReq.Method = WebRequestMethods.Ftp.MakeDirectory;
+                ftpReq.Credentials = new NetworkCredential(
+                        MainWindow_Rufous.g_settingData.m_userName,
+                        MainWindow_Rufous.g_settingData.m_password);
+                FtpWebResponse ftpResp = ftpReq.GetResponse() as FtpWebResponse;
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
         bool UploadFiles()
         {
             try
@@ -87,6 +104,7 @@ namespace VOP
                         MainWindow_Rufous.g_settingData.m_password);
 
                     string targetUri = MainWindow_Rufous.g_settingData.m_serverAddress + MainWindow_Rufous.g_settingData.m_targetPath;
+                    CreateFtpFolder(targetUri);
 
                     foreach (string filePath in FileList)
                     {
