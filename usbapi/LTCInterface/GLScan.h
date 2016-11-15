@@ -17,12 +17,14 @@ public:
 	BYTE _parameters();
 	BYTE _StartScan();
 	BYTE _ReadImage(int dup, int *ImgSize);
-	BYTE _ReadImageEX(int dup, int *ImgSize,BYTE* Buffer,int ReadSize);
+	BYTE _ReadImageEX(int dup, int *ImgSize, BYTE* Buffer, int ReadSize);
+	int   paperReady();
+	int   waitJobFinish(int wait_motor_stop);
 	BYTE _info();
 	BYTE _stop();
 	BYTE _cancel();
 	BYTE _CloseDevice();
-	BYTE _SetADFOptions(BYTE Mode,BYTE flowtype);
+	//BYTE _SetADFOptions(BYTE Mode,BYTE flowtype);
 	BYTE _SetIOHandle(HANDLE dwDevice, WORD wType);
 	BYTE _NVRAM_W(unsigned char addr, BYTE *pbData, unsigned char len );
 	BYTE _NVRAM_R(unsigned char addr, BYTE *pbData, unsigned char len );

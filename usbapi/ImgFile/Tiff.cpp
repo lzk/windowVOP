@@ -57,8 +57,8 @@ TH th = {
 int PrepareTiffHeader(IMAGE_T *img)
 {
 	int RowSize;
-	th.ImageWidth.width = img->dot.w;
-	th.ImageLength.length = img->dot.h;
+	th.ImageWidth.width = img->width;
+	th.ImageLength.length = img->height;
 	
 	if(img->bit <= 16) {
 		th.BitsPerSample.n = 1;
@@ -82,9 +82,9 @@ int PrepareTiffHeader(IMAGE_T *img)
 	else
 		th.PhotoMetric.mode = 2;
 
-	RowSize = (img->dot.w * img->bit + 7) / 8;
-	th.RowsPerStrip.rows = img->dot.h;
-	th.StripByteCounts.bytes = img->dot.h * RowSize;
+	RowSize = (img->width * img->bit + 7) / 8;
+	th.RowsPerStrip.rows = img->height;
+	th.StripByteCounts.bytes = img->height * RowSize;
 	th.pXResolution.fraction = img->dpi.x;
 	th.pYResolution.fraction = img->dpi.y;
 	return RowSize;
@@ -139,7 +139,7 @@ int Raw_WriteFile(IMG_FILE_T *imgfile, void *data, int size)
 
 int Tiff_CloseFile(IMG_FILE_T *imgfile)
 {
-	if(imgfile->row != imgfile->img.dot.h) {
+	if(imgfile->row != imgfile->img.height) {
 		fseek(imgfile->stream, (U32)&((TH*)0)->ImageLength.length, SEEK_SET);
 		fwrite(&imgfile->row, 1, sizeof(U32), imgfile->stream);
 		fseek(imgfile->stream, (U32)&((TH*)0)->RowsPerStrip.rows, SEEK_SET);

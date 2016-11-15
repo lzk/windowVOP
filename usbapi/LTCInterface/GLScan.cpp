@@ -19,10 +19,19 @@ CGLDrv::CGLDrv()
 	sc_job_end.request		= ('E');
 	sc_par.code				= I3('PAR');
 	sc_par.length			= sizeof(SC_PAR_DATA_T);
+	sc_pardata			    = { SCAN_SOURCE, SCAN_ACQUIRE, SCAN_OPTION, SCAN_DUPLEX, SCAN_PAGE,
+							{ IMG_FORMAT, IMG_OPTION, IMG_BIT, IMG_MONO,
+							{ IMG_DPI_X, IMG_DPI_Y },{ IMG_ORG_X, IMG_ORG_Y }, IMG_WIDTH, IMG_HEIGHT },
+								//{{MTR_DRIV_TAR, MTR_STAT_MEC, MTR_DIRECT, MTR_MICRO_STEP, MTR_CURRENT, MTR_SPEED, MTR_ACC_STEP, 0},
+								//{MTR_DRIV_TAR, MTR_STAT_MEC, MTR_DIRECT, MTR_MICRO_STEP, MTR_CURRENT, MTR_SPEED, MTR_ACC_STEP, 0}}
+							{ { 0 },
+							{ 0 } }
+							};
+
 	sc_scan.code			= I4('SCAN');
-	sc_stop.code			= I3('STP');
+	sc_stop.code			= I3('STOP');
 	sc_info.code			= I4('INFO');
-	sc_cancel.code			= I3('CNL');
+	sc_cancel.code			= I3('CANC');
 	sc_img.code				= I3('IMG');
 	NVW.code				= I3('NVW');
 	NVR.code				= I3('NVR');
@@ -251,6 +260,32 @@ BYTE CGLDrv::_stop()
 exit_stop:
 	return (BYTE)result;
 }
+
+int CGLDrv::paperReady()
+{
+	int ready = TRUE;
+	if (sc_pardata.source == I3('ADF') && !(sc_pardata.acquire & (ACQ_NO_PP_SENSOR + ACQ_MOTOR_OFF + ACQ_PSEUDO_SENSOR))) {
+		if (!_info() || !sc_infodata.DocSensor) {
+			ready = FALSE;
+		}
+	}
+	return ready;
+}
+
+#define JOB_WAIT_TIMEOUT  5000
+int CGLDrv::waitJobFinish(int wait_motor_stop)
+{
+	U32 tick = GetTickCount();
+	while ((GetTickCount() - tick) < JOB_WAIT_TIMEOUT) {
+		if (!_info())
+			break;
+		if (!(sc_infodata.JobState & 1) && (!wait_motor_stop || !sc_infodata.MotorMove))
+			return TRUE;
+		Sleep(100);
+	}
+	return FALSE;
+}
+
 BYTE CGLDrv::_info()
 {
 	int result;
@@ -304,8 +339,8 @@ BYTE CGLDrv::_info()
 		result = 0;
 		goto exit_info;
 	}*/
-	if(!result || sc_infodata.Error || sc_infodata.Cancel) {
-		MyOutputString(L"Scan info error", sc_infodata.Error);
+	if(!result || sc_infodata.code != I4('IDAT') || sc_infodata.Cancel) {
+		//MyOutputString(L"Scan info error", sc_infodata.Error);
 #if _GLDEBUG_
 		if(sc_infodata.Error)
 			LTCPrintf("Status error!\n");

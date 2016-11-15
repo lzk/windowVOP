@@ -73,11 +73,11 @@ U32 PreparePalette(U32 bit)
 
 U32 PrepareBmpHeader(IMAGE_T *img)
 {
-	int RowSize = ((img->bit * img->dot.w + 31) & ~31) / 8;
-	bh.Width = img->dot.w;
-	bh.Height = -(int)img->dot.h;
+	int RowSize = ((img->bit * img->width + 31) & ~31) / 8;
+	bh.Width = img->width;
+	bh.Height = -(int)img->height;
 	bh.BitsPerPixel = img->bit;
-	bh.BitmapDataSize = RowSize * img->dot.h;
+	bh.BitmapDataSize = RowSize * img->height;
 	bh.HResolution = img->dpi.x * 3937 / 100;
 	bh.VResolution = img->dpi.y * 3937 / 100;
 	bh.UsedColors = PreparePalette(img->bit);
@@ -107,19 +107,19 @@ U8 RowData[0x8000];	// 32KB (maximum size of 8.5" 1200dpi 24-bit color line)
 int Bmp_WriteFile(IMG_FILE_T *imgfile, void *data, int size)
 {
 	IMAGE_T *img = &imgfile->img;
-	int imgRowSize = (img->bit * img->dot.w + 7) / 8;
+	int imgRowSize = (img->bit * img->width + 7) / 8;
 	int fileRowSize = imgfile->row_size;
 	int rows = size / imgRowSize;
 	int i, r, written, result = 0;
 	U8 *s, *t;
 	if(img->bit == 24) {
 		for(r = 0, result = 0; r < rows; r++) {
-			for (i = 0, s = (U8*)data + r * imgRowSize, t = RowData; i < (int)img->dot.w; i++, s += 3, t += 3) {
+			for (i = 0, s = (U8*)data + r * imgRowSize, t = RowData; i < (int)img->width; i++, s += 3, t += 3) {
 				t[0] = s[2];
 				t[1] = s[1];
 				t[2] = s[0];
 			}
-			for(i = 3*img->dot.w; i < fileRowSize; i++)
+			for(i = 3*img->width; i < fileRowSize; i++)
 				RowData[i] = 0;
 			written = fwrite(RowData, 1, fileRowSize, imgfile->stream);
 			if(written)
@@ -165,7 +165,7 @@ int Bmp_WriteFile(IMG_FILE_T *imgfile, void *data, int size)
 int Bmp_CloseFile(IMG_FILE_T *imgfile)
 {
 	IMAGE_T *img = &imgfile->img;
-	if(imgfile->row != img->dot.h) {
+	if(imgfile->row != img->height) {
 		int FileSize = imgfile->size + sizeof(BH);
 		int row = -imgfile->row;
 		if(img->bit <= 8)
