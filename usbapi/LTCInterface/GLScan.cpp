@@ -13,8 +13,11 @@ CGLDrv::CGLDrv()
 {
 	m_GLusb					= new CGLUsb;
 	m_GLnet					= new CGLNet();
+
+	sc_job_create = {0};
 	sc_job_create.code		= I3('JOB');
 	sc_job_create.request	= ('C');
+
 	sc_job_end.code			= I3('JOB');
 	sc_job_end.request		= ('E');
 	sc_par.code				= I3('PAR');
@@ -77,11 +80,16 @@ BYTE CGLDrv::_OpenDevice(LPCTSTR lpModuleName)
 BYTE CGLDrv::_JobCreate()
 {
 	int result;
-
+	U8 cmd[8] = { 'J','O','B',0,'C',0,0,0 };
+	U8 status[8];
 	if (g_connectMode_usb == TRUE)
 	{
-		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_job_create, sizeof(sc_job_create)) &&
-			m_GLusb->CMDIO_BulkReadEx(0, &job_status, sizeof(job_status));
+		/*result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_job_create, sizeof(sc_job_create)) &&
+			m_GLusb->CMDIO_BulkReadEx(0, &job_status, sizeof(job_status));*/
+
+		result = (m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
+			m_GLusb->CMDIO_BulkReadEx(0, status, sizeof(status)) &&
+			(M32(&status[0]) == I3('STA')) && (status[4] == 'A'));
 	}
 	else
 	{

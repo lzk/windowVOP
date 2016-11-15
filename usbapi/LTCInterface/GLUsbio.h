@@ -39,6 +39,20 @@
 //#define IOCTL_SEND_USB_REQUEST          CTL_CODE(FILE_DEVICE_USB_SCAN,IOCTL_INDEX+9, METHOD_BUFFERED,FILE_ANY_ACCESS) 
 //#define IOCTL_GET_PIPE_CONFIGURATION    CTL_CODE(FILE_DEVICE_USB_SCAN,IOCTL_INDEX+10,METHOD_BUFFERED,FILE_ANY_ACCESS) 
  
+#define  IOCTL_REG_ADDR             0x83
+#define  IOCTL_REG_WRITE            0x85
+#define  IOCTL_REG_READ             0x84
+#define  IOCTL_BUF_ACCESS           0x82
+#define  IOCTL_BUF_ENDACCESS        0x8D 
+#define  IOCTL_CTL_SPPCTL           0x87
+#define  IOCTL_CTL_WRITECTRL        0x87
+#define  IOCTL_CTL_READSTATUS       0x86
+#define  IOCTL_USB_WRITEREG         0x8C
+#define  IOCTL_CONNECT_TYPE         0x8E
+#define  IOCTL_GPIO_DIRECTION       0x89
+#define  IOCTL_GPIO_READ            0x8A
+#define  IOCTL_GPIO_WRITE           0x8B
+
 class CGLUsb
 {
 public:
@@ -49,6 +63,9 @@ public:
 	int CMDIO_CloseDevice();
 	int OpenBulkPipes(HANDLE *hPipe,  LPCTSTR lpModuleName);
 
+	int CMDIO_WriteCommand(unsigned short nCmd, unsigned short nIdx, unsigned short nCmdLen, unsigned char *pCmdData);
+	int CMDIO_ReadCommand(unsigned short nCmd, unsigned short nIdx, unsigned short nCmdLen, unsigned char *pCmdData);
+
 	int CMDIO_BulkWriteEx(int pipe, void* buffer, unsigned int dwLen);
 	int CMDIO_BulkWriteEx(int pipe, void* buffer, unsigned int dwLen, DWORD	*dwByteCount);
 
@@ -56,11 +73,25 @@ public:
 	int CMDIO_BulkReadEx(int pipe, void *buffer, unsigned int dwLen,  DWORD *dwByteCount);
 
 	int _SetIOHandle(HANDLE dwDevice, WORD wType);
+
+	int CMDIO_GetDeviceFeatures();
+	int CMDIO_GetConnectionType(BYTE *nType);
+
 	BOOL AsyncWriteFile(HANDLE hFile, BYTE *Buf, DWORD dwBufSize, DWORD *dwWrite, HANDLE hEvent);
 	BOOL AsyncReadFile(HANDLE hFile, BYTE *Buf, DWORD dwBufSize, DWORD *dwWrite, HANDLE hEvent);
+	BOOL AsyncDeviceIoCtrl(HANDLE hFile, DWORD dwCtrlCode,
+							BYTE *lpInBuffer, DWORD dwInBufSize,
+							BYTE *lpOutBuffer, DWORD dwOutBufSize,
+							DWORD *dwResult, HANDLE hEvent);
+
 	HANDLE m_hDev, m_hIntrEvent;
 	HANDLE m_hDevice[5];
 	HANDLE m_GLUSBDev;	
+
+	unsigned short CMDIO_VID, CMDIO_PID;
+	unsigned short CMDIO_BcdDevice;
+	unsigned char CMDIO_iConnectType;
+	unsigned int  CMDIO_BulkFiFoSize;
 	//TCHAR  m_strPort[32];
 };
 
