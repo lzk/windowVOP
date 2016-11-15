@@ -3657,20 +3657,20 @@ USBAPI_API int __stdcall GetIpv6Info(const wchar_t* szPrinter,
 
 USBAPI_API int __stdcall GetWiFiInfo(const wchar_t* szPrinter, UINT8* ptr_wifienable, char* ssid, char* pwd, UINT8* ptr_encryption, UINT8* ptr_wepKeyId)
 {
-    if ( NULL == szPrinter )
-        return _SW_INVALID_PARAMETER;
+   /* if ( NULL == szPrinter )
+        return _SW_INVALID_PARAMETER;*/
 
 	OutputDebugStringToFileA("\r\n####VP:GetWiFiInfo() begin");
 
     int nResult = _ACK;
-	wchar_t szIP[MAX_PATH] = { 0 };
-    int nPortType = CheckPort( szPrinter, szIP );
+	//wchar_t szIP[MAX_PATH] = { 0 };
+ //   int nPortType = CheckPort( szPrinter, szIP );
 
-    if ( PT_UNKNOWN == nPortType ) 
-    {
-        nResult = _SW_UNKNOWN_PORT;
-    }
-    else
+ //   if ( PT_UNKNOWN == nPortType ) 
+ //   {
+ //       nResult = _SW_UNKNOWN_PORT;
+ //   }
+ //   else
     {
         char* buffer = new char[sizeof(COMM_HEADER)+180];
         memset( buffer, INIT_VALUE, sizeof(COMM_HEADER)+180 );
@@ -3686,11 +3686,11 @@ USBAPI_API int __stdcall GetWiFiInfo(const wchar_t* szPrinter, UINT8* ptr_wifien
         ppkg->len2 = 1;
         ppkg->subcmd = 0x00;   // _WIFI_GET   0x00
 
-        if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
+		if (g_connectMode_usb != TRUE)
         {
-            nResult = WriteDataViaNetwork( szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+180 );
+            nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+180 );
         }
-        else if ( PT_USB == nPortType )
+        else
         {
             nResult = WriteDataViaUSB( szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+180 );
         }

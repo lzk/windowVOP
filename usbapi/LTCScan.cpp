@@ -320,189 +320,192 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		duplex = glDrv.sc_pardata.duplex;
 
 		start_cancel = FALSE;
+#pragma region MyRegion
 		//while (!start_cancel) {
 
-		//	int lineCount = 0;
-		//	end_page[0] = end_page[1] = end_doc = 0;
-		//	page_line[0] = page_line[1] = 0;
+//	int lineCount = 0;
+//	end_page[0] = end_page[1] = end_doc = 0;
+//	page_line[0] = page_line[1] = 0;
 
-		//	Sleep(200);
-		//	result = glDrv._info();
-		//	MyOutputString(L"_info");
-		//	if (!result) {
-		//		break;
-		//	}
+//	Sleep(200);
+//	result = glDrv._info();
+//	MyOutputString(L"_info");
+//	if (!result) {
+//		break;
+//	}
 
-		//	if ((!(duplex & 1) || glDrv.sc_infodata.EndScan[0]) && (!(duplex & 2) || glDrv.sc_infodata.EndScan[1]))
-		//		break;
+//	if ((!(duplex & 1) || glDrv.sc_infodata.EndScan[0]) && (!(duplex & 2) || glDrv.sc_infodata.EndScan[1]))
+//		break;
 
-		//
-		//	if ((glDrv.sc_infodata.ValidPageSize[0] > 0) || (glDrv.sc_infodata.ValidPageSize[1] > 0)) {
+//
+//	if ((glDrv.sc_infodata.ValidPageSize[0] > 0) || (glDrv.sc_infodata.ValidPageSize[1] > 0)) {
 
-		//		char fileName[256] = { 0 };
-		//		char filePath[256] = { 0 };
-		//		TCHAR fileNameOut[256] = { 0 };
+//		char fileName[256] = { 0 };
+//		char filePath[256] = { 0 };
+//		TCHAR fileNameOut[256] = { 0 };
 
-		//		::WideCharToMultiByte(CP_ACP, 0, tempPath, -1, filePath, 256, NULL, NULL);
+//		::WideCharToMultiByte(CP_ACP, 0, tempPath, -1, filePath, 256, NULL, NULL);
 
-		//		if (duplex & 1) {		
-		//			sprintf(fileName, "%s_%c%d_A%02d.%s", filePath, (ImgFile[0].img.bit > 16) ? 'C' : 'G', ImgFile[0].img.dpi.x, page[0], &ImgFile[0].img.format);
-		//			ImgFile_Open(&ImgFile[0], fileName);
-		//			MyOutputString(L"ImgFile_Open 0");
+//		if (duplex & 1) {		
+//			sprintf(fileName, "%s_%c%d_A%02d.%s", filePath, (ImgFile[0].img.bit > 16) ? 'C' : 'G', ImgFile[0].img.dpi.x, page[0], &ImgFile[0].img.format);
+//			ImgFile_Open(&ImgFile[0], fileName);
+//			MyOutputString(L"ImgFile_Open 0");
 
-		//			open[0] = 1;
+//			open[0] = 1;
 
-		//			::MultiByteToWideChar(CP_ACP, 0, fileName, strlen(fileName), fileNameOut, 256);
-		//			bstrArray[fileCount] = ::SysAllocString(fileNameOut);
-		//			MyOutputString(fileNameOut);
-		//			fileCount++;
-		//		}
-		//		if (duplex & 2) {
-		//			sprintf(fileName, "%s_%c%d_B%02d.%s", filePath, (ImgFile[1].img.bit > 16) ? 'C' : 'G', ImgFile[1].img.dpi.x, page[1], &ImgFile[1].img.format);
-		//			ImgFile_Open(&ImgFile[1], fileName);
-		//			MyOutputString(L"ImgFile_Open 1");
+//			::MultiByteToWideChar(CP_ACP, 0, fileName, strlen(fileName), fileNameOut, 256);
+//			bstrArray[fileCount] = ::SysAllocString(fileNameOut);
+//			MyOutputString(fileNameOut);
+//			fileCount++;
+//		}
+//		if (duplex & 2) {
+//			sprintf(fileName, "%s_%c%d_B%02d.%s", filePath, (ImgFile[1].img.bit > 16) ? 'C' : 'G', ImgFile[1].img.dpi.x, page[1], &ImgFile[1].img.format);
+//			ImgFile_Open(&ImgFile[1], fileName);
+//			MyOutputString(L"ImgFile_Open 1");
 
-		//			open[1] = 1;
+//			open[1] = 1;
 
-		//			::MultiByteToWideChar(CP_ACP, 0, fileName, strlen(fileName), fileNameOut, 256);
-		//			bstrArray[fileCount] = ::SysAllocString(fileNameOut);
-		//			MyOutputString(fileNameOut);
-		//			fileCount++;
-		//		}
-		//		
-		//		while (result && (((duplex & 1) && (end_page[0] == 0)) || ((duplex & 2) && (end_page[1] == 0))))
-		//		{
-		//			result = glDrv._info();
-		//			if (!result) {
+//			::MultiByteToWideChar(CP_ACP, 0, fileName, strlen(fileName), fileNameOut, 256);
+//			bstrArray[fileCount] = ::SysAllocString(fileNameOut);
+//			MyOutputString(fileNameOut);
+//			fileCount++;
+//		}
+//		
+//		while (result && (((duplex & 1) && (end_page[0] == 0)) || ((duplex & 2) && (end_page[1] == 0))))
+//		{
+//			result = glDrv._info();
+//			if (!result) {
 
-		//				glDrv._StatusGet();
+//				glDrv._StatusGet();
 
-		//				glDrv._StatusCheck_Scanning();
+//				glDrv._StatusCheck_Scanning();
 
-		//				if (start_cancel) {
-		//					start_cancel = 0;
-		//					glDrv._JobEnd();
-		//					if ((duplex & 1) && open[0]) {
-		//						ImgFile_Close(&ImgFile[0], page_line[0]);
-		//						open[0] = 0;
-		//					}
-		//					if ((duplex & 2) && open[1]) {
-		//						ImgFile_Close(&ImgFile[1], page_line[1]);
-		//						open[1] = 0;
-		//					}
+//				if (start_cancel) {
+//					start_cancel = 0;
+//					glDrv._JobEnd();
+//					if ((duplex & 1) && open[0]) {
+//						ImgFile_Close(&ImgFile[0], page_line[0]);
+//						open[0] = 0;
+//					}
+//					if ((duplex & 2) && open[1]) {
+//						ImgFile_Close(&ImgFile[1], page_line[1]);
+//						open[1] = 0;
+//					}
 
-		//					return RETSCAN_OK;
-		//				}
-		//				else
-		//				{
-		//					if ((duplex & 1) && open[0]) {
-		//						ImgFile_Close(&ImgFile[0], page_line[0]);
-		//						open[0] = 0;
-		//					}
-		//					if ((duplex & 2) && open[1]) {
-		//						ImgFile_Close(&ImgFile[1], page_line[1]);
-		//						open[1] = 0;
-		//					}
+//					return RETSCAN_OK;
+//				}
+//				else
+//				{
+//					if ((duplex & 1) && open[0]) {
+//						ImgFile_Close(&ImgFile[0], page_line[0]);
+//						open[0] = 0;
+//					}
+//					if ((duplex & 2) && open[1]) {
+//						ImgFile_Close(&ImgFile[1], page_line[1]);
+//						open[1] = 0;
+//					}
 
-		//					return RETSCAN_ERROR;
-		//				}
-		//					
-		//			}
-		//			end_doc = glDrv.sc_infodata.EndDocument;
+//					return RETSCAN_ERROR;
+//				}
+//					
+//			}
+//			end_doc = glDrv.sc_infodata.EndDocument;
 
-		//			if ((duplex & 1) && (end_page[0] == 0)) {
-		//				ImgSize = 0;
-		//				if (glDrv.sc_infodata.ValidPageSize[0] > 0) {
-		//					result = glDrv._ReadImageEX(0, &ImgSize, imgBuffer, imgBufferSize) &&
-		//						ImgFile_Write(&ImgFile[0], imgBuffer, ImgSize);
+//			if ((duplex & 1) && (end_page[0] == 0)) {
+//				ImgSize = 0;
+//				if (glDrv.sc_infodata.ValidPageSize[0] > 0) {
+//					result = glDrv._ReadImageEX(0, &ImgSize, imgBuffer, imgBufferSize) &&
+//						ImgFile_Write(&ImgFile[0], imgBuffer, ImgSize);
 
-		//					MyOutputString(L"_ReadImageEX ImgFile_Write 0");
-		//					if (!result)
-		//					{
-		//						MyOutputString(L"_ReadImageEX Fail 0");
-		//						if ((duplex & 1) && open[0]) {
-		//							ImgFile_Close(&ImgFile[0], page_line[0]);
-		//							open[0] = 0;
-		//						}
-		//					
-		//					}
-		//						
-		//				}
-		//				if (ImgSize >= glDrv.sc_infodata.ValidPageSize[0]) {
-		//					end_page[0] = glDrv.sc_infodata.EndPage[0];
-		//					if ((page_line[0] == 0) && end_page[0])
-		//						page_line[0] = glDrv.sc_infodata.ImageLength[0];
-		//				}
-		//			}
-		//			if ((duplex & 2) && (end_page[1] == 0)) {
-		//				ImgSize = 0;
-		//				if (glDrv.sc_infodata.ValidPageSize[1] > 0) {
-		//					result = glDrv._ReadImageEX(1, &ImgSize, imgBuffer, imgBufferSize) &&
-		//						ImgFile_Write(&ImgFile[1], imgBuffer, ImgSize);
+//					MyOutputString(L"_ReadImageEX ImgFile_Write 0");
+//					if (!result)
+//					{
+//						MyOutputString(L"_ReadImageEX Fail 0");
+//						if ((duplex & 1) && open[0]) {
+//							ImgFile_Close(&ImgFile[0], page_line[0]);
+//							open[0] = 0;
+//						}
+//					
+//					}
+//						
+//				}
+//				if (ImgSize >= glDrv.sc_infodata.ValidPageSize[0]) {
+//					end_page[0] = glDrv.sc_infodata.EndPage[0];
+//					if ((page_line[0] == 0) && end_page[0])
+//						page_line[0] = glDrv.sc_infodata.ImageLength[0];
+//				}
+//			}
+//			if ((duplex & 2) && (end_page[1] == 0)) {
+//				ImgSize = 0;
+//				if (glDrv.sc_infodata.ValidPageSize[1] > 0) {
+//					result = glDrv._ReadImageEX(1, &ImgSize, imgBuffer, imgBufferSize) &&
+//						ImgFile_Write(&ImgFile[1], imgBuffer, ImgSize);
 
-		//					MyOutputString(L"_ReadImageEX ImgFile_Write 1");
+//					MyOutputString(L"_ReadImageEX ImgFile_Write 1");
 
-		//					if (!result)
-		//					{
-		//						MyOutputString(L"_ReadImageEX Fail 1");
-		//						if ((duplex & 2) && open[1]) {
-		//							ImgFile_Close(&ImgFile[1], page_line[1]);
-		//							open[1] = 0;
-		//						}
-		//					}
+//					if (!result)
+//					{
+//						MyOutputString(L"_ReadImageEX Fail 1");
+//						if ((duplex & 2) && open[1]) {
+//							ImgFile_Close(&ImgFile[1], page_line[1]);
+//							open[1] = 0;
+//						}
+//					}
 
-		//				}
-		//				if (ImgSize >= glDrv.sc_infodata.ValidPageSize[1]) {
-		//					end_page[1] = glDrv.sc_infodata.EndPage[1];
-		//					if ((page_line[1] == 0) && end_page[1])
-		//						page_line[1] = glDrv.sc_infodata.ImageLength[1];
-		//				}
-		//			}
+//				}
+//				if (ImgSize >= glDrv.sc_infodata.ValidPageSize[1]) {
+//					end_page[1] = glDrv.sc_infodata.EndPage[1];
+//					if ((page_line[1] == 0) && end_page[1])
+//						page_line[1] = glDrv.sc_infodata.ImageLength[1];
+//				}
+//			}
 
-		//			int percent = 0;
-		//			lineCount += lineNumber;
-		//			percent = lineCount * 100 / nColPixelNumOrig;
+//			int percent = 0;
+//			lineCount += lineNumber;
+//			percent = lineCount * 100 / nColPixelNumOrig;
 
-		//			if (percent > 100)
-		//				percent = 100;
+//			if (percent > 100)
+//				percent = 100;
 
-		//			::SendNotifyMessage(HWND_BROADCAST, uMsg, percent, 0);
-		//			Sleep(100);
+//			::SendNotifyMessage(HWND_BROADCAST, uMsg, percent, 0);
+//			Sleep(100);
 
-		//		}
-
-
-
-		//		if ((duplex & 1) && open[0]) {
-		//			ImgFile_Close(&ImgFile[0], page_line[0]);
-		//			open[0] = 0;
-		//		}
-		//		if ((duplex & 2) && open[1]) {
-		//			ImgFile_Close(&ImgFile[1], page_line[1]);
-		//			open[1] = 0;
-		//		}
-
-		//		page[0]++;
-		//		page[1]++;
+//		}
 
 
 
-		//	}
+//		if ((duplex & 1) && open[0]) {
+//			ImgFile_Close(&ImgFile[0], page_line[0]);
+//			open[0] = 0;
+//		}
+//		if ((duplex & 2) && open[1]) {
+//			ImgFile_Close(&ImgFile[1], page_line[1]);
+//			open[1] = 0;
+//		}
 
-		//}
+//		page[0]++;
+//		page[1]++;
 
 
-		//if (glDrv.sc_infodata.Cancel == 0)
-		//{
-		//	MyOutputString(L"_stop");
-		//	glDrv._stop();
-		//}
-		//else
-		//{
-		//	MyOutputString(L"_cancel");
-		//	glDrv._cancel();
-		//}
-		//	
+
+//	}
+
+//}
+
+
+//if (glDrv.sc_infodata.Cancel == 0)
+//{
+//	MyOutputString(L"_stop");
+//	glDrv._stop();
+//}
+//else
+//{
+//	MyOutputString(L"_cancel");
+//	glDrv._cancel();
+//}
+//	
+
+#pragma endregion
 
 	
 		while (!start_cancel) {
