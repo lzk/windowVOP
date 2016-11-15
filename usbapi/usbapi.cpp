@@ -796,8 +796,7 @@ USBAPI_API int __stdcall SearchValidedIP2(SAFEARRAY** ipList)
 {
 	BSTR bstrArray[500] = { 0 };
 	int nResult = 1;
-	char cbOID_M[] = "1.3.6.1.4.1.19046.101.4.1\000";
-	char cbOID_S[] = "1.3.6.1.4.1.19046.101.3.1\000";
+	char sysObjectID[] = "1.3.6.1.4.1.26266.86.10.2.1\000";
 	DWORD dwEngineEnterpriseId = 0;
 
 	HMODULE hmod = LoadLibrary(DLL_NAME_NET);
@@ -812,7 +811,7 @@ USBAPI_API int __stdcall SearchValidedIP2(SAFEARRAY** ipList)
 		strcpy(community, "public");
 		g_nTotalPrinter = 0;
 
-		FindAgentProEX2(community, TRUE, "255.255.255.255", "", 3, 30, 6000, 2, cbOID_M, AddHostV4EX2, AddHostV6EX2);
+		FindAgentProEX2(community, TRUE, "255.255.255.255", "", 3, 30, 6000, 2, sysObjectID, AddHostV4EX2, AddHostV6EX2);
 
 		for (int i = 0; i < g_nTotalPrinter; i++)
 		{
