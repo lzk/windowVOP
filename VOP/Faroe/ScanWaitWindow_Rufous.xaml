@@ -6,7 +6,7 @@
         Title="" 
         Height="560" Width="850"
         AllowsTransparency="true"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize" 
         UseLayoutRounding="True"
         WindowStyle="None"
