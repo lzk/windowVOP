@@ -47,6 +47,7 @@ namespace VOP
     {
         public List<string> FileList { get; set; }
         private string currentPath = @"";
+        private string selectedPath = @"";
         private DropboxClient client = null;
         public bool Result { get; private set; }
         private bool IsRequesting = false;
@@ -194,6 +195,7 @@ namespace VOP
                 {
                     string temp = "";
                     temp = currentPath.Remove(currentPath.LastIndexOf('/'), currentPath.Length - currentPath.LastIndexOf('/'));
+                    selectedPath = temp;
 
                     ListFolderResult res = await ListFolder(client, temp);
 
@@ -209,6 +211,7 @@ namespace VOP
                     await ListFolder(client, "");
                     currentPath = "";
                     PathText.Text = "";
+                    selectedPath = "";
                 }
             }
             catch (Exception) { }
@@ -226,7 +229,8 @@ namespace VOP
                 {
                     string temp = "";
                     temp = currentPath + "/" + info.fileName;
-                  
+                    selectedPath = temp;
+
                     ListFolderResult res =  await ListFolder(client, temp);
 
                     if(res != null)
@@ -325,7 +329,7 @@ namespace VOP
         {
             if (DropBoxFlow.FlowType == CloudFlowType.SimpleView)
             {
-                DropBoxFlow.SavePath = currentPath;
+                DropBoxFlow.SavePath = selectedPath;
                 this.Close();
             }
             else
