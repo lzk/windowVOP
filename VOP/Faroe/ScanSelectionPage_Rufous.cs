@@ -67,7 +67,7 @@ namespace VOP
 
             ScanTask task = new ScanTask();
             ScanParam param = new ScanParam(
-                EnumScanResln._200x200,
+                EnumScanResln._300x300,
                 EnumPaperSizeScan._A4,
                 EnumColorType.color_24bit,
                 true,

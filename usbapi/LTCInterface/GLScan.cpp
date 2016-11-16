@@ -20,8 +20,10 @@ CGLDrv::CGLDrv()
 
 	sc_job_end.code			= I3('JOB');
 	sc_job_end.request		= ('E');
+
 	sc_par.code				= I3('PAR');
 	sc_par.length			= sizeof(SC_PAR_DATA_T);
+
 	sc_pardata			    = { SCAN_SOURCE, SCAN_ACQUIRE, SCAN_OPTION, SCAN_DUPLEX, SCAN_PAGE,
 							{ IMG_FORMAT, IMG_OPTION, IMG_BIT, IMG_MONO,
 							{ IMG_DPI_X, IMG_DPI_Y },{ IMG_ORG_X, IMG_ORG_Y }, IMG_WIDTH, IMG_HEIGHT },
@@ -33,9 +35,14 @@ CGLDrv::CGLDrv()
 
 	sc_scan.code			= I4('SCAN');
 	sc_stop.code			= I3('STOP');
+
 	sc_info.code			= I4('INFO');
+	sc_info.length			= sizeof(SC_INFO_DATA_T);
+
 	sc_cancel.code			= I3('CANC');
+
 	sc_img.code				= I3('IMG');
+
 	NVW.code				= I3('NVW');
 	NVR.code				= I3('NVR');
 	sc_adf_check.code		= I3('ADF');
@@ -297,14 +304,13 @@ int CGLDrv::waitJobFinish(int wait_motor_stop)
 BYTE CGLDrv::_info()
 {
 	int result;
-	sc_info.id = 0;
+	sc_info.id = (unsigned char)JobID;
 	
 	if (g_connectMode_usb == TRUE)
 	{
 		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_info, sizeof(sc_info));
 		if (!result)
 		{
-			LTCPrintf("_info Bulkwrite Fail\n");
 			result = 0;
 			goto exit_info;
 		}
@@ -317,7 +323,6 @@ BYTE CGLDrv::_info()
 		result = m_GLnet->CMDIO_Write(&sc_info, sizeof(sc_info));
 		if (!result)
 		{
-			LTCPrintf("_info Bulkwrite Fail\n");
 			result = 0;
 			goto exit_info;
 		}
@@ -427,16 +432,14 @@ BYTE CGLDrv::_ReadImageEX(int dup, int *ImgSize,BYTE* Buffer,int ReadSize)
 	
 	if (g_connectMode_usb == TRUE)
 	{
-		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_img, sizeof(sc_img)) &&
-			m_GLusb->CMDIO_BulkReadEx(0, &img_status, sizeof(img_status));
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_img, sizeof(sc_img));
 	}
 	else
 	{
-		result = m_GLnet->CMDIO_Write(&sc_img, sizeof(sc_img)) &&
-			m_GLnet->CMDIO_Read(&img_status, sizeof(img_status));
+		result = m_GLnet->CMDIO_Write(&sc_img, sizeof(sc_img));
 	}
 
-	if(!result || img_status.ack == 'E')
+	if(!result)
 	{
 		MyOutputString(L"Get image status error");
 #if _GLDEBUG_
@@ -448,11 +451,11 @@ BYTE CGLDrv::_ReadImageEX(int dup, int *ImgSize,BYTE* Buffer,int ReadSize)
 	
 	if (g_connectMode_usb == TRUE)
 	{
-		result = m_GLusb->CMDIO_BulkReadEx(0, Buffer, img_status.length);
+		result = m_GLusb->CMDIO_BulkReadEx(0, Buffer, sc_img.length);
 	}
 	else
 	{
-		result = m_GLnet->CMDIO_Read(Buffer, img_status.length);
+		result = m_GLnet->CMDIO_Read(Buffer, sc_img.length);
 	}
 
 	if(!result) {
@@ -463,7 +466,7 @@ BYTE CGLDrv::_ReadImageEX(int dup, int *ImgSize,BYTE* Buffer,int ReadSize)
 		result = 0;
 		return FALSE;
 	} 
-	*ImgSize = img_status.length;
+	*ImgSize = sc_img.length;
 	//printf("%c", 'A'+dup);
 	//LTCPrintf2("GLScan::_ReadImageEX dup %d length %d\n", dup, img_status.length);
 	return (BYTE)result;

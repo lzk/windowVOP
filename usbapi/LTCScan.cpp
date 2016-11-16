@@ -257,10 +257,10 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	if (glDrv._OpenDevice() == TRUE)
 	{
 		
-		/*result = glDrv.paperReady();
+		result = glDrv.paperReady();
 		if (!result) {
 			return RETSCAN_ERROR;
-		}*/
+		}
 		MyOutputString(L"paperReady");
 
 		result = glDrv._JobCreate();

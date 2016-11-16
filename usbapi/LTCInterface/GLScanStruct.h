@@ -213,7 +213,8 @@ typedef struct SC_SCAN_STA_STRUCT {
 //--------------------------------
 typedef struct SC_INFO_STRUCT {
 	U32	code;
-	U8  reserved[3];
+	U8	length;
+	U8  reserved[2];
 	U8	id;
 } SC_INFO_T;
 //typedef struct SC_INFO_DATA_STRUCT {
