@@ -17,6 +17,7 @@ namespace VOP
 {
     public partial class ScanToAPView : UserControl
     {
+        string programType = "";
 
         public ScanToAPView()
         {
@@ -25,7 +26,9 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if(MainWindow_Rufous.g_settingData.m_programType == "Paint")
+            programType = MainWindow_Rufous.g_settingData.m_programType;
+
+            if (MainWindow_Rufous.g_settingData.m_programType == "Paint")
             {
                 cbProgramType.SelectedIndex = 0;
             }
@@ -40,11 +43,11 @@ namespace VOP
         {
             if(cbProgramType.SelectedIndex == 0)
             {
-                MainWindow_Rufous.g_settingData.m_programType = "Paint";
+                programType = "Paint";
             }
             else if(cbProgramType.SelectedIndex == 1)
             {
-                MainWindow_Rufous.g_settingData.m_programType = "Photo Viewer";
+                programType = "Photo Viewer";
             }
         }
 
@@ -71,7 +74,7 @@ namespace VOP
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
-     
+            MainWindow_Rufous.g_settingData.m_programType = programType;
         }
 
         private MainWindow_Rufous _MainWin = null;

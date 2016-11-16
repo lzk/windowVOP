@@ -17,7 +17,7 @@ namespace VOP
 {
     public partial class ScanToEmailView : UserControl
     {
-
+        string attachmentType = "";
         public ScanToEmailView()
         {
             InitializeComponent();
@@ -25,7 +25,9 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if(MainWindow_Rufous.g_settingData.m_attachmentType == "PDF")
+            attachmentType = MainWindow_Rufous.g_settingData.m_attachmentType;
+
+            if (MainWindow_Rufous.g_settingData.m_attachmentType == "PDF")
             {
                 cbAttachType.SelectedIndex = 0;
             }
@@ -42,11 +44,11 @@ namespace VOP
         {
             if(cbAttachType.SelectedIndex == 0)
             {
-                MainWindow_Rufous.g_settingData.m_attachmentType = "PDF";
+                attachmentType = "PDF";
             }
             else if(cbAttachType.SelectedIndex == 1)
             {
-                MainWindow_Rufous.g_settingData.m_attachmentType = "JPG";
+                attachmentType = "JPG";
             }
         }
 
@@ -75,6 +77,7 @@ namespace VOP
         {
             MainWindow_Rufous.g_settingData.m_recipient = tbRecipient.Text;
             MainWindow_Rufous.g_settingData.m_subject = tbSubject.Text;
+            MainWindow_Rufous.g_settingData.m_attachmentType = attachmentType;
         }
 
         private MainWindow_Rufous _MainWin = null;

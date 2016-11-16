@@ -18,6 +18,7 @@ namespace VOP
 {
     public partial class ScanToFileView : UserControl
     {
+        string fileSaveType = "";
 
         public ScanToFileView()
         {
@@ -26,6 +27,8 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            fileSaveType = MainWindow_Rufous.g_settingData.m_fileSaveType;
+
             if (MainWindow_Rufous.g_settingData.m_fileSaveType == "PDF")
             {
                 cbFileType.SelectedIndex = 0;
@@ -43,11 +46,11 @@ namespace VOP
         {
             if (cbFileType.SelectedIndex == 0)
             {
-                MainWindow_Rufous.g_settingData.m_fileSaveType = "PDF";
+                fileSaveType = "PDF";
             }
             else if (cbFileType.SelectedIndex == 1)
             {
-                MainWindow_Rufous.g_settingData.m_fileSaveType = "TIFF";
+                fileSaveType = "TIFF";
             }
         }
 
@@ -76,6 +79,7 @@ namespace VOP
         {
             MainWindow_Rufous.g_settingData.m_fileName = tbFileName.Text;
             MainWindow_Rufous.g_settingData.m_filePath = tbFilePath.Text;
+            MainWindow_Rufous.g_settingData.m_fileSaveType = fileSaveType;
         }
 
         private void BrowseClick(object sender, RoutedEventArgs e)
@@ -89,8 +93,7 @@ namespace VOP
 
             if (result == true)
             {
-                string savePath = System.IO.Path.GetDirectoryName(save.FileName);
-                MainWindow_Rufous.g_settingData.m_filePath = tbFilePath.Text = savePath;
+                tbFilePath.Text = System.IO.Path.GetDirectoryName(save.FileName);
             }
         }
 
