@@ -251,6 +251,11 @@ namespace VOP
                                 @"\" + MainWindow_Rufous.g_settingData.m_fileName;
                         }
 
+                        if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_filePath))
+                        {
+                            Directory.CreateDirectory(MainWindow_Rufous.g_settingData.m_filePath);
+                        }
+
                         FileStream fs = File.Open(savePath, FileMode.Create);
                         encoder.Save(fs);
                         fs.Close();
@@ -270,6 +275,11 @@ namespace VOP
                             {
                                 savePath = MainWindow_Rufous.g_settingData.m_filePath +
                                     @"\" + MainWindow_Rufous.g_settingData.m_fileName;
+                            }
+
+                            if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_filePath))
+                            {
+                                Directory.CreateDirectory(MainWindow_Rufous.g_settingData.m_filePath);
                             }
 
                             help.Open(savePath);
