@@ -27,6 +27,9 @@ namespace VOP
         {
 
             int index = 0;
+
+            cboPrinters.Items.Clear();
+
             for (int i = 0; i < MainWindow_Rufous.g_printerList.Count; i++)
             {
                 if(MainWindow_Rufous.g_printerList[i] == MainWindow_Rufous.g_settingData.m_printerName)
