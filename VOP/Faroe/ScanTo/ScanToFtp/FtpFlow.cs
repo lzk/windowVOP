@@ -70,7 +70,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow,
-                               "Upload failed, " + m_errorMsg,
+                               "Upload failed. " + m_errorMsg,
                                "Error");
             }
 

@@ -51,7 +51,9 @@ namespace VOP
         {
 
             TextBlock text = new TextBlock();
+
             text.Text = "Number " + (id + 1).ToString();
+
             text.Margin = new Thickness(10, 0, 0, 0);
             text.VerticalAlignment = VerticalAlignment.Center;
             text.FontSize = 16;
@@ -63,7 +65,17 @@ namespace VOP
 
             ComboBox combobox = new ComboBox();
             combobox.Width = 200;
-            combobox.Margin = new Thickness(40, 0, 0, 0);
+
+            if (id == 0)
+            {
+                combobox.Margin = new Thickness(44, 0, 0, 0);
+            }
+            else
+            {
+                combobox.Margin = new Thickness(40, 0, 0, 0);
+            }
+               
+
             foreach (string s in ScanToItems)
             {
                 combobox.Items.Add(s);

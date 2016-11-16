@@ -90,7 +90,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                             Application.Current.MainWindow,
-                           "Print failed, " + m_errorMsg,
+                           "Print failed. " + m_errorMsg,
                            "Error");
             }
 

@@ -72,7 +72,7 @@ namespace VOP
              
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow,
-                                "Fail to save files, " + m_errorMsg,
+                                "Fail to save files. " + m_errorMsg,
                                 "Error");
                 return false;
             }
