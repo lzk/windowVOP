@@ -140,6 +140,7 @@
       <DependentUpon>MessageBoxEx_Simple_Busy_QRCode.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\DeviceButton.cs" />
+    <Compile Include="Controls\TextBlockUtils.cs" />
     <Compile Include="Faroe\DeviceListBoxItem.cs" />
     <Compile Include="Faroe\QRCodeWindow\Otsu.cs" />
     <Compile Include="Faroe\QRCodeWindow\QRCodeManualPage.xaml.cs">

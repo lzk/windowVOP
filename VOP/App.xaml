@@ -1,6 +1,7 @@
 ﻿<Application x:Class="VOP.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:util="clr-namespace:Util"
              StartupUri="Faroe/MainWindow_Rufous.xaml">
     <Application.Resources>
         
@@ -53,6 +54,10 @@
                 <Setter Property="TextElement.FontFamily" Value="Resources/font/#DS-Digital" />
             </Style>
 
+            <Style x:Key="AutoTooltipTextBlock" TargetType="{x:Type TextBlock}">
+                <Setter Property="util:TextBlockUtils.AutoTooltip" Value="True"/>
+            </Style>
+            
         </ResourceDictionary>
     </Application.Resources>
 
