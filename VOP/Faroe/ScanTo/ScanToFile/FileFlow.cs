@@ -61,17 +61,18 @@ namespace VOP
 
             if (result == true)
             {
-                //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                //               Application.Current.MainWindow,
-                //              "Save files completed",
-                //              "Prompt");
+                if (FlowType == FileFlowType.View)
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                               Application.Current.MainWindow,
+                              "Save files completed",
+                              "Prompt");
             }
             else
             {
              
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow,
-                                "Fail to save files" + m_errorMsg,
+                                "Fail to save files, " + m_errorMsg,
                                 "Error");
                 return false;
             }

@@ -57,7 +57,7 @@ namespace VOP
                     pdfName = "";
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                     Application.Current.MainWindow,
-                                   "Fail to save pdf file" + m_errorMsg,
+                                   "Fail to save pdf file, " + m_errorMsg,
                                    "Error");
                 }
 
@@ -112,7 +112,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                  Application.Current.MainWindow,
-                                "Send Email failed " + ex.Message,
+                                "Send Email failed, " + ex.Message,
                                 "Error");
                 return false;
             }
@@ -120,7 +120,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                   Application.Current.MainWindow,
-                                 "Send Email failed " + ex.Message,
+                                 "Send Email failed, " + ex.Message,
                                  "Error");
                 return false;
             }

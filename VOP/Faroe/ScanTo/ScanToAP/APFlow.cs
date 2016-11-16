@@ -88,7 +88,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                  Application.Current.MainWindow,
-                                "Open program failed " + ex.Message,
+                                "Open program failed, " + ex.Message,
                                 "Error");
                 return false;
             }

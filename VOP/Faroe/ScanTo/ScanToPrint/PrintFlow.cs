@@ -82,14 +82,17 @@ namespace VOP
                 //                        "Print completed",
                 //                        "Prompt");
             }
+            else if (printRes == PrintError.Print_Operation_Fail)
+            {
+             
+            }
             else
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                               Application.Current.MainWindow,
-                              "Print failed " + m_errorMsg,
-                              "Error");
+                            Application.Current.MainWindow,
+                           "Print failed, " + m_errorMsg,
+                           "Error");
             }
-          
 
             return true;
         }
