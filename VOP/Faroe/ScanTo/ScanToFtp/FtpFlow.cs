@@ -60,10 +60,11 @@ namespace VOP
 
             if (worker.InvokeQuickScanMethod(UploadFiles, "Uploading picture to FTP, please wait..."))
             {
-                //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                //               Application.Current.MainWindow,
-                //              "Upload completed",
-                //              "Prompt");
+                if (FlowType == FtpFlowType.View)
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                               Application.Current.MainWindow,
+                              "Upload completed",
+                              "Prompt");
             }
             else
             {
