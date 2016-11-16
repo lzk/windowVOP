@@ -320,9 +320,6 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			return RETSCAN_ERROR;
 		}
 
-		duplex = glDrv.sc_pardata.duplex;
-
-		start_cancel = FALSE;
 #pragma region MyRegion
 		//while (!start_cancel) {
 
@@ -510,11 +507,10 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 #pragma endregion
 
-	
+		duplex = glDrv.sc_pardata.duplex;
+		start_cancel = FALSE;
+		int lineCount = 0;
 		while (!start_cancel) {
-
-			int lineCount = 0;
-
 			glDrv._info();
 			if ((!(duplex & 1) || glDrv.sc_infodata.EndScan[0]) && (!(duplex & 2) || glDrv.sc_infodata.EndScan[1]))
 				break;
@@ -537,29 +533,32 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 							::WideCharToMultiByte(CP_ACP, 0, tempPath, -1, filePath, 256, NULL, NULL);
 
-							if (duplex & 1)
+							if (dup == 0)
 							{
 								side = 'A';
 							}
-							else if (duplex & 2)
+							else if (dup == 1)
 							{
 								side = 'B';
 							}
 
-							sprintf(fileName, "%s_%c%d_%c%02d.%s", filePath, (ImgFile[0].img.bit > 16) ? 'C' : 'G', ImgFile[0].img.dpi.x, side, page[0], &ImgFile[0].img.format);
-							ImgFile_Open(&ImgFile[0], fileName);
+							sprintf(fileName, "%s_%c%d_%c%02d.%s", filePath, (ImgFile[dup].img.bit > 16) ? 'C' : 'G', ImgFile[dup].img.dpi.x, side, page[dup], &ImgFile[dup].img.format);
+							ImgFile_Open(&ImgFile[dup], fileName);
+							lineCount = 0;
 
 							::MultiByteToWideChar(CP_ACP, 0, fileName, strlen(fileName), fileNameOut, 256);
 							bstrArray[fileCount] = ::SysAllocString(fileNameOut);
 							MyOutputString(fileNameOut);
 							fileCount++;
+							page[dup]++;
 						}
-						ImgFile_Write(&ImgFile[0], imgBuffer, ImgSize);
+						ImgFile_Write(&ImgFile[dup], imgBuffer, ImgSize);
 
 						int percent = 0;
+						int L = (int)round((double)ImgSize / (double)GetByteNumPerLineWidthPad(BitsPerPixel, nLinePixelNumOrig));
 						lineCount += lineNumber;
 						percent = lineCount * 100 / nColPixelNumOrig;
-
+						//MyOutputString(L"Percent ", lineCount);
 						if (percent > 100)
 							percent = 100;
 
@@ -570,12 +569,14 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 						if ((ImgSize >= (int)glDrv.sc_infodata.ValidPageSize[dup]) && glDrv.sc_infodata.EndPage[dup]) {
 							ImgFile_Close(&ImgFile[dup], glDrv.sc_infodata.ImageHeight[dup]);
 							bFiling[dup]--;
+							lineCount = 0;
 						}
 					}
 				}
-				if (cancel && bFiling[dup]) {
+				if (start_cancel && bFiling[dup]) {
 					ImgFile_Close(&ImgFile[dup], glDrv.sc_infodata.ImageHeight[dup]);
 					bFiling[dup] = 0;
+					lineCount = 0;
 				}
 			}
 		}

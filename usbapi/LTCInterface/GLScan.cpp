@@ -14,16 +14,21 @@ CGLDrv::CGLDrv()
 	m_GLusb					= new CGLUsb;
 	m_GLnet					= new CGLNet();
 
+	JobID = 0;
+
 	sc_job_create = {0};
 	sc_job_create.code		= I3('JOB');
 	sc_job_create.request	= ('C');
 
+	sc_job_end = { 0 };
 	sc_job_end.code			= I3('JOB');
 	sc_job_end.request		= ('E');
 
+	sc_par = { 0 };
 	sc_par.code				= I3('PAR');
 	sc_par.length			= sizeof(SC_PAR_DATA_T);
 
+	sc_pardata = { 0 };
 	sc_pardata			    = { SCAN_SOURCE, SCAN_ACQUIRE, SCAN_OPTION, SCAN_DUPLEX, SCAN_PAGE,
 							{ IMG_FORMAT, IMG_OPTION, IMG_BIT, IMG_MONO,
 							{ IMG_DPI_X, IMG_DPI_Y },{ IMG_ORG_X, IMG_ORG_Y }, IMG_WIDTH, IMG_HEIGHT },
@@ -32,15 +37,20 @@ CGLDrv::CGLDrv()
 							{ { 0 },
 							{ 0 } }
 							};
-
+	sc_scan = { 0 };
 	sc_scan.code			= I4('SCAN');
-	sc_stop.code			= I3('STOP');
 
+	sc_stop = { 0 };
+	sc_stop.code			= I4('STOP');
+
+	sc_info = { 0 };
 	sc_info.code			= I4('INFO');
 	sc_info.length			= sizeof(SC_INFO_DATA_T);
 
-	sc_cancel.code			= I3('CANC');
+	sc_cancel = { 0 };
+	sc_cancel.code			= I4('CANC');
 
+	sc_img = { 0 };
 	sc_img.code				= I3('IMG');
 
 	NVW.code				= I3('NVW');
@@ -91,12 +101,12 @@ BYTE CGLDrv::_JobCreate()
 	U8 status[8];
 	if (g_connectMode_usb == TRUE)
 	{
-		/*result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_job_create, sizeof(sc_job_create)) &&
-			m_GLusb->CMDIO_BulkReadEx(0, &job_status, sizeof(job_status));*/
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_job_create, sizeof(sc_job_create)) &&
+			m_GLusb->CMDIO_BulkReadEx(0, &job_status, sizeof(job_status));
 
-		result = (m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
+		/*result = (m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
 			m_GLusb->CMDIO_BulkReadEx(0, status, sizeof(status)) &&
-			(M32(&status[0]) == I3('STA')) && (status[4] == 'A'));
+			(M32(&status[0]) == I3('STA')) && (status[4] == 'A'));*/
 	}
 	else
 	{

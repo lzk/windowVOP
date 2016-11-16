@@ -284,7 +284,7 @@ BOOL CGLUsb::AsyncWriteFile(HANDLE hFile, BYTE *Buf, DWORD dwBufSize, DWORD *dwW
 	BOOL        bRet;
 	DWORD       dwErrCode, dwWaitTime; 
 	HANDLE      hEventx; 
-	hEvent = hEvent;
+
 	hEventx = CreateEvent(NULL,TRUE,FALSE,NULL); 
 	ZeroMemory(&ovAnync,sizeof(ovAnync));
 	ResetEvent(hEventx); 
