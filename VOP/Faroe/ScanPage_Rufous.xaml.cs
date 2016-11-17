@@ -386,6 +386,13 @@ namespace VOP
                 }  
             }
 
+            if (files == null || files.Count == 0)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                      Application.Current.MainWindow,
+                     "Please select one or more pictures to process",
+                     "Prompt");
+            }
         }
 
         /// <summary>
