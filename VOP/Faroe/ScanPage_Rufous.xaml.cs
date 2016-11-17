@@ -345,6 +345,8 @@ namespace VOP
             }
 
             InitFontSize();
+
+            SelectAllCheckBox.IsChecked = true;
             SelectAll(true);
         }
 
