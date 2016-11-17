@@ -55,44 +55,73 @@ namespace VOP
                 if (result == true)
                 {
                     programType = sf.m_programType;
+
+                    try
+                    {
+                        if (programType == "Paint")
+                        {
+                            string processFilename = @"C:\Windows\System32\mspaint.exe";
+
+                            ProcessStartInfo info = new ProcessStartInfo();
+
+                            info.FileName = processFilename;
+                            info.Arguments = String.Format("\"{0}\"", FileList[0]);
+                            info.CreateNoWindow = false;
+                            info.WindowStyle = ProcessWindowStyle.Normal;
+                            info.UseShellExecute = false;
+
+                            Process p = Process.Start(info);
+                        }
+                        else
+                        {
+                            Process.Start(FileList[0]);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                         Application.Current.MainWindow,
+                                        "Open program failed, " + ex.Message,
+                                        "Error");
+                        return false;
+                    }
                 }
             }
             else
             {
                 programType = MainWindow_Rufous.g_settingData.m_programType;
+
+                try
+                {
+                    if (programType == "Paint")
+                    {
+                        string processFilename = @"C:\Windows\System32\mspaint.exe";
+
+                        ProcessStartInfo info = new ProcessStartInfo();
+
+                        info.FileName = processFilename;
+                        info.Arguments = String.Format("\"{0}\"", FileList[0]);
+                        info.CreateNoWindow = false;
+                        info.WindowStyle = ProcessWindowStyle.Normal;
+                        info.UseShellExecute = false;
+
+                        Process p = Process.Start(info);
+                    }
+                    else
+                    {
+                        Process.Start(FileList[0]);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                     Application.Current.MainWindow,
+                                    "Open program failed, " + ex.Message,
+                                    "Error");
+                    return false;
+                }
             }
           
-
-            try
-            {
-                 if (programType == "Paint")
-                {
-                    string processFilename = @"C:\Windows\System32\mspaint.exe";
-
-                    ProcessStartInfo info = new ProcessStartInfo();
-
-                    info.FileName = processFilename;
-                    info.Arguments = String.Format("\"{0}\"", FileList[0]);
-                    info.CreateNoWindow = false;
-                    info.WindowStyle = ProcessWindowStyle.Normal;
-                    info.UseShellExecute = false;
-
-                    Process p = Process.Start(info);
-                }
-                else
-                {
-                    Process.Start(FileList[0]);
-                }
-            }
-            catch (Exception ex)
-            {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                                 Application.Current.MainWindow,
-                                "Open program failed, " + ex.Message,
-                                "Error");
-                return false;
-            }
-         
             return true;
         }
 
