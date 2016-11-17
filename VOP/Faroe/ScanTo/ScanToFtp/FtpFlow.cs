@@ -53,27 +53,44 @@ namespace VOP
                     MainWindow_Rufous.g_settingData.m_password = frm.m_password;
                     MainWindow_Rufous.g_settingData.m_targetPath = frm.m_targetPath;
 
-                }
-            }
-            
-            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+                    AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-            if (worker.InvokeQuickScanMethod(UploadFiles, "Uploading picture to FTP, please wait..."))
-            {
-                if (FlowType == FtpFlowType.View)
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                               Application.Current.MainWindow,
-                              "Upload completed",
-                              "Prompt");
+                    if (worker.InvokeQuickScanMethod(UploadFiles, "Uploading picture to FTP, please wait..."))
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                                    Application.Current.MainWindow,
+                                    "Upload completed",
+                                    "Prompt");
+                    }
+                    else
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                        Application.Current.MainWindow,
+                                       "Upload failed. " + m_errorMsg,
+                                       "Error");
+                    }
+
+
+                }
             }
             else
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                                Application.Current.MainWindow,
-                               "Upload failed. " + m_errorMsg,
-                               "Error");
-            }
+                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
+                if (worker.InvokeQuickScanMethod(UploadFiles, "Uploading picture to FTP, please wait..."))
+                {
+                   
+                }
+                else
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                    Application.Current.MainWindow,
+                                   "Upload failed. " + m_errorMsg,
+                                   "Error");
+                }
+
+            }
+           
             return true;
         }
 
