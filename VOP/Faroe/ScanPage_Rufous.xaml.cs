@@ -345,7 +345,7 @@ namespace VOP
             }
 
             InitFontSize();
-
+            SelectAll(true);
         }
 
         void InitFontSize()
