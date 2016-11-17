@@ -47,8 +47,8 @@ namespace VOP
                 return false;
             }
 
-         
-            bool result = false;
+
+            ScanFileSaveError result = ScanFileSaveError.FileSave_OK;
 
             if(FlowType == FileFlowType.View)
             {
@@ -59,13 +59,17 @@ namespace VOP
                 result = SaveFileQuick();
             }
 
-            if (result == true)
+            if (result == ScanFileSaveError.FileSave_OK)
             {
                 if (FlowType == FileFlowType.View)
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                                Application.Current.MainWindow,
                               "Save files completed",
                               "Prompt");
+            }
+            else if (result == ScanFileSaveError.FileSave_Cancel)
+            {
+
             }
             else
             {
@@ -81,7 +85,7 @@ namespace VOP
             return true;
         }
 
-        bool SaveFileView()
+        ScanFileSaveError SaveFileView()
         {
             SaveFileDialog save = new SaveFileDialog();
 
@@ -194,26 +198,26 @@ namespace VOP
 
                 if (fileSaveStatus == ScanFileSaveError.FileSave_Error)
                 {
-                    return false;
+                    return ScanFileSaveError.FileSave_Error;
                 }
 
-                return true;
+                return ScanFileSaveError.FileSave_OK;
                
             }
             else
             {
-                return false;
+                return ScanFileSaveError.FileSave_Cancel;
             }
 
         }
 
-        bool SaveFileQuick()
+        ScanFileSaveError SaveFileQuick()
         {
 
             if(MainWindow_Rufous.g_settingData.m_fileName == "" 
                 || MainWindow_Rufous.g_settingData.m_filePath == "")
             {
-                return false;
+                return ScanFileSaveError.FileSave_Error;
             }
            
             Thread thread = new Thread(() =>
@@ -335,10 +339,10 @@ namespace VOP
 
             if (fileSaveStatus == ScanFileSaveError.FileSave_Error)
             {
-                return false;
+                return ScanFileSaveError.FileSave_Error;
             }
 
-            return true;
+            return ScanFileSaveError.FileSave_OK;
         }
 
         private void pbw_Loaded(object sender, RoutedEventArgs e)
