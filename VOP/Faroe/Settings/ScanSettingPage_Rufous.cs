@@ -90,7 +90,7 @@ namespace VOP
             btnScanToFtp.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnScanToFtp);
 
-            btnScanToAP.btn.Content = "Scan To Application";
+            btnScanToAP.btn.Content = "Scan To AP";
             btnScanToAP.Margin = new Thickness(0, 1, 0, 9);
             btnScanToAP.Width = tabbtn_width;
             btnScanToAP.Height = tabbtn_height;

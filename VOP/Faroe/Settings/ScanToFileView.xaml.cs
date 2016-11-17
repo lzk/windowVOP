@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace VOP
 {
@@ -75,10 +76,90 @@ namespace VOP
             }
         }
 
+        private bool IsValidPathName(string path)
+        {
+            try
+            {
+
+                Regex containsABadCharacter = new Regex("["
+                                                + Regex.Escape(new string(System.IO.Path.GetInvalidPathChars())) + "]");
+
+                if (containsABadCharacter.IsMatch(path))
+                {
+                    return false; 
+                };
+
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool IsValidFileName(string filename)
+        {
+            try
+            {
+
+                Regex containsABadCharacter = new Regex("["
+                                                + Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars())) + "]");
+
+                if (containsABadCharacter.IsMatch(filename))
+                {
+                    return false;
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         private void OkClick(object sender, RoutedEventArgs e)
         {
-            MainWindow_Rufous.g_settingData.m_fileName = tbFileName.Text;
-            MainWindow_Rufous.g_settingData.m_filePath = tbFilePath.Text;
+
+            if (!IsValidPathName(tbFilePath.Text) && !IsValidFileName(tbFileName.Text))
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    Application.Current.MainWindow,
+                   "Invalid path and file name",
+                   "Error");
+               
+            }
+            else
+            {
+                if (!IsValidPathName(tbFilePath.Text))
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                      Application.Current.MainWindow,
+                     "Invalid path name",
+                     "Error");
+               
+                }
+                else
+                {
+                    MainWindow_Rufous.g_settingData.m_filePath = tbFilePath.Text;
+                }
+
+                if (!IsValidFileName(tbFileName.Text))
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                      Application.Current.MainWindow,
+                     "Invalid file name",
+                     "Error");
+               
+                }
+                else
+                {
+                    MainWindow_Rufous.g_settingData.m_fileName = tbFileName.Text;
+                }
+            }
+          
             MainWindow_Rufous.g_settingData.m_fileSaveType = fileSaveType;
         }
 
