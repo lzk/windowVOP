@@ -2698,19 +2698,19 @@ USBAPI_API int __stdcall SetUserCfg(const wchar_t* szPrinter, UINT8 LeadingEdge,
 
 USBAPI_API int __stdcall GetSoftAp( const wchar_t* szPrinter, char* ssid, char* pwd, BYTE* ptr_wifi_enable  )
 {
-    if ( NULL == szPrinter )
-        return _SW_INVALID_PARAMETER;
+  /*  if ( NULL == szPrinter )
+        return _SW_INVALID_PARAMETER;*/
 
 	OutputDebugStringToFileA("\r\n####VP:GetSoftAp() begin");
 	int nResult = _ACK;
-	wchar_t szIP[MAX_PATH] = { 0 };
+	/*wchar_t szIP[MAX_PATH] = { 0 };
     int nPortType = CheckPort( szPrinter, szIP );
 
     if ( PT_UNKNOWN == nPortType ) 
     {
         nResult = _SW_UNKNOWN_PORT;
     }
-    else
+    else*/
     {
         char* buffer = new char[sizeof(COMM_HEADER)+180];
         memset( buffer, INIT_VALUE, sizeof(COMM_HEADER)+180 );
@@ -2729,11 +2729,11 @@ USBAPI_API int __stdcall GetSoftAp( const wchar_t* szPrinter, char* ssid, char* 
 
         cmdst_softap* pcmd_softap = reinterpret_cast<cmdst_softap*>( buffer+sizeof(COMM_HEADER));
 
-        if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
+        if ( g_connectMode_usb != TRUE)
         {
-            nResult = WriteDataViaNetwork( szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+180 );
+            nResult = WriteDataViaNetwork( g_ipAddress, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+180 );
         }
-        else if ( PT_USB == nPortType )
+        else
         {
             nResult = WriteDataViaUSB( szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+180 );
         }
@@ -2767,19 +2767,19 @@ USBAPI_API int __stdcall GetSoftAp( const wchar_t* szPrinter, char* ssid, char* 
 
 USBAPI_API int __stdcall SetSoftAp( const wchar_t* szPrinter, const wchar_t* ws_ssid, const wchar_t* ws_pwd, bool isEnableSoftAp )
 {
-    if ( NULL == szPrinter )
-        return _SW_INVALID_PARAMETER;
+  /*  if ( NULL == szPrinter )
+        return _SW_INVALID_PARAMETER;*/
 
 	OutputDebugStringToFileA("\r\n####VP:SetSoftAp() begin");
 	int nResult = _ACK;
-	wchar_t szIP[MAX_PATH] = {0};
+	/*wchar_t szIP[MAX_PATH] = {0};
     int nPortType = CheckPort( szPrinter, szIP );
 
     if ( PT_UNKNOWN == nPortType ) 
     {
         nResult = _SW_UNKNOWN_PORT;
     }
-    else
+    else*/
     {
         char* buffer = new char[sizeof(COMM_HEADER)+180];
         memset( buffer, INIT_VALUE, sizeof(COMM_HEADER)+180 );
@@ -2817,11 +2817,11 @@ USBAPI_API int __stdcall SetSoftAp( const wchar_t* szPrinter, const wchar_t* ws_
         memcpy( pcmd_softap->ssid, ssid, 32 );
         memcpy( pcmd_softap->pwd, pwd, 64 );
 
-        if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
+		if (g_connectMode_usb != TRUE)
         {
-            nResult = WriteDataViaNetwork( szIP, buffer, sizeof(COMM_HEADER)+180, NULL, 0 );
+            nResult = WriteDataViaNetwork( g_ipAddress, buffer, sizeof(COMM_HEADER)+180, NULL, 0 );
         }
-        else if ( PT_USB == nPortType )
+        else
         {
             nResult = WriteDataViaUSB( szPrinter, buffer, sizeof(COMM_HEADER)+180, NULL, 0 );
         }

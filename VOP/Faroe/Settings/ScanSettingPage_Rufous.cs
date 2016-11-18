@@ -22,6 +22,7 @@ namespace VOP
 
         SettingButton_Rufous btnwifi = new SettingButton_Rufous(SettingType.Wireless);
         SettingButton_Rufous btnTCPIP = new SettingButton_Rufous(SettingType.TCPIP);
+        SettingButton_Rufous btnSoftAP = new SettingButton_Rufous(SettingType.SoftAP);
 
         List<SettingButton_Rufous> m_listSettingButton = new List<SettingButton_Rufous>();
 
@@ -35,6 +36,7 @@ namespace VOP
 
         WifiView_Rufous wifiView = new WifiView_Rufous();
         TcpipView_Rufous tcpipView = new TcpipView_Rufous();
+        SoftapView_Rufous softAPView = new SoftapView_Rufous();
 
         public ScanSettingPage_Rufous()
         {
@@ -125,6 +127,15 @@ namespace VOP
             btnTCPIP.btn.Name = "btnTCPIP";
             btnTCPIP.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnTCPIP);
+
+            btnSoftAP.btn.Content = "Softap";
+            btnSoftAP.Margin = new Thickness(0, 1, 0, 9);
+            btnSoftAP.Width = tabbtn_width;
+            btnSoftAP.Height = tabbtn_height;
+            btnSoftAP.HorizontalAlignment = HorizontalAlignment.Left;
+            btnSoftAP.btn.Name = "btnSoftAP";
+            btnSoftAP.btn.Click += SettingBtnClick;
+            m_listSettingButton.Add(btnSoftAP);
         }
         
         private void SetActiveButton(SettingType settingType)
@@ -169,6 +180,7 @@ namespace VOP
             setting_tab_btn.Children.Add(btnScanToCloud);
             setting_tab_btn.Children.Add(btnwifi);
             setting_tab_btn.Children.Add(btnTCPIP);
+            setting_tab_btn.Children.Add(btnSoftAP);
 
             ClickSettingButton(SettingType.ScanParameter);
           
@@ -236,6 +248,12 @@ namespace VOP
                 SetActiveButton(SettingType.TCPIP);
                 tcpipView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = tcpipView;
+            }
+            else if ("btnSoftAP" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.SoftAP);
+                softAPView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = softAPView;
             }
         }
 

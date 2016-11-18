@@ -22,7 +22,7 @@ namespace VOP
     {
         SoftAPSetting softAPSetting = new SoftAPSetting();
         SoftAPSetting softAPSettingInit = new SoftAPSetting();
-        private EnumStatus m_currentStatus = EnumStatus.Offline;
+        private EnumStatus m_currentStatus = EnumStatus.Ready;
 
         public SoftapView_Rufous()
         {
@@ -47,11 +47,11 @@ namespace VOP
 
             if (_bDisplayProgressBar)
             {
-                worker.InvokeMethod<SoftApRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.GetSoftAp, this);
+                worker.InvokeMethod<SoftApRecord>("", ref m_rec, DllMethodType.GetSoftAp, this);
             }
             else
             {
-                m_rec = worker.GetSoftAp(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter);
+                m_rec = worker.GetSoftAp("");
             }
 
             if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
@@ -105,10 +105,10 @@ namespace VOP
 
             if (is_InputVailible())
             {
-                SoftApRecord m_rec = new SoftApRecord(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, str_ssid, str_pwd, isEnableSoftAp);
+                SoftApRecord m_rec = new SoftApRecord("", str_ssid, str_pwd, isEnableSoftAp);
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-                if (worker.InvokeMethod<SoftApRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_rec, DllMethodType.SetSoftAp, this))
+                if (worker.InvokeMethod<SoftApRecord>("", ref m_rec, DllMethodType.SetSoftAp, this))
                 {
                     if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                     {
@@ -135,9 +135,15 @@ namespace VOP
             }
 
             if (isApplySuccess)
-                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Msg_1"), Brushes.Black);
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                    Application.Current.MainWindow,
+                   (string)this.FindResource("ResStr_Setting_Successfully_"),
+                   "Prompt");
             else
-                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Setting_Fail"), Brushes.Red);
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                    Application.Current.MainWindow,
+                   (string)this.FindResource("ResStr_Setting_Fail"),
+                   "Prompt");
 
             return isApplySuccess;
         }
@@ -213,6 +219,27 @@ namespace VOP
             //UpdateApplyBtnStatus();
         }
 
+        private MainWindow_Rufous _MainWin = null;
+
+        public MainWindow_Rufous m_MainWin
+        {
+            set
+            {
+                _MainWin = value;
+            }
+
+            get
+            {
+                if (null == _MainWin)
+                {
+                    return (MainWindow_Rufous)App.Current.MainWindow;
+                }
+                else
+                {
+                    return _MainWin;
+                }
+            }
+        }
         //public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
         //{
         //    btnApply.IsEnabled = (false == common.IsOffline(st));
