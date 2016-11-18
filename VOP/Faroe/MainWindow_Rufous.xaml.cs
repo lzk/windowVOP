@@ -48,6 +48,8 @@ namespace VOP
         public static byte m_byWifiInitStatus = 0;
         public string m_strPassword = "";
 
+        private bool bGrayIcon = false; // True if the tray icon was set to gray.
+
         public MainWindow_Rufous()
         {
             InitializeComponent();
@@ -55,6 +57,7 @@ namespace VOP
             this.Width = this.Width * App.gScalingRate;
             this.Height = this.Height * App.gScalingRate;
 
+            InitTrayMenu();
             g_settingData.InitSettingData();
 
             thread_searchIP = new Thread(InitIPList);
@@ -76,6 +79,49 @@ namespace VOP
             scanSelectionPage.m_MainWin = this;
             AddMessageHook();
         }
+
+        #region TrayMenu
+        System.Windows.Forms.NotifyIcon notifyIcon1;
+        void InitTrayMenu()
+        {
+            // Create the NotifyIcon. 
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon();
+
+            // The Icon property sets the icon that will appear 
+            // in the systray for this application.
+            System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(new Uri("pack://application:,,, /Images/printerGray.ico")).Stream;
+            bGrayIcon = true;
+            notifyIcon1.Icon = new System.Drawing.Icon(iconStream);
+
+            // The ContextMenu property sets the menu that will 
+            // appear when the systray icon is right clicked.
+            System.Windows.Forms.ContextMenu contextMenu1 = new System.Windows.Forms.ContextMenu();
+            System.Windows.Forms.MenuItem menuItem1 = new System.Windows.Forms.MenuItem((string)this.TryFindResource("ResStr_Exit"));
+            menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
+            contextMenu1.MenuItems.Clear();
+            contextMenu1.MenuItems.Add(menuItem1);
+
+            notifyIcon1.ContextMenu = contextMenu1;
+
+            notifyIcon1.Text = "Faroe Scan";
+            notifyIcon1.Visible = true;
+
+            // Handle the Double Click event to activate the form.        
+            notifyIcon1.DoubleClick += notifyIcon1_DoubleClick;
+        }
+
+        void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            this.Show();
+            this.Activate();
+        }
+
+        private void menuItem1_Click(object sender, System.EventArgs e)
+        {
+            this.Close();
+        }
+
+        #endregion  // TrayMenu
 
         public bool PasswordCorrect(Window parent)
         {
@@ -288,14 +334,24 @@ namespace VOP
             }
             else if (msg == App.WM_VOP)
             {
-
+                PopupWindow();
             }
             else if (msg == App.closeMsg)
             {
+                notifyIcon1.Dispose();
                 Environment.Exit(0);
             }
 
             return IntPtr.Zero;
+        }
+
+        private void PopupWindow()
+        {
+            this.Visibility = Visibility.Visible;
+            this.Activate();
+            this.Topmost = true;  // important
+            this.Topmost = false; // important
+            this.Focus();         // important
         }
 
         private void mainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -329,7 +385,7 @@ namespace VOP
 
             _bExitUpdater = true;
             m_updaterAndUIEvent.WaitOne();
-
+            notifyIcon1.Visible = false;
             SettingData.Serialize(g_settingData, App.cfgFile);
         }
 
@@ -345,10 +401,10 @@ namespace VOP
                 }
                 else if ("btnMinimize" == btn.Name)
                 {
-                    //btnMinimize.Focusable = true;
-                    //btnMinimize.Focus();
-                    //this.Hide();
-                    //btnMinimize.Focusable = false;
+                    btnMinimize.Focusable = true;
+                    btnMinimize.Focus();
+                    this.Hide();
+                    btnMinimize.Focusable = false;
                 }
             }
         }

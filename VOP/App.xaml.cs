@@ -224,10 +224,10 @@ namespace VOP
 
                 mutex.ReleaseMutex();
             }
-            //else
-            //{
-            //    Win32.PostMessage((IntPtr)0xffff, WM_VOP, IntPtr.Zero, IntPtr.Zero);
-            //}
+            else
+            {
+                Win32.PostMessage((IntPtr)0xffff, WM_VOP, IntPtr.Zero, IntPtr.Zero);
+            }
 
         }
 
