@@ -107,6 +107,7 @@ namespace VOP
             settingWin.m_color = MainWindow_Rufous.g_settingData.m_commonScanSettings.ColorType;
             settingWin.m_brightness = MainWindow_Rufous.g_settingData.m_commonScanSettings.Brightness;
             settingWin.m_contrast = MainWindow_Rufous.g_settingData.m_commonScanSettings.Contrast;
+            settingWin.m_adfMode = MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode;
 
             if (settingWin.ShowDialog() == true)
             {
@@ -115,6 +116,7 @@ namespace VOP
                 MainWindow_Rufous.g_settingData.m_commonScanSettings.ColorType = settingWin.m_color;
                 MainWindow_Rufous.g_settingData.m_commonScanSettings.Brightness = settingWin.m_brightness;
                 MainWindow_Rufous.g_settingData.m_commonScanSettings.Contrast = settingWin.m_contrast;
+                MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode = settingWin.m_adfMode;
             }
         }
 

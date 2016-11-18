@@ -61,6 +61,7 @@ namespace VOP
             settingWin.m_color = MainWindow_Rufous.g_settingData.m_fileScanSettings.ColorType;
             settingWin.m_brightness = MainWindow_Rufous.g_settingData.m_fileScanSettings.Brightness;
             settingWin.m_contrast = MainWindow_Rufous.g_settingData.m_fileScanSettings.Contrast;
+            settingWin.m_adfMode = MainWindow_Rufous.g_settingData.m_fileScanSettings.ADFMode;
 
             if (settingWin.ShowDialog() == true)
             {
@@ -69,6 +70,7 @@ namespace VOP
                 MainWindow_Rufous.g_settingData.m_fileScanSettings.ColorType = settingWin.m_color;
                 MainWindow_Rufous.g_settingData.m_fileScanSettings.Brightness = settingWin.m_brightness;
                 MainWindow_Rufous.g_settingData.m_fileScanSettings.Contrast = settingWin.m_contrast;
+                MainWindow_Rufous.g_settingData.m_fileScanSettings.ADFMode = settingWin.m_adfMode;
             }
         }
 

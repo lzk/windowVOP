@@ -60,6 +60,7 @@ namespace VOP
             settingWin.m_color = MainWindow_Rufous.g_settingData.m_emailScanSettings.ColorType;
             settingWin.m_brightness = MainWindow_Rufous.g_settingData.m_emailScanSettings.Brightness;
             settingWin.m_contrast = MainWindow_Rufous.g_settingData.m_emailScanSettings.Contrast;
+            settingWin.m_adfMode = MainWindow_Rufous.g_settingData.m_emailScanSettings.ADFMode;
 
             if (settingWin.ShowDialog() == true)
             {
@@ -68,6 +69,7 @@ namespace VOP
                 MainWindow_Rufous.g_settingData.m_emailScanSettings.ColorType = settingWin.m_color;
                 MainWindow_Rufous.g_settingData.m_emailScanSettings.Brightness = settingWin.m_brightness;
                 MainWindow_Rufous.g_settingData.m_emailScanSettings.Contrast = settingWin.m_contrast;
+                MainWindow_Rufous.g_settingData.m_emailScanSettings.ADFMode = settingWin.m_adfMode;
             }
         }
 

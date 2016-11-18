@@ -70,7 +70,7 @@ namespace VOP
                 EnumScanResln._300x300,
                 EnumPaperSizeScan._A4,
                 EnumColorType.color_24bit,
-                true,
+                false,
                 50,
                 50);
 

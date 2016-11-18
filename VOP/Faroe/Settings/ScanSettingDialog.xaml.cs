@@ -19,7 +19,7 @@ namespace VOP
     {
 
 #region scan parameters
-        public EnumScanDocType   m_docutype   = EnumScanDocType.Photo;
+        public bool   m_adfMode   = true;
         public EnumScanResln     m_scanResln  = EnumScanResln._300x300;
         public EnumPaperSizeScan m_paperSize  = EnumPaperSizeScan._Auto;
         public EnumColorType     m_color      = EnumColorType.color_24bit;
@@ -89,6 +89,15 @@ namespace VOP
             //        break;                   
             //}
 
+            if (m_adfMode == true)
+            {
+                twoSideButton.IsChecked = true;
+            }
+            else
+            {
+                oneSideButton.IsChecked = true;
+            }
+
             switch(m_color)
             {
                 case EnumColorType.color_24bit:
@@ -126,23 +135,19 @@ namespace VOP
         }
 
 
-        public void docutype_click(object sender, RoutedEventArgs e)
+        public void ADFMode_click(object sender, RoutedEventArgs e)
         {
             RadioButton rdbtn = sender as RadioButton;
 
             if (null != rdbtn)
             {
-                if (rdbtn.Name == "docutype_photo")
+                if (rdbtn.Name == "twoSideButton")
                 {
-                    m_docutype = EnumScanDocType.Photo;
+                    m_adfMode = true;
                 }
-                else if (rdbtn.Name == "docutype_text")
+                else if (rdbtn.Name == "oneSideButton")
                 {
-                    m_docutype = EnumScanDocType.Text;
-                }
-                else if (rdbtn.Name == "docutype_graphic")
-                {
-                    m_docutype = EnumScanDocType.Graphic;
+                    m_adfMode = false;
                 }
             }
         }
@@ -238,7 +243,7 @@ namespace VOP
 
         private void btnDefault_Click(object sender, RoutedEventArgs e)
         {
-            m_docutype   = EnumScanDocType.Photo;
+            m_adfMode    = true;
             m_scanResln  = EnumScanResln._300x300;
             m_paperSize  = EnumPaperSizeScan._Auto;
             m_color      = EnumColorType.color_24bit;
