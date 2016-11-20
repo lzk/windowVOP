@@ -19,6 +19,7 @@
 #include "ImgFile\ImgFile.h"
 #include <usbscan.h>
 #include "Global.h"
+#include <gdiplus.h>
 
 #pragma comment(lib, "dnssd.lib")
 #pragma comment(lib, "Ws2_32.lib")
@@ -48,7 +49,8 @@ extern BOOL TestIpConnected(char* szIP);
 
 wchar_t g_ipAddress[256] = { 0 };
 BOOL g_connectMode_usb = TRUE;
-
+static Gdiplus::GdiplusStartupInput gdiplusStartupInput;
+static ULONG_PTR gdiplusToken;
 
 USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	const wchar_t* tempPath,
@@ -587,6 +589,21 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		glDrv._JobEnd();
 		MyOutputString(L"_JobEnd");
 
+		//contrast, brightness
+		/*Gdiplus::Status status;
+		if ((status = Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL)) == Gdiplus::Ok)
+		{
+			float b = brightness / 100;
+			Gdiplus::ColorMatrix colorMatrix_brightness = {
+				1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+				0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+				0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+				0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+				b,    b,    b,    1.0f, 1.0f };
+
+			Gdiplus::GdiplusShutdown(gdiplusToken);
+		}*/
+	
 		CreateSafeArrayFromBSTRArray
 			(
 			bstrArray,
