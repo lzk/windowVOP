@@ -50,7 +50,7 @@ namespace VOP
         {
             ScanTask task = new ScanTask();
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_fileScanSettings);
-
+            //DebugAddScanFiles(ref files);
             if (files == null)
                 return false; 
 
@@ -179,7 +179,7 @@ namespace VOP
         {
             ScanTask task = new ScanTask();
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_cloudScanSettings);
-
+            //DebugAddScanFiles(ref files);
             if (files == null)
                 return false;
 
@@ -209,10 +209,11 @@ namespace VOP
             }
             else
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                                Application.Current.MainWindow,
-                               "Upload failed",
-                               "Error");
+                if(flow.isCancel != true)
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                    Application.Current.MainWindow,
+                                   "Upload failed",
+                                   "Error");
             }
 
             return true;

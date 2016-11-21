@@ -65,6 +65,8 @@ namespace VOP
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.Reset();
+            MainWindow_Rufous.g_settingData.m_dropBoxDefaultPath = SavePathTbx.Text = "";
+
         }
 
         private MainWindow_Rufous _MainWin = null;

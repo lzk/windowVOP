@@ -32,8 +32,12 @@ namespace VOP
         public static string SavePath = "";
         DropboxClient m_client = null;
 
+        public bool isCancel = false;
+
         public bool Run()
         {
+            isCancel = false;
+
             if (FileList == null || FileList.Count == 0)
             {
                 if(FlowType != CloudFlowType.SimpleView)
@@ -176,6 +180,10 @@ namespace VOP
                     {
                         accessToken = login.AccessToken;
                         uId = login.Uid;
+                    }
+                    else
+                    {
+                        isCancel = true;
                     }
                    
                     Properties.Settings.Default.AccessToken = accessToken;
