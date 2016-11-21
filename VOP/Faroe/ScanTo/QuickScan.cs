@@ -191,6 +191,7 @@ namespace VOP
             }
 
             DropBoxFlow flow = new DropBoxFlow();
+            flow.ParentWin = Application.Current.MainWindow;
             DropBoxFlow.FlowType = CloudFlowType.Quick;
             flow.FileList = fileLs;
 
