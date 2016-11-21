@@ -125,18 +125,18 @@ namespace VOP
 
             ScanTask task = new ScanTask();
 
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
+            //List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
 
-            if (files == null)
-                return;
+            //if (files == null)
+            //    return;
 
-            if (task.ScanResult == Scan_RET.RETSCAN_OK)
+            //if (task.ScanResult == Scan_RET.RETSCAN_OK)
             {
-                //List<ScanFiles> files = new List<ScanFiles>();
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0011507242_C600_A02.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0009882444_G600_A00.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0009841993_C600_A00.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0000636359_C600_A00.JPG"));
+                List<ScanFiles> files = new List<ScanFiles>();
+                files.Add(new ScanFiles(@"G:\work\Rufous\pic\0011507242_C600_A02.JPG"));
+                files.Add(new ScanFiles(@"G:\work\Rufous\pic\0009882444_G600_A00.JPG"));
+                files.Add(new ScanFiles(@"G:\work\Rufous\pic\0009841993_C600_A00.JPG"));
+                files.Add(new ScanFiles(@"G:\work\Rufous\pic\0000636359_C600_A00.JPG"));
 
                 m_MainWin.GotoPage("ScanPage", files);
             }
