@@ -340,9 +340,9 @@ BYTE CGLDrv::_info()
 		result = result && m_GLnet->CMDIO_Read(&sc_infodata, sizeof(sc_infodata));
 	}
 
-	if (start_cancel) {
-		sc_infodata.Cancel = 1;
-	}
+	//if (start_cancel) {
+	//	sc_infodata.Cancel = 1;
+	//}
 
 	/*if(sc_infodata.CoverOpen || sc_infodata.PaperJam || sc_infodata.Cancel)
 	{

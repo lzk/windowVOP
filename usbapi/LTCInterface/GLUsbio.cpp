@@ -461,7 +461,7 @@ int CGLNet::CMDIO_Connect(const wchar_t* ipAddress)
 	{
 		char szAsciiIP[1024] = { 0 };
 		::WideCharToMultiByte(CP_ACP, 0, ipAddress, -1, szAsciiIP, 1024, NULL, NULL);
-		m_socketId = m_lpfnNetworkConnect(szAsciiIP, 9100, 1000);
+		m_socketId = m_lpfnNetworkConnect(szAsciiIP, 23010, 1000);
 		return True;
 	}
 	return False;
