@@ -21,6 +21,7 @@
 
 #include <ws2tcpip.h>
 #include "dns_sd.h"
+#include "Global.h"
 
 
 #pragma comment(lib, "dnssd.lib")
@@ -1850,7 +1851,7 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
 static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInput, char* ptrOuput, int cbOutput )
 {
     static char buffMax[MAX_SIZE_BUFF];
-	OutputDebugStringToFileA("\r\n####VP:WriteDataViaUSB() begin");
+	MyOutputString(L"\r\n####VP:WriteDataViaUSB() begin");
     int nResult = _ACK;
 
 	CGLUsb *m_GLusb = new CGLUsb();
@@ -1951,10 +1952,10 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 
 				//First 8 bytes header
 				m_GLusb->CMDIO_BulkWriteEx(0, ptrInput, 8, &dwActualSize);
-
+				MyOutputString(L"CMDIO_BulkWriteEx", dwActualSize);
 				//the rest
 				m_GLusb->CMDIO_BulkWriteEx(0, ptrInput + 8, cbInput - 8, &dwActualSize);
-
+				MyOutputString(L"CMDIO_BulkWriteEx", dwActualSize);
 				DWORD error = GetLastError();
 
 				TCHAR szDebug[256] = { 0 };
@@ -1971,6 +1972,7 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 
 					while (m_GLusb->CMDIO_BulkReadEx(0, buffMax, cbOutput, &dwActualSize))
 					{
+						MyOutputString(L"CMDIO_BulkReadEx", dwActualSize);
 						if (buffMax[0] == 0x1C && buffMax[1] == 0x2D) // sync info
 						{
 							if (20 < nErrCnt++)
@@ -2014,7 +2016,7 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 
 				//LeaveCriticalSection(&g_csCriticalSection);
 				OutputDebugStringToFileA("\r\n### vop LeaveCriticalSection ######\r\n");
-				OutputDebugStringToFileA("\r\n####VP:WriteDataViaUSB(): nCount[%d] nResult [%d]", nCount, nResult);
+				MyOutputString(L"\r\n####VP:WriteDataViaUSB(): nResult [%d]", nResult);
 
 				if (_ACK == nResult
 					&& NULL != ptrOuput
@@ -2026,6 +2028,7 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 
 					if (ptrCmdOut->magic == MAGIC_NUM && ptrCmdOut->subcmd == ptrCmdIn->subcmd)
 					{
+						MyOutputString(L"CmdOut->subcmd", ptrCmdOut->subcmd);
 						memcpy(ptrOuput, buffMax, cbOutput);
 						nResult = _ACK;
 						bWriteSuccess = true;
@@ -2045,7 +2048,7 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 			else
 			{
 				nResult = _SW_USB_OPEN_FAIL;
-				OutputDebugStringToFileA("\r\n####VP:WriteDataViaUSB(): open usb fail.");
+				MyOutputString(L"\r\n####VP:WriteDataViaUSB(): open usb fail.");
 			}
 
 			if (!bWriteSuccess)
@@ -2059,8 +2062,8 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 	}*/
 
 	//delete m_GLusb;
-	OutputDebugStringToFileA("\r\n####VP:WriteDataViaUSB(): nResult == 0x%x", nResult);
-	OutputDebugStringToFileA("\r\n####VP:WriteDataViaUSB() end");
+	MyOutputString(L"\r\n####VP:WriteDataViaUSB(): nResult == 0x%x", nResult);
+	MyOutputString(L"\r\n####VP:WriteDataViaUSB() end");
     return nResult;
 }
 
