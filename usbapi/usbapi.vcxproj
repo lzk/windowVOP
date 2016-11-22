@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bitmapScaling.h" />
+    <ClInclude Include="CImg.h" />
     <ClInclude Include="Common\debug.h" />
     <ClInclude Include="Common\utility.h" />
     <ClInclude Include="Common\utype.h" />

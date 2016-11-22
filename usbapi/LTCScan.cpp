@@ -20,6 +20,9 @@
 #include <usbscan.h>
 #include "Global.h"
 #include <gdiplus.h>
+#include "CImg.h"
+
+using namespace cimg_library;
 
 #pragma comment(lib, "dnssd.lib")
 #pragma comment(lib, "Ws2_32.lib")
@@ -590,19 +593,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		MyOutputString(L"_JobEnd");
 
 		//contrast, brightness
-		/*Gdiplus::Status status;
-		if ((status = Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL)) == Gdiplus::Ok)
-		{
-			float b = brightness / 100;
-			Gdiplus::ColorMatrix colorMatrix_brightness = {
-				1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-				0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-				0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-				0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-				b,    b,    b,    1.0f, 1.0f };
-
-			Gdiplus::GdiplusShutdown(gdiplusToken);
-		}*/
+		CImg<unsigned char> image("lena.jpg");
 	
 		CreateSafeArrayFromBSTRArray
 			(
