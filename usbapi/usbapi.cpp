@@ -1363,7 +1363,7 @@ BOOL TestIpConnected(char* szIP)
 	{
 
 		//int socketID = lpfnNetworkConnect(szIP, 9100, 1000);
-		int socketID = lpfnNetworkConnectBlock(szIP, 9100);
+		int socketID = lpfnNetworkConnectBlock(szIP, 23010);
 
 		if (-1 == socketID)
 		{

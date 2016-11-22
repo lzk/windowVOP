@@ -593,7 +593,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		MyOutputString(L"_JobEnd");
 
 		//contrast, brightness
-		CImg<unsigned char> image("lena.jpg");
+		//CImg<unsigned char> image("lena.jpg");
 	
 		CreateSafeArrayFromBSTRArray
 			(
