@@ -1363,7 +1363,7 @@ BOOL TestIpConnected(char* szIP)
 	{
 
 		//int socketID = lpfnNetworkConnect(szIP, 9100, 1000);
-		int socketID = lpfnNetworkConnectBlock(szIP, 23010);
+		int socketID = lpfnNetworkConnectBlock(szIP, 23011);
 
 		if (-1 == socketID)
 		{
@@ -1935,11 +1935,11 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 					//}
 				}
 
-				EnterCriticalSection(&g_csCriticalSection);
+				//EnterCriticalSection(&g_csCriticalSection);
 				OutputDebugStringToFileA("\r\n### vop EnterCriticalSection ######\r\n");
 
 				//DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_GET_COMMAND, buffMax, 0, buffMax, MAX_SIZE_BUFF, &dwActualSize, NULL);
-				//m_GLusb.CMDIO_BulkReadEx(0, buffMax, MAX_SIZE_BUFF, &dwActualSize);
+				//m_GLusb->CMDIO_BulkReadEx(0, buffMax, MAX_SIZE_BUFF, &dwActualSize);
 
 			/*	while (0 == DeviceIoControl(ctlPipe, IOCTL_USBPRINT_VENDOR_SET_COMMAND, ptrInput, cbInput, NULL, 0, &dwActualSize, NULL)
 					&& nWriteTry--)
@@ -1965,7 +1965,11 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 				{
 					int nErrCnt = 0;
 					memset(buffMax, INIT_VALUE, sizeof(buffMax));
-					while (m_GLusb->CMDIO_BulkReadEx(0, buffMax, sizeof(buffMax), &dwActualSize))
+
+					if (cbOutput == 0)
+						cbOutput = 11;
+
+					while (m_GLusb->CMDIO_BulkReadEx(0, buffMax, cbOutput, &dwActualSize))
 					{
 						if (buffMax[0] == 0x1C && buffMax[1] == 0x2D) // sync info
 						{
@@ -2008,7 +2012,7 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 					nResult = _SW_USB_WRITE_TIMEOUT;
 				}*/
 
-				LeaveCriticalSection(&g_csCriticalSection);
+				//LeaveCriticalSection(&g_csCriticalSection);
 				OutputDebugStringToFileA("\r\n### vop LeaveCriticalSection ######\r\n");
 				OutputDebugStringToFileA("\r\n####VP:WriteDataViaUSB(): nCount[%d] nResult [%d]", nCount, nResult);
 
@@ -2020,7 +2024,7 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 					const COMM_HEADER* ptrCmdIn = reinterpret_cast<const COMM_HEADER*>(ptrInput);
 					const COMM_HEADER* ptrCmdOut = reinterpret_cast<const COMM_HEADER*>(buffMax);
 
-					if (ptrCmdOut->magic == MAGIC_NUM && ptrCmdIn->subid == ptrCmdOut->subid)
+					if (ptrCmdOut->magic == MAGIC_NUM && ptrCmdOut->subcmd == ptrCmdIn->subcmd)
 					{
 						memcpy(ptrOuput, buffMax, cbOutput);
 						nResult = _ACK;
@@ -2904,19 +2908,19 @@ USBAPI_API int __stdcall ConfirmPassword(const wchar_t* szPrinter, const wchar_t
 
 USBAPI_API int __stdcall GetPassword(const wchar_t* szPrinter, char* pwd)
 {
-	if (NULL == szPrinter)
-		return _SW_INVALID_PARAMETER;
+	//if (NULL == szPrinter)
+	//	return _SW_INVALID_PARAMETER;
 	OutputDebugStringToFileA("\r\n####VP:GetPassword() begin");
 
 	int nResult = _ACK;
-	wchar_t szIP[MAX_PATH] = { 0 };
-	int nPortType = CheckPort(szPrinter, szIP);
+	//wchar_t szIP[MAX_PATH] = { 0 };
+	//int nPortType = CheckPort(szPrinter, szIP);
 
-	if (PT_UNKNOWN == nPortType)
-	{
-		nResult = _SW_UNKNOWN_PORT;
-	}
-	else
+	//if (PT_UNKNOWN == nPortType)
+	//{
+	//	nResult = _SW_UNKNOWN_PORT;
+	//}
+	//else
 	{
 		char* buffer = new char[sizeof(COMM_HEADER)+32];
 		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+32);
@@ -2932,11 +2936,11 @@ USBAPI_API int __stdcall GetPassword(const wchar_t* szPrinter, char* pwd)
 		ppkg->len2 = 1;
 		ppkg->subcmd = _PRN_PASSWD_GET;
 
-		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
+		if (g_connectMode_usb != TRUE)
 		{
-			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+32);
+			nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+32);
 		}
-		else if (PT_USB == nPortType)
+		else
 		{
 			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+32);
 		}
@@ -2961,19 +2965,19 @@ USBAPI_API int __stdcall GetPassword(const wchar_t* szPrinter, char* pwd)
 
 USBAPI_API int __stdcall SetPassword(const wchar_t* szPrinter, const wchar_t* ws_pwd)
 {
-	if (NULL == szPrinter)
-		return _SW_INVALID_PARAMETER;
+	/*if (NULL == szPrinter)
+		return _SW_INVALID_PARAMETER;*/
 	OutputDebugStringToFileA("\r\n####VP:SetPassword() begin");
 
 	int nResult = _ACK;
-	wchar_t szIP[MAX_PATH] = {0};
-	int nPortType = CheckPort(szPrinter, szIP);
+	//wchar_t szIP[MAX_PATH] = {0};
+	//int nPortType = CheckPort(szPrinter, szIP);
 
-	if (PT_UNKNOWN == nPortType)
+	/*if (PT_UNKNOWN == nPortType)
 	{
 		nResult = _SW_UNKNOWN_PORT;
 	}
-	else
+	else*/
 	{
 		char* buffer = new char[sizeof(COMM_HEADER)+32];
 		memset(buffer, INIT_VALUE, sizeof(COMM_HEADER)+32);
@@ -2996,11 +3000,11 @@ USBAPI_API int __stdcall SetPassword(const wchar_t* szPrinter, const wchar_t* ws
 		BYTE* pData = reinterpret_cast<BYTE*>(buffer + sizeof(COMM_HEADER));
 		memcpy(pData, pwd, 32);
 
-		if (PT_TCPIP == nPortType || PT_WSD == nPortType)
+		if (g_connectMode_usb != TRUE)
 		{
-			nResult = WriteDataViaNetwork(szIP, buffer, sizeof(COMM_HEADER)+32, NULL, 0);
+			nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER)+32, NULL, 0);
 		}
-		else if (PT_USB == nPortType)
+		else
 		{
 			nResult = WriteDataViaUSB(szPrinter, buffer, sizeof(COMM_HEADER)+32, NULL, 0);
 		}
