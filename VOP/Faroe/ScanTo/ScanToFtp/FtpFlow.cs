@@ -98,11 +98,20 @@ namespace VOP
         {
             try
             {
+                IWebProxy webProxy = WebRequest.DefaultWebProxy;
+                if (null != webProxy)
+                {
+                    webProxy.Credentials = CredentialCache.DefaultNetworkCredentials;
+                }
+
                 FtpWebRequest ftpReq = WebRequest.Create(targetUri) as FtpWebRequest;
                 ftpReq.Method = WebRequestMethods.Ftp.MakeDirectory;
                 ftpReq.Credentials = new NetworkCredential(
                         MainWindow_Rufous.g_settingData.m_userName,
                         MainWindow_Rufous.g_settingData.m_password);
+
+                ftpReq.Proxy = webProxy;
+
                 FtpWebResponse ftpResp = ftpReq.GetResponse() as FtpWebResponse;
             }
             catch (Exception)
@@ -117,6 +126,14 @@ namespace VOP
             {
                 using (WebClient client = new WebClient())
                 {
+                    IWebProxy webProxy = WebRequest.DefaultWebProxy;
+                    if (null != webProxy)
+                    {
+                        webProxy.Credentials = CredentialCache.DefaultNetworkCredentials;
+                    }
+
+                    client.Proxy = webProxy;
+
                     client.Credentials = new NetworkCredential(
                         MainWindow_Rufous.g_settingData.m_userName,
                         MainWindow_Rufous.g_settingData.m_password);
