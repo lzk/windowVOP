@@ -20,6 +20,8 @@
 #include <usbscan.h>
 #include "Global.h"
 #include <gdiplus.h>
+
+#define cimg_use_magick
 #include "CImg.h"
 
 using namespace cimg_library;
@@ -104,6 +106,45 @@ USBAPI_API int __stdcall ADFCancel()
 	return 1;
 }
 
+void BrightnessAndContrast(CImg<int> image, int Brightness, int Contrast)
+{
+	const int GREY = 0x7f;
+
+	int nStepB = (int)floor(Brightness * 0.01 * GREY);
+	double dStepC = Contrast * 0.01;
+
+	if (Contrast > 99)
+	{
+		dStepC = dStepC * dStepC * dStepC;
+	}
+
+	for (int m_nY = 0; m_nY < image.height(); m_nY++) {
+		for (int m_nX = 0; m_nX < image.width(); m_nX++) {
+			int *m_crC = image.data(m_nX, m_nY);
+
+			// RED
+			int m_nC = GetRValue(*m_crC) + nStepB; // for brightness
+			m_nC = (int)floor((m_nC - GREY) * dStepC) + GREY; // for contrast
+															  // add tint, invert.. whatever here 
+			int m_nR = (m_nC < 0x00) ? 0x00 : (m_nC > 0xff) ? 0xff : m_nC;
+
+			// GREEN
+			m_nC = GetGValue(*m_crC) + nStepB;
+			m_nC = (int)floor((m_nC - GREY) * dStepC) + GREY;
+			int m_nG = (m_nC < 0x00) ? 0x00 : (m_nC > 0xff) ? 0xff : m_nC;
+
+			// BLUE
+			m_nC = GetBValue(*m_crC) + nStepB;
+			m_nC = (int)floor((m_nC - GREY) * dStepC) + GREY;
+			int m_nB = (m_nC < 0x00) ? 0x00 : (m_nC > 0xff) ? 0xff : m_nC;
+
+			*m_crC = m_nR + (m_nG << 8) + (m_nB << 16);
+
+		}
+	}
+}
+
+
 USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	const wchar_t* tempPath,
 	int BitsPerPixel,
@@ -117,6 +158,11 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	SAFEARRAY** fileNames)
 {
 	
+	//CImg<int> image;
+	//image.load_jpeg("G:\\work\\Rufous\\pic\\0000636359_C600_A00180.JPG");
+	//BrightnessAndContrast(image, brightness, contrast);
+	//image.save_jpeg("G:\\work\\Rufous\\pic\\0000636359_C600_A00180_1.JPG");
+
 	BSTR bstrArray[500] = { 0 };
 	CGLDrv glDrv;
 	g_pointer_lDrv = &glDrv;
@@ -593,7 +639,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		MyOutputString(L"_JobEnd");
 
 		//contrast, brightness
-		//CImg<unsigned char> image("lena.jpg");
+	/*	CImg<unsigned char> image;
+		image.load_jpeg();*/
 	
 		CreateSafeArrayFromBSTRArray
 			(
