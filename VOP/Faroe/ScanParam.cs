@@ -21,11 +21,11 @@ namespace VOP
     public class ScanParam
     {
         private EnumScanResln m_scanResln = EnumScanResln._300x300;
-        private EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._A4;
-        private EnumColorType m_color = EnumColorType.grayscale_8bit;
+        private EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._Auto;
+        private EnumColorType m_color = EnumColorType.color_24bit;
         private int m_brightness = 50;
         private int m_contrast = 50;
-        private bool m_ADFMode = false;
+        private bool m_ADFMode = true;
 
 
         public EnumScanResln ScanResolution
