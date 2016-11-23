@@ -1789,7 +1789,7 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
 			//	break;
 			//}
 		
-			int m_iSocketID = lpfnNetworkConnect(szAsciiIP, 23011, 1000);
+			int m_iSocketID = lpfnNetworkConnect(szAsciiIP, 9100, 1000);
 			lpfnNetworkWrite(m_iSocketID, ptrInput, cbInput);
 
 			if (ptrOutput && cbOutput > 0)
