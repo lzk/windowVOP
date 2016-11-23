@@ -107,6 +107,7 @@ public:
 	CGLNet();
 	~CGLNet();
 	int CMDIO_Connect(const wchar_t* ipAddress);
+	int CMDIO_Connect(const wchar_t* ipAddress, int port);
 	int CMDIO_Close();
 	int CMDIO_Write(void* buffer, unsigned int dwLen);
 	int CMDIO_Read(void *buffer, unsigned int dwLen);

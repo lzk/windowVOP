@@ -50,7 +50,8 @@ enum Scan_RET
 
 extern CRITICAL_SECTION g_csCriticalSection_UsbTest;
 extern CRITICAL_SECTION g_csCriticalSection_NetWorkTest;
-extern BOOL TestIpConnected(char* szIP);
+extern BOOL TestIpConnected(wchar_t* szIP);
+extern BOOL TestIpConnected(wchar_t* szIP, Scan_RET *status);
 
 wchar_t g_ipAddress[256] = { 0 };
 BOOL g_connectMode_usb = TRUE;
@@ -303,6 +304,19 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	U8 stop_start_t = 0;
 	int page[2] = { 0 };
 	int fileCount = 0;
+	
+	Scan_RET status = RETSCAN_OK;
+	if (g_connectMode_usb != TRUE)
+	{
+		if (TestIpConnected(g_ipAddress, &status) == TRUE)
+		{
+			if (status == RETSCAN_BUSY)
+			{
+				return RETSCAN_BUSY;
+			}
+		}
+
+	}
 	
 	MyOutputString(L"ADF Enter");
 	if (glDrv._OpenDevice() == TRUE)
@@ -808,10 +822,10 @@ USBAPI_API BOOL __stdcall CheckConnection()
 	}
 	else
 	{
-		char _hostname[256] = { 0 };
-		::WideCharToMultiByte(CP_ACP, 0, g_ipAddress, -1, _hostname, 256, NULL, NULL);
+		/*char _hostname[256] = { 0 };
+		::WideCharToMultiByte(CP_ACP, 0, g_ipAddress, -1, _hostname, 256, NULL, NULL);*/
 
-		return TestIpConnected(_hostname);
+		return TestIpConnected(g_ipAddress);
 	}
 
 }

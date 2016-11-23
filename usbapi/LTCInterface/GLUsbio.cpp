@@ -467,6 +467,18 @@ int CGLNet::CMDIO_Connect(const wchar_t* ipAddress)
 	return False;
 }
 
+int CGLNet::CMDIO_Connect(const wchar_t* ipAddress, int port)
+{
+	if (m_hmod && m_lpfnNetworkConnect)
+	{
+		char szAsciiIP[1024] = { 0 };
+		::WideCharToMultiByte(CP_ACP, 0, ipAddress, -1, szAsciiIP, 1024, NULL, NULL);
+		m_socketId = m_lpfnNetworkConnect(szAsciiIP, port, 1000);
+		return True;
+	}
+	return False;
+}
+
 int CGLNet::CMDIO_Write(void* buffer, unsigned int dwLen)
 {
 	int cbWrite = 0;

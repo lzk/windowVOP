@@ -97,6 +97,13 @@ namespace VOP
                                "Network scan connection failed",
                                "Error");
                 }
+                else if (ScanResult == Scan_RET.RETSCAN_BUSY)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                               Application.Current.MainWindow,
+                               "Network scanner is busy",
+                               "Error");
+                }
                 else
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,

@@ -1299,24 +1299,24 @@ unsigned if_nametoindex_win(const char *ifname)
 
 char * if_indextoname_win(unsigned ifindex, char *ifname)
 {
-	HMODULE library;
-	char * name = NULL;
+HMODULE library;
+char * name = NULL;
 
-	// Try and load the IP helper library dll
-	if ((library = LoadLibrary(TEXT("Iphlpapi"))) != NULL)
+// Try and load the IP helper library dll
+if ((library = LoadLibrary(TEXT("Iphlpapi"))) != NULL)
+{
+	if_indextoname_funcptr_t if_indextoname_funcptr;
+
+	// On Vista and above there is a Posix like implementation of if_indextoname
+	if ((if_indextoname_funcptr = (if_indextoname_funcptr_t)GetProcAddress(library, "if_indextoname")) != NULL)
 	{
-		if_indextoname_funcptr_t if_indextoname_funcptr;
-
-		// On Vista and above there is a Posix like implementation of if_indextoname
-		if ((if_indextoname_funcptr = (if_indextoname_funcptr_t)GetProcAddress(library, "if_indextoname")) != NULL)
-		{
-			name = if_indextoname_funcptr(ifindex, ifname);
-		}
-
-		FreeLibrary(library);
+		name = if_indextoname_funcptr(ifindex, ifname);
 	}
 
-	return name;
+	FreeLibrary(library);
+}
+
+return name;
 }
 
 static size_t _sa_len(const struct sockaddr *addr)
@@ -1342,59 +1342,101 @@ USBAPI_API void __stdcall ResetBonjourAddr()
 	::memset(addr, 0, 256);
 }
 
-BOOL TestIpConnected(char* szIP)
+enum Scan_RET
+{
+	RETSCAN_OK = 0,
+	RETSCAN_ERRORDLL = 1,
+	RETSCAN_OPENFAIL = 2,
+	RETSCAN_ERRORPARAMETER = 3,
+	RETSCAN_NO_ENOUGH_SPACE = 5,
+	RETSCAN_ERROR_PORT = 6,
+	RETSCAN_CANCEL = 7,
+	RETSCAN_BUSY = 8,
+	RETSCAN_ERROR = 9,
+	RETSCAN_OPENFAIL_NET = 10,
+};
+
+BOOL TestIpConnected(wchar_t* szIP, Scan_RET *re_status)
 {
 	int nResult = TRUE;
 
-	HMODULE hmod = LoadLibrary(DLL_NAME_NET);
+	CGLNet m_GLnet;
 
-	LPFN_NETWORK_CONNECT_BLOCK lpfnNetworkConnectBlock = NULL;
-	LPFN_NETWORK_CONNECT  lpfnNetworkConnect = NULL;
-	LPFN_NETWORK_CLOSE    lpfnNetworkClose = NULL;
-
-	lpfnNetworkConnectBlock = (LPFN_NETWORK_CONNECT_BLOCK)GetProcAddress(hmod, "NetworkConnect");
-	lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(hmod, "NetworkConnectNonBlock");
-	lpfnNetworkClose = (LPFN_NETWORK_CLOSE)GetProcAddress(hmod, "NetworkClose");
-
-
-	if (hmod && \
-		//lpfnNetworkConnect && 
-		lpfnNetworkConnectBlock && \
-		lpfnNetworkClose)
+	if (m_GLnet.CMDIO_Connect(szIP, 23011))
 	{
+		char showIp[256] = "";
+		snprintf(showIp, sizeof(showIp), "\nTestIpConnected() success %s", szIP);
+		OutputDebugStringA(showIp);
 
-		//int socketID = lpfnNetworkConnect(szIP, 9100, 1000);
-		int socketID = lpfnNetworkConnectBlock(szIP, 23011);
+		U8 cmd[4] = { 'J','D','G','S' };
+		U8 status[8] = { 0 };
 
-		if (-1 == socketID)
+		if (m_GLnet.CMDIO_Write(cmd, 4) == TRUE)
 		{
-			char showIp[256] = "";
-			snprintf(showIp, sizeof(showIp), "\nTestIpConnected() Fail %s", szIP);
-			OutputDebugStringA(showIp);
+			if (m_GLnet.CMDIO_Read(status, 8))
+			{
+				if (   status[0] == 'J'
+					&& status[1] == 'D' 
+					&& status[2] == 'A'
+					&& status[4] == 0x00)
+				{
+					*re_status = RETSCAN_OK;
+				}
+				else
+				{
+					*re_status = RETSCAN_BUSY;
+				}
 
-			nResult = FALSE;
+				nResult = TRUE;
+			}
+			else
+			{
+				nResult = FALSE;
+			}
+
 		}
 		else
 		{
-			char showIp[256] = "";
-			snprintf(showIp, sizeof(showIp), "\nTestIpConnected() success %s", szIP);
-			OutputDebugStringA(showIp);
-
-			nResult = TRUE;
+			nResult = FALSE;
 		}
 
-		lpfnNetworkClose(socketID);
-
+		m_GLnet.CMDIO_Close();
 	}
 	else
 	{
+		char showIp[256] = "";
+		snprintf(showIp, sizeof(showIp), "\nTestIpConnected() Fail %s", szIP);
+		OutputDebugStringA(showIp);
+
 		nResult = FALSE;
 	}
 
-	lpfnNetworkConnect = NULL;
-	lpfnNetworkClose = NULL;
+	return nResult;
+}
 
-	FreeLibrary(hmod);
+BOOL TestIpConnected(wchar_t* szIP)
+{
+	int nResult = TRUE;
+	CGLNet m_GLnet;
+	
+	if (m_GLnet.CMDIO_Connect(szIP, 23011))
+	{
+		char showIp[256] = "";
+		snprintf(showIp, sizeof(showIp), "\nTestIpConnected() success %s", szIP);
+		OutputDebugStringA(showIp);
+		nResult = TRUE;
+
+		m_GLnet.CMDIO_Close();
+	}
+	else
+	{
+		
+		char showIp[256] = "";
+		snprintf(showIp, sizeof(showIp), "\nTestIpConnected() Fail %s", szIP);
+		OutputDebugStringA(showIp);
+
+		nResult = FALSE;
+	}
 
 	return nResult;
 }
@@ -1425,7 +1467,7 @@ static void DNSSD_API addrinfo_reply(DNSServiceRef sdref, DNSServiceFlags flags,
 
 		if (HasObtainIPv6 == FALSE)
 		{
-			if (TestIpConnected(tempAddr))
+			//if (TestIpConnected(tempAddr))
 			{
 				snprintf(showIp, sizeof(showIp), "\naddrinfo_reply(IPv6) available %s", tempAddr);
 				OutputDebugStringA(showIp);
@@ -1529,11 +1571,11 @@ static bool BonjourGetAddrInfo(wchar_t* hostname, wchar_t* ipAddress)
 	if (client) DNSServiceRefDeallocate(client);
 	
 
-	if (TestIpConnected(addr))
+	/*if (TestIpConnected(addr))
 	{
 		::MultiByteToWideChar(CP_ACP, 0, addr, strlen(addr), ipAddress, 100);
 	}
-	else
+	else*/
 	{
 
 		::memset(addr, 0, 256);
@@ -1762,7 +1804,7 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
     {
 		int nCount = 0;
 		bool bWriteSuccess = false;
-		while (nCount++ < 2 && !bWriteSuccess)
+		while (nCount++ < 1 && !bWriteSuccess)
 		{
 			char szAsciiIP[1024] = { 0 };
 			::WideCharToMultiByte(CP_ACP, 0, szIP, -1, szAsciiIP, 1024, NULL, NULL);
