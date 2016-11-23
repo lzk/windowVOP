@@ -121,8 +121,7 @@
                         </Border.Effect>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#FF646464"/>
-                            <RadioButton Style="{StaticResource ColorRadioButtonStyle}" 
-                                         IsChecked="True"
+                            <RadioButton Style="{StaticResource ColorRadioButtonStyle}"  
                                          GroupName="ColorSelectionGroup"
                                          x:Name="WhiteRadioButton">
                                 <RadioButton.Effect>
@@ -136,6 +135,7 @@
                                 </RadioButton.Background>
                             </RadioButton>
                             <RadioButton Style="{StaticResource ColorRadioButtonStyle}" 
+                                           IsChecked="True"
                                          GroupName="ColorSelectionGroup"
                                          x:Name="GreenRadioButton">
                                 <RadioButton.Effect>
