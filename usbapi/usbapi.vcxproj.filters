@@ -81,9 +81,6 @@
     <ClInclude Include="LTCInterface\resample.h">
       <Filter>Header Files\LTC</Filter>
     </ClInclude>
-    <ClInclude Include="CImg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

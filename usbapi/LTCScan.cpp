@@ -21,10 +21,7 @@
 #include "Global.h"
 #include <gdiplus.h>
 
-//#define cimg_use_magick
-//#include "CImg.h"
-
-//using namespace cimg_library;
+using namespace Gdiplus;
 
 #pragma comment(lib, "dnssd.lib")
 #pragma comment(lib, "Ws2_32.lib")
@@ -107,44 +104,81 @@ USBAPI_API int __stdcall ADFCancel()
 	return 1;
 }
 
-//void BrightnessAndContrast(CImg<int> image, int Brightness, int Contrast)
-//{
-//	const int GREY = 0x7f;
-//
-//	int nStepB = (int)floor(Brightness * 0.01 * GREY);
-//	double dStepC = Contrast * 0.01;
-//
-//	if (Contrast > 99)
-//	{
-//		dStepC = dStepC * dStepC * dStepC;
-//	}
-//
-//	for (int m_nY = 0; m_nY < image.height(); m_nY++) {
-//		for (int m_nX = 0; m_nX < image.width(); m_nX++) {
-//			int *m_crC = image.data(m_nX, m_nY);
-//
-//			// RED
-//			int m_nC = GetRValue(*m_crC) + nStepB; // for brightness
-//			m_nC = (int)floor((m_nC - GREY) * dStepC) + GREY; // for contrast
-//															  // add tint, invert.. whatever here 
-//			int m_nR = (m_nC < 0x00) ? 0x00 : (m_nC > 0xff) ? 0xff : m_nC;
-//
-//			// GREEN
-//			m_nC = GetGValue(*m_crC) + nStepB;
-//			m_nC = (int)floor((m_nC - GREY) * dStepC) + GREY;
-//			int m_nG = (m_nC < 0x00) ? 0x00 : (m_nC > 0xff) ? 0xff : m_nC;
-//
-//			// BLUE
-//			m_nC = GetBValue(*m_crC) + nStepB;
-//			m_nC = (int)floor((m_nC - GREY) * dStepC) + GREY;
-//			int m_nB = (m_nC < 0x00) ? 0x00 : (m_nC > 0xff) ? 0xff : m_nC;
-//
-//			*m_crC = m_nR + (m_nG << 8) + (m_nB << 16);
-//
-//		}
-//	}
-//}
+int GetEncoderClsid(const WCHAR* format, CLSID* pClsid)
+{
+	UINT  num = 0;          // number of image encoders
+	UINT  size = 0;         // size of the image encoder array in bytes
 
+	ImageCodecInfo* pImageCodecInfo = NULL;
+
+	GetImageEncodersSize(&num, &size);
+	if (size == 0)
+		return -1;  // Failure
+
+	pImageCodecInfo = (ImageCodecInfo*)(malloc(size));
+	if (pImageCodecInfo == NULL)
+		return -1;  // Failure
+
+	GetImageEncoders(num, size, pImageCodecInfo);
+
+	for (UINT j = 0; j < num; ++j)
+	{
+		if (wcscmp(pImageCodecInfo[j].MimeType, format) == 0)
+		{
+			*pClsid = pImageCodecInfo[j].Clsid;
+			free(pImageCodecInfo);
+			return j;  // Success
+		}
+	}
+
+	free(pImageCodecInfo);
+	return -1;  // Failure
+}
+
+void BrightnessAndContrast(const wchar_t *filename, int Brightness, int Contrast)
+{
+
+	Gdiplus::Image *pImg = NULL;
+	pImg = Gdiplus::Image::FromFile(filename);
+
+	float brightness = Brightness / 50.0f; // no change in brightness
+	float contrast = Contrast / 50.0f; // twice the contrast
+	float gamma = 1.0f; // no change in gamma
+
+	float adjustedBrightness = brightness - 1.0f;
+	// create matrix that will brighten and contrast the image
+	Gdiplus::ColorMatrix ptsArray = {
+		contrast, 0, 0, 0, 0, // scale red
+		0, contrast, 0, 0, 0, // scale green
+		0, 0, contrast, 0, 0, // scale blue
+		0, 0, 0, 1.0f, 0, // don't scale alpha
+		adjustedBrightness, adjustedBrightness, adjustedBrightness, 0, 1 };
+
+	Gdiplus::ImageAttributes imageAttributes;
+	imageAttributes.ClearColorMatrix();
+	imageAttributes.SetColorMatrix(&ptsArray, Gdiplus::ColorMatrixFlagsDefault, Gdiplus::ColorAdjustTypeBitmap);
+
+	RectF r(0, 0, pImg->GetWidth(), pImg->GetHeight());
+	Graphics *g = Graphics::FromImage(pImg);
+	g->DrawImage(pImg, r, 0, 0, pImg->GetWidth(), pImg->GetHeight(), Gdiplus::UnitPixel, &imageAttributes);
+
+	CLSID pngClsid;
+	GetEncoderClsid(L"image/jpeg", &pngClsid);
+	pImg->Save(filename, &pngClsid);
+
+	if (pImg)
+	{
+		delete pImg;
+		pImg = NULL;
+	}
+
+	if (g)
+	{
+		delete g;
+		g = NULL;
+	}
+
+}
 
 USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	const wchar_t* tempPath,
@@ -159,11 +193,6 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	SAFEARRAY** fileNames)
 {
 	
-	//CImg<int> image;
-	//image.load_jpeg("G:\\work\\Rufous\\pic\\0000636359_C600_A00180.JPG");
-	//BrightnessAndContrast(image, brightness, contrast);
-	//image.save_jpeg("G:\\work\\Rufous\\pic\\0000636359_C600_A00180_1.JPG");
-
 	BSTR bstrArray[500] = { 0 };
 	CGLDrv glDrv;
 	g_pointer_lDrv = &glDrv;
@@ -305,17 +334,16 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	int page[2] = { 0 };
 	int fileCount = 0;
 	
-	Scan_RET status = RETSCAN_OK;
+	Scan_RET re_status = RETSCAN_OK;
 	if (g_connectMode_usb != TRUE)
 	{
-		if (TestIpConnected(g_ipAddress, &status) == TRUE)
+		if (TestIpConnected(g_ipAddress, &re_status) == TRUE)
 		{
-			if (status == RETSCAN_BUSY)
+			if (re_status == RETSCAN_BUSY)
 			{
 				return RETSCAN_BUSY;
 			}
 		}
-
 	}
 	
 	MyOutputString(L"ADF Enter");
@@ -653,9 +681,23 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		MyOutputString(L"_JobEnd");
 
 		//contrast, brightness
-	/*	CImg<unsigned char> image;
-		image.load_jpeg();*/
+		if (brightness != 50 || contrast != 50)
+		{
+			Gdiplus::Status status;
+			if ((status = Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL)) != Gdiplus::Ok)
+			{
+				return RETSCAN_ERROR;
+			}
+
+			for (UINT i = 0; i < fileCount; i++)
+			{
+				BrightnessAndContrast(bstrArray[i], brightness, contrast);
+			}
+
+			GdiplusShutdown(gdiplusToken);
+		}
 	
+
 		CreateSafeArrayFromBSTRArray
 			(
 			bstrArray,
