@@ -20,12 +20,14 @@
 #include <usbscan.h>
 #include "Global.h"
 #include <gdiplus.h>
+#include <Shlwapi.h>
 
 using namespace Gdiplus;
 
 #pragma comment(lib, "dnssd.lib")
 #pragma comment(lib, "Ws2_32.lib")
 #pragma comment(lib, "Iphlpapi.lib")
+#pragma comment(lib, "Shlwapi.lib")
 
 #define _SCANMODE_1BIT_BLACKWHITE 1
 #define _SCANMODE_8BIT_GRAYSCALE  8
@@ -137,8 +139,9 @@ int GetEncoderClsid(const WCHAR* format, CLSID* pClsid)
 
 void BrightnessAndContrast(const wchar_t *filename, int Brightness, int Contrast)
 {
-
+	HRESULT hr;
 	Gdiplus::Image *pImg = NULL;
+
 	pImg = Gdiplus::Image::FromFile(filename);
 
 	float brightness = Brightness / 50.0f; // no change in brightness
@@ -148,10 +151,10 @@ void BrightnessAndContrast(const wchar_t *filename, int Brightness, int Contrast
 	float adjustedBrightness = brightness - 1.0f;
 	// create matrix that will brighten and contrast the image
 	Gdiplus::ColorMatrix ptsArray = {
-		contrast, 0, 0, 0, 0, // scale red
-		0, contrast, 0, 0, 0, // scale green
-		0, 0, contrast, 0, 0, // scale blue
-		0, 0, 0, 1.0f, 0, // don't scale alpha
+		contrast, 0, 0, 0, 0,	// scale red
+		0, contrast, 0, 0, 0,	// scale green
+		0, 0, contrast, 0, 0,	// scale blue
+		0, 0, 0, 1.0f, 0,		// don't scale alpha
 		adjustedBrightness, adjustedBrightness, adjustedBrightness, 0, 1 };
 
 	Gdiplus::ImageAttributes imageAttributes;
@@ -164,20 +167,26 @@ void BrightnessAndContrast(const wchar_t *filename, int Brightness, int Contrast
 
 	CLSID pngClsid;
 	GetEncoderClsid(L"image/jpeg", &pngClsid);
-	pImg->Save(filename, &pngClsid);
+
+	std::wstring str(filename);
+	size_t found = str.find_last_of(L"\\");
+	std::wstring file_path = str.substr(0, found);
+
+	found = str.find_last_of('.');
+	std::wstring file_without_extension = str.substr(0, found);
+	std::wstring file_extension = str.substr(found, str.length());
+
+	TCHAR new_name[4096] = { 0 };
+	wsprintf(new_name, _T("%s%s%s"), file_without_extension.c_str(), L"_bc", file_extension.c_str());
+
+	pImg->Save(new_name, &pngClsid);
 
 	if (pImg)
-	{
 		delete pImg;
-		pImg = NULL;
-	}
-
 	if (g)
-	{
 		delete g;
-		g = NULL;
-	}
 
+	ReplaceFile(filename, new_name, NULL, REPLACEFILE_IGNORE_MERGE_ERRORS, NULL, NULL);
 }
 
 USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
