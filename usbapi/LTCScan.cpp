@@ -854,7 +854,7 @@ USBAPI_API int __stdcall CheckUsbScan(
 
 	if (hDev == INVALID_HANDLE_VALUE)
 	{
-		LeaveCriticalSection(&g_csCriticalSection_UsbTest);
+		//LeaveCriticalSection(&g_csCriticalSection_UsbTest);
 		return 0;
 	}
 		
