@@ -210,7 +210,7 @@ namespace VOP.Controls
                 AsyncWorker worker = new AsyncWorker(this);
                 QRCodeResult result = worker.InvokeQRCodeMethod(Decode, temp);
 
-                if (result != null)
+                if (result.results != null)
                 {
                     GotoResultPage(result, ConvertBitmap(bitmap));
                 }
