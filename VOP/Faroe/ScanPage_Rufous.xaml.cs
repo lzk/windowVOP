@@ -143,7 +143,7 @@ namespace VOP
             DropBoxFlow flow = new DropBoxFlow();
             flow.ParentWin = m_MainWin;
             flow.FileList = files;
-
+            DropBoxFlow.FlowType = CloudFlowType.View;
             flow.Run();
 
         }
