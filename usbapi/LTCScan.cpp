@@ -361,13 +361,18 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		
 		result = glDrv.paperReady();
 		if (!result) {
+			glDrv._CloseDevice();
 			return RETSCAN_ERROR;
 		}
 		MyOutputString(L"paperReady");
 
 		result = glDrv._JobCreate();
 		if (!result)
+		{
+			glDrv._CloseDevice();
 			return RETSCAN_ERROR;
+		}
+		
 
 		MyOutputString(L"_JobCreate");
 
@@ -375,7 +380,11 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		result = glDrv._parameters();
 		MyOutputString(L"_parameters");
 		if (!result)
+		{
+			glDrv._CloseDevice();
 			return RETSCAN_ERROR;
+		}
+		
 
 	/*	unsigned int gGammaData[768];
 
@@ -419,6 +428,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		if (!result)
 		{
 			glDrv._JobEnd();
+			glDrv._CloseDevice();
 			return RETSCAN_ERROR;
 		}
 
@@ -689,6 +699,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		glDrv._JobEnd();
 		MyOutputString(L"_JobEnd");
 
+		glDrv._CloseDevice();
 		//contrast, brightness
 		if (brightness != 50 || contrast != 50)
 		{
