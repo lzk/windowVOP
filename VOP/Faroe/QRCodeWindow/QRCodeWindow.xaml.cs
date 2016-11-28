@@ -191,6 +191,9 @@ namespace VOP.Controls
         {
             if (File.Exists(imagePath[0]))
             {
+                QRCodeResultPage.redRect = Rect.Empty;
+                ImageCropper.intRectOffset = Int32Rect.Empty;
+
                 Bitmap bitmap = GetBitmap(imagePath[0]);
                 Bitmap temp = bitmap;
 

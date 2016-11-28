@@ -247,6 +247,8 @@ namespace VOP.Controls
                 return;
             }
 
+            QRCodeResultPage.redRect = Rect.Empty;
+
             if (points.Length >= 3)
             {
                 Rect rect = Rect.Empty;
