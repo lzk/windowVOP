@@ -272,12 +272,12 @@ namespace VOP.Controls
                 int h = src.PixelHeight;
 
                 double offset = 0d;
-                for (offset = 0d; offset < 200; offset+=50)
+                for (offset = 0d; offset < 100; offset+=10)
                 {
                     foreach (CropLocation loc in cropLocationList)
                     {
                         int tempid = 1;
-                        for (double i = 0.9d; i > 0.5d; i -= 0.1d)
+                        for (double i = 0.9d; i > 0.4d; i -= 0.1d)
                         {
                             Rect rect = new Rect(0d, 0d, (double)w, (double)h);
 
