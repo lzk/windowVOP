@@ -738,6 +738,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			return RETSCAN_OPENFAIL_NET;
 	}
 
+	if (imgBuffer)
+		delete imgBuffer;
 
 	return RETSCAN_OK;
 
