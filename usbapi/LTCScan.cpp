@@ -668,7 +668,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 						int percent = 0;
 						int L = (int)round((double)ImgSize / (double)GetByteNumPerLineWidthPad(BitsPerPixel, nLinePixelNumOrig));
-						lineCount += lineNumber;
+						lineCount += lineNumber * 1.5;
 						percent = lineCount * 100 / nColPixelNumOrig;
 						//MyOutputString(L"Percent ", lineCount);
 						if (percent > 100)
