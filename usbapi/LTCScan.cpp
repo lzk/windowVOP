@@ -206,7 +206,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	CGLDrv glDrv;
 	g_pointer_lDrv = &glDrv;
 
-	int lineNumber = 1500;
+	int lineNumber = 50;
 	int nColPixelNumOrig = 0;   
 	int nLinePixelNumOrig = 0;  
 	int imgBufferSize = 0;
@@ -668,7 +668,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 						int percent = 0;
 						int L = (int)round((double)ImgSize / (double)GetByteNumPerLineWidthPad(BitsPerPixel, nLinePixelNumOrig));
-						lineCount += lineNumber;
+						lineCount += lineNumber * 10;
 						percent = lineCount * 100 / nColPixelNumOrig;
 						MyOutputString(L"Data size ", ImgSize);
 						if (percent > 100)
