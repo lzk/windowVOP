@@ -45,6 +45,10 @@ enum Scan_RET
 	RETSCAN_BUSY = 8,
 	RETSCAN_ERROR = 9,
 	RETSCAN_OPENFAIL_NET = 10,
+	RETSCAN_PAPER_JAM = 11,
+	RETSCAN_COVER_OPEN = 12,
+	RETSCAN_PAPER_NOT_READY = 13,
+	RETSCAN_CREATE_JOB_FAIL = 14,
 };
 
 extern CRITICAL_SECTION g_csCriticalSection_UsbTest;
@@ -206,7 +210,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	CGLDrv glDrv;
 	g_pointer_lDrv = &glDrv;
 
-	int lineNumber = 50;
+	int lineNumber = 5;
 	int nColPixelNumOrig = 0;   
 	int nLinePixelNumOrig = 0;  
 	int imgBufferSize = 0;
@@ -350,6 +354,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		{
 			if (re_status == RETSCAN_BUSY)
 			{
+				if (imgBuffer)
+					delete imgBuffer;
 				return RETSCAN_BUSY;
 			}
 		}
@@ -361,16 +367,21 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		
 		result = glDrv.paperReady();
 		if (!result) {
+
+			if (imgBuffer)
+				delete imgBuffer;
 			glDrv._CloseDevice();
-			return RETSCAN_ERROR;
+			return RETSCAN_PAPER_NOT_READY;
 		}
 		MyOutputString(L"paperReady");
 
 		result = glDrv._JobCreate();
 		if (!result)
 		{
+			if (imgBuffer)
+				delete imgBuffer;
 			glDrv._CloseDevice();
-			return RETSCAN_ERROR;
+			return RETSCAN_CREATE_JOB_FAIL;
 		}
 		
 
@@ -381,8 +392,10 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		MyOutputString(L"_parameters");
 		if (!result)
 		{
+			if (imgBuffer)
+				delete imgBuffer;
 			glDrv._CloseDevice();
-			return RETSCAN_ERROR;
+			return RETSCAN_ERRORPARAMETER;
 		}
 		
 
@@ -427,6 +440,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		MyOutputString(L"_StartScan");
 		if (!result)
 		{
+			if (imgBuffer)
+				delete imgBuffer;
 			glDrv._JobEnd();
 			glDrv._CloseDevice();
 			return RETSCAN_ERROR;
@@ -623,7 +638,20 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		start_cancel = FALSE;
 		int lineCount = 0;
 		while (!start_cancel) {
-			glDrv._info();
+
+			if (!glDrv._info())
+			{
+				Sleep(100);
+				continue;
+			}
+				
+
+			if (glDrv.sc_infodata.CoverOpen)
+				break;
+
+			if (glDrv.sc_infodata.PaperJam)
+				break;
+
 			if ((!(duplex & 1) || glDrv.sc_infodata.EndScan[0]) && (!(duplex & 2) || glDrv.sc_infodata.EndScan[1]))
 				break;
 		/*	if (_kbhit()) {
@@ -729,9 +757,27 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		{
 			::SysFreeString(bstrArray[i]);
 		}
+
+		if (glDrv.sc_infodata.CoverOpen)
+		{
+			if (imgBuffer)
+				delete imgBuffer;
+			return RETSCAN_COVER_OPEN;
+		}
+			
+		if (glDrv.sc_infodata.PaperJam)
+		{ 
+			if (imgBuffer)
+				delete imgBuffer;
+			return RETSCAN_PAPER_JAM;
+		}
+			
 	}
 	else
 	{
+		if (imgBuffer)
+			delete imgBuffer;
+
 		if(g_connectMode_usb == TRUE)
 			return RETSCAN_OPENFAIL;
 		else
