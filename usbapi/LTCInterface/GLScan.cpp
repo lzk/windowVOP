@@ -363,7 +363,7 @@ BYTE CGLDrv::_info()
 		goto exit_info;
 	}*/
 	if(!result || sc_infodata.code != I4('IDAT') || sc_infodata.Cancel) {
-		//MyOutputString(L"Scan info error", sc_infodata.Error);
+		MyOutputString(L"Scan info error");
 #if _GLDEBUG_
 		if(sc_infodata.Error)
 			LTCPrintf("Status error!\n");
@@ -451,7 +451,7 @@ BYTE CGLDrv::_ReadImageEX(int dup, int *ImgSize,BYTE* Buffer,int ReadSize)
 
 	if(!result)
 	{
-		MyOutputString(L"Get image status error");
+		MyOutputString(L"Image write error");
 #if _GLDEBUG_
 		LTCPrintf("Get image status error.\n");
 #endif
@@ -469,7 +469,7 @@ BYTE CGLDrv::_ReadImageEX(int dup, int *ImgSize,BYTE* Buffer,int ReadSize)
 	}
 
 	if(!result) {
-		MyOutputString(L"Get image data error");
+		MyOutputString(L"Image read error");
 #if _GLDEBUG_
 		LTCPrintf("Get image data error.\n");
 #endif
