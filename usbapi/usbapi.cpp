@@ -1364,9 +1364,9 @@ BOOL TestIpConnected(wchar_t* szIP, Scan_RET *re_status)
 
 	if (m_GLnet.CMDIO_Connect(szIP, 23011))
 	{
-		char showIp[256] = "";
-		snprintf(showIp, sizeof(showIp), "\nTestIpConnected() success %s", szIP);
-		OutputDebugStringA(showIp);
+		TCHAR showIp[256] = { 0 };
+		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
+		OutputDebugString(showIp);
 
 		U8 cmd[4] = { 'J','D','G','S' };
 		U8 status[8] = { 0 };
@@ -1404,9 +1404,9 @@ BOOL TestIpConnected(wchar_t* szIP, Scan_RET *re_status)
 	}
 	else
 	{
-		char showIp[256] = "";
-		snprintf(showIp, sizeof(showIp), "\nTestIpConnected() Fail %s", szIP);
-		OutputDebugStringA(showIp);
+		TCHAR showIp[256] = { 0 };
+		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
+		OutputDebugString(showIp);
 
 		nResult = FALSE;
 	}
@@ -1421,19 +1421,19 @@ BOOL TestIpConnected(wchar_t* szIP)
 	
 	if (m_GLnet.CMDIO_Connect(szIP, 23011))
 	{
-		char showIp[256] = "";
-		snprintf(showIp, sizeof(showIp), "\nTestIpConnected() success %s", szIP);
-		OutputDebugStringA(showIp);
-		nResult = TRUE;
+		TCHAR showIp[256] = { 0 };
+		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
+		OutputDebugString(showIp);
 
+		nResult = TRUE;
 		m_GLnet.CMDIO_Close();
 	}
 	else
 	{
 		
-		char showIp[256] = "";
-		snprintf(showIp, sizeof(showIp), "\nTestIpConnected() Fail %s", szIP);
-		OutputDebugStringA(showIp);
+		TCHAR showIp[256] = { 0 };
+		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
+		OutputDebugString(showIp);
 
 		nResult = FALSE;
 	}
