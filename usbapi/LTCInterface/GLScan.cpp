@@ -99,6 +99,9 @@ BYTE CGLDrv::_JobCreate()
 	int result;
 	U8 cmd[8] = { 'J','O','B',0,'C',0,0,0 };
 	U8 status[8];
+
+	memset(&job_status, 0, sizeof(job_status));
+
 	if (g_connectMode_usb == TRUE)
 	{
 		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_job_create, sizeof(sc_job_create)) &&
@@ -135,6 +138,8 @@ BYTE CGLDrv::_JobEnd()
 	int result;
 	sc_job_end.id = (unsigned char)JobID;
 
+	memset(&job_status, 0, sizeof(job_status));
+
 	if (g_connectMode_usb == TRUE)
 	{
 		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_job_end, sizeof(sc_job_end)) &&
@@ -165,6 +170,8 @@ BYTE CGLDrv::_parameters()
 	int result;
 	sc_par.id = (unsigned char)JobID;
 	
+	memset(&par_status, 0, sizeof(par_status));
+
 	if (g_connectMode_usb == TRUE)
 	{
 		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_par, sizeof(sc_par)) &&
@@ -198,6 +205,8 @@ BYTE CGLDrv::_StartScan()
 	int result;
 	sc_scan.id = (unsigned char)JobID;
 	
+	memset(&scan_status, 0, sizeof(scan_status));
+
 	if (g_connectMode_usb == TRUE)
 	{
 		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_scan, sizeof(sc_scan)) &&
@@ -259,6 +268,8 @@ BYTE CGLDrv::_stop()
 	int result;
 	sc_stop.id = (unsigned char)JobID;
 
+	memset(&stop_status, 0, sizeof(stop_status));
+
 	if (g_connectMode_usb == TRUE)
 	{
 		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_stop, sizeof(sc_stop)) &&
@@ -316,6 +327,8 @@ BYTE CGLDrv::_info()
 	int result;
 	sc_info.id = (unsigned char)JobID;
 	
+	memset(&sc_infodata, 0, sizeof(sc_infodata));
+
 	if (g_connectMode_usb == TRUE)
 	{
 		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_info, sizeof(sc_info));
@@ -390,6 +403,9 @@ BYTE CGLDrv::_cancel()
 #endif
 
 	sc_cancel.id = (unsigned char)JobID;
+
+	memset(&cancel_status, 0, sizeof(cancel_status));
+
 	if (g_connectMode_usb == TRUE)
 	{
 		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_cancel, sizeof(sc_cancel)) &&
