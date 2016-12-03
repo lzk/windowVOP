@@ -210,7 +210,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	CGLDrv glDrv;
 	g_pointer_lDrv = &glDrv;
 
-	int lineNumber = 5;
+	int lineNumber = 50;
 	int nColPixelNumOrig = 0;   
 	int nLinePixelNumOrig = 0;  
 	int imgBufferSize = 0;
@@ -221,6 +221,16 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	nLinePixelNumOrig = nLinePixelNumOrig - nLinePixelNumOrig % 8;
 
 	nColPixelNumOrig = height*resolution / 1000;
+
+	if (g_connectMode_usb == TRUE)
+	{
+		lineNumber = 1500;
+	}
+	else
+	{
+		//imgBufferSize = 4096;
+		lineNumber = 1500;
+	}
 
 	imgBufferSize = GetByteNumPerLineWidthPad(BitsPerPixel, nLinePixelNumOrig) * lineNumber;
 
@@ -339,7 +349,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	int end_doc = 0;
 	int duplex = 3, dup = 0, time;
 	int page_line[2] = { 0 };
-	int ImgSize = 0, ImgSize_last = 0;
+	int ImgSize = 0, currentImgSize = 0, LastImgSize = 0, TotalImgSize = 0;
 	int RunInCounter = 0;
 	U8  CancelKey[64];
 	U8 open[2] = { 0 };
@@ -637,20 +647,20 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		duplex = glDrv.sc_pardata.duplex;
 		start_cancel = FALSE;
 		int lineCount = 0;
-		while (!start_cancel) {
+		while (!start_cancel)
+		{
 
 			if (!glDrv._info())
 			{
-				Sleep(100);
-				continue;
+				/*Sleep(100);
+				continue;*/
 			}
 				
-
-			if (glDrv.sc_infodata.CoverOpen)
+		/*	if (glDrv.sc_infodata.CoverOpen)
 				break;
 
 			if (glDrv.sc_infodata.PaperJam)
-				break;
+				break;*/
 
 			if ((!(duplex & 1) || glDrv.sc_infodata.EndScan[0]) && (!(duplex & 2) || glDrv.sc_infodata.EndScan[1]))
 				break;
@@ -659,61 +669,81 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				_cancel(JobID);
 				cancel = TRUE;
 			}*/
-			for (dup = 0; dup < 2; dup++) {
-				if ((duplex & (1 << dup)) && glDrv.sc_infodata.ValidPageSize[dup]) {
+			for (dup = 0; dup < 2; dup++) 
+			{			
+				if ((duplex & (1 << dup)) && glDrv.sc_infodata.ValidPageSize[dup]) 
+				{
+
 					ImgSize = 0;
-					if (glDrv._ReadImageEX(dup, &ImgSize, imgBuffer, imgBufferSize)) {
-						if (!bFiling[dup]) {
-							bFiling[dup]++;
+					TotalImgSize = 0;
+					currentImgSize = glDrv.sc_infodata.ValidPageSize[dup];
 
-							char side = 0;
-							char fileName[256] = { 0 };
-							char filePath[256] = { 0 };
-							TCHAR fileNameOut[256] = { 0 };
+					if (!bFiling[dup])
+					{
+						bFiling[dup]++;
 
-							::WideCharToMultiByte(CP_ACP, 0, tempPath, -1, filePath, 256, NULL, NULL);
+						char side = 0;
+						char fileName[256] = { 0 };
+						char filePath[256] = { 0 };
+						TCHAR fileNameOut[256] = { 0 };
 
-							if (dup == 0)
-							{
-								side = 'A';
-							}
-							else if (dup == 1)
-							{
-								side = 'B';
-							}
+						::WideCharToMultiByte(CP_ACP, 0, tempPath, -1, filePath, 256, NULL, NULL);
 
-							sprintf(fileName, "%s_%c%d_%c%02d.%s", filePath, (ImgFile[dup].img.bit > 16) ? 'C' : 'G', ImgFile[dup].img.dpi.x, side, page[dup], &ImgFile[dup].img.format);
-							ImgFile_Open(&ImgFile[dup], fileName);
-							lineCount = 0;
-
-							::MultiByteToWideChar(CP_ACP, 0, fileName, strlen(fileName), fileNameOut, 256);
-							bstrArray[fileCount] = ::SysAllocString(fileNameOut);
-							MyOutputString(fileNameOut);
-							fileCount++;
-							page[dup]++;
+						if (dup == 0)
+						{
+							side = 'A';
 						}
-						ImgFile_Write(&ImgFile[dup], imgBuffer, ImgSize);
-
-						int percent = 0;
-						int L = (int)round((double)ImgSize / (double)GetByteNumPerLineWidthPad(BitsPerPixel, nLinePixelNumOrig));
-						lineCount += lineNumber * 10;
-						percent = lineCount * 100 / nColPixelNumOrig;
-						MyOutputString(L"Data size ", ImgSize);
-						if (percent > 100)
-							percent = 100;
-
-						::SendNotifyMessage(HWND_BROADCAST, uMsg, percent, 0);
-						Sleep(100);
-
-
-						if ((ImgSize >= (int)glDrv.sc_infodata.ValidPageSize[dup]) && glDrv.sc_infodata.EndPage[dup]) {
-							ImgFile_Close(&ImgFile[dup], glDrv.sc_infodata.ImageHeight[dup]);
-							bFiling[dup]--;
-							lineCount = 0;
+						else if (dup == 1)
+						{
+							side = 'B';
 						}
+
+						sprintf(fileName, "%s_%c%d_%c%02d.%s", filePath, (ImgFile[dup].img.bit > 16) ? 'C' : 'G', ImgFile[dup].img.dpi.x, side, page[dup], &ImgFile[dup].img.format);
+						ImgFile_Open(&ImgFile[dup], fileName);
+						lineCount = 0;
+
+						::MultiByteToWideChar(CP_ACP, 0, fileName, strlen(fileName), fileNameOut, 256);
+						bstrArray[fileCount] = ::SysAllocString(fileNameOut);
+						MyOutputString(fileNameOut);
+						fileCount++;
+						page[dup]++;
+					}
+
+					while (currentImgSize > 0)
+					{
+						LastImgSize = currentImgSize % imgBufferSize;
+						if (glDrv._ReadImageEX(dup, &ImgSize, imgBuffer, currentImgSize == LastImgSize ? LastImgSize : imgBufferSize))
+						{
+							currentImgSize -= ImgSize;
+							TotalImgSize += ImgSize;
+						
+							ImgFile_Write(&ImgFile[dup], imgBuffer, ImgSize);
+
+							int percent = 0;
+							//int L = (int)round((double)ImgSize / (double)GetByteNumPerLineWidthPad(BitsPerPixel, nLinePixelNumOrig));
+							lineCount += 50;
+							percent = lineCount;
+							//MyOutputString(L"Data size ", ImgSize);
+							if (percent > 100)
+								percent = 100;
+
+							::SendNotifyMessage(HWND_BROADCAST, uMsg, percent, 0);
+							Sleep(100);
+
+						}
+
+					}
+					
+					if ((TotalImgSize >= (int)glDrv.sc_infodata.ValidPageSize[dup]) && glDrv.sc_infodata.EndPage[dup])
+					{
+						MyOutputString(L"ImgFile Close ", glDrv.sc_infodata.ImageHeight[dup]);
+						ImgFile_Close(&ImgFile[dup], glDrv.sc_infodata.ImageHeight[dup]);
+						bFiling[dup]--;
+						lineCount = 0;
 					}
 				}
-				if (start_cancel && bFiling[dup]) {
+				if (start_cancel && bFiling[dup])
+				{
 					ImgFile_Close(&ImgFile[dup], glDrv.sc_infodata.ImageHeight[dup]);
 					bFiling[dup] = 0;
 					lineCount = 0;
@@ -722,8 +752,9 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		}
 
 		glDrv._stop();
+		MyOutputString(L"_stop");
 		glDrv.waitJobFinish(0);
-
+		MyOutputString(L"waitJobFinish");
 		glDrv._JobEnd();
 		MyOutputString(L"_JobEnd");
 
@@ -758,7 +789,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			::SysFreeString(bstrArray[i]);
 		}
 
-		if (glDrv.sc_infodata.CoverOpen)
+		/*if (glDrv.sc_infodata.CoverOpen)
 		{
 			if (imgBuffer)
 				delete imgBuffer;
@@ -770,7 +801,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			if (imgBuffer)
 				delete imgBuffer;
 			return RETSCAN_PAPER_JAM;
-		}
+		}*/
 			
 	}
 	else

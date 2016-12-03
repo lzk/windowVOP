@@ -447,6 +447,7 @@ BYTE CGLDrv::_CloseDevice()
 BYTE CGLDrv::_ReadImageEX(int dup, int *ImgSize,BYTE* Buffer,int ReadSize)
 {
 	int result;
+	int realLength = 0;
 	sc_img.side = dup;
 	sc_img.length = ReadSize;
 	if(sc_img.length > 0x100000) //for GL cmd
@@ -478,10 +479,12 @@ BYTE CGLDrv::_ReadImageEX(int dup, int *ImgSize,BYTE* Buffer,int ReadSize)
 	if (g_connectMode_usb == TRUE)
 	{
 		result = m_GLusb->CMDIO_BulkReadEx(0, Buffer, sc_img.length);
+		realLength = sc_img.length;
 	}
 	else
 	{
 		result = m_GLnet->CMDIO_Read(Buffer, sc_img.length);
+		realLength = result;
 	}
 
 	if(!result) {
@@ -492,10 +495,10 @@ BYTE CGLDrv::_ReadImageEX(int dup, int *ImgSize,BYTE* Buffer,int ReadSize)
 		result = 0;
 		return FALSE;
 	} 
-	*ImgSize = sc_img.length;
+	*ImgSize = realLength;
 	//printf("%c", 'A'+dup);
 	//LTCPrintf2("GLScan::_ReadImageEX dup %d length %d\n", dup, img_status.length);
-	return (BYTE)result;
+	return TRUE;
 }
 BYTE CGLDrv::_SetIOHandle(HANDLE dwDevice, WORD wType)
 {

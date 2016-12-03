@@ -432,6 +432,7 @@ CGLNet::CGLNet()
 
 	if (m_hmod)
 	{
+		m_lpfnNetworkConnectBlock = (LPFN_NETWORK_CONNECT_BLOCK)GetProcAddress(m_hmod, "NetworkConnect");
 		m_lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(m_hmod, "NetworkConnectNonBlock");
 		m_lpfnNetworkRead = (LPFN_NETWORK_READ)GetProcAddress(m_hmod, "NetworkRead");
 		m_lpfnNetworkWrite = (LPFN_NETWORK_WRITE)GetProcAddress(m_hmod, "NetworkWrite");
@@ -443,6 +444,7 @@ CGLNet::CGLNet()
 
 CGLNet::~CGLNet()
 {
+	m_lpfnNetworkConnectBlock = NULL;
 	m_lpfnNetworkConnect = NULL;
 	m_lpfnNetworkRead = NULL;
 	m_lpfnNetworkWrite = NULL;
@@ -457,11 +459,11 @@ CGLNet::~CGLNet()
 
 int CGLNet::CMDIO_Connect(const wchar_t* ipAddress)
 {
-	if (m_hmod && m_lpfnNetworkConnect)
+	if (m_hmod && m_lpfnNetworkConnectBlock)
 	{
 		char szAsciiIP[1024] = { 0 };
 		::WideCharToMultiByte(CP_ACP, 0, ipAddress, -1, szAsciiIP, 1024, NULL, NULL);
-		m_socketId = m_lpfnNetworkConnect(szAsciiIP, 23010, 1000);
+		m_socketId = m_lpfnNetworkConnectBlock(szAsciiIP, 23010);
 
 		if(m_socketId == -1)
 			return False;
@@ -509,18 +511,21 @@ int CGLNet::CMDIO_Read(void* buffer, unsigned int dwLen)
 {
 	int cbRead = 0;
 	if (m_hmod && m_lpfnNetworkRead)
-	{
+	{		
 		cbRead = m_lpfnNetworkRead(m_socketId, buffer, dwLen);
+		//MyOutputString(L"Read size ", cbRead);
 	}
 
-	if (cbRead == dwLen)
+	return cbRead;
+
+	/*if (cbRead == dwLen)
 	{
 		return TRUE;
 	}
 	else
 	{
 		return FALSE;
-	}
+	}*/
 }
 
 int CGLNet::CMDIO_Close()

@@ -113,6 +113,7 @@ public:
 	int CMDIO_Read(void *buffer, unsigned int dwLen);
 	int m_socketId;
 	HMODULE m_hmod;
+	LPFN_NETWORK_CONNECT_BLOCK  m_lpfnNetworkConnectBlock;
 	LPFN_NETWORK_CONNECT  m_lpfnNetworkConnect;
 	LPFN_NETWORK_READ     m_lpfnNetworkRead;
 	LPFN_NETWORK_WRITE    m_lpfnNetworkWrite;
