@@ -97,6 +97,34 @@ namespace VOP
                                "Network scan connection failed",
                                "Error");
                 }
+                else if (ScanResult == Scan_RET.RETSCAN_BUSY)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                               Application.Current.MainWindow,
+                               "Network scanner is busy",
+                               "Error");
+                }
+                else if (ScanResult == Scan_RET.RETSCAN_PAPER_JAM)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                               Application.Current.MainWindow,
+                               "Paper jam",
+                               "Error");
+                }
+                else if (ScanResult == Scan_RET.RETSCAN_COVER_OPEN)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                               Application.Current.MainWindow,
+                               "Cover is opened",
+                               "Error");
+                }
+                else if (ScanResult == Scan_RET.RETSCAN_PAPER_NOT_READY)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                               Application.Current.MainWindow,
+                               "Paper is not ready",
+                               "Error");
+                }
                 else
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,

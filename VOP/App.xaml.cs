@@ -157,32 +157,32 @@ namespace VOP
             crmFolder = strUsersPublic + "\\Lenovo\\VOP_CRM";
             cfgFile = cfgFolder + "vopcfg.xml";
 
-            string argLine = Environment.CommandLine;
-            string regStr = "";
+            //string argLine = Environment.CommandLine;
+            //string regStr = "";
 
-            if (SelfCloseRegistry.Open())
-            {
-                regStr = SelfCloseRegistry.GetEXIT();
-                SelfCloseRegistry.DeleteEXIT();
-                SelfCloseRegistry.Close();
-            }
+            //if (SelfCloseRegistry.Open())
+            //{
+            //    regStr = SelfCloseRegistry.GetEXIT();
+            //    SelfCloseRegistry.DeleteEXIT();
+            //    SelfCloseRegistry.Close();
+            //}
 
-            if (argLine.Contains("EXIT") || regStr == "EXIT")
-            {
-                Process p = null;
-                if (App.CheckProcessExist("CRMUploader", ref p) == true)
-                {
-                    if (p != null)
-                        p.Kill();
-                }
+            //if (argLine.Contains("EXIT") || regStr == "EXIT")
+            //{
+            //    Process p = null;
+            //    if (App.CheckProcessExist("CRMUploader", ref p) == true)
+            //    {
+            //        if (p != null)
+            //            p.Kill();
+            //    }
 
-                App.ResetVopCfg();
+            //    App.ResetVopCfg();
 
-                Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
-                return;
-            }
+            //    Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
+            //    return;
+            //}
 
-            if(mutex.WaitOne(TimeSpan.Zero, true)) 
+           // if(mutex.WaitOne(TimeSpan.Zero, true)) 
             {
 
                 try
@@ -222,7 +222,7 @@ namespace VOP
                     }
                 }
 
-                mutex.ReleaseMutex();
+                //mutex.ReleaseMutex();
             }
             else
             {

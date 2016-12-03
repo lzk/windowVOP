@@ -28,6 +28,7 @@ namespace VOP
         ScanToCloud,
         Wireless,
         TCPIP,
+        SoftAP,
         Unknown,
     };
 

@@ -19,10 +19,15 @@
 #include "ImgFile\ImgFile.h"
 #include <usbscan.h>
 #include "Global.h"
+#include <gdiplus.h>
+#include <Shlwapi.h>
+
+using namespace Gdiplus;
 
 #pragma comment(lib, "dnssd.lib")
 #pragma comment(lib, "Ws2_32.lib")
 #pragma comment(lib, "Iphlpapi.lib")
+#pragma comment(lib, "Shlwapi.lib")
 
 #define _SCANMODE_1BIT_BLACKWHITE 1
 #define _SCANMODE_8BIT_GRAYSCALE  8
@@ -40,15 +45,21 @@ enum Scan_RET
 	RETSCAN_BUSY = 8,
 	RETSCAN_ERROR = 9,
 	RETSCAN_OPENFAIL_NET = 10,
+	RETSCAN_PAPER_JAM = 11,
+	RETSCAN_COVER_OPEN = 12,
+	RETSCAN_PAPER_NOT_READY = 13,
+	RETSCAN_CREATE_JOB_FAIL = 14,
 };
 
 extern CRITICAL_SECTION g_csCriticalSection_UsbTest;
 extern CRITICAL_SECTION g_csCriticalSection_NetWorkTest;
-extern BOOL TestIpConnected(char* szIP);
+extern BOOL TestIpConnected(wchar_t* szIP);
+extern BOOL TestIpConnected(wchar_t* szIP, Scan_RET *status);
 
 wchar_t g_ipAddress[256] = { 0 };
 BOOL g_connectMode_usb = TRUE;
-
+static Gdiplus::GdiplusStartupInput gdiplusStartupInput;
+static ULONG_PTR gdiplusToken;
 
 USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	const wchar_t* tempPath,
@@ -99,6 +110,89 @@ USBAPI_API int __stdcall ADFCancel()
 	return 1;
 }
 
+int GetEncoderClsid(const WCHAR* format, CLSID* pClsid)
+{
+	UINT  num = 0;          // number of image encoders
+	UINT  size = 0;         // size of the image encoder array in bytes
+
+	ImageCodecInfo* pImageCodecInfo = NULL;
+
+	GetImageEncodersSize(&num, &size);
+	if (size == 0)
+		return -1;  // Failure
+
+	pImageCodecInfo = (ImageCodecInfo*)(malloc(size));
+	if (pImageCodecInfo == NULL)
+		return -1;  // Failure
+
+	GetImageEncoders(num, size, pImageCodecInfo);
+
+	for (UINT j = 0; j < num; ++j)
+	{
+		if (wcscmp(pImageCodecInfo[j].MimeType, format) == 0)
+		{
+			*pClsid = pImageCodecInfo[j].Clsid;
+			free(pImageCodecInfo);
+			return j;  // Success
+		}
+	}
+
+	free(pImageCodecInfo);
+	return -1;  // Failure
+}
+
+void BrightnessAndContrast(const wchar_t *filename, int Brightness, int Contrast)
+{
+	HRESULT hr;
+	Gdiplus::Image *pImg = NULL;
+
+	pImg = Gdiplus::Image::FromFile(filename);
+
+	float brightness = Brightness / 50.0f; // no change in brightness
+	float contrast = Contrast / 50.0f; // twice the contrast
+	float gamma = 1.0f; // no change in gamma
+
+	float adjustedBrightness = brightness - 1.0f;
+	// create matrix that will brighten and contrast the image
+	Gdiplus::ColorMatrix ptsArray = {
+		contrast, 0, 0, 0, 0,	// scale red
+		0, contrast, 0, 0, 0,	// scale green
+		0, 0, contrast, 0, 0,	// scale blue
+		0, 0, 0, 1.0f, 0,		// don't scale alpha
+		adjustedBrightness, adjustedBrightness, adjustedBrightness, 0, 1 };
+
+	Gdiplus::ImageAttributes imageAttributes;
+	imageAttributes.ClearColorMatrix();
+	imageAttributes.SetColorMatrix(&ptsArray, Gdiplus::ColorMatrixFlagsDefault, Gdiplus::ColorAdjustTypeBitmap);
+
+	RectF r(0, 0, pImg->GetWidth(), pImg->GetHeight());
+	Graphics *g = Graphics::FromImage(pImg);
+	g->DrawImage(pImg, r, 0, 0, pImg->GetWidth(), pImg->GetHeight(), Gdiplus::UnitPixel, &imageAttributes);
+
+	CLSID pngClsid;
+	GetEncoderClsid(L"image/jpeg", &pngClsid);
+
+	std::wstring str(filename);
+	size_t found = str.find_last_of(L"\\");
+	std::wstring file_path = str.substr(0, found);
+
+	found = str.find_last_of('.');
+	std::wstring file_without_extension = str.substr(0, found);
+	std::wstring file_extension = str.substr(found, str.length());
+
+	TCHAR new_name[4096] = { 0 };
+	wsprintf(new_name, _T("%s%s%s"), file_without_extension.c_str(), L"_bc", file_extension.c_str());
+
+	pImg->Save(new_name, &pngClsid);
+
+	if (pImg)
+		delete pImg;
+	if (g)
+		delete g;
+
+	ReplaceFile(filename, new_name, NULL, REPLACEFILE_IGNORE_MERGE_ERRORS, NULL, NULL);
+}
+
 USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	const wchar_t* tempPath,
 	int BitsPerPixel,
@@ -116,7 +210,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	CGLDrv glDrv;
 	g_pointer_lDrv = &glDrv;
 
-	int lineNumber = 1000;
+	int lineNumber = 50;
 	int nColPixelNumOrig = 0;   
 	int nLinePixelNumOrig = 0;  
 	int imgBufferSize = 0;
@@ -128,6 +222,16 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 	nColPixelNumOrig = height*resolution / 1000;
 
+	if (g_connectMode_usb == TRUE)
+	{
+		lineNumber = 1500;
+	}
+	else
+	{
+		//imgBufferSize = 4096;
+		lineNumber = 1500;
+	}
+
 	imgBufferSize = GetByteNumPerLineWidthPad(BitsPerPixel, nLinePixelNumOrig) * lineNumber;
 
 	imgBuffer = new BYTE[imgBufferSize];
@@ -136,22 +240,11 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	IMG_FILE_T ImgFile[2];
 	float ADF_SideEdge = (8.5 - 8.4528) / 2;
 
-	ImgFile[0].img.org.x = ADF_SideEdge * resolution;
+	ImgFile[0].img.org.x = 0;//ADF_SideEdge * resolution;
 	ImgFile[0].img.org.y = 0;
 
-	//if (resolution == 200) //ADF test chart 8.4528
-	//	ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 1696;
-	//if (resolution == 300)
-	//	ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 2536;
-	//if (resolution == 600)
-	//	ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 5072;
-	//if (resolution == 1200)
-	//	ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = 10176;
-
-	//ImgFile[0].img.dot.h = ImgFile[1].img.dot.h = 15 * resolution;
-
-	ImgFile[0].img.dot.w = ImgFile[1].img.dot.w = nLinePixelNumOrig;
-	ImgFile[0].img.dot.h = ImgFile[1].img.dot.h = nColPixelNumOrig;
+	ImgFile[0].img.width = ImgFile[1].img.width = nLinePixelNumOrig;
+	ImgFile[0].img.height = ImgFile[1].img.height = nColPixelNumOrig;
 
 
 	ImgFile[0].img.format = ImgFile[1].img.format = I3('JPG');
@@ -160,29 +253,103 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	ImgFile[0].img.dpi.y = ImgFile[1].img.dpi.y = resolution;
 
 
+	//glDrv.sc_pardata.acquire = (1 * ACQ_NO_SHADING) | (0 * ACQ_SET_MTR) | ACQ_NO_MIRROR | (1 * ACQ_NO_PP_SENSOR) | (0 * ACQ_PICK_SS );
 
-	glDrv.sc_job_create.mode = I1('D');
+	//glDrv.sc_job_create.mode = I1('D');
+	glDrv.sc_job_create.mode = 0;
+
 	glDrv.sc_pardata.source = I3('ADF');
-	glDrv.sc_pardata.duplex = ADFMode ? 3 : 1;
+	glDrv.sc_pardata.duplex = ADFMode ? SCAN_AB_SIDE : SCAN_A_SIDE;
 	glDrv.sc_pardata.page = 0;
-	glDrv.sc_pardata.format = I3('JPG');
-	glDrv.sc_pardata.bit = BitsPerPixel;
-	glDrv.sc_pardata.dpi.x = resolution;
-	glDrv.sc_pardata.dpi.y = resolution;
-	glDrv.sc_pardata.org.x = ImgFile[0].img.org.x;
-	glDrv.sc_pardata.org.y = ImgFile[0].img.org.y;
-	glDrv.sc_pardata.dot.w = ImgFile[0].img.dot.w;
-	glDrv.sc_pardata.dot.h = ImgFile[0].img.dot.h;
+	glDrv.sc_pardata.img.format = I3('JPG');
+	glDrv.sc_pardata.img.bit = BitsPerPixel;
+	glDrv.sc_pardata.img.dpi.x = resolution;
+	glDrv.sc_pardata.img.dpi.y = resolution;
+	glDrv.sc_pardata.img.org.x = ImgFile[0].img.org.x;
+	glDrv.sc_pardata.img.org.y = ImgFile[0].img.org.y;
+	glDrv.sc_pardata.img.width = ImgFile[0].img.width;
+	glDrv.sc_pardata.img.height = ImgFile[0].img.height;
+	glDrv.sc_pardata.img.mono = IMG_COLOR;
 
-	glDrv.sc_pardata.mono = 0;
-	glDrv.sc_pardata.acquire = (1 * ACQ_SHADING) | (1 * ACQ_GAMMA) | ACQ_MIRROR | (0 * ACQ_START_HOME) | ACQ_AUTO_GO_HOME | (0*ACQ_LAMP_OFF);
+	if (glDrv.sc_pardata.img.format == I3('JPG')) {
+		glDrv.sc_pardata.img.option = IMG_OPT_JPG_FMT444;
+	}
 
+	//Advanced
+	if (glDrv.sc_pardata.acquire & ACQ_SET_MTR) {
+
+			/*ADF scan*/
+		glDrv.sc_pardata.mtr[1].pick_ss_step = 600;//GetPrivateProfileInt("PICK_SS_STEP", "STEP", 0, IniFile);
+
+			//par->mtr[0].drive_target = CMT_PH;
+			//par->mtr[0].state_mechine = SCAN_STATE_MECHINE;
+			//par->mtr[1].drive_target = BMT_PH;
+			//par->mtr[1].state_mechine = STATE_MECHINE_1;
+		if (glDrv.sc_pardata.img.bit < 24) {
+			/*Mono scan*/
+			glDrv.sc_pardata.mtr[1].speed_pps = 3456;// GetPrivateProfileInt("ADFgray", "PICK_PPS", 0, IniFile);
+			glDrv.sc_pardata.mtr[1].direction = 1;// GetPrivateProfileInt("ADFgray", "PICK_DIR", 0, IniFile);
+			glDrv.sc_pardata.mtr[1].micro_step = 2;// GetPrivateProfileInt("ADFgray", "PICK_MS", 0, IniFile);
+			glDrv.sc_pardata.mtr[1].currentLV = 4;// GetPrivateProfileInt("ADFgray", "PICK_CLV", 0, IniFile);
+
+			glDrv.sc_pardata.mtr[0].speed_pps = 4577;// GetPrivateProfileInt("ADFgray", "FEED_PPS", 0, IniFile);
+			glDrv.sc_pardata.mtr[0].direction = 0;// GetPrivateProfileInt("ADFgray", "FEED_DIR", 0, IniFile);
+			glDrv.sc_pardata.mtr[0].micro_step = 4;// GetPrivateProfileInt("ADFgray", "FEED_MS", 0, IniFile);
+			glDrv.sc_pardata.mtr[0].currentLV = 4;// GetPrivateProfileInt("ADFgray", "FEED_CLV", 0, IniFile);
+		}
+		else {
+			/*Color scan*/
+			if ((glDrv.sc_pardata.img.dpi.x == 300) && (glDrv.sc_pardata.img.dpi.y == 300)) {
+				/*300x300DPI scan*/
+				glDrv.sc_pardata.mtr[1].speed_pps = 2602;// GetPrivateProfileInt("ADF300x300color", "PICK_PPS", 0, IniFile);
+				glDrv.sc_pardata.mtr[1].direction = 1;// GetPrivateProfileInt("ADF300x300color", "PICK_DIR", 0, IniFile);
+				glDrv.sc_pardata.mtr[1].micro_step = 2;// GetPrivateProfileInt("ADF300x300color", "PICK_MS", 0, IniFile);
+				glDrv.sc_pardata.mtr[1].currentLV = 4;// GetPrivateProfileInt("ADF300x300color", "PICK_CLV", 0, IniFile);
+
+				glDrv.sc_pardata.mtr[0].speed_pps = 350;// GetPrivateProfileInt("ADF300x300color", "FEED_PPS", 0, IniFile);
+				glDrv.sc_pardata.mtr[0].direction = 0;// GetPrivateProfileInt("ADF300x300color", "FEED_DIR", 0, IniFile);
+				glDrv.sc_pardata.mtr[0].micro_step = 4;// GetPrivateProfileInt("ADF300x300color", "FEED_MS", 0, IniFile);
+				glDrv.sc_pardata.mtr[0].currentLV = 4;// GetPrivateProfileInt("ADF300x300color", "FEED_CLV", 0, IniFile);
+			}
+			else if ((glDrv.sc_pardata.img.dpi.x == 300) && (glDrv.sc_pardata.img.dpi.y == 600)) {
+				/*300x600DPI scan*/
+				glDrv.sc_pardata.mtr[1].speed_pps = 2317;// GetPrivateProfileInt("ADF300x600color", "PICK_PPS", 0, IniFile);
+				glDrv.sc_pardata.mtr[1].direction = 1;// GetPrivateProfileInt("ADF300x600color", "PICK_DIR", 0, IniFile);
+				glDrv.sc_pardata.mtr[1].micro_step = 4;// GetPrivateProfileInt("ADF300x600color", "PICK_MS", 0, IniFile);
+				glDrv.sc_pardata.mtr[1].currentLV = 4;// GetPrivateProfileInt("ADF300x600color", "PICK_CLV", 0, IniFile);
+
+				glDrv.sc_pardata.mtr[0].speed_pps = 2612;// GetPrivateProfileInt("ADF300x600color", "FEED_PPS", 0, IniFile);
+				glDrv.sc_pardata.mtr[0].direction = 0;// GetPrivateProfileInt("ADF300x600color", "FEED_DIR", 0, IniFile);
+				glDrv.sc_pardata.mtr[0].micro_step = 4;// GetPrivateProfileInt("ADF300x600color", "FEED_MS", 0, IniFile);
+				glDrv.sc_pardata.mtr[0].currentLV = 4;// GetPrivateProfileInt("ADF300x600color", "FEED_CLV", 0, IniFile);
+			}
+			else {
+				/*600DPI scan*/
+				glDrv.sc_pardata.mtr[1].speed_pps = 1293;// GetPrivateProfileInt("ADF600x600color", "PICK_PPS", 0, IniFile);
+				glDrv.sc_pardata.mtr[1].direction = 1;// GetPrivateProfileInt("ADF600x600color", "PICK_DIR", 0, IniFile);
+				glDrv.sc_pardata.mtr[1].micro_step = 4;// GetPrivateProfileInt("ADF600x600color", "PICK_MS", 0, IniFile);
+				glDrv.sc_pardata.mtr[1].currentLV = 4;// GetPrivateProfileInt("ADF600x600color", "PICK_CLV", 0, IniFile);
+
+				glDrv.sc_pardata.mtr[0].speed_pps = 1557;// GetPrivateProfileInt("ADF600x600color", "FEED_PPS", 0, IniFile);
+				glDrv.sc_pardata.mtr[0].direction = 0;// GetPrivateProfileInt("ADF600x600color", "FEED_DIR", 0, IniFile);
+				glDrv.sc_pardata.mtr[0].micro_step = 4;// GetPrivateProfileInt("ADF600x600color", "FEED_MS", 0, IniFile);
+				glDrv.sc_pardata.mtr[0].currentLV = 4;// GetPrivateProfileInt("ADF600x600color", "FEED_CLV", 0, IniFile);
+			}
+
+		}
+	}
+
+	int JobID = 0;
 	int result = 0;
+	char ImgFileName[64];
+	int bFiling[2] = { 0, 0 };
+	int length, cancel, lineSize;
+
 	int end_page[2] = { 0 };
 	int end_doc = 0;
-	int duplex = 3, dup = 0;
+	int duplex = 3, dup = 0, time;
 	int page_line[2] = { 0 };
-	int ImgSize = 0, ImgSize_last = 0;
+	int ImgSize = 0, currentImgSize = 0, LastImgSize = 0, TotalImgSize = 0;
 	int RunInCounter = 0;
 	U8  CancelKey[64];
 	U8 open[2] = { 0 };
@@ -190,52 +357,57 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	int page[2] = { 0 };
 	int fileCount = 0;
 	
+	Scan_RET re_status = RETSCAN_OK;
+	if (g_connectMode_usb != TRUE)
+	{
+		if (TestIpConnected(g_ipAddress, &re_status) == TRUE)
+		{
+			if (re_status == RETSCAN_BUSY)
+			{
+				if (imgBuffer)
+					delete imgBuffer;
+				return RETSCAN_BUSY;
+			}
+		}
+	}
+	
 	MyOutputString(L"ADF Enter");
 	if (glDrv._OpenDevice() == TRUE)
 	{
 		
-		result = glDrv._StatusGet();
+		result = glDrv.paperReady();
 		if (!result) {
-			return RETSCAN_ERROR;
-		}
-		MyOutputString(L"_StatusGet");
 
-		result = glDrv._StatusCheck_Start();
-		if (!result) {
-			return RETSCAN_ERROR;
+			if (imgBuffer)
+				delete imgBuffer;
+			glDrv._CloseDevice();
+			return RETSCAN_PAPER_NOT_READY;
 		}
-		MyOutputString(L"_StatusCheck_Start");
-
-		if (glDrv.sc_status_data.system & 0x10) {
-			result = glDrv._ResetScan();
-			MyOutputString(L"_ResetScan");
-			if (!result)
-				return RETSCAN_ERROR;
-		}
+		MyOutputString(L"paperReady");
 
 		result = glDrv._JobCreate();
+		if (!result)
+		{
+			if (imgBuffer)
+				delete imgBuffer;
+			glDrv._CloseDevice();
+			return RETSCAN_CREATE_JOB_FAIL;
+		}
+		
+
 		MyOutputString(L"_JobCreate");
 
-		if (glDrv.sc_pardata.source == I3('ADF')) {
-			if (!(glDrv.sc_pardata.acquire & ACQ_RODLENS)){ //set for Rod lens calibration
-				result = glDrv._StatusGet();
-				if (!result) {
-					glDrv._JobEnd();
-					return RETSCAN_ERROR;
-				}
-				result = glDrv._StatusCheck_ADF_Check();
-				MyOutputString(L"_StatusCheck_ADF_Check");
-				if (!result) {
-					glDrv._JobEnd();
-					return RETSCAN_ERROR;
-				}
-			}
-		}
 
 		result = glDrv._parameters();
 		MyOutputString(L"_parameters");
 		if (!result)
-			return RETSCAN_ERROR;
+		{
+			if (imgBuffer)
+				delete imgBuffer;
+			glDrv._CloseDevice();
+			return RETSCAN_ERRORPARAMETER;
+		}
+		
 
 	/*	unsigned int gGammaData[768];
 
@@ -278,201 +450,332 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		MyOutputString(L"_StartScan");
 		if (!result)
 		{
+			if (imgBuffer)
+				delete imgBuffer;
 			glDrv._JobEnd();
+			glDrv._CloseDevice();
 			return RETSCAN_ERROR;
 		}
 
+#pragma region MyRegion
+		//while (!start_cancel) {
+
+//	int lineCount = 0;
+//	end_page[0] = end_page[1] = end_doc = 0;
+//	page_line[0] = page_line[1] = 0;
+
+//	Sleep(200);
+//	result = glDrv._info();
+//	MyOutputString(L"_info");
+//	if (!result) {
+//		break;
+//	}
+
+//	if ((!(duplex & 1) || glDrv.sc_infodata.EndScan[0]) && (!(duplex & 2) || glDrv.sc_infodata.EndScan[1]))
+//		break;
+
+//
+//	if ((glDrv.sc_infodata.ValidPageSize[0] > 0) || (glDrv.sc_infodata.ValidPageSize[1] > 0)) {
+
+//		char fileName[256] = { 0 };
+//		char filePath[256] = { 0 };
+//		TCHAR fileNameOut[256] = { 0 };
+
+//		::WideCharToMultiByte(CP_ACP, 0, tempPath, -1, filePath, 256, NULL, NULL);
+
+//		if (duplex & 1) {		
+//			sprintf(fileName, "%s_%c%d_A%02d.%s", filePath, (ImgFile[0].img.bit > 16) ? 'C' : 'G', ImgFile[0].img.dpi.x, page[0], &ImgFile[0].img.format);
+//			ImgFile_Open(&ImgFile[0], fileName);
+//			MyOutputString(L"ImgFile_Open 0");
+
+//			open[0] = 1;
+
+//			::MultiByteToWideChar(CP_ACP, 0, fileName, strlen(fileName), fileNameOut, 256);
+//			bstrArray[fileCount] = ::SysAllocString(fileNameOut);
+//			MyOutputString(fileNameOut);
+//			fileCount++;
+//		}
+//		if (duplex & 2) {
+//			sprintf(fileName, "%s_%c%d_B%02d.%s", filePath, (ImgFile[1].img.bit > 16) ? 'C' : 'G', ImgFile[1].img.dpi.x, page[1], &ImgFile[1].img.format);
+//			ImgFile_Open(&ImgFile[1], fileName);
+//			MyOutputString(L"ImgFile_Open 1");
+
+//			open[1] = 1;
+
+//			::MultiByteToWideChar(CP_ACP, 0, fileName, strlen(fileName), fileNameOut, 256);
+//			bstrArray[fileCount] = ::SysAllocString(fileNameOut);
+//			MyOutputString(fileNameOut);
+//			fileCount++;
+//		}
+//		
+//		while (result && (((duplex & 1) && (end_page[0] == 0)) || ((duplex & 2) && (end_page[1] == 0))))
+//		{
+//			result = glDrv._info();
+//			if (!result) {
+
+//				glDrv._StatusGet();
+
+//				glDrv._StatusCheck_Scanning();
+
+//				if (start_cancel) {
+//					start_cancel = 0;
+//					glDrv._JobEnd();
+//					if ((duplex & 1) && open[0]) {
+//						ImgFile_Close(&ImgFile[0], page_line[0]);
+//						open[0] = 0;
+//					}
+//					if ((duplex & 2) && open[1]) {
+//						ImgFile_Close(&ImgFile[1], page_line[1]);
+//						open[1] = 0;
+//					}
+
+//					return RETSCAN_OK;
+//				}
+//				else
+//				{
+//					if ((duplex & 1) && open[0]) {
+//						ImgFile_Close(&ImgFile[0], page_line[0]);
+//						open[0] = 0;
+//					}
+//					if ((duplex & 2) && open[1]) {
+//						ImgFile_Close(&ImgFile[1], page_line[1]);
+//						open[1] = 0;
+//					}
+
+//					return RETSCAN_ERROR;
+//				}
+//					
+//			}
+//			end_doc = glDrv.sc_infodata.EndDocument;
+
+//			if ((duplex & 1) && (end_page[0] == 0)) {
+//				ImgSize = 0;
+//				if (glDrv.sc_infodata.ValidPageSize[0] > 0) {
+//					result = glDrv._ReadImageEX(0, &ImgSize, imgBuffer, imgBufferSize) &&
+//						ImgFile_Write(&ImgFile[0], imgBuffer, ImgSize);
+
+//					MyOutputString(L"_ReadImageEX ImgFile_Write 0");
+//					if (!result)
+//					{
+//						MyOutputString(L"_ReadImageEX Fail 0");
+//						if ((duplex & 1) && open[0]) {
+//							ImgFile_Close(&ImgFile[0], page_line[0]);
+//							open[0] = 0;
+//						}
+//					
+//					}
+//						
+//				}
+//				if (ImgSize >= glDrv.sc_infodata.ValidPageSize[0]) {
+//					end_page[0] = glDrv.sc_infodata.EndPage[0];
+//					if ((page_line[0] == 0) && end_page[0])
+//						page_line[0] = glDrv.sc_infodata.ImageLength[0];
+//				}
+//			}
+//			if ((duplex & 2) && (end_page[1] == 0)) {
+//				ImgSize = 0;
+//				if (glDrv.sc_infodata.ValidPageSize[1] > 0) {
+//					result = glDrv._ReadImageEX(1, &ImgSize, imgBuffer, imgBufferSize) &&
+//						ImgFile_Write(&ImgFile[1], imgBuffer, ImgSize);
+
+//					MyOutputString(L"_ReadImageEX ImgFile_Write 1");
+
+//					if (!result)
+//					{
+//						MyOutputString(L"_ReadImageEX Fail 1");
+//						if ((duplex & 2) && open[1]) {
+//							ImgFile_Close(&ImgFile[1], page_line[1]);
+//							open[1] = 0;
+//						}
+//					}
+
+//				}
+//				if (ImgSize >= glDrv.sc_infodata.ValidPageSize[1]) {
+//					end_page[1] = glDrv.sc_infodata.EndPage[1];
+//					if ((page_line[1] == 0) && end_page[1])
+//						page_line[1] = glDrv.sc_infodata.ImageLength[1];
+//				}
+//			}
+
+//			int percent = 0;
+//			lineCount += lineNumber;
+//			percent = lineCount * 100 / nColPixelNumOrig;
+
+//			if (percent > 100)
+//				percent = 100;
+
+//			::SendNotifyMessage(HWND_BROADCAST, uMsg, percent, 0);
+//			Sleep(100);
+
+//		}
+
+
+
+//		if ((duplex & 1) && open[0]) {
+//			ImgFile_Close(&ImgFile[0], page_line[0]);
+//			open[0] = 0;
+//		}
+//		if ((duplex & 2) && open[1]) {
+//			ImgFile_Close(&ImgFile[1], page_line[1]);
+//			open[1] = 0;
+//		}
+
+//		page[0]++;
+//		page[1]++;
+
+
+
+//	}
+
+//}
+
+
+//if (glDrv.sc_infodata.Cancel == 0)
+//{
+//	MyOutputString(L"_stop");
+//	glDrv._stop();
+//}
+//else
+//{
+//	MyOutputString(L"_cancel");
+//	glDrv._cancel();
+//}
+//	
+
+#pragma endregion
+
 		duplex = glDrv.sc_pardata.duplex;
+		start_cancel = FALSE;
+		int lineCount = 0;
+		while (!start_cancel)
+		{
 
-
-		while (result && (end_doc == 0)) {
-
-			int lineCount = 0;
-			end_page[0] = end_page[1] = end_doc = 0;
-			page_line[0] = page_line[1] = 0;
-
-			Sleep(200);
-			result = glDrv._info();
-			MyOutputString(L"_info");
-			if (!result) {
-				glDrv._StatusGet();
-				glDrv._StatusCheck_Scanning();
-				break;
+			if (!glDrv._info())
+			{
+				/*Sleep(100);
+				continue;*/
 			}
-
-			end_doc = glDrv.sc_infodata.EndDocument;
-
-		
-			if ((glDrv.sc_infodata.ValidPageSize[0] > 0) || (glDrv.sc_infodata.ValidPageSize[1] > 0)) {
-
-				char fileName[256] = { 0 };
-				char filePath[256] = { 0 };
-				TCHAR fileNameOut[256] = { 0 };
-
-				::WideCharToMultiByte(CP_ACP, 0, tempPath, -1, filePath, 256, NULL, NULL);
-
-				if (duplex & 1) {		
-					sprintf(fileName, "%s_%c%d_A%02d.%s", filePath, (ImgFile[0].img.bit > 16) ? 'C' : 'G', ImgFile[0].img.dpi.x, page[0], &ImgFile[0].img.format);
-					ImgFile_Open(&ImgFile[0], fileName);
-					MyOutputString(L"ImgFile_Open 0");
-
-					open[0] = 1;
-
-					::MultiByteToWideChar(CP_ACP, 0, fileName, strlen(fileName), fileNameOut, 256);
-					bstrArray[fileCount] = ::SysAllocString(fileNameOut);
-					MyOutputString(fileNameOut);
-					fileCount++;
-				}
-				if (duplex & 2) {
-					sprintf(fileName, "%s_%c%d_B%02d.%s", filePath, (ImgFile[1].img.bit > 16) ? 'C' : 'G', ImgFile[1].img.dpi.x, page[1], &ImgFile[1].img.format);
-					ImgFile_Open(&ImgFile[1], fileName);
-					MyOutputString(L"ImgFile_Open 1");
-
-					open[1] = 1;
-
-					::MultiByteToWideChar(CP_ACP, 0, fileName, strlen(fileName), fileNameOut, 256);
-					bstrArray[fileCount] = ::SysAllocString(fileNameOut);
-					MyOutputString(fileNameOut);
-					fileCount++;
-				}
 				
-				while (result && (((duplex & 1) && (end_page[0] == 0)) || ((duplex & 2) && (end_page[1] == 0))))
+		/*	if (glDrv.sc_infodata.CoverOpen)
+				break;
+
+			if (glDrv.sc_infodata.PaperJam)
+				break;*/
+
+			if ((!(duplex & 1) || glDrv.sc_infodata.EndScan[0]) && (!(duplex & 2) || glDrv.sc_infodata.EndScan[1]))
+				break;
+		/*	if (_kbhit()) {
+				_getch();
+				_cancel(JobID);
+				cancel = TRUE;
+			}*/
+			for (dup = 0; dup < 2; dup++) 
+			{			
+				if ((duplex & (1 << dup)) && glDrv.sc_infodata.ValidPageSize[dup]) 
 				{
-					result = glDrv._info();
-					if (!result) {
 
-						glDrv._StatusGet();
+					ImgSize = 0;
+					TotalImgSize = 0;
+					currentImgSize = glDrv.sc_infodata.ValidPageSize[dup];
 
-						glDrv._StatusCheck_Scanning();
+					if (!bFiling[dup])
+					{
+						bFiling[dup]++;
 
-						if (start_cancel) {
-							start_cancel = 0;
-							glDrv._JobEnd();
-							if ((duplex & 1) && open[0]) {
-								ImgFile_Close(&ImgFile[0], page_line[0]);
-								open[0] = 0;
-							}
-							if ((duplex & 2) && open[1]) {
-								ImgFile_Close(&ImgFile[1], page_line[1]);
-								open[1] = 0;
-							}
+						char side = 0;
+						char fileName[256] = { 0 };
+						char filePath[256] = { 0 };
+						TCHAR fileNameOut[256] = { 0 };
 
-							return RETSCAN_OK;
-						}
-						else
+						::WideCharToMultiByte(CP_ACP, 0, tempPath, -1, filePath, 256, NULL, NULL);
+
+						if (dup == 0)
 						{
-							if ((duplex & 1) && open[0]) {
-								ImgFile_Close(&ImgFile[0], page_line[0]);
-								open[0] = 0;
-							}
-							if ((duplex & 2) && open[1]) {
-								ImgFile_Close(&ImgFile[1], page_line[1]);
-								open[1] = 0;
-							}
-
-							return RETSCAN_ERROR;
+							side = 'A';
 						}
-							
-					}
-					end_doc = glDrv.sc_infodata.EndDocument;
-
-					if ((duplex & 1) && (end_page[0] == 0)) {
-						ImgSize = 0;
-						if (glDrv.sc_infodata.ValidPageSize[0] > 0) {
-							result = glDrv._ReadImageEX(0, &ImgSize, imgBuffer, imgBufferSize) &&
-								ImgFile_Write(&ImgFile[0], imgBuffer, ImgSize);
-
-							MyOutputString(L"_ReadImageEX ImgFile_Write 0");
-							if (!result)
-							{
-								MyOutputString(L"_ReadImageEX Fail 0");
-								if ((duplex & 1) && open[0]) {
-									ImgFile_Close(&ImgFile[0], page_line[0]);
-									open[0] = 0;
-								}
-							
-							}
-								
+						else if (dup == 1)
+						{
+							side = 'B';
 						}
-						if (ImgSize >= glDrv.sc_infodata.ValidPageSize[0]) {
-							end_page[0] = glDrv.sc_infodata.EndPage[0];
-							if ((page_line[0] == 0) && end_page[0])
-								page_line[0] = glDrv.sc_infodata.ImageLength[0];
-						}
-					}
-					if ((duplex & 2) && (end_page[1] == 0)) {
-						ImgSize = 0;
-						if (glDrv.sc_infodata.ValidPageSize[1] > 0) {
-							result = glDrv._ReadImageEX(1, &ImgSize, imgBuffer, imgBufferSize) &&
-								ImgFile_Write(&ImgFile[1], imgBuffer, ImgSize);
 
-							MyOutputString(L"_ReadImageEX ImgFile_Write 1");
+						sprintf(fileName, "%s_%c%d_%c%02d.%s", filePath, (ImgFile[dup].img.bit > 16) ? 'C' : 'G', ImgFile[dup].img.dpi.x, side, page[dup], &ImgFile[dup].img.format);
+						ImgFile_Open(&ImgFile[dup], fileName);
+						lineCount = 0;
 
-							if (!result)
-							{
-								MyOutputString(L"_ReadImageEX Fail 1");
-								if ((duplex & 2) && open[1]) {
-									ImgFile_Close(&ImgFile[1], page_line[1]);
-									open[1] = 0;
-								}
-							}
-
-						}
-						if (ImgSize >= glDrv.sc_infodata.ValidPageSize[1]) {
-							end_page[1] = glDrv.sc_infodata.EndPage[1];
-							if ((page_line[1] == 0) && end_page[1])
-								page_line[1] = glDrv.sc_infodata.ImageLength[1];
-						}
+						::MultiByteToWideChar(CP_ACP, 0, fileName, strlen(fileName), fileNameOut, 256);
+						bstrArray[fileCount] = ::SysAllocString(fileNameOut);
+						MyOutputString(fileNameOut);
+						fileCount++;
+						page[dup]++;
 					}
 
-					int percent = 0;
-					lineCount += lineNumber;
-					percent = lineCount * 100 / nColPixelNumOrig;
+					while (currentImgSize > 0)
+					{
+						LastImgSize = currentImgSize % imgBufferSize;
+						if (glDrv._ReadImageEX(dup, &ImgSize, imgBuffer, currentImgSize == LastImgSize ? LastImgSize : imgBufferSize))
+						{
+							currentImgSize -= ImgSize;
+							TotalImgSize += ImgSize;
+						
+							ImgFile_Write(&ImgFile[dup], imgBuffer, ImgSize);
 
-					if (percent > 100)
-						percent = 100;
+							int percent = 0;
+							//int L = (int)round((double)ImgSize / (double)GetByteNumPerLineWidthPad(BitsPerPixel, nLinePixelNumOrig));
+							lineCount += 50;
+							percent = lineCount;
+							//MyOutputString(L"Data size ", ImgSize);
+							if (percent > 100)
+								percent = 100;
 
-					::SendNotifyMessage(HWND_BROADCAST, uMsg, percent, 0);
-					Sleep(100);
+							::SendNotifyMessage(HWND_BROADCAST, uMsg, percent, 0);
+							Sleep(100);
 
+						}
+
+					}
+					
+					if ((TotalImgSize >= (int)glDrv.sc_infodata.ValidPageSize[dup]) && glDrv.sc_infodata.EndPage[dup])
+					{
+						MyOutputString(L"ImgFile Close ", glDrv.sc_infodata.ImageHeight[dup]);
+						ImgFile_Close(&ImgFile[dup], glDrv.sc_infodata.ImageHeight[dup]);
+						bFiling[dup]--;
+						lineCount = 0;
+					}
 				}
-
-
-
-				if ((duplex & 1) && open[0]) {
-					ImgFile_Close(&ImgFile[0], page_line[0]);
-					open[0] = 0;
+				if (start_cancel && bFiling[dup])
+				{
+					ImgFile_Close(&ImgFile[dup], glDrv.sc_infodata.ImageHeight[dup]);
+					bFiling[dup] = 0;
+					lineCount = 0;
 				}
-				if ((duplex & 2) && open[1]) {
-					ImgFile_Close(&ImgFile[1], page_line[1]);
-					open[1] = 0;
-				}
-
-				page[0]++;
-				page[1]++;
-
-
-
 			}
-
 		}
 
-
-		if (glDrv.sc_infodata.Cancel == 0)
-		{
-			MyOutputString(L"_stop");
-			glDrv._stop();
-		}
-		else
-		{
-			MyOutputString(L"_cancel");
-			glDrv._cancel();
-		}
-			
-
-	
+		glDrv._stop();
+		MyOutputString(L"_stop");
+		glDrv.waitJobFinish(0);
+		MyOutputString(L"waitJobFinish");
 		glDrv._JobEnd();
 		MyOutputString(L"_JobEnd");
+
+		glDrv._CloseDevice();
+		//contrast, brightness
+		if (brightness != 50 || contrast != 50)
+		{
+			Gdiplus::Status status;
+			if ((status = Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL)) != Gdiplus::Ok)
+			{
+				return RETSCAN_ERROR;
+			}
+
+			for (UINT i = 0; i < fileCount; i++)
+			{
+				BrightnessAndContrast(bstrArray[i], brightness, contrast);
+			}
+
+			GdiplusShutdown(gdiplusToken);
+		}
+	
 
 		CreateSafeArrayFromBSTRArray
 			(
@@ -485,15 +788,35 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		{
 			::SysFreeString(bstrArray[i]);
 		}
+
+		/*if (glDrv.sc_infodata.CoverOpen)
+		{
+			if (imgBuffer)
+				delete imgBuffer;
+			return RETSCAN_COVER_OPEN;
+		}
+			
+		if (glDrv.sc_infodata.PaperJam)
+		{ 
+			if (imgBuffer)
+				delete imgBuffer;
+			return RETSCAN_PAPER_JAM;
+		}*/
+			
 	}
 	else
 	{
+		if (imgBuffer)
+			delete imgBuffer;
+
 		if(g_connectMode_usb == TRUE)
 			return RETSCAN_OPENFAIL;
 		else
 			return RETSCAN_OPENFAIL_NET;
 	}
 
+	if (imgBuffer)
+		delete imgBuffer;
 
 	return RETSCAN_OK;
 
@@ -610,7 +933,7 @@ USBAPI_API int __stdcall CheckUsbScan(
 
 	if (hDev == INVALID_HANDLE_VALUE)
 	{
-		LeaveCriticalSection(&g_csCriticalSection_UsbTest);
+		//LeaveCriticalSection(&g_csCriticalSection_UsbTest);
 		return 0;
 	}
 		
@@ -640,10 +963,10 @@ USBAPI_API BOOL __stdcall CheckConnection()
 	}
 	else
 	{
-		char _hostname[256] = { 0 };
-		::WideCharToMultiByte(CP_ACP, 0, g_ipAddress, -1, _hostname, 256, NULL, NULL);
+		/*char _hostname[256] = { 0 };
+		::WideCharToMultiByte(CP_ACP, 0, g_ipAddress, -1, _hostname, 256, NULL, NULL);*/
 
-		return TestIpConnected(_hostname);
+		return TestIpConnected(g_ipAddress);
 	}
 
 }

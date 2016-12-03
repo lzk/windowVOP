@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="VOP.SoftapView_Rufous"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="500"
+             xmlns:local="clr-namespace:VOP.Controls"
+             Loaded="OnLoadedSoftapView">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Controls/CustomPasswordBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomScrollView.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="..\..\Images\SettingViewBackground.png" />
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="80"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="4"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{StaticResource ResStr_SSID_2}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                <TextBox Name="tbSSID" Template="{StaticResource customTextBox}" Grid.Column="2" Grid.Row="0" Height="28" VerticalAlignment="Center" MaxLength="32" TextChanged="handler_text_changed" InputMethod.IsInputMethodEnabled="False">
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                    </TextBox.InputBindings>
+                    <TextBox.ContextMenu>
+                        <ContextMenu Visibility="Collapsed">
+                        </ContextMenu>
+                    </TextBox.ContextMenu>
+                </TextBox>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="{StaticResource ResStr_Password}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                <TextBox Name="tbPWD" Template="{StaticResource customTextBox}" Grid.Column="2" Grid.Row="1" Height="28" VerticalAlignment="Center" MaxLength="64" TextChanged="handler_password_changed" InputMethod.IsInputMethodEnabled="False">
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                    </TextBox.InputBindings>
+                    <TextBox.ContextMenu>
+                        <ContextMenu Visibility="Collapsed">
+                        </ContextMenu>
+                    </TextBox.ContextMenu>
+                </TextBox>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="{StaticResource ResStr_Close}" VerticalAlignment="Center" HorizontalAlignment="Right"></TextBlock>
+                <Grid Grid.Row="3" Grid.Column="2" >
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Name="chkbtn_wifi_enable" Template="{StaticResource switchBox}" IsChecked="False"  Checked="HandleCheck" Unchecked="HandleCheck"  Width="40" Height="22" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{StaticResource ResStr_Open}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8"></TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <local:ButtonEx x:Name="btnApply" Click="btnApply_Click" Content="{StaticResource ResStr_Apply}" FontSize="18"  IsActiveEx="True" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" Width="150" Height="35"></local:ButtonEx>
+        </Grid>
+    </Grid>
+</UserControl>

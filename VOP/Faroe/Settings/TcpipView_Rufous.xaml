@@ -8,7 +8,7 @@
              xmlns:local="clr-namespace:VOP.Controls"
              Loaded="OnLoadedTcpipView"
              Name="MyView"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="600" d:DesignWidth="500">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

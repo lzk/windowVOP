@@ -3,6 +3,68 @@
 //#pragma pack(2)
 
 #include "GLUtype.h"
+#include "../ImgFile/ImgFile.h"
+
+#define SCAN_FLB		I3('FLB')
+#define SCAN_ADF		I3('ADF')
+#define SCAN_A_SIDE		1
+#define SCAN_B_SIDE		2
+#define SCAN_AB_SIDE	3
+
+// default scan parameters
+#define SCAN_SOURCE   SCAN_ADF   //'FLB', 'ADF'
+#define SCAN_ACQUIRE  ACQ_PICK_SS//ACQ_NO_SHADING
+#define SCAN_OPTION   0
+#define SCAN_DUPLEX   SCAN_AB_SIDE   // 1: A_side, 2: B_side, 3: AB_sides
+#define SCAN_PAGE     0   // 0: adf sensor detect
+#define IMG_FORMAT    IMG_FMT_JPG//I3('JPG')  //'JPG', 'RAW'
+#define IMG_BIT       IMG_24_BIT      // 8, 16, 24, 48
+#define IMG_MONO      IMG_COLOR
+#define IMG_OPTION    IMG_OPT_JPG_FMT444
+#define IMG_DPI_X     300
+#define IMG_DPI_Y     300
+#define IMG_ORG_X     0
+#define IMG_ORG_Y     0
+#define IMG_WIDTH     IMG_300_DOT_X   // 8.64"
+#define IMG_HEIGHT    IMG_300_DOT_Y   // 12"
+
+
+/*Motor drive port define*/
+#define MT_PH	0
+#define BMT_PH	1
+#define CMT_PH	2
+
+/*State mechine define*/
+#define STATE_MECHINE_0		1
+#define STATE_MECHINE_1		2
+#define STATE_MECHINE_2		4
+#define SCAN_STATE_MECHINE		8
+
+#define MTR_DRIV_TAR	0
+#define MTR_STAT_MEC	0
+#define MTR_SPEED		0
+#define MTR_ACC_STEP	0
+#define MTR_DIRECT		0
+#define MTR_MICRO_STEP  0
+#define MTR_CURRENT		0
+
+//---- MOTOR JOB TASK ----
+#define JOB_SCAN				1
+#define JOB_CALIBRATION			2
+#define JOB_ULTRASONIC			3
+#define JOB_FLASH_ACCESS		4
+
+#define JOB_ADF_LOAD_PAPER	1 + 10
+#define JOB_ADF_EJECT_PAPER	2 + 10
+#define JOB_ADF_RESET_HOME	3 + 10
+#define JOB_ADF_MOTOR_TEST	4 + 10
+#define JOB_ADF_LIFE_TEST	5 + 10
+
+#define JOB_FLB_LOAD_PAPER	1 + 20
+#define JOB_FLB_EJECT_PAPER	2 + 20
+#define JOB_FLB_RESET_HOME	3 + 20
+#define JOB_FLB_LIFE_TEST	4 + 20
+
 
 typedef struct SC_JOB_STRUCT {
 	U32	code;
@@ -41,6 +103,18 @@ typedef struct SC_PAR_STRUCT {
 	U8  reserved;
 	U8	id;
 } SC_PAR_T;
+typedef struct MTR_STRUCT {
+	U8 drive_target;
+	U8 state_mechine;
+	U8 direction;
+	U8 micro_step;
+	U8 currentLV;
+	U8 padding1[3];
+	U16 speed_pps;
+	U16 acc_step;
+	U16 pick_ss_step;
+	U16 padding2;
+} MTR_T;
 typedef struct SC_PAR_DATA_STRUCT {
 	//- ACQUIRE --
 	UINT32 source;	// 'ADF'/'FLB'/'POS'/'NEG', 'FW'/'PAR'/'HW', 'HOST', 'WIFI', 'ETH'
@@ -49,13 +123,15 @@ typedef struct SC_PAR_DATA_STRUCT {
 	UINT8	duplex;	// 1:'A', 2:'B', 3:'D'
 	UINT8	page;	// 0 for infinity pages 
 	//- IMAGE ----
-	UINT32 format;	// 'RAW', 'JPG', 'TIF', 'BMP', 'PDF', 'PNG'
-	UINT16	img_opt;// 0
-	UINT8	bit;	// 1:BW, 8:Gray8, 16:Gray16, 24:Color24, 48:Color48
-	UINT8	mono;	// 0:'MONO', 1:'R', 2:'G', 4:'B', 8:'IR', 7:'NTSC'
-	struct{UINT16 x; UINT16 y;} dpi;
-	struct{UINT32 x; UINT32 y;} org;
-	struct{UINT32 w; UINT32 h;} dot;
+	//UINT32 format;	// 'RAW', 'JPG', 'TIF', 'BMP', 'PDF', 'PNG'
+	//UINT16	img_opt;// 0
+	//UINT8	bit;	// 1:BW, 8:Gray8, 16:Gray16, 24:Color24, 48:Color48
+	//UINT8	mono;	// 0:'MONO', 1:'R', 2:'G', 4:'B', 8:'IR', 7:'NTSC'
+	//struct{UINT16 x; UINT16 y;} dpi;
+	//struct{UINT32 x; UINT32 y;} org;
+	//struct{UINT32 w; UINT32 h;} dot;
+	IMAGE_T  img;
+	MTR_T   mtr[2];
 	//- shading ---
 //	UINT16	AFE_OffsetCode[2][3];
 //	UINT16	AFE_GainCode[2][3];
@@ -79,18 +155,42 @@ typedef struct SC_PAR_DATA_STRUCT {
 //#define ACQ_RUNIN_IMAGE		(0x04 << 16)
 //#define ACQ_RUNIN			(0x08 << 16)
 
-#define ACQ_SHADING			 0x01
-#define ACQ_GAMMA			(0x01 << 1)
-#define ACQ_MIRROR			(0x01 << 2)
-#define ACQ_LAMP_OFF		(0x01 << 3)
-#define ACQ_START_HOME		(0x01 << 4)
-#define ACQ_BACK_TRACK_OFF	(0x01 << 5)
-#define ACQ_AUTO_GO_HOME	(0x01 << 6)
-#define ACQ_STILL_SCAN		(0x01 << 7)
-#define ACQ_STARTSTOP_TEST	(0x01 << 8)
-#define ACQ_WRITE_FLASH		(0x01 << 9)  //only for calibration to use
-#define ACQ_RODLENS			(0x01 << 10) //for RodLens scan use
-#define ACQ_DUSTBKG			(0x01 << 11) //for Dust bkg Scan, don't need to pass to fw.
+//#define ACQ_SHADING			 0x01
+//#define ACQ_GAMMA			(0x01 << 1)
+//#define ACQ_MIRROR			(0x01 << 2)
+//#define ACQ_LAMP_OFF		(0x01 << 3)
+//#define ACQ_START_HOME		(0x01 << 4)
+//#define ACQ_BACK_TRACK_OFF	(0x01 << 5)
+//#define ACQ_AUTO_GO_HOME	(0x01 << 6)
+//#define ACQ_STILL_SCAN		(0x01 << 7)
+//#define ACQ_STARTSTOP_TEST	(0x01 << 8)
+//#define ACQ_WRITE_FLASH		(0x01 << 9)  //only for calibration to use
+//#define ACQ_RODLENS			(0x01 << 10) //for RodLens scan use
+//#define ACQ_DUSTBKG			(0x01 << 11) //for Dust bkg Scan, don't need to pass to fw.
+
+#define ACQ_PAGE_READ		(0x01)
+#define ACQ_NO_MIRROR		(0x02)
+#define ACQ_NO_SHADING		(0x04)
+#define ACQ_BACK_SCAN		(0x08)
+
+#define ACQ_CROP_DESKEW		(0x01 << 8)
+#define ACQ_PAGE_FILL		(0x02 << 8)
+#define ACQ_LEFT_ALIGN		(0x04 << 8)
+#define ACQ_AUTO_COLOR		(0x08 << 8)
+#define ACQ_AUTO_LEVEL		(0x10 << 8)
+#define ACQ_DETECT_COLOR	(0x20 << 8)
+#define ACQ_DETECT_BW		(0x40 << 8)
+
+#define ACQ_MOTOR_OFF		(0x01 << 16)    // scan without moving motor
+#define ACQ_NO_PP_SENSOR	(0x02 << 16)    // ADF scan without Doc/ADF sensor detection, Flatbed scan without home sensor detection
+#define ACQ_LAMP_OFF		(0x04 << 16)    
+#define ACQ_TEST_PATTERN	(0x08 << 16)    // test pattern image
+#define ACQ_PSEUDO_SENSOR	(0x10<< 16)
+#define ACQ_CALIBRATION		(0x20 << 16)  //Park test for calibration
+#define ACQ_SET_MTR			(0x40 << 16)  //Park test for set motor par from console
+#define ACQ_LIFE_TEST		(0x80 << 16)  //Park life test
+
+#define ACQ_PICK_SS			(0x01 << 24)  //Park pick ss test
 
 typedef struct SC_PAR_STA_STRUCT {
 	U32	code;
@@ -113,32 +213,76 @@ typedef struct SC_SCAN_STA_STRUCT {
 //--------------------------------
 typedef struct SC_INFO_STRUCT {
 	U32	code;
-	U8  reserved[3];
+	U8	length;
+	U8  reserved[2];
 	U8	id;
 } SC_INFO_T;
+//typedef struct SC_INFO_DATA_STRUCT {
+//	U32	code;
+//	U16 ValidPage[2];
+//	U32 ValidPageSize[2];
+//	U16 ImageWidth[2];
+//	U16 ImageLength[2];
+//	U8	PageNo[2];
+//	U8	EndPage[2];
+//	U8	EndDocument;
+//	U8	Cancel; 
+//	U8	Error;
+//	U8	reserved;
+///*	U32	code;
+//	U16 ValidPage[2];
+//	U32 ValidPageSize[2];
+//	U16 ImageWidth[2];
+//	U16 ImageLength[2];
+//	U8	PageNo[2];
+//	U8	EndPage[2];
+//	U8	UltraSonic; U8 PaperJam; U8 CoverOpen; U8 Cancel; U8 key; 
+//	U8	EndDocument;
+//	U8	reserved[14+16];*/
+//} SC_INFO_DATA_T;
+
 typedef struct SC_INFO_DATA_STRUCT {
-	U32	code;
-	U16 ValidPage[2];
-	U32 ValidPageSize[2];
-	U16 ImageWidth[2];
-	U16 ImageLength[2];
-	U8	PageNo[2];
-	U8	EndPage[2];
-	U8	EndDocument;
-	U8	Cancel; 
-	U8	Error;
-	U8	reserved;
-/*	U32	code;
-	U16 ValidPage[2];
-	U32 ValidPageSize[2];
-	U16 ImageWidth[2];
-	U16 ImageLength[2];
-	U8	PageNo[2];
-	U8	EndPage[2];
-	U8	UltraSonic; U8 PaperJam; U8 CoverOpen; U8 Cancel; U8 key; 
-	U8	EndDocument;
-	U8	reserved[14+16];*/
+	UINT32 code;        // 4
+	UINT16 PageNum[2];      // 4
+	UINT32 ValidPageSize[2];  // 8
+	UINT16 ImageWidth[2];    // 4
+	UINT16 ImageHeight[2];    // 4
+	UINT8  EndPage[2];      // 4
+	UINT8  EndScan[2];
+	UINT8  UltraSonic;      // 4
+	UINT8  PaperJam;
+	UINT8  CoverOpen;
+	UINT8  Cancel;
+	UINT8  key;        // 4
+	UINT8  MotorMove;
+	UINT8  AdfSensor;
+	UINT8  DocSensor;
+	UINT8  HomeSensor;      // 4
+	UINT8  JobOwner;
+	UINT8  reserve1[2];
+	UINT8  reserve2[4];    // 4
+	UINT32 JobState;      // 4
 } SC_INFO_DATA_T;
+
+/*sensor parameter*/
+typedef struct SENSOR_CHK_STRUCT {
+	struct {
+		U32 doc : 1;		//DOC
+		U32 scan : 1;		//SCAN
+		U32 cover : 1;	//COVER
+		U32 home : 1;		//HOME
+		U32 deskew : 1;	//DESKEW
+		U32 lid : 1;		//LID
+		U32 x1 : 1;		//PAPER_X_SIZE_ENCODE1
+		U32 x2 : 1;		//PAPER_X_SIZE_ENCODE2
+		U32 x3 : 1;		//PAPER_X_SIZE_ENCODE3
+		U32 y1 : 1;		//PAPER_Y_SIZE_1
+		U32 y2 : 1;		//PAPER_Y_SIZE_2
+		U32 y3 : 1;		//PAPER_Y_SIZE_3
+		U32 reserved : 20;
+	} val;
+}SENSOR_CHK_T;
+
 //-----------------------------
 typedef struct SC_IMG_STRUCT {
 	U32	code;

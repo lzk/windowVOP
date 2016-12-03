@@ -356,6 +356,10 @@ namespace VOP
         RETSCAN_BUSY           = 8,
         RETSCAN_ERROR          = 9,
         RETSCAN_OPENFAIL_NET   = 10,
+        RETSCAN_PAPER_JAM      = 11,
+        RETSCAN_COVER_OPEN     = 12,
+        RETSCAN_PAPER_NOT_READY = 13,
+        RETSCAN_CREATE_JOB_FAIL = 14,
     }
      
 }

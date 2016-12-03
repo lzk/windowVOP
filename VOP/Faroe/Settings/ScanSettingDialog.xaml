@@ -137,7 +137,7 @@
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="100" />
                     <RowDefinition Height="240" />
                     <RowDefinition/>
                 </Grid.RowDefinitions>
@@ -151,37 +151,32 @@
                 <!-- Title bar end -->
 
 
-                <!--<local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Document_Type}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="455" Height="75" >
+                <local:GroupBoxDecorator Grid.Row="1" Header="ADF Mode" HorizontalAlignment="Center" VerticalAlignment="Center" Width="455" Height="75" >
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="100*" />
                             <ColumnDefinition Width="100*" />
-                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="100" />
                         </Grid.ColumnDefinitions>
 
-                        <RadioButton GroupName="docType" IsChecked="true"
-                    Grid.Column="0"
-                    HorizontalAlignment="Center"
-                    Name="docutype_photo" Click="docutype_click"
-                    Template="{StaticResource customRadioButton}"
-                    Content="{StaticResource ResStr_Photo_2}" VerticalAlignment="Center" ></RadioButton>
-
-                        <RadioButton GroupName="docType" IsChecked="false"
+                    <RadioButton GroupName="ADFMode" IsChecked="true"
                     Grid.Column="1"
                     HorizontalAlignment="Center"
-                    Name="docutype_graphic" Click="docutype_click"
+                    Name="twoSideButton" Click="ADFMode_click"
                     Template="{StaticResource customRadioButton}"
-                    Content="{StaticResource ResStr_Text_and_Graph}" VerticalAlignment="Center" ></RadioButton>
+                    Content="Two Side" VerticalAlignment="Center" ></RadioButton>
 
-                        <RadioButton GroupName="docType" IsChecked="false"
+                    <RadioButton GroupName="ADFMode" IsChecked="false"
                     Grid.Column="2"
                     HorizontalAlignment="Center"
-                    Name="docutype_text" Click="docutype_click"
+                    Name="oneSideButton" Click="ADFMode_click"
                     Template="{StaticResource customRadioButton}"
-                    Content="{StaticResource ResStr_Text}" VerticalAlignment="Center" ></RadioButton>
+                    Content="One Side" VerticalAlignment="Center" ></RadioButton>
+
                     </Grid>
 
-                </local:GroupBoxDecorator>-->
+                </local:GroupBoxDecorator>
 
                 <Grid Grid.Row="2" >
                     <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_DPI}" Height="65" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
