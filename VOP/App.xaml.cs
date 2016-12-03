@@ -182,7 +182,7 @@ namespace VOP
             //    return;
             //}
 
-           // if(mutex.WaitOne(TimeSpan.Zero, true)) 
+            if(mutex.WaitOne(TimeSpan.Zero, true)) 
             {
 
                 try
@@ -222,7 +222,7 @@ namespace VOP
                     }
                 }
 
-                //mutex.ReleaseMutex();
+                mutex.ReleaseMutex();
             }
             else
             {
