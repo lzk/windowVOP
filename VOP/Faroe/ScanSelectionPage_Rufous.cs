@@ -137,6 +137,14 @@ namespace VOP
                 //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0009882444_G600_A00.JPG"));
                 //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0009841993_C600_A00.JPG"));
                 //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0000636359_C600_A00.JPG"));
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592601031_C300_A00.JPG"));
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00_180.JPG"));
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00.JPG"));
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592601031_C300_A00.JPG"));
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00_180.JPG"));
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00.JPG"));
 
                 m_MainWin.GotoPage("ScanPage", files);
             }

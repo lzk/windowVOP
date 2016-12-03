@@ -63,16 +63,16 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top" Click="Button_Click"/>
 
-        <ScrollViewer Grid.Row="2" Grid.Column="1" Name="scrollview" CanContentScroll="true"
+        <ScrollViewer Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Name="scrollview" CanContentScroll="true"
         SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" VerticalScrollBarVisibility="Auto"
         HorizontalScrollBarVisibility="Disabled"
         Style="{StaticResource LeftScrollViewer}" 
         >
             <ScrollViewer.Background>
-                <ImageBrush ImageSource="../Images/ScanView.png"/>
+                <ImageBrush ImageSource="../Images/ScanView.png" />
             </ScrollViewer.Background>
 
-            <WrapPanel x:Name="image_wrappanel" Margin="10">
+            <WrapPanel x:Name="image_wrappanel">
             </WrapPanel>
 
         </ScrollViewer>

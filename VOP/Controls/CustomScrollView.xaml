@@ -443,22 +443,24 @@
 
 
       <ControlTemplate TargetType="{x:Type ScrollViewer}">
-          <Grid Background="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}}">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="Auto" />
+          <Grid Background="{Binding Path=Background, RelativeSource={RelativeSource TemplatedParent}}" >
+          <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="15" />
           </Grid.ColumnDefinitions>
 
           <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30" />
           </Grid.RowDefinitions>
 
-          <Border Grid.Column="0">
+          <Border Grid.Column="1" Grid.Row="1">
                   <ScrollContentPresenter />
           </Border>
 
-          <ScrollBar Grid.Column="1" x:Name="PART_VerticalScrollBar"
+          <ScrollBar Grid.Column="2" Grid.Row="1" x:Name="PART_VerticalScrollBar"
               Style="{StaticResource MyScrollBar}"
                      Value="{TemplateBinding VerticalOffset}"
                      Maximum="{TemplateBinding ScrollableHeight}"
@@ -467,11 +469,11 @@
                      Background="Black"
                      />
 
-                 <ScrollBar x:Name="PART_HorizontalScrollBar"
+          <ScrollBar x:Name="PART_HorizontalScrollBar"
               Style="{StaticResource MyScrollBar}"
                      Orientation="Horizontal"
-                     Grid.Row="1"
-                     Grid.Column="0"
+                     Grid.Row="2"
+                     Grid.Column="1"
                      Value="{TemplateBinding HorizontalOffset}"
                      Maximum="{TemplateBinding ScrollableWidth}"
                      ViewportSize="{TemplateBinding ViewportWidth}"
