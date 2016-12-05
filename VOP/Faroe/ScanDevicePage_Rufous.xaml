@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Name="myControl"
-             Width="700" 
-             Height="500" 
+             d:DesignWidth="750" 
+             d:DesignHeight="533" 
              UseLayoutRounding="True"
              Loaded="UserControl_Loaded"
              >
@@ -41,7 +41,7 @@
                 Width="55" 
                 Height="55" 
                 Style="{StaticResource BackButtonStyle}" 
-                Margin="-40,-60,0,0"
+                Margin="5,-15,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top" Click="BackButton_Click"/>
         

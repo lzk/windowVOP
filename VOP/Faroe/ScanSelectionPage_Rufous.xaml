@@ -7,8 +7,8 @@
              mc:Ignorable="d" 
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Name="myControl"
-             Width="700" 
-             Height="500" 
+             d:DesignWidth="750" 
+             d:DesignHeight="533" 
              UseLayoutRounding="True"
              Loaded="UserControl_Loaded"
              >
@@ -75,7 +75,7 @@
             Grid.ColumnSpan="3"
             Width="70"
             Height="70"
-            Margin="120,-250,0,0"
+            Margin="90,-180,0,0"
             Click="DeviceButton_Click"
             />
 

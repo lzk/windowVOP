@@ -1,8 +1,11 @@
 <UserControl x:Class="VOP.ScanSettingPage_Rufous"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Width="700" 
-             Height="500" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignWidth="750" 
+             d:DesignHeight="533" 
              x:Name="Control1" 
              Loaded="handler_loaded_settingpage"
              >
@@ -19,13 +22,13 @@
     </UserControl.Resources>
     <Grid Name="mainGrid">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0"/>
+            <ColumnDefinition Width="70"/>
             <ColumnDefinition Width="165"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="0"/>
+            <ColumnDefinition Width="70"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="0"></RowDefinition>
         </Grid.RowDefinitions>
@@ -37,7 +40,7 @@
                 Width="55" 
                 Height="55" 
                 Style="{StaticResource BackButtonStyle}" 
-                Margin="-50,-50,0,0"
+                Margin="0,0,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top" Click="Button_Click"/>
         
