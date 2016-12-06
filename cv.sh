@@ -92,17 +92,17 @@ using System.Reflection;\n\
 using System.Runtime.InteropServices;\n\
 \n\
 [assembly: AssemblyConfiguration(\"\")]\n\
-[assembly: AssemblyProduct(\"Lenovo virtual panel\")]\n\
+[assembly: AssemblyProduct(\"Faroe virtual panel\")]\n\
 " > VopHelper/Properties/VersionInfo.cs
 
 git log --format="[assembly: AssemblyDescription(\"%H\")]" -1 >> VopHelper/Properties/VersionInfo.cs
 
 printf "\
 [assembly: AssemblyFileVersion(\"%d.%d.%d.%d\")]\n\
-[assembly: AssemblyCompany(\"Lenovo Co., Ltd.\")]\n\
-[assembly: AssemblyCopyright(\"(C) Lenovo Co., Ltd. (2015-2016)\")]\n\
+[assembly: AssemblyCompany(\"Liteon Co., Ltd.\")]\n\
+[assembly: AssemblyCopyright(\"(C) Liteon Co., Ltd. (2015-2016)\")]\n\
 [assembly: ComVisible(false)]\n\
-[assembly: AssemblyTitle(\"Lenovo virtual panel\")]\n\
+[assembly: AssemblyTitle(\"Liteon virtual panel\")]\n\
 [assembly: AssemblyTrademark(\"\")]\n\
 [assembly: AssemblyVersion(\"%d.%d.%d.%d\")]\n\
 " \
