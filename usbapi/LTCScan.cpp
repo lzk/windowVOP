@@ -756,6 +756,21 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		{
 			glDrv._cancel();
 			MyOutputString(L"_cancel");
+
+			glDrv._JobEnd();
+			MyOutputString(L"_JobEnd");
+
+			glDrv._CloseDevice();
+
+			if (imgBuffer)
+				delete imgBuffer;
+
+			for (UINT i = 0; i < fileCount; i++)
+			{
+				::SysFreeString(bstrArray[i]);
+			}
+
+			return RETSCAN_CANCEL;
 		}
 
 		glDrv._stop();
@@ -770,23 +785,25 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		glDrv._CloseDevice();
 
 		//contrast, brightness
-		if (brightness != 50 || contrast != 50)
+		if (!start_cancel && !glDrv.sc_infodata.CoverOpen && !glDrv.sc_infodata.PaperJam)
 		{
-			Gdiplus::Status status;
-			if ((status = Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL)) != Gdiplus::Ok)
+			if (brightness != 50 || contrast != 50)
 			{
-				return RETSCAN_ERROR;
-			}
+				Gdiplus::Status status;
+				if ((status = Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL)) != Gdiplus::Ok)
+				{
+					return RETSCAN_ERROR;
+				}
 
-			for (UINT i = 0; i < fileCount; i++)
-			{
-				BrightnessAndContrast(bstrArray[i], brightness, contrast);
-			}
+				for (UINT i = 0; i < fileCount; i++)
+				{
+					BrightnessAndContrast(bstrArray[i], brightness, contrast);
+				}
 
-			GdiplusShutdown(gdiplusToken);
+				GdiplusShutdown(gdiplusToken);
+			}
 		}
-	
-
+		
 		CreateSafeArrayFromBSTRArray
 			(
 			bstrArray,
@@ -813,13 +830,6 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			return RETSCAN_PAPER_JAM;
 		}
 
-		if (start_cancel)
-		{
-			if (imgBuffer)
-				delete imgBuffer;
-			return RETSCAN_CANCEL;
-		}
-			
 	}
 	else
 	{
