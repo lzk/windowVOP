@@ -76,6 +76,8 @@ namespace VOP
                     file.m_pathView = name;
                     file.m_pathThumb = name;
                     files.Add(file);
+
+                    App.scanFileList.Add(file);
                 }
             }
           

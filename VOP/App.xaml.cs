@@ -201,8 +201,8 @@ namespace VOP
                     try
                     {
                         File.Delete(obj.m_pathOrig);
-                        File.Delete(obj.m_pathView);
-                        File.Delete(obj.m_pathThumb);
+                        //File.Delete(obj.m_pathView);
+                        //File.Delete(obj.m_pathThumb);
                     }
                     catch
                     {
@@ -214,8 +214,8 @@ namespace VOP
                     try
                     {
                         File.Delete(obj.m_pathOrig);
-                        File.Delete(obj.m_pathView);
-                        File.Delete(obj.m_pathThumb);
+                        //File.Delete(obj.m_pathView);
+                        //File.Delete(obj.m_pathThumb);
                     }
                     catch
                     {
