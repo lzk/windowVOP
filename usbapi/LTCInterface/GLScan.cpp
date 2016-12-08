@@ -301,7 +301,12 @@ int CGLDrv::paperReady()
 {
 	int ready = TRUE;
 	if (sc_pardata.source == I3('ADF') && !(sc_pardata.acquire & (ACQ_NO_PP_SENSOR + ACQ_MOTOR_OFF + ACQ_PSEUDO_SENSOR))) {
-		if (!_info() || !sc_infodata.DocSensor) {
+		if (!_info() || 
+			!sc_infodata.DocSensor || 
+			sc_infodata.CoverOpen  ||
+			sc_infodata.PaperJam   ||
+			sc_infodata.Cancel      )
+		{
 			ready = FALSE;
 		}
 	}
