@@ -102,10 +102,10 @@ USBAPI_API int __stdcall ADFCancel()
 {
 	start_cancel = 1;
 
-	if (g_pointer_lDrv != NULL)
-	{
-		return g_pointer_lDrv->_cancel();
-	}
+	//if (g_pointer_lDrv != NULL)
+	//{
+	//	return g_pointer_lDrv->_cancel();
+	//}
 
 	return 1;
 }
@@ -744,6 +744,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				}
 				if (start_cancel && bFiling[dup])
 				{
+					MyOutputString(L"start_cancel Close");
 					ImgFile_Close(&ImgFile[dup], glDrv.sc_infodata.ImageHeight[dup]);
 					bFiling[dup] = 0;
 					lineCount = 0;
@@ -751,14 +752,23 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			}
 		}
 
+		if (start_cancel)
+		{
+			glDrv._cancel();
+			MyOutputString(L"_cancel");
+		}
+
 		glDrv._stop();
 		MyOutputString(L"_stop");
+
 		glDrv.waitJobFinish(0);
 		MyOutputString(L"waitJobFinish");
+
 		glDrv._JobEnd();
 		MyOutputString(L"_JobEnd");
 
 		glDrv._CloseDevice();
+
 		//contrast, brightness
 		if (brightness != 50 || contrast != 50)
 		{
