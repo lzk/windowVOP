@@ -802,6 +802,13 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				delete imgBuffer;
 			return RETSCAN_PAPER_JAM;
 		}
+
+		if (start_cancel)
+		{
+			if (imgBuffer)
+				delete imgBuffer;
+			return RETSCAN_CANCEL;
+		}
 			
 	}
 	else

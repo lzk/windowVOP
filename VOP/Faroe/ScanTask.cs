@@ -125,6 +125,10 @@ namespace VOP
                                "Paper is not ready",
                                "Error");
                 }
+                else if (ScanResult == Scan_RET.RETSCAN_CANCEL)
+                {
+                    
+                }
                 else
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
