@@ -25,7 +25,7 @@ using VOP.Controls;
 
 namespace VOP
 {
-    public delegate QRCodeResult QRCodeDelegate(Bitmap bitmap);
+    public delegate QRCodeResult[] QRCodeDelegate(Bitmap bitmap);
     public delegate int DoWorkDelegate();
     public delegate bool QuickScanDelegate();
     public delegate bool CheckVerifyCodeDelegate(string strPhoneNumber, string strVerifyCode, ref JSONResultFormat1 rtValue);
@@ -172,7 +172,7 @@ namespace VOP
             }
         }
 
-        public QRCodeResult InvokeQRCodeMethod(QRCodeDelegate method, Bitmap bitmap)
+        public QRCodeResult[] InvokeQRCodeMethod(QRCodeDelegate method, Bitmap bitmap)
         {
 
             if (method != null)

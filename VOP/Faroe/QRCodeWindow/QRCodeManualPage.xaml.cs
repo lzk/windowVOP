@@ -120,7 +120,7 @@ namespace VOP.Controls
                 imageRotationList.Add(myCropper.GetCurrentImageRotation());
 
                 AsyncWorker worker = new AsyncWorker(ParentWin);
-                QRCodeResult result = worker.InvokeQRCodeMethod(ParentWin.Decode, QRCodeWindow.BitmapFromSource(croppedImageList[0]));
+                QRCodeResult[] result = worker.InvokeQRCodeMethod(ParentWin.Decode, QRCodeWindow.BitmapFromSource(croppedImageList[0]));
 
                 if (ParentWin != null)
                     ParentWin.GotoResultPage(result, null, true);

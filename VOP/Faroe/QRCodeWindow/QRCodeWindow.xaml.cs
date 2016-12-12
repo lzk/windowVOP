@@ -44,7 +44,7 @@ namespace VOP.Controls
 
     public class QRCodeResult
     {
-        public Result[] results = null;
+        public Result result = null;
         public Int32Rect subRect = Int32Rect.Empty;
 
         public QRCodeResult()
@@ -52,9 +52,9 @@ namespace VOP.Controls
 
         }
 
-        public QRCodeResult(Result[] results, Int32Rect subRect)
+        public QRCodeResult(Result result, Int32Rect subRect)
         {
-            this.results = results;
+            this.result = result;
             this.subRect = subRect;
         }
     }
@@ -168,16 +168,6 @@ namespace VOP.Controls
             qr_reader = new QRCodeMultiReader();
             oneD_reader = new GenericMultipleBarcodeReader(new MultiFormatOneDReader(hints));
 
-            cropLocationList = new List<CropLocation>();
-            cropLocationList.Add(CropLocation.TOP_LEFT);
-            cropLocationList.Add(CropLocation.TOP_MIDDLE);
-            cropLocationList.Add(CropLocation.TOP_RIGHT);
-            cropLocationList.Add(CropLocation.MIDDLE_LEFT);
-            cropLocationList.Add(CropLocation.MIDDLE_MIDDLE);
-            cropLocationList.Add(CropLocation.MIDDLE_RIGHT);
-            cropLocationList.Add(CropLocation.BOTTOM_LEFT);
-            cropLocationList.Add(CropLocation.BOTTOM_MIDDLE);
-            cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -211,9 +201,9 @@ namespace VOP.Controls
                 //}
 
                 AsyncWorker worker = new AsyncWorker(this);
-                QRCodeResult result = worker.InvokeQRCodeMethod(Decode, temp);
+                QRCodeResult[] result = worker.InvokeQRCodeMethod(Decode, temp);
 
-                if (result != null && result.results != null)
+                if (result != null)
                 {
                     GotoResultPage(result, ConvertBitmap(bitmap));
                 }
@@ -226,34 +216,30 @@ namespace VOP.Controls
             GC.Collect();
         }
 
-        public QRCodeResult Decode(Bitmap bitmap)
+        public QRCodeResult[] Decode(Bitmap bitmap)
         {
             try
             {
-
                 LuminanceSource source = new BitmapLuminanceSource(bitmap);
                 BinaryBitmap bbitmap = new BinaryBitmap(new GlobalHistogramBinarizer(source));
 
-                QRCodeResult result = new QRCodeResult();
+                QRCodeResult[] results = null;
+     
+                if(MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest == true)
+                {
+                    return GoDeepest(bitmap);
+                }
+                else
+                {
+                    results = GetDecodeResult(bbitmap, Int32Rect.Empty);
 
-                if(IsQRCode)
-                {
-                    result.results = qr_reader.decodeMultiple(bbitmap, hints);
-                }
-                else
-                {
-                    result.results = oneD_reader.decodeMultiple(bbitmap, hints);
-                }
-             
-                
-                if (result.results != null)
-                {
-                    return result;
-                }
-                else
-                {
+                    if (results != null)
+                    {
+                        return results;
+                    }
+
                     return GoDeeper(bitmap);
-                }
+                }   
             }
             catch(Exception)
             {
@@ -261,9 +247,51 @@ namespace VOP.Controls
             }
         }
 
-        public QRCodeResult GoDeeper(Bitmap bitmap)
+        private QRCodeResult[] GetDecodeResult(BinaryBitmap bbitmap, Int32Rect subRect)
         {
-            QRCodeResult result = new QRCodeResult();
+            Result[] anyResults = null;
+
+            if (IsQRCode)
+            {
+                anyResults = qr_reader.decodeMultiple(bbitmap, hints);
+            }
+            else
+            {
+                anyResults = oneD_reader.decodeMultiple(bbitmap, hints);
+            }
+
+            if (anyResults != null)
+            {
+                QRCodeResult[] res = new QRCodeResult[anyResults.Length];
+
+                for(int i = 0; i < anyResults.Length; i++)
+                {
+                    res[i].result = anyResults[i];
+                    res[i].subRect = subRect;
+                }
+
+                return res;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public QRCodeResult[] GoDeepest(Bitmap bitmap)
+        {
+            cropLocationList = new List<CropLocation>();
+            cropLocationList.Add(CropLocation.TOP_LEFT);
+            cropLocationList.Add(CropLocation.TOP_MIDDLE);
+            cropLocationList.Add(CropLocation.TOP_RIGHT);
+            cropLocationList.Add(CropLocation.MIDDLE_LEFT);
+            cropLocationList.Add(CropLocation.MIDDLE_MIDDLE);
+            cropLocationList.Add(CropLocation.MIDDLE_RIGHT);
+            cropLocationList.Add(CropLocation.BOTTOM_LEFT);
+            cropLocationList.Add(CropLocation.BOTTOM_MIDDLE);
+            cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
+
+            QRCodeResult[] result = null;
             BitmapSource src = ConvertBitmap(bitmap);
 
             if (src != null)
@@ -320,7 +348,6 @@ namespace VOP.Controls
                             Int32Rect intRect = new Int32Rect((int)(rect.X), (int)(rect.Y), (int)rect.Width, (int)rect.Height);
 
                             BitmapSource rectImage = Crop(src, intRect);
-                            result.subRect = intRect;
 
                           //  string filename = string.Format("pic_{0}_scale{1}_offset{2}.jpg", loc.ToString(), tempid.ToString(), offset.ToString());
                           //  SaveImageToTemp(rectImage, @"E:\BarCode\pic\temp\" + filename);
@@ -333,23 +360,22 @@ namespace VOP.Controls
                                     GlobalHistogramBinarizer bin = new GlobalHistogramBinarizer(source);
                                     BinaryBitmap bbitmap = new BinaryBitmap(bin);
 
-                                    Result[] anyResults = null;
+                                    QRCodeResult[] anyResults = null;
 
-                                    if (IsQRCode)
-                                    {
-                                        anyResults = qr_reader.decodeMultiple(bbitmap, hints);
-                                    }
-                                    else
-                                    {
-                                        anyResults = oneD_reader.decodeMultiple(bbitmap, hints);
-                                    }
+                                    anyResults = GetDecodeResult(bbitmap, intRect);            
 
-                                    result.results = anyResults;
-
-                                    if (result.results != null)
+                                    if(anyResults != null)
                                     {
-                                        return result;
+                                        if(result == null)
+                                        {
+                                            result = anyResults;
+                                        }
+                                        else
+                                        {
+                                            result = result.Union(anyResults).ToArray();
+                                        }
                                     }
+ 
                                 }
                                 catch (Exception)
                                 {
@@ -361,6 +387,112 @@ namespace VOP.Controls
                     }
                 }
    
+            }
+
+            return result;
+        }
+
+        public QRCodeResult[] GoDeeper(Bitmap bitmap)
+        {
+            cropLocationList = new List<CropLocation>();
+            cropLocationList.Add(CropLocation.TOP_LEFT);
+            cropLocationList.Add(CropLocation.TOP_MIDDLE);
+            cropLocationList.Add(CropLocation.TOP_RIGHT);
+            cropLocationList.Add(CropLocation.MIDDLE_LEFT);
+            cropLocationList.Add(CropLocation.MIDDLE_MIDDLE);
+            cropLocationList.Add(CropLocation.MIDDLE_RIGHT);
+            cropLocationList.Add(CropLocation.BOTTOM_LEFT);
+            cropLocationList.Add(CropLocation.BOTTOM_MIDDLE);
+            cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
+
+            QRCodeResult[] result = null;
+            BitmapSource src = ConvertBitmap(bitmap);
+
+            if (src != null)
+            {
+                int w = src.PixelWidth;
+                int h = src.PixelHeight;
+
+                double offset = 0d;
+                for (offset = 0d; offset < 100; offset += 10)
+                {
+                    foreach (CropLocation loc in cropLocationList)
+                    {
+                        int tempid = 1;
+                        for (double i = 0.9d; i > 0.4d; i -= 0.1d)
+                        {
+                            Rect rect = new Rect(0d, 0d, (double)w, (double)h);
+
+                            rect.Scale(i, i);
+
+                            switch (loc)
+                            {
+                                case CropLocation.TOP_LEFT:
+                                    rect.Location = new System.Windows.Point(offset, offset);
+                                    break;
+                                case CropLocation.TOP_MIDDLE:
+                                    rect.Location = new System.Windows.Point(((double)w - rect.Width) / 2.0f, offset);
+                                    break;
+                                case CropLocation.TOP_RIGHT:
+                                    rect.Location = new System.Windows.Point((double)w - rect.Width - offset, offset);
+                                    break;
+                                case CropLocation.MIDDLE_LEFT:
+                                    rect.Location = new System.Windows.Point(offset, ((double)h - rect.Height) / 2.0f);
+                                    break;
+                                case CropLocation.MIDDLE_MIDDLE:
+                                    rect.Location = new System.Windows.Point(((double)w - rect.Width) / 2.0f, ((double)h - rect.Height) / 2.0f);
+                                    break;
+                                case CropLocation.MIDDLE_RIGHT:
+                                    rect.Location = new System.Windows.Point((double)w - rect.Width - offset, ((double)h - rect.Height) / 2.0f);
+                                    break;
+                                case CropLocation.BOTTOM_LEFT:
+                                    rect.Location = new System.Windows.Point(offset, (double)h - rect.Height - offset);
+                                    break;
+                                case CropLocation.BOTTOM_MIDDLE:
+                                    rect.Location = new System.Windows.Point(((double)w - rect.Width) / 2.0f, (double)h - rect.Height - offset);
+                                    break;
+                                case CropLocation.BOTTOM_RIGHT:
+                                    rect.Location = new System.Windows.Point((double)w - rect.Width - offset, (double)h - rect.Height - offset);
+                                    break;
+                                default:
+                                    rect.Location = new System.Windows.Point(((double)w - rect.Width) / 2.0f, ((double)h - rect.Height) / 2.0f);
+                                    break;
+                            }
+
+                            Int32Rect intRect = new Int32Rect((int)(rect.X), (int)(rect.Y), (int)rect.Width, (int)rect.Height);
+
+                            BitmapSource rectImage = Crop(src, intRect);
+
+                            //  string filename = string.Format("pic_{0}_scale{1}_offset{2}.jpg", loc.ToString(), tempid.ToString(), offset.ToString());
+                            //  SaveImageToTemp(rectImage, @"E:\BarCode\pic\temp\" + filename);
+                            if (rectImage != null)
+                            {
+
+                                try
+                                {
+                                    LuminanceSource source = new BitmapLuminanceSource(BitmapFromSource(rectImage));
+                                    GlobalHistogramBinarizer bin = new GlobalHistogramBinarizer(source);
+                                    BinaryBitmap bbitmap = new BinaryBitmap(bin);
+
+                                    QRCodeResult[] anyResults = null;
+
+                                    anyResults = GetDecodeResult(bbitmap, intRect);
+
+                                    if (anyResults != null)
+                                    {
+                                        return anyResults;
+                                    }
+                                }
+                                catch (Exception)
+                                {
+                                }
+
+                            }
+                            tempid++;
+                        }
+                    }
+                }
+
             }
 
             return result;
@@ -381,7 +513,7 @@ namespace VOP.Controls
             DragMove();
         }
 
-        public void GotoResultPage(QRCodeResult result, BitmapSource src, bool isManual = false)
+        public void GotoResultPage(QRCodeResult[] result, BitmapSource src, bool isManual = false)
         {
             QRCodeResultPage resultPage = new QRCodeResultPage(this);
             PageView.Child = resultPage;

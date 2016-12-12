@@ -74,31 +74,31 @@ namespace VOP
                 50,
                 50);
 
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", param);
+            //List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", param);
 
-            if (files == null)
-                return;
+            //if (files == null)
+            //    return;
 
-            if (task.ScanResult == Scan_RET.RETSCAN_OK)
+            //if (task.ScanResult == Scan_RET.RETSCAN_OK)
             {
-                List<string> list = new List<string>();
-                foreach (ScanFiles file in files)
+                //List<string> list = new List<string>();
+                //foreach (ScanFiles file in files)
+                //{
+                //    list.Add(file.m_pathOrig);
+                //}
+
+                //QRCodeWindow win = new QRCodeWindow(list);
+
+                OpenFileDialog open = null;
+                bool? result = null;
+                open = new OpenFileDialog();
+                open.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
+                open.Multiselect = true;
+
+                result = open.ShowDialog();
+                if (result == true)
                 {
-                    list.Add(file.m_pathOrig);
-                }
-
-                QRCodeWindow win = new QRCodeWindow(list);
-
-                //OpenFileDialog open = null;
-                //bool? result = null;
-                //open = new OpenFileDialog();
-                //open.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
-                //open.Multiselect = true;
-
-                //result = open.ShowDialog();
-                //if (result == true)
-                {
-                    //QRCodeWindow win = new QRCodeWindow(new List<string>(open.FileNames));
+                    QRCodeWindow win = new QRCodeWindow(new List<string>(open.FileNames));
 
                         if (btn.Name == "ImageButton1")
                         {

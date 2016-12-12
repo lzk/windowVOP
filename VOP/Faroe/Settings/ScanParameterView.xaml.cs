@@ -132,6 +132,23 @@ namespace VOP
             }
         }
 
+        public void QRDecodeMode_click(object sender, RoutedEventArgs e)
+        {
+            RadioButton rdbtn = sender as RadioButton;
+
+            if (null != rdbtn)
+            {
+                if (rdbtn.Name == "QuickModeButton")
+                {
+                    MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest = false;
+                }
+                else if (rdbtn.Name == "HardModeButton")
+                {
+                    MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest = true;
+                }
+            }
+        }
+
         private MainWindow_Rufous _MainWin = null;
 
         public MainWindow_Rufous m_MainWin

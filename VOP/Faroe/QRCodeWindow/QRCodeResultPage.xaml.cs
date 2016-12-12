@@ -83,14 +83,14 @@ namespace VOP.Controls
 
         }
 
-        private QRCodeResult qRCodeResult = null;
-        public QRCodeResult QRCodeResult
+        private QRCodeResult[] qRCodeResult = null;
+        public QRCodeResult[] QRCodeResult
         {
             set
             {
                 flowTable.RowGroups.Clear();
 
-                if (value != null && value.results != null)
+                if (value != null)
                 {
                     qRCodeResult = value;
                     TableRowGroup trg = new TableRowGroup();
@@ -115,12 +115,12 @@ namespace VOP.Controls
 
                     trg.Rows.Add(tr);
 
-                    foreach(var v in value.results)
+                    foreach(var v in value)
                     {
                         //Exclude Rss_14
-                        if (v.BarcodeFormat != BarcodeFormat.RSS_14)
+                        if (v.result.BarcodeFormat != BarcodeFormat.RSS_14)
                         {
-                            ParsedResult res = ResultParser.parseResult(v);
+                            ParsedResult res = ResultParser.parseResult(v.result);
 
                             tr = new TableRow();
 
@@ -134,7 +134,7 @@ namespace VOP.Controls
                             tr.Background = Brushes.LightGray;
 
                             Paragraph paraCodeType = new Paragraph();
-                            paraCodeType.Inlines.Add(new Run(v.BarcodeFormat.ToString()));
+                            paraCodeType.Inlines.Add(new Run(v.result.BarcodeFormat.ToString()));
 
                             Paragraph paraResultType = new Paragraph();
                             paraResultType.Inlines.Add(new Run(res.Type.ToString()));
@@ -149,10 +149,10 @@ namespace VOP.Controls
                                         try
                                         {
                                             Paragraph paraResult = new Paragraph();
-                                            Hyperlink hl = new Hyperlink(new Run(v.Text));
+                                            Hyperlink hl = new Hyperlink(new Run(v.result.Text));
                                             hl.FontSize = 11;
                                             hl.FontFamily = new FontFamily("Arial");
-                                            hl.NavigateUri = new Uri(v.Text);
+                                            hl.NavigateUri = new Uri(v.result.Text);
                                             hl.RequestNavigate += new RequestNavigateEventHandler(Hyperlink_RequestNavigate);
                                             paraResult.Inlines.Add(hl);
 
@@ -168,7 +168,7 @@ namespace VOP.Controls
                                 default:
                                     {
                                         Paragraph paraResult = new Paragraph();
-                                        paraResult.Inlines.Add(new Run(v.Text));
+                                        paraResult.Inlines.Add(new Run(v.result.Text));
 
                                         tr.Cells.Add(new TableCell(paraResult));
                                     }
@@ -237,10 +237,10 @@ namespace VOP.Controls
         {
             TableRow tr = sender as TableRow;
 
-            Result res = (Result)tr.Tag;
-            Int32Rect subRec = QRCodeResult.subRect;
+            QRCodeResult res = (QRCodeResult)tr.Tag;
+            Int32Rect subRec = res.subRect;
 
-            ResultPoint[] points = res.ResultPoints;
+            ResultPoint[] points = res.result.ResultPoints;
 
             if(IsResultPointValided(points) == false)
             {

@@ -139,6 +139,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="25"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -166,6 +167,35 @@
                 Style="{StaticResource CustomGreenButtonStyle}" 
                 Click="Button_Click"
                 />
+
+            <TextBlock 
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                FontSize="14"
+                FontWeight="Bold"
+                VerticalAlignment="Center"
+                Text="QR decode mode :"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
+                <RadioButton 
+                Margin="50,0,0,0"
+                GroupName="QRDecodeMode" 
+                IsChecked="true"    
+                Name="QuickModeButton" Click="QRDecodeMode_click"
+                Template="{StaticResource customRadioButton}"
+                Content="Quick" VerticalAlignment="Center" ></RadioButton>
+
+                <RadioButton 
+                Margin="30,0,0,0"
+                GroupName="QRDecodeMode" 
+                IsChecked="false"               
+                Name="HardModeButton" Click="QRDecodeMode_click"
+                Template="{StaticResource customRadioButton}"
+                Content="Accurate" VerticalAlignment="Center" ></RadioButton>
+                
+            </StackPanel>
+          
         </Grid>
         
         <Grid Grid.Row="2" Grid.Column="1">

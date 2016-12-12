@@ -33,6 +33,7 @@ namespace VOP
         public static int MaxShortCutNum = 6;
         public ScanParam m_commonScanSettings = new ScanParam();
         public List<MatchListPair> m_MatchList = new List<MatchListPair>();
+        public bool m_QRcode_decode_hardest = false;
 
         //Cloud
         public ScanParam m_cloudScanSettings = new ScanParam();
