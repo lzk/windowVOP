@@ -59,6 +59,70 @@ namespace VOP.Controls
         }
     }
 
+    public class QRCodeResultComparer : IEqualityComparer<QRCodeResult>
+    {
+        public bool Equals(QRCodeResult x, QRCodeResult y)
+        {
+            //Check whether the compared objects reference the same data.
+            if (Object.ReferenceEquals(x, y)) return true;
+
+            //Check whether any of the compared objects is null.
+            if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
+                return false;
+
+            if (x.result.ResultPoints == null || x.result.ResultPoints.Length == 0 
+                || y.result.ResultPoints == null || y.result.ResultPoints.Length == 0)
+            {
+                return false;
+            }
+
+            if (x.result.ResultPoints.Length == x.result.ResultPoints.Length)
+            {
+                for(int i = 0; i < x.result.ResultPoints.Length; i++)
+                {
+                    ResultPoint px = new ResultPoint(x.result.ResultPoints[i].X + x.subRect.X,
+                                                     x.result.ResultPoints[i].Y + x.subRect.Y);
+
+                    ResultPoint py = new ResultPoint(y.result.ResultPoints[i].X + y.subRect.X,
+                                                     y.result.ResultPoints[i].Y + y.subRect.Y);
+                    if(!px.Equals(py))
+                    {
+                        return false;
+                    }
+
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        // If Equals() returns true for a pair of objects 
+        // then GetHashCode() must return the same value for these objects.
+        public int GetHashCode(QRCodeResult res)
+        {
+            int hash_point = 0;
+            //Check whether the object is null
+            if (Object.ReferenceEquals(res, null)) return 0;
+
+            for (int i = 0; i < res.result.ResultPoints.Length; i++)
+            {
+               ResultPoint p = new ResultPoint(res.result.ResultPoints[i].X + res.subRect.X,
+                                                 res.result.ResultPoints[i].Y + res.subRect.Y);
+
+
+                hash_point ^= p.GetHashCode();
+            }
+
+            return hash_point;
+        }
+
+    }
+
+
     /// <summary>
     /// Interaction logic for IdCardTypeSelectWindow.xaml
     /// </summary>
@@ -372,7 +436,7 @@ namespace VOP.Controls
                                         }
                                         else
                                         {
-                                            result = result.Union(anyResults).ToArray();
+                                            result = result.Union(anyResults, new QRCodeResultComparer()).ToArray();
                                         }
                                     }
  
