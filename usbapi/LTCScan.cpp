@@ -647,6 +647,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		duplex = glDrv.sc_pardata.duplex;
 		start_cancel = FALSE;
 		int lineCount = 0;
+		BOOL isCoverOpen = FALSE;
+		BOOL isPaperJam = FALSE;
 		while (!start_cancel)
 		{
 
@@ -657,10 +659,18 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			}
 				
 			if (glDrv.sc_infodata.CoverOpen)
+			{
+				isCoverOpen = TRUE;
 				break;
+			}
+				
 
 			if (glDrv.sc_infodata.PaperJam)
+			{
+				isPaperJam = TRUE;
 				break;
+			}
+			
 
 			if ((!(duplex & 1) || glDrv.sc_infodata.EndScan[0]) && (!(duplex & 2) || glDrv.sc_infodata.EndScan[1]))
 				break;
@@ -816,14 +826,14 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			::SysFreeString(bstrArray[i]);
 		}
 
-		if (glDrv.sc_infodata.CoverOpen)
+		if (isCoverOpen)
 		{
 			if (imgBuffer)
 				delete imgBuffer;
 			return RETSCAN_COVER_OPEN;
 		}
 			
-		if (glDrv.sc_infodata.PaperJam)
+		if (isPaperJam)
 		{ 
 			if (imgBuffer)
 				delete imgBuffer;
