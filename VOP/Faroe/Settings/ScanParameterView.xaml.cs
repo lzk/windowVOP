@@ -35,6 +35,15 @@ namespace VOP
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             InitMatchListBox();
+
+            if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest == false)
+            {
+                QuickModeButton.IsChecked = true;
+            }
+            else
+            {
+                HardModeButton.IsChecked = true;
+            }
         }
 
         void InitMatchListBox()

@@ -25,7 +25,7 @@ using ZXing.Common;
 using ZXing.Rendering;
 using System.ComponentModel;
 using System.Threading;
-
+using System.Diagnostics;
 
 namespace VOP.Controls
 {
@@ -63,6 +63,7 @@ namespace VOP.Controls
     {
         public bool Equals(QRCodeResult x, QRCodeResult y)
         {
+
             //Check whether the compared objects reference the same data.
             if (Object.ReferenceEquals(x, y)) return true;
 
@@ -76,7 +77,7 @@ namespace VOP.Controls
                 return false;
             }
 
-            if (x.result.ResultPoints.Length == x.result.ResultPoints.Length)
+            if (x.result.ResultPoints.Length == y.result.ResultPoints.Length)
             {
                 for(int i = 0; i < x.result.ResultPoints.Length; i++)
                 {
@@ -85,8 +86,10 @@ namespace VOP.Controls
 
                     ResultPoint py = new ResultPoint(y.result.ResultPoints[i].X + y.subRect.X,
                                                      y.result.ResultPoints[i].Y + y.subRect.Y);
-                    if(!px.Equals(py))
+
+                    if(Math.Abs(px.X - py.X) > 1 || Math.Abs(px.Y - py.Y) > 1)
                     {
+                        //Trace.WriteLine(string.Format("{0} {1} {2} {3}", x.result.Text, px.ToString(), y.result.Text, py.ToString()));
                         return false;
                     }
 
@@ -104,20 +107,22 @@ namespace VOP.Controls
         // then GetHashCode() must return the same value for these objects.
         public int GetHashCode(QRCodeResult res)
         {
-            int hash_point = 0;
+            string hash_point = res.result.Text;
             //Check whether the object is null
             if (Object.ReferenceEquals(res, null)) return 0;
 
-            for (int i = 0; i < res.result.ResultPoints.Length; i++)
-            {
-               ResultPoint p = new ResultPoint(res.result.ResultPoints[i].X + res.subRect.X,
-                                                 res.result.ResultPoints[i].Y + res.subRect.Y);
+            //for (int i = 0; i < res.result.ResultPoints.Length; i++)
+            //{
+            //   ResultPoint p = new ResultPoint(res.result.ResultPoints[i].X + res.subRect.X ,
+            //                                   res.result.ResultPoints[i].Y + res.subRect.Y);
 
 
-                hash_point ^= p.GetHashCode();
-            }
+            //    hash_point += p.ToString();
+            //}
 
-            return hash_point;
+            //return 1;
+           // Trace.WriteLine(string.Format("{0} {1} {2}", res.result.Text, hash_point, hash_point.GetHashCode()));
+            return hash_point.GetHashCode();
         }
 
     }
@@ -264,8 +269,14 @@ namespace VOP.Controls
 
                 //}
 
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+
                 AsyncWorker worker = new AsyncWorker(this);
                 QRCodeResult[] result = worker.InvokeQRCodeMethod(Decode, temp);
+
+                sw.Stop();
+                Trace.WriteLine(string.Format("QR Decode Elapsed = {0}", sw.Elapsed));
 
                 if (result != null)
                 {
@@ -330,8 +341,7 @@ namespace VOP.Controls
 
                 for(int i = 0; i < anyResults.Length; i++)
                 {
-                    res[i].result = anyResults[i];
-                    res[i].subRect = subRect;
+                    res[i] = new QRCodeResult(anyResults[i], subRect);
                 }
 
                 return res;
@@ -364,7 +374,7 @@ namespace VOP.Controls
                 int h = src.PixelHeight;
 
                 double offset = 0d;
-                for (offset = 0d; offset < 100; offset+=10)
+                for (offset = 0d; offset < 150; offset+=10)
                 {
                     foreach (CropLocation loc in cropLocationList)
                     {
@@ -436,8 +446,11 @@ namespace VOP.Controls
                                         }
                                         else
                                         {
-                                            result = result.Union(anyResults, new QRCodeResultComparer()).ToArray();
+                                            IEnumerable<QRCodeResult> union = result.Union(anyResults, new QRCodeResultComparer());
+                                            result = union.ToArray();
                                         }
+
+                                        break;
                                     }
  
                                 }
