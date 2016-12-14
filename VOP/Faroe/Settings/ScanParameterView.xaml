@@ -179,7 +179,7 @@
 
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
                 <RadioButton 
-                Margin="50,0,0,0"
+                Margin="30,0,0,0"
                 GroupName="QRDecodeMode" 
                 IsChecked="true"    
                 Name="QuickModeButton" Click="QRDecodeMode_click"
@@ -187,13 +187,28 @@
                 Content="Quick" VerticalAlignment="Center" ></RadioButton>
 
                 <RadioButton 
-                Margin="30,0,0,0"
+                Margin="20,0,0,0"
                 GroupName="QRDecodeMode" 
                 IsChecked="false"               
                 Name="HardModeButton" Click="QRDecodeMode_click"
                 Template="{StaticResource customRadioButton}"
                 Content="Accurate" VerticalAlignment="Center" ></RadioButton>
-                
+
+                <ComboBox 
+                                Name="cbDecodeLevel"
+                                VerticalAlignment="Center" 
+                                VerticalContentAlignment="Center"
+                                Width="80" 
+                                Height="30" 
+                                Margin="20,0,0,0" 
+                                FontSize="14"
+                            SelectionChanged="cbDecodeLevel_SelectionChanged"
+                                >
+                    <ComboBoxItem >Level 1</ComboBoxItem>
+                    <ComboBoxItem >Level 2</ComboBoxItem>
+                    <ComboBoxItem >Level 3</ComboBoxItem>
+                    <ComboBoxItem >Level 4</ComboBoxItem>
+                </ComboBox>
             </StackPanel>
           
         </Grid>

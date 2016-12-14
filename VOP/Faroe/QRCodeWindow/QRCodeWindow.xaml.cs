@@ -79,23 +79,38 @@ namespace VOP.Controls
 
             if (x.result.ResultPoints.Length == y.result.ResultPoints.Length)
             {
-                for(int i = 0; i < x.result.ResultPoints.Length; i++)
+                if(x.result.ResultPoints.Length == 2)
                 {
-                    ResultPoint px = new ResultPoint(x.result.ResultPoints[i].X + x.subRect.X,
-                                                     x.result.ResultPoints[i].Y + x.subRect.Y);
-
-                    ResultPoint py = new ResultPoint(y.result.ResultPoints[i].X + y.subRect.X,
-                                                     y.result.ResultPoints[i].Y + y.subRect.Y);
-
-                    if(Math.Abs(px.X - py.X) > 1 || Math.Abs(px.Y - py.Y) > 1)
+                    if (x.result.Text == y.result.Text)
                     {
-                        //Trace.WriteLine(string.Format("{0} {1} {2} {3}", x.result.Text, px.ToString(), y.result.Text, py.ToString()));
+                        return true;
+                    }
+                    else
+                    {
                         return false;
                     }
-
                 }
+                else
+                {
+                    for (int i = 0; i < x.result.ResultPoints.Length; i++)
+                    {
+                        ResultPoint px = new ResultPoint(x.result.ResultPoints[i].X + x.subRect.X,
+                                                         x.result.ResultPoints[i].Y + x.subRect.Y);
 
-                return true;
+                        ResultPoint py = new ResultPoint(y.result.ResultPoints[i].X + y.subRect.X,
+                                                         y.result.ResultPoints[i].Y + y.subRect.Y);
+
+                        if (Math.Abs(px.X - py.X) > 1 || Math.Abs(px.Y - py.Y) > 1)
+                        {
+                            //Trace.WriteLine(string.Format("{0} {1} {2} {3}", x.result.Text, px.ToString(), y.result.Text, py.ToString()));
+                            return false;
+                        }
+
+                    }
+
+                    return true;
+                }
+               
             }
             else
             {
@@ -355,15 +370,46 @@ namespace VOP.Controls
         public QRCodeResult[] GoDeepest(Bitmap bitmap)
         {
             cropLocationList = new List<CropLocation>();
-            cropLocationList.Add(CropLocation.TOP_LEFT);
-            cropLocationList.Add(CropLocation.TOP_MIDDLE);
-            cropLocationList.Add(CropLocation.TOP_RIGHT);
-            cropLocationList.Add(CropLocation.MIDDLE_LEFT);
-            cropLocationList.Add(CropLocation.MIDDLE_MIDDLE);
-            cropLocationList.Add(CropLocation.MIDDLE_RIGHT);
-            cropLocationList.Add(CropLocation.BOTTOM_LEFT);
-            cropLocationList.Add(CropLocation.BOTTOM_MIDDLE);
-            cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
+
+            if(MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 1")
+            {
+                cropLocationList.Add(CropLocation.TOP_LEFT);
+                cropLocationList.Add(CropLocation.TOP_RIGHT);
+                cropLocationList.Add(CropLocation.BOTTOM_LEFT);
+                cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
+            }
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 2")
+            {
+                cropLocationList.Add(CropLocation.TOP_LEFT);
+                cropLocationList.Add(CropLocation.TOP_MIDDLE);
+                cropLocationList.Add(CropLocation.TOP_RIGHT);
+                cropLocationList.Add(CropLocation.BOTTOM_LEFT);
+                cropLocationList.Add(CropLocation.BOTTOM_MIDDLE);
+                cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
+            }
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 3")
+            {
+                cropLocationList.Add(CropLocation.TOP_LEFT);
+                cropLocationList.Add(CropLocation.TOP_MIDDLE);
+                cropLocationList.Add(CropLocation.TOP_RIGHT);
+                cropLocationList.Add(CropLocation.MIDDLE_LEFT);
+                cropLocationList.Add(CropLocation.MIDDLE_RIGHT);
+                cropLocationList.Add(CropLocation.BOTTOM_LEFT);
+                cropLocationList.Add(CropLocation.BOTTOM_MIDDLE);
+                cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
+            }
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 4")
+            {
+                cropLocationList.Add(CropLocation.TOP_LEFT);
+                cropLocationList.Add(CropLocation.TOP_MIDDLE);
+                cropLocationList.Add(CropLocation.TOP_RIGHT);
+                cropLocationList.Add(CropLocation.MIDDLE_LEFT);
+                cropLocationList.Add(CropLocation.MIDDLE_MIDDLE);
+                cropLocationList.Add(CropLocation.MIDDLE_RIGHT);
+                cropLocationList.Add(CropLocation.BOTTOM_LEFT);
+                cropLocationList.Add(CropLocation.BOTTOM_MIDDLE);
+                cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
+            }
 
             QRCodeResult[] result = null;
             BitmapSource src = ConvertBitmap(bitmap);
@@ -473,13 +519,13 @@ namespace VOP.Controls
         {
             cropLocationList = new List<CropLocation>();
             cropLocationList.Add(CropLocation.TOP_LEFT);
-            cropLocationList.Add(CropLocation.TOP_MIDDLE);
+           // cropLocationList.Add(CropLocation.TOP_MIDDLE);
             cropLocationList.Add(CropLocation.TOP_RIGHT);
-            cropLocationList.Add(CropLocation.MIDDLE_LEFT);
-            cropLocationList.Add(CropLocation.MIDDLE_MIDDLE);
-            cropLocationList.Add(CropLocation.MIDDLE_RIGHT);
+          //  cropLocationList.Add(CropLocation.MIDDLE_LEFT);
+          //  cropLocationList.Add(CropLocation.MIDDLE_MIDDLE);
+          //  cropLocationList.Add(CropLocation.MIDDLE_RIGHT);
             cropLocationList.Add(CropLocation.BOTTOM_LEFT);
-            cropLocationList.Add(CropLocation.BOTTOM_MIDDLE);
+          //  cropLocationList.Add(CropLocation.BOTTOM_MIDDLE);
             cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
 
             QRCodeResult[] result = null;

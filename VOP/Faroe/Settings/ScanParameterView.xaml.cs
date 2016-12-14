@@ -39,10 +39,49 @@ namespace VOP
             if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest == false)
             {
                 QuickModeButton.IsChecked = true;
+                cbDecodeLevel.IsEnabled = false;
             }
             else
             {
                 HardModeButton.IsChecked = true;
+                cbDecodeLevel.IsEnabled = true;
+            }
+
+            if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 1")
+            {
+                cbDecodeLevel.SelectedIndex = 0;
+            }
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 2")
+            {
+                cbDecodeLevel.SelectedIndex = 1;
+            }
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 3")
+            {
+                cbDecodeLevel.SelectedIndex = 2;
+            }
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 4")
+            {
+                cbDecodeLevel.SelectedIndex = 3;
+            }
+        }
+
+        private void cbDecodeLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbDecodeLevel.SelectedIndex == 0)
+            {
+                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Level 1";
+            }
+            else if (cbDecodeLevel.SelectedIndex == 1)
+            {
+                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Level 2";
+            }
+            else if (cbDecodeLevel.SelectedIndex == 2)
+            {
+                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Level 3";
+            }
+            else if (cbDecodeLevel.SelectedIndex == 3)
+            {
+                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Level 4";
             }
         }
 
@@ -150,10 +189,12 @@ namespace VOP
                 if (rdbtn.Name == "QuickModeButton")
                 {
                     MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest = false;
+                    cbDecodeLevel.IsEnabled = false;
                 }
                 else if (rdbtn.Name == "HardModeButton")
                 {
                     MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest = true;
+                    cbDecodeLevel.IsEnabled = true;
                 }
             }
         }
