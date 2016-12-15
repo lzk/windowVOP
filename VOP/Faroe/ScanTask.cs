@@ -89,14 +89,14 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
-                               "USB scan connection failed",
+                               "Scan connection failed",
                                "Error");
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_OPENFAIL_NET)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
-                               "Network scan connection failed",
+                               "Scan connection failed",
                                "Error");
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_BUSY)
