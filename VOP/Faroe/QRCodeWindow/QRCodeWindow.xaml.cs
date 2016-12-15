@@ -371,14 +371,14 @@ namespace VOP.Controls
         {
             cropLocationList = new List<CropLocation>();
 
-            if(MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 1")
+            if(MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Standard")
             {
                 cropLocationList.Add(CropLocation.TOP_LEFT);
                 cropLocationList.Add(CropLocation.TOP_RIGHT);
                 cropLocationList.Add(CropLocation.BOTTOM_LEFT);
                 cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
             }
-            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 2")
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Fine")
             {
                 cropLocationList.Add(CropLocation.TOP_LEFT);
                 cropLocationList.Add(CropLocation.TOP_MIDDLE);
@@ -387,7 +387,7 @@ namespace VOP.Controls
                 cropLocationList.Add(CropLocation.BOTTOM_MIDDLE);
                 cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
             }
-            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 3")
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Super Fine")
             {
                 cropLocationList.Add(CropLocation.TOP_LEFT);
                 cropLocationList.Add(CropLocation.TOP_MIDDLE);
@@ -398,7 +398,7 @@ namespace VOP.Controls
                 cropLocationList.Add(CropLocation.BOTTOM_MIDDLE);
                 cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
             }
-            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 4")
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Highest Quality")
             {
                 cropLocationList.Add(CropLocation.TOP_LEFT);
                 cropLocationList.Add(CropLocation.TOP_MIDDLE);

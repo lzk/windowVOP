@@ -34,7 +34,7 @@ namespace VOP
         public ScanParam m_commonScanSettings = new ScanParam();
         public List<MatchListPair> m_MatchList = new List<MatchListPair>();
         public bool m_QRcode_decode_hardest = false;
-        public string m_QRcode_decode_hardest_level = "Level 1";
+        public string m_QRcode_decode_hardest_level = "Standard";
 
         //Cloud
         public ScanParam m_cloudScanSettings = new ScanParam();

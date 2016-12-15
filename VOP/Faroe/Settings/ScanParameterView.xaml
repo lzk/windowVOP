@@ -175,11 +175,11 @@
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="QR decode mode :"/>
+                Text="QRcode settings :"/>
 
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
                 <RadioButton 
-                Margin="30,0,0,0"
+                Margin="20,0,0,0"
                 GroupName="QRDecodeMode" 
                 IsChecked="true"    
                 Name="QuickModeButton" Click="QRDecodeMode_click"
@@ -187,7 +187,7 @@
                 Content="Quick" VerticalAlignment="Center" ></RadioButton>
 
                 <RadioButton 
-                Margin="20,0,0,0"
+                Margin="10,0,0,0"
                 GroupName="QRDecodeMode" 
                 IsChecked="false"               
                 Name="HardModeButton" Click="QRDecodeMode_click"
@@ -198,16 +198,16 @@
                                 Name="cbDecodeLevel"
                                 VerticalAlignment="Center" 
                                 VerticalContentAlignment="Center"
-                                Width="80" 
-                                Height="30" 
-                                Margin="20,0,0,0" 
-                                FontSize="14"
+                                Width="110" 
+                                Height="25" 
+                                Margin="10,0,0,0" 
+                                FontSize="10"
                             SelectionChanged="cbDecodeLevel_SelectionChanged"
                                 >
-                    <ComboBoxItem >Level 1</ComboBoxItem>
-                    <ComboBoxItem >Level 2</ComboBoxItem>
-                    <ComboBoxItem >Level 3</ComboBoxItem>
-                    <ComboBoxItem >Level 4</ComboBoxItem>
+                    <ComboBoxItem >Standard</ComboBoxItem>
+                    <ComboBoxItem >Fine</ComboBoxItem>
+                    <ComboBoxItem >Super Fine</ComboBoxItem>
+                    <ComboBoxItem >Highest Quality</ComboBoxItem>
                 </ComboBox>
             </StackPanel>
           

@@ -47,19 +47,19 @@ namespace VOP
                 cbDecodeLevel.IsEnabled = true;
             }
 
-            if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 1")
+            if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Standard")
             {
                 cbDecodeLevel.SelectedIndex = 0;
             }
-            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 2")
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Fine")
             {
                 cbDecodeLevel.SelectedIndex = 1;
             }
-            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 3")
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Super Fine")
             {
                 cbDecodeLevel.SelectedIndex = 2;
             }
-            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Level 4")
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Highest Quality")
             {
                 cbDecodeLevel.SelectedIndex = 3;
             }
@@ -69,19 +69,19 @@ namespace VOP
         {
             if (cbDecodeLevel.SelectedIndex == 0)
             {
-                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Level 1";
+                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Standard";
             }
             else if (cbDecodeLevel.SelectedIndex == 1)
             {
-                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Level 2";
+                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Fine";
             }
             else if (cbDecodeLevel.SelectedIndex == 2)
             {
-                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Level 3";
+                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Super Fine";
             }
             else if (cbDecodeLevel.SelectedIndex == 3)
             {
-                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Level 4";
+                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Highest Quality";
             }
         }
 
