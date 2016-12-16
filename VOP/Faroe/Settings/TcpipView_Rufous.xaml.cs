@@ -28,7 +28,7 @@ namespace VOP
         public bool m_is_init = false;
 
         TCPIPSetting TcpIpSetting = new TCPIPSetting();
-        private EnumStatus m_currentStatus = EnumStatus.Ready;
+        private bool m_currentStatus = false;
         private bool m_bIPValidate = true;
         private bool m_bSubmaskValidate = true;
         private bool m_bGatewayValidate = true;
@@ -373,7 +373,7 @@ namespace VOP
                     tb_ip.IsEnabled = false;
                     tb_gate.IsEnabled = false;
                     tb_mask.IsEnabled = false;
-                    btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
+                    btnApply.IsEnabled = m_currentStatus;
                 }
                 else if (btn.Name == "rdbtn_static")
                 {
@@ -388,7 +388,7 @@ namespace VOP
                     }
                     else
                     {
-                        btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
+                        btnApply.IsEnabled = m_currentStatus;
                     }
                 }
             }
@@ -447,7 +447,7 @@ namespace VOP
                     }
                 }
 
-                if(false == common.IsOffline(m_currentStatus))
+                if(false == m_currentStatus)
                 {
                     if (bValidate)
                     {
@@ -723,15 +723,15 @@ namespace VOP
             }
         }
 
-        public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
+        public void PassStatus(bool online)
         {
-            m_currentStatus = st;
+            m_currentStatus = online;
 
             if (true == m_bSubmaskValidate &&
                 true == m_bIPValidate &&
                 true == m_bGatewayValidate)
             {
-                btnApply.IsEnabled = (false == common.IsOffline(m_currentStatus));
+                btnApply.IsEnabled = online;
             }
         }
 

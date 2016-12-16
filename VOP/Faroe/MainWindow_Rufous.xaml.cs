@@ -326,11 +326,14 @@ namespace VOP
                 if((int)wParam == 1)
                 {
                     scanSelectionPage.DeviceButton.Connected = true;
+                    scanSettingsPage.PassStatus(true);
                 }
                 else
                 {
                     scanSelectionPage.DeviceButton.Connected = false;
+                    scanSettingsPage.PassStatus(false);
                 }
+
             }
             else if (msg == App.WM_VOP)
             {

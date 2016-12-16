@@ -290,6 +290,16 @@ namespace VOP
             }
         }
 
-       
+        public void PassStatus(bool online)
+        {
+            if (null != m_MainWin)
+            {
+
+                wifiView.PassStatus(online);
+                tcpipView.PassStatus(online);
+                softAPView.PassStatus(online);
+                
+            }
+        }
     }
 }

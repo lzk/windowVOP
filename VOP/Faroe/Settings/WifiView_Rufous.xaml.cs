@@ -23,7 +23,7 @@ namespace VOP
  //       VOP.Controls.WifiSetting wifiSettingInit = new VOP.Controls.WifiSetting();
         VOP.Controls.WifiSetting wifiSetting = new VOP.Controls.WifiSetting();
         private bool m_bConnectOthApMode = false;
-        //private EnumStatus m_currentStatus = EnumStatus.Offline;
+        private bool m_currentStatus = false;
        
         public WifiView_Rufous()
         {
@@ -698,12 +698,12 @@ namespace VOP
                     "Prompt");
         }
 
-        //public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
-        //{
-        //    m_currentStatus = st;
-        //    this.IsEnabled = (false == common.IsOffline(m_currentStatus));
-        // // autoConnect.IsEnabled = (false == common.IsOffline(m_currentStatus)); 
-        //}
+        public void PassStatus(bool online)
+        {
+            m_currentStatus = online;
+            this.IsEnabled = online;
+            // autoConnect.IsEnabled = (false == common.IsOffline(m_currentStatus)); 
+        }
 
         private void UserControl_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {

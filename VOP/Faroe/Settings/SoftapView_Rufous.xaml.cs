@@ -137,7 +137,7 @@ namespace VOP
             if (isApplySuccess)
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                     Application.Current.MainWindow,
-                   (string)this.FindResource("ResStr_Setting_Successfully_"),
+                   (string)this.FindResource("ResStr_Msg_1"),
                    "Prompt");
             else
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
@@ -240,9 +240,9 @@ namespace VOP
                 }
             }
         }
-        //public void PassStatus(EnumStatus st, EnumMachineJob job, byte toner)
-        //{
-        //    btnApply.IsEnabled = (false == common.IsOffline(st));
-        //}
+        public void PassStatus(bool online)
+        {
+            btnApply.IsEnabled = online;
+        }
     }
 }
