@@ -18,7 +18,7 @@ using System.ComponentModel;
 namespace VOP
 {
     [Serializable()]
-    public class ScanParam
+    public class ScanParam : ICloneable
     {
         private EnumScanResln m_scanResln = EnumScanResln._300x300;
         private EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._Auto;
@@ -26,6 +26,8 @@ namespace VOP
         private int m_brightness = 50;
         private int m_contrast = 50;
         private bool m_ADFMode = true;
+        private bool m_MultiFeed = true;
+        private bool m_AutoCrop = true;
 
 
         public EnumScanResln ScanResolution
@@ -100,20 +102,55 @@ namespace VOP
             }
         }
 
+        public bool MultiFeed
+        {
+            get
+            {
+                return this.m_MultiFeed;
+            }
+            set
+            {
+                this.m_MultiFeed = value;
+            }
+        }
+
+        public bool AutoCrop
+        {
+            get
+            {
+                return this.m_AutoCrop;
+            }
+            set
+            {
+                this.m_AutoCrop = value;
+            }
+        }
+
+
         public ScanParam()
         {
 
         }
 
-        public ScanParam(EnumScanResln res, EnumPaperSizeScan paperSize, EnumColorType color, bool ADFMode, int b, int c)
+        public ScanParam(EnumScanResln res, EnumPaperSizeScan paperSize, EnumColorType color, bool ADFMode, bool MultiFeed, bool AutoCrop, int b, int c)
         {
             this.m_scanResln = res;
             this.m_paperSize = paperSize;
             this.m_color = color;
             this.m_ADFMode = ADFMode;
+            this.m_MultiFeed = MultiFeed;
+            this.m_AutoCrop = AutoCrop;
             this.m_brightness = b;
             this.m_contrast = c;
         }
+
+        public object Clone()
+        {
+            return new ScanParam(this.m_scanResln, this.m_paperSize,
+                                 this.m_color, this.m_ADFMode, this.m_MultiFeed, 
+                                 this.m_AutoCrop, this.m_brightness, this.m_contrast);
+        }
+
     }
 
 }

@@ -202,6 +202,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	int contrast,
 	int brightness,
 	BOOL ADFMode,
+	BOOL MultiFeed,
+	BOOL AutoCrop,
 	UINT32 uMsg,
 	SAFEARRAY** fileNames)
 {

@@ -71,6 +71,8 @@ namespace VOP
                 EnumPaperSizeScan._A4,
                 EnumColorType.color_24bit,
                 false,
+                true,
+                true,
                 50,
                 50);
 

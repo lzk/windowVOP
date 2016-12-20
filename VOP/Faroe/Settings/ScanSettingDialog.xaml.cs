@@ -18,14 +18,18 @@ namespace VOP
     public partial class ScanSettingDialog : Window
     {
 
-#region scan parameters
-        public bool   m_adfMode   = true;
-        public EnumScanResln     m_scanResln  = EnumScanResln._300x300;
-        public EnumPaperSizeScan m_paperSize  = EnumPaperSizeScan._Auto;
-        public EnumColorType     m_color      = EnumColorType.color_24bit;
-        public int               m_brightness = 50;
-        public int               m_contrast   = 50;
-#endregion
+//#region scan parameters
+//        public bool   m_adfMode   = true;
+//        public EnumScanResln     m_scanResln  = EnumScanResln._300x300;
+//        public EnumPaperSizeScan m_paperSize  = EnumPaperSizeScan._Auto;
+//        public EnumColorType     m_color      = EnumColorType.color_24bit;
+//        public int               m_brightness = 50;
+//        public int               m_contrast   = 50;
+//        public bool m_MultiFeed = true;
+//        public bool m_AutoCrop = true;
+//        #endregion
+
+        public ScanParam m_scanParams = new ScanParam();
 
         public ScanSettingDialog()
         {
@@ -89,7 +93,7 @@ namespace VOP
             //        break;                   
             //}
 
-            if (m_adfMode == true)
+            if (m_scanParams.ADFMode == true)
             {
                 twoSideButton.IsChecked = true;
             }
@@ -98,7 +102,25 @@ namespace VOP
                 oneSideButton.IsChecked = true;
             }
 
-            switch(m_color)
+            if (m_scanParams.MultiFeed == true)
+            {
+                MultiFeedOnButton.IsChecked = true;
+            }
+            else
+            {
+                MultiFeedOffButton.IsChecked = true;
+            }
+
+            if (m_scanParams.AutoCrop == true)
+            {
+                AutoCropOnButton.IsChecked = true;
+            }
+            else
+            {
+                AutoCropOffButton.IsChecked = true;
+            }
+
+            switch (m_scanParams.ColorType)
             {
                 case EnumColorType.color_24bit:
                     Color.IsChecked = true;
@@ -111,8 +133,8 @@ namespace VOP
                     break;     
             }
 
-            sldr_brightness.Value = m_brightness;
-            sldr_contrast.Value = m_contrast;
+            sldr_brightness.Value = m_scanParams.Brightness;
+            sldr_contrast.Value = m_scanParams.Contrast;
         }
 
         public void MyMouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
@@ -143,15 +165,48 @@ namespace VOP
             {
                 if (rdbtn.Name == "twoSideButton")
                 {
-                    m_adfMode = true;
+                    m_scanParams.ADFMode = true;
                 }
                 else if (rdbtn.Name == "oneSideButton")
                 {
-                    m_adfMode = false;
+                    m_scanParams.ADFMode = false;
                 }
             }
         }
 
+        public void MultiFeed_click(object sender, RoutedEventArgs e)
+        {
+            RadioButton rdbtn = sender as RadioButton;
+
+            if (null != rdbtn)
+            {
+                if (rdbtn.Name == "MultiFeedOnButton")
+                {
+                    m_scanParams.MultiFeed = true;
+                }
+                else if (rdbtn.Name == "MultiFeedOffButton")
+                {
+                    m_scanParams.MultiFeed = false;
+                }
+            }
+        }
+
+        public void AutoCrop_click(object sender, RoutedEventArgs e)
+        {
+            RadioButton rdbtn = sender as RadioButton;
+
+            if (null != rdbtn)
+            {
+                if (rdbtn.Name == "AutoCropOnButton")
+                {
+                    m_scanParams.AutoCrop = true;
+                }
+                else if (rdbtn.Name == "AutoCropOffButton")
+                {
+                    m_scanParams.AutoCrop = false;
+                }
+            }
+        }
 
         private void cbo_selchg_scansize(object sender, SelectionChangedEventArgs e)
         {
@@ -159,7 +214,7 @@ namespace VOP
 
             if ( null != selItem && null != selItem.DataContext )
             {
-                m_paperSize = (EnumPaperSizeScan)selItem.DataContext;
+                m_scanParams.PaperSize = (EnumPaperSizeScan)selItem.DataContext;
             }
         }
 
@@ -169,7 +224,7 @@ namespace VOP
 
             if ( null != selItem && null != selItem.DataContext )
             {
-                m_scanResln = (EnumScanResln)selItem.DataContext;
+                m_scanParams.ScanResolution = (EnumScanResln)selItem.DataContext;
             }
 
         }
@@ -182,15 +237,15 @@ namespace VOP
             {
                 if (rdbtn.Name == "Color")
                 {
-                    m_color = EnumColorType.color_24bit;
+                    m_scanParams.ColorType = EnumColorType.color_24bit;
                 }
                 else if (rdbtn.Name == "Grayscale")
                 {
-                    m_color = EnumColorType.grayscale_8bit;
+                    m_scanParams.ColorType = EnumColorType.grayscale_8bit;
                 }
                 else if (rdbtn.Name == "BlackAndWhite")
                 {
-                    m_color = EnumColorType.black_white;
+                    m_scanParams.ColorType = EnumColorType.black_white;
                 }
             }
         }
@@ -232,23 +287,27 @@ namespace VOP
                 int val = (int)(sldr.Value+0.5);
                 if (sldr.Name == "sldr_brightness")
                 {
-                    m_brightness = val;
+                    m_scanParams.Brightness = val;
                 }
                 else if (sldr.Name == "sldr_contrast")
                 {
-                    m_contrast = val;
+                    m_scanParams.Contrast = val;
                 }
             }
         }
 
         private void btnDefault_Click(object sender, RoutedEventArgs e)
         {
-            m_adfMode    = true;
-            m_scanResln  = EnumScanResln._300x300;
-            m_paperSize  = EnumPaperSizeScan._Auto;
-            m_color      = EnumColorType.color_24bit;
-            m_brightness = 50;
-            m_contrast   = 50;
+            //m_adfMode    = true;
+            //m_scanResln  = EnumScanResln._300x300;
+            //m_paperSize  = EnumPaperSizeScan._Auto;
+            //m_color      = EnumColorType.color_24bit;
+            //m_brightness = 50;
+            //m_contrast   = 50;
+            //m_MultiFeed = true;
+            //m_AutoCrop = true;
+
+            m_scanParams = new ScanParam();
 
             InitControls();
             InitScanResln();
@@ -305,7 +364,7 @@ namespace VOP
             foreach ( ComboBoxItem obj in cboScanResln.Items )
             {
                 if ( null != obj.DataContext 
-                        && (EnumScanResln)obj.DataContext == m_scanResln )
+                        && (EnumScanResln)obj.DataContext == m_scanParams.ScanResolution)
                 {
                     obj.IsSelected = true;
                 }
@@ -363,7 +422,7 @@ namespace VOP
             foreach ( ComboBoxItem obj in cboScanSize.Items )
             {
                 if ( null != obj.DataContext 
-                        && (EnumPaperSizeScan)obj.DataContext == m_paperSize )
+                        && (EnumPaperSizeScan)obj.DataContext == m_scanParams.PaperSize)
                 {
                     obj.IsSelected = true;
                 }

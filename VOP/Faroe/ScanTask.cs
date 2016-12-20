@@ -60,6 +60,8 @@ namespace VOP
                     param.Contrast,
                     param.Brightness,
                     param.ADFMode,
+                    param.MultiFeed,
+                    param.AutoCrop,
                     WM_VOPSCAN_PROGRESS,
                     out fileNames);
 

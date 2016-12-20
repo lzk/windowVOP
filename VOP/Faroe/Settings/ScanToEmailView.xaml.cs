@@ -57,21 +57,11 @@ namespace VOP
             ScanSettingDialog settingWin = new ScanSettingDialog();
             settingWin.Owner = m_MainWin;
 
-            settingWin.m_scanResln = MainWindow_Rufous.g_settingData.m_emailScanSettings.ScanResolution;
-            settingWin.m_paperSize = MainWindow_Rufous.g_settingData.m_emailScanSettings.PaperSize;
-            settingWin.m_color = MainWindow_Rufous.g_settingData.m_emailScanSettings.ColorType;
-            settingWin.m_brightness = MainWindow_Rufous.g_settingData.m_emailScanSettings.Brightness;
-            settingWin.m_contrast = MainWindow_Rufous.g_settingData.m_emailScanSettings.Contrast;
-            settingWin.m_adfMode = MainWindow_Rufous.g_settingData.m_emailScanSettings.ADFMode;
-
+            settingWin.m_scanParams = (ScanParam)MainWindow_Rufous.g_settingData.m_emailScanSettings.Clone();
+  
             if (settingWin.ShowDialog() == true)
             {
-                MainWindow_Rufous.g_settingData.m_emailScanSettings.ScanResolution = settingWin.m_scanResln;
-                MainWindow_Rufous.g_settingData.m_emailScanSettings.PaperSize = settingWin.m_paperSize;
-                MainWindow_Rufous.g_settingData.m_emailScanSettings.ColorType = settingWin.m_color;
-                MainWindow_Rufous.g_settingData.m_emailScanSettings.Brightness = settingWin.m_brightness;
-                MainWindow_Rufous.g_settingData.m_emailScanSettings.Contrast = settingWin.m_contrast;
-                MainWindow_Rufous.g_settingData.m_emailScanSettings.ADFMode = settingWin.m_adfMode;
+                MainWindow_Rufous.g_settingData.m_emailScanSettings = (ScanParam)settingWin.m_scanParams;
             }
         }
 

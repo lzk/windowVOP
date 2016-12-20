@@ -48,21 +48,11 @@ namespace VOP
             ScanSettingDialog settingWin = new ScanSettingDialog();
             settingWin.Owner = m_MainWin;
 
-            settingWin.m_scanResln = MainWindow_Rufous.g_settingData.m_printScanSettings.ScanResolution;
-            settingWin.m_paperSize = MainWindow_Rufous.g_settingData.m_printScanSettings.PaperSize;
-            settingWin.m_color = MainWindow_Rufous.g_settingData.m_printScanSettings.ColorType;
-            settingWin.m_brightness = MainWindow_Rufous.g_settingData.m_printScanSettings.Brightness;
-            settingWin.m_contrast = MainWindow_Rufous.g_settingData.m_printScanSettings.Contrast;
-            settingWin.m_adfMode = MainWindow_Rufous.g_settingData.m_printScanSettings.ADFMode;
+            settingWin.m_scanParams = (ScanParam)MainWindow_Rufous.g_settingData.m_printScanSettings.Clone();
 
             if (settingWin.ShowDialog() == true)
             {
-                MainWindow_Rufous.g_settingData.m_printScanSettings.ScanResolution = settingWin.m_scanResln;
-                MainWindow_Rufous.g_settingData.m_printScanSettings.PaperSize = settingWin.m_paperSize;
-                MainWindow_Rufous.g_settingData.m_printScanSettings.ColorType = settingWin.m_color;
-                MainWindow_Rufous.g_settingData.m_printScanSettings.Brightness = settingWin.m_brightness;
-                MainWindow_Rufous.g_settingData.m_printScanSettings.Contrast = settingWin.m_contrast;
-                MainWindow_Rufous.g_settingData.m_printScanSettings.ADFMode = settingWin.m_adfMode;
+                MainWindow_Rufous.g_settingData.m_printScanSettings = (ScanParam)settingWin.m_scanParams;
             }
         }
 

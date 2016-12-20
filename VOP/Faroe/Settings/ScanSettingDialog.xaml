@@ -6,7 +6,7 @@
 	x:Name="Window"
 	Title="ScanSetting"
     Width="585" 
-	Height="493"
+	Height="593"
     AllowsTransparency="true"
     WindowStartupLocation="CenterOwner"
     ResizeMode="NoResize"
@@ -133,12 +133,13 @@
                     <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <Grid x:Name="LayoutRoot" Background="AliceBlue" Width="537" Height="445" >
+            <Grid x:Name="LayoutRoot" Background="AliceBlue" Width="537" Height="545" >
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="100" />
                     <RowDefinition Height="240" />
+                    <RowDefinition Height="100" />
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
@@ -316,7 +317,67 @@
                     </local:GroupBoxDecorator>
                 </Grid>
 
-                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Grid.Row="3" Orientation="Horizontal">
+                    <local:GroupBoxDecorator Header="Multi Feed Detection" VerticalAlignment="Center" Width="220" Height="75" Margin="40,0,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="100*" />
+                                <ColumnDefinition Width="100*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+
+                            <RadioButton GroupName="MultiFeed" IsChecked="true"
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                Name="MultiFeedOnButton" Click="MultiFeed_click"
+                                Template="{StaticResource customRadioButton}"
+                                Content="On" VerticalAlignment="Center" >
+                            </RadioButton>
+
+                            <RadioButton GroupName="MultiFeed" IsChecked="false"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                Name="MultiFeedOffButton" Click="MultiFeed_click"
+                                Template="{StaticResource customRadioButton}"
+                                Content="Off" VerticalAlignment="Center" >
+                            </RadioButton>   
+
+                        </Grid>
+
+                    </local:GroupBoxDecorator>
+
+                    <local:GroupBoxDecorator Header="Auto Crop&amp;Deskew" VerticalAlignment="Center" Width="220" Height="75" Margin="20,0,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="100*" />
+                                <ColumnDefinition Width="100*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
+
+                            <RadioButton GroupName="AutoCrop" IsChecked="true"
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                Name="AutoCropOnButton" Click="AutoCrop_click"
+                                Template="{StaticResource customRadioButton}"
+                                Content="On" VerticalAlignment="Center" >
+                            </RadioButton>
+
+                            <RadioButton GroupName="AutoCrop" IsChecked="false"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                Name="AutoCropOffButton" Click="AutoCrop_click"
+                                Template="{StaticResource customRadioButton}"
+                                Content="Off" VerticalAlignment="Center" >
+                            </RadioButton>
+
+                        </Grid>
+
+                    </local:GroupBoxDecorator>
+                </StackPanel>
+                
+                <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="False" x:Name="btnDefault" Click="btnDefault_Click"
                 Content="{StaticResource ResStr_Default}" 
                 Height="35" Width="120" Margin="0,0,20,0" />

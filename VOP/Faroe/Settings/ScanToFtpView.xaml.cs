@@ -36,21 +36,11 @@ namespace VOP
             ScanSettingDialog settingWin = new ScanSettingDialog();
             settingWin.Owner = m_MainWin;
 
-            settingWin.m_scanResln = MainWindow_Rufous.g_settingData.m_ftpScanSettings.ScanResolution;
-            settingWin.m_paperSize = MainWindow_Rufous.g_settingData.m_ftpScanSettings.PaperSize;
-            settingWin.m_color = MainWindow_Rufous.g_settingData.m_ftpScanSettings.ColorType;
-            settingWin.m_brightness = MainWindow_Rufous.g_settingData.m_ftpScanSettings.Brightness;
-            settingWin.m_contrast = MainWindow_Rufous.g_settingData.m_ftpScanSettings.Contrast;
-            settingWin.m_adfMode = MainWindow_Rufous.g_settingData.m_ftpScanSettings.ADFMode;
+            settingWin.m_scanParams = (ScanParam)MainWindow_Rufous.g_settingData.m_ftpScanSettings.Clone();
 
             if (settingWin.ShowDialog() == true)
             {
-                MainWindow_Rufous.g_settingData.m_ftpScanSettings.ScanResolution = settingWin.m_scanResln;
-                MainWindow_Rufous.g_settingData.m_ftpScanSettings.PaperSize = settingWin.m_paperSize;
-                MainWindow_Rufous.g_settingData.m_ftpScanSettings.ColorType = settingWin.m_color;
-                MainWindow_Rufous.g_settingData.m_ftpScanSettings.Brightness = settingWin.m_brightness;
-                MainWindow_Rufous.g_settingData.m_ftpScanSettings.Contrast = settingWin.m_contrast;
-                MainWindow_Rufous.g_settingData.m_ftpScanSettings.ADFMode = settingWin.m_adfMode;
+                MainWindow_Rufous.g_settingData.m_ftpScanSettings = (ScanParam)settingWin.m_scanParams;
             }
         }
 

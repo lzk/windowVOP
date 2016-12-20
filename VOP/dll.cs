@@ -236,6 +236,8 @@ namespace VOP
                 int contrast,
                 int brightness,
                 bool ADFMode,
+                bool MultiFeed,
+                bool AutoCrop,
                 uint uMsg,
                 [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)]out string[] fileNames);
 

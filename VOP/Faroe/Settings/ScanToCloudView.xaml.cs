@@ -46,21 +46,11 @@ namespace VOP
             ScanSettingDialog settingWin = new ScanSettingDialog();
             settingWin.Owner = m_MainWin;
 
-            settingWin.m_scanResln = MainWindow_Rufous.g_settingData.m_cloudScanSettings.ScanResolution;
-            settingWin.m_paperSize = MainWindow_Rufous.g_settingData.m_cloudScanSettings.PaperSize;
-            settingWin.m_color = MainWindow_Rufous.g_settingData.m_cloudScanSettings.ColorType;
-            settingWin.m_brightness = MainWindow_Rufous.g_settingData.m_cloudScanSettings.Brightness;
-            settingWin.m_contrast = MainWindow_Rufous.g_settingData.m_cloudScanSettings.Contrast;
-            settingWin.m_adfMode = MainWindow_Rufous.g_settingData.m_cloudScanSettings.ADFMode;
+            settingWin.m_scanParams = (ScanParam)MainWindow_Rufous.g_settingData.m_cloudScanSettings.Clone();
 
             if (settingWin.ShowDialog() == true)
             {
-                MainWindow_Rufous.g_settingData.m_cloudScanSettings.ScanResolution = settingWin.m_scanResln;
-                MainWindow_Rufous.g_settingData.m_cloudScanSettings.PaperSize = settingWin.m_paperSize;
-                MainWindow_Rufous.g_settingData.m_cloudScanSettings.ColorType = settingWin.m_color;
-                MainWindow_Rufous.g_settingData.m_cloudScanSettings.Brightness = settingWin.m_brightness;
-                MainWindow_Rufous.g_settingData.m_cloudScanSettings.Contrast = settingWin.m_contrast;
-                MainWindow_Rufous.g_settingData.m_cloudScanSettings.ADFMode = settingWin.m_adfMode;
+                MainWindow_Rufous.g_settingData.m_cloudScanSettings = (ScanParam)settingWin.m_scanParams;
             }
         }
 
