@@ -276,7 +276,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	glDrv.sc_pardata.img.org.y = ImgFile[0].img.org.y;
 	glDrv.sc_pardata.img.width = ImgFile[0].img.width;
 	glDrv.sc_pardata.img.height = ImgFile[0].img.height;
-	glDrv.sc_pardata.img.mono = IMG_COLOR;
+	glDrv.sc_pardata.img.mono = BitsPerPixel == IMG_24_BIT ? IMG_COLOR : IMG_3CH_TRUE_MONO;
 
 	if (glDrv.sc_pardata.img.format == I3('JPG')) {
 		glDrv.sc_pardata.img.option = IMG_OPT_JPG_FMT444;
