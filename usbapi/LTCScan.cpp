@@ -148,18 +148,23 @@ void BrightnessAndContrast(const wchar_t *filename, int Brightness, int Contrast
 
 	pImg = Gdiplus::Image::FromFile(filename);
 
-	float brightness = Brightness / 50.0f; // no change in brightness
+
+	float brightness = (Brightness - 50.f) /100.0f; // no change in brightness
 	float contrast = Contrast / 50.0f; // twice the contrast
 	float gamma = 1.0f; // no change in gamma
 
-	float adjustedBrightness = brightness - 1.0f;
+	float adjustedBrightness = brightness < -0.3 ? -0.3 : brightness;
+
+	float adjustedcontrast = contrast < 0.5 ? 0.5 : contrast;
+	float T = 0.5f * (1.0f - adjustedcontrast);
+
 	// create matrix that will brighten and contrast the image
 	Gdiplus::ColorMatrix ptsArray = {
-		contrast, 0, 0, 0, 0,	// scale red
-		0, contrast, 0, 0, 0,	// scale green
-		0, 0, contrast, 0, 0,	// scale blue
+		adjustedcontrast, 0, 0, 0, 0,	// scale red
+		0, adjustedcontrast, 0, 0, 0,	// scale green
+		0, 0, adjustedcontrast, 0, 0,	// scale blue
 		0, 0, 0, 1.0f, 0,		// don't scale alpha
-		adjustedBrightness, adjustedBrightness, adjustedBrightness, 0, 1 };
+		adjustedBrightness + T, adjustedBrightness + T, adjustedBrightness + T, 0, 1 };
 
 	Gdiplus::ImageAttributes imageAttributes;
 	imageAttributes.ClearColorMatrix();
