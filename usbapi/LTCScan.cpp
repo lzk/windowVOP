@@ -154,6 +154,7 @@ void BrightnessAndContrast(const wchar_t *filename, int Brightness, int Contrast
 	float gamma = 1.0f; // no change in gamma
 
 	float adjustedBrightness = brightness < -0.3 ? -0.3 : brightness;
+	adjustedBrightness = brightness > 0.3 ? 0.3 : brightness;
 
 	float adjustedcontrast = contrast < 0.5 ? 0.5 : contrast;
 	float T = 0.5f * (1.0f - adjustedcontrast);
