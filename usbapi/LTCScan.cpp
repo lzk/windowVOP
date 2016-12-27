@@ -260,7 +260,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	ImgFile[0].img.dpi.y = ImgFile[1].img.dpi.y = resolution;
 
 
-	//glDrv.sc_pardata.acquire = (1 * ACQ_NO_SHADING) | (0 * ACQ_SET_MTR) | ACQ_NO_MIRROR | (1 * ACQ_NO_PP_SENSOR) | (0 * ACQ_PICK_SS );
+	glDrv.sc_pardata.acquire = ((MultiFeed ? 1 : 0) * ACQ_Ultra_Sonic) | ((AutoCrop ? 1 : 0) * ACQ_CROP_DESKEW);
 
 	//glDrv.sc_job_create.mode = I1('D');
 	glDrv.sc_job_create.mode = 0;

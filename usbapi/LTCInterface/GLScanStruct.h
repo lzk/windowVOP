@@ -132,6 +132,16 @@ typedef struct SC_PAR_DATA_STRUCT {
 	//struct{UINT32 w; UINT32 h;} dot;
 	IMAGE_T  img;
 	MTR_T   mtr[2];
+
+	U16 leading_edge;
+	U16 img_gap;
+	U16 prefed;
+	U16 postfed;
+	U16 side_edgeA;
+	U16 side_edgeB;
+
+	U16 unknow1;
+	U16 unknow2;
 	//- shading ---
 //	UINT16	AFE_OffsetCode[2][3];
 //	UINT16	AFE_GainCode[2][3];
@@ -172,7 +182,7 @@ typedef struct SC_PAR_DATA_STRUCT {
 #define ACQ_NO_MIRROR		(0x02)
 #define ACQ_NO_SHADING		(0x04)
 #define ACQ_BACK_SCAN		(0x08)
-
+#define ACQ_Ultra_Sonic		(0x01 << 5)
 #define ACQ_CROP_DESKEW		(0x01 << 8)
 #define ACQ_PAGE_FILL		(0x02 << 8)
 #define ACQ_LEFT_ALIGN		(0x04 << 8)
