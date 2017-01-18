@@ -10,6 +10,7 @@ public:
 	~CGLDrv();
 	CGLUsb *m_GLusb;
 	CGLNet *m_GLnet;
+	BOOL  NetScanReady();
 	BYTE _OpenDevice();
 	BYTE _OpenDevice(LPCTSTR lpModuleName);
 	BYTE _JobCreate();

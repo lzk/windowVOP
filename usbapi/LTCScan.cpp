@@ -383,6 +383,15 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	if (glDrv._OpenDevice() == TRUE)
 	{
 		
+		if (!glDrv.NetScanReady())
+		{
+			if (imgBuffer)
+				delete imgBuffer;
+			glDrv._CloseDevice();
+
+			return RETSCAN_BUSY;
+		}
+
 		result = glDrv.paperReady();
 		if (!result) {
 

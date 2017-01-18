@@ -313,6 +313,30 @@ int CGLDrv::paperReady()
 	return ready;
 }
 
+BOOL CGLDrv::NetScanReady()
+{
+	int result;
+	U8 status = 0;
+
+	if (g_connectMode_usb != TRUE)
+	{
+		result = m_GLnet->CMDIO_Read(&status, 1);
+	}
+	else
+	{
+		return TRUE;
+	}
+
+	if (status == 1)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
 #define JOB_WAIT_TIMEOUT  5000
 int CGLDrv::waitJobFinish(int wait_motor_stop)
 {
