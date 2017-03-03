@@ -129,6 +129,20 @@ namespace VOP
                                "Paper is not ready",
                                "Error");
                 }
+                else if (ScanResult == Scan_RET.RETSCAN_ADF_NOT_READY)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                               Application.Current.MainWindow,
+                               "ADF is not ready",
+                               "Error");
+                }
+                else if (ScanResult == Scan_RET.RETSCAN_HOME_NOT_READY)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                               Application.Current.MainWindow,
+                               "Home is not ready",
+                               "Error");
+                }
                 else if (ScanResult == Scan_RET.RETSCAN_CANCEL)
                 {
                     

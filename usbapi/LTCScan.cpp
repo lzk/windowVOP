@@ -49,6 +49,8 @@ enum Scan_RET
 	RETSCAN_COVER_OPEN = 12,
 	RETSCAN_PAPER_NOT_READY = 13,
 	RETSCAN_CREATE_JOB_FAIL = 14,
+	RETSCAN_ADF_NOT_READY = 15,
+	RETSCAN_HOME_NOT_READY = 16,
 };
 
 extern CRITICAL_SECTION g_csCriticalSection_UsbTest;
@@ -392,7 +394,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			return RETSCAN_BUSY;
 		}
 
-		result = glDrv.paperReady();
+	/*	result = glDrv.paperReady();
 		if (!result) {
 
 			if (imgBuffer)
@@ -400,15 +402,35 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			glDrv._CloseDevice();
 			return RETSCAN_PAPER_NOT_READY;
 		}
-		MyOutputString(L"paperReady");
+		MyOutputString(L"paperReady");*/
 
 		result = glDrv._JobCreate();
-		if (!result)
+		if (result != 0)
 		{
+			int errorcode = RETSCAN_CREATE_JOB_FAIL;
+
 			if (imgBuffer)
 				delete imgBuffer;
 			glDrv._CloseDevice();
-			return RETSCAN_CREATE_JOB_FAIL;
+
+			switch (result) {
+			case ADF_NOT_READY_ERR:
+				errorcode = RETSCAN_ADF_NOT_READY;
+				break;
+			case DOC_NOT_READY_ERR:
+				errorcode = RETSCAN_PAPER_NOT_READY;
+				break;
+			case HOME_NOT_READY_ERR:
+				errorcode = RETSCAN_HOME_NOT_READY;
+				break;
+			case SCAN_JAM_ERR:
+				errorcode = RETSCAN_PAPER_JAM;
+				break;
+			case COVER_OPEN_ERR:
+				errorcode = RETSCAN_COVER_OPEN;
+				break;
+
+			return errorcode;
 		}
 		
 
@@ -684,8 +706,14 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 			if (glDrv.sc_infodata.PaperJam)
 			{
-				isPaperJam = TRUE;
-				break;
+				if (glDrv.sc_infodata.AdfSensor) {
+					isPaperJam = FALSE;
+				}
+				else {
+					/*There is "scan jam" let scan flow finish for save image*/
+					isPaperJam = TRUE;
+					break;
+				}
 			}
 			
 

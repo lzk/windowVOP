@@ -360,6 +360,8 @@ namespace VOP
         RETSCAN_COVER_OPEN     = 12,
         RETSCAN_PAPER_NOT_READY = 13,
         RETSCAN_CREATE_JOB_FAIL = 14,
+        RETSCAN_ADF_NOT_READY   = 15,
+        RETSCAN_HOME_NOT_READY  = 16,
     }
      
 }

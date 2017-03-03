@@ -5,6 +5,10 @@
 #include "GLUtype.h"
 #include "../ImgFile/ImgFile.h"
 
+#define JOB_FLB			'F'
+#define JOB_ADF			'A'
+#define JOB_ANY			'C'
+
 #define SCAN_FLB		I3('FLB')
 #define SCAN_ADF		I3('ADF')
 #define SCAN_A_SIDE		1
@@ -65,6 +69,12 @@
 #define JOB_FLB_RESET_HOME	3 + 20
 #define JOB_FLB_LIFE_TEST	4 + 20
 
+//Scan error code
+#define ADF_NOT_READY_ERR		0x01
+#define DOC_NOT_READY_ERR		0x02
+#define HOME_NOT_READY_ERR		0x03
+#define SCAN_JAM_ERR			0x04
+#define COVER_OPEN_ERR			0x05
 
 typedef struct SC_JOB_STRUCT {
 	U32	code;

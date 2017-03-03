@@ -18,7 +18,7 @@ CGLDrv::CGLDrv()
 
 	sc_job_create = {0};
 	sc_job_create.code		= I3('JOB');
-	sc_job_create.request	= ('C');
+	sc_job_create.request	= JOB_ADF;
 
 	sc_job_end = { 0 };
 	sc_job_end.code			= I3('JOB');
@@ -119,19 +119,13 @@ BYTE CGLDrv::_JobCreate()
 	}
 
 	if(!result || job_status.ack == 'E') {
-	MyOutputString(L"Job create error", job_status.err);
-#if _GLDEBUG_
-		LTCPrintf("Job create error (#%d)\n", job_status.err);
-#endif
-		result = 0;
-		goto exit_JobCraete;
+		MyOutputString(L"Job create error", job_status.err);
+		return job_status.err;
 	}
+
 	JobID = job_status.id;
-#if _GLDEBUG_
-	LTCPrintf("Job create OK. ID(%d)\n", JobID);
-#endif
-exit_JobCraete:
-	return (BYTE)result;
+
+	return 0;
 }
 BYTE CGLDrv::_JobEnd()
 {
