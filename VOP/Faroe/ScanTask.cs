@@ -62,6 +62,7 @@ namespace VOP
                     param.ADFMode,
                     param.MultiFeed,
                     param.AutoCrop,
+                    param.OnePage,
                     WM_VOPSCAN_PROGRESS,
                     out fileNames);
 

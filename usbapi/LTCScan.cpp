@@ -72,6 +72,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	int contrast,
 	int brightness,
 	BOOL ADFMode,
+	BOOL onepage,
 	UINT32 uMsg,
 	SAFEARRAY** fileNames);
 
@@ -212,6 +213,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	BOOL ADFMode,
 	BOOL MultiFeed,
 	BOOL AutoCrop,
+	BOOL onepage,
 	UINT32 uMsg,
 	SAFEARRAY** fileNames)
 {
@@ -270,7 +272,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 	glDrv.sc_pardata.source = I3('ADF');
 	glDrv.sc_pardata.duplex = ADFMode ? SCAN_AB_SIDE : SCAN_A_SIDE;
-	glDrv.sc_pardata.page = 0;
+	glDrv.sc_pardata.page = onepage ? 1 : 0;
 	glDrv.sc_pardata.img.format = I3('JPG');
 	glDrv.sc_pardata.img.bit = BitsPerPixel;
 	glDrv.sc_pardata.img.dpi.x = resolution;
@@ -429,6 +431,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			case COVER_OPEN_ERR:
 				errorcode = RETSCAN_COVER_OPEN;
 				break;
+			}
 
 			return errorcode;
 		}

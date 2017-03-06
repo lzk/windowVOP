@@ -238,6 +238,7 @@ namespace VOP
                 bool ADFMode,
                 bool MultiFeed,
                 bool AutoCrop,
+                bool onepage,
                 uint uMsg,
                 [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)]out string[] fileNames);
 

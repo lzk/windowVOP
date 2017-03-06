@@ -28,7 +28,7 @@ namespace VOP
         private bool m_ADFMode = true;
         private bool m_MultiFeed = true;
         private bool m_AutoCrop = true;
-
+        private bool m_onepage = false;
 
         public EnumScanResln ScanResolution
         {
@@ -126,13 +126,24 @@ namespace VOP
             }
         }
 
+        public bool OnePage
+        {
+            get
+            {
+                return this.m_onepage;
+            }
+            set
+            {
+                this.m_onepage = value;
+            }
+        }
 
         public ScanParam()
         {
 
         }
 
-        public ScanParam(EnumScanResln res, EnumPaperSizeScan paperSize, EnumColorType color, bool ADFMode, bool MultiFeed, bool AutoCrop, int b, int c)
+        public ScanParam(EnumScanResln res, EnumPaperSizeScan paperSize, EnumColorType color, bool ADFMode, bool MultiFeed, bool AutoCrop, int b, int c, bool onepage = false)
         {
             this.m_scanResln = res;
             this.m_paperSize = paperSize;
@@ -142,13 +153,14 @@ namespace VOP
             this.m_AutoCrop = AutoCrop;
             this.m_brightness = b;
             this.m_contrast = c;
+            this.m_onepage = onepage;
         }
 
         public object Clone()
         {
             return new ScanParam(this.m_scanResln, this.m_paperSize,
                                  this.m_color, this.m_ADFMode, this.m_MultiFeed, 
-                                 this.m_AutoCrop, this.m_brightness, this.m_contrast);
+                                 this.m_AutoCrop, this.m_brightness, this.m_contrast, this.m_onepage);
         }
 
     }
