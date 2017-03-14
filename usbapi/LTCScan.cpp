@@ -51,6 +51,7 @@ enum Scan_RET
 	RETSCAN_CREATE_JOB_FAIL = 14,
 	RETSCAN_ADF_NOT_READY = 15,
 	RETSCAN_HOME_NOT_READY = 16,
+	RETSCAN_ULTRA_SONIC = 17,
 };
 
 extern CRITICAL_SECTION g_csCriticalSection_UsbTest;
@@ -200,6 +201,27 @@ void BrightnessAndContrast(const wchar_t *filename, int Brightness, int Contrast
 		delete g;
 
 	ReplaceFile(filename, new_name, NULL, REPLACEFILE_IGNORE_MERGE_ERRORS, NULL, NULL);
+}
+
+int GammaTransLTCtoGL(unsigned int *pbyRed, unsigned int *pbyGreen, unsigned int *pbyBlue, unsigned int *GLGamma)
+{
+	int i;
+	for (i = 0; i<256; i++)
+	{
+		if (i<255) {
+			GLGamma[i] = ((unsigned int)(*(pbyRed + i * 256)) & 0xffff) + (unsigned int)(((*(pbyRed + ((i + 1) * 256))) & 0xffff) << 16);
+			GLGamma[i + 256] = ((unsigned int)(*(pbyGreen + i * 256)) & 0xffff) + (unsigned int)(((*(pbyGreen + ((i + 1) * 256))) & 0xffff) << 16);
+			GLGamma[i + 256 * 2] = ((unsigned int)(*(pbyBlue + i * 256)) & 0xffff) + (unsigned int)(((*(pbyBlue + ((i + 1) * 256))) & 0xffff) << 16);
+		}
+		else {
+			GLGamma[i] = (unsigned int)(*(pbyRed + i * 256)) & 0xffff | ((unsigned int)(0xffff) << 16);
+			GLGamma[i + 256] = (unsigned int)(*(pbyGreen + i * 256)) & 0xffff | ((unsigned int)(0xffff) << 16);
+			GLGamma[i + 256 * 2] = (unsigned int)(*(pbyBlue + i * 256)) & 0xffff | ((unsigned int)(0xffff) << 16);
+		}
+
+
+	}
+	return 1;
 }
 
 USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
@@ -439,6 +461,37 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 		MyOutputString(L"_JobCreate");
 
+
+		//gamma
+		int i, numread;
+		unsigned int gGammaData[768];
+		U32 up, down;
+		double gamma = -1;
+		unsigned int Red[65536];
+		unsigned int Green[65536];
+		unsigned int Blue[65536];
+		unsigned int *pbyRed = Red;
+		unsigned int *pbyGreen = Green;
+		unsigned int *pbyBlue = Blue;
+
+
+		//unsigned int *gGammaData;	
+		for (i = 0; i<65536; i++) {
+			Red[i] = (unsigned int)(65536 - i);
+			Green[i] = (unsigned int)(65536 - i);
+			Blue[i] = (unsigned int)(65536 - i);
+		}
+
+		GammaTransLTCtoGL(pbyRed, pbyGreen, pbyBlue, gGammaData);
+
+		result = glDrv._gamma(gGammaData);
+		if (!result)
+		{
+			if (imgBuffer)
+				delete imgBuffer;
+			glDrv._CloseDevice();
+			return RETSCAN_ERRORPARAMETER;
+		}
 
 		result = glDrv._parameters();
 		MyOutputString(L"_parameters");
@@ -691,6 +744,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		int lineCount = 0;
 		BOOL isCoverOpen = FALSE;
 		BOOL isPaperJam = FALSE;
+		BOOL isUltraSonic = FALSE;
+
 		while (!start_cancel)
 		{
 
@@ -719,6 +774,11 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				}
 			}
 			
+			if (glDrv.sc_infodata.UltraSonic)
+			{
+				isUltraSonic = TRUE;
+				break;
+			}
 
 			if ((!(duplex & 1) || glDrv.sc_infodata.EndScan[0]) && (!(duplex & 2) || glDrv.sc_infodata.EndScan[1]))
 				break;
@@ -843,7 +903,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		glDrv._CloseDevice();
 
 		//contrast, brightness
-		if (!start_cancel && !glDrv.sc_infodata.CoverOpen && !glDrv.sc_infodata.PaperJam)
+		if (!start_cancel && !glDrv.sc_infodata.CoverOpen && !glDrv.sc_infodata.PaperJam && !glDrv.sc_infodata.UltraSonic)
 		{
 			if (brightness != 50 || contrast != 50)
 			{
@@ -886,6 +946,13 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			if (imgBuffer)
 				delete imgBuffer;
 			return RETSCAN_PAPER_JAM;
+		}
+
+		if (isUltraSonic)
+		{
+			if (imgBuffer)
+				delete imgBuffer;
+			return RETSCAN_ULTRA_SONIC;
 		}
 
 	}

@@ -362,6 +362,7 @@ namespace VOP
         RETSCAN_CREATE_JOB_FAIL = 14,
         RETSCAN_ADF_NOT_READY   = 15,
         RETSCAN_HOME_NOT_READY  = 16,
+        RETSCAN_ULTRA_SONIC     = 17,
     }
      
 }

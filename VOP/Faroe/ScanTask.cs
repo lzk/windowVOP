@@ -144,6 +144,13 @@ namespace VOP
                                "Home is not ready",
                                "Error");
                 }
+                else if (ScanResult == Scan_RET.RETSCAN_ULTRA_SONIC)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                               Application.Current.MainWindow,
+                               "Multi-feed error",
+                               "Error");
+                }
                 else if (ScanResult == Scan_RET.RETSCAN_CANCEL)
                 {
                     

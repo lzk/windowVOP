@@ -75,7 +75,7 @@ namespace VOP
                 true,
                 50,
                 50,
-                true);
+                false);
 
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", param);
 
