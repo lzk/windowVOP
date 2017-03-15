@@ -311,7 +311,7 @@ namespace VOP.Controls
             try
             {
                 LuminanceSource source = new BitmapLuminanceSource(bitmap);
-                BinaryBitmap bbitmap = new BinaryBitmap(new GlobalHistogramBinarizer(source));
+                BinaryBitmap bbitmap = new BinaryBitmap(new HybridBinarizer(source));
 
                 QRCodeResult[] results = null;
      

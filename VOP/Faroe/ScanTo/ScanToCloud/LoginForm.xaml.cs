@@ -96,5 +96,23 @@ namespace VOP
         {
             DragMove();
         }
+
+        void Browser_OnLoadCompleted(object sender, NavigationEventArgs e)
+        {
+            var browser = sender as WebBrowser;
+
+            if (browser == null || browser.Document == null)
+                return;
+
+            dynamic document = browser.Document;
+
+            if (document.readyState != "complete")
+                return;
+
+            dynamic script = document.createElement("script");
+            script.type = @"text/javascript";
+            script.text = @"window.onerror = function(msg,url,line){return true;}";
+            document.head.appendChild(script);
+        }
     }
 }
