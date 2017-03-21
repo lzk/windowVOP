@@ -67,7 +67,7 @@ namespace VOP
 
             ScanTask task = new ScanTask();
             ScanParam param = new ScanParam(
-                EnumScanResln._200x200,
+                EnumScanResln._300x300,
                 EnumPaperSizeScan._A4,
                 EnumColorType.color_24bit,
                 false,
@@ -136,18 +136,17 @@ namespace VOP
             if (task.ScanResult == Scan_RET.RETSCAN_OK)
             {
                 //List<ScanFiles> files = new List<ScanFiles>();
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0011507242_C600_A02.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0009882444_G600_A00.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0009841993_C600_A00.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0000636359_C600_A00.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592601031_C300_A00.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00_180.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592601031_C300_A00.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00_180.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00.JPG"));
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1 error.JPG"));
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
+                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
+                ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
+                ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592601031_C300_A00.JPG"));
+                ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00_180.JPG"));
+                ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00.JPG"));
+                ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
+                ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592601031_C300_A00.JPG"));
+                ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00_180.JPG"));
+                ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00.JPG"));
 
                 m_MainWin.GotoPage("ScanPage", files);
             }

@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Reflection;
 
 namespace VOP
 {
@@ -58,6 +59,8 @@ namespace VOP
 
         private void BrowserNavigating(object sender, NavigatingCancelEventArgs e)
         {
+            //HideScriptErrors(this.Browser, true);
+
             if (!e.Uri.ToString().StartsWith(RedirectUri, StringComparison.OrdinalIgnoreCase))
             {
                 // we need to ignore all navigation that isn't to the redirect uri.
@@ -97,22 +100,23 @@ namespace VOP
             DragMove();
         }
 
-        void Browser_OnLoadCompleted(object sender, NavigationEventArgs e)
+        void Browser_Navigated(object sender, NavigationEventArgs e)
         {
-            var browser = sender as WebBrowser;
 
-            if (browser == null || browser.Document == null)
-                return;
+           // HideScriptErrors(this.Browser, true);
 
-            dynamic document = browser.Document;
-
-            if (document.readyState != "complete")
-                return;
-
-            dynamic script = document.createElement("script");
-            script.type = @"text/javascript";
-            script.text = @"window.onerror = function(msg,url,line){return true;}";
-            document.head.appendChild(script);
         }
+
+        public void HideScriptErrors(WebBrowser wb, bool Hide)
+        {
+
+            FieldInfo fiComWebBrowser = typeof(WebBrowser).GetField("_axIWebBrowser2", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (fiComWebBrowser == null) return;
+            object objComWebBrowser = fiComWebBrowser.GetValue(wb);
+            if (objComWebBrowser == null) return;
+            objComWebBrowser.GetType().InvokeMember(
+                                         "Silent", BindingFlags.SetProperty, null, objComWebBrowser, new object[] { Hide });
+        }
+
     }
 }

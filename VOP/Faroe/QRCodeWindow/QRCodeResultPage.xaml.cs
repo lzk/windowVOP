@@ -277,15 +277,30 @@ namespace VOP.Controls
                 float w = ResultPoint.distance(points[0], points[1]);
                 Rect rect = Rect.Empty;
 
-                if(points[0].X < points[1].X)
+                if (points[0].X != points[1].X)
                 {
-                    rect = new Rect(points[0].X, points[0].Y, w, w);
+                    if (points[0].X < points[1].X)
+                    {
+                        rect = new Rect(points[0].X, points[0].Y, w, w);
+                    }
+                    else
+                    {
+                        rect = new Rect(points[1].X, points[1].Y, w, w);
+                    }
                 }
                 else
                 {
-                    rect = new Rect(points[1].X, points[1].Y, w, w);
+                    if (points[0].Y < points[1].Y)
+                    {
+                        rect = new Rect(points[0].X, points[0].Y, w, w);
+                    }
+                    else
+                    {
+                        rect = new Rect(points[1].X, points[1].Y, w, w);
+                    }
                 }
-                 
+
+
                 if (!subRec.IsEmpty)
                 {
                     rect.X += (double)subRec.X;
@@ -299,11 +314,22 @@ namespace VOP.Controls
                 Line designerItem = BarcodeLine;
                 Canvas canvas = VisualTreeHelper.GetParent(designerItem) as Canvas;
 
-                designerItem.X1 = imageToLeft + rect.X;
-                designerItem.Y1 = imageToTop + rect.Y;
+                if (points[0].X != points[1].X)
+                {
+                    designerItem.X1 = imageToLeft + rect.X;
+                    designerItem.Y1 = imageToTop + rect.Y;
 
-                designerItem.X2 = imageToLeft + rect.X + rect.Width;
-                designerItem.Y2 = imageToTop + rect.Y;
+                    designerItem.X2 = imageToLeft + rect.X + rect.Width;
+                    designerItem.Y2 = imageToTop + rect.Y;
+                }
+                else
+                {
+                    designerItem.X1 = imageToLeft + rect.X;
+                    designerItem.Y1 = imageToTop + rect.Y;
+
+                    designerItem.X2 = imageToLeft + rect.X;
+                    designerItem.Y2 = imageToTop + rect.Y + rect.Width;
+                }
 
                 BarcodeLine.Visibility = Visibility.Visible;
             }

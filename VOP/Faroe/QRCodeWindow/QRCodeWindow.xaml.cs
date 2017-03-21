@@ -27,6 +27,8 @@ using System.ComponentModel;
 using System.Threading;
 using System.Diagnostics;
 
+//using OnBarcode.Barcode.BarcodeScanner;
+
 namespace VOP.Controls
 {
     enum CropLocation
@@ -153,7 +155,8 @@ namespace VOP.Controls
         private QRCodeMultiReader qr_reader;
         private GenericMultipleBarcodeReader oneD_reader;
         private GenericMultipleBarcodeReader byquad_reader;
-        private Dictionary<DecodeHintType, object> hints;
+        private Dictionary<DecodeHintType, object> hints_qr;
+        private Dictionary<DecodeHintType, object> hints_bar;
         private List<CropLocation> cropLocationList;
 
         List<string> imagePath = null;
@@ -245,12 +248,15 @@ namespace VOP.Controls
             IsQRCode = true;
             imagePath = path;
 
-            hints = new Dictionary<DecodeHintType, object>();
-            hints.Add(DecodeHintType.TRY_HARDER, true);
+            hints_qr = new Dictionary<DecodeHintType, object>();
+            hints_qr.Add(DecodeHintType.TRY_HARDER, true);
+
+            hints_bar = new Dictionary<DecodeHintType, object>();
+            hints_bar.Add(DecodeHintType.TRY_HARDER, true);
 
             byquad_reader = new GenericMultipleBarcodeReader(new ByQuadrantReader(new QRCodeReader()));
             qr_reader = new QRCodeMultiReader();
-            oneD_reader = new GenericMultipleBarcodeReader(new MultiFormatOneDReader(hints));
+            oneD_reader = new GenericMultipleBarcodeReader(new MultiFormatOneDReader(hints_bar));
 
         }
 
@@ -310,6 +316,8 @@ namespace VOP.Controls
         {
             try
             {
+                //BarcodeDetail[] str = BarcodeScanner.ScanInDetails(bitmap, BarcodeType.All);
+
                 LuminanceSource source = new BitmapLuminanceSource(bitmap);
                 BinaryBitmap bbitmap = new BinaryBitmap(new HybridBinarizer(source));
 
@@ -343,11 +351,11 @@ namespace VOP.Controls
 
             if (IsQRCode)
             {
-                anyResults = qr_reader.decodeMultiple(bbitmap, hints);
+                anyResults = qr_reader.decodeMultiple(bbitmap, hints_qr);
             }
             else
             {
-                anyResults = oneD_reader.decodeMultiple(bbitmap, hints);
+                anyResults = oneD_reader.decodeMultiple(bbitmap, hints_bar);
             }
 
             if (anyResults != null)
@@ -420,7 +428,7 @@ namespace VOP.Controls
                 int h = src.PixelHeight;
 
                 double offset = 0d;
-                for (offset = 0d; offset < 150; offset+=10)
+                for (offset = 0d; offset < 20; offset+=2)
                 {
                     foreach (CropLocation loc in cropLocationList)
                     {
@@ -469,15 +477,15 @@ namespace VOP.Controls
 
                             BitmapSource rectImage = Crop(src, intRect);
 
-                          //  string filename = string.Format("pic_{0}_scale{1}_offset{2}.jpg", loc.ToString(), tempid.ToString(), offset.ToString());
-                          //  SaveImageToTemp(rectImage, @"E:\BarCode\pic\temp\" + filename);
+                           // string filename = string.Format("pic_{0}_scale{1}_offset{2}.jpg", loc.ToString(), i.ToString(), offset.ToString());
+                           // SaveImageToTemp(rectImage, @"G:\work\Rufous\pic\temp\" + filename);
                             if (rectImage != null)
                             {
 
                                 try
                                 {
                                     LuminanceSource source = new BitmapLuminanceSource(BitmapFromSource(rectImage));
-                                    GlobalHistogramBinarizer bin = new GlobalHistogramBinarizer(source);
+                                    HybridBinarizer bin = new HybridBinarizer(source);
                                     BinaryBitmap bbitmap = new BinaryBitmap(bin);
 
                                     QRCodeResult[] anyResults = null;
@@ -495,8 +503,6 @@ namespace VOP.Controls
                                             IEnumerable<QRCodeResult> union = result.Union(anyResults, new QRCodeResultComparer());
                                             result = union.ToArray();
                                         }
-
-                                        break;
                                     }
  
                                 }
@@ -519,11 +525,11 @@ namespace VOP.Controls
         {
             cropLocationList = new List<CropLocation>();
             cropLocationList.Add(CropLocation.TOP_LEFT);
-           // cropLocationList.Add(CropLocation.TOP_MIDDLE);
+         //   cropLocationList.Add(CropLocation.TOP_MIDDLE);
             cropLocationList.Add(CropLocation.TOP_RIGHT);
-          //  cropLocationList.Add(CropLocation.MIDDLE_LEFT);
-          //  cropLocationList.Add(CropLocation.MIDDLE_MIDDLE);
-          //  cropLocationList.Add(CropLocation.MIDDLE_RIGHT);
+         //   cropLocationList.Add(CropLocation.MIDDLE_LEFT);
+            cropLocationList.Add(CropLocation.MIDDLE_MIDDLE);
+         //   cropLocationList.Add(CropLocation.MIDDLE_RIGHT);
             cropLocationList.Add(CropLocation.BOTTOM_LEFT);
           //  cropLocationList.Add(CropLocation.BOTTOM_MIDDLE);
             cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
@@ -537,12 +543,12 @@ namespace VOP.Controls
                 int h = src.PixelHeight;
 
                 double offset = 0d;
-                for (offset = 0d; offset < 100; offset += 10)
+                for (offset = 0d; offset < 25; offset += 2)
                 {
                     foreach (CropLocation loc in cropLocationList)
                     {
                         int tempid = 1;
-                        for (double i = 0.9d; i > 0.4d; i -= 0.1d)
+                        for (double i = 0.9d; i > 0.3d; i -= 0.1d)
                         {
                             Rect rect = new Rect(0d, 0d, (double)w, (double)h);
 
@@ -586,15 +592,15 @@ namespace VOP.Controls
 
                             BitmapSource rectImage = Crop(src, intRect);
 
-                            //  string filename = string.Format("pic_{0}_scale{1}_offset{2}.jpg", loc.ToString(), tempid.ToString(), offset.ToString());
-                            //  SaveImageToTemp(rectImage, @"E:\BarCode\pic\temp\" + filename);
+                           // string filename = string.Format("pic_{0}_scale{1}_offset{2}.jpg", loc.ToString(), tempid.ToString(), offset.ToString());
+                           // SaveImageToTemp(rectImage, @"G:\work\Rufous\pic\temp\" + filename);
                             if (rectImage != null)
                             {
 
                                 try
                                 {
                                     LuminanceSource source = new BitmapLuminanceSource(BitmapFromSource(rectImage));
-                                    GlobalHistogramBinarizer bin = new GlobalHistogramBinarizer(source);
+                                    HybridBinarizer bin = new HybridBinarizer(source);
                                     BinaryBitmap bbitmap = new BinaryBitmap(bin);
 
                                     QRCodeResult[] anyResults = null;
@@ -673,7 +679,7 @@ namespace VOP.Controls
                 //System.Drawing.Imaging.BitmapData data = bmp.LockBits(new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height),
                 //    System.Drawing.Imaging.ImageLockMode.ReadOnly, bmp.PixelFormat);
 
-                //BitmapSource returnSrc = BitmapSource.Create(bmp.Width, bmp.Height, 96, 96, PixelFormats.Bgr24, null,
+                //BitmapSource returnSrc = BitmapSource.Create(bmp.Width, bmp.Height, dpiX, dpiY, PixelFormats.Bgr24, null,
                 //    data.Scan0, data.Stride * bmp.Height, data.Stride);
 
                 //bmp.UnlockBits(data);

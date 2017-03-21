@@ -356,7 +356,7 @@ namespace VOP
         private async Task Upload(DropboxClient client, string folder, string fileName, string fileContent)
         {
 
-            using (var stream = new MemoryStream(System.Text.UTF8Encoding.UTF8.GetBytes(fileContent)))
+            using (var stream = new FileStream(fileContent, FileMode.Open, FileAccess.Read))
             {
                 var response = await client.Files.UploadAsync(folder + "/" + fileName, WriteMode.Overwrite.Instance, body: stream);
             }
