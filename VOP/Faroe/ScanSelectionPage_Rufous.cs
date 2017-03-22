@@ -77,6 +77,35 @@ namespace VOP
                 50,
                 false);
 
+
+#if (DEBUG)
+            OpenFileDialog open = null;
+            bool? result = null;
+            open = new OpenFileDialog();
+            open.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
+            open.Multiselect = true;
+
+            result = open.ShowDialog();
+            if (result == true)
+            {
+                QRCodeWindow win = new QRCodeWindow(new List<string>(open.FileNames));
+
+                if (btn.Name == "ImageButton1")
+                {
+                    win.IsQRCode = true;
+                }
+                else
+                {
+                    win.IsQRCode = false;
+                }
+
+                win.Owner = m_MainWin;
+                win.ShowDialog();
+
+            }
+
+#elif (!DEBUG)
+
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", param);
 
             if (files == null)
@@ -92,34 +121,22 @@ namespace VOP
 
                 QRCodeWindow win = new QRCodeWindow(list);
 
-                //OpenFileDialog open = null;
-                //bool? result = null;
-                //open = new OpenFileDialog();
-                //open.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
-                //open.Multiselect = true;
-
-                //result = open.ShowDialog();
-                //if (result == true)
+             
+                if (btn.Name == "ImageButton1")
                 {
-                    //QRCodeWindow win = new QRCodeWindow(new List<string>(open.FileNames));
-
-                        if (btn.Name == "ImageButton1")
-                        {
-                            win.IsQRCode = true;
-                        }
-                        else
-                        {
-                            win.IsQRCode = false;
-                        }
-
-                        win.Owner = m_MainWin;
-                        win.ShowDialog();
-        
+                    win.IsQRCode = true;
                 }
-            
+                else
+                {
+                    win.IsQRCode = false;
+                }
+
+                win.Owner = m_MainWin;
+                win.ShowDialog();
                
             }
-           
+#endif
+
         }
 
         private void ScanToButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
