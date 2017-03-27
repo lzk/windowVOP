@@ -116,7 +116,7 @@ namespace VOP
             {
                 byte* p = (byte*)(void*)bmData.Scan0.ToPointer();
                 int stopAddress = (int)p + bmData.Stride * bmData.Height;
-                while ((int)p != stopAddress)
+                while ((int)p < stopAddress)
                 {
                     p[0] = (byte)(.299 * p[2] + .587 * p[1] + .114 * p[0]);
                     p[1] = p[0];
