@@ -463,35 +463,35 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 
 		//gamma
-		//int i, numread;
-		//unsigned int gGammaData[768];
-		//U32 up, down;
-		//double gamma = -1;
-		//unsigned int Red[65536];
-		//unsigned int Green[65536];
-		//unsigned int Blue[65536];
-		//unsigned int *pbyRed = Red;
-		//unsigned int *pbyGreen = Green;
-		//unsigned int *pbyBlue = Blue;
+		int i, numread;
+		unsigned int gGammaData[768];
+		U32 up, down;
+		double gamma = -1;
+		unsigned int Red[65536];
+		unsigned int Green[65536];
+		unsigned int Blue[65536];
+		unsigned int *pbyRed = Red;
+		unsigned int *pbyGreen = Green;
+		unsigned int *pbyBlue = Blue;
 
 
-		////unsigned int *gGammaData;	
-		//for (i = 0; i<65536; i++) {
-		//	Red[i] = (unsigned int)(65536 - i);
-		//	Green[i] = (unsigned int)(65536 - i);
-		//	Blue[i] = (unsigned int)(65536 - i);
-		//}
+		//unsigned int *gGammaData;	
+		for (i = 0; i<65536; i++) {
+			Red[i] = (unsigned int)(65536 - i);
+			Green[i] = (unsigned int)(65536 - i);
+			Blue[i] = (unsigned int)(65536 - i);
+		}
 
-		//GammaTransLTCtoGL(pbyRed, pbyGreen, pbyBlue, gGammaData);
+		GammaTransLTCtoGL(pbyRed, pbyGreen, pbyBlue, gGammaData);
 
-		//result = glDrv._gamma(gGammaData);
-		//if (!result)
-		//{
-		//	if (imgBuffer)
-		//		delete imgBuffer;
-		//	glDrv._CloseDevice();
-		//	return RETSCAN_ERRORPARAMETER;
-		//}
+		result = glDrv._gamma(gGammaData);
+		if (!result)
+		{
+			if (imgBuffer)
+				delete imgBuffer;
+			glDrv._CloseDevice();
+			return RETSCAN_ERRORPARAMETER;
+		}
 
 		result = glDrv._parameters();
 		MyOutputString(L"_parameters");
