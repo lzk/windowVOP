@@ -192,7 +192,10 @@ typedef struct SC_PAR_DATA_STRUCT {
 #define ACQ_NO_MIRROR		(0x02)
 #define ACQ_NO_SHADING		(0x04)
 #define ACQ_BACK_SCAN		(0x08)
-#define ACQ_Ultra_Sonic		(0x01 << 5)
+#define ACQ_NO_GAMMA		(0x10)
+#define ACQ_ULTRA_SONIC     (0x20)
+#define ACQ_CR_ENABLE		(0x40)
+
 #define ACQ_CROP_DESKEW		(0x01 << 8)
 #define ACQ_PAGE_FILL		(0x02 << 8)
 #define ACQ_LEFT_ALIGN		(0x04 << 8)
@@ -208,9 +211,10 @@ typedef struct SC_PAR_DATA_STRUCT {
 #define ACQ_PSEUDO_SENSOR	(0x10<< 16)
 #define ACQ_CALIBRATION		(0x20 << 16)  //Park test for calibration
 #define ACQ_SET_MTR			(0x40 << 16)  //Park test for set motor par from console
-#define ACQ_LIFE_TEST		(0x80 << 16)  //Park life test
+#define ACQ_SET_ME			(0x80 << 16)  //Park test for set ME par from console
 
-#define ACQ_PICK_SS			(0x01 << 24)  //Park pick ss test
+#define ACQ_LIFE_TEST		(0x01 << 24)  //Park life test
+#define ACQ_PICK_SS			(0x02 << 24)  //Park pick ss test
 
 typedef struct SC_PAR_STA_STRUCT {
 	U32	code;

@@ -287,7 +287,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	ImgFile[0].img.dpi.y = ImgFile[1].img.dpi.y = resolution;
 
 
-	glDrv.sc_pardata.acquire = ((MultiFeed ? 1 : 0) * ACQ_Ultra_Sonic) | ((AutoCrop ? 1 : 0) * ACQ_CROP_DESKEW);
+	glDrv.sc_pardata.acquire = ((MultiFeed ? 1 : 0) * ACQ_ULTRA_SONIC) | ((AutoCrop ? 1 : 0) * ACQ_CROP_DESKEW) |  0 * ACQ_NO_GAMMA;
 
 	//glDrv.sc_job_create.mode = I1('D');
 	glDrv.sc_job_create.mode = 0;
@@ -466,7 +466,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		int i, numread;
 		unsigned int gGammaData[768];
 		U32 up, down;
-		double gamma = -1;
+		double gamma = 1.3;
 		unsigned int Red[65536];
 		unsigned int Green[65536];
 		unsigned int Blue[65536];
@@ -477,9 +477,27 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 		//unsigned int *gGammaData;	
 		for (i = 0; i<65536; i++) {
-			Red[i] = (unsigned int)(65536 - i);
+			/*Red[i] = (unsigned int)(65536 - i);
 			Green[i] = (unsigned int)(65536 - i);
-			Blue[i] = (unsigned int)(65536 - i);
+			Blue[i] = (unsigned int)(65536 - i);*/
+
+			unsigned int Temp = (long)ceil(65535 * pow((double)(i) / 65535, 1.0 / gamma));
+
+			if (Temp>65535)
+			{
+				Temp = 65535;
+			}
+			else
+			{
+				if (Temp<0)
+				{
+					Temp = 0;
+				}
+			}
+
+			Red[65535 - i] = Temp;
+			Green[65535 - i] = Temp;
+			Blue[65535 - i] = Temp;
 		}
 
 		GammaTransLTCtoGL(pbyRed, pbyGreen, pbyBlue, gGammaData);
