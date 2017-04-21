@@ -71,7 +71,7 @@ namespace VOP
                 EnumPaperSizeScan._A4,
                 EnumColorType.color_24bit,
                 false,
-                true,
+                MainWindow_Rufous.g_settingData.m_commonScanSettings.MultiFeed,
                 true,
                 50,
                 50,
