@@ -73,8 +73,8 @@ namespace VOP
                 false,
                 MainWindow_Rufous.g_settingData.m_commonScanSettings.MultiFeed,
                 true,
-                50,
-                50,
+                MainWindow_Rufous.g_settingData.m_commonScanSettings.Brightness,
+                MainWindow_Rufous.g_settingData.m_commonScanSettings.Contrast,
                 false);
 
 
