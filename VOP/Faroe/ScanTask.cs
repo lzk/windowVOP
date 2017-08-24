@@ -26,6 +26,11 @@ namespace VOP
 
         public List<ScanFiles> DoScan(string deviceName, ScanParam param)
         {
+            //debug test
+            //ScanWaitWindow_Rufous scanPbw = new ScanWaitWindow_Rufous();
+            //scanPbw.Owner = Application.Current.MainWindow;
+            //scanPbw.ShowDialog();
+
             if (param == null)
                 return null;
 

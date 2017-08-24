@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:VOP.Controls"
         xmlns:localvop="clr-namespace:VOP"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="" 
         Height="560" Width="850"
         AllowsTransparency="true"
@@ -211,9 +212,19 @@
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
 
-            <TextBlock FontSize="24" FontWeight="Bold" Foreground="#FF525252" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Text="Scanning ..."></TextBlock>
-            <ProgressBar Grid.Row="2"  Grid.Column="1" x:Name="progressBar1" Style="{StaticResource RoundedProgressBar}" Width="500" HorizontalAlignment="Center" Height="50" Value="0" Margin="0,0,4,0"/>
-
+            <!--<TextBlock FontSize="24" FontWeight="Bold" Foreground="#FF525252" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Text="Scanning ..."></TextBlock>-->
+            <!--<ProgressBar Grid.Row="2"  Grid.Column="1" x:Name="progressBar1" Style="{StaticResource RoundedProgressBar}" Width="500" HorizontalAlignment="Center" Height="50" Value="0" Margin="0,0,4,0"/>-->
+            <xctk:BusyIndicator
+                Grid.Row="2"  
+                Grid.Column="1"
+                IsBusy="True"
+                BusyContent="         Scanning...         "           
+                HorizontalAlignment="Center" 
+                FontSize="20"
+                Height="70"
+                >
+              
+            </xctk:BusyIndicator>
             <Button Grid.Row="3" Grid.Column="1" HorizontalContentAlignment="Center" VerticalAlignment="Top"  Width="50" Height="50" IsDefault="false"  Style="{DynamicResource ButtonStyle1}" IsEnabled="True" Click="Cancel_Click"/>
 
        

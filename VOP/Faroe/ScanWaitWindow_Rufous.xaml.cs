@@ -61,7 +61,7 @@ namespace VOP
             {
                 handled = true;
 
-                progressBar1.Value = wParam.ToInt32();
+                //progressBar1.Value = wParam.ToInt32();
             }
         
             return IntPtr.Zero;
