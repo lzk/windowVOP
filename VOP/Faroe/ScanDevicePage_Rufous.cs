@@ -54,6 +54,7 @@ namespace VOP
 
         private void FillDeviceList(bool forceRefresh)
         {
+            bool canConnected = false;
             DeviceList.Items.Clear();
             m_MainWin.SetDeviceButtonState(false);
 
@@ -68,6 +69,7 @@ namespace VOP
                     item.StatusText = "Connected";
                     dll.SetConnectionMode(item.DeviceName, true);
                     m_MainWin.SetDeviceButtonState(true);
+                    canConnected = true;
                 }
                 else
                 {
@@ -104,6 +106,7 @@ namespace VOP
                         item.StatusText = "Connected";
                         dll.SetConnectionMode(ip, false);
                         m_MainWin.SetDeviceButtonState(true);
+                        canConnected = true;
                     }
                     else
                     {
@@ -113,6 +116,36 @@ namespace VOP
 
                     DeviceList.Items.Add(item);
                 }
+            }
+
+            if (canConnected == false)
+            {
+                foreach(DeviceListBoxItem item in DeviceList.Items)
+                {
+                    if (dll.CheckUsbScan(usbName) == 1)
+                    {
+                        if (item.DeviceName == usbName.ToString())
+                        {
+                            item.StatusText = "Connected";
+                            dll.SetConnectionMode(item.DeviceName, true);
+                            m_MainWin.SetDeviceButtonState(true);
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (ScanDevicePage_Rufous.ipList != null)
+                        {
+                            if (item.DeviceName == ScanDevicePage_Rufous.ipList[0])
+                            {
+                                item.StatusText = "Connected";
+                                dll.SetConnectionMode(item.DeviceName, false);
+                                m_MainWin.SetDeviceButtonState(true);
+                                break;
+                            }                            
+                        }
+                    }
+                }               
             }
         }
 

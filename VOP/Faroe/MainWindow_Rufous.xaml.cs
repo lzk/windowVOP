@@ -145,6 +145,7 @@ namespace VOP
 
         public void InitIPList()
         {
+            bool canConnected = false;
             ScanDevicePage_Rufous.ListIP();
 
             StringBuilder usbName = new StringBuilder(50);
@@ -155,11 +156,12 @@ namespace VOP
                     dll.SetConnectionMode(usbName.ToString(), true);
                     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                     // SetDeviceButtonState(true);
+                    canConnected = true;
                 }
             }
 
             if (ScanDevicePage_Rufous.ipList != null)
-            {
+            {                       
                 foreach (string ip in ScanDevicePage_Rufous.ipList)
                 {
                     if (MainWindow_Rufous.g_settingData.m_DeviceName == ip)
@@ -167,6 +169,28 @@ namespace VOP
                         dll.SetConnectionMode(ip, false);
                         //SetDeviceButtonState(true);
                         Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                        canConnected = true;
+                    }
+                }                
+            }
+
+            if (canConnected == false)
+            {
+                if (dll.CheckUsbScan(usbName) == 1)
+                {                 
+                    dll.SetConnectionMode(usbName.ToString(), true);
+                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                }
+                else
+                {
+                    if (ScanDevicePage_Rufous.ipList != null)
+                    {
+                        foreach (string ip in ScanDevicePage_Rufous.ipList)
+                        {
+                            dll.SetConnectionMode(ip, false);
+                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                            break;
+                        }
                     }
                 }
             }
