@@ -62,19 +62,26 @@ namespace VOP
                         {
                             string processFilename = @"C:\Windows\System32\mspaint.exe";
 
-                            ProcessStartInfo info = new ProcessStartInfo();
+                            foreach(string f in FileList)
+                            {
+                                ProcessStartInfo info = new ProcessStartInfo();
 
-                            info.FileName = processFilename;
-                            info.Arguments = String.Format("\"{0}\"", FileList[0]);
-                            info.CreateNoWindow = false;
-                            info.WindowStyle = ProcessWindowStyle.Normal;
-                            info.UseShellExecute = false;
+                                info.FileName = processFilename;
+                                info.Arguments = String.Format("\"{0}\"", f);
+                                info.CreateNoWindow = false;
+                                info.WindowStyle = ProcessWindowStyle.Normal;
+                                info.UseShellExecute = false;
 
-                            Process p = Process.Start(info);
+                                Process p = Process.Start(info);
+                            }
+                           
                         }
                         else
                         {
-                            Process.Start(FileList[0]);
+                            foreach (string f in FileList)
+                            {
+                                Process.Start(f);
+                            }                             
                         }
                     }
                     catch (Exception ex)
@@ -97,19 +104,26 @@ namespace VOP
                     {
                         string processFilename = @"C:\Windows\System32\mspaint.exe";
 
-                        ProcessStartInfo info = new ProcessStartInfo();
+                        foreach (string f in FileList)
+                        {
+                            ProcessStartInfo info = new ProcessStartInfo();
 
-                        info.FileName = processFilename;
-                        info.Arguments = String.Format("\"{0}\"", FileList[0]);
-                        info.CreateNoWindow = false;
-                        info.WindowStyle = ProcessWindowStyle.Normal;
-                        info.UseShellExecute = false;
+                            info.FileName = processFilename;
+                            info.Arguments = String.Format("\"{0}\"", f);
+                            info.CreateNoWindow = false;
+                            info.WindowStyle = ProcessWindowStyle.Normal;
+                            info.UseShellExecute = false;
 
-                        Process p = Process.Start(info);
+                            Process p = Process.Start(info);
+                        }
+                      
                     }
                     else
                     {
-                        Process.Start(FileList[0]);
+                        foreach (string f in FileList)
+                        {
+                            Process.Start(f);
+                        }                      
                     }
                 }
                 catch (Exception ex)

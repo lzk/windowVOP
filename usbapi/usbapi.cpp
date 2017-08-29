@@ -1804,7 +1804,7 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
     {
 		int nCount = 0;
 		bool bWriteSuccess = false;
-		while (nCount++ < 1 && !bWriteSuccess)
+		while (nCount++ < 2 && !bWriteSuccess)
 		{
 			char szAsciiIP[1024] = { 0 };
 			::WideCharToMultiByte(CP_ACP, 0, szIP, -1, szAsciiIP, 1024, NULL, NULL);
