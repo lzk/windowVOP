@@ -23,7 +23,7 @@ namespace VOP.Controls
     /// </summary>
     public partial class QRCodeResultPage : UserControl
     {
-        public static double rectMargin = 5;
+        public static double rectMargin = 10;
         public double imageMargin = 7;
         public double designerItemWHRatio = 1;
         bool IsFitted = false;
