@@ -383,7 +383,6 @@ namespace VOP.Controls
             {
                 cropLocationList.Add(CropLocation.TOP_LEFT);
                 cropLocationList.Add(CropLocation.TOP_RIGHT);
-                cropLocationList.Add(CropLocation.TOP_RIGHT);
                 cropLocationList.Add(CropLocation.BOTTOM_LEFT);
                 cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
             }
