@@ -72,7 +72,7 @@ namespace VOP
                 EnumColorType.color_24bit,
                 false,
                 MainWindow_Rufous.g_settingData.m_commonScanSettings.MultiFeed,
-                true,
+                MainWindow_Rufous.g_settingData.m_commonScanSettings.AutoCrop,
                 MainWindow_Rufous.g_settingData.m_commonScanSettings.Brightness,
                 MainWindow_Rufous.g_settingData.m_commonScanSettings.Contrast,
                 false);
