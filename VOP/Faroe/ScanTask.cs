@@ -97,7 +97,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
-                               "Scan connection failed",
+                              (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                                );
                 }
@@ -105,7 +105,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
-                               "Scan connection failed",
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                                );
                 }
@@ -113,7 +113,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
-                               "Network scanner is busy",
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_net_scanner_busy"),
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                                );
                 }
@@ -121,7 +121,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
-                               "Paper jam",
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_paper_jam"),
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                                );
                 }
@@ -129,7 +129,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
-                               "Cover is opened",
+                              (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_cover_open"),
                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                                );
                 }
@@ -137,7 +137,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
-                               "Paper is not ready",
+                              (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_paper_not_ready"),
                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                                );
                 }
@@ -145,7 +145,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
-                               "ADF is not ready",
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_adf_not_ready"),
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                                );
                 }
@@ -153,7 +153,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
-                               "Home is not ready",
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_home_not_ready"),
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                                );
                 }
@@ -161,7 +161,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
-                               "Multi-feed error",
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_multifeed_error"),
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                                );
                 }
@@ -173,7 +173,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow,
-                                "Scan failed",
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_fail"),
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                                 );
                 }
