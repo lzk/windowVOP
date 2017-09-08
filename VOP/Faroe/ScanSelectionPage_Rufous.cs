@@ -49,7 +49,7 @@ namespace VOP
                 case "Scan To Email":
                     qs.ScanToEmail();
                     break;
-                case "Scan To Ftp":
+                case "Scan To FTP":
                     qs.ScanToFtp();
                     break;
                 case "Scan To Cloud":

@@ -23,7 +23,7 @@ namespace VOP
             "Scan To File",
             "Scan To Application",
             "Scan To Email",
-            "Scan To Ftp",
+            "Scan To FTP",
             "Scan To Cloud",
         };
 
