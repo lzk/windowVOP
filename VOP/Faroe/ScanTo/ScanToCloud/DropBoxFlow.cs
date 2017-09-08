@@ -85,7 +85,7 @@ namespace VOP
                 if (FlowType == CloudFlowType.Quick)
                 {
                     AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-                    return worker.InvokeQuickScanMethod(RunUpload, "Uploading picture to DropBox, please wait...");
+                    return worker.InvokeQuickScanMethod(RunUpload, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_dropbox_wait"));
                 }
                 else
                 {

@@ -131,7 +131,7 @@
 
              <local:ImageButton2 
                             ImagePath="../Images/ScanToProgram.png" 
-                            BottomText="To AP" 
+                            BottomText="To Application" 
                             Height="80" Width="70"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"

@@ -47,7 +47,7 @@ namespace VOP
             int tabbtn_width = 175;
             int tabbtn_height = 35;
 
-            btnScanParameter.btn.Content = "Common";
+            btnScanParameter.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Common");
             btnScanParameter.Margin = new Thickness(0, 1, 0, 9);
             btnScanParameter.Width = tabbtn_width;
             btnScanParameter.Height = tabbtn_height;
@@ -56,16 +56,7 @@ namespace VOP
             btnScanParameter.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnScanParameter);
 
-            btnScanToFile.btn.Content = "Scan To File";
-            btnScanToFile.Margin = new Thickness(0, 1, 0, 9);
-            btnScanToFile.Width = tabbtn_width;
-            btnScanToFile.Height = tabbtn_height;
-            btnScanToFile.HorizontalAlignment = HorizontalAlignment.Left;
-            btnScanToFile.btn.Name = "btnScanToFile";
-            btnScanToFile.btn.Click += SettingBtnClick;
-            m_listSettingButton.Add(btnScanToFile);
-
-            btnScanToPrint.btn.Content = "Scan To Print";
+            btnScanToPrint.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Scan_Print");
             btnScanToPrint.Margin = new Thickness(0, 1, 0, 9);
             btnScanToPrint.Width = tabbtn_width;
             btnScanToPrint.Height = tabbtn_height;
@@ -74,25 +65,16 @@ namespace VOP
             btnScanToPrint.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnScanToPrint);
 
-            btnScanToEmail.btn.Content = "Scan To Email";
-            btnScanToEmail.Margin = new Thickness(0, 1, 0, 9);
-            btnScanToEmail.Width = tabbtn_width;
-            btnScanToEmail.Height = tabbtn_height;
-            btnScanToEmail.HorizontalAlignment = HorizontalAlignment.Left;
-            btnScanToEmail.btn.Name = "btnScanToEmail";
-            btnScanToEmail.btn.Click += SettingBtnClick;
-            m_listSettingButton.Add(btnScanToEmail);
+            btnScanToFile.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Scan_File");
+            btnScanToFile.Margin = new Thickness(0, 1, 0, 9);
+            btnScanToFile.Width = tabbtn_width;
+            btnScanToFile.Height = tabbtn_height;
+            btnScanToFile.HorizontalAlignment = HorizontalAlignment.Left;
+            btnScanToFile.btn.Name = "btnScanToFile";
+            btnScanToFile.btn.Click += SettingBtnClick;
+            m_listSettingButton.Add(btnScanToFile);
 
-            btnScanToFtp.btn.Content = "Scan To FTP";
-            btnScanToFtp.Margin = new Thickness(0, 1, 0, 9);
-            btnScanToFtp.Width = tabbtn_width;
-            btnScanToFtp.Height = tabbtn_height;
-            btnScanToFtp.HorizontalAlignment = HorizontalAlignment.Left;
-            btnScanToFtp.btn.Name = "btnScanToFTP";
-            btnScanToFtp.btn.Click += SettingBtnClick;
-            m_listSettingButton.Add(btnScanToFtp);
-
-            btnScanToAP.btn.Content = "Scan To AP";
+            btnScanToAP.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Scan_App");
             btnScanToAP.Margin = new Thickness(0, 1, 0, 9);
             btnScanToAP.Width = tabbtn_width;
             btnScanToAP.Height = tabbtn_height;
@@ -101,7 +83,26 @@ namespace VOP
             btnScanToAP.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnScanToAP);
 
-            btnScanToCloud.btn.Content = "Scan To Cloud";
+            btnScanToEmail.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Scan_Email");
+            btnScanToEmail.Margin = new Thickness(0, 1, 0, 9);
+            btnScanToEmail.Width = tabbtn_width;
+            btnScanToEmail.Height = tabbtn_height;
+            btnScanToEmail.HorizontalAlignment = HorizontalAlignment.Left;
+            btnScanToEmail.btn.Name = "btnScanToEmail";
+            btnScanToEmail.btn.Click += SettingBtnClick;
+            m_listSettingButton.Add(btnScanToEmail);
+
+            btnScanToFtp.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Scan_FTP");
+            btnScanToFtp.Margin = new Thickness(0, 1, 0, 9);
+            btnScanToFtp.Width = tabbtn_width;
+            btnScanToFtp.Height = tabbtn_height;
+            btnScanToFtp.HorizontalAlignment = HorizontalAlignment.Left;
+            btnScanToFtp.btn.Name = "btnScanToFTP";
+            btnScanToFtp.btn.Click += SettingBtnClick;
+            m_listSettingButton.Add(btnScanToFtp);
+
+          
+            btnScanToCloud.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Scan_Cloud");
             btnScanToCloud.Margin = new Thickness(0, 1, 0, 9);
             btnScanToCloud.Width = tabbtn_width;
             btnScanToCloud.Height = tabbtn_height;
@@ -110,7 +111,7 @@ namespace VOP
             btnScanToCloud.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnScanToCloud);
 
-            btnwifi.btn.Content = "Wi-Fi";
+            btnwifi.btn.Content = (string)this.TryFindResource("ResStr_Printer_Wi_Fi");
             btnwifi.Margin = new Thickness(0, 1, 0, 9);
             btnwifi.Width = tabbtn_width;
             btnwifi.Height = tabbtn_height;
@@ -119,7 +120,7 @@ namespace VOP
             btnwifi.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnwifi);
 
-            btnTCPIP.btn.Content = "IPv4";
+            btnTCPIP.btn.Content = (string)this.TryFindResource("ResStr_TCP_IPv4");
             btnTCPIP.Margin = new Thickness(0, 1, 0, 9);
             btnTCPIP.Width = tabbtn_width;
             btnTCPIP.Height = tabbtn_height;
@@ -128,7 +129,7 @@ namespace VOP
             btnTCPIP.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnTCPIP);
 
-            btnSoftAP.btn.Content = "Softap";
+            btnSoftAP.btn.Content = (string)this.TryFindResource("ResStr_Soft_AP");
             btnSoftAP.Margin = new Thickness(0, 1, 0, 9);
             btnSoftAP.Width = tabbtn_width;
             btnSoftAP.Height = tabbtn_height;
@@ -172,11 +173,11 @@ namespace VOP
         {
             setting_tab_btn.Children.Clear();
             setting_tab_btn.Children.Add(btnScanParameter);
-            setting_tab_btn.Children.Add(btnScanToFile);
             setting_tab_btn.Children.Add(btnScanToPrint);
+            setting_tab_btn.Children.Add(btnScanToFile);
+            setting_tab_btn.Children.Add(btnScanToAP);
             setting_tab_btn.Children.Add(btnScanToEmail);
             setting_tab_btn.Children.Add(btnScanToFtp);
-            setting_tab_btn.Children.Add(btnScanToAP);
             setting_tab_btn.Children.Add(btnScanToCloud);
             setting_tab_btn.Children.Add(btnwifi);
             setting_tab_btn.Children.Add(btnTCPIP);

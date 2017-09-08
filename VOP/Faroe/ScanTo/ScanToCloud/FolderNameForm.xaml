@@ -51,7 +51,7 @@
                     <Border Grid.Row="0" >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 
-                                Text="Folder Name :" 
+                                Text="{StaticResource ResStr_Faroe_Folder_Name}"
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="12"
@@ -76,7 +76,8 @@
                             FontSize="16"
                             Click="OkClick"
                             Style="{StaticResource CustomGreenButtonStyle}"
-                            >OK</Button>
+                            Content="{StaticResource ResStr_OK}"
+                            ></Button>
                 </Grid>
 
 

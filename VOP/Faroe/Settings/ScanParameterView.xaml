@@ -154,7 +154,7 @@
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="Scan Settings :"/>
+                Text="{StaticResource ResStr_Faroe_scan_setting}"/>
 
             <Button
                 Grid.Row="1"
@@ -162,7 +162,7 @@
                 Width="120"
                 Height="35" 
                 Margin="-90,0,0,0"
-                Content="Settings..." 
+                Content="{StaticResource ResStr_Setting}"
                 FontSize="16"
                 Style="{StaticResource CustomGreenButtonStyle}" 
                 Click="Button_Click"
@@ -175,7 +175,7 @@
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="QRcode settings :"/>
+                Text="{StaticResource ResStr_Faroe_qr_setting}"/>
 
             <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
                 <RadioButton 
@@ -184,7 +184,7 @@
                 IsChecked="true"    
                 Name="QuickModeButton" Click="QRDecodeMode_click"
                 Template="{StaticResource customRadioButton}"
-                Content="Quick" VerticalAlignment="Center" ></RadioButton>
+                Content="{StaticResource ResStr_Faroe_quick}" VerticalAlignment="Center" ></RadioButton>
 
                 <RadioButton 
                 Margin="10,0,0,0"
@@ -192,7 +192,7 @@
                 IsChecked="false"               
                 Name="HardModeButton" Click="QRDecodeMode_click"
                 Template="{StaticResource customRadioButton}"
-                Content="Accurate" VerticalAlignment="Center" ></RadioButton>
+                Content="{StaticResource ResStr_Faroe_Accurate}" VerticalAlignment="Center" ></RadioButton>
 
                 <ComboBox 
                                 Name="cbDecodeLevel"
@@ -204,10 +204,10 @@
                                 FontSize="10"
                             SelectionChanged="cbDecodeLevel_SelectionChanged"
                                 >
-                    <ComboBoxItem >Standard</ComboBoxItem>
-                    <ComboBoxItem >Fine</ComboBoxItem>
-                    <ComboBoxItem >Super Fine</ComboBoxItem>
-                    <ComboBoxItem >Highest Quality</ComboBoxItem>
+                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_Standard}"></ComboBoxItem>
+                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_Fine}"></ComboBoxItem>
+                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_SuperFine}"></ComboBoxItem>
+                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_HighestQuality}"></ComboBoxItem>
                 </ComboBox>
             </StackPanel>
           
@@ -232,7 +232,7 @@
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="Quick Scan Matching :"/>
+                Text="{StaticResource ResStr_Faroe_quick_match}"/>
 
             <ListBox
                 Name="MatchListBox" 

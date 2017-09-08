@@ -88,8 +88,9 @@ namespace VOP
                     {
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                          Application.Current.MainWindow,
-                                        "Open program failed, " + ex.Message,
-                                        "Error");
+                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_open_p_fail") + ex.Message,
+                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                        );
                         return false;
                     }
                 }
@@ -130,8 +131,9 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                      Application.Current.MainWindow,
-                                    "Open program failed, " + ex.Message,
-                                    "Error");
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_open_p_fail") + ex.Message,
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                    );
                     return false;
                 }
             }

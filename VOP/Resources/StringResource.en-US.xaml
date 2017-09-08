@@ -345,4 +345,66 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Auto_Statefull_Address">Auto Statefull Address</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Link_Local_Address">Link Local Address</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Auto_Configure_Gateway_Address">Auto Configure Gateway Address</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Standard">Standard</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Fine">Fine</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_SuperFine">Super Fine</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_HighestQuality">Highest Quality</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_upload_dropbox_wait">Uploading picture to DropBox, please wait...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Dropbox_File_Viewer">Dropbox File Viewer</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Upload">Upload</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Folder_Name">Folder Name :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Auth_Dropbox">Authenticate with Dropbox</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Saving_pic_PDF">Saving picture to PDF, please wait...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Fail_save_pdf">Fail to save pdf file. </sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_send_mail_fail">Send Email failed. </sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_send_mail_ok">Send Email completed</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_save_file_ok">Save files completed</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Fail_save">Fail to save files. </sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Saving_pic_file">Saving picture to file, please wait...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_upload_ftp_wait">Uploading picture to FTP, please wait...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_upload_ok">Upload completed</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_upload_fail">Upload failed. </sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_server_addr">Server Address :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_username">User Name :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_password">Password :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_targetPath">Target Path :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_print_pic_wait">Printing picture, please wait...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_print_fail">Print failed. </sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_print_ok">Print completed</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting">Scan Settings :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting1">Scan Settings</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_qr_setting">QRcode settings :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_quick">Quick</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Accurate">Accurate</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_quick_match">Quick Scan Matching :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_ADF">ADF Mode</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_2side">Two Side</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_1side">One Side</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_multifeed">Multi Feed Detection</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_autocrop">Auto Crop&amp;Deskew</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Common">Common</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Scan_Print">Scan To Print</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Scan_File">Scan To File</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Scan_App">Scan To Application</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Scan_Email">Scan To Email</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Scan_FTP">Scan To FTP</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Scan_Cloud">Scan To Cloud</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_app_setting">Application Settings :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_app_type">Program Type :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_cloud_setting">Cloud Settings :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_email_setting">Email Settings :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_file_setting">File Settings :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_ftp_setting">FTP Settings :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_print_setting">Print Settings :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_search_dev">Searching scan device...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_open_p_fail">Open program failed, </sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_conn_fail">Scan connection failed</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_net_scanner_busy">Network scanner is busy</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_paper_jam">Paper jam</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_cover_open">Cover is opened</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_paper_not_ready">Paper is not ready</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_adf_not_ready">ADF is not ready</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_home_not_ready">Home is not ready</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_multifeed_error">Multi-feed error</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_fail">Scan failed</sys:String>
 </ResourceDictionary>

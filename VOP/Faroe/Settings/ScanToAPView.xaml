@@ -153,7 +153,8 @@
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="Scan Settings :"/>
+                Text="{StaticResource ResStr_Faroe_scan_setting}"
+                />
 
             <Button
                 Grid.Row="1"
@@ -161,7 +162,7 @@
                 Width="120"
                 Height="35" 
                 Margin="-90,0,0,0"
-                Content="Settings..." 
+                Content="{StaticResource ResStr_Setting}" 
                 FontSize="16"
                 Style="{StaticResource CustomGreenButtonStyle}" 
                 Click="Button_Click"
@@ -187,7 +188,7 @@
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="Application Settings :"/>
+                Text="{StaticResource ResStr_Faroe_app_setting}"/>
 
             <Grid Grid.Row="1" Grid.Column="1" >
                 <Grid.RowDefinitions>
@@ -205,7 +206,7 @@
                 <Border Grid.Row="0" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock 
-                                Text="Program Type :" 
+                                Text="{StaticResource ResStr_Faroe_app_type}"
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="12"
@@ -226,7 +227,7 @@
                     </StackPanel>
                 </Border>
 
-                
+
                 <Button Grid.Row="2" Grid.Column="1"
                             HorizontalAlignment="Center" 
                             Margin="20,6" 
@@ -235,7 +236,8 @@
                             FontSize="16"
                             Click="OkClick"
                             Style="{StaticResource CustomGreenButtonStyle}"
-                            >OK</Button>
+                            Content="{StaticResource ResStr_OK}"
+                            ></Button>
             </Grid>
 
         </Grid>

@@ -64,8 +64,9 @@ namespace VOP
                 if (FlowType == FileFlowType.View)
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                                Application.Current.MainWindow,
-                              "Save files completed",
-                              "Prompt");
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_save_file_ok"),
+                              (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
+                              );
             }
             else if (result == ScanFileSaveError.FileSave_Cancel)
             {
@@ -76,8 +77,8 @@ namespace VOP
              
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow,
-                                "Fail to save files. " + m_errorMsg,
-                                "Error");
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save") + m_errorMsg,
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 return false;
             }
 
@@ -188,7 +189,7 @@ namespace VOP
                 {
                     isNeededProgress = true;
 
-                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode("Saving picture to file, please wait...");
+                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode((string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Saving_pic_file"));
                     qr_pbw.Owner = ParentWin;
                     qr_pbw.Loaded += pbw_Loaded;
                     qr_pbw.ShowDialog();
@@ -329,7 +330,7 @@ namespace VOP
             {
                 isNeededProgress = true;
 
-                qr_pbw = new MessageBoxEx_Simple_Busy_QRCode("Saving picture to file, please wait...");
+                qr_pbw = new MessageBoxEx_Simple_Busy_QRCode((string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Saving_pic_file"));
                 qr_pbw.Owner = ParentWin;
                 qr_pbw.Loaded += pbw_Loaded;
                 qr_pbw.ShowDialog();

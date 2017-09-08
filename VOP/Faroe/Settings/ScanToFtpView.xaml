@@ -153,7 +153,8 @@
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="Scan Settings :"/>
+                 Text="{StaticResource ResStr_Faroe_scan_setting}"
+                />
 
             <Button
                 Grid.Row="1"
@@ -161,7 +162,7 @@
                 Width="120"
                 Height="35" 
                 Margin="-90,0,0,0"
-                Content="Settings..." 
+                Content="{StaticResource ResStr_Setting}" 
                 FontSize="16"
                 Style="{StaticResource CustomGreenButtonStyle}" 
                 Click="Button_Click"
@@ -187,7 +188,7 @@
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="FTP Settings :"/>
+                Text="{StaticResource ResStr_Faroe_ftp_setting}"/>
 
             <Grid Grid.Row="1" Grid.Column="1" >
                 <Grid.RowDefinitions>
@@ -206,7 +207,7 @@
                 <Border Grid.Row="0" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock 
-                                Text="Server Address :" 
+                                Text="{StaticResource ResStr_Faroe_server_addr}" 
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="12"
@@ -228,7 +229,7 @@
                 <Border Grid.Row="1" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock 
-                                Text="User Name :" 
+                                Text="{StaticResource ResStr_Faroe_username}" 
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="12"
@@ -251,7 +252,7 @@
                 <Border Grid.Row="2" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock 
-                                Text="Password :" 
+                                 Text="{StaticResource ResStr_Faroe_password}" 
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="12"
@@ -281,7 +282,7 @@
                 <Border Grid.Row="3" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock 
-                                Text="Target Path :" 
+                                Text="{StaticResource ResStr_Faroe_targetPath}" 
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="12"

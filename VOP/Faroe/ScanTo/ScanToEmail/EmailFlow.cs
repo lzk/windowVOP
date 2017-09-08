@@ -45,7 +45,7 @@ namespace VOP
             {
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-                if (worker.InvokeQuickScanMethod(SavePdfFile, "Saving picture to PDF, please wait..."))
+                if (worker.InvokeQuickScanMethod(SavePdfFile, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Saving_pic_PDF")))
                 {
                     //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                     //               Application.Current.MainWindow,
@@ -57,8 +57,9 @@ namespace VOP
                     pdfName = "";
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                     Application.Current.MainWindow,
-                                   "Fail to save pdf file. " + m_errorMsg,
-                                   "Error");
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save_pdf") + m_errorMsg,
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                    );
                 }
 
             }
@@ -112,16 +113,16 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                  Application.Current.MainWindow,
-                                "Send Email failed. " + ex.Message,
-                                "Error");
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") + ex.Message,
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 return false;
             }
             catch (Exception ex)
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                   Application.Current.MainWindow,
-                                 "Send Email failed. " + ex.Message,
-                                 "Error");
+                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") + ex.Message,
+                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 return false;
             }
 

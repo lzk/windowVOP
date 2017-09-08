@@ -77,7 +77,7 @@ namespace VOP
                 ScanPreview_Rufous win = new ScanPreview_Rufous();
                 win.Owner = Application.Current.MainWindow;
                 win.ImagePaths = fileLs;
-                win.messageBlock.Text = "Save files completed";
+                win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_save_file_ok");
                 win.ShowDialog();
             }
 
@@ -113,7 +113,7 @@ namespace VOP
                 ScanPreview_Rufous win = new ScanPreview_Rufous();
                 win.Owner = Application.Current.MainWindow;
                 win.ImagePaths = fileLs;
-                win.messageBlock.Text = "Send Email completed";
+                win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_ok");
                 win.ShowDialog();
             }
 
@@ -148,7 +148,7 @@ namespace VOP
                 ScanPreview_Rufous win = new ScanPreview_Rufous();
                 win.Owner = Application.Current.MainWindow;
                 win.ImagePaths = fileLs;
-                win.messageBlock.Text = "Print completed";
+                win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_print_ok");
                 win.ShowDialog();
             }
 
@@ -183,7 +183,7 @@ namespace VOP
                 ScanPreview_Rufous win = new ScanPreview_Rufous();
                 win.Owner = Application.Current.MainWindow;
                 win.ImagePaths = fileLs;
-                win.messageBlock.Text = "Upload completed";
+                win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ok");
                 win.ShowDialog();
             }
 
@@ -223,7 +223,7 @@ namespace VOP
                 ScanPreview_Rufous win = new ScanPreview_Rufous();
                 win.Owner = Application.Current.MainWindow;
                 win.ImagePaths = fileLs;
-                win.messageBlock.Text = "Upload completed";
+                win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ok");
                 win.ShowDialog();
             }
             else
@@ -231,8 +231,8 @@ namespace VOP
                 if(flow.isCancel != true)
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                     Application.Current.MainWindow,
-                                   "Upload failed",
-                                   "Error");
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
             }
 
             return true;

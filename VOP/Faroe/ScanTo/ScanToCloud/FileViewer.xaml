@@ -36,7 +36,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
-                    <TextBlock Name="TitleBarText" Text="Dropbox File Viewer" FontSize="15" Foreground="#28E" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Name="TitleBarText" Text="{StaticResource ResStr_Faroe_Dropbox_File_Viewer}" FontSize="15" Foreground="#28E" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
                 <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
@@ -103,7 +103,8 @@
                             FontSize="16"
                             Style="{StaticResource CustomGreenButtonStyle}" 
                             Click="UploadButton_Click"
-                            >Upload</Button>
+                            Content="{StaticResource ResStr_Faroe_Upload}"
+                            ></Button>
                     </StackPanel>
                     
                 </Grid>

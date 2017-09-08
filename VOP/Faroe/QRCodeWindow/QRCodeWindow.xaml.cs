@@ -379,14 +379,14 @@ namespace VOP.Controls
         {
             cropLocationList = new List<CropLocation>();
 
-            if(MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Standard")
+            if(MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == (string)this.TryFindResource("ResStr_Faroe_Standard"))
             {
                 cropLocationList.Add(CropLocation.TOP_LEFT);
                 cropLocationList.Add(CropLocation.TOP_RIGHT);
                 cropLocationList.Add(CropLocation.BOTTOM_LEFT);
                 cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
             }
-            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Fine")
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == (string)this.TryFindResource("ResStr_Faroe_Fine"))
             {
                 cropLocationList.Add(CropLocation.TOP_LEFT);
                 cropLocationList.Add(CropLocation.TOP_MIDDLE);
@@ -395,7 +395,7 @@ namespace VOP.Controls
                 cropLocationList.Add(CropLocation.BOTTOM_MIDDLE);
                 cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
             }
-            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Super Fine")
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == (string)this.TryFindResource("ResStr_Faroe_SuperFine"))
             {
                 cropLocationList.Add(CropLocation.TOP_LEFT);
                 cropLocationList.Add(CropLocation.TOP_MIDDLE);
@@ -406,7 +406,7 @@ namespace VOP.Controls
                 cropLocationList.Add(CropLocation.BOTTOM_MIDDLE);
                 cropLocationList.Add(CropLocation.BOTTOM_RIGHT);
             }
-            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Highest Quality")
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == (string)this.TryFindResource("ResStr_Faroe_HighestQuality"))
             {
                 cropLocationList.Add(CropLocation.TOP_LEFT);
                 cropLocationList.Add(CropLocation.TOP_MIDDLE);

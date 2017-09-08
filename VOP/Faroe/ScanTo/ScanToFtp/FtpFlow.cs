@@ -55,19 +55,20 @@ namespace VOP
 
                     AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-                    if (worker.InvokeQuickScanMethod(UploadFiles, "Uploading picture to FTP, please wait..."))
+                    if (worker.InvokeQuickScanMethod(UploadFiles, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ftp_wait")))
                     {
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                                     Application.Current.MainWindow,
-                                    "Upload completed",
-                                    "Prompt");
+                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ok"),
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
+                                    );
                     }
                     else
                     {
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                         Application.Current.MainWindow,
-                                       "Upload failed. " + m_errorMsg,
-                                       "Error");
+                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail") + m_errorMsg,
+                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                     }
 
 
@@ -77,7 +78,7 @@ namespace VOP
             {
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-                if (worker.InvokeQuickScanMethod(UploadFiles, "Uploading picture to FTP, please wait..."))
+                if (worker.InvokeQuickScanMethod(UploadFiles, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ftp_wait")))
                 {
                    
                 }
@@ -85,8 +86,8 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                     Application.Current.MainWindow,
-                                   "Upload failed. " + m_errorMsg,
-                                   "Error");
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail") + m_errorMsg,
+                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 }
 
             }

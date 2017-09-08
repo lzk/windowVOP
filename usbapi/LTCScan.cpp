@@ -1082,12 +1082,14 @@ USBAPI_API int __stdcall CheckUsbScan(
 {
 	HANDLE hDev = NULL;
 	TCHAR strPort[32] = { 0 };
+	TCHAR strPortAlt[32] = { 0 };
 	int  iCnt;
 
 	//EnterCriticalSection(&g_csCriticalSection_UsbTest);
 
 	for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++) {
 		_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
+		_stprintf_s(strPortAlt, L"%s%d", L"USB Device ", iCnt);
 		hDev = CreateFile(strPort,
 			GENERIC_READ | GENERIC_WRITE,
 			FILE_SHARE_READ | FILE_SHARE_WRITE,
@@ -1096,7 +1098,7 @@ USBAPI_API int __stdcall CheckUsbScan(
 			FILE_FLAG_OVERLAPPED, NULL);
 
 		if (hDev != INVALID_HANDLE_VALUE) {
-			::WideCharToMultiByte(CP_ACP, 0, strPort, -1, interfaceName, 32, NULL, NULL);
+			::WideCharToMultiByte(CP_ACP, 0, strPortAlt, -1, interfaceName, 32, NULL, NULL);
 			break;
 		}
 	}

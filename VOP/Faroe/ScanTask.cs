@@ -98,63 +98,72 @@ namespace VOP
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
                                "Scan connection failed",
-                               "Error");
+                              (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                               );
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_OPENFAIL_NET)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
                                "Scan connection failed",
-                               "Error");
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                               );
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_BUSY)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
                                "Network scanner is busy",
-                               "Error");
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                               );
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_PAPER_JAM)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
                                "Paper jam",
-                               "Error");
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                               );
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_COVER_OPEN)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
                                "Cover is opened",
-                               "Error");
+                              (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                               );
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_PAPER_NOT_READY)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
                                "Paper is not ready",
-                               "Error");
+                              (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                               );
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_ADF_NOT_READY)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
                                "ADF is not ready",
-                               "Error");
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                               );
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_HOME_NOT_READY)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
                                "Home is not ready",
-                               "Error");
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                               );
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_ULTRA_SONIC)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
                                "Multi-feed error",
-                               "Error");
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                               );
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_CANCEL)
                 {
@@ -165,7 +174,8 @@ namespace VOP
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow,
                                 "Scan failed",
-                                "Error");
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                );
                 }
             } 
 

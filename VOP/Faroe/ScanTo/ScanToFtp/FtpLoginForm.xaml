@@ -62,14 +62,14 @@
                     <Border Grid.Row="0" Grid.Column="1">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 
-                                Text="Server Address :" 
+                                Text="{StaticResource ResStr_Faroe_server_addr}"
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="12"
                                 />
                             <TextBox 
                                 Name="tbServerName"
-                                 Template="{StaticResource customTextBox}" 
+                                Template="{StaticResource customTextBox}" 
                                 VerticalAlignment="Center" 
                                 Width="200" 
                                 Height="30" 
@@ -84,7 +84,7 @@
                     <Border Grid.Row="1" Grid.Column="1">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 
-                                Text="User Name :" 
+                                Text="{StaticResource ResStr_Faroe_username}" 
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="12"
@@ -107,7 +107,7 @@
                     <Border Grid.Row="2" Grid.Column="1">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 
-                                Text="Password :" 
+                                Text="{StaticResource ResStr_Faroe_password}" 
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="12"
@@ -137,7 +137,7 @@
                     <Border Grid.Row="3" Grid.Column="1">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock 
-                                Text="Target Path :" 
+                                Text="{StaticResource ResStr_Faroe_targetPath}" 
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="12"
@@ -165,7 +165,8 @@
                             FontSize="16"
                             Click="OkClick"
                             Style="{StaticResource CustomGreenButtonStyle}"
-                            >OK</Button>
+                            Content="{StaticResource ResStr_OK}"
+                            ></Button>
                 </Grid>
 
 

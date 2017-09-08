@@ -152,9 +152,9 @@ namespace VOP
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments);
             var directory = new DirectoryInfo(documentsPath);
             string strUsersPublic = directory.Parent.FullName;
-            cfgFolder = strUsersPublic + "\\Lenovo\\";
+            cfgFolder = strUsersPublic + "\\Faroe\\";
             Directory.CreateDirectory(cfgFolder);
-            crmFolder = strUsersPublic + "\\Lenovo\\VOP_CRM";
+            crmFolder = strUsersPublic + "\\Faroe\\VOP_CRM";
             cfgFile = cfgFolder + "vopcfg.xml";
 
             //string argLine = Environment.CommandLine;

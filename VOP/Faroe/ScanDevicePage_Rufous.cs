@@ -82,14 +82,14 @@ namespace VOP
             if(forceRefresh == true)
             {
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-                worker.InvokeQuickScanMethod(ListIP, "Searching scan device...");
+                worker.InvokeQuickScanMethod(ListIP, (string)this.TryFindResource("ResStr_Faroe_search_dev"));
             }
             else
             {
                 if (ipList == null || ipList.Length == 0)
                 {
                     AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-                    worker.InvokeQuickScanMethod(ListIP, "Searching scan device...");
+                    worker.InvokeQuickScanMethod(ListIP, (string)this.TryFindResource("ResStr_Faroe_search_dev"));
                 }
             }
            

@@ -35,7 +35,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
-                    <TextBlock Name="TitleBarText" Text="Authenticate with Dropbox" FontSize="15" Foreground="#28E" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Name="TitleBarText" Text="{StaticResource ResStr_Faroe_Auth_Dropbox}" FontSize="15" Foreground="#28E" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
                 <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
@@ -58,7 +58,8 @@
                             FontSize="16"
                             Click="CancelClick"
                             Style="{StaticResource CustomGreenButtonStyle}"
-                            >Cancel</Button>
+                            Content="{StaticResource ResStr_Cancel}"
+                            ></Button>
                 </Grid>
 
 

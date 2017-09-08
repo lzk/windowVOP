@@ -48,7 +48,9 @@ namespace VOP
                         dll.AddImagePath(path);
                     }
 
-                    printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintImage, "Printing picture, please wait...");
+                    printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintImage, 
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_print_pic_wait")
+                        );
                 }
                 else
                 {
@@ -66,7 +68,9 @@ namespace VOP
                         dll.AddImagePath(path);
                     }
 
-                    printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintImage, "Printing picture, please wait...");
+                    printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintImage,
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_print_pic_wait")
+                        );
                 }
                 else
                 {
@@ -90,8 +94,9 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                             Application.Current.MainWindow,
-                           "Print failed. " + m_errorMsg,
-                           "Error");
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_print_fail") + m_errorMsg,
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                           );
             }
 
             return true;

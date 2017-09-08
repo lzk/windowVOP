@@ -47,19 +47,19 @@ namespace VOP
                 cbDecodeLevel.IsEnabled = true;
             }
 
-            if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Standard")
+            if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == (string)this.TryFindResource("ResStr_Faroe_Standard"))
             {
                 cbDecodeLevel.SelectedIndex = 0;
             }
-            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Fine")
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == (string)this.TryFindResource("ResStr_Faroe_Fine"))
             {
                 cbDecodeLevel.SelectedIndex = 1;
             }
-            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Super Fine")
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == (string)this.TryFindResource("ResStr_Faroe_SuperFine"))
             {
                 cbDecodeLevel.SelectedIndex = 2;
             }
-            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == "Highest Quality")
+            else if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level == (string)this.TryFindResource("ResStr_Faroe_HighestQuality"))
             {
                 cbDecodeLevel.SelectedIndex = 3;
             }
@@ -69,19 +69,19 @@ namespace VOP
         {
             if (cbDecodeLevel.SelectedIndex == 0)
             {
-                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Standard";
+                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = (string)this.TryFindResource("ResStr_Faroe_Standard");
             }
             else if (cbDecodeLevel.SelectedIndex == 1)
             {
-                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Fine";
+                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = (string)this.TryFindResource("ResStr_Faroe_Fine");
             }
             else if (cbDecodeLevel.SelectedIndex == 2)
             {
-                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Super Fine";
+                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = (string)this.TryFindResource("ResStr_Faroe_SuperFine");
             }
             else if (cbDecodeLevel.SelectedIndex == 3)
             {
-                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = "Highest Quality";
+                MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest_level = (string)this.TryFindResource("ResStr_Faroe_HighestQuality");
             }
         }
 

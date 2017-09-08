@@ -145,14 +145,14 @@
 
                 <!-- Title bar begin -->
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0">
-                    <TextBlock Text="Scan Settings" FontSize="15" Foreground="#FF48C6E0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Text="{StaticResource ResStr_Faroe_scan_setting1}" FontSize="15" Foreground="#FF48C6E0" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
                 <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" />
                 <!-- Title bar end -->
 
 
-                <local:GroupBoxDecorator Grid.Row="1" Header="ADF Mode" HorizontalAlignment="Center" VerticalAlignment="Center" Width="455" Height="75" >
+                <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Faroe_ADF}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="455" Height="75" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100" />
@@ -166,14 +166,14 @@
                     HorizontalAlignment="Center"
                     Name="twoSideButton" Click="ADFMode_click"
                     Template="{StaticResource customRadioButton}"
-                    Content="Two Side" VerticalAlignment="Center" ></RadioButton>
+                    Content="{StaticResource ResStr_Faroe_2side}" VerticalAlignment="Center" ></RadioButton>
 
                     <RadioButton GroupName="ADFMode" IsChecked="false"
                     Grid.Column="2"
                     HorizontalAlignment="Center"
                     Name="oneSideButton" Click="ADFMode_click"
                     Template="{StaticResource customRadioButton}"
-                    Content="One Side" VerticalAlignment="Center" ></RadioButton>
+                    Content="{StaticResource ResStr_Faroe_1side}" VerticalAlignment="Center" ></RadioButton>
 
                     </Grid>
 
@@ -318,7 +318,7 @@
                 </Grid>
 
                 <StackPanel Grid.Row="3" Orientation="Horizontal">
-                    <local:GroupBoxDecorator Header="Multi Feed Detection" VerticalAlignment="Center" Width="220" Height="75" Margin="40,0,0,0">
+                    <local:GroupBoxDecorator Header="{StaticResource ResStr_Faroe_multifeed}" VerticalAlignment="Center" Width="220" Height="75" Margin="40,0,0,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40" />
@@ -332,7 +332,7 @@
                                 HorizontalAlignment="Center"
                                 Name="MultiFeedOnButton" Click="MultiFeed_click"
                                 Template="{StaticResource customRadioButton}"
-                                Content="On" VerticalAlignment="Center" >
+                                Content="{StaticResource ResStr_On}" VerticalAlignment="Center" >
                             </RadioButton>
 
                             <RadioButton GroupName="MultiFeed" IsChecked="false"
@@ -340,14 +340,14 @@
                                 HorizontalAlignment="Center"
                                 Name="MultiFeedOffButton" Click="MultiFeed_click"
                                 Template="{StaticResource customRadioButton}"
-                                Content="Off" VerticalAlignment="Center" >
+                                Content="{StaticResource ResStr_Off}" VerticalAlignment="Center" >
                             </RadioButton>   
 
                         </Grid>
 
                     </local:GroupBoxDecorator>
 
-                    <local:GroupBoxDecorator Header="Auto Crop&amp;Deskew" VerticalAlignment="Center" Width="220" Height="75" Margin="20,0,0,0">
+                    <local:GroupBoxDecorator Header="{StaticResource ResStr_Faroe_autocrop}" VerticalAlignment="Center" Width="220" Height="75" Margin="20,0,0,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40" />
@@ -361,7 +361,7 @@
                                 HorizontalAlignment="Center"
                                 Name="AutoCropOnButton" Click="AutoCrop_click"
                                 Template="{StaticResource customRadioButton}"
-                                Content="On" VerticalAlignment="Center" >
+                                Content="{StaticResource ResStr_On}" VerticalAlignment="Center" >
                             </RadioButton>
 
                             <RadioButton GroupName="AutoCrop" IsChecked="false"
@@ -369,7 +369,7 @@
                                 HorizontalAlignment="Center"
                                 Name="AutoCropOffButton" Click="AutoCrop_click"
                                 Template="{StaticResource customRadioButton}"
-                                Content="Off" VerticalAlignment="Center" >
+                                Content="{StaticResource ResStr_Off}" VerticalAlignment="Center" >
                             </RadioButton>
 
                         </Grid>
