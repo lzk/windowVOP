@@ -277,18 +277,18 @@ namespace VOP.Controls
                 Bitmap bitmap = GetBitmap(imagePath[0]);
                 Bitmap temp = bitmap;
 
-                if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format24bppRgb)
-                {
-                    try
-                    {
-                        temp = (Bitmap)bitmap.Clone();
-                        ot.Convert2GrayScaleFast(temp);
-                        int otsuThreshold = ot.getOtsuThreshold((Bitmap)temp);
-                        ot.threshold(temp, otsuThreshold);
-                    }
-                    catch (Exception) { }
+                //if (bitmap.PixelFormat == System.Drawing.Imaging.PixelFormat.Format24bppRgb)
+                //{
+                //    try
+                //    {
+                //        temp = (Bitmap)bitmap.Clone();
+                //        ot.Convert2GrayScaleFast(temp);
+                //        int otsuThreshold = ot.getOtsuThreshold((Bitmap)temp);
+                //        ot.threshold(temp, otsuThreshold);
+                //    }
+                //    catch (Exception) { }
 
-                }
+                //}
 
                 Stopwatch sw = new Stopwatch();
                 sw.Start();

@@ -349,7 +349,10 @@ namespace VOP
                     UploadStaus.Text = "";
                     await ListFolder(client, currentPath);
                 }
-                catch (Exception) { }
+                catch (Exception ex)
+                {
+                    UploadStaus.Text = "Picture uploading error : " + ex.Message;
+                }
             }
         }
 
