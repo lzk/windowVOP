@@ -4,6 +4,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System;
+using System.Windows.Input;
 
 namespace VOP.Controls
 {
@@ -14,6 +15,7 @@ namespace VOP.Controls
 
         public MoveThumb()
         {
+            this.Cursor = Cursors.SizeAll;
             DragStarted += new DragStartedEventHandler(this.MoveThumb_DragStarted);
             DragDelta += new DragDeltaEventHandler(this.MoveThumb_DragDelta);
         }

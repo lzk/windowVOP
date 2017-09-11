@@ -6,6 +6,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace VOP.Controls
 {
@@ -22,9 +23,22 @@ namespace VOP.Controls
 
         public ResizeThumb()
         {
+            this.Loaded += new RoutedEventHandler(OnLoaded);
             DragStarted += new DragStartedEventHandler(this.ResizeThumb_DragStarted);
             DragDelta += new DragDeltaEventHandler(this.ResizeThumb_DragDelta);
             //DragCompleted += new DragCompletedEventHandler(this.ResizeThumb_DragCompleted);
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if((string)this.Tag  == "SizeNWSE")
+            {
+                this.Cursor = Cursors.SizeNWSE;
+            }
+            else if ((string)this.Tag == "SizeNESW")
+            {
+                this.Cursor = Cursors.SizeNESW;
+            }
         }
 
         private void ResizeThumb_DragStarted(object sender, DragStartedEventArgs e)
