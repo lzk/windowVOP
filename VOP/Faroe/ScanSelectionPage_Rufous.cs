@@ -92,10 +92,12 @@ namespace VOP
 
                 if (btn.Name == "ImageButton1")
                 {
+                    ImageCropper.designerItemWHRatio = 1.0;
                     win.IsQRCode = true;
                 }
                 else
                 {
+                    ImageCropper.designerItemWHRatio = 2.0;
                     win.IsQRCode = false;
                 }
 
