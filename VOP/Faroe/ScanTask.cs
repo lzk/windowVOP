@@ -52,6 +52,16 @@ namespace VOP
 
             common.GetPaperSize(param.PaperSize, ref nWidth, ref nHeight);
 
+            if (dll.CheckConnection() == false)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                            Application.Current.MainWindow,
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
+                return null;
+            }
+
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
             Stopwatch sw = new Stopwatch();
             sw.Start();
