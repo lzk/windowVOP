@@ -180,10 +180,10 @@
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>
-                <TextBox.ContextMenu>
+                <!--<TextBox.ContextMenu>
                     <ContextMenu Visibility="Collapsed">
                     </ContextMenu>
-                </TextBox.ContextMenu>
+                </TextBox.ContextMenu>-->
                 <TextBox.Text>
                     <Binding 
                         Path="IP" 
@@ -215,10 +215,10 @@
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>
-                <TextBox.ContextMenu>
+                <!--<TextBox.ContextMenu>
                     <ContextMenu Visibility="Collapsed">
                     </ContextMenu>
-                </TextBox.ContextMenu>
+                </TextBox.ContextMenu>-->
                 <TextBox.Text>
                     <Binding 
                         Path="Submask" 
@@ -250,10 +250,10 @@
                 <TextBox.InputBindings>
                     <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                 </TextBox.InputBindings>
-                <TextBox.ContextMenu>
+                <!--<TextBox.ContextMenu>
                     <ContextMenu Visibility="Collapsed">
                     </ContextMenu>
-                </TextBox.ContextMenu>
+                </TextBox.ContextMenu>-->
                 <TextBox.Text>
                     <Binding 
                         Path="Gateway" 
