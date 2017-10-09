@@ -222,6 +222,7 @@
                                 Text=""
                                 VerticalContentAlignment="Center"
                                 FontSize="14"
+                                MaxLength="256"
                                 />
                     </StackPanel>
                 </Border>
@@ -244,6 +245,7 @@
                                 Text=""
                                 VerticalContentAlignment="Center"
                                 FontSize="14"
+                                MaxLength="30"
                                 />
                     </StackPanel>
                 </Border>
@@ -267,6 +269,8 @@
                             VerticalContentAlignment="Center"
                              MaxLength="32" 
                             Margin="42,0,0,0"
+                            PreviewTextInput="OnPreviewTextInput" 
+                            PreviewKeyDown="OnPreviewKeyDown"
                              >
                             <PasswordBox.InputBindings>
                                 <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
@@ -297,6 +301,7 @@
                                 Text=""
                                 VerticalContentAlignment="Center"
                                 FontSize="14"
+                                MaxLength="256"
                                 />
                     </StackPanel>
                 </Border>

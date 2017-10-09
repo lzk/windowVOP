@@ -132,6 +132,7 @@ namespace VOP
             combobox.SelectionChanged += new SelectionChangedEventHandler(cboListBoxItem_SelectionChanged);
             combobox.Tag = id;
 
+
             StackPanel stack = new StackPanel();
             stack.Orientation = Orientation.Horizontal;
 

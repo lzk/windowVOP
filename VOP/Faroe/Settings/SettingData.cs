@@ -47,6 +47,12 @@ namespace VOP
         public string m_password = "";
         public string m_targetPath = "/files";
 
+        public ScanParam m_quickScanFtpScanSettings = new ScanParam();
+        public string m_quickScanServerAddress = "ftp://localhost";
+        public string m_quickScanUserName = "vop";
+        public string m_quickScanPassword = "";
+        public string m_quickScanTargetPath = "/files";
+
         //Print
         public ScanParam m_printScanSettings = new ScanParam();
         public string m_printerName = "";
@@ -54,7 +60,7 @@ namespace VOP
         //Email
         public ScanParam m_emailScanSettings = new ScanParam();
         public string m_attachmentType = "PDF";
-        public string m_recipient = "Sonny.Zhang@liteon.com";
+        public string m_recipient = "Ally.qiu@liteon.com";
         public string m_subject = "Scan Pictures";
 
         //File

@@ -834,7 +834,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 							side = 'B';
 						}
 
-						sprintf(fileName, "%s_%c%d_%c%02d.%s", filePath, (ImgFile[dup].img.bit > 16) ? 'C' : 'G', ImgFile[dup].img.dpi.x, side, page[dup], &ImgFile[dup].img.format);
+//						sprintf(fileName, "%s_%c%d_%c%02d.%s", filePath, (ImgFile[dup].img.bit > 16) ? 'C' : 'G', ImgFile[dup].img.dpi.x, side, page[dup], &ImgFile[dup].img.format);
+						sprintf(fileName, "%s%03d%c.%s", filePath, page[dup],side,&ImgFile[dup].img.format);//#BMS1075
 						ImgFile_Open(&ImgFile[dup], fileName);
 						lineCount = 0;
 
@@ -1097,7 +1098,8 @@ USBAPI_API int __stdcall CheckUsbScan(
 			OPEN_EXISTING,
 			FILE_FLAG_OVERLAPPED, NULL);
 
-		if (hDev != INVALID_HANDLE_VALUE) {
+		if (hDev != INVALID_HANDLE_VALUE) 
+		{
 			::WideCharToMultiByte(CP_ACP, 0, strPortAlt, -1, interfaceName, 32, NULL, NULL);
 			break;
 		}
@@ -1114,7 +1116,11 @@ USBAPI_API int __stdcall CheckUsbScan(
 	}
 
 	//LeaveCriticalSection(&g_csCriticalSection_UsbTest);
-
+	CGLDrv glDrv;
+	if (glDrv._OpenDevice() == FALSE)//#bms1005
+	{
+		return 0;		
+	}
 	return 1;
 }
 

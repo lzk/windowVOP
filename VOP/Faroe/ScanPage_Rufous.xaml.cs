@@ -105,17 +105,26 @@ namespace VOP
 
         private void ScanToPrintButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ImageButton btn = sender as ImageButton;
+            if(MainWindow_Rufous.g_settingData.m_printerName == null)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                 Application.Current.MainWindow,
+                                "no found printer" ,
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+            }
+            else
+            {
+                ImageButton btn = sender as ImageButton;
 
-            List<string> files = new List<string>();
-            GetSelectedFile(files);
+                List<string> files = new List<string>();
+                GetSelectedFile(files);
 
-            PrintFlow flow = new PrintFlow();
-            flow.ParentWin = m_MainWin;
-            flow.FileList = files;
-            PrintFlow.FlowType = PrintFlowType.View;
-            flow.Run();
-
+                PrintFlow flow = new PrintFlow();
+                flow.ParentWin = m_MainWin;
+                flow.FileList = files;
+                PrintFlow.FlowType = PrintFlowType.View;
+                flow.Run();
+            }
         }
 
         private void ScanToFtpButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -202,6 +211,11 @@ namespace VOP
               //  btnPrint.IsEnabled = false;
               //  btnSave.IsEnabled = false;
             }
+            if(image_wrappanel.Children.Count == GetSelectedItemCount())
+                SelectAllCheckBox.IsChecked = true;
+            else
+                SelectAllCheckBox.IsChecked = false;
+
         }
 
         private void CheckBox_Click(object sender, RoutedEventArgs e)

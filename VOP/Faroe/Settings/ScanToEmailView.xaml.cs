@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 using VOP.Controls;
 
 namespace VOP
@@ -67,6 +68,24 @@ namespace VOP
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
+            if (tbRecipient.Text.Length == 0 )
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                   Application.Current.MainWindow,
+                  "The Recipient cannot be empty",
+                  "Error");
+                return;
+            }
+            
+            System.String ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+
+            Regex reg = new Regex(ex);
+            if (false == reg.IsMatch(tbRecipient.Text))
+            {
+                MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.TryFindResource("ResStr_Email_Format_Error"), (string)this.FindResource("ResStr_Error"));
+                tbRecipient.Focus();
+                return;
+            }
             MainWindow_Rufous.g_settingData.m_recipient = tbRecipient.Text;
             MainWindow_Rufous.g_settingData.m_subject = tbSubject.Text;
             MainWindow_Rufous.g_settingData.m_attachmentType = attachmentType;
@@ -93,6 +112,5 @@ namespace VOP
                 }
             }
         }
-
     }
 }

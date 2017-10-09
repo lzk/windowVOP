@@ -70,6 +70,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\VOP\bin\x86\Debug</OutDir>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -89,7 +90,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;USBAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>G:\work\Rufous\VOP2\usbapi\Common</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>I:\work\CODE\Faroe VOP\VOP\usbapi\Common</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -158,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bitmapScaling.h" />
+    <ClInclude Include="Common\afxres.h" />
     <ClInclude Include="Common\debug.h" />
     <ClInclude Include="Common\utility.h" />
     <ClInclude Include="Common\utype.h" />

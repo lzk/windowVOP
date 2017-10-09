@@ -282,7 +282,7 @@
                             FontSize="16"
                             Click="BrowseClick"
                             Style="{StaticResource CustomGreenButtonStyle}"
-                            >Browse</Button>
+                            >Browse...</Button>
                         </StackPanel>
                     </StackPanel>
                    

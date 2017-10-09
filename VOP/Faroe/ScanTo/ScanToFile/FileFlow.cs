@@ -89,6 +89,8 @@ namespace VOP
         ScanFileSaveError SaveFileView()
         {
             SaveFileDialog save = new SaveFileDialog();
+            int MAX_FILE_NAME_CHARS_NUMBER = 25;
+            int MAX_PATH = 260;
 
             if (FileList.Count > 1)
                 save.Filter = "TIF|*.tif|PDF|*.pdf";
@@ -96,6 +98,17 @@ namespace VOP
                 save.Filter = "TIF|*.tif|PDF|*.pdf|JPG|*.jpg";
 
             bool? result = save.ShowDialog();
+
+            if (MAX_PATH <= (save.FileName.Length + 1 + MAX_FILE_NAME_CHARS_NUMBER))//
+            {
+                //result = false;
+                //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                //                Application.Current.MainWindow,
+                //               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save") + m_errorMsg,
+                //               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+            }
+            else
+                result = true;
 
             if (result == true)
             {
@@ -211,7 +224,7 @@ namespace VOP
             }
 
         }
-
+       
         ScanFileSaveError SaveFileQuick()
         {
 

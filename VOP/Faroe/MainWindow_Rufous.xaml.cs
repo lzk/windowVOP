@@ -347,15 +347,25 @@ namespace VOP
 
             if (msg == App.WM_STATUS_UPDATE)
             {
-                if((int)wParam == 1)
+                bool bUseGrayIcon = false;
+                if ((int)wParam == 1)
                 {
                     scanSelectionPage.DeviceButton.Connected = true;
                     scanSettingsPage.PassStatus(true);
+                    bUseGrayIcon = false;
                 }
                 else
                 {
                     scanSelectionPage.DeviceButton.Connected = false;
                     scanSettingsPage.PassStatus(false);
+                    bUseGrayIcon = true;
+                }
+                if (bUseGrayIcon != bGrayIcon)
+                {
+                    string strIcon = bUseGrayIcon ? "pack://application:,,, /Images/printerGray.ico" : "pack://application:,,, /Images/printer.ico";
+                    System.IO.Stream iconStream = System.Windows.Application.GetResourceStream(new Uri(strIcon)).Stream;
+                    notifyIcon1.Icon = new System.Drawing.Icon(iconStream);
+                    bGrayIcon = bUseGrayIcon;
                 }
 
             }

@@ -267,6 +267,7 @@
                                 Text=""
                                 VerticalContentAlignment="Center"
                                 FontSize="14"
+                                MaxLength="255"
                                 />
                     </StackPanel>
                 </Border>

@@ -25,10 +25,10 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            tbServerName.Text = MainWindow_Rufous.g_settingData.m_serverAddress;
-            tbUserName.Text = MainWindow_Rufous.g_settingData.m_userName;
-            pbPWD.Password = MainWindow_Rufous.g_settingData.m_password;
-            tbTargetPath.Text = MainWindow_Rufous.g_settingData.m_targetPath;
+            tbServerName.Text = MainWindow_Rufous.g_settingData.m_quickScanServerAddress;
+            tbUserName.Text = MainWindow_Rufous.g_settingData.m_quickScanUserName;
+            pbPWD.Password = MainWindow_Rufous.g_settingData.m_quickScanPassword;
+            tbTargetPath.Text = MainWindow_Rufous.g_settingData.m_quickScanTargetPath;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -46,12 +46,84 @@ namespace VOP
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
-            MainWindow_Rufous.g_settingData.m_serverAddress = tbServerName.Text;
-            MainWindow_Rufous.g_settingData.m_userName = tbUserName.Text;
-            MainWindow_Rufous.g_settingData.m_password = pbPWD.Password;
-            MainWindow_Rufous.g_settingData.m_targetPath = tbTargetPath.Text;
+            if (tbServerName.Text == "" )
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                   Application.Current.MainWindow,
+                  "The Server Name cannot be empty",
+                  "Error");
+                return;
+            }
+            else if (tbUserName.Text == "" )
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                   Application.Current.MainWindow,
+                  "The User Name cannot be empty",
+                  "Error");
+                return;
+            }
+            else if (pbPWD.Password == "" )
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                   Application.Current.MainWindow,
+                  "The Password cannot be empty",
+                  "Error");
+                return;
+            }
+            else if (tbTargetPath.Text == "")
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                   Application.Current.MainWindow,
+                  "The Target Path cannot be empty",
+                  "Error");
+                return;
+            }
+            if(tbServerName.Text.Length < 7)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                  Application.Current.MainWindow,
+                 "The server name format is incorrect, Please check you server name and enter again.",
+                 "Error");
+                return;
+            }            
+            string strServerName = tbServerName.Text.Substring(0, 6);               
+            string strTargetPath = tbTargetPath.Text.Substring(0, 1);
+            if (strServerName.ToUpper() != "FTP://" )
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                  Application.Current.MainWindow,
+                 "The server name format is incorrect, Please check you server name and enter again.",
+                 "Error");
+                return;
+            }
+            if (strTargetPath != "/")
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                  Application.Current.MainWindow,
+                 "The target path format is incorrect, Please check you target path and enter again.",
+                 "Error");
+                return;
+            }
+            MainWindow_Rufous.g_settingData.m_quickScanServerAddress = tbServerName.Text;
+            MainWindow_Rufous.g_settingData.m_quickScanUserName = tbUserName.Text;
+            MainWindow_Rufous.g_settingData.m_quickScanPassword = pbPWD.Password;
+            MainWindow_Rufous.g_settingData.m_quickScanTargetPath = tbTargetPath.Text;
+        }
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            PasswordBox pb = sender as PasswordBox;
+            string strText = e.Text;
+            if (strText.Length > 0 && !Char.IsLetterOrDigit(strText, 0))
+            {
+                e.Handled = true;
+            }
         }
 
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
+        }
         private MainWindow_Rufous _MainWin = null;
 
         public MainWindow_Rufous m_MainWin

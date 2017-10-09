@@ -68,7 +68,7 @@ namespace VOP
             try
             {
                 Outlook.Application oApp = new Outlook.Application();
-                Outlook.NameSpace ns = oApp.GetNamespace("MAPI");
+                Outlook.NameSpace ns = oApp.GetNamespace("MAPI");                
                 Outlook.MailItem oMsg = (Outlook.MailItem)oApp.CreateItem(Outlook.OlItemType.olMailItem);
 
  
@@ -111,10 +111,14 @@ namespace VOP
             }
             catch (COMException ex)
             {
+                //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                //                 Application.Current.MainWindow,
+                //                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") + ex.Message,
+                //                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                                 Application.Current.MainWindow,
-                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") + ex.Message,
-                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                Application.Current.MainWindow,
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") ,
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 return false;
             }
             catch (Exception ex)
@@ -137,13 +141,14 @@ namespace VOP
         {
             try
             {
-                string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
-                if (false == Directory.Exists(App.cacheFolder))
+//                string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
+                string strSuffix = string.Format("{0}{1}{2}{3}{4}{5}", "img", DateTime.Now.Year.ToString(), DateTime.Now.Month.ToString(), DateTime.Now.Day.ToString(), DateTime.Now.Hour.ToString(), DateTime.Now.Minute.ToString());
+                if (false == Directory.Exists(App.PictureFolder))
                 {
-                    Directory.CreateDirectory(App.cacheFolder);
+                    Directory.CreateDirectory(App.PictureFolder);
                 }
 
-                pdfName = App.cacheFolder + "\\vop" + strSuffix + ".pdf";
+                pdfName = App.PictureFolder + "\\vop" + strSuffix + ".pdf";
 
                 using (PdfHelper help = new PdfHelper())
                 {
@@ -165,12 +170,21 @@ namespace VOP
             }
             catch (Win32Exception ex)
             {
-                m_errorMsg = ex.Message;
+                //                m_errorMsg = ex.Message;
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                                  Application.Current.MainWindow,
+                                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail"),
+                                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 return false;
             }
             catch (Exception ex)
             {
-                m_errorMsg = ex.Message;
+                
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                                 Application.Current.MainWindow,
+                                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail"),
+                                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                //               m_errorMsg = ex.Message;
                 return false;
             }
 

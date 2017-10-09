@@ -77,6 +77,7 @@ namespace VOP
                 }
 
                 DeviceList.Items.Add(item);
+
             }
 
             if(forceRefresh == true)
@@ -86,7 +87,7 @@ namespace VOP
             }
             else
             {
-                if (ipList == null || ipList.Length == 0)
+                if (dll.CheckUsbScan(usbName) == 0 && (ipList == null || ipList.Length == 0 ))
                 {
                     AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
                     worker.InvokeQuickScanMethod(ListIP, (string)this.TryFindResource("ResStr_Faroe_search_dev"));

@@ -60,9 +60,6 @@
     <ClInclude Include="Common\utility.h">
       <Filter>Header Files\LTC</Filter>
     </ClInclude>
-    <ClInclude Include="Common\utype.h">
-      <Filter>Header Files\LTC</Filter>
-    </ClInclude>
     <ClInclude Include="ImgFile\ImgFile.h">
       <Filter>Header Files\LTC</Filter>
     </ClInclude>
@@ -80,6 +77,12 @@
     </ClInclude>
     <ClInclude Include="LTCInterface\resample.h">
       <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\utype.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\afxres.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

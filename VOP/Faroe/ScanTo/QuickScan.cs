@@ -122,37 +122,48 @@ namespace VOP
 
         public bool ScanToPrint()
         {
-            ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_printScanSettings);
-
-            if (files == null)
-                return false;
-
-            if (task.ScanResult != Scan_RET.RETSCAN_OK)
-                return false;
-
-            List<string> fileLs = new List<string>();
-
-            foreach (ScanFiles f in files)
+            if (MainWindow_Rufous.g_settingData.m_printerName == null)
             {
-                fileLs.Add(f.m_pathOrig);
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                 Application.Current.MainWindow,
+                                "no found printer",
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                return false;
             }
-
-            PrintFlow flow = new PrintFlow();
-            flow.ParentWin = Application.Current.MainWindow;
-            flow.FileList = fileLs;
-            PrintFlow.FlowType = PrintFlowType.Quick;
-
-            if (flow.Run())
+            else
             {
-                ScanPreview_Rufous win = new ScanPreview_Rufous();
-                win.Owner = Application.Current.MainWindow;
-                win.ImagePaths = fileLs;
-                win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_print_ok");
-                win.ShowDialog();
-            }
+                ScanTask task = new ScanTask();
+                List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_printScanSettings);
 
-            return true;
+                if (files == null)
+                    return false;
+
+                if (task.ScanResult != Scan_RET.RETSCAN_OK)
+                    return false;
+
+                List<string> fileLs = new List<string>();
+
+                foreach (ScanFiles f in files)
+                {
+                    fileLs.Add(f.m_pathOrig);
+                }
+
+                PrintFlow flow = new PrintFlow();
+                flow.ParentWin = Application.Current.MainWindow;
+                flow.FileList = fileLs;
+                PrintFlow.FlowType = PrintFlowType.Quick;
+
+                if (flow.Run())
+                {
+                    ScanPreview_Rufous win = new ScanPreview_Rufous();
+                    win.Owner = Application.Current.MainWindow;
+                    win.ImagePaths = fileLs;
+                    win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_print_ok");
+                    win.ShowDialog();
+                }
+
+                return true;
+            }
         }
 
         public bool ScanToFtp()

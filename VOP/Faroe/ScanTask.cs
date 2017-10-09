@@ -35,7 +35,10 @@ namespace VOP
                 return null;
 
             List<ScanFiles> files = new List<ScanFiles>();
-            string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
+
+//            string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
+
+            string strSuffix = string.Format("{0}{1}{2}{3}{4}{5}","img", DateTime.Now.Year.ToString(), DateTime.Now.Month.ToString(), DateTime.Now.Day.ToString(), DateTime.Now.Hour.ToString(), DateTime.Now.Minute.ToString());
 
             if (false == Directory.Exists(App.cacheFolder))
             {
@@ -43,7 +46,7 @@ namespace VOP
             }
 
 
-            string tempPath = App.cacheFolder + @"\" + strSuffix;
+            string tempPath = App.PictureFolder + @"\" + strSuffix;
 
             
             int nWidth = 0;
@@ -81,7 +84,7 @@ namespace VOP
                     WM_VOPSCAN_PROGRESS,
                     out fileNames);
 
-            sw.Stop();
+//            sw.Stop();
             Trace.WriteLine(string.Format("Elapsed={0}", sw.Elapsed));
 
             if (fileNames != null)
@@ -98,7 +101,7 @@ namespace VOP
                     App.scanFileList.Add(file);
                 }
             }
-          
+            sw.Stop();
             ScanResult = (Scan_RET)nResult;
 
             if (ScanResult != Scan_RET.RETSCAN_OK)

@@ -56,7 +56,7 @@ namespace VOP
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             ScanSettingDialog settingWin = new ScanSettingDialog();
             settingWin.Owner = m_MainWin;
 
@@ -114,6 +114,22 @@ namespace VOP
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
+            if (tbFilePath.Text == "")
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                   Application.Current.MainWindow,
+                  "The path cannot be empty",
+                  "Error");
+                return;
+            }
+            else if (tbFileName.Text == "")
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                   Application.Current.MainWindow,
+                  "The file name cannot be empty",
+                  "Error");
+                return;
+            }
 
             if (!IsValidPathName(tbFilePath.Text) && !IsValidFileName(tbFileName.Text))
             {
@@ -121,7 +137,7 @@ namespace VOP
                     Application.Current.MainWindow,
                    "Invalid path and file name",
                    "Error");
-               
+                return;
             }
             else
             {
@@ -131,7 +147,7 @@ namespace VOP
                       Application.Current.MainWindow,
                      "Invalid path name",
                      "Error");
-               
+                    return;
                 }
                 else
                 {
@@ -144,7 +160,7 @@ namespace VOP
                       Application.Current.MainWindow,
                      "Invalid file name",
                      "Error");
-               
+                    return;
                 }
                 else
                 {
@@ -157,9 +173,17 @@ namespace VOP
 
         private void BrowseClick(object sender, RoutedEventArgs e)
         {
-            string dummyFileName = "Save Here";
+            string dummyFileName = "";            
 
             SaveFileDialog save = new SaveFileDialog();
+            if (cbFileType.SelectedIndex == 0)
+            {
+                save.Filter = "PDF|*.pdf";
+            }
+            else if (cbFileType.SelectedIndex == 1)
+            {
+                save.Filter = "TIF|*.tif";
+            }
 
             save.FileName = dummyFileName;
             bool? result = save.ShowDialog();
