@@ -144,6 +144,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_A5_148_x_210mm_">A5(148 x 210mm)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_B5_182_x_257mm_">B5(182 x 257mm)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Letter_8_5_x_11">Letter(8.5 x 11")</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_A6_105_x_148mm_">A6(105 x 148mm)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_4_x_6_">4 x 6"</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Contrast">Contrast</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Brightness">Brightness</sys:String>
@@ -407,4 +408,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_home_not_ready">Home is not ready</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_multifeed_error">Multi-feed error</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_fail">Scan failed</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_not_on_line">The computer is not on line!</sys:String>
 </ResourceDictionary>

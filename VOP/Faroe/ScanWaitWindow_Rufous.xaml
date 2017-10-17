@@ -215,6 +215,7 @@
             <!--<TextBlock FontSize="24" FontWeight="Bold" Foreground="#FF525252" VerticalAlignment="Bottom"  HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" Text="Scanning ..."></TextBlock>-->
             <!--<ProgressBar Grid.Row="2"  Grid.Column="1" x:Name="progressBar1" Style="{StaticResource RoundedProgressBar}" Width="500" HorizontalAlignment="Center" Height="50" Value="0" Margin="0,0,4,0"/>-->
             <xctk:BusyIndicator
+                Name="busyScan"
                 Grid.Row="2"  
                 Grid.Column="1"
                 IsBusy="True"

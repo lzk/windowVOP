@@ -27,14 +27,16 @@ namespace VOP
         public ScanFiles m_images     = null;
         public bool isPrint           = false;    // turn if user click print.
         public int m_rotatedAngle     = 0;        // Rotated angle of preview image. Value: { 0, 90, 180, 270 }.
-        public ScanFiles m_rotatedObj = null;     
+        public ScanFiles m_rotatedObj = null;
+        public List<string> selectFileList = null;
 
         private bool oldValueForPrintSettingPage = FileSelectionPage.IsInitPrintSettingPage;
 
         // Actual size of preview image in pixels.
         private double m_actualWidth = 0;
-
-        public List<string> selectFileList = null;
+        private string currentFileExt = "";
+        private TiffBitmapDecoder currentTiffDecoder = null;
+        private Size fitImageSize ;
 
         public ScanPreview()
         {
@@ -50,6 +52,7 @@ namespace VOP
         {
             try
             {
+
                 //System.Drawing.Image img = System.Drawing.Image.FromFile( m_images.m_pathView );
 
                 if (!File.Exists(m_images.m_pathView))
@@ -64,46 +67,86 @@ namespace VOP
                     this.Close();
                 }
 
-                BitmapImage bi3 = new BitmapImage();
-                bi3.BeginInit();
-                bi3.UriSource = new Uri( m_images.m_pathView, UriKind.RelativeOrAbsolute );
-                bi3.CacheOption = BitmapCacheOption.None;
-
-                // Fixed bms bug #0059616: Set the DecodePixelWidth to avoid rotation operation cached memory.
-                // Comment from MSDN:
-                // To save significant application memory, set the DecodePixelWidth or   
-                // DecodePixelHeight of the BitmapImage value of the image source to the desired  
-                // height or width of the rendered image. If you don't do this, the application will  
-                // cache the image as though it were rendered as its normal size rather then just  
-                // the size that is displayed. 
-                // Note: In order to preserve aspect ratio, set DecodePixelWidth 
-                // or DecodePixelHeight but not both.
-           
-                bi3.DecodePixelWidth = 1000;
-                m_actualWidth = 1000;
-              
-                bi3.EndInit();
-
-
-                // Begin: Fix 61368
-                if (m_images.m_colorMode == EnumColorType.black_white)
+                BitmapSource bitmapSource = null;
+                currentFileExt = System.IO.Path.GetExtension(m_images.m_pathView).ToLower();
+                if (currentFileExt == ".tif")
                 {
-                    BitmapSource bmpSrc = bi3;
-                    bmpSrc = BitmapFrame.Create(new TransformedBitmap(bmpSrc, new ScaleTransform(0.4, 0.4)));
+                    if (currentTiffDecoder != null)
+                    {                   
+                        bitmapSource = currentTiffDecoder.Frames[0];
 
-                    // https://msdn.microsoft.com/en-us/library/system.windows.media.imaging.formatconvertedbitmap(v=vs.100).aspx
-                    FormatConvertedBitmap convertedBitmap = new FormatConvertedBitmap();
-                    convertedBitmap.BeginInit();
-                    convertedBitmap.Source = bmpSrc;
-                    convertedBitmap.DestinationFormat = PixelFormats.Gray2;
-                    convertedBitmap.EndInit();
-                    previewImg.Source = convertedBitmap;
+                        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                        encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            encoder.Save(ms);
+                            BitmapImage myBitmapImage = new BitmapImage();
+                            myBitmapImage.BeginInit();
+                            myBitmapImage.StreamSource = new MemoryStream(ms.ToArray());
+                            myBitmapImage.DecodePixelWidth = 400;
+                            myBitmapImage.EndInit();
+
+                         bitmapSource = myBitmapImage;
+                        }
+                    }
                 }
                 else
                 {
-                    previewImg.Source = bi3;
+                    BitmapImage myBitmapImage = new BitmapImage();
+                    myBitmapImage.BeginInit();
+                    myBitmapImage.UriSource = new Uri(m_images.m_pathView, UriKind.RelativeOrAbsolute);
+                    myBitmapImage.DecodePixelWidth = 400;
+                    myBitmapImage.EndInit();
+
+                    bitmapSource = myBitmapImage;
                 }
-                // End: Fix 61368
+
+                previewImg.Stretch = Stretch.Uniform;
+ 
+                m_actualWidth = bitmapSource.PixelWidth;
+                previewImg.Source = bitmapSource;
+
+                //BitmapImage bi3 = new BitmapImage();
+                //bi3.BeginInit();
+                //bi3.UriSource = new Uri( m_images.m_pathView, UriKind.RelativeOrAbsolute );
+                //bi3.CacheOption = BitmapCacheOption.None;
+
+                //// Fixed bms bug #0059616: Set the DecodePixelWidth to avoid rotation operation cached memory.
+                //// Comment from MSDN:
+                //// To save significant application memory, set the DecodePixelWidth or   
+                //// DecodePixelHeight of the BitmapImage value of the image source to the desired  
+                //// height or width of the rendered image. If you don't do this, the application will  
+                //// cache the image as though it were rendered as its normal size rather then just  
+                //// the size that is displayed. 
+                //// Note: In order to preserve aspect ratio, set DecodePixelWidth 
+                //// or DecodePixelHeight but not both.
+           
+                //bi3.DecodePixelWidth = 1000;
+                //m_actualWidth = 1000;
+              
+                //bi3.EndInit();
+
+
+                //// Begin: Fix 61368
+                //if (m_images.m_colorMode == EnumColorType.black_white)
+                //{
+                //    BitmapSource bmpSrc = bi3;
+                //    bmpSrc = BitmapFrame.Create(new TransformedBitmap(bmpSrc, new ScaleTransform(0.4, 0.4)));
+
+                //    // https://msdn.microsoft.com/en-us/library/system.windows.media.imaging.formatconvertedbitmap(v=vs.100).aspx
+                //    FormatConvertedBitmap convertedBitmap = new FormatConvertedBitmap();
+                //    convertedBitmap.BeginInit();
+                //    convertedBitmap.Source = bmpSrc;
+                //    convertedBitmap.DestinationFormat = PixelFormats.Gray2;
+                //    convertedBitmap.EndInit();
+                //    previewImg.Source = convertedBitmap;
+                //}
+                //else
+                //{
+                //    previewImg.Source = bi3;
+                //}
+                //// End: Fix 61368
 
                 FitTheWindow();
                 CenterImage();
@@ -174,20 +217,23 @@ namespace VOP
                 else
                     scaling -= 0.1;
 
-         
-                switch (m_rotatedAngle)
-                {
-                    case 0:
-                    case 180:
-                            previewImg.Width = previewImg.Width * scaling;
-                            previewImg.Height = previewImg.Height * scaling;
-                        break;
-                    case 90:
-                    case 270:
-                            previewImg.Width = previewImg.Height * scaling;
-                            previewImg.Height = previewImg.Width * scaling;
-                        break;
-                }
+                //modified by yunying shang 2017-10-12 for BMS1069
+                /* switch (m_rotatedAngle)
+                 {
+                     case 0:
+                     case 180:
+                             previewImg.Width = previewImg.Width * scaling;
+                             previewImg.Height = previewImg.Height * scaling;
+                         break;
+                     case 90:
+                     case 270:
+                             previewImg.Width = previewImg.Height * scaling;
+                             previewImg.Height = previewImg.Width * scaling;
+                         break;
+                 }*/
+                previewImg.Width = previewImg.Width * scaling;
+                previewImg.Height = previewImg.Height * scaling;
+                //<<===============1069 yunyingshang
 
             }
             else if ( name == "btn_normal" )
@@ -229,9 +275,34 @@ namespace VOP
             }
 
             CenterImage();
-
             btn_zoomout.IsEnabled = ( previewImg.Height > scrollPreview.ViewportHeight/2 );
             btn_zoomin.IsEnabled  = ( previewImg.Width < m_actualWidth*4 );
+
+            if (btn_zoomout.IsEnabled == false)
+            {
+                if (previewImg.Width != fitImageSize.Width ||
+                    previewImg.Height != fitImageSize.Height)
+                {
+                    if ((previewImg.Width != fitImageSize.Width &&
+                        previewImg.Width > fitImageSize.Width) ||
+                        (previewImg.Height != fitImageSize.Height &&
+                        previewImg.Height > fitImageSize.Height))
+                    {
+                        btn_zoomout.IsEnabled = true;
+                    }
+                }
+            }
+
+            if(btn_zoomin.IsEnabled == false)
+            {
+                if ((previewImg.Width != fitImageSize.Width &&
+                    previewImg.Width < fitImageSize.Width) ||
+                    (previewImg.Height != fitImageSize.Height &&
+                    previewImg.Height < fitImageSize.Height))
+                {
+                    btn_zoomin.IsEnabled = true;
+                }
+            }
         }
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
@@ -303,54 +374,55 @@ namespace VOP
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if ( 0 != m_rotatedAngle )
-            {
+            //marked by yunying shang 2017-10-13 for BMS 1026
+            //if ( 0 != m_rotatedAngle )
+            //{
 
-                VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon, this, 
-                            (string)this.TryFindResource("ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_"),
-                            (string)this.TryFindResource("ResStr_Prompt"));
+            //    VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon, this, 
+            //                (string)this.TryFindResource("ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_"),
+            //                (string)this.TryFindResource("ResStr_Prompt"));
 
-                if ( VOP.Controls.MessageBoxExResult.Yes == ret )
-                {
-                    m_rotatedObj = new ScanFiles();
-                    m_rotatedObj.m_colorMode = m_images.m_colorMode;
+            //    if ( VOP.Controls.MessageBoxExResult.Yes == ret )
+            //    {
+            //        m_rotatedObj = new ScanFiles();
+            //        m_rotatedObj.m_colorMode = m_images.m_colorMode;
 
-                    m_rotatedObj.m_pathOrig  = m_images.m_pathOrig.Insert( m_images.m_pathOrig.Length-4   , m_rotatedAngle.ToString() );
-                    m_rotatedObj.m_pathView  = m_images.m_pathView.Insert( m_images.m_pathView.Length-4   , m_rotatedAngle.ToString() );
-                    m_rotatedObj.m_pathThumb = m_images.m_pathThumb.Insert( m_images.m_pathThumb.Length-4 , m_rotatedAngle.ToString() );
+            //        m_rotatedObj.m_pathOrig  = m_images.m_pathOrig.Insert( m_images.m_pathOrig.Length-4   , m_rotatedAngle.ToString() );
+            //        m_rotatedObj.m_pathView  = m_images.m_pathView.Insert( m_images.m_pathView.Length-4   , m_rotatedAngle.ToString() );
+            //        m_rotatedObj.m_pathThumb = m_images.m_pathThumb.Insert( m_images.m_pathThumb.Length-4 , m_rotatedAngle.ToString() );
 
-                    AsyncWorker worker = new AsyncWorker( this );
-                    if ( false == worker.InvokeRotateScannedFiles( RotateScannedFiles, m_images, m_rotatedObj, m_rotatedAngle ) )
-                    {
-                        VOP.Controls.MessageBoxEx.Show(
-                                VOP.Controls.MessageBoxExStyle.Simple,
-                                this,
-                                (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
-                                (string)this.FindResource( "ResStr_Error" )
-                                );
+            //        AsyncWorker worker = new AsyncWorker( this );
+            //        if ( false == worker.InvokeRotateScannedFiles( RotateScannedFiles, m_images, m_rotatedObj, m_rotatedAngle ) )
+            //        {
+            //            VOP.Controls.MessageBoxEx.Show(
+            //                    VOP.Controls.MessageBoxExStyle.Simple,
+            //                    this,
+            //                    (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
+            //                    (string)this.FindResource( "ResStr_Error" )
+            //                    );
 
-                        m_rotatedAngle = 0; // Fixed #0059434.
-                    }
-                }
-                else if ( VOP.Controls.MessageBoxExResult.No == ret )
-                {
-                    m_rotatedAngle = 0;
-                }
-                else
-                {
-                    e.Cancel = true;
-                    isPrint = false;
-                    FileSelectionPage.IsInitPrintSettingPage = oldValueForPrintSettingPage;
-                }
-            }
+            //            m_rotatedAngle = 0; // Fixed #0059434.
+            //        }
+            //    }
+            //    else if ( VOP.Controls.MessageBoxExResult.No == ret )
+            //    {
+            //        m_rotatedAngle = 0;
+            //    }
+            //    else
+            //    {
+            //        e.Cancel = true;
+            //        isPrint = false;
+            //        FileSelectionPage.IsInitPrintSettingPage = oldValueForPrintSettingPage;
+            //    }
+            //}
         }
 
         // Make the preview image fit the scroll view.
         private void FitTheWindow()
         {
-            double scaling1 = 0.0;
-            double scaling2 = 0.0;
-            double scaling0 = 0.0;
+            double scaling1 = 1.0;
+            double scaling2 = 1.0;
+            double scaling0 = 1.0;
 
             switch(m_rotatedAngle)
             {
@@ -362,6 +434,7 @@ namespace VOP
                     break;
                 case 90:
                 case 270:
+                case -90:
                     scaling1 = ( this.scrollPreview.ActualWidth  -10 ) / previewImg.Source.Height;
                     scaling2 = ( this.scrollPreview.ActualHeight -10 ) / previewImg.Source.Width;
                     scaling0 = (scaling1 < scaling2) ? scaling1 : scaling2;                
@@ -370,6 +443,9 @@ namespace VOP
 
             previewImg.Width  = previewImg.Source.Width * scaling0;
             previewImg.Height = previewImg.Source.Height * scaling0;
+
+            fitImageSize.Width = previewImg.Width;
+            fitImageSize.Height = previewImg.Height;
         }
     }
 }

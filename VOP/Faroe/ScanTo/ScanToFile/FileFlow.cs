@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using PdfEncoderClient;
 using Microsoft.Win32;
+using System.Drawing;
 
 namespace VOP
 {
@@ -92,20 +93,20 @@ namespace VOP
             int MAX_FILE_NAME_CHARS_NUMBER = 25;
             int MAX_PATH = 260;
 
-            if (FileList.Count > 1)
-                save.Filter = "TIF|*.tif|PDF|*.pdf";
-            else
-                save.Filter = "TIF|*.tif|PDF|*.pdf|JPG|*.jpg";
+            //if (FileList.Count > 1)
+            //   save.Filter = "TIF|*.tif|PDF|*.pdf";
+            //else
+                save.Filter = "TIF|*.tif|PDF|*.pdf|JPG|*.jpg|BMP|*.bmp";
 
             bool? result = save.ShowDialog();
 
             if (MAX_PATH <= (save.FileName.Length + 1 + MAX_FILE_NAME_CHARS_NUMBER))//
             {
-                //result = false;
-                //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                //                Application.Current.MainWindow,
-                //               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save") + m_errorMsg,
-                //               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                result = false;
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                Application.Current.MainWindow,
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save") + m_errorMsg,
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
             }
             else
                 result = true;
@@ -116,24 +117,33 @@ namespace VOP
                 {
                     try
                     {
+                        //modified by yunying shang 2017-10-16
                         if (3 == save.FilterIndex)
                         {
-                            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-
+                            int i = 1;                  
                             foreach (string path in FileList)
                             {
+                                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
                                 Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
                                 JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
                                 BitmapSource origSource = decoder.Frames[0];
 
                                 if (null != origSource)
                                     encoder.Frames.Add(BitmapFrame.Create(origSource));
-                            }
 
-                            FileStream fs = File.Open(save.FileName, FileMode.Create);
-                            encoder.Save(fs);
-                            fs.Close();
-                        }
+                                string filename = save.FileName;
+                                if (FileList.Count > 1)
+                                {
+                                    filename = System.IO.Path.GetDirectoryName(save.FileName) +"\\" +
+                                    System.IO.Path.GetFileNameWithoutExtension(save.FileName) + Convert.ToString(i) + ".jpg";
+                                }
+                                FileStream fs = File.Open(filename, FileMode.Create);
+                                encoder.Save(fs);
+                                fs.Close();
+                                i++;
+                            }
+                            
+                        }//<<=================================
                         else if (1 == save.FilterIndex)
                         {
                             TiffBitmapEncoder encoder = new TiffBitmapEncoder();
@@ -155,6 +165,31 @@ namespace VOP
                             encoder.Save(fs);
                             fs.Close();
                         }
+                        //add by yunying shang 2017-10-16
+                        else if (4 == save.FilterIndex)
+                        {
+                            int i = 1;
+                            foreach (string path in FileList)
+                            {
+                                using (Bitmap source = new Bitmap(path))
+                                {
+                                    using (Bitmap bmp = new Bitmap(source.Width, source.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb))
+                                    {
+                                        Graphics.FromImage(bmp).DrawImage(source, new Rectangle(0, 0, bmp.Width, bmp.Height));
+
+                                        string filename = save.FileName;
+                                        if (FileList.Count > 1)
+                                        {
+                                            filename = System.IO.Path.GetDirectoryName(save.FileName) + "\\" +
+                                            System.IO.Path.GetFileNameWithoutExtension(save.FileName) + Convert.ToString(i) + ".bmp";
+                                        }
+
+                                        bmp.Save(filename, System.Drawing.Imaging.ImageFormat.Bmp);
+                                    }
+                                    i++;
+                                }
+                            }
+                        }//==========================
                         else if (2 == save.FilterIndex)
                         {
                             using (PdfHelper help = new PdfHelper())
@@ -227,7 +262,6 @@ namespace VOP
        
         ScanFileSaveError SaveFileQuick()
         {
-
             if(MainWindow_Rufous.g_settingData.m_fileName == "" 
                 || MainWindow_Rufous.g_settingData.m_filePath == "")
             {
@@ -238,7 +272,13 @@ namespace VOP
             {
                 try
                 {
-                   
+                    string time = string.Format("{0}{1}{2}{3}{4}{5}", DateTime.Now.Year, 
+                        DateTime.Now.Month,
+                        DateTime.Now.Day, 
+                        DateTime.Now.Hour,
+                        DateTime.Now.Minute,
+                        DateTime.Now.Second);
+
                     if (MainWindow_Rufous.g_settingData.m_fileSaveType == "TIFF")
                     {
                         TiffBitmapEncoder encoder = new TiffBitmapEncoder();
@@ -261,12 +301,13 @@ namespace VOP
                         if (fileExt != ".tif")
                         {
                             savePath = MainWindow_Rufous.g_settingData.m_filePath + 
-                                 @"\" + MainWindow_Rufous.g_settingData.m_fileName + ".tif";
+                                 @"\" + MainWindow_Rufous.g_settingData.m_fileName + time +  ".tif";
                         }
                         else
                         {
                             savePath = MainWindow_Rufous.g_settingData.m_filePath +
-                                @"\" + MainWindow_Rufous.g_settingData.m_fileName;
+                                @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_fileName)
+                                + time  + ".tif";
                         }
 
                         if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_filePath))
@@ -287,12 +328,13 @@ namespace VOP
                             if (fileExt != ".pdf")
                             {
                                 savePath = MainWindow_Rufous.g_settingData.m_filePath +
-                                     @"\" + MainWindow_Rufous.g_settingData.m_fileName + ".pdf";
+                                     @"\" + MainWindow_Rufous.g_settingData.m_fileName + time +".pdf";
                             }
                             else
                             {
-                                savePath = MainWindow_Rufous.g_settingData.m_filePath +
-                                    @"\" + MainWindow_Rufous.g_settingData.m_fileName;
+                                savePath = MainWindow_Rufous.g_settingData.m_filePath+
+                                    @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_fileName)
+                                    + time + ".pdf";
                             }
 
                             if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_filePath))
@@ -315,6 +357,85 @@ namespace VOP
                             help.Close();
                         }
                     }
+                    //add by yunying shang
+                    if (MainWindow_Rufous.g_settingData.m_fileSaveType == "JPG")
+                    {
+                        if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_filePath))
+                        {
+                            Directory.CreateDirectory(MainWindow_Rufous.g_settingData.m_filePath);
+                        }
+
+                        string fileExt = System.IO.Path.GetExtension(MainWindow_Rufous.g_settingData.m_fileName).ToLower();
+                        string savePath = "";
+
+                        int i = 1;
+                        
+                        foreach (string path in FileList)
+                        {
+                            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                            Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
+                            JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
+                            BitmapSource origSource = decoder.Frames[0];
+
+                            if (null != origSource)
+                                encoder.Frames.Add(BitmapFrame.Create(origSource));
+
+                            if (FileList.Count > 1)
+                            {
+                                savePath = MainWindow_Rufous.g_settingData.m_filePath +
+                                     @"\" + MainWindow_Rufous.g_settingData.m_fileName + time + Convert.ToString(i) + ".jpg";
+                            }
+                            else
+                            {
+                                savePath = MainWindow_Rufous.g_settingData.m_filePath +
+                                    @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_fileName)
+                                    + time  + ".jpg";
+                            }
+
+                            FileStream fs = File.Open(savePath, FileMode.Create);
+                            encoder.Save(fs);
+                            fs.Close();
+
+                            i++;
+                        }                        
+                    }
+                    if (MainWindow_Rufous.g_settingData.m_fileSaveType == "BMP")
+                    {
+                        if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_filePath))
+                        {
+                            Directory.CreateDirectory(MainWindow_Rufous.g_settingData.m_filePath);
+                        }
+
+                        string fileExt = System.IO.Path.GetExtension(MainWindow_Rufous.g_settingData.m_fileName).ToLower();
+                        string savePath = "";
+
+                        int i = 1;
+
+                        foreach (string path in FileList)
+                        {
+                            if (FileList.Count > 1)
+                            {
+                                savePath = MainWindow_Rufous.g_settingData.m_filePath +
+                                     @"\" + MainWindow_Rufous.g_settingData.m_fileName 
+                                      + time + Convert.ToString(i) + ".bmp";
+                            }
+                            else
+                            {
+                                savePath = MainWindow_Rufous.g_settingData.m_filePath +
+                                    @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_fileName) 
+                                     + time + ".bmp";
+                            }
+                            using (Bitmap source = new Bitmap(path))
+                            {
+                                using (Bitmap bmp = new Bitmap(source.Width, source.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb))
+                                {
+                                    Graphics.FromImage(bmp).DrawImage(source, new Rectangle(0, 0, bmp.Width, bmp.Height));
+                                    bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Bmp);
+                                }
+                            }
+                            i++;
+                        }
+                    }//<<===========================================
                 }
                 catch (Win32Exception ex)
                 {

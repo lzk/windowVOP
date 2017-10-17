@@ -140,11 +140,11 @@ namespace VOP
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_Msg_3"), (string)this.FindResource("ResStr_Warning"));
                 }
             }
-
-            if (isApplySuccess)
+            //modified by yunying shang 2019-10-11 for BMS 1104
+           // if (isApplySuccess)
                 ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Msg_1"), Brushes.Black);
-            else
-                ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Setting_Fail"), Brushes.Red);
+           // else
+           //     ((MainWindow)App.Current.MainWindow).statusPanelPage.ShowMessage((string)this.FindResource("ResStr_Setting_Fail"), Brushes.Red);
 
             return isApplySuccess;
         }

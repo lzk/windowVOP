@@ -22,6 +22,8 @@ namespace VOP
     public class ScanTask
     {
         public static uint WM_VOPSCAN_PROGRESS = Win32.RegisterWindowMessage("vop_scan_progress");
+        public static uint WM_VOPSCAN_UPLOAD = Win32.RegisterWindowMessage("vop_scan_upload");
+        public static uint WM_VOPSCAN_PAGECOMPLETE = Win32.RegisterWindowMessage("vop_scan_pagecomplete");
         public Scan_RET ScanResult = Scan_RET.RETSCAN_OK;
 
         public List<ScanFiles> DoScan(string deviceName, ScanParam param)
@@ -81,7 +83,7 @@ namespace VOP
                     param.MultiFeed,
                     param.AutoCrop,
                     param.OnePage,
-                    WM_VOPSCAN_PROGRESS,
+                    WM_VOPSCAN_UPLOAD,
                     out fileNames);
 
 //            sw.Stop();

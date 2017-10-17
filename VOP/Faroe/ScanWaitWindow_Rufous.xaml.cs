@@ -56,14 +56,31 @@ namespace VOP
         }
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-
+            //add by yunying shang 2017-10-12 for BMS1082 and 842
             if (ScanTask.WM_VOPSCAN_PROGRESS == msg)
             {
                 handled = true;
-
-                //progressBar1.Value = wParam.ToInt32();
+                // progressBar1.Value = wParam.ToInt32();
+                busyScan.BusyContent = "Scanning...";
             }
-        
+            else
+                if (ScanTask.WM_VOPSCAN_UPLOAD == msg)
+            {
+                handled = true;
+                busyScan.BusyContent = "Uploading...";
+            }
+            else if (ScanTask.WM_VOPSCAN_PAGECOMPLETE == msg)
+            {
+                string str = string.Format("Page {0} finished.", wParam.ToInt32());
+                //if (wParam.ToInt32() == 0)
+                //{
+                //    str = string.Format("Page 1 finished.");
+                //}
+
+                handled = true;
+                busyScan.BusyContent = str;                
+            }
+            ///////////////////////////////
             return IntPtr.Zero;
         }
 

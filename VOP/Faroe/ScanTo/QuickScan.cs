@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Printing;
 
 namespace VOP
 {
@@ -148,19 +149,40 @@ namespace VOP
                     fileLs.Add(f.m_pathOrig);
                 }
 
-                PrintFlow flow = new PrintFlow();
-                flow.ParentWin = Application.Current.MainWindow;
-                flow.FileList = fileLs;
-                PrintFlow.FlowType = PrintFlowType.Quick;
-
-                if (flow.Run())
+                List<string> listPrinters = new List<string>();
+                PrintServer myPrintServer = new PrintServer(null);
+                PrintQueueCollection myPrintQueues = myPrintServer.GetPrintQueues();
+                foreach (PrintQueue pq in myPrintQueues)
                 {
-                    ScanPreview_Rufous win = new ScanPreview_Rufous();
-                    win.Owner = Application.Current.MainWindow;
-                    win.ImagePaths = fileLs;
-                    win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_print_ok");
-                    win.ShowDialog();
+                    PrintDriver queuedrv = pq.QueueDriver;
+
+                    listPrinters.Add(pq.Name);
                 }
+
+                if (listPrinters.Count < 1)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                     Application.Current.MainWindow,
+                                    "no found printer",
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                }
+                else
+                { 
+                    PrintFlow flow = new PrintFlow();
+                    flow.ParentWin = Application.Current.MainWindow;
+                    flow.FileList = fileLs;
+                    PrintFlow.FlowType = PrintFlowType.Quick;
+
+                    if (flow.Run())
+                    {
+                        ScanPreview_Rufous win = new ScanPreview_Rufous();
+                        win.Owner = Application.Current.MainWindow;
+                        win.ImagePaths = fileLs;
+                        win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_print_ok");
+                        win.ShowDialog();
+                    }
+                }
+
 
                 return true;
             }

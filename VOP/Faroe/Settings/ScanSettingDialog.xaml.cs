@@ -391,19 +391,26 @@ namespace VOP
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboScanSize.Items.Add( cboItem );
 
-            //cboItem = new ComboBoxItem();
-            //cboItem.Content = (string)this.TryFindResource("ResStr_A5_148_x_210mm_");
-            //cboItem.DataContext = EnumPaperSizeScan._A5;
-            //cboItem.MinWidth = 145;
-            //cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            //cboScanSize.Items.Add( cboItem );
+            cboItem = new ComboBoxItem();
+            cboItem.Content = (string)this.TryFindResource("ResStr_A5_148_x_210mm_");
+            cboItem.DataContext = EnumPaperSizeScan._A5;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanSize.Items.Add(cboItem);
 
-            //cboItem = new ComboBoxItem();
-            //cboItem.Content = (string)this.TryFindResource("ResStr_B5_182_x_257mm_");
-            //cboItem.DataContext = EnumPaperSizeScan._B5;
-            //cboItem.MinWidth = 145;
-            //cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            //cboScanSize.Items.Add( cboItem );
+            cboItem = new ComboBoxItem();
+            cboItem.Content = (string)this.TryFindResource("ResStr_B5_182_x_257mm_");
+            cboItem.DataContext = EnumPaperSizeScan._B5;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanSize.Items.Add(cboItem);
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = (string)this.TryFindResource("ResStr_A6_105_x_148mm_");
+            cboItem.DataContext = EnumPaperSizeScan._A6;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanSize.Items.Add(cboItem);
 
             cboItem = new ComboBoxItem();
             cboItem.Content = (string)this.TryFindResource("ResStr_Letter_8_5_x_11");
@@ -411,6 +418,21 @@ namespace VOP
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboScanSize.Items.Add( cboItem );
+
+
+            //cboItem = new ComboBoxItem();
+            //cboItem.Content = (string)this.TryFindResource("ResStr_LTR_105_x_148mm_");
+            //cboItem.DataContext = EnumPaperSizeScan._LTR;
+            //cboItem.MinWidth = 145;
+            //cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            //cboScanSize.Items.Add(cboItem);
+
+            //cboItem = new ComboBoxItem();
+            //cboItem.Content = (string)this.TryFindResource("ResStr_LGL_105_x_148mm_");
+            //cboItem.DataContext = EnumPaperSizeScan._LTR;
+            //cboItem.MinWidth = 145;
+            //cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            //cboScanSize.Items.Add(cboItem);
 
             //cboItem = new ComboBoxItem();
             //cboItem.Content = (string)this.TryFindResource("ResStr_4_x_6_");

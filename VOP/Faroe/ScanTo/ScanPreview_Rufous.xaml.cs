@@ -53,6 +53,7 @@ namespace VOP
         int currentTiffIndex = 0;
         List<string> imagePaths = new List<string>();
         TiffBitmapDecoder currentTiffDecoder = null;
+        private Size fitImageSize;
 
         public List<string> ImagePaths
         {
@@ -435,21 +436,23 @@ namespace VOP
                 else
                     scaling -= 0.1;
 
-         
-                switch (m_rotatedAngle)
-                {
-                    case 0:
-                    case 180:
-                            previewImg.Width = previewImg.Width * scaling;
-                            previewImg.Height = previewImg.Height * scaling;
-                        break;
-                    case 90:
-                    case 270:
-                            previewImg.Width = previewImg.Height * scaling;
-                            previewImg.Height = previewImg.Width * scaling;
-                        break;
-                }
-
+                //modified by yunying shang 2017-10-12 for BMS1069
+                //switch (m_rotatedAngle)
+                //{
+                //    case 0:
+                //    case 180:
+                //            previewImg.Width = previewImg.Width * scaling;
+                //            previewImg.Height = previewImg.Height * scaling;
+                //        break;
+                //    case 90:
+                //    case 270:
+                //            previewImg.Width = previewImg.Height * scaling;
+                //            previewImg.Height = previewImg.Width * scaling;
+                //        break;
+                //}
+                previewImg.Width = previewImg.Width * scaling;
+                previewImg.Height = previewImg.Height * scaling;
+                //<<===============1069 yunyingshang
             }
             else if ( name == "btn_normal" )
             {
@@ -493,6 +496,32 @@ namespace VOP
 
             btn_zoomout.IsEnabled = ( previewImg.Height > scrollPreview.ViewportHeight/2 );
             btn_zoomin.IsEnabled  = ( previewImg.Width < m_actualWidth*4 );
+
+            if (btn_zoomout.IsEnabled == false)
+            {
+                if (previewImg.Width != fitImageSize.Width ||
+                    previewImg.Height != fitImageSize.Height)
+                {
+                    if ((previewImg.Width != fitImageSize.Width &&
+                        previewImg.Width > fitImageSize.Width) ||
+                        (previewImg.Height != fitImageSize.Height &&
+                        previewImg.Height > fitImageSize.Height))
+                    {
+                        btn_zoomout.IsEnabled = true;
+                    }
+                }
+            }
+
+            if (btn_zoomin.IsEnabled == false)
+            {
+                if ((previewImg.Width != fitImageSize.Width &&
+                    previewImg.Width < fitImageSize.Width) ||
+                    (previewImg.Height != fitImageSize.Height &&
+                    previewImg.Height < fitImageSize.Height))
+                {
+                    btn_zoomin.IsEnabled = true;
+                }
+            }
         }
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
@@ -609,9 +638,9 @@ namespace VOP
         // Make the preview image fit the scroll view.
         private void FitTheWindow()
         {
-            double scaling1 = 0.0;
-            double scaling2 = 0.0;
-            double scaling0 = 0.0;
+            double scaling1 = 1.0;
+            double scaling2 = 1.0;
+            double scaling0 = 1.0;
 
             switch(m_rotatedAngle)
             {
@@ -623,6 +652,7 @@ namespace VOP
                     break;
                 case 90:
                 case 270:
+                case -90:
                     scaling1 = ( this.scrollPreview.ActualWidth  -10 ) / previewImg.Source.Height;
                     scaling2 = ( this.scrollPreview.ActualHeight -10 ) / previewImg.Source.Width;
                     scaling0 = (scaling1 < scaling2) ? scaling1 : scaling2;                
@@ -632,6 +662,8 @@ namespace VOP
             previewImg.Width  = previewImg.Source.Width * scaling0;
             previewImg.Height = previewImg.Source.Height * scaling0;
 
+            fitImageSize.Width = previewImg.Width;
+            fitImageSize.Height = previewImg.Height;
         }
     }
 }

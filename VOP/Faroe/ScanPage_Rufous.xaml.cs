@@ -15,6 +15,7 @@ using PdfEncoderClient;
 using VOP.Controls;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Printing;
 
 namespace VOP
 {
@@ -119,11 +120,31 @@ namespace VOP
                 List<string> files = new List<string>();
                 GetSelectedFile(files);
 
-                PrintFlow flow = new PrintFlow();
-                flow.ParentWin = m_MainWin;
-                flow.FileList = files;
-                PrintFlow.FlowType = PrintFlowType.View;
-                flow.Run();
+                List<string> listPrinters = new List<string>();
+                PrintServer myPrintServer = new PrintServer(null);
+                PrintQueueCollection myPrintQueues = myPrintServer.GetPrintQueues();
+                foreach (PrintQueue pq in myPrintQueues)
+                {
+                    PrintDriver queuedrv = pq.QueueDriver;
+
+                    listPrinters.Add(pq.Name);
+                }
+
+                if(listPrinters.Count < 1)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                     Application.Current.MainWindow,
+                                    "no found printer",
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                }
+                else
+                { 
+                    PrintFlow flow = new PrintFlow();
+                    flow.ParentWin = m_MainWin;
+                    flow.FileList = files;
+                    PrintFlow.FlowType = PrintFlowType.View;
+                    flow.Run();
+                }
             }
         }
 
@@ -258,7 +279,7 @@ namespace VOP
 
             ScanPreview win = new ScanPreview();
             win.Owner       = m_MainWin;
-			win.m_images    = img.m_images;
+            win.m_images    = img.m_images;
             win.isPrint     = false;
             win.selectFileList = selectfiles;
             win.ShowDialog();

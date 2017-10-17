@@ -348,6 +348,9 @@ typedef struct cmdst_softap
     UINT8 reserved[7]; //
     char  ssid[32]   ; // used by both Legacy WiFi SSID and Wi-Fi Direct GO SSID
     char  pwd[64]    ; // used by both Legacy WiFi Passphrase & WEPKey and Wi-Fi Direct GO Passphrase
+	char  pinCode[8]; //
+	UINT8 reserved2[64]; //
+	UINT8 ipAddr[4]; //
 } cmdst_softap;
 
 typedef struct cmdst_wifi_get
@@ -1804,6 +1807,7 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
     {
 		int nCount = 0;
 		bool bWriteSuccess = false;
+
 		while (nCount++ < 2 && !bWriteSuccess)
 		{
 			char szAsciiIP[1024] = { 0 };
@@ -1833,7 +1837,7 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
 		
 			int m_iSocketID = lpfnNetworkConnect(szAsciiIP, 9100, 1000);
 			lpfnNetworkWrite(m_iSocketID, ptrInput, cbInput);
-
+			
 			if (ptrOutput && cbOutput > 0)
 			{
 				int cbRead = lpfnNetworkRead(m_iSocketID, ptrOutput, cbOutput);
@@ -1853,12 +1857,14 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
 			else
 			{
 				COMM_HEADER cmdHeader = {0};
-				if (sizeof(COMM_HEADER) == lpfnNetworkRead(m_iSocketID, &cmdHeader, sizeof(COMM_HEADER))
+				Sleep(5000);//add by yunying shang 2019-10-11 for BMS 1104
+				int size = lpfnNetworkRead(m_iSocketID, &cmdHeader, sizeof(COMM_HEADER));
+				if (sizeof(COMM_HEADER) == size
 					&& cmdHeader.magic == MAGIC_NUM)
 				{
 					nResult = cmdHeader.subcmd;
 					bWriteSuccess = true;
-					OutputDebugStringToFileA("\r\n####VP:WriteDataViaNetwork(): wirte data success. magic = 0x%x  id = 0x%x len = %u subid = 0x%x len2 = %u subcmd = %u", \
+					OutputDebugStringToFileA("\r\n####VP:WriteDataViaNetwork(): write data success. magic = 0x%x  id = 0x%x len = %u subid = 0x%x len2 = %u subcmd = %u", \
 						cmdHeader.magic, cmdHeader.id, cmdHeader.len, cmdHeader.subid, cmdHeader.len2, cmdHeader.subcmd);
 				}
 				else
@@ -2749,6 +2755,7 @@ USBAPI_API int __stdcall GetSoftAp( const wchar_t* szPrinter, char* ssid, char* 
 {
   /*  if ( NULL == szPrinter )
         return _SW_INVALID_PARAMETER;*/
+	char ipAddr[4];
 
 	OutputDebugStringToFileA("\r\n####VP:GetSoftAp() begin");
 	int nResult = _ACK;
@@ -2798,6 +2805,7 @@ USBAPI_API int __stdcall GetSoftAp( const wchar_t* szPrinter, char* ssid, char* 
 			OutputDebugStringToFileA("\r\nssid: %s", ssid);
             memcpy( pwd, pcmd_softap->pwd, 64); pwd[64] = 0;
 			OutputDebugStringToFileA("\r\npwd: %s", pwd);
+			memcpy(ipAddr, pcmd_softap->ipAddr, 4);
 
 			*ptr_wifi_enable = (0x06 == (pcmd_softap->wifiEnable & 0x06));
         }
@@ -3762,7 +3770,10 @@ USBAPI_API int __stdcall GetWiFiInfo(const wchar_t* szPrinter, UINT8* ptr_wifien
                 nResult = _SW_INVALID_RETURN_VALUE;
             }
         }
-
+		else
+		{
+			OutputDebugStringToFileA("\r\n####VP:GetWiFiInfo(): Result not ACK");
+		}
         if ( buffer )
         {
             delete[] buffer;

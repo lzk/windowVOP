@@ -101,7 +101,7 @@ namespace VOP
             btnScanToFtp.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnScanToFtp);
 
-          
+
             btnScanToCloud.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Scan_Cloud");
             btnScanToCloud.Margin = new Thickness(0, 1, 0, 9);
             btnScanToCloud.Width = tabbtn_width;
@@ -208,7 +208,7 @@ namespace VOP
                 scanToFileView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = scanToFileView;
             }
-            else if ("btnScanToPrint" == srcButton.Name )
+            else if ("btnScanToPrint" == srcButton.Name)
             {
                 SetActiveButton(SettingType.ScanToPrint);
                 scanToPrintView.m_MainWin = this.m_MainWin;

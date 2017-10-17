@@ -20,9 +20,14 @@ namespace VOP
         public static string[] ipList = null;
         private static object lockobj = new object();
 
+        [DllImport("wininet.dll")]
+        private extern static bool InternetGetConnectedState(out int connectionDescription, int reservedValue);
+
+
         public ScanDevicePage_Rufous()
         {
             InitializeComponent();
+            btnConnect.IsEnabled = false; //add by yunying shang for BMS1018
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -36,6 +41,18 @@ namespace VOP
             }
         }
 
+        public static bool IsOnLine()
+        {
+            try
+            {
+                var connection = 0;
+                return InternetGetConnectedState(out connection, 0);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public static bool ListIP()
         {
             lock(lockobj)
@@ -58,6 +75,7 @@ namespace VOP
             DeviceList.Items.Clear();
             m_MainWin.SetDeviceButtonState(false);
 
+            btnConnect.IsEnabled = false; //add by yunying shang for BMS1018
             StringBuilder usbName = new StringBuilder(50);
             if(dll.CheckUsbScan(usbName) == 1)
             {
@@ -82,6 +100,13 @@ namespace VOP
 
             if(forceRefresh == true)
             {
+                //add by yunying shnag 2017-10-16 for BMS 1165
+                if (IsOnLine() == false)
+                {
+                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow,
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_not_on_line"), 
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                }//===============1165
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
                 worker.InvokeQuickScanMethod(ListIP, (string)this.TryFindResource("ResStr_Faroe_search_dev"));
             }
@@ -93,10 +118,10 @@ namespace VOP
                     worker.InvokeQuickScanMethod(ListIP, (string)this.TryFindResource("ResStr_Faroe_search_dev"));
                 }
             }
-           
+
 
             if (ipList != null)
-            {
+            {            
                 foreach (string ip in ipList)
                 {
                     DeviceListBoxItem item = new DeviceListBoxItem();
@@ -113,7 +138,7 @@ namespace VOP
                     {
                         item.StatusText = "";
                     }
-                  
+
 
                     DeviceList.Items.Add(item);
                 }
@@ -121,12 +146,13 @@ namespace VOP
 
             if (canConnected == false)
             {
-                foreach(DeviceListBoxItem item in DeviceList.Items)
+                foreach (DeviceListBoxItem item in DeviceList.Items)
                 {
                     if (dll.CheckUsbScan(usbName) == 1)
                     {
                         if (item.DeviceName == usbName.ToString())
                         {
+                            btnConnect.IsEnabled = true; //add by yunying shang for BMS1018
                             item.StatusText = "Connected";
                             dll.SetConnectionMode(item.DeviceName, true);
                             m_MainWin.SetDeviceButtonState(true);
@@ -139,14 +165,19 @@ namespace VOP
                         {
                             if (item.DeviceName == ScanDevicePage_Rufous.ipList[0])
                             {
+                                btnConnect.IsEnabled = true; //add by yunying shang for BMS1018
                                 item.StatusText = "Connected";
                                 dll.SetConnectionMode(item.DeviceName, false);
                                 m_MainWin.SetDeviceButtonState(true);
                                 break;
-                            }                            
+                            }
                         }
                     }
-                }               
+                }
+            }
+            else
+            {
+                btnConnect.IsEnabled = true; //add by yunying shang for BMS1018
             }
         }
 

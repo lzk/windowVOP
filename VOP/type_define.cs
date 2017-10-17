@@ -219,7 +219,10 @@ namespace VOP
         _A4      ,
         _A5      ,
         _B5      ,
+        _A6      ,
         _Letter  ,
+        _LGL     ,
+        _LTR     ,
         _4x6Inch ,
     }
     

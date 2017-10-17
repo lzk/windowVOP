@@ -242,6 +242,7 @@
                                 Height="30" 
                                 Margin="45,0,0,0" 
                                 Text=""
+                                MaxLength="255"
                                 VerticalContentAlignment="Center"
                                 FontSize="14"
                                 />

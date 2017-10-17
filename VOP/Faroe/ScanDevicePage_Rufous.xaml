@@ -67,6 +67,7 @@
            
         </ListBox>
         <Button
+            Name="btnConnect"
                 Grid.Row="2"
                 Grid.Column="1"
                 Width="120"
