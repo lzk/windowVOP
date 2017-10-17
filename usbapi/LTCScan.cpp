@@ -54,8 +54,13 @@ enum Scan_RET
 	RETSCAN_ULTRA_SONIC = 17,
 };
 
+extern UINT WM_VOPSCAN_PROGRESS;
+extern UINT WM_VOPSCAN_UPLOAD;
+extern UINT WM_VOPSCAN_PAGECOMPLETE;
+
 extern CRITICAL_SECTION g_csCriticalSection_UsbTest;
 extern CRITICAL_SECTION g_csCriticalSection_NetWorkTest;
+
 extern BOOL TestIpConnected(wchar_t* szIP);
 extern BOOL TestIpConnected(wchar_t* szIP, Scan_RET *status);
 
@@ -558,7 +563,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				return RETSCAN_ERROR;
 			}
 		}*/
-
+		::SendNotifyMessage(HWND_BROADCAST, WM_VOPSCAN_PROGRESS/*uMsg*/, 0, 0);
 		result = glDrv._StartScan();
 		MyOutputString(L"_StartScan");
 		if (!result)
@@ -807,9 +812,9 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			}*/
 			for (dup = 0; dup < 2; dup++) 
 			{			
+				
 				if ((duplex & (1 << dup)) && glDrv.sc_infodata.ValidPageSize[dup]) 
 				{
-
 					ImgSize = 0;
 					TotalImgSize = 0;
 					currentImgSize = glDrv.sc_infodata.ValidPageSize[dup];
@@ -846,6 +851,11 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 						page[dup]++;
 					}
 
+					//add by yunying shang 2017-10-12 for BMS1082 and 842
+					if(currentImgSize > 0 && lineCount !=0)
+						::SendNotifyMessage(HWND_BROADCAST, WM_VOPSCAN_UPLOAD/*uMsg*/, 0, 0);
+					////////////1082
+
 					while (currentImgSize > 0)
 					{
 						LastImgSize = currentImgSize % imgBufferSize;
@@ -862,17 +872,24 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 							percent = lineCount;
 							//MyOutputString(L"Data size ", ImgSize);
 							if (percent > 100)
-								percent = 100;
-
-							::SendNotifyMessage(HWND_BROADCAST, uMsg, percent, 0);
+								percent = 100;							
 							Sleep(100);
-
 						}
-
-					}
-					
+					}					
 					if ((TotalImgSize >= (int)glDrv.sc_infodata.ValidPageSize[dup]) && glDrv.sc_infodata.EndPage[dup])
 					{
+						//add by yunying shang 2017-10-12 for BMS1082
+						if (duplex >= 3)
+						{
+							::SendNotifyMessage(HWND_BROADCAST, WM_VOPSCAN_PAGECOMPLETE/*uMsg*/, (fileCount) / 2, 0);
+						}
+						else
+						{
+						
+							::SendNotifyMessage(HWND_BROADCAST, WM_VOPSCAN_PAGECOMPLETE/*uMsg*/, (fileCount), 0);
+						}
+						Sleep(50);
+						//////////////1082 yunying
 						MyOutputString(L"ImgFile Close ", glDrv.sc_infodata.ImageHeight[dup]);
 						ImgFile_Close(&ImgFile[dup], glDrv.sc_infodata.ImageHeight[dup]);
 						bFiling[dup]--;
@@ -1085,6 +1102,7 @@ USBAPI_API int __stdcall CheckUsbScan(
 	TCHAR strPort[32] = { 0 };
 	TCHAR strPortAlt[32] = { 0 };
 	int  iCnt;
+	int error = 0;
 
 	//EnterCriticalSection(&g_csCriticalSection_UsbTest);
 
@@ -1097,11 +1115,15 @@ USBAPI_API int __stdcall CheckUsbScan(
 			NULL,
 			OPEN_EXISTING,
 			FILE_FLAG_OVERLAPPED, NULL);
-
+	
 		if (hDev != INVALID_HANDLE_VALUE) 
 		{
 			::WideCharToMultiByte(CP_ACP, 0, strPortAlt, -1, interfaceName, 32, NULL, NULL);
 			break;
+		}
+		else
+		{
+			error = GetLastError();
 		}
 	}
 

@@ -162,8 +162,8 @@
         <Grid x:Name="LayoutRoot" Width="472" Height="640" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
-                <RowDefinition Height="510" />
-                <RowDefinition Height="50" />
+                <RowDefinition Height="450" />
+                <RowDefinition Height="80" />
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 

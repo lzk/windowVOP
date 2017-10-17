@@ -150,25 +150,23 @@
 
                 <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" />
                 <!-- Title bar end -->
-
-
-                <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Faroe_ADF}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="455" Height="75" >
+                <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Faroe_ADF}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="280" Height="75" Margin="40,0,0,0" >
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="40" />
                             <ColumnDefinition Width="100*" />
                             <ColumnDefinition Width="100*" />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="40" />
                         </Grid.ColumnDefinitions>
 
-                    <RadioButton GroupName="ADFMode" IsChecked="true"
+                        <RadioButton GroupName="ADFMode" IsChecked="true"
                     Grid.Column="1"
                     HorizontalAlignment="Center"
                     Name="twoSideButton" Click="ADFMode_click"
                     Template="{StaticResource customRadioButton}"
                     Content="{StaticResource ResStr_Faroe_2side}" VerticalAlignment="Center" ></RadioButton>
 
-                    <RadioButton GroupName="ADFMode" IsChecked="false"
+                        <RadioButton GroupName="ADFMode" IsChecked="false"
                     Grid.Column="2"
                     HorizontalAlignment="Center"
                     Name="oneSideButton" Click="ADFMode_click"
@@ -176,9 +174,17 @@
                     Content="{StaticResource ResStr_Faroe_1side}" VerticalAlignment="Center" ></RadioButton>
 
                     </Grid>
+                </local:GroupBoxDecorator>
+                <local:GroupBoxDecorator Grid.Row="1" Margin="20,0,0,0" Header="{StaticResource ResStr_DPI}" Height="75" Width="220" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                    <ComboBox Name="cboMediaType" SelectionChanged="combo_sel_change"
+                            Style="{StaticResource customComboBox}"
+                            Background="White"
+                            Width="145" Height="24"
+                            VerticalAlignment="Center" Margin="38,4,37,9"
+                            >
+                    </ComboBox>
 
                 </local:GroupBoxDecorator>
-
                 <Grid Grid.Row="2" >
                     <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_DPI}" Height="65" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
                         <ComboBox Name="cboScanResln" SelectionChanged="combo_sel_change"
@@ -187,9 +193,8 @@
                             Width="145" Height="24"
                             VerticalAlignment="Center" Margin="38,4,37,9"
                             >
-
-
                         </ComboBox>
+
                     </local:GroupBoxDecorator>
 
                     <local:GroupBoxDecorator Margin="40,78,0,82" Header="{StaticResource ResStr_Color_Mode}" Height="80" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -216,8 +221,8 @@
 					        Style="{StaticResource CustomRadioButtonEx}"
                             ToolTip="{StaticResource ResStr_Color}"
                             Width="55"
-                            Height="38">                                
-                            <RadioButton.BorderBrush>
+                            Height="38">
+                                <RadioButton.BorderBrush>
                                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
                                 </RadioButton.BorderBrush>
                                 <Image Stretch="None" Source="../../Images/Color.png" />
@@ -232,8 +237,8 @@
 					        Style="{StaticResource CustomRadioButtonEx}" 
                             ToolTip="{StaticResource ResStr_Grayscale}"
                             Width="55"
-                            Height="38">                                
-                            <RadioButton.BorderBrush>
+                            Height="38">
+                                <RadioButton.BorderBrush>
                                     <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
                                 </RadioButton.BorderBrush>
                                 <Image Stretch="None" Source="../../Images/Grayscale.png" />
@@ -266,8 +271,6 @@
                     >
                         </ComboBox>
                     </local:GroupBoxDecorator>
-
-
 
                     <!-- Right side -->
                     <local:GroupBoxDecorator Margin="0,0,40,0" Header="{StaticResource ResStr_Contrast}" Height="115" HorizontalAlignment="Right" VerticalAlignment="Top" Width="220" >
@@ -341,7 +344,7 @@
                                 Name="MultiFeedOffButton" Click="MultiFeed_click"
                                 Template="{StaticResource customRadioButton}"
                                 Content="{StaticResource ResStr_Off}" VerticalAlignment="Center" >
-                            </RadioButton>   
+                            </RadioButton>
 
                         </Grid>
 
@@ -376,7 +379,7 @@
 
                     </local:GroupBoxDecorator>
                 </StackPanel>
-                
+
                 <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="False" x:Name="btnDefault" Click="btnDefault_Click"
                 Content="{StaticResource ResStr_Default}" 

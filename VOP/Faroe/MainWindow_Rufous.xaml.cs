@@ -204,7 +204,7 @@ namespace VOP
             while (!_bExitUpdater)
             {
 
-                if(dll.CheckConnection())
+                if (dll.CheckConnection())
                 {
                     //SetDeviceButtonState(true);
                     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
@@ -215,7 +215,7 @@ namespace VOP
                     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
                 }
 
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 12; i++)
                 {
                     if (_bExitUpdater)
                         break;

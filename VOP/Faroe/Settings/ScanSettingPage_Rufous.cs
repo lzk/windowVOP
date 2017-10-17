@@ -114,7 +114,7 @@ namespace VOP
             //btnScanToFtp.btn.Click += SettingBtnClick;
             //m_listSettingButton.Add(btnScanToFtp);
 
-          
+
             //btnScanToCloud.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Scan_Cloud");
             //btnScanToCloud.Margin = new Thickness(0, 1, 0, 9);
             //btnScanToCloud.Width = tabbtn_width;

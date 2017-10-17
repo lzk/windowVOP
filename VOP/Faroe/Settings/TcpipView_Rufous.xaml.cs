@@ -34,6 +34,10 @@ namespace VOP
         private bool m_bGatewayValidate = true;
         private string m_printerName = "";
 
+        private string addr_ip = "";
+        private string addr_mask = "";
+        private string addr_gate = "";
+
         #region IP
         private static readonly DependencyProperty IPProperty =
             DependencyProperty.Register("IP", typeof(string), typeof(TcpipView),
@@ -160,11 +164,12 @@ namespace VOP
                 TcpIpSetting.m_mode_ipaddress = (byte)m_rec.IpAddressMode;
             }
 
-            string addr_ip = "";
-            string addr_mask = "";
-            string addr_gate = "";
+            //modified by yunying shang 2017-10-13 for BMS 1017
+            //string addr_ip = "";
+            //string addr_mask = "";
+            //string addr_gate = "";
 
-            addr_ip += TcpIpSetting.m_ip0.ToString();
+            addr_ip = TcpIpSetting.m_ip0.ToString();
             addr_ip += ".";
             addr_ip += TcpIpSetting.m_ip1.ToString();
             addr_ip += ".";
@@ -172,7 +177,7 @@ namespace VOP
             addr_ip += ".";
             addr_ip += TcpIpSetting.m_ip3.ToString();
 
-            addr_mask += TcpIpSetting.m_mask0.ToString();
+            addr_mask = TcpIpSetting.m_mask0.ToString();
             addr_mask += ".";
             addr_mask += TcpIpSetting.m_mask1.ToString();
             addr_mask += ".";
@@ -180,7 +185,7 @@ namespace VOP
             addr_mask += ".";
             addr_mask += TcpIpSetting.m_mask3.ToString();
 
-            addr_gate += TcpIpSetting.m_gate0.ToString();
+            addr_gate = TcpIpSetting.m_gate0.ToString();
             addr_gate += ".";
             addr_gate += TcpIpSetting.m_gate1.ToString();
             addr_gate += ".";
@@ -202,13 +207,14 @@ namespace VOP
                 tb_ip.IsEnabled = false;
                 tb_gate.IsEnabled = false;
                 tb_mask.IsEnabled = false;
+                btnApply.IsEnabled = true;
             }
             else
             {
                 tb_ip.IsEnabled = true;
                 tb_gate.IsEnabled = true;
                 tb_mask.IsEnabled = true;
-            }
+            }///////////////1017
         }
 
         private bool ParseNetworkMask(string strIP, ref byte ip0, ref byte ip1, ref byte ip2, ref byte ip3)
@@ -369,11 +375,15 @@ namespace VOP
             if (null != btn)
             {
                 if (btn.Name == "rdbtn_dhcp")
-                {
+                {//modified by yunying shang 2017-10-13 for BMS 1017
                     tb_ip.IsEnabled = false;
                     tb_gate.IsEnabled = false;
                     tb_mask.IsEnabled = false;
-                    btnApply.IsEnabled = m_currentStatus;
+                    btnApply.IsEnabled = true;//modified by yunying shang 2019-10-11 for BMS 1017
+                    tb_ip.Text = addr_ip;
+                    tb_mask.Text = addr_mask;
+                    tb_gate.Text = addr_gate;
+                    //==============1017
                 }
                 else if (btn.Name == "rdbtn_static")
                 {
@@ -447,7 +457,7 @@ namespace VOP
                     }
                 }
 
-                if(false == m_currentStatus)
+                if (false == rdbtn_dhcp.IsChecked)
                 {
                     if (bValidate)
                     {
@@ -460,7 +470,7 @@ namespace VOP
                 }
                 else
                 {
-                    btnApply.IsEnabled = false;
+                    btnApply.IsEnabled = true;
                 }
             }
         }
@@ -727,11 +737,18 @@ namespace VOP
         {
             m_currentStatus = online;
 
-            if (true == m_bSubmaskValidate &&
+            if (false == rdbtn_dhcp.IsChecked)
+            {
+                if (true == m_bSubmaskValidate &&
                 true == m_bIPValidate &&
                 true == m_bGatewayValidate)
+                {
+                    btnApply.IsEnabled = online;
+                }
+            }
+            else
             {
-                btnApply.IsEnabled = online;
+                btnApply.IsEnabled = true;
             }
         }
 
