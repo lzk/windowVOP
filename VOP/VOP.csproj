@@ -183,6 +183,12 @@
       <DependentUpon>MessageBoxEx_YesNo_NoIcon.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PopupEx.cs" />
+    <Compile Include="Faroe\ScanToAPParam.cs" />
+    <Compile Include="Faroe\ScanToCloudParam.cs" />
+    <Compile Include="Faroe\ScanToEmailParam.cs" />
+    <Compile Include="Faroe\ScanToFileParam.cs" />
+    <Compile Include="Faroe\ScanToFTPParam.cs" />
+    <Compile Include="Faroe\ScanToPrintParam.cs" />
     <Compile Include="Faroe\ScanTo\QuickScan.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\DropBoxFlow.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\FileViewer.xaml.cs" />
@@ -205,11 +211,35 @@
     </Compile>
     <Compile Include="Faroe\ScanSelectionPage_Rufous.cs" />
     <Compile Include="Faroe\ScanTo\ScanToFtp\FtpFlow.cs" />
+    <Compile Include="Faroe\Settings\AddQuickScanSetting.xaml.cs">
+      <DependentUpon>AddQuickScanSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Faroe\Settings\QuickScanSettings.xaml.cs">
+      <DependentUpon>QuickScanSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Faroe\Settings\ScanToAPDialog.xaml.cs">
+      <DependentUpon>ScanToAPDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Faroe\Settings\ScanToAPView.xaml.cs">
       <DependentUpon>ScanToAPView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Faroe\Settings\ScanToCloudDialog.xaml.cs">
+      <DependentUpon>ScanToCloudDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Faroe\Settings\ScanToEmailDialog.xaml.cs">
+      <DependentUpon>ScanToEmailDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Faroe\Settings\ScanToEmailView.xaml.cs">
       <DependentUpon>ScanToEmailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Faroe\Settings\ScanToFileDialog.xaml.cs">
+      <DependentUpon>ScanToFileDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Faroe\Settings\ScanToFtpDialog.xaml.cs">
+      <DependentUpon>ScanToFtpDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Faroe\Settings\ScanToPrintDialog.xaml.cs">
+      <DependentUpon>ScanToPrintDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Faroe\Settings\ScanToPrintView.xaml.cs">
       <DependentUpon>ScanToPrintView.xaml</DependentUpon>
@@ -488,13 +518,45 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Faroe\Settings\AddQuickScanSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Faroe\Settings\QuickScanSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Faroe\Settings\ScanToAPDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Faroe\Settings\ScanToAPView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Faroe\Settings\ScanToCloudDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Faroe\Settings\ScanToEmailDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Faroe\Settings\ScanToEmailView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\Settings\ScanToFileDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Faroe\Settings\ScanToFtpDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Faroe\Settings\ScanToPrintDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Faroe\Settings\ScanToPrintView.xaml">
       <Generator>MSBuild:Compile</Generator>

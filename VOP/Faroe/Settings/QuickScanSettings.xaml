@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="VOP.ScanParameterView"
+﻿<UserControl x:Class="VOP.QuickScanSettings"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,8 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="500"
              xmlns:local="clr-namespace:VOP.Controls" 
-             Loaded="UserControl_Loaded"
-             >
+             Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -125,8 +124,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="150"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="500*"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -134,114 +132,46 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
-        <Grid Grid.Row="1" Grid.Column="1">
+
+       
+        <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="19,0,1,0"  >
             <Grid.RowDefinitions>
-                <RowDefinition Height="25"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="0"/>
+                <ColumnDefinition Width="292"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock 
-                Grid.Row="1"
-                Grid.Column="0"
-                FontSize="14"
-                FontWeight="Bold"
-                VerticalAlignment="Center"
-                Text="{StaticResource ResStr_Faroe_scan_setting}"/>
-
-            <Button
-                Grid.Row="1"
-                Grid.Column="2"
-                Width="120"
-                Height="35" 
-                Margin="-90,0,0,0"
-                Content="{StaticResource ResStr_Setting}"
-                FontSize="16"
-                Style="{StaticResource CustomGreenButtonStyle}" 
-                Click="Button_Click"
-                />
-
-            <TextBlock 
-                Grid.Row="2"
+                Grid.Row="0"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="{StaticResource ResStr_Faroe_qr_setting}"/>
-
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
-                <RadioButton 
-                Margin="20,0,0,0"
-                GroupName="QRDecodeMode" 
-                IsChecked="true"    
-                Name="QuickModeButton" Click="QRDecodeMode_click"
-                Template="{StaticResource customRadioButton}"
-                Content="{StaticResource ResStr_Faroe_quick}" VerticalAlignment="Center" ></RadioButton>
-
-                <RadioButton 
-                Margin="10,0,0,0"
-                GroupName="QRDecodeMode" 
-                IsChecked="false"               
-                Name="HardModeButton" Click="QRDecodeMode_click"
-                Template="{StaticResource customRadioButton}"
-                Content="{StaticResource ResStr_Faroe_Accurate}" VerticalAlignment="Center" ></RadioButton>
-
-                <ComboBox 
-                                Name="cbDecodeLevel"
-                                VerticalAlignment="Center" 
-                                VerticalContentAlignment="Center"
-                                Width="110" 
-                                Height="25" 
-                                Margin="10,0,0,0" 
-                                FontSize="10"
-                            SelectionChanged="cbDecodeLevel_SelectionChanged"
-                                >
-                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_Standard}"></ComboBoxItem>
-                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_Fine}"></ComboBoxItem>
-                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_SuperFine}"></ComboBoxItem>
-                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_HighestQuality}"></ComboBoxItem>
-                </ComboBox>
-            </StackPanel>
-          
-        </Grid>
-        
-        <!--<Grid Grid.Row="2" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="0"/>
-            </Grid.ColumnDefinitions>
-            
-            <TextBlock 
-                Grid.Row="0"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                FontSize="14"
-                FontWeight="Bold"
-                VerticalAlignment="Center"
-                Text="{StaticResource ResStr_Faroe_quick_match}"/>
+                Text="{StaticResource ResStr_Faroe_quick_match}" Height="24" Margin="0,10,-135,16"/>
 
             <ListBox
                 Name="MatchListBox" 
                 Grid.Row="1"
                 Grid.Column="1"
                 ScrollViewer.CanContentScroll="True"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.RowSpan="4"
                 />
-     
-        </Grid>-->
+            <Button x:Name="btnMoveUp" Content="Move Up" FontSize="12" Grid.Column="2" HorizontalAlignment="Center" Height="30"  Grid.Row="2" VerticalAlignment="Center" Width="90" Click="btnMoveUp_Click"/>
+            <Button x:Name="btnMoveDown" Content="Move Down" FontSize="12" Grid.Column="2" HorizontalAlignment="Center" Height="30"  Grid.Row="3" VerticalAlignment="Center" Width="90" Click="btnMoveDown_Click" />
+            <Button x:Name="btnAdd" Content="New" Grid.Column="1" FontSize="12" HorizontalAlignment="Left" Height="30" Margin="20,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Click="btnAdd_Click"/>
+            <Button x:Name="btnDelete" Content="Delete" Grid.Column="1" FontSize="12" HorizontalAlignment="Left" Height="30" Margin="169,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Click="btnDelete_Click"/>
+            <Button x:Name="btnSettings" Content="Settings" Grid.Column="2" FontSize="12" HorizontalAlignment="Left" Height="30" Margin="20,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Click="btnSettings_Click"/>
+
+        </Grid>
     </Grid>
 </UserControl>
+

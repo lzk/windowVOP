@@ -1,14 +1,22 @@
-﻿<UserControl x:Class="VOP.ScanParameterView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="500"
-             xmlns:local="clr-namespace:VOP.Controls" 
-             Loaded="UserControl_Loaded"
-             >
-    <UserControl.Resources>
+﻿<Window x:Class="VOP.ScanToAPDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VOP.Controls"
+        mc:Ignorable="d"
+        Title="ScanToAPDialog" 
+        Width="585" 
+	    Height="593"
+        AllowsTransparency="true"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        WindowStyle="None" 
+        BorderThickness="24"
+        xmlns:vop="clr-namespace:VOP"
+        ShowInTaskbar="False"
+        Loaded="ScanToAPDialog_Loaded">
+    <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../../Controls/CustomPasswordBox.xaml"/>
@@ -116,132 +124,145 @@
                 </Setter>
             </Style>
         </ResourceDictionary>
-    </UserControl.Resources>
+    </Window.Resources>
+    <Viewbox Stretch="Fill">
+        <Grid>
+            <Rectangle Fill="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"  
+                                    RadiusX="5" RadiusY="5">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <Grid x:Name="LayoutRoot" Background="AliceBlue" Width="537" Height="545" >
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="..\..\Images\SettingViewBackground.png" />
-        </Grid.Background>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="35"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="35"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="150"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="20"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        
-        <Grid Grid.Row="1" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="25"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+                <!-- Title bar begin -->
+                <Border Name="TitleBar"  Background="Transparent" Grid.Row="0" Grid.ColumnSpan="2">
+                    <TextBlock Text="{StaticResource ResStr_Faroe_Scan_App}" FontSize="15" Foreground="#FF48C6E0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
 
-            <TextBlock 
+                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Grid.Column="2" RenderTransformOrigin="1.567,0.633" />
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock 
                 Grid.Row="1"
                 Grid.Column="0"
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="{StaticResource ResStr_Faroe_scan_setting}"/>
+                Text="{StaticResource ResStr_Faroe_scan_setting}"
+                />
 
-            <Button
+                    <Button
                 Grid.Row="1"
                 Grid.Column="2"
                 Width="120"
                 Height="35" 
                 Margin="-90,0,0,0"
-                Content="{StaticResource ResStr_Setting}"
+                Content="{StaticResource ResStr_Setting}" 
                 FontSize="16"
                 Style="{StaticResource CustomGreenButtonStyle}" 
                 Click="Button_Click"
                 />
+                </Grid>
 
-            <TextBlock 
-                Grid.Row="2"
-                Grid.Column="0"
-                Grid.ColumnSpan="3"
-                FontSize="14"
-                FontWeight="Bold"
-                VerticalAlignment="Center"
-                Text="{StaticResource ResStr_Faroe_qr_setting}"/>
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0"/>
+                    </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
-                <RadioButton 
-                Margin="20,0,0,0"
-                GroupName="QRDecodeMode" 
-                IsChecked="true"    
-                Name="QuickModeButton" Click="QRDecodeMode_click"
-                Template="{StaticResource customRadioButton}"
-                Content="{StaticResource ResStr_Faroe_quick}" VerticalAlignment="Center" ></RadioButton>
-
-                <RadioButton 
-                Margin="10,0,0,0"
-                GroupName="QRDecodeMode" 
-                IsChecked="false"               
-                Name="HardModeButton" Click="QRDecodeMode_click"
-                Template="{StaticResource customRadioButton}"
-                Content="{StaticResource ResStr_Faroe_Accurate}" VerticalAlignment="Center" ></RadioButton>
-
-                <ComboBox 
-                                Name="cbDecodeLevel"
-                                VerticalAlignment="Center" 
-                                VerticalContentAlignment="Center"
-                                Width="110" 
-                                Height="25" 
-                                Margin="10,0,0,0" 
-                                FontSize="10"
-                            SelectionChanged="cbDecodeLevel_SelectionChanged"
-                                >
-                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_Standard}"></ComboBoxItem>
-                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_Fine}"></ComboBoxItem>
-                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_SuperFine}"></ComboBoxItem>
-                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_HighestQuality}"></ComboBoxItem>
-                </ComboBox>
-            </StackPanel>
-          
-        </Grid>
-        
-        <!--<Grid Grid.Row="2" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="0"/>
-            </Grid.ColumnDefinitions>
-            
-            <TextBlock 
+                    <TextBlock 
                 Grid.Row="0"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="{StaticResource ResStr_Faroe_quick_match}"/>
+                Text="{StaticResource ResStr_Faroe_app_setting}"/>
 
-            <ListBox
-                Name="MatchListBox" 
-                Grid.Row="1"
-                Grid.Column="1"
-                ScrollViewer.CanContentScroll="True"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                />
-     
-        </Grid>-->
-    </Grid>
-</UserControl>
+                    <Grid Grid.Row="1" Grid.Column="1" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock 
+                                Text="{StaticResource ResStr_Faroe_app_type}"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                FontSize="12"
+                                />
+                                <ComboBox 
+                                Name="cbProgramType"
+                                VerticalAlignment="Center" 
+                                VerticalContentAlignment="Center"
+                                Width="120" 
+                                Height="30" 
+                                Margin="60,0,0,0" 
+                                FontSize="14"
+                            SelectionChanged="cbProgramType_SelectionChanged"
+                                >
+                                    <ComboBoxItem >Paint</ComboBoxItem>
+                                    <ComboBoxItem >Photo Viewer</ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+                        </Border>
+
+
+                        <Button Grid.Row="2" Grid.Column="1"
+                            HorizontalAlignment="Center" 
+                            Margin="20,6" 
+                            Width="85" 
+                            Height="35"
+                            FontSize="16"
+                            Click="OkClick"
+                            Style="{StaticResource CustomGreenButtonStyle}"
+                            Content="{StaticResource ResStr_OK}"
+                            ></Button>
+                    </Grid>
+
+                </Grid>
+
+
+        </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

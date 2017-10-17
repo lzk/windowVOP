@@ -1,0 +1,323 @@
+﻿<Window x:Class="VOP.ScanToFileDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VOP.Controls"
+        mc:Ignorable="d"
+        Title="ScanToFileDialog" 
+        Width="585" 
+	    Height="593"
+        AllowsTransparency="true"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        WindowStyle="None" 
+        BorderThickness="24"
+        xmlns:vop="clr-namespace:VOP"
+        ShowInTaskbar="False" 
+        Loaded="ScanToFileDialog_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Controls/CustomPasswordBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomScrollView.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomComboBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButtonEx.xaml"/>
+                <ResourceDictionary Source="../../Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key ="SpinnerControl1"  TargetType="{x:Type local:SpinnerControl}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Focusable" Value="False"></Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:SpinnerControl}">
+
+                            <Grid Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <!--
+                                    we use the TemplatedParent binding to get a reference to the control
+                                    this template has been applied to, so we can access the property on it
+                                -->
+
+                                <RepeatButton Name="btnDecrease"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
+
+                                <TextBox Name="tbTextBox"
+                                 Grid.Row="0"
+                                 Grid.Column="1"
+                                 Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                 BorderBrush="{StaticResource TextBoxBorderBrush}"
+                                 Foreground="#FF707070"
+                                 TextAlignment="Center"
+                                 IsReadOnly="False"
+                                 BorderThickness="0"
+                                 FontSize="18" 
+                                 Margin="0,0,0,2"
+                                 MaxLength="2"
+                                 Style="{StaticResource TextBoxErrorTemplateStyle}"
+                                 InputMethod.IsInputMethodEnabled="False"
+                                 >
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                                    </TextBox.InputBindings>
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu Visibility="Collapsed">
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu>
+                                    <TextBox.Text>
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" 
+                                         Mode="TwoWay"
+                                         Path="FormattedValue" 
+                                         UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <local:PrintCopysValidationRule MinimumValue="-6" MaximumValue="6" 
+										ErrorMessage="{StaticResource ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_}" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+
+                                <RepeatButton Name="btnIncrease"
+                                      Grid.Row="0"
+                                      Grid.Column="2"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomPlusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger SourceName="tbTextBox" Property="Validation.HasError"  Value="true">
+                                    <Setter Property="ValidationHasError" Value="True"></Setter>
+                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="False"></Setter>
+                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="False"></Setter>
+                                </Trigger>
+
+                                <Trigger SourceName="tbTextBox"  Property="Validation.HasError" Value="False">
+                                    <Setter Property="ValidationHasError" Value="False"></Setter>
+                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"></Setter>
+                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Viewbox Stretch="Fill">
+        <Grid>
+            <Rectangle Fill="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"  
+                                    RadiusX="5" RadiusY="5">
+                <Rectangle.Effect>
+                    <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <Grid x:Name="LayoutRoot" Background="AliceBlue" Width="537" Height="545" >
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="35"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="35"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <!-- Title bar begin -->
+                <Border Name="TitleBar"  Background="Transparent" Grid.Row="0" Grid.ColumnSpan="2">
+                    <TextBlock Text="{StaticResource ResStr_Faroe_Scan_File}" FontSize="15" Foreground="#FF48C6E0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+
+                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Grid.Column="2" RenderTransformOrigin="1.567,0.633" />
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock 
+                Grid.Row="1"
+                Grid.Column="0"
+                FontSize="14"
+                FontWeight="Bold"
+                VerticalAlignment="Center"
+                Text="{StaticResource ResStr_Faroe_scan_setting}"/>
+
+                    <Button
+                Grid.Row="1"
+                Grid.Column="2"
+                Width="120"
+                Height="35" 
+                Margin="-90,0,0,0"
+                Content="{StaticResource ResStr_Setting}" 
+                FontSize="16"
+                Style="{StaticResource CustomGreenButtonStyle}" 
+                Click="Button_Click"
+                />
+                </Grid>
+
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="15"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock 
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                FontSize="14"
+                FontWeight="Bold"
+                VerticalAlignment="Center"
+                Text="{StaticResource ResStr_Faroe_file_setting}"/>
+
+                    <Grid Grid.Row="1" Grid.Column="1" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="80" />
+                            <RowDefinition Height="100" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="21*" />
+                            <ColumnDefinition Width="26*"/>
+                            <ColumnDefinition Width="378*"/>
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock 
+                                Text="Save File Type :" 
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                FontSize="12"
+                                />
+                                <ComboBox 
+                                Name="cbFileType"
+                                VerticalAlignment="Center" 
+                                VerticalContentAlignment="Center"
+                                Width="100" 
+                                Height="30" 
+                                Margin="60,0,0,0" 
+                                FontSize="14"
+                            SelectionChanged="cbFileType_SelectionChanged"
+                                >
+                                    <ComboBoxItem >PDF</ComboBoxItem>
+                                    <ComboBoxItem >TIFF</ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock 
+                                Text="File Name :" 
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                FontSize="12"
+                                />
+                                <TextBox 
+                                Name="tbFileName"
+                              Template="{StaticResource customTextBox}" 
+                                VerticalAlignment="Center" 
+                                Width="250" 
+                                Height="30" 
+                                Margin="45,0,0,0" 
+                                Text=""
+                                VerticalContentAlignment="Center"
+                                FontSize="14"
+                                />
+                            </StackPanel>
+                        </Border>
+
+
+                        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="1">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+
+                                    <TextBlock 
+                                Text="File Path :" 
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                FontSize="12"
+                                />
+                                    <TextBox 
+                                Name="tbFilePath"
+                                  Template="{StaticResource customTextBox}" 
+                                VerticalAlignment="Center" 
+                                Width="250" 
+                                Height="30" 
+                                Margin="53,0,0,0" 
+                                Text=""
+                                VerticalContentAlignment="Center"
+                                FontSize="14"
+                                />
+
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                    <Button 
+                            Margin="280,0,0,0"
+                            Width="85" 
+                            Height="35"
+                            FontSize="16"
+                            Click="BrowseClick"
+                            Style="{StaticResource CustomGreenButtonStyle}"
+                            >Browse...</Button>
+                                </StackPanel>
+                            </StackPanel>
+
+                        </Border>
+
+                        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="1"
+                            HorizontalAlignment="Center" 
+                            Width="85" 
+                            Height="35"
+                            FontSize="16"
+                            Click="OkClick"
+                            Style="{StaticResource CustomGreenButtonStyle}"
+                            >OK</Button>
+                    </Grid>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

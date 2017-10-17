@@ -34,7 +34,7 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            InitMatchListBox();
+//            InitMatchListBox();
 
             if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest == false)
             {
@@ -85,78 +85,79 @@ namespace VOP
             }
         }
 
-        void InitMatchListBox()
-        {
-            MatchListBox.Items.Clear();
-            for (int i = 0; i < SettingData.MaxShortCutNum; i++)
-            {
-                MatchListBox.Items.Add(CreateItem(i, MainWindow_Rufous.g_settingData.m_MatchList[i].Value));
-            }
+        //void InitMatchListBox()
+        //{
+        //    MatchListBox.Items.Clear();
+        //    for (int i = 0; i < SettingData.MaxShortCutNum; i++)
+        //    {
+        //        MatchListBox.Items.Add(CreateItem(i, MainWindow_Rufous.g_settingData.m_MatchList[i].Value));
+        //    }
 
-        }
+        //}
 
-        private ListBoxItem CreateItem(int id, int selectId)
-        {
+        //private ListBoxItem CreateItem(int id, int selectId)
+        //{
 
-            TextBlock text = new TextBlock();
+        //    TextBlock text = new TextBlock();
 
-            text.Text = "Number " + (id + 1).ToString();
+        //    text.Text = "Number " + (id + 1).ToString();
 
-            text.Margin = new Thickness(10, 0, 0, 0);
-            text.VerticalAlignment = VerticalAlignment.Center;
-            text.FontSize = 16;
-            text.Style = (Style)this.FindResource("DsDigital");
+        //    text.Margin = new Thickness(10, 0, 0, 0);
+        //    text.VerticalAlignment = VerticalAlignment.Center;
+        //    text.FontSize = 16;
+        //    text.Style = (Style)this.FindResource("DsDigital");
 
-            SolidColorBrush txtbrush = new SolidColorBrush();
-            txtbrush.Color = Colors.DodgerBlue;
-            text.Foreground = txtbrush;
+        //    SolidColorBrush txtbrush = new SolidColorBrush();
+        //    txtbrush.Color = Colors.DodgerBlue;
+        //    text.Foreground = txtbrush;
 
-            ComboBox combobox = new ComboBox();
-            combobox.Width = 200;
+        //    ComboBox combobox = new ComboBox();
+        //    combobox.Width = 200;
 
-            if (id == 0)
-            {
-                combobox.Margin = new Thickness(44, 0, 0, 0);
-            }
-            else
-            {
-                combobox.Margin = new Thickness(40, 0, 0, 0);
-            }
+        //    if (id == 0)
+        //    {
+        //        combobox.Margin = new Thickness(44, 0, 0, 0);
+        //    }
+        //    else
+        //    {
+        //        combobox.Margin = new Thickness(40, 0, 0, 0);
+        //    }
                
 
-            foreach (string s in ScanToItems)
-            {
-                combobox.Items.Add(s);
-            }
-            combobox.SelectedIndex = selectId;
-            combobox.SelectionChanged += new SelectionChangedEventHandler(cboListBoxItem_SelectionChanged);
-            combobox.Tag = id;
+        //    foreach (string s in ScanToItems)
+        //    {
+        //        combobox.Items.Add(s);
+        //    }
+        //    combobox.SelectedIndex = selectId;
+        //    combobox.SelectionChanged += new SelectionChangedEventHandler(cboListBoxItem_SelectionChanged);
+        //    combobox.Tag = id;
 
 
-            StackPanel stack = new StackPanel();
-            stack.Orientation = Orientation.Horizontal;
+        //    StackPanel stack = new StackPanel();
+        //    stack.Orientation = Orientation.Horizontal;
 
-            stack.Children.Add(text);
-            stack.Children.Add(combobox);
+        //    stack.Children.Add(text);
+        //    stack.Children.Add(combobox);
 
-            ListBoxItem item = new ListBoxItem();
-            SolidColorBrush bgbrush = new SolidColorBrush();
-            bgbrush.Color = Colors.AliceBlue;
-            item.Background = bgbrush;
+        //    ListBoxItem item = new ListBoxItem();
+        //    SolidColorBrush bgbrush = new SolidColorBrush();
+        //    bgbrush.Color = Colors.AliceBlue;
+        //    item.Background = bgbrush;
 
-            item.Content = stack;
-            item.Height = 50;
-            item.Tag = id;
+        //    item.Content = stack;
+        //    item.Height = 50;
+        //    item.Tag = id;
 
-            return item;
-        }
+        //    return item;
+        //}
 
-        private void cboListBoxItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox item = sender as ComboBox;
-            int id = (int)item.Tag;
-            MainWindow_Rufous.g_settingData.m_MatchList[id] = new MatchListPair(id, item.SelectedIndex);
-        }
+        //private void cboListBoxItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    ComboBox item = sender as ComboBox;
+        //    int id = (int)item.Tag;
+        //    string name = item.SelectedValue.ToString();
+        //    MainWindow_Rufous.g_settingData.m_MatchList[id] = new MatchListPair(id, item.SelectedIndex,name);
+        //}
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

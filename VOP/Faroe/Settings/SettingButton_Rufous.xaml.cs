@@ -20,6 +20,7 @@ namespace VOP
     public enum SettingType
     {
         ScanParameter,
+        QuickScanSettings,
         ScanToFile,
         ScanToPrint,
         ScanToEmail,

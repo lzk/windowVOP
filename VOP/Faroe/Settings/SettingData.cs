@@ -13,6 +13,15 @@ namespace VOP
     {
         public int Key { get; set; }
         public int Value { get; set; }
+        public string ItemName { get; set; }
+
+        public ScanParam m_ScanSettings = new ScanParam();
+        public ScanToPrintParam m_PrintScanSettings = new ScanToPrintParam();
+        public ScanToFileParam m_FileScanSettings = new ScanToFileParam();
+        public ScanToAPParam m_APScanSettings = new ScanToAPParam();        
+        public ScanToEmailParam m_EmailScanSettings = new ScanToEmailParam();
+        public ScanToFTPParam m_FTPScanSettings = new ScanToFTPParam();
+        public ScanToCloudParam m_CloudScanSettings = new ScanToCloudParam();
 
         public MatchListPair()
         {
@@ -23,14 +32,54 @@ namespace VOP
         {
             Key = key;
             Value = value;
-        }
-    }
 
+        }
+        public MatchListPair(int key, int value, string name)
+        {
+            Key = key;
+            Value = value;
+            ItemName = name;
+            //switch (value)
+            //{
+            //    case 0:
+            //        m_PrintScanSettings = 
+            //        break;
+            //    case 1:
+                    
+            //        break;
+            //    case 2:
+
+            //        break;
+            //    case 3:
+
+            //        break;
+            //    case 4:
+
+            //        break;
+            //    case 5:
+
+            //        break;
+            //    default:
+                    
+            //        break;
+            //}
+        }        
+
+    }   
     [Serializable()]
     public class SettingData
     {
         //Common
         public static int MaxShortCutNum = 6;
+        public static string[] ScanToItems =
+        {
+            "Scan To Print",
+            "Scan To File",
+            "Scan To Application",
+            "Scan To Email",
+            "Scan To FTP",
+            "Scan To Cloud",
+        };
         public ScanParam m_commonScanSettings = new ScanParam();
         public List<MatchListPair> m_MatchList = new List<MatchListPair>();
         public bool m_QRcode_decode_hardest = false;
@@ -75,6 +124,7 @@ namespace VOP
 
 
         public string m_DeviceName = "";
+       
 
         public SettingData()
         {
@@ -84,9 +134,10 @@ namespace VOP
         public void InitSettingData()
         {
             m_MatchList.Clear();
+
             for (int i = 0; i < MaxShortCutNum; i++)
             {
-                m_MatchList.Add(new MatchListPair(i, i));
+                m_MatchList.Add(new MatchListPair(i, i, ScanToItems[i]));
             }
         }
 
