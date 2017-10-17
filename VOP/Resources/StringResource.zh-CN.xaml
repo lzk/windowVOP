@@ -78,6 +78,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Landscape">横向</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Portrait">纵向</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Media_Type">纸张类型</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Type">纸张类型</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Plain_Paper">普通纸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Thin_Paper">薄纸</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Thick_Paper">厚纸</sys:String>
@@ -150,6 +151,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Brightness">亮度</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Wi_Fi">打印机Wi-Fi</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Soft_AP">打印机热点</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Device">设备设置</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_TCP_IP">打印机IP地址</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Power_Save">休眠时间</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Config">高级设置</sys:String>
@@ -409,4 +411,9 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_multifeed_error">待定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_fail">待定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_not_on_line">网络未连接</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Bankbook">存折</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Type_Normal">普通</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faore_Calibration">Calibration：</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_SleepMode">睡眠模式</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AutoSleep">自动睡眠</sys:String>
 </ResourceDictionary>

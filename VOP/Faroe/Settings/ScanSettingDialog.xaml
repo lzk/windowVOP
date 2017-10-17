@@ -150,12 +150,12 @@
 
                 <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" />
                 <!-- Title bar end -->
-                <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Faroe_ADF}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="280" Height="75" Margin="40,0,0,0" >
+                <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Faroe_ADF}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="240" Height="75" Margin="40,0,0,0" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40" />
-                            <ColumnDefinition Width="100*" />
-                            <ColumnDefinition Width="100*" />
+                            <ColumnDefinition Width="90*" />
+                            <ColumnDefinition Width="90*" />
                             <ColumnDefinition Width="40" />
                         </Grid.ColumnDefinitions>
 
@@ -175,16 +175,17 @@
 
                     </Grid>
                 </local:GroupBoxDecorator>
-                <local:GroupBoxDecorator Grid.Row="1" Margin="20,0,0,0" Header="{StaticResource ResStr_DPI}" Height="75" Width="220" HorizontalAlignment="Right" VerticalAlignment="Center" >
-                    <ComboBox Name="cboMediaType" SelectionChanged="combo_sel_change"
+                
+                <local:GroupBoxDecorator Grid.Row="1" Margin="20,0,20,0" Header="{StaticResource ResStr_Type}" Height="75" Width="220" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                    <ComboBox Name="cboMediaType" SelectionChanged="comboType_sel_change"
                             Style="{StaticResource customComboBox}"
                             Background="White"
                             Width="145" Height="24"
                             VerticalAlignment="Center" Margin="38,4,37,9"
                             >
                     </ComboBox>
-
                 </local:GroupBoxDecorator>
+                
                 <Grid Grid.Row="2" >
                     <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_DPI}" Height="65" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
                         <ComboBox Name="cboScanResln" SelectionChanged="combo_sel_change"
@@ -273,7 +274,7 @@
                     </local:GroupBoxDecorator>
 
                     <!-- Right side -->
-                    <local:GroupBoxDecorator Margin="0,0,40,0" Header="{StaticResource ResStr_Contrast}" Height="115" HorizontalAlignment="Right" VerticalAlignment="Top" Width="220" >
+                    <local:GroupBoxDecorator Margin="0,0,20,0" Header="{StaticResource ResStr_Contrast}" Height="115" HorizontalAlignment="Right" VerticalAlignment="Top" Width="220" >
                         <StackPanel>
                             <Image Stretch="None" VerticalAlignment="Top"
                         Margin="0,5" Source="../../Images/Constrast.png" />
@@ -296,7 +297,7 @@
                         </StackPanel>
                     </local:GroupBoxDecorator>
 
-                    <local:GroupBoxDecorator Margin="0,0,40,0" Header="{StaticResource ResStr_Brightness}" Height="115" Width="220" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+                    <local:GroupBoxDecorator Margin="0,0,20,0" Header="{StaticResource ResStr_Brightness}" Height="115" Width="220" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
                         <StackPanel>
                             <Image Stretch="None" VerticalAlignment="Top"
                         Margin="0,5" Source="../../Images/Brightness.png" />
@@ -350,7 +351,7 @@
 
                     </local:GroupBoxDecorator>
 
-                    <local:GroupBoxDecorator Header="{StaticResource ResStr_Faroe_autocrop}" VerticalAlignment="Center" Width="220" Height="75" Margin="20,0,0,0">
+                    <local:GroupBoxDecorator Header="{StaticResource ResStr_Faroe_autocrop}" VerticalAlignment="Center" Width="220" Height="75" Margin="40,0,0,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="40" />

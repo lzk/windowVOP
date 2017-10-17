@@ -150,6 +150,10 @@ namespace VOP
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
+            if (MatchListBox.SelectedIndex == -1)
+            {
+                return;
+            }
             switch (MainWindow_Rufous.g_settingData.m_MatchList[MatchListBox.SelectedIndex].Value)
             {
                 case 0:

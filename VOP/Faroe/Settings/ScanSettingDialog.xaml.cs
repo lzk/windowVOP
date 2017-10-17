@@ -48,6 +48,7 @@ namespace VOP
             InitScanResln();
             InitScanSize();
             InitFontSize();
+            InitMediaType();
 
             TextBox tb = spinCtlConstrast.Template.FindName("tbTextBox", spinCtlConstrast) as TextBox;
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
@@ -229,6 +230,41 @@ namespace VOP
 
         }
 
+
+        private void comboType_sel_change(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem selItem = cboMediaType.SelectedItem as ComboBoxItem;
+
+            if (null != selItem && null != selItem.DataContext)
+            {
+                m_scanParams.ScanMediaType = (EnumScanMediaType)selItem.DataContext;
+            }
+
+            if (m_scanParams.ScanMediaType == EnumScanMediaType._BankBook)
+            {
+                MultiFeedOffButton.IsChecked = true;
+                MultiFeedOnButton.IsEnabled = false;
+                MultiFeedOffButton.IsEnabled = false;
+            }
+            else
+            {
+                if (m_scanParams.MultiFeed == true)
+                {
+                    MultiFeedOnButton.IsChecked = true;
+                    MultiFeedOffButton.IsChecked = false;
+                }
+                else
+                {
+                    MultiFeedOnButton.IsChecked = false;
+                    MultiFeedOffButton.IsChecked = true;
+                }
+
+                MultiFeedOnButton.IsEnabled = true;
+                MultiFeedOffButton.IsEnabled = true;
+            }
+
+        }
+
         private void colorMode_Click(object sender, RoutedEventArgs e)
         {
             RadioButton rdbtn = sender as RadioButton;
@@ -312,6 +348,7 @@ namespace VOP
             InitControls();
             InitScanResln();
             InitScanSize();
+            InitMediaType();
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
@@ -461,6 +498,36 @@ namespace VOP
             {
                 Color.FontSize = Grayscale.FontSize = 8.0;
                 btnDefault.FontSize = btnOk.FontSize = 14;
+            }
+        }
+
+        private void InitMediaType()
+        {
+            cboMediaType.Items.Clear();
+
+            ComboBoxItem cboItem = null;
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = (string)this.TryFindResource("ResStr_Type_Normal");
+            cboItem.DataContext = EnumScanMediaType._Normal;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboMediaType.Items.Add(cboItem);
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = (string)this.TryFindResource("ResStr_Bankbook");
+            cboItem.DataContext = EnumPaperSizeScan._A4;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboMediaType.Items.Add(cboItem);
+
+            foreach (ComboBoxItem obj in cboMediaType.Items)
+            {
+                if (null != obj.DataContext
+                        && (EnumScanMediaType)obj.DataContext == m_scanParams.ScanMediaType)
+                {
+                    obj.IsSelected = true;
+                }
             }
         }
 
