@@ -33,6 +33,7 @@ namespace VOP
 
         private void ScreenButton_Click(object sender, RoutedEventArgs e)
         {
+
             TextBlock tb = ScreenBtn.Template.FindName("DetailText", ScreenBtn) as TextBlock;
 
             QuickScan qs = new QuickScan();
@@ -62,7 +63,7 @@ namespace VOP
         }
 
         private void QRCodeButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
+        {           
             ImageButton btn = sender as ImageButton;
 
             ScanTask task = new ScanTask();
@@ -144,6 +145,7 @@ namespace VOP
 
         private void ScanToButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+
             ImageButton btn = sender as ImageButton;
 
             ScanTask task = new ScanTask();

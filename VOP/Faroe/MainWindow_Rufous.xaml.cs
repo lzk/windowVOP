@@ -30,7 +30,6 @@ namespace VOP
 
     public partial class MainWindow_Rufous : Window
     {
-        
         public static SettingData g_settingData = new SettingData();
         public static List<string> g_printerList = new List<string>();
 
@@ -156,6 +155,7 @@ namespace VOP
                     dll.SetConnectionMode(usbName.ToString(), true);
                     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                     // SetDeviceButtonState(true);
+                    MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
                     canConnected = true;
                 }
             }
@@ -170,6 +170,7 @@ namespace VOP
                         //SetDeviceButtonState(true);
                         Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                         canConnected = true;
+                        MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
                     }
                 }                
             }
@@ -179,6 +180,7 @@ namespace VOP
                 if (dll.CheckUsbScan(usbName) == 1)
                 {                 
                     dll.SetConnectionMode(usbName.ToString(), true);
+                    MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
                     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                 }
                 else
@@ -188,31 +190,13 @@ namespace VOP
                         foreach (string ip in ScanDevicePage_Rufous.ipList)
                         {
                             dll.SetConnectionMode(ip, false);
+                            MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
                             Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                             break;
                         }
                     }
                 }
             }
-        }
-
-        public static string[] ipList = null;
-        private static object lockobj = new object();
-
-        public static bool ListIP()
-        {
-            lock (lockobj)
-            {
-                if (dll.SearchValidedIP2(out ipList) == 1)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
         }
 
         public void UpdateStatusCaller()

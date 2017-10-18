@@ -32,9 +32,13 @@ namespace VOP
             {
                 cbProgramType.SelectedIndex = 0;
             }
-            else
+            else if (m_scanToAPParams.ProgramType == "Photo Viewer")
             {
                 cbProgramType.SelectedIndex = 1;
+            }
+            else
+            {
+                cbProgramType.SelectedIndex = 2;
             }
 
         }

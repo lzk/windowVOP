@@ -15,6 +15,7 @@ using PdfEncoderClient;
 using VOP.Controls;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 
 namespace VOP
 {
@@ -57,15 +58,32 @@ namespace VOP
 
             common.GetPaperSize(param.PaperSize, ref nWidth, ref nHeight);
 
-            if (dll.CheckConnection() == false)
+            //add by yunying shang 2017-10-18 for BMS 1019
+            StringBuilder usbName = new StringBuilder(50);
+            if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                            Application.Current.MainWindow,
-                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
-                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
-                            );
-                return null;
-            }
+                NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+                bool bFound = false;
+                foreach (NetworkInterface adapter in fNetworkInterfaces)
+                {
+                    if (adapter.Description.Contains("Wi-Fi"))
+                    {
+                        bFound = true;
+                    }
+                }
+
+                if (bFound == false)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                Application.Current.MainWindow,
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                );
+                    return null;
+                }
+            }//<<=================================
+
+
 
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
             Stopwatch sw = new Stopwatch();

@@ -881,7 +881,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 						//add by yunying shang 2017-10-12 for BMS1082
 						if (duplex >= 3)
 						{
-							::SendNotifyMessage(HWND_BROADCAST, WM_VOPSCAN_PAGECOMPLETE/*uMsg*/, (fileCount) / 2, 0);
+							::SendNotifyMessage(HWND_BROADCAST, WM_VOPSCAN_PAGECOMPLETE/*uMsg*/, (fileCount+1) / 2, 0);
 						}
 						else
 						{
