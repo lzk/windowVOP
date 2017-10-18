@@ -54,13 +54,13 @@ namespace VOP
             {
                 m_scanParams = (ScanParam)settingWin.m_scanParams.Clone();
             }
+
         }
 
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.Reset();
             m_scanToCloudParams.DefaultPath = SavePathTbx.Text = "";
-
         }
 
         private void OkClick(object sender, RoutedEventArgs e)

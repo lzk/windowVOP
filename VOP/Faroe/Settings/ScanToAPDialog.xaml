@@ -242,6 +242,7 @@
                                 >
                                     <ComboBoxItem >Paint</ComboBoxItem>
                                     <ComboBoxItem >Photo Viewer</ComboBoxItem>
+                                    <ComboBoxItem >Others Application</ComboBoxItem>
                                 </ComboBox>
                             </StackPanel>
                         </Border>

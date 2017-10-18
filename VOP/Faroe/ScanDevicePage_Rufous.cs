@@ -121,7 +121,10 @@ namespace VOP
 
 
             if (ipList != null)
-            {            
+            {
+                //modified by yunying shang 2017-10-17 for BMS 1175
+                string connectip = string.Empty;
+                     
                 foreach (string ip in ipList)
                 {
                     DeviceListBoxItem item = new DeviceListBoxItem();
@@ -133,15 +136,24 @@ namespace VOP
                         dll.SetConnectionMode(ip, false);
                         m_MainWin.SetDeviceButtonState(true);
                         canConnected = true;
-                    }
-                    else
+                        DeviceList.Items.Add(item);
+                        connectip = ip;
+                        break;
+                    }                    
+                }
+
+
+                foreach (string ip in ipList)
+                {
+                    DeviceListBoxItem item = new DeviceListBoxItem();
+                    item.DeviceName = ip;
+
+                    if (connectip != ip)
                     {
                         item.StatusText = "";
+                        DeviceList.Items.Add(item);
                     }
-
-
-                    DeviceList.Items.Add(item);
-                }
+                }//<<=================1175
             }
 
             if (canConnected == false)

@@ -48,6 +48,10 @@ namespace VOP
             {
                 m_scanToAPParams.ProgramType = "Photo Viewer";
             }
+            else if (cbProgramType.SelectedIndex == 2)
+            {
+                m_scanToAPParams.ProgramType = "OthersApplication";
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -65,7 +69,7 @@ namespace VOP
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            this.DialogResult = true;            
             this.Close();
         }
 

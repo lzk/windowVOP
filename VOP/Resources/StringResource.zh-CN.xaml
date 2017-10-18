@@ -416,4 +416,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faore_Calibration">Calibration：</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_SleepMode">睡眠模式</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AutoSleep">自动睡眠</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AP_Name">程序名称 :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AP_Path">程序路径 :</sys:String>
 </ResourceDictionary>

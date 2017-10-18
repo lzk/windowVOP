@@ -191,6 +191,9 @@
     <Compile Include="Faroe\ScanToFTPParam.cs" />
     <Compile Include="Faroe\ScanToPrintParam.cs" />
     <Compile Include="Faroe\ScanTo\QuickScan.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToAP\OthersAPSelectWin.xaml.cs">
+      <DependentUpon>OthersAPSelectWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Faroe\ScanTo\ScanToCloud\DropBoxFlow.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\FileViewer.xaml.cs" />
     <Compile Include="Faroe\ScanTo\ScanToAP\APFlow.cs" />
@@ -482,6 +485,10 @@
     <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_YesNo_NoIcon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\ScanTo\ScanToAP\OthersAPSelectWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Faroe\ScanTo\ScanToCloud\FileViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -1324,6 +1331,9 @@
     <Resource Include="Images\device_normal_blue.png" />
     <Resource Include="Images\device_over_blue.png" />
     <Resource Include="Images\device_press_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\others.png" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>

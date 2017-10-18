@@ -416,4 +416,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Calibration">Calibration:</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_SleepMode">Sleep Mode:</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AutoSleep">Auto Sleep</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AP_Name">AP Name :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AP_Path">AP Path :</sys:String>
 </ResourceDictionary>
