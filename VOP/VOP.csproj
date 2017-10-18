@@ -191,6 +191,9 @@
     <Compile Include="Faroe\ScanToFTPParam.cs" />
     <Compile Include="Faroe\ScanToPrintParam.cs" />
     <Compile Include="Faroe\ScanTo\QuickScan.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToAP\OthersAPSelectWin.xaml.cs">
+      <DependentUpon>OthersAPSelectWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Faroe\ScanTo\ScanToCloud\DropBoxFlow.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\FileViewer.xaml.cs" />
     <Compile Include="Faroe\ScanTo\ScanToAP\APFlow.cs" />
@@ -214,6 +217,9 @@
     <Compile Include="Faroe\ScanTo\ScanToFtp\FtpFlow.cs" />
     <Compile Include="Faroe\Settings\AddQuickScanSetting.xaml.cs">
       <DependentUpon>AddQuickScanSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Faroe\Settings\DeviceView.xaml.cs">
+      <DependentUpon>DeviceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Faroe\Settings\QuickScanSettings.xaml.cs">
       <DependentUpon>QuickScanSettings.xaml</DependentUpon>
@@ -480,6 +486,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Faroe\ScanTo\ScanToAP\OthersAPSelectWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Faroe\ScanTo\ScanToCloud\FileViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -520,6 +530,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Faroe\Settings\AddQuickScanSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Faroe\Settings\DeviceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1317,6 +1331,9 @@
     <Resource Include="Images\device_normal_blue.png" />
     <Resource Include="Images\device_over_blue.png" />
     <Resource Include="Images\device_press_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\others.png" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>

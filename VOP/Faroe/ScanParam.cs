@@ -23,6 +23,7 @@ namespace VOP
         private EnumScanResln m_scanResln = EnumScanResln._300x300;
         private EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._Auto;
         private EnumColorType m_color = EnumColorType.color_24bit;
+        private EnumScanMediaType m_type = EnumScanMediaType._Normal;
         private int m_brightness = 50;
         private int m_contrast = 50;
         private bool m_ADFMode = true;
@@ -39,6 +40,18 @@ namespace VOP
             set
             {
                 this.m_scanResln = value;
+            }
+        }
+
+        public EnumScanMediaType ScanMediaType
+        {
+            get
+            {
+                return this.m_type;
+            }
+            set
+            {
+                this.m_type = value;
             }
         }
 
@@ -143,7 +156,7 @@ namespace VOP
 
         }
 
-        public ScanParam(EnumScanResln res, EnumPaperSizeScan paperSize, EnumColorType color, bool ADFMode, bool MultiFeed, bool AutoCrop, int b, int c, bool onepage = false)
+        public ScanParam(EnumScanResln res, EnumScanMediaType type, EnumPaperSizeScan paperSize, EnumColorType color, bool ADFMode, bool MultiFeed, bool AutoCrop, int b, int c, bool onepage = false)
         {
             this.m_scanResln = res;
             this.m_paperSize = paperSize;
@@ -154,11 +167,12 @@ namespace VOP
             this.m_brightness = b;
             this.m_contrast = c;
             this.m_onepage = onepage;
+            this.m_type = type;
         }
 
         public object Clone()
         {
-            return new ScanParam(this.m_scanResln, this.m_paperSize,
+            return new ScanParam(this.m_scanResln, this.m_type, this.m_paperSize,
                                  this.m_color, this.m_ADFMode, this.m_MultiFeed, 
                                  this.m_AutoCrop, this.m_brightness, this.m_contrast, this.m_onepage);
         }

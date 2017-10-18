@@ -24,6 +24,7 @@ namespace VOP
         SettingButton_Rufous btnwifi = new SettingButton_Rufous(SettingType.Wireless);
         SettingButton_Rufous btnTCPIP = new SettingButton_Rufous(SettingType.TCPIP);
         SettingButton_Rufous btnSoftAP = new SettingButton_Rufous(SettingType.SoftAP);
+        SettingButton_Rufous btnDevice = new SettingButton_Rufous(SettingType.Device);
 
         List<SettingButton_Rufous> m_listSettingButton = new List<SettingButton_Rufous>();
 
@@ -38,6 +39,8 @@ namespace VOP
         WifiView_Rufous wifiView = new WifiView_Rufous();
         TcpipView_Rufous tcpipView = new TcpipView_Rufous();
         SoftapView_Rufous softAPView = new SoftapView_Rufous();
+        DeviceView deviceView = new DeviceView();
+
 
         QuickScanSettings quickScanSettings = new QuickScanSettings();
 
@@ -151,7 +154,15 @@ namespace VOP
             btnSoftAP.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnSoftAP);
 
-           
+            btnDevice.btn.Content = (string)this.TryFindResource("ResStr_Device");
+            btnDevice.Margin = new Thickness(0, 1, 0, 9);
+            btnDevice.Width = tabbtn_width;
+            btnDevice.Height = tabbtn_height;
+            btnDevice.HorizontalAlignment = HorizontalAlignment.Left;
+            btnDevice.btn.Name = "btnDevice";
+            btnDevice.btn.Click += SettingBtnClick;
+            m_listSettingButton.Add(btnDevice);
+
         }
         
         private void SetActiveButton(SettingType settingType)
@@ -197,7 +208,8 @@ namespace VOP
             //setting_tab_btn.Children.Add(btnScanToCloud);
             setting_tab_btn.Children.Add(btnwifi);
             setting_tab_btn.Children.Add(btnTCPIP);
-            setting_tab_btn.Children.Add(btnSoftAP);           
+            setting_tab_btn.Children.Add(btnSoftAP);
+            setting_tab_btn.Children.Add(btnDevice);         
 
             ClickSettingButton(SettingType.ScanParameter);
           
@@ -278,6 +290,12 @@ namespace VOP
                 softAPView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = softAPView;
             }
+            else if ("btnDevice" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.Device);
+                softAPView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = deviceView;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -317,11 +335,10 @@ namespace VOP
         {
             if (null != m_MainWin)
             {
-
                 wifiView.PassStatus(online);
                 tcpipView.PassStatus(online);
                 softAPView.PassStatus(online);
-                
+                deviceView.PassStatus(online);
             }
         }
     }

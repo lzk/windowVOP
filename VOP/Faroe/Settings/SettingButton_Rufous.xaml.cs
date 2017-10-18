@@ -30,6 +30,7 @@ namespace VOP
         Wireless,
         TCPIP,
         SoftAP,
+        Device,
         Unknown,
     };
 

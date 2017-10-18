@@ -126,6 +126,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Output_Size">Output Paper Size</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_B5">B5</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_DPI">DPI</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Type">Media Type</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_N_in_1_Copy">N in 1 Copy</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scanning_Mode">Type of Document</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Photo">Photo</sys:String>
@@ -150,6 +151,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Brightness">Brightness</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Wi_Fi">Wi-Fi</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Soft_AP">Soft AP</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Device">Device Setting</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_TCP_IP">TCP/IP</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Power_Save">Power Save</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Config">More Settings</sys:String>
@@ -409,4 +411,11 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_multifeed_error">Multi-feed error</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_fail">Scan failed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_not_on_line">The computer is not on line!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Bankbook">Bankbook</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Type_Normal">Normal</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Calibration">Calibration:</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_SleepMode">Sleep Mode:</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AutoSleep">Auto Sleep</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AP_Name">AP Name :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AP_Path">AP Path :</sys:String>
 </ResourceDictionary>

@@ -62,7 +62,7 @@ namespace VOP
                         {
                             string processFilename = @"C:\Windows\System32\mspaint.exe";
 
-                            foreach(string f in FileList)
+                            foreach (string f in FileList)
                             {
                                 ProcessStartInfo info = new ProcessStartInfo();
 
@@ -74,7 +74,19 @@ namespace VOP
 
                                 Process p = Process.Start(info);
                             }
-                           
+                        }
+                        else if (programType == "OthersApplication")
+                        {
+                            OthersAPSelectWin Others = new OthersAPSelectWin();
+                            Others.Owner = ParentWin;
+                            result = Others.ShowDialog();
+
+                            if (result == true)
+                            {
+                                programType = Others.m_programType;
+                                string path = Others.m_filePath;
+                                Process.Start(path);
+                            }
                         }
                         else
                         {
@@ -118,6 +130,20 @@ namespace VOP
                             Process p = Process.Start(info);
                         }
                       
+                    }
+                    else if (programType == "OthersApplication")
+                    {
+                        bool? result = null;
+                        OthersAPSelectWin Others = new OthersAPSelectWin();
+                        Others.Owner = ParentWin;
+                        result = Others.ShowDialog();
+
+                        if (result == true)
+                        {
+                            programType = Others.m_programType;
+                            string path = Others.m_filePath;
+                            Process.Start(path);
+                        }
                     }
                     else
                     {

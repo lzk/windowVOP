@@ -196,6 +196,25 @@ namespace VOP
             }
         }
 
+        public static string[] ipList = null;
+        private static object lockobj = new object();
+
+        public static bool ListIP()
+        {
+            lock (lockobj)
+            {
+                if (dll.SearchValidedIP2(out ipList) == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+        }
+
         public void UpdateStatusCaller()
         {
             m_updaterAndUIEvent.Reset();
@@ -207,7 +226,7 @@ namespace VOP
                 if (dll.CheckConnection())
                 {
                     //SetDeviceButtonState(true);
-                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);              
                 }
                 else
                 {
