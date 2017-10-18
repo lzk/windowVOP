@@ -30,7 +30,9 @@ namespace VOP
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            InitMatchListBox();          
+            InitMatchListBox();
+            MatchListBox.Focus();
+            MatchListBox.SelectedIndex = 0;
         }       
 
         void InitMatchListBox()
@@ -74,13 +76,13 @@ namespace VOP
         {
             if (this.MatchListBox.SelectedItem != null && this.MatchListBox.SelectedIndex != 0)
             {
-                int ch = this.MatchListBox.SelectedIndex;
-                this.MatchListBox.Items.Insert(ch - 1, this.MatchListBox.Items[ch]);
-                this.MatchListBox.Items.RemoveAt(ch + 1);
+                int nIndex = this.MatchListBox.SelectedIndex;
+                this.MatchListBox.Items.Insert(nIndex - 1, this.MatchListBox.Items[nIndex]);
+                this.MatchListBox.Items.RemoveAt(nIndex + 1);
                 this.MatchListBox.Focus();
-                this.MatchListBox.SelectedIndex = ch - 1;
-                MainWindow_Rufous.g_settingData.m_MatchList.Insert(ch-1, MainWindow_Rufous.g_settingData.m_MatchList[ch]);
-                MainWindow_Rufous.g_settingData.m_MatchList.RemoveAt(ch + 1);
+                this.MatchListBox.SelectedIndex = nIndex - 1;
+                MainWindow_Rufous.g_settingData.m_MatchList.Insert(nIndex - 1, MainWindow_Rufous.g_settingData.m_MatchList[nIndex]);
+                MainWindow_Rufous.g_settingData.m_MatchList.RemoveAt(nIndex + 1);
                 UpdateKey();
             }
         }
@@ -89,13 +91,13 @@ namespace VOP
         {
             if (this.MatchListBox.SelectedItem != null && this.MatchListBox.SelectedIndex != this.MatchListBox.Items.Count - 1)
             {
-                int ch = this.MatchListBox.SelectedIndex;
-                this.MatchListBox.Items.Insert(ch + 2, this.MatchListBox.Items[ch]);
-                this.MatchListBox.Items.RemoveAt(ch);
+                int nIndex = this.MatchListBox.SelectedIndex;
+                this.MatchListBox.Items.Insert(nIndex + 2, this.MatchListBox.Items[nIndex]);
+                this.MatchListBox.Items.RemoveAt(nIndex);
                 this.MatchListBox.Focus();
-                this.MatchListBox.SelectedIndex = ch + 1;
-                MainWindow_Rufous.g_settingData.m_MatchList.Insert(ch + 2, MainWindow_Rufous.g_settingData.m_MatchList[ch]);
-                MainWindow_Rufous.g_settingData.m_MatchList.RemoveAt(ch);
+                this.MatchListBox.SelectedIndex = nIndex + 1;
+                MainWindow_Rufous.g_settingData.m_MatchList.Insert(nIndex + 2, MainWindow_Rufous.g_settingData.m_MatchList[nIndex]);
+                MainWindow_Rufous.g_settingData.m_MatchList.RemoveAt(nIndex);
                 UpdateKey();
             }
         }
@@ -104,8 +106,9 @@ namespace VOP
         {
             AddQuickScanSetting addQuickScanSettingWin = new AddQuickScanSetting();
             addQuickScanSettingWin.Owner = m_MainWin;
+            addQuickScanSettingWin.IsEdit = false;
             if (addQuickScanSettingWin.ShowDialog() == true)
-            {
+            {                
                 this.MatchListBox.Items.Add(addQuickScanSettingWin.strItemName);
                 MainWindow_Rufous.g_settingData.m_MatchList.Add(new MatchListPair(this.MatchListBox.Items.Count - 1, addQuickScanSettingWin.value, addQuickScanSettingWin.strItemName));
                 switch (addQuickScanSettingWin.value)
@@ -138,14 +141,137 @@ namespace VOP
 
                         break;
                 }
-                this.btnAdd.Focus();
+                if (MatchListBox.Items.Count >= 10)
+                    btnAdd.IsEnabled = false;
+                else
+                    btnAdd.IsEnabled = true;
+                this.MatchListBox.Focus();                
+            }
+        }
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (MatchListBox.SelectedItem == null)
+                return;
+            int nIndex = this.MatchListBox.SelectedIndex;
+            AddQuickScanSetting addQuickScanSettingWin = new AddQuickScanSetting();
+            addQuickScanSettingWin.Owner = m_MainWin;
+            addQuickScanSettingWin.IsEdit = true;
+            addQuickScanSettingWin.strItemName = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].ItemName;
+            addQuickScanSettingWin.value = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].Value;
+            switch (addQuickScanSettingWin.value)
+            {
+                case 0:
+                    addQuickScanSettingWin.m_scanParams = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_ScanSettings;
+                    addQuickScanSettingWin.m_scanToPrintParams = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_PrintScanSettings;
+                    break;
+                case 1:
+                    addQuickScanSettingWin.m_scanParams = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_ScanSettings;
+                    addQuickScanSettingWin.m_scanToFileParams = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_FileScanSettings;
+                    break;
+                case 2:
+                    addQuickScanSettingWin.m_scanParams = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_ScanSettings;
+                    addQuickScanSettingWin.m_scanToAPParams = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_APScanSettings;
+                    break;
+                case 3:
+                    addQuickScanSettingWin.m_scanParams = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_ScanSettings;
+                    addQuickScanSettingWin.m_scanToEmailParams = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_EmailScanSettings;
+                    break;
+                case 4:
+                    addQuickScanSettingWin.m_scanParams = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_ScanSettings;
+                    addQuickScanSettingWin.m_scanToFTPParams = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_FTPScanSettings;
+                    break;
+                case 5:
+                    addQuickScanSettingWin.m_scanParams = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_ScanSettings;
+                    addQuickScanSettingWin.m_scanToCloudParams = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_CloudScanSettings;
+                    break;
+                default:
+
+                    break;
+            }        
+            if (addQuickScanSettingWin.ShowDialog() == true)
+            {
+                this.MatchListBox.Items.RemoveAt(nIndex);
+                this.MatchListBox.Items.Add(addQuickScanSettingWin.strItemName);
+                MainWindow_Rufous.g_settingData.m_MatchList[nIndex].Value = addQuickScanSettingWin.value;
+                MainWindow_Rufous.g_settingData.m_MatchList[nIndex].ItemName = addQuickScanSettingWin.strItemName;
+                switch (addQuickScanSettingWin.value)
+                {
+                    case 0:
+                        MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_ScanSettings = (ScanParam)addQuickScanSettingWin.m_scanParams.Clone();
+                        MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_PrintScanSettings = (ScanToPrintParam)addQuickScanSettingWin.m_scanToPrintParams.Clone();
+                        break;
+                    case 1:
+                        MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_ScanSettings = (ScanParam)addQuickScanSettingWin.m_scanParams.Clone();
+                        MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_FileScanSettings = (ScanToFileParam)addQuickScanSettingWin.m_scanToFileParams.Clone();
+                        break;
+                    case 2:
+                        MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_ScanSettings = (ScanParam)addQuickScanSettingWin.m_scanParams.Clone();
+                        MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_APScanSettings = (ScanToAPParam)addQuickScanSettingWin.m_scanToAPParams.Clone();
+                        break;
+                    case 3:
+                        MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_ScanSettings = (ScanParam)addQuickScanSettingWin.m_scanParams.Clone();
+                        MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_EmailScanSettings = (ScanToEmailParam)addQuickScanSettingWin.m_scanToEmailParams.Clone();
+                        break;
+                    case 4:
+                        MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_ScanSettings = (ScanParam)addQuickScanSettingWin.m_scanParams.Clone();
+                        MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_FTPScanSettings = (ScanToFTPParam)addQuickScanSettingWin.m_scanToFTPParams.Clone();
+                        break;
+                    case 5:
+                        MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_ScanSettings = (ScanParam)addQuickScanSettingWin.m_scanParams.Clone();
+                        MainWindow_Rufous.g_settingData.m_MatchList[nIndex].m_CloudScanSettings = (ScanToCloudParam)addQuickScanSettingWin.m_scanToCloudParams.Clone();
+                        break;
+                    default:
+
+                        break;
+                }
+            }
+            UpdateKey();
+            if (MatchListBox.Items.Count >= 10)
+                btnAdd.IsEnabled = false;
+            else
+                btnAdd.IsEnabled = true;
+            this.MatchListBox.Focus();
+        }
+        public void MatchListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MatchListBox.SelectedItem == null)
+                return;
+            if (MatchListBox.Items.Count >= 10)
+                btnAdd.IsEnabled = false;
+            else
+                btnAdd.IsEnabled = true;
+            int i = MatchListBox.SelectedIndex;            
+            string strName = MatchListBox.SelectedValue.ToString();
+            if (i > 0)
+            {                
+                if (strName == (string)this.TryFindResource("ResStr_Faroe_Scan_Print")
+                || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_File")
+                || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_App")
+                || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_Email")
+                || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_FTP")
+                || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_Cloud"))
+                {
+                    btnDelete.IsEnabled = false;
+                    btnEdit.IsEnabled = false;
+                }
+                else
+                {
+                    btnDelete.IsEnabled = true;
+                    btnEdit.IsEnabled = true;
+                }
+            }
+            else
+            {
+                btnDelete.IsEnabled = false;
+                btnEdit.IsEnabled = false;
             }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             MainWindow_Rufous.g_settingData.m_MatchList.RemoveAt(this.MatchListBox.SelectedIndex);
-            MatchListBox.Items.RemoveAt(this.MatchListBox.SelectedIndex);           
+            MatchListBox.Items.RemoveAt(this.MatchListBox.SelectedIndex);
+            this.MatchListBox.Focus();
         }
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
@@ -232,6 +358,7 @@ namespace VOP
                    
                     break;
             }
+            MatchListBox.Focus();
 
         }
         private MainWindow_Rufous _MainWin = null;

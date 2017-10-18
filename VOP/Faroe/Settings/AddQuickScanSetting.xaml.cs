@@ -20,8 +20,8 @@ namespace VOP
     public partial class AddQuickScanSetting : Window
     {
         public string strItemName = "";
-        public int value;
-        
+        public int value = 0;
+        public bool IsEdit = false;
         public ScanParam m_scanParams = new ScanParam();
         public ScanToPrintParam m_scanToPrintParams = new ScanToPrintParam();
         public ScanToFileParam m_scanToFileParams = new ScanToFileParam();
@@ -35,7 +35,8 @@ namespace VOP
         }
         private void AddQuickScanSetting_Loaded(object sender, RoutedEventArgs e)
         {
-            cbType.SelectedIndex = 0;
+            cbType.SelectedIndex = value;
+            tbName.Text = strItemName;
         }
         private void cbType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -138,9 +139,34 @@ namespace VOP
             }
             else
             {
-                strItemName = tbName.Text;
-                value = cbType.SelectedIndex;
-            }
+                if(!IsEdit)
+                {
+                    bool isNameSame = false;
+
+                    for (int i = 0; i < MainWindow_Rufous.g_settingData.m_MatchList.Count(); i++)
+                    {
+                        if (tbName.Text == MainWindow_Rufous.g_settingData.m_MatchList[i].ItemName)
+                            isNameSame = true;
+                    }
+
+                    if (isNameSame)
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Quick Scan item name already exists. change to another name", (string)this.FindResource("ResStr_Warning"));
+                        return;
+                    }
+                    else
+                    {
+                        strItemName = tbName.Text;
+                        value = cbType.SelectedIndex;
+                    }
+                }
+                else
+                {
+                    strItemName = tbName.Text;
+                    value = cbType.SelectedIndex;
+                }               
+            }          
+
             this.DialogResult = true;
             this.Close();
         }
