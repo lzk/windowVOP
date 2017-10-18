@@ -239,31 +239,22 @@ namespace VOP
             if (MatchListBox.Items.Count >= 10)
                 btnAdd.IsEnabled = false;
             else
-                btnAdd.IsEnabled = true;
-            int i = MatchListBox.SelectedIndex;            
+                btnAdd.IsEnabled = true;         
             string strName = MatchListBox.SelectedValue.ToString();
-            if (i > 0)
-            {                
-                if (strName == (string)this.TryFindResource("ResStr_Faroe_Scan_Print")
-                || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_File")
-                || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_App")
-                || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_Email")
-                || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_FTP")
-                || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_Cloud"))
-                {
-                    btnDelete.IsEnabled = false;
-                    btnEdit.IsEnabled = false;
-                }
-                else
-                {
-                    btnDelete.IsEnabled = true;
-                    btnEdit.IsEnabled = true;
-                }
-            }
-            else
+            if (strName == (string)this.TryFindResource("ResStr_Faroe_Scan_Print")
+            || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_File")
+            || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_App")
+            || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_Email")
+            || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_FTP")
+            || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_Cloud"))
             {
                 btnDelete.IsEnabled = false;
                 btnEdit.IsEnabled = false;
+            }
+            else
+            {
+                btnDelete.IsEnabled = true;
+                btnEdit.IsEnabled = true;
             }
         }
 
