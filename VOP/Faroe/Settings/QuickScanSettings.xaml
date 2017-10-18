@@ -133,7 +133,7 @@
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-       
+
         <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="19,0,1,0"  >
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>
@@ -160,16 +160,18 @@
 
             <ListBox
                 Name="MatchListBox" 
+                SelectionChanged="MatchListBox_SelectionChanged"
                 Grid.Row="1"
                 Grid.Column="1"
                 ScrollViewer.CanContentScroll="True"
                 ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.RowSpan="4"
                 />
-            <Button x:Name="btnMoveUp" Content="Move Up" FontSize="12" Grid.Column="2" HorizontalAlignment="Center" Height="30"  Grid.Row="2" VerticalAlignment="Center" Width="90" Click="btnMoveUp_Click"/>
-            <Button x:Name="btnMoveDown" Content="Move Down" FontSize="12" Grid.Column="2" HorizontalAlignment="Center" Height="30"  Grid.Row="3" VerticalAlignment="Center" Width="90" Click="btnMoveDown_Click" />
-            <Button x:Name="btnAdd" Content="New" Grid.Column="1" FontSize="12" HorizontalAlignment="Left" Height="30" Margin="20,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Click="btnAdd_Click"/>
-            <Button x:Name="btnDelete" Content="Delete" Grid.Column="1" FontSize="12" HorizontalAlignment="Left" Height="30" Margin="169,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Click="btnDelete_Click"/>
-            <Button x:Name="btnSettings" Content="Settings" Grid.Column="2" FontSize="12" HorizontalAlignment="Left" Height="30" Margin="20,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="90" Click="btnSettings_Click"/>
+            <Button x:Name="btnMoveUp" Content="Move Up" FontSize="12" Grid.Column="2" HorizontalAlignment="Center" Height="28"  Grid.Row="2" VerticalAlignment="Center" Width="80" Click="btnMoveUp_Click"/>
+            <Button x:Name="btnMoveDown" Content="Move Down" FontSize="12" Grid.Column="2" HorizontalAlignment="Center" Height="28"  Grid.Row="3" VerticalAlignment="Center" Width="80" Click="btnMoveDown_Click" />
+            <Button x:Name="btnAdd" Content="New" Grid.Column="1" FontSize="12" HorizontalAlignment="Left" Height="28" Margin="0,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnAdd_Click"/>
+            <Button x:Name="btnEdit" Content="Edit" Grid.Column="1" FontSize="12" Height="28" HorizontalAlignment="Left" Margin="104,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnEdit_Click"/>
+            <Button x:Name="btnDelete" Content="Delete" Grid.Column="1" FontSize="12" HorizontalAlignment="Left" Height="28" Margin="208,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnDelete_Click"/>
+            <Button x:Name="btnSettings" Content="Settings" Grid.Column="2" FontSize="12" HorizontalAlignment="Left" Height="28" Margin="17,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnSettings_Click"/>
 
         </Grid>
     </Grid>

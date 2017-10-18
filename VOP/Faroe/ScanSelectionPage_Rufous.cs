@@ -36,25 +36,25 @@ namespace VOP
 
             TextBlock tb = ScreenBtn.Template.FindName("DetailText", ScreenBtn) as TextBlock;
 
-            QuickScan qs = new QuickScan();
-            switch (tb.Text)
+            QuickScan qs = new QuickScan();            
+            switch (MainWindow_Rufous.g_settingData.m_MatchList[ScreenTextNumber - 1].Value)
             {
-                case "Scan To Print":
+                case 0:
                     qs.ScanToPrint();
                     break;
-                case "Scan To File":
+                case 1:
                     qs.ScanToFile();
                     break;
-                case "Scan To Application":
+                case 2:
                     qs.ScanToAP();
                     break;
-                case "Scan To Email":
+                case 3:
                     qs.ScanToEmail();
                     break;
-                case "Scan To FTP":
+                case 4:
                     qs.ScanToFtp();
                     break;
-                case "Scan To Cloud":
+                case 5:
                     qs.ScanToCloud();
                     break;
                 default:
@@ -190,7 +190,7 @@ namespace VOP
             ScreenBtn.Content = number.ToString();
             TextBlock tb = ScreenBtn.Template.FindName("DetailText", ScreenBtn) as TextBlock;
             int index = MainWindow_Rufous.g_settingData.m_MatchList[number - 1].Value;
-            tb.Text = ScanParameterView.ScanToItems[index];
+            tb.Text = MainWindow_Rufous.g_settingData.m_MatchList[number - 1].ItemName;
         }
 
         private void LeftButton_Click(object sender, RoutedEventArgs e)
@@ -210,27 +210,29 @@ namespace VOP
                     }                       
                     else
                         LeftBtn.IsEnabled = true;
+                    RightBtn.IsEnabled = true;
                 }
             }
         }
         
         private void RightButton_Click(object sender, RoutedEventArgs e)
         {
-            int result = 0;
+            int result = 0;       
             if (Int32.TryParse(ScreenBtn.Content.ToString(), out result))
             {
-                if (result < SettingData.MaxShortCutNum)
+                if (result < MainWindow_Rufous.g_settingData.m_MatchList.Count)
                 {
                     result += 1;
                     SetScreenText(result);
                     ScreenTextNumber = result;
-                    if (result == 6)
+                    if (result == MainWindow_Rufous.g_settingData.m_MatchList.Count)
                     {
                         RightBtn.IsEnabled = false;
                         LeftBtn.IsEnabled = true;
                     }
                     else
                         RightBtn.IsEnabled = true;
+                    LeftBtn.IsEnabled = true;
                 }
             }
         }
