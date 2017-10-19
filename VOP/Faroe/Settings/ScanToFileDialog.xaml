@@ -242,6 +242,8 @@
                                 >
                                     <ComboBoxItem >PDF</ComboBoxItem>
                                     <ComboBoxItem >TIFF</ComboBoxItem>
+                            <ComboBoxItem >JPG</ComboBoxItem>
+                            <ComboBoxItem >BMP</ComboBoxItem>
                                 </ComboBox>
                             </StackPanel>
                         </Border>

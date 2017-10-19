@@ -96,7 +96,7 @@ namespace VOP
             //if (FileList.Count > 1)
             //   save.Filter = "TIF|*.tif|PDF|*.pdf";
             //else
-                save.Filter = "TIF|*.tif|PDF|*.pdf|JPG|*.jpg|BMP|*.bmp";
+                save.Filter = "TIF|*.tif|PDF|*.pdf|JPG|*.jpg|JPEG|*.jpeg|BMP|*.bmp";
 
             bool? result = save.ShowDialog();
 

@@ -34,9 +34,17 @@ namespace VOP
             {
                 cbFileType.SelectedIndex = 0;
             }
-            else
+            else if (MainWindow_Rufous.g_settingData.m_fileSaveType == "TIFF")
             {
                 cbFileType.SelectedIndex = 1;
+            }
+            else if (MainWindow_Rufous.g_settingData.m_fileSaveType == "JPG")
+            {
+                cbFileType.SelectedIndex = 2;
+            }
+            else
+            {
+                cbFileType.SelectedIndex = 3;
             }
 
             tbFileName.Text = m_scanToFileParams.FileName;
@@ -52,6 +60,14 @@ namespace VOP
             else if (cbFileType.SelectedIndex == 1)
             {
                 m_scanToFileParams.SaveType = "TIFF";
+            }  
+            else if (cbFileType.SelectedIndex == 2)
+            {
+                m_scanToFileParams.SaveType = "JPG";
+            }
+            else if (cbFileType.SelectedIndex == 3)
+            {
+                m_scanToFileParams.SaveType = "BMP";
             }
         }
 
@@ -184,7 +200,14 @@ namespace VOP
             {
                 save.Filter = "TIF|*.tif";
             }
-
+            else if (cbFileType.SelectedIndex == 2)
+            {
+                save.Filter = "JPG|*.jpg|JPEG|*.jpeg";
+            }
+            else if (cbFileType.SelectedIndex == 3)
+            {
+                save.Filter = "BMP|*.bmp";
+            }
             save.FileName = dummyFileName;
             bool? result = save.ShowDialog();
 

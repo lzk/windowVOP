@@ -21,7 +21,7 @@ namespace VOP
         private static object lockobj = new object();
 
         [DllImport("wininet.dll")]
-        private extern static bool InternetGetConnectedState(out int connectionDescription, int reservedValue);
+        private static extern bool InternetGetConnectedState(out int connectionDescription, int reservedValue);
 
 
         public ScanDevicePage_Rufous()
@@ -41,18 +41,7 @@ namespace VOP
             }
         }
 
-        public static bool IsOnLine()
-        {
-            try
-            {
-                var connection = 0;
-                return InternetGetConnectedState(out connection, 0);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+
         public static bool ListIP()
         {
             lock(lockobj)
@@ -67,6 +56,19 @@ namespace VOP
                 }
             }
           
+        }
+
+        public bool IsOnLine()
+        {
+            try
+            {
+                var connection = 0;
+                return InternetGetConnectedState(out connection, 0);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         private void FillDeviceList(bool forceRefresh)
@@ -88,6 +90,7 @@ namespace VOP
                     dll.SetConnectionMode(item.DeviceName, true);
                     m_MainWin.SetDeviceButtonState(true);
                     canConnected = true;
+                    MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
                 }
                 else
                 {
@@ -138,6 +141,7 @@ namespace VOP
                         canConnected = true;
                         DeviceList.Items.Add(item);
                         connectip = ip;
+                        MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
                         break;
                     }                    
                 }
@@ -168,6 +172,7 @@ namespace VOP
                             item.StatusText = "Connected";
                             dll.SetConnectionMode(item.DeviceName, true);
                             m_MainWin.SetDeviceButtonState(true);
+                            MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
                             break;
                         }
                     }
@@ -181,6 +186,7 @@ namespace VOP
                                 item.StatusText = "Connected";
                                 dll.SetConnectionMode(item.DeviceName, false);
                                 m_MainWin.SetDeviceButtonState(true);
+                                MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
                                 break;
                             }
                         }
@@ -221,10 +227,12 @@ namespace VOP
                     if (item.DeviceName.ToLower().Contains("usb"))
                     {
                         dll.SetConnectionMode(item.DeviceName, true);
+                        MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
                     }
                     else
                     {
                         dll.SetConnectionMode(item.DeviceName, false);
+                        MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
                     }
 
                     m_MainWin.SetDeviceButtonState(true);

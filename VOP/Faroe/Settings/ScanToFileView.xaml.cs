@@ -202,7 +202,7 @@ namespace VOP
             }
             else if (cbFileType.SelectedIndex == 2)
             {
-                save.Filter = "JPG|*.jpg";
+                save.Filter = "JPG|*.jpg|JPEG|*.jpeg";
             }
             else if (cbFileType.SelectedIndex == 3)
             {

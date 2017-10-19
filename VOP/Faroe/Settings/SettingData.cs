@@ -101,6 +101,7 @@ namespace VOP
 
 
         public string m_DeviceName = "";
+        public bool m_isUsbConnect = false;
        
 
         public SettingData()
