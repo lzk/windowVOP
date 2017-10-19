@@ -39,19 +39,19 @@ namespace VOP
                 FtpLoginForm frm = new FtpLoginForm();
                 frm.Owner = Application.Current.MainWindow;
 
-                frm.m_serverAddress = MainWindow_Rufous.g_settingData.m_serverAddress;
-                frm.m_userName = MainWindow_Rufous.g_settingData.m_userName;
-                frm.m_password = MainWindow_Rufous.g_settingData.m_password;
-                frm.m_targetPath = MainWindow_Rufous.g_settingData.m_targetPath;
+                frm.m_serverAddress = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.ServerAddress;
+                frm.m_userName = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.UserName;
+                frm.m_password = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.Password;
+                frm.m_targetPath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.TargetPath;
 
                 result = frm.ShowDialog();
 
                 if (result == true)
                 {
-                    MainWindow_Rufous.g_settingData.m_serverAddress = frm.m_serverAddress;
-                    MainWindow_Rufous.g_settingData.m_userName = frm.m_userName;
-                    MainWindow_Rufous.g_settingData.m_password = frm.m_password;
-                    MainWindow_Rufous.g_settingData.m_targetPath = frm.m_targetPath;
+                    MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.ServerAddress = frm.m_serverAddress;
+                    MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.UserName = frm.m_userName;
+                    MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.Password = frm.m_password;
+                    MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.TargetPath = frm.m_targetPath;
 
                     AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
@@ -69,8 +69,8 @@ namespace VOP
                                         Application.Current.MainWindow,
                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail") + m_errorMsg,
                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                        return false;
                     }
-
 
                 }
             }
@@ -88,6 +88,7 @@ namespace VOP
                                     Application.Current.MainWindow,
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail") + m_errorMsg,
                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                    return false;
                 }
 
             }
@@ -103,8 +104,8 @@ namespace VOP
                 FtpWebRequest ftpReq = WebRequest.Create(targetUri) as FtpWebRequest;
                 ftpReq.Method = WebRequestMethods.Ftp.MakeDirectory;
                 ftpReq.Credentials = new NetworkCredential(
-                        MainWindow_Rufous.g_settingData.m_userName,
-                        MainWindow_Rufous.g_settingData.m_password);
+                        MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.UserName,
+                        MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.Password);
 
                 ftpReq.Proxy = null;
 
@@ -125,10 +126,10 @@ namespace VOP
 
                     client.Proxy = null;
                     client.Credentials = new NetworkCredential(
-                        MainWindow_Rufous.g_settingData.m_userName,
-                        MainWindow_Rufous.g_settingData.m_password);
+                        MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.UserName,
+                        MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.Password);
 
-                    string targetUri = MainWindow_Rufous.g_settingData.m_serverAddress + MainWindow_Rufous.g_settingData.m_targetPath;
+                    string targetUri = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.ServerAddress + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.TargetPath;
                     CreateFtpFolder(targetUri);
 
                     foreach (string filePath in FileList)

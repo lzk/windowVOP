@@ -12,6 +12,7 @@ namespace VOP
 {
     public partial class ScanSettingPage_Rufous : UserControl
     {
+        public MainWindow_Rufous m_MainWin { get; set; }
         SettingButton_Rufous btnScanParameter = new SettingButton_Rufous(SettingType.ScanParameter);
         SettingButton_Rufous btnQuickScanSettings = new SettingButton_Rufous(SettingType.QuickScanSettings);
         //SettingButton_Rufous btnScanToFile = new SettingButton_Rufous(SettingType.ScanToFile);
@@ -309,27 +310,27 @@ namespace VOP
         /// Pointer to the MainWindow, in order to use global data more
         /// conveniently 
         ///</summary>
-        private MainWindow_Rufous _MainWin = null;
+        //private MainWindow_Rufous _MainWin = null;
 
-        public MainWindow_Rufous m_MainWin
-        {
-            set
-            {
-                _MainWin = value;
-            }
+        //public MainWindow_Rufous m_MainWin
+        //{
+        //    set
+        //    {
+        //        _MainWin = value;
+        //    }
 
-            get
-            {
-                if ( null == _MainWin )
-                {
-                    return (MainWindow_Rufous)App.Current.MainWindow;
-                }
-                else
-                {
-                    return _MainWin;
-                }
-            }
-        }
+        //    get
+        //    {
+        //        if ( null == _MainWin )
+        //        {
+        //            return (MainWindow_Rufous)App.Current.MainWindow;
+        //        }
+        //        else
+        //        {
+        //            return _MainWin;
+        //        }
+        //    }
+        //}
 
         public void PassStatus(bool online)
         {

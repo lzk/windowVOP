@@ -271,7 +271,7 @@ namespace VOP
             else if(pageName == "ScanSelectionPage")
             {
                 MainPageView.Child = scanSelectionPage;
-                scanSelectionPage.m_MainWin = this;
+                scanSelectionPage.m_MainWin = this;                
             }
             else if (pageName == "SettingsPage")
             {

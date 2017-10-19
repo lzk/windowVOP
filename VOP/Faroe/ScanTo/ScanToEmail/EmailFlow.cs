@@ -30,6 +30,7 @@ namespace VOP
     {
         public static EmailFlowType FlowType = EmailFlowType.View;
         public List<string> FileList { get; set; }
+        List<ScanFiles> files = new List<ScanFiles>();
         public Window ParentWin { get; set; }
         string pdfName = "";
         string m_errorMsg = "";
@@ -41,7 +42,7 @@ namespace VOP
                 return false;
             }
 
-            if (MainWindow_Rufous.g_settingData.m_attachmentType == "PDF")
+            if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_EmailScanSettings.AttachmentType == "PDF")
             {
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
@@ -72,12 +73,18 @@ namespace VOP
                 Outlook.MailItem oMsg = (Outlook.MailItem)oApp.CreateItem(Outlook.OlItemType.olMailItem);
 
  
-                if (MainWindow_Rufous.g_settingData.m_attachmentType == "PDF")
+                if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_EmailScanSettings.AttachmentType == "PDF")
                 {
                     if(pdfName != "")
                     {
                         string fileName = System.IO.Path.GetFileName(pdfName);
                         Outlook.Attachment oAttach = oMsg.Attachments.Add(pdfName);
+                        ScanFiles file = new ScanFiles();                        
+                        file.m_pathOrig = pdfName;
+                        file.m_pathView = pdfName;
+                        file.m_pathThumb = pdfName;
+                        files.Add(file);
+                        App.scanFileList.Add(file);//#bms1179
                     }
                 }
                 else
@@ -94,10 +101,10 @@ namespace VOP
                 if (FlowType == EmailFlowType.Quick)
                 {
                     Outlook.Recipients oRecips = (Outlook.Recipients)oMsg.Recipients;
-                    Outlook.Recipient oRecip = (Outlook.Recipient)oRecips.Add((MainWindow_Rufous.g_settingData.m_recipient));
+                    Outlook.Recipient oRecip = (Outlook.Recipient)oRecips.Add((MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_EmailScanSettings.Recipient));
                     oRecip.Resolve();
 
-                    oMsg.Subject = MainWindow_Rufous.g_settingData.m_subject;
+                    oMsg.Subject = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_EmailScanSettings.Subject;
                     oMsg.BodyFormat = Outlook.OlBodyFormat.olFormatHTML;
                     oMsg.HTMLBody = "Attachment are scanned pictures";
                     //oMsg.Display(false);
@@ -134,6 +141,7 @@ namespace VOP
             //                      Application.Current.MainWindow,
             //                     "Send Email completed",
             //                     "Prompt");
+            
             return true;
         }
 
@@ -187,7 +195,6 @@ namespace VOP
                 //               m_errorMsg = ex.Message;
                 return false;
             }
-
             return true;
         }
     }

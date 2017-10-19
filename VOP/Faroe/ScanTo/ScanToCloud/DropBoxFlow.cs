@@ -224,7 +224,7 @@ namespace VOP
             foreach (string filePath in FileList)
             {
                 string fileName = System.IO.Path.GetFileName(filePath);
-                await Upload(m_client, MainWindow_Rufous.g_settingData.m_dropBoxDefaultPath, fileName, filePath);
+                await Upload(m_client, MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.DefaultPath, fileName, filePath);
             }
 
             return true;

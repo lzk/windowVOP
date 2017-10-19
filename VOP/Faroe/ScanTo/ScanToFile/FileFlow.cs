@@ -262,8 +262,8 @@ namespace VOP
        
         ScanFileSaveError SaveFileQuick()
         {
-            if(MainWindow_Rufous.g_settingData.m_fileName == "" 
-                || MainWindow_Rufous.g_settingData.m_filePath == "")
+            if(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName == "" 
+                || MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath == "")
             {
                 return ScanFileSaveError.FileSave_Error;
             }
@@ -279,7 +279,7 @@ namespace VOP
                         DateTime.Now.Minute,
                         DateTime.Now.Second);
 
-                    if (MainWindow_Rufous.g_settingData.m_fileSaveType == "TIFF")
+                    if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.SaveType == "TIFF")
                     {
                         TiffBitmapEncoder encoder = new TiffBitmapEncoder();
 
@@ -296,50 +296,50 @@ namespace VOP
                                 encoder.Frames.Add(BitmapFrame.Create(origSource, null, bitmapMetadata, null));
                         }
 
-                        string fileExt = System.IO.Path.GetExtension(MainWindow_Rufous.g_settingData.m_fileName).ToLower();
+                        string fileExt = System.IO.Path.GetExtension(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName).ToLower();
                         string savePath = "";
                         if (fileExt != ".tif")
                         {
-                            savePath = MainWindow_Rufous.g_settingData.m_filePath + 
-                                 @"\" + MainWindow_Rufous.g_settingData.m_fileName + time +  ".tif";
+                            savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath + 
+                                 @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName + time +  ".tif";
                         }
                         else
                         {
-                            savePath = MainWindow_Rufous.g_settingData.m_filePath +
-                                @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_fileName)
+                            savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
+                                @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName)
                                 + time  + ".tif";
                         }
 
-                        if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_filePath))
+                        if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath))
                         {
-                            Directory.CreateDirectory(MainWindow_Rufous.g_settingData.m_filePath);
+                            Directory.CreateDirectory(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath);
                         }
 
                         FileStream fs = File.Open(savePath, FileMode.Create);
                         encoder.Save(fs);
                         fs.Close();
                     }
-                    else if (MainWindow_Rufous.g_settingData.m_fileSaveType == "PDF")
+                    else if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.SaveType == "PDF")
                     {
                         using (PdfHelper help = new PdfHelper())
                         {
-                            string fileExt = System.IO.Path.GetExtension(MainWindow_Rufous.g_settingData.m_fileName).ToLower();
+                            string fileExt = System.IO.Path.GetExtension(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName).ToLower();
                             string savePath = "";
                             if (fileExt != ".pdf")
                             {
-                                savePath = MainWindow_Rufous.g_settingData.m_filePath +
-                                     @"\" + MainWindow_Rufous.g_settingData.m_fileName + time +".pdf";
+                                savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
+                                     @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName + time +".pdf";
                             }
                             else
                             {
-                                savePath = MainWindow_Rufous.g_settingData.m_filePath+
-                                    @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_fileName)
+                                savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
+                                    @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName)
                                     + time + ".pdf";
                             }
 
-                            if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_filePath))
+                            if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath))
                             {
-                                Directory.CreateDirectory(MainWindow_Rufous.g_settingData.m_filePath);
+                                Directory.CreateDirectory(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath);
                             }
 
                             help.Open(savePath);
@@ -358,14 +358,14 @@ namespace VOP
                         }
                     }
                     //add by yunying shang
-                    if (MainWindow_Rufous.g_settingData.m_fileSaveType == "JPG")
+                    if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.SaveType == "JPG")
                     {
-                        if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_filePath))
+                        if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath))
                         {
-                            Directory.CreateDirectory(MainWindow_Rufous.g_settingData.m_filePath);
+                            Directory.CreateDirectory(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath);
                         }
 
-                        string fileExt = System.IO.Path.GetExtension(MainWindow_Rufous.g_settingData.m_fileName).ToLower();
+                        string fileExt = System.IO.Path.GetExtension(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName).ToLower();
                         string savePath = "";
 
                         int i = 1;
@@ -382,13 +382,13 @@ namespace VOP
 
                             if (FileList.Count > 1)
                             {
-                                savePath = MainWindow_Rufous.g_settingData.m_filePath +
-                                     @"\" + MainWindow_Rufous.g_settingData.m_fileName + time + Convert.ToString(i) + ".jpg";
+                                savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
+                                     @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName + time + Convert.ToString(i) + ".jpg";
                             }
                             else
                             {
-                                savePath = MainWindow_Rufous.g_settingData.m_filePath +
-                                    @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_fileName)
+                                savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
+                                    @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName)
                                     + time  + ".jpg";
                             }
 
@@ -399,14 +399,14 @@ namespace VOP
                             i++;
                         }                        
                     }
-                    if (MainWindow_Rufous.g_settingData.m_fileSaveType == "BMP")
+                    if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.SaveType == "BMP")
                     {
-                        if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_filePath))
+                        if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath))
                         {
-                            Directory.CreateDirectory(MainWindow_Rufous.g_settingData.m_filePath);
+                            Directory.CreateDirectory(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath);
                         }
 
-                        string fileExt = System.IO.Path.GetExtension(MainWindow_Rufous.g_settingData.m_fileName).ToLower();
+                        string fileExt = System.IO.Path.GetExtension(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName).ToLower();
                         string savePath = "";
 
                         int i = 1;
@@ -415,14 +415,14 @@ namespace VOP
                         {
                             if (FileList.Count > 1)
                             {
-                                savePath = MainWindow_Rufous.g_settingData.m_filePath +
-                                     @"\" + MainWindow_Rufous.g_settingData.m_fileName 
+                                savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
+                                     @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName
                                       + time + Convert.ToString(i) + ".bmp";
                             }
                             else
                             {
-                                savePath = MainWindow_Rufous.g_settingData.m_filePath +
-                                    @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_fileName) 
+                                savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
+                                    @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName) 
                                      + time + ".bmp";
                             }
                             using (Bitmap source = new Bitmap(path))
