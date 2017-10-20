@@ -47,7 +47,7 @@ namespace VOP
     {
         //Common
         public static int MaxShortCutNum = 6;
-        public int CutNum = 1;
+        public int CutNum = 0;
         public static string[] ScanToItems =
         {
             "Scan To Print",

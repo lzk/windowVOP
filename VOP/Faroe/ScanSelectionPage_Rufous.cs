@@ -28,7 +28,7 @@ namespace VOP
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             SetScreenText(ScreenTextNumber);
-            MainWindow_Rufous.g_settingData.CutNum = ScreenTextNumber;
+            MainWindow_Rufous.g_settingData.CutNum = ScreenTextNumber -1;
         }
 
         private void ScreenButton_Click(object sender, RoutedEventArgs e)
@@ -203,7 +203,7 @@ namespace VOP
                     result -= 1;
                     SetScreenText(result);
                     ScreenTextNumber = result;
-                    MainWindow_Rufous.g_settingData.CutNum = result;
+                    MainWindow_Rufous.g_settingData.CutNum = result -1;
                     if (result == 1)
                     {
                         LeftBtn.IsEnabled = false;
@@ -226,7 +226,7 @@ namespace VOP
                     result += 1;
                     SetScreenText(result);
                     ScreenTextNumber = result;
-                    MainWindow_Rufous.g_settingData.CutNum = result;
+                    MainWindow_Rufous.g_settingData.CutNum = result -1;
                     if (result == MainWindow_Rufous.g_settingData.m_MatchList.Count)
                     {
                         RightBtn.IsEnabled = false;
