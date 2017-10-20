@@ -59,7 +59,6 @@ namespace VOP
             common.GetPaperSize(param.PaperSize, ref nWidth, ref nHeight);
 
             //add by yunying shang 2017-10-18 for BMS 1019
-            StringBuilder usbName = new StringBuilder(50);
             if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
             {
                 NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();

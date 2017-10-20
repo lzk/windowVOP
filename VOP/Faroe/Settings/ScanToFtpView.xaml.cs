@@ -50,7 +50,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
-                  "The Server Name cannot be empty",
+                  "The Server Address cannot be empty",
                   "Error");
                 return;
             }
@@ -82,7 +82,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The server name format is incorrect, Please check you server name and enter again.",
+                 "The Server Address format is incorrect, Please check you server name and enter again.",
                  "Error");
                 return;
             }            
@@ -92,7 +92,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The server name format is incorrect, Please check you server name and enter again.",
+                 "The Server Address format is incorrect, Please check you server name and enter again.",
                  "Error");
                 return;
             }
@@ -100,7 +100,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The target path format is incorrect, Please check you target path and enter again.",
+                 "The Tartget Path format is incorrect, Please check you target path and enter again.",
                  "Error");
                 return;
             }

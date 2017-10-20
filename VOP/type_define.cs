@@ -230,8 +230,7 @@ namespace VOP
         _B5      ,
         _A6      ,
         _Letter  ,
-        _LGL     ,
-        _LTR     ,
+        _Legal   ,
         _4x6Inch ,
     }
     

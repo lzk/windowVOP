@@ -130,28 +130,39 @@ namespace VOP
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
-            if (tbFilePath.Text == "")
+            //modified by yunying shang 2017-10-19 for BMS 1173
+            if (tbFilePath.Text == "" || tbFileName.Text == "")
             {
+                string message = string.Empty;
+
+                if (tbFilePath.Text == "" && tbFileName.Text == "")
+                    message = "The File Path and File Name cannot be empty!";
+                else if (tbFilePath.Text == "")
+                    message = "The File Path cannot be empty";
+                else
+                    message = "The File Name cannot be empty";
+
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
-                  "The path cannot be empty",
+                  message,
                   "Error");
                 return;
             }
-            else if (tbFileName.Text == "")
-            {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                   Application.Current.MainWindow,
-                  "The file name cannot be empty",
-                  "Error");
-                return;
-            }
+            //else 
+            //if (tbFileName.Text == "")
+            //{
+            //    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+            //       Application.Current.MainWindow,
+            //      "The File Name cannot be empty",
+            //      "Error");
+            //    return;
+            //}
 
             if (!IsValidPathName(tbFilePath.Text) && !IsValidFileName(tbFileName.Text))
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                     Application.Current.MainWindow,
-                   "Invalid path and file name",
+                   "Invalid File Path and File Name",
                    "Error");
                 return;
             }

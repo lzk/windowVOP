@@ -16,6 +16,7 @@ using VOP.Controls;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Printing;
+using System.Windows.Threading;
 
 namespace VOP
 {
@@ -23,7 +24,7 @@ namespace VOP
     {
         private int m_maxImgNum = 99;
         public Thread scanningThread = null;
-
+        private int m_iMousePress = 0;
 
         private List<ScanFiles> scanFileList = null; 
 
@@ -202,6 +203,12 @@ namespace VOP
                     index++;
                 }
             }
+            //add by yunying shang 2017-10-19 for BMS 1178
+            if (image_wrappanel.Children.Count == GetSelectedItemCount())
+                SelectAllCheckBox.IsChecked = true;
+            else
+                SelectAllCheckBox.IsChecked = false;
+            //<<===================1178
         }
 
         private void ImageItemSingleClick(object sender, RoutedEventArgs e)
@@ -232,11 +239,11 @@ namespace VOP
               //  btnPrint.IsEnabled = false;
               //  btnSave.IsEnabled = false;
             }
-            if(image_wrappanel.Children.Count == GetSelectedItemCount())
-                SelectAllCheckBox.IsChecked = true;
-            else
-                SelectAllCheckBox.IsChecked = false;
 
+            if(image_wrappanel.Children.Count == GetSelectedItemCount())
+               SelectAllCheckBox.IsChecked = true;
+            else
+               SelectAllCheckBox.IsChecked = false;
         }
 
         private void CheckBox_Click(object sender, RoutedEventArgs e)
@@ -273,6 +280,13 @@ namespace VOP
 
             //  btnPrint.IsEnabled = true;
             //  btnSave.IsEnabled = true;
+
+            //add by yunying shang 2017-10-19 for BMS 1182
+            if (image_wrappanel.Children.Count == GetSelectedItemCount())
+                SelectAllCheckBox.IsChecked = true;
+            else
+                SelectAllCheckBox.IsChecked = false;
+            //<<=======================1182
 
             List<string> selectfiles = new List<string>();
             GetSelectedFile(selectfiles);

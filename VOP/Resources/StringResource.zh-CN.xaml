@@ -418,4 +418,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AutoSleep">自动睡眠</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AP_Name">程序名称 :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AP_Path">程序路径 :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Legal_8_5_x_14">Legal(8.5 x 14")</sys:String>
 </ResourceDictionary>

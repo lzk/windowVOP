@@ -133,7 +133,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
-                  "The name cannot be empty",
+                  "The Name cannot be empty",
                   "Error");
                 return;
             }

@@ -457,19 +457,12 @@ namespace VOP
             cboScanSize.Items.Add( cboItem );
 
 
-            //cboItem = new ComboBoxItem();
-            //cboItem.Content = (string)this.TryFindResource("ResStr_LTR_105_x_148mm_");
-            //cboItem.DataContext = EnumPaperSizeScan._LTR;
-            //cboItem.MinWidth = 145;
-            //cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            //cboScanSize.Items.Add(cboItem);
-
-            //cboItem = new ComboBoxItem();
-            //cboItem.Content = (string)this.TryFindResource("ResStr_LGL_105_x_148mm_");
-            //cboItem.DataContext = EnumPaperSizeScan._LTR;
-            //cboItem.MinWidth = 145;
-            //cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            //cboScanSize.Items.Add(cboItem);
+            cboItem = new ComboBoxItem();
+            cboItem.Content = (string)this.TryFindResource("ResStr_Legal_8_5_x_14");
+            cboItem.DataContext = EnumPaperSizeScan._Legal;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanSize.Items.Add(cboItem);
 
             //cboItem = new ComboBoxItem();
             //cboItem.Content = (string)this.TryFindResource("ResStr_4_x_6_");

@@ -24,6 +24,7 @@ using System.Globalization;
 using System.Xml.Linq;
 using VOP.Controls;
 using System.Diagnostics;
+using System.Net.NetworkInformation;
 
 namespace VOP
 {
@@ -206,23 +207,47 @@ namespace VOP
             _bExitUpdater = false;
             while (!_bExitUpdater)
             {
-
                 if (dll.CheckConnection())
                 {
                     //SetDeviceButtonState(true);
-                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);              
+                    //modified by yunying shang 2017-10-19 for BMS 1172
+                    if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
+                    {
+                        NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+                        bool bFound = false;
+                        foreach (NetworkInterface adapter in fNetworkInterfaces)
+                        {
+                            if (adapter.Description.Contains("Wi-Fi"))
+                            {
+                                bFound = true;
+                            }
+                        }
+
+                        if (bFound == false)
+                        {
+                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                        }
+                        else
+                        {
+                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                        }
+                    }
+                    else
+                    { 
+                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                    }//<<=================1172
                 }
                 else
                 {
+
                     //SetDeviceButtonState(false);
                     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
                 }
 
-                for (int i = 0; i < 12; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     if (_bExitUpdater)
                         break;
-
                     System.Threading.Thread.Sleep(500);
                 }
             }

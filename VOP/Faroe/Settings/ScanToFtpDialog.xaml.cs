@@ -52,7 +52,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
-                  "The Server Name cannot be empty",
+                  "The Server Address cannot be empty",
                   "Error");
                 return;
             }

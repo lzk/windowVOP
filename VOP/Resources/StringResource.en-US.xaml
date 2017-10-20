@@ -418,4 +418,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AutoSleep">Auto Sleep</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AP_Name">AP Name :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AP_Path">AP Path :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Legal_8_5_x_14">Legal(8.5 x 14")</sys:String>
 </ResourceDictionary>

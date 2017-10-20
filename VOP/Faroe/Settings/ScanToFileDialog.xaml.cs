@@ -84,19 +84,23 @@ namespace VOP
             }
         }
 
-        private bool IsValidPathName(string path)
+        private bool IsValidPathName(ref string path)
         {
             try
             {
-
                 Regex containsABadCharacter = new Regex("["
-                                                + Regex.Escape(new string(System.IO.Path.GetInvalidPathChars())) + "]");
+                                               + Regex.Escape(new string(System.IO.Path.GetInvalidPathChars())) + "]");
 
                 if (containsABadCharacter.IsMatch(path))
                 {
                     return false;
-                };
+                }
 
+                //modified by yunying shang 2017-10-19 for BMS 1181
+                if (!path.Contains("\\") && !path.Contains(":"))
+                {
+                    path = App.PictureFolder + "\\" + path;
+                }//<<=============1181
             }
             catch (Exception ex)
             {
@@ -130,66 +134,89 @@ namespace VOP
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
-            if (tbFilePath.Text == "")
+            //modified by yunying shang 2017-10-19 for BMS 1173
+            if (tbFilePath.Text == "" || tbFileName.Text == "")
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                   Application.Current.MainWindow,
-                  "The path cannot be empty",
-                  "Error");
-                return;
-            }
-            else if (tbFileName.Text == "")
-            {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                   Application.Current.MainWindow,
-                  "The file name cannot be empty",
-                  "Error");
-                return;
-            }
+                string message = string.Empty;
 
-            if (!IsValidPathName(tbFilePath.Text) && !IsValidFileName(tbFileName.Text))
+                if (tbFilePath.Text == "" && tbFileName.Text == "")
+                    message = "The File Path and File Name cannot be empty!";
+                else if (tbFilePath.Text == "")
+                    message = "The File Path cannot be empty";
+                else
+                    message = "The File Name cannot be empty";
+
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                   Application.Current.MainWindow,
+                  message,
+                  "Error");
+
+                tbFileName.Focus();
+
+                return;
+            }
+            //else 
+            //if (tbFileName.Text == "")
+            //{
+            //    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+            //       Application.Current.MainWindow,
+            //      "The File Name cannot be empty",
+            //      "Error");
+            //    return;
+            //}
+
+            //modified by yunying shang 2017-10-19 for BMS 1181
+            string path = tbFilePath.Text;
+            bool bValidPath = IsValidPathName(ref path);
+            bool bValidName = IsValidFileName(tbFileName.Text);
+            if (!bValidPath && !bValidName)
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                     Application.Current.MainWindow,
-                   "Invalid path and file name",
+                   "Invalid File Path and File Name",
                    "Error");
+
+                tbFilePath.Focus();
+
                 return;
             }
             else
             {
-                if (!IsValidPathName(tbFilePath.Text))
+                if (!IsValidPathName(ref path))
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                       Application.Current.MainWindow,
-                     "Invalid path name",
+                     "Invalid File Path",
                      "Error");
+                    tbFilePath.Focus();
                     return;
                 }
                 else
                 {
-                    m_scanToFileParams.FilePath = tbFilePath.Text;
+                    m_scanToFileParams.FilePath = path;// tbFilePath.Text;
                 }
 
                 if (!IsValidFileName(tbFileName.Text))
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                       Application.Current.MainWindow,
-                     "Invalid file name",
+                     "Invalid File Name",
                      "Error");
+                    tbFileName.Focus();
                     return;
                 }
                 else
                 {
                     m_scanToFileParams.FileName = tbFileName.Text;
                 }
-            }
+            }//<<=================1181
             this.DialogResult = true;
             this.Close();
         }
 
         private void BrowseClick(object sender, RoutedEventArgs e)
         {
-            string dummyFileName = "";
+            string dummyFileName = App.PictureFolder;
 
             SaveFileDialog save = new SaveFileDialog();
             if (cbFileType.SelectedIndex == 0)

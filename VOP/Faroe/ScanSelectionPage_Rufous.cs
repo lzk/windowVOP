@@ -22,8 +22,7 @@ namespace VOP
 
         public ScanSelectionPage_Rufous()
         {
-            InitializeComponent();
-          
+            InitializeComponent();          
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
