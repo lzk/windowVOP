@@ -111,7 +111,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                  Application.Current.MainWindow,
-                                "no found printer" ,
+                                "Not find printer!" ,
                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
             }
             else
@@ -135,7 +135,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                      Application.Current.MainWindow,
-                                    "no found printer",
+                                    "Not find printer!",
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 }
                 else

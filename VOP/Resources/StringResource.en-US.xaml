@@ -5,7 +5,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Print">Print</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copy">Copy</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan">Scan</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Setting">Settings</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Setting">Settings...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Setting_Title">Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Model">Model</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Device_Status">Device Status</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Ready">Ready</sys:String>
@@ -168,7 +169,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_WPA2">Protected by WPA2</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_WEP">Protected by WEP</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_Mixed_Mode_PSK">Protected by Mixed Mode PSK</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Manual_Wi_Fi">Manual Wi-Fi</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Manual_Wi_Fi">Manual Wi-Fi...</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Password_">Password:</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Password">Password</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Display_Password">Display Password</sys:String>

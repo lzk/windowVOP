@@ -216,8 +216,8 @@ namespace VOP
 
         private void BrowseClick(object sender, RoutedEventArgs e)
         {
-            string dummyFileName = App.PictureFolder;
-
+            string dummyFileName = m_scanToFileParams.FilePath;
+            
             SaveFileDialog save = new SaveFileDialog();
             if (cbFileType.SelectedIndex == 0)
             {

@@ -5,7 +5,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Print">打  印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copy">复  印</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan">扫  描</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Setting">设置</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Setting">设置...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Setting_Title">设置</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Model">机型</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Device_Status">状态</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Ready">待机</sys:String>
@@ -168,7 +169,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_WPA2">通过 WPA2 进行保护</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_WEP">通过 WEP 进行保护</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_Mixed_Mode_PSK">通过混合模式 PSK 进行保护</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Manual_Wi_Fi">加入其他网络</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Manual_Wi_Fi">加入其他网络...</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Password_">密码：</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Password">密码</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Display_Password">显示密码</sys:String>
