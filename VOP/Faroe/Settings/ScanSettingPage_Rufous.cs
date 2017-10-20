@@ -15,6 +15,7 @@ namespace VOP
         public MainWindow_Rufous m_MainWin { get; set; }
         SettingButton_Rufous btnScanParameter = new SettingButton_Rufous(SettingType.ScanParameter);
         SettingButton_Rufous btnQuickScanSettings = new SettingButton_Rufous(SettingType.QuickScanSettings);
+        SettingButton_Rufous btnQRCodeSettings = new SettingButton_Rufous(SettingType.QRCodeSettings);
         //SettingButton_Rufous btnScanToFile = new SettingButton_Rufous(SettingType.ScanToFile);
         //SettingButton_Rufous btnScanToPrint = new SettingButton_Rufous(SettingType.ScanToPrint);
         //SettingButton_Rufous btnScanToEmail = new SettingButton_Rufous(SettingType.ScanToEmail);
@@ -40,7 +41,7 @@ namespace VOP
         WifiView_Rufous wifiView = new WifiView_Rufous();
         TcpipView_Rufous tcpipView = new TcpipView_Rufous();
         SoftapView_Rufous softAPView = new SoftapView_Rufous();
-        DeviceView deviceView = new DeviceView();
+        DeviceView deviceView = new DeviceView();       
 
 
         QuickScanSettings quickScanSettings = new QuickScanSettings();
@@ -73,6 +74,15 @@ namespace VOP
             btnQuickScanSettings.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnQuickScanSettings);
 
+
+            btnQRCodeSettings.btn.Content = "QRCode Settings";
+            btnQRCodeSettings.Margin = new Thickness(0, 1, 0, 9);
+            btnQRCodeSettings.Width = tabbtn_width;
+            btnQRCodeSettings.Height = tabbtn_height;
+            btnQRCodeSettings.HorizontalAlignment = HorizontalAlignment.Left;
+            btnQRCodeSettings.btn.Name = "btnQRCodeSettings";
+            btnQRCodeSettings.btn.Click += SettingBtnClick;
+            m_listSettingButton.Add(btnQRCodeSettings);
             //btnScanToPrint.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Scan_Print");
             //btnScanToPrint.Margin = new Thickness(0, 1, 0, 9);
             //btnScanToPrint.Width = tabbtn_width;
@@ -201,6 +211,7 @@ namespace VOP
             setting_tab_btn.Children.Clear();
             setting_tab_btn.Children.Add(btnScanParameter);
             setting_tab_btn.Children.Add(btnQuickScanSettings);
+            setting_tab_btn.Children.Add(btnQRCodeSettings);
             //setting_tab_btn.Children.Add(btnScanToPrint);
             //setting_tab_btn.Children.Add(btnScanToFile);
             //setting_tab_btn.Children.Add(btnScanToAP);
@@ -236,6 +247,12 @@ namespace VOP
                 SetActiveButton(SettingType.QuickScanSettings);
                 quickScanSettings.m_MainWin = this.m_MainWin;
                 this.settingView.Child =quickScanSettings ;
+            }
+            if ("btnQRCodeSettings" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.QRCodeSettings);
+                scanParameterView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = scanParameterView;
             }
             //else if ("btnScanToFile" == srcButton.Name)
             //{

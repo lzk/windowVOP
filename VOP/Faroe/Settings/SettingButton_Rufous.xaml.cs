@@ -21,6 +21,7 @@ namespace VOP
     {
         ScanParameter,
         QuickScanSettings,
+        QRCodeSettings,
         ScanToFile,
         ScanToPrint,
         ScanToEmail,
