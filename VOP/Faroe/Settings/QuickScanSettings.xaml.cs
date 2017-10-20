@@ -191,7 +191,7 @@ namespace VOP
             if (addQuickScanSettingWin.ShowDialog() == true)
             {
                 this.MatchListBox.Items.RemoveAt(nIndex);
-                this.MatchListBox.Items.Add(addQuickScanSettingWin.strItemName);
+                this.MatchListBox.Items.Insert(nIndex , addQuickScanSettingWin.strItemName);                
                 MainWindow_Rufous.g_settingData.m_MatchList[nIndex].Value = addQuickScanSettingWin.value;
                 MainWindow_Rufous.g_settingData.m_MatchList[nIndex].ItemName = addQuickScanSettingWin.strItemName;
                 switch (addQuickScanSettingWin.value)
