@@ -108,8 +108,11 @@ namespace VOP
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save") + m_errorMsg,
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
             }
-            else
-                result = true;
+            //marked by yunying shang 2017-10-20 for BMS 1185
+            //else
+            //{
+            //    result = true;
+            //}//<<=============1185
 
             if (result == true)
             {
