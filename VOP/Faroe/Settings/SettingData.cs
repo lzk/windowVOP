@@ -38,31 +38,7 @@ namespace VOP
         {
             Key = key;
             Value = value;
-            ItemName = name;
-            //switch (value)
-            //{
-            //    case 0:
-            //        m_PrintScanSettings = 
-            //        break;
-            //    case 1:
-                    
-            //        break;
-            //    case 2:
-
-            //        break;
-            //    case 3:
-
-            //        break;
-            //    case 4:
-
-            //        break;
-            //    case 5:
-
-            //        break;
-            //    default:
-                    
-            //        break;
-            //}
+            ItemName = name;           
         }        
 
     }   
@@ -71,6 +47,7 @@ namespace VOP
     {
         //Common
         public static int MaxShortCutNum = 6;
+        public int CutNum = 1;
         public static string[] ScanToItems =
         {
             "Scan To Print",

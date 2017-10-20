@@ -59,7 +59,7 @@ namespace VOP
             }
             else
             {
-                if (dll.PrintInit(MainWindow_Rufous.g_settingData.m_printerName, "VOP_Print",
+                if (dll.PrintInit(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_PrintScanSettings.PrinterName, "VOP_Print",
                         (int)enumIdCardType.NonIdCard, new IdCardSize(), true, (int)DuplexPrintType.NonDuplex, true, 100))
                 {
 
@@ -97,6 +97,7 @@ namespace VOP
                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_print_fail") + m_errorMsg,
                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                            );
+                return false;
             }
 
             return true;

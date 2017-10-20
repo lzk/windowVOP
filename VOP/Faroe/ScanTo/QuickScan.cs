@@ -26,8 +26,8 @@ namespace VOP
         public bool ScanToAP()
         {
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_apScanSettings);
-
+            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
+            
             if (files == null)
                 return false;
 
@@ -53,7 +53,7 @@ namespace VOP
         public bool ScanToFile()
         {
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_fileScanSettings);
+            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
             //DebugAddScanFiles(ref files);
             if (files == null)
                 return false;
@@ -89,7 +89,7 @@ namespace VOP
         public bool ScanToEmail()
         {
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_emailScanSettings);
+            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
 
             if (files == null)
                 return false;
@@ -134,7 +134,7 @@ namespace VOP
             else
             {
                 ScanTask task = new ScanTask();
-                List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_printScanSettings);
+                List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
 
                 if (files == null)
                     return false;
@@ -191,7 +191,7 @@ namespace VOP
         public bool ScanToFtp()
         {
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_ftpScanSettings);
+            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
 
             if (files == null)
                 return false;
@@ -226,7 +226,7 @@ namespace VOP
         public bool ScanToCloud()
         {
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_cloudScanSettings);
+            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
             //DebugAddScanFiles(ref files);
             if (files == null)
                 return false;
@@ -266,6 +266,7 @@ namespace VOP
                                     Application.Current.MainWindow,
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                return false;
             }
 
             return true;

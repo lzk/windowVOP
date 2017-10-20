@@ -109,7 +109,7 @@ namespace VOP
             }
             else
             {
-                programType = MainWindow_Rufous.g_settingData.m_programType;
+                programType = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_APScanSettings.ProgramType;
 
                 try
                 {
