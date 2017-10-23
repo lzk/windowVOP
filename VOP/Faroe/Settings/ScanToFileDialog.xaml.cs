@@ -34,11 +34,11 @@ namespace VOP
             {
                 cbFileType.SelectedIndex = 0;
             }
-            else if (MainWindow_Rufous.g_settingData.m_fileSaveType == "TIFF")
+            else if (m_scanToFileParams.SaveType == "TIFF")
             {
                 cbFileType.SelectedIndex = 1;
             }
-            else if (MainWindow_Rufous.g_settingData.m_fileSaveType == "JPG")
+            else if (m_scanToFileParams.SaveType == "JPG")
             {
                 cbFileType.SelectedIndex = 2;
             }
@@ -235,7 +235,7 @@ namespace VOP
             {
                 save.Filter = "BMP|*.bmp";
             }
-            save.FileName = dummyFileName;
+            save.FileName = dummyFileName + "\\" + tbFileName.Text;
             bool? result = save.ShowDialog();
 
             if (result == true)

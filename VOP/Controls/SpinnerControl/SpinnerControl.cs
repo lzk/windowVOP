@@ -27,6 +27,7 @@ namespace VOP.Controls
     public class SpinnerControl : Control
     {
         public bool IsPercentFormat { get; set; }
+
         public SpinnerControl()
         {
             IsPercentFormat = false;
@@ -106,7 +107,6 @@ namespace VOP.Controls
             SetValue(FormattedValueProperty, formattedValue);
         }
         #endregion
-
 
         #region Value property
         /// <summary>
@@ -293,7 +293,8 @@ namespace VOP.Controls
         {
             //  see https://connect.microsoft.com/VisualStudio/feedback/details/489775/
             //  for why we do this.
-            Value = LimitValueByBounds(Value + Change, this);
+            Value = LimitValueByBounds(Value + Change, this);           
+
         }
 
         public static RoutedCommand DecreaseCommand { get; set; }
@@ -404,5 +405,53 @@ namespace VOP.Controls
             remove { RemoveHandler(ValidationHasErrorEvent, value); }
         }
         #endregion
+
+
+        //#region ValidationMaxError property
+        //public static readonly DependencyProperty ValidationMaxErrorProperty =
+        //                    DependencyProperty.Register("ValidationMaxError",
+        //                    typeof(bool),
+        //                    typeof(SpinnerControl),
+        //                    new PropertyMetadata(false, new PropertyChangedCallback(OnValidationMaxErrorPropertyChanged)));
+
+        //public bool ValidationMaxError
+        //{
+        //    get { return (bool)GetValue(ValidationMaxErrorProperty); }
+        //    set { SetValue(ValidationMaxErrorProperty, value); }
+        //}
+
+        //private static void OnValidationMaxErrorPropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        //{
+        //    SpinnerControl control = sender as SpinnerControl;
+        //    if (control != null)
+        //    {
+        //        var newValue = (bool)args.NewValue;
+        //        var oldValue = (bool)args.OldValue;
+
+        //        RoutedPropertyChangedEventArgs<bool> e =
+        //            new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue, ValidationMaxErrorEvent);
+
+        //        control.OnValidationMaxErrorPropertyChanged(e);
+        //    }
+        //}
+
+        //virtual protected void OnValidationMaxErrorPropertyChanged(RoutedPropertyChangedEventArgs<bool> e)
+        //{
+        //    RaiseEvent(e);
+        //}
+
+        //public static readonly RoutedEvent ValidationMaxErrorEvent =
+        //                           EventManager.RegisterRoutedEvent("ValidationMaxErrorChanged",
+        //                           RoutingStrategy.Bubble,
+        //                           typeof(RoutedPropertyChangedEventHandler<bool>), typeof(SpinnerControl));
+
+
+        //public event RoutedPropertyChangedEventHandler<bool> ValidationMaxErrorrChanged
+        //{
+        //    add { AddHandler(ValidationHasErrorEvent, value); }
+        //    remove { RemoveHandler(ValidationHasErrorEvent, value); }
+        //}
+        //#endregion
+
     }
 }
