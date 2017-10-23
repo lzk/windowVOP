@@ -26,6 +26,7 @@ using VOP.Controls;
 namespace VOP
 {
     public delegate QRCodeResult[] QRCodeDelegate(Bitmap bitmap);
+    public delegate int QRCodeDetectDelegate();
     public delegate int DoWorkDelegate();
     public delegate bool QuickScanDelegate();
     public delegate bool CheckVerifyCodeDelegate(string strPhoneNumber, string strVerifyCode, ref JSONResultFormat1 rtValue);
@@ -202,6 +203,37 @@ namespace VOP
             }
 
             return null;
+        }
+
+        public int InvokeQRCodeDetectMethod(QRCodeDetectDelegate method)
+        {
+
+            if (method != null)
+            {
+                QRCodeDetectDelegate caller = method;
+
+                isNeededProgress = false;
+                asyncEvent.Reset();
+
+                IAsyncResult result = caller.BeginInvoke(new AsyncCallback(QRCodeCallbackMethod), null);
+
+                if (!result.AsyncWaitHandle.WaitOne(100, false))
+                {
+                    isNeededProgress = true;
+
+                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode("Decoding, please wait ...");
+                    qr_pbw.Owner = this.owner;
+                    qr_pbw.Loaded += pbw_Loaded;
+                    qr_pbw.ShowDialog();
+                }
+
+                if (result.AsyncWaitHandle.WaitOne(100, true))
+                {
+                    return 0;
+                }
+            }
+
+            return 0;
         }
 
         public int InvokeScanMethod(ScanDelegate method, string deviceName, string tempPath,

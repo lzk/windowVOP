@@ -70,6 +70,51 @@ namespace VOP
         {           
             ImageButton btn = sender as ImageButton;
 
+#if (DEBUG)
+            if (true)
+            {
+                OpenFileDialog open1 = null;
+                bool? result1 = null;
+                open1 = new OpenFileDialog();
+                open1.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
+                open1.Multiselect = true;
+
+                result1 = open1.ShowDialog();
+                if (result1 == true)
+                {
+                    QRCodeDetection qrcodeDetection = new QRCodeDetection(new List<string>(open1.FileNames));
+                    if (btn.Name == "ImageButton1")
+                    {
+                        qrcodeDetection.ExcuteDecode(m_MainWin);
+                    }
+                    else
+                    {
+                        qrcodeDetection.ExcuteSeparation(m_MainWin);
+                    }
+
+                    /*
+                                        QRCodeWindow win = new QRCodeWindow(new List<string>(open1.FileNames));
+
+                                        if (btn.Name == "ImageButton1")
+                                        {
+                                            ImageCropper.designerItemWHRatio = 1.0;
+                                            win.IsQRCode = true;
+                                        }
+                                        else
+                                        {
+                                            ImageCropper.designerItemWHRatio = 2.0;
+                                            win.IsQRCode = false;
+                                        }
+
+                                        win.Owner = m_MainWin;
+                                        win.ShowDialog();
+                    */
+
+                }
+                return;
+            }
+#endif
+
             ScanTask task = new ScanTask();
             ScanParam param = new ScanParam(
                 EnumScanResln._300x300,
@@ -127,6 +172,16 @@ namespace VOP
                     list.Add(file.m_pathOrig);
                 }
 
+                QRCodeDetection qrcodeDetection = new QRCodeDetection(list);
+                if (btn.Name == "ImageButton1")
+                {
+                    qrcodeDetection.ExcuteDecode(m_MainWin);
+                }
+                else
+                {
+                    qrcodeDetection.ExcuteSeparation(m_MainWin);
+                }
+/*
                 QRCodeWindow win = new QRCodeWindow(list);
 
              
@@ -141,7 +196,7 @@ namespace VOP
 
                 win.Owner = m_MainWin;
                 win.ShowDialog();
-               
+*/               
             }
 #endif
 
