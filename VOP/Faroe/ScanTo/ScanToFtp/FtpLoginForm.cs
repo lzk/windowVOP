@@ -45,6 +45,74 @@ namespace VOP
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
+
+            if (tbServerName.Text == "")
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                   Application.Current.MainWindow,
+                  "The Server Address cannot be empty",
+                  "Error");
+                tbServerName.Focus();
+                return;
+            }
+            else if (tbUserName.Text == "")
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                   Application.Current.MainWindow,
+                  "The User Name cannot be empty",
+                  "Error");
+                tbUserName.Focus();
+                return;
+            }
+            else if (pbPWD.Password == "")
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                   Application.Current.MainWindow,
+                  "The Password cannot be empty",
+                  "Error");
+                pbPWD.Focus();
+                return;
+            }
+            else if (tbTargetPath.Text == "")
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                   Application.Current.MainWindow,
+                  "The Target Path cannot be empty",
+                  "Error");
+                tbTargetPath.Focus();
+                return;
+            }
+            if (tbServerName.Text.Length < 7)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                  Application.Current.MainWindow,
+                 "The server name format is incorrect, Please check you server name and enter again.",
+                 "Error");
+                tbServerName.Focus();
+                return;
+            }
+
+            string strServerName = tbServerName.Text.Substring(0, 6);
+            string strTargetPath = tbTargetPath.Text.Substring(0, 1);
+
+            if (strServerName.ToUpper() != "FTP://")
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                  Application.Current.MainWindow,
+                 "The server name format is incorrect, Please check you server name and enter again.",
+                 "Error");
+                tbServerName.Focus();
+                return;
+            }
+            if (strTargetPath != "/")
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                  Application.Current.MainWindow,
+                 "The target path format is incorrect, Please check you target path and enter again.",
+                 "Error");
+                tbTargetPath.Focus();
+                return;
+            }
             m_serverAddress = tbServerName.Text;
             m_userName = tbUserName.Text;
             m_password = pbPWD.Password;

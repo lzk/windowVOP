@@ -259,7 +259,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Yes">是</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_No">否</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Border_Color">边框颜色</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Preview">预览</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Preview">快捷扫描预览</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanto_Preview">扫描预览</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_paper_jam_occurred_please_follow_the_instructions_">打印机卡纸，请按照提示操作！</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_">机器故障，操作无法进行。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_">软件出现问题，操作无法进行，请重新安装驱动和虚拟操作面板软件后再试。</sys:String>

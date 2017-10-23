@@ -375,46 +375,46 @@ namespace VOP
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //marked by yunying shang 2017-10-13 for BMS 1026
-            //if ( 0 != m_rotatedAngle )
-            //{
+            if (0 != m_rotatedAngle)
+            {
 
-            //    VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon, this, 
-            //                (string)this.TryFindResource("ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_"),
-            //                (string)this.TryFindResource("ResStr_Prompt"));
+                VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon, this,
+                            (string)this.TryFindResource("ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_"),
+                            (string)this.TryFindResource("ResStr_Prompt"));
 
-            //    if ( VOP.Controls.MessageBoxExResult.Yes == ret )
-            //    {
-            //        m_rotatedObj = new ScanFiles();
-            //        m_rotatedObj.m_colorMode = m_images.m_colorMode;
+                if (VOP.Controls.MessageBoxExResult.Yes == ret)
+                {
+                    m_rotatedObj = new ScanFiles();
+                    m_rotatedObj.m_colorMode = m_images.m_colorMode;
 
-            //        m_rotatedObj.m_pathOrig  = m_images.m_pathOrig.Insert( m_images.m_pathOrig.Length-4   , m_rotatedAngle.ToString() );
-            //        m_rotatedObj.m_pathView  = m_images.m_pathView.Insert( m_images.m_pathView.Length-4   , m_rotatedAngle.ToString() );
-            //        m_rotatedObj.m_pathThumb = m_images.m_pathThumb.Insert( m_images.m_pathThumb.Length-4 , m_rotatedAngle.ToString() );
+                    m_rotatedObj.m_pathOrig = m_images.m_pathOrig.Insert(m_images.m_pathOrig.Length - 4, m_rotatedAngle.ToString());
+                    m_rotatedObj.m_pathView = m_images.m_pathView.Insert(m_images.m_pathView.Length - 4, m_rotatedAngle.ToString());
+                    m_rotatedObj.m_pathThumb = m_images.m_pathThumb.Insert(m_images.m_pathThumb.Length - 4, m_rotatedAngle.ToString());
 
-            //        AsyncWorker worker = new AsyncWorker( this );
-            //        if ( false == worker.InvokeRotateScannedFiles( RotateScannedFiles, m_images, m_rotatedObj, m_rotatedAngle ) )
-            //        {
-            //            VOP.Controls.MessageBoxEx.Show(
-            //                    VOP.Controls.MessageBoxExStyle.Simple,
-            //                    this,
-            //                    (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
-            //                    (string)this.FindResource( "ResStr_Error" )
-            //                    );
+                    AsyncWorker worker = new AsyncWorker(this);
+                    if (false == worker.InvokeRotateScannedFiles(RotateScannedFiles, m_images, m_rotatedObj, m_rotatedAngle))
+                    {
+                        VOP.Controls.MessageBoxEx.Show(
+                                VOP.Controls.MessageBoxExStyle.Simple,
+                                this,
+                                (string)this.FindResource("ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_"),
+                                (string)this.FindResource("ResStr_Error")
+                                );
 
-            //            m_rotatedAngle = 0; // Fixed #0059434.
-            //        }
-            //    }
-            //    else if ( VOP.Controls.MessageBoxExResult.No == ret )
-            //    {
-            //        m_rotatedAngle = 0;
-            //    }
-            //    else
-            //    {
-            //        e.Cancel = true;
-            //        isPrint = false;
-            //        FileSelectionPage.IsInitPrintSettingPage = oldValueForPrintSettingPage;
-            //    }
-            //}
+                        m_rotatedAngle = 0; // Fixed #0059434.
+                    }
+                }
+                else if (VOP.Controls.MessageBoxExResult.No == ret)
+                {
+                    m_rotatedAngle = 0;
+                }
+                else
+                {
+                    e.Cancel = true;
+                    isPrint = false;
+                    FileSelectionPage.IsInitPrintSettingPage = oldValueForPrintSettingPage;
+                }
+            }
         }
 
         // Make the preview image fit the scroll view.

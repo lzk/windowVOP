@@ -259,7 +259,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Yes">Yes</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_No">No</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Border_Color">Border Color</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Preview">Preview</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Preview">Scan To Preview</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Quick_Preview">Quick Scan Preview</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_paper_jam_occurred_please_follow_the_instructions_">A paper jam has occurred! Please follow the instructions to remove the jammed paper.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Operation_can_not_be_carried_out_due_to_machine_malfunction_">A malfunction occurred. The operation cannot be completed.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_">A software error has occurred. Please reinstall the printer drivers and the VOP, and then try again.</sys:String>

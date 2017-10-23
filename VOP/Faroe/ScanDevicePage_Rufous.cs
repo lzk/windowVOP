@@ -62,13 +62,21 @@ namespace VOP
         {
             try
             {
-                var connection = 0;
-                return InternetGetConnectedState(out connection, 0);
+                System.Int32 dwFlag = new Int32();
+                if (InternetGetConnectedState(out dwFlag, 0))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception)
             {
                 throw;
             }
+            return false;
         }
 
         private void FillDeviceList(bool forceRefresh)
