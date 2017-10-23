@@ -22,7 +22,10 @@ namespace VOP
 
         public ScanSelectionPage_Rufous()
         {
-            InitializeComponent();          
+            InitializeComponent();
+
+            LeftBtn.IsEnabled = false;
+            RightBtn.IsEnabled = true;        
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

@@ -219,7 +219,7 @@
                 Grid.Row="2"  
                 Grid.Column="1"
                 IsBusy="True"
-                BusyContent="         Scanning...         "           
+                BusyContent="Scanning..."           
                 HorizontalAlignment="Center" 
                 FontSize="20"
                 Height="70"
