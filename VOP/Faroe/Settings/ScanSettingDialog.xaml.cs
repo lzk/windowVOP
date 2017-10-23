@@ -30,6 +30,8 @@ namespace VOP
 //        #endregion
 
         public ScanParam m_scanParams = new ScanParam();
+        private Button btnDescrease = null;
+        private Button btnIncrease = null;
 
         public ScanSettingDialog()
         {
@@ -53,6 +55,7 @@ namespace VOP
             TextBox tb = spinCtlConstrast.Template.FindName("tbTextBox", spinCtlConstrast) as TextBox;
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
+
 
             TextBox tb1 = spinCtlBrightness.Template.FindName("tbTextBox", spinCtlBrightness) as TextBox;
             tb1.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
@@ -526,6 +529,7 @@ namespace VOP
 
         private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
+            
             btnOk.IsEnabled = ( false == spinCtlBrightness.ValidationHasError
                     && false == spinCtlConstrast.ValidationHasError );
         }

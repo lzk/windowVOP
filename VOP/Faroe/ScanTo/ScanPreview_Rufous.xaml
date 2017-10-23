@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Height="640" Width="472"
-        Title="{StaticResource ResStr_Preview}"
+        Title="{StaticResource ResStr_Quick_Preview}"
         xmlns:local="clr-namespace:VOP.Controls"
         ShowInTaskbar="False" 
         AllowsTransparency="true"
@@ -168,7 +168,7 @@
             </Grid.RowDefinitions>
 
             <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0" >
-                <TextBlock Text="{StaticResource ResStr_Preview}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Text="{StaticResource ResStr_Quick_Preview}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
 
             <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" />
