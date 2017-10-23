@@ -86,6 +86,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aspose.BarCode, Version=6.8.0.0, Culture=neutral, PublicKeyToken=00725b1ceb58d0a9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\qrcodelib\Aspose.BarCode.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.PdfEncoderLib">
       <HintPath>..\PdfDll\32bit\Interop.PdfEncoderLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -153,6 +157,7 @@
     <Compile Include="Controls\TextBlockUtils.cs" />
     <Compile Include="Faroe\DeviceListBoxItem.cs" />
     <Compile Include="Faroe\QRCodeWindow\Otsu.cs" />
+    <Compile Include="Faroe\QRCodeWindow\QRCodeDetection.cs" />
     <Compile Include="Faroe\QRCodeWindow\QRCodeManualPage.xaml.cs">
       <DependentUpon>QRCodeManualPage.xaml</DependentUpon>
     </Compile>
@@ -221,6 +226,7 @@
     <Compile Include="Faroe\Settings\DeviceView.xaml.cs">
       <DependentUpon>DeviceView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Faroe\Settings\QRCodeBarcodeView.xaml.cs" />
     <Compile Include="Faroe\Settings\QuickScanSettings.xaml.cs">
       <DependentUpon>QuickScanSettings.xaml</DependentUpon>
     </Compile>
@@ -536,6 +542,10 @@
     <Page Include="Faroe\Settings\DeviceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Faroe\Settings\QRCodeBarcodeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Faroe\Settings\QuickScanSettings.xaml">
       <SubType>Designer</SubType>

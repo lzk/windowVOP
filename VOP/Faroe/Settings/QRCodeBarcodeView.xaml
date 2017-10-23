@@ -1,0 +1,428 @@
+﻿<UserControl x:Class="VOP.QRCodeBarcodeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="500"
+             xmlns:local="clr-namespace:VOP.Controls"
+             Loaded="UserControl_Loaded"
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Controls/CustomPasswordBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomScrollView.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomComboBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButtonEx.xaml"/>
+                <ResourceDictionary Source="../../Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key ="SpinnerControl1"  TargetType="{x:Type local:SpinnerControl}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Focusable" Value="False"></Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:SpinnerControl}">
+
+                            <Grid Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <!--
+                                    we use the TemplatedParent binding to get a reference to the control
+                                    this template has been applied to, so we can access the property on it
+                                -->
+
+                                <RepeatButton Name="btnDecrease"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
+
+                                <TextBox Name="tbTextBox"
+                                 Grid.Row="0"
+                                 Grid.Column="1"
+                                 Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                 BorderBrush="{StaticResource TextBoxBorderBrush}"
+                                 Foreground="#FF707070"
+                                 TextAlignment="Center"
+                                 IsReadOnly="False"
+                                 BorderThickness="0"
+                                 FontSize="18" 
+                                 Margin="0,0,0,2"
+                                 MaxLength="2"
+                                 Style="{StaticResource TextBoxErrorTemplateStyle}"
+                                 InputMethod.IsInputMethodEnabled="False"
+                                 >
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                                    </TextBox.InputBindings>
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu Visibility="Collapsed">
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu>
+                                    <TextBox.Text>
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" 
+                                         Mode="TwoWay"
+                                         Path="FormattedValue" 
+                                         UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <local:PrintCopysValidationRule MinimumValue="-6" MaximumValue="6" 
+										ErrorMessage="{StaticResource ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_}" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+
+                                <RepeatButton Name="btnIncrease"
+                                      Grid.Row="0"
+                                      Grid.Column="2"
+                                      Width="25"
+                                      Height="25"
+                                      Style="{StaticResource CustomPlusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger SourceName="tbTextBox" Property="Validation.HasError"  Value="true">
+                                    <Setter Property="ValidationHasError" Value="True"></Setter>
+                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="False"></Setter>
+                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="False"></Setter>
+                                </Trigger>
+
+                                <Trigger SourceName="tbTextBox"  Property="Validation.HasError" Value="False">
+                                    <Setter Property="ValidationHasError" Value="False"></Setter>
+                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"></Setter>
+                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus2">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus3">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus4">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus5">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus6">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus7">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus8">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus9">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus10">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus11">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus12">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus13">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus14">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus15">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus16">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus17">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EllipseFocus18">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="..\..\Images\SettingViewBackground.png" />
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="22"></RowDefinition>
+            <RowDefinition/>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="35"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="2" Grid.Column="1" Margin="0,10,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="165" />
+                <RowDefinition Height="208" />
+                <RowDefinition Height="173*" />
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="21*" />
+                <ColumnDefinition Width="26*"/>
+                <ColumnDefinition Width="378*"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            <GroupBox x:Name="QRCodeBarcodeGroup" Grid.ColumnSpan="4" Header="QRCode/Barcode Decode" FontWeight="Bold" FontSize="12" HorizontalAlignment="Left" Height="137" VerticalAlignment="Top" Width="366" RenderTransformOrigin="0.5,0.5" Margin="3,-2,0,0">
+                <GroupBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.141"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </GroupBox.RenderTransform>
+                <Grid Height="145" Margin="0,12,-57,-42" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="39"/>
+                        <RowDefinition Height="72"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="22,0,49,0">
+                        <TextBlock 
+            				Text="Code Type :" 
+            				VerticalAlignment="Center"
+            				FontSize="12" FontWeight="Normal" HorizontalAlignment="Left" Margin="0,14,0,12" Width="89"
+                                />
+                        <ComboBox 
+            				x:Name="cbCodeType"
+            				VerticalAlignment="Center" 
+            				VerticalContentAlignment="Center"
+            				Width="170" 
+            				Height="30" 
+            				Margin="60,4,0,5" 
+            				FontSize="12" FontWeight="Normal" HorizontalAlignment="Left"
+                                >
+                            <ComboBoxItem Content="QR Code" />
+                            <ComboBoxItem Content="Bar Code" />
+                            <ComboBoxItem Content="All" />
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="22,13,64,13" Grid.Row="1">
+
+                        <TextBlock 
+            				Text="Output Result :" 
+            				VerticalAlignment="Center"
+            				FontSize="12" FontWeight="Normal" HorizontalAlignment="Left" Margin="0,15" Width="97"
+                                />
+                        <TextBox 
+            				x:Name="tbFileName"
+            				Template="{StaticResource customTextBox}" 
+            				VerticalAlignment="Center" 
+            				Width="170" 
+            				Height="30" 
+            				Margin="53,8,0,8" 
+            				Text=""
+            				VerticalContentAlignment="Center" FontWeight="Normal"
+                                />
+
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+            <GroupBox x:Name="separateGroupBox" Grid.ColumnSpan="4" Header="Document Separation" FontWeight="Bold" FontSize="12" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="181" Width="368" Margin="2,10,0,0">
+                <Grid Grid.Row="3" Grid.Column="1" Height="145" Margin="0,12,-55,0" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="39"/>
+                        <RowDefinition Height="72"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="22,0,49,0">
+                        <TextBlock 
+            				Text="Save File Type :" 
+            				VerticalAlignment="Center"
+            				FontSize="12" FontWeight="Normal" HorizontalAlignment="Left" Margin="0,14,0,12" Width="89"
+                                />
+                        <ComboBox 
+            				x:Name="cbFileType"
+            				VerticalAlignment="Center" 
+            				VerticalContentAlignment="Center"
+            				Width="170" 
+            				Height="30" 
+            				Margin="60,4,0,5" 
+            				FontSize="12" FontWeight="Normal" HorizontalAlignment="Left"
+                                >
+                            <ComboBoxItem Content="PDF" />
+                            <ComboBoxItem Content="TIFF" />
+                        </ComboBox>
+                    </StackPanel>
+                    <Button 
+            			Margin="230,64,68,10"
+            			FontSize="16"
+            			Click="BrowseClick"
+            			Style="{StaticResource CustomGreenButtonStyle}"
+            			Content="Browse..." Grid.Row="1" Grid.RowSpan="2" FontWeight="Normal"
+                            />
+                    <StackPanel Orientation="Horizontal" Margin="22,13,64,13" Grid.Row="1">
+
+                        <TextBlock 
+                    		Text="File Path :" 
+                    		VerticalAlignment="Center"
+                    		FontSize="12" FontWeight="Normal" HorizontalAlignment="Left" Margin="0,15" Width="97"
+                                />
+                        <TextBox 
+                    		x:Name="tbFilePath"
+                    		Template="{StaticResource customTextBox}" 
+                    		VerticalAlignment="Center" 
+                    		Width="169" 
+                    		Height="30" 
+                    		Margin="53,8,0,8" 
+                    		Text=""
+                    		VerticalContentAlignment="Center" FontWeight="Normal"
+                                />
+
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+            <StackPanel Grid.Column="3" Height="55" Margin="29,10,65,0" Grid.Row="2" VerticalAlignment="Top">
+                <Button
+            		HorizontalAlignment="Center" 
+            		Width="85" 
+            		Height="35"
+            		FontSize="16"
+            		Click="OkClick"
+            		Style="{StaticResource CustomGreenButtonStyle}"
+            		Content="OK" Margin="69,0,74,0"
+                            />
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</UserControl>
