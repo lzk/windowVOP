@@ -35,9 +35,10 @@ namespace VOP
         public string resultFileName = null;
         public Result result = null;
         public string barcodeResult = null;
-        public string barcocdType = null;
-        public int barcodeWidth = 0;
-        public int barcodeHeight = 0;
+        public string barcodeEncodeType = null;
+        public string barcodeResultType = null;
+        public int resultWidth = 0;
+        public int resultHeight = 0;
         public int srcWidth = 0;
         public int srcHeight = 0;
 
@@ -404,9 +405,11 @@ namespace VOP
                                 {
                                     DetectResult detectResult = new DetectResult(fileName, results1[i]);
                                     string subFileName = strSubFileName + "result1" + i.ToString() + ".jpg";
-                                    CreateResultImage(srcBitmap, subFileName, results1[i]);
+                                    System.Drawing.Point qrcodePoint = CreateResultImage(srcBitmap, subFileName, results1[i]);
                                     detectResult.srcWidth = srcBitmap.Width;
                                     detectResult.srcHeight = srcBitmap.Height;
+                                    detectResult.resultWidth = qrcodePoint.X;
+                                    detectResult.resultHeight = qrcodePoint.Y;
                                     detectResult.resultFileName = subFileName;
                                     resultArray.Add(detectResult);
                                     resultArray_inOneImage.Add(detectResult);
@@ -423,9 +426,12 @@ namespace VOP
                                     {
                                         DetectResult detectResult = new DetectResult(fileName, results2[i]);
                                         string subFileName = strSubFileName + "result2" + i.ToString() + ".jpg";
-                                        CreateResultImage(srcBitmap, subFileName, results2[i]);
+                                        System.Drawing.Point qrcodePoint = CreateResultImage(srcBitmap, subFileName, results2[i]);
                                         detectResult.srcWidth = srcBitmap.Width;
                                         detectResult.srcHeight = srcBitmap.Height;
+                                        detectResult.resultWidth = qrcodePoint.X;
+                                        detectResult.resultHeight = qrcodePoint.Y;
+
                                         detectResult.resultFileName = subFileName;
                                         resultArray.Add(detectResult);
                                         resultArray_inOneImage.Add(detectResult);
@@ -448,9 +454,12 @@ namespace VOP
 
                                     DetectResult detectResult = new DetectResult(fileName, barCodeResults1[i]);
                                     string subFileName = strSubFileName + "barcodeResult1" + i.ToString() + ".jpg";
-                                    CreateResultImage(srcBitmap, subFileName, barCodeResults1[i]);
+                                    System.Drawing.Point qrcodePoint = CreateResultImage(srcBitmap, subFileName, barCodeResults1[i]);
                                     detectResult.srcWidth = srcBitmap.Width;
                                     detectResult.srcHeight = srcBitmap.Height;
+                                    detectResult.resultWidth = qrcodePoint.X;
+                                    detectResult.resultHeight = qrcodePoint.Y;
+
                                     detectResult.resultFileName = subFileName;
                                     resultArray.Add(detectResult);
                                     resultArray_inOneImage_barcode.Add(detectResult);
@@ -470,9 +479,11 @@ namespace VOP
                                     {
                                         DetectResult detectResult = new DetectResult(fileName, barCodeResults2[i]);
                                         string subFileName = strSubFileName + "barcodeResult2" + i.ToString() + ".jpg";
-                                        CreateResultImage(srcBitmap, subFileName, barCodeResults2[i]);
+                                        System.Drawing.Point qrcodePoint = CreateResultImage(srcBitmap, subFileName, barCodeResults2[i]);
                                         detectResult.srcWidth = srcBitmap.Width;
                                         detectResult.srcHeight = srcBitmap.Height;
+                                        detectResult.resultWidth = qrcodePoint.X;
+                                        detectResult.resultHeight = qrcodePoint.Y;
                                         detectResult.resultFileName = subFileName;
                                         resultArray.Add(detectResult);
                                         resultArray_inOneImage_barcode.Add(detectResult);
@@ -494,11 +505,12 @@ namespace VOP
                                     BarCodeRegion region = barCodeReader.GetRegion();
                                     DetectResult detectResult = new DetectResult(fileName, null);
                                     detectResult.barcodeResult = resultText;
-                                    detectResult.barcocdType = barCodeReader.GetReadType().ToString();
+                                    detectResult.barcodeEncodeType = barCodeReader.GetReadType().ToString();
+                                    detectResult.barcodeResultType = "TEXT";
                                     string subFileName = strSubFileName + "barcodeResult1" + index.ToString() + ".jpg";
                                     System.Drawing.Point barcodePoint = CreateBarcodeResultImage(srcBitmap, subFileName, region);
-                                    detectResult.barcodeWidth = barcodePoint.X;
-                                    detectResult.barcodeHeight = barcodePoint.Y;
+                                    detectResult.resultWidth = barcodePoint.X;
+                                    detectResult.resultHeight = barcodePoint.Y;
                                     detectResult.srcWidth = srcBitmap.Width;
                                     detectResult.srcHeight = srcBitmap.Height;
                                     detectResult.resultFileName = subFileName;
@@ -509,6 +521,17 @@ namespace VOP
 
                             }
                             barCodeReader.Close();
+                        }
+
+                        if(resultArray_inOneImage.Count <=0 && resultArray_inOneImage_barcode.Count <= 0)
+                        {
+                            DetectResult detectResult = new DetectResult(fileName, null);
+                            detectResult.srcWidth = srcBitmap.Width;
+                            detectResult.srcHeight = srcBitmap.Height;
+                            detectResult.barcodeEncodeType = "N/A";
+                            detectResult.barcodeResultType = "N/A";
+                            detectResult.barcodeResult = "Null";
+                            resultArray.Add(detectResult);
                         }
                         imageStreamSource.Close();
                     }
@@ -609,7 +632,7 @@ namespace VOP
             return new System.Drawing.Point((int)(maxX - minX), (int)(maxY - minY));
         }
 
-        public void CreateResultImage(Bitmap srcBitmap, string subFileName, Result result)
+        public System.Drawing.Point CreateResultImage(Bitmap srcBitmap, string subFileName, Result result)
         {
 
             float minX = 10000, minY = 10000, maxX = 0, maxY = 0;
@@ -649,6 +672,7 @@ namespace VOP
             subBitmap.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
             fs.Close();
 
+            return new System.Drawing.Point((int)(maxX - minX), (int)(maxY - minY));
         }
         public bool ContentsExists(ArrayList resultArray, Result result)
         {
@@ -774,40 +798,8 @@ namespace VOP
                         {
                             if (tempDetectResult.resultFileName != null)
                             {
-                                htmlWriter.WriteLine("<td>" + "<img src=\"" + tempDetectResult.resultFileName + "\" height=\"100\" width=\"100\"></td>");
-                            }
-                            else
-                            {
-                                htmlWriter.WriteLine("<td></td>");
-                            }
-
-                            htmlWriter.WriteLine("<td>" + tempDetectResult.result.BarcodeFormat.ToString() + "</td>");
-
-                            if (tempDetectResult.result.BarcodeFormat != BarcodeFormat.RSS_14)
-                            {
-                                ParsedResult res = ResultParser.parseResult(tempDetectResult.result);
-                                htmlWriter.WriteLine("<td>" + res.Type.ToString() + "</td>");
-                                if (res.Type == ParsedResultType.URI)
-                                {
-                                    htmlWriter.WriteLine("<td>  <a href=" + tempDetectResult.result.ToString() + ">" + tempDetectResult.result.ToString() + "</a> </td>");
-                                }
-                                else
-                                {
-                                    htmlWriter.WriteLine("<td>" + tempDetectResult.result.ToString() + "</td>");
-                                }
-                            }
-                            else
-                            {
-                                htmlWriter.WriteLine("<td></td>");
-                                htmlWriter.WriteLine("<td>" + tempDetectResult.result.ToString() + "</td>");
-                            }
-                        }
-                        else
-                        {
-                            if (tempDetectResult.resultFileName != null)
-                            {
-                                int nWidth = tempDetectResult.barcodeWidth;
-                                int nHeight = tempDetectResult.barcodeHeight;
+                                int nWidth = tempDetectResult.resultWidth;
+                                int nHeight = tempDetectResult.resultHeight;
 
                                 if (nWidth > nHeight)
                                 {
@@ -830,11 +822,63 @@ namespace VOP
                             }
                             else
                             {
-                                htmlWriter.WriteLine("<td></td>");
+                                htmlWriter.WriteLine("<td>Null</td>");
                             }
 
-                            htmlWriter.WriteLine("<td>" + tempDetectResult.barcocdType + "</td>");
-                            htmlWriter.WriteLine("<td>TEXT</td>");
+                            htmlWriter.WriteLine("<td>" + tempDetectResult.result.BarcodeFormat.ToString() + "</td>");
+
+                            if (tempDetectResult.result.BarcodeFormat != BarcodeFormat.RSS_14)
+                            {
+                                ParsedResult res = ResultParser.parseResult(tempDetectResult.result);
+                                htmlWriter.WriteLine("<td>" + res.Type.ToString() + "</td>");
+                                if (res.Type == ParsedResultType.URI)
+                                {
+                                    htmlWriter.WriteLine("<td>  <a href=" + tempDetectResult.result.ToString() + ">" + tempDetectResult.result.ToString() + "</a> </td>");
+                                }
+                                else
+                                {
+                                    htmlWriter.WriteLine("<td>" + tempDetectResult.result.ToString() + "</td>");
+                                }
+                            }
+                            else
+                            {
+                                htmlWriter.WriteLine("<td>N/A</td>");
+                                htmlWriter.WriteLine("<td>" + tempDetectResult.result.ToString() + "</td>");
+                            }
+                        }
+                        else
+                        {
+                            if (tempDetectResult.resultFileName != null)
+                            {
+                                int nWidth = tempDetectResult.resultWidth;
+                                int nHeight = tempDetectResult.resultHeight;
+
+                                if (nWidth > nHeight)
+                                {
+                                    if (nWidth > 100)
+                                    {
+                                        nHeight = 100 * nHeight / nWidth;
+                                        nWidth = 100;
+                                    }
+                                }
+                                else
+                                {
+                                    if (nHeight > 100)
+                                    {
+                                        nWidth = 100 * nWidth / nHeight;
+                                        nHeight = 100;
+                                    }
+                                }
+
+                                htmlWriter.WriteLine("<td>" + "<img src=\"" + tempDetectResult.resultFileName + "\" height=\"" + nHeight.ToString() + "\" width=\"" + nWidth.ToString() + "\"></td>");
+                            }
+                            else
+                            {
+                                htmlWriter.WriteLine("<td>Null</td>");
+                            }
+
+                            htmlWriter.WriteLine("<td>" + tempDetectResult.barcodeEncodeType + "</td>");
+                            htmlWriter.WriteLine("<td>" + tempDetectResult.barcodeResultType + "</td>");
                             htmlWriter.WriteLine("<td>" + tempDetectResult.barcodeResult + "</td>");
                         }
 
