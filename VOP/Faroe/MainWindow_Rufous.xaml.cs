@@ -220,13 +220,14 @@ namespace VOP
                         }
                         else//<<===============1019
                         {
-                            
                             NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
                             bool bFound = false;
                             foreach (NetworkInterface adapter in fNetworkInterfaces)
                             {
-                                if (adapter.Description.Contains("Wi-Fi"))
-                                {                                   
+                                if (adapter.Description.Contains("802") ||
+                                    adapter.Description.Contains("Wi-Fi") ||
+                                    adapter.Description.Contains("Wireless"))
+                                {
                                     bFound = true;
                                 }
                             }

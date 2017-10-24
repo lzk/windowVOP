@@ -231,6 +231,7 @@ namespace VOP
             else
                 btnAdd.IsEnabled = true;
             this.MatchListBox.Focus();
+            this.MatchListBox.SelectedIndex = nIndex;//add by yunying shang 2017-10-24 for BMS 1211
         }
         public void MatchListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

@@ -97,22 +97,44 @@ namespace VOP
             //   save.Filter = "TIF|*.tif|PDF|*.pdf";
             //else
                 save.Filter = "TIF|*.tif|PDF|*.pdf|JPG|*.jpg|BMP|*.bmp";
+            bool? result = false;
+            try
+            {
+               // while (result == false)
+                { 
+                    result = save.ShowDialog();
 
-            bool? result = save.ShowDialog();
-
-            if (MAX_PATH <= (save.FileName.Length + 1 + MAX_FILE_NAME_CHARS_NUMBER))//
+                    if (MAX_PATH <= (save.FileName.Length + 1 + MAX_FILE_NAME_CHARS_NUMBER))//
+                    {
+                        result = false;
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                        Application.Current.MainWindow,
+                                       (string)"You Specify the file path and file name is too long, please specify again " + m_errorMsg,
+                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                    }
+                    //marked by yunying shang 2017-10-20 for BMS 1185
+                    else
+                    {
+                       // result = true;
+                        if (save.FileName == null || save.FileName.Length == 0)
+                        {
+                            result = false;
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                Application.Current.MainWindow,
+                                (string)"You Specify the file path and file name is too long, please specify again!",
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                        }
+                    }//<<=============1185
+                }
+            }
+            catch (Exception ex)
             {
                 result = false;
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                                Application.Current.MainWindow,
-                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save") + m_errorMsg,
-                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                Application.Current.MainWindow,
+               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save") + ex.Message,
+               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
             }
-            //marked by yunying shang 2017-10-20 for BMS 1185
-            //else
-            //{
-            //    result = true;
-            //}//<<=============1185
 
             if (result == true)
             {
@@ -199,17 +221,29 @@ namespace VOP
                             {
                                 help.Open(save.FileName);
 
+                                //dll.OutputDebugStringToFile_("Open PDF File");
+
                                 foreach (string path in FileList)
                                 {
+                                   // dll.OutputDebugStringToFile_("Current JPG file name ");
+                                   // dll.OutputDebugStringToFile_(path);
                                     Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
                                     JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
                                     BitmapSource origSource = decoder.Frames[0];
 
                                     if (null != origSource)
+                                    {
                                         help.AddImage(origSource, 0);
+                                       // dll.OutputDebugStringToFile_("Add Image to PDF File");
+                                    }
+                                    else
+                                    {
+                                       // dll.OutputDebugStringToFile_("Image source is null");
+                                    }
                                 }
 
                                 help.Close();
+                                //dll.OutputDebugStringToFile_("Close PDF File");
                             }
                         }
                     }
