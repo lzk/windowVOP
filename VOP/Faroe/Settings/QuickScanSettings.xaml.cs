@@ -146,7 +146,7 @@ namespace VOP
                 else
                     btnAdd.IsEnabled = true;
                 this.MatchListBox.Focus();
-                this.MatchListBox.SelectedIndex = this.MatchListBox.Items.Count - 1;
+                this.MatchListBox.SelectedIndex = this.MatchListBox.Items.Count - 1;//by yunying shang 2017-10-24 for bms 1217 
             }
         }
         private void btnEdit_Click(object sender, RoutedEventArgs e)
