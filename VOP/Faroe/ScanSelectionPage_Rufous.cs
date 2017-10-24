@@ -250,7 +250,7 @@ namespace VOP
             ScreenBtn.Content = number.ToString();
             TextBlock tb = ScreenBtn.Template.FindName("DetailText", ScreenBtn) as TextBlock;
             int index = MainWindow_Rufous.g_settingData.m_MatchList[number - 1].Value;
-            tb.Text = MainWindow_Rufous.g_settingData.m_MatchList[number - 1].ItemName;
+            tb.Text = number.ToString() + ". " + MainWindow_Rufous.g_settingData.m_MatchList[number - 1].ItemName;
         }
 
         private void LeftButton_Click(object sender, RoutedEventArgs e)
