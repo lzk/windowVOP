@@ -77,7 +77,7 @@
             Height="70"            
             Click="DeviceButton_Click" HorizontalAlignment="Left"
             />
-            <TextBlock Name="tbStatus" Text="USB Connected" Margin="5, 230, 0, 0" Foreground="White"></TextBlock>
+            <TextBlock Name="tbStatus" Text="Disconnect" Margin="5, 230, 0, 0" Foreground="White"></TextBlock>
         </StackPanel>
 
         <Image 

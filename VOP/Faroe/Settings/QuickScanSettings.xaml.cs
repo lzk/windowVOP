@@ -162,6 +162,7 @@ namespace VOP
         {
             if (MatchListBox.SelectedItem == null)
                 return;
+
             int nIndex = this.MatchListBox.SelectedIndex;
             AddQuickScanSetting addQuickScanSettingWin = new AddQuickScanSetting();
             addQuickScanSettingWin.Owner = m_MainWin;
@@ -201,7 +202,8 @@ namespace VOP
             if (addQuickScanSettingWin.ShowDialog() == true)
             {
                 this.MatchListBox.Items.RemoveAt(nIndex);
-                this.MatchListBox.Items.Insert(nIndex , addQuickScanSettingWin.strItemName);                
+                this.MatchListBox.Items.Insert(nIndex , Convert.ToString(nIndex+1) + ". "+
+                    addQuickScanSettingWin.strItemName);                
                 MainWindow_Rufous.g_settingData.m_MatchList[nIndex].Value = addQuickScanSettingWin.value;
                 MainWindow_Rufous.g_settingData.m_MatchList[nIndex].ItemName = addQuickScanSettingWin.strItemName;
                 switch (addQuickScanSettingWin.value)

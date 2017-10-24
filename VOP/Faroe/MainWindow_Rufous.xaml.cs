@@ -277,21 +277,6 @@ namespace VOP
                 }
                 ), isConnected);
             }
-            if (!isConnected)
-            {
-                scanSelectionPage.tbStatus.Text = "Disconnected";
-            }
-            else
-            {
-                if (MainWindow_Rufous.g_settingData.m_isUsbConnect)
-                {
-                    scanSelectionPage.tbStatus.Text = "USB";
-                }
-                else
-                {
-                    scanSelectionPage.tbStatus.Text = MainWindow_Rufous.g_settingData.m_DeviceName;
-                }
-            }
         }
 
         public void GotoPage(string pageName, object arg)
@@ -406,9 +391,18 @@ namespace VOP
                     scanSelectionPage.DeviceButton.Connected = true;
                     scanSettingsPage.PassStatus(true);
                     bUseGrayIcon = false;
+                    if (MainWindow_Rufous.g_settingData.m_isUsbConnect)
+                    {
+                        scanSelectionPage.tbStatus.Text = "USB";
+                    }
+                    else
+                    {
+                        scanSelectionPage.tbStatus.Text = MainWindow_Rufous.g_settingData.m_DeviceName;
+                    }
                 }
                 else
                 {
+                    scanSelectionPage.tbStatus.Text = "Disconnected";
                     scanSelectionPage.DeviceButton.Connected = false;
                     scanSettingsPage.PassStatus(false);
                     bUseGrayIcon = true;

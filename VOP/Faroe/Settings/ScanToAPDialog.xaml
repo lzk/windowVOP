@@ -234,7 +234,7 @@
                                 Name="cbProgramType"
                                 VerticalAlignment="Center" 
                                 VerticalContentAlignment="Center"
-                                Width="120" 
+                                Width="150" 
                                 Height="30" 
                                 Margin="60,0,0,0" 
                                 FontSize="14"
