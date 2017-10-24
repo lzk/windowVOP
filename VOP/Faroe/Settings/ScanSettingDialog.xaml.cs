@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Controls.Primitives;
 
 namespace VOP
 {
@@ -30,8 +31,8 @@ namespace VOP
 //        #endregion
 
         public ScanParam m_scanParams = new ScanParam();
-        private Button btnDescrease = null;
-        private Button btnIncrease = null;
+        private RepeatButton btnDecrease;
+        private RepeatButton btnIncrease;
 
         public ScanSettingDialog()
         {
@@ -56,12 +57,15 @@ namespace VOP
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
 
+            btnDecrease = spinCtlConstrast.Template.FindName("btnDecrease", spinCtlConstrast) as RepeatButton;
+ 
+            btnIncrease = spinCtlConstrast.Template.FindName("btnIncrease", spinCtlConstrast) as RepeatButton;
 
             TextBox tb1 = spinCtlBrightness.Template.FindName("tbTextBox", spinCtlBrightness) as TextBox;
             tb1.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb1.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
-
         }
+
 
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -528,8 +532,7 @@ namespace VOP
         }
 
         private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
-        {
-            
+        {          
             btnOk.IsEnabled = ( false == spinCtlBrightness.ValidationHasError
                     && false == spinCtlConstrast.ValidationHasError );
         }

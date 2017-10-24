@@ -277,6 +277,21 @@ namespace VOP
                 }
                 ), isConnected);
             }
+            if (!isConnected)
+            {
+                scanSelectionPage.tbStatus.Text = "Disconnected";
+            }
+            else
+            {
+                if (MainWindow_Rufous.g_settingData.m_isUsbConnect)
+                {
+                    scanSelectionPage.tbStatus.Text = "USB";
+                }
+                else
+                {
+                    scanSelectionPage.tbStatus.Text = MainWindow_Rufous.g_settingData.m_DeviceName;
+                }
+            }
         }
 
         public void GotoPage(string pageName, object arg)

@@ -117,7 +117,8 @@ namespace VOP
         {
             PasswordBox pb = sender as PasswordBox;
             string strText = e.Text;
-            if (strText.Length > 0 && !Char.IsLetterOrDigit(strText, 0))
+            if (strText.Length > 0 )//&& !Char.IsLetterOrDigit(strText, 0))
+                //marked by yunying shang 2017-10-24 for BMS 1170
             {
                 e.Handled = true;
             }
