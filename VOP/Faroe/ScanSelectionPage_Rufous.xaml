@@ -77,7 +77,8 @@
             Height="70"            
             Click="DeviceButton_Click" HorizontalAlignment="Left"
             />
-            <TextBlock Name="tbStatus" Text="Disconnect" Margin="5, 230, 0, 0" Foreground="White"></TextBlock>
+
+            <TextBlock x:Name="tbStatus" Text="Disconnect" Height="30" Width="120" Margin="5,120,0,112" Foreground="White"/>
         </StackPanel>
 
         <Image 

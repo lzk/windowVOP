@@ -211,6 +211,7 @@ namespace VOP
 
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
             //List<ScanFiles> files = new List<ScanFiles>();
+           
             if (files == null)
                 return;
 
@@ -249,7 +250,7 @@ namespace VOP
             ScreenBtn.Content = number.ToString();
             TextBlock tb = ScreenBtn.Template.FindName("DetailText", ScreenBtn) as TextBlock;
             int index = MainWindow_Rufous.g_settingData.m_MatchList[number - 1].Value;
-            tb.Text = MainWindow_Rufous.g_settingData.m_MatchList[number - 1].ItemName;
+            tb.Text = number.ToString() + ". " + MainWindow_Rufous.g_settingData.m_MatchList[number - 1].ItemName;
         }
 
         private void LeftButton_Click(object sender, RoutedEventArgs e)

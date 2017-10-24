@@ -285,7 +285,7 @@ namespace VOP
             {
                 MainPageView.Child = scanPage;
                 scanPage.m_MainWin = this;
-                scanPage.ScanFileList = (List<ScanFiles>)arg;
+                scanPage.ScanFileList = (List<ScanFiles>)arg;                
             }
             else if(pageName == "ScanSelectionPage")
             {
@@ -461,18 +461,29 @@ namespace VOP
 
         private void MainWindowExitPoint()
         {
-
+            scanPage.image_wrappanel.Children.Clear();
+            
+            if (null != scanPage.scanningThread
+                    && true == scanPage.scanningThread.IsAlive)
+            {
+                dll.CancelScanning();
+                while (true == scanPage.scanningThread.IsAlive)
+                {
+                    // TODO: This statement will block UI thread. 
+                    System.Threading.Thread.Sleep(100);
+                }
+            }
             if (thread_searchIP != null && thread_searchIP.IsAlive == true)
             {
                 thread_searchIP.Join();
             }
 
             _bExitUpdater = true;
-            m_updaterAndUIEvent.WaitOne();
+            m_updaterAndUIEvent.WaitOne();            
             notifyIcon1.Visible = false;
-            SettingData.Serialize(g_settingData, App.cfgFile);
+            SettingData.Serialize(g_settingData, App.cfgFile);       
         }
-
+  
         private void ControlBtnClick(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.Button btn = sender as System.Windows.Controls.Button;
