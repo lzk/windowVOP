@@ -33,8 +33,11 @@ namespace VOP
         {
             InitializeComponent();
         }
+
         private void AddQuickScanSetting_Loaded(object sender, RoutedEventArgs e)
         {
+            TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
+
             cbType.SelectedIndex = value;
             tbName.Text = strItemName;
         }
@@ -191,6 +194,11 @@ namespace VOP
                     return _MainWin;
                 }
             }
+        }
+
+        private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }
