@@ -4,7 +4,7 @@
 
 USBAPI_API int __stdcall OutputDebugStringToFile(TCHAR *_lpFormat, ...)
 {
-#if 0
+#if 1
 	fstream file;
 	char szFile[MAX_PATH] = {0};
 
