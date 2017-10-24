@@ -95,10 +95,8 @@ namespace VOP
                         bFound = true;
                     }
                 }
-
-                if (bFound == false)
                 //add by yunying shang 2017-10-23 for BMS 1019
-                if (!IsOnLine())
+                if (bFound == false || !IsOnLine())
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow,

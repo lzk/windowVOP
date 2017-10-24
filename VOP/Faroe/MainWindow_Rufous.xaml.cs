@@ -224,8 +224,6 @@ namespace VOP
                             bool bFound = false;
                             foreach (NetworkInterface adapter in fNetworkInterfaces)
                             {
-                                dll.OutputDebugStringToFile_("Current network adapter");
-                                dll.OutputDebugStringToFile_(adapter.Description);
                                 if (adapter.Description.Contains("802") ||
                                     adapter.Description.Contains("Wi-Fi") ||
                                     adapter.Description.Contains("Wireless"))
