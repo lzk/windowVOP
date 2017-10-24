@@ -27,6 +27,29 @@ namespace VOP
         public static uint WM_VOPSCAN_PAGECOMPLETE = Win32.RegisterWindowMessage("vop_scan_pagecomplete");
         public Scan_RET ScanResult = Scan_RET.RETSCAN_OK;
 
+        [DllImport("wininet.dll")]
+        private static extern bool InternetGetConnectedState(out int connectionDescription, int reservedValue);
+
+        public static bool IsOnLine()
+        {
+            try
+            {
+                System.Int32 dwFlag = new Int32();
+                if (InternetGetConnectedState(out dwFlag, 0))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return false;
+        }
         public List<ScanFiles> DoScan(string deviceName, ScanParam param)
         {
             //debug test
@@ -65,13 +88,15 @@ namespace VOP
                 bool bFound = false;
                 foreach (NetworkInterface adapter in fNetworkInterfaces)
                 {
-                    if (adapter.Description.Contains("Wi-Fi"))
+                    if (adapter.Description.Contains("802") ||
+                        adapter.Description.Contains("Wi-Fi") ||
+                        adapter.Description.Contains("Wireless"))
                     {
                         bFound = true;
                     }
                 }
-
-                if (bFound == false)
+                //add by yunying shang 2017-10-23 for BMS 1019
+                if (bFound == false || !IsOnLine())
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow,

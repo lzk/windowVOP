@@ -84,7 +84,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The server name format is incorrect, Please check you server name and enter again.",
+                 "The Server Address format is incorrect, Please check you server name and enter again.",
                  "Error");
                 return;
             }
@@ -94,7 +94,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The server name format is incorrect, Please check you server name and enter again.",
+                 "The Server Address format is incorrect, Please check you server name and enter again.",
                  "Error");
                 return;
             }
@@ -102,7 +102,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The target path format is incorrect, Please check you target path and enter again.",
+                 "The Target Path format is incorrect, Please check you target path and enter again.",
                  "Error");
                 return;
             }
@@ -117,7 +117,8 @@ namespace VOP
         {
             PasswordBox pb = sender as PasswordBox;
             string strText = e.Text;
-            if (strText.Length > 0 && !Char.IsLetterOrDigit(strText, 0))
+            if (strText.Length > 0 )//&& !Char.IsLetterOrDigit(strText, 0))
+                //marked by yunying shang 2017-10-24 for BMS 1170
             {
                 e.Handled = true;
             }

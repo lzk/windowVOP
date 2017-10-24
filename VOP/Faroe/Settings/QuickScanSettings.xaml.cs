@@ -40,7 +40,14 @@ namespace VOP
             MatchListBox.Items.Clear();
             for (int i = 0; i < MainWindow_Rufous.g_settingData.m_MatchList.Count; i++)
             {
-                MatchListBox.Items.Add(MainWindow_Rufous.g_settingData.m_MatchList[i].ItemName);
+                for (int j = 0; j < MainWindow_Rufous.g_settingData.m_MatchList.Count; j++)
+                {
+                    if (MainWindow_Rufous.g_settingData.m_MatchList[j].Key == i)
+                    {
+                        MatchListBox.Items.Add(Convert.ToString(i+1) + ". " +
+                            MainWindow_Rufous.g_settingData.m_MatchList[j].ItemName);
+                    }
+                }
             }
         }
         
@@ -48,8 +55,8 @@ namespace VOP
         {
             MainWindow_Rufous.g_settingData.m_MatchList.Clear();
             for (int i = 0; i < MatchListBox.Items.Count; i++)
-            {
-                MainWindow_Rufous.g_settingData.m_MatchList.Add(new MatchListPair(i, i, MatchListBox.Items[i].ToString()));
+            {               
+                MainWindow_Rufous.g_settingData.m_MatchList.Add(new MatchListPair(i, i, MatchListBox.Items[i].ToString()));           
             }
         }
         void UpdateKey()
@@ -78,12 +85,13 @@ namespace VOP
             {
                 int nIndex = this.MatchListBox.SelectedIndex;
                 this.MatchListBox.Items.Insert(nIndex - 1, this.MatchListBox.Items[nIndex]);
-                this.MatchListBox.Items.RemoveAt(nIndex + 1);
-                this.MatchListBox.Focus();
-                this.MatchListBox.SelectedIndex = nIndex - 1;
+                this.MatchListBox.Items.RemoveAt(nIndex + 1);                                
                 MainWindow_Rufous.g_settingData.m_MatchList.Insert(nIndex - 1, MainWindow_Rufous.g_settingData.m_MatchList[nIndex]);
                 MainWindow_Rufous.g_settingData.m_MatchList.RemoveAt(nIndex + 1);
                 UpdateKey();
+                InitMatchListBox();
+                this.MatchListBox.Focus();
+                this.MatchListBox.SelectedIndex = nIndex - 1;
             }
         }
 
@@ -94,11 +102,12 @@ namespace VOP
                 int nIndex = this.MatchListBox.SelectedIndex;
                 this.MatchListBox.Items.Insert(nIndex + 2, this.MatchListBox.Items[nIndex]);
                 this.MatchListBox.Items.RemoveAt(nIndex);
-                this.MatchListBox.Focus();
-                this.MatchListBox.SelectedIndex = nIndex + 1;
                 MainWindow_Rufous.g_settingData.m_MatchList.Insert(nIndex + 2, MainWindow_Rufous.g_settingData.m_MatchList[nIndex]);
                 MainWindow_Rufous.g_settingData.m_MatchList.RemoveAt(nIndex);
                 UpdateKey();
+                InitMatchListBox();
+                this.MatchListBox.Focus();
+                this.MatchListBox.SelectedIndex = nIndex + 1;
             }
         }
 
@@ -109,7 +118,7 @@ namespace VOP
             addQuickScanSettingWin.IsEdit = false;
             if (addQuickScanSettingWin.ShowDialog() == true)
             {                
-                this.MatchListBox.Items.Add(addQuickScanSettingWin.strItemName);
+                this.MatchListBox.Items.Add(Convert.ToString(this.MatchListBox.Items.Count+1) + ". " + addQuickScanSettingWin.strItemName);
                 MainWindow_Rufous.g_settingData.m_MatchList.Add(new MatchListPair(this.MatchListBox.Items.Count - 1, addQuickScanSettingWin.value, addQuickScanSettingWin.strItemName));
                 switch (addQuickScanSettingWin.value)
                 {
@@ -145,7 +154,8 @@ namespace VOP
                     btnAdd.IsEnabled = false;
                 else
                     btnAdd.IsEnabled = true;
-                this.MatchListBox.Focus();                
+                this.MatchListBox.Focus();
+                this.MatchListBox.SelectedIndex = this.MatchListBox.Items.Count - 1;//by yunying shang 2017-10-24 for bms 1217 
             }
         }
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -231,6 +241,7 @@ namespace VOP
             else
                 btnAdd.IsEnabled = true;
             this.MatchListBox.Focus();
+            this.MatchListBox.SelectedIndex = nIndex;//add by yunying shang 2017-10-24 for BMS 1211
         }
         public void MatchListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -262,7 +273,10 @@ namespace VOP
         {
             MainWindow_Rufous.g_settingData.m_MatchList.RemoveAt(this.MatchListBox.SelectedIndex);
             MatchListBox.Items.RemoveAt(this.MatchListBox.SelectedIndex);
+            UpdateKey();
+            InitMatchListBox();
             this.MatchListBox.Focus();
+            this.MatchListBox.SelectedIndex = 0;
         }
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)

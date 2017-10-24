@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Controls.Primitives;
 
 namespace VOP
 {
@@ -30,6 +31,8 @@ namespace VOP
 //        #endregion
 
         public ScanParam m_scanParams = new ScanParam();
+        private RepeatButton btnDecrease;
+        private RepeatButton btnIncrease;
 
         public ScanSettingDialog()
         {
@@ -54,11 +57,15 @@ namespace VOP
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
 
+            btnDecrease = spinCtlConstrast.Template.FindName("btnDecrease", spinCtlConstrast) as RepeatButton;
+ 
+            btnIncrease = spinCtlConstrast.Template.FindName("btnIncrease", spinCtlConstrast) as RepeatButton;
+
             TextBox tb1 = spinCtlBrightness.Template.FindName("tbTextBox", spinCtlBrightness) as TextBox;
             tb1.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb1.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
-
         }
+
 
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -363,12 +370,12 @@ namespace VOP
 
             ComboBoxItem cboItem = null;
 
-            //cboItem = new ComboBoxItem();
-            //cboItem.Content = "100 x 100dpi" ;
-            //cboItem.DataContext = EnumScanResln._100x100;
-            //cboItem.MinWidth = 145;
-            //cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            //cboScanResln.Items.Add( cboItem );
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "150 x 150dpi";
+            cboItem.DataContext = EnumScanResln._150x150;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanResln.Items.Add(cboItem);
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "200 x 200dpi" ;
@@ -525,7 +532,7 @@ namespace VOP
         }
 
         private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
-        {
+        {          
             btnOk.IsEnabled = ( false == spinCtlBrightness.ValidationHasError
                     && false == spinCtlConstrast.ValidationHasError );
         }

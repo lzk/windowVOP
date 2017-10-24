@@ -213,23 +213,33 @@ namespace VOP
                     //modified by yunying shang 2017-10-19 for BMS 1172
                     if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
                     {
-                        NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-                        bool bFound = false;
-                        foreach (NetworkInterface adapter in fNetworkInterfaces)
-                        {
-                            if (adapter.Description.Contains("Wi-Fi"))
-                            {
-                                bFound = true;
-                            }
-                        }
-
-                        if (bFound == false)
+                        //add by yunying shang 2017-10-23 for BMS 1019
+                        if (!scanDevicePage.IsOnLine())
                         {
                             Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
                         }
-                        else
+                        else//<<===============1019
                         {
-                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                            NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+                            bool bFound = false;
+                            foreach (NetworkInterface adapter in fNetworkInterfaces)
+                            {
+                                if (adapter.Description.Contains("802") ||
+                                    adapter.Description.Contains("Wi-Fi") ||
+                                    adapter.Description.Contains("Wireless"))
+                                {
+                                    bFound = true;
+                                }
+                            }
+
+                            if (bFound == false)
+                            {
+                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                            }
+                            else
+                            {
+                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                            }
                         }
                     }
                     else
@@ -266,6 +276,21 @@ namespace VOP
                     scanSelectionPage.DeviceButton.Connected = x;
                 }
                 ), isConnected);
+            }
+            if (!isConnected)
+            {
+                scanSelectionPage.tbStatus.Text = "Disconnected";
+            }
+            else
+            {
+                if (MainWindow_Rufous.g_settingData.m_isUsbConnect)
+                {
+                    scanSelectionPage.tbStatus.Text = "USB";
+                }
+                else
+                {
+                    scanSelectionPage.tbStatus.Text = MainWindow_Rufous.g_settingData.m_DeviceName;
+                }
             }
         }
 

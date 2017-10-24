@@ -271,7 +271,7 @@
                 HorizontalAlignment="Left"
                 Height="30" 
                 Margin="190,10,0,0"
-                Content="Browse" 
+                Content="Browse..." 
                 Style="{StaticResource CustomGreenButtonStyle}"
                 Click="BrowseButton_Click"
                 />

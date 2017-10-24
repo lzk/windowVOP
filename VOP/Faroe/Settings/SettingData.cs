@@ -102,7 +102,12 @@ namespace VOP
 
         public string m_DeviceName = "";
         public bool m_isUsbConnect = false;
-       
+
+        //QRCode/Barcode
+        public int m_decodeType = 0;
+        public string m_decodeResultFile = "QRcodeBarcodeResult.html";
+        public int m_separateFileType = 0;
+        public string m_separateFilePath = App.PictureFolder;
 
         public SettingData()
         {

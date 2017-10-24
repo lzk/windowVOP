@@ -147,6 +147,7 @@ namespace VOP
     public enum EnumScanResln : int
     {
         _100x100   = 100,
+        _150x150   = 150,
         _200x200   = 200,
         _300x300   = 300,
         _600x600   = 600,

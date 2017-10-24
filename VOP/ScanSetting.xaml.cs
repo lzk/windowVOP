@@ -263,11 +263,11 @@ namespace VOP
             ComboBoxItem cboItem = null;
 
             cboItem = new ComboBoxItem();
-            cboItem.Content = "100 x 100dpi" ;
+            cboItem.Content = "100 x 100dpi";
             cboItem.DataContext = EnumScanResln._100x100;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            cboScanResln.Items.Add( cboItem );
+            cboScanResln.Items.Add(cboItem);
 
             cboItem = new ComboBoxItem();
             cboItem.Content = "200 x 200dpi" ;
