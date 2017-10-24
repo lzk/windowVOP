@@ -11,6 +11,7 @@ using Microsoft.Win32;
 using System.Diagnostics;
 using System.Xml;
 
+
 namespace VOP
 {
     /// <summary>
@@ -199,7 +200,7 @@ namespace VOP
                 foreach( ScanFiles obj in App.scanFileList )
                 {
                     try
-                    {
+                    {                        
                         File.Delete(obj.m_pathOrig);
                         //File.Delete(obj.m_pathView);
                         //File.Delete(obj.m_pathThumb);
@@ -212,7 +213,7 @@ namespace VOP
                 foreach( ScanFiles obj in App.rubbishFiles )
                 {
                     try
-                    {
+                    {                        
                         File.Delete(obj.m_pathOrig);
                         //File.Delete(obj.m_pathView);
                         //File.Delete(obj.m_pathThumb);
@@ -222,7 +223,7 @@ namespace VOP
                     }
                 }
 
-                mutex.ReleaseMutex();
+                mutex.ReleaseMutex();               
             }
             else
             {
@@ -230,7 +231,7 @@ namespace VOP
             }
 
         }
-
+      
         #region Multi-Langulage  
         protected override void OnStartup(StartupEventArgs e)
         {
