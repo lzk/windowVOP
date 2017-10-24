@@ -43,6 +43,10 @@ namespace VOP
                 return false;
             }
 
+            foreach (string f in FileList)
+            {
+
+            }
             string programType = "";
 
             if (FlowType == APFlowType.View)

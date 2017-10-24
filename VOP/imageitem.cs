@@ -138,71 +138,92 @@ namespace VOP
         {
             try
             {
-                Uri myUri = new Uri(m_images.m_pathThumb, UriKind.RelativeOrAbsolute);
-                JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
-                BitmapSource bi3 = decoder.Frames[0];
-
-                // Begin: Fix 61368
-                if (m_images.m_colorMode == EnumColorType.black_white)
+                //modified by yunying shang 2017-10-24 for BMS 1193
+                //Uri myUri = new Uri(m_images.m_pathThumb, UriKind.RelativeOrAbsolute);
+                using (BinaryReader reader = new BinaryReader(File.Open(m_images.m_pathThumb, FileMode.Open,
+                    FileAccess.ReadWrite, FileShare.ReadWrite)))
                 {
-                    bi3 = BitmapFrame.Create(new TransformedBitmap(bi3, new ScaleTransform(0.1, 0.1)));
+                    FileInfo fi = new FileInfo(m_images.m_pathThumb);
 
-                    // https://msdn.microsoft.com/en-us/library/system.windows.media.imaging.formatconvertedbitmap(v=vs.100).aspx
-                    FormatConvertedBitmap bmpSrc = new FormatConvertedBitmap();
-                    bmpSrc.BeginInit();
-                    bmpSrc.Source = bi3;
-                    bmpSrc.DestinationFormat = PixelFormats.Gray2;
-                    bmpSrc.EndInit();
+                    byte[] bytes = reader.ReadBytes((int)fi.Length);
+                    reader.Close();
+                    reader.Dispose();
 
-                    imgBody.Source = bmpSrc;
-                }
-                else
-                {
-                    //scale down image
-                    ScaleTransform scaleTransform = new ScaleTransform();
-
-                    if (bi3.PixelWidth < 2000)
+                    using (System.IO.MemoryStream ms = new System.IO.MemoryStream(bytes))
                     {
-                        scaleTransform.ScaleX = 1.0;
-                        scaleTransform.ScaleY = 1.0;
-                    }
-                    else if (bi3.PixelWidth >= 2000 && bi3.PixelWidth < 3000)
-                    {
-                        scaleTransform.ScaleX = 1.0 / 2.0;
-                        scaleTransform.ScaleY = 1.0 / 2.0;
-                    }
-                    else if (bi3.PixelWidth >= 3000 && bi3.PixelWidth < 4000)
-                    {
-                        scaleTransform.ScaleX = 1.0 / 3.0;
-                        scaleTransform.ScaleY = 1.0 / 3.0;
+                        //JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
+                        JpegBitmapDecoder decoder = new JpegBitmapDecoder(ms,
+                                    BitmapCreateOptions.PreservePixelFormat,
+                                    BitmapCacheOption.OnLoad);
 
-                    }
-                    else if (bi3.PixelWidth >= 4000 && bi3.PixelWidth < 5000)
-                    {
-                        scaleTransform.ScaleX = 1.0 / 4.0;
-                        scaleTransform.ScaleY = 1.0 / 4.0;
-                    }
-                    else if (bi3.PixelWidth >= 5000)
-                    {
-                        scaleTransform.ScaleX = 1.0 / 6.0;
-                        scaleTransform.ScaleY = 1.0 / 6.0;
-                    }
-                   
-                
-                    TransformedBitmap tb = new TransformedBitmap();
-                    tb.BeginInit();
-                    tb.Source = bi3;
-                    tb.Transform = scaleTransform;
-                    tb.EndInit();
+                        BitmapSource bi3 = decoder.Frames[0];
 
-                    imgBody.Source = tb;
-                    GC.Collect();
-                }
-                // End: Fix 61368
+                        // Begin: Fix 61368
+                        if (m_images.m_colorMode == EnumColorType.black_white)
+                        {
+                            bi3 = BitmapFrame.Create(new TransformedBitmap(bi3, new ScaleTransform(0.1, 0.1)));
 
-                this.Background = Brushes.White;
-                this.Width = 105;
-                this.Height = 140;
+                            // https://msdn.microsoft.com/en-us/library/system.windows.media.imaging.formatconvertedbitmap(v=vs.100).aspx
+
+                            FormatConvertedBitmap bmpSrc = new FormatConvertedBitmap();
+                            bmpSrc.BeginInit();
+                            bmpSrc.Source = bi3;
+                            bmpSrc.DestinationFormat = PixelFormats.Gray2;
+                            bmpSrc.EndInit();
+
+                            imgBody.Source = bmpSrc;
+                        }
+                        else
+                        {
+                            //scale down image
+                            ScaleTransform scaleTransform = new ScaleTransform();
+
+                            if (bi3.PixelWidth < 2000)
+                            {
+                                scaleTransform.ScaleX = 1.0;
+                                scaleTransform.ScaleY = 1.0;
+                            }
+                            else if (bi3.PixelWidth >= 2000 && bi3.PixelWidth < 3000)
+                            {
+                                scaleTransform.ScaleX = 1.0 / 2.0;
+                                scaleTransform.ScaleY = 1.0 / 2.0;
+                            }
+                            else if (bi3.PixelWidth >= 3000 && bi3.PixelWidth < 4000)
+                            {
+                                scaleTransform.ScaleX = 1.0 / 3.0;
+                                scaleTransform.ScaleY = 1.0 / 3.0;
+
+                            }
+                            else if (bi3.PixelWidth >= 4000 && bi3.PixelWidth < 5000)
+                            {
+                                scaleTransform.ScaleX = 1.0 / 4.0;
+                                scaleTransform.ScaleY = 1.0 / 4.0;
+                            }
+                            else if (bi3.PixelWidth >= 5000)
+                            {
+                                scaleTransform.ScaleX = 1.0 / 6.0;
+                                scaleTransform.ScaleY = 1.0 / 6.0;
+                            }
+
+
+                            TransformedBitmap tb = new TransformedBitmap();
+                            tb.BeginInit();
+                            tb.Source = bi3;
+                            tb.Transform = scaleTransform;
+                            tb.EndInit();
+
+                            imgBody.Source = tb;
+                            GC.Collect();
+                        }
+                        // End: Fix 61368
+
+                        this.Background = Brushes.White;
+                        this.Width = 105;
+                        this.Height = 140;
+
+                        ms.Dispose();
+                    }
+                }//<<==================1193
             }
             catch
             {
