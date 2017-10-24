@@ -228,6 +228,7 @@
                                 Width="250" 
                                 Height="30" 
                                 Margin="100,0,0,0" 
+                                MaxLength="20"
                                 Text=""
                                 VerticalContentAlignment="Center"
                                 FontSize="14"
