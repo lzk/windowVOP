@@ -221,12 +221,12 @@ namespace VOP
                             {
                                 help.Open(save.FileName);
 
-                                dll.OutputDebugStringToFile_("Open PDF File");
+                                //dll.OutputDebugStringToFile_("Open PDF File");
 
                                 foreach (string path in FileList)
                                 {
-                                    dll.OutputDebugStringToFile_("Current JPG file name ");
-                                    dll.OutputDebugStringToFile_(path);
+                                   // dll.OutputDebugStringToFile_("Current JPG file name ");
+                                   // dll.OutputDebugStringToFile_(path);
                                     Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
                                     JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
                                     BitmapSource origSource = decoder.Frames[0];
@@ -234,16 +234,16 @@ namespace VOP
                                     if (null != origSource)
                                     {
                                         help.AddImage(origSource, 0);
-                                        dll.OutputDebugStringToFile_("Add Image to PDF File");
+                                       // dll.OutputDebugStringToFile_("Add Image to PDF File");
                                     }
                                     else
                                     {
-                                        dll.OutputDebugStringToFile_("Image source is null");
+                                       // dll.OutputDebugStringToFile_("Image source is null");
                                     }
                                 }
 
                                 help.Close();
-                                dll.OutputDebugStringToFile_("Close PDF File");
+                                //dll.OutputDebugStringToFile_("Close PDF File");
                             }
                         }
                     }
