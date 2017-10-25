@@ -293,8 +293,7 @@ namespace VOP.Controls
         {
             //  see https://connect.microsoft.com/VisualStudio/feedback/details/489775/
             //  for why we do this.
-            Value = LimitValueByBounds(Value + Change, this);           
-
+            Value = LimitValueByBounds(Value + Change, this);            
         }
 
         public static RoutedCommand DecreaseCommand { get; set; }

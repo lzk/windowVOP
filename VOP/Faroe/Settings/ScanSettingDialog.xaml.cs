@@ -31,8 +31,10 @@ namespace VOP
 //        #endregion
 
         public ScanParam m_scanParams = new ScanParam();
-        private RepeatButton btnDecrease;
-        private RepeatButton btnIncrease;
+        private RepeatButton btnConstrastDecrease;
+        private RepeatButton btnConstrastIncrease;
+        private RepeatButton btnBrightnessDecrease;
+        private RepeatButton btnBrightnessIncrease;
 
         public ScanSettingDialog()
         {
@@ -57,10 +59,13 @@ namespace VOP
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
 
-            btnDecrease = spinCtlConstrast.Template.FindName("btnDecrease", spinCtlConstrast) as RepeatButton;
- 
-            btnIncrease = spinCtlConstrast.Template.FindName("btnIncrease", spinCtlConstrast) as RepeatButton;
+            btnConstrastDecrease = spinCtlConstrast.Template.FindName("btnDecrease", spinCtlConstrast) as RepeatButton;
+            btnConstrastIncrease = spinCtlConstrast.Template.FindName("btnIncrease", spinCtlConstrast) as RepeatButton;
+            btnBrightnessDecrease = spinCtlConstrast.Template.FindName("btnDecrease", spinCtlBrightness) as RepeatButton;
+            btnBrightnessIncrease = spinCtlConstrast.Template.FindName("btnIncrease", spinCtlBrightness) as RepeatButton;
 
+            CheckContrastValue();
+            CheckBrightnessValue();
             TextBox tb1 = spinCtlBrightness.Template.FindName("tbTextBox", spinCtlBrightness) as TextBox;
             tb1.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb1.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
@@ -331,10 +336,18 @@ namespace VOP
                 if (sldr.Name == "sldr_brightness")
                 {
                     m_scanParams.Brightness = val;
+                    if (btnBrightnessDecrease != null && btnBrightnessIncrease != null)
+                    {
+                        CheckBrightnessValue();
+                    }
                 }
                 else if (sldr.Name == "sldr_contrast")
                 {
                     m_scanParams.Contrast = val;
+                    if (btnConstrastDecrease != null && btnConstrastIncrease != null)
+                    {
+                        CheckContrastValue();
+                    }
                 }
             }
         }
@@ -363,7 +376,42 @@ namespace VOP
             this.DialogResult = true;
             this.Close();
         }
-
+        private void CheckContrastValue()
+        {
+            if (m_scanParams.Contrast == spinCtlConstrast.Minimum)
+            {
+                btnConstrastDecrease.IsEnabled = false;
+                btnConstrastIncrease.IsEnabled = true;
+            }
+            else if (m_scanParams.Contrast == spinCtlConstrast.Maximum)
+            {
+                btnConstrastIncrease.IsEnabled = false;
+                btnConstrastDecrease.IsEnabled = true;
+            }
+            else
+            {
+                btnConstrastIncrease.IsEnabled = true;
+                btnConstrastDecrease.IsEnabled = true;
+            }
+        }
+        private void CheckBrightnessValue()
+        {
+            if (m_scanParams.Brightness == spinCtlBrightness.Minimum)
+            {
+                btnBrightnessDecrease.IsEnabled = false;
+                btnBrightnessIncrease.IsEnabled = true;
+            }
+            else if (m_scanParams.Brightness == spinCtlBrightness.Maximum)
+            {
+                btnBrightnessIncrease.IsEnabled = false;
+                btnBrightnessDecrease.IsEnabled = true;
+            }
+            else
+            {
+                btnBrightnessIncrease.IsEnabled = true;
+                btnBrightnessDecrease.IsEnabled = true;
+            }
+        }
         private void InitScanResln()
         {
             cboScanResln.Items.Clear();
