@@ -286,7 +286,7 @@
                         Change="1"
                         DecimalPlaces="0"
                         Maximum="100"
-                        Minimum="0"  
+                        Minimum="0"                          
                         Value="{Binding ElementName=sldr_contrast, Path=Value}"
                         IsPercentFormat="False"
                         ValidationHasErrorChanged="OnValidationHasErrorChanged"
