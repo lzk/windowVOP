@@ -50,7 +50,7 @@ namespace VOP
             }
             else if (cbAttachType.SelectedIndex == 1)
             {
-                m_scanToEmailParams.AttachmentType = "JPG";
+                m_scanToEmailParams.AttachmentType = "TIFF";
             }
         }
 

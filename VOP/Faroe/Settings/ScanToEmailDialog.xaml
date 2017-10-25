@@ -239,7 +239,7 @@
                             SelectionChanged="cbAttachType_SelectionChanged"
                                 >
                                     <ComboBoxItem >PDF</ComboBoxItem>
-                                    <ComboBoxItem >JPG</ComboBoxItem>
+                                    <ComboBoxItem >TIFF</ComboBoxItem>
                                 </ComboBox>
                             </StackPanel>
                         </Border>
