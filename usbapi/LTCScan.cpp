@@ -277,13 +277,18 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 
 	IMG_FILE_T ImgFile[2];
-	float ADF_SideEdge = (8.5 - 8.4528) / 2;
 
-	ImgFile[0].img.org.x = 0;//ADF_SideEdge * resolution;
-	ImgFile[0].img.org.y = 0;
-
+	//modified by yunying shang 2017-10-25 for BMS 1234
 	ImgFile[0].img.width = ImgFile[1].img.width = nLinePixelNumOrig;
 	ImgFile[0].img.height = ImgFile[1].img.height = nColPixelNumOrig;
+
+	//float ADF_SideEdge = (8.5 - 8.4528) / 2;
+	float ADF_SideEdge = (8.5*resolution - ImgFile[0].img.width ) / 2;
+
+	//ImgFile[0].img.org.x = 0;//ADF_SideEdge * resolution;]
+	ImgFile[0].img.org.x = ADF_SideEdge;
+	ImgFile[0].img.org.y = 0;
+	//<<===================1234
 
 
 	ImgFile[0].img.format = ImgFile[1].img.format = I3('JPG');

@@ -43,6 +43,10 @@ namespace VOP
                 return false;
             }
 
+            foreach (string f in FileList)
+            {
+
+            }
             string programType = "";
 
             if (FlowType == APFlowType.View)
@@ -85,7 +89,19 @@ namespace VOP
                             {
                                 programType = Others.m_programType;
                                 string path = Others.m_filePath;
-                                Process.Start(path);
+
+                                foreach (string f in FileList)
+                                {
+                                    ProcessStartInfo info = new ProcessStartInfo();
+
+                                    info.FileName = path;
+                                    info.Arguments = String.Format("\"{0}\"", f);
+                                   // info.CreateNoWindow = false;
+                                    //info.WindowStyle = ProcessWindowStyle.Normal;
+                                    //info.UseShellExecute = false;
+
+                                    Process p = Process.Start(info);
+                                }
                             }
                         }
                         else
@@ -142,7 +158,16 @@ namespace VOP
                         {
                             programType = Others.m_programType;
                             string path = Others.m_filePath;
-                            Process.Start(path);
+
+                            foreach (string f in FileList)
+                            {
+                                ProcessStartInfo info = new ProcessStartInfo();
+
+                                info.FileName = path;
+                                info.Arguments = String.Format("\"{0}\"", f);
+
+                                Process p = Process.Start(info);
+                            }
                         }
                     }
                     else

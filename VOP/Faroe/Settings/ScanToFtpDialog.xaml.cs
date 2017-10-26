@@ -117,16 +117,19 @@ namespace VOP
         {
             PasswordBox pb = sender as PasswordBox;
             string strText = e.Text;
-            if (strText.Length > 0 && !Char.IsLetterOrDigit(strText, 0))
-            {
-                e.Handled = true;
-            }
+            //marked by yunying shang 2017-10-24 for BMS 1170
+            //if (strText.Length > 0 && !Char.IsLetterOrDigit(strText, 0))
+
+            //{
+            //e.Handled = true;
+            //}
+
         }
 
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Space)
-                e.Handled = true;
+            // if (e.Key == Key.Space)
+            //    e.Handled = true;
         }
         private MainWindow_Rufous _MainWin = null;
 

@@ -33,6 +33,7 @@ namespace VOP
         List<ScanFiles> files = new List<ScanFiles>();
         public Window ParentWin { get; set; }
         string pdfName = "";
+        string tiffName = "";
         string m_errorMsg = "";
 
         public bool Run()
@@ -62,7 +63,28 @@ namespace VOP
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                                     );
                 }
+                
+            }
+            else
+            {
+                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
+                if (worker.InvokeQuickScanMethod(SaveTiffFile, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Saving_pic_TIFF")))
+                {
+                    //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                    //               Application.Current.MainWindow,
+                    //              "Save completed",
+                    //              "Prompt");
+                }
+                else
+                {
+                    tiffName = "";
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                    Application.Current.MainWindow,
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save_pdf") + m_errorMsg,
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                    );
+                }
             }
 
 
@@ -150,7 +172,8 @@ namespace VOP
             try
             {
 //                string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
-                string strSuffix = string.Format("{0}{1}{2}{3}{4}{5}", "img", DateTime.Now.Year.ToString(), DateTime.Now.Month.ToString(), DateTime.Now.Day.ToString(), DateTime.Now.Hour.ToString(), DateTime.Now.Minute.ToString());
+                string strSuffix = string.Format("{0}{1}{2}{3}{4}{5}", "img", DateTime.Now.Year.ToString(), DateTime.Now.Month.ToString(), 
+                    DateTime.Now.Day.ToString(), DateTime.Now.Hour.ToString(), DateTime.Now.Minute.ToString());
                 if (false == Directory.Exists(App.PictureFolder))
                 {
                     Directory.CreateDirectory(App.PictureFolder);
@@ -188,6 +211,62 @@ namespace VOP
             catch (Exception ex)
             {
                 
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                                 Application.Current.MainWindow,
+                                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail"),
+                                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                //               m_errorMsg = ex.Message;
+                return false;
+            }
+            return true;
+        }
+
+        bool SaveTiffFile()
+        {
+            try
+            {
+                //                string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
+                string strSuffix = string.Format("{0}{1}{2}{3}{4}{5}", "img", DateTime.Now.Year.ToString(), DateTime.Now.Month.ToString(),
+                    DateTime.Now.Day.ToString(), DateTime.Now.Hour.ToString(), DateTime.Now.Minute.ToString());
+                if (false == Directory.Exists(App.PictureFolder))
+                {
+                    Directory.CreateDirectory(App.PictureFolder);
+                }
+
+                tiffName = App.PictureFolder + "\\vop" + strSuffix + ".tif";
+
+                TiffBitmapEncoder encoder = new TiffBitmapEncoder();
+
+                foreach (string path in FileList)
+                {
+                    Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
+                    JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
+                    BitmapSource origSource = decoder.Frames[0];
+
+                    BitmapMetadata bitmapMetadata = new BitmapMetadata("tiff");
+                    bitmapMetadata.ApplicationName = "Virtual Operation Panel";
+
+                    if (null != origSource)
+                        encoder.Frames.Add(BitmapFrame.Create(origSource, null, bitmapMetadata, null));
+                }
+
+                FileStream fs = File.Open(tiffName, FileMode.Create);
+                encoder.Save(fs);
+                fs.Close();
+
+            }
+            catch (Win32Exception ex)
+            {
+                //                m_errorMsg = ex.Message;
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                                  Application.Current.MainWindow,
+                                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail"),
+                                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                return false;
+            }
+            catch (Exception ex)
+            {
+
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                                  Application.Current.MainWindow,
                                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail"),
