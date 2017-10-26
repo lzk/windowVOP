@@ -159,6 +159,9 @@ namespace VOP
 
 #elif (!DEBUG)
 
+            if (btn.Name == "ImageButton2")
+                param = MainWindow_Rufous.g_settingData.m_commonScanSettings;
+
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", param);
 
             if (files == null)

@@ -713,7 +713,17 @@ namespace VOP
             if (resultArray.Count <= 0)
                 return nRet;
 
-            string htmlFileName = strPath + "QRCodeBarcodeResult.html";
+            string htmlFileName = strPath + MainWindow_Rufous.g_settingData.m_decodeResultFile;// "QRCodeBarcodeResult.html";
+            int nLength = 0;
+
+            string extentionFile = null;
+            nLength = htmlFileName.LastIndexOf('.');
+            if(nLength>0)
+                extentionFile = htmlFileName.Substring(nLength);
+            if (extentionFile == null || extentionFile != ".html")
+            {
+                htmlFileName += ".html";
+            }
 
             using (StreamWriter htmlWriter = new StreamWriter(htmlFileName, false, Encoding.UTF8))
             {
@@ -735,6 +745,7 @@ namespace VOP
                 ArrayList tempArray = new ArrayList();
                 string szFileSameName = null;
                 int nIndex = 0;
+                resultArray.Add(new DetectResult());
 
                 foreach (DetectResult detectResult in resultArray)
                 {
@@ -764,7 +775,7 @@ namespace VOP
                         {
                             htmlWriter.WriteLine("<td rowspan=\"" + nCount.ToString() + "\">" + tempDetectResult.fileName + "</td>");
 
-                            if (detectResult.fileName != null)
+                            if (tempDetectResult.fileName != null)
                             {
                                 int nWidth = tempDetectResult.srcWidth;
                                 int nHeight = tempDetectResult.srcHeight;

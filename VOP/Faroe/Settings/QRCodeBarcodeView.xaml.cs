@@ -60,6 +60,27 @@ namespace VOP
             return true;
         }
 
+        private bool IsValidFileName(string filename)
+        {
+            try
+            {
+
+                Regex containsABadCharacter = new Regex("["
+                                                + Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars())) + "]");
+
+                if (containsABadCharacter.IsMatch(filename))
+                {
+                    return false;
+                };
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         private void OkClick(object sender, RoutedEventArgs e)
         {
             if (tbFilePath.Text == "")
@@ -76,6 +97,15 @@ namespace VOP
                    System.Windows.Application.Current.MainWindow,
                   "The file name cannot be empty",
                   "Error");
+                return;
+            }
+
+            if (!IsValidFileName(tbFileName.Text))
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    System.Windows.Application.Current.MainWindow,
+                   "Invalid file name",
+                   "Error");
                 return;
             }
 
