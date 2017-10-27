@@ -90,6 +90,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\qrcodelib\Aspose.BarCode.dll</HintPath>
     </Reference>
+    <Reference Include="en-html2enml, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x86\Debug\en-html2enml.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.PdfEncoderLib">
       <HintPath>..\PdfDll\32bit\Interop.PdfEncoderLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>

@@ -252,8 +252,10 @@ namespace VOP
             if (MatchListBox.Items.Count >= 10)
                 btnAdd.IsEnabled = false;
             else
-                btnAdd.IsEnabled = true;         
-            string strName = MatchListBox.SelectedValue.ToString();
+                btnAdd.IsEnabled = true;      
+               
+            string strName = MainWindow_Rufous.g_settingData.m_MatchList[MatchListBox.SelectedIndex].ItemName;
+
             if (strName == (string)this.TryFindResource("ResStr_Faroe_Scan_Print")
             || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_File")
             || strName == (string)this.TryFindResource("ResStr_Faroe_Scan_App")

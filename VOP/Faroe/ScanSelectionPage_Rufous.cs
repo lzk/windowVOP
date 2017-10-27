@@ -220,7 +220,7 @@ namespace VOP
 
             if (task.ScanResult == Scan_RET.RETSCAN_OK)
             {
-                //                List<ScanFiles> files = new List<ScanFiles>();
+                //List<ScanFiles> files = new List<ScanFiles>();
                 //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1 error.JPG"));
                 //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
                 //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
