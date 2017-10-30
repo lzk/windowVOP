@@ -241,32 +241,60 @@ namespace VOP
                 fileLs.Add(f.m_pathOrig);
             }
 
-            DropBoxFlow flow = new DropBoxFlow();
-            flow.ParentWin = Application.Current.MainWindow;
-            DropBoxFlow.FlowType = CloudFlowType.Quick;
-            flow.FileList = fileLs;
-
-            if(flow.Run())
+            if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.SaveType == "DropBox")
             {
-                //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                //               Application.Current.MainWindow,
-                //              "Upload completed",
-                //              "Prompt");
+                DropBoxFlow flow = new DropBoxFlow();
+                flow.ParentWin = Application.Current.MainWindow;
+                DropBoxFlow.FlowType = CloudFlowType.Quick;
+                flow.FileList = fileLs;
 
-                ScanPreview_Rufous win = new ScanPreview_Rufous();
-                win.Owner = Application.Current.MainWindow;
-                win.ImagePaths = fileLs;
-                win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ok");
-                win.ShowDialog();
+                if (flow.Run())
+                {
+                    //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                    //               Application.Current.MainWindow,
+                    //              "Upload completed",
+                    //              "Prompt");
+
+                    ScanPreview_Rufous win = new ScanPreview_Rufous();
+                    win.Owner = Application.Current.MainWindow;
+                    win.ImagePaths = fileLs;
+                    win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ok");
+                    win.ShowDialog();
+                }
+                else
+                {
+                    if (flow.isCancel != true)
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                        Application.Current.MainWindow,
+                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
+                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                    return false;
+                }
             }
-            else
+            else if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.SaveType == "EverNote")
             {
-                if(flow.isCancel != true)
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                                    Application.Current.MainWindow,
-                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
-                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
-                return false;
+                EvernoteFlow flow = new EvernoteFlow();
+                flow.ParentWin = Application.Current.MainWindow;
+                EvernoteFlow.FlowType = CloudFlowType.Quick;
+                flow.FileList = fileLs;
+
+                if (flow.Run())
+                {
+                    ScanPreview_Rufous win = new ScanPreview_Rufous();
+                    win.Owner = Application.Current.MainWindow;
+                    win.ImagePaths = fileLs;
+                    win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ok");
+                    win.ShowDialog();
+                }
+                else
+                {
+                    if (flow.isCancel != true)
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                        Application.Current.MainWindow,
+                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
+                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                    return false;
+                }
             }
 
             return true;

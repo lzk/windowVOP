@@ -28,7 +28,7 @@
     <DebugType>pdbonly</DebugType>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\VOP\Bin\X86\Release\</OutputPath>
     <DocumentationFile>EvernoteSDK.xml</DocumentationFile>
     <RegisterForComInterop>true</RegisterForComInterop>
     <NoWarn>1591</NoWarn>

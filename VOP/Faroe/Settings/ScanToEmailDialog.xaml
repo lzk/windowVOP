@@ -262,7 +262,8 @@
                                 Text=""
                                 VerticalContentAlignment="Center"
                                 FontSize="14"
-                                    PreviewTextInput="OnPreviewTextInput" 
+                                PreviewTextInput="OnPreviewTextInput" 
+                                    MaxLength="255"
                                 />
                             </StackPanel>
                         </Border>

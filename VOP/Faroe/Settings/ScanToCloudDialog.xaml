@@ -136,14 +136,14 @@
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="150" />
+                    <RowDefinition Height="100" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="35"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="35"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
                 <!-- Title bar begin -->
@@ -215,36 +215,76 @@
                             <RowDefinition Height="39*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="150"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-
                         <TextBlock 
                 Grid.Row="0"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 FontSize="14"
                 VerticalAlignment="Center"
+                Text="Cloud Type:" Margin="0,16,0,15"/>
+                        <ComboBox 
+                            Grid.Row="0"
+                            Grid.Column="1"
+                                Name="cbCloudType"
+                                VerticalAlignment="Center" 
+                            HorizontalAlignment="Left"
+                                VerticalContentAlignment="Center"
+                                Width="100" 
+                                Height="30"                                 
+                                FontSize="14"
+                            Margin="10,0,0,0"
+                            SelectionChanged="cbCloudType_SelectionChanged"
+                                >
+                            <ComboBoxItem >DropBox</ComboBoxItem>
+                            <ComboBoxItem >EverNote</ComboBoxItem>
+                            <ComboBoxItem >OneDrive</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock 
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                            Name="tbReset"
+                FontSize="14"
+                VerticalAlignment="Center"
                 Text="Reset access token in cache:" Margin="0,16,0,15"/>
-
+                        <TextBox 
+                     Name="tbNoteTitle"
+                     Template="{StaticResource customTextBox}" 
+                     Grid.Row="1"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="2"
+                     Width="200"
+                     Height="28" 
+                     VerticalAlignment="Top" 
+                     HorizontalAlignment="Left"
+                     Margin="10,10,0,0"
+                            MaxLength="32"
+                            PreviewTextInput="OnPreviewTextInput"
+                     />
 
                         <Button
-                Grid.Row="0"
+                Grid.Row="1"
                 Grid.Column="1"
-                Width="120"
+                            Name="btnReset"
+                Width="80"
                 Height="35" 
-                Margin="178,8,69,8"
                 Content="Reset" 
+                HorizontalAlignment="Left"
+                            Margin="10,0,0,0"
                 FontSize="16"
                 Style="{StaticResource CustomGreenButtonStyle}" 
                 Click="ResetButton_Click" Grid.ColumnSpan="2"
                 />
 
                         <TextBlock 
-                Grid.Row="1"
+                Grid.Row="2"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
+                            Name="tbDefaultPath"
                 FontSize="14"
                 VerticalAlignment="Center"
                 Text="Default save path:" Margin="0,16,0,15"/>
@@ -252,26 +292,29 @@
                         <TextBox 
                      Name="SavePathTbx"
                      Template="{StaticResource customTextBox}" 
-                     Grid.Row="2"
+                     Grid.Row="3"
                      Grid.Column="0"
                      Grid.ColumnSpan="2"
-                     Width="230"
+                     Width="280"
                      Height="28" 
                      VerticalAlignment="Top" 
                      HorizontalAlignment="Left"
                      Margin="20,10,0,0"
+                            MaxLength="255"
                      />
 
                         <Button
-                Grid.Row="2"
-                Grid.Column="1"
+                Grid.Row="3"
+                Grid.Column="2"
                 Grid.ColumnSpan="2"
-                Width="70"
+                            Name="btnBrowse"
+                Width="80"
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left"
                 Height="30" 
-                Margin="190,10,0,0"
+                Margin="10,10,0,0"
                 Content="Browse..." 
+                            FontSize="16"
                 Style="{StaticResource CustomGreenButtonStyle}"
                 Click="BrowseButton_Click"
                 />

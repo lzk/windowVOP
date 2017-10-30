@@ -309,7 +309,8 @@ namespace VOP
             {
                 try
                 {
-                    string time = string.Format("{0}{1}{2}{3}{4}{5}", DateTime.Now.Year, 
+                    string time = string.Format("{0}{1}{2}{3}{4}{5}", 
+                        DateTime.Now.Year, 
                         DateTime.Now.Month,
                         DateTime.Now.Day, 
                         DateTime.Now.Hour,
@@ -510,7 +511,7 @@ namespace VOP
             thread.Join();
 
             if (fileSaveStatus == ScanFileSaveError.FileSave_Error)
-            {
+            {                
                 return ScanFileSaveError.FileSave_Error;
             }
 
