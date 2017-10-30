@@ -239,7 +239,7 @@
                             SelectionChanged="cbAttachType_SelectionChanged"
                                 >
                                     <ComboBoxItem >PDF</ComboBoxItem>
-                                    <ComboBoxItem >JPG</ComboBoxItem>
+                                    <ComboBoxItem >TIFF</ComboBoxItem>
                                 </ComboBox>
                             </StackPanel>
                         </Border>
@@ -255,13 +255,15 @@
                                 <TextBox 
                                 Name="tbRecipient"
                               Template="{StaticResource customTextBox}" 
-                                VerticalAlignment="Center" 
+                                VerticalAlignment="Top" 
                                 Width="250" 
                                 Height="30" 
-                                Margin="45,0,0,0" 
+                                Margin="45,14,0,0" 
                                 Text=""
                                 VerticalContentAlignment="Center"
                                 FontSize="14"
+                                PreviewTextInput="OnPreviewTextInput" 
+                                    MaxLength="255"
                                 />
                             </StackPanel>
                         </Border>

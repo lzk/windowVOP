@@ -109,6 +109,9 @@ namespace VOP
         public int m_separateFileType = 0;
         public string m_separateFilePath = App.PictureFolder;
 
+        //Device
+        public bool m_bAutoSleep = true;
+
         public SettingData()
         {
          

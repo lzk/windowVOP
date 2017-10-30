@@ -93,6 +93,7 @@
                                    FontSize="16" 
                                    Foreground="CadetBlue"
                                    Margin="15,0,0,0" 
+                                   TextWrapping="Wrap"
                                    />
                         <Button 
                             Name="UploadButton"

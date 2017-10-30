@@ -313,7 +313,7 @@ namespace VOP
             else if ("btnDevice" == srcButton.Name)
             {
                 SetActiveButton(SettingType.Device);
-                softAPView.m_MainWin = this.m_MainWin;
+                deviceView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = deviceView;
             }
         }

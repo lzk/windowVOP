@@ -37,7 +37,7 @@ namespace VOP
 
                 if(scanFileList != null)
                 {
-                    foreach(ScanFiles files in scanFileList)
+                    foreach (ScanFiles files in scanFileList)
                     {
                         ImageItem newImage = new ImageItem();
                         newImage.m_images = files;
@@ -50,11 +50,31 @@ namespace VOP
                         this.image_wrappanel.Children.Insert(0, newImage);
 
                     }
+
+                    // AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+                    // worker.InvokeQuickScanMethod(UpdateImageFiles, (string)this.TryFindResource("ResStr_Faroe_Uploading_Files"));
+
                 }
             }
         }
 
+        public bool UpdateImageFiles()
+        {
+            foreach (ScanFiles files in scanFileList)
+            {
+                ImageItem newImage = new ImageItem();
+                newImage.m_images = files;
+                newImage.ImageSingleClick += ImageItemSingleClick;
+                newImage.ImageDoubleClick += ImageItemDoubleClick;
+                newImage.CloseIconClick += ImageItemCloseIconClick;
+                newImage.m_num = scanFileList.IndexOf(files) + 1;
+                UpdateSelItemNum();
+                newImage.Margin = new Thickness(10);
+                this.image_wrappanel.Children.Insert(0, newImage);
 
+            }
+            return true;
+        }
         public ScanPage_Rufous()
         {
             InitializeComponent();

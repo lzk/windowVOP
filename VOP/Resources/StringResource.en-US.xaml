@@ -421,4 +421,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AP_Name">AP Name :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_AP_Path">AP Path :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Legal_8_5_x_14">Legal(8.5 x 14")</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Saving_pic_TIFF">Saving picture to TIFF, please wait...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Fail_save_tiff">Fail to save tiff file. </sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Uploading_Files">Uploading Image Files, please wait...</sys:String>
 </ResourceDictionary>
