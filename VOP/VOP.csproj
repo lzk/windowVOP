@@ -1392,6 +1392,16 @@
   <ItemGroup>
     <Folder Include="Faroe\ScanTo\ScanToOneDrive\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Up_normal.png" />
+    <Resource Include="Images\up_over.png" />
+    <Resource Include="Images\up_press.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\down_normal.png" />
+    <Resource Include="Images\down_over.png" />
+    <Resource Include="Images\down_press.png" />
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>

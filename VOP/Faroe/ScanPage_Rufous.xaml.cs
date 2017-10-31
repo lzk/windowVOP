@@ -20,14 +20,31 @@ using System.Windows.Threading;
 
 namespace VOP
 {
+    public partial class ImageStatus
+    {
+        public ImageStatus()
+        {
+        }
+
+        public ScanFiles _files;
+        public int m_num = 0;
+
+        public ImageStatus(ScanFiles files, int num)
+        {
+            m_num = num;
+            _files = files;
+        }
+
+    }
     public partial class ScanPage_Rufous : UserControl
     {
         private int m_maxImgNum = 99;
         public Thread scanningThread = null;
-        private int m_iMousePress = 0;
+        private int m_selectedPage = 0;
+        private int m_pageCount = 1;
 
-        private List<ScanFiles> scanFileList = null; 
-
+        private List<ScanFiles> scanFileList = null;
+        private List<ImageStatus> selectedFileList = null;
 
         public List<ScanFiles> ScanFileList
         {
@@ -37,47 +54,111 @@ namespace VOP
 
                 if(scanFileList != null)
                 {
+                    selectedFileList = new List<ImageStatus>();
+
                     foreach (ScanFiles files in scanFileList)
                     {
-                        ImageItem newImage = new ImageItem();
-                        newImage.m_images = files;
-                        newImage.ImageSingleClick += ImageItemSingleClick;
-                        newImage.ImageDoubleClick += ImageItemDoubleClick;
-                        newImage.CloseIconClick += ImageItemCloseIconClick;
+                        ImageStatus newImage = new ImageStatus();
+                        newImage._files = files;
                         newImage.m_num = scanFileList.IndexOf(files) + 1;
-                        UpdateSelItemNum();
-                        newImage.Margin = new Thickness(10);
-                        this.image_wrappanel.Children.Insert(0, newImage);
-
+                        selectedFileList.Add(newImage);                        
                     }
+                    UpdateSelItemNum();
 
-                    // AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-                    // worker.InvokeQuickScanMethod(UpdateImageFiles, (string)this.TryFindResource("ResStr_Faroe_Uploading_Files"));
+                    m_pageCount = scanFileList.Count / 8;
+                    if (scanFileList.Count % 8 > 0)
+                        m_pageCount += 1;
 
+                    UpdateImageFiles();
+                    //foreach (ScanFiles files in scanFileList)
+                    //{
+                    //    ImageItem newImage = new ImageItem();
+                    //    newImage.m_images = files;
+                    //    newImage.ImageSingleClick += ImageItemSingleClick;
+                    //    newImage.ImageDoubleClick += ImageItemDoubleClick;
+                    //    newImage.CloseIconClick += ImageItemCloseIconClick;
+                    //    newImage.m_num = scanFileList.IndexOf(files) + 1;
+                    //    UpdateSelItemNum();
+                    //    newImage.Margin = new Thickness(10);
+                    //    this.image_wrappanel.Children.Insert(0, newImage);
+                    //}
+                    if (scanFileList.Count > 8)
+                    {
+                        RightBtn.IsEnabled = true;
+                    }
                 }
             }
         }
 
         public bool UpdateImageFiles()
         {
-            foreach (ScanFiles files in scanFileList)
+            List<ScanFiles> list = new List<ScanFiles>();
+
+            for(int i= 0; i<8 &&(m_selectedPage * 8 + i)<scanFileList.Count ; i++)
+            {
+                list.Add(scanFileList[m_selectedPage * 8 + i]);
+            }
+
+            this.image_wrappanel.Children.Clear();
+
+            foreach (ScanFiles files in list)
             {
                 ImageItem newImage = new ImageItem();
                 newImage.m_images = files;
                 newImage.ImageSingleClick += ImageItemSingleClick;
                 newImage.ImageDoubleClick += ImageItemDoubleClick;
-                newImage.CloseIconClick += ImageItemCloseIconClick;
-                newImage.m_num = scanFileList.IndexOf(files) + 1;
-                UpdateSelItemNum();
+                newImage.CloseIconClick += ImageItemCloseIconClick;   
+                newImage.m_num = selectedFileList[scanFileList.IndexOf(files)].m_num;              
                 newImage.Margin = new Thickness(10);
                 this.image_wrappanel.Children.Insert(0, newImage);
-
             }
+            UpdateSelItemNum();
             return true;
         }
+
         public ScanPage_Rufous()
         {
             InitializeComponent();
+
+            LeftBtn.IsEnabled = false;
+            RightBtn.IsEnabled = false;
+        }
+
+
+        private void LeftButton_Click(object sender, RoutedEventArgs e)
+        {
+            m_selectedPage--;
+            if (m_selectedPage == 0)
+            {
+                LeftBtn.IsEnabled = false;
+                RightBtn.IsEnabled = true;
+            }
+            else
+            {
+                if (m_selectedPage < (m_pageCount - 1))
+                {
+                    RightBtn.IsEnabled = true;
+                }
+                LeftBtn.IsEnabled = true;
+            }
+            UpdateImageFiles();
+        }
+
+        private void RightButton_Click(object sender, RoutedEventArgs e)
+        {
+            m_selectedPage++;
+            if (m_selectedPage >= (m_pageCount-1))
+            {
+                RightBtn.IsEnabled = false;
+                LeftBtn.IsEnabled = true;
+            }
+            else
+            {
+                RightBtn.IsEnabled = true;
+                if (m_selectedPage > 0)
+                    LeftBtn.IsEnabled = true;   
+            }
+            UpdateImageFiles();
         }
 
         private void ScanToAPButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -229,13 +310,17 @@ namespace VOP
                     if ( obj == img )
                     {
                         image_wrappanel.Children.RemoveAt( index );
+
+                        selectedFileList.RemoveAt(scanFileList.IndexOf(img.m_images));
+
                         break;
                     }
                     index++;
                 }
             }
             //add by yunying shang 2017-10-19 for BMS 1178
-            if (image_wrappanel.Children.Count == GetSelectedItemCount())
+            //if (image_wrappanel.Children.Count == GetSelectedItemCount())
+            if(selectedFileList.Count == GetSelectedItemCount())
                 SelectAllCheckBox.IsChecked = true;
             else
                 SelectAllCheckBox.IsChecked = false;
@@ -251,10 +336,12 @@ namespace VOP
                 if ( GetSelectedItemCount() < m_maxImgNum )
                 {
                     img.m_num = GetSelectedItemCount()+1;
+                    selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = img.m_num;
                 }
             }
             else
             {
+                selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = 0;
                 img.m_num = 0;
             }
             
@@ -292,10 +379,12 @@ namespace VOP
                 if (isCheck)
                 {
                     img.m_num = index;
+                    selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = img.m_num;
                 }
                 else
                 {
                     img.m_num = 0;
+                    selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = 0;
                 }
               
                 index++;
@@ -307,13 +396,17 @@ namespace VOP
             ImageItem img = (ImageItem)sender;
 
             if (0 == img.m_num && GetSelectedItemCount() < m_maxImgNum)
+            {
                 img.m_num = GetSelectedItemCount() + 1;
+                selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = img.m_num;
+            }
 
-            //  btnPrint.IsEnabled = true;
-            //  btnSave.IsEnabled = true;
+                //  btnPrint.IsEnabled = true;
+                //  btnSave.IsEnabled = true;
 
-            //add by yunying shang 2017-10-19 for BMS 1182
-            if (image_wrappanel.Children.Count == GetSelectedItemCount())
+                //add by yunying shang 2017-10-19 for BMS 1182
+            //if (image_wrappanel.Children.Count == GetSelectedItemCount())
+            if(scanFileList.Count == GetSelectedItemCount())
                 SelectAllCheckBox.IsChecked = true;
             else
                 SelectAllCheckBox.IsChecked = false;
@@ -361,6 +454,7 @@ namespace VOP
                     if ( tmp.m_iSimgReady )
                     {
                         this.image_wrappanel.Children.RemoveAt( index );
+                        this.selectedFileList.RemoveAt(scanFileList.IndexOf(img.m_images));
 
                         // Collect the rubbish files.
                         App.rubbishFiles.Add( img.m_images );
@@ -370,10 +464,14 @@ namespace VOP
                         tmp.CloseIconClick += ImageItemCloseIconClick;
 
                         if (GetSelectedItemCount() < m_maxImgNum)
+                        {
                             tmp.m_num = GetSelectedItemCount() + 1;
+                            selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = tmp.m_num;
+                        }
                         else
                         {
                             tmp.m_num = 0;
+                            selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = 0;
                         }
 
                         tmp.Margin = new Thickness( 5 );
@@ -457,15 +555,22 @@ namespace VOP
             {
                 files.AddRange( new string[nCount] );
 
-                foreach (object obj in image_wrappanel.Children)
-                {
-                    ImageItem img = obj as ImageItem;
+                //foreach (object obj in image_wrappanel.Children)
+                //{
+                //    ImageItem img = obj as ImageItem;
 
-                    if ( null != img && 0 < img.m_num )
+                //    if ( null != img && 0 < img.m_num )
+                //    {
+                //        files[img.m_num-1] = img.m_images.m_pathOrig;
+                //    }
+                //}  
+                foreach (ImageStatus img in selectedFileList)
+                {
+                    if (0 < img.m_num)
                     {
-                        files[img.m_num-1] = img.m_images.m_pathOrig;
+                        files[img.m_num - 1] = img._files.m_pathOrig;
                     }
-                }  
+                }
             }
 
             if (files == null || files.Count == 0)
@@ -484,37 +589,74 @@ namespace VOP
         {
             List<int> lst = new List<int>();
 
-            for ( int i=0; i<image_wrappanel.Children.Count; i++ )
-            {
-                ImageItem img1 = image_wrappanel.Children[i] as ImageItem;
+            //for ( int i=0; i<image_wrappanel.Children.Count; i++ )
+            //{
+            //    ImageItem img1 = image_wrappanel.Children[i] as ImageItem;
 
-                if ( null != img1 && 0 < img1.m_num )
+            //    if ( null != img1 && 0 < img1.m_num )
+            //    {
+            //        lst.Add( img1.m_num );
+            //    }
+            //}
+
+            //lst.Sort();
+
+            //int nMiss = 0;
+            //for ( int i=0; i<lst.Count; i++ )
+            //{
+            //    if ( lst[i] != i+1 )
+            //    {
+            //        nMiss = i+1;
+            //        break;
+            //    }
+            //}
+
+            //if ( nMiss > 0 )
+            //{
+            //    for ( int i=0; i<image_wrappanel.Children.Count; i++ )
+            //    {
+            //        ImageItem img1 = image_wrappanel.Children[i] as ImageItem;
+
+            //        if ( null != img1 && 0 < img1.m_num && nMiss <= img1.m_num )
+            //        {
+            //            img1.m_num--; 
+            //        }
+            //    }
+            //}
+
+
+            for (int i = 0; i < selectedFileList.Count; i++)
+            {
+                ImageStatus item = selectedFileList[i] as ImageStatus;
+
+                if (0 < item.m_num)
                 {
-                    lst.Add( img1.m_num );
+                    lst.Add(item.m_num);
                 }
+
             }
 
             lst.Sort();
 
             int nMiss = 0;
-            for ( int i=0; i<lst.Count; i++ )
+            for (int i = 0; i < lst.Count; i++)
             {
-                if ( lst[i] != i+1 )
+                if (lst[i] != i + 1)
                 {
-                    nMiss = i+1;
+                    nMiss = i + 1;
                     break;
                 }
             }
 
-            if ( nMiss > 0 )
+            if (nMiss > 0)
             {
-                for ( int i=0; i<image_wrappanel.Children.Count; i++ )
+                for (int i = 0; i < selectedFileList.Count; i++)
                 {
-                    ImageItem img1 = image_wrappanel.Children[i] as ImageItem;
+                    ImageStatus item = selectedFileList[i] as ImageStatus;
 
-                    if ( null != img1 && 0 < img1.m_num && nMiss <= img1.m_num )
+                    if (0 < item.m_num && nMiss <= item.m_num)
                     {
-                        img1.m_num--; 
+                        item.m_num--;
                     }
                 }
             }
@@ -526,11 +668,16 @@ namespace VOP
         private int GetSelectedItemCount()
         {
             int nCount = 0;
-            foreach ( object obj in image_wrappanel.Children )
-            {
-                ImageItem img = obj as ImageItem;
+            //foreach ( object obj in image_wrappanel.Children )
+            //{
+            //    ImageItem img = obj as ImageItem;
 
-                if ( null != img && 0 < img.m_num )
+            //    if ( null != img && 0 < img.m_num )
+            //        nCount++;
+            //}
+            foreach(ImageStatus img in selectedFileList)
+            {
+                if (img.m_num > 0)
                     nCount++;
             }
 
@@ -614,8 +761,7 @@ namespace VOP
                      m_MainWin,
                      "Do you want to delete all images before leaving scan page?",
                      (string)this.TryFindResource("ResStr_Prompt")
-                     )
-            )
+                     ))
                 {
 
                     image_wrappanel.Children.Clear();
