@@ -792,7 +792,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 			if (glDrv.sc_infodata.PaperJam)
 			{
-				if (glDrv.sc_infodata.AdfSensor) {
+				if (glDrv.sc_infodata.AdfSensor)
+				{
 					isPaperJam = FALSE;
 				}
 				else {
@@ -816,8 +817,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				cancel = TRUE;
 			}*/
 			for (dup = 0; dup < 2; dup++) 
-			{			
-				
+			{					
 				if ((duplex & (1 << dup)) && glDrv.sc_infodata.ValidPageSize[dup]) 
 				{
 					ImgSize = 0;

@@ -113,7 +113,7 @@ namespace VOP
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            AddQuickScanSetting addQuickScanSettingWin = new AddQuickScanSetting();
+            AddQuickScanSetting addQuickScanSettingWin = new AddQuickScanSetting(true);
             addQuickScanSettingWin.Owner = m_MainWin;
             addQuickScanSettingWin.IsEdit = false;
             if (addQuickScanSettingWin.ShowDialog() == true)
@@ -164,7 +164,7 @@ namespace VOP
                 return;
 
             int nIndex = this.MatchListBox.SelectedIndex;
-            AddQuickScanSetting addQuickScanSettingWin = new AddQuickScanSetting();
+            AddQuickScanSetting addQuickScanSettingWin = new AddQuickScanSetting(false);
             addQuickScanSettingWin.Owner = m_MainWin;
             addQuickScanSettingWin.IsEdit = true;
             addQuickScanSettingWin.strItemName = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].ItemName;
