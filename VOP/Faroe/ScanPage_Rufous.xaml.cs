@@ -191,11 +191,22 @@ namespace VOP
             List<string> files = new List<string>();
             GetSelectedFile(files);
 
-            DropBoxFlow flow = new DropBoxFlow();
-            flow.ParentWin = m_MainWin;
-            flow.FileList = files;
-            DropBoxFlow.FlowType = CloudFlowType.View;
-            flow.Run();
+            if (MainWindow_Rufous.g_settingData.m_couldSaveType == "DropBox")
+            {
+                DropBoxFlow flow = new DropBoxFlow();
+                flow.ParentWin = m_MainWin;
+                flow.FileList = files;
+                DropBoxFlow.FlowType = CloudFlowType.View;
+                flow.Run();
+            }
+            else if (MainWindow_Rufous.g_settingData.m_couldSaveType == "EverNote")
+            {
+                EvernoteFlow flow = new EvernoteFlow();
+                flow.ParentWin = m_MainWin;
+                flow.FileList = files;
+                EvernoteFlow.FlowType = CloudFlowType.View;
+                flow.Run();
+            }
 
         }
 

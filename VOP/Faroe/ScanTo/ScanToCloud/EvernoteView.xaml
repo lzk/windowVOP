@@ -1,0 +1,140 @@
+﻿<Window x:Class="VOP.EverNoteViewer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="File Viewer" 
+        xmlns:local="clr-namespace:VOP.Controls"
+        Height="580" Width="700" 
+        WindowStartupLocation="CenterOwner" 
+        WindowStyle="None" 
+        ResizeMode="NoResize" 
+        AllowsTransparency="True"
+        Background="Transparent" 
+        ShowInTaskbar="False" 
+        BorderThickness="25,25,25,25"
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="../../../Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="../../../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../../Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="../../../Controls/CustomScrollView.xaml"/>
+                <ResourceDictionary Source="../../../Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="../../../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../../Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="../../../Controls/CustomComboBox.xaml"/>
+                <ResourceDictionary Source="../../../Controls/CustomRadioButtonEx.xaml"/>
+                <ResourceDictionary Source="../../../Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="30" Color="#FF858484" Direction="292" ShadowDepth="0" Opacity="1"/>
+    </Window.Effect>
+
+    <Viewbox Stretch="Fill">
+        <Border Height="530" Width="650" Background="AliceBlue">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Name="TitleBar"  Background="Transparent" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
+                    <TextBlock Name="TitleBarText" Text="EverNote Viewer" FontSize="15" Foreground="#28E" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+
+                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
+
+
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="100" />
+                        <RowDefinition Height="60" />
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0">
+                        <StackPanel Orientation="Vertical">
+                            <ScrollViewer CanContentScroll="true"
+                                        SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
+                                        VerticalScrollBarVisibility="Auto"
+                                        HorizontalScrollBarVisibility="Disabled">
+                                <ListBox Name="listNote" Height="325" />
+                            </ScrollViewer>
+                        </StackPanel>
+                    </Border>
+                    <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Orientation="Vertical" VerticalAlignment="Top">
+                        <StackPanel Orientation="Horizontal">
+                    <TextBlock 
+                Name="tbNote"
+                FontSize="14"
+                VerticalAlignment="Center"
+                Text="Note Title:"/>
+                    <TextBox 
+                     Name="tbNoteTitle"
+                     Template="{StaticResource customTextBox}" 
+                     Width="200"
+                     Height="28" 
+                     VerticalAlignment="Top" 
+                     HorizontalAlignment="Left"
+                     Margin="40,0,0,0"
+                            MaxLength="32"
+                            PreviewTextInput="OnPreviewTextInput"
+                     />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock 
+                Name="tbContent"
+                FontSize="14"
+                VerticalAlignment="Center"
+                Text="Note Content:"/>
+                            <TextBox 
+                     Name="tbNoteContent"
+                     Template="{StaticResource customTextBox}" 
+                     Width="200"
+                     Height="28" 
+                     VerticalAlignment="Top" 
+                     HorizontalAlignment="Left"
+                     Margin="20,10,0,0"
+                            MaxLength="32"
+                            PreviewTextInput="OnPreviewTextInput"
+                     />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"  Grid.Row="2" >
+                        <TextBlock Name="UploadStaus" 
+                                   Width="470"
+                                   VerticalAlignment="Center" 
+                                   FontSize="12" 
+                                   Foreground="CadetBlue"
+                                   Margin="15,0,0,0" 
+                                   TextWrapping="Wrap"
+                                   />
+                        <Button 
+                            Name="UploadButton"
+                            HorizontalAlignment="Right" 
+                            Margin="10,6" 
+                            Width="125" 
+                            Height="35"
+                            FontSize="16"
+                            Style="{StaticResource CustomGreenButtonStyle}" 
+                            Click="UploadButton_Click"
+                            Content="{StaticResource ResStr_Faroe_Upload}"
+                            ></Button>
+                    </StackPanel>
+
+                </Grid>
+
+
+            </Grid>
+
+        </Border>
+    </Viewbox>
+
+</Window>

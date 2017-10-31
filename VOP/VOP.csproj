@@ -229,6 +229,9 @@
     </Compile>
     <Compile Include="Faroe\ScanTo\ScanToCloud\DropBoxFlow.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\Evernoteflow.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToCloud\EvernoteView.xaml.cs">
+      <DependentUpon>EvernoteView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Faroe\ScanTo\ScanToCloud\FileViewer.xaml.cs" />
     <Compile Include="Faroe\ScanTo\ScanToAP\APFlow.cs" />
     <Compile Include="Faroe\ScanTo\ScanToFile\FileFlow.cs" />
@@ -522,6 +525,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Faroe\ScanTo\ScanToAP\OthersAPSelectWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Faroe\ScanTo\ScanToCloud\EvernoteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
