@@ -33,7 +33,7 @@ namespace VOP
                 return false;
             }
 
-            if(FlowType == FtpFlowType.View)
+            if (FlowType == FtpFlowType.View)
             {
                 bool? result = null;
                 FtpLoginForm frm = new FtpLoginForm();
@@ -52,6 +52,19 @@ namespace VOP
                     MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.UserName = frm.m_userName;
                     MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.Password = frm.m_password;
                     MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.TargetPath = frm.m_targetPath;
+
+                    string Uri = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.ServerAddress
+                         + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.TargetPath;
+
+                    if ((Uri.Length + FileList[0].Length) > 260)
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                    Application.Current.MainWindow,
+                     (string)"Your Specify the Server Address and Tartget Path are too long!",
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                    );
+                        return false;
+                    }
 
                     AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
@@ -76,6 +89,19 @@ namespace VOP
             }
             else
             {
+                string Uri = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.ServerAddress
+                    + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.TargetPath;
+
+                if ((Uri.Length + FileList[0].Length) > 260)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                Application.Current.MainWindow,
+                 (string)"Your Specify the Server Address and Tartget Path are too long!",
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                );
+                    return false;
+                }
+
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
                 if (worker.InvokeQuickScanMethod(UploadFiles, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ftp_wait")))
@@ -129,7 +155,8 @@ namespace VOP
                         MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.UserName,
                         MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.Password);
 
-                    string targetUri = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.ServerAddress + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.TargetPath;
+                    string targetUri = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.ServerAddress 
+                        + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.TargetPath;
                     CreateFtpFolder(targetUri);
 
                     foreach (string filePath in FileList)

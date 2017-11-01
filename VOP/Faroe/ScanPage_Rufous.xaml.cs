@@ -659,6 +659,23 @@ namespace VOP
                         item.m_num--;
                     }
                 }
+
+                for ( int i=0; i<image_wrappanel.Children.Count; i++ )
+                {
+                    ImageItem img1 = image_wrappanel.Children[i] as ImageItem;
+
+                    if (null != img1 && 0 < img1.m_num)
+                    {
+                        foreach(ImageStatus item in selectedFileList)
+                        {
+                            if (item._files == img1.m_images)
+                            {
+                                img1.m_num = item.m_num;
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
 
