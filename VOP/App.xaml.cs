@@ -35,7 +35,9 @@ namespace VOP
         public static List<ScanFiles> scanFileList = new List<ScanFiles>(); 
         public static List<ScanFiles> rubbishFiles = new List<ScanFiles>(); // Rubbish files list, delete them when exit.
 
+#if (!DEBUG)
         static Mutex mutex = new Mutex(true, "4d8526fa07abfc03085ef2909b5b4d2ecaa3d712_mutex");
+#endif
         public static uint WM_STATUS_UPDATE = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_status");
         public static uint WM_CHECK_MAINTAIN_DATA_Expired = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_maintain");
         public static uint WM_CHECK_MERCHANT_INFO_Expired = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_merchant");
@@ -161,29 +163,32 @@ namespace VOP
             //string argLine = Environment.CommandLine;
             //string regStr = "";
 
-            //if (SelfCloseRegistry.Open())
-            //{
-            //    regStr = SelfCloseRegistry.GetEXIT();
-            //    SelfCloseRegistry.DeleteEXIT();
-            //    SelfCloseRegistry.Close();
-            //}
+//if (SelfCloseRegistry.Open())
+//{
+//    regStr = SelfCloseRegistry.GetEXIT();
+//    SelfCloseRegistry.DeleteEXIT();
+//    SelfCloseRegistry.Close();
+//}
 
-            //if (argLine.Contains("EXIT") || regStr == "EXIT")
-            //{
-            //    Process p = null;
-            //    if (App.CheckProcessExist("CRMUploader", ref p) == true)
-            //    {
-            //        if (p != null)
-            //            p.Kill();
-            //    }
+//if (argLine.Contains("EXIT") || regStr == "EXIT")
+//{
+//    Process p = null;
+//    if (App.CheckProcessExist("CRMUploader", ref p) == true)
+//    {
+//        if (p != null)
+//            p.Kill();
+//    }
 
-            //    App.ResetVopCfg();
+//    App.ResetVopCfg();
 
-            //    Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
-            //    return;
-            //}
-
+//    Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
+//    return;
+//}
+#if (!DEBUG)
             if(mutex.WaitOne(TimeSpan.Zero, true)) 
+#else
+            if(true)
+#endif
             {
 
                 try
@@ -222,8 +227,9 @@ namespace VOP
                     {
                     }
                 }
-
+#if (!DEBUG)
                 mutex.ReleaseMutex();               
+#endif
             }
             else
             {
@@ -232,7 +238,7 @@ namespace VOP
 
         }
       
-        #region Multi-Langulage  
+#region Multi-Langulage  
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -274,7 +280,7 @@ namespace VOP
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(Culture);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Culture);
         }
-        #endregion  //Multi-Langulage
+#endregion  //Multi-Langulage
 
         public static bool CheckProcessExist(string name, ref Process p)
         {

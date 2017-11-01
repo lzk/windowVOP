@@ -43,6 +43,15 @@ public:
 	BYTE _StatusCheck_Scanning();
 	BYTE _InitializeScanner();
 	BYTE _CheckScanningMode();
+
+	//Devid added for Calibration 2017/10/31  =====>
+	int _Scan_Shad_Calibration(CALIBRATION_SET_T *set);
+	int _Scan_Shad_Shading(int side, int channel, void *buf, int length);
+	int _Scan_Cap_Calibration(CALIBRATION_CAP_T *cap);
+	int _Scan_Shad_Flash(void *buf, int length);
+	int _Scan_ME_Flash(void *buf, int length);
+//<================Devid added for Calibration 2017/10/31
+
 	//====
 	SC_JOB_T			sc_job_create;
 	SC_JOB_T			sc_job_end;

@@ -87,7 +87,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    System.Windows.Application.Current.MainWindow,
-                  "The path cannot be empty",
+                  "The File Path cannot be empty",
                   "Error");
                 return;
             }
@@ -95,7 +95,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    System.Windows.Application.Current.MainWindow,
-                  "The file name cannot be empty",
+                  "The File Name cannot be empty",
                   "Error");
                 return;
             }

@@ -3788,11 +3788,12 @@ USBAPI_API int __stdcall GetWiFiInfo(const wchar_t* szPrinter, UINT8* ptr_wifien
 
 USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, BYTE time )
 {
-    if ( NULL == szPrinter ) 
-        return _SW_INVALID_PARAMETER;
+//    if ( NULL == szPrinter ) 
+  //      return _SW_INVALID_PARAMETER;
 	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime() begin");
 
     int nResult = _ACK;
+/*
 	wchar_t szIP[MAX_PATH] = { 0 };
     int nPortType = CheckPort( szPrinter, szIP );
 
@@ -3801,6 +3802,7 @@ USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, BYTE time )
         nResult = _SW_UNKNOWN_PORT;
     }
     else
+*/
     {
         char* buffer = new char[sizeof(COMM_HEADER)+1];
         memset( buffer, INIT_VALUE, sizeof(COMM_HEADER)+1 );
@@ -3819,11 +3821,11 @@ USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, BYTE time )
         BYTE* ptrTime = reinterpret_cast<BYTE*>( buffer+sizeof(COMM_HEADER));
         *ptrTime = time;
 
-        if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
+		if (g_connectMode_usb != TRUE)//if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
         {
-            nResult = WriteDataViaNetwork( szIP, buffer, sizeof(COMM_HEADER)+1, NULL, 0 );
+            nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER)+1, NULL, 0 );
         }
-        else if ( PT_USB == nPortType )
+        else// if ( PT_USB == nPortType )
         {
             nResult = WriteDataViaUSB( szPrinter, buffer, sizeof(COMM_HEADER)+1, NULL, 0 );
         }
@@ -3842,12 +3844,13 @@ USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, BYTE time )
 
 USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, BYTE* ptrTime )
 {
-    if ( NULL == szPrinter )
-        return _SW_INVALID_PARAMETER;
+//    if ( NULL == szPrinter )
+  //      return _SW_INVALID_PARAMETER;
 
 	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime() begin");
 
     int nResult = _ACK;
+/*
 	wchar_t szIP[MAX_PATH] = { 0 };
 
     int nPortType = CheckPort( szPrinter, szIP );
@@ -3857,6 +3860,7 @@ USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, BYTE* ptrTi
         nResult = _SW_UNKNOWN_PORT;
     }
     else
+*/
     {
         char* buffer = new char[sizeof(COMM_HEADER)+1];
         memset( buffer, INIT_VALUE, sizeof(COMM_HEADER)+1 );
@@ -3872,11 +3876,11 @@ USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, BYTE* ptrTi
         ppkg->len2 = 1;
         ppkg->subcmd = _PSAVE_TIME_GET;   
 
-        if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
+		if (g_connectMode_usb != TRUE)//if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
         {
-            nResult = WriteDataViaNetwork( szIP, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1 );
+            nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1 );
         }
-        else if ( PT_USB == nPortType )
+        else// if ( PT_USB == nPortType )
         {
             nResult = WriteDataViaUSB( szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1 );
         }

@@ -69,3 +69,4 @@ EXPORTS
 	CheckUsbScan
 	SetConnectionMode
 	CheckConnection
+	DoCalibration

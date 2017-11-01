@@ -488,6 +488,9 @@ namespace VOP
         public static extern void GetFixToPaperSizeData(ref sbyte FixToPaperSiz, ref short ScalingRatio);
         [DllImport("usbapi.dll")]
         public static extern int SaveFixToPaperSizeData(sbyte PaperSize, short ScalingRatio);
+
+        [DllImport("usbapi.dll")]
+        public static extern int DoCalibration();
     }
 
 }

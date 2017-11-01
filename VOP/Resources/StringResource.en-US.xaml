@@ -165,6 +165,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Gateway">Gateway</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Submask">Submask</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Apply">Apply</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Calibration">Calibration</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_WLAN_Network">WLAN Network</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_WPA2">Protected by WPA2</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Protected_by_WEP">Protected by WEP</sys:String>
@@ -186,7 +187,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Connect">Connect</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Find_and_join_the_Wi_Fi">Find and join the Wi-Fi</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Enter_SSID_and_security_type_">Enter SSID and security type.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Power_Save_Time">Timeout settings</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Power_Save_Time">Power Save Time:</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_1_30_Minute">(1-30 Minutes)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_SSID_2">SSID</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Enable">Enable</sys:String>

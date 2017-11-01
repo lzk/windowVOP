@@ -1220,3 +1220,136 @@ exit_StatusCheck:
 	return result;
 }
 
+//**************************************************************
+//Devid added for Calibration 2017/10/31
+
+int CGLDrv::_Scan_Shad_Calibration(CALIBRATION_SET_T *set)
+{
+	int nResult = FALSE;
+
+	U8 code = 0x8 << 4;
+	U8 cmd[8] = { 'S','H','A','D', 0,0,0,code + JobID };
+	U8 status[8];
+	M32(&cmd[4]) += (sizeof(CALIBRATION_SET_T) & 0x00ffffff);
+	if (g_connectMode_usb == TRUE)
+	{
+		nResult = m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
+			m_GLusb->CMDIO_BulkWriteEx(0, set, sizeof(CALIBRATION_SET_T)) &&
+			m_GLusb->CMDIO_BulkReadEx(0, status, sizeof(status)) &&
+			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
+	}
+	else
+	{
+		nResult = m_GLnet->CMDIO_Write(cmd, sizeof(cmd)) &&
+			m_GLnet->CMDIO_Write(set, sizeof(CALIBRATION_SET_T)) &&
+			m_GLnet->CMDIO_Read(status, sizeof(status)) &&
+			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
+	}
+
+	return nResult;
+}
+
+int CGLDrv::_Scan_Shad_Shading(int side, int channel, void *buf, int length)
+{
+	int nResult = FALSE;
+	U8 code = ((side << 2) + channel) << 4;
+	U8 cmd[8] = { 'S','H','A','D', 0,0,0,code + JobID };
+	U8 status[8];
+	M32(&cmd[4]) += (length & 0x00ffffff);
+
+	if (g_connectMode_usb == TRUE)
+	{
+		nResult = m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
+			m_GLusb->CMDIO_BulkWriteEx(0, buf, length) &&
+			m_GLusb->CMDIO_BulkReadEx(0, status, sizeof(status)) &&
+			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
+	}
+	else
+	{
+		nResult = m_GLnet->CMDIO_Write(cmd, sizeof(cmd)) &&
+			m_GLnet->CMDIO_Write(buf, length) &&
+			m_GLnet->CMDIO_Read(status, sizeof(status)) &&
+			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
+	}
+
+	return nResult;
+}
+
+int CGLDrv::_Scan_Cap_Calibration(CALIBRATION_CAP_T *cap)
+{
+	int nResult = FALSE;
+
+	U8 cmd[8] = { 'C','A','P',0, 0,0,0x08,JobID };
+	M16(&cmd[4]) = sizeof(CALIBRATION_CAP_T);
+
+	if (g_connectMode_usb == TRUE)
+	{
+		nResult = m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
+			m_GLusb->CMDIO_BulkWriteEx(0, cap, sizeof(CALIBRATION_CAP_T)) &&
+			(cap->id == I4('CDAT'));
+	}
+	else
+	{
+		nResult = m_GLnet->CMDIO_Write(cmd, sizeof(cmd)) &&
+			m_GLnet->CMDIO_Write(cap, sizeof(CALIBRATION_CAP_T)) &&
+			(cap->id == I4('CDAT'));
+	}
+
+	return nResult;
+}
+
+int CGLDrv::_Scan_Shad_Flash(void *buf, int length)
+{
+	int nResult = FALSE;
+
+	U8 code = 0xf << 4;
+	U8 cmd[8] = { 'S','H','A','D', 0,0,0,code + JobID };
+	U8 status[8];
+	M32(&cmd[4]) += (length & 0x00ffffff);
+	cmd[7] = 0xf0 + (JobID & 0x0f);
+
+	if (g_connectMode_usb == TRUE)
+	{
+		nResult = m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
+			m_GLusb->CMDIO_BulkWriteEx(0, buf, length) &&
+			m_GLusb->CMDIO_BulkReadEx(0, status, sizeof(status)) &&
+			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
+	}
+	else
+	{
+		nResult = m_GLnet->CMDIO_Write(cmd, sizeof(cmd)) &&
+			m_GLnet->CMDIO_Write(buf, length) &&
+			m_GLnet->CMDIO_Read(status, sizeof(status)) &&
+			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
+	}
+
+	return nResult;
+}
+
+int CGLDrv::_Scan_ME_Flash(void *buf, int length)
+{
+	int nResult = FALSE;
+
+	U8 code = 0x9 << 4;
+	U8 cmd[8] = { 'S','H','A','D', 0,0,0,code + JobID };
+	U8 status[8];
+	M32(&cmd[4]) += (length & 0x00ffffff);
+
+	if (g_connectMode_usb == TRUE)
+	{
+		nResult = m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
+			m_GLusb->CMDIO_BulkWriteEx(0, buf, length) &&
+			m_GLusb->CMDIO_BulkReadEx(0, status, sizeof(status)) &&
+			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
+	}
+	else
+	{
+		nResult = m_GLnet->CMDIO_Write(cmd, sizeof(cmd)) &&
+			m_GLnet->CMDIO_Write(buf, length) &&
+			m_GLnet->CMDIO_Read(status, sizeof(status)) &&
+			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
+	}
+
+	return nResult;
+}
+

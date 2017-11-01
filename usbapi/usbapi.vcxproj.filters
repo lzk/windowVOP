@@ -87,6 +87,9 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ImgFile\EdgeDetect.h">
+      <Filter>Header Files\LTC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -138,6 +141,9 @@
       <Filter>Source Files\LTC</Filter>
     </ClCompile>
     <ClCompile Include="Common\Breath.cpp">
+      <Filter>Source Files\LTC</Filter>
+    </ClCompile>
+    <ClCompile Include="ImgFile\EdgeDetect.cpp">
       <Filter>Source Files\LTC</Filter>
     </ClCompile>
   </ItemGroup>

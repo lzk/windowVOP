@@ -38,7 +38,13 @@
 #define DOC_SIZE_FULL		0
 #define DOC_SIZE_A4			1
 #define DOC_SIZE_LT			2
-#define DOC_SIZE_LL			3
+#define DOC_SIZE_LG14		3
+#define DOC_SIZE_LL			4
+
+#define DOC_K_PREFEED		96
+#define DOC_K_PRNU			97
+#define DOC_S_PRNU			98
+#define DOC_FB_LIFE			99
 
 // image size dots
 #define IMG_300_DOT_X		2592
@@ -52,6 +58,21 @@
 
 #define IMG_LL_300_DOT_X	2592//2552
 #define IMG_LL_300_DOT_Y	32400//10800
+
+#define IMG_FB_LIFE_300_DOT_X		432
+#define IMG_FB_LIFE_300_DOT_Y		3512
+
+//For calibration scan PRNU
+#define IMG_K_PRNU_300_DOT_X		2592
+#define IMG_K_PRUN_300_DOT_Y		48
+
+//For normal scan PRNU 
+#define IMG_S_PRNU_300_DOT_X		IMG_K_PRNU_300_DOT_X
+#define IMG_S_PRUN_300_DOT_Y		IMG_K_PRUN_300_DOT_Y*5
+
+//For K prefeed 
+#define IMG_K_PREFEED_300_DOT_X		IMG_K_PRNU_300_DOT_X
+#define IMG_K_PREFEED_300_DOT_Y		4*300
 
 //image size org dots
 #define IMG_300_ORG_X		0

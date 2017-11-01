@@ -168,6 +168,7 @@
     <ClInclude Include="DM2OEM.H" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="hpgtblues.h" />
+    <ClInclude Include="ImgFile\EdgeDetect.h" />
     <ClInclude Include="ImgFile\ImgFile.h" />
     <ClInclude Include="LTCInterface\GLScan.h" />
     <ClInclude Include="LTCInterface\GLScanStruct.h" />
@@ -191,6 +192,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="ImgFile\EdgeDetect.cpp" />
     <ClCompile Include="ImgFile\ImgFile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
