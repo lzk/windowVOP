@@ -284,11 +284,11 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 	//float ADF_SideEdge = (8.5 - 8.4528) / 2;
 	float ADF_SideEdge = (8.5*resolution - ImgFile[0].img.width ) / 2;
-	float ADF_HighEdge = 0;
+	float ADF_HighEdge = (14*resolution - ImgFile[0].img.height) / 2;
 
 	//ImgFile[0].img.org.x = 0;//ADF_SideEdge * resolution;]
 	ImgFile[0].img.org.x = ADF_SideEdge;
-	ImgFile[0].img.org.y = ADF_HighEdge;
+	ImgFile[0].img.org.y = 0;
 	//<<===================1234
 
 
