@@ -33,6 +33,31 @@ namespace VOP
             SetScreenText(ScreenTextNumber);
 
             MainWindow_Rufous.g_settingData.CutNum = ScreenTextNumber-1;
+
+            //add by yunying shang 2017-11-01 for BMS 1204
+            int result = 0;
+            if (Int32.TryParse(ScreenBtn.Content.ToString(), out result))
+            {
+                if (result <= MainWindow_Rufous.g_settingData.m_MatchList.Count 
+                    && result >=1)
+                {
+                    if (result == MainWindow_Rufous.g_settingData.m_MatchList.Count)
+                    {
+                        RightBtn.IsEnabled = false;
+                    }
+                    else
+                    {
+                        if (result == 1)
+                        {
+                            LeftBtn.IsEnabled = false;
+                        }
+                        else
+                            LeftBtn.IsEnabled = true;
+
+                        RightBtn.IsEnabled = true;
+                    }
+                }
+            }//<<=======================
         }
 
         private void ScreenButton_Click(object sender, RoutedEventArgs e)
