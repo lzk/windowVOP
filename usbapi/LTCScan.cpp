@@ -1899,7 +1899,7 @@ int cal_prefeed(CALIBRATION_CAP_T *cap, CALIBRATION_SET_T *set)
 	set->me.prefeed = cap->me.prefeed;
 
 	user_param(ACQ_CALIBRATION | ACQ_NO_MIRROR | ACQ_NO_SHADING);
-	if (!Scan_Param())
+	if (Scan_Param() != 0)
 		return FALSE;
 
 	cal_img_buf_store(0, 0, 0);
@@ -2584,7 +2584,8 @@ USBAPI_API int __stdcall DoCalibration()
 
 		SCAN_DOC_SIZE = DOC_K_PRNU;
 
-		if (glDrv._JobCreate())
+		nResult = glDrv._JobCreate();
+		if (nResult == 0)
 		{
 			K_BatchNum++;
 			K_PageNum = 0;

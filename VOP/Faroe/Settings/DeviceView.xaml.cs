@@ -171,7 +171,14 @@ namespace VOP
 
         private void btnCalibration_Click(object sender, RoutedEventArgs e)
         {
-            dll.DoCalibration();
+            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+            CalibrationRecord m_rec = new CalibrationRecord();
+            if (worker.InvokeMethod<CalibrationRecord>("", ref m_rec, DllMethodType.DoCalibration, this))
+            {
+                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+                {
+                }
+            }
         }
 
         private void handler_text_changed(object sender, TextChangedEventArgs e)

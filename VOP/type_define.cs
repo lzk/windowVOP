@@ -129,6 +129,7 @@ namespace VOP
         ConfirmPassword         = 15,
         GetIpv6Info             = 16,
         SetIpv6Info             = 17,
+        DoCalibration           = 18,
     }
 
     /// <summary>
