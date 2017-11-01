@@ -152,6 +152,7 @@ namespace VOP
 
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
             //List<ScanFiles> files = new List<ScanFiles>();
+           
             if (files == null)
                 return;
 
