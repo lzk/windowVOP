@@ -64,7 +64,7 @@ namespace VOP
             btnBrightnessDecrease = spinCtlConstrast.Template.FindName("btnDecrease", spinCtlBrightness) as RepeatButton;
             btnBrightnessIncrease = spinCtlConstrast.Template.FindName("btnIncrease", spinCtlBrightness) as RepeatButton;
 
-            CheckContrastValue();
+            CheckContrastValue(); 
             CheckBrightnessValue();
             TextBox tb1 = spinCtlBrightness.Template.FindName("tbTextBox", spinCtlBrightness) as TextBox;
             tb1.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
@@ -376,7 +376,7 @@ namespace VOP
             this.DialogResult = true;
             this.Close();
         }
-        private void CheckContrastValue()
+        private void CheckContrastValue() // BMS #1195
         {
             if (m_scanParams.Contrast == spinCtlConstrast.Minimum)
             {
@@ -394,7 +394,7 @@ namespace VOP
                 btnConstrastDecrease.IsEnabled = true;
             }
         }
-        private void CheckBrightnessValue()
+        private void CheckBrightnessValue() // BMS #1195
         {
             if (m_scanParams.Brightness == spinCtlBrightness.Minimum)
             {

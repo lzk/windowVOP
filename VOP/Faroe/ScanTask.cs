@@ -64,8 +64,13 @@ namespace VOP
 
 //            string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
 
-            string strSuffix = string.Format("{0}{1}{2}{3}{4}{5}","img", DateTime.Now.Year.ToString(), DateTime.Now.Month.ToString(), DateTime.Now.Day.ToString(), DateTime.Now.Hour.ToString(), DateTime.Now.Minute.ToString());
-
+            //modifified by yunying shang 2017-10-27 for BMS 1236
+            string strSuffix = string.Format("{0}{1}{2}{3}{4}{5}{6}","img", 
+                DateTime.Now.Year.ToString(), 
+                DateTime.Now.Month.ToString(), DateTime.Now.Day.ToString(),
+                DateTime.Now.Hour.ToString(), DateTime.Now.Minute.ToString(),
+                DateTime.Now.Second.ToString());
+            //<<=============1236
             if (false == Directory.Exists(App.cacheFolder))
             {
                 Directory.CreateDirectory(App.cacheFolder);

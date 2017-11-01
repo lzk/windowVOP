@@ -26,7 +26,7 @@ namespace VOP
         public ScanParam m_scanParams = new ScanParam();
         public ScanToFileDialog()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
         private void ScanToFileDialog_Loaded(object sender, RoutedEventArgs e)
         {            

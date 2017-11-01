@@ -29,9 +29,19 @@ namespace VOP
         public ScanToFTPParam m_scanToFTPParams = new ScanToFTPParam();
         public ScanToEmailParam m_scanToEmailParams = new ScanToEmailParam();
         public ScanToCloudParam m_scanToCloudParams = new ScanToCloudParam();
-        public AddQuickScanSetting()
+
+        public AddQuickScanSetting(bool isAdd)
         {
             InitializeComponent();
+
+            if (!isAdd)
+            {
+                tbTitle.Text = "Edit Quick Scan Setting";
+            }
+            else
+            {
+                tbTitle.Text = "Add Quick Scan Setting";
+            }
         }
 
         private void AddQuickScanSetting_Loaded(object sender, RoutedEventArgs e)
@@ -41,6 +51,7 @@ namespace VOP
             cbType.SelectedIndex = value;
             tbName.Text = strItemName;
         }
+
         private void cbType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             value = cbType.SelectedIndex;
@@ -142,7 +153,7 @@ namespace VOP
             }
             else
             {
-                if(!IsEdit)
+                //if(!IsEdit)
                 {
                     bool isNameSame = false;
 
@@ -163,11 +174,11 @@ namespace VOP
                         value = cbType.SelectedIndex;
                     }
                 }
-                else
-                {
-                    strItemName = tbName.Text;
-                    value = cbType.SelectedIndex;
-                }               
+                //else
+                //{
+                //    strItemName = tbName.Text;
+                //    value = cbType.SelectedIndex;
+                //}               
             }          
 
             this.DialogResult = true;

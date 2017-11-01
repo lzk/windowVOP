@@ -30,11 +30,13 @@ namespace VOP
         public ScanParameterView()
         {
             InitializeComponent();
+
+            
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-//            InitMatchListBox();
+            //            InitMatchListBox();
 
             //if (MainWindow_Rufous.g_settingData.m_QRcode_decode_hardest == false)
             //{
@@ -63,6 +65,19 @@ namespace VOP
             //{
             //    cbDecodeLevel.SelectedIndex = 3;
             //}
+
+            if (MainWindow_Rufous.g_settingData.m_couldSaveType == "DropBox")
+            {
+                cbCloudType.SelectedIndex = 0;
+            }
+            else if (MainWindow_Rufous.g_settingData.m_couldSaveType == "EverNote")
+            {
+                cbCloudType.SelectedIndex = 1;
+            }
+            else
+            {
+                cbCloudType.SelectedIndex = 2;
+            }
         }
 
         //private void cbDecodeLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -172,6 +187,23 @@ namespace VOP
             }
         }
 
+        private void cbCloudType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbCloudType.SelectedIndex == 0)
+            {
+                MainWindow_Rufous.g_settingData.m_couldSaveType = "DropBox";
+            }
+            else if (cbCloudType.SelectedIndex == 1)
+            {
+                MainWindow_Rufous.g_settingData.m_couldSaveType = "EverNote";
+            }
+            else if (cbCloudType.SelectedIndex == 2)
+            {
+
+                MainWindow_Rufous.g_settingData.m_couldSaveType = "OneDrive";
+            }
+        }
+
         //public void QRDecodeMode_click(object sender, RoutedEventArgs e)
         //{
         //    RadioButton rdbtn = sender as RadioButton;
@@ -213,6 +245,6 @@ namespace VOP
         //    }
         //}
 
-     
+
     }
 }

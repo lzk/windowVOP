@@ -792,7 +792,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 			if (glDrv.sc_infodata.PaperJam)
 			{
-				if (glDrv.sc_infodata.AdfSensor) {
+				if (glDrv.sc_infodata.AdfSensor)
+				{
 					isPaperJam = FALSE;
 				}
 				else {
@@ -815,9 +816,9 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				_cancel(JobID);
 				cancel = TRUE;
 			}*/
+			bool bFinished = false;
 			for (dup = 0; dup < 2; dup++) 
-			{			
-				
+			{					
 				if ((duplex & (1 << dup)) && glDrv.sc_infodata.ValidPageSize[dup]) 
 				{
 					ImgSize = 0;
@@ -857,7 +858,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 					}
 
 					//add by yunying shang 2017-10-12 for BMS1082 and 842
-					if(currentImgSize > 0 && lineCount !=0)
+					if(currentImgSize > 0 && lineCount != 0 && !bFinished)
 						::SendNotifyMessage(HWND_BROADCAST, WM_VOPSCAN_UPLOAD/*uMsg*/, 0, 0);
 					////////////1082
 
@@ -899,6 +900,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 						ImgFile_Close(&ImgFile[dup], glDrv.sc_infodata.ImageHeight[dup]);
 						bFiling[dup]--;
 						lineCount = 0;
+						bFinished = true;
 					}
 				}
 				if (start_cancel && bFiling[dup])

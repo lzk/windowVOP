@@ -221,6 +221,7 @@ namespace VOP
                         this.Width = 105;
                         this.Height = 140;
 
+                        ms.Close();
                         ms.Dispose();
                     }
                 }//<<==================1193

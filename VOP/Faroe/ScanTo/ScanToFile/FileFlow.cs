@@ -112,11 +112,12 @@ namespace VOP
                                        (string)"You Specify the file path and file name is too long, please specify again " + m_errorMsg,
                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                     }
+                    //modified by yunying shang 2017-10-31 for BMS 1260
                     //marked by yunying shang 2017-10-20 for BMS 1185
                     else
                     {
                        // result = true;
-                        if (save.FileName == null || save.FileName.Length == 0)
+                        if (result == true && (save.FileName == null || save.FileName.Length == 0))
                         {
                             result = false;
                             VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
@@ -125,6 +126,7 @@ namespace VOP
                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                         }
                     }//<<=============1185
+                    //<<=======================1260
                 }
             }
             catch (Exception ex)
@@ -309,7 +311,8 @@ namespace VOP
             {
                 try
                 {
-                    string time = string.Format("{0}{1}{2}{3}{4}{5}", DateTime.Now.Year, 
+                    string time = string.Format("{0}{1}{2}{3}{4}{5}", 
+                        DateTime.Now.Year, 
                         DateTime.Now.Month,
                         DateTime.Now.Day, 
                         DateTime.Now.Hour,
@@ -510,7 +513,7 @@ namespace VOP
             thread.Join();
 
             if (fileSaveStatus == ScanFileSaveError.FileSave_Error)
-            {
+            {                
                 return ScanFileSaveError.FileSave_Error;
             }
 
