@@ -86,7 +86,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The Server Address format is incorrect, Please check you server name and enter again.",
+                 "The Server Address format is incorrect, Please check you server address and enter again.",
                  "Error");
                 tbServerName.Focus();
                 return;
@@ -99,7 +99,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The Server Address format is incorrect, Please check you server name and enter again.",
+                 "The Server Address format is incorrect, Please check you server address and enter again.",
                  "Error");
                 tbServerName.Focus();
                 return;

@@ -111,11 +111,23 @@ namespace VOP
                 }
                 else
                 {
-                  
-                    foreach (string filePath in FileList)
+
+                    //foreach (string filePath in FileList)
+                    //{
+                    //    string fileName = System.IO.Path.GetFileName(filePath);
+                    //    Outlook.Attachment oAttach = oMsg.Attachments.Add(filePath);
+                    //}
+                    //add by yunying shang 2017-11-01 for BMS 1232
+                    if (tiffName != "")
                     {
-                        string fileName = System.IO.Path.GetFileName(filePath);
-                        Outlook.Attachment oAttach = oMsg.Attachments.Add(filePath);
+                        string fileName = System.IO.Path.GetFileName(tiffName);
+                        Outlook.Attachment oAttach = oMsg.Attachments.Add(tiffName);
+                        ScanFiles file = new ScanFiles();
+                        file.m_pathOrig = tiffName;
+                        file.m_pathView = tiffName;
+                        file.m_pathThumb = tiffName;
+                        files.Add(file);
+                        App.scanFileList.Add(file);
                     }
                 }
                 
