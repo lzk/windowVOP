@@ -63,7 +63,7 @@ namespace VOP
             ScanSettingDialog settingWin = new ScanSettingDialog();
             settingWin.Owner = m_MainWin;
 
-            settingWin.m_scanParams = m_scanParams;
+            settingWin.m_scanParams = (ScanParam)m_scanParams.Clone();
 
             if (settingWin.ShowDialog() == true)
             {

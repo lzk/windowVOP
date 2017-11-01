@@ -21,7 +21,7 @@ namespace VOP
     public class ScanToFTPParam : ICloneable
     {
         private string m_serverAddress = "ftp://localhost";
-        private string m_userName = "vop";
+        private string m_userName = "";
         private string m_password = "";
         private string m_targetPath = "/files";
                        
