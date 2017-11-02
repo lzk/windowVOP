@@ -288,7 +288,14 @@ namespace VOP
                 EvernoteFlow.FlowType = CloudFlowType.View;
                 flow.Run();
             }
-
+            else if (MainWindow_Rufous.g_settingData.m_couldSaveType == "OneDrive")
+            {
+                OneDriveFlow flow = new OneDriveFlow();
+                flow.ParentWin = m_MainWin;
+                flow.FileList = files;
+                OneDriveFlow.FlowType = CloudFlowType.View;
+                flow.Run();
+            }
         }
 
         private void ImageItemCloseIconClick(object sender, RoutedEventArgs e)

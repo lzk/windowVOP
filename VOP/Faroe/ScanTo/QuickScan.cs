@@ -296,7 +296,31 @@ namespace VOP
                     return false;
                 }
             }
+            else if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.SaveType == "OneDrive")
+            {
+                OneDriveFlow flow = new OneDriveFlow();
+                flow.ParentWin = Application.Current.MainWindow;
+                OneDriveFlow.FlowType = CloudFlowType.Quick;
+                flow.FileList = fileLs;
 
+                if (flow.Run())
+                {
+                    ScanPreview_Rufous win = new ScanPreview_Rufous();
+                    win.Owner = Application.Current.MainWindow;
+                    win.ImagePaths = fileLs;
+                    win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ok");
+                    win.ShowDialog();
+                }
+                else
+                {
+                    if (flow.isCancel != true)
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                        Application.Current.MainWindow,
+                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
+                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                    return false;
+                }
+            }
             return true;
         }
     }

@@ -231,7 +231,7 @@
                                 />
                                 <TextBox 
                                 Name="tbServerName"
-                              Template="{StaticResource customTextBox}" 
+                                Template="{StaticResource customTextBox}" 
                                 VerticalAlignment="Center" 
                                 Width="200" 
                                 Height="30" 

@@ -69,15 +69,30 @@ namespace VOP
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
-            DropBoxFlow flow = new DropBoxFlow();
-            flow.ParentWin = m_MainWin;
-            DropBoxFlow.FlowType = CloudFlowType.SimpleView;
-            flow.Run();
-            SavePathTbx.Text = DropBoxFlow.SavePath;
-            m_scanToCloudParams.DefaultPath = DropBoxFlow.SavePath;
+            if (m_scanToCloudParams.SaveType == "DropBox")
+            {
+                DropBoxFlow flow = new DropBoxFlow();
+                flow.ParentWin = m_MainWin;
+                DropBoxFlow.FlowType = CloudFlowType.SimpleView;
+                flow.Run();
+                SavePathTbx.Text = DropBoxFlow.SavePath;
+                m_scanToCloudParams.DefaultPath = DropBoxFlow.SavePath;
 
-            //reset
-            DropBoxFlow.FlowType = CloudFlowType.View;
+                //reset
+                DropBoxFlow.FlowType = CloudFlowType.View;
+            }
+            else if (m_scanToCloudParams.SaveType == "OneDrive")
+            {
+                OneDriveFlow flow = new OneDriveFlow();
+                flow.ParentWin = m_MainWin;
+                OneDriveFlow.FlowType = CloudFlowType.SimpleView;
+                flow.Run();
+                SavePathTbx.Text = OneDriveFlow.SavePath;
+                m_scanToCloudParams.DefaultPath = OneDriveFlow.SavePath;
+
+                //reset
+                OneDriveFlow.FlowType = CloudFlowType.View;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -96,8 +111,15 @@ namespace VOP
 
         private void ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.Reset();
-            m_scanToCloudParams.DefaultPath = SavePathTbx.Text = "";
+            if (m_scanToCloudParams.SaveType == "OneDrive")
+            {
+               AuthenticationHelper.SignOut();               
+            }
+            else
+            {
+                Properties.Settings.Default.Reset();
+                m_scanToCloudParams.DefaultPath = SavePathTbx.Text = "";
+            }            
         }
 
         private void OkClick(object sender, RoutedEventArgs e)
