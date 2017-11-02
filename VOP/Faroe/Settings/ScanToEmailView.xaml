@@ -236,8 +236,9 @@
                                 />
                         <TextBox 
                                 Name="tbRecipient"
-                              Template="{StaticResource customTextBox}" 
+                                Template="{StaticResource customTextBox}" 
                                 VerticalAlignment="Center" 
+                                SnapsToDevicePixels ="True"
                                 Width="250" 
                                 Height="30" 
                                 Margin="45,0,0,0" 
@@ -262,6 +263,7 @@
                                 Name="tbSubject"
                               Template="{StaticResource customTextBox}" 
                                 VerticalAlignment="Center" 
+                                SnapsToDevicePixels ="True"
                                 Width="250" 
                                 Height="30" 
                                 Margin="55,0,0,0" 

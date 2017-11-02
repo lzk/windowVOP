@@ -74,6 +74,7 @@
                                 Margin="10,0,0,0" 
                                 Text=""
                                 VerticalContentAlignment="Center"
+                                SnapsToDevicePixels ="True"
                                 FontSize="14"
                                 MaxLength="32"
                                 />
@@ -90,13 +91,14 @@
                                 />
                             <TextBox 
                                 Name="tbAPPath"
-                                   Template="{StaticResource customTextBox}" 
+                                Template="{StaticResource customTextBox}" 
                                 VerticalAlignment="Center" 
                                 Width="200" 
                                 Height="30" 
                                 Margin="20,0,0,0" 
                                 Text=""
                                 VerticalContentAlignment="Center"
+                                SnapsToDevicePixels ="True"
                                 FontSize="14"
                                 MaxLength="255"
                                 />
