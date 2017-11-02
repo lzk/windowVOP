@@ -1389,9 +1389,7 @@
   <ItemGroup>
     <Resource Include="Images\others.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Faroe\ScanTo\ScanToOneDrive\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\Up_normal.png" />
     <Resource Include="Images\up_over.png" />
