@@ -33,9 +33,12 @@ namespace VOP
         private void OnLoadWifiView(object sender, RoutedEventArgs e)
         {
             btnConnectOthAp.Visibility = Visibility.Hidden;
+            btnConnectOthAp.IsEnabled = false;
             manualConnect.Visibility = Visibility.Hidden;
+            manualConnect.IsEnabled = false;
             rowManual.Height = new GridLength(0);
             autoConnect.Visibility = Visibility.Hidden;
+            autoConnect.IsEnabled = false;
             rowAuto.Height = GridLength.Auto;
             m_bConnectOthApMode = false;
 
@@ -56,9 +59,12 @@ namespace VOP
             {
                 chkWifi.IsChecked = true;
                 btnConnectOthAp.Visibility = Visibility.Visible;
+                btnConnectOthAp.IsEnabled = true;
                 manualConnect.Visibility = Visibility.Hidden;
+                manualConnect.IsEnabled = false;
                 rowManual.Height = new GridLength(0);
                 autoConnect.Visibility = Visibility.Visible;
+                autoConnect.IsEnabled = true;
                 rowAuto.Height = GridLength.Auto;
                 cbo_ssid_refresh();
             }
@@ -165,9 +171,12 @@ namespace VOP
             if (btn.Name == "btnConnectOthAp")
             {
                 btnConnectOthAp.Visibility = Visibility.Hidden;
+                btnConnectOthAp.IsEnabled = false;
                 manualConnect.Visibility = Visibility.Visible;
+                manualConnect.IsEnabled = true;
                 rowManual.Height = GridLength.Auto;
                 autoConnect.Visibility = Visibility.Hidden;
+                autoConnect.IsEnabled = false;
                 rowAuto.Height = new GridLength(0);
                 wepKey0.IsChecked = true;
                 m_bConnectOthApMode = true;
@@ -220,9 +229,12 @@ namespace VOP
             else if (btn.Name == "btnCancel")
             {
                 btnConnectOthAp.Visibility = Visibility.Visible;
+                btnConnectOthAp.IsEnabled = true;
                 manualConnect.Visibility = Visibility.Hidden;
+                manualConnect.IsEnabled = false;
                 rowManual.Height = new GridLength(0);
                 autoConnect.Visibility = Visibility.Visible;
+                autoConnect.IsEnabled = true;
                 rowAuto.Height = GridLength.Auto;
                 scrollview.ScrollToTop();
                 m_bConnectOthApMode = false;
@@ -520,13 +532,17 @@ namespace VOP
             if (true == chkDisplayPwd.IsChecked)
             {
                 pbPwd.Visibility = Visibility.Hidden;
+                pbPwd.IsEnabled = false;
                 tbPwd.Visibility = Visibility.Visible;
+                tbPwd.IsEnabled = true;
                 tbPwd.Text = pbPwd.Password;
             }
             else
             {
                 pbPwd.Visibility = Visibility.Visible;
+                pbPwd.IsEnabled = true;
                 tbPwd.Visibility = Visibility.Hidden;
+                tbPwd.IsEnabled = false;
                 pbPwd.Password = tbPwd.Text;
             }
         }
@@ -549,7 +565,10 @@ namespace VOP
                 pbPwd.MaxLength = 26;
                 pbPwd.IsEnabled = false;
                 if (null != wepGrid)
+                {
                     wepGrid.Visibility = Visibility.Hidden;
+                    wepGrid.IsEnabled = false;
+                }
             }
             else if (encryption == (byte)EnumEncryptType.WEP)
             {
@@ -560,7 +579,10 @@ namespace VOP
                 pbPwd.MaxLength = 26;
                 pbPwd.IsEnabled = true;
                 if (null != wepGrid)
+                {
                     wepGrid.Visibility = Visibility.Visible;
+                    wepGrid.IsEnabled = true;
+                }                   
             }
             else
             {
@@ -571,7 +593,10 @@ namespace VOP
                 pbPwd.MaxLength = 64;
                 pbPwd.IsEnabled = true;
                 if (null != wepGrid)
+                {
                     wepGrid.Visibility = Visibility.Hidden;
+                    wepGrid.IsEnabled = false;
+                }
             }
 
             if (encryption == (byte)EnumEncryptType.NoSecurity)
@@ -593,16 +618,22 @@ namespace VOP
                 if (m_bConnectOthApMode)
                 {
                     btnConnectOthAp.Visibility = Visibility.Hidden;
+                    btnConnectOthAp.IsEnabled = false;
                     autoConnect.Visibility = Visibility.Hidden;
+                    autoConnect.IsEnabled = false;
                     manualConnect.Visibility = Visibility.Visible;
+                    manualConnect.IsEnabled = true;
                     rowManual.Height = GridLength.Auto;
                     rowAuto.Height = new GridLength(0);
                 }
                 else
                 {
                     btnConnectOthAp.Visibility = Visibility.Visible;
+                    btnConnectOthAp.IsEnabled = true;
                     autoConnect.Visibility = Visibility.Visible;
+                    autoConnect.IsEnabled = true;
                     manualConnect.Visibility = Visibility.Hidden;
+                    manualConnect.IsEnabled = false;
                     rowManual.Height = new GridLength(0);
                     rowAuto.Height = GridLength.Auto;
                 }
@@ -614,8 +645,11 @@ namespace VOP
         private void OnchkWifiUnchecked(object sender, RoutedEventArgs e)
         {
             btnConnectOthAp.Visibility = Visibility.Hidden;
+            btnConnectOthAp.IsEnabled = false;
             autoConnect.Visibility = Visibility.Hidden;
+            autoConnect.IsEnabled = false;
             manualConnect.Visibility = Visibility.Hidden;
+            manualConnect.IsEnabled = false;
             rowManual.Height = new GridLength(0);
             rowAuto.Height = new GridLength(0);
             wifilist.Children.Clear();

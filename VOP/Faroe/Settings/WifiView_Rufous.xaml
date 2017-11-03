@@ -239,7 +239,7 @@
                                 </mycontrol:RefreshButton>
                                 <Image Name="imgLine" Source="../../Images/GreenLine.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Stretch="Fill"></Image>
                             </Grid>     
-                            <StackPanel Name="wifilist">
+                            <StackPanel Name="wifilist" >
                                 
                             </StackPanel>
 

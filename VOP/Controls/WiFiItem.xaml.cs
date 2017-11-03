@@ -298,9 +298,7 @@ namespace VOP.Controls
                 var oldValue = (bool)args.OldValue;
 
                 RoutedPropertyChangedEventArgs<bool> e =
-                    new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue, WifiSignalLevelPropertyEvent);
-
-                control.OnIsExpandedPropertyChanged(e);
+                    new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue, WifiSignalLevelPropertyEvent);                               
             }
         }
 

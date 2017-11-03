@@ -32,7 +32,19 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="1"  Orientation="Horizontal" VerticalAlignment="Top" Height="92" Grid.ColumnSpan="2" Margin="0,0,129.5,0">
+            <local:DeviceButton   
+            x:Name="DeviceButton"
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="3"
+            Width="70"
+            Height="70"            
+            Click="DeviceButton_Click" HorizontalAlignment="Left"
+            />
 
+            <TextBlock x:Name="tbStatus" Text="Disconnect" Height="30" Width="120" Margin="5,0,0,0" Foreground="White"/>
+        </StackPanel>
         <Button    
             Name="LeftBtn"
             Grid.Row="0"
@@ -66,20 +78,7 @@
             Height="80"
             Margin="-100,-50,0,0"
             Click="RightButton_Click"
-            />
-        <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,-200,0,0" Orientation="Horizontal">
-        <local:DeviceButton   
-            x:Name="DeviceButton"
-            Grid.Row="0"
-            Grid.Column="1"
-            Grid.ColumnSpan="3"
-            Width="70"
-            Height="70"            
-            Click="DeviceButton_Click" HorizontalAlignment="Left"
-            />
-
-            <TextBlock x:Name="tbStatus" Text="Disconnect" Height="30" Width="120" Margin="5,120,0,112" Foreground="White"/>
-        </StackPanel>
+            />    
 
         <Image 
             Grid.Row="1"
