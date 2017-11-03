@@ -261,6 +261,7 @@
                      Height="28" 
                      VerticalAlignment="Top" 
                      HorizontalAlignment="Left"
+                     SnapsToDevicePixels ="True"
                      Margin="10,10,0,0"
                             MaxLength="32"
                             PreviewTextInput="OnPreviewTextInput"
@@ -299,6 +300,7 @@
                      Height="28" 
                      VerticalAlignment="Top" 
                      HorizontalAlignment="Left"
+                     SnapsToDevicePixels ="True"
                      Margin="20,10,0,0"
                             MaxLength="255"
                      />

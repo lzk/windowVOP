@@ -81,6 +81,7 @@
                      Template="{StaticResource customTextBox}" 
                      Width="200"
                      Height="28" 
+                     SnapsToDevicePixels ="True"
                      VerticalAlignment="Top" 
                      HorizontalAlignment="Left"
                      Margin="40,0,0,0"
@@ -97,6 +98,7 @@
                             <TextBox 
                      Name="tbNoteContent"
                      Template="{StaticResource customTextBox}" 
+                     SnapsToDevicePixels ="True"
                      Width="200"
                      Height="28" 
                      VerticalAlignment="Top" 

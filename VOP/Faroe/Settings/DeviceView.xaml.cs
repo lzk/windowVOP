@@ -38,16 +38,16 @@ namespace VOP
 
             if (_bDisplayProgressBar)
             {
-                worker.InvokeMethod<PowerSaveTimeRecord>(strPrinterName, ref m_rec, DllMethodType.GetPowerSaveTime, this);
+                //worker.InvokeMethod<PowerSaveTimeRecord>(strPrinterName, ref m_rec, DllMethodType.GetPowerSaveTime, this);
             }
             else
             {
-                m_rec = worker.GetPowerSaveTime(strPrinterName);
+                //m_rec = worker.GetPowerSaveTime(strPrinterName);
             }
 
             if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
             {
-                m_psavetime = m_rec.Time;
+                //m_psavetime = m_rec.Time;
             }
 
             spinnerControl1.FormattedValue = String.Format("{0}", m_psavetime);
@@ -143,12 +143,13 @@ namespace VOP
             if (psavetime < 1 || 30 < psavetime)
                 psavetime = 1;
 
+
             string strPrinterName = "";
 
             PowerSaveTimeRecord m_rec = new PowerSaveTimeRecord(strPrinterName, psavetime);
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-            if (worker.InvokeMethod<PowerSaveTimeRecord>(strPrinterName, ref m_rec, DllMethodType.SetPowerSaveTime, this))
+          //  if (worker.InvokeMethod<PowerSaveTimeRecord>(strPrinterName, ref m_rec, DllMethodType.SetPowerSaveTime, this))
             {
                 if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                 {
@@ -173,7 +174,7 @@ namespace VOP
         {
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
             CalibrationRecord m_rec = new CalibrationRecord();
-            if (worker.InvokeMethod<CalibrationRecord>("", ref m_rec, DllMethodType.DoCalibration, this))
+            //if (worker.InvokeMethod<CalibrationRecord>("", ref m_rec, DllMethodType.DoCalibration, this))
             {
                 if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                 {

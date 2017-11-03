@@ -162,7 +162,7 @@ namespace VOP
                                 if (FileList.Count > 1)
                                 {
                                     filename = System.IO.Path.GetDirectoryName(save.FileName) +"\\" +
-                                    System.IO.Path.GetFileNameWithoutExtension(save.FileName) + Convert.ToString(i) + ".jpg";
+                                    System.IO.Path.GetFileNameWithoutExtension(save.FileName) + "_" + Convert.ToString(i) + ".jpg";
                                 }
                                 FileStream fs = File.Open(filename, FileMode.Create);
                                 encoder.Save(fs);
@@ -208,7 +208,7 @@ namespace VOP
                                         if (FileList.Count > 1)
                                         {
                                             filename = System.IO.Path.GetDirectoryName(save.FileName) + "\\" +
-                                            System.IO.Path.GetFileNameWithoutExtension(save.FileName) + Convert.ToString(i) + ".bmp";
+                                            System.IO.Path.GetFileNameWithoutExtension(save.FileName) + "_"+ Convert.ToString(i) + ".bmp";
                                         }
 
                                         bmp.Save(filename, System.Drawing.Imaging.ImageFormat.Bmp);
@@ -341,13 +341,13 @@ namespace VOP
                         if (fileExt != ".tif")
                         {
                             savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath + 
-                                 @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName + time +  ".tif";
+                                 @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName + "_" + time +  ".tif";
                         }
                         else
                         {
                             savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
                                 @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName)
-                                + time  + ".tif";
+                                + "_" + time  + ".tif";
                         }
 
                         if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath))
@@ -368,13 +368,13 @@ namespace VOP
                             if (fileExt != ".pdf")
                             {
                                 savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
-                                     @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName + time +".pdf";
+                                     @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName + "_" + time +".pdf";
                             }
                             else
                             {
                                 savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
                                     @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName)
-                                    + time + ".pdf";
+                                    + "_" + time + ".pdf";
                             }
 
                             if (false == Directory.Exists(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath))
@@ -423,13 +423,13 @@ namespace VOP
                             if (FileList.Count > 1)
                             {
                                 savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
-                                     @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName + time + Convert.ToString(i) + ".jpg";
+                                     @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName + "_" +  time + Convert.ToString(i) + ".jpg";
                             }
                             else
                             {
                                 savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
                                     @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName)
-                                    + time  + ".jpg";
+                                    + "_" + time  + ".jpg";
                             }
 
                             FileStream fs = File.Open(savePath, FileMode.Create);
@@ -457,13 +457,13 @@ namespace VOP
                             {
                                 savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
                                      @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName
-                                      + time + Convert.ToString(i) + ".bmp";
+                                      + "_" + time + "_" + Convert.ToString(i) + ".bmp";
                             }
                             else
                             {
                                 savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
                                     @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName) 
-                                     + time + ".bmp";
+                                     + "_" + time + ".bmp";
                             }
                             using (Bitmap source = new Bitmap(path))
                             {
