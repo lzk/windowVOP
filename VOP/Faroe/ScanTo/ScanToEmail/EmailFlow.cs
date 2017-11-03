@@ -43,7 +43,18 @@ namespace VOP
                 return false;
             }
 
-            if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_EmailScanSettings.AttachmentType == "PDF")
+            string AttachmentType = "PDF";
+
+            if (FlowType == EmailFlowType.Quick)
+            {
+                AttachmentType = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_EmailScanSettings.AttachmentType;
+            }
+            else
+            {
+                AttachmentType = MainWindow_Rufous.g_settingData.m_attachmentType;
+            }
+
+            if (AttachmentType  == "PDF")
             {
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
@@ -94,8 +105,9 @@ namespace VOP
                 Outlook.NameSpace ns = oApp.GetNamespace("MAPI");                
                 Outlook.MailItem oMsg = (Outlook.MailItem)oApp.CreateItem(Outlook.OlItemType.olMailItem);
 
- 
-                if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_EmailScanSettings.AttachmentType == "PDF")
+
+                //if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_EmailScanSettings.AttachmentType == "PDF")
+                if (AttachmentType == "PDF")
                 {
                     if(pdfName != "")
                     {

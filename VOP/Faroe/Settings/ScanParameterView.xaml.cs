@@ -77,6 +77,15 @@ namespace VOP
             {
                 cbCloudType.SelectedIndex = 2;
             }
+
+            if (MainWindow_Rufous.g_settingData.m_attachmentType== "PDF")
+            {
+                cbAttachType.SelectedIndex = 0;
+            }
+            else
+            {
+                cbAttachType.SelectedIndex = 1;
+            }
         }
 
         //private void cbDecodeLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -200,6 +209,18 @@ namespace VOP
             {
 
                 MainWindow_Rufous.g_settingData.m_couldSaveType = "OneDrive";
+            }
+        }
+
+        private void cbAttachType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbAttachType.SelectedIndex == 0)
+            {
+                MainWindow_Rufous.g_settingData.m_attachmentType = "PDF";
+            }
+            else if (cbAttachType.SelectedIndex == 1)
+            {
+                MainWindow_Rufous.g_settingData.m_attachmentType = "TIFF";
             }
         }
 

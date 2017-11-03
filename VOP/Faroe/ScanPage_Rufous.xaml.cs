@@ -92,14 +92,14 @@ namespace VOP
 
         public bool UpdateImageFiles()
         {
+            this.image_wrappanel.Children.Clear();
+
             List<ScanFiles> list = new List<ScanFiles>();
 
             for(int i= 0; i<8 &&(m_selectedPage * 8 + i)<scanFileList.Count ; i++)
             {
                 list.Add(scanFileList[m_selectedPage * 8 + i]);
-            }
-
-            this.image_wrappanel.Children.Clear();
+            }            
 
             foreach (ScanFiles files in list)
             {
