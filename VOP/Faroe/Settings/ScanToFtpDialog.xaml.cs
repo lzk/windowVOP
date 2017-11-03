@@ -128,8 +128,8 @@ namespace VOP
 
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            // if (e.Key == Key.Space)
-            //    e.Handled = true;
+            if (e.Key == Key.Space)
+                e.Handled = true;
         }
         private MainWindow_Rufous _MainWin = null;
 

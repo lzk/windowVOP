@@ -231,14 +231,14 @@
                                 />
                                 <TextBox 
                                 Name="tbServerName"
-                              Template="{StaticResource customTextBox}" 
+                                Template="{StaticResource customTextBox}" 
                                 VerticalAlignment="Center" 
                                 Width="200" 
                                 Height="30" 
                                 Margin="10,0,0,0" 
                                 Text=""
                                 VerticalContentAlignment="Center"
-                                FontSize="14"
+                                FontSize="13"
                                 MaxLength="256"
                                 />
                             </StackPanel>
