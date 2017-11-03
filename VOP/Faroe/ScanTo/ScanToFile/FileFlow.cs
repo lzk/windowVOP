@@ -355,9 +355,16 @@ namespace VOP
                             Directory.CreateDirectory(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath);
                         }
 
-                        FileStream fs = File.Open(savePath, FileMode.Create);
-                        encoder.Save(fs);
-                        fs.Close();
+                        if (savePath.Length > 260)
+                        {
+                            fileSaveStatus = ScanFileSaveError.FileSave_Error;
+                        }
+                        else
+                        { 
+                            FileStream fs = File.Open(savePath, FileMode.Create);
+                            encoder.Save(fs);
+                            fs.Close();
+                        }
                     }
                     else if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.SaveType == "PDF")
                     {
@@ -368,7 +375,7 @@ namespace VOP
                             if (fileExt != ".pdf")
                             {
                                 savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
-                                     @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName + "_" + time +".pdf";
+                                     @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName + "_" + time + ".pdf";
                             }
                             else
                             {
@@ -382,19 +389,26 @@ namespace VOP
                                 Directory.CreateDirectory(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath);
                             }
 
-                            help.Open(savePath);
-
-                            foreach (string path in FileList)
+                            if (savePath.Length > 260)
                             {
-                                Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
-                                JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
-                                BitmapSource origSource = decoder.Frames[0];
-
-                                if (null != origSource)
-                                    help.AddImage(origSource, 0);
+                                fileSaveStatus = ScanFileSaveError.FileSave_Error;
                             }
+                            else
+                            { 
+                                help.Open(savePath);
 
-                            help.Close();
+                                foreach (string path in FileList)
+                                {
+                                    Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
+                                    JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
+                                    BitmapSource origSource = decoder.Frames[0];
+
+                                    if (null != origSource)
+                                        help.AddImage(origSource, 0);
+                                }
+
+                                help.Close();
+                            }
                         }
                     }
                     //add by yunying shang
@@ -409,7 +423,7 @@ namespace VOP
                         string savePath = "";
 
                         int i = 1;
-                        
+
                         foreach (string path in FileList)
                         {
                             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
@@ -423,18 +437,26 @@ namespace VOP
                             if (FileList.Count > 1)
                             {
                                 savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
-                                     @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName + "_" +  time + Convert.ToString(i) + ".jpg";
+                                     @"\" + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName + "_" + time + Convert.ToString(i) + ".jpg";
                             }
                             else
                             {
                                 savePath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath +
                                     @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName)
-                                    + "_" + time  + ".jpg";
+                                    + "_" + time + ".jpg";
                             }
 
-                            FileStream fs = File.Open(savePath, FileMode.Create);
-                            encoder.Save(fs);
-                            fs.Close();
+                            if (savePath.Length > 260)
+                            {
+                                fileSaveStatus = ScanFileSaveError.FileSave_Error;
+                                break;
+                            }
+                            else
+                            { 
+                                FileStream fs = File.Open(savePath, FileMode.Create);
+                                encoder.Save(fs);
+                                fs.Close();
+                            }
 
                             i++;
                         }                        
@@ -465,12 +487,20 @@ namespace VOP
                                     @"\" + System.IO.Path.GetFileNameWithoutExtension(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName) 
                                      + "_" + time + ".bmp";
                             }
-                            using (Bitmap source = new Bitmap(path))
+                            if (savePath.Length > 260)
                             {
-                                using (Bitmap bmp = new Bitmap(source.Width, source.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb))
+                                fileSaveStatus = ScanFileSaveError.FileSave_Error;
+                                break;
+                            }
+                            else
+                            { 
+                                using (Bitmap source = new Bitmap(path))
                                 {
-                                    Graphics.FromImage(bmp).DrawImage(source, new Rectangle(0, 0, bmp.Width, bmp.Height));
-                                    bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Bmp);
+                                    using (Bitmap bmp = new Bitmap(source.Width, source.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb))
+                                    {
+                                        Graphics.FromImage(bmp).DrawImage(source, new Rectangle(0, 0, bmp.Width, bmp.Height));
+                                        bmp.Save(savePath, System.Drawing.Imaging.ImageFormat.Bmp);
+                                    }
                                 }
                             }
                             i++;
