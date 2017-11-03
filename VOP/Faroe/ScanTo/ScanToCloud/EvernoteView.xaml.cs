@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using EvernoteSDK;
 
 namespace VOP
 {
@@ -23,18 +24,19 @@ namespace VOP
         private List<string> notelist = new List<string>();
         private string title = "";
         private string content = "";
+        public List<string> FileList { get; set; }
 
         public EverNoteViewer()
         {
             InitializeComponent();
         }
 
-        public List<String> NoteList
-        {
-            get { return notelist; }
+        //public List<String> NoteList
+        //{
+        //    get { return notelist; }
 
-            set { notelist = value; }
-        }
+        //    set { notelist = value; }
+        //}
 
         public string NoteTitle
         {
@@ -66,7 +68,23 @@ namespace VOP
         }
         private void InitNoteList()
         {
-             listNote.Items.Clear();
+            string textToFind = "*";
+
+            List<ENSessionFindNotesResult> myResultsList = ENSession.SharedSession.FindNotes(ENNoteSearch.NoteSearch(textToFind), null,
+                ENSession.SearchScope.All, ENSession.SortOrder.RecentlyUpdated, 500);
+
+            List<string> notelist = new List<string>();
+
+            if (myResultsList.Count > 0)
+            {
+
+                foreach (ENSessionFindNotesResult nb in myResultsList)
+                {
+                    notelist.Add(nb.Title);
+                }
+            }
+
+            listNote.Items.Clear();
 
              foreach (string item in notelist)
              {
@@ -89,14 +107,46 @@ namespace VOP
 
             title = tbNoteTitle.Text;
             content = tbNoteContent.Text;
-            DialogResult = true;
-            this.Close();
+
+            ENNote myResourceNote = new ENNote();          
+
+            foreach (string filePath in FileList)
+            {
+                string fileName = System.IO.Path.GetFileName(filePath);
+                byte[] myFile = StreamFile(filePath);
+                ENResource myResource = new ENResource(myFile, "image/jpg", fileName);//"application/pdf"                 
+                myResourceNote.Resources.Add(myResource);
+            }
+            myResourceNote.Title = title;//string.Format("Scan to EverNote: {0}", title);//, i); 
+            content = string.Format("{0}.Attach the scaling Files.", content);
+            myResourceNote.Content = ENNoteContent.NoteContentWithString(content);
+            ENNoteRef myResourceRef = ENSession.SharedSession.UploadNote(myResourceNote, null);
+
+            InitNoteList();
+            //DialogResult = true;
+            //this.Close();
         }
 
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }
-    
+
+        static byte[] StreamFile(string filename)
+        {
+            FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
+
+            // Create a byte array of file stream length
+            byte[] ImageData = new byte[Convert.ToInt32(fs.Length - 1) + 1];
+
+            //Read block of bytes from stream into the byte array
+            fs.Read(ImageData, 0, System.Convert.ToInt32(fs.Length));
+
+            //Close the File Stream
+            fs.Close();
+            //return the byte data
+            return ImageData;
+        }
+
     }
 }

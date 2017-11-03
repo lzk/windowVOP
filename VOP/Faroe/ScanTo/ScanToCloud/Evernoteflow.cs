@@ -47,44 +47,45 @@ namespace VOP
                 // Get a list of all notebooks in the user's account.
                 if (FlowType == CloudFlowType.View)
                 {
-                    string textToFind = "*";
+                    //string textToFind = "*";
 
-                    List<ENSessionFindNotesResult> myResultsList = ENSession.SharedSession.FindNotes(ENNoteSearch.NoteSearch(textToFind), null,
-                        ENSession.SearchScope.All, ENSession.SortOrder.RecentlyUpdated, 500);
+                    //List<ENSessionFindNotesResult> myResultsList = ENSession.SharedSession.FindNotes(ENNoteSearch.NoteSearch(textToFind), null,
+                    //    ENSession.SearchScope.All, ENSession.SortOrder.RecentlyUpdated, 500);
 
-                    List<string> notelist = new List<string>();
+                    //List<string> notelist = new List<string>();
 
-                    if (myResultsList.Count > 0)
-                    { 
+                    //if (myResultsList.Count > 0)
+                    //{ 
                         
-                        foreach (ENSessionFindNotesResult nb in myResultsList)
-                        {
-                            notelist.Add(nb.Title);
-                        }
-                    }
+                    //    foreach (ENSessionFindNotesResult nb in myResultsList)
+                    //    {
+                    //        notelist.Add(nb.Title);
+                    //    }
+                    //}
                     bool? result = null;
                     EverNoteViewer viewer = new EverNoteViewer();
-                    viewer.NoteList = notelist;
+                    //viewer.NoteList = notelist;
+                    viewer.FileList = FileList;
                     viewer.Owner = Application.Current.MainWindow;
                     result = viewer.ShowDialog();
 
                     if (result == true)
                     {
 
-                        string title = viewer.NoteTitle;
-                        string content = viewer.NoteContent;
-                        ENNote myResourceNote = new ENNote();
-                        foreach (string filePath in FileList)
-                        {
-                            string fileName = System.IO.Path.GetFileName(filePath);
-                            byte[] myFile = StreamFile(filePath);
-                            ENResource myResource = new ENResource(myFile, "image/jpg", fileName);//"application/pdf"                 
-                            myResourceNote.Resources.Add(myResource);
-                        }
-                        myResourceNote.Title = string.Format("Scan to EverNote: {0}", title);//, i);
-                        content = string.Format("{0}.Attach the scaling Files.", content);
-                        myResourceNote.Content = ENNoteContent.NoteContentWithString(content);
-                        ENNoteRef myResourceRef = ENSession.SharedSession.UploadNote(myResourceNote, null);
+                        //string title = viewer.NoteTitle;
+                        //string content = viewer.NoteContent;
+                        //ENNote myResourceNote = new ENNote();
+                        //foreach (string filePath in FileList)
+                        //{
+                        //    string fileName = System.IO.Path.GetFileName(filePath);
+                        //    byte[] myFile = StreamFile(filePath);
+                        //    ENResource myResource = new ENResource(myFile, "image/jpg", fileName);//"application/pdf"                 
+                        //    myResourceNote.Resources.Add(myResource);
+                        //}
+                        //myResourceNote.Title = string.Format("Scan to EverNote: {0}", title);//, i);
+                        //content = string.Format("{0}.Attach the scaling Files.", content);
+                        //myResourceNote.Content = ENNoteContent.NoteContentWithString(content);
+                        //ENNoteRef myResourceRef = ENSession.SharedSession.UploadNote(myResourceNote, null);
                     }
                 }
                 else
@@ -101,7 +102,7 @@ namespace VOP
                         ENResource myResource = new ENResource(myFile, "image/jpg", fileName);//"application/pdf"                 
                         myResourceNote.Resources.Add(myResource);
                     }
-                    myResourceNote.Title = string.Format("Scan to EverNote: {0}", title);//, i);
+                    myResourceNote.Title = title;// string.Format("Scan to EverNote: {0}", title);//, i);
                     content = string.Format("{0}.Attach the scaling Files.", content);
                     myResourceNote.Content = ENNoteContent.NoteContentWithString(content);
                     ENNoteRef myResourceRef = ENSession.SharedSession.UploadNote(myResourceNote, null);
