@@ -397,133 +397,149 @@ namespace VOP
 
                         if (MainWindow_Rufous.g_settingData.m_decodeType == 0 || MainWindow_Rufous.g_settingData.m_decodeType == 2)//QRCode or All
                         {
-                            Result[] results1 = qrReader.decodeMultiple(bbitmap1, hints);
-                            if (results1 != null)
-                            {
-                                int nCount = results1.Count();
-                                for (int i = 0; i < nCount; i++)
+                            try {
+                                Result[] results1 = qrReader.decodeMultiple(bbitmap1, hints);
+                                if (results1 != null)
                                 {
-                                    DetectResult detectResult = new DetectResult(fileName, results1[i]);
-                                    string subFileName = strSubFileName + "result1" + i.ToString() + ".jpg";
-                                    System.Drawing.Point qrcodePoint = CreateResultImage(srcBitmap, subFileName, results1[i]);
-                                    detectResult.srcWidth = srcBitmap.Width;
-                                    detectResult.srcHeight = srcBitmap.Height;
-                                    detectResult.resultWidth = qrcodePoint.X;
-                                    detectResult.resultHeight = qrcodePoint.Y;
-                                    detectResult.resultFileName = subFileName;
-                                    resultArray.Add(detectResult);
-                                    resultArray_inOneImage.Add(detectResult);
-                                }
-                            }
-
-                            Result[] results2 = qrReader.decodeMultiple(bbitmap2, hints);
-                            if (results2 != null)
-                            {
-                                int nCount = results2.Count();
-                                for (int i = 0; i < nCount; i++)
-                                {
-                                    if (ContentsExists(resultArray_inOneImage, results2[i]) == false)
+                                    int nCount = results1.Count();
+                                    for (int i = 0; i < nCount; i++)
                                     {
-                                        DetectResult detectResult = new DetectResult(fileName, results2[i]);
-                                        string subFileName = strSubFileName + "result2" + i.ToString() + ".jpg";
-                                        System.Drawing.Point qrcodePoint = CreateResultImage(srcBitmap, subFileName, results2[i]);
+                                        DetectResult detectResult = new DetectResult(fileName, results1[i]);
+                                        string subFileName = strSubFileName + "result1" + i.ToString() + ".jpg";
+                                        System.Drawing.Point qrcodePoint = CreateResultImage(srcBitmap, subFileName, results1[i]);
                                         detectResult.srcWidth = srcBitmap.Width;
                                         detectResult.srcHeight = srcBitmap.Height;
                                         detectResult.resultWidth = qrcodePoint.X;
                                         detectResult.resultHeight = qrcodePoint.Y;
-
                                         detectResult.resultFileName = subFileName;
                                         resultArray.Add(detectResult);
                                         resultArray_inOneImage.Add(detectResult);
                                     }
                                 }
+
+                                Result[] results2 = qrReader.decodeMultiple(bbitmap2, hints);
+                                if (results2 != null)
+                                {
+                                    int nCount = results2.Count();
+                                    for (int i = 0; i < nCount; i++)
+                                    {
+                                        if (ContentsExists(resultArray_inOneImage, results2[i]) == false)
+                                        {
+                                            DetectResult detectResult = new DetectResult(fileName, results2[i]);
+                                            string subFileName = strSubFileName + "result2" + i.ToString() + ".jpg";
+                                            System.Drawing.Point qrcodePoint = CreateResultImage(srcBitmap, subFileName, results2[i]);
+                                            detectResult.srcWidth = srcBitmap.Width;
+                                            detectResult.srcHeight = srcBitmap.Height;
+                                            detectResult.resultWidth = qrcodePoint.X;
+                                            detectResult.resultHeight = qrcodePoint.Y;
+
+                                            detectResult.resultFileName = subFileName;
+                                            resultArray.Add(detectResult);
+                                            resultArray_inOneImage.Add(detectResult);
+                                        }
+                                    }
+                                }
+                            }
+                            catch(Exception)
+                            {
+
                             }
                         }
 
                         if (MainWindow_Rufous.g_settingData.m_decodeType == 1 || MainWindow_Rufous.g_settingData.m_decodeType == 2)//Bar Code or All
                         {
-                            GenericMultipleBarcodeReader oneD_reader = new GenericMultipleBarcodeReader(new MultiFormatOneDReader(hints));
-                            Result[] barCodeResults1 = oneD_reader.decodeMultiple(bbitmap1, hints);
-                            if (barCodeResults1 != null)
+                            try
                             {
-                                int nCount = barCodeResults1.Count();
-                                for (int i = 0; i < nCount; i++)
+                                GenericMultipleBarcodeReader oneD_reader = new GenericMultipleBarcodeReader(new MultiFormatOneDReader(hints));
+                                Result[] barCodeResults1 = oneD_reader.decodeMultiple(bbitmap1, hints);
+                                if (barCodeResults1 != null)
                                 {
-                                    if (barCodeResults1[i].ToString().Length < 6)
-                                        continue;
-
-                                    DetectResult detectResult = new DetectResult(fileName, barCodeResults1[i]);
-                                    string subFileName = strSubFileName + "barcodeResult1" + i.ToString() + ".jpg";
-                                    System.Drawing.Point qrcodePoint = CreateResultImage(srcBitmap, subFileName, barCodeResults1[i]);
-                                    detectResult.srcWidth = srcBitmap.Width;
-                                    detectResult.srcHeight = srcBitmap.Height;
-                                    detectResult.resultWidth = qrcodePoint.X;
-                                    detectResult.resultHeight = qrcodePoint.Y;
-
-                                    detectResult.resultFileName = subFileName;
-                                    resultArray.Add(detectResult);
-                                    resultArray_inOneImage_barcode.Add(detectResult);
-                                }
-                            }
-
-                            Result[] barCodeResults2 = oneD_reader.decodeMultiple(bbitmap2, hints);
-                            if (barCodeResults2 != null)
-                            {
-                                int nCount = barCodeResults2.Count();
-                                for (int i = 0; i < nCount; i++)
-                                {
-                                    if (barCodeResults2[i].ToString().Length < 6)
-                                        continue;
-
-                                    if (ContentsExists(resultArray_inOneImage_barcode, barCodeResults2[i]) == false)
+                                    int nCount = barCodeResults1.Count();
+                                    for (int i = 0; i < nCount; i++)
                                     {
-                                        DetectResult detectResult = new DetectResult(fileName, barCodeResults2[i]);
-                                        string subFileName = strSubFileName + "barcodeResult2" + i.ToString() + ".jpg";
-                                        System.Drawing.Point qrcodePoint = CreateResultImage(srcBitmap, subFileName, barCodeResults2[i]);
+                                        if (barCodeResults1[i].ToString().Length < 6)
+                                            continue;
+
+                                        DetectResult detectResult = new DetectResult(fileName, barCodeResults1[i]);
+                                        string subFileName = strSubFileName + "barcodeResult1" + i.ToString() + ".jpg";
+                                        System.Drawing.Point qrcodePoint = CreateResultImage(srcBitmap, subFileName, barCodeResults1[i]);
                                         detectResult.srcWidth = srcBitmap.Width;
                                         detectResult.srcHeight = srcBitmap.Height;
                                         detectResult.resultWidth = qrcodePoint.X;
                                         detectResult.resultHeight = qrcodePoint.Y;
+
                                         detectResult.resultFileName = subFileName;
                                         resultArray.Add(detectResult);
                                         resultArray_inOneImage_barcode.Add(detectResult);
                                     }
                                 }
-                            }
-                            
-                            BarCodeReader barCodeReader;
-                            barCodeReader = new BarCodeReader(imageStreamSource, BarCodeReadType.AllSupportedTypes & (~BarCodeReadType.QR));
-                            int index = 0;
-                            while (barCodeReader.Read())
-                            {
-                                string resultText = barCodeReader.GetCodeText();
-                                if (resultText.Length < 6)
-                                    continue;
 
-                                if (BarcodeContentsExists(resultArray_inOneImage_barcode, resultText) == false)
+                                Result[] barCodeResults2 = oneD_reader.decodeMultiple(bbitmap2, hints);
+                                if (barCodeResults2 != null)
                                 {
-                                    BarCodeRegion region = barCodeReader.GetRegion();
-                                    DetectResult detectResult = new DetectResult(fileName, null);
-                                    detectResult.barcodeResult = resultText;
-                                    detectResult.barcodeEncodeType = barCodeReader.GetReadType().ToString();
-                                    detectResult.barcodeResultType = "TEXT";
-                                    string subFileName = strSubFileName + "barcodeResult1" + index.ToString() + ".jpg";
-                                    System.Drawing.Point barcodePoint = CreateBarcodeResultImage(srcBitmap, subFileName, region);
-                                    detectResult.resultWidth = barcodePoint.X;
-                                    detectResult.resultHeight = barcodePoint.Y;
-                                    detectResult.srcWidth = srcBitmap.Width;
-                                    detectResult.srcHeight = srcBitmap.Height;
-                                    detectResult.resultFileName = subFileName;
-                                    index++;
-                                    resultArray.Add(detectResult);
-                                    resultArray_inOneImage_barcode.Add(detectResult);
+                                    int nCount = barCodeResults2.Count();
+                                    for (int i = 0; i < nCount; i++)
+                                    {
+                                        if (barCodeResults2[i].ToString().Length < 6)
+                                            continue;
+
+                                        if (ContentsExists(resultArray_inOneImage_barcode, barCodeResults2[i]) == false)
+                                        {
+                                            DetectResult detectResult = new DetectResult(fileName, barCodeResults2[i]);
+                                            string subFileName = strSubFileName + "barcodeResult2" + i.ToString() + ".jpg";
+                                            System.Drawing.Point qrcodePoint = CreateResultImage(srcBitmap, subFileName, barCodeResults2[i]);
+                                            detectResult.srcWidth = srcBitmap.Width;
+                                            detectResult.srcHeight = srcBitmap.Height;
+                                            detectResult.resultWidth = qrcodePoint.X;
+                                            detectResult.resultHeight = qrcodePoint.Y;
+                                            detectResult.resultFileName = subFileName;
+                                            resultArray.Add(detectResult);
+                                            resultArray_inOneImage_barcode.Add(detectResult);
+                                        }
+                                    }
                                 }
 
+                                if (resultArray_inOneImage_barcode.Count <= 0)
+                                {
+                                    BarCodeReader barCodeReader;
+                                    barCodeReader = new BarCodeReader(imageStreamSource, BarCodeReadType.AllSupportedTypes & (~BarCodeReadType.QR));
+                                    int index = 0;
+                                    while (barCodeReader.Read())
+                                    {
+                                        string resultText = barCodeReader.GetCodeText();
+                                        if (resultText.Length < 6)
+                                            continue;
+
+                                        if (BarcodeContentsExists(resultArray_inOneImage_barcode, resultText) == false)
+                                        {
+                                            BarCodeRegion region = barCodeReader.GetRegion();
+                                            DetectResult detectResult = new DetectResult(fileName, null);
+                                            detectResult.barcodeResult = resultText;
+                                            detectResult.barcodeEncodeType = barCodeReader.GetReadType().ToString();
+                                            detectResult.barcodeResultType = "TEXT";
+                                            string subFileName = strSubFileName + "barcodeResult1" + index.ToString() + ".jpg";
+                                            System.Drawing.Point barcodePoint = CreateBarcodeResultImage(srcBitmap, subFileName, region);
+                                            detectResult.resultWidth = barcodePoint.X;
+                                            detectResult.resultHeight = barcodePoint.Y;
+                                            detectResult.srcWidth = srcBitmap.Width;
+                                            detectResult.srcHeight = srcBitmap.Height;
+                                            detectResult.resultFileName = subFileName;
+                                            index++;
+                                            resultArray.Add(detectResult);
+                                            resultArray_inOneImage_barcode.Add(detectResult);
+                                        }
+
+                                    }
+                                    barCodeReader.Close();
+                                }
                             }
-                            barCodeReader.Close();
+                            catch (Exception)
+                            {
+                            }
+
                         }
 
-                        if(resultArray_inOneImage.Count <=0 && resultArray_inOneImage_barcode.Count <= 0)
+                        if (resultArray_inOneImage.Count <=0 && resultArray_inOneImage_barcode.Count <= 0)
                         {
                             DetectResult detectResult = new DetectResult(fileName, null);
                             detectResult.srcWidth = srcBitmap.Width;
@@ -552,13 +568,7 @@ namespace VOP
         {
             string barcodeContent = null;
 
-            BarCodeReader barCodeReader;
-            barCodeReader = new BarCodeReader(subBitmap, BarCodeReadType.AllSupportedTypes & (~BarCodeReadType.QR));
-            if (barCodeReader.Read())
-            {
-                barcodeContent = barCodeReader.GetCodeText();
-            }
-            else
+            try
             {
                 LuminanceSource source = new BitmapLuminanceSource(subBitmap);
                 BinaryBitmap bbitmap1 = new BinaryBitmap(new GlobalHistogramBinarizer(source));
@@ -566,7 +576,16 @@ namespace VOP
                 IDictionary<DecodeHintType, object> hints = new Dictionary<DecodeHintType, object>();
                 hints.Add(DecodeHintType.TRY_HARDER, true);
                 GenericMultipleBarcodeReader oneD_reader = new GenericMultipleBarcodeReader(new MultiFormatOneDReader(hints));
-                Result[] barCodeResults = oneD_reader.decodeMultiple(bbitmap1, hints);
+                Result[] barCodeResults = null;
+                try
+                {
+                    barCodeResults = oneD_reader.decodeMultiple(bbitmap1, hints);
+                }
+                catch (Exception)
+                {
+
+                }
+
                 if (barCodeResults != null)
                 {
                     if (barCodeResults.Count() > 0)
@@ -575,15 +594,36 @@ namespace VOP
                 else
                 {
                     BinaryBitmap bbitmap2 = new BinaryBitmap(new HybridBinarizer(source));
-                    barCodeResults = oneD_reader.decodeMultiple(bbitmap1, hints);
-                    if (barCodeResults != null)
+                    try
                     {
-                        if (barCodeResults.Count() > 0)
-                            barcodeContent = barCodeResults[0].ToString();
+                        barCodeResults = oneD_reader.decodeMultiple(bbitmap1, hints);
+                        if (barCodeResults != null)
+                        {
+                            if (barCodeResults.Count() > 0)
+                                barcodeContent = barCodeResults[0].ToString();
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+
+                }
+
+                if (barcodeContent == null)
+                {
+                    BarCodeReader barCodeReader;
+                    barCodeReader = new BarCodeReader(subBitmap, BarCodeReadType.AllSupportedTypes & (~BarCodeReadType.QR));
+                    if (barCodeReader.Read())
+                    {
+                        barcodeContent = barCodeReader.GetCodeText();
                     }
                 }
             }
-            barCodeReader.Close();
+            catch(Exception)
+            {
+
+            }
             if (barcodeContent != null && barcodeContent.Length > 6)
                 return barcodeContent;
             else
@@ -616,8 +656,8 @@ namespace VOP
                     maxY = region.Points[j].Y;
                 }
             }
-            float xoffset = (maxX - minX) / 5;
-            float yoffset = (maxY - minY) / 5;
+            float xoffset = Math.Max(100, (maxX - minX) / 5);
+            float yoffset = Math.Max(100, (maxY - minY) / 5);
             minX = Math.Max(0, minX - xoffset);
             minY = Math.Max(0, minY - yoffset);
             maxX = Math.Min(srcBitmap.Width, maxX + xoffset);
@@ -660,7 +700,7 @@ namespace VOP
                 }
             }
 
-            float offset = (maxX-minX) / 5;
+            float offset = Math.Max(100, (maxX-minX) / 5);
             minX = Math.Max(0, minX - offset);
             minY = Math.Max(0, minY - offset);
             maxX = Math.Min(srcBitmap.Width, maxX + offset);

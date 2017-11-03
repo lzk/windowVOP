@@ -21,7 +21,7 @@ namespace VOP
     public class ScanToEmailParam : ICloneable
     {
         private string m_attachmentType = "PDF";
-        private string m_recipient = "Ally.qiu@liteon.com";
+        private string m_recipient = "";
         private string m_subject = "Scan Pictures";
 
         public string AttachmentType

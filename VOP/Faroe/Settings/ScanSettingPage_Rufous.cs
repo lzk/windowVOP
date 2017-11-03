@@ -45,7 +45,6 @@ namespace VOP
         SoftapView_Rufous softAPView = new SoftapView_Rufous();
         DeviceView deviceView = new DeviceView();       
 
-
         QuickScanSettings quickScanSettings = new QuickScanSettings();
 
         public ScanSettingPage_Rufous()

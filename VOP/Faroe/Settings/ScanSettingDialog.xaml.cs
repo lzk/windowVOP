@@ -71,6 +71,18 @@ namespace VOP
             tb1.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
         }
 
+        private void ControlBtnClick(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.Button btn = sender as System.Windows.Controls.Button;
+
+            if (null != btn)
+            {
+                if ("btnClose" == btn.Name)
+                {
+                    this.Close();
+                }
+            }
+        }
 
         private void OnPreviewKeyDown(object sender, KeyEventArgs e)
         {

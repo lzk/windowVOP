@@ -148,7 +148,7 @@
 
                 <!-- Title bar begin -->
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0" Grid.ColumnSpan="2">
-                    <TextBlock x:Name="title"  FontSize="15" Foreground="#FF48C6E0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                     <TextBlock Name="tbTitle" Text="Add Quick Scan Setting" FontSize="15" Foreground="#FF48C6E0" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
                 <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Grid.Column="2" RenderTransformOrigin="1.567,0.633" />

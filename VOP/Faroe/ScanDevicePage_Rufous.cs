@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging; // for BitmapImage
 using VOP.Controls;
 using Microsoft.Win32;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 
 namespace VOP
 {
@@ -255,9 +256,51 @@ namespace VOP
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            if (DeviceList.Items.Count <= 0)
+            {
+                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+            }
+            else
+            {
+                if (DeviceList.Items.Count == 1)
+                {
+                    if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
+                    {
+                        if (!IsOnLine())
+                        {
+                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                        }
+                        else//<<===============1019
+                        {
+                            NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+                            bool bFound = false;
+                            foreach (NetworkInterface adapter in fNetworkInterfaces)
+                            {
+                                if (adapter.Description.Contains("802") ||
+                                    adapter.Description.Contains("Wi-Fi") ||
+                                    adapter.Description.Contains("Wireless"))
+                                {
+                                    bFound = true;
+                                }
+                            }
 
+                            if (bFound == false)
+                            {
+                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (!dll.CheckConnection())
+                        {
+                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                        }
+                    }
+
+                }
+            }
             m_MainWin.GotoPage("ScanSelectionPage", null);        
-
         }
     }
 }

@@ -92,6 +92,15 @@ namespace VOP
                 InitMatchListBox();
                 this.MatchListBox.Focus();
                 this.MatchListBox.SelectedIndex = nIndex - 1;
+                if (this.MatchListBox.SelectedIndex == 0)
+                {
+                    btnMoveDown.IsEnabled = true;
+                    btnMoveUp.IsEnabled = false;
+                }
+                else
+                {
+                    btnMoveUp.IsEnabled = true;
+                }
             }
         }
 
@@ -108,14 +117,23 @@ namespace VOP
                 InitMatchListBox();
                 this.MatchListBox.Focus();
                 this.MatchListBox.SelectedIndex = nIndex + 1;
+                if (this.MatchListBox.SelectedIndex >= (this.MatchListBox.Items.Count-1))
+                {
+                    btnMoveDown.IsEnabled = false;
+                    btnMoveUp.IsEnabled = true;
+                }
+                else
+                {
+                    btnMoveDown.IsEnabled = true;
+                }
+
             }
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            AddQuickScanSetting addQuickScanSettingWin = new AddQuickScanSetting();
+            AddQuickScanSetting addQuickScanSettingWin = new AddQuickScanSetting(true);
             addQuickScanSettingWin.Owner = m_MainWin;
-            addQuickScanSettingWin.title.Text = "Add Quick Setting";
             addQuickScanSettingWin.IsEdit = false;
             if (addQuickScanSettingWin.ShowDialog() == true)
             {                
@@ -165,10 +183,9 @@ namespace VOP
                 return;
 
             int nIndex = this.MatchListBox.SelectedIndex;
-            AddQuickScanSetting addQuickScanSettingWin = new AddQuickScanSetting();
+            AddQuickScanSetting addQuickScanSettingWin = new AddQuickScanSetting(false);
             addQuickScanSettingWin.Owner = m_MainWin;
             addQuickScanSettingWin.IsEdit = true;
-            addQuickScanSettingWin.title.Text = "Edit Quick Setting";
             addQuickScanSettingWin.strItemName = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].ItemName;
             addQuickScanSettingWin.value = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].Value;
             switch (addQuickScanSettingWin.value)
@@ -251,11 +268,22 @@ namespace VOP
         {
             if (MatchListBox.SelectedItem == null)
                 return;
+
             if (MatchListBox.Items.Count >= 10)
                 btnAdd.IsEnabled = false;
             else
-                btnAdd.IsEnabled = true;      
-               
+                btnAdd.IsEnabled = true;
+
+            if (MatchListBox.SelectedIndex >= (MatchListBox.Items.Count - 1))            
+                btnMoveDown.IsEnabled = false;            
+            else
+                btnMoveDown.IsEnabled = true;
+
+            if (MatchListBox.SelectedIndex == 0)
+                btnMoveUp.IsEnabled = false;
+            else
+                btnMoveUp.IsEnabled = true;
+
             string strName = MainWindow_Rufous.g_settingData.m_MatchList[MatchListBox.SelectedIndex].ItemName;
 
             if (strName == (string)this.TryFindResource("ResStr_Faroe_Scan_Print")

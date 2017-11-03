@@ -59,7 +59,7 @@ namespace VOP
             ScanSettingDialog settingWin = new ScanSettingDialog();
             settingWin.Owner = m_MainWin;
 
-            settingWin.m_scanParams = m_scanParams;
+            settingWin.m_scanParams = (ScanParam)m_scanParams.Clone();
 
             if (settingWin.ShowDialog() == true)
             {
@@ -81,7 +81,10 @@ namespace VOP
             System.String ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
 
             Regex reg = new Regex(ex);
-            if (false == reg.IsMatch(tbRecipient.Text) || IsEmailNameAllNumber(tbRecipient.Text))
+            //if (false == reg.IsMatch(tbRecipient.Text) || IsEmailNameAllNumber(tbRecipient.Text))
+            if (false == Char.IsLetterOrDigit(tbRecipient.Text, 0)||               
+                false == IsValidEmail(tbRecipient.Text) ||
+                IsEmailNameAllNumber(tbRecipient.Text))
             {
                 MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, 
                     (string)this.TryFindResource("ResStr_Email_Format_Error"), 
@@ -115,37 +118,31 @@ namespace VOP
         }
         private bool IsValidEmail(string strEmail)
         {
-            if (!Char.IsLetterOrDigit(strEmail, 0))
+            char c;
+            int i;
+            for (i = 0; i < strEmail.Length; i++)
             {
-                char c;
-                int i;
-                for (i = 0; i < strEmail.Length; i++)
+                c = strEmail[i];
+                if (c != '_' &&
+                    c != '.' &&
+                    c != '@' &&
+                    !Char.IsLetterOrDigit(c))
                 {
-                    c = strEmail[i];
-                    if (c != '_' && c != '.' && c != '@')
-                    {
-                        break;
-                    }
+                    return false;
                 }
-
-                if (i >= strEmail.Length)
-                {
-                    return true;
-                }
-
-                return false;
             }
-            
+
             return true;
         }
+
         private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             PasswordBox pb = sender as PasswordBox;
             string strText = e.Text;
    
-            if (strText.Length > 0 && !IsValidEmail(strText))
+            if (strText.Length > 0 && false == IsValidEmail(strText))
             {
-                e.Handled = true;
+               e.Handled = true;               
             }
         }
 

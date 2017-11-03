@@ -76,7 +76,7 @@ namespace VOP
             ScanSettingDialog settingWin = new ScanSettingDialog();
             settingWin.Owner = m_MainWin;
 
-            settingWin.m_scanParams = m_scanParams;
+            settingWin.m_scanParams = (ScanParam)m_scanParams.Clone();
 
             if (settingWin.ShowDialog() == true)
             {
@@ -192,22 +192,30 @@ namespace VOP
                     return;
                 }
                 else
-                {
-                    m_scanToFileParams.FilePath = path;// tbFilePath.Text;
-                }
-
-                if (!IsValidFileName(tbFileName.Text))
-                {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                      Application.Current.MainWindow,
-                     "Invalid File Name",
-                     "Error");
-                    tbFileName.Focus();
-                    return;
-                }
-                else
-                {
-                    m_scanToFileParams.FileName = tbFileName.Text;
+                {                                    
+                    if (!IsValidFileName(tbFileName.Text))
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                          Application.Current.MainWindow,
+                         "Invalid File Name",
+                         "Error");
+                        tbFileName.Focus();
+                        return;
+                    }
+                    else
+                    {
+                        if((path.Length + tbFileName.Text.Length)>260)
+                        {
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                              Application.Current.MainWindow,
+                             "Your Specify File Path and File Name length are too long, please specify again!",
+                             "Error");
+                            tbFileName.Focus();
+                            return;
+                        }
+                        m_scanToFileParams.FileName = tbFileName.Text;
+                        m_scanToFileParams.FilePath = path;// tbFilePath.Text;
+                    }
                 }
             }//<<=================1181
             this.DialogResult = true;
@@ -235,12 +243,22 @@ namespace VOP
             {
                 save.Filter = "BMP|*.bmp";
             }
-            save.FileName = dummyFileName + "\\" + tbFileName.Text;
+            //save.FileName = dummyFileName + "\\" + tbFileName.Text;
+            save.InitialDirectory = dummyFileName;
             bool? result = save.ShowDialog();
 
             if (result == true)
             {
-                tbFilePath.Text = System.IO.Path.GetDirectoryName(save.FileName);
+                if (save.FileName.Length > 0)
+                    tbFilePath.Text = System.IO.Path.GetDirectoryName(save.FileName);
+                else
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                      Application.Current.MainWindow,
+                     "Your Specify File Path is too long or not valid, please specify again!",
+                     "Error");
+                }
+
             }
         }
 

@@ -52,14 +52,15 @@
     <Reference Include="CustomMarshalers" />
     <Reference Include="en-html2enml, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Private\Supporting Files\en-html2enml.dll</HintPath>
+      <HintPath>..\VOP\bin\x86\Debug\en-html2enml.dll</HintPath>
     </Reference>
-    <Reference Include="Evernote, Version=1.0.5361.12355, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Evernote, Version=1.0.5377.16918, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Support Assemblies\Evernote.dll</HintPath>
+      <HintPath>..\Evernote.dll</HintPath>
     </Reference>
-    <Reference Include="EvernoteOAuthNet">
-      <HintPath>..\EvernoteOAuthNet.dll</HintPath>
+    <Reference Include="EvernoteOAuthNet, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\VOP\bin\x86\Debug\EvernoteOAuthNet.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PreMailer.Net, Version=1.2.7.0, Culture=neutral, processorArchitecture=MSIL">
@@ -175,7 +176,9 @@
     </None>
     <EmbeddedResource Include="Private\Supporting Files\enml2full.dtd" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

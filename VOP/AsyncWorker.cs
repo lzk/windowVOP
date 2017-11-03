@@ -527,6 +527,7 @@ namespace VOP
                 case DllMethodType.SetPassword:
                 case DllMethodType.SetFusingResetCmd:
                 case DllMethodType.SetIpv6Info:
+                case DllMethodType.DoCalibration:
                     //string strDrvName = "";
                     //if (false == common.GetPrinterDrvName(printerName, ref strDrvName))
                     //{
@@ -606,6 +607,9 @@ namespace VOP
                         break;
                     case DllMethodType.ConfirmPassword:
                         record = (T)(dynamic)ConfirmPassword((PasswordRecord)(dynamic)record);
+                        break;
+                    case DllMethodType.DoCalibration:
+                        record = (T)(dynamic)DoCalibration((dynamic)record);
                         break;
                     default: break;
                 }
@@ -967,6 +971,12 @@ namespace VOP
             return rec;
         }
 
+        public CalibrationRecord DoCalibration(CalibrationRecord rec)
+        {
+            rec.CmdResult = (EnumCmdResult)dll.DoCalibration();
+            return rec;
+        }
+
         public IpInfoRecord GetIpInfo(string printerName)
         {
             IpInfoRecord rec = new IpInfoRecord();
@@ -1238,6 +1248,13 @@ namespace VOP
             this.time = time;
             this.isPowerOff = isPowerOff;
             cmdResult = EnumCmdResult._CMD_invalid;
+        }
+    }
+
+    public class CalibrationRecord : BaseRecord
+    {
+        public CalibrationRecord()
+        {
         }
     }
 

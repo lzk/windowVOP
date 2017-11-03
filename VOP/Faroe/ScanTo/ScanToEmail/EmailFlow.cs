@@ -111,11 +111,23 @@ namespace VOP
                 }
                 else
                 {
-                  
-                    foreach (string filePath in FileList)
+
+                    //foreach (string filePath in FileList)
+                    //{
+                    //    string fileName = System.IO.Path.GetFileName(filePath);
+                    //    Outlook.Attachment oAttach = oMsg.Attachments.Add(filePath);
+                    //}
+                    //add by yunying shang 2017-11-01 for BMS 1232
+                    if (tiffName != "")
                     {
-                        string fileName = System.IO.Path.GetFileName(filePath);
-                        Outlook.Attachment oAttach = oMsg.Attachments.Add(filePath);
+                        string fileName = System.IO.Path.GetFileName(tiffName);
+                        Outlook.Attachment oAttach = oMsg.Attachments.Add(tiffName);
+                        ScanFiles file = new ScanFiles();
+                        file.m_pathOrig = tiffName;
+                        file.m_pathView = tiffName;
+                        file.m_pathThumb = tiffName;
+                        files.Add(file);
+                        App.scanFileList.Add(file);
                     }
                 }
                 
@@ -172,8 +184,14 @@ namespace VOP
             try
             {
 //                string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
-                string strSuffix = string.Format("{0}{1}{2}{3}{4}{5}", "img", DateTime.Now.Year.ToString(), DateTime.Now.Month.ToString(), 
-                    DateTime.Now.Day.ToString(), DateTime.Now.Hour.ToString(), DateTime.Now.Minute.ToString());
+                string strSuffix = string.Format("{0}{1}{2}{3}{4}{5}{6}", "img", 
+                    DateTime.Now.Year.ToString(), 
+                    DateTime.Now.Month.ToString(), 
+                    DateTime.Now.Day.ToString(), 
+                    DateTime.Now.Hour.ToString(), 
+                    DateTime.Now.Minute.ToString(),
+                    DateTime.Now.Second.ToString());
+
                 if (false == Directory.Exists(App.PictureFolder))
                 {
                     Directory.CreateDirectory(App.PictureFolder);
@@ -226,8 +244,13 @@ namespace VOP
             try
             {
                 //                string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
-                string strSuffix = string.Format("{0}{1}{2}{3}{4}{5}", "img", DateTime.Now.Year.ToString(), DateTime.Now.Month.ToString(),
-                    DateTime.Now.Day.ToString(), DateTime.Now.Hour.ToString(), DateTime.Now.Minute.ToString());
+                string strSuffix = string.Format("{0}{1}{2}{3}{4}{5}{6}", "img", 
+                    DateTime.Now.Year.ToString(),
+                    DateTime.Now.Month.ToString(),
+                    DateTime.Now.Day.ToString(), 
+                    DateTime.Now.Hour.ToString(), 
+                    DateTime.Now.Minute.ToString(),
+                    DateTime.Now.Second.ToString());
                 if (false == Directory.Exists(App.PictureFolder))
                 {
                     Directory.CreateDirectory(App.PictureFolder);
