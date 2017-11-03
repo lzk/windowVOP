@@ -50,7 +50,7 @@ namespace VOP
             }
             else if (cbAttachType.SelectedIndex == 1)
             {
-                m_scanToEmailParams.AttachmentType = "JPG";
+                m_scanToEmailParams.AttachmentType = "TIFF";
             }
         }
 
@@ -81,9 +81,11 @@ namespace VOP
             System.String ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
 
             Regex reg = new Regex(ex);
-            if (false == reg.IsMatch(tbRecipient.Text))
+            if (false == reg.IsMatch(tbRecipient.Text) || IsEmailNameAllNumber(tbRecipient.Text))
             {
-                MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.TryFindResource("ResStr_Email_Format_Error"), (string)this.FindResource("ResStr_Error"));
+                MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, 
+                    (string)this.TryFindResource("ResStr_Email_Format_Error"), 
+                    (string)this.FindResource("ResStr_Error"));
                 tbRecipient.Focus();
                 return;
             }
@@ -91,6 +93,60 @@ namespace VOP
             m_scanToEmailParams.Subject = tbSubject.Text;
             this.DialogResult = true;
             this.Close();
+        }
+
+        private bool IsEmailNameAllNumber(string strEmail)
+        {
+            int finded = strEmail.LastIndexOf('@');
+            string name = strEmail.Substring(0, finded);
+            int i = 0;
+            for (i = 0; i < name.Length; i++)
+            {
+                if (name[i] < 0x30 || name[i] > 0x39)
+                {
+                    break;
+                }
+            }
+
+            if (i >= name.Length)
+                return true;
+
+            return false;
+        }
+        private bool IsValidEmail(string strEmail)
+        {
+            if (!Char.IsLetterOrDigit(strEmail, 0))
+            {
+                char c;
+                int i;
+                for (i = 0; i < strEmail.Length; i++)
+                {
+                    c = strEmail[i];
+                    if (c != '_' && c != '.' && c != '@')
+                    {
+                        break;
+                    }
+                }
+
+                if (i >= strEmail.Length)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            
+            return true;
+        }
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            PasswordBox pb = sender as PasswordBox;
+            string strText = e.Text;
+   
+            if (strText.Length > 0 && !IsValidEmail(strText))
+            {
+                e.Handled = true;
+            }
         }
 
         private MainWindow_Rufous _MainWin = null;

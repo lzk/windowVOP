@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="500"
-             xmlns:local="clr-namespace:VOP.Controls" 
+             xmlns:local="clr-namespace:VOP.Controls" Loaded="UserControl_Loaded" 
              >
     <UserControl.Resources>
         <ResourceDictionary>
@@ -191,9 +191,9 @@
 
 
  
-            <CheckBox Name="chkAutoSleep" Click="CheckBox_Click" IsChecked="True" Grid.Row="1" Grid.Column="2" 
+            <CheckBox Name="chkAutoSleep" IsChecked="True" Grid.Row="1" Grid.Column="2" 
                       Template="{StaticResource switchBox}" Height="22" Width="42" Foreground="White"
-                      HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"></CheckBox>
+                      HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0"/>
             <Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"
                             HorizontalAlignment="Center" 
                             Width="85" 

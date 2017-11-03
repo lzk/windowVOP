@@ -65,6 +65,7 @@ namespace VOP
         //Cloud
         public ScanParam m_cloudScanSettings = new ScanParam();
         public string m_dropBoxDefaultPath = "";
+        public string m_couldSaveType = "DropBox";
 
         //Ftp
         public ScanParam m_ftpScanSettings = new ScanParam();
@@ -102,7 +103,15 @@ namespace VOP
 
         public string m_DeviceName = "";
         public bool m_isUsbConnect = false;
-       
+
+        //QRCode/Barcode
+        public int m_decodeType = 0;
+        public string m_decodeResultFile = "QRcodeBarcodeResult.html";
+        public int m_separateFileType = 0;
+        public string m_separateFilePath = App.PictureFolder;
+
+        //Device
+        public bool m_bAutoSleep = true;
 
         public SettingData()
         {

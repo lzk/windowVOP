@@ -39,13 +39,15 @@
 
         <Grid.ColumnDefinitions>
         <ColumnDefinition Width="20" />
+        <ColumnDefinition Width="60" />
         <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="90"/>
         <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
 
         <CheckBox   Name="SelectAllCheckBox"
                     Grid.Row="1" 
-                    Grid.Column="1"
+                    Grid.Column="2"
                     Content="Select All"
                     Foreground="White"
                     IsChecked="true" 
@@ -67,10 +69,10 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top" Click="Button_Click"/>
 
-        <ScrollViewer Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Name="scrollview" CanContentScroll="true"
-        SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" VerticalScrollBarVisibility="Auto"
+        <ScrollViewer Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="1" Name="scrollview" CanContentScroll="true"
+        SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" VerticalScrollBarVisibility="Disabled"
         HorizontalScrollBarVisibility="Disabled"
-        Style="{StaticResource LeftScrollViewer}" 
+        Style="{StaticResource LeftScrollViewer}" Margin="0" 
         >
             <ScrollViewer.Background>
                 <ImageBrush ImageSource="../Images/ScanView.png" />
@@ -80,8 +82,29 @@
             </WrapPanel>
 
         </ScrollViewer>
-
-        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center">
+        <StackPanel Grid.Row="2" Grid.Column="3" Width="80"  Height="200"  Orientation="Vertical" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center">
+        <Button    
+            Name="LeftBtn"
+            Grid.Row="0"
+            Grid.Column="1"
+            Style="{StaticResource UpButtonStyle}" 
+            Width="80"
+            Height="80"
+            Click="LeftButton_Click"
+            />
+            <Button  
+            Name="RightBtn"
+            Grid.Row="0"
+            Grid.Column="4"
+            Style="{StaticResource DownButtonStyle}" 
+            Width="80"
+            Height="80"
+            Click="RightButton_Click"
+            />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center">
 
             <local:ImageButton2 
                             ImagePath="../Images/ScanToPrint.png" 

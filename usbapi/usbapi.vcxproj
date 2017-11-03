@@ -90,7 +90,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;USBAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+<<<<<<< HEAD
       <AdditionalIncludeDirectories>I:\work\CODE\Faroe VOP\VOP\usbapi\Common</AdditionalIncludeDirectories>
+=======
+      <AdditionalIncludeDirectories>..\usbapi\Common</AdditionalIncludeDirectories>
+>>>>>>> 8b3f0c55d9945f42699ca3e7b40cfdb691291da4
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

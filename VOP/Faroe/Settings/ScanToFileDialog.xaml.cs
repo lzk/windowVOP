@@ -26,7 +26,7 @@ namespace VOP
         public ScanParam m_scanParams = new ScanParam();
         public ScanToFileDialog()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
         private void ScanToFileDialog_Loaded(object sender, RoutedEventArgs e)
         {            
@@ -34,11 +34,11 @@ namespace VOP
             {
                 cbFileType.SelectedIndex = 0;
             }
-            else if (MainWindow_Rufous.g_settingData.m_fileSaveType == "TIFF")
+            else if (m_scanToFileParams.SaveType == "TIFF")
             {
                 cbFileType.SelectedIndex = 1;
             }
-            else if (MainWindow_Rufous.g_settingData.m_fileSaveType == "JPG")
+            else if (m_scanToFileParams.SaveType == "JPG")
             {
                 cbFileType.SelectedIndex = 2;
             }
@@ -216,8 +216,8 @@ namespace VOP
 
         private void BrowseClick(object sender, RoutedEventArgs e)
         {
-            string dummyFileName = App.PictureFolder;
-
+            string dummyFileName = m_scanToFileParams.FilePath;
+            
             SaveFileDialog save = new SaveFileDialog();
             if (cbFileType.SelectedIndex == 0)
             {
@@ -235,7 +235,7 @@ namespace VOP
             {
                 save.Filter = "BMP|*.bmp";
             }
-            save.FileName = dummyFileName;
+            save.FileName = dummyFileName + "\\" + tbFileName.Text;
             bool? result = save.ShowDialog();
 
             if (result == true)

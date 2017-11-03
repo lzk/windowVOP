@@ -22,13 +22,17 @@ namespace VOP
 
         public ScanSelectionPage_Rufous()
         {
-            InitializeComponent();          
+            InitializeComponent();
+
+            LeftBtn.IsEnabled = false;
+            RightBtn.IsEnabled = true;        
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             SetScreenText(ScreenTextNumber);
-            MainWindow_Rufous.g_settingData.CutNum = ScreenTextNumber -1;
+
+            MainWindow_Rufous.g_settingData.CutNum = ScreenTextNumber-1;
         }
 
         private void ScreenButton_Click(object sender, RoutedEventArgs e)
@@ -65,6 +69,51 @@ namespace VOP
         private void QRCodeButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {           
             ImageButton btn = sender as ImageButton;
+
+#if (DEBUG)
+            if (true)
+            {
+                OpenFileDialog open1 = null;
+                bool? result1 = null;
+                open1 = new OpenFileDialog();
+                open1.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
+                open1.Multiselect = true;
+
+                result1 = open1.ShowDialog();
+                if (result1 == true)
+                {
+                    QRCodeDetection qrcodeDetection = new QRCodeDetection(new List<string>(open1.FileNames));
+                    if (btn.Name == "ImageButton1")
+                    {
+                        qrcodeDetection.ExcuteDecode(m_MainWin);
+                    }
+                    else
+                    {
+                        qrcodeDetection.ExcuteSeparation(m_MainWin);
+                    }
+
+                    /*
+                                        QRCodeWindow win = new QRCodeWindow(new List<string>(open1.FileNames));
+
+                                        if (btn.Name == "ImageButton1")
+                                        {
+                                            ImageCropper.designerItemWHRatio = 1.0;
+                                            win.IsQRCode = true;
+                                        }
+                                        else
+                                        {
+                                            ImageCropper.designerItemWHRatio = 2.0;
+                                            win.IsQRCode = false;
+                                        }
+
+                                        win.Owner = m_MainWin;
+                                        win.ShowDialog();
+                    */
+
+                }
+                return;
+            }
+#endif
 
             ScanTask task = new ScanTask();
             ScanParam param = new ScanParam(
@@ -110,6 +159,9 @@ namespace VOP
 
 #elif (!DEBUG)
 
+            if (btn.Name == "ImageButton2")
+                param = MainWindow_Rufous.g_settingData.m_commonScanSettings;
+
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", param);
 
             if (files == null)
@@ -123,6 +175,16 @@ namespace VOP
                     list.Add(file.m_pathOrig);
                 }
 
+                QRCodeDetection qrcodeDetection = new QRCodeDetection(list);
+                if (btn.Name == "ImageButton1")
+                {
+                    qrcodeDetection.ExcuteDecode(m_MainWin);
+                }
+                else
+                {
+                    qrcodeDetection.ExcuteSeparation(m_MainWin);
+                }
+/*
                 QRCodeWindow win = new QRCodeWindow(list);
 
              
@@ -137,7 +199,7 @@ namespace VOP
 
                 win.Owner = m_MainWin;
                 win.ShowDialog();
-               
+*/               
             }
 #endif
 
@@ -150,20 +212,20 @@ namespace VOP
 
             ScanTask task = new ScanTask();
 
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
-            //List<ScanFiles> files = new List<ScanFiles>();
+//            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
+            List<ScanFiles> files = new List<ScanFiles>();
            
             if (files == null)
                 return;
 
             if (task.ScanResult == Scan_RET.RETSCAN_OK)
             {
-                //                List<ScanFiles> files = new List<ScanFiles>();
+                //List<ScanFiles> files = new List<ScanFiles>();
                 //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1 error.JPG"));
                 //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
                 //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
-                //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\1.JPG"));
-                //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\2.JPG"));
+                files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\1.JPG"));
+                files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\2.JPG"));
                 ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00_180.JPG"));
                 ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00.JPG"));
                 ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
@@ -191,7 +253,7 @@ namespace VOP
             ScreenBtn.Content = number.ToString();
             TextBlock tb = ScreenBtn.Template.FindName("DetailText", ScreenBtn) as TextBlock;
             int index = MainWindow_Rufous.g_settingData.m_MatchList[number - 1].Value;
-            tb.Text = MainWindow_Rufous.g_settingData.m_MatchList[number - 1].ItemName;
+            tb.Text = number.ToString() + ". " + MainWindow_Rufous.g_settingData.m_MatchList[number - 1].ItemName;
         }
 
         private void LeftButton_Click(object sender, RoutedEventArgs e)
@@ -204,7 +266,9 @@ namespace VOP
                     result -= 1;
                     SetScreenText(result);
                     ScreenTextNumber = result;
-                    MainWindow_Rufous.g_settingData.CutNum = result -1;
+
+                    MainWindow_Rufous.g_settingData.CutNum = result-1;
+
                     if (result == 1)
                     {
                         LeftBtn.IsEnabled = false;
@@ -227,7 +291,8 @@ namespace VOP
                     result += 1;
                     SetScreenText(result);
                     ScreenTextNumber = result;
-                    MainWindow_Rufous.g_settingData.CutNum = result -1;
+                    MainWindow_Rufous.g_settingData.CutNum = result-1;
+
                     if (result == MainWindow_Rufous.g_settingData.m_MatchList.Count)
                     {
                         RightBtn.IsEnabled = false;

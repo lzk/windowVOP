@@ -64,14 +64,44 @@ namespace VOP
                 m_programType = tbAPName.Text;
                 DialogResult = true;
             }
+            //modified by yunying shang 2017-10-24 for BMS 1218
             else
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                 Application.Current.MainWindow,
-               (string)"The AP Name and Path could not be empty!",
-               (string)Application.Current.MainWindow.TryFindResource("ResStr_Wanring")
-                );
-            }
+                if (tbAPName.Text == string.Empty ||
+                    tbAPPath.Text == string.Empty)
+                {
+                    if (tbAPName.Text == string.Empty &&
+                        tbAPPath.Text == string.Empty)
+                    {
+                        tbAPName.Focus();
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                         Application.Current.MainWindow,
+                       (string)"The AP Name and Path could not be empty!",
+                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Wanring")
+                        );
+                    }
+                    else
+                    { 
+                        if (tbAPName.Text == string.Empty)
+                        {
+                            tbAPName.Focus();
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                         Application.Current.MainWindow,
+                        (string)"The AP Name could not be empty!",
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Wanring"));
+                        }
+                        else
+                        {
+                            tbAPPath.Focus();
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                         Application.Current.MainWindow,
+                        (string)"The AP Path could not be empty!",
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Wanring"));
+                        }
+                    }
+                    return;
+                }
+            }//<<=====================1218
             this.Close();
         }
 

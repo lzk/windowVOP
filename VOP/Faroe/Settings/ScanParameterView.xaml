@@ -167,6 +167,29 @@
                 Style="{StaticResource CustomGreenButtonStyle}" 
                 Click="Button_Click"
                 />
+            <TextBlock 
+            Grid.Row="2" Grid.Column="0"
+                FontSize="14"
+                FontWeight="Bold"
+                VerticalAlignment="Center"
+                Text="Cloud Type:"/>
+            <ComboBox 
+            Grid.Row="2" Grid.Column="2"
+                                Name="cbCloudType"
+                                VerticalAlignment="Center" 
+                                VerticalContentAlignment="Center"
+                                Width="120" 
+                                Height="35"                                 
+                                FontSize="14"
+                            Margin="-90,0,0,0"
+                            SelectionChanged="cbCloudType_SelectionChanged"
+                                >
+                <ComboBoxItem >DropBox</ComboBoxItem>
+                <ComboBoxItem >EverNote</ComboBoxItem>
+                <ComboBoxItem >OneDrive</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+
 
             <!--<TextBlock 
                 Grid.Row="2"
@@ -211,8 +234,7 @@
                 </ComboBox>
             </StackPanel>-->
           
-        </Grid>
-        
+
         <!--<Grid Grid.Row="2" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>

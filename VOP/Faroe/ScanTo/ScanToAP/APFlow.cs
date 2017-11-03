@@ -43,6 +43,10 @@ namespace VOP
                 return false;
             }
 
+            foreach (string f in FileList)
+            {
+
+            }
             string programType = "";
 
             if (FlowType == APFlowType.View)
@@ -58,10 +62,11 @@ namespace VOP
 
                     try
                     {
+                        int i = 0;
                         if (programType == "Paint")
                         {
                             string processFilename = @"C:\Windows\System32\mspaint.exe";
-
+                            i = 0;
                             foreach (string f in FileList)
                             {
                                 ProcessStartInfo info = new ProcessStartInfo();
@@ -73,6 +78,19 @@ namespace VOP
                                 info.UseShellExecute = false;
 
                                 Process p = Process.Start(info);
+
+                                if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true)
+                                {
+                                    if (i == 1)
+                                        break;
+                                }
+                                else
+                                {
+                                    if (i == 0)
+                                        break;
+                                }
+
+                                i++;
                             }
                         }
                         else if (programType == "OthersApplication")
@@ -85,14 +103,51 @@ namespace VOP
                             {
                                 programType = Others.m_programType;
                                 string path = Others.m_filePath;
-                                Process.Start(path);
+                                i = 0;
+                                foreach (string f in FileList)
+                                {
+                                    ProcessStartInfo info = new ProcessStartInfo();
+
+                                    info.FileName = path;
+                                    info.Arguments = String.Format("\"{0}\"", f);
+                                   // info.CreateNoWindow = false;
+                                    //info.WindowStyle = ProcessWindowStyle.Normal;
+                                    //info.UseShellExecute = false;
+
+                                    Process p = Process.Start(info);
+
+                                    if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true)
+                                    {
+                                        if (i == 1)
+                                            break;
+                                    }
+                                    else
+                                    {
+                                        if (i == 0)
+                                            break;
+                                    }
+                                    i++;
+                                }
                             }
                         }
                         else
                         {
+                            i = 0;
                             foreach (string f in FileList)
                             {
                                 Process.Start(f);
+
+                                if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true)
+                                {
+                                    if (i == 1)
+                                        break;
+                                }
+                                else
+                                {
+                                    if (i == 0)
+                                        break;
+                                }
+                                i++;
                             }                             
                         }
                     }
@@ -113,10 +168,12 @@ namespace VOP
 
                 try
                 {
+                    int i = 0;
                     if (programType == "Paint")
                     {
                         string processFilename = @"C:\Windows\System32\mspaint.exe";
 
+                        i = 0;
                         foreach (string f in FileList)
                         {
                             ProcessStartInfo info = new ProcessStartInfo();
@@ -128,6 +185,18 @@ namespace VOP
                             info.UseShellExecute = false;
 
                             Process p = Process.Start(info);
+
+                            if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings.ADFMode == true)
+                            {
+                                if (i == 1)
+                                    break;
+                            }
+                            else
+                            {
+                                if (i == 0)
+                                    break;
+                            }
+                            i++;
                         }
                       
                     }
@@ -142,14 +211,46 @@ namespace VOP
                         {
                             programType = Others.m_programType;
                             string path = Others.m_filePath;
-                            Process.Start(path);
+                            i = 0;
+                            foreach (string f in FileList)
+                            {
+                                ProcessStartInfo info = new ProcessStartInfo();
+
+                                info.FileName = path;
+                                info.Arguments = String.Format("\"{0}\"", f);
+
+                                Process p = Process.Start(info);
+                                if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings.ADFMode == true)
+                                {
+                                    if (i == 1)
+                                        break;
+                                }
+                                else
+                                {
+                                    if (i == 0)
+                                        break;
+                                }
+                                i++;
+                            }
                         }
                     }
                     else
                     {
+                        i = 0;
                         foreach (string f in FileList)
                         {
                             Process.Start(f);
+                            if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings.ADFMode == true)
+                            {
+                                if (i == 1)
+                                    break;
+                            }
+                            else
+                            {
+                                if (i == 0)
+                                    break;
+                            }
+                            i++;
                         }                      
                     }
                 }

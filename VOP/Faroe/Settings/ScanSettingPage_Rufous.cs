@@ -38,6 +38,8 @@ namespace VOP
         //ScanToFileView scanToFileView = new ScanToFileView();
         //ScanToAPView scanToAPView = new ScanToAPView();
 
+        QRCodeBarcodeView qrcodebarcodeView = new QRCodeBarcodeView();
+
         WifiView_Rufous wifiView = new WifiView_Rufous();
         TcpipView_Rufous tcpipView = new TcpipView_Rufous();
         SoftapView_Rufous softAPView = new SoftapView_Rufous();
@@ -75,7 +77,7 @@ namespace VOP
             m_listSettingButton.Add(btnQuickScanSettings);
 
 
-            btnQRCodeSettings.btn.Content = "QRCode Settings";
+            btnQRCodeSettings.btn.Content = "QRCode/Barcode";
             btnQRCodeSettings.Margin = new Thickness(0, 1, 0, 9);
             btnQRCodeSettings.Width = tabbtn_width;
             btnQRCodeSettings.Height = tabbtn_height;
@@ -251,8 +253,8 @@ namespace VOP
             if ("btnQRCodeSettings" == srcButton.Name)
             {
                 SetActiveButton(SettingType.QRCodeSettings);
-                scanParameterView.m_MainWin = this.m_MainWin;
-                this.settingView.Child = scanParameterView;
+                qrcodebarcodeView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = qrcodebarcodeView;
             }
             //else if ("btnScanToFile" == srcButton.Name)
             //{
@@ -311,7 +313,7 @@ namespace VOP
             else if ("btnDevice" == srcButton.Name)
             {
                 SetActiveButton(SettingType.Device);
-                softAPView.m_MainWin = this.m_MainWin;
+                deviceView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = deviceView;
             }
         }
