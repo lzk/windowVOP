@@ -153,10 +153,11 @@
                 Grid.Column="0"
                 FontSize="14"
                 FontWeight="Bold"
-                VerticalAlignment="Center"
+                VerticalAlignment="Center"              
                 Text="{StaticResource ResStr_Faroe_scan_setting}"/>
 
             <Button
+                Name="tbSettings"
                 Grid.Row="1"
                 Grid.Column="2"
                 Width="120"
@@ -166,6 +167,7 @@
                 FontSize="16"
                 Style="{StaticResource CustomGreenButtonStyle}" 
                 Click="Button_Click"
+                TabIndex="0"
                 />
             <TextBlock 
             Grid.Row="2" Grid.Column="0"
@@ -183,7 +185,7 @@
                                 FontSize="14"
                             Margin="-90,0,0,0"
                             SelectionChanged="cbCloudType_SelectionChanged"
-                                >
+                TabIndex="1">
                 <ComboBoxItem >DropBox</ComboBoxItem>
                 <ComboBoxItem >EverNote</ComboBoxItem>
                 <ComboBoxItem >OneDrive</ComboBoxItem>

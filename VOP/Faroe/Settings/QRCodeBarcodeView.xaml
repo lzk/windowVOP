@@ -383,13 +383,6 @@
                             <ComboBoxItem Content="TIFF" />
                         </ComboBox>
                     </StackPanel>
-                    <Button 
-            			Margin="230,64,68,10"
-            			FontSize="16"
-            			Click="BrowseClick"
-            			Style="{StaticResource CustomGreenButtonStyle}"
-            			Content="Browse..." Grid.Row="1" Grid.RowSpan="2" FontWeight="Normal"
-                            />
                     <StackPanel Orientation="Horizontal" Margin="22,13,64,13" Grid.Row="1">
 
                         <TextBlock 
@@ -409,6 +402,14 @@
                                 />
 
                     </StackPanel>
+                    <Button 
+            			Margin="230,64,68,10"
+            			FontSize="16"
+            			Click="BrowseClick"
+            			Style="{StaticResource CustomGreenButtonStyle}"
+            			Content="Browse..." Grid.Row="1" Grid.RowSpan="2" FontWeight="Normal"
+                            />
+
                 </Grid>
             </GroupBox>
             <StackPanel Grid.Column="3" Height="55" Margin="29,10,65,0" Grid.Row="2" VerticalAlignment="Top">

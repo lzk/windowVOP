@@ -29,9 +29,7 @@ namespace VOP
 
         public ScanParameterView()
         {
-            InitializeComponent();
-
-            
+            InitializeComponent();      
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -65,6 +63,7 @@ namespace VOP
             //{
             //    cbDecodeLevel.SelectedIndex = 3;
             //}
+            tbSettings.Focus();
 
             if (MainWindow_Rufous.g_settingData.m_couldSaveType == "DropBox")
             {

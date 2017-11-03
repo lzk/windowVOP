@@ -23,6 +23,7 @@ namespace VOP
         public QRCodeBarcodeView()
         {
             InitializeComponent();
+            
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -36,6 +37,8 @@ namespace VOP
 
             tbFilePath.MaxLength = 255;
             tbFilePath.Text = MainWindow_Rufous.g_settingData.m_separateFilePath;
+
+            cbCodeType.Focus();
         }
 
         private bool IsValidPathName(string path)
