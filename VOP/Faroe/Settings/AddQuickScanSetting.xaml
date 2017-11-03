@@ -225,6 +225,7 @@
                                 Name="tbName"
                               Template="{StaticResource customTextBox}" 
                                 VerticalAlignment="Center" 
+                                SnapsToDevicePixels ="True"
                                 Width="250" 
                                 Height="30" 
                                 Margin="100,0,0,0" 

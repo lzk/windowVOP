@@ -242,6 +242,7 @@
                      Height="28" 
                      VerticalAlignment="Top" 
                      HorizontalAlignment="Left"
+                     SnapsToDevicePixels ="True"
                      Margin="20,10,0,0"
                      />
 

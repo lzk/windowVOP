@@ -214,8 +214,9 @@
                                 />
                         <TextBox 
                                 Name="tbServerName"
-                              Template="{StaticResource customTextBox}" 
+                                Template="{StaticResource customTextBox}" 
                                 VerticalAlignment="Center" 
+                                SnapsToDevicePixels ="True"
                                 Width="200" 
                                 Height="30" 
                                 Margin="10,0,0,0" 
@@ -239,6 +240,7 @@
                                 Name="tbUserName"
                               Template="{StaticResource customTextBox}" 
                                 VerticalAlignment="Center" 
+                                SnapsToDevicePixels ="True"
                                 Width="200" 
                                 Height="30" 
                                 Margin="35,0,0,0" 
@@ -295,6 +297,7 @@
                                 Name="tbTargetPath"
                               Template="{StaticResource customTextBox}" 
                                 VerticalAlignment="Center" 
+                                SnapsToDevicePixels ="True"
                                 Width="200" 
                                 Height="30" 
                                 Margin="30,0,0,0" 
