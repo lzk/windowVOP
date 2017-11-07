@@ -108,7 +108,7 @@
                                     <ColumnDefinition Width="12"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <local:ButtonEx Click="OnClickCancelButton" IsActiveEx="False" Content="{StaticResource ResStr_Cancel}" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="30"></local:ButtonEx>
+                                <local:ButtonEx x:Name="btnCancel" Click="OnClickCancelButton" IsActiveEx="False" Content="{StaticResource ResStr_Cancel}" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="30"></local:ButtonEx>
                                 <local:ButtonEx Click="OnClickConnectBtn" x:Name="btnConnect" IsActiveEx="True" Content="{StaticResource ResStr_Connect}" Grid.Column="2" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="30"></local:ButtonEx>
                             </Grid>
                         </StackPanel>

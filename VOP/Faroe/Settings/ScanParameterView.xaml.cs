@@ -224,6 +224,22 @@ namespace VOP
             }
         }
 
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbCloudType.SelectedIndex == 0)
+            {
+                Properties.Settings.Default.Reset();
+            }
+            else if (cbCloudType.SelectedIndex == 1)
+            {
+                
+            }
+            else if (cbCloudType.SelectedIndex == 2)
+            {
+                AuthenticationHelper.SignOut();
+            }
+        }
+
         //public void QRDecodeMode_click(object sender, RoutedEventArgs e)
         //{
         //    RadioButton rdbtn = sender as RadioButton;

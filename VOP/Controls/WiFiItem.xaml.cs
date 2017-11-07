@@ -297,11 +297,13 @@ namespace VOP.Controls
                 var newValue = (bool)args.NewValue;
                 var oldValue = (bool)args.OldValue;
 
+                SetWiFiItemFoucs(control, control.IsExpanded);// bms1147
+
                 RoutedPropertyChangedEventArgs<bool> e =
                     new RoutedPropertyChangedEventArgs<bool>(oldValue, newValue, WifiSignalLevelPropertyEvent);                               
             }
         }
-
+        
         virtual protected void OnIsExpandedPropertyChanged(RoutedPropertyChangedEventArgs<bool> e)
         {
             RaiseEvent(e);
@@ -356,8 +358,39 @@ namespace VOP.Controls
 
             wifiSetting.m_ssid = wifiExpander.SSIDText;
             wifiSetting.m_encryption = (byte)wifiExpander.EncryptType;
-        }
 
+            this.tbPwd.IsEnabled = false;
+            this.btnConnect.IsEnabled = false;
+            this.cbDisplayPwd.IsEnabled = false;
+            this.pbPwd.IsEnabled = false;
+            this.rowWep.IsEnabled = false;
+            this.tbPwd.IsEnabled = false;
+            this.tkPwd.IsEnabled = false;
+            this.tkWEPKeyID.IsEnabled = false;
+            this.wepGrid.IsEnabled = false;
+            this.wepKey0.IsEnabled = false;
+            this.wepKey1.IsEnabled = false;
+            this.wepKey2.IsEnabled = false;
+            this.wepKey3.IsEnabled = false;
+            this.btnCancel.IsEnabled = false;
+        }
+        private static void SetWiFiItemFoucs(WiFiItem control, bool bExpanded)
+        {
+            control.tbPwd.IsEnabled = bExpanded;
+            control.btnConnect.IsEnabled = bExpanded;
+            control.cbDisplayPwd.IsEnabled = bExpanded;
+            control.pbPwd.IsEnabled = bExpanded;
+            control.rowWep.IsEnabled = bExpanded;
+            control.tbPwd.IsEnabled = bExpanded;
+            control.tkPwd.IsEnabled = bExpanded;
+            control.tkWEPKeyID.IsEnabled = bExpanded;
+            control.wepGrid.IsEnabled = bExpanded;
+            control.wepKey0.IsEnabled = bExpanded;
+            control.wepKey1.IsEnabled = bExpanded;
+            control.wepKey2.IsEnabled = bExpanded;
+            control.wepKey3.IsEnabled = bExpanded;
+            control.btnCancel.IsEnabled = bExpanded;
+        }
         private void OnClickCancelButton(object sender, RoutedEventArgs e)
         {
             wifiExpander.IsExpanded = false;

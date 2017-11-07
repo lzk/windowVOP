@@ -134,7 +134,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
+
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25"></RowDefinition>
@@ -146,6 +146,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -155,7 +157,7 @@
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"              
-                Text="{StaticResource ResStr_Faroe_scan_setting}"/>
+                Text="{StaticResource ResStr_Faroe_scan_setting}" Margin="0,16,0,15"/>
 
             <Button
                 Name="tbSettings"
@@ -163,7 +165,8 @@
                 Grid.Column="2"
                 Width="120"
                 Height="35" 
-                Margin="-90,0,0,0"
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
                 Content="{StaticResource ResStr_Setting}"
                 FontSize="16"
                 Style="{StaticResource CustomGreenButtonStyle}" 
@@ -175,29 +178,30 @@
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="Cloud Type:"/>
+                Text="Cloud Type:" Margin="0,16,0,15"/>
             <ComboBox 
             Grid.Row="2" Grid.Column="2"
                                 Name="cbCloudType"
                                 VerticalAlignment="Center" 
                                 VerticalContentAlignment="Center"
                                 Width="120" 
-                                Height="35"                                 
+                                Height="36"                                 
                                 FontSize="14"
-                            Margin="-90,0,0,0"
+                            Margin="10,0,0,0"
                             SelectionChanged="cbCloudType_SelectionChanged"
                 TabIndex="1">
                 <ComboBoxItem >DropBox</ComboBoxItem>
                 <ComboBoxItem >EverNote</ComboBoxItem>
                 <ComboBoxItem >OneDrive</ComboBoxItem>
             </ComboBox>
+            <Button x:Name="btnReset" Content="Reset" Grid.Column="3" HorizontalAlignment="Left" Height="35" Margin="1,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnReset_Click"/>
             <TextBlock 
                 Grid.Row="3"
                 Grid.Column="0"
                                 Text="Email Attachment File Type :" 
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
-                                FontSize="12"
+                                FontSize="12" Margin="0,17"
                                 />
             <ComboBox 
                 Grid.Row="3"
@@ -207,17 +211,18 @@
                                 VerticalContentAlignment="Center"
                                 Width="120" 
                                 Height="30" 
-                                Margin="-90,0,0,0" 
+                                Margin="10,0,0,0" 
                                 FontSize="14"
                             SelectionChanged="cbAttachType_SelectionChanged"
                                 >
                 <ComboBoxItem >PDF</ComboBoxItem>
                 <ComboBoxItem >TIFF</ComboBoxItem>
             </ComboBox>
+
         </Grid>
 
 
-            <!--<TextBlock 
+        <!--<TextBlock 
                 Grid.Row="2"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
@@ -259,7 +264,7 @@
                     <ComboBoxItem Content="{StaticResource ResStr_Faroe_HighestQuality}"></ComboBoxItem>
                 </ComboBox>
             </StackPanel>-->
-          
+
 
         <!--<Grid Grid.Row="2" Grid.Column="1">
             <Grid.RowDefinitions>
