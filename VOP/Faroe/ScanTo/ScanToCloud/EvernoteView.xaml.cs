@@ -108,21 +108,31 @@ namespace VOP
             title = tbNoteTitle.Text;
             content = tbNoteContent.Text;
 
-            ENNote myResourceNote = new ENNote();          
-
-            foreach (string filePath in FileList)
+            try
             {
-                string fileName = System.IO.Path.GetFileName(filePath);
-                byte[] myFile = StreamFile(filePath);
-                ENResource myResource = new ENResource(myFile, "image/jpg", fileName);//"application/pdf"                 
-                myResourceNote.Resources.Add(myResource);
-            }
-            myResourceNote.Title = title;//string.Format("Scan to EverNote: {0}", title);//, i); 
-            content = string.Format("{0}.Attach the scaling Files.", content);
-            myResourceNote.Content = ENNoteContent.NoteContentWithString(content);
-            ENNoteRef myResourceRef = ENSession.SharedSession.UploadNote(myResourceNote, null);
+                ENNote myResourceNote = new ENNote();
 
-            InitNoteList();
+                foreach (string filePath in FileList)
+                {
+                    string fileName = System.IO.Path.GetFileName(filePath);
+                    byte[] myFile = StreamFile(filePath);
+                    ENResource myResource = new ENResource(myFile, "image/jpg", fileName);//"application/pdf"                 
+                    myResourceNote.Resources.Add(myResource);
+                }
+                myResourceNote.Title = title;//string.Format("Scan to EverNote: {0}", title);//, i); 
+                content = string.Format("{0}.Attach the scaling Files.", content);
+                myResourceNote.Content = ENNoteContent.NoteContentWithString(content);
+                ENNoteRef myResourceRef = ENSession.SharedSession.UploadNote(myResourceNote, null);
+                InitNoteList();
+            }
+            catch (Exception ex)
+            {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+               Application.Current.MainWindow,
+               (string)"Upload files fail, " + ex.Message,
+              (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+            }
+            
             //DialogResult = true;
             //this.Close();
         }
