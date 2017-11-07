@@ -21,6 +21,7 @@ namespace VOP
     {
         public string strItemName = "";
         public int value = 0;
+        public int key = 0;// add by yunying shang 2017-11-07 for BMS 1301
         public bool IsEdit = false;
         public ScanParam m_scanParams = new ScanParam();
         public ScanToPrintParam m_scanToPrintParams = new ScanToPrintParam();
@@ -153,13 +154,15 @@ namespace VOP
             }
             else
             {
-                //if(!IsEdit)
+               // if(!IsEdit)
                 {
                     bool isNameSame = false;
 
                     for (int i = 0; i < MainWindow_Rufous.g_settingData.m_MatchList.Count(); i++)
                     {
-                        if (tbName.Text == MainWindow_Rufous.g_settingData.m_MatchList[i].ItemName)
+                        //modified by yunying shang 2017-11-07 for BMS 1301
+                        if (key != MainWindow_Rufous.g_settingData.m_MatchList[i].Key &&
+                            tbName.Text == MainWindow_Rufous.g_settingData.m_MatchList[i].ItemName)
                             isNameSame = true;
                     }
 
@@ -174,11 +177,11 @@ namespace VOP
                         value = cbType.SelectedIndex;
                     }
                 }
-                //else
+               // else
                 //{
                 //    strItemName = tbName.Text;
                 //    value = cbType.SelectedIndex;
-                //}               
+                //}
             }          
 
             this.DialogResult = true;

@@ -125,7 +125,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
@@ -140,10 +140,11 @@
                 <RowDefinition Height="25"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="25"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="160"/>
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -189,6 +190,29 @@
                 <ComboBoxItem >DropBox</ComboBoxItem>
                 <ComboBoxItem >EverNote</ComboBoxItem>
                 <ComboBoxItem >OneDrive</ComboBoxItem>
+            </ComboBox>
+            <TextBlock 
+                Grid.Row="3"
+                Grid.Column="0"
+                                Text="Email Attachment File Type :" 
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                FontSize="12"
+                                />
+            <ComboBox 
+                Grid.Row="3"
+                Grid.Column="2"
+                                Name="cbAttachType"
+                                VerticalAlignment="Center" 
+                                VerticalContentAlignment="Center"
+                                Width="120" 
+                                Height="30" 
+                                Margin="-90,0,0,0" 
+                                FontSize="14"
+                            SelectionChanged="cbAttachType_SelectionChanged"
+                                >
+                <ComboBoxItem >PDF</ComboBoxItem>
+                <ComboBoxItem >TIFF</ComboBoxItem>
             </ComboBox>
         </Grid>
 

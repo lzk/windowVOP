@@ -188,6 +188,7 @@ namespace VOP
             addQuickScanSettingWin.IsEdit = true;
             addQuickScanSettingWin.strItemName = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].ItemName;
             addQuickScanSettingWin.value = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].Value;
+            addQuickScanSettingWin.key = MainWindow_Rufous.g_settingData.m_MatchList[nIndex].Key;// add by yunying shang 2017-11-07 for BMS 1301
             switch (addQuickScanSettingWin.value)
             {
                 case 0:

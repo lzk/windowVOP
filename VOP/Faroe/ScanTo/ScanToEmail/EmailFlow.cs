@@ -43,7 +43,18 @@ namespace VOP
                 return false;
             }
 
-            if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_EmailScanSettings.AttachmentType == "PDF")
+            string AttachmentType = "PDF";
+
+            if (FlowType == EmailFlowType.Quick)
+            {
+                AttachmentType = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_EmailScanSettings.AttachmentType;
+            }
+            else
+            {
+                AttachmentType = MainWindow_Rufous.g_settingData.m_attachmentType;
+            }
+
+            if (AttachmentType  == "PDF")
             {
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
@@ -94,8 +105,9 @@ namespace VOP
                 Outlook.NameSpace ns = oApp.GetNamespace("MAPI");                
                 Outlook.MailItem oMsg = (Outlook.MailItem)oApp.CreateItem(Outlook.OlItemType.olMailItem);
 
- 
-                if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_EmailScanSettings.AttachmentType == "PDF")
+
+                //if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_EmailScanSettings.AttachmentType == "PDF")
+                if (AttachmentType == "PDF")
                 {
                     if(pdfName != "")
                     {
@@ -184,7 +196,7 @@ namespace VOP
             try
             {
 //                string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
-                string strSuffix = string.Format("{0}{1}{2}{3}{4}{5}{6}", "img", 
+                string strSuffix = string.Format("{0}{1}:D4{2}:D2{3}:D2{4}:D2{5}:D2{6}:D2", "img", 
                     DateTime.Now.Year.ToString(), 
                     DateTime.Now.Month.ToString(), 
                     DateTime.Now.Day.ToString(), 
@@ -244,7 +256,7 @@ namespace VOP
             try
             {
                 //                string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
-                string strSuffix = string.Format("{0}{1}{2}{3}{4}{5}{6}", "img", 
+                string strSuffix = string.Format("{0}{1}:D4{2}:D2{3}:D2{4}:D2{5}:D2{6}:D2", "img", 
                     DateTime.Now.Year.ToString(),
                     DateTime.Now.Month.ToString(),
                     DateTime.Now.Day.ToString(), 
