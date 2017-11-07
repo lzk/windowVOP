@@ -43,10 +43,10 @@ namespace VOP
                 FtpLoginForm frm = new FtpLoginForm();
                 frm.Owner = Application.Current.MainWindow;
 
-                frm.m_serverAddress = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.ServerAddress;
-                frm.m_userName = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.UserName;
-                frm.m_password = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.Password;
-                frm.m_targetPath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.TargetPath;
+                frm.m_serverAddress = MainWindow_Rufous.g_settingData.m_serverAddress;//m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.ServerAddress;
+                frm.m_userName = MainWindow_Rufous.g_settingData.m_userName;//m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.UserName;
+                frm.m_password = MainWindow_Rufous.g_settingData.m_password;//m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.Password;
+                frm.m_targetPath = MainWindow_Rufous.g_settingData.m_targetPath;//m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.TargetPath;
 
                 result = frm.ShowDialog();
 
@@ -61,6 +61,11 @@ namespace VOP
                     m_username = frm.m_userName;
                     m_serverAddress = frm.m_serverAddress;
                     m_targetPath = frm.m_targetPath;
+
+                    MainWindow_Rufous.g_settingData.m_serverAddress = m_serverAddress;
+                    MainWindow_Rufous.g_settingData.m_userName = m_username;
+                    MainWindow_Rufous.g_settingData.m_password = m_password;
+                    MainWindow_Rufous.g_settingData.m_targetPath = m_targetPath;
 
                     //string Uri = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.ServerAddress
                     //    + MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FTPScanSettings.TargetPath;
