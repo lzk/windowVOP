@@ -34,7 +34,7 @@ namespace VOP
             }
         }
 
-        private string m_dropBoxDefaultPath = "";
+        private string m_dropBoxDefaultPath = "/";
 
         public string DefaultPath
         {

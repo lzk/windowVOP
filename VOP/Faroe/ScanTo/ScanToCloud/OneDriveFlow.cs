@@ -231,7 +231,7 @@ namespace VOP
         }
         private async Task Upload(GraphServiceClient client,string defaultPath, string filePath)
         {
-            if (defaultPath != "")
+            if (defaultPath != "/")
             {
                 await LoadFolderFromPath(defaultPath);
             }

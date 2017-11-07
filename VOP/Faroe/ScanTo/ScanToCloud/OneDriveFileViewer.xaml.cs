@@ -393,7 +393,10 @@ namespace VOP
         {
             if (OneDriveFlow.FlowType == CloudFlowType.SimpleView)
             {
-                OneDriveFlow.SavePath = selectedPath;
+                if (selectedPath == "")
+                    OneDriveFlow.SavePath = "/";
+                else
+                    OneDriveFlow.SavePath = selectedPath;                
                 this.Close();
             }
             else

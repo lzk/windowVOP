@@ -53,7 +53,7 @@ namespace VOP
             }
             else
             {
-                cbCloudType.SelectedIndex = 3;
+                cbCloudType.SelectedIndex = 2;
                 tbNoteTitle.IsEnabled = false;
                 tbNoteTitle.Visibility = System.Windows.Visibility.Hidden;
                 tbReset.Text = "Reset access token in cache:";
