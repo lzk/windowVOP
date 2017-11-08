@@ -82,9 +82,12 @@ namespace VOP
 
             Regex reg = new Regex(ex);
             //if (false == reg.IsMatch(tbRecipient.Text) || IsEmailNameAllNumber(tbRecipient.Text))
+            int finded = tbRecipient.Text.LastIndexOf('@');
+
             if (false == Char.IsLetterOrDigit(tbRecipient.Text, 0)||               
                 false == IsValidEmail(tbRecipient.Text) ||
-                IsEmailNameAllNumber(tbRecipient.Text))
+                IsEmailNameAllNumber(tbRecipient.Text) ||
+                finded < 0)
             {
                 MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, 
                     (string)this.TryFindResource("ResStr_Email_Format_Error"), 
@@ -101,18 +104,22 @@ namespace VOP
         private bool IsEmailNameAllNumber(string strEmail)
         {
             int finded = strEmail.LastIndexOf('@');
-            string name = strEmail.Substring(0, finded);
-            int i = 0;
-            for (i = 0; i < name.Length; i++)
-            {
-                if (name[i] < 0x30 || name[i] > 0x39)
-                {
-                    break;
-                }
-            }
 
-            if (i >= name.Length)
-                return true;
+            if(finded > 0)
+            {
+                string name = strEmail.Substring(0, finded);
+                int i = 0;
+                for (i = 0; i < name.Length; i++)
+                {
+                    if (name[i] < 0x30 || name[i] > 0x39)
+                    {
+                        break;
+                    }
+                }
+
+                if (i >= name.Length)
+                    return true;
+            }
 
             return false;
         }
