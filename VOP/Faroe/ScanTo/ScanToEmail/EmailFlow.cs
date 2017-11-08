@@ -196,13 +196,13 @@ namespace VOP
             try
             {
 //                string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
-                string strSuffix = string.Format("{0}{1}:D4{2}:D2{3}:D2{4}:D2{5}:D2{6}:D2", "img", 
-                    DateTime.Now.Year.ToString(), 
-                    DateTime.Now.Month.ToString(), 
-                    DateTime.Now.Day.ToString(), 
-                    DateTime.Now.Hour.ToString(), 
-                    DateTime.Now.Minute.ToString(),
-                    DateTime.Now.Second.ToString());
+                string strSuffix = string.Format("{0}{1:D4}{2:D2}{3:D2}{4:D2}{5:D2}{6:D2}", "img", 
+                    DateTime.Now.Year, 
+                    DateTime.Now.Month, 
+                    DateTime.Now.Day, 
+                    DateTime.Now.Hour, 
+                    DateTime.Now.Minute,
+                    DateTime.Now.Second);
 
                 if (false == Directory.Exists(App.PictureFolder))
                 {
@@ -256,13 +256,13 @@ namespace VOP
             try
             {
                 //                string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
-                string strSuffix = string.Format("{0}{1}:D4{2}:D2{3}:D2{4}:D2{5}:D2{6}:D2", "img", 
-                    DateTime.Now.Year.ToString(),
-                    DateTime.Now.Month.ToString(),
-                    DateTime.Now.Day.ToString(), 
-                    DateTime.Now.Hour.ToString(), 
-                    DateTime.Now.Minute.ToString(),
-                    DateTime.Now.Second.ToString());
+                string strSuffix = string.Format("{0}{1:D4}{2:D2}{3:D2}{4:D2}{5:D2}{6:D2}", "img",
+                    DateTime.Now.Year,
+                    DateTime.Now.Month,
+                    DateTime.Now.Day, 
+                    DateTime.Now.Hour, 
+                    DateTime.Now.Minute,
+                    DateTime.Now.Second);
                 if (false == Directory.Exists(App.PictureFolder))
                 {
                     Directory.CreateDirectory(App.PictureFolder);

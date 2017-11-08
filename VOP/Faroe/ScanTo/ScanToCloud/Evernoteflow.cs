@@ -91,21 +91,31 @@ namespace VOP
                 else
                 {
 
-                    string title = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.EverNoteTitle;
-                    string content = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.EverNoteContent;
-                    ENNote myResourceNote = new ENNote();
-                    foreach (string filePath in FileList)
+                    try
                     {
-                        string fileName = System.IO.Path.GetFileName(filePath);
-                        byte[] myFile = StreamFile(filePath);
-                        // Be sure to replace this with a real JPG file
-                        ENResource myResource = new ENResource(myFile, "image/jpg", fileName);//"application/pdf"                 
-                        myResourceNote.Resources.Add(myResource);
+                        string title = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.EverNoteTitle;
+                        string content = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.EverNoteContent;
+                        ENNote myResourceNote = new ENNote();
+                        foreach (string filePath in FileList)
+                        {
+                            string fileName = System.IO.Path.GetFileName(filePath);
+                            byte[] myFile = StreamFile(filePath);
+                            // Be sure to replace this with a real JPG file
+                            ENResource myResource = new ENResource(myFile, "image/jpg", fileName);//"application/pdf"                 
+                            myResourceNote.Resources.Add(myResource);
+                        }
+                        myResourceNote.Title = title;// string.Format("Scan to EverNote: {0}", title);//, i);
+                        content = string.Format("{0}.Attach the scaling Files.", content);
+                        myResourceNote.Content = ENNoteContent.NoteContentWithString(content);
+                        ENNoteRef myResourceRef = ENSession.SharedSession.UploadNote(myResourceNote, null);
                     }
-                    myResourceNote.Title = title;// string.Format("Scan to EverNote: {0}", title);//, i);
-                    content = string.Format("{0}.Attach the scaling Files.", content);
-                    myResourceNote.Content = ENNoteContent.NoteContentWithString(content);
-                    ENNoteRef myResourceRef = ENSession.SharedSession.UploadNote(myResourceNote, null);
+                    catch (Exception ex)
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                                   Application.Current.MainWindow,
+                                   (string)"Scan to cloud error, upload file fail!",
+                                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                    }
                 }
             }
 
@@ -113,7 +123,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                            Application.Current.MainWindow,
-                           (string)"Scan to cloud error, " + ex.Message,
+                           (string)"Scan to cloud error, connect server fail!" ,
                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
             }
             return true;

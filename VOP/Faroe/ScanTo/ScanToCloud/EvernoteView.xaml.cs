@@ -69,27 +69,39 @@ namespace VOP
         private void InitNoteList()
         {
             string textToFind = "*";
-
-            List<ENSessionFindNotesResult> myResultsList = ENSession.SharedSession.FindNotes(ENNoteSearch.NoteSearch(textToFind), null,
+            try
+            {
+                List<ENSessionFindNotesResult> myResultsList = ENSession.SharedSession.FindNotes(ENNoteSearch.NoteSearch(textToFind), null,
                 ENSession.SearchScope.All, ENSession.SortOrder.RecentlyUpdated, 500);
 
-            List<string> notelist = new List<string>();
+                List<string> notelist = new List<string>();
 
-            if (myResultsList.Count > 0)
-            {
-
-                foreach (ENSessionFindNotesResult nb in myResultsList)
+                if (myResultsList.Count > 0)
                 {
-                    notelist.Add(nb.Title);
+
+                    foreach (ENSessionFindNotesResult nb in myResultsList)
+                    {
+                        notelist.Add(nb.Title);
+                    }
+                }
+
+                listNote.Items.Clear();
+
+                foreach (string item in notelist)
+                {
+                    listNote.Items.Add(item);
                 }
             }
 
-            listNote.Items.Clear();
+            catch (Exception ex)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                Application.Current.MainWindow,
+                (string)"Get Ever Note List Error!" ,
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
 
-             foreach (string item in notelist)
-             {
-                 listNote.Items.Add(item);
-             }
+                return;
+            }
 
         }
 
