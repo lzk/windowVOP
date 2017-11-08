@@ -65,7 +65,7 @@
                                         SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
                                         VerticalScrollBarVisibility="Auto"
                                         HorizontalScrollBarVisibility="Disabled">
-                                <ListBox Name="listNote" Height="325" />
+                                <ListBox Name="listNote" Height="325"  Margin="10,0,10,0"/>
                             </ScrollViewer>
                         </StackPanel>
                     </Border>
@@ -75,6 +75,7 @@
                 Name="tbNote"
                 FontSize="14"
                 VerticalAlignment="Center"
+                        Margin="10,0,0,0"
                 Text="Note Title:"/>
                     <TextBox 
                      Name="tbNoteTitle"
@@ -94,6 +95,7 @@
                 Name="tbContent"
                 FontSize="14"
                 VerticalAlignment="Center"
+                                Margin="10,0,0,0"
                 Text="Note Content:"/>
                             <TextBox 
                      Name="tbNoteContent"
