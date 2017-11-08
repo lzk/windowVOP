@@ -135,7 +135,10 @@ namespace VOP
                     "Error");
                     SavePathTbx.Focus();
                     return;
-                }    
+                }
+
+                m_scanToCloudParams.DefaultPath = SavePathTbx.Text;//add by yunying shang 2017-11-08 for BMS 1326
+
                 if (cbCloudType.SelectedIndex == 2)
                 {
                     m_scanToCloudParams.SaveType = "OneDrive";

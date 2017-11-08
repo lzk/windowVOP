@@ -125,7 +125,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="270"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
@@ -144,7 +144,7 @@
                 <RowDefinition Height="25"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="90"/>
@@ -201,7 +201,7 @@
                                 Text="Email Attachment File Type :" 
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
-                                FontSize="12" Margin="0,17"
+                                FontSize="14" Margin="0,17" TextWrapping="Wrap"
                                 />
             <ComboBox 
                 Grid.Row="3"
