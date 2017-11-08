@@ -61,9 +61,9 @@ namespace VOP
                         ImageStatus newImage = new ImageStatus();
                         newImage._files = files;
                         newImage.m_num = scanFileList.IndexOf(files) + 1;
-                        selectedFileList.Add(newImage);                        
-                    }
-                    UpdateSelItemNum();
+                        selectedFileList.Add(newImage);
+                        UpdateSelItemNum();
+                    }                    
 
                     m_pageCount = scanFileList.Count / 8;
                     if (scanFileList.Count % 8 > 0)
@@ -94,25 +94,25 @@ namespace VOP
         {
             this.image_wrappanel.Children.Clear();
 
-            List<ScanFiles> list = new List<ScanFiles>();
+            List<ImageStatus> list = new List<ImageStatus>();
 
-            for(int i= 0; i<8 &&(m_selectedPage * 8 + i)<scanFileList.Count ; i++)
+            for(int i= 0; i<8 &&(m_selectedPage * 8 + i)<selectedFileList.Count ; i++)
             {
-                list.Add(scanFileList[m_selectedPage * 8 + i]);
-            }            
+                list.Add(selectedFileList[m_selectedPage * 8 + i]);
+            }           
 
-            foreach (ScanFiles files in list)
+            for(int i=0; i<list.Count;i++)
             {
                 ImageItem newImage = new ImageItem();
-                newImage.m_images = files;
+                newImage.m_images = list[i]._files;
                 newImage.ImageSingleClick += ImageItemSingleClick;
                 newImage.ImageDoubleClick += ImageItemDoubleClick;
                 newImage.CloseIconClick += ImageItemCloseIconClick;   
-                newImage.m_num = selectedFileList[scanFileList.IndexOf(files)].m_num;              
+                newImage.m_num = list[i].m_num;              
                 newImage.Margin = new Thickness(10);
-                this.image_wrappanel.Children.Insert(0, newImage);
+                this.image_wrappanel.Children.Insert(i, newImage);
             }
-            UpdateSelItemNum();
+            UpdateImageOrder();
             return true;
         }
 
@@ -343,29 +343,33 @@ namespace VOP
                 if ( GetSelectedItemCount() < m_maxImgNum )
                 {
                     img.m_num = GetSelectedItemCount()+1;
-                    selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = img.m_num;
+                    for (int i = 0; i < selectedFileList.Count; i++)
+                    {
+                        if (selectedFileList[i]._files == img.m_images)
+                        {
+                            selectedFileList[i].m_num = img.m_num;
+                            break;
+                        }
+                    }
                 }
             }
             else
             {
-                selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = 0;
+                for(int i=0; i<selectedFileList.Count;i++)
+                {
+                    if (selectedFileList[i]._files == img.m_images)
+                    {
+                        selectedFileList[i].m_num = 0;
+                        break;
+                    }
+                }
                 img.m_num = 0;
             }
             
             UpdateSelItemNum();
 
-            if ( 0 < GetSelectedItemCount() )
-            {
-               // btnPrint.IsEnabled = true;
-              //  btnSave.IsEnabled = true;
-            }
-            else
-            {
-              //  btnPrint.IsEnabled = false;
-              //  btnSave.IsEnabled = false;
-            }
-
-            if(image_wrappanel.Children.Count == GetSelectedItemCount())
+            //if(image_wrappanel.Children.Count == GetSelectedItemCount())
+            if(selectedFileList.Count == GetSelectedItemCount())//modified by yunying shang 2017-11-08 for BMS 1319
                SelectAllCheckBox.IsChecked = true;
             else
                SelectAllCheckBox.IsChecked = false;
@@ -378,23 +382,31 @@ namespace VOP
 
         private void SelectAll(bool isCheck)
         {
-            int index = 1;
-            for (int i = image_wrappanel.Children.Count - 1; i >=0 ; i--)
+            int index = selectedFileList.Count - m_selectedPage*8;
+
+            for (int i = 0; i < selectedFileList.Count; i++)
+            {
+                if (isCheck)
+                    selectedFileList[i].m_num = selectedFileList.Count - i;
+                else
+                    selectedFileList[i].m_num = 0;
+            }
+            
+
+            for (int i = 0; i < image_wrappanel.Children.Count; i++)
             {
                 ImageItem img = image_wrappanel.Children[i] as ImageItem;
 
                 if (isCheck)
                 {
                     img.m_num = index;
-                    selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = img.m_num;
                 }
                 else
-                {
+                {   
                     img.m_num = 0;
-                    selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = 0;
                 }
-              
-                index++;
+
+                index--;
             }
         }
 
@@ -408,10 +420,7 @@ namespace VOP
                 selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = img.m_num;
             }
 
-                //  btnPrint.IsEnabled = true;
-                //  btnSave.IsEnabled = true;
-
-                //add by yunying shang 2017-10-19 for BMS 1182
+            //add by yunying shang 2017-10-19 for BMS 1182
             //if (image_wrappanel.Children.Count == GetSelectedItemCount())
             if(scanFileList.Count == GetSelectedItemCount())
                 SelectAllCheckBox.IsChecked = true;
@@ -444,9 +453,10 @@ namespace VOP
             if ( 0 != win.m_rotatedAngle && null != win.m_rotatedObj )
             {
                 int index = -1;
-                for ( int i=0; i<image_wrappanel.Children.Count; i++ )
+
+                for (int i = 0; i < image_wrappanel.Children.Count; i++)
                 {
-                    if ( image_wrappanel.Children[i] == img )
+                    if (image_wrappanel.Children[i] == img)
                     {
                         index = i;
                         break;
@@ -640,7 +650,6 @@ namespace VOP
                 {
                     lst.Add(item.m_num);
                 }
-
             }
 
             lst.Sort();
@@ -666,22 +675,23 @@ namespace VOP
                         item.m_num--;
                     }
                 }
+            }
 
-                for ( int i=0; i<image_wrappanel.Children.Count; i++ )
+            if (image_wrappanel.Children.Count > 0)
+            {
+                UpdateImageOrder();
+            }
+        }
+
+        private void UpdateImageOrder()
+        {
+            for (int i = 0; i < image_wrappanel.Children.Count; i++)
+            {
+                ImageItem img1 = image_wrappanel.Children[i] as ImageItem;
+
+                if (null != img1 && 0 < img1.m_num)
                 {
-                    ImageItem img1 = image_wrappanel.Children[i] as ImageItem;
-
-                    if (null != img1 && 0 < img1.m_num)
-                    {
-                        foreach(ImageStatus item in selectedFileList)
-                        {
-                            if (item._files == img1.m_images)
-                            {
-                                img1.m_num = item.m_num;
-                                break;
-                            }
-                        }
-                    }
+                    img1.m_num = selectedFileList[m_selectedPage * 8 + i].m_num;
                 }
             }
         }
