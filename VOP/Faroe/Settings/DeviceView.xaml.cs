@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Controls.Primitives;
 
 namespace VOP
 {
@@ -22,6 +23,8 @@ namespace VOP
     {
         byte m_psavetime = 1;
         bool m_currentStatus = false;
+        private RepeatButton btnDecrease;
+        private RepeatButton btnIncrease;
 
         public DeviceView()
         {
@@ -143,7 +146,6 @@ namespace VOP
             if (psavetime < 1 || 30 < psavetime)
                 psavetime = 1;
 
-
             string strPrinterName = "";
 
             PowerSaveTimeRecord m_rec = new PowerSaveTimeRecord(strPrinterName, psavetime);
@@ -212,13 +214,18 @@ namespace VOP
                     tb.CaretIndex = tb.Text.Length;
                 }
 
-                //UpdateApplyBtnStatus();
+                UpdateApplyBtnStatus();
             }
         }
 
         private void spinnerControl1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> e)
         {
-            //  UpdateApplyBtnStatus();
+            if (btnDecrease != null && btnIncrease != null)
+            {
+                CheckPowerSaveValue();
+            }
+
+            UpdateApplyBtnStatus();
         }
 
         private void spinnerControl1_ValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
@@ -268,22 +275,47 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-/*
-            if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
+            /*
+                        if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
+                        {
+                            dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, true);
+                        }
+                        else
+                        {
+                            dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, false);
+                        }
+            */
+            btnDecrease = spinnerControl1.Template.FindName("btnDecrease", spinnerControl1) as RepeatButton;
+            btnIncrease = spinnerControl1.Template.FindName("btnIncrease", spinnerControl1) as RepeatButton;
+
+            CheckPowerSaveValue();
+
+            init_config();
+        }
+
+        private void CheckPowerSaveValue() // BMS #1195
+        {
+            if (spinnerControl1.Value == spinnerControl1.Minimum)
             {
-                dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, true);
+                btnDecrease.IsEnabled = false;
+                btnIncrease.IsEnabled = true;
+            }
+            else if (spinnerControl1.Value == spinnerControl1.Maximum)
+            {
+                btnIncrease.IsEnabled = false;
+                btnDecrease.IsEnabled = true;
             }
             else
             {
-                dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, false);
+                btnIncrease.IsEnabled = true;
+                btnDecrease.IsEnabled = true;
             }
-*/
-            init_config();
         }
 
         private void btnApply_Click_1(object sender, RoutedEventArgs e)
         {
             apply();
         }
+
     }
 }

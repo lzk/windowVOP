@@ -1,341 +1,117 @@
-﻿<UserControl  x:Class="VOP.DeviceView"
+﻿<UserControl  
+            x:Class="VOP.DeviceView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:VOP"
-             xmlns:Controls="clr-namespace:VOP.Controls" 
+             xmlns:local="clr-namespace:VOP.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="336" d:DesignWidth="417.333" Loaded="UserControl_Loaded">
     <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomCheckBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomTextBoxRes.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/AdjustButton.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomComboBox.xaml"/>
+                <ResourceDictionary Source="../../Controls/CustomRadioButtonEx.xaml"/>
+                <ResourceDictionary Source="../../Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
+             </ResourceDictionary.MergedDictionaries>
 
-        <LinearGradientBrush x:Key="PlusButtonStrokePressed" StartPoint="0,0" EndPoint="0,1">
-            <LinearGradientBrush.GradientStops>
-                <GradientStopCollection>
-                    <GradientStop Color="#FFCACACA" Offset="0"/>
-                    <GradientStop Color="#FF363636" Offset="1"/>
-                </GradientStopCollection>
-            </LinearGradientBrush.GradientStops>
-        </LinearGradientBrush>
+            <Style x:Key ="SpinnerControl1"  TargetType="{x:Type local:SpinnerControl}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Focusable" Value="False"></Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:SpinnerControl}">
+                            <Grid Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <!--
+                                    we use the TemplatedParent binding to get a reference to the control
+                                    this template has been applied to, so we can access the property on it
+                                -->
+                                <RepeatButton Name="btnDecrease"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="30"
+                                      Height="30"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
 
-        <LinearGradientBrush x:Key="PlusButtonFillPressed" StartPoint="0,0" EndPoint="0,1">
-            <LinearGradientBrush.GradientStops>
-                <GradientStopCollection>
-                    <GradientStop Color="#FF8D8D8D" Offset="0"/>
-                    <GradientStop Color="#FF4C4C4C" Offset="1"/>
-                </GradientStopCollection>
-            </LinearGradientBrush.GradientStops>
-        </LinearGradientBrush>
-
-        <SolidColorBrush x:Key="PlusButtonContentPressed" Color="White" Opacity="1"/>
-
-
-
-        <LinearGradientBrush x:Key="PlusButtonStrokeNormal" StartPoint="0,0" EndPoint="0,1">
-            <LinearGradientBrush.GradientStops>
-                <GradientStopCollection>
-                    <GradientStop Color="#FFF8F8F8" Offset="0"/>
-                    <GradientStop Color="#FF7C7C7C" Offset="1"/>
-                </GradientStopCollection>
-            </LinearGradientBrush.GradientStops>
-        </LinearGradientBrush>
-
-        <LinearGradientBrush x:Key="PlusButtonFillNormal" StartPoint="0,0" EndPoint="0,1">
-            <LinearGradientBrush.GradientStops>
-                <GradientStopCollection>
-                    <GradientStop Color="#FFE5E5E5" Offset="0"/>
-                    <GradientStop Color="#FFCCCCCC" Offset="1"/>
-                </GradientStopCollection>
-            </LinearGradientBrush.GradientStops>
-        </LinearGradientBrush>
-
-        <SolidColorBrush x:Key="PlusButtonContentOver" Color="#FF0AAA0A" Opacity="1"/>
-
-        <Style x:Key="SpinnerButtonFocus">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Ellipse Margin="-1" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <SolidColorBrush x:Key="PlusButtonContentNormal" Color="#FF838383" Opacity="1"/>
-
-        <Style x:Key="CustomMinusButtonStyle"
-			TargetType="{x:Type RepeatButton}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type RepeatButton}">
-                        <Grid>
-                            <Ellipse x:Name="innerEllipse" StrokeThickness="2" Fill="{StaticResource PlusButtonFillNormal}" Stroke="{StaticResource PlusButtonStrokeNormal}"/>
-                            <Path x:Name="innerShape" StrokeThickness="2" Margin="7" Data="M379.5,294.5 L389.5,294.5" Stretch="Fill" Stroke="{StaticResource PlusButtonContentNormal}"/>
-                        </Grid>
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter TargetName="innerEllipse" Property="Stroke" Value="{StaticResource PlusButtonStrokePressed}" />
-                                <Setter TargetName="innerEllipse" Property="Fill" Value="{StaticResource PlusButtonFillPressed}" />
-                                <Setter TargetName="innerShape" Property="Stroke" Value="{StaticResource PlusButtonContentPressed}" />
-                            </Trigger>
-
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsMouseOver" Value="true"/>
-                                    <Condition Property="IsPressed" Value="false"/>
-                                </MultiTrigger.Conditions>
-
-                                <Setter TargetName="innerEllipse" Property="Stroke" Value="{StaticResource PlusButtonStrokeNormal}" />
-                                <Setter TargetName="innerEllipse" Property="Fill" Value="{StaticResource PlusButtonFillNormal}" />
-                                <Setter TargetName="innerShape" Property="Stroke" Value="{StaticResource PlusButtonContentOver}" />
-                            </MultiTrigger>
-
-                            <Trigger  Property="IsFocused" Value="True">
-                                <Setter Property="FocusVisualStyle" Value="{StaticResource SpinnerButtonFocus}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <LinearGradientBrush x:Key="TextBoxBorderBrush" StartPoint="0,0" EndPoint="0,1">
-            <LinearGradientBrush.GradientStops>
-                <GradientStopCollection>
-                    <GradientStop Color="Silver" Offset="0"/>
-                    <GradientStop Color="#FFC3C3C3" Offset="1"/>
-                </GradientStopCollection>
-            </LinearGradientBrush.GradientStops>
-        </LinearGradientBrush>
-
-        <Style x:Key="TextBoxErrorTemplateStyle1" TargetType="{x:Type TextBox}">
-            <Setter Property="Validation.ErrorTemplate">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <StackPanel>
-                            <Controls:PopupEx IsOpen="True" 
-								AllowsTransparency="True"
-								PlacementTarget="{Binding ElementName=MyAdorner}"
-								Placement="Top"
-								VerticalOffset="-5"
-								HorizontalOffset="-50"
-								Topmost="False"
-								Controls:PopupEx.PopupPlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}" 
-                               >
-                                <Border Background="#FFD3EAC3" BorderBrush="#FF727272" BorderThickness="0.5">
-                                    <TextBlock 
-										Foreground="#FF727272"
-										Margin="5" 
-										FontSize="12"
-										Text="{Binding AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=MyAdorner}"/>
-                                </Border>
-                            </Controls:PopupEx>
-
-                            <Border BorderBrush="Red" BorderThickness="2.5" CornerRadius="16.5">
-                                <AdornedElementPlaceholder x:Name="MyAdorner" Margin="0, 0, -1, -1"/>
-                            </Border>
-                        </StackPanel>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <!--<Style.Triggers>
-            <Trigger Property="Validation.HasError" Value="true">
-                <Setter Property="ToolTip"
-						Value="{Binding RelativeSource={RelativeSource Self},
-                       Path=(Validation.Errors)[0].ErrorContent}"/>
-            </Trigger>
-        </Style.Triggers>-->
-        </Style>
-
-        <Color x:Key="clrEnableBK_TextBox">#FFF7F7F7</Color>
-
-        <Color x:Key="clrDisableBK_TextBox">#FFB0B0B0</Color>
-
-        <ControlTemplate x:Key="customTextBox" TargetType="{x:Type TextBox}" >
-            <Grid Width="{TemplateBinding Width}"
-				Height="{TemplateBinding Height}">
-                <Rectangle x:Name="Border"
-					RadiusY="15"
-					RadiusX="15"           
-                >
-                    <Rectangle.Fill>
-                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" >
-                            <GradientStop Color="#FF888888" Offset="0"/>
-                            <GradientStop Color="#FFE0E0E0" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Rectangle.Fill>
-                </Rectangle>
-
-                <Rectangle x:Name="rect"
-					RadiusY="15"
-					RadiusX="15" 
-					Margin="1"
-                >
-                    <Rectangle.Fill>
-                        <SolidColorBrush Color="{StaticResource clrEnableBK_TextBox}"/>
-                    </Rectangle.Fill>
-                </Rectangle>
-                <ScrollViewer 
-					Margin="6,2,6,2" 
-					x:Name="PART_ContentHost" 
-					VerticalAlignment="Center"            
-					FontSize="{TemplateBinding FontSize}"
-					Foreground="{TemplateBinding Foreground}" 
-					IsEnabled="{TemplateBinding IsEnabled}"
-                />
-            </Grid>
-
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="false">
-                    <Setter Property="Foreground">
-                        <Setter.Value>
-                            <SolidColorBrush Color="{StaticResource clrEnableBK_TextBox}" />
-                        </Setter.Value>
-                    </Setter>
-                    <Setter TargetName="Border" Property="Fill">
-                        <Setter.Value>
-                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" >
-                                <GradientStop Color="#FF787878" Offset="0"/>
-                                <GradientStop Color="#FFC0C0C0" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter TargetName="rect" Property="Fill">
-                        <Setter.Value>
-                            <SolidColorBrush Color="{StaticResource clrDisableBK_TextBox}"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-
-        <Style x:Key="CustomPlusButtonStyle"
-			TargetType="{x:Type RepeatButton}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type RepeatButton}">
-                        <Grid>
-                            <Ellipse x:Name="innerEllipse" StrokeThickness="2" Fill="{StaticResource PlusButtonFillNormal}" Stroke="{StaticResource PlusButtonStrokeNormal}"/>
-                            <Path x:Name="innerShape" StrokeThickness="2"  Margin="6" Data="M0.5,5.5 L10.5,5.5 M5.5,0.5 L5.5,10.5"  Stretch="Fill" Stroke="{StaticResource PlusButtonContentNormal}"/>
-                        </Grid>
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter TargetName="innerEllipse" Property="Stroke" Value="{StaticResource PlusButtonStrokePressed}" />
-                                <Setter TargetName="innerEllipse" Property="Fill" Value="{StaticResource PlusButtonFillPressed}" />
-                                <Setter TargetName="innerShape" Property="Stroke" Value="{StaticResource PlusButtonContentPressed}" />
-                            </Trigger>
-
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsMouseOver" Value="true"/>
-                                    <Condition Property="IsPressed" Value="false"/>
-                                </MultiTrigger.Conditions>
-
-                                <Setter TargetName="innerEllipse" Property="Stroke" Value="{StaticResource PlusButtonStrokeNormal}" />
-                                <Setter TargetName="innerEllipse" Property="Fill" Value="{StaticResource PlusButtonFillNormal}" />
-                                <Setter TargetName="innerShape" Property="Stroke" Value="{StaticResource PlusButtonContentOver}" />
-                            </MultiTrigger>
-
-                            <Trigger  Property="IsFocused" Value="True">
-                                <Setter Property="FocusVisualStyle" Value="{StaticResource SpinnerButtonFocus}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key ="SpinnerControl1"  TargetType="{x:Type Controls:SpinnerControl}">
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Focusable" Value="False"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Controls:SpinnerControl}">
-
-                        <Grid Background="{Binding Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-
-                            <RepeatButton 
-								x:Name="btnDecrease"
-								Grid.Row="0"
-								Grid.Column="0"
-								Width="25"
-								Height="25"
-								Style="{StaticResource CustomMinusButtonStyle}" 
-								Command="{x:Static Controls:SpinnerControl.DecreaseCommand}"/>
-
-                            <TextBox 
-								x:Name="tbTextBox"
-								Grid.Row="0"
-								Grid.Column="1"
-								Background="{Binding Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
-								BorderBrush="{StaticResource TextBoxBorderBrush}"
-								Foreground="#FF707070"
-								TextAlignment="Center"
-								IsReadOnly="False"
-								BorderThickness="0"
-								FontSize="18" 
-								MaxLength="3"                                 
-								Height="30"
-								Style="{StaticResource TextBoxErrorTemplateStyle1}"
-								Template="{StaticResource customTextBox}"
-                                SnapsToDevicePixels ="True"
-								InputMethod.IsInputMethodEnabled="False"
+                                <TextBox Name="tbTextBox"
+                                 Grid.Row="0"
+                                 Grid.Column="1"
+                                 Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                 BorderBrush="{StaticResource TextBoxBorderBrush}"
+                                 Foreground="#FF707070"
+                                 TextAlignment="Center"
+                                 IsReadOnly="False"
+                                 BorderThickness="0"
+                                 FontSize="30" 
+                                 Margin="0,0,0,2"
+                                 MaxLength="3"
+                                 Style="{StaticResource TextBoxErrorTemplateStyle}"
+                                 InputMethod.IsInputMethodEnabled="False"
+                                 VerticalAlignment="Center"
                                  >
-                                <TextBox.InputBindings>
-                                    <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
-                                </TextBox.InputBindings>
-                                <TextBox.ContextMenu>
-                                    <ContextMenu Visibility="Collapsed"/>
-                                </TextBox.ContextMenu>
-                                <Binding RelativeSource="{RelativeSource TemplatedParent}" 
-									Mode="TwoWay"
-									Path="FormattedValue" 
-									UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <Controls:PrintCopysValidationRule MinimumValue="1" MaximumValue="30" 
-											ErrorMessage="{StaticResource ResStr_The_valid_range_is_1_30__please_confirm_and_enter_again_}" />
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox>
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                                    </TextBox.InputBindings>
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu Visibility="Collapsed">
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu>
+                                    <TextBox.Text>
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" 
+                                         Mode="TwoWay"
+                                         Path="FormattedValue" 
+                                         UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <local:PrintCopysValidationRule MinimumValue="0" MaximumValue="100" 
+										ErrorMessage="{StaticResource ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_}" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
 
-                            <RepeatButton 
-								x:Name="btnIncrease"
-								Grid.Row="0"
-								Grid.Column="2"
-								Width="25"
-								Height="25"
-								Style="{StaticResource CustomPlusButtonStyle}" 
-								Command="{x:Static Controls:SpinnerControl.IncreaseCommand}"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger SourceName="tbTextBox" Property="Validation.HasError"  Value="true">
-                                <Setter Property="ValidationHasError" Value="True"/>
-                                <Setter TargetName="btnDecrease" Property="IsEnabled" Value="False"/>
-                                <Setter TargetName="btnIncrease" Property="IsEnabled" Value="False"/>
-                            </Trigger>
 
-                            <Trigger SourceName="tbTextBox"  Property="Validation.HasError" Value="False">
-                                <Setter Property="ValidationHasError" Value="False"/>
-                                <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"/>
-                                <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+                                <RepeatButton Name="btnIncrease"
+                                      Grid.Row="0"
+                                      Grid.Column="2"
+                                      Width="30"
+                                      Height="30"
+                                      Style="{StaticResource CustomPlusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger SourceName="tbTextBox" Property="Validation.HasError"  Value="true">
+                                    <Setter Property="ValidationHasError" Value="True"></Setter>
+                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="False"></Setter>
+                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="False"></Setter>
+                                </Trigger>
 
+                                <Trigger SourceName="tbTextBox"  Property="Validation.HasError" Value="False">
+                                    <Setter Property="ValidationHasError" Value="False"></Setter>
+                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"></Setter>
+                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.Background>
@@ -343,33 +119,74 @@
         </Grid.Background>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="34"/>
-            <RowDefinition Height="51"/>
-            <RowDefinition Height="52*"/>
-            <RowDefinition Height="34*"/>
-            <RowDefinition Height="79*"/>
-            <RowDefinition Height="86"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnCalibration" Click="btnCalibration_Click" Content="{StaticResource ResStr_Calibration}" Grid.Column="1" HorizontalAlignment="Left" Height="22" Margin="248,15,0,0" VerticalAlignment="Top" Width="119" Grid.Row="1" FontSize="13.333"/>
-        <Controls:SpinnerControl x:Name="spinnerControl1" Style="{StaticResource SpinnerControl1}"
-        	Width="291" 
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label x:Name="label1" Content="{StaticResource ResStr_Power_Save_Time}"
+                   Grid.Column="0" HorizontalAlignment="Left" Height="25" Margin="10,0,0,0" VerticalAlignment="Center"
+                   Width="164" Grid.Row="0" FontSize="14"/>
+            <!--<Button x:Name="btnCalibration" Click="btnCalibration_Click" Content="{StaticResource ResStr_Calibration}" 
+                    Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="0,0,5,0" 
+                    VerticalAlignment="Center" Width="120"  Grid.Row="0" FontSize="14"/>-->
+            <local:ButtonEx x:Name="btnCalibration"
+                            Click="btnCalibration_Click" 
+                            Content="{StaticResource ResStr_Calibration}" 
+                            FontSize="14"  
+                            IsActiveEx="True"
+                            Grid.Row="0" 
+                            Grid.Column="0" 
+                            HorizontalAlignment="Right" 
+                            HorizontalContentAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            Width="125" 
+                            Height="35"
+                            Margin="0,0,10,0"></local:ButtonEx>
+            <local:SpinnerControl x:Name="spinnerControl1" Style="{StaticResource SpinnerControl1}"
+        	Width="300" 
         	Background="Transparent"
         	Change="1"
         	DecimalPlaces="0"
         	Maximum="30"
         	Minimum="1"  
         	IsPercentFormat="False"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
         	ValueChanged="spinnerControl1_ValueChanged"     
         	ValidationHasErrorChanged="spinnerControl1_ValidationHasErrorChanged"
-        	LostFocus="SpinnerTextBox_LostFocus" Margin="33,7,53,3" Height="42" Grid.Column="1" Grid.Row="2" FontWeight="Bold"
+        	LostFocus="SpinnerTextBox_LostFocus"  
+                                  Height="45" Grid.Column="0" Grid.Row="1" FontWeight="Bold"
                             />
-        <Button x:Name="btnApply" Content="{StaticResource ResStr_Apply}" Grid.Column="1" HorizontalAlignment="Center" Height="22" Margin="127,40,132,0" Grid.Row="5" VerticalAlignment="Top" Width="118" FontSize="13.333" Click="btnApply_Click_1"/>
-        <Label x:Name="label" Content="{StaticResource ResStr_1_30_Minute}" Grid.Column="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Height="29" Margin="41,3,58,0" Grid.Row="3" VerticalAlignment="Top" Width="278" FontSize="13.333"/>
-        <Label x:Name="label1" Content="{StaticResource ResStr_Power_Save_Time}" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="10,12,0,0" VerticalAlignment="Top" Width="164" Grid.Row="1" FontSize="13.333"/>
+
+            <Label x:Name="label" Content="{StaticResource ResStr_1_30_Minute}" 
+                   Grid.Column="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" 
+                   Height="30" Margin="0,0,0,3" Grid.Row="1" VerticalAlignment="Bottom" Width="200" FontSize="14"/>
+
+            <!--<Button x:Name="btnApply" Content="{StaticResource ResStr_Apply}" Grid.Column="1" HorizontalAlignment="Center" Height="22" Margin="127,40,132,0" Grid.Row="5" VerticalAlignment="Top" Width="118" FontSize="13.333" Click="btnApply_Click_1"/>-->
+            <local:ButtonEx x:Name="btnApply"
+                            Click="btnApply_Click_1" 
+                            Content="{StaticResource ResStr_Apply}" 
+                            FontSize="18"  
+                            IsActiveEx="True"
+                            Grid.Row="2" 
+                            Grid.Column="0" 
+                            HorizontalAlignment="Center" 
+                            HorizontalContentAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            Width="125" 
+                            Height="32"
+                            ></local:ButtonEx>
+   </Grid>
     </Grid>
 </UserControl>
