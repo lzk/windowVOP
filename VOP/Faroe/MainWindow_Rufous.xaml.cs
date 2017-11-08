@@ -47,6 +47,7 @@ namespace VOP
 
         public static byte m_byWifiInitStatus = 0;
         public string m_strPassword = "";
+        public bool _bScanning = false;
 
         private bool bGrayIcon = false; // True if the tray icon was set to gray.
 
@@ -200,12 +201,60 @@ namespace VOP
             }
         }
 
+        public void CheckDeviceStatus()
+        {
+            if (dll.CheckConnection())
+            {
+                //SetDeviceButtonState(true);
+                //modified by yunying shang 2017-10-19 for BMS 1172
+                if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
+                {
+                    //add by yunying shang 2017-10-23 for BMS 1019
+                    if (!scanDevicePage.IsOnLine())
+                    {
+                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                    }
+                    else//<<===============1019
+                    {
+                        NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+                        bool bFound = false;
+                        foreach (NetworkInterface adapter in fNetworkInterfaces)
+                        {
+                            if (adapter.Description.Contains("802") ||
+                                adapter.Description.Contains("Wi-Fi") ||
+                                adapter.Description.Contains("Wireless"))
+                            {
+                                bFound = true;
+                            }
+                        }
+
+                        if (bFound == false)
+                        {
+                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                        }
+                        else
+                        {
+                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                        }
+                    }
+                }
+                else
+                {
+                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                }//<<=================1172
+            }
+            else
+            {
+                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+            }
+        }
+
         public void UpdateStatusCaller()
         {
             m_updaterAndUIEvent.Reset();
 
             _bExitUpdater = false;
-            while (!_bExitUpdater)
+            while (!_bExitUpdater && !_bScanning)
             {
                 if (dll.CheckConnection())
                 {

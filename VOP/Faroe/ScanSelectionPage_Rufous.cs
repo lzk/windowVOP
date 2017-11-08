@@ -58,11 +58,13 @@ namespace VOP
                     }
                 }
             }//<<=======================
+
+            m_MainWin.CheckDeviceStatus();
         }
 
         private void ScreenButton_Click(object sender, RoutedEventArgs e)
         {
-
+            m_MainWin._bScanning = true;
             TextBlock tb = ScreenBtn.Template.FindName("DetailText", ScreenBtn) as TextBlock;
 
             QuickScan qs = new QuickScan();            
@@ -89,6 +91,7 @@ namespace VOP
                 default:
                     break;
             }
+            m_MainWin._bScanning = false;
         }
 
         private void QRCodeButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -232,35 +235,36 @@ namespace VOP
 
         private void ScanToButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            m_MainWin._bScanning = true;
             ImageButton btn = sender as ImageButton;
 
             ScanTask task = new ScanTask();
 
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
             //List<ScanFiles> files = new List<ScanFiles>();
-           
-            if (files == null)
-                return;
 
-            if (task.ScanResult == Scan_RET.RETSCAN_OK)
+            if (files != null)
+            //   return;
             {
-                //List<ScanFiles> files = new List<ScanFiles>();
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1 error.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
-                //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
-                //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\1.JPG"));
-                //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\2.JPG"));
-                ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00_180.JPG"));
-                ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00.JPG"));
-                ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
-                ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592601031_C300_A00.JPG"));
-                ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00_180.JPG"));
-                ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00.JPG"));
+                if (task.ScanResult == Scan_RET.RETSCAN_OK)
+                {
+                    //List<ScanFiles> files = new List<ScanFiles>();
+                    //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1 error.JPG"));
+                    //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
+                    //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
+                    //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\1.JPG"));
+                    //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\2.JPG"));
+                    ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00_180.JPG"));
+                    ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00.JPG"));
+                    ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
+                    ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592601031_C300_A00.JPG"));
+                    ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00_180.JPG"));
+                    ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00.JPG"));
 
-                m_MainWin.GotoPage("ScanPage", files);
+                    m_MainWin.GotoPage("ScanPage", files);
+                }
             }
-           
+            m_MainWin._bScanning = false;
         }
 
         private void DeviceButton_Click(object sender, RoutedEventArgs e)
