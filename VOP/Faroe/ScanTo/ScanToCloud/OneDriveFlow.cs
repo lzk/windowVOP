@@ -235,6 +235,10 @@ namespace VOP
             {
                 await LoadFolderFromPath(defaultPath);
             }
+            else
+            {
+                await LoadFolderFromPath();
+            }
             var targetFolder = CurrentFolder;
             string Filename = "";
             using (var stream = GetFileStreamForUpload(targetFolder.Name, filePath, out Filename))
