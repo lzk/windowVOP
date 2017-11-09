@@ -452,6 +452,7 @@ namespace VOP
                 else
                 {
                     scanSelectionPage.tbStatus.Text = "Disconnected";
+                    MainWindow_Rufous.g_settingData.m_DeviceName = "";
                     scanSelectionPage.DeviceButton.Connected = false;
                     scanSettingsPage.PassStatus(false);
                     bUseGrayIcon = true;
