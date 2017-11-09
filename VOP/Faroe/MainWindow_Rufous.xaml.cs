@@ -201,8 +201,9 @@ namespace VOP
             }
         }
 
-        public void CheckDeviceStatus()
+        public bool CheckDeviceStatus()
         {
+            bool bResult = false;
             if (dll.CheckConnection())
             {
                 //SetDeviceButtonState(true);
@@ -213,6 +214,7 @@ namespace VOP
                     if (!scanDevicePage.IsOnLine())
                     {
                         Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                        bResult = false;
                     }
                     else//<<===============1019
                     {
@@ -231,22 +233,28 @@ namespace VOP
                         if (bFound == false)
                         {
                             Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                            bResult = false;
                         }
                         else
                         {
                             Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                            bResult = true;
                         }
                     }
                 }
                 else
                 {
                     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                    bResult = true;
                 }//<<=================1172
             }
             else
             {
                 Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                bResult = false;
             }
+
+            return bResult;
         }
 
         public void UpdateStatusCaller()

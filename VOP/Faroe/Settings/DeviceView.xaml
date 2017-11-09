@@ -77,8 +77,8 @@
                                          Path="FormattedValue" 
                                          UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
-                                                <local:PrintCopysValidationRule MinimumValue="0" MaximumValue="100" 
-										ErrorMessage="{StaticResource ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_}" />
+                                                <local:PrintCopysValidationRule MinimumValue="1" MaximumValue="30" 
+										ErrorMessage="{StaticResource ResStr_The_valid_range_is_1_30__please_confirm_and_enter_again_}" />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
