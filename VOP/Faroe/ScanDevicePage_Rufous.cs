@@ -288,6 +288,10 @@ namespace VOP
                             {
                                 Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
                             }
+                            else
+                            {
+                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                            }
                         }
                     }
                     else
@@ -295,6 +299,10 @@ namespace VOP
                         if (!dll.CheckConnection())
                         {
                             Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                        }
+                        else
+                        {
+                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                         }
                     }
 
