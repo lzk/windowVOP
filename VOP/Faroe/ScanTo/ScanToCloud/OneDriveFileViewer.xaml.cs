@@ -160,7 +160,10 @@ namespace VOP
 
                         if (newFolder != null)
                         {
-                            await LoadFolderFromPath();
+                            if(PathText.Text !="")
+                               await LoadFolderFromPath(PathText.Text);
+                            else
+                                await LoadFolderFromPath();
                         }                        
                     }                 
                 }

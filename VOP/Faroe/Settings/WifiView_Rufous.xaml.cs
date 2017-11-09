@@ -385,7 +385,6 @@ namespace VOP
             //AsyncWorker worker1 = new AsyncWorker(Application.Current.MainWindow);
 
             //worker1.InvokeMethod<WiFiInfoRecord>(((MainWindow)App.Current.MainWindow).statusPanelPage.m_selectedPrinter, ref m_wifi, DllMethodType.GetWiFiInfo, this);
-
             if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
             {
                 for (int i = 0; i < m_rec.SsidList.Count; i++)
@@ -393,7 +392,8 @@ namespace VOP
                     if (!String.IsNullOrEmpty(m_rec.SsidList[i]))
                     {
                         VOP.Controls.WiFiItem wifiitem = new VOP.Controls.WiFiItem();
-                        wifiitem.SSIDText = m_rec.SsidList[i];
+                        Byte[] strTemp = Encoding.Default.GetBytes(m_rec.SsidList[i]);//bms#1340
+                        wifiitem.SSIDText = Encoding.UTF8.GetString(strTemp);
                         if ((byte)EnumEncryptType.NoSecurity == m_rec.EncryptionList[i])    //No Security
                         {
                             wifiitem.EncryptionText = (string)this.FindResource("ResStr_No_Security");
