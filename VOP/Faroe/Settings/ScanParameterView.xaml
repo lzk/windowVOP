@@ -194,7 +194,21 @@
                 <ComboBoxItem >EverNote</ComboBoxItem>
                 <ComboBoxItem >OneDrive</ComboBoxItem>
             </ComboBox>
-            <Button x:Name="btnReset" Content="Reset" Grid.Column="3" HorizontalAlignment="Left" Height="35" Margin="1,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnReset_Click"/>
+           <!-- <Button x:Name="btnReset" Content="Reset" Grid.Column="3" HorizontalAlignment="Left" Height="35" Margin="1,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnReset_Click"/>-->
+                        <Button
+                Name="btnReset"
+                Grid.Row="2"
+                Grid.Column="3"
+                Width="75"
+                Height="35" 
+                Margin="5,0,0,0"
+                VerticalAlignment="Center"
+                Content="Reset"
+                FontSize="16"
+                Style="{StaticResource CustomGreenButtonStyle}" 
+                Click="btnReset_Click"
+                TabIndex="0"
+                />
             <TextBlock 
                 Grid.Row="3"
                 Grid.Column="0"
