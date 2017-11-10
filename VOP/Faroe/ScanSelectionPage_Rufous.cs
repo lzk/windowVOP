@@ -95,11 +95,14 @@ namespace VOP
 
             if (bRtn == false)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                Application.Current.MainWindow,
-               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
-               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
-                );
+                if (DeviceButton.Connected == false)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    Application.Current.MainWindow,
+                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
+                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                    );
+                }
             }
             m_MainWin._bScanning = false;
         }
