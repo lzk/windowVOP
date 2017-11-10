@@ -424,4 +424,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Saving_pic_TIFF">正在存储到TIFF文件，请稍后...</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Fail_save_tiff">保存TIFF文件失败. </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Uploading_Files">正在加载文件，请稍后...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Device_Disconnected">设备断开连接，扫描将会被停止!</sys:String>
 </ResourceDictionary>

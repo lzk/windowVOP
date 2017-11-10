@@ -95,7 +95,8 @@ namespace VOP
         }
 
         private void QRCodeButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {           
+        {
+            m_MainWin._bScanning = true;
             ImageButton btn = sender as ImageButton;
 
 #if (DEBUG)
@@ -230,7 +231,7 @@ namespace VOP
 */               
             }
 #endif
-
+            m_MainWin._bScanning = false;
         }
 
         private void ScanToButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
