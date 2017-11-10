@@ -278,22 +278,6 @@ namespace VOP
             }
         }
 
-        //private void tbFilePath_LostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    string strPath = tbFilePath.Text;
-        //    if (strPath.Length <= 0)
-        //    {
-        //        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-        //       Application.Current.MainWindow,
-        //      "Invalid File Path",
-        //      "Error");
-        //    }
-        //    else
-        //    {
-
-        //    }
-        //}
-
         private MainWindow_Rufous _MainWin = null;
 
         public MainWindow_Rufous m_MainWin

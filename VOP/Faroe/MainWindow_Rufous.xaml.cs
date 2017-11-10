@@ -466,12 +466,14 @@ namespace VOP
                     //add by yunying shang 2017-11-10 for BMS 1372
                     if (_bScanning)
                     {
+                        _bScanning = false;
                         dll.ADFCancel();
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                        Application.Current.MainWindow,
-                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
-                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
-                        );
+                       // VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                       // Application.Current.MainWindow,
+                       //(string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
+                       //(string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                       // );
+                        
                     }//<<===============1372
                 }
                 if (bUseGrayIcon != bGrayIcon)

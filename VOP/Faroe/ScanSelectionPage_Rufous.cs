@@ -67,29 +67,39 @@ namespace VOP
             m_MainWin._bScanning = true;
             TextBlock tb = ScreenBtn.Template.FindName("DetailText", ScreenBtn) as TextBlock;
 
-            QuickScan qs = new QuickScan();            
+            QuickScan qs = new QuickScan();
+            bool bRtn = false;         
             switch (MainWindow_Rufous.g_settingData.m_MatchList[ScreenTextNumber - 1].Value)
             {
                 case 0:
-                    qs.ScanToPrint();
+                    bRtn = qs.ScanToPrint();
                     break;
                 case 1:
-                    qs.ScanToFile();
+                    bRtn = qs.ScanToFile();
                     break;
                 case 2:
-                    qs.ScanToAP();
+                    bRtn = qs.ScanToAP();
                     break;
                 case 3:
-                    qs.ScanToEmail();
+                    bRtn = qs.ScanToEmail();
                     break;
                 case 4:
-                    qs.ScanToFtp();
+                    bRtn = qs.ScanToFtp();
                     break;
                 case 5:
-                    qs.ScanToCloud();
+                    bRtn = qs.ScanToCloud();
                     break;
                 default:
                     break;
+            }
+
+            if (bRtn == false)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                Application.Current.MainWindow,
+               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
+               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                );
             }
             m_MainWin._bScanning = false;
         }
@@ -243,7 +253,7 @@ namespace VOP
 
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
             //List<ScanFiles> files = new List<ScanFiles>();
-
+            m_MainWin._bScanning = false;
             if (files != null)
             //   return;
             {
@@ -264,8 +274,19 @@ namespace VOP
 
                     m_MainWin.GotoPage("ScanPage", files);
                 }
+
             }
-            m_MainWin._bScanning = false;
+            else if (task.ScanResult == Scan_RET.RETSCAN_CANCEL)
+            {
+                if (DeviceButton.Connected == false)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        Application.Current.MainWindow,
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                        );
+                }
+            }
         }
 
         private void DeviceButton_Click(object sender, RoutedEventArgs e)
