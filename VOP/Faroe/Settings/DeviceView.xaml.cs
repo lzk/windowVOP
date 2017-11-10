@@ -142,6 +142,15 @@ namespace VOP
         {
             bool isApplySuccess = false;
 
+            if (m_MainWin.CheckDeviceStatus() == false)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                   Application.Current.MainWindow,
+                   (string)"Device is diconnected, could not Apply setting!",
+                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                return false;
+            }
+
             byte psavetime = Convert.ToByte(spinnerControl1.Value);
             if (psavetime < 1 || 30 < psavetime)
                 psavetime = 1;
@@ -214,7 +223,7 @@ namespace VOP
                     tb.CaretIndex = tb.Text.Length;
                 }
 
-                UpdateApplyBtnStatus();
+                //UpdateApplyBtnStatus();
             }
         }
 
@@ -231,24 +240,24 @@ namespace VOP
         private void spinnerControl1_ValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
             VOP.Controls.SpinnerControl sc = sender as VOP.Controls.SpinnerControl;
-            if (false == m_currentStatus)
+            //if (false == m_currentStatus)
             {
                 if (sc.ValidationHasError == true)
                     btnApply.IsEnabled = false;
                 else
                     btnApply.IsEnabled = true;
             }
-            else
-            {
-                btnApply.IsEnabled = false;
-            }
+           // else
+           // {
+           //     btnApply.IsEnabled = false;
+           // }
         }
 
         public void PassStatus(bool online)
         {
             m_currentStatus = online;
 
-            btnApply.IsEnabled = online;
+           // btnApply.IsEnabled = online;
         }
 
         private MainWindow_Rufous _MainWin = null;

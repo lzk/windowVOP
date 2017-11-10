@@ -150,6 +150,14 @@ namespace VOP
 
         private void btnApply_Click(object sender, RoutedEventArgs e)
         {
+            if (m_MainWin.CheckDeviceStatus() == false)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                   Application.Current.MainWindow,
+                   (string)"Device is diconnected, could not Apply setting!",
+                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                return;
+            }
             apply();
             //UpdateApplyBtnStatus();
         }

@@ -201,52 +201,55 @@ namespace VOP
             }
         }
 
-        public void CheckDeviceStatus()
+        public bool CheckDeviceStatus()
         {
-            if (dll.CheckConnection())
-            {
-                //SetDeviceButtonState(true);
-                //modified by yunying shang 2017-10-19 for BMS 1172
-                if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
-                {
-                    //add by yunying shang 2017-10-23 for BMS 1019
-                    if (!scanDevicePage.IsOnLine())
-                    {
-                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                    }
-                    else//<<===============1019
-                    {
-                        NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-                        bool bFound = false;
-                        foreach (NetworkInterface adapter in fNetworkInterfaces)
-                        {
-                            if (adapter.Description.Contains("802") ||
-                                adapter.Description.Contains("Wi-Fi") ||
-                                adapter.Description.Contains("Wireless"))
-                            {
-                                bFound = true;
-                            }
-                        }
+            bool bResult = false;
 
-                        if (bFound == false)
-                        {
-                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                        }
-                        else
-                        {
-                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
-                        }
-                    }
-                }
-                else
-                {
-                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
-                }//<<=================1172
+            StringBuilder usbName = new StringBuilder(50);
+
+            if (dll.CheckUsbScan(usbName) == 1)
+            {
+                MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+                bResult = true;
             }
             else
             {
-                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                if (!scanDevicePage.IsOnLine())
+                {
+                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                    bResult = false;
+                }
+                else//<<===============1019
+                {
+                    NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+                    bool bFound = false;
+                    foreach (NetworkInterface adapter in fNetworkInterfaces)
+                    {
+                        if (adapter.Description.Contains("802") ||
+                            adapter.Description.Contains("Wi-Fi") ||
+                            adapter.Description.Contains("Wireless"))
+                        {
+                            bFound = true;
+                        }
+                    }
+
+                    if (bFound == false)
+                    {
+                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                        bResult = false;
+                    }
+                    else
+                    {
+                        MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
+                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                        bResult = true;
+                    }
+                }
+ 
             }
+
+
+            return bResult;
         }
 
         public void UpdateStatusCaller()
@@ -254,7 +257,7 @@ namespace VOP
             m_updaterAndUIEvent.Reset();
 
             _bExitUpdater = false;
-            while (!_bExitUpdater && !_bScanning)
+            while (!_bExitUpdater)// && !_bScanning)
             {
                 if (dll.CheckConnection())
                 {
@@ -446,15 +449,30 @@ namespace VOP
                     }
                     else
                     {
-                        scanSelectionPage.tbStatus.Text = MainWindow_Rufous.g_settingData.m_DeviceName;
+                        if(MainWindow_Rufous.g_settingData.m_DeviceName == "")
+                            scanSelectionPage.tbStatus.Text = "Wi-Fi";
+                        else
+                            scanSelectionPage.tbStatus.Text = MainWindow_Rufous.g_settingData.m_DeviceName;
                     }
                 }
                 else
                 {
                     scanSelectionPage.tbStatus.Text = "Disconnected";
+                    MainWindow_Rufous.g_settingData.m_DeviceName = "";
                     scanSelectionPage.DeviceButton.Connected = false;
                     scanSettingsPage.PassStatus(false);
                     bUseGrayIcon = true;
+
+                    //add by yunying shang 2017-11-10 for BMS 1372
+                    if (_bScanning)
+                    {
+                        dll.ADFCancel();
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        Application.Current.MainWindow,
+                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
+                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                        );
+                    }//<<===============1372
                 }
                 if (bUseGrayIcon != bGrayIcon)
                 {

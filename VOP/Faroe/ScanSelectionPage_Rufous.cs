@@ -95,7 +95,8 @@ namespace VOP
         }
 
         private void QRCodeButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {           
+        {
+            m_MainWin._bScanning = true;
             ImageButton btn = sender as ImageButton;
 
 #if (DEBUG)
@@ -230,7 +231,7 @@ namespace VOP
 */               
             }
 #endif
-
+            m_MainWin._bScanning = false;
         }
 
         private void ScanToButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -254,8 +255,8 @@ namespace VOP
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
                     //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\1.JPG"));
                     //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\2.JPG"));
-                   // files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\1_201711313163_1.bmp"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\1_201711313163_2.bmp"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
                     ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
                     ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592601031_C300_A00.JPG"));
                     ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00_180.JPG"));

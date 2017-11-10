@@ -21,6 +21,9 @@
 #include "Global.h"
 #include <gdiplus.h>
 #include <Shlwapi.h>
+#include <Wininet.h>
+#include <Sensapi.h>
+
 
 using namespace Gdiplus;
 
@@ -81,6 +84,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	BOOL onepage,
 	UINT32 uMsg,
 	SAFEARRAY** fileNames);
+
+USBAPI_API BOOL __stdcall CheckConnection();
 
 static int GetByteNumPerLineWidthPad(int scanMode, int nPixels)
 {
@@ -870,7 +875,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 						{
 							currentImgSize -= ImgSize;
 							TotalImgSize += ImgSize;
-						
+
 							ImgFile_Write(&ImgFile[dup], imgBuffer, ImgSize);
 
 							int percent = 0;
@@ -879,10 +884,10 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 							percent = lineCount;
 							//MyOutputString(L"Data size ", ImgSize);
 							if (percent > 100)
-								percent = 100;							
+								percent = 100;
 							Sleep(100);
 						}
-					}					
+					}
 					if ((TotalImgSize >= (int)glDrv.sc_infodata.ValidPageSize[dup]) && glDrv.sc_infodata.EndPage[dup])
 					{
 						//add by yunying shang 2017-10-12 for BMS1082
@@ -918,6 +923,9 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		{
 			glDrv._cancel();
 			MyOutputString(L"_cancel");
+
+			glDrv.waitJobFinish(0);
+			MyOutputString(L"waitJobFinish");
 
 			glDrv._JobEnd();
 			MyOutputString(L"_JobEnd");

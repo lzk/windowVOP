@@ -483,17 +483,21 @@ namespace VOP
                         if (GetSelectedItemCount() < m_maxImgNum)
                         {
                             tmp.m_num = GetSelectedItemCount() + 1;
-                            selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = tmp.m_num;
                         }
                         else
                         {
                             tmp.m_num = 0;
-                            selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = 0;
                         }
 
                         tmp.Margin = new Thickness( 5 );
                         this.image_wrappanel.Children.Insert(index, tmp );
                         App.scanFileList.Add( tmp.m_images );
+
+                        ImageStatus newImage = new ImageStatus();
+                        newImage._files = tmp.m_images;
+                        newImage.m_num = tmp.m_num;
+
+                        this.selectedFileList.Add(newImage);
                     }
                 }
             }

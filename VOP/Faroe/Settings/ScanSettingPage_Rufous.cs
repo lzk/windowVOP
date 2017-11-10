@@ -64,6 +64,7 @@ namespace VOP
             btnScanParameter.HorizontalAlignment = HorizontalAlignment.Left;
             btnScanParameter.btn.Name = "btnScanParameter";
             btnScanParameter.btn.Click += SettingBtnClick;
+            btnScanParameter.btn.TouchUp += SettingBtnClick;
             m_listSettingButton.Add(btnScanParameter);
 
             btnQuickScanSettings.btn.Content = "Quick Scan Settings";
