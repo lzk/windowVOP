@@ -232,6 +232,8 @@
                                 MaxLength="20"
                                 Text=""
                                 VerticalContentAlignment="Center"
+                                UndoLimit="0" 
+                                PreviewKeyDown="tbName_PreviewKeyDown"                                
                                 FontSize="14"
                                 />
                             </StackPanel>

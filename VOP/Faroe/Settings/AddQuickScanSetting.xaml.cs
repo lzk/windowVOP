@@ -11,6 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
+using System.Threading; // for Mutex 
+using System.Collections.ObjectModel;
+using System.Windows.Interop;
 
 namespace VOP
 {
@@ -23,6 +27,7 @@ namespace VOP
         public int value = 0;
         public int key = 0;// add by yunying shang 2017-11-07 for BMS 1301
         public bool IsEdit = false;
+        public int m_MaxLenth = 0;
         public ScanParam m_scanParams = new ScanParam();
         public ScanToPrintParam m_scanToPrintParams = new ScanToPrintParam();
         public ScanToFileParam m_scanToFileParams = new ScanToFileParam();
@@ -34,7 +39,6 @@ namespace VOP
         public AddQuickScanSetting(bool isAdd)
         {
             InitializeComponent();
-
             if (!isAdd)
             {
                 tbTitle.Text = "Edit Quick Scan Setting";
@@ -44,7 +48,7 @@ namespace VOP
                 tbTitle.Text = "Add Quick Scan Setting";
             }
         }
-
+        
         private void AddQuickScanSetting_Loaded(object sender, RoutedEventArgs e)
         {
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
@@ -56,6 +60,22 @@ namespace VOP
         private void cbType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             value = cbType.SelectedIndex;
+        }
+        private void tbName_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Back)
+            {
+                string str = this.tbName.Text;
+                int lent = System.Text.Encoding.Default.GetByteCount(str);
+                int max = this.tbName.MaxLength - 1;
+                byte[] bb = System.Text.Encoding.Default.GetBytes(str);//得到输入的字符串的数组 
+                if (lent > max)
+                {
+                    e.Handled = true;
+                    return;
+                }
+            }       
+
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

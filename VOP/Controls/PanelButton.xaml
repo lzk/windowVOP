@@ -307,8 +307,9 @@
                                             FontSize="20"
                                             Foreground="#FF48C6E0"
                                             Style="{StaticResource DsDigital}"     
-                                            HorizontalAlignment="Center" 
-                                            Margin="0,0,0,0"
+                                            HorizontalAlignment="Center"                                             
+                                            Margin="0,0,0,0"                                            
+                                            VerticalAlignment="Center" MaxWidth="240"
                                                 />          
                         </StackPanel>
 
