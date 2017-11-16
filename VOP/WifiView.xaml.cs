@@ -372,7 +372,9 @@ namespace VOP
                     if (!String.IsNullOrEmpty(m_rec.SsidList[i]))
                     {
                         VOP.Controls.WiFiItem wifiitem = new VOP.Controls.WiFiItem();
-                        wifiitem.SSIDText = m_rec.SsidList[i];
+                        Byte[] strTemp = Encoding.Default.GetBytes(m_rec.SsidList[i]);//bms#1340
+                        wifiitem.SSIDText = Encoding.UTF8.GetString(strTemp);
+//                        wifiitem.SSIDText = m_rec.SsidList[i];
                         if ((byte)EnumEncryptType.NoSecurity == m_rec.EncryptionList[i])    //No Security
                         {
                             wifiitem.EncryptionText = (string)this.FindResource("ResStr_No_Security");

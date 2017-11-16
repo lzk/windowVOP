@@ -356,6 +356,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_SuperFine">Super Fine</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_HighestQuality">Highest Quality</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_upload_dropbox_wait">Uploading picture to DropBox, please wait...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_upload_onedrive_wait">Uploading picture to OneDrive, please wait...</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Dropbox_File_Viewer">Dropbox File Viewer</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Upload">Upload</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Folder_Name">Folder Name :</sys:String>

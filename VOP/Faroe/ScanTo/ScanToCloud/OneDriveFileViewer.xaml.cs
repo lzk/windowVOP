@@ -50,8 +50,8 @@ namespace VOP
         public OneDriveFileViewer(GraphServiceClient client, List<string> fileList)
         {
             InitializeComponent();
-            this.graphClient = client;
-            FileList = fileList;
+            this.graphClient = client;     
+            FileList = fileList;           
         }        
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -62,8 +62,11 @@ namespace VOP
             {
                 UploadButton.Content = "OK";
             }
-
             await Start();
+            if (PathText.Text == "")
+                UpFolderButton.IsEnabled = false;
+            else
+                UpFolderButton.IsEnabled = true;
         }       
         private async Task Start()
         {
@@ -161,9 +164,15 @@ namespace VOP
                         if (newFolder != null)
                         {
                             if(PathText.Text !="")
-                               await LoadFolderFromPath(PathText.Text);
+                            {
+                                await LoadFolderFromPath(PathText.Text);
+                                UpFolderButton.IsEnabled = true;
+                            }
                             else
+                            {
                                 await LoadFolderFromPath();
+                                UpFolderButton.IsEnabled = false;
+                            }                                
                         }                        
                     }                 
                 }
@@ -211,12 +220,17 @@ namespace VOP
 
                     }
                     PathText.Text = currentPath;
+                    if (PathText.Text == "")
+                        UpFolderButton.IsEnabled = false;
+                    else
+                        UpFolderButton.IsEnabled = true;
                 }
                 else
                 {
                     await LoadFolderFromPath();
                     currentPath = "";
                     PathText.Text = "";
+                    UpFolderButton.IsEnabled = false;
                     selectedPath = "";
                 }
             }
@@ -254,6 +268,7 @@ namespace VOP
             catch (Exception exception)
             {
                 PresentServiceException(exception);
+                this.Close();
             }
 
         }
@@ -385,7 +400,11 @@ namespace VOP
                     selectedPath = temp;
                     await LoadFolderFromPath(temp);
                     currentPath = temp;
-                    PathText.Text = currentPath;                                
+                    PathText.Text = currentPath;
+                    if (PathText.Text == "")
+                        UpFolderButton.IsEnabled = false;
+                    else
+                        UpFolderButton.IsEnabled = true;
                 }
             }
             catch (Exception) { }            

@@ -38,6 +38,14 @@ namespace VOP
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
+            if (tbFolderName.Text == "")
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                   Application.Current.MainWindow,
+                  "The folder name cannot be empty",
+                  "Error");
+                return;
+            }
             m_folderName = tbFolderName.Text;
             DialogResult = true;
             this.Close();

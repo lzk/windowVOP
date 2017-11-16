@@ -65,7 +65,7 @@
                                 Text=""
                                 VerticalContentAlignment="Center"
                                 FontSize="14"
-                                MaxLength="32"
+                                MaxLength="255"
                                 />
                         </StackPanel>
                     </Border>
