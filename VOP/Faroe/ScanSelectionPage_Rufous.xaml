@@ -47,30 +47,31 @@
             Click="LeftButton_Click"
             />
             <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Grid.Background>
+                    <ImageBrush ImageSource="../Images/screenbg_normal.png"></ImageBrush>
+                </Grid.Background>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="12"/>
-                    <RowDefinition Height="26"/>
-                    <RowDefinition Height="282"/>
-                    <RowDefinition Height="26"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="283"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Grid.RowSpan="2"  Orientation="Horizontal" VerticalAlignment="Top" 
                     HorizontalAlignment="Left" Margin="0,0,0,0">
-                    <local:DeviceButton   
-            x:Name="DeviceButton"
-            Width="48"
-            Height="38"            
-            Click="DeviceButton_Click" HorizontalAlignment="Left"
-            />
-
-                    <TextBlock x:Name="tbStatus" Text="Disconnect" Height="20" Width="120" Margin="5,0,0,0" Foreground="Black" 
-                               VerticalAlignment="Center" TextAlignment="Left" />
+                    <local:DeviceButton  
+                    x:Name="DeviceButton"
+                    Width="48"
+                    Height="40"            
+                    Click="DeviceButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    />
+                    <TextBlock  x:Name="tbStatus" Text="Disconnect" Height="20" Width="120" Margin="48,0,0,0" Foreground="Black" 
+                               VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Left" />
                 </StackPanel>
-                <Grid Grid.Row="1">
+                <!--<Grid Grid.Row="1">
                     <Grid.Background>
                         <ImageBrush ImageSource="../Images/quick scan_shadow_top.png"></ImageBrush>
                     </Grid.Background>
-                </Grid>
-                <Button   Grid.Row="2"
+                </Grid>-->
+                <Button   Grid.Row="1"
                 	x:Name="ScreenBtn"
                 	Width="460"
                 	Style="{StaticResource ScreenButtonStyle}" 

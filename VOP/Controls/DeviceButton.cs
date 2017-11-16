@@ -8,8 +8,6 @@ namespace VOP.Controls
 
     class DeviceButton : Button
     {
-        
-
         public static readonly DependencyProperty ConnectedProperty =
                             DependencyProperty.Register("Connected",
                             typeof(bool),

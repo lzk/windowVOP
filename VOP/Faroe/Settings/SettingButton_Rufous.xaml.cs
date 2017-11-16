@@ -54,36 +54,36 @@ namespace VOP
             InitializeComponent();
             m_settingType = settingType;
 
-            switch (m_settingType)
-            {
-                case SettingType.ScanParameter:
-                    imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_scan to.png", UriKind.RelativeOrAbsolute));
-                    break;
+            //switch (m_settingType)
+            //{
+            //    case SettingType.ScanParameter:
+            //        imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_scan to.png", UriKind.RelativeOrAbsolute));
+            //        break;
 
-                case SettingType.QuickScanSettings:
-                    imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_quick scan.png", UriKind.RelativeOrAbsolute));
-                    break;
+            //    case SettingType.QuickScanSettings:
+            //        imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_quick scan.png", UriKind.RelativeOrAbsolute));
+            //        break;
 
-                case SettingType.QRCodeSettings:
-                    imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_qrcode barcode.png", UriKind.RelativeOrAbsolute));
-                    break;
+            //    case SettingType.QRCodeSettings:
+            //        imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_qrcode barcode.png", UriKind.RelativeOrAbsolute));
+            //        break;
 
-                case SettingType.Wireless:
-                    imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_wifi.png", UriKind.RelativeOrAbsolute));
-                    break;
+            //    case SettingType.Wireless:
+            //        imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_wifi.png", UriKind.RelativeOrAbsolute));
+            //        break;
 
-                case SettingType.TCPIP:
-                   imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_IPv4.png", UriKind.RelativeOrAbsolute));
-                    break;
+            //    case SettingType.TCPIP:
+            //       imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_IPv4.png", UriKind.RelativeOrAbsolute));
+            //        break;
 
-                case SettingType.SoftAP:
-                    imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_softap.png", UriKind.RelativeOrAbsolute));
-                    break;
+            //    case SettingType.SoftAP:
+            //        imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_softap.png", UriKind.RelativeOrAbsolute));
+            //        break;
 
-                case SettingType.Device:
-                    imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_device setting.png", UriKind.RelativeOrAbsolute));
-                    break;
-            }
+            //    case SettingType.Device:
+            //        imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_device setting.png", UriKind.RelativeOrAbsolute));
+            //        break;
+            //}
         }
 
         private void btn_ActiveExPropertyChanged(object sender, RoutedEventArgs e)
@@ -94,16 +94,47 @@ namespace VOP
                 //imgInactive.Visibility = Visibility.Hidden;
                 //imgTriangle.Visibility = Visibility.Visible;
                 //imgActive.Visibility = Visibility.Visible;
-                imgBg.Visibility = Visibility.Visible;
-                imgDisable.Visibility = Visibility.Hidden;
+                //imgBg.Visibility = Visibility.Visible;
+                //imgDisable.Visibility = Visibility.Hidden;
+                switch (m_settingType)
+                {
+                    case SettingType.ScanParameter:
+                        imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_scan to.png", UriKind.RelativeOrAbsolute));
+                        break;
+
+                    case SettingType.QuickScanSettings:
+                        imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_quick scan.png", UriKind.RelativeOrAbsolute));
+                        break;
+
+                    case SettingType.QRCodeSettings:
+                        imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_qrcode barcode.png", UriKind.RelativeOrAbsolute));
+                        break;
+
+                    case SettingType.Wireless:
+                        imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_wifi.png", UriKind.RelativeOrAbsolute));
+                        break;
+
+                    case SettingType.TCPIP:
+                        imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_IPv4.png", UriKind.RelativeOrAbsolute));
+                        break;
+
+                    case SettingType.SoftAP:
+                        imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_softap.png", UriKind.RelativeOrAbsolute));
+                        break;
+
+                    case SettingType.Device:
+                        imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_device setting.png", UriKind.RelativeOrAbsolute));
+                        break;
+                }
             }
             else
             {
                 //imgTriangle.Visibility = Visibility.Hidden;
                 //imgActive.Visibility = Visibility.Hidden;
                 //imgInactive.Visibility = Visibility.Visible;
-                imgBg.Visibility = Visibility.Hidden;
-                imgDisable.Visibility = Visibility.Visible;
+                //imgBg.Visibility = Visibility.Hidden;
+                //imgDisable.Visibility = Visibility.Visible;
+                imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_disable.png", UriKind.RelativeOrAbsolute));
             }
         }
 
