@@ -24,7 +24,7 @@
             </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="45"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
@@ -41,6 +41,14 @@
                     <local:MinimizeCloseButton x:Name="btnClose"    Height="35" Width="35" Click="ControlBtnClick" MinimizeOrCloseStyle="Close" />
                 </StackPanel>
             </Grid>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
+                        VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5">
+            <Image Source="../Images/VOPicon.png"
+                                        Width="32"
+                                        Height="32"                                      
+                                        />
+                <Label FontSize="16" Foreground="Black" VerticalAlignment="Center" VerticalContentAlignment="Center">VOP</Label>
+            </StackPanel>
             <Grid Grid.Row="2" Grid.Column="1" >
                 <Border Name="MainPageView" />
             </Grid>

@@ -33,7 +33,7 @@ namespace VOP
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
+            //TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
 
             //APListBox.Items.Add(CreateListItem("PhotoShop"));
             APListBox.Items.Add(CreateListItem("Paint"));
@@ -82,6 +82,7 @@ namespace VOP
             text.Foreground = txtbrush;
 
             StackPanel stack = new StackPanel();
+            stack.Margin = new Thickness(30, 0, 0, 0);
             stack.Orientation = Orientation.Horizontal;
 
             stack.Children.Add(img);
@@ -89,7 +90,7 @@ namespace VOP
 
             ListBoxItem item = new ListBoxItem();
             SolidColorBrush bgbrush = new SolidColorBrush();
-            bgbrush.Color = Colors.AliceBlue;
+            bgbrush.Color = Colors.White;
             item.Background = bgbrush;
 
             item.Content = stack;

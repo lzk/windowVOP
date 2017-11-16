@@ -8,7 +8,7 @@
              xmlns:local="clr-namespace:VOP.Controls"
              Loaded="OnLoadedTcpipView"
              Name="MyView"
-             d:DesignHeight="600" d:DesignWidth="500">
+             d:DesignHeight="460" d:DesignWidth="495">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -129,31 +129,31 @@
             <ImageBrush ImageSource="..\..\Images\SettingViewBackground.png" />
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="80"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.4*"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="6"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="0*"></RowDefinition>
-                <RowDefinition Height="1.2*"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="2.4*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            
             <TextBlock Text="{StaticResource ResStr_IP_Type}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
 
-            <Grid Grid.Column="2">
+            <Grid Grid.Row="0" Grid.Column="2" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -161,142 +161,142 @@
                 <RadioButton Click="btn_click" Name="rdbtn_dhcp" GroupName="ipaddress" Grid.Column="0" Content="{StaticResource ResStr_DHCP}" IsChecked="true" Height="25" Template="{StaticResource customRadioButton}" />
                 <RadioButton Click="btn_click" Name="rdbtn_static" GroupName="ipaddress" Grid.Column="1"  Content="{StaticResource ResStr_Static}"  IsChecked="False" Height="25"  Template="{StaticResource customRadioButton}" />
             </Grid>
-
-            <TextBlock Text="{StaticResource ResStr_IP_Address}" Grid.Row="1" VerticalAlignment="Center"></TextBlock>
-            <TextBox 
+            
+            <Canvas Grid.Row="1" VerticalAlignment="Center">
+                <Path Stroke="LightGray" StrokeThickness="2">
+                    <Path.Data>
+                        <LineGeometry StartPoint="0,4" EndPoint="450,2"></LineGeometry>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+            
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{StaticResource ResStr_IP_Address}" Grid.Row="1" Grid.Column="0"
+                           VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                <TextBox Grid.Row="1" Grid.Column="2" 
                 TextChanged="handler_text_changed" 
                 x:Name="tb_ip" 
                 PreviewTextInput="OnTextBoxPreviewTextInput" 
                 Template="{StaticResource customTextBox}" 
-                Grid.Row="1" 
-                Grid.Column="1" 
-                Height="28" 
-                VerticalAlignment="Center" 
+                Height="28" Width="250"
+                VerticalAlignment="Center" HorizontalAlignment="Left"
                 SnapsToDevicePixels ="True"
                 MaxLength="15" 
                 Style="{StaticResource IPErrorTemplateStyle}"
                 InputMethod.IsInputMethodEnabled="False" 
                 PreviewKeyDown="OnPreviewKeyDown"
                 LostFocus="tb_ip_LostFocus">
-                <TextBox.InputBindings>
-                    <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
-                </TextBox.InputBindings>
-                <!--<TextBox.ContextMenu>
-                    <ContextMenu Visibility="Collapsed">
-                    </ContextMenu>
-                </TextBox.ContextMenu>-->
-                <TextBox.Text>
-                    <Binding 
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                    </TextBox.InputBindings>
+
+                    <TextBox.Text>
+                        <Binding 
                         Path="IP" 
                         ElementName="MyView"
                         Mode="TwoWay"
                         UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <local:IPAddressValidationRule ErrorMessage="{StaticResource ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_}"/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>         
-            </TextBox>
+                            <Binding.ValidationRules>
+                                <local:IPAddressValidationRule ErrorMessage="{StaticResource ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_}"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
 
-            <TextBlock Text="{StaticResource ResStr_Submask}" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
-            <TextBox 
+                <TextBlock Text="{StaticResource ResStr_Submask}" Grid.Row="2"  Grid.Column="0"
+                           VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                <TextBox Grid.Row="2" Grid.Column="2"
                 TextChanged="handler_text_changed" 
                 Name="tb_mask" 
                 PreviewTextInput="OnTextBoxPreviewTextInput" 
                 Template="{StaticResource customTextBox}" 
                 SnapsToDevicePixels ="True"
-                Grid.Row="2"
-                Grid.Column="1" 
-                Height="28" 
-                VerticalAlignment="Center" 
+                Height="28" Width="250"
+                VerticalAlignment="Center" HorizontalAlignment="Left"
                 MaxLength="15" 
                 Style="{StaticResource SubmaskErrorTemplateStyle}"
                 InputMethod.IsInputMethodEnabled="False" 
                 PreviewKeyDown="OnPreviewKeyDown"
                 LostFocus="tb_mask_LostFocus">
-                <TextBox.InputBindings>
-                    <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
-                </TextBox.InputBindings>
-                <!--<TextBox.ContextMenu>
-                    <ContextMenu Visibility="Collapsed">
-                    </ContextMenu>
-                </TextBox.ContextMenu>-->
-                <TextBox.Text>
-                    <Binding 
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                    </TextBox.InputBindings>
+
+                    <TextBox.Text>
+                        <Binding 
                         Path="Submask" 
                         ElementName="MyView"
                         Mode="TwoWay"
                         UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <local:SubmaskValidationRule ErrorMessage="{StaticResource ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation}"/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-            
-            <TextBlock Text="{StaticResource ResStr_Gateway}" Grid.Row="3" VerticalAlignment="Center"></TextBlock>
-            <TextBox 
+                            <Binding.ValidationRules>
+                                <local:SubmaskValidationRule ErrorMessage="{StaticResource ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation}"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <TextBlock Text="{StaticResource ResStr_Gateway}" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+                <TextBox 
                 TextChanged="handler_text_changed" 
                 Name="tb_gate" 
                 PreviewTextInput="OnTextBoxPreviewTextInput" 
                 Template="{StaticResource customTextBox}"  
                 SnapsToDevicePixels ="True"
                 Grid.Row="3" 
-                Grid.Column="1" 
-                Height="28" 
-                VerticalAlignment="Center" 
+                Grid.Column="2" 
+                Height="28" Width="250"
+                VerticalAlignment="Center" HorizontalAlignment="Left"
                 MaxLength="15" 
                 Style="{StaticResource GatewayErrorTemplateStyle}"
                 InputMethod.IsInputMethodEnabled="False" 
                 PreviewKeyDown="OnPreviewKeyDown"
                 LostFocus="tb_ip_LostFocus">
-                <TextBox.InputBindings>
-                    <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
-                </TextBox.InputBindings>
-                <!--<TextBox.ContextMenu>
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                    </TextBox.InputBindings>
+                    <!--<TextBox.ContextMenu>
                     <ContextMenu Visibility="Collapsed">
                     </ContextMenu>
                 </TextBox.ContextMenu>-->
-                <TextBox.Text>
-                    <Binding 
+                    <TextBox.Text>
+                        <Binding 
                         Path="Gateway" 
                         ElementName="MyView"
                         Mode="TwoWay"
                         UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <local:IPAddressValidationRule ErrorMessage="{StaticResource ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_}"/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+                            <Binding.ValidationRules>
+                                <local:IPAddressValidationRule ErrorMessage="{StaticResource ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_}"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
 
-
-            <!--<local:ButtonEx x:Name="btnReset"
-                            Click="btnReset_Click" 
-                            Content="Reset IP" 
-                            FontSize="16"  
-                            IsActiveEx="True" 
-                            Grid.Row="4" 
-                            Grid.Column="0" 
-                            Grid.ColumnSpan="2" 
-                            HorizontalAlignment="Center" 
-                            HorizontalContentAlignment="Center" 
-                            VerticalAlignment="Bottom" 
-                            Width="125" 
-                            Height="32"></local:ButtonEx>-->
-            <local:ButtonEx x:Name="btnApply"
+            </Grid>
+            <Button x:Name="btnApply"
                             Click="btnApply_Click" 
                             Content="{StaticResource ResStr_Apply}" 
                             FontSize="18"  
-                            IsActiveEx="True"
-                            Grid.Row="5" 
+                            Style="{StaticResource CustomSettingButtonStyle}"
+                            Grid.Row="3" 
                             Grid.Column="0" 
-                            Grid.ColumnSpan="2" 
+                            Grid.ColumnSpan="3" 
                             HorizontalAlignment="Center" 
                             HorizontalContentAlignment="Center" 
-                            VerticalAlignment="Bottom" 
-                            Width="125" 
-                            Height="32"></local:ButtonEx>
+                            VerticalAlignment="Center" 
+                            Width="160" 
+                            Height="32"></Button>
         </Grid>
     </Grid>
 </UserControl>

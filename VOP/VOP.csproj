@@ -192,7 +192,9 @@
     </Compile>
     <Compile Include="AsyncWorker.cs" />
     <Compile Include="common.cs" />
+    <Compile Include="Controls\ButtonEx2.cs" />
     <Compile Include="Controls\CustomExpander.cs" />
+    <Compile Include="Controls\IdCardTypeItem.cs" />
     <Compile Include="Controls\ImageButton\ImageButton2.xaml.cs">
       <DependentUpon>ImageButton2.xaml</DependentUpon>
     </Compile>
@@ -264,9 +266,6 @@
     <Compile Include="Faroe\ScanTo\ScanToCloud\LoginForm.xaml.cs" />
     <Compile Include="Controls\SpinnerControl\SpinnerControlOnlySupportUpDowmKey.cs" />
     <Compile Include="Controls\TextBoxValidation\IPAddressValidationRule.cs" />
-    <Compile Include="CopyConfirm.xaml.cs">
-      <DependentUpon>CopyConfirm.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Faroe\ScanDevicePage_Rufous.cs" />
     <Compile Include="Faroe\ScanPage_Rufous.xaml.cs">
       <DependentUpon>ScanPage_Rufous.xaml</DependentUpon>
@@ -317,17 +316,8 @@
       <DependentUpon>ScanToCloudView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Faroe\Settings\SettingData.cs" />
-    <Compile Include="IPV6CatalogsView.xaml.cs" />
-    <Compile Include="IPV6SettingWindow.xaml.cs" />
-    <Compile Include="IPV6StatusWindow.xaml.cs" />
     <Compile Include="Faroe\MainWindow_Rufous.xaml.cs">
       <DependentUpon>MainWindow_Rufous.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ModifyUserInfo.xaml.cs">
-      <DependentUpon>ModifyUserInfo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CRMAgreementWindow.xaml.cs">
-      <DependentUpon>CRMAgreementWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Faroe\Settings\ScanSettingPage_Rufous.cs" />
     <Compile Include="Faroe\Settings\ScanParameterView.xaml.cs">
@@ -356,10 +346,6 @@
     <Compile Include="Faroe\Settings\SoftapView_Rufous.xaml.cs">
       <DependentUpon>SoftapView_Rufous.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TroubleshootingPage.cs" />
-    <Compile Include="MessageBoxEx_Video.xaml.cs">
-      <DependentUpon>MessageBoxEx_Video.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple.xaml.cs">
       <DependentUpon>MessageBoxEx_Simple.xaml</DependentUpon>
     </Compile>
@@ -379,41 +365,16 @@
     <Compile Include="Controls\BusyRefresh.xaml.cs">
       <DependentUpon>BusyRefresh.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MaintainInfo.xaml.cs">
-      <DependentUpon>MaintainInfo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MaintainWindow.xaml.cs">
-      <DependentUpon>MaintainWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MerchantInfo.xaml.cs">
-      <DependentUpon>MerchantInfo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PasswordWindow.xaml.cs">
-      <DependentUpon>PasswordWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PdfHelper.cs" />
-    <Compile Include="PrintSettingPage.cs" />
     <Compile Include="ProgressBarWindow.xaml.cs">
       <DependentUpon>ProgressBarWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ScanPreview.xaml.cs">
       <DependentUpon>ScanPreview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ScanSetting.xaml.cs">
-      <DependentUpon>ScanSetting.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CopySetting.xaml.cs">
-      <DependentUpon>CopySetting.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\PrintPreview\PrintPreview.xaml.cs">
-      <DependentUpon>PrintPreview.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ButtonEx.cs" />
     <Compile Include="Controls\StatusTextBlock.xaml.cs">
       <DependentUpon>StatusTextBlock.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\IdCardPrint\IdCardEditWindow.xaml.cs">
-      <DependentUpon>IdCardEditWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ImageCropper\ImageCropper.xaml.cs">
       <DependentUpon>ImageCropper.xaml</DependentUpon>
@@ -425,43 +386,9 @@
     <Compile Include="Converter.cs" />
     <Compile Include="dll.cs" />
     <Compile Include="imageitem.cs" />
-    <Compile Include="PasswordView.xaml.cs">
-      <DependentUpon>PasswordView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PowerSaveView.xaml.cs">
-      <DependentUpon>PowerSaveView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PurchaseWindow.xaml.cs">
-      <DependentUpon>PurchaseWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SoftapView.xaml.cs">
-      <DependentUpon>SoftapView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="StartupWindow.xaml.cs">
-      <DependentUpon>StartupWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="StatusXmlHelper.cs" />
-    <Compile Include="UserCenterView.xaml.cs">
-      <DependentUpon>UserCenterView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserConfigView.xaml.cs">
-      <DependentUpon>UserConfigView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserDefinedSetting.cs" />
     <Compile Include="Faroe\Settings\WifiView_Rufous.xaml.cs">
       <DependentUpon>WifiView_Rufous.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WifiView.xaml.cs">
-      <DependentUpon>WifiView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TcpipView.xaml.cs">
-      <DependentUpon>TcpipView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="StatusPanel.xaml.cs">
-      <DependentUpon>StatusPanel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SettingButton.xaml.cs">
-      <DependentUpon>SettingButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="type_define.cs" />
     <Compile Include="Win32.cs" />
@@ -472,6 +399,10 @@
     <Page Include="Controls\AnimationCtrolButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ButtonEx2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\DeviceButton.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -581,10 +512,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CopyConfirm.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Faroe\ScanDevicePage_Rufous.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -656,27 +583,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="IPV6CatalogsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="IPV6SettingWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="IPV6StatusWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Faroe\MainWindow_Rufous.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ModifyUserInfo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CRMAgreementWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -714,14 +621,6 @@
     <Page Include="Faroe\Settings\SoftapView_Rufous.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="TroubleshootingPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MessageBoxEx_Video.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple.xaml">
       <SubType>Designer</SubType>
@@ -767,10 +666,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\IdCardPrint\IdCardEditWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Controls\ImageCropper\DesignerItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -780,34 +675,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ImageCropper\ResizeRotateChrome.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MaintainInfo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MaintainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MerchantInfo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PasswordView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PasswordWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PowerSaveView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PrintSettingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -827,41 +694,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PurchaseWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="StartupWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserCenterView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserConfigView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserDefinedSetting.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Faroe\Settings\WifiView_Rufous.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="WifiView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TcpipView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SoftapView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -889,14 +724,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\IdCardPrint\IdCardTypeSelectWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\IdCardPrint\IdCardWindowsStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\ImageButton\ImageButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -909,25 +736,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\PrintPreview\PrintPreview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\PrintPreview\PrintPreviewStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\MinimizeCloseButton\MinimizeCloseButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ScanSetting.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="CopySetting.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\CustomComboBox.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -943,10 +754,6 @@
     </Page>
     <Page Include="Controls\AdjustButton.xaml" />
     <Compile Include="Controls\GroupBoxDecorator\GroupBoxDecorator.cs" />
-    <Compile Include="Controls\IdCardPrint\IdCardTypeItem.cs" />
-    <Compile Include="Controls\IdCardPrint\IdCardTypeSelectWindow.xaml.cs">
-      <DependentUpon>IdCardTypeSelectWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ImageButton\ImageButton.xaml.cs">
       <DependentUpon>ImageButton.xaml</DependentUpon>
     </Compile>
@@ -955,14 +762,6 @@
       <DependentUpon>customTabItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ScrollTextBox.cs" />
-    <Compile Include="Controls\TonerBar.xaml.cs">
-      <DependentUpon>TonerBar.xaml</DependentUpon>
-    </Compile>
-    <Page Include="CopyPage.xaml" />
-    <Page Include="FileSelectionPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Controls\LoginButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -971,45 +770,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="LoginWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PrintPage.xaml" />
     <Page Include="Controls\RefreshButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ScanPage.xaml" />
-    <Page Include="SettingButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SettingPage.xaml" />
-    <Compile Include="CopyPage.cs">
-      <DependentUpon>CopyPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FileSelectionPage.cs" />
     <Compile Include="Controls\LoginButton.xaml.cs">
       <DependentUpon>LoginButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PrintPage.cs" />
     <Compile Include="Controls\RefreshButton.xaml.cs">
       <DependentUpon>RefreshButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RequestManager.cs" />
-    <Compile Include="ScanPage.cs">
-      <DependentUpon>ScanPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SettingPage.cs" />
     <Page Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1017,19 +788,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Controls\TonerBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\StatusTextBlock.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="StatusPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1076,10 +835,6 @@
     <Resource Include=".\Images\RepeatButtonBackground.png" />
     <Resource Include=".\Images\close.png" />
     <Resource Include=".\Images\check.png" />
-    <Resource Include=".\Images\Nin1_1.png" />
-    <Resource Include=".\Images\Nin1_2.png" />
-    <Resource Include=".\Images\Nin1_4.png" />
-    <Resource Include=".\Images\Nin1_9.png" />
     <Resource Include=".\Images\IDCardCopyIconDisable.png" />
     <Resource Include=".\Images\IDCardCopyIconEnable.png" />
     <Resource Include="Images\shopCart_Disable.tif" />
@@ -1099,16 +854,8 @@
     <Resource Include="Images\UserConfig_Active.png" />
     <Resource Include="Images\Wireless.png" />
     <Resource Include="Images\Wireless_Active.png" />
-    <Resource Include="Images\btnCopy.tif" />
-    <Resource Include="Images\btnPrint.tif" />
-    <Resource Include="Images\btnScan.tif" />
-    <Resource Include="Images\btnSetting.tif" />
     <Resource Include="Images\busyRefresh.tif" />
     <Resource Include="Images\background.png" />
-    <Resource Include="Images\PageCopy.tif" />
-    <Resource Include="Images\PagePrint.tif" />
-    <Resource Include="Images\PageScan.tif" />
-    <Resource Include="Images\PageSetting.tif" />
     <Resource Include="Images\SettingViewBackground.png" />
     <Resource Include="Images\triangle.png" />
     <Resource Include="Images\Fit.tif" />
@@ -1129,22 +876,10 @@
     <Resource Include="Images\Checked.png" />
     <Resource Include="Images\Uncheck.png" />
     <Resource Include="Images\Warning.tif" />
-    <Resource Include="Images\112233.png" />
-    <Resource Include="Images\123.png" />
-    <Resource Include="Images\123123.png" />
-    <Resource Include="Images\16in1.png" />
-    <Resource Include="Images\1in2x2.png" />
-    <Resource Include="Images\1in3x3.png" />
-    <Resource Include="Images\1in4x4.png" />
-    <Resource Include="Images\2in1.png" />
-    <Resource Include="Images\321.png" />
-    <Resource Include="Images\4in1.png" />
-    <Resource Include="Images\9in1.png" />
     <Resource Include="Images\FlipOnLongEdge.png" />
     <Resource Include="Images\FlipOnShortEdge.png" />
     <Resource Include="Index.png" />
     <Resource Include="Images\Index.png" />
-    <Resource Include="Images\Printer.png" />
     <Resource Include="Images\Wifi.png" />
     <Resource Include="Images\Status_RefreshDisable.tif" />
     <Resource Include="Images\Status_RefreshEnable.tif" />
@@ -1208,10 +943,8 @@
     <Resource Include="Images\CheckBox_Disable.png" />
     <Resource Include="Images\CheckBox_Disable1.png" />
     <Resource Include="Images\CheckBox_Open.png" />
-    <Resource Include="Images\Startup.tif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\TroubleshootingMachine.png" />
     <Resource Include="Images\TroubleshootingUSB.png" />
     <Resource Include="Images\TroubleshootingWiFi.png" />
   </ItemGroup>
@@ -1238,7 +971,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\BellForAbout.png" />
-    <Resource Include="Images\LogoForAbout.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Signal_Connect.png" />
@@ -1277,9 +1009,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\BarCode.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\QRCode.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ScanToPrint.png" />
@@ -1326,11 +1055,6 @@
     <Resource Include="Images\bluebutton_press.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\lightbutton.png" />
-    <Resource Include="Images\lightbutton_over.png" />
-    <Resource Include="Images\lightbutton_press.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\back_normal.png" />
     <Resource Include="Images\back_over.png" />
     <Resource Include="Images\back_press.png" />
@@ -1345,9 +1069,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\screen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\panel_group.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\button_3dborder.png" />
@@ -1400,7 +1121,20 @@
   <ItemGroup>
     <Resource Include="Images\others.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\main_btnf_decode.png" />
+    <Resource Include="Images\main_btnf_scanto.png" />
+    <Resource Include="Images\main_btnf_separation.png" />
+    <Resource Include="Images\main_btnf_settings.png" />
+    <Resource Include="Images\main_btnt_decode.png" />
+    <Resource Include="Images\main_btnt_scanto.png" />
+    <Resource Include="Images\main_btnt_separation.png" />
+    <Resource Include="Images\main_btnt_settings.png" />
+    <Resource Include="Images\Main_btn_decode.png" />
+    <Resource Include="Images\main_btn_scanto.png" />
+    <Resource Include="Images\main_btn_separation.png" />
+    <Resource Include="Images\main_btn_settings.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Up_normal.png" />
     <Resource Include="Images\up_over.png" />
@@ -1410,6 +1144,84 @@
     <Resource Include="Images\down_normal.png" />
     <Resource Include="Images\down_over.png" />
     <Resource Include="Images\down_press.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\main_imgf_apps.png" />
+    <Resource Include="Images\main_imgf_cloud.png" />
+    <Resource Include="Images\main_imgf_email.png" />
+    <Resource Include="Images\main_imgf_file.png" />
+    <Resource Include="Images\main_imgf_ftp.png" />
+    <Resource Include="Images\main_imgf_print.png" />
+    <Resource Include="Images\main_img_apps.png" />
+    <Resource Include="Images\main_img_cloud.png" />
+    <Resource Include="Images\main_img_email.png" />
+    <Resource Include="Images\main_img_file.png" />
+    <Resource Include="Images\main_img_ftp.png" />
+    <Resource Include="Images\main_img_print.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\VOPicon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\main_img_search device panel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\quick scan_btn_delete.png" />
+    <Resource Include="Images\quick scan_btn_edit.png" />
+    <Resource Include="Images\quick scan_btn_move down.png" />
+    <Resource Include="Images\quick scan_btn_move up.png" />
+    <Resource Include="Images\quick scan_btn_new.png" />
+    <Resource Include="Images\quick scan_btn_setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\fit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\zoomin.png" />
+    <Resource Include="Images\zoomout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\turn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting_img_IPv4.png" />
+    <Resource Include="Images\setting_img_qrcode barcode.png" />
+    <Resource Include="Images\setting_img_quick scan.png" />
+    <Resource Include="Images\setting_img_softap.png" />
+    <Resource Include="Images\setting_img_wifi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting_img_device setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting_img_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting_img_scan to.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting_wifilist panel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\quick scan_shadow_below.png" />
+    <Resource Include="Images\quick scan_shadow_top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting_btn_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting_btnf_1.png" />
+    <Resource Include="Images\setting_btnt_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\popup_btnf_1.png" />
+    <Resource Include="Images\popup_btnt_1.png" />
+    <Resource Include="Images\popup_btn_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\popup_btnf_2.png" />
+    <Resource Include="Images\popup_btnt_2.png" />
+    <Resource Include="Images\popup_btn_2.png" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>

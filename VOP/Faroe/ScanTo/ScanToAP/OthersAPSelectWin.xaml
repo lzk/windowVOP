@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Authenticate" 
         xmlns:local="clr-namespace:VOP.Controls"
-        Height="240" Width="550" 
+        Height="280" Width="550" 
         WindowStartupLocation="CenterOwner" 
         WindowStyle="None" 
         ResizeMode="NoResize" 
@@ -28,7 +28,7 @@
     </Window.Effect>
 
     <Viewbox Stretch="Fill">
-        <Border Height="190" Width="500" Background="AliceBlue" BorderThickness="4" BorderBrush="#FF0E5686">
+        <Border Height="230" Width="500" Background="AliceBlue" BorderThickness="4" BorderBrush="#FF0E5686">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -44,9 +44,9 @@
 
                 <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
 
-
                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
@@ -69,9 +69,9 @@
                                 Name="tbAPName"
                                 Template="{StaticResource customTextBox}" 
                                 VerticalAlignment="Center" 
-                                Width="200" 
+                                Width="250" 
                                 Height="30" 
-                                Margin="10,0,0,0" 
+                                Margin="30,0,0,0" 
                                 Text=""
                                 VerticalContentAlignment="Center"
                                 SnapsToDevicePixels ="True"
@@ -93,39 +93,37 @@
                                 Name="tbAPPath"
                                 Template="{StaticResource customTextBox}" 
                                 VerticalAlignment="Center" 
-                                Width="200" 
+                                Width="250" 
                                 Height="30" 
-                                Margin="20,0,0,0" 
+                                Margin="40,0,0,0" 
                                 Text=""
                                 VerticalContentAlignment="Center"
                                 SnapsToDevicePixels ="True"
                                 FontSize="14"
                                 MaxLength="255"
                                 />
-                            <Button 
-                            HorizontalAlignment="Center" 
-                            Margin="20,6" 
-                            Width="90" 
-                            Height="35"
-                            FontSize="16"
-                            Click="BrowseClick"
-                            Style="{StaticResource CustomGreenButtonStyle}"
-                            Content="Browse..."
-                            ></Button>
+
                         </StackPanel>
                     </Border>
+                    <Button  Grid.Row="2" Grid.Column="1"
+                            HorizontalAlignment="Right" 
+                            Margin="10,6" 
+                            Width="120" 
+                            Height="35"
+                            FontSize="14"
+                            Click="BrowseClick"
+                            Style="{StaticResource CustomPopUpButtonStyle2}"
+                            Content="Browse..."
+                            ></Button>
 
-
-                    
-
-                    <Button Grid.Row="2" Grid.Column="1"
+                    <Button Grid.Row="3" Grid.Column="1"
                             HorizontalAlignment="Center" 
                             Margin="20,6" 
-                            Width="85" 
+                            Width="160" 
                             Height="35"
-                            FontSize="16"
+                            FontSize="14"
                             Click="OkClick"
-                            Style="{StaticResource CustomGreenButtonStyle}"
+                            Style="{StaticResource CustomPopUpButtonStyle}"
                             Content="{StaticResource ResStr_OK}"
                             ></Button>
                 </Grid>

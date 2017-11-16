@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VOP.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="336" d:DesignWidth="417.333" Loaded="UserControl_Loaded">
+             d:DesignHeight="460" d:DesignWidth="495" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -130,29 +130,29 @@
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="100"/>                
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <Label x:Name="label1" Content="{StaticResource ResStr_Power_Save_Time}"
-                   Grid.Column="0" HorizontalAlignment="Left" Height="25" Margin="10,0,0,0" VerticalAlignment="Center"
+                   Grid.Column="0" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center"
                    Width="164" Grid.Row="0" FontSize="14"/>
             <!--<Button x:Name="btnCalibration" Click="btnCalibration_Click" Content="{StaticResource ResStr_Calibration}" 
                     Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="0,0,5,0" 
                     VerticalAlignment="Center" Width="120"  Grid.Row="0" FontSize="14"/>-->
-            <local:ButtonEx x:Name="btnCalibration"
+            <Button x:Name="btnCalibration"
                             Click="btnCalibration_Click" 
                             Content="{StaticResource ResStr_Calibration}" 
+                            Style="{StaticResource CustomSettingButtonStyle}"
                             FontSize="14"  
-                            IsActiveEx="True"
                             Grid.Row="0" 
                             Grid.Column="0" 
                             HorizontalAlignment="Right" 
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 
-                            Width="125" 
+                            Width="120" 
                             Height="35"
-                            Margin="0,0,10,0"></local:ButtonEx>
+                            Margin="0,0,10,0"></Button>
             <local:SpinnerControl x:Name="spinnerControl1" Style="{StaticResource SpinnerControl1}"
         	Width="300" 
         	Background="Transparent"
@@ -174,19 +174,19 @@
                    Height="30" Margin="0,0,0,3" Grid.Row="1" VerticalAlignment="Bottom" Width="200" FontSize="14"/>
 
             <!--<Button x:Name="btnApply" Content="{StaticResource ResStr_Apply}" Grid.Column="1" HorizontalAlignment="Center" Height="22" Margin="127,40,132,0" Grid.Row="5" VerticalAlignment="Top" Width="118" FontSize="13.333" Click="btnApply_Click_1"/>-->
-            <local:ButtonEx x:Name="btnApply"
+            <Button x:Name="btnApply"
                             Click="btnApply_Click_1" 
                             Content="{StaticResource ResStr_Apply}" 
-                            FontSize="18"  
-                            IsActiveEx="True"
-                            Grid.Row="2" 
+                            Style="{StaticResource CustomSettingButtonStyle}"
+                            FontSize="16"        
+                            Grid.Row="3" 
                             Grid.Column="0" 
                             HorizontalAlignment="Center" 
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 
-                            Width="125" 
+                            Width="160" 
                             Height="32"
-                            ></local:ButtonEx>
+                            ></Button>
    </Grid>
     </Grid>
 </UserControl>

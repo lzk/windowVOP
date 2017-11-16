@@ -1,7 +1,7 @@
 ﻿<Window x:Class="VOP.ScanPreview"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Height="640" Width="472"
+        Height="670" Width="648"
         Title="{StaticResource ResStr_Preview}"
         xmlns:local="clr-namespace:VOP.Controls"
         ShowInTaskbar="False" 
@@ -159,48 +159,74 @@
 
     <Viewbox Stretch="Fill">
 
-        <Grid x:Name="LayoutRoot" Width="472" Height="640" >
+        <Grid x:Name="LayoutRoot" Background="AliceBlue" Width="648" Height="670" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
-                <RowDefinition Height="450" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="450" />                
                 <RowDefinition Height="80" />
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Border Name="TitleBar"  Background="#FF203144" Grid.Row="0" >
-                <TextBlock Text="{StaticResource ResStr_Preview}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Border Name="TitleBar"  Grid.Row="0" >
+                <TextBlock Text="{StaticResource ResStr_Preview}" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
 
             <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" />
 
-            <ScrollViewer Name="scrollPreview" Margin="3" Grid.Row="1" Background="#FFEEEEEE" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Style="{StaticResource LeftScrollViewer}">
+            <ScrollViewer Name="scrollPreview" Margin="3" Grid.Row="2" Width="540" Background="#FFFFFFFF" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Style="{StaticResource LeftScrollViewer}">
                 <Image VerticalAlignment="Center" HorizontalAlignment="Center" Name="previewImg" />
             </ScrollViewer>
 
-            <StackPanel HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Orientation="Horizontal">
-                <Button HorizontalAlignment="Left" Name="btn_normal" Click="imagebtn_click"
+            <StackPanel HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Orientation="Horizontal">
+               <!--<Button HorizontalAlignment="Left" Name="btn_normal" Click="imagebtn_click"
                 VerticalAlignment="Center"  Width="55" Height="30" Margin="10" Style="{DynamicResource 3dbutton}">
                     <Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/Fit.tif"/>
-                </Button>
-                <Button HorizontalAlignment="Left" Name="btn_zoomin" Click="imagebtn_click"
+                </Button>-->
+                <local:ImageButton2 
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    x:Name="btn_normal" 
+                    Width="70" Height="75" Margin="0"
+                    PreviewMouseLeftButtonDown="imagebtn_click"
+                    ImagePath="Images/Fit.png"/>
+                <!-- <Button HorizontalAlignment="Left" Name="btn_zoomin" Click="imagebtn_click"
                 VerticalAlignment="Center" Width="55" Height="30" Margin="10" Style="{DynamicResource 3dbutton}" >
                     <Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/ZoomIn.tif"/>
-                </Button>
-                <Button HorizontalAlignment="Left" Name="btn_zoomout" Click="imagebtn_click"
+                </Button>-->
+                <local:ImageButton2 
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    x:Name="btn_zoomin" 
+                    Width="70" Height="75" Margin="10,0,0,0"
+                    PreviewMouseLeftButtonDown="imagebtn_click"
+                    ImagePath="Images/zoomin.png"/>
+                <!--<Button HorizontalAlignment="Left" Name="btn_zoomout" Click="imagebtn_click"
                 VerticalAlignment="Center" Width="55" Height="30" Margin="10" Style="{DynamicResource 3dbutton}">
                     <Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/ZoomOut.tif"/>
-                </Button>
-                <Button HorizontalAlignment="Left" Name="btn_turn" Click="imagebtn_click"
+                </Button>-->
+                <local:ImageButton2 
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    x:Name="btn_zoomout" 
+                    Width="70" Height="75" Margin="10,0,0,0"
+                    PreviewMouseLeftButtonDown="imagebtn_click"
+                    ImagePath="Images/zoomout.png"/>
+                
+                <!--<Button HorizontalAlignment="Left" Name="btn_turn" Click="imagebtn_click"
                 VerticalAlignment="Center"  Width="55" Height="30" Margin="10" Style="{DynamicResource 3dbutton}">
                     <Image Height="17" Width="17" Stretch="Fill"
                     Source="Images/Turn.tif"/>
-                </Button>
+                </Button>-->
+                <local:ImageButton2 
+                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                    x:Name="btn_turn" 
+                    Width="70" Height="75" Margin="10,0,0,0"
+                    PreviewMouseLeftButtonDown="imagebtn_click"
+                    ImagePath="Images/turn.png"/>
             </StackPanel>
 
-            <StackPanel Margin="0" Grid.Row="3" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top" >
+            <StackPanel Margin="0" Grid.Row="4" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top" >
                 <local:ButtonEx x:Name="btnOK" Content="{StaticResource
                     ResStr_Back}" HorizontalAlignment="Center" Height="33"
                 HorizontalContentAlignment="Center"

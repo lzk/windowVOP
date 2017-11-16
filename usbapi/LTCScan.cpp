@@ -1157,6 +1157,9 @@ USBAPI_API int __stdcall CheckUsbScan(
 
 	//LeaveCriticalSection(&g_csCriticalSection_UsbTest);
 	CGLDrv glDrv;
+
+	g_connectMode_usb = TRUE;//add by yunying shang 2017-11-10 for BMS 1381
+
 	if (glDrv._OpenDevice() == FALSE)//#bms1005
 	{
 		return 0;		

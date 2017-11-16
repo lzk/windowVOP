@@ -24,97 +24,6 @@
                 <ResourceDictionary Source="../../Controls/CustomRadioButtonEx.xaml"/>
                 <ResourceDictionary Source="../../Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key ="SpinnerControl1"  TargetType="{x:Type local:SpinnerControl}">
-                <Setter Property="HorizontalAlignment" Value="Center" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Focusable" Value="False"></Setter>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type local:SpinnerControl}">
-
-                            <Grid Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <!--
-                                    we use the TemplatedParent binding to get a reference to the control
-                                    this template has been applied to, so we can access the property on it
-                                -->
-
-                                <RepeatButton Name="btnDecrease"
-                                      Grid.Row="0"
-                                      Grid.Column="0"
-                                      Width="25"
-                                      Height="25"
-                                      Style="{StaticResource CustomMinusButtonStyle}" 
-                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
-
-                                <TextBox Name="tbTextBox"
-                                 Grid.Row="0"
-                                 Grid.Column="1"
-                                 Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                 BorderBrush="{StaticResource TextBoxBorderBrush}"
-                                 Foreground="#FF707070"
-                                 TextAlignment="Center"
-                                 IsReadOnly="False"
-                                 BorderThickness="0"
-                                 FontSize="18" 
-                                 Margin="0,0,0,2"
-                                 MaxLength="2"
-                                 Style="{StaticResource TextBoxErrorTemplateStyle}"
-                                 InputMethod.IsInputMethodEnabled="False"
-                                 >
-                                    <TextBox.InputBindings>
-                                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
-                                    </TextBox.InputBindings>
-                                    <TextBox.ContextMenu>
-                                        <ContextMenu Visibility="Collapsed">
-                                        </ContextMenu>
-                                    </TextBox.ContextMenu>
-                                    <TextBox.Text>
-                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" 
-                                         Mode="TwoWay"
-                                         Path="FormattedValue" 
-                                         UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <local:PrintCopysValidationRule MinimumValue="-6" MaximumValue="6" 
-										ErrorMessage="{StaticResource ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_}" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-
-                                <RepeatButton Name="btnIncrease"
-                                      Grid.Row="0"
-                                      Grid.Column="2"
-                                      Width="25"
-                                      Height="25"
-                                      Style="{StaticResource CustomPlusButtonStyle}" 
-                                      Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger SourceName="tbTextBox" Property="Validation.HasError"  Value="true">
-                                    <Setter Property="ValidationHasError" Value="True"></Setter>
-                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="False"></Setter>
-                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="False"></Setter>
-                                </Trigger>
-
-                                <Trigger SourceName="tbTextBox"  Property="Validation.HasError" Value="False">
-                                    <Setter Property="ValidationHasError" Value="False"></Setter>
-                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"></Setter>
-                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"></Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -124,191 +33,117 @@
         </Grid.Background>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="270"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="200"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="140"></ColumnDefinition>
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="1" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="25"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="90"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
-            <TextBlock 
-                Grid.Row="1"
-                Grid.Column="0"
+        <TextBlock     Grid.Row="0" Grid.Column="1"       
                 FontSize="14"
                 FontWeight="Bold"
-                VerticalAlignment="Center"              
-                Text="{StaticResource ResStr_Faroe_scan_setting}" Margin="0,16,0,15"/>
-
-            <Button
+                VerticalAlignment="Center"  
+                HorizontalAlignment="Left"
+                Text="{StaticResource ResStr_Faroe_scan_setting}" Margin="0"/>
+        <Button Grid.Row="0" Grid.Column="3"
                 Name="tbSettings"
-                Grid.Row="1"
-                Grid.Column="2"
-                Width="120"
+                Width="100"
                 Height="35" 
                 Margin="10,0,0,0"
-                VerticalAlignment="Center"
+                VerticalAlignment="Center" HorizontalAlignment="Right"
                 Content="{StaticResource ResStr_Setting}"
                 FontSize="16"
-                Style="{StaticResource CustomGreenButtonStyle}" 
+                Style="{StaticResource CustomSettingButtonStyle}" 
                 Click="Button_Click"
                 TabIndex="0"
                 />
-            <TextBlock 
-            Grid.Row="2" Grid.Column="0"
+        <Canvas Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center">
+            <Path Stroke="LightGray" StrokeThickness="2">
+                <Path.Data>
+                    <LineGeometry StartPoint="0,4" EndPoint="455,2"></LineGeometry>
+                </Path.Data>
+            </Path>
+        </Canvas>
+
+        <TextBlock Grid.Row="2" Grid.Column="1"
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
                 Text="Cloud Type:" Margin="0,16,0,15"/>
-            <ComboBox 
-            Grid.Row="2" Grid.Column="2"
+        <ComboBox 
+            Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
                                 Name="cbCloudType"
+                                HorizontalAlignment="Right"
                                 VerticalAlignment="Center" 
                                 VerticalContentAlignment="Center"
-                                Width="120" 
+                                Width="200" 
                                 Height="36"                                 
                                 FontSize="14"
                             Margin="10,0,0,0"
                             SelectionChanged="cbCloudType_SelectionChanged"
                 TabIndex="1">
-                <ComboBoxItem >DropBox</ComboBoxItem>
-                <ComboBoxItem >EverNote</ComboBoxItem>
-                <ComboBoxItem >OneDrive</ComboBoxItem>
-            </ComboBox>
-           <!-- <Button x:Name="btnReset" Content="Reset" Grid.Column="3" HorizontalAlignment="Left" Height="35" Margin="1,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnReset_Click"/>-->
-                        <Button
+            <ComboBoxItem >DropBox</ComboBoxItem>
+            <ComboBoxItem >EverNote</ComboBoxItem>
+            <ComboBoxItem >OneDrive</ComboBoxItem>
+        </ComboBox>
+        <Button
                 Name="btnReset"
-                Grid.Row="2"
+                Grid.Row="3"
                 Grid.Column="3"
-                Width="75"
+                Width="100"
                 Height="35" 
                 Margin="5,0,0,0"
                 VerticalAlignment="Center"
+                HorizontalAlignment="Right"
                 Content="Reset"
                 FontSize="16"
-                Style="{StaticResource CustomGreenButtonStyle}" 
+                Style="{StaticResource CustomSettingButtonStyle}" 
                 Click="btnReset_Click"
                 TabIndex="0"
                 />
+        <Canvas Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center">
+            <Path Stroke="LightGray" StrokeThickness="2">
+                <Path.Data>
+                    <LineGeometry StartPoint="0,4" EndPoint="455,2"></LineGeometry>
+                </Path.Data>
+            </Path>
+        </Canvas>
+
             <TextBlock 
-                Grid.Row="3"
-                Grid.Column="0"
+                Grid.Row="5"
+                Grid.Column="1"
                                 Text="Email Attachment File Type :" 
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
-                                FontSize="14" Margin="0,17" TextWrapping="Wrap"
+                                FontSize="14" Margin="0,0" TextWrapping="Wrap"
                                 />
-            <ComboBox 
-                Grid.Row="3"
-                Grid.Column="2"
+        <ComboBox 
+                Grid.Row="5"
+                Grid.Column="2" Grid.ColumnSpan="2"
                                 Name="cbAttachType"
                                 VerticalAlignment="Center" 
                                 VerticalContentAlignment="Center"
-                                Width="120" 
+            HorizontalAlignment="Right"
+                                Width="200" 
                                 Height="30" 
                                 Margin="10,0,0,0" 
                                 FontSize="14"
                             SelectionChanged="cbAttachType_SelectionChanged"
                                 >
-                <ComboBoxItem >PDF</ComboBoxItem>
-                <ComboBoxItem >TIFF</ComboBoxItem>
-            </ComboBox>
-
-        </Grid>
-
-
-        <!--<TextBlock 
-                Grid.Row="2"
-                Grid.Column="0"
-                Grid.ColumnSpan="3"
-                FontSize="14"
-                FontWeight="Bold"
-                VerticalAlignment="Center"
-                Text="{StaticResource ResStr_Faroe_qr_setting}"/>
-
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="2">
-                <RadioButton 
-                Margin="20,0,0,0"
-                GroupName="QRDecodeMode" 
-                IsChecked="true"    
-                Name="QuickModeButton" Click="QRDecodeMode_click"
-                Template="{StaticResource customRadioButton}"
-                Content="{StaticResource ResStr_Faroe_quick}" VerticalAlignment="Center" ></RadioButton>
-
-                <RadioButton 
-                Margin="10,0,0,0"
-                GroupName="QRDecodeMode" 
-                IsChecked="false"               
-                Name="HardModeButton" Click="QRDecodeMode_click"
-                Template="{StaticResource customRadioButton}"
-                Content="{StaticResource ResStr_Faroe_Accurate}" VerticalAlignment="Center" ></RadioButton>
-
-                <ComboBox 
-                                Name="cbDecodeLevel"
-                                VerticalAlignment="Center" 
-                                VerticalContentAlignment="Center"
-                                Width="110" 
-                                Height="25" 
-                                Margin="10,0,0,0" 
-                                FontSize="10"
-                            SelectionChanged="cbDecodeLevel_SelectionChanged"
-                                >
-                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_Standard}"></ComboBoxItem>
-                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_Fine}"></ComboBoxItem>
-                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_SuperFine}"></ComboBoxItem>
-                    <ComboBoxItem Content="{StaticResource ResStr_Faroe_HighestQuality}"></ComboBoxItem>
-                </ComboBox>
-            </StackPanel>-->
-
-
-        <!--<Grid Grid.Row="2" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="0"/>
-            </Grid.ColumnDefinitions>
-            
-            <TextBlock 
-                Grid.Row="0"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                FontSize="14"
-                FontWeight="Bold"
-                VerticalAlignment="Center"
-                Text="{StaticResource ResStr_Faroe_quick_match}"/>
-
-            <ListBox
-                Name="MatchListBox" 
-                Grid.Row="1"
-                Grid.Column="1"
-                ScrollViewer.CanContentScroll="True"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                />
-     
-        </Grid>-->
+            <ComboBoxItem >PDF</ComboBoxItem>
+            <ComboBoxItem >TIFF</ComboBoxItem>
+        </ComboBox>
     </Grid>
 </UserControl>

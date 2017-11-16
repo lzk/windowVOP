@@ -15,8 +15,6 @@ namespace VOP
         public static readonly DependencyProperty DeviceNameProperty =
             DependencyProperty.Register("DeviceName", typeof(string), typeof(DeviceListBoxItem));
 
-
-
         public string StatusText
         {
             get { return (string)GetValue(StatusTextProperty); }

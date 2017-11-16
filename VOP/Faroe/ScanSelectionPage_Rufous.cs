@@ -93,24 +93,24 @@ namespace VOP
                     break;
             }
 
-            if (bRtn == false)
-            {
-                if (DeviceButton.Connected == false)
-                {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                    Application.Current.MainWindow,
-                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
-                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
-                    );
-                }
-            }
+            //if (bRtn == false)
+            //{
+            //    if (DeviceButton.Connected == false)
+            //    {
+            //        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+            //        Application.Current.MainWindow,
+            //       (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
+            //       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+            //        );
+            //    }
+            //}
             m_MainWin._bScanning = false;
         }
 
         private void QRCodeButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             m_MainWin._bScanning = true;
-            ImageButton btn = sender as ImageButton;
+            ImageButton2 btn = sender as ImageButton2;
 
 #if (DEBUG)
             if (true)
@@ -250,11 +250,11 @@ namespace VOP
         private void ScanToButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             m_MainWin._bScanning = true;
-            ImageButton btn = sender as ImageButton;
+            ImageButton2 btn = sender as ImageButton2;
 
             ScanTask task = new ScanTask();
+
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
-            //List<ScanFiles> files = new List<ScanFiles>();
             m_MainWin._bScanning = false;
             if (files != null)
             //   return;
@@ -263,10 +263,20 @@ namespace VOP
                 {
                     //List<ScanFiles> files = new List<ScanFiles>();
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1 error.JPG"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000E.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000F.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000G.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000H.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_1.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_2.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000C.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000D.jpg"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
-                    files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\1.JPG"));
-                    files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\2.JPG"));
+                    //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\1.JPG"));
+                    //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\2.JPG"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
                     ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
@@ -303,10 +313,66 @@ namespace VOP
 
         private void SetScreenText(int number)
         {
+            string[] imgPath = {
+                "../Images/main_img_print.png",
+                "../Images/main_img_file.png",
+                "../Images/main_img_apps.png",
+                "../Images/main_img_email.png",
+                "../Images/main_img_ftp.png",
+                "../Images/main_img_cloud.png"
+            };
+            string[] adfmode = {"Two Side", "One Side" };
             ScreenBtn.Content = number.ToString();
-            TextBlock tb = ScreenBtn.Template.FindName("DetailText", ScreenBtn) as TextBlock;
+
             int index = MainWindow_Rufous.g_settingData.m_MatchList[number - 1].Value;
+
+            Image img = ScreenBtn.Template.FindName("screenImage", ScreenBtn) as Image;
+            img.Source = new BitmapImage(new Uri(imgPath[index], UriKind.RelativeOrAbsolute));
+
+            TextBlock tb = ScreenBtn.Template.FindName("DetailText", ScreenBtn) as TextBlock;
+            
             tb.Text = number.ToString() + ". " + MainWindow_Rufous.g_settingData.m_MatchList[number - 1].ItemName;
+
+            TextBlock tb1 = ScreenBtn.Template.FindName("InfoText", ScreenBtn) as TextBlock;
+            string str = string.Empty;
+
+            string adf = adfmode[Convert.ToInt32(MainWindow_Rufous.g_settingData.m_MatchList[number - 1].m_ScanSettings.ADFMode)];
+            string dpistr = "";
+            switch (MainWindow_Rufous.g_settingData.m_MatchList[number - 1].m_ScanSettings.ScanResolution)
+            {
+                case EnumScanResln._150x150:
+                    dpistr = "150DPI";
+                    break;
+
+                case EnumScanResln._200x200:
+                    dpistr = "200DPI";
+                    break;
+
+                case EnumScanResln._300x300:
+                    dpistr = "300DPI";
+                    break;
+
+                case EnumScanResln._600x600:
+                    dpistr = "600DPI";
+                    break;
+            }
+            string colormode = "";
+            switch (MainWindow_Rufous.g_settingData.m_MatchList[number - 1].m_ScanSettings.ColorType)
+            {
+                case EnumColorType.grayscale_8bit:
+                    colormode = "GrayScale";
+                    break;
+
+                case EnumColorType.color_24bit:
+                    colormode = "Color";
+                    break;
+            }
+            str = "ADF : " + adf;
+            str += "\r\n";
+            str += "DPI : " + dpistr;
+            str += "\r\n";
+            str += "Mode : " + colormode;
+            tb1.Text = str;
         }
 
         private void LeftButton_Click(object sender, RoutedEventArgs e)

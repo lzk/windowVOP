@@ -30,7 +30,7 @@ namespace VOP
         public ScanFiles m_rotatedObj = null;
         public List<string> selectFileList = null;
 
-        private bool oldValueForPrintSettingPage = FileSelectionPage.IsInitPrintSettingPage;
+        //private bool oldValueForPrintSettingPage = FileSelectionPage.IsInitPrintSettingPage;
 
         // Actual size of preview image in pixels.
         private double m_actualWidth = 0;
@@ -202,7 +202,7 @@ namespace VOP
                 this.DragMove();
         }
 
-        private void imagebtn_click(object sender, RoutedEventArgs e)
+        private void imagebtn_click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             Button btn = (Button)sender;
 
@@ -315,13 +315,13 @@ namespace VOP
             this.Close();
         }
 
-        private void btnPrint_Click(object sender, RoutedEventArgs e)
-        {
-            isPrint = true;
-            oldValueForPrintSettingPage = FileSelectionPage.IsInitPrintSettingPage;
-            FileSelectionPage.IsInitPrintSettingPage = true;////Init print setting
-            this.Close();
-        }
+        //private void btnPrint_Click(object sender, RoutedEventArgs e)
+        //{
+        //    isPrint = true;
+        //    oldValueForPrintSettingPage = FileSelectionPage.IsInitPrintSettingPage;
+        //    FileSelectionPage.IsInitPrintSettingPage = true;////Init print setting
+        //    this.Close();
+        //}
 
         /// <summary>
         /// Rotate objSrc to objDst with angle nAngle.
@@ -412,7 +412,7 @@ namespace VOP
                 {
                     e.Cancel = true;
                     isPrint = false;
-                    FileSelectionPage.IsInitPrintSettingPage = oldValueForPrintSettingPage;
+                   // FileSelectionPage.IsInitPrintSettingPage = oldValueForPrintSettingPage;
                 }
             }
         }

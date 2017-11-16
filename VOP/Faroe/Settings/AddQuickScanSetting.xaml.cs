@@ -177,12 +177,13 @@ namespace VOP
                // if(!IsEdit)
                 {
                     bool isNameSame = false;
-
+                    string name = tbName.Text.TrimEnd();//add by yunying shang 2017-11-14 for BMS 1408
+                    
                     for (int i = 0; i < MainWindow_Rufous.g_settingData.m_MatchList.Count(); i++)
                     {
                         //modified by yunying shang 2017-11-07 for BMS 1301
                         if (key != MainWindow_Rufous.g_settingData.m_MatchList[i].Key &&
-                            tbName.Text == MainWindow_Rufous.g_settingData.m_MatchList[i].ItemName)
+                            name == MainWindow_Rufous.g_settingData.m_MatchList[i].ItemName)
                             isNameSame = true;
                     }
 
@@ -193,7 +194,7 @@ namespace VOP
                     }
                     else
                     {
-                        strItemName = tbName.Text;
+                        strItemName = name;
                         value = cbType.SelectedIndex;
                     }
                 }

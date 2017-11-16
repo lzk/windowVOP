@@ -28,6 +28,9 @@
     </UserControl.Resources>
 
 <Grid Name="grid1" >
+        <Grid.Background>
+            <ImageBrush ImageSource="../Images/ScanView.png" Stretch="Fill"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="0" />
             <RowDefinition Height="50" />
@@ -41,31 +44,31 @@
         <ColumnDefinition Width="20" />
         <ColumnDefinition Width="60" />
         <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="90"/>
+        <ColumnDefinition Width="60"/>
         <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
 
         <CheckBox   Name="SelectAllCheckBox"
-                    Grid.Row="1" 
+                    Grid.Row="2" 
                     Grid.Column="2"
                     Content="Select All"
-                    Foreground="White"
+                    Foreground="Black"
                     IsChecked="true" 
                     Height="25" 
                     Template="{StaticResource customTickCheckBox}" 
-                    Margin="0,0,25,0"
+                    Margin="0,0,5,10"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom" 
+                    VerticalAlignment="Top" 
                     Click="CheckBox_Click"/>
 
         <Button Grid.Row="1" 
-                Grid.Column="1"
-                Grid.RowSpan="2"
+                Grid.Column="0"
+                Grid.RowSpan="3"
                 Grid.ColumnSpan="2"
-                Width="55" 
-                Height="55" 
+                Width="50" 
+                Height="50" 
                 Style="{StaticResource BackButtonStyle}" 
-                Margin="-15,0,0,0"
+                Margin="0,0,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top" Click="Button_Click"/>
 
@@ -74,57 +77,52 @@
         HorizontalScrollBarVisibility="Disabled"
         Style="{StaticResource LeftScrollViewer}" Margin="0" 
         >
-            <ScrollViewer.Background>
-                <ImageBrush ImageSource="../Images/ScanView.png" />
-            </ScrollViewer.Background>
+
 
             <WrapPanel x:Name="image_wrappanel">
             </WrapPanel>
 
         </ScrollViewer>
-        <StackPanel Grid.Row="2" Grid.Column="3" Width="80"  Height="200"  Orientation="Vertical" 
-                    HorizontalAlignment="Left"
+        <StackPanel Grid.Row="2" Grid.Column="3" Orientation="Vertical" 
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center">
         <Button    
             Name="LeftBtn"
-            Grid.Row="0"
-            Grid.Column="1"
             Style="{StaticResource UpButtonStyle}" 
-            Width="80"
-            Height="80"
+            Width="50"
+            Height="50"
             Click="LeftButton_Click"
             />
             <Button  
             Name="RightBtn"
-            Grid.Row="0"
-            Grid.Column="4"
             Style="{StaticResource DownButtonStyle}" 
-            Width="80"
-            Height="80"
+            Width="50"
+            Height="50"             
             Click="RightButton_Click"
             />
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" 
+                    Margin="20,0,0,0"  HorizontalAlignment="Center">
 
             <local:ImageButton2 
                             ImagePath="../Images/ScanToPrint.png" 
                             BottomText="To Print" 
-                            Height="80" Width="70"
+                            Width="90" Height="100"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Margin="0,0,0,0"
-                            Foreground="White"
+                            Foreground="Black"
                             FontSize="12"
                  PreviewMouseLeftButtonDown="ScanToPrintButtonClick"
                 />
             <local:ImageButton2  
                             ImagePath="../Images/ScanToEmail.png" 
                             BottomText="To Email" 
-                            Height="80" Width="70"
+                            Width="90" Height="100"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Margin="12,5,0,5"
-                            Foreground="White"
+                            Margin="6,5,0,5"
+                            Foreground="Black"
                             FontSize="12"
                   PreviewMouseLeftButtonDown="ScanToEmailButtonClick"
                 />
@@ -132,22 +130,22 @@
             <local:ImageButton2  
                             ImagePath="../Images/ScanToFile.png" 
                             BottomText="To File" 
-                            Height="80" Width="70"
+                            Width="90" Height="100"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Margin="12,0,0,0"
-                            Foreground="White"
+                            Margin="6,0,0,0"
+                            Foreground="Black"
                   PreviewMouseLeftButtonDown="ScanToFileButtonClick"
                             FontSize="12"/>
 
              <local:ImageButton2 
                             ImagePath="../Images/ScanToFtp.png" 
                             BottomText="To FTP" 
-                            Height="80" Width="70"
+                            Width="90" Height="100"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Margin="12,0,0,0"
-                            Foreground="White"
+                            Margin="6,0,0,0"
+                            Foreground="Black"
                             FontSize="12"
                   PreviewMouseLeftButtonDown="ScanToFtpButtonClick"
                  />
@@ -155,11 +153,11 @@
              <local:ImageButton2 
                             ImagePath="../Images/ScanToProgram.png" 
                             BottomText="To Application" 
-                            Height="80" Width="85"
+                            Width="90" Height="100"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Margin="12,0,0,0"
-                            Foreground="White"
+                            Margin="6,0,0,0"
+                            Foreground="Black"
                             FontSize="12"
                   PreviewMouseLeftButtonDown="ScanToAPButtonClick"
                  />
@@ -167,11 +165,11 @@
              <local:ImageButton2
                             ImagePath="../Images/ScanToCloud.png" 
                             BottomText="To Cloud" 
-                            Height="80" Width="70"
+                            Width="90" Height="100"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Margin="12,0,0,0"
-                            Foreground="White"
+                            Margin="6,0,0,0"
+                            Foreground="Black"
                             FontSize="12"
                             PreviewMouseLeftButtonDown="ScanToCloudButtonClick" />
 

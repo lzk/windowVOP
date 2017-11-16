@@ -50,11 +50,11 @@
                         </Rectangle>
 
                         <!-- Present Content (text) of the button. -->
-                        <DockPanel Name="myContentPresenterDockPanel">
+                        <!--<DockPanel Name="myContentPresenterDockPanel">
                             <ContentPresenter x:Name="myContentPresenter" Margin="20"  
                             Content="{TemplateBinding  Content}"  
                             TextBlock.Foreground="Black" />
-                        </DockPanel>
+                        </DockPanel>-->
 
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -146,15 +146,15 @@
 
 
     
-    <Style x:Key="coolBlueButtonStyle" TargetType="Button">
+   <!-- <Style x:Key="coolBlueButtonStyle" TargetType="Button">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
               
                     <Grid ClipToBounds="False">
                         <Image Name="backgroundImageborder" Source="../../Images/button_3dborder.png" Margin="-28, -28, -28, -30" Stretch="Fill"/>
-                        <Image Name="backgroundImage" Source="../../Images/lightbutton.png" />
-                        
+                        <Image Name="backgroundImage" Source="../../Images/lightbutton.png"/>
+
                         <Grid Margin="15">
                             <Border Name="MyImageBorder" CornerRadius="7" >
                                 <Border.Background>
@@ -167,20 +167,7 @@
                                 </Border.BorderBrush>
                             </Border>
                         </Grid>
-                       
-                        <!--<Rectangle x:Name="glassCube" 
-                        HorizontalAlignment="Stretch" 
-                        VerticalAlignment="Stretch" 
-                        StrokeThickness="1" 
-                        RadiusX="5" RadiusY="5" Opacity="0" 
-                        Fill="WhiteSmoke">
-                            <Rectangle.Stroke>
-                                <SolidColorBrush x:Name="MyAnimatedBrush" Color="Transparent"/>
-                            </Rectangle.Stroke>
 
-                        </Rectangle>-->
-
-                        <!-- Present Content (text) of the button. -->
                         <DockPanel Name="myContentPresenterDockPanel">
                             <ContentPresenter x:Name="myContentPresenter" Margin="20"  
                             Content="{TemplateBinding  Content}"  
@@ -209,9 +196,176 @@
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
-        </Setter>
-      
-    </Style>
+        </Setter>      
+    </Style>-->
+    <Style x:Key="decodeButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
 
-  
+                    <Grid ClipToBounds="False">
+                        <!--<Image Name="backgroundImageborder" Source="../../Images/button_3dborder.png" Margin="-28, -28, -28, -30" Stretch="Fill"/>-->
+                        <Image Name="backgroundImage" Source="../../Images/main_btn_decode.png"/>
+
+                       <!-- <Grid Margin="15">
+                            <Border Name="MyImageBorder" CornerRadius="7" >
+                                <Border.Background>
+                                    <ImageBrush  ImageSource="{Binding Path=(local:EyeCandy.Image),
+                                RelativeSource={RelativeSource FindAncestor,
+                                AncestorType={x:Type Button}}}" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                </Border.Background>
+                                <Border.BorderBrush>
+                                    <SolidColorBrush x:Name="MyBorderBrush" Color="SteelBlue" />
+                                </Border.BorderBrush>
+                            </Border>
+                        </Grid>-->
+
+                        <!-- Present Content (text) of the button. -->
+                        <DockPanel Name="myContentPresenterDockPanel">
+                            <ContentPresenter x:Name="myContentPresenter" Margin="20"  
+                            Content="{TemplateBinding  Content}"  
+                            TextBlock.Foreground="Black" />
+                        </DockPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnf_decode.png"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="true" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnt_decode.png"/>
+                        </MultiTrigger>
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+    <Style x:Key="seperationButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Grid ClipToBounds="False">
+                        <Image Name="backgroundImage" Source="../../Images/main_btn_separation.png"/>
+
+                        <!-- Present Content (text) of the button. -->
+                        <DockPanel Name="myContentPresenterDockPanel">
+                            <ContentPresenter x:Name="myContentPresenter" Margin="20"  
+                            Content="{TemplateBinding  Content}"  
+                            TextBlock.Foreground="Black" />
+                        </DockPanel>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnf_separation.png"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="true" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnt_separation.png"/>
+                        </MultiTrigger>
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="scantoButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Grid ClipToBounds="False">
+                        <Image Name="backgroundImage" Source="../../Images/main_btn_scanto.png"/>
+
+                        <!-- Present Content (text) of the button. -->
+                        <DockPanel Name="myContentPresenterDockPanel">
+                            <ContentPresenter x:Name="myContentPresenter" Margin="20"  
+                            Content="{TemplateBinding  Content}"  
+                            TextBlock.Foreground="Black" />
+                        </DockPanel>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnf_scanto.png"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="true" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnt_scanto.png"/>
+                        </MultiTrigger>
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="settingsButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Grid ClipToBounds="False">
+                        <Image Name="backgroundImage" Source="../../Images/main_btn_settings.png"/>
+
+                        <!-- Present Content (text) of the button. -->
+                        <DockPanel Name="myContentPresenterDockPanel">
+                            <ContentPresenter x:Name="myContentPresenter" Margin="20"  
+                            Content="{TemplateBinding  Content}"  
+                            TextBlock.Foreground="Black" />
+                        </DockPanel>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnf_settings.png"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="true" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnt_settings.png"/>
+                        </MultiTrigger>
+                        <Trigger  Property="IsFocused" Value="True">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

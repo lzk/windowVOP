@@ -136,129 +136,118 @@
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="150" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="35"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="35"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
                 <!-- Title bar begin -->
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0" Grid.ColumnSpan="2">
-                    <TextBlock Text="{StaticResource ResStr_Faroe_Scan_FTP}" FontSize="15" Foreground="#FF48C6E0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Text="{StaticResource ResStr_Faroe_Scan_FTP}" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
                 <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Grid.Column="2" RenderTransformOrigin="1.567,0.633" />
                 <Grid Grid.Row="1" Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="60"></RowDefinition>
+                        <RowDefinition Height="6"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="60"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="20"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock 
-                Grid.Row="1"
+                Grid.Row="0"
                 Grid.Column="0"
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                 Text="{StaticResource ResStr_Faroe_scan_setting}"
+                        HorizontalAlignment="Left"
+                 Text="{StaticResource ResStr_Faroe_scan_setting}" Margin="0,21,0,20"
                 />
 
                     <Button
-                Grid.Row="1"
-                Grid.Column="2"
-                Width="120"
+                Grid.Row="0"
+                Grid.Column="3"
+                Width="200"
                 Height="35" 
-                Margin="-90,0,0,0"
+                        HorizontalAlignment="Right"
                 Content="{StaticResource ResStr_Setting}" 
                 FontSize="16"
-                Style="{StaticResource CustomGreenButtonStyle}" 
-                Click="Button_Click"
+                Style="{StaticResource CustomPopUpButtonStyle}" 
+                Click="Button_Click" Margin="0,12"
                 />
-                </Grid>
+                    <Canvas Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,3">
+                        <Path Stroke="LightGray" StrokeThickness="2">
+                            <Path.Data>
+                                <LineGeometry StartPoint="0,4" EndPoint="480,2"></LineGeometry>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
 
-                <Grid Grid.Row="2" Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="0"/>
-                    </Grid.ColumnDefinitions>
 
-                    <TextBlock 
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock 
                 Grid.Row="0"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
                 Text="{StaticResource ResStr_Faroe_ftp_setting}"/>
-
-                    <Grid Grid.Row="1" Grid.Column="1" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="30"/>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="30"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Border Grid.Row="0" Grid.Column="1">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock 
+                        <TextBlock Grid.Row="1" Grid.Column="0"
                                 Text="{StaticResource ResStr_Faroe_server_addr}" 
-                                VerticalAlignment="Center"
+                                VerticalAlignment="Center" HorizontalAlignment="Left"
+                                   Margin="30,0,0,0"
                                 FontWeight="Bold"
                                 FontSize="12"
                                 />
-                                <TextBox 
+                        <TextBox Grid.Row="1" Grid.Column="2"
                                 Name="tbServerName"
                                 Template="{StaticResource customTextBox}" 
-                                VerticalAlignment="Center" 
+                                VerticalAlignment="Center" HorizontalAlignment="Right"
                                 SnapsToDevicePixels ="True"
-                                Width="200" 
+                                Width="250" 
                                 Height="30" 
-                                Margin="10,0,0,0" 
                                 Text=""
                                 VerticalContentAlignment="Center"                               
                                 FontSize="14"
-                                MaxLength="255"
-                                />
-                            </StackPanel>
-                        </Border>
-
-                        <Border Grid.Row="1" Grid.Column="1">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock 
+                                MaxLength="255"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0"
                                 Text="{StaticResource ResStr_Faroe_username}" 
-                                VerticalAlignment="Center"
+                                VerticalAlignment="Center" HorizontalAlignment="Left"
+                                   Margin="30,0,0,0"
                                 FontWeight="Bold"
                                 FontSize="12"
                                 />
-                                <TextBox 
+                        <TextBox Grid.Row="2" Grid.Column="2"
                                 Name="tbUserName"
                               Template="{StaticResource customTextBox}" 
-                                VerticalAlignment="Center" 
+                                VerticalAlignment="Center" HorizontalAlignment="Right"
                                 SnapsToDevicePixels ="True"
-                                Width="200" 
+                                Width="250" 
                                 Height="30" 
                                 Margin="35,0,0,0" 
                                 Text=""
@@ -266,25 +255,20 @@
                                 FontSize="14"
                                 MaxLength="30"
                                 />
-                            </StackPanel>
-                        </Border>
-
-
-                        <Border Grid.Row="2" Grid.Column="1">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock 
+                        <TextBlock Grid.Row="3" Grid.Column="0"
                                  Text="{StaticResource ResStr_Faroe_password}" 
-                                VerticalAlignment="Center"
+                                VerticalAlignment="Center" HorizontalAlignment="Left"
+                                   Margin="30, 0, 0, 0"
                                 FontWeight="Bold"
                                 FontSize="12"
                                 />
-                                <PasswordBox 
+                        <PasswordBox Grid.Row="3" Grid.Column="2"
                              Name="pbPWD" 
                                Style="{StaticResource textpwd}" 
                              FontFamily="Arial"
-                             Width="200" 
+                             Width="250" 
                              Height="30"
-                             VerticalAlignment="Center"
+                             VerticalAlignment="Center" HorizontalAlignment="Right"
                              VerticalContentAlignment="Center"
                              SnapsToDevicePixels ="True"
                              MaxLength="32" 
@@ -292,52 +276,44 @@
                             PreviewTextInput="OnPreviewTextInput" 
                             PreviewKeyDown="OnPreviewKeyDown"
                              >
-                                    <PasswordBox.InputBindings>
-                                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
-                                    </PasswordBox.InputBindings>
-                                    <PasswordBox.ContextMenu>
-                                        <ContextMenu Visibility="Collapsed">
-                                        </ContextMenu>
-                                    </PasswordBox.ContextMenu>
-                                </PasswordBox>
-                            </StackPanel>
-                        </Border>
+                            <PasswordBox.InputBindings>
+                                <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                            </PasswordBox.InputBindings>
+                            <PasswordBox.ContextMenu>
+                                <ContextMenu Visibility="Collapsed">
+                                </ContextMenu>
+                            </PasswordBox.ContextMenu>
+                        </PasswordBox>
 
-                        <Border Grid.Row="3" Grid.Column="1">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock 
+                        <TextBlock Grid.Row="4" Grid.Column="0"
                                 Text="{StaticResource ResStr_Faroe_targetPath}" 
-                                VerticalAlignment="Center"
+                                VerticalAlignment="Center" HorizontalAlignment="Left"
+                                   Margin="30,0,0,0"
                                 FontWeight="Bold"
                                 FontSize="12"
                                 />
-                                <TextBox 
+                        <TextBox Grid.Row="4" Grid.Column="2"
                                 Name="tbTargetPath"
                               Template="{StaticResource customTextBox}" 
-                                VerticalAlignment="Center" 
+                                VerticalAlignment="Center" HorizontalAlignment="Right"
                                 SnapsToDevicePixels ="True"
-                                Width="200" 
+                                Width="250" 
                                 Height="30" 
-                                Margin="30,0,0,0" 
                                 Text=""
                                 VerticalContentAlignment="Center"
                                 FontSize="14"                             
                                 MaxLength="255"
                                 />
-                            </StackPanel>
-                        </Border>
 
-
-                        <Button Grid.Row="4" Grid.Column="1"
-                            HorizontalAlignment="Center" 
-                            Margin="20,6" 
-                            Width="85" 
+                    </Grid>
+                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Width="200" 
                             Height="35"
                             FontSize="16"
                             Click="OkClick"
-                            Style="{StaticResource CustomGreenButtonStyle}"
+                            Style="{StaticResource CustomPopUpButtonStyle}"
                             >OK</Button>
-                    </Grid>
 
                 </Grid>
             </Grid>

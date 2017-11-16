@@ -132,6 +132,130 @@
         </Setter>
     </Style>
 
+    <Style x:Key="CustomSettingButtonStyle" TargetType="Button">
+        <Setter Property="Cursor"  Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid ClipToBounds="True">
+                        <Image Name="backgroundImage" Source="../Images/setting_btn_1.png"/>
+                        <!-- Present Content (text) of the button. -->
+                        <TextBlock x:Name="myContentPresenter"
+                                           Text="{TemplateBinding  Content}"  
+                                           Margin="{TemplateBinding   Padding}"
+                                           HorizontalAlignment="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource TemplatedParent}}"
+                                           VerticalAlignment="Center"
+                                           Foreground="Black" 
+                                           FontSize="{TemplateBinding FontSize}"
+                                   />
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/setting_btnt_1.png"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="true" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/setting_btnf_1.png"/>
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <Style x:Key="CustomPopUpButtonStyle" TargetType="Button">
+        <Setter Property="Cursor"  Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid ClipToBounds="True">
+                        <Image Name="backgroundImage" Source="../Images/popup_btn_1.png"/>
+                        <!-- Present Content (text) of the button. -->
+                        <TextBlock x:Name="myContentPresenter"
+                                           Text="{TemplateBinding  Content}"  
+                                           Margin="{TemplateBinding   Padding}"
+                                           HorizontalAlignment="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource TemplatedParent}}"
+                                           VerticalAlignment="Center"
+                                           Foreground="Black" 
+                                           FontSize="{TemplateBinding FontSize}"
+                                   />
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/popup_btnt_1.png"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="true" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/popup_btnf_1.png"/>
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <Style x:Key="CustomPopUpButtonStyle2" TargetType="Button">
+        <Setter Property="Cursor"  Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid ClipToBounds="True">
+                        <Image Name="backgroundImage" Source="../Images/popup_btn_2.png"/>
+                        <!-- Present Content (text) of the button. -->
+                        <TextBlock x:Name="myContentPresenter"
+                                           Text="{TemplateBinding  Content}"  
+                                           Margin="{TemplateBinding   Padding}"
+                                           HorizontalAlignment="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource TemplatedParent}}"
+                                           VerticalAlignment="Center"
+                                           Foreground="Black" 
+                                           FontSize="{TemplateBinding FontSize}"
+                                   />
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/popup_btnt_2.png"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="true" />
+                                <Condition Property="IsMouseOver" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/popup_btnf_2.png"/>
+                        </MultiTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+
     <Style x:Key="ButtonWithArrowPicture"
        TargetType="{x:Type Button}">
         <Setter Property="Template">

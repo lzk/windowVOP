@@ -17,7 +17,12 @@ namespace VOP
     /// <summary>
     /// Interaction logic for softap.xaml
     /// </summary>
-
+    public class SoftAPSetting
+    {
+        public string m_ssid = "";
+        public string m_pwd = "";
+        public bool m_bEnableSoftAp = false;
+    }
     public partial class SoftapView_Rufous : UserControl
     {
         SoftAPSetting softAPSetting = new SoftAPSetting();
@@ -59,7 +64,7 @@ namespace VOP
                 softAPSetting.m_ssid = softAPSettingInit.m_ssid = m_rec.SSID;
                 softAPSetting.m_pwd = softAPSettingInit.m_pwd = m_rec.PWD;
                 softAPSetting.m_bEnableSoftAp = softAPSettingInit.m_bEnableSoftAp = m_rec.WifiEnable;
-                VOP.MainWindow.m_byWifiInitStatus = 0x01;
+                VOP.MainWindow_Rufous.m_byWifiInitStatus = 0x01;
             }            
 
             tbSSID.Text = softAPSettingInit.m_ssid;

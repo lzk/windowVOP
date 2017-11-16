@@ -20,6 +20,13 @@ namespace VOP
         Quick,
     };
 
+    public enum DuplexPrintType
+    {
+        NonDuplex,
+        FlipOnLongEdge,
+        FlipOnShortEdge
+    }
+
     public class PrintFlow
     {
         public static PrintFlowType FlowType = PrintFlowType.View;
@@ -60,7 +67,7 @@ namespace VOP
             else
             {
                 if (dll.PrintInit(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_PrintScanSettings.PrinterName, "VOP_Print",
-                        (int)enumIdCardType.NonIdCard, new IdCardSize(), true, (int)DuplexPrintType.NonDuplex, true, 100))
+                        (int)0, new IdCardSize(), true, (int)DuplexPrintType.NonDuplex, true, 100))
                 {
 
                     foreach (string path in FileList)

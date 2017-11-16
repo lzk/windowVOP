@@ -29,6 +29,8 @@ namespace VOP
         }
         private void ScanToEmailDialog_Loaded(object sender, RoutedEventArgs e)
         {
+            TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
+
             if (m_scanToEmailParams.AttachmentType == "PDF")
             {
                 cbAttachType.SelectedIndex = 0;
@@ -91,7 +93,7 @@ namespace VOP
             }
             if (false == Char.IsLetterOrDigit(tbRecipient.Text, 0)||               
                 false == IsValidEmail(tbRecipient.Text) ||
-                IsEmailNameAllNumber(tbRecipient.Text) ||
+                //IsEmailNameAllNumber(tbRecipient.Text) ||
                 finded < 0 ||
                 finded1 >= 0)
             {
@@ -157,6 +159,11 @@ namespace VOP
             {
                e.Handled = true;               
             }
+        }
+
+        private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
 
         private MainWindow_Rufous _MainWin = null;

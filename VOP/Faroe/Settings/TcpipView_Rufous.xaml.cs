@@ -15,6 +15,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Diagnostics;
 using VOP.Controls;
+using Microsoft.Win32;
 
 namespace VOP
 {
@@ -22,6 +23,82 @@ namespace VOP
     /// Interaction logic for TCPIPView.xaml
     /// </summary>
     ///  
+    public class TCPIPSetting
+    {
+        public byte m_mode_ipversion = 0;
+        public byte m_mode_ipaddress = (byte)EnumIPType.DHCP;
+        public byte m_ip0 = 0;
+        public byte m_ip1 = 0;
+        public byte m_ip2 = 0;
+        public byte m_ip3 = 0;
+        public byte m_mask0 = 0;
+        public byte m_mask1 = 0;
+        public byte m_mask2 = 0;
+        public byte m_mask3 = 0;
+        public byte m_gate0 = 0;
+        public byte m_gate1 = 0;
+        public byte m_gate2 = 0;
+        public byte m_gate3 = 0;
+    }
+
+    public class MacAddressRegistry
+    {
+        static RegistryKey LocalKey = Registry.LocalMachine;
+        static RegistryKey rootKey = null;
+
+        public static bool Open(string printerName)
+        {
+            string strDrvName = "";
+            string openKeyString = "";
+
+            try
+            {
+                common.GetPrinterDrvName(printerName, ref strDrvName);
+                openKeyString = @"Software\Lenovo\" + strDrvName + @"\Launcher\" + printerName;
+
+                rootKey = LocalKey.OpenSubKey(openKeyString, false);
+
+                if (rootKey == null)
+                {
+                    Close();
+                    return false;
+                }
+
+            }
+            catch (Exception)
+            {
+                Close();
+                return false;
+            }
+
+            return true;
+        }
+
+        public static void Close()
+        {
+            if (rootKey != null)
+                rootKey.Close();
+
+            if (LocalKey != null)
+                LocalKey.Close();
+        }
+
+        public static string GetMacAddress()
+        {
+            string str = "";
+            try
+            {
+                str = rootKey.GetValue("MacAddress").ToString();
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return str;
+        }
+
+    }
 
     public partial class TcpipView_Rufous : UserControl
     {
@@ -40,7 +117,7 @@ namespace VOP
 
         #region IP
         private static readonly DependencyProperty IPProperty =
-            DependencyProperty.Register("IP", typeof(string), typeof(TcpipView),
+            DependencyProperty.Register("IP", typeof(string), typeof(TcpipView_Rufous),
             new PropertyMetadata("0.0.0.0", OnFormattedValueChanged));
 
         private static void OnFormattedValueChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
@@ -63,7 +140,7 @@ namespace VOP
 
         #region Gateway
         private static readonly DependencyProperty GatewayProperty =
-            DependencyProperty.Register("Gateway", typeof(string), typeof(TcpipView),
+            DependencyProperty.Register("Gateway", typeof(string), typeof(TcpipView_Rufous),
             new PropertyMetadata("0.0.0.0", OnFormattedValueChanged));
 
         public string Gateway
@@ -81,7 +158,7 @@ namespace VOP
 
         #region Submask
         private static readonly DependencyProperty SubmaskProperty =
-            DependencyProperty.Register("Submask", typeof(string), typeof(TcpipView),
+            DependencyProperty.Register("Submask", typeof(string), typeof(TcpipView_Rufous),
             new PropertyMetadata("255.255.255.0", OnFormattedValueChanged));
 
         public string Submask

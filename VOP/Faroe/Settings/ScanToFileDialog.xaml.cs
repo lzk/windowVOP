@@ -29,7 +29,10 @@ namespace VOP
             InitializeComponent();           
         }
         private void ScanToFileDialog_Loaded(object sender, RoutedEventArgs e)
-        {            
+        {
+
+            TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
+
             if (m_scanToFileParams.SaveType == "PDF")
             {
                 cbFileType.SelectedIndex = 0;
@@ -259,7 +262,7 @@ namespace VOP
             {
                 save.Filter = "BMP|*.bmp";
             }
-            //save.FileName = dummyFileName + "\\" + tbFileName.Text;
+            save.FileName = m_scanToFileParams.FileName;//add by yunying shang 2017-11-14 for BMS 1393
             save.InitialDirectory = dummyFileName;
             bool? result = save.ShowDialog();
 
@@ -276,6 +279,11 @@ namespace VOP
                 }
 
             }
+        }
+
+        private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
 
         private MainWindow_Rufous _MainWin = null;

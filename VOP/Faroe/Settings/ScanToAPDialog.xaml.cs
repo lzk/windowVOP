@@ -28,6 +28,8 @@ namespace VOP
         }
         private void ScanToAPDialog_Loaded(object sender, RoutedEventArgs e)
         {
+            TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
+
             if (m_scanToAPParams.ProgramType == "Paint")
             {
                 cbProgramType.SelectedIndex = 0;
@@ -75,6 +77,11 @@ namespace VOP
         {
             this.DialogResult = true;            
             this.Close();
+        }
+
+        private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
 
         private MainWindow_Rufous _MainWin = null;

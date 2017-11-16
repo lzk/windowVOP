@@ -27,44 +27,60 @@ namespace VOP
         }
         private void ScanToCloudDialog_Loaded(object sender, RoutedEventArgs e)
         {
+            TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
+
             if (m_scanToCloudParams.SaveType == "DropBox")
             {
                 cbCloudType.SelectedIndex = 0;
                 tbNoteTitle.IsEnabled = false;
                 tbNoteTitle.Visibility = System.Windows.Visibility.Hidden;
-                tbReset.Text = "Reset access token in cache:";
+                tbNote.IsEnabled = false;
+                tbNote.Visibility = System.Windows.Visibility.Hidden;
+                tbNoteContent.IsEnabled = false;
+                tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
+                SavePathTbx.IsEnabled = true;
+                SavePathTbx.Visibility = System.Windows.Visibility.Visible;
                 tbDefaultPath.Text = "Default save path:";
+                SavePathTbx.Text = m_scanToCloudParams.DefaultPath;
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
-                btnReset.IsEnabled = true;
-                btnReset.Visibility = System.Windows.Visibility.Visible;
             }
             else if (m_scanToCloudParams.SaveType == "EverNote")
             {
                 cbCloudType.SelectedIndex = 1;
                 tbNoteTitle.IsEnabled = true;
                 tbNoteTitle.Visibility = System.Windows.Visibility.Visible;
-                tbReset.Text = "Ever Note Title:";
-                tbDefaultPath.Text = "Note Content:";
+                tbNote.IsEnabled = true;
+                tbNote.Visibility = System.Windows.Visibility.Visible;
+                tbNoteContent.IsEnabled = true;
+                tbNoteContent.Visibility = System.Windows.Visibility.Visible;
+                tbDefaultPath.Text = "Ever Note Title:";
+                tbNote.Text = "Note Content:";
+                tbNoteTitle.Text = m_scanToCloudParams.EverNoteTitle;
+                tbNoteContent.Text = m_scanToCloudParams.EverNoteContent;
+                SavePathTbx.IsEnabled = false;
+                SavePathTbx.Visibility = System.Windows.Visibility.Hidden;
                 btnBrowse.IsEnabled = false;
                 btnBrowse.Visibility = System.Windows.Visibility.Hidden;
-                btnReset.IsEnabled = false;
-                btnReset.Visibility = System.Windows.Visibility.Hidden;
+
+                m_scanToCloudParams.NeedReset = false;
             }
             else
             {
                 cbCloudType.SelectedIndex = 2;
                 tbNoteTitle.IsEnabled = false;
                 tbNoteTitle.Visibility = System.Windows.Visibility.Hidden;
-                tbReset.Text = "Reset access token in cache:";
+                tbNote.IsEnabled = false;
+                tbNote.Visibility = System.Windows.Visibility.Hidden;
+                tbNoteContent.IsEnabled = false;
+                tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
+                SavePathTbx.IsEnabled = true;
+                SavePathTbx.Visibility = System.Windows.Visibility.Visible;
                 tbDefaultPath.Text = "Default save path:";
+                SavePathTbx.Text = m_scanToCloudParams.DefaultPath;
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
-                btnReset.IsEnabled = true;
-                btnReset.Visibility = System.Windows.Visibility.Visible;
             }
-
-            SavePathTbx.Text = m_scanToCloudParams.DefaultPath;
         }
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -113,13 +129,17 @@ namespace VOP
         {
             if (m_scanToCloudParams.SaveType == "OneDrive")
             {
-               AuthenticationHelper.SignOut();               
+                AuthenticationHelper.SignOut();
             }
-            else
+            else if (m_scanToCloudParams.SaveType == "DropBox")
             {
                 Properties.Settings.Default.Reset();
                 m_scanToCloudParams.DefaultPath = SavePathTbx.Text = "";
-            }            
+            }
+            else
+            {
+                m_scanToCloudParams.NeedReset = true;
+            }        
         }
 
         private void OkClick(object sender, RoutedEventArgs e)
@@ -160,7 +180,7 @@ namespace VOP
                     return;
                 }
                 m_scanToCloudParams.EverNoteTitle = tbNoteTitle.Text;
-                m_scanToCloudParams.EverNoteContent = SavePathTbx.Text;
+                m_scanToCloudParams.EverNoteContent = tbNoteContent.Text;
                 m_scanToCloudParams.SaveType = "EverNote";
             }
 
@@ -175,36 +195,50 @@ namespace VOP
                 m_scanToCloudParams.SaveType = "DropBox";
                 tbNoteTitle.IsEnabled = false;
                 tbNoteTitle.Visibility = System.Windows.Visibility.Hidden;
-                tbReset.Text = "Reset access token in cache:";
+                tbNote.IsEnabled = false;
+                tbNote.Visibility = System.Windows.Visibility.Hidden;
+                tbNoteContent.IsEnabled = false;
+                tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
+                SavePathTbx.IsEnabled = true;
+                SavePathTbx.Visibility = System.Windows.Visibility.Visible;
                 tbDefaultPath.Text = "Default save path:";
+                SavePathTbx.Text = "";
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
-                btnReset.IsEnabled = true;
-                btnReset.Visibility = System.Windows.Visibility.Visible;
             }
             else if (cbCloudType.SelectedIndex == 1)
             {
                 m_scanToCloudParams.SaveType = "EverNote";
                 tbNoteTitle.IsEnabled = true;
                 tbNoteTitle.Visibility = System.Windows.Visibility.Visible;
-                tbReset.Text = "Ever Note Title:";
-                tbDefaultPath.Text = "Note Content:";
+                tbNote.IsEnabled = true;
+                tbNote.Visibility = System.Windows.Visibility.Visible;
+                tbNoteContent.IsEnabled = true;
+                tbNoteContent.Visibility = System.Windows.Visibility.Visible;
+                tbDefaultPath.Text = "Ever Note Title:";
+                tbNote.Text = "Note Content:";
+                tbNoteTitle.Text = m_scanToCloudParams.EverNoteTitle;
+                tbNoteContent.Text = m_scanToCloudParams.EverNoteContent;
+                SavePathTbx.IsEnabled = false;
+                SavePathTbx.Visibility = System.Windows.Visibility.Hidden;
                 btnBrowse.IsEnabled = false;
                 btnBrowse.Visibility = System.Windows.Visibility.Hidden;
-                btnReset.IsEnabled = false;
-                btnReset.Visibility = System.Windows.Visibility.Hidden;
             }
             else if (cbCloudType.SelectedIndex == 2)
             {
                 m_scanToCloudParams.SaveType = "OneDrive";
                 tbNoteTitle.IsEnabled = false;
                 tbNoteTitle.Visibility = System.Windows.Visibility.Hidden;
-                tbReset.Text = "Reset access token in cache:";
+                tbNote.IsEnabled = false;
+                tbNote.Visibility = System.Windows.Visibility.Hidden;
+                tbNoteContent.IsEnabled = false;
+                tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
+                SavePathTbx.IsEnabled = true;
+                SavePathTbx.Visibility = System.Windows.Visibility.Visible;
                 tbDefaultPath.Text = "Default save path:";
+                SavePathTbx.Text = "";
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
-                btnReset.IsEnabled = true;
-                btnReset.Visibility = System.Windows.Visibility.Visible;
             }
         }
 
@@ -218,6 +252,11 @@ namespace VOP
             }
 
         }
+        private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
         private MainWindow_Rufous _MainWin = null;
 
         public MainWindow_Rufous m_MainWin

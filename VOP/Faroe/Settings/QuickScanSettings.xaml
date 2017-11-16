@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="500"
+             d:DesignHeight="460" d:DesignWidth="595"
              xmlns:local="clr-namespace:VOP.Controls" 
              Loaded="UserControl_Loaded">
     <UserControl.Resources>
@@ -124,7 +124,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="500*"></RowDefinition>
+            <RowDefinition Height="440*"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -132,11 +132,9 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
-
-        <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="19,0,1,0"  >
+        <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
                 <RowDefinition Height="75"/>
                 <RowDefinition Height="75"/>
                 <RowDefinition Height="75"/>
@@ -145,34 +143,76 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0"/>
-                <ColumnDefinition Width="292"/>
+                <ColumnDefinition Width="300"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock 
                 Grid.Row="0"
-                Grid.Column="0"
-                Grid.ColumnSpan="3"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="{StaticResource ResStr_Faroe_quick_match}" Height="24" Margin="0,10,-135,16"/>
+                HorizontalAlignment="Left"
+                Text="{StaticResource ResStr_Faroe_quick_match}" Height="24"/>
 
             <ListBox
                 Name="MatchListBox" 
                 SelectionChanged="MatchListBox_SelectionChanged"
-                Grid.Row="1"
+                Grid.Row="1"  Grid.RowSpan="4"
                 Grid.Column="1"
                 ScrollViewer.CanContentScroll="True"
-                ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.RowSpan="4"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
                 />
-            <Button x:Name="btnMoveUp" Content="Move Up" FontSize="12" Grid.Column="2" HorizontalAlignment="Center" Height="28"  Grid.Row="2" VerticalAlignment="Center" Width="80" Click="btnMoveUp_Click"/>
+            <!--<Button x:Name="btnMoveUp" Content="Move Up" FontSize="12" Grid.Column="2" HorizontalAlignment="Center" Height="28"  Grid.Row="2" VerticalAlignment="Center" Width="80" Click="btnMoveUp_Click"/>
             <Button x:Name="btnMoveDown" Content="Move Down" FontSize="12" Grid.Column="2" HorizontalAlignment="Center" Height="28"  Grid.Row="3" VerticalAlignment="Center" Width="80" Click="btnMoveDown_Click" />
-            <Button x:Name="btnAdd" Content="New" Grid.Column="1" FontSize="12" HorizontalAlignment="Left" Height="28" Margin="0,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnAdd_Click"/>
-            <Button x:Name="btnEdit" Content="Edit" Grid.Column="1" FontSize="12" Height="28" HorizontalAlignment="Left" Margin="104,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnEdit_Click"/>
+            <Button x:Name="btnAdd" Content="New..." Grid.Column="1" FontSize="12" HorizontalAlignment="Left" Height="28" Margin="0,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnAdd_Click"/>
+            <Button x:Name="btnEdit" Content="Edit..." Grid.Column="1" FontSize="12" Height="28" HorizontalAlignment="Left" Margin="104,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnEdit_Click"/>
             <Button x:Name="btnDelete" Content="Delete" Grid.Column="1" FontSize="12" HorizontalAlignment="Left" Height="28" Margin="208,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnDelete_Click"/>
-            <Button x:Name="btnSettings" Content="Settings" Grid.Column="2" FontSize="12" HorizontalAlignment="Left" Height="28" Margin="17,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnSettings_Click"/>
-
+            <Button x:Name="btnSettings" Content="Settings..." Grid.Column="2" FontSize="12" HorizontalAlignment="Left" Height="28" Margin="17,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnSettings_Click"/>-->
+            <local:ImageButton2 x:Name="btnMoveUp"
+                                FontSize="12" Grid.Column="2" Grid.Row="2"
+                                Width="70" Height="75" Margin="25,0,0,0"
+                                ImagePath="../../Images/quick scan_btn_move up.png" 
+                                HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                PreviewMouseLeftButtonDown="btnMoveUp_Click"/>
+            <local:ImageButton2 x:Name="btnMoveDown"
+                                FontSize="12" Grid.Column="2" Grid.Row="3"
+                                Width="70" Height="75" Margin="25,0,0,0"
+                                ImagePath="../../Images/quick scan_btn_move down.png"  
+                                HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                PreviewMouseLeftButtonDown="btnMoveDown_Click"/>
+            <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Top">
+            <local:ImageButton2 x:Name="btnAdd"
+                                FontSize="12" 
+                                Width="70" Height="75"
+                                ImagePath="../../Images/quick scan_btn_new.png" 
+                                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                Margin="0,5,0,0"
+                                PreviewMouseLeftButtonDown="btnAdd_Click"/>
+                <local:ImageButton2 x:Name="btnEdit"
+                                FontSize="12" 
+                                Width="70" Height="75"
+                                ImagePath="../../Images/quick scan_btn_edit.png" 
+                                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                Margin="5,5,0,0"
+                                PreviewMouseLeftButtonDown="btnEdit_Click"/>
+                <local:ImageButton2 x:Name="btnDelete"
+                                FontSize="12" 
+                                Width="70" Height="75"
+                                ImagePath="../../Images/quick scan_btn_delete.png" 
+                                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                Margin="5,5,0,0"
+                                PreviewMouseLeftButtonDown="btnDelete_Click"/>
+                <local:ImageButton2 x:Name="btnSettings"
+                                FontSize="12" 
+                                Width="70" Height="75"
+                                ImagePath="../../Images/quick scan_btn_setting.png" 
+                                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                Margin="5,5,0,0"
+                                PreviewMouseLeftButtonDown="btnSettings_Click"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

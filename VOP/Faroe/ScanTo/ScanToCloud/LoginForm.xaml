@@ -27,41 +27,39 @@
         <Border Height="530" Width="650" Background="AliceBlue" BorderThickness="4" BorderBrush="#FF0E5686">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
-                    <TextBlock Name="TitleBarText" Text="{StaticResource ResStr_Faroe_Auth_Dropbox}" FontSize="15" Foreground="#28E" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Name="TitleBarText" Text="{StaticResource ResStr_Faroe_Auth_Dropbox}" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
                 <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
 
 
-                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="8*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                <Grid Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="1">
 
                     <Border Grid.Row="0" >
                         <WebBrowser Name="Browser" Navigating="BrowserNavigating" Navigated="Browser_Navigated" />
                     </Border>
-                    <Button Grid.Row="1" 
+
+                </Grid>
+                <Button Grid.Row="2" Grid.Column="1"
                             HorizontalAlignment="Right" 
                             Margin="20,6" 
-                            Width="125" 
+                            Width="160" 
                             Height="35"
                             FontSize="16"
                             Click="CancelClick"
-                            Style="{StaticResource CustomGreenButtonStyle}"
+                            Style="{StaticResource CustomPopUpButtonStyle}"
                             Content="{StaticResource ResStr_Cancel}"
                             ></Button>
-                </Grid>
-
 
             </Grid>
           
