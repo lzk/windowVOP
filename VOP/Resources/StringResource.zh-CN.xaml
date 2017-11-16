@@ -355,6 +355,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_SuperFine">待定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_HighestQuality">待定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_upload_dropbox_wait">待定</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_upload_onedrive_wait">待定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Dropbox_File_Viewer">待定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Upload">待定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Folder_Name">待定</sys:String>

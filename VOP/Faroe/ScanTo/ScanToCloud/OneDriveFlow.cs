@@ -64,18 +64,7 @@ namespace VOP
         /// <summary>
         /// Signs the user out of the service.
         /// </summary>
-
-        private async Task SignIn()
-        {
-            try
-            {
-                this.client = AuthenticationHelper.GetAuthenticatedClient();
-            }
-            catch (ServiceException exception)
-            {
-                PresentServiceException(exception);
-            }           
-        }       
+               
         private static void PresentServiceException(Exception exception)
         {
             string message = null;
@@ -122,7 +111,7 @@ namespace VOP
                 if (FlowType == CloudFlowType.Quick)
                 {
                     AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-                    return worker.InvokeQuickScanMethod(RunUpload, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_dropbox_wait"));
+                    return worker.InvokeQuickScanMethod(RunUpload, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_onedrive_wait"));
                 }
                 else
                 {
@@ -146,7 +135,7 @@ namespace VOP
             return true;
         }
         private void RunUploadTask(GraphServiceClient client)
-        {          
+        {
             try
             {
                 var viewr = new OneDriveFileViewer(client, FileList);
@@ -155,9 +144,8 @@ namespace VOP
             }
             catch (Exception e)
             {
-
-            }          
-        }              
+            }
+        }
        
         private string GetAccessToken()
         {
@@ -215,7 +203,7 @@ namespace VOP
                 return false;
             }
         }
-
+      
         private async Task<bool> UploadFilesToDefaultPath()
         {   
             if (FileList == null)
