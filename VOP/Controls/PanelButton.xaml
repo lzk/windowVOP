@@ -303,12 +303,14 @@
                                             x:Name="DetailText"
                                             Text="Scan To Email"
                                             FontSize="20"
+
                                             FontWeight="Bold"
                                             Foreground="Black"                                               
                                             HorizontalAlignment="Center" 
                                             Margin="0,0,0,0"
+                                            MaxWidth="240"
                                                 />
-                                    <TextBlock 
+                            <TextBlock 
                                             x:Name="InfoText"
                                             Text="ADF"
                                             FontSize="12"
@@ -316,6 +318,7 @@
                                             HorizontalAlignment="Center" 
                                             TextAlignment="Left"
                                             Margin="0,20,0,0"
+                                            
                                                 />
                         </StackPanel>
 
