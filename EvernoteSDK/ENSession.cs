@@ -429,12 +429,12 @@ namespace EvernoteSDK
             SessionHost = ENSessionBootstrapServerBaseURLStringSandBox;//for test;
 		}
 
-		public void AuthenticateToEvernote()
+		public bool AuthenticateToEvernote(bool isNeedAuthenticate)
 		{
 			// Authenticate is idempotent; check if we're already authenticated.
-			if (IsAuthenticated)
+			if (IsAuthenticated && !isNeedAuthenticate)
 			{
-				return;
+				return true;
 			}
 
 			EdamUser = null;
@@ -445,7 +445,7 @@ namespace EvernoteSDK
 				_IsAuthenticated = true;
 				PrimaryAuthenticationToken = DeveloperToken;
 				PerformPostAuthentication();
-				return;
+				return true;
 			}
 
 			// Start bootstrapping
@@ -493,15 +493,20 @@ namespace EvernoteSDK
 				else
 				{
 					Unauthenticate();
-				}
+                    return false;
+                }
 			}
 			catch (Exception)
 			{
 				Unauthenticate();
+
+                return false;
 			}
+
+            return true;
 		}
 
-		public void PerformPostAuthentication()
+		public bool PerformPostAuthentication()
 		{
 			User edUser = null;
 			try
@@ -510,7 +515,7 @@ namespace EvernoteSDK
 			}
 			catch (Exception)
 			{
-
+                return false;
 			}
 			if (edUser != null)
 			{
@@ -527,6 +532,7 @@ namespace EvernoteSDK
 					Unauthenticate();
 				}
 			}
+            return true;
 		}
 
 		private void Unauthenticate()

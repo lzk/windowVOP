@@ -79,7 +79,7 @@ namespace VOP
             }
         }
 
-        private void btnMoveUp_Click(object sender, RoutedEventArgs e)
+        private void btnMoveUp_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             if (this.MatchListBox.SelectedItem != null && this.MatchListBox.SelectedIndex != 0)
             {
@@ -104,7 +104,7 @@ namespace VOP
             }
         }
 
-        private void btnMoveDown_Click(object sender, RoutedEventArgs e)
+        private void btnMoveDown_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             if (this.MatchListBox.SelectedItem != null && this.MatchListBox.SelectedIndex != this.MatchListBox.Items.Count - 1)
             {
@@ -130,7 +130,7 @@ namespace VOP
             }
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        private void btnAdd_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             AddQuickScanSetting addQuickScanSettingWin = new AddQuickScanSetting(true);
             addQuickScanSettingWin.Owner = m_MainWin;
@@ -177,7 +177,7 @@ namespace VOP
                 this.MatchListBox.SelectedIndex = this.MatchListBox.Items.Count - 1;//by yunying shang 2017-10-24 for bms 1217 
             }
         }
-        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        private void btnEdit_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             if (MatchListBox.SelectedItem == null)
                 return;
@@ -265,6 +265,7 @@ namespace VOP
             this.MatchListBox.Focus();
             this.MatchListBox.SelectedIndex = nIndex;//add by yunying shang 2017-10-24 for BMS 1211
         }
+
         public void MatchListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (MatchListBox.SelectedItem == null)
@@ -304,7 +305,7 @@ namespace VOP
             }
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        private void btnDelete_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             MainWindow_Rufous.g_settingData.m_MatchList.RemoveAt(this.MatchListBox.SelectedIndex);
             MatchListBox.Items.RemoveAt(this.MatchListBox.SelectedIndex);
@@ -314,7 +315,7 @@ namespace VOP
             this.MatchListBox.SelectedIndex = 0;
         }
 
-        private void btnSettings_Click(object sender, RoutedEventArgs e)
+        private void btnSettings_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             if (MatchListBox.SelectedIndex == -1)
             {

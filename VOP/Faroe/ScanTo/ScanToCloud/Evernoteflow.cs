@@ -21,11 +21,14 @@ namespace VOP
         public Window ParentWin { get; set; }
         public static CloudFlowType FlowType = CloudFlowType.View;
         public static string SavePath = "";
+        public string m_errorMsg = "";
 
         public bool isCancel = false;
+        private bool bReset = false;
 
         public bool Run()
         {
+            
             isCancel = false;
 
             if (FileList == null || FileList.Count == 0)
@@ -34,89 +37,102 @@ namespace VOP
                     return false;
             }
 
+            if (FlowType == CloudFlowType.View)
+            {
+                bReset = MainWindow_Rufous.g_settingData.m_bNeedReset;
+            }
+            else
+            {
+                bReset = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.NeedReset;
+            }
+            ENSession.SetSharedSessionConsumerKey(ApiKey, ApiSecret);
+
+            if (!bReset && ENSession.SharedSession.IsAuthenticated == true)
+            {
+                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+
+                if (worker.InvokeQuickScanMethod(ScanToEverNote, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_ScanTo_Cloud_wait")))
+                {
+
+                }
+                else
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                    Application.Current.MainWindow,
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail") + m_errorMsg,
+                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                    return false;
+                }
+            }
+            else
+            {
+                if (ScanToEverNote() == false)
+                {
+                    return false;
+                }
+
+
+            }
+            // Get a list of all notebooks in the user's account.
+            if (FlowType == CloudFlowType.View)
+            {
+
+                bool? result = null;
+                EverNoteViewer viewer = new EverNoteViewer();
+                //viewer.NoteList = notelist;
+                viewer.FileList = FileList;
+                viewer.Owner = Application.Current.MainWindow;
+                result = viewer.ShowDialog();
+                MainWindow_Rufous.g_settingData.m_bNeedReset = false;
+            }
+            else
+            {
+
+                try
+                {
+                    string title = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.EverNoteTitle;
+                    string content = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.EverNoteContent;
+                    ENNote myResourceNote = new ENNote();
+                    foreach (string filePath in FileList)
+                    {
+                        string fileName = System.IO.Path.GetFileName(filePath);
+                        byte[] myFile = StreamFile(filePath);
+                        // Be sure to replace this with a real JPG file
+                        ENResource myResource = new ENResource(myFile, "image/jpg", fileName);//"application/pdf"                 
+                        myResourceNote.Resources.Add(myResource);
+                    }
+                    myResourceNote.Title = title;// string.Format("Scan to EverNote: {0}", title);//, i);
+                    content = string.Format("{0}.Attach the scaling Files.", content);
+                    myResourceNote.Content = ENNoteContent.NoteContentWithString(content);
+                    ENNoteRef myResourceRef = ENSession.SharedSession.UploadNote(myResourceNote, null);
+                }
+                catch (Exception ex)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                               Application.Current.MainWindow,
+                               (string)"Scan to cloud error, upload file fail!",
+                              (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                }
+
+                MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.NeedReset = false;
+            }
+
+            return true;
+        }
+
+        bool ScanToEverNote()
+        { 
+
             try
             {
                 // Be sure to put your own consumer key and consumer secret here.
                 ENSession.SetSharedSessionConsumerKey(ApiKey, ApiSecret);
 
-                if (ENSession.SharedSession.IsAuthenticated == false)
+                if (ENSession.SharedSession.IsAuthenticated == false || bReset)
                 {
-                    ENSession.SharedSession.AuthenticateToEvernote();
+                    return ENSession.SharedSession.AuthenticateToEvernote(true);
                 }
 
-                // Get a list of all notebooks in the user's account.
-                if (FlowType == CloudFlowType.View)
-                {
-                    //string textToFind = "*";
-
-                    //List<ENSessionFindNotesResult> myResultsList = ENSession.SharedSession.FindNotes(ENNoteSearch.NoteSearch(textToFind), null,
-                    //    ENSession.SearchScope.All, ENSession.SortOrder.RecentlyUpdated, 500);
-
-                    //List<string> notelist = new List<string>();
-
-                    //if (myResultsList.Count > 0)
-                    //{ 
-                        
-                    //    foreach (ENSessionFindNotesResult nb in myResultsList)
-                    //    {
-                    //        notelist.Add(nb.Title);
-                    //    }
-                    //}
-                    bool? result = null;
-                    EverNoteViewer viewer = new EverNoteViewer();
-                    //viewer.NoteList = notelist;
-                    viewer.FileList = FileList;
-                    viewer.Owner = Application.Current.MainWindow;
-                    result = viewer.ShowDialog();
-
-                    if (result == true)
-                    {
-
-                        //string title = viewer.NoteTitle;
-                        //string content = viewer.NoteContent;
-                        //ENNote myResourceNote = new ENNote();
-                        //foreach (string filePath in FileList)
-                        //{
-                        //    string fileName = System.IO.Path.GetFileName(filePath);
-                        //    byte[] myFile = StreamFile(filePath);
-                        //    ENResource myResource = new ENResource(myFile, "image/jpg", fileName);//"application/pdf"                 
-                        //    myResourceNote.Resources.Add(myResource);
-                        //}
-                        //myResourceNote.Title = string.Format("Scan to EverNote: {0}", title);//, i);
-                        //content = string.Format("{0}.Attach the scaling Files.", content);
-                        //myResourceNote.Content = ENNoteContent.NoteContentWithString(content);
-                        //ENNoteRef myResourceRef = ENSession.SharedSession.UploadNote(myResourceNote, null);
-                    }
-                }
-                else
-                {
-
-                    try
-                    {
-                        string title = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.EverNoteTitle;
-                        string content = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.EverNoteContent;
-                        ENNote myResourceNote = new ENNote();
-                        foreach (string filePath in FileList)
-                        {
-                            string fileName = System.IO.Path.GetFileName(filePath);
-                            byte[] myFile = StreamFile(filePath);
-                            // Be sure to replace this with a real JPG file
-                            ENResource myResource = new ENResource(myFile, "image/jpg", fileName);//"application/pdf"                 
-                            myResourceNote.Resources.Add(myResource);
-                        }
-                        myResourceNote.Title = title;// string.Format("Scan to EverNote: {0}", title);//, i);
-                        content = string.Format("{0}.Attach the scaling Files.", content);
-                        myResourceNote.Content = ENNoteContent.NoteContentWithString(content);
-                        ENNoteRef myResourceRef = ENSession.SharedSession.UploadNote(myResourceNote, null);
-                    }
-                    catch (Exception ex)
-                    {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                                   Application.Current.MainWindow,
-                                   (string)"Scan to cloud error, upload file fail!",
-                                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
-                    }
-                }
             }
 
             catch (Exception ex)

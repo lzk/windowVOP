@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:VOP.Controls"
              xmlns:mycontrol="clr-namespace:VOP"
              Loaded="OnLoadWifiView"
-             d:DesignHeight="600" d:DesignWidth="500"
+             d:DesignHeight="460" d:DesignWidth="495"
              IsEnabledChanged="UserControl_IsEnabledChanged">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -38,42 +38,50 @@
         VerticalAlignment="Top"
         Background="White"
         Style="{StaticResource LeftScrollViewer}"
-        Margin="40,20,40,20"
+        Margin="20,20,10,10"
                      
         >
             <StackPanel Name="wifiPanel" Margin="0,1,0,1" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="45"></RowDefinition>
+                        <RowDefinition Height="6"></RowDefinition>
+                        <RowDefinition Height="45"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
+                    </Grid.RowDefinitions>                   
+
+
+                        <TextBlock Text="WLAN" Style="{StaticResource ColorChangeTextBlock}" FontSize="14" 
+                                   FontWeight="Bold" Grid.Row="0"  VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                        <CheckBox Name="chkWifi" Click="OnClickWifiCheckBox" IsChecked="True" 
+                                  Grid.Row="0" HorizontalAlignment="Right"
+                                  Template="{StaticResource switchBox}" 
+                                  Height="25" 
+                                  Width="45" 
+                                  Checked="OnchkWifiChecked" 
+                                  Unchecked="OnchkWifiUnchecked"></CheckBox>
                     
-                    <Grid Height="45"  Background="#FFD1D1D1" Margin="6,2,6,2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="8"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="8"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="4"></ColumnDefinition>
-                            <ColumnDefinition Width="1.2*"></ColumnDefinition>
-                            <ColumnDefinition Width="2"></ColumnDefinition>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="2"></ColumnDefinition>
-                            <ColumnDefinition Width="2.5*"></ColumnDefinition>
-                            <ColumnDefinition Width="10"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="WLAN" Style="{StaticResource ColorChangeTextBlock}" FontWeight="Bold" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
-                        <CheckBox Name="chkWifi" Click="OnClickWifiCheckBox" IsChecked="True" Grid.Row="1" Grid.Column="3" Template="{StaticResource switchBox}" Height="22" Width="42" Checked="OnchkWifiChecked" Unchecked="OnchkWifiUnchecked"></CheckBox>
-                        <local:ButtonEx x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="1" Grid.Column="5" Width="100" Content="{StaticResource ResStr_Manual_Wi_Fi}" HorizontalContentAlignment="Center" HorizontalAlignment="Right"></local:ButtonEx>
-                    </Grid>
-
-                    <Grid Grid.Row="1">
+                    <Canvas Grid.Row="1" VerticalAlignment="Center">
+                        <Path Stroke="LightGray" StrokeThickness="2">
+                            <Path.Data>
+                                <LineGeometry StartPoint="0,4" EndPoint="450,2"></LineGeometry>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                    
+                    <Button x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="2" Height="35"
+                             Style="{StaticResource CustomSettingButtonStyle}"
+                                    Width="100" Content="{StaticResource ResStr_Manual_Wi_Fi}" 
+                                    HorizontalContentAlignment="Center" HorizontalAlignment="Right"></Button>
+                  
+                    <Grid Grid.Row="3" Name="gdWifi">
                         <Grid.RowDefinitions>
                             <RowDefinition Name="rowManual" Height="0"></RowDefinition>
                             <RowDefinition Height="auto" Name="rowAuto"></RowDefinition>
                         </Grid.RowDefinitions>
+                        <Grid.Background>
+                            <ImageBrush ImageSource="../../Images/setting_wifilist panel.png"/>
+                        </Grid.Background>
                         <StackPanel Name="manualConnect" Margin="6,5,6,5" >
                             <Grid>
                                 <Grid.RowDefinitions>

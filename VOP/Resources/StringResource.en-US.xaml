@@ -426,4 +426,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Fail_save_tiff">Fail to save tiff file. </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Uploading_Files">Uploading Image Files, please wait...</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Device_Disconnected">The device is disconnected, the scanning will be canceled!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_ScanTo_Cloud_wait">Connectiong to Cloud Server, please wait...</sys:String>
 </ResourceDictionary>

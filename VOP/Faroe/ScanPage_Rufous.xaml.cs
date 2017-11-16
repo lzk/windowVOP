@@ -163,7 +163,7 @@ namespace VOP
 
         private void ScanToAPButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ImageButton btn = sender as ImageButton;
+            ImageButton2 btn = sender as ImageButton2;
 
             List<string> files = new List<string>();
             GetSelectedFile(files);
@@ -178,7 +178,7 @@ namespace VOP
 
         private void ScanToFileButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ImageButton btn = sender as ImageButton;
+            ImageButton2 btn = sender as ImageButton2;
 
             List<string> files = new List<string>();
             GetSelectedFile(files);
@@ -193,7 +193,7 @@ namespace VOP
 
         private void ScanToEmailButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ImageButton btn = sender as ImageButton;
+            ImageButton2 btn = sender as ImageButton2;
 
             List<string> files = new List<string>();
             GetSelectedFile(files);
@@ -217,7 +217,7 @@ namespace VOP
             }
             else
             {
-                ImageButton btn = sender as ImageButton;
+                ImageButton2 btn = sender as ImageButton2;
 
                 List<string> files = new List<string>();
                 GetSelectedFile(files);
@@ -252,7 +252,7 @@ namespace VOP
 
         private void ScanToFtpButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ImageButton btn = sender as ImageButton;
+            ImageButton2 btn = sender as ImageButton2;
 
             List<string> files = new List<string>();
             GetSelectedFile(files);
@@ -267,7 +267,7 @@ namespace VOP
 
         private void ScanToCloudButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ImageButton btn = sender as ImageButton;
+            ImageButton2 btn = sender as ImageButton2;
 
             List<string> files = new List<string>();
             GetSelectedFile(files);

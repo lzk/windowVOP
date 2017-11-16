@@ -16,7 +16,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Controls/CustomButton.xaml"/>
-                <ResourceDictionary Source="../Controls/IdCardPrint/IdCardWindowsStyle.xaml"/>
                 <ResourceDictionary Source="../Controls/PanelButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -49,22 +48,23 @@
             Grid.Row="1" 
             Grid.Column="2"
             Width="60"
+            Height="60"
             VerticalAlignment="Top" 
             HorizontalAlignment="Left"
             ImagePath="../Images/clockwise-arrow.png"
             PreviewMouseLeftButtonDown="RefreshClick"
             />
 
-        <ListBox 
+        <ListBox
             Name="DeviceList"
             Grid.Row="1" 
             Grid.Column="1" 
-            Width="400" 
-            Background="AliceBlue"
+            Width="500" 
             ScrollViewer.CanContentScroll="True"
-            ScrollViewer.VerticalScrollBarVisibility="Auto"
-            >
-           
+            ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox.Background>
+                <ImageBrush ImageSource="../Images/main_img_search device panel.png"/>
+            </ListBox.Background>
         </ListBox>
         <Button
             Name="btnConnect"

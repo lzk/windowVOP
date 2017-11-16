@@ -46,7 +46,7 @@
                 <ControlTemplate TargetType="Button">
 
                     <Grid ClipToBounds="True">
-                        <Image Name="backgroundImage" Source="../Images/back_normal.png"/>
+                        <Image Name="backgroundImage" Source="../Images/left_normal.png"/>
                     
                         <!-- Present Content (text) of the button. -->
                         <DockPanel Name="myContentPresenterDockPanel">
@@ -62,14 +62,14 @@
                                 <Condition Property="IsPressed" Value="false" />
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/back_over.png"/>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/left_over.png"/>
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsPressed" Value="true" />
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/back_press.png"/>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/left_press.png"/>
                         </MultiTrigger>
                     
                     </ControlTemplate.Triggers>
@@ -282,34 +282,41 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-
                     <Grid ClipToBounds="True">
-
                         <Image Name="backgroundImage" Source="../Images/screen_normal.png"/>
-
-
                         <!-- Present Content (text) of the button. -->
                         <StackPanel Name="myContentPresenterDockPanel" 
                                     Orientation="Vertical"
-                                    VerticalAlignment="Center" 
+                                    VerticalAlignment="Top" 
                                     HorizontalAlignment="Center" 
                                     Margin="0,0,0,0">
-                                        <ContentPresenter x:Name="myContentPresenter"  
+                                        <!--<ContentPresenter x:Name="myContentPresenter"  
                                                 Style="{StaticResource DsDigital}"     
                                                 Content="{TemplateBinding  Content}" 
                                                 TextBlock.FontSize="144"
                                                 TextBlock.Foreground="#FF48C6E0" 
                                                 HorizontalAlignment="Center" 
-                                                />
+                                                />-->
+                                    <Image Name="screenImage" Source="../Images/main_img_print.png"
+                                           HorizontalAlignment="Center" VerticalAlignment="Top" Stretch="None"></Image>
                                         <TextBlock 
                                             x:Name="DetailText"
                                             Text="Scan To Email"
                                             FontSize="20"
-                                            Foreground="#FF48C6E0"
-                                            Style="{StaticResource DsDigital}"     
+                                            FontWeight="Bold"
+                                            Foreground="Black"                                               
                                             HorizontalAlignment="Center" 
                                             Margin="0,0,0,0"
-                                                />          
+                                                />
+                                    <TextBlock 
+                                            x:Name="InfoText"
+                                            Text="ADF"
+                                            FontSize="12"
+                                            Foreground="Black"    
+                                            HorizontalAlignment="Center" 
+                                            TextAlignment="Left"
+                                            Margin="0,20,0,0"
+                                                />
                         </StackPanel>
 
                     </Grid>

@@ -50,6 +50,7 @@ namespace VOP
 
         private string m_evernotetile = "";
         private string m_evernotecontent = "";
+        private bool m_bNeedReset = false;
 
         public string EverNoteTitle
         {
@@ -72,6 +73,18 @@ namespace VOP
             set
             {
                 this.m_evernotecontent = value;
+            }
+        }
+
+        public bool NeedReset
+        {
+            get
+            {
+                return this.m_bNeedReset;
+            }
+            set
+            {
+                this.m_bNeedReset = value;
             }
         }
         public ScanToCloudParam()

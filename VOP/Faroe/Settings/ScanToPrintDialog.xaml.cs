@@ -28,6 +28,9 @@ namespace VOP
         private void ScanToPrintDialog_Loaded(object sender, RoutedEventArgs e)
         {
             int index = 0;
+
+            TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
+
             cboPrinters.Items.Clear();
 
             for (int i = 0; i < MainWindow_Rufous.g_printerList.Count; i++)
@@ -70,6 +73,12 @@ namespace VOP
             this.DialogResult = true;
             this.Close();
         }
+
+        private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
         private MainWindow_Rufous _MainWin = null;
 
         public MainWindow_Rufous m_MainWin

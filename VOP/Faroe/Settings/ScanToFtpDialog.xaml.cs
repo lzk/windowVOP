@@ -27,6 +27,9 @@ namespace VOP
         }
         private void ScanToFtpDialog_Loaded(object sender, RoutedEventArgs e)
         {
+
+            TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
+
             tbServerName.Text = m_scanToFTPParams.ServerAddress;
             tbUserName.Text = m_scanToFTPParams.UserName;
             pbPWD.Password = m_scanToFTPParams.Password;
@@ -128,6 +131,11 @@ namespace VOP
         {
              if (e.Key == Key.Space)
                 e.Handled = true;
+        }
+
+        private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
 
         private MainWindow_Rufous _MainWin = null;

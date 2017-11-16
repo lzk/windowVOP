@@ -66,6 +66,7 @@ namespace VOP
         public ScanParam m_cloudScanSettings = new ScanParam();
         public string m_dropBoxDefaultPath = "";
         public string m_couldSaveType = "DropBox";
+        public bool m_bNeedReset = false;
 
         //Ftp
         public ScanParam m_ftpScanSettings = new ScanParam();

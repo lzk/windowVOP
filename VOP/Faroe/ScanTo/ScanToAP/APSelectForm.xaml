@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Authenticate" 
         xmlns:local="clr-namespace:VOP.Controls"
-        Height="440" Width="400" 
+        Height="500" Width="600" 
         WindowStartupLocation="CenterOwner" 
         WindowStyle="None" 
         ResizeMode="NoResize" 
@@ -28,54 +28,41 @@
     </Window.Effect>
 
     <Viewbox Stretch="Fill">
-        <Border Height="390" Width="350" Background="AliceBlue" BorderThickness="4" BorderBrush="#FF0E5686">
+        <Border Height="450" Width="550" Background="AliceBlue" BorderThickness="4" BorderBrush="#FF0E5686">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="80"/>
                 </Grid.RowDefinitions>
+                
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
-                    <TextBlock Name="TitleBarText" Text="" FontSize="15" Foreground="#28E" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Name="TitleBarText" Text="To Apps" FontSize="15" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
-
-                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
-
-
-                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="80" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="20"/>
-                    </Grid.ColumnDefinitions>
-
-                    <ListBox 
+                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" MinimizeOrCloseStyle="Close" IsCancel="True"/>
+                <ListBox 
                         Name="APListBox"
-                        Grid.Row="0" 
+                        Grid.Row="1" 
                         Grid.Column="1"
-                        Background="AliceBlue"
+                        Background="White"
                         ScrollViewer.CanContentScroll="True"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
                         SelectionChanged="cboListBoxItem_SelectionChanged"
                         />
-                    <Button Grid.Row="1" Grid.Column="1"
+                    <Button Grid.Row="2" Grid.Column="1"
                             HorizontalAlignment="Center" 
                             Margin="20,6" 
-                            Width="85" 
+                            Width="160" 
                             Height="35"
                             FontSize="16"
                             Click="OkClick"
-                            Style="{StaticResource CustomGreenButtonStyle}"
-                            >OK</Button>
-                </Grid>
-
+                            Style="{StaticResource CustomPopUpButtonStyle}"
+                            >OK</Button>   
 
             </Grid>
           

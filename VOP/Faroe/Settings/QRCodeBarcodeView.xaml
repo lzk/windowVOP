@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="500"
+             d:DesignHeight="460" d:DesignWidth="495"
              xmlns:local="clr-namespace:VOP.Controls"
              Loaded="UserControl_Loaded"
              >
@@ -278,154 +278,141 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="22"></RowDefinition>
-            <RowDefinition/>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="35"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="2" Grid.Column="1" Margin="0,10,0,0">
+        <Grid Grid.Row="1" Grid.Column="1" Margin="0,10,0,0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="165" />
-                <RowDefinition Height="208" />
-                <RowDefinition Height="173*" />
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="150" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="60" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="21*" />
-                <ColumnDefinition Width="26*"/>
-                <ColumnDefinition Width="378*"/>
-                <ColumnDefinition Width="10"/>
-            </Grid.ColumnDefinitions>
-            <GroupBox x:Name="QRCodeBarcodeGroup" Grid.ColumnSpan="4" Header="QRCode/Barcode Decode" FontWeight="Bold" FontSize="12" HorizontalAlignment="Left" Height="137" VerticalAlignment="Top" Width="366" RenderTransformOrigin="0.5,0.5" Margin="3,-2,0,0">
-                <GroupBox.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-0.141"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </GroupBox.RenderTransform>
-                <Grid Height="145" Margin="0,12,-57,-42" VerticalAlignment="Top">
+            <GroupBox x:Name="QRCodeBarcodeGroup" Grid.Row="0" Header="QRCode/Barcode Decode" FontWeight="Bold" 
+                      FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400"  Margin="5,5">
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="39"/>
-                        <RowDefinition Height="72"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal" Margin="22,0,49,0">
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0">
                         <TextBlock 
             				Text="Code Type :" 
             				VerticalAlignment="Center"
-            				FontSize="12" FontWeight="Normal" HorizontalAlignment="Left" Margin="0,14,0,12" Width="89"
+                            Width="120"
+                            FontWeight="Normal"
+            				FontSize="12"  HorizontalAlignment="Left" 
                                 />
                         <ComboBox 
             				x:Name="cbCodeType"
             				VerticalAlignment="Center" 
-            				VerticalContentAlignment="Center"
-            				Width="170" 
+                            HorizontalAlignment="Left"
+            				Width="200" 
             				Height="30" 
-            				Margin="60,4,0,5" 
-            				FontSize="12" FontWeight="Normal" HorizontalAlignment="Left"
-                                >
+            				Margin="20,0,20,0" 
+            				FontSize="12" FontWeight="Normal">
                             <ComboBoxItem Content="QR Code" />
                             <ComboBoxItem Content="Bar Code" />
                             <ComboBoxItem Content="All" />
                         </ComboBox>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="22,13,64,13" Grid.Row="1">
-
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0">
                         <TextBlock 
             				Text="Output Result :" 
-            				VerticalAlignment="Center"
-            				FontSize="12" FontWeight="Normal" HorizontalAlignment="Left" Margin="0,15" Width="97"
+            				VerticalAlignment="Center" FontWeight="Normal"
+            				FontSize="12" HorizontalAlignment="Left" Width="120"
                                 />
                         <TextBox 
             				x:Name="tbFileName"
             				Template="{StaticResource customTextBox}" 
-            				VerticalAlignment="Center" 
+            				VerticalAlignment="Center" HorizontalAlignment="Left"
                             SnapsToDevicePixels ="True"
-            				Width="170" 
+            				Width="200" 
             				Height="30" 
-            				Margin="53,8,0,8" 
+            				Margin="20,0, 20, 0" 
             				Text=""
-            				VerticalContentAlignment="Center" FontWeight="Normal"
+            				VerticalContentAlignment="Center" 
                                 />
-
                     </StackPanel>
                 </Grid>
             </GroupBox>
-            <GroupBox x:Name="separateGroupBox" Grid.ColumnSpan="4" Header="Document Separation" FontWeight="Bold" FontSize="12" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Height="181" Width="368" Margin="2,10,0,0">
-                <Grid Grid.Row="3" Grid.Column="1" Height="145" Margin="0,12,-55,0" VerticalAlignment="Top">
+            <GroupBox x:Name="separateGroupBox" Grid.Row="1"  Header="Document Separation" FontWeight="Bold" 
+                      FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" Margin="5,5">
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="39"/>
-                        <RowDefinition Height="72"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal" Margin="22,0,49,0">
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,5,20,0">
                         <TextBlock 
             				Text="Save File Type :" 
-            				VerticalAlignment="Center"
-            				FontSize="12" FontWeight="Normal" HorizontalAlignment="Left" Margin="0,14,0,12" Width="89"
+            				VerticalAlignment="Center" FontWeight="Normal"
+            				FontSize="12" HorizontalAlignment="Left"  Width="120"
                                 />
                         <ComboBox 
             				x:Name="cbFileType"
             				VerticalAlignment="Center" 
             				VerticalContentAlignment="Center"
-            				Width="170" 
+                            HorizontalAlignment="Left"
+            				Width="200" 
             				Height="30" 
-            				Margin="60,4,0,5" 
-            				FontSize="12" FontWeight="Normal" HorizontalAlignment="Left"
+            				Margin="20,0" 
+            				FontSize="12" FontWeight="Normal" 
                                 >
                             <ComboBoxItem Content="PDF" />
                             <ComboBoxItem Content="TIFF" />
                         </ComboBox>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="22,13,64,13" Grid.Row="1">
+                    <StackPanel Orientation="Horizontal" Margin="20,5,20,0" Grid.Row="1">
 
                         <TextBlock 
                     		Text="File Path :" 
                     		VerticalAlignment="Center"
-                    		FontSize="12" FontWeight="Normal" HorizontalAlignment="Left" Margin="0,15" Width="97"
+                    		FontSize="12" FontWeight="Normal" HorizontalAlignment="Left"  Width="120"
                                 />
                         <TextBox 
                     		x:Name="tbFilePath"
                     		Template="{StaticResource customTextBox}" 
                     		VerticalAlignment="Center" 
                             SnapsToDevicePixels ="True"
-                    		Width="169" 
+                            HorizontalAlignment="Left"
+                    		Width="200" 
                     		Height="30" 
-                    		Margin="53,8,0,8" 
+                    		Margin="20,0" 
                     		Text=""
-                    		VerticalContentAlignment="Center" FontWeight="Normal"
+                            FontWeight="Normal"
+                    		VerticalContentAlignment="Center"
                                 />
 
                     </StackPanel>
-                    <Button 
-            			Margin="230,64,68,10"
-            			FontSize="16"
+                    <Button  Grid.Row="2"
+            			FontSize="16" FontWeight="Normal"
             			Click="BrowseClick"
-            			Style="{StaticResource CustomGreenButtonStyle}"
-            			Content="Browse..." Grid.Row="1" Grid.RowSpan="2" FontWeight="Normal"
+                             Width="100" Height="35"
+                             HorizontalAlignment="Right" Margin="0,0,20,0"
+            			Style="{StaticResource CustomSettingButtonStyle}"
+            			Content="Browse..." 
                             />
 
                 </Grid>
             </GroupBox>
-            <StackPanel Grid.Column="3" Height="55" Margin="29,10,65,0" Grid.Row="2" VerticalAlignment="Top">
-                <Button
+            <Button Grid.Row="2"
             		HorizontalAlignment="Center" 
-            		Width="85" 
+                VerticalAlignment="Center"
+            		Width="160" 
             		Height="35"
             		FontSize="16"
             		Click="OkClick"
-            		Style="{StaticResource CustomGreenButtonStyle}"
-            		Content="OK" Margin="69,0,74,0"
+            		Style="{StaticResource CustomSettingButtonStyle}"
+            		Content="Apply" 
                             />
-            </StackPanel>
-
         </Grid>
     </Grid>
 </UserControl>

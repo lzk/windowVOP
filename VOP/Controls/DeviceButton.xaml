@@ -44,9 +44,6 @@
                             <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/device_press.png"/>
                         </MultiTrigger>
 
-
-
-
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsPressed" Value="false" />

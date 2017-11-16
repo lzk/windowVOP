@@ -120,7 +120,170 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <ControlTemplate x:Key="colorRadioButton" TargetType="{x:Type RadioButton}" >
+                <Grid Width="{TemplateBinding Width}"
+                      Height="{TemplateBinding Height}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="26"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
+                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheck" Source="../../Images/Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheck" Source="../../Images/Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheckDisable" Source="../../Images/Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheckDisable" Source="../../Images/Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="30" Width="30" Grid.Column="1" Name="Color" Stretch="Fill" Source="../../Images/Color.png" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Right"></Image>
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsChecked" Value="false"></Condition>
+                            <Condition Property="IsEnabled" Value="false"></Condition>
+                        </MultiTrigger.Conditions>
+
+                        <Setter TargetName="imgCheck" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Visible"/>
+                    </MultiTrigger>
+
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsChecked" Value="true"></Condition>
+                            <Condition Property="IsEnabled" Value="false"></Condition>
+                        </MultiTrigger.Conditions>
+                        
+                        <Setter TargetName="imgCheck" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Visible"/>
+                        <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Hidden"/>
+                    </MultiTrigger>
+
+
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsChecked" Value="true"></Condition>
+                            <Condition Property="IsEnabled" Value="true"></Condition>
+                        </MultiTrigger.Conditions>
+
+                        <Setter TargetName="imgCheck" Property="Visibility" Value="Visible"/>
+                        <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Hidden"/>
+                    </MultiTrigger>
+
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsChecked" Value="false"></Condition>
+                            <Condition Property="IsEnabled" Value="true"></Condition>
+                        </MultiTrigger.Conditions>
+
+                        <Setter TargetName="imgUncheck" Property="Visibility" Value="Visible"/>
+                        <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Hidden"/>
+                    </MultiTrigger>
+
+                    <Trigger  Property="IsFocused" Value="True">
+                        <Setter Property="FocusVisualStyle">
+                            <Setter.Value>
+                                <Style>
+                                    <Setter Property="Control.Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <Rectangle Margin="-1,0,-3,0" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 2"/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+
+
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <ControlTemplate x:Key="grayRadioButton" TargetType="{x:Type RadioButton}" >
+                <Grid Width="{TemplateBinding Width}"
+                      Height="{TemplateBinding Height}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="26"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheck" Source="../../Images/Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheck" Source="../../Images/Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheckDisable" Source="../../Images/Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheckDisable" Source="../../Images/Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="30" Width="30" Grid.Column="1" Name="Color" Stretch="Fill" Source="../../Images/Grayscale.png" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Right"></Image>
+                </Grid>
+                <ControlTemplate.Triggers>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsChecked" Value="false"></Condition>
+                            <Condition Property="IsEnabled" Value="false"></Condition>
+                        </MultiTrigger.Conditions>
+
+                        <Setter TargetName="imgCheck" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Visible"/>
+                    </MultiTrigger>
+
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsChecked" Value="true"></Condition>
+                            <Condition Property="IsEnabled" Value="false"></Condition>
+                        </MultiTrigger.Conditions>
+
+                        <Setter TargetName="imgCheck" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Visible"/>
+                        <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Hidden"/>
+                    </MultiTrigger>
+
+
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsChecked" Value="true"></Condition>
+                            <Condition Property="IsEnabled" Value="true"></Condition>
+                        </MultiTrigger.Conditions>
+
+                        <Setter TargetName="imgCheck" Property="Visibility" Value="Visible"/>
+                        <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Hidden"/>
+                    </MultiTrigger>
+
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsChecked" Value="false"></Condition>
+                            <Condition Property="IsEnabled" Value="true"></Condition>
+                        </MultiTrigger.Conditions>
+
+                        <Setter TargetName="imgUncheck" Property="Visibility" Value="Visible"/>
+                        <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Hidden"/>
+                        <Setter TargetName="imgUncheckDisable" Property="Visibility" Value="Hidden"/>
+                    </MultiTrigger>
+
+                    <Trigger  Property="IsFocused" Value="True">
+                        <Setter Property="FocusVisualStyle">
+                            <Setter.Value>
+                                <Style>
+                                    <Setter Property="Control.Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <Rectangle Margin="-1,0,-3,0" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 2"/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+
+
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
         </ResourceDictionary>
     </Window.Resources>
 
@@ -144,7 +307,7 @@
 
                 <!-- Title bar begin -->
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0">
-                    <TextBlock Text="{StaticResource ResStr_Faroe_scan_setting1}" FontSize="15" Foreground="#FF48C6E0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Text="{StaticResource ResStr_Faroe_scan_setting1}" FontSize="15" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
                 <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" Click="ControlBtnClick" IsCancel="True" />
@@ -174,17 +337,56 @@
 
                     </Grid>
                 </local:GroupBoxDecorator>
-                
-                <local:GroupBoxDecorator Grid.Row="1" Margin="20,0,20,0" Header="{StaticResource ResStr_Type}" Height="75" Width="220" HorizontalAlignment="Right" VerticalAlignment="Center" >
-                    <ComboBox Name="cboMediaType" SelectionChanged="comboType_sel_change"
-                            Style="{StaticResource customComboBox}"
-                            Background="White"
-                            Width="145" Height="24"
-                            VerticalAlignment="Center" Margin="38,4,37,9"
-                            >
-                    </ComboBox>
+
+                <local:GroupBoxDecorator Grid.Row="1" Margin="20,0,20,0" Header="{StaticResource ResStr_Color_Mode}" Height="80" Width="220" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Grid Margin="0,0,0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="45" />
+                            <ColumnDefinition Width="65" />
+                            <ColumnDefinition Width="65" />
+
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2" />
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <RadioButton GroupName="colorMode"  
+                            IsChecked="True"
+					        Checked="colorMode_Click"
+                            Grid.Row="1" Grid.Column="1"
+					        Cursor="Hand" 
+					        x:Name="Color" 
+					        Template="{StaticResource colorRadioButton}"
+                            ToolTip="{StaticResource ResStr_Color}"
+                            Width="60"
+                            Height="38">
+                            <!--<RadioButton.BorderBrush>
+                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
+                            </RadioButton.BorderBrush>
+                            <Image Stretch="None" Source="../../Images/Color.png" />-->
+                        </RadioButton>
+
+                        <RadioButton GroupName="colorMode"  
+                            IsChecked="False"
+					        Checked="colorMode_Click"
+                            Grid.Row="1" Grid.Column="2"
+					        Cursor="Hand" 
+					        x:Name="Grayscale" 
+                            Template="{StaticResource grayRadioButton}"
+                            ToolTip="{StaticResource ResStr_Grayscale}"
+                            Width="60"
+                            Height="38">
+                            <!--<RadioButton.BorderBrush>
+                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
+                            </RadioButton.BorderBrush>
+                            <Image Stretch="None" Source="../../Images/Grayscale.png" />-->
+                        </RadioButton>
+                    </Grid>
                 </local:GroupBoxDecorator>
-                
+
                 <Grid Grid.Row="2" >
                     <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_DPI}" Height="65" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
                         <ComboBox Name="cboScanResln" SelectionChanged="combo_sel_change"
@@ -197,71 +399,6 @@
 
                     </local:GroupBoxDecorator>
 
-                    <local:GroupBoxDecorator Margin="40,78,0,82" Header="{StaticResource ResStr_Color_Mode}" Height="80" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <Grid Margin="0,0,0,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="45" />
-                                <ColumnDefinition Width="65" />
-                                <ColumnDefinition Width="65" />
-
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="2" />
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-
-                            <RadioButton GroupName="colorMode"  
-                            IsChecked="True"
-					        Checked="colorMode_Click"
-                            Grid.Row="1" Grid.Column="1"
-					        Cursor="Hand" 
-					        x:Name="Color" 
-					        Style="{StaticResource CustomRadioButtonEx}"
-                            ToolTip="{StaticResource ResStr_Color}"
-                            Width="55"
-                            Height="38">
-                                <RadioButton.BorderBrush>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
-                                </RadioButton.BorderBrush>
-                                <Image Stretch="None" Source="../../Images/Color.png" />
-                            </RadioButton>
-
-                            <RadioButton GroupName="colorMode"  
-                            IsChecked="False"
-					        Checked="colorMode_Click"
-                            Grid.Row="1" Grid.Column="2"
-					        Cursor="Hand" 
-					        x:Name="Grayscale" 
-					        Style="{StaticResource CustomRadioButtonEx}" 
-                            ToolTip="{StaticResource ResStr_Grayscale}"
-                            Width="55"
-                            Height="38">
-                                <RadioButton.BorderBrush>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
-                                </RadioButton.BorderBrush>
-                                <Image Stretch="None" Source="../../Images/Grayscale.png" />
-                            </RadioButton>
-
-                            <!--<RadioButton GroupName="colorMode"  
-                            IsChecked="False"
-					        Checked="colorMode_Click"
-                            Grid.Row="1" Grid.Column="3"
-					        Cursor="Hand" 
-					        x:Name="BlackAndWhite" 
-					        Style="{StaticResource CustomRadioButtonEx}"
-                            ToolTip="{StaticResource ResStr_Black_White}"
-                            Width="55"
-                            Height="38">                                
-                            <RadioButton.BorderBrush>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
-                                </RadioButton.BorderBrush>
-                                <Image Stretch="None" Source="../../Images/BlackWhite.png" />
-                            </RadioButton>-->
-                        </Grid>
-                    </local:GroupBoxDecorator>
-
                     <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_Scan_Size}" Height="70" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="220" >
                         <ComboBox Name="cboScanSize" SelectionChanged="cbo_selchg_scansize"
                     Style="{StaticResource customComboBox}"
@@ -269,6 +406,16 @@
                     Width="145" Height="25"
                     VerticalAlignment="Center"
                     >
+                        </ComboBox>
+                    </local:GroupBoxDecorator>
+                    
+                    <local:GroupBoxDecorator  Margin="40,78,0,82" Header="{StaticResource ResStr_Type}" Height="75" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                        <ComboBox Name="cboMediaType" SelectionChanged="comboType_sel_change"
+                            Style="{StaticResource customComboBox}"
+                            Background="White"
+                            Width="145" Height="24"
+                            VerticalAlignment="Center" Margin="38,4,37,9"
+                            >
                         </ComboBox>
                     </local:GroupBoxDecorator>
 
@@ -381,11 +528,12 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <local:ButtonEx HorizontalContentAlignment="Center" IsDefault="False" x:Name="btnDefault" Click="btnDefault_Click"
-                Content="{StaticResource ResStr_Default}" 
-                Height="35" Width="120" Margin="0,0,20,0" />
-                    <local:ButtonEx HorizontalContentAlignment="Center" x:Name="btnOk" Click="btnOk_Click"
-                Content="{StaticResource ResStr_OK}"  Height="35" Width="120" IsActiveEx="True" />
+                    <Button HorizontalContentAlignment="Center" IsDefault="False" x:Name="btnDefault" Click="btnDefault_Click"
+                Content="{StaticResource ResStr_Default}" Style="{StaticResource CustomPopUpButtonStyle}"
+                Height="35" Width="200" Margin="0,0,20,0" />
+                    <Button HorizontalContentAlignment="Center" x:Name="btnOk" Click="btnOk_Click"
+                Content="{StaticResource ResStr_OK}"  Height="35" Width="200" 
+                            Style="{StaticResource CustomPopUpButtonStyle}"/>
                 </StackPanel>
 
             </Grid>

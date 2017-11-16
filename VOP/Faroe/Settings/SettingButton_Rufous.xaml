@@ -15,19 +15,26 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"></ColumnDefinition>
             <ColumnDefinition Width="2"></ColumnDefinition>
             <ColumnDefinition Width="143*"></ColumnDefinition>
             <ColumnDefinition Width="15"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
-        <Image Name="imgActive" Grid.Column="0" Height="20" Width="20" Visibility="Hidden"></Image>
-        <Image Name="imgInactive" Grid.Column="0" Height="20" Width="20"></Image>
-        <local:ButtonEx x:Name="btn" IsActiveEx="False" Grid.Column="2" IsActiveExPropertyChanged="btn_ActiveExPropertyChanged" FontSize="14">
-        </local:ButtonEx>
-        <Image Name="imgTriangle" Grid.Column="3" Source="..\..\Images\triangle.png"  Visibility="Hidden" HorizontalAlignment="Right"></Image>
+        
+        <!--<Image Name="imgActive" Grid.Column="0" Height="20" Width="20" Visibility="Hidden"></Image>
+        <Image Name="imgInactive" Grid.Column="0" Height="20" Width="20"></Image>-->
+        <Image Name="imgBg" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Visibility="Hidden"        
+               Source="..\..\Images\setting_img_scan to.png" Stretch="Fill"></Image>
+        <Image Name="imgDisable" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Visibility="Visible"        
+               Source="..\..\Images\setting_img_disable.png" Stretch="Fill"></Image>
+        <!--<local:ButtonEx x:Name="btn" Background="Transparent" IsActiveEx="False" Grid.Column="2" IsActiveExPropertyChanged="btn_ActiveExPropertyChanged" FontSize="14">
+        </local:ButtonEx>-->
+        <local:ButtonEx2 x:Name="btn" Grid.Column="0" Background="Transparent" Grid.ColumnSpan="3" FontSize="14" BorderThickness="0"
+                         IsActiveEx="False" IsActiveExPropertyChanged="btn_ActiveExPropertyChanged">
+        </local:ButtonEx2>
+        <!--<Image Name="imgTriangle" Grid.Column="3"  Source="..\..\Images\triangle.png"  Visibility="Hidden" HorizontalAlignment="Right"></Image>-->
     </Grid>
 
 </UserControl>

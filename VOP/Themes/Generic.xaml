@@ -7,6 +7,7 @@
         <ResourceDictionary Source="/VOP;component/Controls/MinimizeCloseButton/MinimizeCloseButtonStyle.xaml" />
         <ResourceDictionary Source="/VOP;component/Controls/GroupBoxDecorator/GroupBoxStyle.xaml" />
         <ResourceDictionary Source="/VOP;component/Controls/ButtonEx.xaml" />
+        <ResourceDictionary Source="/VOP;component/Controls/ButtonEx2.xaml" />
         <ResourceDictionary Source="/VOP;component/Controls/ToggleButtonEx.xaml" />
         <ResourceDictionary Source="/VOP;component/Controls/CustomExpander.xaml" />
         <ResourceDictionary Source="/VOP;component/Controls/SpinnerControl/SpinnerControlStyle.xaml" />

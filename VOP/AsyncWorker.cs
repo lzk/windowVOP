@@ -25,6 +25,27 @@ using VOP.Controls;
 
 namespace VOP
 {
+    public enum JSONReturnFormat
+    {
+        JSONResultFormat1 = 1,
+        JSONResultFormat2,
+        MerchantInfoSet,
+        MaintainInfoSet,
+        SessionInfo,
+        UserInfomation
+    };
+    public class JSONResultFormat2
+    {
+        public string m_strMessage;
+        public bool m_bSuccess;
+    }
+
+    public class JSONResultFormat1 //Normal
+    {
+        public Int32 m_nResponse;
+        public string m_strMessage;
+        public bool m_bSuccess;
+    }
     public delegate QRCodeResult[] QRCodeDelegate(Bitmap bitmap);
     public delegate int QRCodeDetectDelegate();
     public delegate int DoWorkDelegate();

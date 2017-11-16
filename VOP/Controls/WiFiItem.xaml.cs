@@ -579,7 +579,7 @@ namespace VOP.Controls
                 
                 byte wifiInit = 0;
                 dll.GetWifiChangeStatus("", ref wifiInit);
-                VOP.MainWindow.m_byWifiInitStatus = wifiInit;
+                VOP.MainWindow_Rufous.m_byWifiInitStatus = wifiInit;
 
                 WiFiInfoRecord m_rec = new WiFiInfoRecord("",
                     wifiEnable,
@@ -611,7 +611,7 @@ namespace VOP.Controls
             
             if (isApplySuccess)
             {
-                if (wifiEnable != VOP.MainWindow.m_byWifiInitStatus)
+                if (wifiEnable != VOP.MainWindow_Rufous.m_byWifiInitStatus)
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                       Application.Current.MainWindow,
                      (string)this.FindResource("ResStr_Msg_1"),

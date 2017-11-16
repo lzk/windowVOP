@@ -38,7 +38,6 @@ namespace VOP
         public ScanSettingPage_Rufous scanSettingsPage = new ScanSettingPage_Rufous();
         public ScanDevicePage_Rufous scanDevicePage = new ScanDevicePage_Rufous();
         public ScanPage_Rufous scanPage = new ScanPage_Rufous();
-        public PrintPage printPage = new PrintPage();
 
         private Thread thread_searchIP = null;
         private Thread statusUpdater = null;

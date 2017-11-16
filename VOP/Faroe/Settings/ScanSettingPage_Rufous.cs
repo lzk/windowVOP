@@ -39,7 +39,6 @@ namespace VOP
         //ScanToAPView scanToAPView = new ScanToAPView();
 
         QRCodeBarcodeView qrcodebarcodeView = new QRCodeBarcodeView();
-
         WifiView_Rufous wifiView = new WifiView_Rufous();
         TcpipView_Rufous tcpipView = new TcpipView_Rufous();
         SoftapView_Rufous softAPView = new SoftapView_Rufous();
@@ -54,21 +53,20 @@ namespace VOP
             m_listSettingButton.Clear();
 
             int tabbtn_width = 175;
-            int tabbtn_height = 35;
+            int tabbtn_height = 66;
 
 //            btnScanParameter.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Common");
             btnScanParameter.btn.Content = "Scan To Settings";
-            btnScanParameter.Margin = new Thickness(0, 1, 0, 9);
+            //btnScanParameter.Margin = new Thickness(0, 1, 0, 9);
             btnScanParameter.Width = tabbtn_width;
             btnScanParameter.Height = tabbtn_height;
             btnScanParameter.HorizontalAlignment = HorizontalAlignment.Left;
             btnScanParameter.btn.Name = "btnScanParameter";
             btnScanParameter.btn.Click += SettingBtnClick;
-            btnScanParameter.btn.TouchUp += SettingBtnClick;
             m_listSettingButton.Add(btnScanParameter);
 
             btnQuickScanSettings.btn.Content = "Quick Scan Settings";
-            btnQuickScanSettings.Margin = new Thickness(0, 1, 0, 9);
+           //btnQuickScanSettings.Margin = new Thickness(0, 1, 0, 9);
             btnQuickScanSettings.Width = tabbtn_width;
             btnQuickScanSettings.Height = tabbtn_height;
             btnQuickScanSettings.HorizontalAlignment = HorizontalAlignment.Left;
@@ -78,7 +76,7 @@ namespace VOP
 
 
             btnQRCodeSettings.btn.Content = "QRCode/Barcode";
-            btnQRCodeSettings.Margin = new Thickness(0, 1, 0, 9);
+           //btnQRCodeSettings.Margin = new Thickness(0, 1, 0, 9);
             btnQRCodeSettings.Width = tabbtn_width;
             btnQRCodeSettings.Height = tabbtn_height;
             btnQRCodeSettings.HorizontalAlignment = HorizontalAlignment.Left;
@@ -141,7 +139,7 @@ namespace VOP
             //m_listSettingButton.Add(btnScanToCloud);
 
             btnwifi.btn.Content = (string)this.TryFindResource("ResStr_Printer_Wi_Fi");
-            btnwifi.Margin = new Thickness(0, 1, 0, 9);
+            //btnwifi.Margin = new Thickness(0, 1, 0, 9);
             btnwifi.Width = tabbtn_width;
             btnwifi.Height = tabbtn_height;
             btnwifi.HorizontalAlignment = HorizontalAlignment.Left;
@@ -150,7 +148,7 @@ namespace VOP
             m_listSettingButton.Add(btnwifi);
 
             btnTCPIP.btn.Content = (string)this.TryFindResource("ResStr_TCP_IPv4");
-            btnTCPIP.Margin = new Thickness(0, 1, 0, 9);
+            //btnTCPIP.Margin = new Thickness(0, 1, 0, 9);
             btnTCPIP.Width = tabbtn_width;
             btnTCPIP.Height = tabbtn_height;
             btnTCPIP.HorizontalAlignment = HorizontalAlignment.Left;
@@ -159,18 +157,18 @@ namespace VOP
             m_listSettingButton.Add(btnTCPIP);
 
             btnSoftAP.btn.Content = (string)this.TryFindResource("ResStr_Soft_AP");
-            btnSoftAP.Margin = new Thickness(0, 1, 0, 9);
+            //btnSoftAP.Margin = new Thickness(0, 1, 0, 9);
             btnSoftAP.Width = tabbtn_width;
-            btnSoftAP.Height = tabbtn_height;
+            btnSoftAP.Height = 65;
             btnSoftAP.HorizontalAlignment = HorizontalAlignment.Left;
             btnSoftAP.btn.Name = "btnSoftAP";
             btnSoftAP.btn.Click += SettingBtnClick;
             m_listSettingButton.Add(btnSoftAP);
 
             btnDevice.btn.Content = (string)this.TryFindResource("ResStr_Device");
-            btnDevice.Margin = new Thickness(0, 1, 0, 9);
+            //btnDevice.Margin = new Thickness(0, 1, 0, 9);
             btnDevice.Width = tabbtn_width;
-            btnDevice.Height = tabbtn_height;
+            btnDevice.Height = 64;
             btnDevice.HorizontalAlignment = HorizontalAlignment.Left;
             btnDevice.btn.Name = "btnDevice";
             btnDevice.btn.Click += SettingBtnClick;
@@ -236,7 +234,7 @@ namespace VOP
 
         private void SettingBtnClick(object sender, RoutedEventArgs e)
         {
-            VOP.Controls.ButtonEx srcButton = e.Source as VOP.Controls.ButtonEx;
+            VOP.Controls.ButtonEx2 srcButton = e.Source as VOP.Controls.ButtonEx2;
 
             if ("btnScanParameter" == srcButton.Name)
             {

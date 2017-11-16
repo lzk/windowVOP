@@ -32,97 +32,7 @@
                 <ResourceDictionary Source="../../Controls/CustomRadioButtonEx.xaml"/>
                 <ResourceDictionary Source="../../Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key ="SpinnerControl1"  TargetType="{x:Type local:SpinnerControl}">
-                <Setter Property="HorizontalAlignment" Value="Center" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Focusable" Value="False"></Setter>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type local:SpinnerControl}">
 
-                            <Grid Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <!--
-                                    we use the TemplatedParent binding to get a reference to the control
-                                    this template has been applied to, so we can access the property on it
-                                -->
-
-                                <RepeatButton Name="btnDecrease"
-                                      Grid.Row="0"
-                                      Grid.Column="0"
-                                      Width="25"
-                                      Height="25"
-                                      Style="{StaticResource CustomMinusButtonStyle}" 
-                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
-
-                                <TextBox Name="tbTextBox"
-                                 Grid.Row="0"
-                                 Grid.Column="1"
-                                 Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                 BorderBrush="{StaticResource TextBoxBorderBrush}"
-                                 Foreground="#FF707070"
-                                 TextAlignment="Center"
-                                 IsReadOnly="False"
-                                 BorderThickness="0"
-                                 FontSize="18" 
-                                 Margin="0,0,0,2"
-                                 MaxLength="2"
-                                 Style="{StaticResource TextBoxErrorTemplateStyle}"
-                                 InputMethod.IsInputMethodEnabled="False"
-                                 >
-                                    <TextBox.InputBindings>
-                                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
-                                    </TextBox.InputBindings>
-                                    <TextBox.ContextMenu>
-                                        <ContextMenu Visibility="Collapsed">
-                                        </ContextMenu>
-                                    </TextBox.ContextMenu>
-                                    <TextBox.Text>
-                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" 
-                                         Mode="TwoWay"
-                                         Path="FormattedValue" 
-                                         UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <local:PrintCopysValidationRule MinimumValue="-6" MaximumValue="6" 
-										ErrorMessage="{StaticResource ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_}" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-
-                                <RepeatButton Name="btnIncrease"
-                                      Grid.Row="0"
-                                      Grid.Column="2"
-                                      Width="25"
-                                      Height="25"
-                                      Style="{StaticResource CustomPlusButtonStyle}" 
-                                      Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger SourceName="tbTextBox" Property="Validation.HasError"  Value="true">
-                                    <Setter Property="ValidationHasError" Value="True"></Setter>
-                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="False"></Setter>
-                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="False"></Setter>
-                                </Trigger>
-
-                                <Trigger SourceName="tbTextBox"  Property="Validation.HasError" Value="False">
-                                    <Setter Property="ValidationHasError" Value="False"></Setter>
-                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"></Setter>
-                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"></Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
         </ResourceDictionary>
     </Window.Resources>
     <Viewbox Stretch="Fill">
@@ -134,176 +44,157 @@
                 </Rectangle.Effect>
             </Rectangle>
             <Grid x:Name="LayoutRoot" Background="AliceBlue" Width="537" Height="545" >
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="150" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="35"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="35"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
                 <!-- Title bar begin -->
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0" Grid.ColumnSpan="2">
-                    <TextBlock Text="{StaticResource ResStr_Faroe_Scan_Email}" FontSize="15" Foreground="#FF48C6E0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Text="{StaticResource ResStr_Faroe_Scan_Email}" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
-
                 <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Grid.Column="2" RenderTransformOrigin="1.567,0.633" />
                 <Grid Grid.Row="1" Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="60"></RowDefinition>
+                        <RowDefinition Height="6"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="60"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="20"/>
                         <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock 
-                Grid.Row="1"
-                Grid.Column="0"
-                FontSize="14"
-                FontWeight="Bold"
-                VerticalAlignment="Center"
-                Text="{StaticResource ResStr_Faroe_scan_setting}"/>
-
-                    <Button
-                Grid.Row="1"
-                Grid.Column="2"
-                Width="120"
-                Height="35" 
-                Margin="-90,0,0,0"
-                 Content="{StaticResource ResStr_Setting}" 
-                FontSize="16"
-                Style="{StaticResource CustomGreenButtonStyle}" 
-                Click="Button_Click"
-                />
-                </Grid>
-
-                <Grid Grid.Row="2" Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="0"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock 
                 Grid.Row="0"
                 Grid.Column="0"
-                Grid.ColumnSpan="2"
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="{StaticResource ResStr_Faroe_email_setting}"/>
+                        HorizontalAlignment="Left"
+                Text="{StaticResource ResStr_Faroe_scan_setting}"/>
 
-                    <Grid Grid.Row="1" Grid.Column="1" >
+                    <Button
+                Grid.Row="0"
+                Grid.Column="2"
+                Width="200"
+                Height="35" 
+                        HorizontalAlignment="Right"
+                 Content="{StaticResource ResStr_Setting}" 
+                FontSize="16"
+                Style="{StaticResource CustomPopUpButtonStyle}" 
+                Click="Button_Click"
+                />
+                    <Canvas Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+                        <Path Stroke="LightGray" StrokeThickness="2">
+                            <Path.Data>
+                                <LineGeometry StartPoint="0,4" EndPoint="480,2"></LineGeometry>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="282*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Border Grid.Row="0" Grid.Column="1">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock 
+                        <TextBlock 
+                Grid.Row="0"
+                Grid.Column="0"
+                FontSize="14"
+                FontWeight="Bold"
+                VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                Text="{StaticResource ResStr_Faroe_email_setting}" Margin="0,16,0,15"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0"
                                 Text="Attachment File Type :" 
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="12"
+                               Margin="30,22,0,22"
                                 />
-                                <ComboBox 
+                        <ComboBox Grid.Row="1" Grid.Column="3"
                                 Name="cbAttachType"
                                 VerticalAlignment="Center" 
                                 VerticalContentAlignment="Center"
-                                Width="100" 
-                                Height="30" 
-                                Margin="60,0,0,0" 
+                              HorizontalAlignment="Right"
+                                Width="250" 
+                                Height="30"     
                                 FontSize="14"
-                            SelectionChanged="cbAttachType_SelectionChanged"
+                            SelectionChanged="cbAttachType_SelectionChanged" Margin="0,15"
                                 >
-                                    <ComboBoxItem >PDF</ComboBoxItem>
-                                    <ComboBoxItem >TIFF</ComboBoxItem>
-                                </ComboBox>
-                            </StackPanel>
-                        </Border>
-
-                        <Border Grid.Row="1" Grid.Column="1">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock 
+                            <ComboBoxItem >PDF</ComboBoxItem>
+                            <ComboBoxItem >TIFF</ComboBoxItem>
+                        </ComboBox>
+                        <TextBlock Grid.Row="2" Grid.Column="0"
                                 Text="Recipient :" 
                                 VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
                                 FontWeight="Bold"
                                 FontSize="12"
+                               Margin="30,22,0,22"
                                 />
-                                <TextBox 
+                        <TextBox Grid.Row="2" Grid.Column="3"
                                 Name="tbRecipient"
                                 Template="{StaticResource customTextBox}" 
-                                VerticalAlignment="Top" 
+                                VerticalAlignment="Center" HorizontalAlignment="Right"
                                 SnapsToDevicePixels ="True"
                                 Width="250" 
                                 Height="30" 
-                                Margin="45,14,0,0" 
                                 Text=""
                                 VerticalContentAlignment="Center"
                                 FontSize="14"
                                 PreviewTextInput="OnPreviewTextInput" 
-                                    MaxLength="255"
+                                    MaxLength="255" Margin="0,15"
                                 />
-                            </StackPanel>
-                        </Border>
-
-
-                        <Border Grid.Row="2" Grid.Column="1">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock 
+                        <TextBlock Grid.Row="3" Grid.Column="0"
                                 Text="Subject :" 
-                                VerticalAlignment="Center"
+                                VerticalAlignment="Center" HorizontalAlignment="Left"
+                               Margin="30,22,0,22"
                                 FontWeight="Bold"
                                 FontSize="12"
                                 />
-                                <TextBox 
+                        <TextBox Grid.Row="3" Grid.Column="3"
                                 Name="tbSubject"
                               Template="{StaticResource customTextBox}" 
-                                VerticalAlignment="Center" 
+                                VerticalAlignment="Center" HorizontalAlignment="Right"
                                 SnapsToDevicePixels ="True"
                                 Width="250" 
                                 Height="30" 
-                                Margin="55,0,0,0" 
                                 Text=""
                                 VerticalContentAlignment="Center"
                                 FontSize="14"
-                                MaxLength="255"
+                                MaxLength="255" Margin="0,15"
                                 />
-                            </StackPanel>
-                        </Border>
-
-                        <Button Grid.Row="3" Grid.Column="1"
-                            HorizontalAlignment="Center" 
-                            Margin="20,6" 
-                            Width="85" 
+                    </Grid>
+                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" 
+                            Width="200" 
                             Height="35"
                             FontSize="16"
                             Click="OkClick"
-                            Style="{StaticResource CustomGreenButtonStyle}"
+                            Style="{StaticResource CustomPopUpButtonStyle}"
                             >OK</Button>
-                    </Grid>
                 </Grid>
             </Grid>
         </Grid>

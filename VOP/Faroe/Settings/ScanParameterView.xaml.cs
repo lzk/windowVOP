@@ -72,6 +72,7 @@ namespace VOP
             else if (MainWindow_Rufous.g_settingData.m_couldSaveType == "EverNote")
             {
                 cbCloudType.SelectedIndex = 1;
+                MainWindow_Rufous.g_settingData.m_bNeedReset = false;
             }
             else
             {
@@ -204,6 +205,7 @@ namespace VOP
             else if (cbCloudType.SelectedIndex == 1)
             {
                 MainWindow_Rufous.g_settingData.m_couldSaveType = "EverNote";
+                MainWindow_Rufous.g_settingData.m_bNeedReset = false;
             }
             else if (cbCloudType.SelectedIndex == 2)
             {
@@ -232,7 +234,7 @@ namespace VOP
             }
             else if (cbCloudType.SelectedIndex == 1)
             {
-                
+                MainWindow_Rufous.g_settingData.m_bNeedReset = true;
             }
             else if (cbCloudType.SelectedIndex == 2)
             {
