@@ -95,12 +95,28 @@ namespace VOP
                 {
                     return false;
                 }
+                int i = 0;
+                for (i = 0; i < path.Length; i++)
+                {
+                    char c = path[i];
+                    if (c != ' ')
+                    {
+                        break;
+                    }
+                }
+
+                if (i >= path.Length)
+                {
+                    return false;
+                }
 
                 //modified by yunying shang 2017-10-19 for BMS 1181
                 if (!path.Contains("\\") && !path.Contains(":"))
                 {
                     path = App.PictureFolder + "\\" + path;
                 }//<<=============1181
+
+
             }
             catch (Exception ex)
             {

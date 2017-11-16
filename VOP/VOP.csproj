@@ -94,6 +94,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\x86\Debug\CsQuery.dll</HintPath>
     </Reference>
+    <Reference Include="Dropbox.Api, Version=0.1.6184.29605, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dropbox-sdk-dotnet-master\Dropbox.Api\bin\Debug\net45\Dropbox.Api.dll</HintPath>
+    </Reference>
     <Reference Include="en-html2enml, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\x86\Debug\en-html2enml.dll</HintPath>
@@ -1198,12 +1202,6 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\dropbox-sdk-dotnet-master\Dropbox.Api\Dropbox.Api.csproj">
-      <Project>{68180b54-4724-4cd1-baa6-ee7bc309797c}</Project>
-      <Name>Dropbox.Api</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\CheckBox_Close.png" />

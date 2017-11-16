@@ -243,9 +243,19 @@ namespace VOP
             //if (false == m_currentStatus)
             {
                 if (sc.ValidationHasError == true)
+                {
                     btnApply.IsEnabled = false;
+                   
+                    //add by yunying shang 2017-11-10 for BMS 1389
+                    btnIncrease.IsEnabled = false;
+              
+                    btnIncrease.IsEnabled = false;
+                    
+                }
                 else
+                { 
                     btnApply.IsEnabled = true;
+                }
             }
            // else
            // {

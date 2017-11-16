@@ -54,9 +54,10 @@
 
                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="280" />
                         <RowDefinition Height="100" />
-                        <RowDefinition Height="60" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
 
                     <Border Grid.Row="0">
@@ -65,7 +66,7 @@
                                         SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
                                         VerticalScrollBarVisibility="Auto"
                                         HorizontalScrollBarVisibility="Disabled">
-                                <ListBox Name="listNote" Height="325"  Margin="10,0,10,0"/>
+                                <ListBox Name="listNote" Height="270"  Margin="10,0,10,0"/>
                             </ScrollViewer>
                         </StackPanel>
                     </Border>
@@ -75,7 +76,7 @@
                 Name="tbNote"
                 FontSize="14"
                 VerticalAlignment="Center"
-                        Margin="10,0,0,0"
+                        Margin="10,10,0,0"
                 Text="Note Title:"/>
                     <TextBox 
                      Name="tbNoteTitle"
@@ -85,7 +86,7 @@
                      SnapsToDevicePixels ="True"
                      VerticalAlignment="Top" 
                      HorizontalAlignment="Left"
-                     Margin="40,0,0,0"
+                     Margin="40,10,0,0"
                             MaxLength="32"
                             PreviewTextInput="OnPreviewTextInput"
                      />
@@ -111,16 +112,20 @@
                      />
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal"  Grid.Row="2" >
-                        <TextBlock Name="UploadStaus" 
-                                   Width="470"
-                                   VerticalAlignment="Center" 
+                    <!--<StackPanel Orientation="Horizontal"  Grid.Row="2" ></StackPanel>-->
+                    <TextBlock Name="UploadStaus" Grid.Row="2"
+                                   Width="600"
+                               Height="Auto"
+                                   VerticalAlignment="Top" 
+                                    HorizontalAlignment="Left"
                                    FontSize="12" 
                                    Foreground="CadetBlue"
-                                   Margin="15,0,0,0" 
+                                   Margin="10,10,0,0" 
                                    TextWrapping="Wrap"
                                    />
-                        <Button 
+                   
+                    <Button 
+                           Grid.Row="3"
                             Name="UploadButton"
                             HorizontalAlignment="Right" 
                             Margin="10,6" 
@@ -131,7 +136,7 @@
                             Click="UploadButton_Click"
                             Content="{StaticResource ResStr_Faroe_Upload}"
                             ></Button>
-                    </StackPanel>
+                   
 
                 </Grid>
 

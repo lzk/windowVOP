@@ -924,8 +924,10 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			glDrv._cancel();
 			MyOutputString(L"_cancel");
 
+			//add by yunying shang 2017-11-10 for BMS 1372
 			glDrv.waitJobFinish(0);
 			MyOutputString(L"waitJobFinish");
+			//<<==============1372
 
 			glDrv._JobEnd();
 			MyOutputString(L"_JobEnd");

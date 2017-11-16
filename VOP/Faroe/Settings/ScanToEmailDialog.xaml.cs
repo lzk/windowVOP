@@ -83,11 +83,17 @@ namespace VOP
             Regex reg = new Regex(ex);
             //if (false == reg.IsMatch(tbRecipient.Text) || IsEmailNameAllNumber(tbRecipient.Text))
             int finded = tbRecipient.Text.LastIndexOf('@');
-
+            int finded1 = -1;
+            if (finded >= 0)
+            {
+                string str = tbRecipient.Text.Substring(0, finded);
+                finded1 = str.LastIndexOf('@');
+            }
             if (false == Char.IsLetterOrDigit(tbRecipient.Text, 0)||               
                 false == IsValidEmail(tbRecipient.Text) ||
                 IsEmailNameAllNumber(tbRecipient.Text) ||
-                finded < 0)
+                finded < 0 ||
+                finded1 >= 0)
             {
                 MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, 
                     (string)this.TryFindResource("ResStr_Email_Format_Error"), 
