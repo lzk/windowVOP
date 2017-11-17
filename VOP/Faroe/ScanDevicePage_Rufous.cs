@@ -158,7 +158,7 @@ namespace VOP
                     }
                 }
 
-                if (canConnected == true)
+                if (connectip != "")
                 {
                     foreach (string ip in ipList)
                     {

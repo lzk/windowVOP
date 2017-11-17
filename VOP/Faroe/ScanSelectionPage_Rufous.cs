@@ -18,9 +18,7 @@ namespace VOP
 
         public MainWindow_Rufous m_MainWin { get; set; }
 
-        public int ScreenTextNumber = 1;
-
-        private static bool bFirst = false;
+        public int ScreenTextNumber = 1;      
 
         public ScanSelectionPage_Rufous()
         {
@@ -60,21 +58,8 @@ namespace VOP
                     }
                 }
             }//<<=======================
-            
-            int iRtn = m_MainWin.CheckDeviceStatus();
 
-            if (bFirst == false)
-            {
-                if (iRtn == 1)
-                {
-                    MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
-                }
-                else
-                {
-                    MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
-                }
-                bFirst = true;
-            }
+            m_MainWin.CheckDeviceStatus();
         }
 
         private void ScreenButton_Click(object sender, RoutedEventArgs e)

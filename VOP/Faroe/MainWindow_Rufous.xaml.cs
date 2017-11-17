@@ -73,6 +73,54 @@ namespace VOP
         {
             g_settingData = SettingData.Deserialize(App.cfgFile);
 
+            int iRtn = CheckDeviceStatus();
+
+            if (MainWindow_Rufous.g_settingData.m_DeviceName != "")
+            {
+                if (iRtn > 0)
+                {
+                    if (MainWindow_Rufous.g_settingData.m_DeviceName.Contains("USB"))
+                    {
+                        if (iRtn == 1 || iRtn == 3)
+                        {
+                            MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+                            dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, true);
+                        }
+                        else if (MainWindow_Rufous.g_settingData.m_DeviceName != "")
+                        {
+                            MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
+                            dll.SetConnectionMode("", false);
+                        }
+                    }
+                    else
+                    {
+                        MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
+                        dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, false);
+                        if (iRtn == 2 || iRtn == 3)
+                        {
+                            if (!dll.CheckConnection())
+                            {
+                                MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
+                                dll.SetConnectionMode("", false);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (iRtn == 1 || iRtn == 3)
+                {
+                    MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+                    dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, true);
+                }
+                else
+                {
+                    MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
+                    dll.SetConnectionMode("", false);
+                }
+            }
+
             common.GetAllPrinters(g_printerList);
 
             MainPageView.Child = scanSelectionPage;
@@ -210,39 +258,39 @@ namespace VOP
             {
                 bResult = 1;
             }
-            else
+
+            if (!scanDevicePage.IsOnLine())
             {
-                if (!scanDevicePage.IsOnLine())
+                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+            }
+            else//<<===============1019
+            {
+                NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+                bool bFound = false;
+                foreach (NetworkInterface adapter in fNetworkInterfaces)
+                {
+                    if (adapter.Description.Contains("802") ||
+                        adapter.Description.Contains("Wi-Fi") ||
+                        adapter.Description.Contains("Wireless"))
+                    {
+                        bFound = true;
+                    }
+                }
+
+                if (bFound == false)
                 {
                     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                    bResult = -1;
                 }
-                else//<<===============1019
+                else
                 {
-                    NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-                    bool bFound = false;
-                    foreach (NetworkInterface adapter in fNetworkInterfaces)
-                    {
-                        if (adapter.Description.Contains("802") ||
-                            adapter.Description.Contains("Wi-Fi") ||
-                            adapter.Description.Contains("Wireless"))
-                        {
-                            bFound = true;
-                        }
-                    }
-
-                    if (bFound == false)
-                    {
-                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                        bResult = -1;
-                    }
+                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                    if (bResult > 0)
+                        bResult = 3;
                     else
-                    {
-                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                         bResult = 2;
-                    }
                 }
             }
+            
 
             return bResult;
         }
@@ -290,7 +338,7 @@ namespace VOP
                         }
                     }
                     else
-                    { 
+                    {
                         Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                     }//<<=================1172
                 }
@@ -433,7 +481,8 @@ namespace VOP
             if (msg == App.WM_STATUS_UPDATE)
             {
                 bool bUseGrayIcon = false;
-                if ((int)wParam == 1)
+                if ((int)wParam == 1 &&
+                    MainWindow_Rufous.g_settingData.m_DeviceName != "")
                 {
                     scanSelectionPage.DeviceButton.Connected = true;
                     scanSettingsPage.PassStatus(true);
@@ -443,13 +492,8 @@ namespace VOP
                         scanSelectionPage.tbStatus.Text = "USB";
                     }
                     else
-                    {
-                        if (MainWindow_Rufous.g_settingData.m_DeviceName == "")
-                        {
-                            scanSelectionPage.tbStatus.Text = "Wi-Fi";
-                        }
-                        else
-                            scanSelectionPage.tbStatus.Text = MainWindow_Rufous.g_settingData.m_DeviceName;
+                    {                     
+                       scanSelectionPage.tbStatus.Text = MainWindow_Rufous.g_settingData.m_DeviceName;                 
                     }
                 }
                 else
