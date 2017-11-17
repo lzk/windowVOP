@@ -88,7 +88,9 @@ namespace VOP
 
             btnConnect.IsEnabled = false; //add by yunying shang for BMS1018
             StringBuilder usbName = new StringBuilder(50);
-            if(dll.CheckUsbScan(usbName) == 1)
+
+
+            if (dll.CheckUsbScan(usbName) == 1)
             {
                 DeviceListBoxItem item = new DeviceListBoxItem();
                 item.DeviceName = usbName.ToString();
@@ -107,10 +109,9 @@ namespace VOP
                 }
 
                 DeviceList.Items.Add(item);
-
             }
 
-            if(forceRefresh == true)
+            if (forceRefresh == true)
             {
                 //add by yunying shnag 2017-10-16 for BMS 1165
                 if (IsOnLine() == false)
@@ -136,7 +137,9 @@ namespace VOP
             {
                 //modified by yunying shang 2017-10-17 for BMS 1175
                 string connectip = string.Empty;
-                     
+
+                DeviceList.Items.Clear();
+
                 foreach (string ip in ipList)
                 {
                     DeviceListBoxItem item = new DeviceListBoxItem();
@@ -152,21 +155,81 @@ namespace VOP
                         connectip = ip;
                         MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
                         break;
-                    }                    
+                    }
                 }
 
-
-                foreach (string ip in ipList)
+                if (canConnected == true)
                 {
-                    DeviceListBoxItem item = new DeviceListBoxItem();
-                    item.DeviceName = ip;
-
-                    if (connectip != ip)
+                    foreach (string ip in ipList)
                     {
-                        item.StatusText = "";
+                        DeviceListBoxItem item = new DeviceListBoxItem();
+                        item.DeviceName = ip;
+
+                        if (connectip != ip)
+                        {
+                            item.StatusText = "";
+                            DeviceList.Items.Add(item);
+                        }
+                    }//<<=================1175
+
+                    if (dll.CheckUsbScan(usbName) == 1)
+                    {
+                        DeviceListBoxItem item = new DeviceListBoxItem();
+                        item.DeviceName = usbName.ToString();
+
+                        if (MainWindow_Rufous.g_settingData.m_DeviceName == item.DeviceName)
+                        {
+                            item.StatusText = "Connected";
+                            dll.SetConnectionMode(item.DeviceName, true);
+                            m_MainWin.SetDeviceButtonState(true);
+                            canConnected = true;
+                            MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+                        }
+                        else
+                        {
+                            item.StatusText = "";
+                        }
+
                         DeviceList.Items.Add(item);
                     }
-                }//<<=================1175
+                }
+                else
+                {
+
+                    if (dll.CheckUsbScan(usbName) == 1)
+                    {
+                        DeviceListBoxItem item = new DeviceListBoxItem();
+                        item.DeviceName = usbName.ToString();
+
+                        if (MainWindow_Rufous.g_settingData.m_DeviceName == item.DeviceName)
+                        {
+                            item.StatusText = "Connected";
+                            dll.SetConnectionMode(item.DeviceName, true);
+                            m_MainWin.SetDeviceButtonState(true);
+                            canConnected = true;
+                            MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+                        }
+                        else
+                        {
+                            item.StatusText = "";
+                        }
+
+                        DeviceList.Items.Add(item);
+                    }
+
+                    foreach (string ip in ipList)
+                    {
+                        DeviceListBoxItem item = new DeviceListBoxItem();
+                        item.DeviceName = ip;
+
+                        if (connectip != ip)
+                        {
+                            item.StatusText = "";
+                            DeviceList.Items.Add(item);
+                        }
+                    }//<<=================1175
+                }
+            
             }
 
             if (canConnected == false)
