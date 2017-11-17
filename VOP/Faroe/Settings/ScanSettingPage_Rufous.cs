@@ -159,7 +159,7 @@ namespace VOP
             btnSoftAP.btn.Content = (string)this.TryFindResource("ResStr_Soft_AP");
             //btnSoftAP.Margin = new Thickness(0, 1, 0, 9);
             btnSoftAP.Width = tabbtn_width;
-            btnSoftAP.Height = 65;
+            btnSoftAP.Height = 65;// tabbtn_height;
             btnSoftAP.HorizontalAlignment = HorizontalAlignment.Left;
             btnSoftAP.btn.Name = "btnSoftAP";
             btnSoftAP.btn.Click += SettingBtnClick;
@@ -168,7 +168,7 @@ namespace VOP
             btnDevice.btn.Content = (string)this.TryFindResource("ResStr_Device");
             //btnDevice.Margin = new Thickness(0, 1, 0, 9);
             btnDevice.Width = tabbtn_width;
-            btnDevice.Height = 64;
+            btnDevice.Height = 64;// tabbtn_height;
             btnDevice.HorizontalAlignment = HorizontalAlignment.Left;
             btnDevice.btn.Name = "btnDevice";
             btnDevice.btn.Click += SettingBtnClick;

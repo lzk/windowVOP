@@ -1223,6 +1223,9 @@
     <Resource Include="Images\popup_btnt_2.png" />
     <Resource Include="Images\popup_btn_2.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\screenbg_normal.png" />
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>

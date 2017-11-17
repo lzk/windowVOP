@@ -42,7 +42,7 @@
                 Margin="0,0,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top" Click="Button_Click"/>
-            <StackPanel  Grid.Row="1" Grid.Column="1" Name="setting_tab_btn" Orientation="Vertical" Panel.ZIndex="100" >
+            <StackPanel  Grid.Row="1" Grid.Column="1" Name="setting_tab_btn" Background="LightGray" Orientation="Vertical" Panel.ZIndex="100" >
             </StackPanel>
             <Border Name="settingView" Grid.Row="1" Grid.Column="2">
             </Border>
