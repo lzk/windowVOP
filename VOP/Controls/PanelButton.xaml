@@ -308,7 +308,7 @@
                                             Foreground="Black"                                               
                                             HorizontalAlignment="Center" 
                                             Margin="0,0,0,0"
-                                            MaxWidth="240"
+                                            MaxWidth="450"
                                                 />
                             <TextBlock 
                                             x:Name="InfoText"
