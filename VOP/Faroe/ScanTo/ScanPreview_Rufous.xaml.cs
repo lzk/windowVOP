@@ -16,6 +16,7 @@ using System.IO;                    // for File.Create
 using PdfEncoderClient;
 using System.Windows.Interop;
 using System.Diagnostics;
+using VOP.Controls;
 
 namespace VOP
 {
@@ -164,7 +165,7 @@ namespace VOP
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
+            ImageButton2 button = sender as ImageButton2;
             if (button.Name == "PreImageButton")
             {
                 currentState = ImagePreviewState.Pre;
@@ -421,9 +422,9 @@ namespace VOP
                 this.DragMove();
         }
 
-        private void imagebtn_click(object sender, RoutedEventArgs e)
+        private void imagebtn_click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
-            Button btn = (Button)sender;
+            ImageButton2 btn = sender as ImageButton2;
 
             string name = btn.Name;
 

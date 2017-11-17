@@ -68,7 +68,7 @@ extern BOOL TestIpConnected(wchar_t* szIP);
 extern BOOL TestIpConnected(wchar_t* szIP, Scan_RET *status);
 
 wchar_t g_ipAddress[256] = { 0 };
-BOOL g_connectMode_usb = TRUE;
+BOOL g_connectMode_usb = FALSE;
 static Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 static ULONG_PTR gdiplusToken;
 

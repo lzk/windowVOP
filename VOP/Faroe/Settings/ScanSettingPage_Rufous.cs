@@ -62,7 +62,7 @@ namespace VOP
             btnScanParameter.Height = tabbtn_height;
             btnScanParameter.HorizontalAlignment = HorizontalAlignment.Left;
             btnScanParameter.btn.Name = "btnScanParameter";
-            btnScanParameter.btn.Click += SettingBtnClick;
+            btnScanParameter.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnScanParameter);
 
             btnQuickScanSettings.btn.Content = "Quick Scan Settings";
@@ -71,7 +71,7 @@ namespace VOP
             btnQuickScanSettings.Height = tabbtn_height;
             btnQuickScanSettings.HorizontalAlignment = HorizontalAlignment.Left;
             btnQuickScanSettings.btn.Name = "btnQuickScanSettings";
-            btnQuickScanSettings.btn.Click += SettingBtnClick;
+            btnQuickScanSettings.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnQuickScanSettings);
 
 
@@ -81,7 +81,7 @@ namespace VOP
             btnQRCodeSettings.Height = tabbtn_height;
             btnQRCodeSettings.HorizontalAlignment = HorizontalAlignment.Left;
             btnQRCodeSettings.btn.Name = "btnQRCodeSettings";
-            btnQRCodeSettings.btn.Click += SettingBtnClick;
+            btnQRCodeSettings.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnQRCodeSettings);
             //btnScanToPrint.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Scan_Print");
             //btnScanToPrint.Margin = new Thickness(0, 1, 0, 9);
@@ -144,7 +144,7 @@ namespace VOP
             btnwifi.Height = tabbtn_height;
             btnwifi.HorizontalAlignment = HorizontalAlignment.Left;
             btnwifi.btn.Name = "btnwifi";
-            btnwifi.btn.Click += SettingBtnClick;
+            btnwifi.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnwifi);
 
             btnTCPIP.btn.Content = (string)this.TryFindResource("ResStr_TCP_IPv4");
@@ -153,7 +153,7 @@ namespace VOP
             btnTCPIP.Height = tabbtn_height;
             btnTCPIP.HorizontalAlignment = HorizontalAlignment.Left;
             btnTCPIP.btn.Name = "btnTCPIP";
-            btnTCPIP.btn.Click += SettingBtnClick;
+            btnTCPIP.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnTCPIP);
 
             btnSoftAP.btn.Content = (string)this.TryFindResource("ResStr_Soft_AP");
@@ -162,7 +162,7 @@ namespace VOP
             btnSoftAP.Height = 65;// tabbtn_height;
             btnSoftAP.HorizontalAlignment = HorizontalAlignment.Left;
             btnSoftAP.btn.Name = "btnSoftAP";
-            btnSoftAP.btn.Click += SettingBtnClick;
+            btnSoftAP.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnSoftAP);
 
             btnDevice.btn.Content = (string)this.TryFindResource("ResStr_Device");
@@ -171,7 +171,7 @@ namespace VOP
             btnDevice.Height = 64;// tabbtn_height;
             btnDevice.HorizontalAlignment = HorizontalAlignment.Left;
             btnDevice.btn.Name = "btnDevice";
-            btnDevice.btn.Click += SettingBtnClick;
+            btnDevice.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnDevice);
 
         }
@@ -193,16 +193,59 @@ namespace VOP
 
         private void ClickSettingButton(SettingType settingType)
         {
-            foreach (SettingButton_Rufous btn in m_listSettingButton)
+            //foreach (SettingButton_Rufous btn in m_listSettingButton)
+            //{
+            //    if (btn.m_settingType == settingType)
+            //    {
+            //        RoutedEventArgs argsEvent = new RoutedEventArgs();
+            //        argsEvent.RoutedEvent = Button.ClickEvent;
+            //        argsEvent.Source = this;
+            //        btn.btn.RaiseEvent(argsEvent);
+            //        break;
+            //    }
+            //}
+
+            if (settingType == SettingType.ScanParameter)
             {
-                if (btn.m_settingType == settingType)
-                {
-                    RoutedEventArgs argsEvent = new RoutedEventArgs();
-                    argsEvent.RoutedEvent = Button.ClickEvent;
-                    argsEvent.Source = this;
-                    btn.btn.RaiseEvent(argsEvent);
-                    break;
-                }
+                SetActiveButton(SettingType.ScanParameter);
+                scanParameterView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = scanParameterView;
+            }
+            if (settingType == SettingType.QuickScanSettings)
+            {
+                SetActiveButton(SettingType.QuickScanSettings);
+                quickScanSettings.m_MainWin = this.m_MainWin;
+                this.settingView.Child = quickScanSettings;
+            }
+            if (settingType == SettingType.QRCodeSettings)
+            {
+                SetActiveButton(SettingType.QRCodeSettings);
+                qrcodebarcodeView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = qrcodebarcodeView;
+            }
+            else if (settingType == SettingType.Wireless)
+            {
+                SetActiveButton(SettingType.Wireless);
+                wifiView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = wifiView;
+            }
+            else if (settingType == SettingType.TCPIP)
+            {
+                SetActiveButton(SettingType.TCPIP);
+                tcpipView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = tcpipView;
+            }
+            else if (settingType == SettingType.SoftAP)
+            {
+                SetActiveButton(SettingType.SoftAP);
+                softAPView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = softAPView;
+            }
+            else if (settingType == SettingType.Device)
+            {
+                SetActiveButton(SettingType.Device);
+                deviceView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = deviceView;
             }
         }
 
@@ -232,7 +275,7 @@ namespace VOP
             InitWindowLayout();
         }
 
-        private void SettingBtnClick(object sender, RoutedEventArgs e)
+        private void SettingBtnClick(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             VOP.Controls.ButtonEx2 srcButton = e.Source as VOP.Controls.ButtonEx2;
 

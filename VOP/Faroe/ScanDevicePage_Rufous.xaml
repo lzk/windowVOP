@@ -70,13 +70,13 @@
             Name="btnConnect"
                 Grid.Row="2"
                 Grid.Column="1"
-                Width="120"
+                Width="200"
                 Height="35" 
                 Margin="0,0,0,0"
                 Content="Connect" 
                 FontSize="16"
                 Click="OkClick"
-                Style="{StaticResource CustomGreenButtonStyle}"
+                Style="{StaticResource CustomSettingButtonStyle}"
                 />
     </Grid>
 </UserControl>

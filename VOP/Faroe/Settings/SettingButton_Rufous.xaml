@@ -31,7 +31,7 @@
                Source="..\..\Images\setting_img_disable.png" Stretch="Fill"></Image>
         <local:ButtonEx x:Name="btn" Background="Transparent" IsActiveEx="False" Grid.Column="2" IsActiveExPropertyChanged="btn_ActiveExPropertyChanged" FontSize="14">
         </local:ButtonEx>-->
-        <local:ButtonEx2 x:Name="btn" Grid.Column="0" Background="Transparent" Grid.ColumnSpan="3" FontSize="14" BorderThickness="0"
+        <local:ButtonEx2 x:Name="btn" Grid.Column="0" Background="Transparent" Grid.ColumnSpan="4" FontSize="14" BorderThickness="0"
                          IsActiveEx="False" IsActiveExPropertyChanged="btn_ActiveExPropertyChanged">
         </local:ButtonEx2>
         <!--<Image Name="imgTriangle" Grid.Column="3"  Source="..\..\Images\triangle.png"  Visibility="Hidden" HorizontalAlignment="Right"></Image>-->

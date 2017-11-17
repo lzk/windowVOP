@@ -748,7 +748,7 @@ namespace VOP
 
         private void btnApply_Click(object sender, RoutedEventArgs e)
         {
-            if (m_MainWin.CheckDeviceStatus() == false)
+            if (m_MainWin.CheckDeviceStatus() == -1)
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                    Application.Current.MainWindow,
