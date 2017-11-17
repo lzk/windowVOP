@@ -185,7 +185,7 @@
                 Height="35" 
                 Content="{StaticResource ResStr_Setting}" 
                 FontSize="16"
-                Style="{StaticResource CustomGreenButtonStyle}" 
+                Style="{StaticResource CustomPopUpButtonStyle}" 
                 Click="Button_Click"
                 />
                     <Canvas Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">

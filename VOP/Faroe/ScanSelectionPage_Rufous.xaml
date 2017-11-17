@@ -63,7 +63,7 @@
                     Height="40"            
                     Click="DeviceButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top"
                     />
-                    <TextBlock  x:Name="tbStatus" Text="Disconnect" Height="20" Width="120" Margin="48,0,0,0" Foreground="Black" 
+                    <TextBlock  x:Name="tbStatus" Text="Disconnect" Height="20" Width="120" Foreground="Black" 
                                VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Left" />
                 </StackPanel>
                 <!--<Grid Grid.Row="1">

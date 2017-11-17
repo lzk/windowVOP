@@ -250,8 +250,8 @@
             </StackPanel>
 
             <StackPanel Margin="0" Grid.Row="4" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top" >
-                <local:ButtonEx x:Name="btnOK" Content="{StaticResource
-                    ResStr_Back}" HorizontalAlignment="Center" Height="33"
+                <Button x:Name="btnOK" Content="{StaticResource
+                    ResStr_Back}" HorizontalAlignment="Center" Height="33" Style="{StaticResource CustomPopUpButtonStyle}"
                 HorizontalContentAlignment="Center"
                 Width="110" VerticalAlignment="Center" Click="btnOK_Click"/>
                 <!--<local:ButtonEx x:Name="btnPrint"  Content="{StaticResource ResStr_Print}" HorizontalAlignment="Center" Height="33"

@@ -10,12 +10,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
 using Microsoft.Win32;              // for SaveFileDialog
 using System.IO;                    // for File.Create
 using PdfEncoderClient;
 using System.Windows.Interop;
 using System.Diagnostics;
+using VOP.Controls;
 
 namespace VOP
 {
@@ -204,7 +204,7 @@ namespace VOP
 
         private void imagebtn_click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
-            Button btn = (Button)sender;
+            ImageButton2 btn = sender as ImageButton2;
 
             string name = btn.Name;
 

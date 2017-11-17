@@ -200,23 +200,22 @@ namespace VOP
             }
         }
 
-        public bool CheckDeviceStatus()
+        public int CheckDeviceStatus()
         {
-            bool bResult = false;
+            int bResult = -1;
 
             StringBuilder usbName = new StringBuilder(50);
 
             if (dll.CheckUsbScan(usbName) == 1)
             {
-                MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
-                bResult = true;
+                bResult = 1;
             }
             else
             {
                 if (!scanDevicePage.IsOnLine())
                 {
                     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                    bResult = false;
+                    bResult = -1;
                 }
                 else//<<===============1019
                 {
@@ -235,18 +234,15 @@ namespace VOP
                     if (bFound == false)
                     {
                         Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                        bResult = false;
+                        bResult = -1;
                     }
                     else
                     {
-                        MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
                         Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
-                        bResult = true;
+                        bResult = 2;
                     }
                 }
- 
             }
-
 
             return bResult;
         }
@@ -448,8 +444,10 @@ namespace VOP
                     }
                     else
                     {
-                        if(MainWindow_Rufous.g_settingData.m_DeviceName == "")
+                        if (MainWindow_Rufous.g_settingData.m_DeviceName == "")
+                        {
                             scanSelectionPage.tbStatus.Text = "Wi-Fi";
+                        }
                         else
                             scanSelectionPage.tbStatus.Text = MainWindow_Rufous.g_settingData.m_DeviceName;
                     }
