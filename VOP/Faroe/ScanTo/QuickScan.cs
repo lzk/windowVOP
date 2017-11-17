@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Printing;
+using System.Drawing.Printing;
 
 namespace VOP
 {
@@ -150,13 +151,23 @@ namespace VOP
                 }
 
                 List<string> listPrinters = new List<string>();
+
+                PrinterSettings settings = new PrinterSettings();
                 PrintServer myPrintServer = new PrintServer(null);
                 PrintQueueCollection myPrintQueues = myPrintServer.GetPrintQueues();
+                string strDefaultPrinter = string.Empty;
                 foreach (PrintQueue pq in myPrintQueues)
                 {
                     PrintDriver queuedrv = pq.QueueDriver;
 
                     listPrinters.Add(pq.Name);
+
+                    settings.PrinterName = pq.Name;
+
+                    if (settings.IsDefaultPrinter)
+                    {
+                        strDefaultPrinter = pq.Name;
+                    }
                 }
 
                 if (listPrinters.Count < 1)
@@ -168,7 +179,7 @@ namespace VOP
                 }
                 else
                 { 
-                    PrintFlow flow = new PrintFlow();
+                    PrintFlow flow = new PrintFlow(strDefaultPrinter);
                     flow.ParentWin = Application.Current.MainWindow;
                     flow.FileList = fileLs;
                     PrintFlow.FlowType = PrintFlowType.Quick;

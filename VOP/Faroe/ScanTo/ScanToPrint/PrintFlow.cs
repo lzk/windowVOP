@@ -32,8 +32,14 @@ namespace VOP
         public static PrintFlowType FlowType = PrintFlowType.View;
         public List<string> FileList { get; set; }
         public Window ParentWin { get; set; }
+        private string defaultPrinter = "";
 
         string m_errorMsg = "";
+
+        public PrintFlow(string printer)
+        {
+            defaultPrinter = printer;
+        }
 
         public bool Run()
         {
@@ -66,7 +72,19 @@ namespace VOP
             }
             else
             {
-                if (dll.PrintInit(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_PrintScanSettings.PrinterName, "VOP_Print",
+                string PrinterName = string.Empty;
+
+                PrinterName = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_PrintScanSettings.PrinterName;
+
+                if (PrinterName == "")
+                {
+                    if (defaultPrinter == "")
+                        PrinterName = MainWindow_Rufous.g_printerList[0];
+                    else
+                        PrinterName = defaultPrinter;
+                }
+
+                if (dll.PrintInit(PrinterName, "VOP_Print",
                         (int)0, new IdCardSize(), true, (int)DuplexPrintType.NonDuplex, true, 100))
                 {
 
