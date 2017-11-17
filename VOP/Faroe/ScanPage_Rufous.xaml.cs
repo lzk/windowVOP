@@ -70,6 +70,7 @@ namespace VOP
                         m_pageCount += 1;
 
                     UpdateImageFiles();
+
                     //foreach (ScanFiles files in scanFileList)
                     //{
                     //    ImageItem newImage = new ImageItem();
@@ -82,6 +83,7 @@ namespace VOP
                     //    newImage.Margin = new Thickness(10);
                     //    this.image_wrappanel.Children.Insert(0, newImage);
                     //}
+
                     if (scanFileList.Count > 8)
                     {
                         RightBtn.IsEnabled = true;
@@ -470,8 +472,11 @@ namespace VOP
 
                     if ( tmp.m_iSimgReady )
                     {
+                        //modified by yunying 2017-11-17 for BMS 
+                        int imgIndex = scanFileList.IndexOf(img.m_images);
                         this.image_wrappanel.Children.RemoveAt( index );
-                        this.selectedFileList.RemoveAt(scanFileList.IndexOf(img.m_images));
+                        this.selectedFileList.RemoveAt(imgIndex);
+                        this.scanFileList.RemoveAt(imgIndex);
 
                         // Collect the rubbish files.
                         App.rubbishFiles.Add( img.m_images );
@@ -491,13 +496,13 @@ namespace VOP
 
                         tmp.Margin = new Thickness( 5 );
                         this.image_wrappanel.Children.Insert(index, tmp );
-                        App.scanFileList.Add( tmp.m_images );
+                        this.scanFileList.Insert(imgIndex, tmp.m_images );
 
                         ImageStatus newImage = new ImageStatus();
                         newImage._files = tmp.m_images;
                         newImage.m_num = tmp.m_num;
 
-                        this.selectedFileList.Add(newImage);
+                        this.selectedFileList.Insert(imgIndex, newImage);
                     }
                 }
             }
