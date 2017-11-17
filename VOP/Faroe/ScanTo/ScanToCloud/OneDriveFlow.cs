@@ -242,7 +242,7 @@ namespace VOP
                     }
                     catch (Exception exception)
                     {
-                        PresentServiceException(exception);
+                        //PresentServiceException(exception);
                     }
                 }
             }
@@ -277,7 +277,7 @@ namespace VOP
             }
             catch (Exception exception)
             {
-                PresentServiceException(exception);
+                //PresentServiceException(exception);
             }
 
         }

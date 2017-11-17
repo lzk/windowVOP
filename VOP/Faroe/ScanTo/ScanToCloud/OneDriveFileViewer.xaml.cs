@@ -152,29 +152,42 @@ namespace VOP
 
                 if(result == true)
                 {
-                    string folderName = frm.m_folderName;
-
-                    if(folderName != "")
+                    string folderName = frm.m_folderName.TrimStart();
+                    folderName = folderName.TrimEnd();
+                    if(CheckFolder(folderName))
                     {
-                        var folderToCreate = new DriveItem { Name = folderName, Folder = new Folder() };
-                        var newFolder =
-                            await this.graphClient.Drive.Items[this.SelectedItem.Id].Children.Request()
-                                .AddAsync(folderToCreate);
-
-                        if (newFolder != null)
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "The folderName already exists", "Error");
+                        return;
+                    }
+                    else
+                    {
+                        if (folderName != "")
                         {
-                            if(PathText.Text !="")
+                            var folderToCreate = new DriveItem { Name = folderName, Folder = new Folder() };
+                            var newFolder =
+                                await this.graphClient.Drive.Items[this.SelectedItem.Id].Children.Request()
+                                    .AddAsync(folderToCreate);
+
+                            if (newFolder != null)
                             {
-                                await LoadFolderFromPath(PathText.Text);
-                                UpFolderButton.IsEnabled = true;
+                                if (PathText.Text != "")
+                                {
+                                    await LoadFolderFromPath(PathText.Text);
+                                    UpFolderButton.IsEnabled = true;
+                                }
+                                else
+                                {
+                                    await LoadFolderFromPath();
+                                    UpFolderButton.IsEnabled = false;
+                                }
                             }
-                            else
-                            {
-                                await LoadFolderFromPath();
-                                UpFolderButton.IsEnabled = false;
-                            }                                
-                        }                        
-                    }                 
+                        }
+                        else
+                        {
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow,"The folder cannot be empty","Error");
+                            return;
+                        }
+                    } 
                 }
             }
             catch (Exception) { }
@@ -267,7 +280,7 @@ namespace VOP
             }
             catch (Exception exception)
             {
-                PresentServiceException(exception);
+            //    PresentServiceException(exception);
                 this.Close();
             }
 
@@ -287,7 +300,22 @@ namespace VOP
                 }
             }
         }
-
+        private bool CheckFolder(string foldername)
+        {
+            LoadProperties(CurrentFolder);
+            if (CurrentFolder.Folder != null && CurrentFolder.Children != null && CurrentFolder.Children.CurrentPage != null)
+            {
+                foreach (var obj in CurrentFolder.Children.CurrentPage)
+                {
+                    if ((obj.File == null) && (obj.Folder != null))
+                    {
+                        if (obj.Name == foldername)
+                            return true;
+                    }                   
+                }
+            }
+            return false;
+        }
         private void LoadChildren(IList<DriveItem> items)
         {
             FileBrowser.Items.Clear();
