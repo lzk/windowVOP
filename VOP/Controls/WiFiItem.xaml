@@ -12,6 +12,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CustomButton.xaml"/>
                 <ResourceDictionary Source="CustomRadioButton.xaml"/>
                 <ResourceDictionary Source="CustomCheckBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -33,7 +34,7 @@
                 Connected="{Binding ElementName=WifiIten_Name, Path=Connected, Mode=TwoWay}"
                 IsExpanded="{Binding ElementName=WifiIten_Name, Path=IsExpanded, Mode=TwoWay}"
                 >
-     
+
                 <StackPanel VerticalAlignment="Top">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -42,7 +43,7 @@
                             <RowDefinition Name="rowWep" Height="0"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                       
+
                         <StackPanel Grid.Row="0" Margin="2,0,0,0">
                             <Grid Grid.Row="0" Height="30">
                                 <Grid.ColumnDefinitions>
@@ -70,13 +71,13 @@
                                 </PasswordBox>
                             </Grid>
                         </StackPanel>
-                        
+
                         <StackPanel Grid.Row="1">
                             <Grid Grid.Row="2" Height="30">
                                 <CheckBox Name="cbDisplayPwd" Checked="OnClickDisplayPWD" Unchecked="OnClickDisplayPWD" Grid.Column="1" Template="{StaticResource customCheckBox}" Content="{StaticResource ResStr_Display_Password}"></CheckBox>
                             </Grid>
                         </StackPanel>
-                        
+
                         <StackPanel Grid.Row="2" Name="wepGrid">
                             <Grid Grid.Row="1" Height="50">
                                 <Grid.RowDefinitions>
@@ -87,19 +88,20 @@
                                 <TextBlock Name="tkWEPKeyID" Text="WEP KeyID" VerticalAlignment="Center" Style="{StaticResource ColorChangeTextBlock}"></TextBlock>
                                 <Grid Grid.Row="1" Margin="-4,0,0,0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="74*"></ColumnDefinition>
+                                        <ColumnDefinition Width="73*"></ColumnDefinition>
+                                        <ColumnDefinition Width="74*"></ColumnDefinition>
+                                        <ColumnDefinition Width="55*"></ColumnDefinition>
+                                        <ColumnDefinition Width="18*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <RadioButton GroupName="WepKeyRadio" Name="wepKey0" IsChecked="True" FontSize="10" Template="{StaticResource customRadioButton}" Content="Key1" VerticalAlignment="Center"></RadioButton>
                                     <RadioButton GroupName="WepKeyRadio" Name="wepKey1" Grid.Column="1" FontSize="10" Template="{StaticResource customRadioButton}" Content="Key2" VerticalAlignment="Center"></RadioButton>
                                     <RadioButton GroupName="WepKeyRadio" Name="wepKey2" Grid.Column="2" FontSize="10" Template="{StaticResource customRadioButton}" Content="Key3" VerticalAlignment="Center"></RadioButton>
-                                    <RadioButton GroupName="WepKeyRadio" Name="wepKey3" Grid.Column="3" FontSize="10" Template="{StaticResource customRadioButton}" Content="Key4" VerticalAlignment="Center"></RadioButton>
+                                    <RadioButton GroupName="WepKeyRadio" Name="wepKey3" Grid.Column="3" FontSize="10" Template="{StaticResource customRadioButton}" Content="Key4" VerticalAlignment="Center" Grid.ColumnSpan="2"></RadioButton>
                                 </Grid>
                             </Grid>
-                        </StackPanel>               
+                        </StackPanel>
 
                         <StackPanel Grid.Row="3">
                             <Grid Grid.Row="3" Height="40">
@@ -108,8 +110,10 @@
                                     <ColumnDefinition Width="12"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <local:ButtonEx x:Name="btnCancel" Click="OnClickCancelButton" IsActiveEx="False" Content="{StaticResource ResStr_Cancel}" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="30"></local:ButtonEx>
-                                <local:ButtonEx Click="OnClickConnectBtn" x:Name="btnConnect" IsActiveEx="True" Content="{StaticResource ResStr_Connect}" Grid.Column="2" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="30"></local:ButtonEx>
+                                <Button x:Name="btnCancel" Click="OnClickCancelButton" Style="{StaticResource CustomSettingButtonStyle}"
+                                        Content="{StaticResource ResStr_Cancel}" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="30"></Button>
+                                <Button Click="OnClickConnectBtn" x:Name="btnConnect" Style="{StaticResource CustomSettingButtonStyle}"
+                                        Content="{StaticResource ResStr_Connect}" Grid.Column="2" HorizontalContentAlignment="Center" VerticalAlignment="Center" Height="30"></Button>
                             </Grid>
                         </StackPanel>
 

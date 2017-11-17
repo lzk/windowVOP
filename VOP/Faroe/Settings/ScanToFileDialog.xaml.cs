@@ -262,7 +262,10 @@ namespace VOP
             {
                 save.Filter = "BMP|*.bmp";
             }
-            save.FileName = m_scanToFileParams.FileName;//add by yunying shang 2017-11-14 for BMS 1393
+            if (tbFileName.Text != "")
+                save.FileName = tbFileName.Text;//add by yunying shang 2017-11-14 for BMS 1393
+            else
+                save.FileName = "ScanPictures";
             save.InitialDirectory = dummyFileName;
             bool? result = save.ShowDialog();
 

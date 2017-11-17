@@ -325,7 +325,7 @@ namespace VOP
             }
             else
             {
-                if (DeviceList.Items.Count == 1)
+                if (DeviceList.Items.Count >= 1)
                 {
                     if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
                     {
@@ -353,6 +353,7 @@ namespace VOP
                             }
                             else
                             {
+                                OnConnected();
                                 Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                             }
                         }
@@ -365,6 +366,7 @@ namespace VOP
                         }
                         else
                         {
+                            OnConnected();
                             Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                         }
                     }

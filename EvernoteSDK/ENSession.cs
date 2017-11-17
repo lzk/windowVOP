@@ -458,21 +458,22 @@ namespace EvernoteSDK
 				BootstrapProfile profile = info.Profiles[0];
 				string host = "https://sandbox.evernote.com";//profile.Settings.ServiceHost; for test version
 				EvernoteOAuth.HostService service = 0;
-				if (host == ENSessionBootstrapServerBaseURLStringUS)
-				{
-					service = EvernoteOAuth.HostService.Production;
-				}
-				else if (host == ENSessionBootstrapServerBaseURLStringCN)
-				{
-					service = EvernoteOAuth.HostService.Yinxiang;
-				}
-				else
-				{
-					service = EvernoteOAuth.HostService.Sandbox;
-				}
+                if (host == ENSessionBootstrapServerBaseURLStringUS)
+                {
+                    service = EvernoteOAuth.HostService.Production;
+                }
+                else if (host == ENSessionBootstrapServerBaseURLStringCN)
+                {
+                    service = EvernoteOAuth.HostService.Yinxiang;
+                }
+                else
+                {
+                    service = EvernoteOAuth.HostService.Sandbox;
+                }
+                //service = EvernoteOAuth.HostService.Sandbox;
 
-				// Perform the authentication.
-				var oauth = new EvernoteOAuth(service, ConsumerKey, ConsumerSecret, SupportsLinkedAppNotebook);
+                // Perform the authentication.
+                var oauth = new EvernoteOAuth(service, ConsumerKey, ConsumerSecret, SupportsLinkedAppNotebook);
 
 				string errResponse = oauth.Authorize();
 				if (errResponse.Length == 0)

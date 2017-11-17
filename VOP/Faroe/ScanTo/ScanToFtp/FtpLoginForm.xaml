@@ -118,6 +118,7 @@
                              VerticalAlignment="Center" HorizontalAlignment="Right"
                             VerticalContentAlignment="Center"
                              MaxLength="32" Grid.ColumnSpan="2" Margin="0,15" 
+                                 PreviewKeyDown="OnPreviewKeyDown"
                              >
                         <PasswordBox.InputBindings>
                             <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>

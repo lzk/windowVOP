@@ -256,6 +256,7 @@ namespace VOP
 
             if (dll.CheckUsbScan(usbName) == 1)
             {
+                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                 bResult = 1;
             }
 
@@ -481,8 +482,7 @@ namespace VOP
             if (msg == App.WM_STATUS_UPDATE)
             {
                 bool bUseGrayIcon = false;
-                if ((int)wParam == 1 &&
-                    MainWindow_Rufous.g_settingData.m_DeviceName != "")
+                if ((int)wParam == 1)
                 {
                     scanSelectionPage.DeviceButton.Connected = true;
                     scanSettingsPage.PassStatus(true);

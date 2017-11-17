@@ -217,8 +217,10 @@
                                             <ColumnDefinition Width="6"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <local:ButtonEx x:Name="btnCancel" Click="btn_Click" IsActiveEx="False" Content="{StaticResource ResStr_Back}" HorizontalContentAlignment="Center"></local:ButtonEx>
-                                        <local:ButtonEx x:Name="btnConnect" Click="btn_Click" Grid.Column="2" IsActiveEx="True" Content="{StaticResource ResStr_Connect}" HorizontalContentAlignment="Center"></local:ButtonEx>
+                                        <Button x:Name="btnCancel" Click="btn_Click" Style="{StaticResource CustomSettingButtonStyle}"
+                                                Content="{StaticResource ResStr_Back}" HorizontalContentAlignment="Center"></Button>
+                                        <Button x:Name="btnConnect" Click="btn_Click" Grid.Column="2" Style="{StaticResource CustomSettingButtonStyle}" 
+                                                Content="{StaticResource ResStr_Connect}" HorizontalContentAlignment="Center"></Button>
                                     </Grid>
                                 </StackPanel>
                             </Grid>
