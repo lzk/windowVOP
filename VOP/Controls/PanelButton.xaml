@@ -111,12 +111,6 @@
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsEnabled" Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/left_normal.png"/>
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
                                 <Condition Property="IsEnabled" Value="false" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/left_press.png"/>
@@ -160,12 +154,6 @@
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsEnabled" Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/right_normal.png"/>
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
                                 <Condition Property="IsEnabled" Value="false" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/right_press.png"/>
@@ -206,12 +194,6 @@
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/up_press.png"/>
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsEnabled" Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/up_normal.png"/>
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -261,12 +243,6 @@
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsEnabled" Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/down_normal.png"/>
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
                                 <Condition Property="IsEnabled" Value="false" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/down_press.png"/>
@@ -297,7 +273,7 @@
                                                 TextBlock.Foreground="#FF48C6E0" 
                                                 HorizontalAlignment="Center" 
                                                 />-->
-                                    <Image Name="screenImage" Source="../Images/main_img_print.png"
+                                    <Image Name="screenImage" Source="../Images/main_img_print.png" Margin="0,10,0,0"
                                            HorizontalAlignment="Center" VerticalAlignment="Top" Stretch="None"></Image>
                                         <TextBlock 
                                             x:Name="DetailText"

@@ -427,4 +427,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Uploading_Files">正在加载文件，请稍后...</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Device_Disconnected">设备断开连接，扫描将会被停止!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_ScanTo_Cloud_wait">待定</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Network_fail">The Network is not connected, please check your setting.</sys:String>
 </ResourceDictionary>
