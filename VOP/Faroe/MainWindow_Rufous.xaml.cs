@@ -284,7 +284,7 @@ namespace VOP
                 }
                 else
                 {
-                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                   // Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                     if (bResult > 0)
                         bResult = 3;
                     else

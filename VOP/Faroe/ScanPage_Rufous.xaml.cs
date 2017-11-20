@@ -264,6 +264,17 @@ namespace VOP
 
         private void ScanToFtpButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            if (m_MainWin.CheckDeviceStatus() == -1)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+            Application.Current.MainWindow,
+           (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
+           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+            );
+
+                return;
+            }
+
             ImageButton2 btn = sender as ImageButton2;
 
             List<string> files = new List<string>();
@@ -279,6 +290,16 @@ namespace VOP
 
         private void ScanToCloudButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            if (m_MainWin.CheckDeviceStatus() == -1)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+            Application.Current.MainWindow,
+           (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
+           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+            );
+
+                return;
+            }
             ImageButton2 btn = sender as ImageButton2;
 
             List<string> files = new List<string>();
