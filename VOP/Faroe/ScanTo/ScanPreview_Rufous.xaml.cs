@@ -165,7 +165,7 @@ namespace VOP
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {
-            ImageButton2 button = sender as ImageButton2;
+            Button button = sender as Button;
             if (button.Name == "PreImageButton")
             {
                 currentState = ImagePreviewState.Pre;

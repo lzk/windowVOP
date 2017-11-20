@@ -1422,6 +1422,9 @@ BOOL TestIpConnected(wchar_t* szIP)
 	int nResult = TRUE;
 	CGLNet m_GLnet;
 	
+	if (wcslen(szIP) == 0)
+		return false;
+
 	if (m_GLnet.CMDIO_Connect(szIP, 23011))
 	{
 		TCHAR showIp[256] = { 0 };
