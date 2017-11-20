@@ -28,7 +28,7 @@
             <RowDefinition Height="70*"/>
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
-        
+
         <Grid Grid.Row="0" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="90" />
@@ -52,11 +52,14 @@
                 </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
-                    <RowDefinition Height="283"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="0*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Grid.RowSpan="2"  Orientation="Horizontal" VerticalAlignment="Top" 
-                    HorizontalAlignment="Left" Margin="0,0,0,0">
+                    HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="../Images/main_img_search device panel.png"/>
+                    </StackPanel.Background>
                     <local:DeviceButton  
                     x:Name="DeviceButton"
                     Width="48"
@@ -129,7 +132,7 @@
 
 
 
-        <local:ImageButton2  x:Name="ImageButton2"
+            <local:ImageButton2  x:Name="ImageButton2"
                             Grid.Row="1"
                             Grid.Column="1"
                             Grid.RowSpan="1"
