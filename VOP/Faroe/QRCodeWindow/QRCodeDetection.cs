@@ -301,6 +301,7 @@ namespace VOP
         {
             int nResult = 0;
             string saveFileName = null;
+            string pdfFileName = null;
 
             try
             {
@@ -310,15 +311,21 @@ namespace VOP
                     {
                         if (saveFileName == null)
                         {
-                            saveFileName = MainWindow_Rufous.g_settingData.m_separateFilePath + "\\" + System.IO.Path.GetFileNameWithoutExtension(fileName);
+                            pdfFileName = System.IO.Path.GetFileNameWithoutExtension(fileName);
 
                             if (separateResult.barcodeContent != null)
                             {
-                                saveFileName += "#" + separateResult.barcodeContent + ".pdf";
+                                pdfFileName += "#" + separateResult.barcodeContent + ".pdf";
                             }
                             else
                             {
-                                saveFileName += "#0.pdf";
+                                pdfFileName += "#0.pdf";
+                            }
+
+                            saveFileName = MainWindow_Rufous.g_settingData.m_separateFilePath + "\\" + pdfFileName;
+                            if (saveFileName.Length >= 260 || MainWindow_Rufous.g_settingData.m_separateFilePath.Length >= 248)
+                            {
+                                saveFileName = System.IO.Path.GetDirectoryName(fileName) + "\\" + pdfFileName;
                             }
 
                             help.Open(saveFileName);
@@ -350,6 +357,7 @@ namespace VOP
         {
             int nResult = 0;
             string saveFileName = null;
+            string tiffFileName = null;
 
             try
             {
@@ -359,16 +367,23 @@ namespace VOP
                 {
                     if (saveFileName == null)
                     {
-                        saveFileName = MainWindow_Rufous.g_settingData.m_separateFilePath + "\\" + System.IO.Path.GetFileNameWithoutExtension(fileName);
+                        tiffFileName = System.IO.Path.GetFileNameWithoutExtension(fileName);
 
                         if (separateResult.barcodeContent != null)
                         {
-                            saveFileName += "#" + separateResult.barcodeContent + ".tif";
+                            tiffFileName += "#" + separateResult.barcodeContent + ".tif";
                         }
                         else
                         {
-                            saveFileName += "#0.tif";
+                            tiffFileName += "#0.tif";
                         }
+
+                        saveFileName = MainWindow_Rufous.g_settingData.m_separateFilePath + "\\" + tiffFileName;
+                        if (saveFileName.Length >= 260 || MainWindow_Rufous.g_settingData.m_separateFilePath.Length >= 248)
+                        {
+                            saveFileName = System.IO.Path.GetDirectoryName(fileName) + "\\" + tiffFileName;
+                        }
+
                     }
 
                     Uri myUri = new Uri(fileName, UriKind.RelativeOrAbsolute);

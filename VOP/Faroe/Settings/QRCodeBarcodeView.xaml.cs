@@ -20,6 +20,8 @@ namespace VOP
 {
     public partial class QRCodeBarcodeView : System.Windows.Controls.UserControl
     {
+        String oldPath = @"";
+
         public QRCodeBarcodeView()
         {
             InitializeComponent();
@@ -35,6 +37,7 @@ namespace VOP
 
             cbFileType.SelectedIndex = MainWindow_Rufous.g_settingData.m_separateFileType;
 
+            oldPath = MainWindow_Rufous.g_settingData.m_separateFilePath;
             tbFilePath.MaxLength = 255;
             tbFilePath.Text = MainWindow_Rufous.g_settingData.m_separateFilePath;
 
@@ -142,10 +145,30 @@ namespace VOP
             save.SelectedPath = tbFilePath.Text;
             save.ShowNewFolderButton = true;
 
-            DialogResult result = save.ShowDialog();
-            if (result == DialogResult.OK)
+            while (true)
             {
-                tbFilePath.Text = save.SelectedPath;
+                DialogResult result = save.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    if (save.SelectedPath.Length + 50 >= 260)
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                             System.Windows.Application.Current.MainWindow,
+                            "The specified path is too long. Please specify again!",
+                            "Error");
+                    }
+                    else
+                    {
+                        oldPath = save.SelectedPath;
+                        tbFilePath.Text = save.SelectedPath;
+
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
             }
         }
 
@@ -167,6 +190,20 @@ namespace VOP
                 else
                 {
                     return _MainWin;
+                }
+            }
+        }
+
+        private void tbFilePath_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = sender as System.Windows.Controls.TextBox;
+
+            if (null != tb)
+            {
+                if ("tbFilePath" == tb.Name)
+                {
+                    if (oldPath != tb.Text)
+                        tb.Text = oldPath;
                 }
             }
         }
