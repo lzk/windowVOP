@@ -162,21 +162,27 @@ namespace VOP
 
           //  if (worker.InvokeMethod<PowerSaveTimeRecord>(strPrinterName, ref m_rec, DllMethodType.SetPowerSaveTime, this))
             {
-                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+//                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                 {
-                    m_psavetime = psavetime;
-                    isApplySuccess = true;
+  //                  m_psavetime = psavetime;
+    //                isApplySuccess = true;
                 }
 
             }
 
             if (isApplySuccess)
             {
-
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                     System.Windows.Application.Current.MainWindow,
+                    (string)this.FindResource("ResStr_Setting_Successfully_"),
+                    "Prompt");
             }
             else
             {
-
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                     System.Windows.Application.Current.MainWindow,
+                    (string)this.FindResource("ResStr_Setting_Fail"),
+                    "Prompt");
             }
             return isApplySuccess;
         }

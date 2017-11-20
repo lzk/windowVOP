@@ -224,7 +224,12 @@ namespace VOP
             if (btn.Name == "ImageButton2")
                 param = MainWindow_Rufous.g_settingData.m_commonScanSettings;
 
+            string oldPictureFolder = App.PictureFolder;
+            App.PictureFolder = App.cacheFolder;
+
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", param);
+
+            App.PictureFolder = oldPictureFolder;
 
             if (files == null)
                 return;
