@@ -249,7 +249,7 @@ namespace VOP
                     //add by yunying shang 2017-11-10 for BMS 1389
                     btnIncrease.IsEnabled = false;
               
-                    btnIncrease.IsEnabled = false;
+                    btnDecrease.IsEnabled = false;
                     
                 }
                 else

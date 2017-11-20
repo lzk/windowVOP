@@ -70,3 +70,4 @@ EXPORTS
 	SetConnectionMode
 	CheckConnection
 	DoCalibration
+	TestIpConnected

@@ -31,12 +31,12 @@ namespace VOP
             InitializeComponent();
         }
 
-        //public List<String> NoteList
-        //{
-        //    get { return notelist; }
+        public List<String> NoteList
+        {
+            get { return notelist; }
 
-        //    set { notelist = value; }
-        //}
+            set { notelist = value; }
+        }
 
         public string NoteTitle
         {
@@ -66,7 +66,18 @@ namespace VOP
             }
 
         }
+
         private void InitNoteList()
+        {
+            listNote.Items.Clear();
+
+            foreach (string item in notelist)
+            {
+                listNote.Items.Add(item);
+            }
+        }
+
+        private bool GetNoteList(List<string> NoteList)
         {
             string textToFind = "*";
             try
@@ -74,22 +85,14 @@ namespace VOP
                 List<ENSessionFindNotesResult> myResultsList = ENSession.SharedSession.FindNotes(ENNoteSearch.NoteSearch(textToFind), null,
                 ENSession.SearchScope.All, ENSession.SortOrder.RecentlyUpdated, 500);
 
-                List<string> notelist = new List<string>();
+               // List<string> notelist = new List<string>();
 
                 if (myResultsList.Count > 0)
                 {
-
                     foreach (ENSessionFindNotesResult nb in myResultsList)
                     {
-                        notelist.Add(nb.Title);
+                        NoteList.Add(nb.Title);
                     }
-                }
-
-                listNote.Items.Clear();
-
-                foreach (string item in notelist)
-                {
-                    listNote.Items.Add(item);
                 }
             }
 
@@ -97,11 +100,13 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                 Application.Current.MainWindow,
-                (string)"Get Ever Note List Error!" ,
+                (string)"Get Ever Note List Error!",
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
 
-                return;
+                return false;
             }
+
+            return true;
 
         }
 
@@ -135,7 +140,11 @@ namespace VOP
                 content = string.Format("{0}.Attach the scaling Files.", content);
                 myResourceNote.Content = ENNoteContent.NoteContentWithString(content);
                 ENNoteRef myResourceRef = ENSession.SharedSession.UploadNote(myResourceNote, null);
-                InitNoteList();
+
+                if(GetNoteList(notelist))
+                { 
+                    InitNoteList();
+                }
             }
             catch (Exception ex)
             {

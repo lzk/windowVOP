@@ -341,7 +341,7 @@ namespace VOP
                 "../Images/main_img_ftp.png",
                 "../Images/main_img_cloud.png"
             };
-            string[] adfmode = {"Two Side", "One Side" };
+            string[] adfmode = { "One Side", "Two Side"};
             ScreenBtn.Content = number.ToString();
 
             int index = MainWindow_Rufous.g_settingData.m_MatchList[number - 1].Value;

@@ -264,7 +264,7 @@ namespace VOP
 
         private void ScanToFtpButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (m_MainWin.CheckDeviceStatus() == -1)
+            if (!m_MainWin.scanDevicePage.IsOnLine())
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
             Application.Current.MainWindow,
@@ -290,7 +290,7 @@ namespace VOP
 
         private void ScanToCloudButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (m_MainWin.CheckDeviceStatus() == -1)
+            if (!m_MainWin.scanDevicePage.IsOnLine())
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
             Application.Current.MainWindow,

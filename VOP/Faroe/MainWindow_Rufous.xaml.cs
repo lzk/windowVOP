@@ -104,6 +104,11 @@ namespace VOP
                                 dll.SetConnectionMode("", false);
                             }
                         }
+                        else if (iRtn == 1)
+                        {
+                            MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+                            dll.SetConnectionMode("", true);
+                        }
                     }
                 }
             }
@@ -499,7 +504,7 @@ namespace VOP
                 else
                 {
                     scanSelectionPage.tbStatus.Text = "Disconnected";
-                    MainWindow_Rufous.g_settingData.m_DeviceName = "";
+                    //MainWindow_Rufous.g_settingData.m_DeviceName = "";
                     scanSelectionPage.DeviceButton.Connected = false;
                     scanSettingsPage.PassStatus(false);
                     bUseGrayIcon = true;

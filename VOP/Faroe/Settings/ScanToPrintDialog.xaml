@@ -231,13 +231,11 @@
                     Height="35"
                     Grid.Row="1" 
                     Grid.Column="2"  
-                    Foreground="Black"
                     HorizontalAlignment="Right"
                     VerticalContentAlignment="Center"
                     Name="cboPrinters" 
                     SelectionChanged="cboPrinters_SelectionChanged">
                         </ComboBox>
-
                     </Grid>
                 
                     <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
