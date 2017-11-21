@@ -295,7 +295,7 @@
                             HorizontalAlignment="Center" 
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 
-                            Width="160" 
+                            Width="130" 
                             Height="32"></Button>
         </Grid>
     </Grid>

@@ -1226,6 +1226,31 @@
   <ItemGroup>
     <Resource Include="Images\screenbg_normal.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\left_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\right_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\up_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\down_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\popup_gnd_apps.png" />
+    <Resource Include="Images\popup_gnd_dropbox file viewer.png" />
+    <Resource Include="Images\popup_gnd_evernote viewer.png" />
+    <Resource Include="Images\popup_gnd_image preview.png" />
+    <Resource Include="Images\popup_gnd_quick scan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\popup_gnd_scan setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\popup_gnd_image preview1.png" />
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>

@@ -64,7 +64,7 @@ namespace VOP
             if (result == ScanFileSaveError.FileSave_OK)
             {
                 if (FlowType == FileFlowType.View)
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_save_file_ok"),
                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
@@ -318,10 +318,27 @@ namespace VOP
             }
 
             //add by yunying shang 2017-11-20 for BMS 1176
-            DirectorySecurity sec = Directory.GetAccessControl(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath, 
-                AccessControlSections.Access);
+            DirectorySecurity sec = Directory.GetAccessControl(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath,
+               AccessControlSections.All); //AccessControlSections.Access); //
 
-            if (!sec.AreAccessRulesProtected)
+            AuthorizationRuleCollection rules = sec.GetAccessRules(true, true, typeof(System.Security.Principal.NTAccount));
+
+            bool bWrite = true;
+            foreach (FileSystemAccessRule rule in rules)
+            {
+                if ((rule.FileSystemRights & FileSystemRights.WriteData) != 0)
+                {
+                    bWrite = true;
+                }
+                else
+                {
+                    bWrite = false;
+                    break;
+                }
+            }
+
+            if (!bWrite)
+            //if(!sec.AreAccessRulesProtected)
             {
                 return ScanFileSaveError.FileSave_NotAccess;
             }//<<===============1176

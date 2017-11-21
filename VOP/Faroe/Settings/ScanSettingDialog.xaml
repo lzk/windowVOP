@@ -295,8 +295,10 @@
                     <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <Grid x:Name="LayoutRoot" Background="AliceBlue" Width="537" Height="545" >
-
+            <Grid x:Name="LayoutRoot" Width="537" Height="545" >
+                <Grid.Background>
+                    <ImageBrush ImageSource="../../Images/popup_gnd_quick scan.png" Stretch="None"></ImageBrush>
+                </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="100" />

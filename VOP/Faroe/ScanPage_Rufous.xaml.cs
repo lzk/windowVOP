@@ -169,7 +169,18 @@ namespace VOP
             ImageButton2 btn = sender as ImageButton2;
 
             List<string> files = new List<string>();
-            GetSelectedFile(files);
+            if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true)
+            {
+                GetSelectedFileToAP(files, 2);
+                SelectTwoFiles(2);
+            }
+            else
+            {
+                GetSelectedFileToAP(files, 1);
+                SelectTwoFiles(1);
+            }
+
+            SelectAllCheckBox.IsChecked = false;
 
             APFlow flow = new APFlow();
             flow.ParentWin = m_MainWin;
@@ -443,6 +454,40 @@ namespace VOP
             }
         }
 
+        private void SelectTwoFiles(int selCount)
+        {
+            int index = selectedFileList.Count - m_selectedPage * 8;
+
+            for (int i = 0; i < selCount; i++)
+            {
+               selectedFileList[i].m_num = selCount - i;
+            }
+
+            for (int i = 0; i < selCount; i++)
+            {
+                ImageItem img = image_wrappanel.Children[i] as ImageItem;
+       
+                img.m_num = index;         
+
+                index--;
+            }
+
+            for (int i = selCount; i < selectedFileList.Count; i++)
+            {
+               selectedFileList[i].m_num = 0;
+            }
+
+
+            for (int i = selCount; i < image_wrappanel.Children.Count; i++)
+            {
+                ImageItem img = image_wrappanel.Children[i] as ImageItem;
+              
+                img.m_num = 0;                
+
+                index--;
+            }
+        }
+
         private void ImageItemDoubleClick(object sender, RoutedEventArgs e)
         {
             ImageItem img = (ImageItem)sender;
@@ -625,7 +670,7 @@ namespace VOP
                 {
                     if (0 < img.m_num)
                     {
-                        files[img.m_num - 1] = img._files.m_pathOrig;
+                        files[img.m_num-1] = img._files.m_pathOrig;
                     }
                 }
             }
@@ -638,6 +683,40 @@ namespace VOP
                      "Prompt");
             }
         }
+
+        /// <summary>
+        /// Get the file paths of selected image item for scan to AP.
+        /// </summary>
+        /// <param name="files"> Container used to store the file name.  </param>
+        private void GetSelectedFileToAP(List<string> files, int count)
+        {
+            files.Clear();
+
+            int nCount = GetSelectedItemCount();
+
+            if (nCount > 0 && nCount >= count)
+            {
+                files.AddRange(new string[count]);
+ 
+                for(int i=0; i< count; i++)
+                {
+                    ImageStatus img = selectedFileList[i];
+                    if (0 < img.m_num)
+                    {
+                        files[nCount - img.m_num] = img._files.m_pathOrig;
+                    }
+                }
+            }
+
+            if (files == null || files.Count == 0)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                      Application.Current.MainWindow,
+                     "Please select one or more pictures to process",
+                     "Prompt");
+            }
+        }
+
 
         /// <summary>
         /// Update the number of selected image items.

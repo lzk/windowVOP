@@ -11,14 +11,55 @@
         WindowStartupLocation="CenterOwner" 
         Style="{StaticResource for_noresize_window}"
         >
+    <Window.Resources>
+        <Style x:Key="CustomPopUpButtonStyle" TargetType="Button">
+            <Setter Property="Cursor"  Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid ClipToBounds="True">
+                            <Image Name="backgroundImage" Source="../../../Images/popup_btn_2.png"/>
+                            <!-- Present Content (text) of the button. -->
+                            <TextBlock x:Name="myContentPresenter"
+                                           Text="{TemplateBinding  Content}"  
+                                           Margin="{TemplateBinding   Padding}"
+                                           HorizontalAlignment="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource TemplatedParent}}"
+                                           VerticalAlignment="Center"
+                                           Foreground="Black" 
+                                           FontSize="{TemplateBinding FontSize}"
+                                   />
 
-    <Grid Background="#FFEDEDED">
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsPressed" Value="false" />
+                                    <Condition Property="IsMouseOver" Value="true" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="backgroundImage"  Property="Source"  Value="../../../Images/popup_btnt_2.png"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsPressed" Value="true" />
+                                    <Condition Property="IsMouseOver" Value="true" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="backgroundImage"  Property="Source"  Value="../../../Images/popup_btnf_2.png"/>
+                            </MultiTrigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </Window.Resources>
+    <Grid Background="AliceBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="27*" />
-            <RowDefinition Height="70*" />
-            <RowDefinition Height="8*" />
-            <RowDefinition Height="31*" />
+            <RowDefinition Height="95*" />
+            <RowDefinition Height="5*" />
             <RowDefinition Height="30*" />
+            <RowDefinition Height="20*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30*" />
@@ -26,8 +67,8 @@
             <ColumnDefinition Width="10*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.ColumnSpan="3" Background="#213244" MouseLeftButtonDown="Title_MouseButtonEventHandler">
-            <TextBlock Name="captionTextBlock" FontSize="16" Text="" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <Grid Grid.ColumnSpan="3"  MouseLeftButtonDown="Title_MouseButtonEventHandler">
+            <TextBlock Name="captionTextBlock" FontSize="14" Text="" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
 
             <local:MinimizeCloseButton x:Name="btnClose" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" 
                                        VerticalAlignment="Center" HorizontalAlignment="Right" Click="Click"/>
@@ -71,8 +112,10 @@
                 <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
 
-            <local:ButtonEx Grid.Column="3" IsActiveEx="False" x:Name="btn_No"  Content="{StaticResource ResStr_No}" FontSize="16" HorizontalContentAlignment="Center" Click="Click"/>
-            <local:ButtonEx Grid.Column="1" IsActiveEx="True" x:Name="btn_Yes"  Content="{StaticResource ResStr_Yes}" FontSize="16" HorizontalContentAlignment="Center" Click="Click"/>
+            <Button Grid.Column="3" x:Name="btn_No"  Style="{StaticResource CustomPopUpButtonStyle}" 
+                    Content="{StaticResource ResStr_No}" FontSize="14" HorizontalContentAlignment="Center" Click="Click"/>
+            <Button Grid.Column="1" x:Name="btn_Yes"  Style="{StaticResource CustomPopUpButtonStyle}"
+                    Content="{StaticResource ResStr_Yes}" FontSize="14" HorizontalContentAlignment="Center" Click="Click"/>
 
         </Grid>
 

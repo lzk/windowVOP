@@ -291,7 +291,7 @@ namespace VOP
 
             if (!dll.TestIpConnected(item1.DeviceName))
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                 Application.Current.MainWindow,
                 (string)"This machine could not be connected!",
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));

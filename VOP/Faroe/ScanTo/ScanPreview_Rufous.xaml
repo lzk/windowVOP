@@ -158,7 +158,10 @@
     </Window.Effect>
 
     <Viewbox Stretch="Fill">
-        <Grid x:Name="LayoutRoot" Background="AliceBlue" Width="648" Height="700" >
+        <Grid x:Name="LayoutRoot" Width="648" Height="700" >
+            <Grid.Background>
+                <ImageBrush ImageSource="../../Images/popup_gnd_Image Preview.png" Stretch="None"></ImageBrush>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
@@ -251,7 +254,7 @@
 
             <StackPanel Margin="0" Grid.Row="4" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top" >
                 <Button x:Name="btnOK" Content="{StaticResource
-                    ResStr_Back}" HorizontalAlignment="Center" Height="33" Style="{StaticResource CustomPopUpButtonStyle}"
+                    ResStr_Back}" HorizontalAlignment="Center" Height="33" Style="{StaticResource CustomPopUpButtonStyle2}"
                 HorizontalContentAlignment="Center"
                 Width="110" VerticalAlignment="Center" Click="btnOK_Click"/>
                 <!--<local:ButtonEx x:Name="btnPrint"  Content="{StaticResource ResStr_Print}" HorizontalAlignment="Center" Height="33"
