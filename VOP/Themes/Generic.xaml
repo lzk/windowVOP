@@ -14,6 +14,7 @@
         <ResourceDictionary Source="/VOP;component/Controls/SpinnerControl/SpinnerControlOnlySupportUpDowmKeyStyle.xaml" />
         <ResourceDictionary Source="/VOP;component/Faroe/DeviceListBoxItem.xaml" />
         <ResourceDictionary Source="/VOP;component/Controls/DeviceButton.xaml" />
+        <ResourceDictionary Source="/VOP;component/Controls/CustomButton.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

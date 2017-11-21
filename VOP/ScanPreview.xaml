@@ -159,7 +159,10 @@
 
     <Viewbox Stretch="Fill">
 
-        <Grid x:Name="LayoutRoot" Background="AliceBlue" Width="648" Height="670" >
+        <Grid x:Name="LayoutRoot" Width="648" Height="670" >
+            <Grid.Background>
+                <ImageBrush ImageSource="Images/popup_gnd_image preview1.png" Stretch="None"></ImageBrush>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
@@ -178,7 +181,7 @@
                 <Image VerticalAlignment="Center" HorizontalAlignment="Center" Name="previewImg" />
             </ScrollViewer>
 
-            <StackPanel HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,5,0,0">
                <!--<Button HorizontalAlignment="Left" Name="btn_normal" Click="imagebtn_click"
                 VerticalAlignment="Center"  Width="55" Height="30" Margin="10" Style="{DynamicResource 3dbutton}">
                     <Image Height="17" Width="17" Stretch="Fill"
@@ -229,7 +232,7 @@
             <StackPanel Margin="0" Grid.Row="4" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top" >
                 <Button x:Name="btnOK" Content="{StaticResource
                     ResStr_Back}" HorizontalAlignment="Center" Height="33"
-                HorizontalContentAlignment="Center" Style="{StaticResource CustomPopUpButtonStyle}"
+                HorizontalContentAlignment="Center" Style="{StaticResource CustomPopUpButtonStyle2}"
                 Width="120" VerticalAlignment="Center" Click="btnOK_Click"/>
                 <!--<local:ButtonEx x:Name="btnPrint"  Content="{StaticResource ResStr_Print}" HorizontalAlignment="Center" Height="33"
                 HorizontalContentAlignment="Center"

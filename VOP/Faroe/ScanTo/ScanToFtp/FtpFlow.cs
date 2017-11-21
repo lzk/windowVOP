@@ -85,7 +85,7 @@ namespace VOP
 
                     if (worker.InvokeQuickScanMethod(UploadFiles, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ftp_wait")))
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                     Application.Current.MainWindow,
                                      (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ok"),
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
@@ -114,7 +114,7 @@ namespace VOP
 
                 if ((Uri.Length + FileList[0].Length) > 260)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                 Application.Current.MainWindow,
                  (string)"Your Specify the Server Address and Tartget Path are too long!",
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")

@@ -71,7 +71,7 @@
                     
                     <Button x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="2" Height="35"
                              Style="{StaticResource CustomSettingButtonStyle}"
-                                    Width="100" Content="{StaticResource ResStr_Manual_Wi_Fi}" 
+                                    Width="130" Content="{StaticResource ResStr_Manual_Wi_Fi}" 
                                     HorizontalContentAlignment="Center" HorizontalAlignment="Right"></Button>
                   
                     <Grid Grid.Row="3" Name="gdWifi">
