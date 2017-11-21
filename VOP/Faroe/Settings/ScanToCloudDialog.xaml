@@ -191,6 +191,8 @@
                      />
                         <TextBox 
                      Name="SavePathTbx"
+                     IsReadOnly="True"
+                     IsTabStop="False"
                      Template="{StaticResource customTextBox}" 
                      Grid.Row="3"
                      Grid.Column="2"

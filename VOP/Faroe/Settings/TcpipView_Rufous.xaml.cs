@@ -290,7 +290,7 @@ namespace VOP
             {
                 tb_ip.IsEnabled = true;
                 tb_gate.IsEnabled = true;
-                tb_mask.IsEnabled = true;
+                tb_mask.IsEnabled = true;                
             }///////////////1017
         }
 
