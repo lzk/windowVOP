@@ -491,6 +491,9 @@ namespace VOP
 
         [DllImport("usbapi.dll")]
         public static extern int DoCalibration();
+
+        [DllImport("usbapi.dll")]
+        public static extern bool TestIpConnected([MarshalAs(UnmanagedType.LPWStr)]string szIP);
     }
 
 }

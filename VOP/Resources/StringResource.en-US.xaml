@@ -234,12 +234,12 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_0__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">The combination of IP address and subnet mask is invalid. All of the bits in the host address portion of the IP address are set to 0. Please enter a valid combination of IP address and subnet mask.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_machine_is_busy__please_try_later_">The machine is busy, please try again later.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_fix_error_first_and_try_later_">Please fix error first and try later!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Setting_Successfully_">Configured successfully</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Setting_Successfully_">Configuration Completed! Please restart machine to apply settings.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_Fail">Configure failed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Fail">Scan failed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Fail">Print failed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copy_Fail">Copy failed</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_1">Configured successfully. Restart the machine to apply changes.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_1">Configuration completed. Restart the machine to apply changes.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_2">The password must be 5 or 13 ASCII characters or 10 or 26 hex characters, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_3">The password must be 8 to 63 ASCII characters or 64 hex characters, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_4">Please enter your mobile number</sys:String>
@@ -428,4 +428,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Uploading_Files">Uploading Image Files, please wait...</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Device_Disconnected">The device is disconnected, the scanning will be canceled!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_ScanTo_Cloud_wait">Connectiong to Cloud Server, please wait...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Network_fail">The Network is not connected, please check your setting.</sys:String>
 </ResourceDictionary>

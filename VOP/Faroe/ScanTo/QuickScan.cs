@@ -274,11 +274,11 @@ namespace VOP
                 }
                 else
                 {
-                    if (flow.isCancel != true)
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                                        Application.Current.MainWindow,
-                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
-                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                    //if (flow.isCancel != true)
+                    //    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    //                    Application.Current.MainWindow,
+                    //                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
+                    //                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                     return false;
                 }
             }

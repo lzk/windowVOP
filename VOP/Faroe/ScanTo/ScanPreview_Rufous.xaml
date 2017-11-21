@@ -194,7 +194,7 @@
                         Style="{StaticResource NextImageButtonStyle}" 
                         Width="10" 
                         Height="15" 
-                         Margin="10,0,0,0"/>
+                         Margin="10,8,0,0" VerticalAlignment="Top"/>
                 </StackPanel>
                 <TextBlock Name="messageBlock" Grid.Row="2"  FontSize="14" Margin="15,0"
                        VerticalAlignment="Center" HorizontalAlignment="Center"               

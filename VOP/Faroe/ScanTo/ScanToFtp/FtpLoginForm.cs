@@ -43,6 +43,12 @@ namespace VOP
             tbTargetPath.Text = m_targetPath;
         }
 
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+                e.Handled = true;
+        }
+
         private void OkClick(object sender, RoutedEventArgs e)
         {
 

@@ -20,6 +20,8 @@ namespace VOP
 {
     public partial class QRCodeBarcodeView : System.Windows.Controls.UserControl
     {
+        String oldPath = @"";
+
         public QRCodeBarcodeView()
         {
             InitializeComponent();
@@ -35,6 +37,7 @@ namespace VOP
 
             cbFileType.SelectedIndex = MainWindow_Rufous.g_settingData.m_separateFileType;
 
+            oldPath = MainWindow_Rufous.g_settingData.m_separateFilePath;
             tbFilePath.MaxLength = 255;
             tbFilePath.Text = MainWindow_Rufous.g_settingData.m_separateFilePath;
 
@@ -86,24 +89,24 @@ namespace VOP
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
-            if (tbFilePath.Text == "")
+            if (tbFilePath.Text.Trim() == "")
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    System.Windows.Application.Current.MainWindow,
-                  "The File Path cannot be empty",
+                  "The File Path cannot be empty.",
                   "Error");
                 return;
             }
-            else if (tbFileName.Text == "")
+            else if (tbFileName.Text.Trim() == "")
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    System.Windows.Application.Current.MainWindow,
-                  "The File Name cannot be empty",
+                  "The Output Result cannot be empty.",
                   "Error");
                 return;
             }
 
-            if (!IsValidFileName(tbFileName.Text))
+            if (!IsValidFileName(tbFileName.Text.Trim()))
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                     System.Windows.Application.Current.MainWindow,
@@ -112,7 +115,7 @@ namespace VOP
                 return;
             }
 
-            if (!IsValidPathName(tbFilePath.Text))
+            if (!IsValidPathName(tbFilePath.Text.Trim()))
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                     System.Windows.Application.Current.MainWindow,
@@ -120,28 +123,52 @@ namespace VOP
                     "Error");
                 return;
             }
-            else
-            {
-                MainWindow_Rufous.g_settingData.m_separateFilePath = tbFilePath.Text;
-            }
 
-            MainWindow_Rufous.g_settingData.m_decodeResultFile = tbFileName.Text;
+            MainWindow_Rufous.g_settingData.m_separateFilePath = tbFilePath.Text.Trim();
+
+            MainWindow_Rufous.g_settingData.m_decodeResultFile = tbFileName.Text.Trim();
           
             MainWindow_Rufous.g_settingData.m_decodeType = cbCodeType.SelectedIndex;
 
             MainWindow_Rufous.g_settingData.m_separateFileType = cbFileType.SelectedIndex;
+
+            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                 System.Windows.Application.Current.MainWindow,
+                (string)this.FindResource("ResStr_Setting_Successfully_"),
+                "Prompt");
+
         }
 
         private void BrowseClick(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog save = new FolderBrowserDialog();
             save.SelectedPath = tbFilePath.Text;
-            save.ShowNewFolderButton = false;
+            save.ShowNewFolderButton = true;
 
-            DialogResult result = save.ShowDialog();
-            if (result == DialogResult.OK)
+            while (true)
             {
-                tbFilePath.Text = save.SelectedPath;
+                DialogResult result = save.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    if (save.SelectedPath.Length + 50 >= 260)
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                             System.Windows.Application.Current.MainWindow,
+                            "The specified path is too long. Please specify again!",
+                            "Error");
+                    }
+                    else
+                    {
+                        oldPath = save.SelectedPath;
+                        tbFilePath.Text = save.SelectedPath;
+
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
             }
         }
 
@@ -163,6 +190,20 @@ namespace VOP
                 else
                 {
                     return _MainWin;
+                }
+            }
+        }
+
+        private void tbFilePath_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = sender as System.Windows.Controls.TextBox;
+
+            if (null != tb)
+            {
+                if ("tbFilePath" == tb.Name)
+                {
+                    if (oldPath != tb.Text)
+                        tb.Text = oldPath;
                 }
             }
         }

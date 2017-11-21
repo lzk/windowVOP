@@ -64,8 +64,8 @@ extern UINT WM_VOPSCAN_PAGECOMPLETE;
 extern CRITICAL_SECTION g_csCriticalSection_UsbTest;
 extern CRITICAL_SECTION g_csCriticalSection_NetWorkTest;
 
-extern BOOL TestIpConnected(wchar_t* szIP);
-extern BOOL TestIpConnected(wchar_t* szIP, Scan_RET *status);
+USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP);
+extern BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *status);
 
 wchar_t g_ipAddress[256] = { 0 };
 BOOL g_connectMode_usb = FALSE;
@@ -410,7 +410,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	Scan_RET re_status = RETSCAN_OK;
 	if (g_connectMode_usb != TRUE)
 	{
-		if (TestIpConnected(g_ipAddress, &re_status) == TRUE)
+		if (TestIpConnected1(g_ipAddress, &re_status) == TRUE)
 		{
 			if (re_status == RETSCAN_BUSY)
 			{

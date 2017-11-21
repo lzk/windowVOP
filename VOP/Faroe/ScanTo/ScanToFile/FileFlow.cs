@@ -19,6 +19,7 @@ using Outlook = Microsoft.Office.Interop.Outlook;
 using PdfEncoderClient;
 using Microsoft.Win32;
 using System.Drawing;
+using System.Security.AccessControl;
 
 namespace VOP
 {
@@ -73,9 +74,18 @@ namespace VOP
             {
 
             }
+            //add by yunying shang 2017-11-20 for BMS 1176
+            else if (result == ScanFileSaveError.FileSave_NotAccess)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                Application.Current.MainWindow,
+                               (string)"You do not permission to save to the selectd folder",
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                return false;
+            }//<<=================1176
             else
             {
-             
+
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow,
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save") + m_errorMsg,
@@ -306,7 +316,16 @@ namespace VOP
             {
                 return ScanFileSaveError.FileSave_Error;
             }
-           
+
+            //add by yunying shang 2017-11-20 for BMS 1176
+            DirectorySecurity sec = Directory.GetAccessControl(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath, 
+                AccessControlSections.Access);
+
+            if (!sec.AreAccessRulesProtected)
+            {
+                return ScanFileSaveError.FileSave_NotAccess;
+            }//<<===============1176
+            
             Thread thread = new Thread(() =>
             {
                 try

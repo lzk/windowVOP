@@ -84,9 +84,29 @@ namespace VOP
                     bRtn = qs.ScanToEmail();
                     break;
                 case 4:
+                    if (m_MainWin.CheckDeviceStatus() == -1)
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    Application.Current.MainWindow,
+                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
+                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                    );
+
+                        return;
+                    }
                     bRtn = qs.ScanToFtp();
                     break;
                 case 5:
+                    if (m_MainWin.CheckDeviceStatus() == -1)
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    Application.Current.MainWindow,
+                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
+                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                    );
+
+                        return;
+                    }
                     bRtn = qs.ScanToCloud();
                     break;
                 default:
@@ -204,7 +224,12 @@ namespace VOP
             if (btn.Name == "ImageButton2")
                 param = MainWindow_Rufous.g_settingData.m_commonScanSettings;
 
+            string oldPictureFolder = App.PictureFolder;
+            App.PictureFolder = App.cacheFolder;
+
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", param);
+
+            App.PictureFolder = oldPictureFolder;
 
             if (files == null)
                 return;
@@ -253,8 +278,9 @@ namespace VOP
             ImageButton2 btn = sender as ImageButton2;
 
             ScanTask task = new ScanTask();
-            // List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
-          List<ScanFiles> files = new List<ScanFiles>();
+
+            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
+            //List<ScanFiles> files = new List<ScanFiles>();
             m_MainWin._bScanning = false;
             if (files != null)
             //   return;
@@ -273,10 +299,10 @@ namespace VOP
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_2.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000C.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000D.jpg"));
-                    //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
-                    //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
-                    files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\1.JPG"));
-                    files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\2.JPG"));
+                    ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
+                    ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
+                    //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\1.JPG"));
+                    //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\2.JPG"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
@@ -321,7 +347,7 @@ namespace VOP
                 "../Images/main_img_ftp.png",
                 "../Images/main_img_cloud.png"
             };
-            string[] adfmode = {"Two Side", "One Side" };
+            string[] adfmode = { "One Side", "Two Side"};
             ScreenBtn.Content = number.ToString();
 
             int index = MainWindow_Rufous.g_settingData.m_MatchList[number - 1].Value;

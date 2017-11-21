@@ -287,6 +287,29 @@ namespace VOP
                 return;
             }
 
+            DeviceListBoxItem item1 = DeviceList.SelectedItem as DeviceListBoxItem;
+
+            if (!dll.TestIpConnected(item1.DeviceName))
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                Application.Current.MainWindow,
+                (string)"This machine could not be connected!",
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+
+                int i = 0;
+                foreach (DeviceListBoxItem item in DeviceList.Items)
+                {
+
+                    if (item.StatusText == "Connected")
+                    {
+                        DeviceList.SelectedIndex = i;
+                        break;
+                    }
+                    i++;
+       
+                }
+                return;
+            }
             m_MainWin.SetDeviceButtonState(false);
 
             foreach (DeviceListBoxItem item in DeviceList.Items)
@@ -325,7 +348,7 @@ namespace VOP
             }
             else
             {
-                if (DeviceList.Items.Count == 1)
+                if (DeviceList.Items.Count >= 1)
                 {
                     if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
                     {
@@ -353,6 +376,7 @@ namespace VOP
                             }
                             else
                             {
+                                OnConnected();
                                 Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                             }
                         }
@@ -365,6 +389,7 @@ namespace VOP
                         }
                         else
                         {
+                            OnConnected();
                             Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                         }
                     }

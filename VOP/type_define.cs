@@ -355,6 +355,7 @@ namespace VOP
         FileSave_OutOfMemory,
         FileSave_FileOccupied,
         FileSave_Cancel,
+        FileSave_NotAccess,
     }
 
     public enum Scan_RET

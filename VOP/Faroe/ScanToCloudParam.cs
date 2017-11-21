@@ -92,18 +92,19 @@ namespace VOP
 
         }
 
-        public ScanToCloudParam(string saveType, string Path, string title, string content)
+        public ScanToCloudParam(string saveType, string Path, string title, string content, bool needReset)
         {
             this.m_cloudSaveType = saveType;
             this.m_dropBoxDefaultPath = Path;
             this.m_evernotetile = title;
-            this.m_evernotecontent = content;      
+            this.m_evernotecontent = content;
+            this.m_bNeedReset = needReset;    
         }
 
         public object Clone()
         {
             return new ScanToCloudParam(this.m_cloudSaveType, this.m_dropBoxDefaultPath,
-                this.m_evernotetile, this.m_evernotecontent);
+                this.m_evernotetile, this.m_evernotecontent, this.m_bNeedReset);
         }
 
     }
