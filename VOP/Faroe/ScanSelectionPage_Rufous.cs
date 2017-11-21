@@ -184,10 +184,10 @@ namespace VOP
                 EnumPaperSizeScan._A4,
                 EnumColorType.color_24bit,
                 false,
-                MainWindow_Rufous.g_settingData.m_commonScanSettings.MultiFeed,
-                MainWindow_Rufous.g_settingData.m_commonScanSettings.AutoCrop,
-                MainWindow_Rufous.g_settingData.m_commonScanSettings.Brightness,
-                MainWindow_Rufous.g_settingData.m_commonScanSettings.Contrast,
+                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.MultiFeed,
+                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.AutoCrop,
+                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.Brightness,
+                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.Contrast,
                 false);
 
 
@@ -222,7 +222,7 @@ namespace VOP
 #elif (!DEBUG)
 
             if (btn.Name == "ImageButton2")
-                param = MainWindow_Rufous.g_settingData.m_commonScanSettings;
+                param = MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings;
 
             string oldPictureFolder = App.PictureFolder;
             App.PictureFolder = App.cacheFolder;
