@@ -316,6 +316,22 @@ namespace VOP
             }
             return false;
         }
+        private bool CheckFileName(string filename)
+        {
+            LoadProperties(CurrentFolder);
+            if (CurrentFolder.Folder != null && CurrentFolder.Children != null && CurrentFolder.Children.CurrentPage != null)
+            {
+                foreach (var obj in CurrentFolder.Children.CurrentPage)
+                {
+                    if ((obj.File != null) && (obj.Folder == null))
+                    {
+                        if (obj.Name == filename)
+                            return true;
+                    }
+                }
+            }
+            return false;
+        }
         private void LoadChildren(IList<DriveItem> items)
         {
             FileBrowser.Items.Clear();
@@ -460,7 +476,22 @@ namespace VOP
                     {
                         string fileName = System.IO.Path.GetFileName(filePath);
                         UploadStaus.Text = "Uploading file " + fileName;
-                        await Upload(client, filePath);
+                        if (CheckFileName(fileName))
+                        {
+                            VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon, this,
+                             "The file Name already exists£¬Do you want to overwrite",
+                             (string)this.TryFindResource("ResStr_Prompt"));
+
+                            if (VOP.Controls.MessageBoxExResult.Yes == ret)
+                            {
+                                await Upload(client, filePath);
+                            }
+                        }
+                        else
+                        {
+                            await Upload(client, filePath);
+                        }
+                            
                     }
                     UploadStaus.Text = "";
                     if (currentPath != "")

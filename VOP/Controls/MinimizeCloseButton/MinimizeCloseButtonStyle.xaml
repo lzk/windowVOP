@@ -18,7 +18,7 @@
         <Setter Property="BorderBrush" Value="{StaticResource brushBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="ForegroundColor" Value="{StaticResource brushForeground}"/>
-        <Setter Property="Focusable" Value="True"></Setter>
+        <Setter Property="Focusable" Value="False"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:MinimizeCloseButton}">
@@ -47,10 +47,11 @@
                                 <Condition Property="IsMouseOver" Value="true"/>
                                 <Condition Property="IsPressed" Value="false"/>
                             </MultiTrigger.Conditions>
-
+                            
                             <Setter TargetName="InnerBorder" Property="Background" Value="{StaticResource brushBackgroundOver}"/>
                             <Setter TargetName="InnerBorder" Property="BorderBrush" Value="{StaticResource brushBorderOver}"/>
                         </MultiTrigger>
+                        
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

@@ -235,6 +235,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_machine_is_busy__please_try_later_">The machine is busy, please try again later.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_fix_error_first_and_try_later_">Please fix error first and try later!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_Successfully_">Configuration Completed! Please restart machine to apply settings.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Setting_Completed">Configuration Completed!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_Fail">Configure failed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Fail">Scan failed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Fail">Print failed</sys:String>
