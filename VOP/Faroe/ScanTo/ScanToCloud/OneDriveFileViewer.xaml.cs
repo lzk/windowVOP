@@ -47,6 +47,7 @@ namespace VOP
 
         private DriveItem CurrentFolder { get; set; }
         private DriveItem SelectedItem { get; set; }
+
         public OneDriveFileViewer(GraphServiceClient client, List<string> fileList)
         {
             InitializeComponent();

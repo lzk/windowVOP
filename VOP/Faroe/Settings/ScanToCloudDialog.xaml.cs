@@ -202,7 +202,7 @@ namespace VOP
                 SavePathTbx.IsEnabled = true;
                 SavePathTbx.Visibility = System.Windows.Visibility.Visible;
                 tbDefaultPath.Text = "Default save path:";
-                SavePathTbx.Text = "";
+                //SavePathTbx.Text = "";
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
             }
@@ -236,7 +236,7 @@ namespace VOP
                 SavePathTbx.IsEnabled = true;
                 SavePathTbx.Visibility = System.Windows.Visibility.Visible;
                 tbDefaultPath.Text = "Default save path:";
-                SavePathTbx.Text = "";
+                //SavePathTbx.Text = "";
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
             }
