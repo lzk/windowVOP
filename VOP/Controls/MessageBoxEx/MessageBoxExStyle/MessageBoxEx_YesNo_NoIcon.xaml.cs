@@ -46,6 +46,7 @@ namespace VOP.Controls
             if (e.Key == Key.Enter)
             {
                 this.Close();
+                e.Handled = true;
             }
         }
         private void Click(object sender, RoutedEventArgs e)

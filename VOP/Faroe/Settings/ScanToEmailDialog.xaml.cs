@@ -42,6 +42,7 @@ namespace VOP
 
             tbRecipient.Text = m_scanToEmailParams.Recipient;
             tbSubject.Text = m_scanToEmailParams.Subject;
+            tbSettings.Focus();
         }
 
         private void cbAttachType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -114,6 +115,7 @@ namespace VOP
             if (e.Key == Key.Enter)
             {
                 this.Close();
+                e.Handled = true;
             }
         }
         private bool IsEmailNameAllNumber(string strEmail)

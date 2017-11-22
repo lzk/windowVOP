@@ -69,12 +69,15 @@ namespace VOP
             TextBox tb1 = spinCtlBrightness.Template.FindName("tbTextBox", spinCtlBrightness) as TextBox;
             tb1.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb1.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
+            twoSideButton.Focus();
         }
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
+                this.DialogResult = true;
                 this.Close();
+                e.Handled = true;
             }
         }
         private void ControlBtnClick(object sender, RoutedEventArgs e)
@@ -315,8 +318,7 @@ namespace VOP
                 }
             }
         }
-
-
+        
         private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             VOP.Controls.SpinnerControl spinnerCtl = sender as VOP.Controls.SpinnerControl;
@@ -601,6 +603,26 @@ namespace VOP
         {          
             btnOk.IsEnabled = ( false == spinCtlBrightness.ValidationHasError
                     && false == spinCtlConstrast.ValidationHasError );
+        }
+        private MainWindow_Rufous _MainWin = null;
+
+        public MainWindow_Rufous m_MainWin
+        {
+            set
+            {
+                _MainWin = value;
+            }
+            get
+            {
+                if (null == _MainWin)
+                {
+                    return (MainWindow_Rufous)App.Current.MainWindow;
+                }
+                else
+                {
+                    return _MainWin;
+                }
+            }
         }
     }
 }

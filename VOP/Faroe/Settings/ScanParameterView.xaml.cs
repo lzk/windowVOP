@@ -63,7 +63,7 @@ namespace VOP
             //{
             //    cbDecodeLevel.SelectedIndex = 3;
             //}
-            tbSettings.Focus();
+            
 
             if (MainWindow_Rufous.g_settingData.m_couldSaveType == "DropBox")
             {
@@ -87,6 +87,7 @@ namespace VOP
             {
                 cbAttachType.SelectedIndex = 1;
             }
+            tbSettings.Focus();
         }
 
         //private void cbDecodeLevel_SelectionChanged(object sender, SelectionChangedEventArgs e)

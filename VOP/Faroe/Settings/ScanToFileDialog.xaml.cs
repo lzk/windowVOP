@@ -52,12 +52,14 @@ namespace VOP
 
             tbFileName.Text = m_scanToFileParams.FileName;
             tbFilePath.Text = m_scanToFileParams.FilePath;
+            tbSettings.Focus();
         }
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
                 this.Close();
+                e.Handled = true;
             }
         }
         private void cbFileType_SelectionChanged(object sender, SelectionChangedEventArgs e)

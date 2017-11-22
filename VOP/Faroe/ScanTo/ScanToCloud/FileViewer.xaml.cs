@@ -422,6 +422,7 @@ namespace VOP
             if (e.Key == Key.Enter)
             {
                 this.Close();
+                e.Handled = true;
             }
         }
     }

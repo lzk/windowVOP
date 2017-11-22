@@ -514,6 +514,7 @@ namespace VOP
             if (e.Key == Key.Enter)
             {
                 this.Close();
+                e.Handled = true;
             }
         }
         private async Task Upload(GraphServiceClient client, string filePath)

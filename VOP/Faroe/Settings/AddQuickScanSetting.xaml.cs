@@ -55,6 +55,7 @@ namespace VOP
 
             cbType.SelectedIndex = value;
             tbName.Text = strItemName;
+            tbName.Focus();
         }
 
         private void cbType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -82,6 +83,7 @@ namespace VOP
             if (e.Key == Key.Enter)
             {
                 this.Close();
+                e.Handled = true;
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)

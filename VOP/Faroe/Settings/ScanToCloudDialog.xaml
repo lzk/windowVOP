@@ -84,9 +84,10 @@
                 Text="{StaticResource ResStr_Faroe_scan_setting}"/>
 
                     <Button
+                Name="tbSettings"
                 Grid.Row="0"
                 Grid.Column="2"
-                        HorizontalAlignment="Right"
+                HorizontalAlignment="Right"
                 Width="100"
                 Height="35" 
                 Content="{StaticResource ResStr_Setting}" 

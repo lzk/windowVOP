@@ -295,6 +295,22 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <TextBlock
+        	Grid.Column="1"
+        	FontSize="14"
+        	FontWeight="Bold"
+        	VerticalAlignment="Center"
+        	Text="{StaticResource ResStr_Faroe_scan_setting}" Margin="15,22,321,18"/>
+        <Button
+            Name="tbSettings"
+        	Grid.Column="1"
+        	Height="35" 
+        	Margin="178,13,4,10"
+        	Content="Settings..." 
+        	FontSize="16"
+       		Style="{StaticResource CustomSettingButtonStyle}"
+        	Click="Button_Click"
+                />
         <Grid Grid.Row="1" Grid.Column="1" Margin="0,10,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="150" />
@@ -351,7 +367,7 @@
                 </Grid>
             </GroupBox>
             <GroupBox x:Name="separateGroupBox" Grid.Row="1"  Header="Document Separation" FontWeight="Bold" 
-                      FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" Margin="5,5">
+                      FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" Margin="5,1,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
@@ -359,7 +375,7 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,5,20,0">
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,1,20,4">
                         <TextBlock 
             				Text="Save File Type :" 
             				VerticalAlignment="Center" FontWeight="Normal"
@@ -384,7 +400,7 @@
                         <TextBlock 
                     		Text="File Path :" 
                     		VerticalAlignment="Center"
-                    		FontSize="12" FontWeight="Normal" HorizontalAlignment="Left"  Width="120"
+                    		FontSize="12" FontWeight="Normal" HorizontalAlignment="Left"  Width="120" Margin="0,11,0,18"
                                 />
                         <TextBox 
                     		x:Name="tbFilePath"
@@ -394,7 +410,7 @@
                             HorizontalAlignment="Left"
                     		Width="200" 
                     		Height="30" 
-                    		Margin="20,0" 
+                    		Margin="20,3,20,12" 
                     		Text=""
                             FontWeight="Normal"
                     		VerticalContentAlignment="Center" TextChanged="tbFilePath_TextChanged"
@@ -405,7 +421,7 @@
             			FontSize="16" FontWeight="Normal"
             			Click="BrowseClick"
                              Width="100" Height="35"
-                             HorizontalAlignment="Right" Margin="0,8,25,7"
+                             HorizontalAlignment="Right" Margin="0,4,25,11"
             			Style="{StaticResource CustomSettingButtonStyle}"
             			Content="Browse..." 
                             />
@@ -423,20 +439,6 @@
             		Content="Apply" 
                             />
         </Grid>
-        <TextBlock
-        	Grid.Column="1"
-        	FontSize="14"
-        	FontWeight="Bold"
-        	VerticalAlignment="Center"
-        	Text="{StaticResource ResStr_Faroe_scan_setting}" Margin="15,22,321,18"/>
-        <Button
-        	Grid.Column="1"
-        	Height="35" 
-        	Margin="178,13,4,10"
-        	Content="Settings..." 
-        	FontSize="16"
-       		Style="{StaticResource CustomSettingButtonStyle}"
-        	Click="Button_Click"
-                />
+       
     </Grid>
 </UserControl>

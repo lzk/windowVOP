@@ -85,6 +85,7 @@ namespace VOP
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
             }
+            tbSettings.Focus();
         }
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -123,6 +124,7 @@ namespace VOP
             if (e.Key == Key.Enter)
             {
                 this.Close();
+                e.Handled = true;
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
