@@ -81,7 +81,7 @@
                                     </Border.Effect>
                                 </Border>
 
-                                <TextBlock x:Name="tbValue" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"
+                                <TextBlock x:Name="tbValue" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red"
                             Text="{Binding Value, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource objPercentConverter}}" 
                                            FontFamily="Arial" FontWeight="Black" Opacity="0.6" Margin="0, 1, 0, -1">
                                     <TextBlock.Effect>
@@ -167,7 +167,6 @@
                                 <Grid>
                                     <Ellipse x:Name="ellipse1" StrokeThickness="0" Stroke="Black" Fill="Transparent" >
                                     </Ellipse>
-
                                     <Ellipse x:Name="ellipse2" Margin="2" StrokeThickness="0" Stroke="Black" Fill="Transparent" >
                                     </Ellipse>
                                     <Image x:Name="icon" Height="32" Width="32" Stretch="Fill" Source="../Images/cancelIcon.png"/>

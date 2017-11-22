@@ -430,4 +430,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_ScanTo_Cloud_wait">待定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Network_fail">The Network is not connected, please check your setting.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Are_you_sure_to_delete_the_quick_scan">Are you sure to delete the quick scan setting?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Card">Card</sys:String>
 </ResourceDictionary>
