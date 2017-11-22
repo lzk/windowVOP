@@ -417,5 +417,12 @@ namespace VOP
         {
             DragMove();
         }
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+            }
+        }
     }
 }

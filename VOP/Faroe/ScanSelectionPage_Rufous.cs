@@ -424,8 +424,7 @@ namespace VOP
                     RightBtn.IsEnabled = true;
                 }
             }
-        }
-        
+        }       
         private void RightButton_Click(object sender, RoutedEventArgs e)
         {
             int result = 0;       

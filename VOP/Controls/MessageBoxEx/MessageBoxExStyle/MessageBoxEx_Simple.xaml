@@ -27,7 +27,7 @@
         <Grid Grid.ColumnSpan="3" Background="#213244" MouseLeftButtonDown="Title_MouseButtonEventHandler">
             <TextBlock Name="captionTextBlock" FontSize="16" Text="" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
 
-            <local:MinimizeCloseButton MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnClose_Click"/>
+            <local:MinimizeCloseButton MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnClose_Click" PreviewKeyDown="btnClose_PreviewKeyDown"/>
 
             <!--<Button Name="btnClose"  Click="btnClose_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
                 <Button.Template>

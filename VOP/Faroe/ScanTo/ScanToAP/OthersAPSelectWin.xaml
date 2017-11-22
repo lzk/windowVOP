@@ -42,7 +42,7 @@
                     <TextBlock Name="TitleBarText" Text="" FontSize="15" Foreground="#28E" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
+                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True" PreviewKeyDown="btnClose_PreviewKeyDown"/>
 
                 <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                     <Grid.RowDefinitions>

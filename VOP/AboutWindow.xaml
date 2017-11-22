@@ -36,7 +36,7 @@
                     <TextBlock Name="TitleBarText" Text="{StaticResource ResStr_About}" FontSize="15" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True" Width="30" Height="30"/>
+                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" PreviewKeyDown="btnClose_PreviewKeyDown" IsCancel="True" Width="30" Height="30"/>
                 
                 <Grid 
                     Grid.Row="1"  

@@ -53,7 +53,13 @@ namespace VOP
             tbFileName.Text = m_scanToFileParams.FileName;
             tbFilePath.Text = m_scanToFileParams.FilePath;
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+            }
+        }
         private void cbFileType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cbFileType.SelectedIndex == 0)

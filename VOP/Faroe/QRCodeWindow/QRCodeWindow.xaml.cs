@@ -774,8 +774,15 @@ namespace VOP.Controls
 
             return bitmap;
         }
+        private void btnClose_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+            }
+        }
 
-#region thread helpers
+        #region thread helpers
         private MessageBoxEx_Simple_Busy_QRCode qr_pbw = null;
         private ManualResetEvent asyncEvent = new ManualResetEvent(false);
         private bool isNeededProgress = false;

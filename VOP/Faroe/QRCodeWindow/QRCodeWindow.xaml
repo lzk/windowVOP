@@ -40,7 +40,7 @@
                     <TextBlock Name="TitleBarText" Text="" FontSize="15" Foreground="#FF48C6E0" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True"/>
+                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="1" MinimizeOrCloseStyle="Close" IsCancel="True" PreviewKeyDown="btnClose_PreviewKeyDown"/>
 
                 <Border Name="PageView" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                    

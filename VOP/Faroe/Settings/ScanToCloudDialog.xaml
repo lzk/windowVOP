@@ -58,7 +58,7 @@
                     <TextBlock Text="{StaticResource ResStr_Faroe_Scan_Cloud}" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Grid.Column="2" RenderTransformOrigin="1.567,0.633" />
+                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Grid.Column="2" RenderTransformOrigin="1.567,0.633" PreviewKeyDown="btnClose_PreviewKeyDown"/>
                 <Grid Grid.Row="1" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60"></RowDefinition>
@@ -183,14 +183,14 @@
                      Grid.Column="2"
                      Width="250"
                      Height="28" 
-                     VerticalAlignment="Top" 
+                     VerticalAlignment="Center" 
                      HorizontalAlignment="Right"
                      SnapsToDevicePixels ="True"
                             MaxLength="32"
                             PreviewTextInput="OnPreviewTextInput" Grid.ColumnSpan="3"
                      />
                         <TextBox 
-                     Name="SavePathTbx"
+                     Name="SavePathTbx"                     
                      IsReadOnly="True"
                      IsTabStop="False"
                      Template="{StaticResource customTextBox}" 
@@ -199,18 +199,17 @@
                      Grid.ColumnSpan="3"
                      Width="250"
                      Height="28" 
-                     VerticalAlignment="Top" 
+                     VerticalAlignment="Center" 
                      HorizontalAlignment="Right"
                      SnapsToDevicePixels ="True"
-                            MaxLength="255"
-                     />
+                            MaxLength="255"/>
 
                         <Button
                 Grid.Row="4"
                 Grid.Column="2"
                             Name="btnBrowse"
                 Width="120"
-                VerticalAlignment="Top" 
+                VerticalAlignment="Center" 
                 HorizontalAlignment="Right"
                 Height="30" 
                 Content="Browse..." 
@@ -233,7 +232,7 @@
                      Grid.Column="2"
                      Width="250"
                      Height="28" 
-                     VerticalAlignment="Top" 
+                     VerticalAlignment="Center" 
                      HorizontalAlignment="Right"
                      SnapsToDevicePixels ="True"
                             MaxLength="32"

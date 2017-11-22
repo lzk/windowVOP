@@ -171,7 +171,7 @@
                 <TextBlock Text="{StaticResource ResStr_Quick_Preview}" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
 
-            <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" />
+            <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" PreviewKeyDown="btnClose_PreviewKeyDown"/>
 
             <Grid Grid.Row="2" Width="540">
                 <Grid.RowDefinitions>

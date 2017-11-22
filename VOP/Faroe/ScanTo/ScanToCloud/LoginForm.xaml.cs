@@ -49,7 +49,13 @@ namespace VOP
             Start(appKey);
           
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+            }
+        }
         private void Start(string appKey)
         {
             this.oauth2State = Guid.NewGuid().ToString("N");

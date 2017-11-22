@@ -77,6 +77,13 @@ namespace VOP
             }       
 
         }
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+            }
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             switch (cbType.SelectedIndex)

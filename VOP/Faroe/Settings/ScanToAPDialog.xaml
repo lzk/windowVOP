@@ -60,7 +60,7 @@
                     <TextBlock Text="{StaticResource ResStr_Faroe_Scan_App}" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Grid.Column="2" RenderTransformOrigin="1.567,0.633" />
+                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Grid.Column="2" RenderTransformOrigin="1.567,0.633" PreviewKeyDown="btnClose_PreviewKeyDown"/>
 
                 <Grid Grid.Row="1" Grid.Column="1">
                     <Grid.RowDefinitions>
