@@ -128,10 +128,10 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheck" Source="../../Images/Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheck" Source="../../Images/Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheckDisable" Source="../../Images/Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheckDisable" Source="../../Images/Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgCheck" Source="../../Images/Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgUncheck" Source="../../Images/Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgCheckDisable" Source="../../Images/Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgUncheckDisable" Source="../../Images/Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
                     <Image Height="30" Width="30" Grid.Column="1" Name="Color" Stretch="Fill" Source="../../Images/Color.png" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Right"></Image>
                 </Grid>
                 <ControlTemplate.Triggers>
@@ -210,10 +210,10 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheck" Source="../../Images/Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheck" Source="../../Images/Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheckDisable" Source="../../Images/Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheckDisable" Source="../../Images/Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgCheck" Source="../../Images/Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgUncheck" Source="../../Images/Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgCheckDisable" Source="../../Images/Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgUncheckDisable" Source="../../Images/Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
                     <Image Height="30" Width="30" Grid.Column="1" Name="Color" Stretch="Fill" Source="../../Images/Grayscale.png" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Right"></Image>
                 </Grid>
                 <ControlTemplate.Triggers>
