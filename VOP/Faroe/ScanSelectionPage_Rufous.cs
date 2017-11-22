@@ -278,8 +278,8 @@ namespace VOP
             ImageButton2 btn = sender as ImageButton2;
 
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
-            //List<ScanFiles> files = new List<ScanFiles>();
+            //List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
+            List<ScanFiles> files = new List<ScanFiles>();
             m_MainWin._bScanning = false;
             if (files != null)
             //   return;
@@ -288,18 +288,18 @@ namespace VOP
                 {
                     //List<ScanFiles> files = new List<ScanFiles>();
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1 error.JPG"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000E.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000F.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000G.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000H.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_1.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_2.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848000A.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848000B.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848001A.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848001B.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_1.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_2.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_1.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_2.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000C.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000D.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_1.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_2.jpg"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));

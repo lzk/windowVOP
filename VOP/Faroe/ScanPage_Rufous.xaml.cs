@@ -57,11 +57,12 @@ namespace VOP
                 {
                     selectedFileList = new List<ImageStatus>();
 
-                    foreach (ScanFiles files in scanFileList)
+                    //foreach (ScanFiles files in scanFileList)
+                    for(int i= scanFileList.Count-1; i>=0; i--)
                     {
                         ImageStatus newImage = new ImageStatus();
-                        newImage._files = files;
-                        newImage.m_num = scanFileList.IndexOf(files) + 1;
+                        newImage._files = scanFileList[i];
+                        newImage.m_num = scanFileList.IndexOf(scanFileList[i]) + 1;
                         selectedFileList.Add(newImage);
                         UpdateSelItemNum();
                     }                    
@@ -496,7 +497,14 @@ namespace VOP
             if (0 == img.m_num && GetSelectedItemCount() < m_maxImgNum)
             {
                 img.m_num = GetSelectedItemCount() + 1;
-                selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = img.m_num;
+                for (int i = 0; i < selectedFileList.Count; i++)
+                {
+                    if (selectedFileList[i]._files == img.m_images)
+                    {
+                        selectedFileList[i].m_num = img.m_num;
+                        break;
+                    }
+                }
             }
 
             //add by yunying shang 2017-10-19 for BMS 1182
