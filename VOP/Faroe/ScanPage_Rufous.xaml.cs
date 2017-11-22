@@ -497,6 +497,7 @@ namespace VOP
             if (0 == img.m_num && GetSelectedItemCount() < m_maxImgNum)
             {
                 img.m_num = GetSelectedItemCount() + 1;
+                //modified by yunying shang 2017-11-22 for BMS 1509
                 for (int i = 0; i < selectedFileList.Count; i++)
                 {
                     if (selectedFileList[i]._files == img.m_images)
@@ -504,7 +505,7 @@ namespace VOP
                         selectedFileList[i].m_num = img.m_num;
                         break;
                     }
-                }
+                }//<<================1509
             }
 
             //add by yunying shang 2017-10-19 for BMS 1182
