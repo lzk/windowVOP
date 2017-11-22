@@ -48,6 +48,20 @@ namespace VOP
             }
         }
 
+        private string m_onedriveDefaultPath = "/";
+
+        public string DefaultOneDrivePath
+        {
+            get
+            {
+                return this.m_onedriveDefaultPath;
+            }
+            set
+            {
+                this.m_onedriveDefaultPath = value;
+            }
+        }
+
         private string m_evernotetile = "";
         private string m_evernotecontent = "";
         private bool m_bNeedReset = false;
@@ -92,10 +106,11 @@ namespace VOP
 
         }
 
-        public ScanToCloudParam(string saveType, string Path, string title, string content, bool needReset)
+        public ScanToCloudParam(string saveType, string Path, string onedriverpath, string title, string content, bool needReset)
         {
             this.m_cloudSaveType = saveType;
             this.m_dropBoxDefaultPath = Path;
+            this.m_onedriveDefaultPath = onedriverpath;
             this.m_evernotetile = title;
             this.m_evernotecontent = content;
             this.m_bNeedReset = needReset;    
@@ -103,7 +118,7 @@ namespace VOP
 
         public object Clone()
         {
-            return new ScanToCloudParam(this.m_cloudSaveType, this.m_dropBoxDefaultPath,
+            return new ScanToCloudParam(this.m_cloudSaveType, this.m_dropBoxDefaultPath, this.m_onedriveDefaultPath,
                 this.m_evernotetile, this.m_evernotecontent, this.m_bNeedReset);
         }
 

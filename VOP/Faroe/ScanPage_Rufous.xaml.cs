@@ -169,7 +169,8 @@ namespace VOP
             ImageButton2 btn = sender as ImageButton2;
 
             List<string> files = new List<string>();
-            if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true)
+            if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true &&
+                scanFileList.Count>=2)
             {
                 GetSelectedFileToAP(files, 2);
                 SelectTwoFiles(2);

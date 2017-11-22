@@ -122,7 +122,8 @@
             />-->
             <local:ImageButton3 x:Name="RightBtn"
                 Width="50" 
-                Height="50"                 
+                Height="50"         
+                                Margin="0,20,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 ImagePath="../Images/down_normal.png"
@@ -130,8 +131,8 @@
                 DisableImagePath="../Images/down_disable.png"
                 PreviewMouseLeftButtonDown="RightButton_Click"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" 
-                    Margin="20,0,0,0"  HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.ColumnSpan="3"  Grid.Row="4" 
+                    Margin="20,0,20,0"  HorizontalAlignment="Center">
 
             <local:ImageButton2 
                             ImagePath="../Images/ScanToPrint.png" 
@@ -150,7 +151,7 @@
                             Width="90" Height="100"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Margin="6,5,0,5"
+                            Margin="6,0,0,0"
                             Foreground="Black"
                             FontSize="12"
                   PreviewMouseLeftButtonDown="ScanToEmailButtonClick"

@@ -37,7 +37,7 @@
                         RadiusX="5" RadiusY="5" Opacity="0.8"
                         Fill="Transparent">
                                 <Rectangle.Stroke>
-                                    <SolidColorBrush x:Name="MyAnimatedBrush" Color="#FFE1E7ED"/>
+                                    <SolidColorBrush x:Name="MyAnimatedBrush" Color="LightGray"/>
                                 </Rectangle.Stroke>
                             </Rectangle>
 
