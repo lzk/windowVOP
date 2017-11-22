@@ -177,7 +177,7 @@
                  Text="{StaticResource ResStr_Faroe_scan_setting}" Margin="0,21,0,20"
                 />
 
-                    <Button
+                    <Button Name="tbSettings"
                 Grid.Row="0"
                 Grid.Column="3"
                 Width="100"

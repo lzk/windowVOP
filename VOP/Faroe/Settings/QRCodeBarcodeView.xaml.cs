@@ -42,6 +42,7 @@ namespace VOP
             tbFilePath.Text = MainWindow_Rufous.g_settingData.m_separateFilePath;
 
             cbCodeType.Focus();
+            tbSettings.Focus();
         }
 
         private bool IsValidPathName(string path)

@@ -119,6 +119,7 @@ namespace VOP
             if (e.Key == Key.Enter)
             {
                 this.Close();
+                e.Handled = true;
             }
         }
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

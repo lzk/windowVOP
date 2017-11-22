@@ -57,7 +57,7 @@
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Ellipse Margin="-1" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                    <Rectangle  Margin="-1" RadiusY="5" RadiusX="6" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

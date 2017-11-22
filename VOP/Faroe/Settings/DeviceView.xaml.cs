@@ -316,6 +316,7 @@ namespace VOP
             CheckPowerSaveValue();
 
             init_config();
+            btnCalibration.Focus();
         }
 
         private void CheckPowerSaveValue() // BMS #1195

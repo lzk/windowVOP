@@ -89,6 +89,7 @@
                 />
 
                     <Button
+                       Name="tbSettings"
                 Grid.Row="0"
                 Grid.Column="2"
                 Width="100"

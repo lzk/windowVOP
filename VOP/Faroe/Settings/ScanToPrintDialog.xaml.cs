@@ -44,6 +44,7 @@ namespace VOP
             }
 
             cboPrinters.SelectedIndex = index;
+            tbSettings.Focus();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -78,6 +79,7 @@ namespace VOP
             if (e.Key == Key.Enter)
             {
                 this.Close();
+                e.Handled = true;
             }
         }
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

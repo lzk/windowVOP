@@ -87,11 +87,12 @@
                 Text="{StaticResource ResStr_Faroe_scan_setting}"/>
 
                     <Button
+                Name="tbSettings"
                 Grid.Row="0"
                 Grid.Column="2"
                 Width="100"
                 Height="35" 
-                        HorizontalAlignment="Right"
+                HorizontalAlignment="Right"
                  Content="{StaticResource ResStr_Setting}" 
                 FontSize="16"
                 Style="{StaticResource CustomPopUpButtonStyle}" 

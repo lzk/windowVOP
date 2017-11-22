@@ -34,6 +34,7 @@ namespace VOP
             tbUserName.Text = m_scanToFTPParams.UserName;
             pbPWD.Password = m_scanToFTPParams.Password;
             tbTargetPath.Text = m_scanToFTPParams.TargetPath;
+            tbSettings.Focus();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -53,6 +54,7 @@ namespace VOP
             if (e.Key == Key.Enter)
             {
                 this.Close();
+                e.Handled = true;
             }
         }
         private void OkClick(object sender, RoutedEventArgs e)
