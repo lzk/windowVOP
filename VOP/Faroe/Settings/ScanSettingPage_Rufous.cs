@@ -75,7 +75,7 @@ namespace VOP
             m_listSettingButton.Add(btnQuickScanSettings);
 
 
-            btnQRCodeSettings.btn.Content = "QRCode/Barcode";
+            btnQRCodeSettings.btn.Content = "Decode/Separation Settings";
            //btnQRCodeSettings.Margin = new Thickness(0, 1, 0, 9);
             btnQRCodeSettings.Width = tabbtn_width;
             btnQRCodeSettings.Height = tabbtn_height;

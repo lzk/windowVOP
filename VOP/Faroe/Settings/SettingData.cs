@@ -62,6 +62,9 @@ namespace VOP
         public bool m_QRcode_decode_hardest = false;
         public string m_QRcode_decode_hardest_level = "Standard";
 
+        //QRCode/Barcode decode and separation
+        public ScanParam m_qrcodebarcodeScanSettings = new ScanParam();
+
         //Cloud
         public ScanParam m_cloudScanSettings = new ScanParam();
         public string m_dropBoxDefaultPath = "";

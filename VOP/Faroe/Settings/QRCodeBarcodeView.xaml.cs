@@ -207,5 +207,18 @@ namespace VOP
                 }
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ScanSettingDialog settingWin = new ScanSettingDialog();
+            settingWin.Owner = m_MainWin;
+
+            settingWin.m_scanParams = (ScanParam)MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.Clone();
+
+            if (settingWin.ShowDialog() == true)
+            {
+                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings = (ScanParam)settingWin.m_scanParams;
+            }
+        }
     }
 }
