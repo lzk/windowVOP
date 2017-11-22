@@ -109,7 +109,13 @@ namespace VOP
             this.DialogResult = true;
             this.Close();
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+            }
+        }
         private bool IsEmailNameAllNumber(string strEmail)
         {
             int finded = strEmail.LastIndexOf('@');

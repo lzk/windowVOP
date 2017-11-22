@@ -13,7 +13,7 @@
     <SolidColorBrush x:Key="brushBorderOver"   Color="#FFEEBA70" Opacity="1"/>
 
   
-    <Style TargetType="{x:Type local:MinimizeCloseButton}" >
+    <Style TargetType="{x:Type local:CloseButton}" >
         <Setter Property="Background" Value="{StaticResource brushBackground}" />   
         <Setter Property="BorderBrush" Value="{StaticResource brushBorder}" />
         <Setter Property="BorderThickness" Value="1" />
@@ -22,7 +22,7 @@
         </Setter>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:MinimizeCloseButton}">
+                <ControlTemplate TargetType="{x:Type local:CloseButton}">
 
                     <Border  Name="InnerBorder" Background="{TemplateBinding Background}" 
                              BorderBrush="{TemplateBinding BorderBrush}" 
@@ -32,8 +32,12 @@
                                         HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <ContentPresenter Name="content" />
                             </Border>
-
-                            <Control Name="AppearContent" Template="{TemplateBinding ContentAppearance}" />
+                            <Border Padding="8,8,8,8">
+                                <Path Data="M19.894001,0.25000001 L0.39400056,19.749999 M0.25,0.53099958 L19.749997,20.030999" 
+                              Stretch="Fill" StrokeThickness="3" StrokeDashCap="Round" 
+                              Stroke="{StaticResource brushForeground}" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                            </Border>
+                            <!--<Control Name="AppearContent" Template="{TemplateBinding ContentAppearance}" />-->
 
                         </Grid>
                     </Border>
@@ -59,9 +63,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type local:MinimizeCloseButton}"
-           x:Key="{ComponentResourceKey {x:Type local:MinimizeCloseButton}, Close }">
-
+    <!--<Style x:Key="ContentAppearance">
         <Setter Property="ContentAppearance">
             <Setter.Value>
                 <ControlTemplate TargetType="Control">
@@ -78,26 +80,5 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
-
-    <Style TargetType="{x:Type local:MinimizeCloseButton}"
-           x:Key="{ComponentResourceKey {x:Type local:MinimizeCloseButton}, Minimize }">
-
-        <Setter Property="ContentAppearance">
-            <Setter.Value>
-                <ControlTemplate TargetType="Control">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Border Padding="8,8,8,8">
-                            <Path Data="M80,120 L119.41667,119.75" 
-                              Stretch="UniformToFill" StrokeThickness="3" StrokeDashCap="Round" VerticalAlignment="Bottom"
-                              Stroke="{StaticResource brushForeground}" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-                        </Border>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+    </Style>-->   
 </ResourceDictionary>

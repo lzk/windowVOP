@@ -65,7 +65,7 @@ namespace VOP
 
             statusUpdater = new Thread(UpdateStatusCaller);
             statusUpdater.Start();
-
+            
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
         }
 
@@ -404,7 +404,23 @@ namespace VOP
                 scanDevicePage.m_MainWin = this;
             }
         }
-
+        private void btnMinimize_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnMinimize.Focusable = true;
+                btnMinimize.Focus();
+                this.Hide();
+                btnMinimize.Focusable = false;
+            }            
+        }
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+            }
+        }
         public void MyMouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
         {
             this.DragMove();

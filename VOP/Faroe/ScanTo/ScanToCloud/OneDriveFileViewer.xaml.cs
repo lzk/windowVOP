@@ -510,7 +510,13 @@ namespace VOP
                 }
             }
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+            }
+        }
         private async Task Upload(GraphServiceClient client, string filePath)
         {
             var targetFolder = CurrentFolder;

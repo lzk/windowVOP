@@ -126,7 +126,13 @@ namespace VOP
             DialogResult = true;
             this.Close();
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+            }
+        }
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();

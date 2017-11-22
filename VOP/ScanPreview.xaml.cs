@@ -416,7 +416,13 @@ namespace VOP
                 }
             }
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+            }
+        }
         // Make the preview image fit the scroll view.
         private void FitTheWindow()
         {

@@ -48,7 +48,13 @@ namespace VOP
                 m_scanParams = (ScanParam)settingWin.m_scanParams.Clone();
             }
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+            }
+        }
         private void OkClick(object sender, RoutedEventArgs e)
         {
             if (tbServerName.Text == "")

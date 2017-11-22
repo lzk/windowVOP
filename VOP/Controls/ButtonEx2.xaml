@@ -115,9 +115,9 @@
                             <Setter TargetName="myContentPresenter" Property="Foreground" Value="#FFA8A8A8"/>
                         </MultiTrigger>
                         
-                        <Trigger  Property="IsFocused" Value="True">
+                        <!--<Trigger  Property="IsFocused" Value="True">
                             <Setter Property="FocusVisualStyle" Value="{StaticResource EllipseFocus}"/>
-                        </Trigger>
+                        </Trigger>-->
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

@@ -70,7 +70,13 @@ namespace VOP
             tb1.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb1.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+            }
+        }
         private void ControlBtnClick(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.Button btn = sender as System.Windows.Controls.Button;

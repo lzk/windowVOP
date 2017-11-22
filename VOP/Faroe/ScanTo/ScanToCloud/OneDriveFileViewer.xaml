@@ -41,7 +41,7 @@
                     <TextBlock Name="TitleBarText" Text="OneDrive File Viewer" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" MinimizeOrCloseStyle="Close" IsCancel="True"/>
+                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" MinimizeOrCloseStyle="Close" IsCancel="True" PreviewKeyDown="btnClose_PreviewKeyDown"/>
 
 
                 <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">

@@ -41,7 +41,13 @@ namespace VOP.Controls
         {
             this.DragMove();
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+            }
+        }
         private void Click(object sender, RoutedEventArgs e)
         {
              System.Windows.Controls.Control btn = sender as System.Windows.Controls.Control;

@@ -62,7 +62,8 @@ namespace VOP
             btnScanParameter.Height = tabbtn_height;
             btnScanParameter.HorizontalAlignment = HorizontalAlignment.Left;
             btnScanParameter.btn.Name = "btnScanParameter";
-            btnScanParameter.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
+            btnScanParameter.btn.Click += BtnSettingClick;
+//            btnScanParameter.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnScanParameter);
 
             btnQuickScanSettings.btn.Content = "Quick Scan Settings";
@@ -71,7 +72,8 @@ namespace VOP
             btnQuickScanSettings.Height = tabbtn_height;
             btnQuickScanSettings.HorizontalAlignment = HorizontalAlignment.Left;
             btnQuickScanSettings.btn.Name = "btnQuickScanSettings";
-            btnQuickScanSettings.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
+            btnQuickScanSettings.btn.Click += BtnSettingClick;
+//            btnQuickScanSettings.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnQuickScanSettings);
 
 
@@ -81,7 +83,8 @@ namespace VOP
             btnQRCodeSettings.Height = tabbtn_height;
             btnQRCodeSettings.HorizontalAlignment = HorizontalAlignment.Left;
             btnQRCodeSettings.btn.Name = "btnQRCodeSettings";
-            btnQRCodeSettings.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
+            btnQRCodeSettings.btn.Click += BtnSettingClick;
+//            btnQRCodeSettings.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnQRCodeSettings);
             //btnScanToPrint.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Scan_Print");
             //btnScanToPrint.Margin = new Thickness(0, 1, 0, 9);
@@ -144,7 +147,8 @@ namespace VOP
             btnwifi.Height = tabbtn_height;
             btnwifi.HorizontalAlignment = HorizontalAlignment.Left;
             btnwifi.btn.Name = "btnwifi";
-            btnwifi.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
+            btnwifi.btn.Click += BtnSettingClick;
+//            btnwifi.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnwifi);
 
             btnTCPIP.btn.Content = (string)this.TryFindResource("ResStr_TCP_IPv4");
@@ -153,6 +157,7 @@ namespace VOP
             btnTCPIP.Height = tabbtn_height;
             btnTCPIP.HorizontalAlignment = HorizontalAlignment.Left;
             btnTCPIP.btn.Name = "btnTCPIP";
+            btnTCPIP.btn.Click += BtnSettingClick;
             btnTCPIP.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnTCPIP);
 
@@ -162,7 +167,8 @@ namespace VOP
             btnSoftAP.Height =  tabbtn_height;
             btnSoftAP.HorizontalAlignment = HorizontalAlignment.Left;
             btnSoftAP.btn.Name = "btnSoftAP";
-            btnSoftAP.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
+            btnSoftAP.btn.Click += BtnSettingClick;
+//            btnSoftAP.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnSoftAP);
 
             btnDevice.btn.Content = (string)this.TryFindResource("ResStr_Device");
@@ -171,7 +177,8 @@ namespace VOP
             btnDevice.Height = tabbtn_height;
             btnDevice.HorizontalAlignment = HorizontalAlignment.Left;
             btnDevice.btn.Name = "btnDevice";
-            btnDevice.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
+            btnDevice.btn.Click += BtnSettingClick;
+//            btnDevice.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnDevice);
 
         }
@@ -190,7 +197,6 @@ namespace VOP
                 }
             }
         }
-
         private void ClickSettingButton(SettingType settingType)
         {
             //foreach (SettingButton_Rufous btn in m_listSettingButton)
@@ -242,6 +248,89 @@ namespace VOP
                 this.settingView.Child = softAPView;
             }
             else if (settingType == SettingType.Device)
+            {
+                SetActiveButton(SettingType.Device);
+                deviceView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = deviceView;
+            }
+        }
+        private void BtnSettingClick(object sender, RoutedEventArgs e)
+        {
+            VOP.Controls.ButtonEx2 srcButton = e.Source as VOP.Controls.ButtonEx2;
+
+            if ("btnScanParameter" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.ScanParameter);
+                scanParameterView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = scanParameterView;
+            }
+            if ("btnQuickScanSettings" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.QuickScanSettings);
+                quickScanSettings.m_MainWin = this.m_MainWin;
+                this.settingView.Child = quickScanSettings;
+            }
+            if ("btnQRCodeSettings" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.QRCodeSettings);
+                qrcodebarcodeView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = qrcodebarcodeView;
+            }
+            //else if ("btnScanToFile" == srcButton.Name)
+            //{
+            //    SetActiveButton(SettingType.ScanToFile);
+            //    scanToFileView.m_MainWin = this.m_MainWin;
+            //    this.settingView.Child = scanToFileView;
+            //}
+            //else if ("btnScanToPrint" == srcButton.Name )
+            //{
+            //    SetActiveButton(SettingType.ScanToPrint);
+            //    scanToPrintView.m_MainWin = this.m_MainWin;
+            //    this.settingView.Child = scanToPrintView;
+            //}
+            //else if ("btnScanToEmail" == srcButton.Name)
+            //{
+            //    SetActiveButton(SettingType.ScanToEmail);
+            //    scanToEmailView.m_MainWin = this.m_MainWin;
+            //    this.settingView.Child = scanToEmailView;
+            //}
+            //else if ("btnScanToFTP" == srcButton.Name)
+            //{
+            //    SetActiveButton(SettingType.ScanToFtp);
+            //    scanToFtpView.m_MainWin = this.m_MainWin;
+            //    this.settingView.Child = scanToFtpView;
+            //}
+            //else if ("btnScanToAP" == srcButton.Name)
+            //{
+            //    SetActiveButton(SettingType.ScanToAP);
+            //    scanToAPView.m_MainWin = this.m_MainWin;
+            //    this.settingView.Child = scanToAPView;
+            //}
+            //else if ("btnScanToCloud" == srcButton.Name)
+            //{
+            //    SetActiveButton(SettingType.ScanToCloud);
+            //    scanToCloudView.m_MainWin = this.m_MainWin;
+            //    this.settingView.Child = scanToCloudView;
+            //}
+            else if ("btnwifi" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.Wireless);
+                wifiView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = wifiView;
+            }
+            else if ("btnTCPIP" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.TCPIP);
+                tcpipView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = tcpipView;
+            }
+            else if ("btnSoftAP" == srcButton.Name)
+            {
+                SetActiveButton(SettingType.SoftAP);
+                softAPView.m_MainWin = this.m_MainWin;
+                this.settingView.Child = softAPView;
+            }
+            else if ("btnDevice" == srcButton.Name)
             {
                 SetActiveButton(SettingType.Device);
                 deviceView.m_MainWin = this.m_MainWin;
