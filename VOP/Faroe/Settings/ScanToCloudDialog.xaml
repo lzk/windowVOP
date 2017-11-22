@@ -133,6 +133,7 @@
                 Grid.Row="1"
                 Grid.Column="0"
                 FontSize="14"
+                            FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
                 Text="Cloud Type:" Margin="30,16,0,15"/>
                         <ComboBox 
@@ -156,6 +157,7 @@
                 Grid.Column="0" Grid.ColumnSpan="3"
                 Name="tbReset"
                 FontSize="14"
+                            FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
                 Text="Reset access token in cache:" Margin="30,16,0,15"/>
 
@@ -178,6 +180,7 @@
                 Grid.ColumnSpan="5"
                             Name="tbDefaultPath"
                 FontSize="14"
+                            FontWeight="Bold"
                 VerticalAlignment="Center"
                 Text="Default save path:" Margin="30,16,0,15"/>
                         <TextBox 
@@ -228,6 +231,7 @@
                 Grid.ColumnSpan="1"
                             Name="tbNote"
                 FontSize="14"
+                            FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
                 Text="Note Content:" Margin="30,16,0,15"/>
                         <TextBox 

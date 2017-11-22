@@ -49,13 +49,17 @@ namespace VOP
             try
             {
 
-                Regex containsABadCharacter = new Regex("["
-                                                + Regex.Escape(new string(System.IO.Path.GetInvalidPathChars())) + "]");
+                //Regex containsABadCharacter = new Regex("["
+                //                                + Regex.Escape(new string(System.IO.Path.GetInvalidPathChars())) + "]");
 
-                if (containsABadCharacter.IsMatch(path))
+                //if (containsABadCharacter.IsMatch(path))
+                //{
+                //    return false; 
+                //};
+                if (!Regex.IsMatch(path, @"\A(?:/(.|[\r\n])*)\z"))
                 {
-                    return false; 
-                };
+                    return false;
+                }
 
             }
             catch(Exception)
@@ -71,13 +75,17 @@ namespace VOP
             try
             {
 
-                Regex containsABadCharacter = new Regex("["
-                                                + Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars())) + "]");
+                //Regex containsABadCharacter = new Regex("["
+                //                                + Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars())) + "]");
 
-                if (containsABadCharacter.IsMatch(filename))
+                //if (containsABadCharacter.IsMatch(filename))
+                //{
+                //    return false;
+                //};
+                if (!Regex.IsMatch(filename, @"\A(?:/(.|[\r\n])*)\z"))
                 {
                     return false;
-                };
+                }
             }
             catch (Exception)
             {

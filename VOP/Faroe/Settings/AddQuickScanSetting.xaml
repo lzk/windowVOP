@@ -197,7 +197,7 @@
                                 />
 
                                 <TextBlock Grid.Row="1" Grid.Column="1"
-                                Text="Type"
+                                Text="Type :"
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="12"

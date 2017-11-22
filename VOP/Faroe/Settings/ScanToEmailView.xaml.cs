@@ -79,8 +79,9 @@ namespace VOP
             
             System.String ex = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
 
-            Regex reg = new Regex(ex);
-            if (false == reg.IsMatch(tbRecipient.Text))
+            //Regex reg = new Regex(ex);
+            //if (false == reg.IsMatch(tbRecipient.Text))
+            if (!Regex.IsMatch(tbRecipient.Text, @"\A(?:^['&A-Za-z0-9._%+-]+@[A-Za-z0-9-][A-Za-z0-9.-]*.[A-Za-z]{2,15}$)\z"))
             {
                 MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.TryFindResource("ResStr_Email_Format_Error"), (string)this.FindResource("ResStr_Error"));
                 tbRecipient.Focus();

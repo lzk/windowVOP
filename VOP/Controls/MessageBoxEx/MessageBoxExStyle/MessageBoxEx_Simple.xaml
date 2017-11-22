@@ -10,6 +10,7 @@
         VerticalAlignment="Center"
         WindowStartupLocation="CenterOwner" 
         Style="{StaticResource for_noresize_window}"
+        Loaded="window_Loaded"
         >
     <Grid Background="AliceBlue">
         <Grid.RowDefinitions>
@@ -23,7 +24,7 @@
             <ColumnDefinition Width="5" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"  MouseLeftButtonDown="Title_MouseButtonEventHandler">
+        <Grid Name="TitleBar" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"  MouseLeftButtonDown="Title_MouseButtonEventHandler">
             <TextBlock Name="captionTextBlock" FontSize="14" Text="Wanring" Foreground="Black" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
 
             <local:MinimizeCloseButton MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnClose_Click"/>
