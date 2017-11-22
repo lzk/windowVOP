@@ -97,13 +97,18 @@ namespace VOP
         {
             try
             {
-                Regex containsABadCharacter = new Regex("["
-                                               + Regex.Escape(new string(System.IO.Path.GetInvalidPathChars())) + "]");
+                //Regex containsABadCharacter = new Regex(@"["
+                //                               + Regex.Escape(new string(System.IO.Path.GetInvalidPathChars())) + "]");
 
-                if (containsABadCharacter.IsMatch(path))
+                //if (containsABadCharacter.IsMatch(path))
+                //{
+                //    return false;
+                //}
+                if (!Regex.IsMatch(path, @"\A(?:/(.|[\r\n])*)\z"))
                 {
                     return false;
                 }
+
                 int i = 0;
                 for (i = 0; i < path.Length; i++)
                 {

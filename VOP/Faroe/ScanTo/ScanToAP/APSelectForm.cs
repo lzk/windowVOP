@@ -33,7 +33,7 @@ namespace VOP
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
+            TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
 
             //APListBox.Items.Add(CreateListItem("PhotoShop"));
             APListBox.Items.Add(CreateListItem("Paint"));

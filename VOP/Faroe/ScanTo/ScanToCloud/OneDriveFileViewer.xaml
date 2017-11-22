@@ -9,6 +9,7 @@
         ResizeMode="NoResize" 
         AllowsTransparency="True"
         Background="Transparent" 
+        Foreground="Black"
         ShowInTaskbar="False" 
         BorderThickness="25,25,25,25"
         Loaded="Window_Loaded">
@@ -107,8 +108,7 @@
                         Grid.Row="2"
                             Name="UploadButton"
                             HorizontalAlignment="Center" 
-                            Margin="215,8" 
-                            Width="160" 
+                            Width="150" 
                             Height="35"
                             FontSize="16"
                             Style="{StaticResource CustomPopUpButtonStyle}" 

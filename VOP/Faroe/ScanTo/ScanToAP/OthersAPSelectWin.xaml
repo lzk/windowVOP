@@ -112,7 +112,7 @@
                             Height="35"
                             FontSize="14"
                             Click="BrowseClick"
-                            Style="{StaticResource CustomPopUpButtonStyle2}"
+                            Style="{StaticResource CustomPopUpButtonStyle}"
                             Content="Browse..."
                             ></Button>
 

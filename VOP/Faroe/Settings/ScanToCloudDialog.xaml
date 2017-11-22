@@ -12,6 +12,7 @@
         ResizeMode="NoResize"
         WindowStyle="None" 
         BorderThickness="24"
+        Foreground="Black"
         xmlns:vop="clr-namespace:VOP"
         ShowInTaskbar="False"
         Loaded="ScanToCloudDialog_Loaded">
@@ -41,7 +42,10 @@
                     <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <Grid x:Name="LayoutRoot" Background="AliceBlue" Width="537" Height="545" >
+            <Grid x:Name="LayoutRoot" Width="537" Height="545" >
+                <Grid.Background>
+                    <ImageBrush ImageSource="../../Images/popup_gnd_quick scan.png" Stretch="None"></ImageBrush>
+                </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="*" />
@@ -83,7 +87,7 @@
                 Grid.Row="0"
                 Grid.Column="2"
                         HorizontalAlignment="Right"
-                Width="200"
+                Width="100"
                 Height="35" 
                 Content="{StaticResource ResStr_Setting}" 
                 FontSize="16"
@@ -129,6 +133,7 @@
                 Grid.Row="1"
                 Grid.Column="0"
                 FontSize="14"
+                            FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
                 Text="Cloud Type:" Margin="30,16,0,15"/>
                         <ComboBox 
@@ -152,6 +157,7 @@
                 Grid.Column="0" Grid.ColumnSpan="3"
                 Name="tbReset"
                 FontSize="14"
+                            FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
                 Text="Reset access token in cache:" Margin="30,16,0,15"/>
 
@@ -159,7 +165,7 @@
                 Grid.Row="2"
                 Grid.Column="2"
                             Name="btnReset"
-                Width="200"
+                Width="100"
                 Height="35" 
                 Content="Reset" 
                 HorizontalAlignment="Right"
@@ -174,6 +180,7 @@
                 Grid.ColumnSpan="5"
                             Name="tbDefaultPath"
                 FontSize="14"
+                            FontWeight="Bold"
                 VerticalAlignment="Center"
                 Text="Default save path:" Margin="30,16,0,15"/>
                         <TextBox 
@@ -207,14 +214,14 @@
                         <Button
                 Grid.Row="4"
                 Grid.Column="2"
-                            Name="btnBrowse"
-                Width="120"
+                Name="btnBrowse"
+                Width="100"
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Right"
                 Height="30" 
                 Content="Browse..." 
                             FontSize="16"
-                Style="{StaticResource CustomGreenButtonStyle}"
+                Style="{StaticResource CustomPopUpButtonStyle}"
                 Click="BrowseButton_Click" Grid.ColumnSpan="3"
                 />
                         <TextBlock 
@@ -223,6 +230,7 @@
                 Grid.ColumnSpan="1"
                             Name="tbNote"
                 FontSize="14"
+                            FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
                 Text="Note Content:" Margin="30,16,0,15"/>
                         <TextBox 
@@ -242,7 +250,7 @@
                     </Grid>
                     <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                             HorizontalAlignment="Center"                             
-                            Width="200" 
+                            Width="150" 
                             Height="35"
                             FontSize="16"
                             Click="OkClick"

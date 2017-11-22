@@ -102,7 +102,7 @@
                             Style="{StaticResource CustomSettingButtonStyle}"
                             HorizontalAlignment="Center" 
                             HorizontalContentAlignment="Center" 
-                            VerticalAlignment="Center" Width="160" Height="35"></Button>
+                            VerticalAlignment="Center" Width="150" Height="35"></Button>
         </Grid>
     </Grid>
 </UserControl>

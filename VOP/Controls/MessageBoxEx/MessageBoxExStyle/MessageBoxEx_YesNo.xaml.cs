@@ -31,6 +31,12 @@ namespace VOP.Controls
             this.Height = this.Height * App.gScalingRate;
         }
 
+        private void window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(Title_MouseButtonEventHandler);
+        }
+
         public void Title_MouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
         {
             this.DragMove();

@@ -150,7 +150,7 @@
                             HorizontalAlignment="Right" 
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 
-                            Width="120" 
+                            Width="100" 
                             Height="35"
                             Margin="0,0,10,0"></Button>
             <local:SpinnerControl x:Name="spinnerControl1" Style="{StaticResource SpinnerControl1}"
@@ -184,7 +184,7 @@
                             HorizontalAlignment="Center" 
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 
-                            Width="160" 
+                            Width="150" 
                             Height="32"
                             ></Button>
    </Grid>

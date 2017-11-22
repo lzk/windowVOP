@@ -198,6 +198,7 @@
     <Compile Include="Controls\ImageButton\ImageButton2.xaml.cs">
       <DependentUpon>ImageButton2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ImageButton\ImageButton3.xaml.cs" />
     <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple_Busy_QRCode.xaml.cs">
       <DependentUpon>MessageBoxEx_Simple_Busy_QRCode.xaml</DependentUpon>
     </Compile>
@@ -405,6 +406,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\DeviceButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ImageButton\ImageButton3.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1225,6 +1230,51 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\screenbg_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\left_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\right_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\up_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\down_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\popup_gnd_apps.png" />
+    <Resource Include="Images\popup_gnd_dropbox file viewer.png" />
+    <Resource Include="Images\popup_gnd_evernote viewer.png" />
+    <Resource Include="Images\popup_gnd_image preview.png" />
+    <Resource Include="Images\popup_gnd_quick scan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\popup_gnd_scan setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\popup_gnd_image preview1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\move down_disable.png" />
+    <Resource Include="Images\move up_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\quick scan_btnf_move down.png" />
+    <Resource Include="Images\quick scan_btnf_move up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\edit_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\delete_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\quick scan_btnf_delete.png" />
+    <Resource Include="Images\quick scan_btnf_edit.png" />
+    <Resource Include="Images\quick scan_btnf_new.png" />
+    <Resource Include="Images\quick scan_btnf_setting.png" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>

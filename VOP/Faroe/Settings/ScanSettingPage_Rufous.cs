@@ -77,7 +77,7 @@ namespace VOP
             m_listSettingButton.Add(btnQuickScanSettings);
 
 
-            btnQRCodeSettings.btn.Content = "QRCode/Barcode";
+            btnQRCodeSettings.btn.Content = "Decode/Separation Settings";
            //btnQRCodeSettings.Margin = new Thickness(0, 1, 0, 9);
             btnQRCodeSettings.Width = tabbtn_width;
             btnQRCodeSettings.Height = tabbtn_height;
@@ -448,7 +448,7 @@ namespace VOP
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
 
              m_MainWin.GotoPage("ScanSelectionPage", null);

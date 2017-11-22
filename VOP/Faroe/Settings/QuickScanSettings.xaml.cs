@@ -307,12 +307,23 @@ namespace VOP
 
         private void btnDelete_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
-            MainWindow_Rufous.g_settingData.m_MatchList.RemoveAt(this.MatchListBox.SelectedIndex);
-            MatchListBox.Items.RemoveAt(this.MatchListBox.SelectedIndex);
-            UpdateKey();
-            InitMatchListBox();
-            this.MatchListBox.Focus();
-            this.MatchListBox.SelectedIndex = 0;
+            //add by yunying shang for BMS 1502 2017-11-22
+            if (VOP.Controls.MessageBoxExResult.Yes ==
+        VOP.Controls.MessageBoxEx.Show(
+            VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
+            m_MainWin,
+            (string)this.TryFindResource("ResStr_Are_you_sure_to_delete_the_quick_scan"),
+            (string)this.TryFindResource("ResStr_Prompt")
+            )
+            )//<<==============1502
+            {
+                MainWindow_Rufous.g_settingData.m_MatchList.RemoveAt(this.MatchListBox.SelectedIndex);
+                MatchListBox.Items.RemoveAt(this.MatchListBox.SelectedIndex);
+                UpdateKey();
+                InitMatchListBox();
+                this.MatchListBox.Focus();
+                this.MatchListBox.SelectedIndex = 0;
+            }
         }
 
         private void btnSettings_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)

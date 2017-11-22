@@ -13,6 +13,7 @@
         ResizeMode="NoResize"
         WindowStyle="None" 
         BorderThickness="24"
+        Foreground="Black"
         xmlns:vop="clr-namespace:VOP"
         ShowInTaskbar="False"
         Loaded="ScanToAPDialog_Loaded">
@@ -36,14 +37,17 @@
     </Window.Resources>
     <Viewbox Stretch="Fill">
         <Grid>
+
             <Rectangle Fill="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"  
                                     RadiusX="5" RadiusY="5">
                 <Rectangle.Effect>
                     <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <Grid x:Name="LayoutRoot" Background="AliceBlue" Width="537" Height="545" >
-
+            <Grid x:Name="LayoutRoot" Width="537" Height="545" >
+                <Grid.Background>
+                    <ImageBrush ImageSource="../../Images/popup_gnd_quick scan.png" Stretch="None"></ImageBrush>
+                </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="*" />
@@ -87,7 +91,7 @@
                     <Button
                 Grid.Row="0"
                 Grid.Column="2"
-                Width="200"
+                Width="100"
                 Height="35" 
                 HorizontalAlignment="Right"
                 Content="{StaticResource ResStr_Setting}" 
@@ -149,7 +153,7 @@
                     <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             Margin="20,6" 
-                            Width="200" 
+                            Width="150" 
                             Height="35"
                             FontSize="16"
                             Click="OkClick"

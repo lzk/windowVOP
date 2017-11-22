@@ -268,6 +268,15 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <Style x:Key="EllipseFocus19">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-1" RadiusY="16.75" RadiusX="16.75" StrokeThickness="1" Stroke="Black" StrokeDashArray="2 1"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -277,8 +286,8 @@
         </Grid.Background>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="58"></RowDefinition>
+            <RowDefinition/>
             <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -396,7 +405,7 @@
             			FontSize="16" FontWeight="Normal"
             			Click="BrowseClick"
                              Width="100" Height="35"
-                             HorizontalAlignment="Right" Margin="0,0,20,0"
+                             HorizontalAlignment="Right" Margin="0,8,25,7"
             			Style="{StaticResource CustomSettingButtonStyle}"
             			Content="Browse..." 
                             />
@@ -406,7 +415,7 @@
             <Button Grid.Row="2"
             		HorizontalAlignment="Center" 
                 VerticalAlignment="Center"
-            		Width="160" 
+            		Width="150" 
             		Height="35"
             		FontSize="16"
             		Click="OkClick"
@@ -414,5 +423,20 @@
             		Content="Apply" 
                             />
         </Grid>
+        <TextBlock
+        	Grid.Column="1"
+        	FontSize="14"
+        	FontWeight="Bold"
+        	VerticalAlignment="Center"
+        	Text="{StaticResource ResStr_Faroe_scan_setting}" Margin="15,22,321,18"/>
+        <Button
+        	Grid.Column="1"
+        	Height="35" 
+        	Margin="178,13,4,10"
+        	Content="Settings..." 
+        	FontSize="16"
+       		Style="{StaticResource CustomSettingButtonStyle}"
+        	Click="Button_Click"
+                />
     </Grid>
 </UserControl>

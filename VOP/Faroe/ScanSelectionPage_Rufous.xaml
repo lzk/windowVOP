@@ -36,7 +36,7 @@
                 <ColumnDefinition Width="90" />
             </Grid.ColumnDefinitions>
 
-            <Button    
+            <!--<Button    
             Name="LeftBtn"
             Grid.Row="0"
             Grid.Column="0"
@@ -45,6 +45,20 @@
             Height="90"
             Margin="0,0,0,0"
             Click="LeftButton_Click"
+            />-->
+            <local:ImageButton3    
+            x:Name="LeftBtn"
+            Grid.Row="0"
+            Grid.Column="0"
+            Width="90"
+            Height="90"
+            Margin="0,0,0,0"
+            ImagePath="../Images/left_normal.png"
+            PressImagePath="../Images/left_press.png"
+            DisableImagePath="../Images/left_disable.png"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            PreviewMouseLeftButtonDown="LeftButton_Click" 
             />
             <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Grid.Background>
@@ -89,7 +103,7 @@
                     </Grid.Background>
                 </Grid>
             </Grid>
-            <Button  
+           <!-- <Button  
             Name="RightBtn"
             Grid.Row="0"
             Grid.Column="2"
@@ -98,7 +112,20 @@
             Height="90"
             Margin="0,0,0,0"
             Click="RightButton_Click"
-            />
+            />-->
+            <local:ImageButton3 x:Name="RightBtn"
+             Grid.Row="0"
+            Grid.Column="2"
+            Width="90"
+            Height="90"
+            Margin="0,0,0,0" 
+            ImagePath="../Images/right_normal.png"
+            PressImagePath="../Images/right_press.png"
+            DisableImagePath="../Images/right_disable.png"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            PreviewMouseLeftButtonDown="RightButton_Click" 
+                                />
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1">
             <!--<Grid.Background>

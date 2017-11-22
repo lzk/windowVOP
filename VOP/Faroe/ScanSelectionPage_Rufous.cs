@@ -184,10 +184,10 @@ namespace VOP
                 EnumPaperSizeScan._A4,
                 EnumColorType.color_24bit,
                 false,
-                MainWindow_Rufous.g_settingData.m_commonScanSettings.MultiFeed,
-                MainWindow_Rufous.g_settingData.m_commonScanSettings.AutoCrop,
-                MainWindow_Rufous.g_settingData.m_commonScanSettings.Brightness,
-                MainWindow_Rufous.g_settingData.m_commonScanSettings.Contrast,
+                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.MultiFeed,
+                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.AutoCrop,
+                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.Brightness,
+                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.Contrast,
                 false);
 
 
@@ -222,7 +222,7 @@ namespace VOP
 #elif (!DEBUG)
 
             if (btn.Name == "ImageButton2")
-                param = MainWindow_Rufous.g_settingData.m_commonScanSettings;
+                param = MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings;
 
             string oldPictureFolder = App.PictureFolder;
             App.PictureFolder = App.cacheFolder;
@@ -278,7 +278,6 @@ namespace VOP
             ImageButton2 btn = sender as ImageButton2;
 
             ScanTask task = new ScanTask();
-
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
             //List<ScanFiles> files = new List<ScanFiles>();
             m_MainWin._bScanning = false;
@@ -299,6 +298,10 @@ namespace VOP
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_2.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000C.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000D.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_1.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_2.jpg"));
+                    //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
+                    //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
                     ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
                     ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
                     //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\1.JPG"));
@@ -401,7 +404,7 @@ namespace VOP
             tb1.Text = str;
         }
 
-        private void LeftButton_Click(object sender, RoutedEventArgs e)
+        private void LeftButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
            int result = 0;
            if(Int32.TryParse(ScreenBtn.Content.ToString(), out result))
@@ -424,8 +427,9 @@ namespace VOP
                     RightBtn.IsEnabled = true;
                 }
             }
-        }       
-        private void RightButton_Click(object sender, RoutedEventArgs e)
+        }
+        
+        private void RightButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             int result = 0;       
             if (Int32.TryParse(ScreenBtn.Content.ToString(), out result))

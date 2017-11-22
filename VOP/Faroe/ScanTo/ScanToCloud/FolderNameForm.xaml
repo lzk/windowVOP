@@ -11,6 +11,7 @@
         Background="Transparent" 
         ShowInTaskbar="False" 
         BorderThickness="25,25,25,25"
+        Foreground="Black"
         Loaded="Window_Loaded">
     <Window.Resources>
         <ResourceDictionary>
@@ -73,7 +74,7 @@
                     <Button Grid.Row="1" 
                             HorizontalAlignment="Center" 
                             Margin="20,6" 
-                            Width="160" 
+                            Width="150" 
                             Height="35"
                             FontSize="16"
                             Click="OkClick"

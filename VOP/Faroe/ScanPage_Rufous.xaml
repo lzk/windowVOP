@@ -48,7 +48,7 @@
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="1" 
+       <!-- <Button Grid.Row="1" 
                 Grid.Column="0"
                 Grid.RowSpan="3"
                 Grid.ColumnSpan="2"
@@ -57,9 +57,20 @@
                 Style="{StaticResource BackButtonStyle}" 
                 Margin="0,0,0,0"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top" Click="Button_Click"/>
-
-            <CheckBox   Name="SelectAllCheckBox"
+                VerticalAlignment="Top" Click="Button_Click"/>-->
+        <local:ImageButton3 Grid.Row="1" 
+                Grid.Column="0"
+                Grid.RowSpan="3"
+                Grid.ColumnSpan="2"
+                Width="50" 
+                Height="50"                 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                ImagePath="../Images/left_normal.png"
+                PressImagePath="../Images/left_press.png"
+                DisableImagePath="../Images/left_disable.png"
+                PreviewMouseLeftButtonDown="Button_Click"/>
+        <CheckBox   Name="SelectAllCheckBox"
                         Grid.Row="1"
                     Grid.Column="2" 
                     Content="Select All"
@@ -86,20 +97,38 @@
         <StackPanel Grid.Row="2" Grid.Column="3" Orientation="Vertical" 
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-        <Button    
+        <!--<Button    
             Name="LeftBtn"
             Style="{StaticResource UpButtonStyle}" 
             Width="50"
             Height="50"
             Click="LeftButton_Click"
-            />
-            <Button  
+            />-->
+            <local:ImageButton3 x:Name="LeftBtn"
+                Width="50" 
+                Height="50"                 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                ImagePath="../Images/up_normal.png"
+                PressImagePath="../Images/up_press.png"
+                DisableImagePath="../Images/up_disable.png"
+                PreviewMouseLeftButtonDown="LeftButton_Click"/>
+            <!--<Button  
             Name="RightBtn"
             Style="{StaticResource DownButtonStyle}" 
             Width="50"
             Height="50"             
             Click="RightButton_Click"
-            />
+            />-->
+            <local:ImageButton3 x:Name="RightBtn"
+                Width="50" 
+                Height="50"                 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                ImagePath="../Images/down_normal.png"
+                PressImagePath="../Images/down_press.png"
+                DisableImagePath="../Images/down_disable.png"
+                PreviewMouseLeftButtonDown="RightButton_Click"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" 
                     Margin="20,0,0,0"  HorizontalAlignment="Center">

@@ -10,6 +10,7 @@
         AllowsTransparency="True"
         Background="Transparent" 
         ShowInTaskbar="False" 
+        Foreground="Black"
         BorderThickness="25,25,25,25"
         Loaded="Window_Loaded">
     <Window.Resources>
@@ -35,8 +36,11 @@
     </Window.Effect>
 
     <Viewbox Stretch="Fill">
-        <Border Height="530" Width="650" Background="AliceBlue">
+        <Border Height="530" Width="650">
             <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="../../../Images/popup_gnd_Image Preview.png" Stretch="None"></ImageBrush>
+                </Grid.Background>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="*" />
@@ -54,8 +58,8 @@
 
                 <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="263*"/>
-                        <ColumnDefinition Width="327*"/>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="280" />
@@ -135,7 +139,7 @@
                             Name="UploadButton"
                             HorizontalAlignment="Center" 
                             Margin="215,8" 
-                            Width="160" 
+                            Width="150" 
                             Height="35"
                             FontSize="16"
                             Style="{StaticResource CustomPopUpButtonStyle}" 

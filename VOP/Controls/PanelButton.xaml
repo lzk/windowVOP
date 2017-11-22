@@ -113,7 +113,7 @@
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsEnabled" Value="false" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/left_press.png"/>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/left_Disable.png"/>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -156,7 +156,7 @@
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsEnabled" Value="false" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/right_press.png"/>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/right_Disable.png"/>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -199,7 +199,7 @@
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsEnabled" Value="false" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/up_press.png"/>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/up_Disable.png"/>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -245,7 +245,7 @@
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsEnabled" Value="false" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/down_press.png"/>
+                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/down_Disable.png"/>
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

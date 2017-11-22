@@ -103,11 +103,11 @@
                             </Grid>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="3">
+                        <StackPanel Grid.Row="3" Margin="10,5">
                             <Grid Grid.Row="3" Height="40">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition Width="12"></ColumnDefinition>
+                                    <ColumnDefinition Width="10"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Button x:Name="btnCancel" Click="OnClickCancelButton" Style="{StaticResource CustomSettingButtonStyle}"

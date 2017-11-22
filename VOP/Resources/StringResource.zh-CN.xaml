@@ -234,6 +234,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_machine_is_busy__please_try_later_">机器正在工作中，请稍后再试。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_fix_error_first_and_try_later_">请解决故障后再试一次！</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_Successfully_">设定成功</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Setting_Completed">设定完成！</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_Fail">设定失败</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Fail">扫描失败</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Fail">打印失败</sys:String>
@@ -428,4 +429,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Device_Disconnected">设备断开连接，扫描将会被停止!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_ScanTo_Cloud_wait">待定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Network_fail">The Network is not connected, please check your setting.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Are_you_sure_to_delete_the_quick_scan">Are you sure to delete the quick scan setting?</sys:String>
 </ResourceDictionary>

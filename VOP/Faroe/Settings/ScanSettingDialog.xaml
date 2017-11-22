@@ -128,10 +128,10 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheck" Source="../../Images/Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheck" Source="../../Images/Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheckDisable" Source="../../Images/Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheckDisable" Source="../../Images/Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgCheck" Source="../../Images/Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgUncheck" Source="../../Images/Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgCheckDisable" Source="../../Images/Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgUncheckDisable" Source="../../Images/Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
                     <Image Height="30" Width="30" Grid.Column="1" Name="Color" Stretch="Fill" Source="../../Images/Color.png" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Right"></Image>
                 </Grid>
                 <ControlTemplate.Triggers>
@@ -210,10 +210,10 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheck" Source="../../Images/Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheck" Source="../../Images/Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheckDisable" Source="../../Images/Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheckDisable" Source="../../Images/Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgCheck" Source="../../Images/Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgUncheck" Source="../../Images/Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgCheckDisable" Source="../../Images/Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgUncheckDisable" Source="../../Images/Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
                     <Image Height="30" Width="30" Grid.Column="1" Name="Color" Stretch="Fill" Source="../../Images/Grayscale.png" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Right"></Image>
                 </Grid>
                 <ControlTemplate.Triggers>
@@ -295,8 +295,10 @@
                     <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <Grid x:Name="LayoutRoot" Background="AliceBlue" Width="537" Height="545" >
-
+            <Grid x:Name="LayoutRoot" Width="537" Height="545" >
+                <Grid.Background>
+                    <ImageBrush ImageSource="../../Images/popup_gnd_quick scan.png" Stretch="None"></ImageBrush>
+                </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="100" />
@@ -526,9 +528,9 @@
                 <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button HorizontalContentAlignment="Center" IsDefault="False" x:Name="btnDefault" Click="btnDefault_Click"
                 Content="{StaticResource ResStr_Default}" Style="{StaticResource CustomPopUpButtonStyle}"
-                Height="35" Width="200" Margin="0,0,20,0" />
+                Height="35" Width="150" Margin="0,0,20,0" />
                     <Button HorizontalContentAlignment="Center" x:Name="btnOk" Click="btnOk_Click"
-                Content="{StaticResource ResStr_OK}"  Height="35" Width="200" 
+                Content="{StaticResource ResStr_OK}"  Height="35" Width="150" 
                             Style="{StaticResource CustomPopUpButtonStyle}"/>
                 </StackPanel>
 
