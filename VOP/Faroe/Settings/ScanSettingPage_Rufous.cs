@@ -53,7 +53,7 @@ namespace VOP
             m_listSettingButton.Clear();
 
             int tabbtn_width = 175;
-            int tabbtn_height = 66;
+            int tabbtn_height = 65;
 
 //            btnScanParameter.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Common");
             btnScanParameter.btn.Content = "Scan To Settings";
@@ -159,7 +159,7 @@ namespace VOP
             btnSoftAP.btn.Content = (string)this.TryFindResource("ResStr_Soft_AP");
             //btnSoftAP.Margin = new Thickness(0, 1, 0, 9);
             btnSoftAP.Width = tabbtn_width;
-            btnSoftAP.Height = 65;// tabbtn_height;
+            btnSoftAP.Height =  tabbtn_height;
             btnSoftAP.HorizontalAlignment = HorizontalAlignment.Left;
             btnSoftAP.btn.Name = "btnSoftAP";
             btnSoftAP.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
@@ -168,7 +168,7 @@ namespace VOP
             btnDevice.btn.Content = (string)this.TryFindResource("ResStr_Device");
             //btnDevice.Margin = new Thickness(0, 1, 0, 9);
             btnDevice.Width = tabbtn_width;
-            btnDevice.Height = 64;// tabbtn_height;
+            btnDevice.Height = tabbtn_height;
             btnDevice.HorizontalAlignment = HorizontalAlignment.Left;
             btnDevice.btn.Name = "btnDevice";
             btnDevice.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
@@ -264,10 +264,10 @@ namespace VOP
             setting_tab_btn.Children.Add(btnwifi);
             setting_tab_btn.Children.Add(btnTCPIP);
             setting_tab_btn.Children.Add(btnSoftAP);
-            setting_tab_btn.Children.Add(btnDevice);         
+            setting_tab_btn.Children.Add(btnDevice);
 
+            ClickSettingButton(SettingType.Device);
             ClickSettingButton(SettingType.ScanParameter);
-          
         }
 
         public void handler_loaded_settingpage( object sender, RoutedEventArgs e )

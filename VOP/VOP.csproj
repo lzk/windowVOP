@@ -1276,6 +1276,12 @@
     <Resource Include="Images\quick scan_btnf_new.png" />
     <Resource Include="Images\quick scan_btnf_setting.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting_img_disable1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting_img_disable2.png" />
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>

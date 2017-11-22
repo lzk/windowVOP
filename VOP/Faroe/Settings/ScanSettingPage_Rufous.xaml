@@ -56,7 +56,8 @@
                 PressImagePath="../../Images/left_press.png"
                 DisableImagePath="../../Images/left_disable.png"
                 PreviewMouseLeftButtonDown="Button_Click"/>
-        <StackPanel  Grid.Row="1" Grid.Column="1" Name="setting_tab_btn" Background="LightGray" Orientation="Vertical" Panel.ZIndex="100" >
+        <StackPanel  Grid.Row="1" Grid.Column="1" Name="setting_tab_btn" Background="LightGray" Orientation="Vertical" 
+                     Panel.ZIndex="100" Margin="0,0,0,5">
             </StackPanel>
             <Border Name="settingView" Grid.Row="1" Grid.Column="2">
             </Border>
