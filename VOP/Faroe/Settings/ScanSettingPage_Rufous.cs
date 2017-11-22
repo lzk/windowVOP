@@ -359,7 +359,7 @@ namespace VOP
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
 
              m_MainWin.GotoPage("ScanSelectionPage", null);

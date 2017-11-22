@@ -128,7 +128,7 @@ namespace VOP
         }
 
 
-        private void LeftButton_Click(object sender, RoutedEventArgs e)
+        private void LeftButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             m_selectedPage--;
             if (m_selectedPage == 0)
@@ -147,7 +147,7 @@ namespace VOP
             UpdateImageFiles();
         }
 
-        private void RightButton_Click(object sender, RoutedEventArgs e)
+        private void RightButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             m_selectedPage++;
             if (m_selectedPage >= (m_pageCount-1))
@@ -903,7 +903,7 @@ namespace VOP
             return -1;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
 
             if(image_wrappanel.Children.Count > 0)

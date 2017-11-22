@@ -404,7 +404,7 @@ namespace VOP
             tb1.Text = str;
         }
 
-        private void LeftButton_Click(object sender, RoutedEventArgs e)
+        private void LeftButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
            int result = 0;
            if(Int32.TryParse(ScreenBtn.Content.ToString(), out result))
@@ -429,7 +429,7 @@ namespace VOP
             }
         }
         
-        private void RightButton_Click(object sender, RoutedEventArgs e)
+        private void RightButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             int result = 0;       
             if (Int32.TryParse(ScreenBtn.Content.ToString(), out result))

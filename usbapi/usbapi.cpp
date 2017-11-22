@@ -815,7 +815,7 @@ USBAPI_API int __stdcall SearchValidedIP2(SAFEARRAY** ipList)
 		strcpy(community, "public");
 		g_nTotalPrinter = 0;
 
-		FindAgentProEX2(community, TRUE, "255.255.255.255", "", 3, 30, 6000, 2, sysObjectID, AddHostV4EX2, AddHostV6EX2);
+		FindAgentProEX2(community, TRUE, "255.255.255.255", "", 3, 30, 3000, 2, sysObjectID, AddHostV4EX2, AddHostV6EX2);
 
 		for (int i = 0; i < g_nTotalPrinter; i++)
 		{
@@ -824,7 +824,6 @@ USBAPI_API int __stdcall SearchValidedIP2(SAFEARRAY** ipList)
 			
 			bstrArray[i] = ::SysAllocString(ipAddress);
 		}
-
 
 		CreateSafeArrayFromBSTRArray
 			(

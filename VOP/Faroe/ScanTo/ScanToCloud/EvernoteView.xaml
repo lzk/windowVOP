@@ -10,6 +10,7 @@
         AllowsTransparency="True"
         Background="Transparent" 
         ShowInTaskbar="False" 
+        Foreground="Black"
         BorderThickness="25,25,25,25"
         Loaded="Window_Loaded">
     <Window.Resources>
@@ -138,7 +139,7 @@
                             Name="UploadButton"
                             HorizontalAlignment="Center" 
                             Margin="215,8" 
-                            Width="160" 
+                            Width="150" 
                             Height="35"
                             FontSize="16"
                             Style="{StaticResource CustomPopUpButtonStyle}" 

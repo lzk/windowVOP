@@ -275,6 +275,7 @@ namespace VOP
         {
             FillDeviceList(true);
         }
+
         private void OkClick(object sender, RoutedEventArgs e)
         {
             OnConnected();
@@ -340,7 +341,7 @@ namespace VOP
 
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             if (DeviceList.Items.Count <= 0)
             {

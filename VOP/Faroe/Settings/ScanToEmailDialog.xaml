@@ -13,6 +13,7 @@
         ResizeMode="NoResize"
         WindowStyle="None" 
         BorderThickness="24"
+        Foreground="Black"
         xmlns:vop="clr-namespace:VOP"
         ShowInTaskbar="False" 
         Loaded="ScanToEmailDialog_Loaded">
@@ -88,7 +89,7 @@
                     <Button
                 Grid.Row="0"
                 Grid.Column="2"
-                Width="200"
+                Width="100"
                 Height="35" 
                         HorizontalAlignment="Right"
                  Content="{StaticResource ResStr_Setting}" 
@@ -192,7 +193,7 @@
                     <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" 
-                            Width="200" 
+                            Width="150" 
                             Height="35"
                             FontSize="16"
                             Click="OkClick"

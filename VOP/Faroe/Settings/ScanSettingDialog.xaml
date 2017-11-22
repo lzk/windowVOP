@@ -532,9 +532,9 @@
                 <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button HorizontalContentAlignment="Center" IsDefault="False" x:Name="btnDefault" Click="btnDefault_Click"
                 Content="{StaticResource ResStr_Default}" Style="{StaticResource CustomPopUpButtonStyle}"
-                Height="35" Width="200" Margin="0,0,20,0" />
+                Height="35" Width="150" Margin="0,0,20,0" />
                     <Button HorizontalContentAlignment="Center" x:Name="btnOk" Click="btnOk_Click"
-                Content="{StaticResource ResStr_OK}"  Height="35" Width="200" 
+                Content="{StaticResource ResStr_OK}"  Height="35" Width="150" 
                             Style="{StaticResource CustomPopUpButtonStyle}"/>
                 </StackPanel>
 

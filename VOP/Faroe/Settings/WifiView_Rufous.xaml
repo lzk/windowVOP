@@ -71,7 +71,7 @@
                     
                     <Button x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="2" Height="35"
                              Style="{StaticResource CustomSettingButtonStyle}"
-                                    Width="130" Content="{StaticResource ResStr_Manual_Wi_Fi}" 
+                                    Width="120" Content="{StaticResource ResStr_Manual_Wi_Fi}" 
                                     HorizontalContentAlignment="Center" HorizontalAlignment="Right"></Button>
                   
                     <Grid Grid.Row="3" Name="gdWifi">
@@ -210,16 +210,16 @@
                                     </Grid>
                                 </StackPanel>
 
-                                <StackPanel Grid.Row="5" Margin="0,10,0,0">
+                                <StackPanel Grid.Row="5" Margin="10,10,10,0">
                                     <Grid Height="30" >
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
-                                            <ColumnDefinition Width="6"></ColumnDefinition>
+                                            <ColumnDefinition Width="10"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Button x:Name="btnCancel" Click="btn_Click" Style="{StaticResource CustomSettingButtonStyle}"
+                                        <Button x:Name="btnCancel" Click="btn_Click"  Style="{StaticResource CustomSettingButtonStyle}"
                                                 Content="{StaticResource ResStr_Back}" HorizontalContentAlignment="Center"></Button>
-                                        <Button x:Name="btnConnect" Click="btn_Click" Grid.Column="2" Style="{StaticResource CustomSettingButtonStyle}" 
+                                        <Button x:Name="btnConnect" Click="btn_Click"  Grid.Column="2" Style="{StaticResource CustomSettingButtonStyle}" 
                                                 Content="{StaticResource ResStr_Connect}" HorizontalContentAlignment="Center"></Button>
                                     </Grid>
                                 </StackPanel>

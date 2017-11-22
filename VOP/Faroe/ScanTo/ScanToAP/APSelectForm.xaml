@@ -10,6 +10,7 @@
         AllowsTransparency="True"
         Background="Transparent" 
         ShowInTaskbar="False" 
+        Foreground="Black"
         BorderThickness="25,25,25,25"
         Loaded="Window_Loaded">
     <Window.Resources>
@@ -57,7 +58,7 @@
                     <Button Grid.Row="2" Grid.Column="1"
                             HorizontalAlignment="Center" 
                             Margin="20,6" 
-                            Width="160" 
+                            Width="200" 
                             Height="35"
                             FontSize="16"
                             Click="OkClick"

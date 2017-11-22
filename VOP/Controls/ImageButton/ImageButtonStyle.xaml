@@ -113,7 +113,7 @@
                         <Storyboard>
                             <DoubleAnimation
                                 Storyboard.TargetProperty="(Button.Effect).(DropShadowEffect.ShadowDepth)"
-                                To="1" Duration="0:0:0.1" />
+                                To="2" Duration="0:0:0.1" />
                             <DoubleAnimation
                                 Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
                                 To="1.02" Duration="0:0:0.1" />
@@ -249,123 +249,146 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
     </Style>
-    <Style x:Key="seperationButtonStyle" TargetType="Button">
+
+    <Style x:Key="threeStateButtonStyle" TargetType="Button">
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="0" ShadowDepth="0" Color="#FF9C9797" Opacity="0.8"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform  ScaleX="1" ScaleY="1"/>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
+                    <Grid ClipToBounds="True">
+                        <Image Name="backgroundImage" Source="{Binding Path=(local:ThreeState.Image),
+                                RelativeSource={RelativeSource FindAncestor,
+                                AncestorType={x:Type Button}}}" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <!--<Border Name="MyImageBorder" CornerRadius="7">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding Path=(local:ThreeState.Image),
+                                RelativeSource={RelativeSource FindAncestor,
+                                AncestorType={x:Type Button}}}" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            </Border.Background>
+                            <Border.BorderBrush>
+                                <SolidColorBrush x:Name="MyBorderBrush" Color="SteelBlue" />
+                            </Border.BorderBrush>
+                        </Border>-->
 
-                    <Grid ClipToBounds="False">
-                        <Image Name="backgroundImage" Source="../../Images/main_btn_separation.png"/>
+                        <Rectangle x:Name="glassCube" 
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch" 
+                        StrokeThickness="1" 
+                        RadiusX="5" RadiusY="5" Opacity="0" 
+                        Fill="WhiteSmoke">
+                            <Rectangle.Stroke>
+                                <SolidColorBrush x:Name="MyAnimatedBrush" Color="Transparent"/>
+                            </Rectangle.Stroke>
 
-                        <!-- Present Content (text) of the button. -->
-                        <DockPanel Name="myContentPresenterDockPanel">
-                            <ContentPresenter x:Name="myContentPresenter" Margin="20"  
-                            Content="{TemplateBinding  Content}"  
-                            TextBlock.Foreground="Black" />
-                        </DockPanel>
+                        </Rectangle>
 
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsPressed" Value="false" />
-                                <Condition Property="IsMouseOver" Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnf_separation.png"/>
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsPressed" Value="true" />
-                                <Condition Property="IsMouseOver" Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnt_separation.png"/>
-                        </MultiTrigger>
                         <Trigger  Property="IsFocused" Value="True">
                             <Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>
+                        </Trigger>
+                        <Trigger  Property="IsPressed" Value="True">
+                            <Setter TargetName="backgroundImage"  Property="Source" Value="{Binding Path=(local:ThreeState.PressImage),
+                                RelativeSource={RelativeSource FindAncestor,
+                                AncestorType={x:Type Button}}}"/>
+                        </Trigger>
+                        <Trigger  Property="IsEnabled" Value="false">
+                            <Setter TargetName="backgroundImage"  Property="Source" Value="{Binding Path=(local:ThreeState.DisableImage),
+                                RelativeSource={RelativeSource FindAncestor,
+                                AncestorType={x:Type Button}}}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="MouseEnter" >
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>                            
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.Effect).(DropShadowEffect.ShadowDepth)"
+                                To="2" Duration="0:0:0.2" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.Effect).(DropShadowEffect.BlurRadius)"
+                                To="4" Duration="0:0:0.2" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                To="1.04" Duration="0:0:0.2" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                                To="1.04" Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="MouseLeave">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.Effect).(DropShadowEffect.ShadowDepth)"
+                                To="0" Duration="0:0:0.2" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.Effect).(DropShadowEffect.BlurRadius)"
+                                To="0" Duration="0:0:0.2" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                To="1" Duration="0:0:0.2" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                                To="1" Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="PreviewMouseLeftButtonDown">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.Effect).(DropShadowEffect.ShadowDepth)"
+                                To="1" Duration="0:0:0.1" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                To="1.02" Duration="0:0:0.1" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                                To="1.02" Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="PreviewMouseLeftButtonUp">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.Effect).(DropShadowEffect.ShadowDepth)"
+                                To="2" Duration="0:0:0.1" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                To="1.04" Duration="0:0:0.1" />
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                                To="1.04" Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+        </Style.Triggers>
     </Style>
-    <Style x:Key="scantoButtonStyle" TargetType="Button">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-
-                    <Grid ClipToBounds="False">
-                        <Image Name="backgroundImage" Source="../../Images/main_btn_scanto.png"/>
-
-                        <!-- Present Content (text) of the button. -->
-                        <DockPanel Name="myContentPresenterDockPanel">
-                            <ContentPresenter x:Name="myContentPresenter" Margin="20"  
-                            Content="{TemplateBinding  Content}"  
-                            TextBlock.Foreground="Black" />
-                        </DockPanel>
-
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsPressed" Value="false" />
-                                <Condition Property="IsMouseOver" Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnf_scanto.png"/>
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsPressed" Value="true" />
-                                <Condition Property="IsMouseOver" Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnt_scanto.png"/>
-                        </MultiTrigger>
-                        <Trigger  Property="IsFocused" Value="True">
-                            <Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <Style x:Key="settingsButtonStyle" TargetType="Button">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-
-                    <Grid ClipToBounds="False">
-                        <Image Name="backgroundImage" Source="../../Images/main_btn_settings.png"/>
-
-                        <!-- Present Content (text) of the button. -->
-                        <DockPanel Name="myContentPresenterDockPanel">
-                            <ContentPresenter x:Name="myContentPresenter" Margin="20"  
-                            Content="{TemplateBinding  Content}"  
-                            TextBlock.Foreground="Black" />
-                        </DockPanel>
-
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsPressed" Value="false" />
-                                <Condition Property="IsMouseOver" Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnf_settings.png"/>
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsPressed" Value="true" />
-                                <Condition Property="IsMouseOver" Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnt_settings.png"/>
-                        </MultiTrigger>
-                        <Trigger  Property="IsFocused" Value="True">
-                            <Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+   
 </ResourceDictionary>
