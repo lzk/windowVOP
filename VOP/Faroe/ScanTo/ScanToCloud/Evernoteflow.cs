@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Windows;
 using System.Xml;
-
+using System.Threading;
 using EvernoteSDK;
 
 
@@ -26,6 +26,10 @@ namespace VOP
 
         public bool isCancel = false;
         private bool bReset = false;
+        
+        private bool connectSuccess = false;
+        //private Thread thread_Connect = null;
+        //private ManualResetEvent m_connectEvent = new ManualResetEvent(false);
 
         public bool Run()
         {
@@ -50,39 +54,14 @@ namespace VOP
 
             if (!bReset && ENSession.SharedSession.IsAuthenticated == true)
             {
-                //AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-
-                //if (worker.InvokeQuickScanMethod(ScanToEverNote, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_ScanTo_Cloud_wait")))
-                //{
-
-                //}
-                //else
-                //{
-                //    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                //                    Application.Current.MainWindow,
-                //                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail") + m_errorMsg,
-                //                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
-                //    return false;
-                //}
             }
             else
             {
-                //if (ScanToEverNote() == false)
-                //{
-                //    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                //                    Application.Current.MainWindow,
-                //                    (string)"Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!",
-                //                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
-                //    return false;
-                //}
-
-                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-
-                if (worker.InvokeQuickScanMethod(ScanToEverNote, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_ScanTo_Cloud_wait")))
-                {
-
-                }
-                else
+                //thread_Connect = new Thread(ScanToEverNote);
+                //thread_Connect.Start();
+                //m_connectEvent.WaitOne();
+                ScanToEverNote();
+                if (connectSuccess == false)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                     Application.Current.MainWindow,
@@ -94,35 +73,37 @@ namespace VOP
             // Get a list of all notebooks in the user's account.
             if (FlowType == CloudFlowType.View)
             {
+               
+                //AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-                bool? result = null;
-                EverNoteViewer viewer = new EverNoteViewer();
+                //if (worker.InvokeQuickScanMethod(GetNoteList, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_ScanTo_Cloud_wait")))
+                //{
 
-                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-
-                if (worker.InvokeQuickScanMethod(GetNoteList, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_ScanTo_Cloud_wait")))
+                //}
+                //else
+                //{
+                //    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                //                    Application.Current.MainWindow,
+                //                    (string)"Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!",
+                //                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                //    return false;
+                //}
+                if (GetNoteList())
                 {
-
+                    bool? result = null;
+                    EverNoteViewer viewer = new EverNoteViewer();
+                    viewer.NoteList = notelist;
+                    viewer.FileList = FileList;
+                    viewer.Owner = Application.Current.MainWindow;
+                    result = viewer.ShowDialog();
+                    MainWindow_Rufous.g_settingData.m_bNeedReset = false;
                 }
-                else
-                {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                                    Application.Current.MainWindow,
-                                    (string)"Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!",
-                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
-                    return false;
-                }
-
-                viewer.NoteList = notelist;
-                viewer.FileList = FileList;
-                viewer.Owner = Application.Current.MainWindow;
-                result = viewer.ShowDialog();
-                MainWindow_Rufous.g_settingData.m_bNeedReset = false;
             }
             else
             {
-                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-                if (worker.InvokeQuickScanMethod(UpdateLoadFilesToEverNote, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_ScanTo_Cloud_wait")))
+                //AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+                //if (worker.InvokeQuickScanMethod(UpdateLoadFilesToEverNote, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_ScanTo_Cloud_wait")))
+                if(UpdateLoadFilesToEverNote())
                 {
 
                 }
@@ -134,8 +115,6 @@ namespace VOP
                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                     return false;
                 }
-
-
 
                 MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.NeedReset = false;
             }
@@ -151,8 +130,6 @@ namespace VOP
                 List<ENSessionFindNotesResult> myResultsList = ENSession.SharedSession.FindNotes(ENNoteSearch.NoteSearch(textToFind), null,
                 ENSession.SearchScope.All, ENSession.SortOrder.RecentlyUpdated, 500);
 
-                // List<string> notelist = new List<string>();
-
                 if (myResultsList.Count > 0)
                 {
                     foreach (ENSessionFindNotesResult nb in myResultsList)
@@ -164,10 +141,10 @@ namespace VOP
 
             catch (Exception ex)
             {
-                //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                //Application.Current.MainWindow,
-                //(string)"Get Ever Note List Error!",
-                //(string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                Application.Current.MainWindow,
+                (string)"Initial Evernote and get EverNote list fail!",
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
 
                 return false;
             }
@@ -200,7 +177,7 @@ namespace VOP
             {
                 //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                 //           Application.Current.MainWindow,
-                //           (string)"Scan to cloud error, upload file fail!",
+                //           (string)"upload file fail!",
                 //          (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
 
                 return false;
@@ -208,31 +185,27 @@ namespace VOP
 
             return true;
         }
-        bool ScanToEverNote()
-        { 
 
+        public void ScanToEverNote()
+        {
+            //m_connectEvent.Reset();
             try
             {
-                // Be sure to put your own consumer key and consumer secret here.
-                ENSession.SetSharedSessionConsumerKey(ApiKey, ApiSecret);
-
-                if (ENSession.SharedSession.IsAuthenticated == false || bReset)
-                {
-                    return ENSession.SharedSession.AuthenticateToEvernote(true);
-                }
-
+               connectSuccess = ENSession.SharedSession.AuthenticateToEvernote(true);             
             }
 
             catch (Exception ex)
             {
-                //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                //           Application.Current.MainWindow,
-                //           (string)"Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!",//modified by yunying shang for 1473
-                //          (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
-                return false;
+                connectSuccess = false;
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                Application.Current.MainWindow,
+                                (string)"Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!",
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
             }
-            return true;
+
+            //m_connectEvent.Set();
         }
+
         // Support routine for displaying a note thumbnail.
         static byte[] StreamFile(string filename)
         {

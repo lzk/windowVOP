@@ -285,18 +285,20 @@ namespace VOP
                 save.FileName = tbFileName.Text;//add by yunying shang 2017-11-14 for BMS 1393
             else
                 save.FileName = "ScanPictures";
+
             save.InitialDirectory = dummyFileName;
             bool? result = save.ShowDialog();
 
             if (result == true)
             {
-                if (save.FileName.Length > 0)
-                    tbFilePath.Text = System.IO.Path.GetDirectoryName(save.FileName);
+                string path = System.IO.Path.GetDirectoryName(save.FileName);
+                if (path.Length > 0)
+                    tbFilePath.Text = path;
                 else
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                       Application.Current.MainWindow,
-                     "Your Specify File Path is too long or not valid, please specify again!",
+                     "Your Specify File Path + File Name is too long or not valid, please specify again!",
                      "Error");
                 }
 
