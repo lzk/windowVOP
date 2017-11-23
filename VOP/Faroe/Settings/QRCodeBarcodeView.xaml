@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             Foreground="Black"
              d:DesignHeight="460" d:DesignWidth="495"
              xmlns:local="clr-namespace:VOP.Controls"
              Loaded="UserControl_Loaded"
@@ -286,8 +287,9 @@
         </Grid.Background>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="58"></RowDefinition>
-            <RowDefinition/>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="6"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -295,6 +297,18 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+
+
+        <Canvas Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+            <Path Stroke="LightGray" StrokeThickness="2">
+                <Path.Data>
+                    <LineGeometry StartPoint="0,4" EndPoint="450,2"></LineGeometry>
+                </Path.Data>
+            </Path>
+        </Canvas>
+        
+        
+
         <TextBlock
         	Grid.Column="1"
         	FontSize="14"
@@ -311,21 +325,25 @@
        		Style="{StaticResource CustomSettingButtonStyle}"
         	Click="Button_Click"
                 />
-        <Grid Grid.Row="1" Grid.Column="1" Margin="0,10,0,0">
+        <Grid Grid.Row="2" Grid.Column="1" Margin="0,10,0,0">
+
             <Grid.RowDefinitions>
-                <RowDefinition Height="150" />
+                <RowDefinition Height="130" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="60" />
             </Grid.RowDefinitions>
             <GroupBox x:Name="QRCodeBarcodeGroup" Grid.Row="0" Header="QRCode/Barcode Decode" FontWeight="Bold" 
                       FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400"  Margin="5,5">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120*"/>
+                        <ColumnDefinition Width="313*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="45"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0">
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.ColumnSpan="2">
                         <TextBlock 
             				Text="Code Type :" 
             				VerticalAlignment="Center"
@@ -346,7 +364,7 @@
                             <ComboBoxItem Content="All" />
                         </ComboBox>
                     </StackPanel>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0">
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.ColumnSpan="2">
                         <TextBlock 
             				Text="Output Result :" 
             				VerticalAlignment="Center" FontWeight="Normal"
@@ -370,10 +388,9 @@
                       FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" Margin="5,1,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="55"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,1,20,4">
                         <TextBlock 
@@ -385,7 +402,7 @@
             				x:Name="cbFileType"
             				VerticalAlignment="Center" 
             				VerticalContentAlignment="Center"
-                            HorizontalAlignment="Left"
+                            HorizontalAlignment="Right"
             				Width="200" 
             				Height="30" 
             				Margin="20,0" 
@@ -415,13 +432,12 @@
                             FontWeight="Normal"
                     		VerticalContentAlignment="Center" TextChanged="tbFilePath_TextChanged"
                                 />
-
                     </StackPanel>
                     <Button  Grid.Row="2"
             			FontSize="16" FontWeight="Normal"
             			Click="BrowseClick"
                              Width="100" Height="35"
-                             HorizontalAlignment="Right" Margin="0,4,25,11"
+                             HorizontalAlignment="Right" VerticalAlignment="Center"
             			Style="{StaticResource CustomSettingButtonStyle}"
             			Content="Browse..." 
                             />
@@ -439,6 +455,5 @@
             		Content="Apply" 
                             />
         </Grid>
-       
     </Grid>
 </UserControl>

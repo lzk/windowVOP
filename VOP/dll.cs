@@ -305,7 +305,7 @@ namespace VOP
                 [MarshalAs(UnmanagedType.LPWStr)]String pwd);
 
         [DllImport("usbapi.dll")]
-        public static extern bool PrintInitDialog(
+        public static extern int PrintInitDialog(
          [MarshalAs(UnmanagedType.LPWStr)]string jobDescription,
          IntPtr hwnd);
 
@@ -494,6 +494,10 @@ namespace VOP
 
         [DllImport("usbapi.dll")]
         public static extern bool TestIpConnected([MarshalAs(UnmanagedType.LPWStr)]string szIP);
+
+        [DllImport("usbapi.dll")]
+        public static extern bool CheckPrinterStatus(
+        [MarshalAs(UnmanagedType.LPWStr)]String printername);
     }
 
 }

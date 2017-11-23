@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VOP.Controls"
              mc:Ignorable="d" 
+             Foreground="Black"
              d:DesignHeight="460" d:DesignWidth="495" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -134,7 +135,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
-            <Label x:Name="label1" Content="{StaticResource ResStr_Power_Save_Time}"
+            <TextBlock x:Name="label1" Text="{StaticResource ResStr_Power_Save_Time}"
                    Grid.Column="0" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center"
                    Width="164" Grid.Row="0" FontSize="14"/>
             <!--<Button x:Name="btnCalibration" Click="btnCalibration_Click" Content="{StaticResource ResStr_Calibration}" 

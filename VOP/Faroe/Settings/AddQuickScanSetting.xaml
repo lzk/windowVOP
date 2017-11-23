@@ -12,6 +12,7 @@
         ResizeMode="NoResize"
         WindowStyle="None" 
         BorderThickness="24"
+        Foreground="Black"
         xmlns:vop="clr-namespace:VOP"
         ShowInTaskbar="False" 
         Loaded="AddQuickScanSetting_Loaded">
@@ -156,7 +157,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="60"></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="1" Grid.Column="1" >
@@ -234,10 +235,8 @@
                     </Grid>
                     <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                             HorizontalAlignment="Center" 
-                            VerticalAlignment="Center"
-                            Margin="20,6" 
+                            VerticalAlignment="Center" 
                             Width="150" 
-                            Height="40"
                             FontSize="16"
                             Click="OkClick"
                             Style="{StaticResource CustomPopUpButtonStyle}"

@@ -99,17 +99,17 @@ namespace VOP
         {
             try
             {
-                //Regex containsABadCharacter = new Regex(@"["
-                //                               + Regex.Escape(new string(System.IO.Path.GetInvalidPathChars())) + "]");
+                Regex containsABadCharacter = new Regex(@"["
+                                               + Regex.Escape(new string(System.IO.Path.GetInvalidPathChars())) + "]");
 
-                //if (containsABadCharacter.IsMatch(path))
-                //{
-                //    return false;
-                //}
-                if (!Regex.IsMatch(path, @"\A(?:/(.|[\r\n])*)\z"))
+                if (containsABadCharacter.IsMatch(path))
                 {
                     return false;
                 }
+                //if (!Regex.IsMatch(path, @"\A(?:/(.|[\r\n])*)\z"))
+                //{
+                //    return false;
+                //}
 
                 int i = 0;
                 for (i = 0; i < path.Length; i++)
@@ -131,6 +131,12 @@ namespace VOP
                 {
                     path = App.PictureFolder + "\\" + path;
                 }//<<=============1181
+                //add by yunying shang 2017-11-22 for BMS 1499
+                else if ((!path.Contains("\\") && path.Contains(":")) ||
+                    (!path.Contains(":") && path.Contains("\\")))
+                {
+                    return false;
+                }//<<=============1499
 
 
             }

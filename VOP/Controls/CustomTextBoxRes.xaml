@@ -3,6 +3,7 @@
     <Color x:Key="clrDisableBK_TextBox">#FFB0B0B0</Color>
     <Color x:Key="clrDisableText_TextBox">#FFEFEFEF</Color>
     <Color x:Key="clrEnableBK_TextBox">#FFF7F7F7</Color>
+    <Color x:Key="clrEnableText_TextBox">#FF000000</Color>
 
     <ControlTemplate x:Key="customTextBox" TargetType="{x:Type TextBox}" >
         <Grid Width="{TemplateBinding Width}"
@@ -42,7 +43,7 @@
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Foreground">
                     <Setter.Value>
-                        <SolidColorBrush Color="{StaticResource clrEnableBK_TextBox}" />
+                        <SolidColorBrush Color="{StaticResource clrDisableText_TextBox}" />
                     </Setter.Value>
                 </Setter>
                 <Setter TargetName="Border" Property="Fill">
@@ -56,6 +57,13 @@
                 <Setter TargetName="rect" Property="Fill">
                     <Setter.Value>
                         <SolidColorBrush Color="{StaticResource clrDisableBK_TextBox}"></SolidColorBrush>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="true">
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{StaticResource clrEnableText_TextBox}" />
                     </Setter.Value>
                 </Setter>
             </Trigger>

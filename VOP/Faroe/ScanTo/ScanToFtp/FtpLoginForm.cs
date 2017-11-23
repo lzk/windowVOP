@@ -119,6 +119,24 @@ namespace VOP
                 tbTargetPath.Focus();
                 return;
             }
+            else
+            {
+                strTargetPath = tbTargetPath.Text;
+                int i = 0;
+                for (i = 0; i < strTargetPath.Length; i++)
+                {
+                    if (strTargetPath[i] != '/')
+                        break;
+                }
+                if (i >= strTargetPath.Length && strTargetPath.Length >= 2)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                      Application.Current.MainWindow,
+                     "The Target Path format is incorrect, Please check you target path and enter again.",
+                     "Error");
+                    return;
+                }
+            }
             m_serverAddress = tbServerName.Text;
             m_userName = tbUserName.Text;
             m_password = pbPWD.Password;

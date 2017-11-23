@@ -134,7 +134,12 @@ namespace VOP
                 //imgInactive.Visibility = Visibility.Visible;
                 //imgBg.Visibility = Visibility.Hidden;
                 //imgDisable.Visibility = Visibility.Visible;
-                imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_disable.png", UriKind.RelativeOrAbsolute));
+                if(m_settingType == SettingType.ScanParameter)
+                    imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_disable.png", UriKind.RelativeOrAbsolute));
+                else if(m_settingType == SettingType.Device)
+                    imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_disable2.png", UriKind.RelativeOrAbsolute));
+                else
+                    imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_disable1.png", UriKind.RelativeOrAbsolute));
             }
         }
 
