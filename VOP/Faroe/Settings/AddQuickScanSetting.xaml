@@ -194,10 +194,16 @@
                                 VerticalContentAlignment="Center"
                                 UndoLimit="0" 
                                 PreviewKeyDown="tbName_PreviewKeyDown"                                
-                                FontSize="14"
-                                />
+                                FontSize="14">
+                                <TextBox.CommandBindings>
+                            <CommandBinding Command="ApplicationCommands.Paste"
+                              Executed="CommandBinding_Executed"
+                              CanExecute="CommandBinding_CanExecute"/>
+                            </TextBox.CommandBindings>
+                        </TextBox>
 
-                                <TextBlock Grid.Row="1" Grid.Column="1"
+
+                        <TextBlock Grid.Row="1" Grid.Column="1"
                                 Text="Type :"
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"

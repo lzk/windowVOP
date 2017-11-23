@@ -76,7 +76,55 @@ namespace VOP
                     return;
                 }
             }       
+        }
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
 
+        }
+
+        //后台
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            //            e.Handled = true;
+            //System.Windows.Forms.IDataObject iData = System.Windows.Forms.Clipboard.GetDataObject();
+
+            //string newText = "";
+            //newText = tbName.Text.Substring(0, tbName.SelectionStart)
+            //    + (string)iData.GetData(System.Windows.Forms.DataFormats.Text)
+            //    + tbName.Text.Substring(tbName.SelectionStart + tbName.SelectionLength);
+            ////1,下面这种是如果拷贝后的字节总数大于10了,直接不响应
+            ////if (!isValidate(newText))
+            ////    return true;
+            ////2,下面这种是直到拷贝字符到字节总数大于10
+            //if (isValidate(tbName.Text))//拷贝前是合法的
+            //{
+            //    bool isValid = false;
+            //    string ctrlvStr = (string)iData.GetData(System.Windows.Forms.DataFormats.Text);
+            //    for (int i = 0; i < ctrlvStr.Length; i++)
+            //    {
+            //        newText = tbName.Text.Substring(0, tbName.SelectionStart)
+            //        + ctrlvStr.Substring(0, ctrlvStr.Length - i)
+            //        + tbName.Text.Substring(tbName.SelectionStart + tbName.SelectionLength);
+            //        if (isValidate(newText))
+            //        {
+            //            isValid = true;
+            //            tbName.Text = newText;
+            //            tbName.SelectionStart = tbName.Text.Length;
+            //            e.Handled = true;
+            //        }
+            //    }
+            //    if (!isValid)
+            //        e.Handled = true;
+            //}
+            //else
+            //    e.Handled = true;
+        }
+        private bool isValidate(string str)
+        {
+            if (System.Text.Encoding.Default.GetBytes(str).Length <= 10)
+                return true;
+            else
+                return false;
         }
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
