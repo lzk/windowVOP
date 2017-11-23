@@ -47,14 +47,16 @@
                 DisableImagePath="../Images/left_disable.png"
                             PreviewMouseLeftButtonDown="BackButton_Click"/>
         
-        <local:ImageButton2   
+        <local:ImageButton3   
             Grid.Row="1" 
             Grid.Column="2"
-            Width="60"
-            Height="60"
+            Width="70"
+            Height="70"
             VerticalAlignment="Top" 
             HorizontalAlignment="Left"
             ImagePath="../Images/clockwise-arrow.png"
+            PressImagePath="../Images/clockwise-arrow_press.png"
+            DisableImagePath="../Images/clockwise-arrow.png"
             PreviewMouseLeftButtonDown="RefreshClick"
             />
 

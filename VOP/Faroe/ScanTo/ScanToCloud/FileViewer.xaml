@@ -52,7 +52,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="350" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="50" />
+                        <RowDefinition Height="60" />
                     </Grid.RowDefinitions>
 
                     <Border Grid.Row="0" Grid.ColumnSpan="2">

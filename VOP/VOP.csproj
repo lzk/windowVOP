@@ -1282,6 +1282,9 @@
   <ItemGroup>
     <Resource Include="Images\setting_img_disable2.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\clockwise-arrow_press.png" />
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>

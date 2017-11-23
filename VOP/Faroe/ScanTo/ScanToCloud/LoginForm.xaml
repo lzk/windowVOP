@@ -35,7 +35,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="60" />
                 </Grid.RowDefinitions>
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
                     <TextBlock Name="TitleBarText" Text="{StaticResource ResStr_Faroe_Auth_Dropbox}" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
