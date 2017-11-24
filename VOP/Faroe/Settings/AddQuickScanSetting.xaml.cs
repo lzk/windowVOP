@@ -92,7 +92,7 @@ namespace VOP
             //{
             //    this.tbName.Text = strName;
             //}
-                       this.tbName.Text = RealText;
+            //           this.tbName.Text = RealText;
             //TextBox tb = sender as TextBox;
             //if (IsOutMaxByteLength(tb.Text, tb))
             //{
