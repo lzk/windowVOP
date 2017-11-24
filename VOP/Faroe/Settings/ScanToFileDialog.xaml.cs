@@ -170,6 +170,20 @@ namespace VOP
             return true;
         }
 
+        private bool PathExist(string path)
+        {
+            int find = path.LastIndexOf(':');
+            if (find > 0)
+            {
+                string str = path.Substring(0, find+1);
+                if (System.IO.Directory.Exists(str))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void OkClick(object sender, RoutedEventArgs e)
         {
             //modified by yunying shang 2017-10-19 for BMS 1173
@@ -220,6 +234,16 @@ namespace VOP
             }
             else
             {
+                if (!PathExist(path))
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                      Application.Current.MainWindow,
+                     "Your Specify File Path is not exit, please specify again!",
+                     "Error");
+                    tbFileName.Focus();
+                    return;
+                }
+
                 if (!IsValidPathName(ref path))
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,

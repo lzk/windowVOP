@@ -145,15 +145,15 @@
     </Style>
 
 
-    
-   <!-- <Style x:Key="coolBlueButtonStyle" TargetType="Button">
+
+    <Style x:Key="coolBlueButtonStyle" TargetType="Button">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-              
+
                     <Grid ClipToBounds="False">
                         <Image Name="backgroundImageborder" Source="../../Images/button_3dborder.png" Margin="-28, -28, -28, -30" Stretch="Fill"/>
-                        <Image Name="backgroundImage" Source="../../Images/lightbutton.png"/>
+                        <!--<Image Name="backgroundImage" Source="../../Images/lightbutton.png"/>-->
 
                         <Grid Margin="15">
                             <Border Name="MyImageBorder" CornerRadius="7" >
@@ -181,66 +181,14 @@
                                 <Condition Property="IsPressed" Value="false" />
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/lightbutton_over.png"/>
+                           <!-- <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/lightbutton_over.png"/>-->
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsPressed" Value="true" />
                                 <Condition Property="IsMouseOver" Value="true" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/lightbutton_press.png"/>
-                        </MultiTrigger>
-                        <Trigger  Property="IsFocused" Value="True">
-                            <Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>      
-    </Style>-->
-    <Style x:Key="decodeButtonStyle" TargetType="Button">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-
-                    <Grid ClipToBounds="False">
-                        <!--<Image Name="backgroundImageborder" Source="../../Images/button_3dborder.png" Margin="-28, -28, -28, -30" Stretch="Fill"/>-->
-                        <Image Name="backgroundImage" Source="../../Images/main_btn_decode.png"/>
-
-                       <!-- <Grid Margin="15">
-                            <Border Name="MyImageBorder" CornerRadius="7" >
-                                <Border.Background>
-                                    <ImageBrush  ImageSource="{Binding Path=(local:EyeCandy.Image),
-                                RelativeSource={RelativeSource FindAncestor,
-                                AncestorType={x:Type Button}}}" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                </Border.Background>
-                                <Border.BorderBrush>
-                                    <SolidColorBrush x:Name="MyBorderBrush" Color="SteelBlue" />
-                                </Border.BorderBrush>
-                            </Border>
-                        </Grid>-->
-
-                        <!-- Present Content (text) of the button. -->
-                        <DockPanel Name="myContentPresenterDockPanel">
-                            <ContentPresenter x:Name="myContentPresenter" Margin="20"  
-                            Content="{TemplateBinding  Content}"  
-                            TextBlock.Foreground="Black" />
-                        </DockPanel>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsPressed" Value="false" />
-                                <Condition Property="IsMouseOver" Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnf_decode.png"/>
-                        </MultiTrigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsPressed" Value="true" />
-                                <Condition Property="IsMouseOver" Value="true" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/main_btnt_decode.png"/>
+                            <!--<Setter TargetName="backgroundImage"  Property="Source"  Value="../../Images/lightbutton_press.png"/>-->
                         </MultiTrigger>
                         <Trigger  Property="IsFocused" Value="True">
                             <Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>
@@ -250,7 +198,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-
+    
     <Style x:Key="threeStateButtonStyle" TargetType="Button">
         <Setter Property="Effect">
             <Setter.Value>
@@ -290,7 +238,6 @@
                             <Rectangle.Stroke>
                                 <SolidColorBrush x:Name="MyAnimatedBrush" Color="Transparent"/>
                             </Rectangle.Stroke>
-
                         </Rectangle>
 
                     </Grid>

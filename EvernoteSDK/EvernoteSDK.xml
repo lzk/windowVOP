@@ -226,6 +226,24 @@
         <member name="M:EvernoteSDK.Advanced.ENNoteStoreClient.SetSharedNotebookRecipientSettings(System.Int64,Evernote.EDAM.Type.SharedNotebookRecipientSettings)">
             ** Set shared notebook recipient settings.
         </member>
+        <member name="M:EvernoteSDK.ENSession.SetSharedSessionConsumerKey(System.String,System.String,System.String)">
+            **
+        </member>
+        <member name="M:EvernoteSDK.ENSession.SetSharedSessionDeveloperToken(System.String,System.String)">
+            **
+        </member>
+        <member name="F:EvernoteSDK.ENSession._sharedSession">
+            **
+        </member>
+        <member name="M:EvernoteSDK.Advanced.ENSessionAdvanced.NoteStoreForLinkedNotebook(Evernote.EDAM.Type.LinkedNotebook)">
+            **
+        </member>
+        <member name="M:EvernoteSDK.Advanced.ENSessionAdvanced.NoteStoreForNoteRef(EvernoteSDK.ENNoteRef)">
+            **
+        </member>
+        <member name="M:EvernoteSDK.Advanced.ENSessionAdvanced.NoteStoreforNotebook(EvernoteSDK.ENNotebook)">
+            **
+        </member>
         <member name="P:EvernoteSDK.Advanced.ENSessionAdvanced.SharedSession">
             **
         </member>
@@ -236,15 +254,6 @@
             **
         </member>
         <member name="P:EvernoteSDK.Advanced.ENSessionAdvanced.BusinessNoteStore">
-            **
-        </member>
-        <member name="M:EvernoteSDK.Advanced.ENSessionAdvanced.NoteStoreForLinkedNotebook(Evernote.EDAM.Type.LinkedNotebook)">
-            **
-        </member>
-        <member name="M:EvernoteSDK.Advanced.ENSessionAdvanced.NoteStoreForNoteRef(EvernoteSDK.ENNoteRef)">
-            **
-        </member>
-        <member name="M:EvernoteSDK.Advanced.ENSessionAdvanced.NoteStoreforNotebook(EvernoteSDK.ENNotebook)">
             **
         </member>
         <member name="P:EvernoteSDK.Advanced.ENSessionFindNotesResultAdvanced.UpdateSequenceNumber">
@@ -528,15 +537,6 @@
             <param name="innerException">The exception that is the cause of the
             current exception, or a null reference if no inner exception is
             specified</param>
-        </member>
-        <member name="M:EvernoteSDK.ENSession.SetSharedSessionConsumerKey(System.String,System.String,System.String)">
-            **
-        </member>
-        <member name="M:EvernoteSDK.ENSession.SetSharedSessionDeveloperToken(System.String,System.String)">
-            **
-        </member>
-        <member name="F:EvernoteSDK.ENSession._sharedSession">
-            **
         </member>
         <member name="T:EvernoteSDK.Properties.Resources">
             <summary>
