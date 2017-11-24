@@ -22,23 +22,23 @@
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsPressed" Value="false" />
-                                <Condition Property="IsMouseOver" Value="false" />
+                                <!--<Condition Property="IsMouseOver" Value="false" />-->
                                 <Condition Property="Connected" Value="false" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/device_normal.png"/>
                         </MultiTrigger>
-                        <MultiTrigger>
+                        <!--<MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsPressed" Value="false" />
                                 <Condition Property="IsMouseOver" Value="true" />
                                 <Condition Property="Connected" Value="false" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/device_over.png"/>
-                        </MultiTrigger>
+                        </MultiTrigger>-->
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsPressed" Value="true" />
-                                <Condition Property="IsMouseOver" Value="true" />
+                                <!--<Condition Property="IsMouseOver" Value="true" />-->
                                 <Condition Property="Connected" Value="false" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/device_press.png"/>
@@ -47,23 +47,23 @@
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsPressed" Value="false" />
-                                <Condition Property="IsMouseOver" Value="false" />
+                                <!--<Condition Property="IsMouseOver" Value="false" />-->
                                 <Condition Property="Connected" Value="true" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/device_normal_blue.png"/>
                         </MultiTrigger>
-                        <MultiTrigger>
+                       <!-- <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsPressed" Value="false" />
                                 <Condition Property="IsMouseOver" Value="true" />
                                 <Condition Property="Connected" Value="true" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/device_over_blue.png"/>
-                        </MultiTrigger>
+                        </MultiTrigger>-->
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsPressed" Value="true" />
-                                <Condition Property="IsMouseOver" Value="true" />
+                               <!-- <Condition Property="IsMouseOver" Value="true" />-->
                                 <Condition Property="Connected" Value="true" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="backgroundImage"  Property="Source"  Value="../Images/device_press_blue.png"/>

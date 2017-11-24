@@ -70,24 +70,22 @@
                     <RowDefinition Height="0*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Grid.RowSpan="2"  Orientation="Horizontal" VerticalAlignment="Top" 
-                    HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                    HorizontalAlignment="Stretch" Height="40">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="../Images/main_img_search device panel.png"/>
                     </StackPanel.Background>
+                    
                     <local:DeviceButton  
                     x:Name="DeviceButton"
-                    Width="48"
-                    Height="40"            
-                    Click="DeviceButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top"
-                    />
+                    Width="38"
+                    Height="38"   
+                    Style="{StaticResource deviceButtonStyle}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Click="DeviceButton_Click" />
                     <TextBlock  x:Name="tbStatus" Text="Disconnect" Height="20" Width="120" Foreground="Black" 
                                VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Left" />
                 </StackPanel>
-                <!--<Grid Grid.Row="1">
-                    <Grid.Background>
-                        <ImageBrush ImageSource="../Images/quick scan_shadow_top.png"></ImageBrush>
-                    </Grid.Background>
-                </Grid>-->
                 <Button   Grid.Row="1"
                 	x:Name="ScreenBtn"
                 	Width="460"

@@ -66,9 +66,9 @@
                 Height="50"                 
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                ImagePath="../Images/left_normal.png"
-                PressImagePath="../Images/left_press.png"
-                DisableImagePath="../Images/left_disable.png"
+                ImagePath="../Images/back_normal.png"
+                PressImagePath="../Images/back_press.png"
+                DisableImagePath="../Images/back_disable.png"
                 PreviewMouseLeftButtonDown="Button_Click"/>
         <CheckBox   Name="SelectAllCheckBox"
                         Grid.Row="1"

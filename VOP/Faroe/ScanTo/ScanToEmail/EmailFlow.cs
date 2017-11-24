@@ -164,13 +164,14 @@ namespace VOP
             }
             catch (COMException ex)
             {
+                //modified by yunying shang 2017-11-23 for BMS 1196
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                  Application.Current.MainWindow,
                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") + ex.Message,
                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                 //                Application.Current.MainWindow,
-                //               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail"),
+                //               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") ,
                 //               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 return false;
             }

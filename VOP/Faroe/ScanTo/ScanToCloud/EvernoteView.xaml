@@ -39,7 +39,7 @@
         <Border Height="530" Width="650">
             <Grid>
                 <Grid.Background>
-                    <ImageBrush ImageSource="../../../Images/popup_gnd_Image Preview.png" Stretch="None"></ImageBrush>
+                    <ImageBrush ImageSource="../../../Images/popup_gnd_evernote viewer.png" Stretch="None"></ImageBrush>
                 </Grid.Background>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
@@ -65,16 +65,16 @@
                         <RowDefinition Height="280" />
                         <RowDefinition Height="100" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="50" />
+                        <RowDefinition Height="60" />
                     </Grid.RowDefinitions>
 
                     <Border Grid.Row="0" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Vertical">
-                            <ScrollViewer CanContentScroll="true"
+                            <ScrollViewer CanContentScroll="true" 
                                         SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
                                         VerticalScrollBarVisibility="Auto"
                                         HorizontalScrollBarVisibility="Disabled">
-                                <ListBox Name="listNote" Height="270"  Margin="10,0,10,0"/>
+                                <ListBox Name="listNote" Height="270"  Margin="15,5" BorderThickness="0"/>
                             </ScrollViewer>
                         </StackPanel>
                     </Border>
