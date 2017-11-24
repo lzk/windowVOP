@@ -158,7 +158,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_User_Config">More Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Modify_Password">Modify Password</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_About">About</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_IP_Type">IP Type</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_IP_Type">IP Type:</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_DHCP">DHCP</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Static">Static</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_IP_Address">IP Address</sys:String>

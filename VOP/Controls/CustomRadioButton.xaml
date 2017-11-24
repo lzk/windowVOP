@@ -29,7 +29,7 @@
                         HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                         Text="{TemplateBinding Content}"
                         FontSize="{TemplateBinding FontSize}"
-                        Foreground="{TemplateBinding Foreground}" 
+                        Foreground="Black"
                         />
         </Grid>
         <ControlTemplate.Triggers>

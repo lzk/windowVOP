@@ -180,8 +180,12 @@ namespace VOP
                 {
                     return true;
                 }
+                else
+                {
+                    return false;
+                }
             }
-            return false;
+            return true;
         }
 
         private void OkClick(object sender, RoutedEventArgs e)

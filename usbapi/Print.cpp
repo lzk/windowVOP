@@ -217,7 +217,7 @@ static int TcsNiCmp(TCHAR* c1, TCHAR* c2)
 	return _tcsnicmp(c1, c2, iNum);
 }
 
-int CheckPrinterStatus(WCHAR* strPrinterName);
+USBAPI_API int __stdcall CheckPrinterStatus(WCHAR* strPrinterName);
 
 USBAPI_API int __stdcall SaveDefaultPrinter()
 {
@@ -664,7 +664,7 @@ BOOL GetJobs(HANDLE hPrinter, JOB_INFO_2 **ppJobInfo, int *pcJobs, DWORD *pStatu
 	return TRUE;
 }
 
-int CheckPrinterStatus(WCHAR* strPrinterName)
+USBAPI_API int __stdcall CheckPrinterStatus(WCHAR* strPrinterName)
 {
 	DWORD value = 0;
 	HANDLE printerHandle;

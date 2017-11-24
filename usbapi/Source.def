@@ -71,3 +71,4 @@ EXPORTS
 	CheckConnection
 	DoCalibration
 	TestIpConnected
+	CheckPrinterStatus

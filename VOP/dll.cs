@@ -496,7 +496,7 @@ namespace VOP
         public static extern bool TestIpConnected([MarshalAs(UnmanagedType.LPWStr)]string szIP);
 
         [DllImport("usbapi.dll")]
-        public static extern bool CheckPrinterStatus(
+        public static extern int CheckPrinterStatus(
         [MarshalAs(UnmanagedType.LPWStr)]String printername);
     }
 

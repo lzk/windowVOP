@@ -152,7 +152,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             
-            <TextBlock Text="{StaticResource ResStr_IP_Type}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Text="{StaticResource ResStr_IP_Type}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
 
             <Grid Grid.Row="0" Grid.Column="2" >
                 <Grid.ColumnDefinitions>

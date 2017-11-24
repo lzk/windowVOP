@@ -45,7 +45,7 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="60"></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Soft AP"></Label>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Text="Soft AP:"></TextBlock>
             <Grid Grid.Row="0" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock  Text="{StaticResource ResStr_Close}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8"></TextBlock>

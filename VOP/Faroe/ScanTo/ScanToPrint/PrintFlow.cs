@@ -132,18 +132,39 @@ namespace VOP
                         PrinterName = defaultPrinter;
                 }
 
-                if (dll.PrintInit(PrinterName, "VOP_Print",
-                        (int)0, new IdCardSize(), true, (int)DuplexPrintType.NonDuplex, true, 100))
+                int ret = dll.CheckPrinterStatus(PrinterName);
+
+                PrintStatus status = (PrintStatus)ret;
+                if (status != PrintStatus.Printer_Initial_Fail &&
+                    status != PrintStatus.Printer_Work_Offline &&
+                        status != PrintStatus.Printer_Error &&
+                        status != PrintStatus.Printer_No_Toner &&
+                        status != PrintStatus.Printer_Not_Avalable &&
+                        status != PrintStatus.Printer_OffLine &&
+                        status != PrintStatus.Printer_Out_Of_Memory &&
+                        status != PrintStatus.Printer_Paper_Jam &&
+                        status != PrintStatus.Printer_Paper_Out &&
+                        status != PrintStatus.Printer_Server_Offline &&
+                        status != PrintStatus.Printer_Paper_Problem &&
+                        status != PrintStatus.Printer_Work_Offline)
                 {
-
-                    foreach (string path in FileList)
+                    if (dll.PrintInit(PrinterName, "VOP_Print",
+                        (int)0, new IdCardSize(), true, (int)DuplexPrintType.NonDuplex, true, 100))
                     {
-                        dll.AddImagePath(path);
-                    }
 
-                    printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintImage,
-                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_print_pic_wait")
-                        );
+                        foreach (string path in FileList)
+                        {
+                            dll.AddImagePath(path);
+                        }
+
+                        printRes = (PrintError)worker.InvokeDoWorkMethod(dll.DoPrintImage,
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_print_pic_wait")
+                            );
+                    }
+                    else
+                    {
+                        printRes = PrintError.Print_Operation_Fail;
+                    }
                 }
                 else
                 {
@@ -166,6 +187,7 @@ namespace VOP
                           (string)"Printer is not ready!",
                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                           );
+                return false;
             }
             else
             {
