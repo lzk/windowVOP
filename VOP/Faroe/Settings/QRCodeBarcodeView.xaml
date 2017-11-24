@@ -354,6 +354,7 @@
                         <ComboBox 
             				x:Name="cbCodeType"
             				VerticalAlignment="Center" 
+                            VerticalContentAlignment="Center"
                             HorizontalAlignment="Left"
             				Width="200" 
             				Height="30" 
@@ -379,6 +380,7 @@
             				Height="30" 
             				Margin="20,0, 20, 0" 
             				Text=""
+                            FontWeight="Normal"
             				VerticalContentAlignment="Center" 
                                 />
                     </StackPanel>
@@ -388,8 +390,8 @@
                       FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" Margin="5,1,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="45"/>
-                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition Height="55"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,1,20,4">

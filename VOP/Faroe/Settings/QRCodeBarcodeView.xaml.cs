@@ -76,17 +76,17 @@ namespace VOP
             try
             {
 
-                //Regex containsABadCharacter = new Regex("["
-                //                                + Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars())) + "]");
+                Regex containsABadCharacter = new Regex("["
+                                                + Regex.Escape(new string(System.IO.Path.GetInvalidFileNameChars())) + "]");
 
-                //if (containsABadCharacter.IsMatch(filename))
-                //{
-                //    return false;
-                //};
-                if (!Regex.IsMatch(filename, @"\A(?:/(.|[\r\n])*)\z"))
+                if (containsABadCharacter.IsMatch(filename))
                 {
                     return false;
-                }
+                };
+                //if (!Regex.IsMatch(filename, @"\A(?:/(.|[\r\n])*)\z"))
+                //{
+                //    return false;
+                //}
             }
             catch (Exception)
             {
