@@ -20,7 +20,7 @@ namespace VOP
 {
     public partial class QRCodeBarcodeView : System.Windows.Controls.UserControl
     {
-        String oldPath = @"";
+        //String oldPath = @"";
 
         public QRCodeBarcodeView()
         {
@@ -37,9 +37,11 @@ namespace VOP
 
             cbFileType.SelectedIndex = MainWindow_Rufous.g_settingData.m_separateFileType;
 
-            oldPath = MainWindow_Rufous.g_settingData.m_separateFilePath;
+           // oldPath = MainWindow_Rufous.g_settingData.m_separateFilePath;
             tbFilePath.MaxLength = 255;
             tbFilePath.Text = MainWindow_Rufous.g_settingData.m_separateFilePath;
+
+            tbFilePath.IsReadOnly = true;
 
             cbCodeType.Focus();
             tbSettings.Focus();
@@ -168,7 +170,7 @@ namespace VOP
                     }
                     else
                     {
-                        oldPath = save.SelectedPath;
+                       // oldPath = save.SelectedPath;
                         tbFilePath.Text = save.SelectedPath;
 
                         break;
@@ -205,6 +207,7 @@ namespace VOP
 
         private void tbFilePath_TextChanged(object sender, TextChangedEventArgs e)
         {
+/*
             System.Windows.Controls.TextBox tb = sender as System.Windows.Controls.TextBox;
 
             if (null != tb)
@@ -215,6 +218,7 @@ namespace VOP
                         tb.Text = oldPath;
                 }
             }
+*/
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
