@@ -74,7 +74,7 @@
 
                         <StackPanel Grid.Row="1">
                             <Grid Grid.Row="2" Height="30">
-                                <CheckBox Name="cbDisplayPwd" Checked="OnClickDisplayPWD" Unchecked="OnClickDisplayPWD" Grid.Column="1" Template="{StaticResource customCheckBox}" Content="{StaticResource ResStr_Display_Password}"></CheckBox>
+                                <CheckBox Name="cbDisplayPwd" Foreground="Black" Checked="OnClickDisplayPWD" Unchecked="OnClickDisplayPWD" Grid.Column="1" Template="{StaticResource customCheckBox}" Content="{StaticResource ResStr_Display_Password}"></CheckBox>
                             </Grid>
                         </StackPanel>
 

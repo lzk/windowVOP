@@ -191,7 +191,11 @@ namespace VOP
                     } 
                 }
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Invalid folder name.", "Error");
+                return;
+            }
         }
        
         private async Task LoadFolderFromId(string id)

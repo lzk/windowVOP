@@ -27,7 +27,6 @@ namespace VOP
         public int value = 0;
         public int key = 0;// add by yunying shang 2017-11-07 for BMS 1301
         public bool IsEdit = false;
-        public int m_MaxLenth = 0;
         public ScanParam m_scanParams = new ScanParam();
         public ScanToPrintParam m_scanToPrintParams = new ScanToPrintParam();
         public ScanToFileParam m_scanToFileParams = new ScanToFileParam();
@@ -35,16 +34,7 @@ namespace VOP
         public ScanToFTPParam m_scanToFTPParams = new ScanToFTPParam();
         public ScanToEmailParam m_scanToEmailParams = new ScanToEmailParam();
         public ScanToCloudParam m_scanToCloudParams = new ScanToCloudParam();
-        static string preText = "";
-        public bool bInput = false;
-        private int m_MaxByteLength = 20;
-        static int MaxLength = 0;
 
-        public int MaxByteLength
-        {
-            get { return m_MaxByteLength; }
-            set { m_MaxByteLength = value; }
-        }
         public AddQuickScanSetting(bool isAdd)
         {
             InitializeComponent();
@@ -56,7 +46,6 @@ namespace VOP
             {
                 tbTitle.Text = "Add Quick Scan Setting";
             }
-            MaxLength = this.tbName.MaxLength;
             key = MainWindow_Rufous.g_settingData.m_MatchList.Count() + 1;
         }
         
@@ -72,168 +61,7 @@ namespace VOP
         private void cbType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             value = cbType.SelectedIndex;
-        }
-        private void tbName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //string str = this.tbName.Text;
-            //int lent = System.Text.Encoding.Default.GetByteCount(str);
-            //int max = this.tbName.MaxLength;
-            //byte[] bb = System.Text.Encoding.Default.GetBytes(str);//得到输入的字符串的数组 
-            //if (lent > max+1)
-            //{
-            //    this.tbName.Text = System.Text.Encoding.Default.GetString(bb, 0, max);//将截断后的字节数组转换成字符串 
-            //    this.tbName.SelectionStart = max;//将光标放置在输入文字的最后 
-            //}
-            //if (!bInput)
-            //{
-            //    strName = this.tbName.Text;
-            //}
-            //else
-            //{
-            //    this.tbName.Text = strName;
-            //}
-            //           this.tbName.Text = RealText;
-            //TextBox tb = sender as TextBox;
-            //if (IsOutMaxByteLength(tb.Text, tb))
-            //{
-            //    tb.Text = preText;
-            //    tb.Select(tb.Text.Length, 0);
-            //    return;
-            //}
-        }
-        public string RealText
-        {
-            get
-            {
-                if (m_MaxByteLength == 0)
-                {
-                    return this.tbName.Text;
-                }
-
-                if (m_MaxByteLength >= GetByteLength(this.tbName.Text))
-                {
-                    return this.tbName.Text;
-                }
-
-                string text = this.tbName.Text;
-
-                if (string.IsNullOrEmpty(text))
-                {
-                    return text;
-                }
-
-                char[] c = text.ToCharArray();
-                StringBuilder sb = new StringBuilder();
-                int count = 0;
-
-                for (int i = 0; i < c.Length; i++)
-                {
-                    count += GetByteLength(c[i].ToString());
-                    if (m_MaxByteLength >= count)
-                    {
-                        sb.Append(c[i]);
-                    }
-                }
-
-                return sb.ToString();
-            }
-        }
-        private void tbName_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if ((e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) && e.Key == Key.X) || (e.KeyboardDevice.IsKeyDown(Key.RightCtrl) && e.Key == Key.X))
-            {
-                e.Handled = false;
-            }
-            else if (e.Key != Key.Back )
-            {
-                string str = this.tbName.Text;
-                int lent = System.Text.Encoding.Default.GetByteCount(str);
-                int max = this.tbName.MaxLength;
-                byte[] bb = System.Text.Encoding.Default.GetBytes(str);
-                if (lent > this.tbName.MaxLength - 1)
-                {
-                    e.Handled = true;
-                    bInput = true;
-                    //                    MessageBox.Show(this.tbName.Text);//将截断后的字节数组转换成字符串 
-                    return;
-                }
-                else
-                    bInput = false;
-
-            }
-
-        }
-        private static bool IsOutMaxByteLength(string txt, DependencyObject obj)
-        {
-            int txtLength = System.Text.Encoding.Default.GetByteCount(txt);//文本长度
-            if (MaxLength >= txtLength)
-            {
-                preText = txt;
-                return false;
-            }
-            return true;
-        }
-        private bool CheckByteLengthFlow(string text)
-        {
-            int len = GetByteLength(text);    //输入的字符的长度
-            int tlen = GetByteLength(this.tbName.Text);  //文本框原有文本的长度
-            int slen = GetByteLength(this.tbName.SelectedText);    //文本框选中文本的长度
-            return (m_MaxByteLength < (tlen - slen + len));
-        }
-
-        /// <summary>
-        /// 计算文本字节长度，区分多字节字符
-        /// </summary>
-        /// <param name="text">文本</param>
-        /// <returns>文本字节长度</returns>
-        private int GetByteLength(string text)
-        {
-            return System.Text.Encoding.Default.GetBytes(text).Length;
-        }
-        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
-
-        //后台
-        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            System.Windows.Forms.IDataObject iData = System.Windows.Forms.Clipboard.GetDataObject();
-            string newText = "";
-            newText = tbName.Text.Substring(0, tbName.SelectionStart)
-                + (string)iData.GetData(System.Windows.Forms.DataFormats.Text)
-                + tbName.Text.Substring(tbName.SelectionStart + tbName.SelectionLength);
-            if (isValidate(tbName.Text))//拷贝前是合法的
-            {
-                bool isValid = false;
-                string ctrlvStr = (string)iData.GetData(System.Windows.Forms.DataFormats.Text);
-                for (int i = 0; i < ctrlvStr.Length; i++)
-                {
-                    newText = tbName.Text.Substring(0, tbName.SelectionStart)
-                    + ctrlvStr.Substring(0, ctrlvStr.Length - i)
-                    + tbName.Text.Substring(tbName.SelectionStart + tbName.SelectionLength);
-                    if (isValidate(newText))
-                    {
-                        isValid = true;
-                        tbName.Text = newText;
-                        tbName.SelectionStart = tbName.Text.Length;
-                        e.Handled = true;
-                    }
-                }
-                if (!isValid)
-                    e.Handled = true;
-            }
-            else
-                e.Handled = true;
-        }
-        private bool isValidate(string str)
-        {
-            if (System.Text.Encoding.Default.GetBytes(str).Length <= 20)
-                return true;
-            else
-                return false;
-        }
-       
+        }     
      
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {

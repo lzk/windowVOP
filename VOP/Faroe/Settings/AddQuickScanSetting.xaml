@@ -182,9 +182,8 @@
                                 FontSize="12"
                                 />
                                 <TextBox Grid.Row="0" Grid.Column="2"
-                                Name="tbName"
-                                TextChanged="tbName_TextChanged"   
-                                         MaxLength ="20"
+                                Name="tbName"                                
+                                MaxLength ="20"
                                Template="{StaticResource customTextBox}" 
                                 VerticalAlignment="Center" 
                                  HorizontalAlignment="Right"
@@ -193,14 +192,8 @@
                                 Height="30" 
                                 Text=""
                                 VerticalContentAlignment="Center"
-                                UndoLimit="0" 
-                                PreviewKeyDown="tbName_PreviewKeyDown"                                  
-                                FontSize="14">
-                                <TextBox.CommandBindings>
-                            <CommandBinding Command="ApplicationCommands.Paste"
-                              Executed="CommandBinding_Executed"
-                              CanExecute="CommandBinding_CanExecute"/>
-                            </TextBox.CommandBindings>
+                                UndoLimit="0"                                 
+                                FontSize="14">                                
                         </TextBox>
 
 
