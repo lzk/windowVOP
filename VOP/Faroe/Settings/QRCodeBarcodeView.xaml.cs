@@ -146,7 +146,7 @@ namespace VOP
             VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                  System.Windows.Application.Current.MainWindow,
                 (string)this.FindResource("ResStr_Setting_Completed"),
-                "Prompt");
+                (string)this.TryFindResource("ResStr_Prompt"));
 
         }
 

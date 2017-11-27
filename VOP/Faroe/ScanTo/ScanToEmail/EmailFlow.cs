@@ -30,10 +30,10 @@ namespace VOP
     {
         public static EmailFlowType FlowType = EmailFlowType.View;
         public List<string> FileList { get; set; }
-        List<ScanFiles> files = new List<ScanFiles>();
+       // List<ScanFiles> files = new List<ScanFiles>();
         public Window ParentWin { get; set; }
         string pdfName = "";
-        string tiffName = "";
+       // string tiffName = "";
         string m_errorMsg = "";
 
         public bool Run()
@@ -78,71 +78,78 @@ namespace VOP
             }
             else
             {
-                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+                //AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-                if (worker.InvokeQuickScanMethod(SaveTiffFile, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Saving_pic_TIFF")))
-                {
-                    //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                    //               Application.Current.MainWindow,
-                    //              "Save completed",
-                    //              "Prompt");
-                }
-                else
-                {
-                    tiffName = "";
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                                    Application.Current.MainWindow,
-                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save_pdf") + m_errorMsg,
-                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
-                                    );
-                }
+                //if (worker.InvokeQuickScanMethod(SaveTiffFile, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Saving_pic_TIFF")))
+                //{
+                //    //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                //    //               Application.Current.MainWindow,
+                //    //              "Save completed",
+                //    //              "Prompt");
+                //}
+                //else
+                //{
+                //    //tiffName = "";
+                //    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                //                    Application.Current.MainWindow,
+                //                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save_pdf") + m_errorMsg,
+                //                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                //                    );
+                //}
             }
 
 
             try
             {
                 Outlook.Application oApp = new Outlook.Application();
-                Outlook.NameSpace ns = oApp.GetNamespace("MAPI");                
+                Outlook.NameSpace ns = oApp.GetNamespace("MAPI");
                 Outlook.MailItem oMsg = (Outlook.MailItem)oApp.CreateItem(Outlook.OlItemType.olMailItem);
 
 
                 //if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_EmailScanSettings.AttachmentType == "PDF")
                 if (AttachmentType == "PDF")
                 {
-                    if(pdfName != "")
+                    if (pdfName != "")
                     {
-                        string fileName = System.IO.Path.GetFileName(pdfName);
+                        //string fileName = System.IO.Path.GetFileName(pdfName);
                         Outlook.Attachment oAttach = oMsg.Attachments.Add(pdfName);
-                        ScanFiles file = new ScanFiles();                        
+                        ScanFiles file = new ScanFiles();
                         file.m_pathOrig = pdfName;
                         file.m_pathView = pdfName;
                         file.m_pathThumb = pdfName;
-                        files.Add(file);
+                        //files.Add(file);
                         App.scanFileList.Add(file);//#bms1179
                     }
                 }
                 else
                 {
 
-                    //foreach (string filePath in FileList)
-                    //{
-                    //    string fileName = System.IO.Path.GetFileName(filePath);
-                    //    Outlook.Attachment oAttach = oMsg.Attachments.Add(filePath);
-                    //}
-                    //add by yunying shang 2017-11-01 for BMS 1232
-                    if (tiffName != "")
+                    foreach (string filePath in FileList)
                     {
-                        string fileName = System.IO.Path.GetFileName(tiffName);
-                        Outlook.Attachment oAttach = oMsg.Attachments.Add(tiffName);
+                        //string fileName = System.IO.Path.GetFileName(filePath);
+                        Outlook.Attachment oAttach = oMsg.Attachments.Add(filePath);
                         ScanFiles file = new ScanFiles();
-                        file.m_pathOrig = tiffName;
-                        file.m_pathView = tiffName;
-                        file.m_pathThumb = tiffName;
-                        files.Add(file);
+                        file.m_pathOrig = filePath;
+                        file.m_pathView = filePath;
+                        file.m_pathThumb = filePath;
+                        //files.Add(file);
                         App.scanFileList.Add(file);
                     }
+
+                    //add by yunying shang 2017-11-01 for BMS 1232
+                    //if (tiffName != "")
+                    //{
+                    //    string fileName = System.IO.Path.GetFileName(tiffName);
+                    //    Outlook.Attachment oAttach = oMsg.Attachments.Add(tiffName);
+                    //    ScanFiles file = new ScanFiles();
+                    //    file.m_pathOrig = tiffName;
+                    //    file.m_pathView = tiffName;
+                    //    file.m_pathThumb = tiffName;
+                    //    files.Add(file);
+                    //    App.scanFileList.Add(file);
+                    //}
                 }
-                
+
 
                 if (FlowType == EmailFlowType.Quick)
                 {
@@ -159,16 +166,26 @@ namespace VOP
                 else
                 {
                     oMsg.Display(true);
-                }  
+                }
 
             }
             catch (COMException ex)
             {
-                //modified by yunying shang 2017-11-23 for BMS 1196
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                                 Application.Current.MainWindow,
-                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") + ex.Message,
-                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                if (ex.ErrorCode == 0x80040154)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                     Application.Current.MainWindow,
+                                    (string)"Could not find the outlook, please check you computer!",
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                }
+                else
+                {
+                    //modified by yunying shang 2017-11-23 for BMS 1196
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                     Application.Current.MainWindow,
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") + ex.Message,
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                }
                 //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                 //                Application.Current.MainWindow,
                 //               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") ,
@@ -252,65 +269,65 @@ namespace VOP
             return true;
         }
 
-        bool SaveTiffFile()
-        {
-            try
-            {
-                //                string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
-                string strSuffix = string.Format("{0}{1:D4}{2:D2}{3:D2}{4:D2}{5:D2}{6:D2}", "img",
-                    DateTime.Now.Year,
-                    DateTime.Now.Month,
-                    DateTime.Now.Day, 
-                    DateTime.Now.Hour, 
-                    DateTime.Now.Minute,
-                    DateTime.Now.Second);
-                if (false == Directory.Exists(App.PictureFolder))
-                {
-                    Directory.CreateDirectory(App.PictureFolder);
-                }
+        //bool SaveTiffFile()
+        //{
+        //    try
+        //    {
+        //        //                string strSuffix = (Environment.TickCount & Int32.MaxValue).ToString("D10");
+        //        string strSuffix = string.Format("{0}{1:D4}{2:D2}{3:D2}{4:D2}{5:D2}{6:D2}", "img",
+        //            DateTime.Now.Year,
+        //            DateTime.Now.Month,
+        //            DateTime.Now.Day, 
+        //            DateTime.Now.Hour, 
+        //            DateTime.Now.Minute,
+        //            DateTime.Now.Second);
+        //        if (false == Directory.Exists(App.PictureFolder))
+        //        {
+        //            Directory.CreateDirectory(App.PictureFolder);
+        //        }
 
-                tiffName = App.PictureFolder + "\\vop" + strSuffix + ".tif";
+        //        tiffName = App.PictureFolder + "\\vop" + strSuffix + ".tif";
 
-                TiffBitmapEncoder encoder = new TiffBitmapEncoder();
+        //        TiffBitmapEncoder encoder = new TiffBitmapEncoder();
 
-                foreach (string path in FileList)
-                {
-                    Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
-                    JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
-                    BitmapSource origSource = decoder.Frames[0];
+        //        foreach (string path in FileList)
+        //        {
+        //            Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
+        //            JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
+        //            BitmapSource origSource = decoder.Frames[0];
 
-                    BitmapMetadata bitmapMetadata = new BitmapMetadata("tiff");
-                    bitmapMetadata.ApplicationName = "Virtual Operation Panel";
+        //            BitmapMetadata bitmapMetadata = new BitmapMetadata("tiff");
+        //            bitmapMetadata.ApplicationName = "Virtual Operation Panel";
 
-                    if (null != origSource)
-                        encoder.Frames.Add(BitmapFrame.Create(origSource, null, bitmapMetadata, null));
-                }
+        //            if (null != origSource)
+        //                encoder.Frames.Add(BitmapFrame.Create(origSource, null, bitmapMetadata, null));
+        //        }
 
-                FileStream fs = File.Open(tiffName, FileMode.Create);
-                encoder.Save(fs);
-                fs.Close();
+        //        FileStream fs = File.Open(tiffName, FileMode.Create);
+        //        encoder.Save(fs);
+        //        fs.Close();
 
-            }
-            catch (Win32Exception ex)
-            {
-                //                m_errorMsg = ex.Message;
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                                                  Application.Current.MainWindow,
-                                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail"),
-                                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
-                return false;
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Win32Exception ex)
+        //    {
+        //        //                m_errorMsg = ex.Message;
+        //        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+        //                                          Application.Current.MainWindow,
+        //                                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail"),
+        //                                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+        //        return false;
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                                                 Application.Current.MainWindow,
-                                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail"),
-                                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
-                //               m_errorMsg = ex.Message;
-                return false;
-            }
-            return true;
-        }
+        //        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+        //                                         Application.Current.MainWindow,
+        //                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail"),
+        //                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+        //        //               m_errorMsg = ex.Message;
+        //        return false;
+        //    }
+        //    return true;
+        //}
     }
 }

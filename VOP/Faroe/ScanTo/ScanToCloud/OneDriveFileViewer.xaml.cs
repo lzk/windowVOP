@@ -485,7 +485,7 @@ namespace VOP
                         {
                             VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon, this,
                              "The file Name already exists£¬Do you want to overwrite",
-                             (string)this.TryFindResource("ResStr_Prompt"));
+                             (string)this.TryFindResource("ResStr_Warning"));
 
                             if (VOP.Controls.MessageBoxExResult.Yes == ret)
                             {

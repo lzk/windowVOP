@@ -610,7 +610,7 @@ namespace VOP
                                                 VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
                                                 this,
                                                 "Do you want to exit the Faroe VOP?",
-                                                (string)this.TryFindResource("ResStr_Prompt")
+                                                (string)this.TryFindResource("ResStr_Warning")
                                                 )
                 )
             {

@@ -85,7 +85,7 @@ namespace VOP
 
                     if (worker.InvokeQuickScanMethod(UploadFiles, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ftp_wait")))
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                                     Application.Current.MainWindow,
                                      (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ok"),
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")

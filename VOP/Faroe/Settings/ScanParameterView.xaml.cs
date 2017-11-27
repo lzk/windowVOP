@@ -223,7 +223,7 @@ namespace VOP
             }
             else if (cbAttachType.SelectedIndex == 1)
             {
-                MainWindow_Rufous.g_settingData.m_attachmentType = "TIFF";
+                MainWindow_Rufous.g_settingData.m_attachmentType = "JPG";
             }
         }
 

@@ -64,7 +64,7 @@ namespace VOP
             if (result == ScanFileSaveError.FileSave_OK)
             {
                 if (FlowType == FileFlowType.View)
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                                Application.Current.MainWindow,
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_save_file_ok"),
                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
@@ -79,7 +79,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow,
-                               (string)"You do not permission to save to the selectd folder",
+                               (string)"You do not have permission to save to the selectd folder",
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 return false;
             }//<<=================1176

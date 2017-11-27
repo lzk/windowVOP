@@ -78,7 +78,7 @@ namespace VOP
             text.FontSize = 16;
 
             SolidColorBrush txtbrush = new SolidColorBrush();
-            txtbrush.Color = Colors.DodgerBlue;
+            txtbrush.Color = Colors.Black;//Colors.DodgerBlue;
             text.Foreground = txtbrush;
 
             StackPanel stack = new StackPanel();
@@ -109,8 +109,7 @@ namespace VOP
         }
      
         private void OkClick(object sender, RoutedEventArgs e)
-        {
-         
+        {         
             DialogResult = true;
             this.Close();
         }
