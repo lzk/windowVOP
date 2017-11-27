@@ -480,7 +480,7 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	return error;
 }
 
-USBAPI_API BOOL __stdcall PrintInitDialog(const TCHAR * jobDescription, HWND hwnd)
+USBAPI_API int __stdcall PrintInitDialog(const TCHAR * jobDescription, HWND hwnd)
 {
 	int ret = 0;
 

@@ -55,7 +55,28 @@ namespace VOP
             int tabbtn_width = 175;
             int tabbtn_height = 65;
 
-//            btnScanParameter.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Common");
+            btnQuickScanSettings.btn.Content = "Quick Scan Settings";
+            //btnQuickScanSettings.Margin = new Thickness(0, 1, 0, 9);
+            btnQuickScanSettings.Width = tabbtn_width;
+            btnQuickScanSettings.Height = tabbtn_height;
+            btnQuickScanSettings.HorizontalAlignment = HorizontalAlignment.Left;
+            btnQuickScanSettings.btn.Name = "btnQuickScanSettings";
+            btnQuickScanSettings.btn.Click += BtnSettingClick;
+            //            btnQuickScanSettings.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
+            m_listSettingButton.Add(btnQuickScanSettings);
+
+
+            btnQRCodeSettings.btn.Content = "Decode/Separation Settings";
+            //btnQRCodeSettings.Margin = new Thickness(0, 1, 0, 9);
+            btnQRCodeSettings.Width = tabbtn_width;
+            btnQRCodeSettings.Height = tabbtn_height;
+            btnQRCodeSettings.HorizontalAlignment = HorizontalAlignment.Left;
+            btnQRCodeSettings.btn.Name = "btnQRCodeSettings";
+            btnQRCodeSettings.btn.Click += BtnSettingClick;
+            //            btnQRCodeSettings.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
+            m_listSettingButton.Add(btnQRCodeSettings);
+
+            //            btnScanParameter.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Common");
             btnScanParameter.btn.Content = "Scan To Settings";
             //btnScanParameter.Margin = new Thickness(0, 1, 0, 9);
             btnScanParameter.Width = tabbtn_width;
@@ -66,26 +87,6 @@ namespace VOP
 //            btnScanParameter.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
             m_listSettingButton.Add(btnScanParameter);
 
-            btnQuickScanSettings.btn.Content = "Quick Scan Settings";
-           //btnQuickScanSettings.Margin = new Thickness(0, 1, 0, 9);
-            btnQuickScanSettings.Width = tabbtn_width;
-            btnQuickScanSettings.Height = tabbtn_height;
-            btnQuickScanSettings.HorizontalAlignment = HorizontalAlignment.Left;
-            btnQuickScanSettings.btn.Name = "btnQuickScanSettings";
-            btnQuickScanSettings.btn.Click += BtnSettingClick;
-//            btnQuickScanSettings.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
-            m_listSettingButton.Add(btnQuickScanSettings);
-
-
-            btnQRCodeSettings.btn.Content = "Decode/Separation Settings";
-           //btnQRCodeSettings.Margin = new Thickness(0, 1, 0, 9);
-            btnQRCodeSettings.Width = tabbtn_width;
-            btnQRCodeSettings.Height = tabbtn_height;
-            btnQRCodeSettings.HorizontalAlignment = HorizontalAlignment.Left;
-            btnQRCodeSettings.btn.Name = "btnQRCodeSettings";
-            btnQRCodeSettings.btn.Click += BtnSettingClick;
-//            btnQRCodeSettings.btn.PreviewMouseLeftButtonDown += SettingBtnClick;
-            m_listSettingButton.Add(btnQRCodeSettings);
             //btnScanToPrint.btn.Content = (string)this.TryFindResource("ResStr_Faroe_Scan_Print");
             //btnScanToPrint.Margin = new Thickness(0, 1, 0, 9);
             //btnScanToPrint.Width = tabbtn_width;
@@ -341,9 +342,9 @@ namespace VOP
         public void InitWindowLayout()
         {
             setting_tab_btn.Children.Clear();
-            setting_tab_btn.Children.Add(btnScanParameter);
             setting_tab_btn.Children.Add(btnQuickScanSettings);
             setting_tab_btn.Children.Add(btnQRCodeSettings);
+            setting_tab_btn.Children.Add(btnScanParameter);
             //setting_tab_btn.Children.Add(btnScanToPrint);
             //setting_tab_btn.Children.Add(btnScanToFile);
             //setting_tab_btn.Children.Add(btnScanToAP);
@@ -356,7 +357,7 @@ namespace VOP
             setting_tab_btn.Children.Add(btnDevice);
 
             ClickSettingButton(SettingType.Device);
-            ClickSettingButton(SettingType.ScanParameter);
+            ClickSettingButton(SettingType.QuickScanSettings);
         }
 
         public void handler_loaded_settingpage( object sender, RoutedEventArgs e )

@@ -115,7 +115,12 @@ namespace VOP
                 }
                 else
                 {
-                    printRes = PrintError.Print_Operation_Fail;
+                    //modified by yunying shang 2017-11-27 for BMS 1553
+                    if (status == PrintStatus.Printer_Initial_Fail)
+                        printRes = PrintError.Print_Get_Default_Printer_Fail;
+                    else
+                        printRes = PrintError.Print_Operation_Fail;
+                    //<<============1553
                 }
             }
             else
@@ -163,7 +168,7 @@ namespace VOP
                     }
                     else
                     {
-                        printRes = PrintError.Print_Operation_Fail;
+                        printRes = PrintError.Print_Get_Default_Printer_Fail;
                     }
                 }
                 else
@@ -171,7 +176,7 @@ namespace VOP
                     printRes = PrintError.Print_Operation_Fail;
                 }
             }
-            
+
 
             if (printRes == PrintError.Print_OK)
             {
@@ -189,6 +194,10 @@ namespace VOP
                           );
                 return false;
             }
+            //modified by yunying shang 2017-11-27 for BMS 1553
+            else if (printRes == PrintError.Print_Get_Default_Printer_Fail)
+            {
+            }//<<=================1553
             else
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
