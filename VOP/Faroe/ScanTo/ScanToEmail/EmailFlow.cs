@@ -102,18 +102,18 @@ namespace VOP
             try
             {
                 Outlook.Application oApp = new Outlook.Application();
-                Outlook.NameSpace ns = oApp.GetNamespace("MAPI");                
+                Outlook.NameSpace ns = oApp.GetNamespace("MAPI");
                 Outlook.MailItem oMsg = (Outlook.MailItem)oApp.CreateItem(Outlook.OlItemType.olMailItem);
 
 
                 //if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_EmailScanSettings.AttachmentType == "PDF")
                 if (AttachmentType == "PDF")
                 {
-                    if(pdfName != "")
+                    if (pdfName != "")
                     {
                         //string fileName = System.IO.Path.GetFileName(pdfName);
                         Outlook.Attachment oAttach = oMsg.Attachments.Add(pdfName);
-                        ScanFiles file = new ScanFiles();                        
+                        ScanFiles file = new ScanFiles();
                         file.m_pathOrig = pdfName;
                         file.m_pathView = pdfName;
                         file.m_pathThumb = pdfName;
@@ -123,7 +123,7 @@ namespace VOP
                 }
                 else
                 {
-                    
+
                     foreach (string filePath in FileList)
                     {
                         //string fileName = System.IO.Path.GetFileName(filePath);
@@ -149,7 +149,7 @@ namespace VOP
                     //    App.scanFileList.Add(file);
                     //}
                 }
-                
+
 
                 if (FlowType == EmailFlowType.Quick)
                 {
@@ -166,16 +166,26 @@ namespace VOP
                 else
                 {
                     oMsg.Display(true);
-                }  
+                }
 
             }
             catch (COMException ex)
             {
-                //modified by yunying shang 2017-11-23 for BMS 1196
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                                 Application.Current.MainWindow,
-                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") + ex.Message,
-                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                if (ex.ErrorCode == 0x80040154)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                     Application.Current.MainWindow,
+                                    (string)"Could not find the outlook, please check you computer!",
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                }
+                else
+                {
+                    //modified by yunying shang 2017-11-23 for BMS 1196
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                     Application.Current.MainWindow,
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") + ex.Message,
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                }
                 //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                 //                Application.Current.MainWindow,
                 //               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") ,

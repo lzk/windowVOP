@@ -28,10 +28,10 @@
             <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="13"/>
         </Grid.RowDefinitions>
         
         <local:ImageButton3 Grid.Row="0" 
