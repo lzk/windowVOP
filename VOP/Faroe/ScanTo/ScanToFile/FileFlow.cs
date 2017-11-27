@@ -79,7 +79,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow,
-                               (string)"You do not permission to save to the selectd folder",
+                               (string)"You do not have permission to save to the selectd folder",
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 return false;
             }//<<=================1176

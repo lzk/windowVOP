@@ -107,10 +107,10 @@
                     <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"></RowDefinition>
-                            <RowDefinition Height="50"></RowDefinition>
-                            <RowDefinition Height="50"></RowDefinition>
-                            <RowDefinition Height="50"></RowDefinition>
-                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -136,7 +136,7 @@
                 FontSize="14"
                             FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
-                Text="Cloud Type:" Margin="30,16,0,15"/>
+                Text="Cloud Type :" Margin="30,16,0,15"/>
                         <ComboBox 
                             Grid.Row="1"
                             Grid.Column="2"
@@ -145,7 +145,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalContentAlignment="Center"
                                 Width="250" 
-                                Height="30"                                 
+                                Height="35"                                 
                                 FontSize="14"
                             SelectionChanged="cbCloudType_SelectionChanged" Grid.ColumnSpan="3" Margin="0,10"
                                 >
@@ -160,7 +160,7 @@
                 FontSize="14"
                             FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
-                Text="Reset access token in cache:" Margin="30,16,0,15"/>
+                Text="Reset access token in cache :" Margin="30,16,0,15"/>
 
                         <Button
                 Grid.Row="2"
@@ -183,7 +183,7 @@
                 FontSize="14"
                             FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="Default save path:" Margin="30,16,0,15"/>
+                Text="Default save path :" Margin="30,16,0,15"/>
                         <TextBox 
                      Name="tbNoteTitle"
                      Template="{StaticResource customTextBox}" 
@@ -233,7 +233,7 @@
                 FontSize="14"
                             FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
-                Text="Note Content:" Margin="30,16,0,15"/>
+                Text="Note Content :" Margin="30,16,0,15"/>
                         <TextBox 
                      Name="tbNoteContent"
                      Template="{StaticResource customTextBox}" 
