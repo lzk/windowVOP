@@ -327,6 +327,14 @@ namespace VOP
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                         );
                 }
+                else
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        Application.Current.MainWindow,
+                        (string)"The scanning is canceled on the machine!",
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                        );
+                }
             }
         }
 

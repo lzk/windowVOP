@@ -33,7 +33,13 @@ namespace VOP
         public static extern int CheckUsbScan(StringBuilder interfaceName);
 
         [DllImport("usbapi.dll")]
+        public static extern int CheckUsbScanByName([MarshalAs(UnmanagedType.LPWStr)]String interfaceName);
+
+        [DllImport("usbapi.dll")]
         public static extern bool CheckConnection();
+
+        [DllImport("usbapi.dll")]
+        public static extern bool CheckConnectionByName([MarshalAs(UnmanagedType.LPWStr)]String interfaceName);
 
         [DllImport("usbapi.dll")]
         public static extern void SetConnectionMode([MarshalAs(UnmanagedType.LPWStr)]String ipAddress, bool isUsb);

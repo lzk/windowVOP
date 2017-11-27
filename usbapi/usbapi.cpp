@@ -1418,6 +1418,17 @@ BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
 
 USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP)
 {
+	Scan_RET re_status = RETSCAN_OK;
+
+	if (TestIpConnected1(g_ipAddress, &re_status) == TRUE)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
 	int nResult = TRUE;
 	CGLNet m_GLnet;
 	

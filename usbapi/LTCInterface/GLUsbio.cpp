@@ -147,6 +147,25 @@ int CGLUsb::CMDIO_OpenDevice(LPCTSTR lpModuleName)
 		}
 		if (m_hDev != INVALID_HANDLE_VALUE) 
 		{
+
+#ifdef USB_VID
+			if (!CMDIO_GetDeviceFeatures()) {
+				CloseHandle(m_hDev);
+				continue;
+			}
+
+			//#ifdef USB_VID
+			if (CMDIO_VID != USB_VID) {
+				CloseHandle(m_hDev);
+				continue;
+			}
+#endif
+#ifdef USB_PID
+			if (CMDIO_PID != USB_PID) {
+				CloseHandle(m_hDev);
+				continue;
+			}
+#endif
 			m_hIntrEvent = CreateEvent(NULL,TRUE,FALSE,NULL);
 			m_hDevice[0] = m_hDev;
 			OpenBulkPipes(m_hDevice, strPort);	// Jason 140408

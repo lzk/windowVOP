@@ -808,10 +808,16 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 					break;
 				}
 			}
+
+			if (glDrv.sc_infodata.Cancel)
+			{
+				isUltraSonic = TRUE;
+				break;
+			}
 			
 			if (glDrv.sc_infodata.UltraSonic)
 			{
-				isUltraSonic = TRUE;
+				start_cancel = TRUE;
 				break;
 			}
 
@@ -1113,6 +1119,50 @@ USBAPI_API int __stdcall TestUsbScanInit(
 	}
 }
 
+USBAPI_API int __stdcall CheckUsbScanByName(
+	WCHAR* interfaceName)
+{
+	HANDLE hDev = NULL;
+	TCHAR strPortAlt[32] = { 0 };
+	int  iCnt;
+	int error = 0;
+
+	hDev = CreateFile(interfaceName,
+		GENERIC_READ | GENERIC_WRITE,
+		FILE_SHARE_READ | FILE_SHARE_WRITE,
+		NULL,
+		OPEN_EXISTING,
+		FILE_FLAG_OVERLAPPED, NULL);
+
+	if (hDev != INVALID_HANDLE_VALUE)
+	{
+
+	}
+	else
+	{
+		error = GetLastError();
+	}
+	
+
+	if (hDev == INVALID_HANDLE_VALUE)
+	{
+		return 0;
+	}
+
+	if (hDev != INVALID_HANDLE_VALUE) {
+		CloseHandle(hDev);
+	}
+
+	CGLDrv glDrv;
+
+	if (glDrv._OpenUSBDevice(interfaceName) == FALSE)
+	{
+		return 0;
+	}
+	return 1;
+}
+
+
 USBAPI_API int __stdcall CheckUsbScan(
 	char* interfaceName)
 {
@@ -1158,9 +1208,9 @@ USBAPI_API int __stdcall CheckUsbScan(
 	//LeaveCriticalSection(&g_csCriticalSection_UsbTest);
 	CGLDrv glDrv;
 
-	g_connectMode_usb = TRUE;//add by yunying shang 2017-11-10 for BMS 1381
+	//g_connectMode_usb = TRUE;//add by yunying shang 2017-11-10 for BMS 1381
 
-	if (glDrv._OpenDevice() == FALSE)//#bms1005
+	if (glDrv._OpenUSBDevice() == FALSE)//#bms1005
 	{
 		return 0;		
 	}
@@ -1172,6 +1222,22 @@ USBAPI_API void __stdcall SetConnectionMode(
 {
 	_tcscpy_s(g_ipAddress, 256, deviceName);
 	g_connectMode_usb = isUsb;
+}
+
+USBAPI_API BOOL __stdcall CheckConnectionByName(WCHAR* interfaceName)
+{
+
+	if (g_connectMode_usb)
+	{
+		char _usbname[256] = { 0 };
+		::WideCharToMultiByte(CP_ACP, 0, interfaceName, -1, _usbname, 256, NULL, NULL);
+		return (BOOL)CheckUsbScan(_usbname);
+	}
+	else
+	{
+		return TestIpConnected(interfaceName);
+	}
+
 }
 
 USBAPI_API BOOL __stdcall CheckConnection()
@@ -1186,7 +1252,6 @@ USBAPI_API BOOL __stdcall CheckConnection()
 	{
 		/*char _hostname[256] = { 0 };
 		::WideCharToMultiByte(CP_ACP, 0, g_ipAddress, -1, _hostname, 256, NULL, NULL);*/
-
 		return TestIpConnected(g_ipAddress);
 	}
 

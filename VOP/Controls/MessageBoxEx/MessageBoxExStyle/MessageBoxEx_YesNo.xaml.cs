@@ -33,7 +33,6 @@ namespace VOP.Controls
 
         private void window_Loaded(object sender, RoutedEventArgs e)
         {
-
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(Title_MouseButtonEventHandler);
         }
 
