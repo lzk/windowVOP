@@ -1,0 +1,84 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:VOP.Controls">
+
+
+    <SolidColorBrush x:Key="brushBackground" Color="Transparent" Opacity="1"/>
+    <SolidColorBrush x:Key="brushBackgroundOver" Color="Transparent" Opacity="1"/>
+    <SolidColorBrush x:Key="brushBackgroundDown" Color="#FFEEBA70" Opacity="1"/>
+
+    <SolidColorBrush x:Key="brushForeground" Color="#FF0E5686" Opacity="1"/>
+
+    <SolidColorBrush x:Key="brushBorder"   Color="Transparent" Opacity="1"/>
+    <SolidColorBrush x:Key="brushBorderOver"   Color="#FFEEBA70" Opacity="1"/>
+
+  
+    <Style TargetType="{x:Type local:CloseButton}" >
+        <Setter Property="Background" Value="{StaticResource brushBackground}" />   
+        <Setter Property="BorderBrush" Value="{StaticResource brushBorder}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="ForegroundColor" Value="{StaticResource brushForeground}"/>
+        <Setter Property="Focusable" Value="False">        
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:CloseButton}">
+
+                    <Border  Name="InnerBorder" Background="{TemplateBinding Background}" 
+                             BorderBrush="{TemplateBinding BorderBrush}" 
+                             BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Border Name="padding" Margin="{TemplateBinding Padding}"
+                                        HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <ContentPresenter Name="content" />
+                            </Border>
+                            <Border Padding="8,8,8,8">
+                                <Path Data="M19.894001,0.25000001 L0.39400056,19.749999 M0.25,0.53099958 L19.749997,20.030999" 
+                              Stretch="Fill" StrokeThickness="3" StrokeDashCap="Round" 
+                              Stroke="{StaticResource brushForeground}" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                            </Border>
+                            <!--<Control Name="AppearContent" Template="{TemplateBinding ContentAppearance}" />-->
+
+                        </Grid>
+                    </Border>
+                    
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="InnerBorder" Property="Background" Value="{StaticResource brushBackgroundDown}"/>
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="true"/>
+                                <Condition Property="IsPressed" Value="false"/>
+                            </MultiTrigger.Conditions>
+                            
+                            <Setter TargetName="InnerBorder" Property="Background" Value="{StaticResource brushBackgroundOver}"/>
+                            <Setter TargetName="InnerBorder" Property="BorderBrush" Value="{StaticResource brushBorderOver}"/>
+                        </MultiTrigger>
+                       
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--<Style x:Key="ContentAppearance">
+        <Setter Property="ContentAppearance">
+            <Setter.Value>
+                <ControlTemplate TargetType="Control">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Border Padding="8,8,8,8">
+                            <Path Data="M19.894001,0.25000001 L0.39400056,19.749999 M0.25,0.53099958 L19.749997,20.030999" 
+                              Stretch="Fill" StrokeThickness="3" StrokeDashCap="Round" 
+                              Stroke="{StaticResource brushForeground}" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->   
+</ResourceDictionary>

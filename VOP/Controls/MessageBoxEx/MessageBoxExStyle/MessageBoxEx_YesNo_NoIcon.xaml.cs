@@ -31,11 +31,24 @@ namespace VOP.Controls
             this.Height = this.Height * App.gScalingRate;
         }
 
+        private void window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(Title_MouseButtonEventHandler);
+        }
+
         public void Title_MouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+                e.Handled = true;
+            }
+        }
         private void Click(object sender, RoutedEventArgs e)
         {
              System.Windows.Controls.Control btn = sender as System.Windows.Controls.Control;

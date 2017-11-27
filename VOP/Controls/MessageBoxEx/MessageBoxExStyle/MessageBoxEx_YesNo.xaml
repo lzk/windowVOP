@@ -10,15 +10,37 @@
         VerticalAlignment="Center"
         WindowStartupLocation="CenterOwner" 
         Style="{StaticResource for_noresize_window}"
+        Loaded="window_Loaded"
         >
     <Window.Resources>
         <Style x:Key="CustomPopUpButtonStyle" TargetType="Button">
-            <Setter Property="Cursor"  Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="0" ShadowDepth="0" Color="#FFE1E7ED" Opacity="0.8"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform  ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Grid ClipToBounds="True">
-                            <Image Name="backgroundImage" Source="../../../Images/popup_btn_2.png"/>
+
+                            <Rectangle x:Name="glassCube" 
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch" 
+                        StrokeThickness="1"           
+                        RadiusX="5" RadiusY="5" Opacity="0.8"
+                        Fill="Transparent">
+                                <Rectangle.Stroke>
+                                    <SolidColorBrush x:Name="MyAnimatedBrush" Color="LightGray"/>
+                                </Rectangle.Stroke>
+                            </Rectangle>
+
                             <!-- Present Content (text) of the button. -->
                             <TextBlock x:Name="myContentPresenter"
                                            Text="{TemplateBinding  Content}"  
@@ -31,26 +53,93 @@
 
                         </Grid>
                         <ControlTemplate.Triggers>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsPressed" Value="false" />
-                                    <Condition Property="IsMouseOver" Value="true" />
-                                </MultiTrigger.Conditions>
-                                <Setter TargetName="backgroundImage"  Property="Source"  Value="../../../Images/popup_btnt_2.png"/>
-                            </MultiTrigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsPressed" Value="true" />
-                                    <Condition Property="IsMouseOver" Value="true" />
-                                </MultiTrigger.Conditions>
-                                <Setter TargetName="backgroundImage"  Property="Source"  Value="../../../Images/popup_btnf_2.png"/>
-                            </MultiTrigger>
-
+                            <Trigger  Property="IsFocused" Value="True">
+                                <Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>
+                            </Trigger>
+                            <Trigger  Property="IsPressed" Value="True">
+                                <Setter TargetName="glassCube" Property="Fill" Value="#FFE1E7ED" />
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter" >
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.Effect).(DropShadowEffect.ShadowDepth)"
+                                To="1" Duration="0:0:0.2" />
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.Effect).(DropShadowEffect.BlurRadius)"
+                                To="1" Duration="0:0:0.2" />
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                To="1.04" Duration="0:0:0.2" />
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                                To="1.04" Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.Effect).(DropShadowEffect.ShadowDepth)"
+                                To="0" Duration="0:0:0.2" />
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.Effect).(DropShadowEffect.BlurRadius)"
+                                To="0" Duration="0:0:0.2" />
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                To="1" Duration="0:0:0.2" />
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                                To="1" Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
 
+                <EventTrigger RoutedEvent="PreviewMouseLeftButtonDown">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.Effect).(DropShadowEffect.ShadowDepth)"
+                                To="1" Duration="0:0:0.1" />
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                To="1.02" Duration="0:0:0.1" />
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                                To="1.02" Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="PreviewMouseLeftButtonUp">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.Effect).(DropShadowEffect.ShadowDepth)"
+                                To="1" Duration="0:0:0.1" />
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                To="1.04" Duration="0:0:0.1" />
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                                To="1.04" Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
     <Grid Background="AliceBlue">
@@ -62,27 +151,16 @@
             <RowDefinition Height="20*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*" />
-            <ColumnDefinition Width="350*" />
-            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="30" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.ColumnSpan="3"  MouseLeftButtonDown="Title_MouseButtonEventHandler">
+        <Border Name="TitleBar"  Background="Transparent" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
             <TextBlock Name="captionTextBlock" FontSize="14" Text="" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-
-            <local:MinimizeCloseButton x:Name="btnClose" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" 
-                                       VerticalAlignment="Center" HorizontalAlignment="Right" Click="Click"/>
-
-            <!--<Button Name="btnClose"  Click="Click" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
-                <Button.Template>
-                    <ControlTemplate>
-                        <Grid Background="{x:Null}">
-                            <Image Source="..\..\Images\MainWindow_Close.PNG" ></Image>
-                        </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>-->
-        </Grid>
+        </Border>
+        <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" x:Name="btnClose" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" 
+                                       VerticalAlignment="Center" HorizontalAlignment="Right" Click="Click" PreviewKeyDown="btnClose_PreviewKeyDown"/>
 
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>

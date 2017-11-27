@@ -12,6 +12,7 @@
     ResizeMode="NoResize"
     WindowStyle="None" 
     BorderThickness="24"
+    Foreground="Black"
     xmlns:vop="clr-namespace:VOP"
     ShowInTaskbar="False" 
     Loaded="handler_loaded"
@@ -128,10 +129,10 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheck" Source="../../Images/Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheck" Source="../../Images/Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheckDisable" Source="../../Images/Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheckDisable" Source="../../Images/Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgCheck" Source="../../Images/Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgUncheck" Source="../../Images/Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgCheckDisable" Source="../../Images/Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgUncheckDisable" Source="../../Images/Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
                     <Image Height="30" Width="30" Grid.Column="1" Name="Color" Stretch="Fill" Source="../../Images/Color.png" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Right"></Image>
                 </Grid>
                 <ControlTemplate.Triggers>
@@ -210,10 +211,10 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheck" Source="../../Images/Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheck" Source="../../Images/Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgCheckDisable" Source="../../Images/Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
-                    <Image Height="25" Width="25" Grid.Column="0" Name="imgUncheckDisable" Source="../../Images/Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgCheck" Source="../../Images/Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgUncheck" Source="../../Images/Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgCheckDisable" Source="../../Images/Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
+                    <Image Height="20" Width="20" Grid.Column="0" Name="imgUncheckDisable" Source="../../Images/Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"></Image>
                     <Image Height="30" Width="30" Grid.Column="1" Name="Color" Stretch="Fill" Source="../../Images/Grayscale.png" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Right"></Image>
                 </Grid>
                 <ControlTemplate.Triggers>
@@ -312,7 +313,7 @@
                     <TextBlock Text="{StaticResource ResStr_Faroe_scan_setting1}" FontSize="15" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" Click="ControlBtnClick" IsCancel="True" />
+                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" Click="ControlBtnClick" IsCancel="True" PreviewKeyDown="btnClose_PreviewKeyDown"/>
                 <!-- Title bar end -->
                 <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Faroe_ADF}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="240" Height="75" Margin="40,0,0,0" >
                     <Grid>
@@ -395,31 +396,9 @@
                             Style="{StaticResource customComboBox}"
                             Background="White"
                             Width="145" Height="24"
-                            VerticalAlignment="Center" Margin="38,4,37,9"
-                            >
+                            VerticalAlignment="Center" Margin="38,4,37,9">
                         </ComboBox>
-
-                    </local:GroupBoxDecorator>
-
-                    <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_Scan_Size}" Height="70" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="220" >
-                        <ComboBox Name="cboScanSize" SelectionChanged="cbo_selchg_scansize"
-                    Style="{StaticResource customComboBox}"
-                    Background="White"
-                    Width="145" Height="25"
-                    VerticalAlignment="Center"
-                    >
-                        </ComboBox>
-                    </local:GroupBoxDecorator>
-                    
-                    <local:GroupBoxDecorator  Margin="40,78,0,82" Header="{StaticResource ResStr_Type}" Height="75" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center" >
-                        <ComboBox Name="cboMediaType" SelectionChanged="comboType_sel_change"
-                            Style="{StaticResource customComboBox}"
-                            Background="White"
-                            Width="145" Height="24"
-                            VerticalAlignment="Center" Margin="38,4,37,9"
-                            >
-                        </ComboBox>
-                    </local:GroupBoxDecorator>
+                    </local:GroupBoxDecorator>                  
 
                     <!-- Right side -->
                     <local:GroupBoxDecorator Margin="0,0,20,0" Header="{StaticResource ResStr_Contrast}" Height="115" HorizontalAlignment="Right" VerticalAlignment="Top" Width="220" >
@@ -444,7 +423,25 @@
 
                         </StackPanel>
                     </local:GroupBoxDecorator>
+                    <local:GroupBoxDecorator  Margin="40,78,0,82" Header="{StaticResource ResStr_Type}" Height="75" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                        <ComboBox Name="cboMediaType" SelectionChanged="comboType_sel_change"
+                            Style="{StaticResource customComboBox}"
+                            Background="White"
+                            Width="145" Height="24"
+                            VerticalAlignment="Center" Margin="38,4,37,9"
+                            >
+                        </ComboBox>
+                    </local:GroupBoxDecorator>
 
+                    <local:GroupBoxDecorator Margin="40,0,0,0" Header="{StaticResource ResStr_Scan_Size}" Height="70" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="220" >
+                        <ComboBox Name="cboScanSize" SelectionChanged="cbo_selchg_scansize"
+                    Style="{StaticResource customComboBox}"
+                    Background="White"
+                    Width="145" Height="25"
+                    VerticalAlignment="Center"
+                    >
+                        </ComboBox>
+                    </local:GroupBoxDecorator>
                     <local:GroupBoxDecorator Margin="0,0,20,0" Header="{StaticResource ResStr_Brightness}" Height="115" Width="220" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
                         <StackPanel>
                             <Image Stretch="None" VerticalAlignment="Top"
@@ -532,9 +529,9 @@
                 <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button HorizontalContentAlignment="Center" IsDefault="False" x:Name="btnDefault" Click="btnDefault_Click"
                 Content="{StaticResource ResStr_Default}" Style="{StaticResource CustomPopUpButtonStyle}"
-                Height="35" Width="200" Margin="0,0,20,0" />
+                Height="35" Width="150" Margin="0,0,20,0" />
                     <Button HorizontalContentAlignment="Center" x:Name="btnOk" Click="btnOk_Click"
-                Content="{StaticResource ResStr_OK}"  Height="35" Width="200" 
+                Content="{StaticResource ResStr_OK}"  Height="35" Width="150" 
                             Style="{StaticResource CustomPopUpButtonStyle}"/>
                 </StackPanel>
 

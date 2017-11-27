@@ -290,20 +290,20 @@ namespace VOP
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1 error.JPG"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000E.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000F.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000G.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000H.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848000A.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848000B.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848001A.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848001B.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_1.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_2.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000C.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000D.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_1.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_2.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000C.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000D.jpg"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
-                    ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
-                    ////files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
+                    //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
+                    //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
                     //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\1.JPG"));
                     //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\2.JPG"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
@@ -324,6 +324,14 @@ namespace VOP
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                         Application.Current.MainWindow,
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                        );
+                }
+                else
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        Application.Current.MainWindow,
+                        (string)"The scanning is canceled on the machine!",
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                         );
                 }
@@ -404,7 +412,7 @@ namespace VOP
             tb1.Text = str;
         }
 
-        private void LeftButton_Click(object sender, RoutedEventArgs e)
+        private void LeftButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
            int result = 0;
            if(Int32.TryParse(ScreenBtn.Content.ToString(), out result))
@@ -429,7 +437,7 @@ namespace VOP
             }
         }
         
-        private void RightButton_Click(object sender, RoutedEventArgs e)
+        private void RightButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             int result = 0;       
             if (Int32.TryParse(ScreenBtn.Content.ToString(), out result))

@@ -36,7 +36,7 @@
                 <ColumnDefinition Width="90" />
             </Grid.ColumnDefinitions>
 
-            <Button    
+            <!--<Button    
             Name="LeftBtn"
             Grid.Row="0"
             Grid.Column="0"
@@ -45,6 +45,20 @@
             Height="90"
             Margin="0,0,0,0"
             Click="LeftButton_Click"
+            />-->
+            <local:ImageButton3    
+            x:Name="LeftBtn"
+            Grid.Row="0"
+            Grid.Column="0"
+            Width="90"
+            Height="90"
+            Margin="0,0,0,0"
+            ImagePath="../Images/left_normal.png"
+            PressImagePath="../Images/left_press.png"
+            DisableImagePath="../Images/left_disable.png"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            PreviewMouseLeftButtonDown="LeftButton_Click" 
             />
             <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Grid.Background>
@@ -56,24 +70,22 @@
                     <RowDefinition Height="0*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Grid.RowSpan="2"  Orientation="Horizontal" VerticalAlignment="Top" 
-                    HorizontalAlignment="Stretch" Margin="0,0,0,0">
+                    HorizontalAlignment="Stretch" Height="40">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="../Images/main_img_search device panel.png"/>
                     </StackPanel.Background>
+                    
                     <local:DeviceButton  
                     x:Name="DeviceButton"
-                    Width="48"
-                    Height="40"            
-                    Click="DeviceButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top"
-                    />
+                    Width="38"
+                    Height="38"   
+                    Style="{StaticResource deviceButtonStyle}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Click="DeviceButton_Click" />
                     <TextBlock  x:Name="tbStatus" Text="Disconnect" Height="20" Width="120" Foreground="Black" 
                                VerticalAlignment="Center" TextAlignment="Left" HorizontalAlignment="Left" />
                 </StackPanel>
-                <!--<Grid Grid.Row="1">
-                    <Grid.Background>
-                        <ImageBrush ImageSource="../Images/quick scan_shadow_top.png"></ImageBrush>
-                    </Grid.Background>
-                </Grid>-->
                 <Button   Grid.Row="1"
                 	x:Name="ScreenBtn"
                 	Width="460"
@@ -89,7 +101,7 @@
                     </Grid.Background>
                 </Grid>
             </Grid>
-            <Button  
+           <!-- <Button  
             Name="RightBtn"
             Grid.Row="0"
             Grid.Column="2"
@@ -98,7 +110,20 @@
             Height="90"
             Margin="0,0,0,0"
             Click="RightButton_Click"
-            />
+            />-->
+            <local:ImageButton3 x:Name="RightBtn"
+             Grid.Row="0"
+            Grid.Column="2"
+            Width="90"
+            Height="90"
+            Margin="0,0,0,0" 
+            ImagePath="../Images/right_normal.png"
+            PressImagePath="../Images/right_press.png"
+            DisableImagePath="../Images/right_disable.png"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            PreviewMouseLeftButtonDown="RightButton_Click" 
+                                />
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1">
             <!--<Grid.Background>

@@ -71,3 +71,6 @@ EXPORTS
 	CheckConnection
 	DoCalibration
 	TestIpConnected
+	CheckPrinterStatus
+	CheckConnectionByName
+	CheckUsbScanByName

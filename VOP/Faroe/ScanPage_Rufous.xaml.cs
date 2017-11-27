@@ -57,11 +57,12 @@ namespace VOP
                 {
                     selectedFileList = new List<ImageStatus>();
 
-                    foreach (ScanFiles files in scanFileList)
+                    //foreach (ScanFiles files in scanFileList)
+                    for(int i= scanFileList.Count-1; i>=0; i--)
                     {
                         ImageStatus newImage = new ImageStatus();
-                        newImage._files = files;
-                        newImage.m_num = scanFileList.IndexOf(files) + 1;
+                        newImage._files = scanFileList[i];
+                        newImage.m_num = scanFileList.IndexOf(scanFileList[i]) + 1;
                         selectedFileList.Add(newImage);
                         UpdateSelItemNum();
                     }                    
@@ -128,7 +129,7 @@ namespace VOP
         }
 
 
-        private void LeftButton_Click(object sender, RoutedEventArgs e)
+        private void LeftButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             m_selectedPage--;
             if (m_selectedPage == 0)
@@ -147,7 +148,7 @@ namespace VOP
             UpdateImageFiles();
         }
 
-        private void RightButton_Click(object sender, RoutedEventArgs e)
+        private void RightButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             m_selectedPage++;
             if (m_selectedPage >= (m_pageCount-1))
@@ -169,7 +170,8 @@ namespace VOP
             ImageButton2 btn = sender as ImageButton2;
 
             List<string> files = new List<string>();
-            if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true)
+            if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true &&
+                scanFileList.Count>=2)
             {
                 GetSelectedFileToAP(files, 2);
                 SelectTwoFiles(2);
@@ -495,7 +497,15 @@ namespace VOP
             if (0 == img.m_num && GetSelectedItemCount() < m_maxImgNum)
             {
                 img.m_num = GetSelectedItemCount() + 1;
-                selectedFileList[scanFileList.IndexOf(img.m_images)].m_num = img.m_num;
+                //modified by yunying shang 2017-11-22 for BMS 1509
+                for (int i = 0; i < selectedFileList.Count; i++)
+                {
+                    if (selectedFileList[i]._files == img.m_images)
+                    {
+                        selectedFileList[i].m_num = img.m_num;
+                        break;
+                    }
+                }//<<================1509
             }
 
             //add by yunying shang 2017-10-19 for BMS 1182
@@ -903,7 +913,7 @@ namespace VOP
             return -1;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
 
             if(image_wrappanel.Children.Count > 0)

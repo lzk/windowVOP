@@ -44,6 +44,7 @@ namespace VOP
             }
 
             cboPrinters.SelectedIndex = index;
+            tbSettings.Focus();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -73,7 +74,14 @@ namespace VOP
             this.DialogResult = true;
             this.Close();
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+                e.Handled = true;
+            }
+        }
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();

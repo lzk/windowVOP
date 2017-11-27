@@ -44,7 +44,7 @@
                     <TextBlock Name="TitleBarText" Text="To FTP" FontSize="15" FontWeight="Bold" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" MinimizeOrCloseStyle="Close" IsCancel="True"/>
+                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" MinimizeOrCloseStyle="Close" IsCancel="True" PreviewKeyDown="btnClose_PreviewKeyDown"/>
 
 
                 <Grid Grid.Row="1" Background="White" Grid.Column="1" Grid.ColumnSpan="1">
@@ -150,7 +150,7 @@
                 <Button Grid.Row="2" Grid.Column="1"
                             HorizontalAlignment="Center" 
                             Margin="20,6" 
-                            Width="160" 
+                            Width="150" 
                             Height="35"
                             FontSize="16"
                             Click="OkClick"

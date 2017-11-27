@@ -81,7 +81,7 @@
                                     </Border.Effect>
                                 </Border>
 
-                                <TextBlock x:Name="tbValue" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"
+                                <TextBlock x:Name="tbValue" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red"
                             Text="{Binding Value, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource objPercentConverter}}" 
                                            FontFamily="Arial" FontWeight="Black" Opacity="0.6" Margin="0, 1, 0, -1">
                                     <TextBlock.Effect>
@@ -165,28 +165,27 @@
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
                                 <Grid>
-                                    <Ellipse x:Name="ellipse1" StrokeThickness="0" Stroke="Black" Fill="{DynamicResource Brush1}" >
+                                    <Ellipse x:Name="ellipse1" StrokeThickness="0" Stroke="Black" Fill="Transparent" >
                                     </Ellipse>
-
-                                    <Ellipse x:Name="ellipse2" Margin="2" StrokeThickness="0" Stroke="Black" Fill="{DynamicResource Brush2}" >
+                                    <Ellipse x:Name="ellipse2" Margin="2" StrokeThickness="0" Stroke="Black" Fill="Transparent" >
                                     </Ellipse>
-                                    <Image x:Name="icon" Height="12" Width="12" Stretch="Fill" Source="../Images/cancelIcon.png"/>
+                                    <Image x:Name="icon" Height="32" Width="32" Stretch="Fill" Source="../Images/cancelIcon.png"/>
                                 </Grid>
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brMouseMoveBg}"/>
+                                    <!--<Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brMouseMoveBg}"/>
                                     <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brMouseMoveFg}"/>
-                                    <Setter Property="Source" TargetName="icon" Value="../Images/cancelMouseMove.png"/>
+                                    <Setter Property="Source" TargetName="icon" Value="../Images/cancelMouseMove.png"/>-->
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brPressedBg}"/>
-                                    <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brPressedFg}"/>
+                                    <!--<Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brPressedBg}"/>
+                                    <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brPressedFg}"/>-->
                                     <Setter Property="Source" TargetName="icon" Value="../Images/cancelPress.png"/>
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="False">
-                                    <Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brDisableBg}"/>
-                                    <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brDisableFg}"/>
+                                    <!--<Setter Property="Fill" TargetName="ellipse1" Value="{DynamicResource brDisableBg}"/>
+                                    <Setter Property="Fill" TargetName="ellipse2" Value="{DynamicResource brDisableFg}"/>-->
                                     <Setter Property="Source" TargetName="icon" Value="../Images/cancelDisable.png"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
@@ -226,7 +225,8 @@
                 >
               
             </xctk:BusyIndicator>
-            <Button Grid.Row="3" Grid.Column="1" HorizontalContentAlignment="Center" VerticalAlignment="Top"  Width="50" Height="50" IsDefault="false"  Style="{DynamicResource ButtonStyle1}" IsEnabled="True" Click="Cancel_Click"/>
+            <Button Grid.Row="3" Grid.Column="1" HorizontalContentAlignment="Center" VerticalAlignment="Top"  Width="50" Height="50" IsDefault="false" 
+                    Style="{DynamicResource ButtonStyle1}" IsEnabled="True" Click="Cancel_Click"/>
 
        
         </Grid>

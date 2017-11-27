@@ -52,8 +52,16 @@ namespace VOP
 
             tbFileName.Text = m_scanToFileParams.FileName;
             tbFilePath.Text = m_scanToFileParams.FilePath;
+            tbSettings.Focus();
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+                e.Handled = true;
+            }
+        }
         private void cbFileType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cbFileType.SelectedIndex == 0)
@@ -91,13 +99,18 @@ namespace VOP
         {
             try
             {
-                Regex containsABadCharacter = new Regex("["
+                Regex containsABadCharacter = new Regex(@"["
                                                + Regex.Escape(new string(System.IO.Path.GetInvalidPathChars())) + "]");
 
                 if (containsABadCharacter.IsMatch(path))
                 {
                     return false;
                 }
+                //if (!Regex.IsMatch(path, @"\A(?:/(.|[\r\n])*)\z"))
+                //{
+                //    return false;
+                //}
+
                 int i = 0;
                 for (i = 0; i < path.Length; i++)
                 {
@@ -118,6 +131,12 @@ namespace VOP
                 {
                     path = App.PictureFolder + "\\" + path;
                 }//<<=============1181
+                //add by yunying shang 2017-11-22 for BMS 1499
+                else if ((!path.Contains("\\") && path.Contains(":")) ||
+                    (!path.Contains(":") && path.Contains("\\")))
+                {
+                    return false;
+                }//<<=============1499
 
 
             }
@@ -148,6 +167,24 @@ namespace VOP
                 return false;
             }
 
+            return true;
+        }
+
+        private bool PathExist(string path)
+        {
+            int find = path.LastIndexOf(':');
+            if (find > 0)
+            {
+                string str = path.Substring(0, find+1);
+                if (System.IO.Directory.Exists(str))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
             return true;
         }
 
@@ -201,6 +238,16 @@ namespace VOP
             }
             else
             {
+                if (!PathExist(path))
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                      Application.Current.MainWindow,
+                     "Your Specify File Path is not exit, please specify again!",
+                     "Error");
+                    tbFileName.Focus();
+                    return;
+                }
+
                 if (!IsValidPathName(ref path))
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
@@ -266,18 +313,20 @@ namespace VOP
                 save.FileName = tbFileName.Text;//add by yunying shang 2017-11-14 for BMS 1393
             else
                 save.FileName = "ScanPictures";
+
             save.InitialDirectory = dummyFileName;
             bool? result = save.ShowDialog();
 
             if (result == true)
             {
-                if (save.FileName.Length > 0)
-                    tbFilePath.Text = System.IO.Path.GetDirectoryName(save.FileName);
+                string path = System.IO.Path.GetDirectoryName(save.FileName);
+                if (path.Length > 0)
+                    tbFilePath.Text = path;
                 else
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                       Application.Current.MainWindow,
-                     "Your Specify File Path is too long or not valid, please specify again!",
+                     "Your Specify File Path + File Name is too long or not valid, please specify again!",
                      "Error");
                 }
 

@@ -158,7 +158,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_User_Config">高级设置</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Modify_Password">管理员密码修改</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_About">关于</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_IP_Type">获取方式</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_IP_Type">获取方式:</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_DHCP">自动获取</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Static">固定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_IP_Address">IP 地址</sys:String>
@@ -429,4 +429,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Device_Disconnected">设备断开连接，扫描将会被停止!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_ScanTo_Cloud_wait">待定</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Network_fail">The Network is not connected, please check your setting.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Are_you_sure_to_delete_the_quick_scan">Are you sure to delete the quick scan setting?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Card">Card</sys:String>
 </ResourceDictionary>

@@ -42,6 +42,7 @@ namespace VOP
 
             tbRecipient.Text = m_scanToEmailParams.Recipient;
             tbSubject.Text = m_scanToEmailParams.Subject;
+            tbSettings.Focus();
         }
 
         private void cbAttachType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -93,8 +94,9 @@ namespace VOP
             }
             if (false == Char.IsLetterOrDigit(tbRecipient.Text, 0)||               
                 false == IsValidEmail(tbRecipient.Text) ||
-                //IsEmailNameAllNumber(tbRecipient.Text) ||
-                finded < 0 ||
+               !Regex.IsMatch(tbRecipient.Text, @"\A(?:^['&A-Za-z0-9._%+-]+@[A-Za-z0-9-][A-Za-z0-9.-]*.[A-Za-z]{2,15}$)\z")||
+            //IsEmailNameAllNumber(tbRecipient.Text) ||
+            finded < 0 ||
                 finded1 >= 0)
             {
                 MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, 
@@ -108,7 +110,14 @@ namespace VOP
             this.DialogResult = true;
             this.Close();
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+                e.Handled = true;
+            }
+        }
         private bool IsEmailNameAllNumber(string strEmail)
         {
             int finded = strEmail.LastIndexOf('@');
@@ -146,6 +155,7 @@ namespace VOP
                     return false;
                 }
             }
+
 
             return true;
         }

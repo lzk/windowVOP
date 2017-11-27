@@ -195,14 +195,19 @@
     <Compile Include="Controls\ButtonEx2.cs" />
     <Compile Include="Controls\CustomExpander.cs" />
     <Compile Include="Controls\IdCardTypeItem.cs" />
+    <Compile Include="Controls\ImageButton\ImageButton.xaml.cs">
+      <DependentUpon>ImageButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ImageButton\ImageButton2.xaml.cs">
       <DependentUpon>ImageButton2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ImageButton\ImageButton3.xaml.cs" />
     <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple_Busy_QRCode.xaml.cs">
       <DependentUpon>MessageBoxEx_Simple_Busy_QRCode.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\DeviceButton.cs" />
     <Compile Include="Controls\TextBlockUtils.cs" />
+    <Compile Include="Controls\TextBoxEx.cs" />
     <Compile Include="Faroe\DeviceListBoxItem.cs" />
     <Compile Include="Faroe\QRCodeWindow\Otsu.cs" />
     <Compile Include="Faroe\QRCodeWindow\QRCodeDetection.cs" />
@@ -405,6 +410,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\DeviceButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ImageButton\ImageButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ImageButton\ImageButton3.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -724,10 +737,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\ImageButton\ImageButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Controls\ImageButton\ImageButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -754,9 +763,6 @@
     </Page>
     <Page Include="Controls\AdjustButton.xaml" />
     <Compile Include="Controls\GroupBoxDecorator\GroupBoxDecorator.cs" />
-    <Compile Include="Controls\ImageButton\ImageButton.xaml.cs">
-      <DependentUpon>ImageButton.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\MinimizeCloseButton\MinimizeCloseButton.cs" />
     <Compile Include="Controls\customTabItem.xaml.cs">
       <DependentUpon>customTabItem.xaml</DependentUpon>
@@ -855,7 +861,6 @@
     <Resource Include="Images\Wireless.png" />
     <Resource Include="Images\Wireless_Active.png" />
     <Resource Include="Images\busyRefresh.tif" />
-    <Resource Include="Images\background.png" />
     <Resource Include="Images\SettingViewBackground.png" />
     <Resource Include="Images\triangle.png" />
     <Resource Include="Images\Fit.tif" />
@@ -1031,16 +1036,10 @@
     <Resource Include="Images\Refresh.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\back-button.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\delete.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ScanTo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\background2.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\bluebutton.png" />
@@ -1056,7 +1055,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\back_normal.png" />
-    <Resource Include="Images\back_over.png" />
     <Resource Include="Images\back_press.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1250,6 +1248,38 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\popup_gnd_image preview1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\move down_disable.png" />
+    <Resource Include="Images\move up_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\quick scan_btnf_move down.png" />
+    <Resource Include="Images\quick scan_btnf_move up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\edit_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\delete_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\quick scan_btnf_delete.png" />
+    <Resource Include="Images\quick scan_btnf_edit.png" />
+    <Resource Include="Images\quick scan_btnf_new.png" />
+    <Resource Include="Images\quick scan_btnf_setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting_img_disable1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\setting_img_disable2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\clockwise-arrow_press.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\back_disable.png" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>

@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="500"
+             Foreground="Black"
+             d:DesignHeight="460" d:DesignWidth="495"
              xmlns:local="clr-namespace:VOP.Controls" 
              Loaded="UserControl_Loaded"
              >
@@ -34,10 +35,12 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="6"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="6"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
@@ -45,7 +48,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"></ColumnDefinition>
             <ColumnDefinition Width="200"></ColumnDefinition>
-            <ColumnDefinition Width="201*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
@@ -75,19 +78,19 @@
             </Path>
         </Canvas>
 
-        <TextBlock Grid.Row="2" Grid.Column="1"
+        <TextBlock Grid.Row="3" Grid.Column="1"
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
                 Text="Cloud Type:" Height="19"/>
         <ComboBox 
-            Grid.Row="2" Grid.Column="2"
+            Grid.Row="3" Grid.Column="2"
                                 Name="cbCloudType"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center" 
                                 VerticalContentAlignment="Center"
                                 Width="200" 
-                                Height="36"                                 
+                                Height="35"                                 
                                 FontSize="14"
                             SelectionChanged="cbCloudType_SelectionChanged">
             <ComboBoxItem >DropBox</ComboBoxItem>
@@ -96,7 +99,7 @@
         </ComboBox>
         <Button
                 Name="btnReset"
-                Grid.Row="3"
+                Grid.Row="4"
                 Grid.Column="2"
                 Width="100"
                 Height="34" 
@@ -106,7 +109,7 @@
                 FontSize="16"
                 Style="{StaticResource CustomSettingButtonStyle}" 
                 Click="btnReset_Click"/>
-        <Canvas Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" Height="0" Margin="0,5">
+        <Canvas Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" Height="0" Margin="0,5">
             <Path Stroke="LightGray" StrokeThickness="2">
                 <Path.Data>
                     <LineGeometry StartPoint="0,4" EndPoint="455,2"></LineGeometry>
@@ -115,7 +118,7 @@
         </Canvas>
 
         <TextBlock 
-                Grid.Row="5"
+                Grid.Row="7"
                 Grid.Column="1"
                                 Text="Email Attachment File Type :" 
                                 VerticalAlignment="Center"
@@ -123,14 +126,14 @@
                                 FontSize="14" Margin="0,16" TextWrapping="Wrap" Height="18"
                                 />
         <ComboBox 
-                Grid.Row="5"
+                Grid.Row="7"
                 Grid.Column="2"
                                 Name="cbAttachType"
                                 VerticalAlignment="Center" 
                                 VerticalContentAlignment="Center"
                                 HorizontalAlignment="Right"
                                 Width="200" 
-                                Height="30" 
+                                Height="35" 
                                 FontSize="14"
                             SelectionChanged="cbAttachType_SelectionChanged"
                                 >

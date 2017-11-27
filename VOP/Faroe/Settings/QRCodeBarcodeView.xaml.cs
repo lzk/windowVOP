@@ -44,6 +44,7 @@ namespace VOP
             tbFilePath.IsReadOnly = true;
 
             cbCodeType.Focus();
+            tbSettings.Focus();
         }
 
         private bool IsValidPathName(string path)
@@ -56,8 +57,12 @@ namespace VOP
 
                 if (containsABadCharacter.IsMatch(path))
                 {
-                    return false; 
+                    return false;
                 };
+                //if (!Regex.IsMatch(path, @"\A(?:/(.|[\r\n])*)\z"))
+                //{
+                //    return false;
+                //}
 
             }
             catch(Exception)
@@ -80,6 +85,10 @@ namespace VOP
                 {
                     return false;
                 };
+                //if (!Regex.IsMatch(filename, @"\A(?:/(.|[\r\n])*)\z"))
+                //{
+                //    return false;
+                //}
             }
             catch (Exception)
             {

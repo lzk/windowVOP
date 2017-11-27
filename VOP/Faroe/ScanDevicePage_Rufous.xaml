@@ -28,30 +28,35 @@
             <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         
-        <Button Grid.Row="1" 
+        <local:ImageButton3 Grid.Row="0" 
                 Grid.Column="0"
                 Grid.RowSpan="2"
                 Width="55" 
-                Height="55" 
-                Style="{StaticResource BackButtonStyle}" 
-                Margin="5,-15,0,0"
+                Height="55"                 
+                Margin="5,10,0,0"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top" Click="BackButton_Click"/>
+                VerticalAlignment="Top"
+                ImagePath="../Images/back_normal.png"
+                PressImagePath="../Images/back_press.png"
+                DisableImagePath="../Images/back_disable.png"
+                            PreviewMouseLeftButtonDown="BackButton_Click"/>
         
-        <local:ImageButton2   
+        <local:ImageButton3   
             Grid.Row="1" 
             Grid.Column="2"
-            Width="60"
-            Height="60"
+            Width="70"
+            Height="70"
             VerticalAlignment="Top" 
             HorizontalAlignment="Left"
             ImagePath="../Images/clockwise-arrow.png"
+            PressImagePath="../Images/clockwise-arrow_press.png"
+            DisableImagePath="../Images/clockwise-arrow.png"
             PreviewMouseLeftButtonDown="RefreshClick"
             />
 
@@ -68,7 +73,7 @@
             Name="btnConnect"
                 Grid.Row="2"
                 Grid.Column="1"
-                Width="200"
+                Width="150"
                 Height="35" 
                 Margin="0,0,0,0"
                 Content="Connect" 

@@ -66,7 +66,14 @@ namespace VOP
             }
 
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+                e.Handled = true;
+            }
+        }
         private void InitNoteList()
         {
             listNote.Items.Clear();

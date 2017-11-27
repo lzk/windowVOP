@@ -10,6 +10,7 @@
         AllowsTransparency="True"
         Background="Transparent" 
         ShowInTaskbar="False" 
+        Foreground="Black"
         BorderThickness="25,25,25,25"
         Loaded="Window_Loaded">
     <Window.Resources>
@@ -44,7 +45,7 @@
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
                     <TextBlock Name="TitleBarText" Text="To Apps" FontSize="15" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
-                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" MinimizeOrCloseStyle="Close" IsCancel="True"/>
+                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" MinimizeOrCloseStyle="Close" IsCancel="True" PreviewKeyDown="btnClose_PreviewKeyDown"/>
                 <ListBox 
                         Name="APListBox"
                         Grid.Row="1" 
@@ -57,7 +58,7 @@
                     <Button Grid.Row="2" Grid.Column="1"
                             HorizontalAlignment="Center" 
                             Margin="20,6" 
-                            Width="160" 
+                            Width="200" 
                             Height="35"
                             FontSize="16"
                             Click="OkClick"

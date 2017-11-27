@@ -174,7 +174,7 @@
                 <TextBlock Text="{StaticResource ResStr_Quick_Preview}" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
 
-            <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" />
+            <local:MinimizeCloseButton x:Name="btnClose" Width="30" HorizontalAlignment="Right" Grid.Row="0" MinimizeOrCloseStyle="Close" Click="btnClose_Click" PreviewKeyDown="btnClose_PreviewKeyDown"/>
 
             <Grid Grid.Row="2" Width="540">
                 <Grid.RowDefinitions>
@@ -254,9 +254,9 @@
 
             <StackPanel Margin="0" Grid.Row="4" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top" >
                 <Button x:Name="btnOK" Content="{StaticResource
-                    ResStr_Back}" HorizontalAlignment="Center" Height="33" Style="{StaticResource CustomPopUpButtonStyle2}"
+                    ResStr_Back}" HorizontalAlignment="Center" Height="33" Style="{StaticResource CustomPopUpButtonStyle}"
                 HorizontalContentAlignment="Center"
-                Width="110" VerticalAlignment="Center" Click="btnOK_Click"/>
+                Width="150" VerticalAlignment="Center" Click="btnOK_Click"/>
                 <!--<local:ButtonEx x:Name="btnPrint"  Content="{StaticResource ResStr_Print}" HorizontalAlignment="Center" Height="33"
                 HorizontalContentAlignment="Center"
                 Margin="25,0,0,0" Width="110" IsActiveEx="true" VerticalAlignment="Center" Click="btnPrint_Click" />-->

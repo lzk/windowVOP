@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VOP.Controls"
              mc:Ignorable="d" 
              d:DesignWidth="750" 
              d:DesignHeight="533" 
@@ -32,7 +33,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="18"></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" 
+        <!--<Button Grid.Row="0" 
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Grid.RowSpan="2"
@@ -41,8 +42,22 @@
                 Style="{StaticResource BackButtonStyle}" 
                 Margin="0,0,0,0"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top" Click="Button_Click"/>
-            <StackPanel  Grid.Row="1" Grid.Column="1" Name="setting_tab_btn" Background="LightGray" Orientation="Vertical" Panel.ZIndex="100" >
+                VerticalAlignment="Top" Click="Button_Click"/>-->
+        <local:ImageButton3 Grid.Row="0" 
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.RowSpan="2"
+                Width="55" 
+                Height="55"                 
+                Margin="0,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                ImagePath="../../Images/back_normal.png"
+                PressImagePath="../../Images/back_press.png"
+                DisableImagePath="../../Images/back_disable.png"
+                PreviewMouseLeftButtonDown="Button_Click"/>
+        <StackPanel  Grid.Row="1" Grid.Column="1" Name="setting_tab_btn" Background="LightGray" Orientation="Vertical" 
+                     Panel.ZIndex="100" Margin="0,0,0,5">
             </StackPanel>
             <Border Name="settingView" Grid.Row="1" Grid.Column="2">
             </Border>

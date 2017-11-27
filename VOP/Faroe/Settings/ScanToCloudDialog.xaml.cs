@@ -41,7 +41,9 @@ namespace VOP
                 SavePathTbx.IsEnabled = true;
                 SavePathTbx.Visibility = System.Windows.Visibility.Visible;
                 tbDefaultPath.Text = "Default save path:";
+                SavePathTbx.IsReadOnly = false;
                 SavePathTbx.Text = m_scanToCloudParams.DefaultPath;
+                SavePathTbx.IsReadOnly = true;
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
             }
@@ -77,10 +79,13 @@ namespace VOP
                 SavePathTbx.IsEnabled = true;
                 SavePathTbx.Visibility = System.Windows.Visibility.Visible;
                 tbDefaultPath.Text = "Default save path:";
-                SavePathTbx.Text = m_scanToCloudParams.DefaultPath;
+                SavePathTbx.IsReadOnly = false;
+                SavePathTbx.Text = m_scanToCloudParams.DefaultOneDrivePath;
+                SavePathTbx.IsReadOnly = true;
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
             }
+            tbSettings.Focus();
         }
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
@@ -91,7 +96,9 @@ namespace VOP
                 flow.ParentWin = m_MainWin;
                 DropBoxFlow.FlowType = CloudFlowType.SimpleView;
                 flow.Run();
+                SavePathTbx.IsReadOnly = false;
                 SavePathTbx.Text = DropBoxFlow.SavePath;
+                SavePathTbx.IsReadOnly = true;
                 m_scanToCloudParams.DefaultPath = DropBoxFlow.SavePath;
 
                 //reset
@@ -103,14 +110,23 @@ namespace VOP
                 flow.ParentWin = m_MainWin;
                 OneDriveFlow.FlowType = CloudFlowType.SimpleView;
                 flow.Run();
+                SavePathTbx.IsReadOnly = false;
                 SavePathTbx.Text = OneDriveFlow.SavePath;
-                m_scanToCloudParams.DefaultPath = OneDriveFlow.SavePath;
+                SavePathTbx.IsReadOnly = true;
+                m_scanToCloudParams.DefaultOneDrivePath = OneDriveFlow.SavePath;
 
                 //reset
                 OneDriveFlow.FlowType = CloudFlowType.View;
             }
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+                e.Handled = true;
+            }
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ScanSettingDialog settingWin = new ScanSettingDialog();
@@ -130,11 +146,12 @@ namespace VOP
             if (m_scanToCloudParams.SaveType == "OneDrive")
             {
                 AuthenticationHelper.SignOut();
+                m_scanToCloudParams.DefaultPath = SavePathTbx.Text = "/";
             }
             else if (m_scanToCloudParams.SaveType == "DropBox")
             {
                 Properties.Settings.Default.Reset();
-                m_scanToCloudParams.DefaultPath = SavePathTbx.Text = "";
+                m_scanToCloudParams.DefaultPath = SavePathTbx.Text = "/";
             }
             else
             {
@@ -157,15 +174,18 @@ namespace VOP
                     return;
                 }
 
-                m_scanToCloudParams.DefaultPath = SavePathTbx.Text;//add by yunying shang 2017-11-08 for BMS 1326
-
+              
                 if (cbCloudType.SelectedIndex == 2)
                 {
                     m_scanToCloudParams.SaveType = "OneDrive";
+                    m_scanToCloudParams.DefaultOneDrivePath = SavePathTbx.Text;//add by yunying shang 2017-11-22 for BMS 1483
+
                 }
                 else
                 {
                     m_scanToCloudParams.SaveType = "DropBox";
+                    m_scanToCloudParams.DefaultPath = SavePathTbx.Text;//add by yunying shang 2017-11-08 for BMS 1326
+
                 }
             }
             else if (cbCloudType.SelectedIndex == 1)
@@ -202,7 +222,9 @@ namespace VOP
                 SavePathTbx.IsEnabled = true;
                 SavePathTbx.Visibility = System.Windows.Visibility.Visible;
                 tbDefaultPath.Text = "Default save path:";
-                SavePathTbx.Text = "";
+                SavePathTbx.IsReadOnly = false;
+                SavePathTbx.Text = m_scanToCloudParams.DefaultPath;                
+                SavePathTbx.IsReadOnly = true;
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
             }
@@ -236,7 +258,9 @@ namespace VOP
                 SavePathTbx.IsEnabled = true;
                 SavePathTbx.Visibility = System.Windows.Visibility.Visible;
                 tbDefaultPath.Text = "Default save path:";
-                SavePathTbx.Text = "";
+                SavePathTbx.IsReadOnly = false;
+                SavePathTbx.Text = m_scanToCloudParams.DefaultOneDrivePath;
+                SavePathTbx.IsReadOnly = true;
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
             }

@@ -9,6 +9,7 @@
         ResizeMode="NoResize" 
         AllowsTransparency="True"
         Background="Transparent" 
+        Foreground="Black"
         ShowInTaskbar="False" 
         BorderThickness="25,25,25,25"
         Loaded="Window_Loaded">
@@ -40,7 +41,7 @@
                     <TextBlock Name="TitleBarText" Text="OneDrive File Viewer" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" MinimizeOrCloseStyle="Close" IsCancel="True"/>
+                <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" MinimizeOrCloseStyle="Close" IsCancel="True" PreviewKeyDown="btnClose_PreviewKeyDown"/>
 
 
                 <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">
@@ -51,7 +52,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="370" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="50" />
+                        <RowDefinition Height="60" />
                     </Grid.RowDefinitions>
 
                     <Border Grid.Row="0" Grid.ColumnSpan="2">
@@ -107,8 +108,7 @@
                         Grid.Row="2"
                             Name="UploadButton"
                             HorizontalAlignment="Center" 
-                            Margin="215,8" 
-                            Width="160" 
+                            Width="150" 
                             Height="35"
                             FontSize="16"
                             Style="{StaticResource CustomPopUpButtonStyle}" 

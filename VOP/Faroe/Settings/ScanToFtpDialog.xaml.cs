@@ -34,6 +34,7 @@ namespace VOP
             tbUserName.Text = m_scanToFTPParams.UserName;
             pbPWD.Password = m_scanToFTPParams.Password;
             tbTargetPath.Text = m_scanToFTPParams.TargetPath;
+            tbSettings.Focus();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -48,7 +49,14 @@ namespace VOP
                 m_scanParams = (ScanParam)settingWin.m_scanParams.Clone();
             }
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+                e.Handled = true;
+            }
+        }
         private void OkClick(object sender, RoutedEventArgs e)
         {
             if (tbServerName.Text == "")
@@ -108,6 +116,24 @@ namespace VOP
                  "The Target Path format is incorrect, Please check you target path and enter again.",
                  "Error");
                 return;
+            }
+            else
+            {
+                strTargetPath = tbTargetPath.Text;
+                int i = 0;
+                for (i = 0; i < strTargetPath.Length; i++)
+                {
+                    if (strTargetPath[i] != '/')
+                        break;
+                }
+                if(i>=strTargetPath.Length && strTargetPath.Length >= 2)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                      Application.Current.MainWindow,
+                     "The Target Path format is incorrect, Please check you target path and enter again.",
+                     "Error");
+                    return;
+                }
             }
             m_scanToFTPParams.ServerAddress = tbServerName.Text;
             m_scanToFTPParams.UserName = tbUserName.Text;

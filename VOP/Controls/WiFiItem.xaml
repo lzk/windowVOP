@@ -74,7 +74,7 @@
 
                         <StackPanel Grid.Row="1">
                             <Grid Grid.Row="2" Height="30">
-                                <CheckBox Name="cbDisplayPwd" Checked="OnClickDisplayPWD" Unchecked="OnClickDisplayPWD" Grid.Column="1" Template="{StaticResource customCheckBox}" Content="{StaticResource ResStr_Display_Password}"></CheckBox>
+                                <CheckBox Name="cbDisplayPwd" Foreground="Black" Checked="OnClickDisplayPWD" Unchecked="OnClickDisplayPWD" Grid.Column="1" Template="{StaticResource customCheckBox}" Content="{StaticResource ResStr_Display_Password}"></CheckBox>
                             </Grid>
                         </StackPanel>
 
@@ -103,11 +103,11 @@
                             </Grid>
                         </StackPanel>
 
-                        <StackPanel Grid.Row="3">
+                        <StackPanel Grid.Row="3" Margin="10,5">
                             <Grid Grid.Row="3" Height="40">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition Width="12"></ColumnDefinition>
+                                    <ColumnDefinition Width="10"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Button x:Name="btnCancel" Click="OnClickCancelButton" Style="{StaticResource CustomSettingButtonStyle}"

@@ -449,28 +449,28 @@ namespace EvernoteSDK
 			}
 
 			// Start bootstrapping
-			string locale = CultureInfo.CurrentCulture.ToString();
-			ENUserStoreClient bootstrapUserStore = new ENUserStoreClient(UserStoreUrl(), null);
+			//string locale = CultureInfo.CurrentCulture.ToString();
+			//ENUserStoreClient bootstrapUserStore = new ENUserStoreClient(UserStoreUrl(), null);
 			try
 			{
-				BootstrapInfo info = bootstrapUserStore.GetBootstrapInfo(locale);
+				//BootstrapInfo info = bootstrapUserStore.GetBootstrapInfo(locale);
 				//// Use first profile as the preferred profile.
-				BootstrapProfile profile = info.Profiles[0];
-				string host = "https://sandbox.evernote.com";//profile.Settings.ServiceHost; for test version
+				//BootstrapProfile profile = info.Profiles[0];
+				//string host = "https://sandbox.evernote.com";//profile.Settings.ServiceHost; for test version
 				EvernoteOAuth.HostService service = 0;
-                if (host == ENSessionBootstrapServerBaseURLStringUS)
-                {
-                    service = EvernoteOAuth.HostService.Production;
-                }
-                else if (host == ENSessionBootstrapServerBaseURLStringCN)
-                {
-                    service = EvernoteOAuth.HostService.Yinxiang;
-                }
-                else
-                {
-                    service = EvernoteOAuth.HostService.Sandbox;
-                }
-                // service = EvernoteOAuth.HostService.Sandbox;
+                //if (host == ENSessionBootstrapServerBaseURLStringUS)
+                //{
+                //    service = EvernoteOAuth.HostService.Production;
+                //}
+                //else if (host == ENSessionBootstrapServerBaseURLStringCN)
+                //{
+                //    service = EvernoteOAuth.HostService.Yinxiang;
+                //}
+                //else
+                //{
+                //    service = EvernoteOAuth.HostService.Sandbox;
+                //}
+                 service = EvernoteOAuth.HostService.Sandbox;
 
                 // Perform the authentication.
                 var oauth = new EvernoteOAuth(service, ConsumerKey, ConsumerSecret, SupportsLinkedAppNotebook);

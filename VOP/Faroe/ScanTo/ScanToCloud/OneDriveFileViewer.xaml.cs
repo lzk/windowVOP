@@ -47,6 +47,7 @@ namespace VOP
 
         private DriveItem CurrentFolder { get; set; }
         private DriveItem SelectedItem { get; set; }
+
         public OneDriveFileViewer(GraphServiceClient client, List<string> fileList)
         {
             InitializeComponent();
@@ -190,7 +191,11 @@ namespace VOP
                     } 
                 }
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Invalid folder name.", "Error");
+                return;
+            }
         }
        
         private async Task LoadFolderFromId(string id)
@@ -509,7 +514,14 @@ namespace VOP
                 }
             }
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+                e.Handled = true;
+            }
+        }
         private async Task Upload(GraphServiceClient client, string filePath)
         {
             var targetFolder = CurrentFolder;

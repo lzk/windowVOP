@@ -186,7 +186,14 @@ namespace VOP
             btn_turn.RaiseEvent(argsEvent);
 
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+                e.Handled = true;
+            }
+        }
         public void Update()
         {
             while (currentState != ImagePreviewState.Finalize)

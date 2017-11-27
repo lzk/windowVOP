@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             Foreground="Black"
              d:DesignHeight="460" d:DesignWidth="495"
              xmlns:local="clr-namespace:VOP.Controls"
              Loaded="OnLoadedSoftapView">
@@ -44,7 +45,7 @@
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="60"></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="SoftAP"></Label>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Text="Soft AP:"></TextBlock>
             <Grid Grid.Row="0" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock  Text="{StaticResource ResStr_Close}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8"></TextBlock>
@@ -74,7 +75,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Row="1" Grid.Column="1" Text="{StaticResource ResStr_SSID_2}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-                <TextBox Name="tbSSID" Template="{StaticResource customTextBox}" Grid.Column="2" Grid.Row="1" Height="28" VerticalAlignment="Center" SnapsToDevicePixels ="True" MaxLength="32" TextChanged="handler_text_changed" InputMethod.IsInputMethodEnabled="False">
+                <TextBox Name="tbSSID" Template="{StaticResource customTextBox}" Grid.Column="2" Grid.Row="1" Height="30" VerticalAlignment="Center" SnapsToDevicePixels ="True" MaxLength="32" TextChanged="handler_text_changed" InputMethod.IsInputMethodEnabled="False">
                     <TextBox.InputBindings>
                         <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                     </TextBox.InputBindings>
@@ -84,7 +85,7 @@
                     </TextBox.ContextMenu>
                 </TextBox>
                 <TextBlock Grid.Row="2" Grid.Column="1" Text="{StaticResource ResStr_Password}" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
-                <TextBox Name="tbPWD" Template="{StaticResource customTextBox}" Grid.Column="2" Grid.Row="2" Height="28" VerticalAlignment="Center" SnapsToDevicePixels ="True" MaxLength="64" TextChanged="handler_password_changed" InputMethod.IsInputMethodEnabled="False">
+                <TextBox Name="tbPWD" Template="{StaticResource customTextBox}" Grid.Column="2" Grid.Row="2" Height="30" VerticalAlignment="Center" SnapsToDevicePixels ="True" MaxLength="64" TextChanged="handler_password_changed" InputMethod.IsInputMethodEnabled="False">
                     <TextBox.InputBindings>
                         <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
                     </TextBox.InputBindings>
@@ -102,7 +103,7 @@
                             Style="{StaticResource CustomSettingButtonStyle}"
                             HorizontalAlignment="Center" 
                             HorizontalContentAlignment="Center" 
-                            VerticalAlignment="Center" Width="130" Height="35"></Button>
+                            VerticalAlignment="Center" Width="150" Height="35"></Button>
         </Grid>
     </Grid>
 </UserControl>

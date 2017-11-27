@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="460" d:DesignWidth="595"
+             Foreground="Black"
+             d:DesignHeight="460" d:DesignWidth="495"
              xmlns:local="clr-namespace:VOP.Controls" 
              Loaded="UserControl_Loaded">
     <UserControl.Resources>
@@ -23,98 +24,7 @@
                 <ResourceDictionary Source="../../Controls/CustomRadioButtonEx.xaml"/>
                 <ResourceDictionary Source="../../Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key ="SpinnerControl1"  TargetType="{x:Type local:SpinnerControl}">
-                <Setter Property="HorizontalAlignment" Value="Center" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Focusable" Value="False"></Setter>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type local:SpinnerControl}">
-
-                            <Grid Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <!--
-                                    we use the TemplatedParent binding to get a reference to the control
-                                    this template has been applied to, so we can access the property on it
-                                -->
-
-                                <RepeatButton Name="btnDecrease"
-                                      Grid.Row="0"
-                                      Grid.Column="0"
-                                      Width="25"
-                                      Height="25"
-                                      Style="{StaticResource CustomMinusButtonStyle}" 
-                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
-
-                                <TextBox Name="tbTextBox"
-                                 Grid.Row="0"
-                                 Grid.Column="1"
-                                 Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                 BorderBrush="{StaticResource TextBoxBorderBrush}"
-                                 Foreground="#FF707070"
-                                 TextAlignment="Center"
-                                 IsReadOnly="False"
-                                 BorderThickness="0"
-                                 FontSize="18" 
-                                 Margin="0,0,0,2"
-                                 MaxLength="2"
-                                 Style="{StaticResource TextBoxErrorTemplateStyle}"
-                                 InputMethod.IsInputMethodEnabled="False"
-                                 >
-                                    <TextBox.InputBindings>
-                                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
-                                    </TextBox.InputBindings>
-                                    <TextBox.ContextMenu>
-                                        <ContextMenu Visibility="Collapsed">
-                                        </ContextMenu>
-                                    </TextBox.ContextMenu>
-                                    <TextBox.Text>
-                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" 
-                                         Mode="TwoWay"
-                                         Path="FormattedValue" 
-                                         UpdateSourceTrigger="PropertyChanged">
-                                            <Binding.ValidationRules>
-                                                <local:PrintCopysValidationRule MinimumValue="-6" MaximumValue="6" 
-										ErrorMessage="{StaticResource ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_}" />
-                                            </Binding.ValidationRules>
-                                        </Binding>
-                                    </TextBox.Text>
-                                </TextBox>
-
-                                <RepeatButton Name="btnIncrease"
-                                      Grid.Row="0"
-                                      Grid.Column="2"
-                                      Width="25"
-                                      Height="25"
-                                      Style="{StaticResource CustomPlusButtonStyle}" 
-                                      Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger SourceName="tbTextBox" Property="Validation.HasError"  Value="true">
-                                    <Setter Property="ValidationHasError" Value="True"></Setter>
-                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="False"></Setter>
-                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="False"></Setter>
-                                </Trigger>
-
-                                <Trigger SourceName="tbTextBox"  Property="Validation.HasError" Value="False">
-                                    <Setter Property="ValidationHasError" Value="False"></Setter>
-                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"></Setter>
-                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"></Setter>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </ResourceDictionary>
+          </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
@@ -138,7 +48,7 @@
                 <RowDefinition Height="75"/>
                 <RowDefinition Height="75"/>
                 <RowDefinition Height="75"/>
-                <RowDefinition Height="75"/>
+                <RowDefinition Height="90"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -171,44 +81,56 @@
             <Button x:Name="btnEdit" Content="Edit..." Grid.Column="1" FontSize="12" Height="28" HorizontalAlignment="Left" Margin="104,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnEdit_Click"/>
             <Button x:Name="btnDelete" Content="Delete" Grid.Column="1" FontSize="12" HorizontalAlignment="Left" Height="28" Margin="208,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnDelete_Click"/>
             <Button x:Name="btnSettings" Content="Settings..." Grid.Column="2" FontSize="12" HorizontalAlignment="Left" Height="28" Margin="17,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnSettings_Click"/>-->
-            <local:ImageButton2 x:Name="btnMoveUp"
-                                FontSize="12" Grid.Column="2" Grid.Row="2"
-                                Width="70" Height="75" Margin="25,0,0,0"
-                                ImagePath="../../Images/quick scan_btn_move up.png" 
+            <local:ImageButton3 x:Name="btnMoveUp"
+                                Grid.Column="2" Grid.Row="2"
+                                Width="70" Height="70" Margin="25,0,0,0"
+                                ImagePath="../../Images/quick scan_btn_move up.png"
+                                PressImagePath="../../Images/quick scan_btnf_move up.png"
+                                DisableImagePath="../../Images/move up_disable.png"
                                 HorizontalAlignment="Left" VerticalAlignment="Center" 
                                 PreviewMouseLeftButtonDown="btnMoveUp_Click"/>
-            <local:ImageButton2 x:Name="btnMoveDown"
+            <local:ImageButton3 x:Name="btnMoveDown"
                                 FontSize="12" Grid.Column="2" Grid.Row="3"
-                                Width="70" Height="75" Margin="25,0,0,0"
+                                Width="70" Height="70" Margin="25,0,0,0"
                                 ImagePath="../../Images/quick scan_btn_move down.png"  
+                                PressImagePath="../../Images/quick scan_btnf_move down.png" 
+                                DisableImagePath="../../Images/move down_disable.png"
                                 HorizontalAlignment="Left" VerticalAlignment="Center" 
                                 PreviewMouseLeftButtonDown="btnMoveDown_Click"/>
             <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Top">
-            <local:ImageButton2 x:Name="btnAdd"
+            <local:ImageButton3 x:Name="btnAdd"
                                 FontSize="12" 
-                                Width="70" Height="75"
+                                Width="70" Height="70"
                                 ImagePath="../../Images/quick scan_btn_new.png" 
+                                PressImagePath="../../Images/quick scan_btnf_new.png" 
+                                DisableImagePath="../../Images/quick scan_btn_new.png" 
                                 HorizontalAlignment="Left" VerticalAlignment="Top" 
                                 Margin="0,5,0,0"
                                 PreviewMouseLeftButtonDown="btnAdd_Click"/>
-                <local:ImageButton2 x:Name="btnEdit"
+                <local:ImageButton3 x:Name="btnEdit"
                                 FontSize="12" 
-                                Width="70" Height="75"
+                                Width="70" Height="70"
                                 ImagePath="../../Images/quick scan_btn_edit.png" 
+                                PressImagePath="../../Images/quick scan_btnf_edit.png" 
+                                DisableImagePath="../../Images/edit_disable.png" 
                                 HorizontalAlignment="Left" VerticalAlignment="Top" 
                                 Margin="5,5,0,0"
                                 PreviewMouseLeftButtonDown="btnEdit_Click"/>
-                <local:ImageButton2 x:Name="btnDelete"
+                <local:ImageButton3 x:Name="btnDelete"
                                 FontSize="12" 
-                                Width="70" Height="75"
+                                Width="70" Height="70"
                                 ImagePath="../../Images/quick scan_btn_delete.png" 
+                                PressImagePath="../../Images/quick scan_btnf_delete.png" 
+                                DisableImagePath="../../Images/delete_disable.png"     
                                 HorizontalAlignment="Left" VerticalAlignment="Top" 
                                 Margin="5,5,0,0"
                                 PreviewMouseLeftButtonDown="btnDelete_Click"/>
-                <local:ImageButton2 x:Name="btnSettings"
+                <local:ImageButton3 x:Name="btnSettings"
                                 FontSize="12" 
-                                Width="70" Height="75"
-                                ImagePath="../../Images/quick scan_btn_setting.png" 
+                                Width="70" Height="70"
+                                ImagePath="../../Images/quick scan_btn_setting.png"
+                                PressImagePath="../../Images/quick scan_btnf_setting.png" 
+                                DisableImagePath="../../Images/quick scan_btn_setting.png" 
                                 HorizontalAlignment="Left" VerticalAlignment="Top" 
                                 Margin="5,5,0,0"
                                 PreviewMouseLeftButtonDown="btnSettings_Click"/>

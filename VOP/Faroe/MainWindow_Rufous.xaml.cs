@@ -65,8 +65,30 @@ namespace VOP
 
             statusUpdater = new Thread(UpdateStatusCaller);
             statusUpdater.Start();
-
+            
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
+        }
+
+        private string GetDeviceName()
+        {
+            if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
+                return MainWindow_Rufous.g_settingData.m_DeviceName;
+            else
+            {
+                int index = MainWindow_Rufous.g_settingData.m_DeviceName.LastIndexOf(' ');
+                if (index > 0)
+                {
+                    string str = MainWindow_Rufous.g_settingData.m_DeviceName.Substring(index);
+
+                    return str;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+
+            return string.Empty;
         }
 
         public void LoadedMainWindow(object sender, RoutedEventArgs e)
@@ -86,7 +108,7 @@ namespace VOP
                             MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
                             dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, true);
                         }
-                        else if (MainWindow_Rufous.g_settingData.m_DeviceName != "")
+                        else 
                         {
                             MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
                             dll.SetConnectionMode("", false);
@@ -94,20 +116,28 @@ namespace VOP
                     }
                     else
                     {
-                        MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
-                        dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, false);
+                        MainWindow_Rufous.g_settingData.m_isUsbConnect = false;                        
                         if (iRtn == 2 || iRtn == 3)
                         {
-                            if (!dll.CheckConnection())
+                            if (!dll.TestIpConnected(MainWindow_Rufous.g_settingData.m_DeviceName))
                             {
                                 MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
                                 dll.SetConnectionMode("", false);
                             }
+                            else
+                            {
+                                dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, false);
+                            }
                         }
-                        else if (iRtn == 1)
+                        else 
                         {
                             MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
-                            dll.SetConnectionMode("", true);
+
+                            StringBuilder usbname = new StringBuilder(50); 
+                            if(dll.CheckUsbScan(usbname) == 1)
+                            {
+                                dll.SetConnectionMode(usbname.ToString(), true);
+                            }
                         }
                     }
                 }
@@ -202,9 +232,10 @@ namespace VOP
             ScanDevicePage_Rufous.ListIP();
 
             StringBuilder usbName = new StringBuilder(50);
-            if (dll.CheckUsbScan(usbName) == 1)
+            if (dll.CheckUsbScan(usbName) == 1)           
             {
-                if (MainWindow_Rufous.g_settingData.m_DeviceName == usbName.ToString())
+                if (dll.CheckUsbScanByName(GetDeviceName()) == 1)  
+                        //MainWindow_Rufous.g_settingData.m_DeviceName == usbName.ToString())
                 {
                     dll.SetConnectionMode(usbName.ToString(), true);
                     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
@@ -308,7 +339,7 @@ namespace VOP
             _bExitUpdater = false;
             while (!_bExitUpdater)// && !_bScanning)
             {
-                if (dll.CheckConnection())
+                if (dll.CheckConnectionByName(GetDeviceName()))
                 {
                     //SetDeviceButtonState(true);
                     //modified by yunying shang 2017-10-19 for BMS 1172
@@ -404,7 +435,24 @@ namespace VOP
                 scanDevicePage.m_MainWin = this;
             }
         }
-
+        private void btnMinimize_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnMinimize.Focusable = true;
+                btnMinimize.Focus();
+                this.Hide();
+                btnMinimize.Focusable = false;
+            }            
+        }
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+                e.Handled = true;
+            }
+        }
         public void MyMouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
         {
             this.DragMove();

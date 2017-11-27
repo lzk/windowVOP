@@ -27,7 +27,6 @@ namespace VOP
         public int value = 0;
         public int key = 0;// add by yunying shang 2017-11-07 for BMS 1301
         public bool IsEdit = false;
-        public int m_MaxLenth = 0;
         public ScanParam m_scanParams = new ScanParam();
         public ScanToPrintParam m_scanToPrintParams = new ScanToPrintParam();
         public ScanToFileParam m_scanToFileParams = new ScanToFileParam();
@@ -47,6 +46,7 @@ namespace VOP
             {
                 tbTitle.Text = "Add Quick Scan Setting";
             }
+            key = MainWindow_Rufous.g_settingData.m_MatchList.Count() + 1;
         }
         
         private void AddQuickScanSetting_Loaded(object sender, RoutedEventArgs e)
@@ -55,27 +55,21 @@ namespace VOP
 
             cbType.SelectedIndex = value;
             tbName.Text = strItemName;
+            tbName.Focus();
         }
 
         private void cbType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             value = cbType.SelectedIndex;
-        }
-        private void tbName_PreviewKeyDown(object sender, KeyEventArgs e)
+        }     
+     
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key != Key.Back)
+            if (e.Key == Key.Enter)
             {
-                string str = this.tbName.Text;
-                int lent = System.Text.Encoding.Default.GetByteCount(str);
-                int max = this.tbName.MaxLength - 1;
-                byte[] bb = System.Text.Encoding.Default.GetBytes(str);//得到输入的字符串的数组 
-                if (lent > max)
-                {
-                    e.Handled = true;
-                    return;
-                }
-            }       
-
+                this.Close();
+                e.Handled = true;
+            }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

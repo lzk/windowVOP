@@ -27,7 +27,14 @@ namespace VOP
         {
             this.DragMove();
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Close();
+                e.Handled = true;
+            }
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Width = this.Width * App.gScalingRate;

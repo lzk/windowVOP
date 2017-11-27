@@ -24,6 +24,7 @@ namespace VOP
         [DllImport("wininet.dll")]
         private static extern bool InternetGetConnectedState(out int connectionDescription, int reservedValue);
 
+        private const string USBSCANSTRING = "\\\\.\\usbscan";
 
         public ScanDevicePage_Rufous()
         {
@@ -89,26 +90,35 @@ namespace VOP
             btnConnect.IsEnabled = false; //add by yunying shang for BMS1018
             StringBuilder usbName = new StringBuilder(50);
 
-
-            if (dll.CheckUsbScan(usbName) == 1)
+           // if (dll.CheckUsbScan(usbName) == 1)
             {
-                DeviceListBoxItem item = new DeviceListBoxItem();
-                item.DeviceName = usbName.ToString();
-
-                if (MainWindow_Rufous.g_settingData.m_DeviceName == item.DeviceName)
+                for (int iCnt = 0; iCnt <= 127; iCnt++)
                 {
-                    item.StatusText = "Connected";
-                    dll.SetConnectionMode(item.DeviceName, true);
-                    m_MainWin.SetDeviceButtonState(true);
-                    canConnected = true;
-                    MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
-                }
-                else
-                {
-                    item.StatusText = "";
-                }
+                    string name = string.Format("{0}{1}", USBSCANSTRING, iCnt);
 
-                DeviceList.Items.Add(item);
+                    if (dll.CheckUsbScanByName(name) == 1)
+                    {
+                        DeviceListBoxItem item = new DeviceListBoxItem();
+                        string devicename = string.Format("{0}{1}", "USB Device ", iCnt);
+                        item.DeviceName = devicename;
+
+                        if (MainWindow_Rufous.g_settingData.m_DeviceName == item.DeviceName)
+                        {
+                            item.StatusText = "Connected";
+                            dll.SetConnectionMode(item.DeviceName, true);
+                            m_MainWin.SetDeviceButtonState(true);
+                            canConnected = true;
+                            MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+                            usbName.Append(name);
+                        }
+                        else
+                        {
+                            item.StatusText = "";
+                        }
+
+                        DeviceList.Items.Add(item);
+                    }
+                }
             }
 
             if (forceRefresh == true)
@@ -275,6 +285,7 @@ namespace VOP
         {
             FillDeviceList(true);
         }
+
         private void OkClick(object sender, RoutedEventArgs e)
         {
             OnConnected();
@@ -289,26 +300,29 @@ namespace VOP
 
             DeviceListBoxItem item1 = DeviceList.SelectedItem as DeviceListBoxItem;
 
-            if (!dll.TestIpConnected(item1.DeviceName))
+            if (!item1.DeviceName.Contains("USB"))
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                Application.Current.MainWindow,
-                (string)"This machine could not be connected!",
-                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
-
-                int i = 0;
-                foreach (DeviceListBoxItem item in DeviceList.Items)
+                if (!dll.TestIpConnected(item1.DeviceName))
                 {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    Application.Current.MainWindow,
+                    (string)"This machine could not be connected!",
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
 
-                    if (item.StatusText == "Connected")
+                    int i = 0;
+                    foreach (DeviceListBoxItem item in DeviceList.Items)
                     {
-                        DeviceList.SelectedIndex = i;
-                        break;
+
+                        if (item.StatusText == "Connected")
+                        {
+                            DeviceList.SelectedIndex = i;
+                            break;
+                        }
+                        i++;
+
                     }
-                    i++;
-       
+                    return;
                 }
-                return;
             }
             m_MainWin.SetDeviceButtonState(false);
 
@@ -340,7 +354,7 @@ namespace VOP
 
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
             if (DeviceList.Items.Count <= 0)
             {
@@ -350,6 +364,9 @@ namespace VOP
             {
                 if (DeviceList.Items.Count >= 1)
                 {
+                    if(DeviceList.SelectedIndex < 0)
+                        DeviceList.SelectedIndex = 0;
+
                     if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
                     {
                         if (!IsOnLine())

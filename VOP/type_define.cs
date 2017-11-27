@@ -162,6 +162,7 @@ namespace VOP
     {
         _Normal = 0,
         _BankBook = 1,
+        _Card = 2,
     }
 
     /// <summary>

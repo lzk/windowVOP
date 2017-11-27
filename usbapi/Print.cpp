@@ -217,6 +217,8 @@ static int TcsNiCmp(TCHAR* c1, TCHAR* c2)
 	return _tcsnicmp(c1, c2, iNum);
 }
 
+USBAPI_API int __stdcall CheckPrinterStatus(WCHAR* strPrinterName);
+
 USBAPI_API int __stdcall SaveDefaultPrinter()
 {
 	if (::GetDefaultPrinter(defaultPrinterName, &bufferSize))
@@ -478,8 +480,10 @@ USBAPI_API int __stdcall PrintFile(const TCHAR * strPrinterName, const TCHAR * s
 	return error;
 }
 
-USBAPI_API BOOL __stdcall PrintInitDialog(const TCHAR * jobDescription, HWND hwnd)
+USBAPI_API int __stdcall PrintInitDialog(const TCHAR * jobDescription, HWND hwnd)
 {
+	int ret = 0;
+
 	g_vecImagePaths.clear();
 
 	ZeroMemory(&di, sizeof(di));
@@ -489,7 +493,7 @@ USBAPI_API BOOL __stdcall PrintInitDialog(const TCHAR * jobDescription, HWND hwn
 	// Allocate an array of PRINTPAGERANGE structures.
 	pPageRanges = (LPPRINTPAGERANGE)GlobalAlloc(GPTR, 10 * sizeof(PRINTPAGERANGE));
 	if (!pPageRanges)
-		return E_OUTOFMEMORY;
+		return -30;
 
 	pdx.lStructSize = sizeof(PRINTDLGEX);
 	pdx.hwndOwner = hwnd;
@@ -515,12 +519,18 @@ USBAPI_API BOOL __stdcall PrintInitDialog(const TCHAR * jobDescription, HWND hwn
 
 
 	if (PrintDlgEx(&pdx) != S_OK || pdx.dwResultAction != PD_RESULT_PRINT)
-		return FALSE;
+		return -30;
 
 	if (NULL == pdx.hDC)
-		return FALSE;
+		return -30;
 
 	dc = pdx.hDC;
+
+	DEVMODE *devmode = (DEVMODE*)::GlobalLock(pdx.hDevMode);
+	if (wcslen(devmode->dmDeviceName))
+	{
+		ret = CheckPrinterStatus(devmode->dmDeviceName);
+	}
 
 	Gdiplus::Status status;
 	if ((status = Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL)) != Gdiplus::Ok)
@@ -529,10 +539,10 @@ USBAPI_API BOOL __stdcall PrintInitDialog(const TCHAR * jobDescription, HWND hwn
 		char Debug[256] = "";
 		_snprintf(Debug, sizeof(Debug), "\nPrintInit GdiplusStartup Fail %d", errorCode);
 		OutputDebugStringA(Debug);
-		return FALSE;
+		return -30;
 	}
 
-	return TRUE;
+	return ret;
 }
 
 USBAPI_API BOOL __stdcall PrintInit(const TCHAR * strPrinterName, const TCHAR * jobDescription, int idCardType, IdCardSize *size, bool fitToPage, int duplexType, bool IsPortrait, int scalingValue)
@@ -596,6 +606,356 @@ USBAPI_API void __stdcall AddImageRotation(int rotation)
 	g_vecIdCardImageRotation.push_back(rotation);
 }
 
+
+BOOL GetJobs(HANDLE hPrinter, JOB_INFO_2 **ppJobInfo, int *pcJobs, DWORD *pStatus, DWORD *pAttributes)
+{
+	DWORD       cByteNeeded, nReturned, cByteUsed;
+	JOB_INFO_2          *pJobStorage = NULL;
+	PRINTER_INFO_2       *pPrinterInfo = NULL;
+
+	if (!GetPrinter(hPrinter, 2, NULL, 0, &cByteNeeded))
+	{
+		DWORD dwErrorCode = ::GetLastError();
+		if (dwErrorCode != ERROR_INSUFFICIENT_BUFFER)
+			return FALSE;
+	}
+	pPrinterInfo = (PRINTER_INFO_2 *)malloc(cByteNeeded);
+	if (!(pPrinterInfo))
+		return FALSE;
+
+	if (!GetPrinter(hPrinter, 2, (LPBYTE)pPrinterInfo, cByteNeeded, &cByteUsed))
+	{
+		free(pPrinterInfo);
+		pPrinterInfo = NULL;
+		return FALSE;
+	}
+	*pAttributes = pPrinterInfo->Attributes;
+
+	if (!EnumJobs(hPrinter, 0, pPrinterInfo->cJobs, 2, NULL, 0, (LPDWORD)&cByteNeeded, (LPDWORD)&nReturned))
+	{
+		if (GetLastError() != ERROR_INSUFFICIENT_BUFFER)
+		{
+			free(pPrinterInfo);
+			pPrinterInfo = NULL;
+			return FALSE;
+		}
+	}
+	pJobStorage = (JOB_INFO_2 *)malloc(cByteNeeded);
+	if (!pJobStorage)
+	{
+		free(pPrinterInfo);
+		pPrinterInfo = NULL;
+		return FALSE;
+	}
+	ZeroMemory(pJobStorage, cByteNeeded);
+	if (!EnumJobs(hPrinter, 0, pPrinterInfo->cJobs, 2, (LPBYTE)pJobStorage, cByteNeeded,
+		(LPDWORD)&cByteUsed, (LPDWORD)&nReturned))
+	{
+		free(pPrinterInfo);
+		free(pJobStorage);
+		pJobStorage = NULL;
+		pPrinterInfo = NULL;
+		return FALSE;
+	}
+	*pcJobs = nReturned;
+	*pStatus = pPrinterInfo->Status;
+	*ppJobInfo = pJobStorage;
+	free(pPrinterInfo);
+	return TRUE;
+}
+
+USBAPI_API int __stdcall CheckPrinterStatus(WCHAR* strPrinterName)
+{
+	DWORD value = 0;
+	HANDLE printerHandle;
+	JOB_INFO_2  *pJobs = NULL;
+	int         cJobs = 0, i;
+	DWORD       dwPrinterStatus, dwAttributes;
+	DWORD status = 0;
+	int result = 0;
+
+	if (!OpenPrinter(strPrinterName, &printerHandle, NULL))
+	{
+		value = GetLastError();
+		TCHAR Debug[256] = L"";
+		_snwprintf_s(Debug, sizeof(Debug), L"\n OpenPrinter() error:  the return value %d", value);
+		OutputDebugString(Debug);
+		status = -25;//PRINTER_STATUS_USER_INTERVENTION;
+		goto getLastStatus;
+	}
+
+	GetJobs(printerHandle, &pJobs, &cJobs, &dwPrinterStatus, &dwAttributes);
+
+	if (dwAttributes & PRINTER_ATTRIBUTE_WORK_OFFLINE)
+	{
+		OutputDebugString(L"\n the Printer is offline!");
+		status = -14;//PRINTER_STATUS_OFFLINE;
+		goto getLastStatus;
+	}
+
+	if (dwPrinterStatus & PRINTER_STATUS_PAUSED)
+	{
+		OutputDebugString(L"\n The printer job is paused!");
+		status = -2;//PRINTER_STATUS_PAUSED;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_BUSY)
+	{
+		OutputDebugString(L"\n The printer is busy!");
+		status = -3;//PRINTER_STATUS_BUSY;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_WAITING)
+	{
+		OutputDebugString(L"\n The printer is waiting!");
+		status = -4;//PRINTER_STATUS_WAITING;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_SERVER_OFFLINE)
+	{
+		OutputDebugString(L"\n The printer is not connect printer server!");
+		status = -5;//PRINTER_STATUS_SERVER_OFFLINE;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_ERROR)
+	{
+		OutputDebugString(L"\n The printer is at wrong status!");
+		status = -6;//PRINTER_STATUS_ERROR;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_PAPER_JAM)
+	{
+		OutputDebugString(L"\n The printer is paper jam!");
+		status = -7;//PRINTER_STATUS_PAPER_JAM;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_PAPER_OUT)
+	{
+		OutputDebugString(L"\n The printer is paper out!");
+		status = -8;//PRINTER_STATUS_PAPER_OUT;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_PAPER_PROBLEM)
+	{
+		OutputDebugString(L"\n The printer is paper problem!");
+		status = -9;//PRINTER_STATUS_PAPER_PROBLEM;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_OUTPUT_BIN_FULL)
+	{
+		OutputDebugString(L"\n The printer is output bin full!");
+		status = -10;//PRINTER_STATUS_OUTPUT_BIN_FULL;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_NOT_AVAILABLE)
+	{
+		OutputDebugString(L"\n The printer is not avalible!");
+		status = -11;//PRINTER_STATUS_NOT_AVAILABLE;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_TONER_LOW)
+	{
+		OutputDebugString(L"\n The printer is toner low!");
+		status = -12;//PRINTER_STATUS_TONER_LOW;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_NO_TONER)
+	{
+		OutputDebugString(L"\n The printer is no toner!");
+		status = -28;//PRINTER_STATUS_NO_TONER;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_OUT_OF_MEMORY)
+	{
+		OutputDebugString(L"\n The printer is out of memory!");
+		status = -13;//PRINTER_STATUS_OUT_OF_MEMORY;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_OFFLINE)
+	{
+		OutputDebugString(L"\n The printer is offline!");
+		status = -14;//PRINTER_STATUS_OFFLINE;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_DOOR_OPEN)
+	{
+		OutputDebugString(L"\n The printer door is open!");
+		status = -15;//PRINTER_STATUS_DOOR_OPEN;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_POWER_SAVE)
+	{
+		OutputDebugString(L"\n The printer is in power-save mode!");
+		status = -16;//PRINTER_STATUS_POWER_SAVE;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_PENDING_DELETION)
+	{
+		OutputDebugString(L"\n The printer is being deleted as a result of a client's call to RpcDeletePrinter. No new jobs can be submitted on existing printer objects for that printer!");
+		status = -17;//PRINTER_STATUS_PENDING_DELETION;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_MANUAL_FEED)
+	{
+		OutputDebugString(L"\n The printer is in a manual feed state!");
+		status = -18;//PRINTER_STATUS_MANUAL_FEED;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_IO_ACTIVE)
+	{
+		OutputDebugString(L"\n The printer is in an active input and output state!");
+		status = -19;//PRINTER_STATUS_IO_ACTIVE;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_PRINTING)
+	{
+		OutputDebugString(L"\n The printer is printing!");
+		status = -20;//PRINTER_STATUS_PRINTING;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_PROCESSING)
+	{
+		OutputDebugString(L"\n The printer is processing a job!");
+		status = -21;//PRINTER_STATUS_PROCESSING;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_INITIALIZING)
+	{
+		OutputDebugString(L"\n The printer is initializing!");
+		status = -22;//PRINTER_STATUS_INITIALIZING;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_WARMING_UP)
+	{
+		OutputDebugString(L"\n The printer is warm up!");
+		status = -23;//PRINTER_STATUS_WARMING_UP;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_PAGE_PUNT)
+	{
+		OutputDebugString(L"\n The printer can not print current page!");
+		status = -24;//PRINTER_STATUS_PAGE_PUNT;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_USER_INTERVENTION)
+	{
+		OutputDebugString(L"\n The printer is intervention!");
+		status = -25;//PRINTER_STATUS_USER_INTERVENTION;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_SERVER_UNKNOWN)
+	{
+		OutputDebugString(L"\n The printer is unknown!");
+		status = -26;//PRINTER_STATUS_SERVER_UNKNOWN;
+		goto getLastStatus;
+	}
+	else if (dwPrinterStatus & PRINTER_STATUS_DRIVER_UPDATE_NEEDED)
+	{
+		OutputDebugString(L"\n The printer driver is update needed!");
+		status = -27;//PRINTER_STATUS_DRIVER_UPDATE_NEEDED;
+		goto getLastStatus;
+	}
+
+
+	if (cJobs > 0 && pJobs != NULL)
+	{
+		for (i = 0; i < cJobs; ++i)
+		{
+			/// 如果打印页正在打印
+			if (pJobs[i].Status & JOB_STATUS_PRINTING)
+			{
+				OutputDebugString(L"\n The printer is on working!");
+				status = -20;//PRINTER_STATUS_PRINTING;
+				goto getLastStatus;
+			}
+			else if (pJobs[i].Status & JOB_STATUS_ERROR)
+			{
+				OutputDebugString(L"\n The job  is error!");
+				status = -6;//PRINTER_STATUS_ERROR;
+				goto getLastStatus;
+			}
+			else if (pJobs[i].Status & JOB_STATUS_OFFLINE)
+			{
+				OutputDebugString(L"\n The printer  is offline!");
+				status = -14;//PRINTER_STATUS_OFFLINE;
+				goto getLastStatus;
+			}
+			else if (pJobs[i].Status & JOB_STATUS_PAPEROUT)
+			{
+				OutputDebugString(L"\n The Printer  is paper out!");
+				status = -8;//PRINTER_STATUS_PAPER_OUT;
+				goto getLastStatus;
+			}
+			else if (pJobs[i].Status & JOB_STATUS_BLOCKED_DEVQ)
+			{
+				OutputDebugString(L"\n The printer can not print the job!");
+				status = -24;//PRINTER_STATUS_PAGE_PUNT;
+				goto getLastStatus;
+			}
+			/// 如果打印页已经打印
+			else if (pJobs[i].Status & JOB_STATUS_PRINTED)
+			{
+				OutputDebugString(L"\n The job has printed!");
+			}
+
+			/// 如果已经删除打印作业
+			else if (pJobs[i].Status & JOB_STATUS_DELETED)
+			{
+				OutputDebugString(L"\n The job is deleted!");
+			}
+
+			else if (pJobs[i].Status & JOB_STATUS_PAUSED)
+			{
+				OutputDebugString(L"\n The printer is paused!");
+				status = -2;//PRINTER_STATUS_PAUSED;
+				goto getLastStatus;
+			}
+			else if (pJobs[i].Status & JOB_STATUS_ERROR)
+			{
+				OutputDebugString(L"\n The printer can not print the job!");
+				status = -6;//PRINTER_STATUS_ERROR;
+				goto getLastStatus;
+			}
+			else if (pJobs[i].Status & JOB_STATUS_SPOOLING)
+			{
+				status = -21;//PRINTER_STATUS_PROCESSING;
+				OutputDebugString(L"\n The jobs is spooling!");
+			}
+			else if (pJobs[i].Status & JOB_STATUS_OFFLINE)
+			{
+				OutputDebugString(L"\n The printer  is offline!");
+				status = -14;//PRINTER_STATUS_OFFLINE;
+				goto getLastStatus;
+			}
+			else if (pJobs[i].Status & JOB_STATUS_PAPEROUT)
+			{
+				status = -8;//PRINTER_STATUS_PAPER_OUT;
+				OutputDebugString(L"\n The printer is paper out!");
+				goto getLastStatus;
+			}
+			else if (pJobs[i].Status & JOB_STATUS_RESTART)
+			{
+				status = -29;//JOB_STATUS_RESTART;
+				OutputDebugString(L"\n The printer job is restart!");
+			}
+			else
+			{
+				goto getLastStatus;
+			}
+		}
+	}
+
+getLastStatus:
+
+	if (pJobs)
+	{
+		free(pJobs);
+		pJobs = NULL;
+	}
+	ClosePrinter(printerHandle);
+
+	return status;
+}
 USBAPI_API int __stdcall DoPrintImage()
 {
 	PrintError error = Print_OK;

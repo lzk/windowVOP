@@ -19,17 +19,17 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Image Height="25" Width="25" Name="imgCheck" Source="..\Images\Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
-            <Image Height="25" Width="25" Name="imgUncheck" Source="..\Images\Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
-            <Image Height="25" Width="25" Name="imgCheckDisable" Source="..\Images\Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
-            <Image Height="25" Width="25" Name="imgUncheckDisable" Source="..\Images\Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+            <Image Height="20" Width="20" Name="imgCheck" Source="..\Images\Checked.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+            <Image Height="20" Width="20" Name="imgUncheck" Source="..\Images\Uncheck.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+            <Image Height="20" Width="20" Name="imgCheckDisable" Source="..\Images\Checked_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+            <Image Height="20" Width="20" Name="imgUncheckDisable" Source="..\Images\Uncheck_Disable.png" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
 
             <TextBlock Name="tbText" Grid.Column="1"
                         VerticalAlignment="Center"
                         HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                         Text="{TemplateBinding Content}"
                         FontSize="{TemplateBinding FontSize}"
-                        Foreground="{TemplateBinding Foreground}" 
+                        Foreground="Black"
                         />
         </Grid>
         <ControlTemplate.Triggers>

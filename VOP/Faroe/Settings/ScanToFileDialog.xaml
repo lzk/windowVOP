@@ -13,6 +13,7 @@
         ResizeMode="NoResize"
         WindowStyle="None" 
         BorderThickness="24"
+        Foreground="Black"
         xmlns:vop="clr-namespace:VOP"
         ShowInTaskbar="False" 
         Loaded="ScanToFileDialog_Loaded">
@@ -153,7 +154,7 @@
                     <TextBlock Text="{StaticResource ResStr_Faroe_Scan_File}" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Grid.Column="2" RenderTransformOrigin="1.567,0.633" />
+                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Grid.Column="2" RenderTransformOrigin="1.567,0.633" PreviewKeyDown="btnClose_PreviewKeyDown"/>
                 <Grid Grid.Row="1" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60"></RowDefinition>
@@ -174,10 +175,10 @@
                         FontWeight="Bold"
                         VerticalAlignment="Center"
                         Text="{StaticResource ResStr_Faroe_scan_setting}" Margin="0,21,0,20"/>
-                    <Button
+                    <Button Name="tbSettings"
                 Grid.Row="0"
                 Grid.Column="3"
-                Width="200"
+                Width="100"
                 Height="35" 
                 HorizontalAlignment="Right"
                 Content="{StaticResource ResStr_Setting}" 
@@ -288,7 +289,7 @@
                         <Button Grid.Row="4" Grid.Column="3"
                                 HorizontalAlignment="Right"
                             Margin="0,14"
-                            Width="200" 
+                            Width="100" 
                             Height="35"
                             FontSize="16"
                             Click="BrowseClick"
@@ -299,7 +300,7 @@
                 
                 <Button Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="3"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Width="200" 
+                            Width="150" 
                             Height="35"
                             FontSize="16"
                             Click="OkClick"

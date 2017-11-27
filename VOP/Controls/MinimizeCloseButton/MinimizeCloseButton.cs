@@ -37,7 +37,6 @@ namespace VOP.Controls
             set { SetValue(ForegroundColorProperty, value); }
         }
 
-
         internal ControlTemplate ContentAppearance
         {
             get { return (ControlTemplate)GetValue(ContentAppearanceProperty); }
@@ -58,7 +57,8 @@ namespace VOP.Controls
         public MinimizeCloseButton()
         {
             MinimizeOrCloseStyle = MinimizeOrClose.Close;
-        }
+        }     
+
 
         private static void OnMinimizeCloseButtonStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

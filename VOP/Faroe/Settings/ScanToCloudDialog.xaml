@@ -12,6 +12,7 @@
         ResizeMode="NoResize"
         WindowStyle="None" 
         BorderThickness="24"
+        Foreground="Black"
         xmlns:vop="clr-namespace:VOP"
         ShowInTaskbar="False"
         Loaded="ScanToCloudDialog_Loaded">
@@ -61,7 +62,7 @@
                     <TextBlock Text="{StaticResource ResStr_Faroe_Scan_Cloud}" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Grid.Column="2" RenderTransformOrigin="1.567,0.633" />
+                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Grid.Column="2" RenderTransformOrigin="1.567,0.633" PreviewKeyDown="btnClose_PreviewKeyDown"/>
                 <Grid Grid.Row="1" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60"></RowDefinition>
@@ -83,10 +84,11 @@
                 Text="{StaticResource ResStr_Faroe_scan_setting}"/>
 
                     <Button
+                Name="tbSettings"
                 Grid.Row="0"
                 Grid.Column="2"
-                        HorizontalAlignment="Right"
-                Width="200"
+                HorizontalAlignment="Right"
+                Width="100"
                 Height="35" 
                 Content="{StaticResource ResStr_Setting}" 
                 FontSize="16"
@@ -132,6 +134,7 @@
                 Grid.Row="1"
                 Grid.Column="0"
                 FontSize="14"
+                            FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
                 Text="Cloud Type:" Margin="30,16,0,15"/>
                         <ComboBox 
@@ -155,6 +158,7 @@
                 Grid.Column="0" Grid.ColumnSpan="3"
                 Name="tbReset"
                 FontSize="14"
+                            FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
                 Text="Reset access token in cache:" Margin="30,16,0,15"/>
 
@@ -162,7 +166,7 @@
                 Grid.Row="2"
                 Grid.Column="2"
                             Name="btnReset"
-                Width="200"
+                Width="100"
                 Height="35" 
                 Content="Reset" 
                 HorizontalAlignment="Right"
@@ -177,6 +181,7 @@
                 Grid.ColumnSpan="5"
                             Name="tbDefaultPath"
                 FontSize="14"
+                            FontWeight="Bold"
                 VerticalAlignment="Center"
                 Text="Default save path:" Margin="30,16,0,15"/>
                         <TextBox 
@@ -186,14 +191,14 @@
                      Grid.Column="2"
                      Width="250"
                      Height="28" 
-                     VerticalAlignment="Top" 
+                     VerticalAlignment="Center" 
                      HorizontalAlignment="Right"
                      SnapsToDevicePixels ="True"
                             MaxLength="32"
                             PreviewTextInput="OnPreviewTextInput" Grid.ColumnSpan="3"
                      />
                         <TextBox 
-                     Name="SavePathTbx"
+                     Name="SavePathTbx"                     
                      IsReadOnly="True"
                      IsTabStop="False"
                      Template="{StaticResource customTextBox}" 
@@ -202,18 +207,17 @@
                      Grid.ColumnSpan="3"
                      Width="250"
                      Height="28" 
-                     VerticalAlignment="Top" 
+                     VerticalAlignment="Center" 
                      HorizontalAlignment="Right"
                      SnapsToDevicePixels ="True"
-                            MaxLength="255"
-                     />
+                            MaxLength="255"/>
 
                         <Button
                 Grid.Row="4"
                 Grid.Column="2"
-                            Name="btnBrowse"
-                Width="120"
-                VerticalAlignment="Top" 
+                Name="btnBrowse"
+                Width="100"
+                VerticalAlignment="Center" 
                 HorizontalAlignment="Right"
                 Height="30" 
                 Content="Browse..." 
@@ -227,6 +231,7 @@
                 Grid.ColumnSpan="1"
                             Name="tbNote"
                 FontSize="14"
+                            FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
                 Text="Note Content:" Margin="30,16,0,15"/>
                         <TextBox 
@@ -236,7 +241,7 @@
                      Grid.Column="2"
                      Width="250"
                      Height="28" 
-                     VerticalAlignment="Top" 
+                     VerticalAlignment="Center" 
                      HorizontalAlignment="Right"
                      SnapsToDevicePixels ="True"
                             MaxLength="32"
@@ -246,7 +251,7 @@
                     </Grid>
                     <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                             HorizontalAlignment="Center"                             
-                            Width="200" 
+                            Width="150" 
                             Height="35"
                             FontSize="16"
                             Click="OkClick"

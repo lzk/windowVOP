@@ -35,6 +35,8 @@ namespace VOP
         private RepeatButton btnConstrastIncrease;
         private RepeatButton btnBrightnessDecrease;
         private RepeatButton btnBrightnessIncrease;
+        private EnumPaperSizeScan m_lastPaperSize = EnumPaperSizeScan._Auto;
+        private EnumScanMediaType m_lastPaperType = EnumScanMediaType._Normal;
 
         public ScanSettingDialog()
         {
@@ -69,8 +71,17 @@ namespace VOP
             TextBox tb1 = spinCtlBrightness.Template.FindName("tbTextBox", spinCtlBrightness) as TextBox;
             tb1.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb1.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
+            twoSideButton.Focus();
         }
-
+        private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.DialogResult = true;
+                this.Close();
+                e.Handled = true;
+            }
+        }
         private void ControlBtnClick(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.Button btn = sender as System.Windows.Controls.Button;
@@ -239,7 +250,7 @@ namespace VOP
 
             if ( null != selItem && null != selItem.DataContext )
             {
-                m_scanParams.PaperSize = (EnumPaperSizeScan)selItem.DataContext;
+                m_scanParams.PaperSize = (EnumPaperSizeScan)selItem.DataContext;               
             }
         }
 
@@ -259,34 +270,52 @@ namespace VOP
         {
             ComboBoxItem selItem = cboMediaType.SelectedItem as ComboBoxItem;
 
+            //modified by yunying shang 2017-11-27 for BMS 1545
             if (null != selItem && null != selItem.DataContext)
             {
-                m_scanParams.ScanMediaType = (EnumScanMediaType)selItem.DataContext;
-            }
+                EnumScanMediaType type = (EnumScanMediaType)selItem.DataContext;
 
-            if (m_scanParams.ScanMediaType == EnumScanMediaType._BankBook)
-            {
-                MultiFeedOffButton.IsChecked = true;
-                MultiFeedOnButton.IsEnabled = false;
-                MultiFeedOffButton.IsEnabled = false;
-            }
-            else
-            {
-                if (m_scanParams.MultiFeed == true)
+                if (type != m_lastPaperType)
                 {
-                    MultiFeedOnButton.IsChecked = true;
-                    MultiFeedOffButton.IsChecked = false;
-                }
-                else
-                {
-                    MultiFeedOnButton.IsChecked = false;
-                    MultiFeedOffButton.IsChecked = true;
-                }
+                    if (m_scanParams.ScanMediaType == EnumScanMediaType._Normal)
+                        m_lastPaperSize = m_scanParams.PaperSize;
 
-                MultiFeedOnButton.IsEnabled = true;
-                MultiFeedOffButton.IsEnabled = true;
-            }
+                    m_scanParams.ScanMediaType = (EnumScanMediaType)selItem.DataContext;
 
+                    if (m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
+                        m_scanParams.ScanMediaType == EnumScanMediaType._Card)
+                    {
+                        m_scanParams.PaperSize = EnumPaperSizeScan._Auto;
+
+                        InitScanSize();
+                        MultiFeedOffButton.IsChecked = true;
+                        MultiFeedOnButton.IsEnabled = false;
+                        MultiFeedOffButton.IsEnabled = false;
+                    }
+                    else
+                    {
+                        m_scanParams.PaperSize = m_lastPaperSize;
+                        InitScanSize();
+
+                        if (m_scanParams.MultiFeed == true)
+                        {
+                            MultiFeedOnButton.IsChecked = true;
+                            MultiFeedOffButton.IsChecked = false;
+                        }
+                        else
+                        {
+                            MultiFeedOnButton.IsChecked = false;
+                            MultiFeedOffButton.IsChecked = true;
+                        }
+
+                        MultiFeedOnButton.IsEnabled = true;
+                        MultiFeedOffButton.IsEnabled = true;
+                    }
+
+                    m_lastPaperType = type;
+                }
+            }//<<============1545
+            
         }
 
         private void colorMode_Click(object sender, RoutedEventArgs e)
@@ -309,8 +338,7 @@ namespace VOP
                 }
             }
         }
-
-
+        
         private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             VOP.Controls.SpinnerControl spinnerCtl = sender as VOP.Controls.SpinnerControl;
@@ -488,55 +516,59 @@ namespace VOP
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboScanSize.Items.Add(cboItem);
 
-            cboItem = new ComboBoxItem();
-            cboItem.Content = (string)this.TryFindResource("ResStr_A4_210_297mm_");           
-            cboItem.DataContext = EnumPaperSizeScan._A4;
-            cboItem.MinWidth = 145;
-            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            cboScanSize.Items.Add( cboItem );
+            if (m_scanParams.ScanMediaType != EnumScanMediaType._BankBook &&
+            m_scanParams.ScanMediaType != EnumScanMediaType._Card)
+            {
+                cboItem = new ComboBoxItem();
+                cboItem.Content = (string)this.TryFindResource("ResStr_A4_210_297mm_");
+                cboItem.DataContext = EnumPaperSizeScan._A4;
+                cboItem.MinWidth = 145;
+                cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+                cboScanSize.Items.Add(cboItem);
 
-            cboItem = new ComboBoxItem();
-            cboItem.Content = (string)this.TryFindResource("ResStr_A5_148_x_210mm_");
-            cboItem.DataContext = EnumPaperSizeScan._A5;
-            cboItem.MinWidth = 145;
-            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            cboScanSize.Items.Add(cboItem);
+                cboItem = new ComboBoxItem();
+                cboItem.Content = (string)this.TryFindResource("ResStr_A5_148_x_210mm_");
+                cboItem.DataContext = EnumPaperSizeScan._A5;
+                cboItem.MinWidth = 145;
+                cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+                cboScanSize.Items.Add(cboItem);
 
-            cboItem = new ComboBoxItem();
-            cboItem.Content = (string)this.TryFindResource("ResStr_B5_182_x_257mm_");
-            cboItem.DataContext = EnumPaperSizeScan._B5;
-            cboItem.MinWidth = 145;
-            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            cboScanSize.Items.Add(cboItem);
+                cboItem = new ComboBoxItem();
+                cboItem.Content = (string)this.TryFindResource("ResStr_B5_182_x_257mm_");
+                cboItem.DataContext = EnumPaperSizeScan._B5;
+                cboItem.MinWidth = 145;
+                cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+                cboScanSize.Items.Add(cboItem);
 
-            cboItem = new ComboBoxItem();
-            cboItem.Content = (string)this.TryFindResource("ResStr_A6_105_x_148mm_");
-            cboItem.DataContext = EnumPaperSizeScan._A6;
-            cboItem.MinWidth = 145;
-            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            cboScanSize.Items.Add(cboItem);
+                cboItem = new ComboBoxItem();
+                cboItem.Content = (string)this.TryFindResource("ResStr_A6_105_x_148mm_");
+                cboItem.DataContext = EnumPaperSizeScan._A6;
+                cboItem.MinWidth = 145;
+                cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+                cboScanSize.Items.Add(cboItem);
 
-            cboItem = new ComboBoxItem();
-            cboItem.Content = (string)this.TryFindResource("ResStr_Letter_8_5_x_11");
-            cboItem.DataContext = EnumPaperSizeScan._Letter;
-            cboItem.MinWidth = 145;
-            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            cboScanSize.Items.Add( cboItem );
+                cboItem = new ComboBoxItem();
+                cboItem.Content = (string)this.TryFindResource("ResStr_Letter_8_5_x_11");
+                cboItem.DataContext = EnumPaperSizeScan._Letter;
+                cboItem.MinWidth = 145;
+                cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+                cboScanSize.Items.Add(cboItem);
 
 
-            cboItem = new ComboBoxItem();
-            cboItem.Content = (string)this.TryFindResource("ResStr_Legal_8_5_x_14");
-            cboItem.DataContext = EnumPaperSizeScan._Legal;
-            cboItem.MinWidth = 145;
-            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            cboScanSize.Items.Add(cboItem);
+                cboItem = new ComboBoxItem();
+                cboItem.Content = (string)this.TryFindResource("ResStr_Legal_8_5_x_14");
+                cboItem.DataContext = EnumPaperSizeScan._Legal;
+                cboItem.MinWidth = 145;
+                cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+                cboScanSize.Items.Add(cboItem);
 
-            //cboItem = new ComboBoxItem();
-            //cboItem.Content = (string)this.TryFindResource("ResStr_4_x_6_");
-            //cboItem.DataContext = EnumPaperSizeScan._4x6Inch;
-            //cboItem.MinWidth = 145;
-            //cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            //cboScanSize.Items.Add( cboItem );
+                //cboItem = new ComboBoxItem();
+                //cboItem.Content = (string)this.TryFindResource("ResStr_4_x_6_");
+                //cboItem.DataContext = EnumPaperSizeScan._4x6Inch;
+                //cboItem.MinWidth = 145;
+                //cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+                //cboScanSize.Items.Add( cboItem );
+            }
 
             foreach ( ComboBoxItem obj in cboScanSize.Items )
             {
@@ -576,7 +608,14 @@ namespace VOP
 
             cboItem = new ComboBoxItem();
             cboItem.Content = (string)this.TryFindResource("ResStr_Bankbook");
-            cboItem.DataContext = EnumPaperSizeScan._A4;
+            cboItem.DataContext = EnumScanMediaType._BankBook;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboMediaType.Items.Add(cboItem);
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = (string)this.TryFindResource("ResStr_Card");
+            cboItem.DataContext = EnumScanMediaType._Card;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboMediaType.Items.Add(cboItem);
@@ -595,6 +634,26 @@ namespace VOP
         {          
             btnOk.IsEnabled = ( false == spinCtlBrightness.ValidationHasError
                     && false == spinCtlConstrast.ValidationHasError );
+        }
+        private MainWindow_Rufous _MainWin = null;
+
+        public MainWindow_Rufous m_MainWin
+        {
+            set
+            {
+                _MainWin = value;
+            }
+            get
+            {
+                if (null == _MainWin)
+                {
+                    return (MainWindow_Rufous)App.Current.MainWindow;
+                }
+                else
+                {
+                    return _MainWin;
+                }
+            }
         }
     }
 }

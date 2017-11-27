@@ -12,6 +12,8 @@ public:
 	CGLNet *m_GLnet;
 	BOOL  NetScanReady();
 	BYTE _OpenDevice();
+	BYTE _OpenUSBDevice();
+	BYTE _OpenUSBDevice(LPCTSTR lpModuleName);
 	BYTE _OpenDevice(LPCTSTR lpModuleName);
 	BYTE _JobCreate();
 	BYTE _JobEnd();

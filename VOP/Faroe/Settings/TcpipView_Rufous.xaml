@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
+             Foreground="Black"
              xmlns:vop="clr-namespace:VOP"
              xmlns:local="clr-namespace:VOP.Controls"
              Loaded="OnLoadedTcpipView"
@@ -151,7 +152,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             
-            <TextBlock Text="{StaticResource ResStr_IP_Type}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Text="{StaticResource ResStr_IP_Type}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
 
             <Grid Grid.Row="0" Grid.Column="2" >
                 <Grid.ColumnDefinitions>
@@ -190,7 +191,7 @@
                 x:Name="tb_ip" 
                 PreviewTextInput="OnTextBoxPreviewTextInput" 
                 Template="{StaticResource customTextBox}" 
-                Height="28" Width="250"
+                Height="30" Width="250"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
                 SnapsToDevicePixels ="True"
                 MaxLength="15" 
@@ -223,7 +224,7 @@
                 PreviewTextInput="OnTextBoxPreviewTextInput" 
                 Template="{StaticResource customTextBox}" 
                 SnapsToDevicePixels ="True"
-                Height="28" Width="250"
+                Height="30" Width="250"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
                 MaxLength="15" 
                 Style="{StaticResource SubmaskErrorTemplateStyle}"
@@ -256,7 +257,7 @@
                 SnapsToDevicePixels ="True"
                 Grid.Row="3" 
                 Grid.Column="2" 
-                Height="28" Width="250"
+                Height="30" Width="250"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
                 MaxLength="15" 
                 Style="{StaticResource GatewayErrorTemplateStyle}"
@@ -295,7 +296,7 @@
                             HorizontalAlignment="Center" 
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 
-                            Width="130" 
+                            Width="150" 
                             Height="32"></Button>
         </Grid>
     </Grid>
