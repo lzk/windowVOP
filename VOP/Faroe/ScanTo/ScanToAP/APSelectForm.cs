@@ -109,8 +109,7 @@ namespace VOP
         }
      
         private void OkClick(object sender, RoutedEventArgs e)
-        {
-         
+        {         
             DialogResult = true;
             this.Close();
         }

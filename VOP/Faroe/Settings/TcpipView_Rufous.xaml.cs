@@ -736,12 +736,12 @@ namespace VOP
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                           Application.Current.MainWindow,
                          (string)this.FindResource("ResStr_Msg_1"),
-                         "Prompt");
+                         (string)this.TryFindResource("ResStr_Prompt"));
             else
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                  Application.Current.MainWindow,
                 (string)this.FindResource("ResStr_Setting_Fail"),
-                "Prompt");
+                (string)this.TryFindResource("ResStr_Error"));
 
             return isSuccess;
         }
@@ -960,12 +960,12 @@ namespace VOP
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                        Application.Current.MainWindow,
                       (string)this.FindResource("ResStr_Setting_Successfully_"),
-                      "Prompt");
+                      (string)this.TryFindResource("ResStr_Prompt"));
             else
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                  Application.Current.MainWindow,
                 (string)this.FindResource("ResStr_Setting_Fail"),
-                "Prompt");
+                (string)this.TryFindResource("ResStr_Error"));
         }
 
         private MainWindow_Rufous _MainWin = null;

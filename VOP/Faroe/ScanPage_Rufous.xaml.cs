@@ -701,10 +701,10 @@ namespace VOP
 
             if (files == null || files.Count == 0)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                       Application.Current.MainWindow,
                      "Please select one or more pictures to process",
-                     "Prompt");
+                     (string)this.TryFindResource("ResStr_Prompt"));
             }
         }
 
@@ -740,10 +740,10 @@ namespace VOP
 
             if (files == null || files.Count == 0)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                       Application.Current.MainWindow,
                      "Please select one or more pictures to process",
-                     "Prompt");
+                     (string)this.TryFindResource("ResStr_Prompt"));
             }
         }
 
