@@ -38,6 +38,8 @@ namespace VOP
             manualConnect.IsEnabled = false;
             rowManual.Height = new GridLength(0);
             autoConnect.Visibility = Visibility.Hidden;
+            gdWifi.Visibility = Visibility.Hidden;
+            gdWifi.IsEnabled = false;
             autoConnect.IsEnabled = false;
             rowAuto.Height = GridLength.Auto;
             m_bConnectOthApMode = false;
@@ -65,6 +67,8 @@ namespace VOP
                 rowManual.Height = new GridLength(0);
                 autoConnect.Visibility = Visibility.Visible;
                 autoConnect.IsEnabled = true;
+                gdWifi.Visibility = Visibility.Visible;
+                gdWifi.IsEnabled = true;
                 rowAuto.Height = GridLength.Auto;
                 cbo_ssid_refresh();
             }
@@ -177,6 +181,8 @@ namespace VOP
                 rowManual.Height = GridLength.Auto;
                 autoConnect.Visibility = Visibility.Hidden;
                 autoConnect.IsEnabled = false;
+                gdWifi.Visibility = Visibility.Hidden;
+                gdWifi.IsEnabled = false;
                 rowAuto.Height = new GridLength(0);
                 wepKey0.IsChecked = true;
                 m_bConnectOthApMode = true;
@@ -235,6 +241,8 @@ namespace VOP
                 rowManual.Height = new GridLength(0);
                 autoConnect.Visibility = Visibility.Visible;
                 autoConnect.IsEnabled = true;
+                gdWifi.Visibility = Visibility.Visible;
+                gdWifi.IsEnabled = true;
                 rowAuto.Height = GridLength.Auto;
                 scrollview.ScrollToTop();
                 m_bConnectOthApMode = false;
@@ -623,6 +631,8 @@ namespace VOP
                     autoConnect.IsEnabled = false;
                     manualConnect.Visibility = Visibility.Visible;
                     manualConnect.IsEnabled = true;
+                    gdWifi.Visibility = Visibility.Visible;
+                    gdWifi.IsEnabled = true;
                     rowManual.Height = GridLength.Auto;
                     rowAuto.Height = new GridLength(0);
                 }
@@ -634,6 +644,8 @@ namespace VOP
                     autoConnect.IsEnabled = true;
                     manualConnect.Visibility = Visibility.Hidden;
                     manualConnect.IsEnabled = false;
+                    gdWifi.Visibility = Visibility.Hidden;
+                    gdWifi.IsEnabled = false;
                     rowManual.Height = new GridLength(0);
                     rowAuto.Height = GridLength.Auto;
                 }
@@ -650,6 +662,8 @@ namespace VOP
             autoConnect.IsEnabled = false;
             manualConnect.Visibility = Visibility.Hidden;
             manualConnect.IsEnabled = false;
+            gdWifi.Visibility = Visibility.Hidden;
+            gdWifi.IsEnabled = false;
             rowManual.Height = new GridLength(0);
             rowAuto.Height = new GridLength(0);
             wifilist.Children.Clear();
