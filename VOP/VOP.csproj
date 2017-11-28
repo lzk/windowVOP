@@ -283,6 +283,7 @@
     <Compile Include="Faroe\Settings\DeviceView.xaml.cs">
       <DependentUpon>DeviceView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Faroe\Settings\MediaTypePrompt.xaml.cs" />
     <Compile Include="Faroe\Settings\QRCodeBarcodeView.xaml.cs" />
     <Compile Include="Faroe\Settings\QuickScanSettings.xaml.cs">
       <DependentUpon>QuickScanSettings.xaml</DependentUpon>
@@ -543,6 +544,10 @@
     <Page Include="Faroe\Settings\DeviceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Faroe\Settings\MediaTypePrompt.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Faroe\Settings\QRCodeBarcodeView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -1280,6 +1285,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\back_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\switch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="printer.ico" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>

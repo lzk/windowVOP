@@ -55,6 +55,7 @@ namespace VOP
             if(FlowType == FileFlowType.View)
             {
                 result = SaveFileView();
+                Win32.OutputDebugString("Save To File Finished!");
             }
             else
             {
@@ -72,7 +73,7 @@ namespace VOP
             }
             else if (result == ScanFileSaveError.FileSave_Cancel)
             {
-
+                Win32.OutputDebugString("Scan to File is canceled!");
             }
             //add by yunying shang 2017-11-20 for BMS 1176
             else if (result == ScanFileSaveError.FileSave_NotAccess)
@@ -93,7 +94,7 @@ namespace VOP
                 return false;
             }
 
-          
+            Win32.OutputDebugString("Scan to File Success!");
             return true;
         }
 

@@ -290,7 +290,7 @@
                                 HorizontalAlignment="Right"
                             Margin="0,14"
                             Width="100" 
-                            Height="35"
+                            Height="30"
                             FontSize="16"
                             Click="BrowseClick"
                             Style="{StaticResource CustomPopUpButtonStyle}"

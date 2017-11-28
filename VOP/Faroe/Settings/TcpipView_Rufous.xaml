@@ -297,7 +297,7 @@
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 
                             Width="150" 
-                            Height="32"></Button>
+                            Height="35"></Button>
         </Grid>
     </Grid>
 </UserControl>

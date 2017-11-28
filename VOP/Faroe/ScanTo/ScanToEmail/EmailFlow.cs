@@ -186,6 +186,11 @@ namespace VOP
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") + ex.Message,
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 }
+
+                if (AttachmentType == "PDF")
+                {
+                    File.Delete(pdfName);
+                }
                 //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                 //                Application.Current.MainWindow,
                 //               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") ,
@@ -198,6 +203,11 @@ namespace VOP
                                   Application.Current.MainWindow,
                                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") + ex.Message,
                                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+
+                if (AttachmentType == "PDF")
+                {
+                    File.Delete(pdfName);
+                }
                 return false;
             }
 

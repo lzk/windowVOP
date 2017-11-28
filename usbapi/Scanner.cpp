@@ -68,7 +68,7 @@ int CScanner::Initialize(LPTSTR lptszDevicePath)
 	m_hLLD = ::LoadLibrary(lptszDevicePath);
 	if (m_hLLD == NULL)
 	{
-		OutputDebugString(lptszDevicePath);
+		//OutputDebugString(lptszDevicePath);
 		OutputDebugString(L"can not init Devmon interfaces");
 		return DEVMON_ERROR_OPEN_FAILED;
 	}
@@ -302,7 +302,7 @@ int CScanner::SetScanParameterEx(LPSCANPARAMETER lpScanParam)
 
 	char szText[200];
 	sprintf(szText, "Height = %d, YRes = %d", lpScanParam->YRes, lpScanParam->Height);
-	OutputDebugStringA(szText);//*/
+	//OutputDebugStringA(szText);//*/
 
 	//if (m_dwTotalLinesToRead > lpScanParam->TotalLines)
 	//{
@@ -334,9 +334,9 @@ int CScanner::SetScanParameterEx(LPSCANPARAMETER lpScanParam)
 	m_dwResolution = lpScanParam->XRes;
 
 //	char szText[200];
-	sprintf(szText, "m_dwPixelsPerLine = %d, PixelPerLine = %d", 
-		m_dwPixelsPerLine, lpScanParam->PixelPerLine);
-	OutputDebugStringA(szText);//*/
+	//sprintf(szText, "m_dwPixelsPerLine = %d, PixelPerLine = %d", 
+	//	m_dwPixelsPerLine, lpScanParam->PixelPerLine);
+	//OutputDebugStringA(szText);//*/
 
 
 	m_dwMarginTopBottom = lpScanParam->MarginTopBottom;
@@ -471,7 +471,7 @@ int CScanner::ReadData(BYTE *pBuffer,ULONG ulBufferSize,ULONG *pulBytesRead, LON
 	sprintf(szText2, "ulBufferSize = %d, dwNumBytesInBuffer = %d, m_dwBytesPerLine = %d", 
 		ulBufferSize, dwNumBytesInBuffer, m_dwBytesPerLine);
 
-	OutputDebugStringA(szText2);//*/
+	//OutputDebugStringA(szText2);//*/
 
 
 	DWORD dwNumBytesLeftToRead = (m_dwTotalLinesToRead - m_dwTotalLinesRead) * m_dwBytesPerLine;
@@ -497,11 +497,11 @@ int CScanner::ReadData(BYTE *pBuffer,ULONG ulBufferSize,ULONG *pulBytesRead, LON
 	}
 	DWORD dwNumLinesToRead = dwNumBytesInBuffer / m_dwBytesPerLine;
 
-	char szText1[200];
-	sprintf(szText1, "dwNumBytesInBuffer = %d, m_dwBytesPerLine = %d, dwNumLinesToRead = %d", 
-		dwNumBytesInBuffer, m_dwBytesPerLine, dwNumLinesToRead);
+	//char szText1[200];
+	//sprintf(szText1, "dwNumBytesInBuffer = %d, m_dwBytesPerLine = %d, dwNumLinesToRead = %d", 
+	//	dwNumBytesInBuffer, m_dwBytesPerLine, dwNumLinesToRead);
 
-	OutputDebugStringA(szText1);//*/
+	//OutputDebugStringA(szText1);//*/
 
 
 	int nRet;
@@ -565,11 +565,11 @@ int CScanner::ReadData(BYTE *pBuffer,ULONG ulBufferSize,ULONG *pulBytesRead, LON
 	}
 	*plPercentComplete = (LONG)((((float)(m_dwTotalLinesRead)/(float)(m_dwTotalLinesToRead))) * 100.0f);
 
-	char szText[200];
-	sprintf(szText, "m_dwTotalLinesRead = %d, m_dwTotalLinesToRead = %d, plPercentComplete = %d", 
-		m_dwTotalLinesRead, m_dwTotalLinesToRead, plPercentComplete);
+	//char szText[200];
+	//sprintf(szText, "m_dwTotalLinesRead = %d, m_dwTotalLinesToRead = %d, plPercentComplete = %d", 
+	//	m_dwTotalLinesRead, m_dwTotalLinesToRead, plPercentComplete);
 
-	OutputDebugStringA(szText);//*/
+	//OutputDebugStringA(szText);//*/
 
 
 	return DEVMON_STATUS_OK;

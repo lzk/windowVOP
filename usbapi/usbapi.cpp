@@ -732,8 +732,8 @@ BOOL AddHostV6EX2(BYTE* ip, DWORD scope_id, char* hostname, char* mfgname, char*
 
 static int GetMacAddress(char *pIPAddress, char *pMacAddress)
 {
-	OutputDebugString(L"### ACT:GetMacAddress ");
-	OutputDebugStringA(pIPAddress);
+	//OutputDebugString(L"### ACT:GetMacAddress ");
+	//OutputDebugStringA(pIPAddress);
 	char strTemp[MAX_PATH];
 	memset(strTemp, 0, sizeof(strTemp));
 	char szTemp[MAX_PATH];
@@ -768,7 +768,7 @@ static int GetMacAddress(char *pIPAddress, char *pMacAddress)
 				strcat(pMacAddress, ":");
 			}
 		}
-		OutputDebugStringA(pMacAddress);
+		//OutputDebugStringA(pMacAddress);
 	}
 	else
 	{
@@ -837,12 +837,12 @@ USBAPI_API int __stdcall SearchValidedIP2(SAFEARRAY** ipList)
 			::SysFreeString(bstrArray[i]);
 		}
 
-		OutputDebugStringA("\r\n####VP:SearchValidedIP() FindAgentProEX2 End.");
+		//OutputDebugStringA("\r\n####VP:SearchValidedIP() FindAgentProEX2 End.");
 	}
 	else
 	{
 		nResult = 0;
-		OutputDebugStringA("\r\n####VP:SearchValidedIP() FindAgentProNBNEX2 NULL.");
+		//OutputDebugStringA("\r\n####VP:SearchValidedIP() FindAgentProNBNEX2 NULL.");
 	}
 
 	FindAgentProEX2 = NULL;
@@ -878,12 +878,12 @@ USBAPI_API int __stdcall SearchValidedIP(const char * macAddress, BOOL ipV4, BOO
 			ProcessMacAddress(macAddress, ipV4, ipFound);
 		}
 
-		OutputDebugStringA("\r\n####VP:SearchValidedIP() FindAgentProEX2 End.");
+		//OutputDebugStringA("\r\n####VP:SearchValidedIP() FindAgentProEX2 End.");
 	}
 	else
 	{
 		nResult = 0;
-		OutputDebugStringA("\r\n####VP:SearchValidedIP() FindAgentProNBNEX2 NULL.");
+		//OutputDebugStringA("\r\n####VP:SearchValidedIP() FindAgentProNBNEX2 NULL.");
 	}
 
 	FindAgentProEX2 = NULL;
@@ -963,13 +963,13 @@ void AddTCPIPPort(wchar_t* strPortName, const wchar_t* strIPAddress)
 		code = GetLastError();
 		sprintf(szText, "delete port driver%d", code);
 
-		::OutputDebugStringA(szText);
+		//::OutputDebugStringA(szText);
 
 		XcvData(hXcv, L"AddPort", (PBYTE)&portData, sizeof(PORT_DATA_1), pOutputData, cbInputData, &cbOutputNeeded, &dwStatus);
 		code = GetLastError();
 		sprintf(szText, "delete port driver%d", code);
 
-		::OutputDebugStringA(szText);
+		//::OutputDebugStringA(szText);
 
 	}
 
@@ -979,7 +979,7 @@ void AddTCPIPPort(wchar_t* strPortName, const wchar_t* strIPAddress)
 	errorcode = GetLastError();
 	sprintf(szText, "add port error%d", errorcode);
 
-	::OutputDebugStringA(szText);
+	//::OutputDebugStringA(szText);
 }
 
 BOOL CheckPortExist(wchar_t* szPortName)
@@ -1039,7 +1039,7 @@ BOOL SetPrinterPort(TCHAR szPrinterName[MAX_PATH * 2], TCHAR szPortName[MAX_PATH
 	BOOL bFlag;
 	LONG lFlag;
 
-	::OutputDebugString(szPrinterName);
+	//::OutputDebugString(szPrinterName);
 	DWORD errorcode;
 	char sztext[256];
 
@@ -1052,7 +1052,7 @@ BOOL SetPrinterPort(TCHAR szPrinterName[MAX_PATH * 2], TCHAR szPortName[MAX_PATH
 	errorcode = ::GetLastError();
 
 	sprintf(sztext, "OpenPrinter  is %d", errorcode);
-	::OutputDebugStringA(sztext);
+	//::OutputDebugStringA(sztext);
 	// The first GetPrinter tells you how big the buffer should be in 
 	// order to hold all of PRINTER_INFO_2. Note that this should fail with 
 	// ERROR_INSUFFICIENT_BUFFER.  If GetPrinter fails for any other reason 
@@ -1105,7 +1105,7 @@ BOOL SetPrinterPort(TCHAR szPrinterName[MAX_PATH * 2], TCHAR szPortName[MAX_PATH
 	bFlag = SetPrinter(hPrinter, 2, (LPBYTE)pi2, 0);
 	errorcode = ::GetLastError();
 	sprintf(sztext, "SetPrinter  is %d", errorcode);
-	::OutputDebugStringA(sztext);
+	//::OutputDebugStringA(sztext);
 
 
 	if (!bFlag)

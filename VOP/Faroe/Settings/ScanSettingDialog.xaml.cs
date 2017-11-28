@@ -292,11 +292,14 @@ namespace VOP
                         MultiFeedOnButton.IsEnabled = false;
                         MultiFeedOffButton.IsEnabled = false;
 
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                         Application.Current.MainWindow,
-                            (string)"Please switch to the card mode on the machine!",
-                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
-                        );
+                        //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                        // Application.Current.MainWindow,
+                        //    (string)"Please switch to the card mode on the machine!",
+                        //(string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
+                        //);
+
+                        Window dlg = new MediaTypePrompt("Please switch to the card mode on the machine!", "Information");
+                        dlg.ShowDialog();
                     }
                     else
                     {

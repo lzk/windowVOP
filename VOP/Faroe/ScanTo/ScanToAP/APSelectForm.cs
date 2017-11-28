@@ -39,6 +39,8 @@ namespace VOP
             APListBox.Items.Add(CreateListItem("Paint"));
             APListBox.Items.Add(CreateListItem("PhotoViewer"));
             APListBox.Items.Add(CreateListItem("OthersApplication"));
+
+            APListBox.SelectedIndex = 0;
         }
 
         private ListBoxItem CreateListItem(string apName)

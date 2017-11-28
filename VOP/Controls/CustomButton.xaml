@@ -188,6 +188,9 @@
                         <Trigger  Property="IsPressed" Value="True">
                             <Setter TargetName="glassCube" Property="Fill" Value="LightGray" />
                         </Trigger>
+                        <Trigger  Property="IsEnabled" Value="false">
+                            <Setter TargetName="myContentPresenter" Property="Foreground" Value="LightGray" />
+                        </Trigger>                     
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -356,6 +359,9 @@
                         </Trigger>
                         <Trigger  Property="IsPressed" Value="True">
                             <Setter TargetName="glassCube" Property="Fill" Value="#FFE1E7ED" />
+                        </Trigger>
+                        <Trigger  Property="IsEnabled" Value="false">
+                            <Setter TargetName="myContentPresenter" Property="Foreground" Value="LightGray" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
