@@ -180,8 +180,8 @@ namespace VOP
             common.GetAllPrinters(g_printerList);
 
             MainPageView.Child = scanSelectionPage;
-            scanSelectionPage.m_MainWin = this;
-            AddMessageHook();
+            scanSelectionPage.m_MainWin = this;            
+            AddMessageHook();            
         }
 
         #region TrayMenu
@@ -443,7 +443,17 @@ namespace VOP
             else if(pageName == "ScanSelectionPage")
             {
                 MainPageView.Child = scanSelectionPage;
-                scanSelectionPage.m_MainWin = this;                
+                scanSelectionPage.m_MainWin = this;   
+                if(!scanSelectionPage.ImageButton4.IsEnabled)
+                {
+                    scanSelectionPage.ImageButton4.IsEnabled = true;
+                    scanSelectionPage.ImageButton4.Focus();
+                } 
+                else if (!scanSelectionPage.ImageButton3.IsEnabled)
+                {
+                    scanSelectionPage.ImageButton3.IsEnabled = true;
+                    scanSelectionPage.ImageButton3.Focus();
+                }                            
             }
             else if (pageName == "SettingsPage")
             {

@@ -103,7 +103,7 @@ namespace VOP.Controls
                }               
             }
 
-            msg.ShowDialog();
+            msg.ShowDialog();            
 
             if (MessageBoxExStyle.YesNo == style)
             {

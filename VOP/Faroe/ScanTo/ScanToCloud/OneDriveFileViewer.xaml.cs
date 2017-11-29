@@ -35,6 +35,7 @@ namespace VOP
         public List<string> FileList { get; set; }
         private string currentPath = @"";
         private string selectedPath = @"";
+        private string currentFolderName = @"";
         private GraphServiceClient client = null;
         public bool Result { get; private set; }
 
@@ -46,7 +47,8 @@ namespace VOP
         private ClientType clientType { get; set; }
 
         private DriveItem CurrentFolder { get; set; }
-        private DriveItem SelectedItem { get; set; }
+        private DriveItem UpperFolder { get; set; }
+        private DriveItem SelectedItem { get; set; } 
 
         public OneDriveFileViewer(GraphServiceClient client, List<string> fileList)
         {
@@ -68,12 +70,14 @@ namespace VOP
                 UpFolderButton.IsEnabled = false;
             else
                 UpFolderButton.IsEnabled = true;
+            FileBrowser.SelectedIndex = 0;
+            FileBrowser.Focus();
         }       
         private async Task Start()
         {
             try
             {
-                await LoadFolderFromPath();
+                await SignIn();
             }
             catch (ServiceException exception)
             {
@@ -185,7 +189,7 @@ namespace VOP
                         }
                         else
                         {
-                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow,"The folder cannot be empty","Error");
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow,"The folder cannot be empty", (string)this.TryFindResource("ResStr_Error"));
                             return;
                         }
                     } 
@@ -193,7 +197,7 @@ namespace VOP
             }
             catch (Exception)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Invalid folder name.", "Error");
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Invalid folder name.", (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
         }
@@ -226,6 +230,7 @@ namespace VOP
                 {
                     string temp = "";
                     temp = currentPath.Remove(currentPath.LastIndexOf('/'), currentPath.Length - currentPath.LastIndexOf('/'));
+                    currentFolderName = temp.Substring(temp.LastIndexOf('/')+1);
                     selectedPath = temp;
                     currentPath = temp;
                     if (currentPath != "")
@@ -255,7 +260,40 @@ namespace VOP
             catch (Exception) { }
            
         }
-        
+        private async Task SignIn(string path = null)
+        {
+            if (null == this.graphClient) return;
+            try
+            {
+                DriveItem folder;
+
+                var expandValue = this.clientType == ClientType.Consumer
+                    ? "thumbnails,children($expand=thumbnails)"
+                    : "thumbnails,children";
+
+                if (path == null)
+                {
+                    folder = await this.graphClient.Drive.Root.Request().Expand(expandValue).GetAsync();
+                }
+                else
+                {
+                    folder =
+                        await
+                            this.graphClient.Drive.Root.ItemWithPath("/" + path)
+                                .Request()
+                                .Expand(expandValue)
+                                .GetAsync();
+                }
+
+                ProcessFolder(folder);
+            }
+            catch (Exception exception)
+            {
+                //    PresentServiceException(exception);
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Connection Onedirive failed!", (string)this.TryFindResource("ResStr_Error"));
+                this.Close();
+            }
+        }
         private async Task LoadFolderFromPath(string path = null)
         {
             if (null == this.graphClient) return;
@@ -285,8 +323,9 @@ namespace VOP
             }
             catch (Exception exception)
             {
-            //    PresentServiceException(exception);
-                this.Close();
+                //    PresentServiceException(exception);
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Connection Onedirive failed!", (string)this.TryFindResource("ResStr_Error"));
+                return;
             }
 
         }
@@ -317,6 +356,54 @@ namespace VOP
                         if (obj.Name == foldername)
                             return true;
                     }                   
+                }
+            }
+            return false;
+        }
+        private async Task CheckUploadFolder(string path = null)
+        {
+            if (null == this.graphClient) return;
+            try
+            {
+                DriveItem folder;
+
+                var expandValue = this.clientType == ClientType.Consumer
+                    ? "thumbnails,children($expand=thumbnails)"
+                    : "thumbnails,children";
+
+                if (path == null)
+                {
+                    folder = await this.graphClient.Drive.Root.Request().Expand(expandValue).GetAsync();
+                }
+                else
+                {
+                    folder =
+                        await
+                            this.graphClient.Drive.Root.ItemWithPath("/" + path)
+                                .Request()
+                                .Expand(expandValue)
+                                .GetAsync();
+                }
+                UpperFolder = folder;
+            }
+            catch (Exception exception)
+            {
+                //    PresentServiceException(exception);
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Connection Onedirive failed!", (string)this.TryFindResource("ResStr_Error"));
+                return;
+            }
+        }
+        private bool CheckUploadFolderName(string foldername)
+        {
+            if (UpperFolder.Folder != null && UpperFolder.Children != null && UpperFolder.Children.CurrentPage != null)
+            {
+                foreach (var obj in UpperFolder.Children.CurrentPage)
+                {
+                    if ((obj.File == null) && (obj.Folder != null))
+                    {
+                        if (obj.Name == foldername)
+                            return true;
+                    }
                 }
             }
             return false;
@@ -435,6 +522,47 @@ namespace VOP
             this.SelectedItem = item;
             FileBrowser.SelectedItem = item;
         }
+        private async Task ViewItem(string path = null)
+        {
+            if (null == this.graphClient) return;
+            try
+            {
+                DriveItem folder;
+
+                var expandValue = this.clientType == ClientType.Consumer
+                    ? "thumbnails,children($expand=thumbnails)"
+                    : "thumbnails,children";
+
+                if (path == null)
+                {
+                    folder = await this.graphClient.Drive.Root.Request().Expand(expandValue).GetAsync();
+                }
+                else
+                {
+                    folder =
+                        await
+                            this.graphClient.Drive.Root.ItemWithPath("/" + path)
+                                .Request()
+                                .Expand(expandValue)
+                                .GetAsync();
+                }
+
+                ProcessFolder(folder);
+                currentPath = path;
+                PathText.Text = currentPath;
+                if (PathText.Text == "")
+                    UpFolderButton.IsEnabled = false;
+                else
+                    UpFolderButton.IsEnabled = true;
+            }
+            catch (Exception exception)
+            {
+                //    PresentServiceException(exception);
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Connection Onedirive failed!", (string)this.TryFindResource("ResStr_Error"));
+                return;
+            }
+
+        }
         private async void ViewItemDoubleClick(object sender, RoutedEventArgs e)
         {
             ListViewItem item = sender as ListViewItem;
@@ -445,15 +573,10 @@ namespace VOP
                 if (info.fileType == "Folder")
                 {
                     string temp = "";
+                    currentFolderName = info.fileName;
                     temp = currentPath + "/" + info.fileName;
                     selectedPath = temp;
-                    await LoadFolderFromPath(temp);
-                    currentPath = temp;
-                    PathText.Text = currentPath;
-                    if (PathText.Text == "")
-                        UpFolderButton.IsEnabled = false;
-                    else
-                        UpFolderButton.IsEnabled = true;
+                    await ViewItem(temp);                    
                 }
             }
             catch (Exception) { }            
@@ -474,45 +597,58 @@ namespace VOP
             {
                 if (FileList == null)
                     return;
-
-                try
+                string message = "";
+                if (currentPath != "")
                 {
-                    foreach (string filePath in FileList)
+                    string temp = "";
+                    temp = currentPath.Remove(currentPath.LastIndexOf('/'), currentPath.Length - currentPath.LastIndexOf('/'));
+                    if (temp != "")
                     {
-                        string fileName = System.IO.Path.GetFileName(filePath);
-                        UploadStaus.Text = "Uploading file " + fileName;
-                        if (CheckFileName(fileName))
-                        {
-                            VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon, this,
-                             "The file Name already exists£¬Do you want to overwrite",
-                             (string)this.TryFindResource("ResStr_Warning"));
-
-                            if (VOP.Controls.MessageBoxExResult.Yes == ret)
-                            {
-                                await Upload(client, filePath);
-                            }
-                        }
-                        else
-                        {
-                            await Upload(client, filePath);
-                        }
-                            
-                    }
-                    UploadStaus.Text = "";
-                    if (currentPath != "")
-                    {
-                        await LoadFolderFromPath(currentPath);
+                        await CheckUploadFolder(temp);
                     }
                     else
                     {
-                        await LoadFolderFromPath();
+                        await CheckUploadFolder();
+                    }
+                    if (!CheckUploadFolderName(currentFolderName))
+                    {
+                        message = string.Format("The folder {0} does not exist. ", currentFolderName);
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Error"));
+                        return;
+                    }
+                }                
+                else
+                {
+                    try
+                    {                        
+                        foreach (string filePath in FileList)
+                        {
+                            string fileName = System.IO.Path.GetFileName(filePath);
+                            UploadStaus.Text = "Uploading file " + fileName;
+                            if (CheckFileName(fileName))
+                            {
+                                message = string.Format("The {0} already exists£¬Do you want to overwrite? ",fileName);
+                                VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon, this,
+                                 message,(string)this.TryFindResource("ResStr_Warning"));
+
+                                if (VOP.Controls.MessageBoxExResult.Yes == ret)
+                                {
+                                    await Upload(client, filePath);
+                                }
+                            }
+                            else
+                            {
+                                await Upload(client, filePath);
+                            }
+
+                        }                       
+                    }
+                    catch (Exception ex)
+                    {
+                        UploadStaus.Text = "Picture uploading error : " + ex.Message;
                     }
                 }
-                catch (Exception ex)
-                {
-                    UploadStaus.Text = "Picture uploading error : " + ex.Message;
-                }
-            }
+            }                   
         }
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -526,6 +662,7 @@ namespace VOP
         {
             var targetFolder = CurrentFolder;
             string Filename = "";
+            string message = "";
             using (var stream = GetFileStreamForUpload(targetFolder.Name, filePath, out Filename))
             {
                 if (stream != null)
@@ -535,11 +672,22 @@ namespace VOP
                         var uploadedItem =
                             await
                                 this.graphClient.Drive.Items[targetFolder.Id].ItemWithPath(Filename).Content.Request()
-                                    .PutAsync<DriveItem>(stream);                   
+                                    .PutAsync<DriveItem>(stream);
+                        UploadStaus.Text = "";
+                        if (currentPath != "")
+                        {
+                            await LoadFolderFromPath(currentPath);
+                        }
+                        else
+                        {
+                            await LoadFolderFromPath();
+                        }
                     }
                     catch (Exception exception)
                     {
-                        PresentServiceException(exception);
+                        //                        PresentServiceException(exception);
+                        message = string.Format("Upload {0} failed! ", Filename);
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Error"));
                     }
                 }
             }
