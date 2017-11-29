@@ -33,7 +33,7 @@ namespace VOP
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
-          
+            this.tbFolderName.Focus();          
         }
 
         private void OkClick(object sender, RoutedEventArgs e)

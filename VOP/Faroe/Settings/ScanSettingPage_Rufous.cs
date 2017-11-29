@@ -450,8 +450,11 @@ namespace VOP
 
         private void Button_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
-
-             m_MainWin.GotoPage("ScanSelectionPage", null);
+            //          Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+            //           m_MainWin = null;
+            
+            m_MainWin.GotoPage("ScanSelectionPage", null);
+            this.m_MainWin = null;
 
         }
 
@@ -470,7 +473,7 @@ namespace VOP
 
         //    get
         //    {
-        //        if ( null == _MainWin )
+        //        if (null == _MainWin)
         //        {
         //            return (MainWindow_Rufous)App.Current.MainWindow;
         //        }
