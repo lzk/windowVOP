@@ -152,7 +152,7 @@
                 <ControlTemplate TargetType="Button">
 
                     <Grid ClipToBounds="False">
-                        <Image Name="backgroundImageborder" Source="../../Images/button_3dborder.png" Margin="-28, -28, -28, -30" Stretch="Fill"/>
+                        <!--<Image Name="backgroundImageborder" Source="../../Images/button_3dborder.png" Margin="-28, -28, -28, -30" Stretch="Fill"/>-->
                         <!--<Image Name="backgroundImage" Source="../../Images/lightbutton.png"/>-->
 
                         <Grid Margin="15">

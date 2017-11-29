@@ -811,13 +811,13 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 			if (glDrv.sc_infodata.Cancel)
 			{
-				isUltraSonic = TRUE;
+				start_cancel = TRUE;				
 				break;
 			}
 			
 			if (glDrv.sc_infodata.UltraSonic)
 			{
-				start_cancel = TRUE;
+				isUltraSonic = TRUE;
 				break;
 			}
 

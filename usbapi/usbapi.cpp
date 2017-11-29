@@ -1420,7 +1420,10 @@ USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP)
 {
 	Scan_RET re_status = RETSCAN_OK;
 
-	if (TestIpConnected1(g_ipAddress, &re_status) == TRUE)
+	if (wcslen(szIP) == 0)
+		return false;
+
+	if (TestIpConnected1(szIP, &re_status) == TRUE)
 	{
 		return true;
 	}
@@ -1432,9 +1435,6 @@ USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP)
 	int nResult = TRUE;
 	CGLNet m_GLnet;
 	
-	if (wcslen(szIP) == 0)
-		return false;
-
 	if (m_GLnet.CMDIO_Connect(szIP, 23011))
 	{
 		TCHAR showIp[256] = { 0 };
