@@ -136,7 +136,7 @@
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Rectangle Margin="-0.5" RadiusX="5" RadiusY="5" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 3" StrokeDashCap="Square" />
+                    <Rectangle Margin="-0.5" RadiusX="5" RadiusY="5" StrokeThickness="0.8" Stroke="Black" StrokeDashArray="1 3" StrokeDashCap="Square" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -355,7 +355,8 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger  Property="IsFocused" Value="True">
-                            <Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>
+                            <!--<Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>-->
+                            <Setter TargetName="glassCube" Property="Stroke" Value="#FF57A4D8" />
                         </Trigger>
                         <Trigger  Property="IsPressed" Value="True">
                             <Setter TargetName="glassCube" Property="Fill" Value="#FFE1E7ED" />

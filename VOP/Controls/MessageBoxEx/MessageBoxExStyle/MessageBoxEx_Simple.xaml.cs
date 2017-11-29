@@ -23,7 +23,12 @@ namespace VOP.Controls
             InitializeComponent();
 
             messageBoxTextBlock.Text = messageBoxText;
-            captionTextBlock.Text = caption;            
+            captionTextBlock.Text = caption;
+            
+            imgWarning.IsEnabled = false;
+            messageBoxTextBlock.IsEnabled = false;
+
+            btnOK.Focus();
 
             this.Width = this.Width * App.gScalingRate;
             this.Height = this.Height * App.gScalingRate;
