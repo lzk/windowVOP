@@ -23,7 +23,7 @@ namespace VOP.Controls
             InitializeComponent();
 
             messageBoxTextBlock.Text = messageBoxText;
-            captionTextBlock.Text = caption;
+            captionTextBlock.Text = caption;            
 
             this.Width = this.Width * App.gScalingRate;
             this.Height = this.Height * App.gScalingRate;
@@ -31,14 +31,15 @@ namespace VOP.Controls
 
         private void window_Loaded(object sender, RoutedEventArgs e)
         {
-
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(Title_MouseButtonEventHandler);
+            btnOK.Focus();
         }
 
         public void Title_MouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
+
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -47,7 +48,13 @@ namespace VOP.Controls
                 e.Handled = true;
             }
         }
+
         private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void OkClick(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

@@ -281,7 +281,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_USB_connection_troubleshooting">USB connection troubleshooting</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_WiFi_connection_troubleshooting">Wi-Fi connection troubleshooting</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Return">Return</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Prompt">Prompt</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Prompt">Information</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit_the_Lenovo_Printer">Do you want to exit the Neo Printing?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Member_Center">Member Center</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Account">Account</sys:String>

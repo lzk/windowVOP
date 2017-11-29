@@ -110,6 +110,18 @@ namespace VOP
                                 );
                     return null;
                 }
+                else
+                {
+                    if (!dll.TestIpConnected(MainWindow_Rufous.g_settingData.m_DeviceName))
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                    Application.Current.MainWindow,
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                    );
+                        return null;
+                    }
+                }
             }//<<=================================
 
 
@@ -228,8 +240,7 @@ namespace VOP
                                );
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_CANCEL)
-                {
-        
+                {        
                     
                 }
                 else

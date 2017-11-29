@@ -24,16 +24,16 @@ namespace VOP
             files.Add(new ScanFiles(@"G:\work\Rufous\pic\temp-000.JPG"));
         }
 
-        public bool ScanToAP()
+        public Scan_RET ScanToAP()
         {
             ScanTask task = new ScanTask();
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
             
             if (files == null)
-                return false;
+                return task.ScanResult;
 
             if (task.ScanResult != Scan_RET.RETSCAN_OK)
-                return false;
+                return task.ScanResult;
 
             List<string> fileLs = new List<string>();
 
@@ -48,19 +48,19 @@ namespace VOP
             APFlow.FlowType = APFlowType.Quick;
             flow.Run();
 
-            return true;
+            return Scan_RET.RETSCAN_OK;
         }
 
-        public bool ScanToFile()
+        public Scan_RET ScanToFile()
         {
             ScanTask task = new ScanTask();
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
             //DebugAddScanFiles(ref files);
             if (files == null)
-                return false;
+                return task.ScanResult;
 
             if (task.ScanResult != Scan_RET.RETSCAN_OK)
-                return false;
+                return task.ScanResult;
 
             List<string> fileLs = new List<string>();
 
@@ -83,20 +83,20 @@ namespace VOP
                 win.ShowDialog();
             }
 
-            return true;
+            return Scan_RET.RETSCAN_OK;
         }
 
 
-        public bool ScanToEmail()
+        public Scan_RET ScanToEmail()
         {
             ScanTask task = new ScanTask();
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
 
             if (files == null)
-                return false;
+                return task.ScanResult;
 
             if (task.ScanResult != Scan_RET.RETSCAN_OK)
-                return false;
+                return task.ScanResult;
 
             List<string> fileLs = new List<string>();
 
@@ -119,10 +119,10 @@ namespace VOP
                 win.ShowDialog();
             }
 
-            return true;
+            return Scan_RET.RETSCAN_OK;
         }
 
-        public bool ScanToPrint()
+        public Scan_RET ScanToPrint()
         {
             if (MainWindow_Rufous.g_settingData.m_printerName == null)
             {
@@ -130,7 +130,7 @@ namespace VOP
                                  Application.Current.MainWindow,
                                 "Not find printer!",
                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
-                return false;
+                return Scan_RET.RETSCAN_ADF_NOT_READY;
             }
             else
             {
@@ -138,10 +138,10 @@ namespace VOP
                 List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
 
                 if (files == null)
-                    return false;
+                    return task.ScanResult;
 
                 if (task.ScanResult != Scan_RET.RETSCAN_OK)
-                    return false;
+                    return task.ScanResult;
 
                 List<string> fileLs = new List<string>();
 
@@ -195,20 +195,20 @@ namespace VOP
                 }
 
 
-                return true;
+                return Scan_RET.RETSCAN_OK;
             }
         }
 
-        public bool ScanToFtp()
+        public Scan_RET ScanToFtp()
         {
             ScanTask task = new ScanTask();
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
 
             if (files == null)
-                return false;
+                return task.ScanResult;
 
             if (task.ScanResult != Scan_RET.RETSCAN_OK)
-                return false;
+                return task.ScanResult;
 
             List<string> fileLs = new List<string>();
 
@@ -231,19 +231,19 @@ namespace VOP
                 win.ShowDialog();
             }
 
-            return true;
+            return Scan_RET.RETSCAN_OK;
         }
 
-        public bool ScanToCloud()
+        public Scan_RET ScanToCloud()
         {
             ScanTask task = new ScanTask();
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
             //DebugAddScanFiles(ref files);
             if (files == null)
-                return false;
+                return task.ScanResult;
 
             if (task.ScanResult != Scan_RET.RETSCAN_OK)
-                return false;
+                return task.ScanResult;
 
             List<string> fileLs = new List<string>();
 
@@ -279,7 +279,7 @@ namespace VOP
                     //                    Application.Current.MainWindow,
                     //                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
                     //                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
-                    return false;
+                    return Scan_RET.RETSCAN_ERROR;
                 }
             }
             else if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.SaveType == "EverNote")
@@ -304,7 +304,7 @@ namespace VOP
                                         Application.Current.MainWindow,
                                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
                                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
-                    return false;
+                    return Scan_RET.RETSCAN_ERROR;
                 }
             }
             else if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.SaveType == "OneDrive")
@@ -329,10 +329,10 @@ namespace VOP
                                         Application.Current.MainWindow,
                                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
                                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
-                    return false;
+                    return Scan_RET.RETSCAN_ERROR;
                 }
             }
-            return true;
+            return Scan_RET.RETSCAN_OK;
         }
     }
 }

@@ -244,8 +244,8 @@
                                         Width="17" 
                                         Height="17"
                                         Margin="0,0,0, 5"
-										ImageDisable="../../Images\Refresh_Disable.png"
-										ImageEnable="../../Images\Status_RefreshEnable.tif"
+										ImageDisable="../../Images/Refresh_Disable.png"
+										ImageEnable="../../Images/Status_RefreshEnable.tif"
                                         Button.Click="RefreshButton_MouseLeftButtonDown">
                                 </mycontrol:RefreshButton>
                                 <Image Name="imgLine" Source="../../Images/GreenLine.png" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Stretch="Fill"></Image>

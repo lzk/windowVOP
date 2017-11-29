@@ -52,9 +52,9 @@
                 Margin="0,0,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                ImagePath="../../Images/left_normal.png"
-                PressImagePath="../../Images/left_press.png"
-                DisableImagePath="../../Images/left_disable.png"
+                ImagePath="../../Images/back_normal.png"
+                PressImagePath="../../Images/back_press.png"
+                DisableImagePath="../../Images/back_disable.png"
                 PreviewMouseLeftButtonDown="Button_Click"/>
         <StackPanel  Grid.Row="1" Grid.Column="1" Name="setting_tab_btn" Background="LightGray" Orientation="Vertical" 
                      Panel.ZIndex="100" Margin="0,0,0,5">

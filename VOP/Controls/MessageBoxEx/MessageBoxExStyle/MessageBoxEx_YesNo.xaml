@@ -13,6 +13,15 @@
         Loaded="window_Loaded"
         >
     <Window.Resources>
+        <Style x:Key="ImageButtonFocus">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="-0.5" RadiusX="5" RadiusY="5" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 3" StrokeDashCap="Square" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="CustomPopUpButtonStyle" TargetType="Button">
             <Setter Property="Effect">
                 <Setter.Value>
@@ -58,6 +67,9 @@
                             </Trigger>
                             <Trigger  Property="IsPressed" Value="True">
                                 <Setter TargetName="glassCube" Property="Fill" Value="#FFE1E7ED" />
+                            </Trigger>
+                            <Trigger  Property="IsEnabled" Value="false">
+                                <Setter TargetName="myContentPresenter" Property="Foreground" Value="LightGray" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -151,27 +163,16 @@
             <RowDefinition Height="20*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*" />
-            <ColumnDefinition Width="350*" />
-            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="30" />
         </Grid.ColumnDefinitions>
 
-        <Grid Name="TitleBar" Grid.ColumnSpan="3"  MouseLeftButtonDown="Title_MouseButtonEventHandler">
+        <Border Name="TitleBar"  Background="#FFE1E7EE" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
             <TextBlock Name="captionTextBlock" FontSize="14" Text="" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-
-            <local:MinimizeCloseButton x:Name="btnClose" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" 
+        </Border>
+        <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" x:Name="btnClose" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" 
                                        VerticalAlignment="Center" HorizontalAlignment="Right" Click="Click" PreviewKeyDown="btnClose_PreviewKeyDown"/>
-
-            <!--<Button Name="btnClose"  Click="Click" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
-                <Button.Template>
-                    <ControlTemplate>
-                        <Grid Background="{x:Null}">
-                            <Image Source="..\..\Images\MainWindow_Close.PNG" ></Image>
-                        </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>-->
-        </Grid>
 
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
@@ -201,7 +202,7 @@
                 <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="3" x:Name="btn_No"  Style="{StaticResource CustomPopUpButtonStyle}" 
+            <Button Grid.Column="3" x:Name="btn_No"  IsDefault="True" Style="{StaticResource CustomPopUpButtonStyle}" 
                     Content="{StaticResource ResStr_No}" FontSize="14" HorizontalContentAlignment="Center" Click="Click"/>
             <Button Grid.Column="1" x:Name="btn_Yes"  Style="{StaticResource CustomPopUpButtonStyle}"
                     Content="{StaticResource ResStr_Yes}" FontSize="14" HorizontalContentAlignment="Center" Click="Click"/>

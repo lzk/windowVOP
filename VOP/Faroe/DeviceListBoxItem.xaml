@@ -36,7 +36,7 @@
                             Text="{TemplateBinding StatusText}"
                             Foreground="Green"
                             FontSize="14"
-                            Margin="50,35,0,0"
+                            Margin="30,30,0,0"
                         />
                         </StackPanel>
                       

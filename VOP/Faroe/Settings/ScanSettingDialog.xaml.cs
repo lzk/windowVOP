@@ -35,6 +35,8 @@ namespace VOP
         private RepeatButton btnConstrastIncrease;
         private RepeatButton btnBrightnessDecrease;
         private RepeatButton btnBrightnessIncrease;
+        private EnumPaperSizeScan m_lastPaperSize = EnumPaperSizeScan._Auto;
+        private EnumScanMediaType m_lastPaperType = EnumScanMediaType._Normal;
 
         public ScanSettingDialog()
         {
@@ -248,7 +250,7 @@ namespace VOP
 
             if ( null != selItem && null != selItem.DataContext )
             {
-                m_scanParams.PaperSize = (EnumPaperSizeScan)selItem.DataContext;
+                m_scanParams.PaperSize = (EnumPaperSizeScan)selItem.DataContext;               
             }
         }
 
@@ -268,39 +270,61 @@ namespace VOP
         {
             ComboBoxItem selItem = cboMediaType.SelectedItem as ComboBoxItem;
 
+            //modified by yunying shang 2017-11-27 for BMS 1545
             if (null != selItem && null != selItem.DataContext)
             {
-                m_scanParams.ScanMediaType = (EnumScanMediaType)selItem.DataContext;
-            }
+                EnumScanMediaType type = (EnumScanMediaType)selItem.DataContext;
 
-            if (m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
-                m_scanParams.ScanMediaType == EnumScanMediaType._Card)
-            {
-                InitScanSize();
-
-                MultiFeedOffButton.IsChecked = true;
-                MultiFeedOnButton.IsEnabled = false;
-                MultiFeedOffButton.IsEnabled = false;
-            }
-            else
-            {
-                InitScanSize();
-
-                if (m_scanParams.MultiFeed == true)
+                if (type != m_lastPaperType)
                 {
-                    MultiFeedOnButton.IsChecked = true;
-                    MultiFeedOffButton.IsChecked = false;
-                }
-                else
-                {
-                    MultiFeedOnButton.IsChecked = false;
-                    MultiFeedOffButton.IsChecked = true;
-                }
+                    if (m_scanParams.ScanMediaType == EnumScanMediaType._Normal)
+                        m_lastPaperSize = m_scanParams.PaperSize;
 
-                MultiFeedOnButton.IsEnabled = true;
-                MultiFeedOffButton.IsEnabled = true;
-            }
+                    m_scanParams.ScanMediaType = (EnumScanMediaType)selItem.DataContext;
 
+                    if (m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
+                        m_scanParams.ScanMediaType == EnumScanMediaType._Card)
+                    {
+                        m_scanParams.PaperSize = EnumPaperSizeScan._Auto;
+
+                        InitScanSize();
+                        MultiFeedOffButton.IsChecked = true;
+                        MultiFeedOnButton.IsEnabled = false;
+                        MultiFeedOffButton.IsEnabled = false;
+
+                        //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                        // Application.Current.MainWindow,
+                        //    (string)"Please switch to the card mode on the machine!",
+                        //(string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
+                        //);
+
+                        Window dlg = new MediaTypePrompt("Please switch to the card mode on the machine!", "Information");
+                        dlg.ShowDialog();
+                    }
+                    else
+                    {
+                        m_scanParams.PaperSize = m_lastPaperSize;
+                        InitScanSize();
+
+                        if (m_scanParams.MultiFeed == true)
+                        {
+                            MultiFeedOnButton.IsChecked = true;
+                            MultiFeedOffButton.IsChecked = false;
+                        }
+                        else
+                        {
+                            MultiFeedOnButton.IsChecked = false;
+                            MultiFeedOffButton.IsChecked = true;
+                        }
+
+                        MultiFeedOnButton.IsEnabled = true;
+                        MultiFeedOffButton.IsEnabled = true;
+                    }
+
+                    m_lastPaperType = type;
+                }
+            }//<<============1545
+            
         }
 
         private void colorMode_Click(object sender, RoutedEventArgs e)

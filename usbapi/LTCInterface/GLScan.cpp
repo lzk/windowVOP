@@ -69,6 +69,18 @@ CGLDrv::~CGLDrv()
 		delete(m_GLnet);
 }
 
+BYTE CGLDrv::_OpenUSBDevice()
+{
+	return (BYTE)(m_GLusb->CMDIO_OpenDevice());
+
+}
+
+BYTE CGLDrv::_OpenUSBDevice(LPCTSTR lpModuleName)
+{
+	return (BYTE)(m_GLusb->CMDIO_OpenDevice(lpModuleName));
+	
+}
+
 BYTE CGLDrv::_OpenDevice()
 {
 	if (g_connectMode_usb == TRUE)

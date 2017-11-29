@@ -39,6 +39,8 @@ namespace VOP
             APListBox.Items.Add(CreateListItem("Paint"));
             APListBox.Items.Add(CreateListItem("PhotoViewer"));
             APListBox.Items.Add(CreateListItem("OthersApplication"));
+
+            APListBox.SelectedIndex = 0;
         }
 
         private ListBoxItem CreateListItem(string apName)
@@ -78,7 +80,7 @@ namespace VOP
             text.FontSize = 16;
 
             SolidColorBrush txtbrush = new SolidColorBrush();
-            txtbrush.Color = Colors.DodgerBlue;
+            txtbrush.Color = Colors.Black;//Colors.DodgerBlue;
             text.Foreground = txtbrush;
 
             StackPanel stack = new StackPanel();
@@ -109,8 +111,7 @@ namespace VOP
         }
      
         private void OkClick(object sender, RoutedEventArgs e)
-        {
-         
+        {         
             DialogResult = true;
             this.Close();
         }

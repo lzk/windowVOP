@@ -24,6 +24,7 @@ namespace VOP
         [DllImport("wininet.dll")]
         private static extern bool InternetGetConnectedState(out int connectionDescription, int reservedValue);
 
+        private const string USBSCANSTRING = "\\\\.\\usbscan";
 
         public ScanDevicePage_Rufous()
         {
@@ -89,26 +90,35 @@ namespace VOP
             btnConnect.IsEnabled = false; //add by yunying shang for BMS1018
             StringBuilder usbName = new StringBuilder(50);
 
-
-            if (dll.CheckUsbScan(usbName) == 1)
+           // if (dll.CheckUsbScan(usbName) == 1)
             {
-                DeviceListBoxItem item = new DeviceListBoxItem();
-                item.DeviceName = usbName.ToString();
-
-                if (MainWindow_Rufous.g_settingData.m_DeviceName == item.DeviceName)
+                for (int iCnt = 0; iCnt <= 127; iCnt++)
                 {
-                    item.StatusText = "Connected";
-                    dll.SetConnectionMode(item.DeviceName, true);
-                    m_MainWin.SetDeviceButtonState(true);
-                    canConnected = true;
-                    MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
-                }
-                else
-                {
-                    item.StatusText = "";
-                }
+                    string name = string.Format("{0}{1}", USBSCANSTRING, iCnt);
 
-                DeviceList.Items.Add(item);
+                    if (dll.CheckUsbScanByName(name) == 1)
+                    {
+                        DeviceListBoxItem item = new DeviceListBoxItem();
+                        string devicename = string.Format("{0}{1}", "USB Device ", iCnt);
+                        item.DeviceName = devicename;
+
+                        if (MainWindow_Rufous.g_settingData.m_DeviceName == item.DeviceName)
+                        {
+                            item.StatusText = "Connected";
+                            dll.SetConnectionMode(item.DeviceName, true);
+                            m_MainWin.SetDeviceButtonState(true);
+                            canConnected = true;
+                            MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+                            usbName.Append(name);
+                        }
+                        else
+                        {
+                            item.StatusText = "";
+                        }
+
+                        DeviceList.Items.Add(item);
+                    }
+                }
             }
 
             if (forceRefresh == true)
@@ -145,7 +155,9 @@ namespace VOP
                     DeviceListBoxItem item = new DeviceListBoxItem();
                     item.DeviceName = ip;
 
-                    if (MainWindow_Rufous.g_settingData.m_DeviceName == ip)
+                    //modified by yunying shang 2017-11-29 for BMS 1419
+                    if (MainWindow_Rufous.g_settingData.m_DeviceName == ip &&
+                        dll.TestIpConnected(ip))//<<===============
                     {
                         item.StatusText = "Connected";
                         dll.SetConnectionMode(ip, false);
@@ -290,6 +302,7 @@ namespace VOP
 
             DeviceListBoxItem item1 = DeviceList.SelectedItem as DeviceListBoxItem;
 
+            
             if (!item1.DeviceName.Contains("USB"))
             {
                 if (!dll.TestIpConnected(item1.DeviceName))
@@ -354,49 +367,44 @@ namespace VOP
             {
                 if (DeviceList.Items.Count >= 1)
                 {
-                    if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
-                    {
-                        if (!IsOnLine())
-                        {
-                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                        }
-                        else//<<===============1019
-                        {
-                            NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-                            bool bFound = false;
-                            foreach (NetworkInterface adapter in fNetworkInterfaces)
-                            {
-                                if (adapter.Description.Contains("802") ||
-                                    adapter.Description.Contains("Wi-Fi") ||
-                                    adapter.Description.Contains("Wireless"))
-                                {
-                                    bFound = true;
-                                }
-                            }
+                    if(DeviceList.SelectedIndex < 0)
+                        DeviceList.SelectedIndex = 0;
 
-                            if (bFound == false)
-                            {
-                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                            }
-                            else
-                            {
-                                OnConnected();
-                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
-                            }
-                        }
+                    int iRtn = m_MainWin.CheckDeviceStatus();
+
+                    //modified by yunying shang 2017-11-29 for BMS 1419
+                    if (iRtn <= 0)
+                    {
+                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                        m_MainWin.scanSelectionPage.DeviceButton.Connected = false;
+                        m_MainWin.scanSettingsPage.PassStatus(false);
+                        m_MainWin.scanSelectionPage.tbStatus.Text = "Disconnected";
                     }
                     else
                     {
-                        if (!dll.CheckConnection())
+                        m_MainWin.scanSelectionPage.DeviceButton.Connected = true;
+                        m_MainWin.scanSettingsPage.PassStatus(true);
+
+                        if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
                         {
-                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                            if (iRtn > 0)
+                            {
+
+                                OnConnected();
+                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                                m_MainWin.scanSelectionPage.tbStatus.Text = "USB";
+                            }
                         }
                         else
                         {
-                            OnConnected();
-                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                            if (iRtn > 0)
+                            {                             
+                                OnConnected();
+                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                                m_MainWin.scanSelectionPage.tbStatus.Text = MainWindow_Rufous.g_settingData.m_DeviceName;
+                            }
                         }
-                    }
+                    }//<<=============1419
 
                 }
             }

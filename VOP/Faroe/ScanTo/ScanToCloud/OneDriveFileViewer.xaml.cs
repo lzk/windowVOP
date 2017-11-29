@@ -189,7 +189,7 @@ namespace VOP
                         }
                         else
                         {
-                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow,"The folder cannot be empty","Error");
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow,"The folder cannot be empty", (string)this.TryFindResource("ResStr_Error"));
                             return;
                         }
                     } 
@@ -197,7 +197,7 @@ namespace VOP
             }
             catch (Exception)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Invalid folder name.", "Error");
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Invalid folder name.", (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
         }
@@ -290,7 +290,7 @@ namespace VOP
             catch (Exception exception)
             {
                 //    PresentServiceException(exception);
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Connection Onedirive failed!", (string)this.TryFindResource("ResStr_Prompt"));
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Connection Onedirive failed!", (string)this.TryFindResource("ResStr_Error"));
                 this.Close();
             }
         }
@@ -324,7 +324,7 @@ namespace VOP
             catch (Exception exception)
             {
                 //    PresentServiceException(exception);
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Connection Onedirive failed!", (string)this.TryFindResource("ResStr_Prompt"));
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Connection Onedirive failed!", (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
 
@@ -389,7 +389,7 @@ namespace VOP
             catch (Exception exception)
             {
                 //    PresentServiceException(exception);
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Connection Onedirive failed!", (string)this.TryFindResource("ResStr_Prompt"));
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Connection Onedirive failed!", (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
         }
@@ -558,7 +558,7 @@ namespace VOP
             catch (Exception exception)
             {
                 //    PresentServiceException(exception);
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Connection Onedirive failed!", (string)this.TryFindResource("ResStr_Prompt"));
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Connection Onedirive failed!", (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
 
@@ -613,7 +613,7 @@ namespace VOP
                     if (!CheckUploadFolderName(currentFolderName))
                     {
                         message = string.Format("The folder {0} does not exist. ", currentFolderName);
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Prompt"));
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Error"));
                         return;
                     }
                 }                
@@ -629,7 +629,7 @@ namespace VOP
                             {
                                 message = string.Format("The {0} already exists£¬Do you want to overwrite? ",fileName);
                                 VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon, this,
-                                 message,(string)this.TryFindResource("ResStr_Prompt"));
+                                 message,(string)this.TryFindResource("ResStr_Warning"));
 
                                 if (VOP.Controls.MessageBoxExResult.Yes == ret)
                                 {
@@ -687,7 +687,7 @@ namespace VOP
                     {
                         //                        PresentServiceException(exception);
                         message = string.Format("Upload {0} failed! ", Filename);
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Prompt"));
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Error"));
                     }
                 }
             }

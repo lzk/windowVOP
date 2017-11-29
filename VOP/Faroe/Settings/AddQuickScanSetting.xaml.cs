@@ -184,6 +184,7 @@ namespace VOP
                     if (isNameSame)
                     {
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, "Quick Scan item name already exists. change to another name", (string)this.FindResource("ResStr_Warning"));
+                        tbName.Focus();
                         return;
                     }
                     else

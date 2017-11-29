@@ -385,19 +385,19 @@ namespace VOP
                 {
                     isNeededProgress = true;
 
-                    dll.OutputDebugStringToFile_("CopyPage new ProgressBarWindow()\r\n");
+                    //dll.OutputDebugStringToFile_("CopyPage new ProgressBarWindow()\r\n");
                     pbw = new ProgressBarWindow(7);
                     pbw.Owner = this.owner;
                     pbw.Loaded += pbw_Loaded;
                    
                     pbw.ShowDialog();
-                    dll.OutputDebugStringToFile_("CopyPage end ShowDialog()\r\n");
+                    //dll.OutputDebugStringToFile_("CopyPage end ShowDialog()\r\n");
 
                 }
 
                 if (result.AsyncWaitHandle.WaitOne(100, false))
                 {
-                    dll.OutputDebugStringToFile_("CopyPage caller.EndInvoke(result)\r\n");
+                    //dll.OutputDebugStringToFile_("CopyPage caller.EndInvoke(result)\r\n");
                     return caller.EndInvoke(result);
                 }
 

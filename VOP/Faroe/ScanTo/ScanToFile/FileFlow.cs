@@ -55,6 +55,7 @@ namespace VOP
             if(FlowType == FileFlowType.View)
             {
                 result = SaveFileView();
+                Win32.OutputDebugString("Save To File Finished!");
             }
             else
             {
@@ -64,7 +65,7 @@ namespace VOP
             if (result == ScanFileSaveError.FileSave_OK)
             {
                 if (FlowType == FileFlowType.View)
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                                Application.Current.MainWindow,
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_save_file_ok"),
                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
@@ -72,14 +73,14 @@ namespace VOP
             }
             else if (result == ScanFileSaveError.FileSave_Cancel)
             {
-
+                Win32.OutputDebugString("Scan to File is canceled!");
             }
             //add by yunying shang 2017-11-20 for BMS 1176
             else if (result == ScanFileSaveError.FileSave_NotAccess)
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow,
-                               (string)"You do not permission to save to the selectd folder",
+                               (string)"You do not have permission to save to the selectd folder",
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 return false;
             }//<<=================1176
@@ -93,7 +94,7 @@ namespace VOP
                 return false;
             }
 
-          
+            Win32.OutputDebugString("Scan to File Success!");
             return true;
         }
 

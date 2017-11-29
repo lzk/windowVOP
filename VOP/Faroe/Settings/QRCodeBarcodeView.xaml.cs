@@ -20,7 +20,7 @@ namespace VOP
 {
     public partial class QRCodeBarcodeView : System.Windows.Controls.UserControl
     {
-        String oldPath = @"";
+        //String oldPath = @"";
 
         public QRCodeBarcodeView()
         {
@@ -37,9 +37,11 @@ namespace VOP
 
             cbFileType.SelectedIndex = MainWindow_Rufous.g_settingData.m_separateFileType;
 
-            oldPath = MainWindow_Rufous.g_settingData.m_separateFilePath;
+           // oldPath = MainWindow_Rufous.g_settingData.m_separateFilePath;
             tbFilePath.MaxLength = 255;
             tbFilePath.Text = MainWindow_Rufous.g_settingData.m_separateFilePath;
+
+            tbFilePath.IsReadOnly = true;
 
             cbCodeType.Focus();
             tbSettings.Focus();
@@ -144,7 +146,7 @@ namespace VOP
             VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                  System.Windows.Application.Current.MainWindow,
                 (string)this.FindResource("ResStr_Setting_Completed"),
-                "Prompt");
+                (string)this.TryFindResource("ResStr_Prompt"));
 
         }
 
@@ -168,10 +170,51 @@ namespace VOP
                     }
                     else
                     {
-                        oldPath = save.SelectedPath;
-                        tbFilePath.Text = save.SelectedPath;
+                        /*
+                                                DirectoryInfo dirinfo = new DirectoryInfo(save.SelectedPath);
+                                                System.Security.AccessControl.DirectorySecurity sec = dirinfo.GetAccessControl();
 
-                        break;
+                                                foreach (System.Security.AccessControl.FileSystemAccessRule rule in sec.GetAccessRules(true, true, typeof(System.Security.Principal.NTAccount)))
+                                                {
+                                                    if ((rule.FileSystemRights & System.Security.AccessControl.FileSystemRights.Write) != 0)
+                                                    {
+
+                                                    }
+                                                }
+                        */
+                        bool bHaveWriteRight = false;
+
+                        try
+                        {
+                            String tempFile = save.SelectedPath + "\\CheckDirAccessControl.dat";
+                            FileStream fs = System.IO.File.Create(tempFile);
+                            if(fs != null)
+                            {
+                                fs.Close();
+                                System.IO.File.Delete(tempFile);
+                            }
+
+                            bHaveWriteRight = true;
+                        }
+                        catch(Exception)
+                        {
+
+                        }
+
+                        if (bHaveWriteRight == true)
+                        {
+                            // oldPath = save.SelectedPath;
+                            tbFilePath.Text = save.SelectedPath;
+
+                            break;
+                        }
+                        else
+                        {
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                                 System.Windows.Application.Current.MainWindow,
+                                "The specified path has no write permissions. Please specify again!",
+                                "Error");
+                        }
                     }
                 }
                 else
@@ -205,6 +248,7 @@ namespace VOP
 
         private void tbFilePath_TextChanged(object sender, TextChangedEventArgs e)
         {
+/*
             System.Windows.Controls.TextBox tb = sender as System.Windows.Controls.TextBox;
 
             if (null != tb)
@@ -215,6 +259,7 @@ namespace VOP
                         tb.Text = oldPath;
                 }
             }
+*/
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

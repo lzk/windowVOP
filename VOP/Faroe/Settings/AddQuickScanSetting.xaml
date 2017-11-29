@@ -231,6 +231,7 @@
                             HorizontalAlignment="Center" 
                             VerticalAlignment="Center" 
                             Width="150" 
+                            Height="35"
                             FontSize="16"
                             Click="OkClick"
                             Style="{StaticResource CustomPopUpButtonStyle}"

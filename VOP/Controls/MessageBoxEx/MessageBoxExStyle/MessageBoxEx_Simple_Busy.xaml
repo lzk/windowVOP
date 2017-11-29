@@ -20,26 +20,16 @@
             <RowDefinition Height="1*" />          
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*" />
+            <ColumnDefinition Width="30" />
             <ColumnDefinition Width="350*" />
-            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="30" />
         </Grid.ColumnDefinitions>
 
-        <Grid Name="TitleBar" Grid.ColumnSpan="3" MouseLeftButtonDown="Title_MouseButtonEventHandler">
+        <Border Name="TitleBar"  Background="#FFE1E7EE" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
             <TextBlock Name="captionTextBlock" FontSize="16" Text="" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        </Border>
+        <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnClose_Click" PreviewKeyDown="btnClose_PreviewKeyDown"/>
 
-            <local:MinimizeCloseButton MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnClose_Click" PreviewKeyDown="btnClose_PreviewKeyDown"/>
-
-            <!--<Button Name="btnClose"  Click="btnClose_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
-                <Button.Template>
-                    <ControlTemplate>
-                        <Grid Background="{x:Null}">
-                            <Image Source="..\..\Images\MainWindow_Close.PNG" ></Image>
-                        </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>-->
-        </Grid>
 
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>

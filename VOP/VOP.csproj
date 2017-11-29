@@ -283,6 +283,7 @@
     <Compile Include="Faroe\Settings\DeviceView.xaml.cs">
       <DependentUpon>DeviceView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Faroe\Settings\MediaTypePrompt.xaml.cs" />
     <Compile Include="Faroe\Settings\QRCodeBarcodeView.xaml.cs" />
     <Compile Include="Faroe\Settings\QuickScanSettings.xaml.cs">
       <DependentUpon>QuickScanSettings.xaml</DependentUpon>
@@ -543,6 +544,10 @@
     <Page Include="Faroe\Settings\DeviceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Faroe\Settings\MediaTypePrompt.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Faroe\Settings\QRCodeBarcodeView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -838,26 +843,14 @@
   <ItemGroup>
     <Resource Include=".\Images\Brightness.png" />
     <Resource Include=".\Images\Constrast.png" />
-    <Resource Include=".\Images\RepeatButtonBackground.png" />
     <Resource Include=".\Images\close.png" />
     <Resource Include=".\Images\check.png" />
-    <Resource Include=".\Images\IDCardCopyIconDisable.png" />
-    <Resource Include=".\Images\IDCardCopyIconEnable.png" />
-    <Resource Include="Images\shopCart_Disable.tif" />
-    <Resource Include="Images\ButtonFileSelect.png" />
-    <Resource Include="Images\ButtonIdCardSelect.png" />
-    <Resource Include="Images\shopCart_Warn.png" />
-    <Resource Include="Images\shopCart_Normal.png" />
     <Resource Include="Images\Password.png" />
     <Resource Include="Images\Password_Active.png" />
-    <Resource Include="Images\PowerSave.png" />
-    <Resource Include="Images\PowerSave_Active.png" />
     <Resource Include="Images\SoftAP.png" />
     <Resource Include="Images\SoftAP_Active.png" />
     <Resource Include="Images\TCPIP.png" />
     <Resource Include="Images\TCPIP_Active.png" />
-    <Resource Include="Images\UserConfig.png" />
-    <Resource Include="Images\UserConfig_Active.png" />
     <Resource Include="Images\Wireless.png" />
     <Resource Include="Images\Wireless_Active.png" />
     <Resource Include="Images\busyRefresh.tif" />
@@ -874,23 +867,15 @@
     <Resource Include="Images\Line.png" />
     <Resource Include="Images\MainWindow_Close.PNG" />
     <Resource Include="Images\MainWindow_Min.PNG" />
-    <Resource Include="Images\GreenLine.png" />
     <Resource Include="Images\printer.ico" />
     <Resource Include="Images\printerGray.ico" />
-    <Resource Include="Images\ButtonPicSelect.png" />
     <Resource Include="Images\Checked.png" />
     <Resource Include="Images\Uncheck.png" />
     <Resource Include="Images\Warning.tif" />
     <Resource Include="Images\FlipOnLongEdge.png" />
     <Resource Include="Images\FlipOnShortEdge.png" />
     <Resource Include="Index.png" />
-    <Resource Include="Images\Index.png" />
     <Resource Include="Images\Wifi.png" />
-    <Resource Include="Images\Status_RefreshDisable.tif" />
-    <Resource Include="Images\Status_RefreshEnable.tif" />
-    <Resource Include="Images\LED_Gray.png" />
-    <Resource Include="Images\LED_Green.png" />
-    <Resource Include="Images\LED_Red.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -950,12 +935,6 @@
     <Resource Include="Images\CheckBox_Open.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\TroubleshootingUSB.png" />
-    <Resource Include="Images\TroubleshootingWiFi.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Refresh_Disable.png" />
-    <Resource Include="Images\Refresh_Enable.png" />
     <Resource Include="Images\Signal_Disable.png" />
     <Resource Include="Images\Signal_Enable.png" />
   </ItemGroup>
@@ -966,25 +945,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\arrow.png" />
-    <Resource Include="Images\UserCenterBackground.png" />
-    <Resource Include="Images\Bell.png" />
-    <Resource Include="Images\Document.png" />
-    <Resource Include="Images\Inbox.png" />
     <Resource Include="Images\Notepad.png" />
-    <Resource Include="Images\Position.png" />
-    <Resource Include="Images\Shopping.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\BellForAbout.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Signal_Connect.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Signal_Connect_Disable.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\User.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Checked_Disable.png" />
@@ -994,11 +961,6 @@
     <Resource Include="Images\arrow_disable.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\errorMarkerNormal.tif" />
-    <Resource Include="Images\errorMarkerPress.tif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\BlackWhite.png" />
     <Resource Include="Images\Color.png" />
     <Resource Include="Images\Grayscale.png" />
   </ItemGroup>
@@ -1010,30 +972,17 @@
     <Resource Include="Images\UnChecked_Agreement.tif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Improve.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\BarCode.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\ScanToPrint.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\ScanToEmail.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\ScanDevice.png" />
     <Resource Include="Images\ScanSettings.png" />
     <Resource Include="Images\ScanToCloud.png" />
     <Resource Include="Images\ScanToFile.png" />
     <Resource Include="Images\ScanToFtp.png" />
     <Resource Include="Images\ScanToProgram.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\A3Scan.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Refresh.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\delete.png" />
@@ -1042,16 +991,7 @@
     <Resource Include="Images\ScanTo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\bluebutton.png" />
-    <Resource Include="Images\bluebuttonlight.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\background3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\bluebutton_normal.png" />
-    <Resource Include="Images\bluebutton_over.png" />
-    <Resource Include="Images\bluebutton_press.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\back_normal.png" />
@@ -1067,9 +1007,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\screen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\button_3dborder.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\screen_normal.png" />
@@ -1280,6 +1217,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\back_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\switch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="printer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Refresh.png" />
+    <Resource Include="Images\Refresh_Disable.png" />
+    <Resource Include="Images\Refresh_Enable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GreenLine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Status_RefreshDisable.tif" />
+    <Resource Include="Images\Status_RefreshEnable.tif" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>

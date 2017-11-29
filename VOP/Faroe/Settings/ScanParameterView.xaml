@@ -138,7 +138,7 @@
                             SelectionChanged="cbAttachType_SelectionChanged"
                                 >
             <ComboBoxItem >PDF</ComboBoxItem>
-            <ComboBoxItem >TIFF</ComboBoxItem>
+            <ComboBoxItem >JPG</ComboBoxItem>
         </ComboBox>
     </Grid>
 </UserControl>

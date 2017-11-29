@@ -173,13 +173,27 @@ namespace VOP
             if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true &&
                 scanFileList.Count>=2)
             {
-                GetSelectedFileToAP(files, 2);
-                SelectTwoFiles(2);
+                if (GetSelectedItemCount() <= 2)
+                {
+                    GetSelectedFile(files);
+                }
+                else
+                {
+                    GetSelectedFileToAP(files, 2);
+                    SelectTwoFiles(2, files);
+                }
             }
             else
             {
-                GetSelectedFileToAP(files, 1);
-                SelectTwoFiles(1);
+                if (GetSelectedItemCount() <= 2)
+                {
+                    GetSelectedFile(files);
+                }
+                else
+                {
+                    GetSelectedFileToAP(files, 1);
+                    SelectTwoFiles(1, files);
+                }
             }
 
             SelectAllCheckBox.IsChecked = false;
@@ -456,37 +470,37 @@ namespace VOP
             }
         }
 
-        private void SelectTwoFiles(int selCount)
-        {
-            int index = selectedFileList.Count - m_selectedPage * 8;
-
-            for (int i = 0; i < selCount; i++)
+        private void SelectTwoFiles(int selCount, List<string> files)
+        {            
+            foreach (ImageStatus img in selectedFileList)
             {
-               selectedFileList[i].m_num = selCount - i;
-            }
-
-            for (int i = 0; i < selCount; i++)
-            {
-                ImageItem img = image_wrappanel.Children[i] as ImageItem;
-       
-                img.m_num = index;         
-
-                index--;
-            }
-
-            for (int i = selCount; i < selectedFileList.Count; i++)
-            {
-               selectedFileList[i].m_num = 0;
+                for (int i = 0; i < selCount; i++)
+                {
+                    if (img._files.m_pathOrig == files[i])
+                    {
+                        selectedFileList[i].m_num = selCount-i;
+                        break;
+                    }
+                }
             }
 
 
-            for (int i = selCount; i < image_wrappanel.Children.Count; i++)
+            foreach (ImageItem img in image_wrappanel.Children)
             {
-                ImageItem img = image_wrappanel.Children[i] as ImageItem;
-              
-                img.m_num = 0;                
+                int i = 0;
+                for (i = 0; i < selCount; i++)
+                {
+                    if (img.m_images.m_pathOrig == files[i])
+                    {
+                        img.m_num = selCount-i;
+                        break;
+                    }
+                }
 
-                index--;
+                if(i >= selCount)
+                    img.m_num = 0;
+
+                
             }
         }
 
@@ -622,22 +636,22 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-           
-            if ( 0 < GetSelectedItemCount() )
-            {
-                //btnPrint.IsEnabled = true;
-               // btnSave.IsEnabled = true;
-            }
-            else
-            {
-               // btnPrint.IsEnabled = false;
-                //btnSave.IsEnabled = false;
-            }
-
             InitFontSize();
 
             SelectAllCheckBox.IsChecked = true;
             SelectAll(true);
+
+            //add by yunying shang 2017-11-29 for BMS 1561
+            if (GetSelectedItemCount() > 8)
+            {
+                LeftBtn.IsEnabled = false;
+                RightBtn.IsEnabled = true;
+            }
+            else
+            {
+                LeftBtn.IsEnabled = false;
+                RightBtn.IsEnabled = false;
+            }//<<===============1561
         }
 
         void InitFontSize()
@@ -687,10 +701,10 @@ namespace VOP
 
             if (files == null || files.Count == 0)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                       Application.Current.MainWindow,
                      "Please select one or more pictures to process",
-                     "Prompt");
+                     (string)this.TryFindResource("ResStr_Prompt"));
             }
         }
 
@@ -707,23 +721,29 @@ namespace VOP
             if (nCount > 0 && nCount >= count)
             {
                 files.AddRange(new string[count]);
- 
-                for(int i=0; i< count; i++)
+
+                int j = 0;
+                for(int i=0; i<nCount;i++)
                 {
                     ImageStatus img = selectedFileList[i];
-                    if (0 < img.m_num)
+
+                    if (0 < img.m_num && (img.m_num > (nCount - count)))
                     {
-                        files[nCount - img.m_num] = img._files.m_pathOrig;
+                        img = selectedFileList[i];
+                        files[j] = img._files.m_pathOrig;
+                        j++;
+                        if (j >= count)
+                            break;
                     }
                 }
             }
 
             if (files == null || files.Count == 0)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                       Application.Current.MainWindow,
                      "Please select one or more pictures to process",
-                     "Prompt");
+                     (string)this.TryFindResource("ResStr_Prompt"));
             }
         }
 
