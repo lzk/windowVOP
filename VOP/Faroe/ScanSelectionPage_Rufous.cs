@@ -113,26 +113,25 @@ namespace VOP
                     break;
             }
 
-            //if (bRtn == false)
-            //{
-            //    if (DeviceButton.Connected == false)
-            //    {
-            //        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-            //        Application.Current.MainWindow,
-            //       (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
-            //       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
-            //        );
-            //    }
-            //}
+            if (bRtn == false)
+            {
+                if (DeviceButton.Connected == false)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    Application.Current.MainWindow,
+                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
+                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                    );
+                }
+            }
             m_MainWin._bScanning = false;
         }
 
         private void QRCodeButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            m_MainWin._bScanning = true;
             ImageButton2 btn = sender as ImageButton2;
 
-#if (DEBUG)
+#if DEBUG
             if (true)
             {
                 OpenFileDialog open1 = null;
@@ -154,29 +153,11 @@ namespace VOP
                         qrcodeDetection.ExcuteSeparation(m_MainWin);
                     }
 
-                    /*
-                                        QRCodeWindow win = new QRCodeWindow(new List<string>(open1.FileNames));
-
-                                        if (btn.Name == "ImageButton1")
-                                        {
-                                            ImageCropper.designerItemWHRatio = 1.0;
-                                            win.IsQRCode = true;
-                                        }
-                                        else
-                                        {
-                                            ImageCropper.designerItemWHRatio = 2.0;
-                                            win.IsQRCode = false;
-                                        }
-
-                                        win.Owner = m_MainWin;
-                                        win.ShowDialog();
-                    */
-
                 }
                 return;
             }
 #endif
-
+            m_MainWin._bScanning = true;
             ScanTask task = new ScanTask();
             ScanParam param = new ScanParam(
                 EnumScanResln._300x300,
@@ -229,10 +210,33 @@ namespace VOP
 
             List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", param);
 
+            m_MainWin._bScanning = false;
             App.PictureFolder = oldPictureFolder;
 
             if (files == null)
+            {
+                //add by yunying shang 2017-11-29 for BMS 1601
+                if (task.ScanResult == Scan_RET.RETSCAN_CANCEL)
+                {
+                    if (DeviceButton.Connected == false)
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                            Application.Current.MainWindow,
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
+                    }
+                    else
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                            Application.Current.MainWindow,
+                            (string)"The scanning is canceled on the machine!",
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
+                    }
+                }//<<================1601
                 return;
+            }
 
             if (task.ScanResult == Scan_RET.RETSCAN_OK)
             {
@@ -251,25 +255,11 @@ namespace VOP
                 {
                     qrcodeDetection.ExcuteSeparation(m_MainWin);
                 }
-/*
-                QRCodeWindow win = new QRCodeWindow(list);
 
-             
-                if (btn.Name == "ImageButton1")
-                {
-                    win.IsQRCode = true;
-                }
-                else
-                {
-                    win.IsQRCode = false;
-                }
-
-                win.Owner = m_MainWin;
-                win.ShowDialog();
-*/               
             }
+            
 #endif
-            m_MainWin._bScanning = false;
+
         }
 
         private void ScanToButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -278,8 +268,8 @@ namespace VOP
             ImageButton2 btn = sender as ImageButton2;
 
             ScanTask task = new ScanTask();
-            //List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
-            List<ScanFiles> files = new List<ScanFiles>();
+            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
+            //List<ScanFiles> files = new List<ScanFiles>();
             m_MainWin._bScanning = false;
             if (files != null)
             //   return;
@@ -288,16 +278,16 @@ namespace VOP
                 {
                     //List<ScanFiles> files = new List<ScanFiles>();
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1 error.JPG"));
-                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
-                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
-                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848000A.jpg"));
-                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848000B.jpg"));
-                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848001A.jpg"));
-                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848001B.jpg"));
-                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_1.jpg"));
-                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_2.jpg"));
-                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_1.jpg"));
-                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_2.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848000A.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848000B.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848001A.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848001B.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_1.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_2.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_1.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_2.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000C.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000D.jpg"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));

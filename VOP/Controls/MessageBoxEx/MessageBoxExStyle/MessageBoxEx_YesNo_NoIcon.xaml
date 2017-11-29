@@ -68,6 +68,9 @@
                             <Trigger  Property="IsPressed" Value="True">
                                 <Setter TargetName="glassCube" Property="Fill" Value="#FFE1E7ED" />
                             </Trigger>
+                            <Trigger  Property="IsEnabled" Value="false">
+                                <Setter TargetName="myContentPresenter" Property="Foreground" Value="LightGray" />
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -196,7 +199,7 @@
                 <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
 
-            <local:ButtonEx Grid.Column="3" IsActiveEx="False" Style="{StaticResource CustomPopUpButtonStyle}"
+            <local:ButtonEx Grid.Column="3" IsDefault="True" IsActiveEx="False" Style="{StaticResource CustomPopUpButtonStyle}"
                             x:Name="btn_No"  Content="{StaticResource ResStr_No}" FontSize="16" HorizontalContentAlignment="Center" Click="Click"/>
             <local:ButtonEx Grid.Column="1" IsActiveEx="True" Style="{StaticResource CustomPopUpButtonStyle}"
                             x:Name="btn_Yes"  Content="{StaticResource ResStr_Yes}" FontSize="16" HorizontalContentAlignment="Center" Click="Click"/>

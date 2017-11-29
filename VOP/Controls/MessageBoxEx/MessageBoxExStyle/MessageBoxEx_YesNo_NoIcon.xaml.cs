@@ -28,13 +28,13 @@ namespace VOP.Controls
             captionTextBlock.Text = caption;
             
             this.Width = this.Width * App.gScalingRate;
-            this.Height = this.Height * App.gScalingRate;
+            this.Height = this.Height * App.gScalingRate;   
         }
 
         private void window_Loaded(object sender, RoutedEventArgs e)
         {
-
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(Title_MouseButtonEventHandler);
+            btn_No.Focus();
         }
 
         public void Title_MouseButtonEventHandler(Object sender, MouseButtonEventArgs e)

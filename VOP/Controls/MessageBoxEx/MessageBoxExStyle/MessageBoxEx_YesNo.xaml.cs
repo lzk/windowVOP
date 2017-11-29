@@ -25,8 +25,8 @@ namespace VOP.Controls
             InitializeComponent();
 
             messageBoxTextBlock.Text = messageBoxText;
-            captionTextBlock.Text = caption;
-            
+            captionTextBlock.Text = caption;            
+
             this.Width = this.Width * App.gScalingRate;
             this.Height = this.Height * App.gScalingRate;
         }
@@ -34,6 +34,7 @@ namespace VOP.Controls
         private void window_Loaded(object sender, RoutedEventArgs e)
         {
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(Title_MouseButtonEventHandler);
+            btn_No.Focus();
         }
 
         public void Title_MouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
