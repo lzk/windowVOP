@@ -360,10 +360,14 @@ namespace VOP
             
             tb.Text = number.ToString() + ". " + MainWindow_Rufous.g_settingData.m_MatchList[number - 1].ItemName;
 
-            TextBlock tb1 = ScreenBtn.Template.FindName("InfoText", ScreenBtn) as TextBlock;
-            string str = string.Empty;
+            //TextBlock tb1 = ScreenBtn.Template.FindName("InfoText", ScreenBtn) as TextBlock;
+            //string str = string.Empty;
 
+            TextBlock tb1 = ScreenBtn.Template.FindName("adfText", ScreenBtn) as TextBlock;
             string adf = adfmode[Convert.ToInt32(MainWindow_Rufous.g_settingData.m_MatchList[number - 1].m_ScanSettings.ADFMode)];
+            tb1.Text = adf;
+
+            TextBlock tb2 = ScreenBtn.Template.FindName("dpiText", ScreenBtn) as TextBlock;
             string dpistr = "";
             switch (MainWindow_Rufous.g_settingData.m_MatchList[number - 1].m_ScanSettings.ScanResolution)
             {
@@ -383,6 +387,9 @@ namespace VOP
                     dpistr = "600DPI";
                     break;
             }
+            tb2.Text = dpistr;
+
+            TextBlock tb3 = ScreenBtn.Template.FindName("colorText", ScreenBtn) as TextBlock;
             string colormode = "";
             switch (MainWindow_Rufous.g_settingData.m_MatchList[number - 1].m_ScanSettings.ColorType)
             {
@@ -394,12 +401,13 @@ namespace VOP
                     colormode = "Color";
                     break;
             }
-            str = "ADF : " + adf;
-            str += "\r\n";
-            str += "DPI : " + dpistr;
-            str += "\r\n";
-            str += "Mode : " + colormode;
-            tb1.Text = str;
+            tb3.Text = colormode;
+            //str = "ADF : " + adf;
+            //str += "\r\n";
+            //str += "DPI : " + dpistr;
+            //str += "\r\n";
+            //str += "Mode : " + colormode;
+            //tb1.Text = str;
         }
 
         private void LeftButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
