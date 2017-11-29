@@ -155,7 +155,9 @@ namespace VOP
                     DeviceListBoxItem item = new DeviceListBoxItem();
                     item.DeviceName = ip;
 
-                    if (MainWindow_Rufous.g_settingData.m_DeviceName == ip)
+                    //modified by yunying shang 2017-11-29 for BMS 1419
+                    if (MainWindow_Rufous.g_settingData.m_DeviceName == ip &&
+                        dll.TestIpConnected(ip))//<<===============
                     {
                         item.StatusText = "Connected";
                         dll.SetConnectionMode(ip, false);
@@ -300,6 +302,7 @@ namespace VOP
 
             DeviceListBoxItem item1 = DeviceList.SelectedItem as DeviceListBoxItem;
 
+            
             if (!item1.DeviceName.Contains("USB"))
             {
                 if (!dll.TestIpConnected(item1.DeviceName))
@@ -367,49 +370,41 @@ namespace VOP
                     if(DeviceList.SelectedIndex < 0)
                         DeviceList.SelectedIndex = 0;
 
-                    if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
-                    {
-                        if (!IsOnLine())
-                        {
-                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                        }
-                        else//<<===============1019
-                        {
-                            NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-                            bool bFound = false;
-                            foreach (NetworkInterface adapter in fNetworkInterfaces)
-                            {
-                                if (adapter.Description.Contains("802") ||
-                                    adapter.Description.Contains("Wi-Fi") ||
-                                    adapter.Description.Contains("Wireless"))
-                                {
-                                    bFound = true;
-                                }
-                            }
+                    int iRtn = m_MainWin.CheckDeviceStatus();
 
-                            if (bFound == false)
-                            {
-                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                            }
-                            else
-                            {
-                                OnConnected();
-                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
-                            }
-                        }
+                    //modified by yunying shang 2017-11-29 for BMS 1419
+                    if (iRtn <= 0)
+                    {
+                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                        m_MainWin.scanSelectionPage.DeviceButton.Connected = false;
+                        m_MainWin.scanSettingsPage.PassStatus(false);
+                        m_MainWin.scanSelectionPage.tbStatus.Text = "Disconnected";
                     }
                     else
                     {
-                        if (!dll.CheckConnection())
+                        m_MainWin.scanSelectionPage.DeviceButton.Connected = true;
+                        m_MainWin.scanSettingsPage.PassStatus(true);
+
+                        if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
                         {
-                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                            if (iRtn > 0)
+                            {
+
+                                OnConnected();
+                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                                m_MainWin.scanSelectionPage.tbStatus.Text = "USB";
+                            }
                         }
                         else
                         {
-                            OnConnected();
-                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                            if (iRtn > 0)
+                            {                             
+                                OnConnected();
+                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                                m_MainWin.scanSelectionPage.tbStatus.Text = MainWindow_Rufous.g_settingData.m_DeviceName;
+                            }
                         }
-                    }
+                    }//<<=============1419
 
                 }
             }

@@ -97,10 +97,18 @@ namespace VOP
 
             int iRtn = CheckDeviceStatus();
 
-            if (MainWindow_Rufous.g_settingData.m_DeviceName != "")
+            //modified by yunying shang 2017-11-29 for BMS 1419
+            if (iRtn <= 0)
             {
-                if (iRtn > 0)
+                scanSelectionPage.DeviceButton.Connected = false;
+                scanSettingsPage.PassStatus(false);
+                scanSelectionPage.tbStatus.Text = "Disconnected";
+            }
+            else
+            {
+                if (MainWindow_Rufous.g_settingData.m_DeviceName != "")
                 {
+
                     if (MainWindow_Rufous.g_settingData.m_DeviceName.Contains("USB"))
                     {
                         if (iRtn == 1 || iRtn == 3)
@@ -108,7 +116,7 @@ namespace VOP
                             MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
                             dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, true);
                         }
-                        else 
+                        else
                         {
                             MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
                             dll.SetConnectionMode("", false);
@@ -116,45 +124,58 @@ namespace VOP
                     }
                     else
                     {
-                        MainWindow_Rufous.g_settingData.m_isUsbConnect = false;                        
+                        MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
                         if (iRtn == 2 || iRtn == 3)
                         {
                             if (!dll.TestIpConnected(MainWindow_Rufous.g_settingData.m_DeviceName))
                             {
-                                MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
-                                dll.SetConnectionMode("", false);
+                                if (iRtn == 3)
+                                {                                    
+                                    StringBuilder usbname = new StringBuilder(50);
+                                    if (dll.CheckUsbScan(usbname)==1)
+                                    {
+                                        MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+                                        dll.SetConnectionMode(usbname.ToString(), true);
+                                    }
+                                }
+                                else
+                                {
+                                    MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
+                                    dll.SetConnectionMode("", false);
+                                }
                             }
                             else
                             {
                                 dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, false);
                             }
                         }
-                        else 
+                        else
                         {
                             MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
 
-                            StringBuilder usbname = new StringBuilder(50); 
-                            if(dll.CheckUsbScan(usbname) == 1)
+                            StringBuilder usbname = new StringBuilder(50);
+                            if (dll.CheckUsbScan(usbname) == 1)
                             {
                                 dll.SetConnectionMode(usbname.ToString(), true);
                             }
                         }
                     }
-                }
-            }
-            else
-            {
-                if (iRtn == 1 || iRtn == 3)
-                {
-                    MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
-                    dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, true);
+                    
                 }
                 else
                 {
-                    MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
-                    dll.SetConnectionMode("", false);
+                    if (iRtn == 1 || iRtn == 3)
+                    {
+                        MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+                        dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, true);
+                    }
+                    else
+                    {
+                        MainWindow_Rufous.g_settingData.m_isUsbConnect = false;
+                        dll.SetConnectionMode("", false);
+                    }
                 }
-            }
+            }//<<=======================1419
 
             common.GetAllPrinters(g_printerList);
 

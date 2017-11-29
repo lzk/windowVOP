@@ -20,7 +20,7 @@ namespace VOP
     [Serializable()]
     public class ScanParam : ICloneable
     {
-        private EnumScanResln m_scanResln = EnumScanResln._300x300;
+        private EnumScanResln m_scanResln = EnumScanResln._200x200;
         private EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._Auto;
         private EnumColorType m_color = EnumColorType.color_24bit;
         private EnumScanMediaType m_type = EnumScanMediaType._Normal;

@@ -1224,6 +1224,18 @@
   <ItemGroup>
     <Resource Include="printer.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Refresh.png" />
+    <Resource Include="Images\Refresh_Disable.png" />
+    <Resource Include="Images\Refresh_Enable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GreenLine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Status_RefreshDisable.tif" />
+    <Resource Include="Images\Status_RefreshEnable.tif" />
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
