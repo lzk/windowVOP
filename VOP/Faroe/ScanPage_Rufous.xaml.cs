@@ -636,22 +636,22 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-           
-            if ( 0 < GetSelectedItemCount() )
-            {
-                //btnPrint.IsEnabled = true;
-               // btnSave.IsEnabled = true;
-            }
-            else
-            {
-               // btnPrint.IsEnabled = false;
-                //btnSave.IsEnabled = false;
-            }
-
             InitFontSize();
 
             SelectAllCheckBox.IsChecked = true;
             SelectAll(true);
+
+            //add by yunying shang 2017-11-29 for BMS 1561
+            if (GetSelectedItemCount() > 8)
+            {
+                LeftBtn.IsEnabled = false;
+                RightBtn.IsEnabled = true;
+            }
+            else
+            {
+                LeftBtn.IsEnabled = false;
+                RightBtn.IsEnabled = false;
+            }//<<===============1561
         }
 
         void InitFontSize()

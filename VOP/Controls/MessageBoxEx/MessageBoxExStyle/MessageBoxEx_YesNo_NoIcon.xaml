@@ -198,7 +198,7 @@
                 <ColumnDefinition Width="110*" />
                 <ColumnDefinition Width="100*" />
             </Grid.ColumnDefinitions>
-
+            <!--Style="{StaticResource CustomPopUpButtonStyle}"-->
             <local:ButtonEx Grid.Column="3" IsDefault="True" IsActiveEx="False" Style="{StaticResource CustomPopUpButtonStyle}"
                             x:Name="btn_No"  Content="{StaticResource ResStr_No}" FontSize="16" HorizontalContentAlignment="Center" Click="Click"/>
             <local:ButtonEx Grid.Column="1" IsActiveEx="True" Style="{StaticResource CustomPopUpButtonStyle}"

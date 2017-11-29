@@ -68,7 +68,7 @@ namespace VOP
             TextBlock tb = ScreenBtn.Template.FindName("DetailText", ScreenBtn) as TextBlock;
 
             QuickScan qs = new QuickScan();
-            bool bRtn = false;         
+            Scan_RET bRtn = Scan_RET.RETSCAN_OK;         
             switch (MainWindow_Rufous.g_settingData.m_MatchList[ScreenTextNumber - 1].Value)
             {
                 case 0:
@@ -113,7 +113,7 @@ namespace VOP
                     break;
             }
 
-            if (bRtn == false)
+            if (bRtn == Scan_RET.RETSCAN_CANCEL)
             {
                 if (DeviceButton.Connected == false)
                 {

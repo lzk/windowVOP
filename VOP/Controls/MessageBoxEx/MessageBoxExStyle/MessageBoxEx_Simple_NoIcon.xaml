@@ -184,7 +184,8 @@
                             Height="25"
                             FontSize="14"
                             Click="OkClick"
-                            Style="{StaticResource CustomPopUpButtonStyle}"
+                            
                             >OK</Button>
+        <!--Style="{StaticResource CustomPopUpButtonStyle}"-->
     </Grid>
 </Window>
