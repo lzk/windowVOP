@@ -55,17 +55,17 @@ namespace VOP
             InitNoteList();
         }
 
-
+        //marked by yunying shang 2017-11-30 for BMS 1621
         private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            PasswordBox pb = sender as PasswordBox;
-            string strText = e.Text;
-            if (strText.Length > 0 && !Char.IsLetterOrDigit(strText, 0))
-            {
-                e.Handled = true;
-            }
-
+        //    PasswordBox pb = sender as PasswordBox;
+        //    string strText = e.Text;
+        //    if (strText.Length > 0 && !Char.IsLetterOrDigit(strText, 0))
+        //    {
+        //        e.Handled = true;
+        //    }
         }
+
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -129,7 +129,23 @@ namespace VOP
                 tbNoteTitle.Focus();
                 return;
             }
-
+            //add by yunying shang 2017-11-30 for BMS 1621
+            int i = 0;
+            for (i = 0; i < tbNoteTitle.Text.Length; i++)
+            {
+                if (tbNoteTitle.Text[i] != ' ')
+                    break;
+            }
+            if (i >= tbNoteTitle.Text.Length)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                Application.Current.MainWindow,
+                "The Ever Note Title characters could not be all space!",
+                "Error");
+                tbNoteTitle.Text = "";
+                tbNoteTitle.Focus();
+                return;
+            }//<<===================
             title = tbNoteTitle.Text;
             content = tbNoteContent.Text;
 

@@ -444,6 +444,13 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		}
 		MyOutputString(L"paperReady");*/
 
+		//for ZM test
+		//if (!glDrv._info())
+		//{
+		//	/*Sleep(100);
+		//	continue;*/
+		//}
+
 		result = glDrv._JobCreate();
 		if (result != 0)
 		{
@@ -802,7 +809,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				{
 					isPaperJam = FALSE;
 				}
-				else {
+				else
+				{
 					/*There is "scan jam" let scan flow finish for save image*/
 					isPaperJam = TRUE;
 					break;
