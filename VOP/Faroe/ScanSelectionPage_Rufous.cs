@@ -268,8 +268,8 @@ namespace VOP
             ImageButton2 btn = sender as ImageButton2;
 
             ScanTask task = new ScanTask();
-            //List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
-            List<ScanFiles> files = new List<ScanFiles>();
+            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
+            //List<ScanFiles> files = new List<ScanFiles>();
             m_MainWin._bScanning = false;
             if (files != null)
             //   return;
@@ -284,8 +284,8 @@ namespace VOP
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848000B.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848001A.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848001B.jpg"));
-                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_1.jpg"));
-                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_2.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_1.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a6_2.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_1.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_2.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000C.jpg"));

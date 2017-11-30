@@ -1236,6 +1236,9 @@
     <Resource Include="Images\Status_RefreshDisable.tif" />
     <Resource Include="Images\Status_RefreshEnable.tif" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\warning.png" />
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
