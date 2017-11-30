@@ -68,7 +68,9 @@ namespace VOP
             TextBlock tb = ScreenBtn.Template.FindName("DetailText", ScreenBtn) as TextBlock;
 
             QuickScan qs = new QuickScan();
-            Scan_RET bRtn = Scan_RET.RETSCAN_OK;         
+            Scan_RET bRtn = Scan_RET.RETSCAN_OK;
+            int iRtn = 0;
+
             switch (MainWindow_Rufous.g_settingData.m_MatchList[ScreenTextNumber - 1].Value)
             {
                 case 0:
@@ -84,31 +86,56 @@ namespace VOP
                     bRtn = qs.ScanToEmail();
                     break;
                 case 4:
-                    if (m_MainWin.CheckDeviceStatus() == -1)
+                   iRtn = m_MainWin.CheckDeviceStatus();
+                    if ( iRtn <= 0)
                     {
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                    Application.Current.MainWindow,
-                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
-                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
-                    );
+                            Application.Current.MainWindow,
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
+
+                        return;
+                    }
+                    else if(iRtn == 1)
+                    {
+
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                            Application.Current.MainWindow,
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
 
                         return;
                     }
                     bRtn = qs.ScanToFtp();
                     break;
+
                 case 5:
-                    if (m_MainWin.CheckDeviceStatus() == -1)
+                    iRtn = m_MainWin.CheckDeviceStatus();
+                    if (iRtn <= 0)
                     {
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                    Application.Current.MainWindow,
-                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
-                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
-                    );
+                            Application.Current.MainWindow,
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
 
+                        return;
+                    }
+                    else if (iRtn == 1)
+                    {
+
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                            Application.Current.MainWindow,
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
                         return;
                     }
                     bRtn = qs.ScanToCloud();
                     break;
+
                 default:
                     break;
             }
