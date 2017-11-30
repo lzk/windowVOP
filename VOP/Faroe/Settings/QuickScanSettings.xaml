@@ -73,8 +73,30 @@
                 Grid.Row="1"  Grid.RowSpan="4"
                 Grid.Column="1"
                 ScrollViewer.CanContentScroll="True"
-                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                />
+                ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border Name="Border" Padding="2" SnapsToDevicePixels="true" Background="White" Margin="0">
+                                        <ContentPresenter/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="true">
+                                            <Setter TargetName="Border" Property="Background" Value="LightBlue"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter TargetName="Border" Property="Background" Value="#FFCCEBF5"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>                    
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+           
             <!--<Button x:Name="btnMoveUp" Content="Move Up" FontSize="12" Grid.Column="2" HorizontalAlignment="Center" Height="28"  Grid.Row="2" VerticalAlignment="Center" Width="80" Click="btnMoveUp_Click"/>
             <Button x:Name="btnMoveDown" Content="Move Down" FontSize="12" Grid.Column="2" HorizontalAlignment="Center" Height="28"  Grid.Row="3" VerticalAlignment="Center" Width="80" Click="btnMoveDown_Click" />
             <Button x:Name="btnAdd" Content="New..." Grid.Column="1" FontSize="12" HorizontalAlignment="Left" Height="28" Margin="0,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="80" Click="btnAdd_Click"/>

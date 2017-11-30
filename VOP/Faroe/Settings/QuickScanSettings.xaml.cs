@@ -83,6 +83,7 @@ namespace VOP
         {
             if (this.MatchListBox.SelectedItem != null && this.MatchListBox.SelectedIndex != 0)
             {
+                btnMoveUp.IsEnabled = false;
                 int nIndex = this.MatchListBox.SelectedIndex;
                 this.MatchListBox.Items.Insert(nIndex - 1, this.MatchListBox.Items[nIndex]);
                 this.MatchListBox.Items.RemoveAt(nIndex + 1);                                
@@ -91,7 +92,7 @@ namespace VOP
                 UpdateKey();
                 InitMatchListBox();
                 this.MatchListBox.Focus();
-                this.MatchListBox.SelectedIndex = nIndex - 1;
+                this.MatchListBox.SelectedIndex = nIndex - 1;      
                 if (this.MatchListBox.SelectedIndex == 0)
                 {
                     btnMoveDown.IsEnabled = true;
@@ -100,7 +101,7 @@ namespace VOP
                 else
                 {
                     btnMoveUp.IsEnabled = true;
-                }
+                }                
             }
         }
 
@@ -114,8 +115,7 @@ namespace VOP
                 MainWindow_Rufous.g_settingData.m_MatchList.Insert(nIndex + 2, MainWindow_Rufous.g_settingData.m_MatchList[nIndex]);
                 MainWindow_Rufous.g_settingData.m_MatchList.RemoveAt(nIndex);
                 UpdateKey();
-                InitMatchListBox();
-                this.MatchListBox.Focus();
+                InitMatchListBox();                
                 this.MatchListBox.SelectedIndex = nIndex + 1;
                 if (this.MatchListBox.SelectedIndex >= (this.MatchListBox.Items.Count-1))
                 {
@@ -126,7 +126,7 @@ namespace VOP
                 {
                     btnMoveDown.IsEnabled = true;
                 }
-
+                this.MatchListBox.Focus();
             }
         }
 

@@ -384,7 +384,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_qr_setting">QRcode settings :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_quick">Quick</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Accurate">Accurate</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_quick_match">Quick Scan Matching :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_quick_match">Quick Scan List :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_ADF">ADF Mode</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_2side">Two Side</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_1side">One Side</sys:String>
