@@ -96,6 +96,7 @@ namespace VOP
 
                 if (myResultsList.Count > 0)
                 {
+                    NoteList.Clear();//add by yunying shang 2017-11-30 for BMS 1620
                     foreach (ENSessionFindNotesResult nb in myResultsList)
                     {
                         NoteList.Add(nb.Title);
