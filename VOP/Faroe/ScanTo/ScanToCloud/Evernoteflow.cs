@@ -63,10 +63,10 @@ namespace VOP
                 ScanToEverNote();
                 if (connectSuccess == false)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                                    Application.Current.MainWindow,
-                                    (string)"Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!",
-                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                    //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    //                Application.Current.MainWindow,
+                    //                (string)"Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!",
+                    //                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                     return false;
                 }
             }
@@ -111,7 +111,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                     Application.Current.MainWindow,
-                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail") + m_errorMsg,
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                     return false;
                 }
@@ -155,6 +155,33 @@ namespace VOP
 
         bool UpdateLoadFilesToEverNote()
         {
+            if (FileList.Count >= 60)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+           Application.Current.MainWindow,
+           (string)"The ever note attachment files could not be more than 60!",
+          (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                return false;
+            }
+            else
+            {
+                long totalsize = 0;
+                foreach (string filePath in FileList)
+                {
+                    System.IO.FileInfo fileInfo = null;
+                    fileInfo = new System.IO.FileInfo(filePath);
+                    totalsize += fileInfo.Length;
+                }
+                if (totalsize > 100 * 1024 * 1024)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+               Application.Current.MainWindow,
+               (string)"Total image files size are too large, could not upload to EverNote server!",
+              (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                    return false;
+                }
+            }
+
             try
             {
                 string title = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.EverNoteTitle;

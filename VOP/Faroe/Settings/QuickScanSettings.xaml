@@ -125,7 +125,7 @@
                                 Width="70" Height="70"
                                 ImagePath="../../Images/quick scan_btn_new.png" 
                                 PressImagePath="../../Images/quick scan_btnf_new.png" 
-                                DisableImagePath="../../Images/quick scan_btn_new.png" 
+                                DisableImagePath="../../Images/quick scan_btn_new_disable.png" 
                                 HorizontalAlignment="Left" VerticalAlignment="Top" 
                                 Margin="0,5,0,0"
                                 PreviewMouseLeftButtonDown="btnAdd_Click"/>

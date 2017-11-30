@@ -55,17 +55,17 @@ namespace VOP
             InitNoteList();
         }
 
-
+        //marked by yunying shang 2017-11-30 for BMS 1621
         private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            PasswordBox pb = sender as PasswordBox;
-            string strText = e.Text;
-            if (strText.Length > 0 && !Char.IsLetterOrDigit(strText, 0))
-            {
-                e.Handled = true;
-            }
-
+        //    PasswordBox pb = sender as PasswordBox;
+        //    string strText = e.Text;
+        //    if (strText.Length > 0 && !Char.IsLetterOrDigit(strText, 0))
+        //    {
+        //        e.Handled = true;
+        //    }
         }
+
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -96,6 +96,7 @@ namespace VOP
 
                 if (myResultsList.Count > 0)
                 {
+                    NoteList.Clear();//add by yunying shang 2017-11-30 for BMS 1620
                     foreach (ENSessionFindNotesResult nb in myResultsList)
                     {
                         NoteList.Add(nb.Title);
@@ -128,7 +129,23 @@ namespace VOP
                 tbNoteTitle.Focus();
                 return;
             }
-
+            //add by yunying shang 2017-11-30 for BMS 1621
+            int i = 0;
+            for (i = 0; i < tbNoteTitle.Text.Length; i++)
+            {
+                if (tbNoteTitle.Text[i] != ' ')
+                    break;
+            }
+            if (i >= tbNoteTitle.Text.Length)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                Application.Current.MainWindow,
+                "The Ever Note Title characters could not be all space!",
+                "Error");
+                tbNoteTitle.Text = "";
+                tbNoteTitle.Focus();
+                return;
+            }//<<===================
             title = tbNoteTitle.Text;
             content = tbNoteContent.Text;
 
@@ -136,10 +153,39 @@ namespace VOP
             {
                 ENNote myResourceNote = new ENNote();
 
+                //add by yunying shang 2017-11-30 for BMS 1623
+
+                if (FileList.Count >= 60)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+               Application.Current.MainWindow,
+               (string)"The ever note attachment files could not be more than 60!",
+              (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                    return;
+                }
+                else
+                {
+                    long totalsize = 0;
+                    foreach (string filePath in FileList)
+                    {
+                        System.IO.FileInfo fileInfo = null;
+                        fileInfo = new System.IO.FileInfo(filePath);
+                        totalsize += fileInfo.Length;
+                    }
+                    if (totalsize > 100 * 1024 * 1024)
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                   Application.Current.MainWindow,
+                   (string)"Total image files size are too large, could not upload to EverNote server!",
+                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                        return;
+                    }
+                }
                 foreach (string filePath in FileList)
                 {
                     string fileName = System.IO.Path.GetFileName(filePath);
                     byte[] myFile = StreamFile(filePath);
+                    
                     ENResource myResource = new ENResource(myFile, "image/jpg", fileName);//"application/pdf"                 
                     myResourceNote.Resources.Add(myResource);
                 }
