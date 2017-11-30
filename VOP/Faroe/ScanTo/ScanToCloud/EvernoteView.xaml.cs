@@ -153,10 +153,39 @@ namespace VOP
             {
                 ENNote myResourceNote = new ENNote();
 
+                //add by yunying shang 2017-11-30 for BMS 1623
+
+                if (FileList.Count >= 60)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+               Application.Current.MainWindow,
+               (string)"The ever note attachment files could not be more than 60!",
+              (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                    return;
+                }
+                else
+                {
+                    long totalsize = 0;
+                    foreach (string filePath in FileList)
+                    {
+                        System.IO.FileInfo fileInfo = null;
+                        fileInfo = new System.IO.FileInfo(filePath);
+                        totalsize += fileInfo.Length;
+                    }
+                    if (totalsize > 100 * 1024 * 1024)
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                   Application.Current.MainWindow,
+                   (string)"Total image files size are too large, could not upload to EverNote server!",
+                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                        return;
+                    }
+                }
                 foreach (string filePath in FileList)
                 {
                     string fileName = System.IO.Path.GetFileName(filePath);
                     byte[] myFile = StreamFile(filePath);
+                    
                     ENResource myResource = new ENResource(myFile, "image/jpg", fileName);//"application/pdf"                 
                     myResourceNote.Resources.Add(myResource);
                 }

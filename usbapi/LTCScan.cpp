@@ -445,11 +445,12 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		MyOutputString(L"paperReady");*/
 
 		//for ZM test
-		//if (!glDrv._info())
-		//{
-		//	/*Sleep(100);
-		//	continue;*/
-		//}
+		if (!glDrv._info())
+		{
+			int test = glDrv.sc_infodata.AdfSensor;
+			/*Sleep(100);
+			continue;*/
+		}
 
 		result = glDrv._JobCreate();
 		if (result != 0)
