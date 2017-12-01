@@ -44,7 +44,7 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="75"/>
                 <RowDefinition Height="75"/>
                 <RowDefinition Height="75"/>
@@ -65,7 +65,7 @@
                 FontWeight="Bold"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                Text="{StaticResource ResStr_Faroe_quick_match}" Height="24"/>
+                Text="{StaticResource ResStr_Faroe_quick_match}" /> 
 
             <ListBox
                 Name="MatchListBox" 

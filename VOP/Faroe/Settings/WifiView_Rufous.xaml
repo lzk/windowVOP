@@ -45,7 +45,7 @@
             <StackPanel Name="wifiPanel" Margin="0,1,0,1" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="45"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition Height="6"></RowDefinition>
                         <RowDefinition Height="45"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>

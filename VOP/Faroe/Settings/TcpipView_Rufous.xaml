@@ -141,7 +141,7 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="6"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="60"></RowDefinition>
@@ -151,8 +151,8 @@
                 <ColumnDefinition Width="20"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
-            <TextBlock Text="{StaticResource ResStr_IP_Type}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
+
+            <TextBlock Text="{StaticResource ResStr_IP_Type}" FontSize="14" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontWeight="Bold"></TextBlock>
 
             <Grid Grid.Row="0" Grid.Column="2" >
                 <Grid.ColumnDefinitions>

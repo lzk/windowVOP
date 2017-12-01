@@ -40,12 +40,12 @@
 
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition Height="6"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="60"></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Text="Soft AP:"></TextBlock>
+            <TextBlock Grid.Row="0" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" FontWeight="Bold" Text="Soft AP :"></TextBlock>
             <Grid Grid.Row="0" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock  Text="{StaticResource ResStr_Close}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="8"></TextBlock>
