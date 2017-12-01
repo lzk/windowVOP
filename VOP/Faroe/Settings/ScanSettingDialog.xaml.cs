@@ -290,7 +290,7 @@ namespace VOP
                         InitScanSize();
                         MultiFeedOffButton.IsChecked = true;
                         MultiFeedOnButton.IsEnabled = false;
-                        MultiFeedOffButton.IsEnabled = false;
+                        MultiFeedOffButton.IsEnabled = false;                        
 
                         //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                         // Application.Current.MainWindow,
@@ -422,6 +422,12 @@ namespace VOP
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
+            //add by yunying shang 2017-12-01 for BMS 1642
+            if (m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
+                m_scanParams.ScanMediaType == EnumScanMediaType._Card)
+            {
+                m_scanParams.MultiFeed = true;
+            }//<<=================1642
             this.DialogResult = true;
             this.Close();
         }
