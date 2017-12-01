@@ -118,44 +118,67 @@
         <Grid.Background>
             <ImageBrush ImageSource="/VOP;component/Images/SettingViewBackground.png" />
         </Grid.Background>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
+        
         <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="6"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
             <TextBlock x:Name="label1" Text="{StaticResource ResStr_Power_Save_Time}"
                    Grid.Column="0" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center"
-                   Width="164" Grid.Row="0" FontSize="14" FontWeight="Bold"/>
-            <!--<Button x:Name="btnCalibration" Click="btnCalibration_Click" Content="{StaticResource ResStr_Calibration}" 
-                    Grid.Column="1" HorizontalAlignment="Right" Height="22" Margin="0,0,5,0" 
-                    VerticalAlignment="Center" Width="120"  Grid.Row="0" FontSize="14"/>-->
+                    Grid.Row="0" FontSize="14" FontWeight="Bold"/>
+
             <Button x:Name="btnCalibration"
                             Click="btnCalibration_Click" 
                             Content="{StaticResource ResStr_Calibration}" 
                             Style="{StaticResource CustomSettingButtonStyle}"
                             FontSize="14"  
                             Grid.Row="0" 
-                            Grid.Column="0" 
+                            Grid.Column="2" 
                             HorizontalAlignment="Right" 
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 
                             Width="100" 
                             Height="35"
                             Margin="0,0,10,0"></Button>
-            <local:SpinnerControl x:Name="spinnerControl1" Style="{StaticResource SpinnerControl1}"
+            
+            <Canvas Grid.Row="1" VerticalAlignment="Center">
+                <Path Stroke="LightGray" StrokeThickness="2">
+                    <Path.Data>
+                        <LineGeometry StartPoint="0,4" EndPoint="450,2"></LineGeometry>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+            
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <local:SpinnerControl x:Name="spinnerControl1" Style="{StaticResource SpinnerControl1}"
         	Width="300" 
         	Background="Transparent"
         	Change="1"
@@ -168,13 +191,13 @@
         	ValueChanged="spinnerControl1_ValueChanged"     
         	ValidationHasErrorChanged="spinnerControl1_ValidationHasErrorChanged"
         	LostFocus="SpinnerTextBox_LostFocus"  
-                                  Height="45" Grid.Column="0" Grid.Row="1" FontWeight="Bold"
+                                  Height="45" Grid.Column="0" Grid.Row="0" FontWeight="Bold" Grid.ColumnSpan="3"
                             />
 
-            <Label x:Name="label" Content="{StaticResource ResStr_1_30_Minute}" 
-                   Grid.Column="1" HorizontalContentAlignment="Center" HorizontalAlignment="Center" 
-                   Height="30" Margin="0,0,0,3" Grid.Row="1" VerticalAlignment="Bottom" Width="200" FontSize="14"/>
-
+                <Label x:Name="label" Content="{StaticResource ResStr_1_30_Minute}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                   HorizontalContentAlignment="Center" HorizontalAlignment="Center" 
+                   Height="30" Margin="0,0,0,3"  VerticalAlignment="Bottom" Width="200" FontSize="14"/>
+            </Grid>
             <!--<Button x:Name="btnApply" Content="{StaticResource ResStr_Apply}" Grid.Column="1" HorizontalAlignment="Center" Height="22" Margin="127,40,132,0" Grid.Row="5" VerticalAlignment="Top" Width="118" FontSize="13.333" Click="btnApply_Click_1"/>-->
             <Button x:Name="btnApply"
                             Click="btnApply_Click_1" 
@@ -183,6 +206,7 @@
                             FontSize="18"        
                             Grid.Row="3" 
                             Grid.Column="0" 
+                            Grid.ColumnSpan="3"
                             HorizontalAlignment="Center" 
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 

@@ -211,7 +211,7 @@
                             IsDefault="True"
                             Margin="0,0,15,0" 
                             Width="100" 
-                            Height="25"
+                            Height="30"
                             FontSize="14"
                             Click="OkClick"
                             Style="{StaticResource CustomPopUpButtonStyle}"

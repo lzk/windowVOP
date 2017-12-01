@@ -244,7 +244,7 @@
                      VerticalAlignment="Center" 
                      HorizontalAlignment="Right"
                      SnapsToDevicePixels ="True"
-                            MaxLength="32"
+                            MaxLength="64"
                             PreviewTextInput="OnPreviewTextInput" Grid.ColumnSpan="3"
                      />
 

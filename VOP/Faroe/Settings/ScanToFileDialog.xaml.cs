@@ -129,7 +129,14 @@ namespace VOP
                 //modified by yunying shang 2017-10-19 for BMS 1181
                 if (!path.Contains("\\") && !path.Contains(":"))
                 {
-                    path = App.PictureFolder + "\\" + path;
+                    if (!path.Contains("/"))
+                    {
+                        path = App.PictureFolder + "\\" + path;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }//<<=============1181
                 //add by yunying shang 2017-11-22 for BMS 1499
                 else if ((!path.Contains("\\") && path.Contains(":")) ||

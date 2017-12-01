@@ -942,7 +942,7 @@ namespace VOP
                  VOP.Controls.MessageBoxEx.Show(
                      VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
                      m_MainWin,
-                     "Do you want to delete all images before leaving scan page?",
+                     "Do you want to delete all images before leaving this page?",
                      (string)this.TryFindResource("ResStr_Prompt")
                      ))
                 {

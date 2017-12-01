@@ -404,9 +404,9 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_file_setting">File Settings :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_ftp_setting">FTP Settings :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_print_setting">Print Settings :</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_search_dev">Searching scan device...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_search_dev">Searching scanning device...</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_open_p_fail">Open program failed, </sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_conn_fail">Scan connection failed</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_conn_fail">Scanning connection failed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_net_scanner_busy">Network scanner is busy</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_paper_jam">Paper jam</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_cover_open">Cover is opened</sys:String>
@@ -430,6 +430,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Device_Disconnected">The device is disconnected, the scanning will be canceled!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_ScanTo_Cloud_wait">Connectiong to Cloud Server, please wait...</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Network_fail">The Network is not connected, please check your setting.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Are_you_sure_to_delete_the_quick_scan">Are you sure to delete the quick scan setting?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Are_you_sure_to_delete_the_quick_scan">Are you sure to delete the Quick Scan Setting?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Card">Card</sys:String>
 </ResourceDictionary>

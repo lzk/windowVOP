@@ -229,7 +229,7 @@
                             FontWeight="Bold"
                 VerticalAlignment="Center"
                             Margin="30,0,0,0"
-                Text="Printer Name:"/>
+                Text="Printer Name : "/>
                 <ComboBox 
                     Width="250"
                     Height="35"

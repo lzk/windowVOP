@@ -307,9 +307,6 @@
                 </Path.Data>
             </Path>
         </Canvas>
-
-
-
         <TextBlock
         	Grid.Column="1"
         	FontSize="14"

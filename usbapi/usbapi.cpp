@@ -1368,7 +1368,7 @@ BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
 	{
 		TCHAR showIp[256] = { 0 };
 		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
-		OutputDebugString(showIp);
+		//OutputDebugString(showIp);
 
 		U8 cmd[4] = { 'J','D','G','S' };
 		U8 status[8] = { 0 };

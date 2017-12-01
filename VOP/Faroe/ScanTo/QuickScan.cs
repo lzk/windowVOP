@@ -62,7 +62,6 @@ namespace VOP
             if (task.ScanResult != Scan_RET.RETSCAN_OK)
                 return task.ScanResult;
 
-            Win32.OutputDebugString("Read to save files!");
             List<string> fileLs = new List<string>();
 
             foreach (ScanFiles f in files)
@@ -83,7 +82,7 @@ namespace VOP
                 win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_save_file_ok");
                 win.ShowDialog();
             }
-            Win32.OutputDebugString("save files OK!");
+
             return Scan_RET.RETSCAN_OK;
         }
 

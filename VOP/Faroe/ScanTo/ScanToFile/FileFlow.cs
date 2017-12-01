@@ -44,7 +44,6 @@ namespace VOP
 
         public bool Run()
         {
-            Win32.OutputDebugString("starting to save File Finished!");
             if (FileList == null || FileList.Count == 0)
             {
                 return false;
@@ -56,12 +55,10 @@ namespace VOP
             if(FlowType == FileFlowType.View)
             {
                 result = SaveFileView();
-                Win32.OutputDebugString("Save To File Finished!");
             }
             else
             {
                 result = SaveFileQuick();
-                Win32.OutputDebugString("Save To File Finished!");
             }
 
             if (result == ScanFileSaveError.FileSave_OK)
@@ -75,7 +72,7 @@ namespace VOP
             }
             else if (result == ScanFileSaveError.FileSave_Cancel)
             {
-                Win32.OutputDebugString("Scan to File is canceled!");
+                //Win32.OutputDebugString("Scan to File is canceled!");
             }
             //add by yunying shang 2017-11-20 for BMS 1176
             else if (result == ScanFileSaveError.FileSave_NotAccess)
@@ -95,8 +92,6 @@ namespace VOP
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 return false;
             }
-
-            Win32.OutputDebugString("Scan to File Success!");
             return true;
         }
 
@@ -314,7 +309,6 @@ namespace VOP
        
         ScanFileSaveError SaveFileQuick()
         {
-            Win32.OutputDebugString("SaveFileQuick===>Enter");
             if(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName == "" 
                 || MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath == "")
             {
@@ -322,40 +316,45 @@ namespace VOP
             }
 
             string filepath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath;
-            
+
             //System.Security.Principal.WindowsIdentity wid = System.Security.Principal.WindowsIdentity.GetCurrent();
             //System.Security.Principal.WindowsPrincipal printcipal = new System.Security.Principal.WindowsPrincipal(wid);
             //bool bIsAdmin = printcipal.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
-            
             //add by yunying shang 2017-11-20 for BMS 1176
-            DirectorySecurity sec = Directory.GetAccessControl(filepath,AccessControlSections.All); 
-            AuthorizationRuleCollection rules = sec.GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));//NTAccount));
-
             bool bWrite = true;
-            foreach (FileSystemAccessRule rule in rules)
+            try
             {
-                //modified by yunying shang 2017-12-01 for BMS 1643
-                AccessControlType accessType = rule.AccessControlType;
-                if ((accessType != AccessControlType.Deny))
+                //modified by yunying shang 2017-12-01 for BMS 1554
+                DirectorySecurity sec = Directory.GetAccessControl(filepath, AccessControlSections.Access);//AccessControlSections.All);               
+                AuthorizationRuleCollection rules = sec.GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));//NTAccount));
+                //<<==============1554
+                
+                foreach (FileSystemAccessRule rule in rules)
+                {
+                    //modified by yunying shang 2017-12-01 for BMS 1643
+                    AccessControlType accessType = rule.AccessControlType;
+                    if ((accessType != AccessControlType.Deny))
                     //&& ((rule.FileSystemRights & FileSystemRights.WriteData) != 0))
-                {
-                    bWrite = true;
+                    {
+                        bWrite = true;
+                    }
+                    else
+                    {
+                        bWrite = false;
+                        break;
+                    }//<<==========1643
                 }
-                else
-                {
-                    bWrite = false;
-                    break;
-                }//<<==========1643
             }
-
- 
-
+            catch (Exception ex)
+            {
+                Win32.OutputDebugString(ex.Message);
+                bWrite = true;
+            }
             if (!bWrite)
             {
                 return ScanFileSaveError.FileSave_NotAccess;
             }//<<===============1176
 
-            Win32.OutputDebugString("Create thread to save file!");
             Thread thread = new Thread(() =>
             {
                 try
@@ -591,13 +590,10 @@ namespace VOP
 
             thread.Join();
 
-            Win32.OutputDebugString("thread end!");
-
             if (fileSaveStatus == ScanFileSaveError.FileSave_Error)
             {                
                 return ScanFileSaveError.FileSave_Error;
             }
-            Win32.OutputDebugString("SaveFileQuick===>Leave");
             return ScanFileSaveError.FileSave_OK;
         }
 
