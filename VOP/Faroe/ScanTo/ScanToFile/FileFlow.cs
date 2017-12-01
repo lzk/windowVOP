@@ -321,16 +321,23 @@ namespace VOP
                 return ScanFileSaveError.FileSave_Error;
             }
 
+            string filepath = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath;
+            
+            //System.Security.Principal.WindowsIdentity wid = System.Security.Principal.WindowsIdentity.GetCurrent();
+            //System.Security.Principal.WindowsPrincipal printcipal = new System.Security.Principal.WindowsPrincipal(wid);
+            //bool bIsAdmin = printcipal.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
+            
             //add by yunying shang 2017-11-20 for BMS 1176
-            DirectorySecurity sec = Directory.GetAccessControl(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath,
-               AccessControlSections.All); //AccessControlSections.Access); //
-
-            AuthorizationRuleCollection rules = sec.GetAccessRules(true, true, typeof(System.Security.Principal.NTAccount));
+            DirectorySecurity sec = Directory.GetAccessControl(filepath,AccessControlSections.All); 
+            AuthorizationRuleCollection rules = sec.GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));//NTAccount));
 
             bool bWrite = true;
             foreach (FileSystemAccessRule rule in rules)
             {
-                if ((rule.FileSystemRights & FileSystemRights.WriteData) != 0)
+                //modified by yunying shang 2017-12-01 for BMS 1643
+                AccessControlType accessType = rule.AccessControlType;
+                if ((accessType != AccessControlType.Deny))
+                    //&& ((rule.FileSystemRights & FileSystemRights.WriteData) != 0))
                 {
                     bWrite = true;
                 }
@@ -338,11 +345,12 @@ namespace VOP
                 {
                     bWrite = false;
                     break;
-                }
+                }//<<==========1643
             }
 
+ 
+
             if (!bWrite)
-            //if(!sec.AreAccessRulesProtected)
             {
                 return ScanFileSaveError.FileSave_NotAccess;
             }//<<===============1176
