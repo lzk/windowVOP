@@ -332,7 +332,7 @@ namespace VOP
 
                     m_MainWin.GotoPage("ScanPage", files);
                 }
-
+                ImageButton3.IsEnabled = false;
             }
             else if (task.ScanResult == Scan_RET.RETSCAN_CANCEL)
             {
@@ -352,8 +352,7 @@ namespace VOP
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                         );
                 }
-            }
-            ImageButton3.IsEnabled = false;
+            }            
         }
 
         private void DeviceButton_Click(object sender, RoutedEventArgs e)
