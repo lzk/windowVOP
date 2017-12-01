@@ -90,6 +90,20 @@ namespace VOP
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e)
         {
+            //add by yunying shang 2017-12-01 for BMS 1638
+            if (m_scanToCloudParams.SaveType != "EverNote")
+            {
+                if (m_MainWin.CheckDeviceStatus() < 2)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        Application.Current.MainWindow,
+                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
+                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                        );
+
+                    return;
+                }
+            }//<<=================1638
             if (m_scanToCloudParams.SaveType == "DropBox")
             {
                 DropBoxFlow flow = new DropBoxFlow();

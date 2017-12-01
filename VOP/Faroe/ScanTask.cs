@@ -166,6 +166,7 @@ namespace VOP
 //            sw.Stop();
             Trace.WriteLine(string.Format("Elapsed={0}", sw.Elapsed));
 
+            Win32.OutputDebugString("Scanning Finished!");
             if (fileNames != null)
             {
                 foreach (string name in fileNames)

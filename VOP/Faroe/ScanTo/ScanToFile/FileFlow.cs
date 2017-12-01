@@ -44,6 +44,7 @@ namespace VOP
 
         public bool Run()
         {
+            Win32.OutputDebugString("starting to save File Finished!");
             if (FileList == null || FileList.Count == 0)
             {
                 return false;
@@ -60,6 +61,7 @@ namespace VOP
             else
             {
                 result = SaveFileQuick();
+                Win32.OutputDebugString("Save To File Finished!");
             }
 
             if (result == ScanFileSaveError.FileSave_OK)
@@ -312,6 +314,7 @@ namespace VOP
        
         ScanFileSaveError SaveFileQuick()
         {
+            Win32.OutputDebugString("SaveFileQuick===>Enter");
             if(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName == "" 
                 || MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath == "")
             {
@@ -343,7 +346,8 @@ namespace VOP
             {
                 return ScanFileSaveError.FileSave_NotAccess;
             }//<<===============1176
-            
+
+            Win32.OutputDebugString("Create thread to save file!");
             Thread thread = new Thread(() =>
             {
                 try
@@ -579,11 +583,13 @@ namespace VOP
 
             thread.Join();
 
+            Win32.OutputDebugString("thread end!");
+
             if (fileSaveStatus == ScanFileSaveError.FileSave_Error)
             {                
                 return ScanFileSaveError.FileSave_Error;
             }
-
+            Win32.OutputDebugString("SaveFileQuick===>Leave");
             return ScanFileSaveError.FileSave_OK;
         }
 

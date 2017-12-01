@@ -1439,7 +1439,7 @@ USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP)
 	{
 		TCHAR showIp[256] = { 0 };
 		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
-		OutputDebugString(showIp);
+		//OutputDebugString(showIp);
 
 		nResult = TRUE;
 		m_GLnet.CMDIO_Close();
