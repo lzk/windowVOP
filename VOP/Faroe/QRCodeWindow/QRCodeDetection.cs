@@ -753,6 +753,19 @@ namespace VOP
             }
 
             WriteToHTML(strPath, resultArray);
+/*
+            foreach (DetectResult detectResult in resultArray)
+            {
+                try
+                {
+                    File.Delete(detectResult.fileName);
+                    File.Delete(detectResult.resultFileName);
+                }
+                catch (Exception)
+                {
+                }
+            }
+*/
 
             GC.Collect();
 
@@ -1032,7 +1045,8 @@ namespace VOP
 
                         if (bFirstLine == true)
                         {
-                            htmlWriter.WriteLine("<td rowspan=\"" + nCount.ToString() + "\">" + tempDetectResult.fileName + "</td>");
+                            String tempFileName = System.IO.Path.GetFileName(tempDetectResult.fileName);
+                            htmlWriter.WriteLine("<td rowspan=\"" + nCount.ToString() + "\">" + tempFileName + "</td>");
 
                             if (tempDetectResult.fileName != null)
                             {
@@ -1055,6 +1069,8 @@ namespace VOP
                                     }
                                 }
                                 htmlWriter.WriteLine("<td rowspan=\"" + nCount.ToString() + "\">" + "<img src=\"" + tempDetectResult.fileName + "\" height=\"" + nHeight.ToString() + "\" width=\"" + nWidth.ToString() + "\"></td>");
+                                App.decodeFiles.Add(tempDetectResult.fileName);
+
                             }
                             else
                             {
@@ -1089,6 +1105,7 @@ namespace VOP
                                 }
 
                                 htmlWriter.WriteLine("<td>" + "<img src=\"" + tempDetectResult.resultFileName + "\" height=\"" + nHeight.ToString() + "\" width=\"" + nWidth.ToString() + "\"></td>");
+                                App.decodeFiles.Add(tempDetectResult.resultFileName);
                             }
                             else
                             {
@@ -1141,6 +1158,7 @@ namespace VOP
                                 }
 
                                 htmlWriter.WriteLine("<td>" + "<img src=\"" + tempDetectResult.resultFileName + "\" height=\"" + nHeight.ToString() + "\" width=\"" + nWidth.ToString() + "\"></td>");
+                                App.decodeFiles.Add(tempDetectResult.resultFileName);
                             }
                             else
                             {
@@ -1166,6 +1184,7 @@ namespace VOP
                 htmlWriter.Close();
 
                 System.Diagnostics.Process.Start(htmlFileName);
+                App.decodeFiles.Add(htmlFileName);
 
                 nRet = 0;
             }

@@ -34,6 +34,7 @@ namespace VOP
         /// </summary>
         public static List<ScanFiles> scanFileList = new List<ScanFiles>(); 
         public static List<ScanFiles> rubbishFiles = new List<ScanFiles>(); // Rubbish files list, delete them when exit.
+        public static List<string> decodeFiles = new List<string>();
 
 #if (!DEBUG)
         static Mutex mutex = new Mutex(true, "4d8526fa07abfc03085ef2909b5b4d2ecaa3d712_mutex");
@@ -227,6 +228,18 @@ namespace VOP
                     {
                     }
                 }
+
+                foreach (string decodeFileName in App.decodeFiles)
+                {
+                    try
+                    {
+                        File.Delete(decodeFileName);
+                    }
+                    catch
+                    {
+                    }
+                }
+
 #if (!DEBUG)
                 mutex.ReleaseMutex();               
 #endif
