@@ -376,10 +376,18 @@ namespace VOP
                 {
                     if ( obj == img )
                     {
+                        //modified by yunying shang 2017-12-01 for BMS 1648
+                        foreach (ImageStatus img1 in selectedFileList)
+                        {
+                            if (img1._files == img.m_images)
+                            {
+                                selectedFileList.Remove(img1);
+                                break;
+                            }
+                        }
+
                         image_wrappanel.Children.RemoveAt( index );
-
-                        selectedFileList.RemoveAt(scanFileList.IndexOf(img.m_images));
-
+                        //<<============1648
                         break;
                     }
                     index++;
