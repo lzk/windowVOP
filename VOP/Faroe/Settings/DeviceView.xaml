@@ -129,7 +129,7 @@
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         
-        <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
+        <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="6"/>
@@ -169,7 +169,7 @@
             
             <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="80"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
