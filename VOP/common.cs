@@ -544,9 +544,9 @@ namespace VOP
                     nWidth  = 8500;
                     nHeight = 11000;
                     break;
-                case EnumPaperSizeScan._4x6Inch :
-                    nWidth  = 4000;
-                    nHeight = 6000;
+                case EnumPaperSizeScan._LongPage :
+                    nWidth  = 8500;
+                    nHeight = 118110;
                     break;
                     //add by yunying shang 2017-11-01 for BMS 1234 and 1250
                 case EnumPaperSizeScan._A6:

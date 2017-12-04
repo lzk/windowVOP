@@ -60,6 +60,7 @@
                                   Height="25" 
                                   Width="45" 
                                   Checked="OnchkWifiChecked" 
+                                  Margin="0,0,5,0"
                                   Unchecked="OnchkWifiUnchecked"></CheckBox>
                     
                     <Canvas Grid.Row="1" VerticalAlignment="Center">

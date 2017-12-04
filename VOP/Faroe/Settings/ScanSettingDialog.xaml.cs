@@ -37,6 +37,8 @@ namespace VOP
         private RepeatButton btnBrightnessIncrease;
         private EnumPaperSizeScan m_lastPaperSize = EnumPaperSizeScan._Auto;
         private EnumScanMediaType m_lastPaperType = EnumScanMediaType._Normal;
+        private EnumPaperSizeScan m_lastPaperSize1 = EnumPaperSizeScan._Auto;
+        private EnumScanResln m_lastRes = EnumScanResln._200x200;
 
         public ScanSettingDialog()
         {
@@ -250,7 +252,90 @@ namespace VOP
 
             if ( null != selItem && null != selItem.DataContext )
             {
-                m_scanParams.PaperSize = (EnumPaperSizeScan)selItem.DataContext;               
+                EnumPaperSizeScan size = (EnumPaperSizeScan)selItem.DataContext;
+
+                if (size != m_lastPaperSize1)
+                {
+                    if (m_scanParams.PaperSize != EnumPaperSizeScan._LongPage)
+                    {
+                        m_lastRes = m_scanParams.ScanResolution;
+                    }
+
+                    m_scanParams.PaperSize = (EnumPaperSizeScan)selItem.DataContext;
+
+                    if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
+                    {
+                        m_scanParams.ScanResolution = EnumScanResln._200x200;
+
+                        InitScanResln();
+                        InitMediaType();
+
+                        MultiFeedOffButton.IsChecked = true;
+                        MultiFeedOnButton.IsEnabled = false;
+                        MultiFeedOffButton.IsEnabled = false;
+
+                        AutoCropOffButton.IsEnabled = false;
+                        AutoCropOffButton.IsChecked = true;
+                        AutoCropOnButton.IsEnabled = false;
+
+                        oneSideButton.IsChecked = true;
+                        oneSideButton.IsEnabled = false;
+                        twoSideButton.IsEnabled = false;
+                    }
+                    else
+                    {
+                        m_scanParams.ScanResolution = m_lastRes;
+
+                        InitScanResln();
+
+                        InitMediaType();
+
+                        if (m_scanParams.MultiFeed == true)
+                        {
+                            MultiFeedOnButton.IsChecked = true;
+                            MultiFeedOffButton.IsChecked = false;
+                        }
+                        else
+                        {
+                            MultiFeedOnButton.IsChecked = false;
+                            MultiFeedOffButton.IsChecked = true;
+                        }
+
+                        MultiFeedOnButton.IsEnabled = true;
+                        MultiFeedOffButton.IsEnabled = true;
+
+                        if (m_scanParams.AutoCrop == true)
+                        {
+                            AutoCropOnButton.IsChecked = true;
+                            AutoCropOffButton.IsChecked = false;
+                        }
+                        else
+                        {
+                            AutoCropOnButton.IsChecked = false;
+                            AutoCropOffButton.IsChecked = true;
+                        }
+
+                        AutoCropOnButton.IsEnabled = true;
+                        AutoCropOffButton.IsEnabled = true;
+
+                        if (m_scanParams.ADFMode == true)
+                        {
+                            oneSideButton.IsChecked = false;
+                            twoSideButton.IsChecked = true;
+                        }
+                        else
+                        {
+                            oneSideButton.IsChecked = true;
+                            twoSideButton.IsChecked = false;
+                        }
+
+                        oneSideButton.IsEnabled = true;
+                        twoSideButton.IsEnabled = true;
+                    }
+
+                    m_lastPaperSize1 = size;
+                }
+                               
             }
         }
 
@@ -291,12 +376,6 @@ namespace VOP
                         MultiFeedOffButton.IsChecked = true;
                         MultiFeedOnButton.IsEnabled = false;
                         MultiFeedOffButton.IsEnabled = false;                        
-
-                        //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                        // Application.Current.MainWindow,
-                        //    (string)"Please switch to the card mode on the machine!",
-                        //(string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
-                        //);
 
                         Window dlg = new MediaTypePrompt("Please switch to the card mode on the machine!", "Information");
                         dlg.ShowDialog();
@@ -428,6 +507,14 @@ namespace VOP
             {
                 m_scanParams.MultiFeed = true;
             }//<<=================1642
+
+            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
+            {
+                m_scanParams.ADFMode = false;
+                m_scanParams.ScanMediaType = EnumScanMediaType._Normal;
+                m_scanParams.MultiFeed = false;
+                m_scanParams.AutoCrop = false;
+            }
             this.DialogResult = true;
             this.Close();
         }
@@ -494,12 +581,15 @@ namespace VOP
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboScanResln.Items.Add( cboItem );
 
-            cboItem = new ComboBoxItem();
-            cboItem.Content = "600 x 600dpi" ;
-            cboItem.DataContext = EnumScanResln._600x600;
-            cboItem.MinWidth = 145;
-            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            cboScanResln.Items.Add( cboItem );
+            if (m_scanParams.PaperSize != EnumPaperSizeScan._LongPage)
+            {
+                cboItem = new ComboBoxItem();
+                cboItem.Content = "600 x 600dpi";
+                cboItem.DataContext = EnumScanResln._600x600;
+                cboItem.MinWidth = 145;
+                cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+                cboScanResln.Items.Add(cboItem);
+            }
 
             //cboItem = new ComboBoxItem();
             //cboItem.Content = "1200 x 1200dpi" ;
@@ -577,12 +667,12 @@ namespace VOP
                 cboItem.Style = this.FindResource("customComboBoxItem") as Style;
                 cboScanSize.Items.Add(cboItem);
 
-                //cboItem = new ComboBoxItem();
-                //cboItem.Content = (string)this.TryFindResource("ResStr_4_x_6_");
-                //cboItem.DataContext = EnumPaperSizeScan._4x6Inch;
-                //cboItem.MinWidth = 145;
-                //cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-                //cboScanSize.Items.Add( cboItem );
+                cboItem = new ComboBoxItem();
+                cboItem.Content = (string)this.TryFindResource("ResStr_LongPage_");
+                cboItem.DataContext = EnumPaperSizeScan._LongPage;
+                cboItem.MinWidth = 145;
+                cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+                cboScanSize.Items.Add(cboItem);
             }
 
             foreach ( ComboBoxItem obj in cboScanSize.Items )
@@ -621,19 +711,22 @@ namespace VOP
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboMediaType.Items.Add(cboItem);
 
-            cboItem = new ComboBoxItem();
-            cboItem.Content = (string)this.TryFindResource("ResStr_Bankbook");
-            cboItem.DataContext = EnumScanMediaType._BankBook;
-            cboItem.MinWidth = 145;
-            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            cboMediaType.Items.Add(cboItem);
+            if (m_scanParams.PaperSize != EnumPaperSizeScan._LongPage)
+            {
+                cboItem = new ComboBoxItem();
+                cboItem.Content = (string)this.TryFindResource("ResStr_Bankbook");
+                cboItem.DataContext = EnumScanMediaType._BankBook;
+                cboItem.MinWidth = 145;
+                cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+                cboMediaType.Items.Add(cboItem);
 
-            cboItem = new ComboBoxItem();
-            cboItem.Content = (string)this.TryFindResource("ResStr_Card");
-            cboItem.DataContext = EnumScanMediaType._Card;
-            cboItem.MinWidth = 145;
-            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            cboMediaType.Items.Add(cboItem);
+                cboItem = new ComboBoxItem();
+                cboItem.Content = (string)this.TryFindResource("ResStr_Card");
+                cboItem.DataContext = EnumScanMediaType._Card;
+                cboItem.MinWidth = 145;
+                cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+                cboMediaType.Items.Add(cboItem);
+            }
 
             foreach (ComboBoxItem obj in cboMediaType.Items)
             {

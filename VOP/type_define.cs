@@ -234,7 +234,8 @@ namespace VOP
         _A6      ,
         _Letter  ,
         _Legal   ,
-        _4x6Inch ,
+        //_4x6Inch ,
+        _LongPage,
     }
     
 
