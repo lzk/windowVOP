@@ -48,11 +48,13 @@ namespace VOP
             this.Height = this.Height*App.gScalingRate;
 
             this.MouseLeftButtonDown += MyMouseButtonEventHandler;
-            // Insert code required on object creation below this point.
+            // Insert code required on object creation below this point.            
         }
 
         public void handler_loaded( object sender, RoutedEventArgs e )
         {
+            m_lastPaperType = m_scanParams.ScanMediaType;
+
             InitControls();
             InitScanResln();
             InitScanSize();
@@ -70,10 +72,12 @@ namespace VOP
 
             CheckContrastValue(); 
             CheckBrightnessValue();
+
             TextBox tb1 = spinCtlBrightness.Template.FindName("tbTextBox", spinCtlBrightness) as TextBox;
             tb1.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb1.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
             twoSideButton.Focus();
+
         }
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -131,31 +135,65 @@ namespace VOP
             //        break;                   
             //}
 
-            if (m_scanParams.ADFMode == true)
+            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
             {
-                twoSideButton.IsChecked = true;
-            }
-            else
-            {
+                twoSideButton.IsChecked = false;
+                twoSideButton.IsEnabled = false;
+                oneSideButton.IsEnabled = false;
                 oneSideButton.IsChecked = true;
             }
-
-            if (m_scanParams.MultiFeed == true)
-            {
-                MultiFeedOnButton.IsChecked = true;
-            }
             else
             {
+                if (m_scanParams.ADFMode == true)
+                {
+                    twoSideButton.IsChecked = true;
+                }
+                else
+                {
+                    oneSideButton.IsChecked = true;
+                }
+                twoSideButton.IsEnabled = true;
+                oneSideButton.IsEnabled = true;
+            }
+
+            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
+                m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
+                m_scanParams.ScanMediaType == EnumScanMediaType._Card)
+            {
+                MultiFeedOnButton.IsChecked = false;
+                MultiFeedOnButton.IsEnabled = false;
+                MultiFeedOffButton.IsEnabled = false;
                 MultiFeedOffButton.IsChecked = true;
             }
-
-            if (m_scanParams.AutoCrop == true)
+            else
             {
-                AutoCropOnButton.IsChecked = true;
+                if (m_scanParams.MultiFeed == true)
+                {
+                    MultiFeedOnButton.IsChecked = true;
+                }
+                else
+                {
+                    MultiFeedOffButton.IsChecked = true;
+                }
+            }
+
+            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
+            {
+                AutoCropOnButton.IsChecked = false;
+                AutoCropOnButton.IsEnabled = false;
+                AutoCropOffButton.IsEnabled = false;
+                AutoCropOffButton.IsChecked = true;
             }
             else
             {
-                AutoCropOffButton.IsChecked = true;
+                if (m_scanParams.AutoCrop == true)
+                {
+                    AutoCropOnButton.IsChecked = true;
+                }
+                else
+                {
+                    AutoCropOffButton.IsChecked = true;
+                }
             }
 
             switch (m_scanParams.ColorType)
