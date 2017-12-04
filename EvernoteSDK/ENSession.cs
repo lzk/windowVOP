@@ -273,19 +273,19 @@ namespace EvernoteSDK
 			// Default to supporting linked notebooks for app notebook. Developer can toggle this off
 			// if they're using advanced features and don't want to deal with the added complexity.
 			SupportsLinkedAppNotebook = true;
+       
 			Startup();
 		}
-
-		///**
-		//*  Set up the session object with an app consumer key and secret. This is the standard setup
-		//*  method. App keys are available from dev.evernote.com. You must call this method BEFORE the
-		//*  sharedSession is accessed.
-		//*
-		//*   key    Consumer key for your app
-		//*   secret Consumer secret for yor app
-		//*   host   (optional) If you're using a non-production host, like the developer sandbox, specify it here.
-		//*/
-		public static void SetSharedSessionConsumerKey(string sessionConsumerKey, string sessionConsumerSecret, string sessionHost = null)
+        ///**
+        //*  Set up the session object with an app consumer key and secret. This is the standard setup
+        //*  method. App keys are available from dev.evernote.com. You must call this method BEFORE the
+        //*  sharedSession is accessed.
+        //*
+        //*   key    Consumer key for your app
+        //*   secret Consumer secret for yor app
+        //*   host   (optional) If you're using a non-production host, like the developer sandbox, specify it here.
+        //*/
+        public static void SetSharedSessionConsumerKey(string sessionConsumerKey, string sessionConsumerSecret, string sessionHost = null)
 		{
 			ConsumerKey = sessionConsumerKey;
 			ConsumerSecret = sessionConsumerSecret;
@@ -437,6 +437,13 @@ namespace EvernoteSDK
 				return true;
 			}
 
+            if (isNeedAuthenticate == true)
+            {
+                Unauthenticate();
+                _IsAuthenticated = false;
+                Startup();
+            }
+
 			EdamUser = null;
 
 			// If the developer token is set, then we can short circuit the entire auth flow and just call ourselves authenticated.
@@ -474,8 +481,8 @@ namespace EvernoteSDK
 
                 // Perform the authentication.
                 var oauth = new EvernoteOAuth(service, ConsumerKey, ConsumerSecret, SupportsLinkedAppNotebook);
-
-				string errResponse = oauth.Authorize();
+          
+                string errResponse = oauth.Authorize();
 				if (errResponse.Length == 0)
 				{
 					ENCredentials credentials = new ENCredentials(SessionHost, oauth.UserId, oauth.NoteStoreUrl, oauth.WebApiUrlPrefix, oauth.Token, oauth.Expires.ToDateTime());
@@ -1828,14 +1835,19 @@ namespace EvernoteSDK
 			return CredentialStore().CredentialsForHost(host);
 		}
 
-		private void AddCredentials(ENCredentials credentials)
+        private void RemoveCredentialsForHost(string host)
+        {
+            CredentialStore().RemoveCredentialsForHost(host);
+        }
+
+        private void AddCredentials(ENCredentials credentials)
 		{
 			ENCredentialStore store = CredentialStore();
 			store.AddCredentials(credentials);
 			SaveCredentialStore(store);
 		}
 
-		private void SaveCredentialStore(ENCredentialStore credentialStore)
+        private void SaveCredentialStore(ENCredentialStore credentialStore)
 		{
 			Preferences.SetObject(credentialStore, ENSessionPreferencesCredentialStore);
 		}

@@ -112,7 +112,7 @@
                     <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"></RowDefinition>
-                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -129,7 +129,6 @@
                 VerticalAlignment="Center"
                 Text="{StaticResource ResStr_Faroe_app_setting}"/>
 
-
                         <TextBlock Grid.Row="1" Grid.Column="0"
                                 Text="{StaticResource ResStr_Faroe_app_type}"
                                 VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -141,7 +140,7 @@
                                 VerticalAlignment="Center" HorizontalAlignment="Right" 
                                 VerticalContentAlignment="Center"
                                 Width="250" 
-                                Height="30" 
+                                Height="35" 
                                 FontSize="14"
                             SelectionChanged="cbProgramType_SelectionChanged"
                                 >

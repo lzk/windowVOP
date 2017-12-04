@@ -143,9 +143,9 @@
                                 VerticalContentAlignment="Center"
                               HorizontalAlignment="Right"
                                 Width="250" 
-                                Height="30"     
+                                Height="35"     
                                 FontSize="14"
-                            SelectionChanged="cbAttachType_SelectionChanged" Margin="0,15"
+                            SelectionChanged="cbAttachType_SelectionChanged" Margin="0,0"
                                 >
                             <ComboBoxItem >PDF</ComboBoxItem>
                             <ComboBoxItem >JPG</ComboBoxItem>

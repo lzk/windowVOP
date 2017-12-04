@@ -193,20 +193,19 @@
                             </Path.Data>
                         </Path>
                     </Canvas>
-                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4">
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150"/>
                             <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="76*"/>
-                            <ColumnDefinition Width="211*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
                         <TextBlock 
@@ -216,7 +215,7 @@
                 FontWeight="Bold"
                 VerticalAlignment="Center"
                         HorizontalAlignment="Left"
-                Text="{StaticResource ResStr_Faroe_file_setting}" Margin="0,16,0,15"/>
+                Text="{StaticResource ResStr_Faroe_file_setting}" Margin="0,0,0,0"/>
 
 
                         <TextBlock Grid.Row="1" Grid.Column="0"
@@ -225,17 +224,17 @@
                                  HorizontalAlignment="Left"
                                 FontWeight="Bold"
                                 FontSize="12"
-                                           Margin="30,23,0,23"
+                                           Margin="30,0,0,0"
                                 />
                         <ComboBox Grid.Row="1" Grid.Column="2"
                                 Name="cbFileType"
                                 VerticalAlignment="Center" 
                                 VerticalContentAlignment="Center" 
                                   HorizontalAlignment="Right"
-                                Height="30" 
+                                Height="35" 
                                 FontSize="14"
                                   Width="250"
-                            SelectionChanged="cbFileType_SelectionChanged" Grid.ColumnSpan="2" Margin="0,16"
+                            SelectionChanged="cbFileType_SelectionChanged" Grid.ColumnSpan="2" Margin="0,0"
                                 >
                             <ComboBoxItem >PDF</ComboBoxItem>
                             <ComboBoxItem >TIFF</ComboBoxItem>
@@ -249,7 +248,7 @@
                                 HorizontalAlignment="Left"
                                 FontWeight="Bold"
                                 FontSize="12"
-                                   Margin="30,23,0,23"
+                                   Margin="30,0,0,0"
                                 />
                         <TextBox Grid.Row="2" Grid.Column="2"
                                 Name="tbFileName"
@@ -262,7 +261,7 @@
                                 MaxLength="32"
                                 Text=""
                                 VerticalContentAlignment="Center"
-                                FontSize="14" Grid.ColumnSpan="2" Margin="0,16"
+                                FontSize="14" Grid.ColumnSpan="2" Margin="0,0"
                                 />
 
                         <TextBlock Grid.Row="3" Grid.Column="0"
@@ -271,7 +270,7 @@
                                 HorizontalAlignment="Left"
                                 FontWeight="Bold"
                                 FontSize="12"
-                                   Margin="30,23,0,23"
+                                   Margin="30,0,0,0"
                                 />
                         <TextBox 
                                 Name="tbFilePath" Grid.Row="3" Grid.Column="2"
@@ -284,7 +283,7 @@
                                 MaxLength="255"
                                 Text=""
                                 VerticalContentAlignment="Center"
-                                FontSize="14" Grid.ColumnSpan="2" Margin="0,16"
+                                FontSize="14" Grid.ColumnSpan="2" Margin="0,0"
                                 />
                         <Button Grid.Row="4" Grid.Column="3"
                                 HorizontalAlignment="Right"

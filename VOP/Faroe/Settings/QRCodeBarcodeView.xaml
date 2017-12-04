@@ -288,7 +288,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="6"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
@@ -320,7 +320,7 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
             Width="100"
-        	Height="36" 
+        	Height="35" 
         	Content="Settings..." 
         	FontSize="16"
        		Style="{StaticResource CustomSettingButtonStyle}"

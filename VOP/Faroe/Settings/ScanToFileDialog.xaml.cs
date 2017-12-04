@@ -106,10 +106,11 @@ namespace VOP
                 {
                     return false;
                 }
-                //if (!Regex.IsMatch(path, @"\A(?:/(.|[\r\n])*)\z"))
-                //{
-                //    return false;
-                //}
+
+                if (path.Contains("*") || path.Contains("?") || path.Contains("/"))
+                {
+                    return false;
+                }
 
                 int i = 0;
                 for (i = 0; i < path.Length; i++)

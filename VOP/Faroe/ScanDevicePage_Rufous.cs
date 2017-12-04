@@ -301,7 +301,6 @@ namespace VOP
             }
 
             DeviceListBoxItem item1 = DeviceList.SelectedItem as DeviceListBoxItem;
-
             
             if (!item1.DeviceName.Contains("USB"))
             {

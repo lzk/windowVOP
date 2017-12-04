@@ -787,10 +787,11 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		BOOL isCoverOpen = FALSE;
 		BOOL isPaperJam = FALSE;
 		BOOL isUltraSonic = FALSE;
+		bool bFinished = false;
+		TCHAR debugBuf[256];
 
 		while (!start_cancel)
 		{
-
 			if (!glDrv._info())
 			{
 				/*Sleep(100);
@@ -801,8 +802,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			{
 				isCoverOpen = TRUE;
 				break;
-			}
-				
+			}				
 
 			if (glDrv.sc_infodata.PaperJam)
 			{
@@ -837,7 +837,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				_cancel(JobID);
 				cancel = TRUE;
 			}*/
-			bool bFinished = false;
+
+			bFinished = false;
 			for (dup = 0; dup < 2; dup++) 
 			{					
 				if ((duplex & (1 << dup)) && glDrv.sc_infodata.ValidPageSize[dup]) 
@@ -878,9 +879,15 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 						page[dup]++;
 					}
 
+					//modified by yunying sahng 2017-12-04 for BMS1035
 					//add by yunying shang 2017-10-12 for BMS1082 and 842
-					if(currentImgSize > 0 && lineCount != 0 && !bFinished)
+					//wsprintf(debugBuf, L"the linecount is %d, bFinished is %d, currentImgSize is %d", lineCount, bFinished, currentImgSize);
+					//MyOutputString(debugBuf);
+					if (currentImgSize > 0 && lineCount == 0 && !bFinished)
+					{
+						//MyOutputString(L"uploading!");
 						::SendNotifyMessage(HWND_BROADCAST, WM_VOPSCAN_UPLOAD/*uMsg*/, 0, 0);
+					}
 					////////////1082
 
 					while (currentImgSize > 0)
@@ -906,6 +913,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 					if ((TotalImgSize >= (int)glDrv.sc_infodata.ValidPageSize[dup]) && glDrv.sc_infodata.EndPage[dup])
 					{
 						//add by yunying shang 2017-10-12 for BMS1082
+						MyOutputString(L"SCanning Complete!");
 						if (duplex >= 3)
 						{
 							::SendNotifyMessage(HWND_BROADCAST, WM_VOPSCAN_PAGECOMPLETE/*uMsg*/, (fileCount+1) / 2, 0);

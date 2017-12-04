@@ -479,17 +479,22 @@ namespace VOP
         }
 
         private void SelectTwoFiles(int selCount, List<string> files)
-        {            
+        {
+            int j = 0;     
             foreach (ImageStatus img in selectedFileList)
             {
-                for (int i = 0; i < selCount; i++)
+                int i = 0;
+                for ( i = 0; i < selCount; i++)
                 {
                     if (img._files.m_pathOrig == files[i])
                     {
-                        selectedFileList[i].m_num = selCount-i;
+                        selectedFileList[j].m_num = selCount-i;
                         break;
                     }
                 }
+                if (i >= selCount)
+                    selectedFileList[j].m_num = 0;
+                j++;
             }
 
 
@@ -506,9 +511,7 @@ namespace VOP
                 }
 
                 if(i >= selCount)
-                    img.m_num = 0;
-
-                
+                    img.m_num = 0;                
             }
         }
 

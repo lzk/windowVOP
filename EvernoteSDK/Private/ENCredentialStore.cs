@@ -46,9 +46,24 @@ namespace EvernoteSDK
 			return credentials;
 		}
 
-		// Remove credentials from the store.
-		// Also deletes the credentials' auth token from the keychain.
-		public void RemoveCredentials(ENCredentials credentials)
+        // remvoe up the credentials for the given host.
+        public void RemoveCredentialsForHost(string host)
+        {
+            ENCredentials credentials = null;
+            if (Store == null)
+            {
+                return;
+            }
+            Store.TryGetValue(host, out credentials);
+
+            RemoveCredentials(credentials);
+            return;
+
+        }
+
+        // Remove credentials from the store.
+        // Also deletes the credentials' auth token from the keychain.
+        public void RemoveCredentials(ENCredentials credentials)
 		{
 			// Delete auth token from registry.
 			credentials.DeleteFromRegistry();
