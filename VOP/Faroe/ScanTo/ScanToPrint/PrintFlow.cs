@@ -197,6 +197,7 @@ namespace VOP
             //modified by yunying shang 2017-11-27 for BMS 1553
             else if (printRes == PrintError.Print_Get_Default_Printer_Fail)
             {
+                return false;
             }//<<=================1553
             else
             {
