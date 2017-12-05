@@ -625,6 +625,8 @@ namespace VOP
                         newImage.m_num = tmp.m_num;
 
                         this.selectedFileList.Insert(imgIndex, newImage);
+
+                        App.scanFileList.Add(newImage._files);//add by yunying shang 2017-12-05 for BMS 1694
                     }
                 }
             }
