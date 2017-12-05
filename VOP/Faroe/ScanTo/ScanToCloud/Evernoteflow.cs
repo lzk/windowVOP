@@ -132,7 +132,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                 Application.Current.MainWindow,
-                (string)"Initial Evernote and get EverNote list fail!",
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Initial_Evernote_and_Get_Evernote_fail"),//"Initial Evernote and get EverNote list fail!",
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
 
                 return false;
@@ -148,7 +148,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
            Application.Current.MainWindow,
-           (string)"The ever note attachment files could not be more than 60!",
+           (string)Application.Current.MainWindow.TryFindResource("ResStr_Evernote_attachment_files_could_not_more_than_60"),//"The ever note attachment files could not be more than 60!",
           (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 return false;
             }
@@ -165,7 +165,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                Application.Current.MainWindow,
-               (string)"Total image files size are too large, could not upload to EverNote server!",
+               (string)Application.Current.MainWindow.TryFindResource("ResStr_Images_files_Size_too_large"),//"Total image files size are too large, could not upload to EverNote server!",
               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                     return false;
                 }
@@ -215,7 +215,8 @@ namespace VOP
                 connectSuccess = false;
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow,
-                                (string)"Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!",
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Connect_to_Evernote_server_fail"),
+                                   //"Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!",
                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
             }
 

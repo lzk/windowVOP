@@ -434,4 +434,29 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Card">Card</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_LongPage_">Long Page</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Application_Support_Two_Pages">Scan To Application only supports opening two pages at most.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_You_do_not_have_permission">You do not have permission to save to the selected folder.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit">Do you want to exit the Faroe VOP?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_the_machine_could_not_be_connected">This machine could not be connected!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Not_Find_Printer">Not find printer!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Select_Pictures_to_process">Please select one or more pictures to process!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Do_You_Want_to_Delete_All_Images">Do you want to delete all images before leaving this page?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scanning is canceled on the machine!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_and_Path_could_not_be_Empty">The AP Name and Path could not be empty!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_could_not_be_Empty">The AP Name could not be empty!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Initial_Evernote_and_Get_Evernote_fail">Initial Evernote and get EverNote list fail!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Evernote_attachment_files_could_not_more_than_60">The ever note attachment files could not be more than 60!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Images_files_Size_too_large">Total image files size are too large, could not upload to EverNote server!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Connect_to_Evernote_server_fail">Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Get_EverNote_List_error">Get Ever Note List Error!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Evernote_Tile_could_not_be_empty">The Ever Note Title could not be empty!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Evernote_Title_could_not_be_all_space">The Ever Note Title characters could not be all space!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Upload_files_fail">Upload files fail, </sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_could_not_be_empty">The {0} cannot be empty!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_specify_incorrect">The {0} format is incorrect, Please check your {0} and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Device_disconnected">Device is diconnected, could not Apply setting!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_File_Path_and_name_too_long">Your Specify File Path + File Name is too long or not valid, please specify again!!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Invalid_xxx">Invalid {0}!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Specify_File_Path_not_exist">Your Specify File Path is not exist, please specify again!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Default_Save_Path_could_not_be_empty">The Default save path could not be empty!</sys:String>
+    
 </ResourceDictionary>

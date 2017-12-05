@@ -182,8 +182,8 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                     Application.Current.MainWindow,
-                    "The Default save path could not be empty!",
-                    "Error");
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Default_Save_Path_could_not_be_empty"),//"The Default save path could not be empty!",
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                     SavePathTbx.Focus();
                     return;
                 }
@@ -208,8 +208,8 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                     Application.Current.MainWindow,
-                    "The Ever Note Title could not be empty!",
-                    "Error");
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Evernote_Tile_could_not_be_empty"),//"The Ever Note Title could not be empty!",
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                     tbNoteTitle.Focus();
                     return;
                 }
@@ -224,8 +224,8 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                     Application.Current.MainWindow,
-                    "The Ever Note Title characters could not be all space!",
-                    "Error");
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Evernote_Title_could_not_be_all_space"),//"The Ever Note Title characters could not be all space!",
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                     tbNoteTitle.Text = "";
                     tbNoteTitle.Focus();
                     return;
@@ -299,12 +299,13 @@ namespace VOP
 
         private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            PasswordBox pb = sender as PasswordBox;
-            string strText = e.Text;
-            if (strText.Length > 0 && !Char.IsLetterOrDigit(strText, 0))
-            {
-                e.Handled = true;
-            }
+            //marked by yunying shang 2017-12-05 for BMS 1692
+            //PasswordBox pb = sender as PasswordBox;
+            //string strText = e.Text;
+            //if (strText.Length > 0 && !Char.IsLetterOrDigit(strText, 0))
+            //{
+            //    e.Handled = true;
+            //}
 
         }
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

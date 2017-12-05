@@ -51,7 +51,7 @@ namespace VOP
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
                   "The Server Address cannot be empty",
-                  "Error");
+                  (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
             else if (tbUserName.Text == "" )
@@ -59,7 +59,7 @@ namespace VOP
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
                   "The User Name cannot be empty",
-                  "Error");
+                  (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
             else if (pbPWD.Password == "" )
@@ -67,7 +67,7 @@ namespace VOP
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
                   "The Password cannot be empty",
-                  "Error");
+                  (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
             else if (tbTargetPath.Text == "")
@@ -82,7 +82,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The Server Address format is incorrect, Please check you server address and enter again.",
+                 "The Server Address format is incorrect, Please check your Server Address and enter again.",
                  "Error");
                 return;
             }            
@@ -92,7 +92,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The Server Address format is incorrect, Please check you server address and enter again.",
+                 "The Server Address format is incorrect, Please check your Server Address and enter again.",
                  "Error");
                 return;
             }
@@ -100,7 +100,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The Tartget Path format is incorrect, Please check you target path and enter again.",
+                 "The Tartget Path format is incorrect, Please check your Target Path and enter again.",
                  "Error");
                 return;
             }

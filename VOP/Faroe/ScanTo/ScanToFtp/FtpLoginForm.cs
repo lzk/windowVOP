@@ -51,50 +51,55 @@ namespace VOP
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
+            string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
 
             if (tbServerName.Text == "")
             {
+                message = string.Format(message, "Server Address");
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
-                  "The Server Address cannot be empty",
-                  "Error");
-                tbServerName.Focus();
+                  message,//"The Server Address cannot be empty",
+                  (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
             else if (tbUserName.Text == "")
             {
+                message = string.Format(message, "User Name");
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
-                  "The User Name cannot be empty",
-                  "Error");
-                tbUserName.Focus();
+                  message, //"The User Name cannot be empty",
+                  (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
             else if (pbPWD.Password == "")
             {
+                message = string.Format(message, "Password");
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
-                  "The Password cannot be empty",
-                  "Error");
-                pbPWD.Focus();
+                  message,//"The Password cannot be empty",
+                  (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
             else if (tbTargetPath.Text == "")
             {
+                message = string.Format(message, "Target Path");
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
-                  "The Target Path cannot be empty",
-                  "Error");
-                tbTargetPath.Focus();
+                  message,//"The Target Path cannot be empty",
+                  (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
+
+            message = (string)Application.Current.MainWindow.TryFindResource("ResStr_specify_incorrect");
+
             if (tbServerName.Text.Length < 7)
             {
+                message = string.Format(message, "Server Address");
+
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The Server Address format is incorrect, Please check you server address and enter again.",
-                 "Error");
-                tbServerName.Focus();
+                 message, //"The Server Address format is incorrect, Please check your Server Address and enter again.",
+                 (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
 
@@ -103,19 +108,23 @@ namespace VOP
 
             if (strServerName.ToUpper() != "FTP://")
             {
+                message = string.Format(message, "Server Address");
+
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The Server Address format is incorrect, Please check you server address and enter again.",
-                 "Error");
+                 message,//"The Server Address format is incorrect, Please check your Server Address and enter again.",
+                 (string)this.TryFindResource("ResStr_Error"));
                 tbServerName.Focus();
                 return;
             }
             if (strTargetPath != "/")
             {
+                message = string.Format(message, "Target Path");
+
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The Target Path format is incorrect, Please check you target path and enter again.",
-                 "Error");
+                 message,//"The Target Path format is incorrect, Please check your Target Path and enter again.",
+                 (string)this.TryFindResource("ResStr_Error"));
                 tbTargetPath.Focus();
                 return;
             }
@@ -130,10 +139,12 @@ namespace VOP
                 }
                 if (i >= strTargetPath.Length && strTargetPath.Length >= 2)
                 {
+                    message = string.Format(message, "Target Path");
+
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                       Application.Current.MainWindow,
-                     "The Target Path format is incorrect, Please check you target path and enter again.",
-                     "Error");
+                     message, //"The Target Path format is incorrect, Please check your Target Path and enter again.",
+                     (string)this.TryFindResource("ResStr_Error"));
                     return;
                 }
             }

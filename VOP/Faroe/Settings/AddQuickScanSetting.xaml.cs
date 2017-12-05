@@ -160,10 +160,12 @@ namespace VOP
         {
             if (tbName.Text == "")
             {
+                string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
+                message = string.Format(message, "Name");
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
-                  "The Name cannot be empty",
-                  "Error");
+                  message,//"The Name cannot be empty",
+                  (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
             else

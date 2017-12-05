@@ -308,7 +308,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                     Application.Current.MainWindow,
-                    (string)"This machine could not be connected!",
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_the_machine_could_not_be_connected"),
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
 
                     int i = 0;

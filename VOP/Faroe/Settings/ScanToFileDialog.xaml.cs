@@ -198,22 +198,22 @@ namespace VOP
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
+            string message = (string)this.TryFindResource("ResStr_could_not_be_empty");
             //modified by yunying shang 2017-10-19 for BMS 1173
             if (tbFilePath.Text == "" || tbFileName.Text == "")
-            {
-                string message = string.Empty;
+            {               
 
                 if (tbFilePath.Text == "" && tbFileName.Text == "")
-                    message = "The File Path and File Name cannot be empty!";
+                    message = string.Format(message, "File Path and File Name");
                 else if (tbFilePath.Text == "")
-                    message = "The File Path cannot be empty";
+                    message = string.Format(message, "File Path");
                 else
-                    message = "The File Name cannot be empty";
+                    message = string.Format(message, "File Name");
 
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
                   message,
-                  "Error");
+                  (string)this.TryFindResource("ResStr_Error"));
 
                 tbFileName.Focus();
 
@@ -233,12 +233,14 @@ namespace VOP
             string path = tbFilePath.Text;
             bool bValidPath = IsValidPathName(ref path);
             bool bValidName = IsValidFileName(tbFileName.Text);
+            message = (string)this.TryFindResource("ResStr_Invalid_xxx");
             if (!bValidPath && !bValidName)
             {
+                message = string.Format(message, "File Path and File Name");
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                     Application.Current.MainWindow,
-                   "Invalid File Path and File Name",
-                   "Error");
+                   message, //"Invalid File Path and File Name",
+                   (string)this.TryFindResource("ResStr_Error"));
 
                 tbFilePath.Focus();
 
@@ -248,20 +250,23 @@ namespace VOP
             {
                 if (!PathExist(path))
                 {
+                    string msg = (string)this.TryFindResource("ResStr_Specify_File_Path_not_exist");
+
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                       Application.Current.MainWindow,
-                     "Your Specify File Path is not exit, please specify again!",
-                     "Error");
+                     msg,//"Your Specify File Path is not exit, please specify again!",
+                     (string)this.TryFindResource("ResStr_Error"));
                     tbFileName.Focus();
                     return;
                 }
 
                 if (!IsValidPathName(ref path))
                 {
+                    message = string.Format(message, "File Path");
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                       Application.Current.MainWindow,
-                     "Invalid File Path",
-                     "Error");
+                     message,//"Invalid File Path",
+                     (string)this.TryFindResource("ResStr_Error"));
                     tbFilePath.Focus();
                     return;
                 }
@@ -269,10 +274,11 @@ namespace VOP
                 {                                    
                     if (!IsValidFileName(tbFileName.Text))
                     {
+                        message = string.Format(message, "File Name");
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                           Application.Current.MainWindow,
-                         "Invalid File Name",
-                         "Error");
+                         message,//"Invalid File Name",
+                         (string)this.TryFindResource("ResStr_Error"));
                         tbFileName.Focus();
                         return;
                     }
@@ -282,8 +288,8 @@ namespace VOP
                         {
                             VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                               Application.Current.MainWindow,
-                             "Your Specify File Path and File Name length are too long, please specify again!",
-                             "Error");
+                             (string)this.TryFindResource("ResStr_File_Path_and_name_too_long"),//"Your Specify File Path and File Name length are too long, please specify again!",
+                             (string)this.TryFindResource("ResStr_Error"));
                             tbFileName.Focus();
                             return;
                         }
@@ -334,8 +340,8 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                       Application.Current.MainWindow,
-                     "Your Specify File Path + File Name is too long or not valid, please specify again!",
-                     "Error");
+                     (string)Application.Current.MainWindow.TryFindResource("ResStr_File_Path_and_name_too_long"),//"Your Specify File Path + File Name is too long or not valid, please specify again!",
+                     (string)this.TryFindResource("ResStr_Error"));
                 }
 
             }

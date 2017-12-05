@@ -40,10 +40,13 @@ namespace VOP
         {
             if (tbFolderName.Text == "")
             {
+                string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
+                message = string.Format(message, "Folder");
+
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
-                  "The folder name cannot be empty",
-                  "Error");
+                  message,//"The folder name cannot be empty",
+                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 return;
             }
             m_folderName = tbFolderName.Text;

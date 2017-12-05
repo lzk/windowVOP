@@ -74,10 +74,12 @@ namespace VOP
         {
             if (tbRecipient.Text.Length == 0)
             {
+                string message = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
+                message = string.Format(message, "Recipient");
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                    Application.Current.MainWindow,
-                  "The Recipient cannot be empty",
-                  "Error");
+                  message,//"The Recipient cannot be empty",
+                  (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
 

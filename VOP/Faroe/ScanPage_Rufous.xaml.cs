@@ -187,6 +187,7 @@ namespace VOP
                      );
                     GetSelectedFileToAP(files, 2);
                     SelectTwoFiles(2, files);
+                    SelectAllCheckBox.IsChecked = false;
                 }
             }
             else
@@ -204,10 +205,11 @@ namespace VOP
                     );
                     GetSelectedFileToAP(files, 1);
                     SelectTwoFiles(1, files);
+                    SelectAllCheckBox.IsChecked = false;
                 }
             }
 
-            SelectAllCheckBox.IsChecked = false;
+            
 
             APFlow flow = new APFlow();
             flow.ParentWin = m_MainWin;
@@ -253,7 +255,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                  Application.Current.MainWindow,
-                                "Not find printer!" ,
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Not_Find_Printer"),
                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
             }
             else
@@ -286,7 +288,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                      Application.Current.MainWindow,
-                                    "Not find printer!",
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Not_Find_Printer"),
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 }
                 else
@@ -728,7 +730,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                       Application.Current.MainWindow,
-                     "Please select one or more pictures to process",
+                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Select_Pictures_to_process"),//"Please select one or more pictures to process",
                      (string)this.TryFindResource("ResStr_Prompt"));
             }
         }
@@ -767,7 +769,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                       Application.Current.MainWindow,
-                     "Please select one or more pictures to process",
+                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Select_Pictures_to_process"),
                      (string)this.TryFindResource("ResStr_Prompt"));
             }
         }
@@ -967,7 +969,7 @@ namespace VOP
                  VOP.Controls.MessageBoxEx.Show(
                      VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
                      m_MainWin,
-                     "Do you want to delete all images before leaving this page?",
+                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Do_You_Want_to_Delete_All_Images"),//"Do you want to delete all images before leaving this page?",
                      (string)this.TryFindResource("ResStr_Prompt")
                      ))
                 {

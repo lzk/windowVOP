@@ -633,13 +633,19 @@ namespace VOP
                         isIPOK = false;
                         if (0xffffffff == ((nIP | nSubMask) & 0xffffffff))
                         {
-                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_1__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_"), (string)this.FindResource("ResStr_Warning"));
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, 
+                                Application.Current.MainWindow, 
+                                (string)this.FindResource("ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_1__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_"), 
+                                (string)this.FindResource("ResStr_Warning"));
                             tb_ip.Focus();
                             return false;
                         }
                         else if ((0x00000000 == ((~nSubMask) & nIP)))
                         {
-                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_0__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_"), (string)this.FindResource("ResStr_Warning"));
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, 
+                                Application.Current.MainWindow,
+                                (string)this.FindResource("ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_0__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_"), 
+                                (string)this.FindResource("ResStr_Warning"));
                             tb_ip.Focus();
                             return false;
                         }
@@ -752,7 +758,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                    Application.Current.MainWindow,
-                   (string)"Device is diconnected, could not Apply setting!",
+                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Device_disconnected"),//"Device is diconnected, could not Apply setting!",
                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 return;
             }

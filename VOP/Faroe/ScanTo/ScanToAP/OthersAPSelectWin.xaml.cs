@@ -76,7 +76,7 @@ namespace VOP
                         tbAPName.Focus();
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                          Application.Current.MainWindow,
-                       (string)"The AP Name and Path could not be empty!",
+                       (string)Application.Current.MainWindow.TryFindResource("ResStr_AP_Name_and_Path_could_not_be_Empty"),//"The AP Name and Path could not be empty!",
                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Wanring")
                         );
                     }
@@ -87,7 +87,7 @@ namespace VOP
                             tbAPName.Focus();
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                          Application.Current.MainWindow,
-                        (string)"The AP Name could not be empty!",
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_AP_Name_could_not_be_Empty"),//"The AP Name could not be empty!",
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Wanring"));
                         }
                         else
@@ -95,7 +95,7 @@ namespace VOP
                             tbAPPath.Focus();
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                          Application.Current.MainWindow,
-                        (string)"The AP Path could not be empty!",
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_AP_Path_could_not_be_Empty"), //"The AP Path could not be empty!",
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Wanring"));
                         }
                     }

@@ -108,7 +108,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                 Application.Current.MainWindow,
-                (string)"Get Ever Note List Error!",
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Get_EverNote_List_error"),//"Get Ever Note List Error!",
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
 
                 return false;
@@ -124,8 +124,8 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                 Application.Current.MainWindow,
-                "The Ever Note Title could not be empty!",
-                "Error");
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Evernote_Tile_could_not_be_empty"),//"The Ever Note Title could not be empty!",
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 tbNoteTitle.Focus();
                 return;
             }
@@ -140,8 +140,8 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                 Application.Current.MainWindow,
-                "The Ever Note Title characters could not be all space!",
-                "Error");
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Evernote_Title_could_not_be_all_space"),//"The Ever Note Title characters could not be all space!",
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 tbNoteTitle.Text = "";
                 tbNoteTitle.Focus();
                 return;
@@ -159,7 +159,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                Application.Current.MainWindow,
-               (string)"The ever note attachment files could not be more than 60!",
+               (string)(string)Application.Current.MainWindow.TryFindResource("ResStr_Evernote_attachment_files_could_not_more_than_60"),
               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                     return;
                 }
@@ -176,7 +176,7 @@ namespace VOP
                     {
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                    Application.Current.MainWindow,
-                   (string)"Total image files size are too large, could not upload to EverNote server!",
+                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Images_files_Size_too_large"),//"Total image files size are too large, could not upload to EverNote server!",
                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                         return;
                     }
@@ -203,7 +203,8 @@ namespace VOP
             {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                Application.Current.MainWindow,
-               (string)"Upload files fail, " + ex.Message,
+               (string)Application.Current.MainWindow.TryFindResource("ResStr_Upload_files_fail")//"Upload files fail, "
+               + ex.Message,
               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
             }
             

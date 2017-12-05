@@ -128,7 +128,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                  Application.Current.MainWindow,
-                                "Not find printer!",
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Not_Find_Printer"),//"Not find printer!",
                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 return Scan_RET.RETSCAN_ADF_NOT_READY;
             }
@@ -174,7 +174,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                      Application.Current.MainWindow,
-                                    "Not find printer!",
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Not_Find_Printer"),//"Not find printer!",
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 }
                 else

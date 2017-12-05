@@ -348,7 +348,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                         Application.Current.MainWindow,
-                        (string)"The scanning is canceled on the machine!",
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Scanning_is_canceled_on_machine"),//"The scanning is canceled on the machine!",
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                         );
                 }

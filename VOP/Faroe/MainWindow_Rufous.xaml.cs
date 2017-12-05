@@ -640,7 +640,7 @@ namespace VOP
                     VOP.Controls.MessageBoxEx.Show(
                                                 VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
                                                 this,
-                                                "Do you want to exit the Faroe VOP?",
+                                                (string)this.TryFindResource("ResStr_Do_you_want_to_exit"),
                                                 (string)this.TryFindResource("ResStr_Warning")
                                                 )
                 )
