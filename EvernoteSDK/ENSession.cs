@@ -480,7 +480,7 @@ namespace EvernoteSDK
                  service = EvernoteOAuth.HostService.Sandbox;
 
                 // Perform the authentication.
-                var oauth = new EvernoteOAuth(service, ConsumerKey, ConsumerSecret, SupportsLinkedAppNotebook);
+                var oauth = new EvernoteOAuth(service, ConsumerKey, ConsumerSecret,  SupportsLinkedAppNotebook);
           
                 string errResponse = oauth.Authorize();
 				if (errResponse.Length == 0)

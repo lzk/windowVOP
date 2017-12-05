@@ -432,4 +432,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Are_you_sure_to_delete_the_quick_scan">Are you sure to delete the quick scan setting?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Card">Card</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_LongPage_">Long Page</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Application_Support_Two_Pages">Scan To Application only supports opening two pages at same time.</sys:String>
 </ResourceDictionary>

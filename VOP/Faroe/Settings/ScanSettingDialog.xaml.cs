@@ -543,7 +543,7 @@ namespace VOP
             if (m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._Card)
             {
-                m_scanParams.MultiFeed = true;
+                m_scanParams.MultiFeed = false;
             }//<<=================1642
 
             if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)

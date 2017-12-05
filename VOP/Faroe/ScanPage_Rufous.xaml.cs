@@ -178,19 +178,30 @@ namespace VOP
                     GetSelectedFile(files);
                 }
                 else
-                {
+                {        
+                    //add by yunying shang 2017-12-05 for BMS 1688           
+                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                     Application.Current.MainWindow,
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Application_Support_Two_Pages"),
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
+                     );
                     GetSelectedFileToAP(files, 2);
                     SelectTwoFiles(2, files);
                 }
             }
             else
             {
-                if (GetSelectedItemCount() <= 2)
+                if (GetSelectedItemCount() <= 1)
                 {
                     GetSelectedFile(files);
                 }
                 else
                 {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                    Application.Current.MainWindow,
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Application_Support_Two_Pages"),
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
+                    );
                     GetSelectedFileToAP(files, 1);
                     SelectTwoFiles(1, files);
                 }
