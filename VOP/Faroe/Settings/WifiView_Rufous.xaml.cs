@@ -181,8 +181,10 @@ namespace VOP
                 rowManual.Height = GridLength.Auto;
                 autoConnect.Visibility = Visibility.Hidden;
                 autoConnect.IsEnabled = false;
-                gdWifi.Visibility = Visibility.Hidden;
-                gdWifi.IsEnabled = false;
+                //modified by yunying shang 2017-12-05 for BMS　1651
+                gdWifi.Visibility = Visibility.Visible;
+                gdWifi.IsEnabled = true;
+                //<<=================1651
                 rowAuto.Height = new GridLength(0);
                 wepKey0.IsChecked = true;
                 m_bConnectOthApMode = true;
