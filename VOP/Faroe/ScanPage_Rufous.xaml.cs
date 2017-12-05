@@ -65,8 +65,8 @@ namespace VOP
                         newImage.m_num = scanFileList.IndexOf(scanFileList[i]) + 1;
                         selectedFileList.Add(newImage);
                         UpdateSelItemNum();
-                    }                    
-
+                    }
+                    m_selectedPage = 0;//add by yunying shang 2017-12-05 for BMS 1561
                     m_pageCount = scanFileList.Count / 8;
                     if (scanFileList.Count % 8 > 0)
                         m_pageCount += 1;
@@ -673,7 +673,8 @@ namespace VOP
             {
                 LeftBtn.IsEnabled = false;
                 RightBtn.IsEnabled = false;
-            }//<<===============1561
+            }            
+            //<<===============1561
         }
 
         void InitFontSize()
