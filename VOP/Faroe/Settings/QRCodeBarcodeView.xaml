@@ -315,7 +315,7 @@
         	Content="Settings..." 
         	FontSize="16"
        		Style="{StaticResource CustomSettingButtonStyle}"
-        	Click="Button_Click" Margin="0,3,0,12" Grid.Row="1"
+        	Click="Button_Click" Grid.Row="1"
                 />
         <Canvas Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Margin="0,3">
             <Path Stroke="LightGray" StrokeThickness="2">

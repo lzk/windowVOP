@@ -134,7 +134,7 @@ namespace VOP
                 //imgInactive.Visibility = Visibility.Visible;
                 //imgBg.Visibility = Visibility.Hidden;
                 //imgDisable.Visibility = Visibility.Visible;
-                if(m_settingType == SettingType.ScanParameter)
+                if(m_settingType == SettingType.QuickScanSettings)
                     imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_disable.png", UriKind.RelativeOrAbsolute));
                 else if(m_settingType == SettingType.Device)
                     imgBg.Source = new BitmapImage(new Uri("../../Images/setting_img_disable2.png", UriKind.RelativeOrAbsolute));

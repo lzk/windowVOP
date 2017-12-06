@@ -468,6 +468,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Server_Address_Target_Path_too_long">Your Specify the Server Address and Tartget Path are too long!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Not_Ready">Printer is not ready!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Quick_Scan_Exist">Quick Scan item name already exists. change to another name.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Printer_Not_Ready">Printer is not ready!</sys:String>
-    
+
 </ResourceDictionary>

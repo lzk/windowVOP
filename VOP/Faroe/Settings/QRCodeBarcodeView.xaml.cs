@@ -43,7 +43,7 @@ namespace VOP
 
             tbFilePath.IsReadOnly = true;
 
-            cbCodeType.Focus();
+            //cbCodeType.Focus();//marked by yunying shang 2017-12-06 for BMS 1701
             tbSettings.Focus();
         }
 
