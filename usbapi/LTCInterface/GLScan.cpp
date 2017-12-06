@@ -85,7 +85,7 @@ BYTE CGLDrv::_OpenDevice()
 {
 	if (g_connectMode_usb == TRUE)
 	{
-		return (BYTE)(m_GLusb->CMDIO_OpenDevice());
+		return (BYTE)(m_GLusb->CMDIO_OpenDevice(g_deviceName));
 	}
 	else
 	{

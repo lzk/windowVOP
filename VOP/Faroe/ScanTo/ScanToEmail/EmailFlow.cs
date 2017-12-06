@@ -173,9 +173,10 @@ namespace VOP
             {
                 if (ex.ErrorCode == 0x80040154)
                 {
+                    string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Not_Find_Outlook");
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                      Application.Current.MainWindow,
-                                    (string)"Could not find the outlook, please check you computer!",
+                                    (string)message,//"Could not find the outlook, please check you computer!",
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 }
                 else

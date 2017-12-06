@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Authenticate" 
         xmlns:local="clr-namespace:VOP.Controls"
-        Height="280" Width="550" 
+        Height="300" Width="550" 
         WindowStartupLocation="CenterOwner" 
         WindowStyle="None" 
         ResizeMode="NoResize" 
@@ -28,7 +28,7 @@
     </Window.Effect>
 
     <Viewbox Stretch="Fill">
-        <Border Height="230" Width="500" Background="AliceBlue" BorderThickness="4" BorderBrush="#FF0E5686">
+        <Border Height="250" Width="500" Background="AliceBlue" BorderThickness="4" BorderBrush="#FF0E5686">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -48,7 +48,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="60" />
                         <RowDefinition Height="60" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>

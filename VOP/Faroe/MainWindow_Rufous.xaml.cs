@@ -49,6 +49,7 @@ namespace VOP
         public bool _bScanning = false;
 
         private bool bGrayIcon = false; // True if the tray icon was set to gray.
+        private const string USBSCANSTRING = "\\\\.\\usbscan";
 
         public MainWindow_Rufous()
         {
@@ -69,16 +70,36 @@ namespace VOP
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
         }
 
-        private string GetDeviceName()
+        //add by yunying shang 2017-12-06 for BMS 1533
+        public string GetDeviceName(string devicename)
         {
-            if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
-                return MainWindow_Rufous.g_settingData.m_DeviceName;
+            if (devicename == string.Empty)
+            {
+                if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
+                    return MainWindow_Rufous.g_settingData.m_DeviceName;
+                else
+                {
+                    int index = MainWindow_Rufous.g_settingData.m_DeviceName.LastIndexOf(' ');
+                    if (index > 0)
+                    {
+                        string str = USBSCANSTRING;
+                        str += MainWindow_Rufous.g_settingData.m_DeviceName.Substring(index+1);
+
+                        return str;
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
             else
             {
-                int index = MainWindow_Rufous.g_settingData.m_DeviceName.LastIndexOf(' ');
+                int index = devicename.LastIndexOf(' ');
                 if (index > 0)
                 {
-                    string str = MainWindow_Rufous.g_settingData.m_DeviceName.Substring(index);
+                    string str = USBSCANSTRING;
+                    str += devicename.Substring(index+1);
 
                     return str;
                 }
@@ -89,7 +110,7 @@ namespace VOP
             }
 
             return string.Empty;
-        }
+        }//<<================1533
 
         public void LoadedMainWindow(object sender, RoutedEventArgs e)
         {
@@ -114,7 +135,7 @@ namespace VOP
                         if (iRtn == 1 || iRtn == 3)
                         {
                             MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
-                            dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, true);
+                            dll.SetConnectionMode(GetDeviceName(""), true);
                         }
                         else
                         {
@@ -135,7 +156,7 @@ namespace VOP
                                     if (dll.CheckUsbScan(usbname)==1)
                                     {
                                         MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
-                                        dll.SetConnectionMode(usbname.ToString(), true);
+                                        dll.SetConnectionMode(GetDeviceName(usbname.ToString()), true);
                                     }
                                 }
                                 else
@@ -156,7 +177,7 @@ namespace VOP
                             StringBuilder usbname = new StringBuilder(50);
                             if (dll.CheckUsbScan(usbname) == 1)
                             {
-                                dll.SetConnectionMode(usbname.ToString(), true);
+                                dll.SetConnectionMode(GetDeviceName(usbname.ToString()), true);
                             }
                         }
                     }
@@ -167,7 +188,7 @@ namespace VOP
                     if (iRtn == 1 || iRtn == 3)
                     {
                         MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
-                        dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, true);
+                        dll.SetConnectionMode(GetDeviceName(""), true);
                     }
                     else
                     {
@@ -255,10 +276,10 @@ namespace VOP
             StringBuilder usbName = new StringBuilder(50);
             if (dll.CheckUsbScan(usbName) == 1)           
             {
-                if (dll.CheckUsbScanByName(GetDeviceName()) == 1)  
+                if (dll.CheckUsbScanByName(GetDeviceName("")) == 1)  
                         //MainWindow_Rufous.g_settingData.m_DeviceName == usbName.ToString())
                 {
-                    dll.SetConnectionMode(usbName.ToString(), true);
+                    dll.SetConnectionMode(GetDeviceName(""), true);
                     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                     // SetDeviceButtonState(true);
                     MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
@@ -285,7 +306,7 @@ namespace VOP
             {
                 if (dll.CheckUsbScan(usbName) == 1)
                 {                 
-                    dll.SetConnectionMode(usbName.ToString(), true);
+                    dll.SetConnectionMode(GetDeviceName(usbName.ToString()), true);
                     MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
                     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                 }
@@ -360,7 +381,7 @@ namespace VOP
             _bExitUpdater = false;
             while (!_bExitUpdater)// && !_bScanning)
             {
-                if (dll.CheckConnectionByName(GetDeviceName()))
+                if (dll.CheckConnectionByName(GetDeviceName("")))
                 {
                     //SetDeviceButtonState(true);
                     //modified by yunying shang 2017-10-19 for BMS 1172

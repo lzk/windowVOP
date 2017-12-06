@@ -104,12 +104,12 @@ namespace VOP
 
                         if (MainWindow_Rufous.g_settingData.m_DeviceName == item.DeviceName)
                         {
+                            usbName.Append(name);
                             item.StatusText = "Connected";
-                            dll.SetConnectionMode(item.DeviceName, true);
+                            dll.SetConnectionMode(m_MainWin.GetDeviceName(item.DeviceName), true);
                             m_MainWin.SetDeviceButtonState(true);
                             canConnected = true;
-                            MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
-                            usbName.Append(name);
+                            MainWindow_Rufous.g_settingData.m_isUsbConnect = true;                            
                         }
                         else
                         {
@@ -127,11 +127,14 @@ namespace VOP
                 if (IsOnLine() == false)
                 {
                     VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow,
-                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_not_on_line"), 
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_not_on_line"),
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 }//===============1165
-                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-                worker.InvokeQuickScanMethod(ListIP, (string)this.TryFindResource("ResStr_Faroe_search_dev"));
+                else
+                {
+                    AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+                    worker.InvokeQuickScanMethod(ListIP, (string)this.TryFindResource("ResStr_Faroe_search_dev"));
+                }
             }
             else
             {
@@ -184,49 +187,63 @@ namespace VOP
                         }
                     }//<<=================1175
 
-                    if (dll.CheckUsbScan(usbName) == 1)
+                    for (int iCnt = 0; iCnt <= 127; iCnt++)
                     {
-                        DeviceListBoxItem item = new DeviceListBoxItem();
-                        item.DeviceName = usbName.ToString();
+                        string name = string.Format("{0}{1}", USBSCANSTRING, iCnt);
 
-                        if (MainWindow_Rufous.g_settingData.m_DeviceName == item.DeviceName)
+                        if (dll.CheckUsbScanByName(name) == 1)
                         {
-                            item.StatusText = "Connected";
-                            dll.SetConnectionMode(item.DeviceName, true);
-                            m_MainWin.SetDeviceButtonState(true);
-                            canConnected = true;
-                            MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
-                        }
-                        else
-                        {
-                            item.StatusText = "";
-                        }
+                            DeviceListBoxItem item = new DeviceListBoxItem();
+                            string devicename = string.Format("{0}{1}", "USB Device ", iCnt);
+                            item.DeviceName = devicename;
 
-                        DeviceList.Items.Add(item);
+                            if (MainWindow_Rufous.g_settingData.m_DeviceName == item.DeviceName)
+                            {
+                                item.StatusText = "Connected";
+                                dll.SetConnectionMode(m_MainWin.GetDeviceName(item.DeviceName), true);
+                                m_MainWin.SetDeviceButtonState(true);
+                                canConnected = true;
+                                MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+                                usbName.Append(name);
+                            }
+                            else
+                            {
+                                item.StatusText = "";
+                            }
+
+                            DeviceList.Items.Add(item);
+                        }
                     }
                 }
                 else
                 {
 
-                    if (dll.CheckUsbScan(usbName) == 1)
+                    for (int iCnt = 0; iCnt <= 127; iCnt++)
                     {
-                        DeviceListBoxItem item = new DeviceListBoxItem();
-                        item.DeviceName = usbName.ToString();
+                        string name = string.Format("{0}{1}", USBSCANSTRING, iCnt);
 
-                        if (MainWindow_Rufous.g_settingData.m_DeviceName == item.DeviceName)
+                        if (dll.CheckUsbScanByName(name) == 1)
                         {
-                            item.StatusText = "Connected";
-                            dll.SetConnectionMode(item.DeviceName, true);
-                            m_MainWin.SetDeviceButtonState(true);
-                            canConnected = true;
-                            MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
-                        }
-                        else
-                        {
-                            item.StatusText = "";
-                        }
+                            DeviceListBoxItem item = new DeviceListBoxItem();
+                            string devicename = string.Format("{0}{1}", "USB Device ", iCnt);
+                            item.DeviceName = devicename;
 
-                        DeviceList.Items.Add(item);
+                            if (MainWindow_Rufous.g_settingData.m_DeviceName == item.DeviceName)
+                            {
+                                item.StatusText = "Connected";
+                                dll.SetConnectionMode(m_MainWin.GetDeviceName(item.DeviceName), true);
+                                m_MainWin.SetDeviceButtonState(true);
+                                canConnected = true;
+                                MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+                                usbName.Append(name);
+                            }
+                            else
+                            {
+                                item.StatusText = "";
+                            }
+
+                            DeviceList.Items.Add(item);
+                        }
                     }
 
                     foreach (string ip in ipList)
@@ -254,7 +271,7 @@ namespace VOP
                         {
                             btnConnect.IsEnabled = true; //add by yunying shang for BMS1018
                             item.StatusText = "Connected";
-                            dll.SetConnectionMode(item.DeviceName, true);
+                            dll.SetConnectionMode(m_MainWin.GetDeviceName(item.DeviceName), true);
                             m_MainWin.SetDeviceButtonState(true);
                             MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
                             break;
@@ -337,7 +354,7 @@ namespace VOP
 
                     if (item.DeviceName.ToLower().Contains("usb"))
                     {
-                        dll.SetConnectionMode(item.DeviceName, true);
+                        dll.SetConnectionMode(m_MainWin.GetDeviceName(item.DeviceName), true);
                         MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
                     }
                     else

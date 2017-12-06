@@ -102,5 +102,6 @@
 
 extern long CreateSafeArrayFromBSTRArray(BSTR* pBSTRArray,ULONG ulArraySize,SAFEARRAY** ppSafeArrayReceiver);
 extern wchar_t g_ipAddress[256];
+extern wchar_t g_deviceName[256];
 extern BOOL g_connectMode_usb;
 extern int start_cancel;

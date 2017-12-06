@@ -68,6 +68,7 @@ USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP);
 extern BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *status);
 
 wchar_t g_ipAddress[256] = { 0 };
+wchar_t g_deviceName[256] = { 0 };
 BOOL g_connectMode_usb = FALSE;
 static Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 static ULONG_PTR gdiplusToken;
@@ -1237,7 +1238,10 @@ USBAPI_API int __stdcall CheckUsbScan(
 USBAPI_API void __stdcall SetConnectionMode(
 	const wchar_t* deviceName, BOOL isUsb)
 {
-	_tcscpy_s(g_ipAddress, 256, deviceName);
+	if(isUsb)
+		_tcscpy_s(g_deviceName, 256, deviceName);
+	else
+		_tcscpy_s(g_ipAddress, 256, deviceName);
 	g_connectMode_usb = isUsb;
 }
 
