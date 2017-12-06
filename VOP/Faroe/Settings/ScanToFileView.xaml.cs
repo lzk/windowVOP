@@ -185,7 +185,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                       Application.Current.MainWindow,
-                     "Invalid file name",
+                     message,//"Invalid file name",
                      "Error");
                     return;
                 }

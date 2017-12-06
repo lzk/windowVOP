@@ -189,7 +189,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                            Application.Current.MainWindow,
-                          (string)"Printer is not ready!",
+                          (string)Application.Current.MainWindow.TryFindResource("ResStr_Printer_Not_Ready"),//"Printer is not ready!",
                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                           );
                 return false;

@@ -112,12 +112,14 @@ namespace VOP
                 { 
                     result = save.ShowDialog();
 
+                    string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_File_Path_and_Name_too_long");
+
                     if (MAX_PATH <= (save.FileName.Length + 1 + MAX_FILE_NAME_CHARS_NUMBER))//
                     {
                         result = false;
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                         Application.Current.MainWindow,
-                                       (string)"You Specify the file path and file name is too long, please specify again " + m_errorMsg,
+                                       (string)message,//"You Specify the file path and file name is too long, please specify again " + m_errorMsg,
                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                     }
                     //modified by yunying shang 2017-10-31 for BMS 1260
@@ -130,7 +132,7 @@ namespace VOP
                             result = false;
                             VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow,
-                                (string)"You Specify the file path and file name is too long, please specify again!",
+                                (string)message,//"You Specify the file path and file name is too long, please specify again!",
                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                         }
                     }//<<=============1185

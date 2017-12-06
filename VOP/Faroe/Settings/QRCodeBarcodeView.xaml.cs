@@ -122,20 +122,24 @@ namespace VOP
                 return;
             }
 
+            message = (string)this.TryFindResource("ResStr_Invalid_xxx");
+
             if (!IsValidFileName(tbFileName.Text.Trim()))
             {
+                message = string.Format(message, "File Name");
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                     System.Windows.Application.Current.MainWindow,
-                   "Invalid file name",
+                   message,//"Invalid file name",
                    (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
 
             if (!IsValidPathName(tbFilePath.Text.Trim()))
             {
+                message = string.Format(message, "File Path");
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                     System.Windows.Application.Current.MainWindow,
-                    "Invalid path name",
+                    message,//"Invalid path name",
                     (string)this.TryFindResource("ResStr_Error"));
                 return;
             }
@@ -166,11 +170,13 @@ namespace VOP
                 DialogResult result = save.ShowDialog();
                 if (result == DialogResult.OK)
                 {
+                    string message = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_File_Path_and_Name_too_long");
+
                     if (save.SelectedPath.Length + 50 >= 260)
                     {
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                              System.Windows.Application.Current.MainWindow,
-                            "The specified path is too long. Please specify again!",
+                            message,//"The specified path is too long. Please specify again!",
                             (string)this.TryFindResource("ResStr_Error"));
                     }
                     else
@@ -217,7 +223,7 @@ namespace VOP
                         {
                             VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                                  System.Windows.Application.Current.MainWindow,
-                                "The specified path has no write permissions. Please specify again!",
+                                (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_You_do_not_have_permission"),//"The specified path has no write permissions. Please specify again!",
                                 (string)this.TryFindResource("ResStr_Error"));
                         }
                     }
