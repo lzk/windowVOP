@@ -35,6 +35,13 @@ namespace VOP
         string pdfName = "";
        // string tiffName = "";
         string m_errorMsg = "";
+        private bool m_sendFinished = false;
+
+        [DllImport("User32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll", EntryPoint = "FindWindow")]
+        private extern static IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         public bool Run()
         {
@@ -68,10 +75,10 @@ namespace VOP
                 else
                 {
                     pdfName = "";
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                     Application.Current.MainWindow,
                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save_pdf") + m_errorMsg,
-                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                                     );
                 }
                 
@@ -165,7 +172,30 @@ namespace VOP
                 }
                 else
                 {
-                    oMsg.Display(true);
+                    //modified by yunying shang 2017-12-06 for BMS 1035
+                    m_sendFinished = false;
+                    Thread thread = new Thread(() =>
+                    {
+                        while (!m_sendFinished)
+                        {
+                            IntPtr hwnd = FindWindow("rctrl_renwnd32\0", null);
+                            if (hwnd != IntPtr.Zero)
+                            {
+                                SetForegroundWindow(hwnd);
+                                return;
+                            }
+                            Thread.Sleep(20);
+                        }
+                    });
+                    thread.SetApartmentState(ApartmentState.STA);
+                    thread.IsBackground = false;
+                    thread.Start();
+                  
+                    oMsg.Display();
+                    m_sendFinished = true;
+                    
+                    thread.Join();
+                    //<<===================1035
                 }
 
             }
@@ -174,18 +204,18 @@ namespace VOP
                 if (ex.ErrorCode == 0x80040154)
                 {
                     string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Not_Find_Outlook");
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                      Application.Current.MainWindow,
                                     (string)message,//"Could not find the outlook, please check you computer!",
-                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 }
                 else
                 {
                     //modified by yunying shang 2017-11-23 for BMS 1196
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                      Application.Current.MainWindow,
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") + ex.Message,
-                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 }
 
                 if (AttachmentType == "PDF")
@@ -200,10 +230,10 @@ namespace VOP
             }
             catch (Exception ex)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                   Application.Current.MainWindow,
                                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail") + ex.Message,
-                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
 
                 if (AttachmentType == "PDF")
                 {
@@ -261,19 +291,19 @@ namespace VOP
             catch (Win32Exception ex)
             {
                 //                m_errorMsg = ex.Message;
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                                   Application.Current.MainWindow,
                                                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail"),
-                                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 return false;
             }
             catch (Exception ex)
             {
                 
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                                  Application.Current.MainWindow,
                                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail"),
-                                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 //               m_errorMsg = ex.Message;
                 return false;
             }
@@ -322,19 +352,19 @@ namespace VOP
         //    catch (Win32Exception ex)
         //    {
         //        //                m_errorMsg = ex.Message;
-        //        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+        //        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
         //                                          Application.Current.MainWindow,
         //                                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail"),
-        //                                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+        //                                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
         //        return false;
         //    }
         //    catch (Exception ex)
         //    {
 
-        //        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+        //        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
         //                                         Application.Current.MainWindow,
         //                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_send_mail_fail"),
-        //                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+        //                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
         //        //               m_errorMsg = ex.Message;
         //        return false;
         //    }

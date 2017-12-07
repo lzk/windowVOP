@@ -638,7 +638,7 @@ namespace VOP.Controls
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                 Application.Current.MainWindow,
                (string)this.FindResource("ResStr_Setting_Fail"),
-               (string)this.TryFindResource("ResStr_Error"));
+               (string)this.TryFindResource("ResStr_Prompt"));
 
             return isApplySuccess;
         }
@@ -652,9 +652,9 @@ namespace VOP.Controls
             else
             {
                 if(EncryptType == EnumEncryptType.WEP)
-                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_Msg_2"), (string)this.FindResource("ResStr_Warning"));
+                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple_Warning, Application.Current.MainWindow, (string)this.FindResource("ResStr_Msg_2"), (string)this.FindResource("ResStr_Warning"));
                 else
-                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_Msg_3"), (string)this.FindResource("ResStr_Warning"));
+                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple_Warning, Application.Current.MainWindow, (string)this.FindResource("ResStr_Msg_3"), (string)this.FindResource("ResStr_Warning"));
             }
         }
     }

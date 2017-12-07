@@ -77,19 +77,19 @@ namespace VOP
             //add by yunying shang 2017-11-20 for BMS 1176
             else if (result == ScanFileSaveError.FileSave_NotAccess)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                 Application.Current.MainWindow,
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_You_do_not_have_permission"),
-                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 return false;
             }//<<=================1176
             else
             {
 
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                 Application.Current.MainWindow,
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save") + m_errorMsg,
-                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 return false;
             }
             return true;
@@ -117,10 +117,10 @@ namespace VOP
                     if (MAX_PATH <= (save.FileName.Length + 1 + MAX_FILE_NAME_CHARS_NUMBER))//
                     {
                         result = false;
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                         Application.Current.MainWindow,
                                        (string)message,//"You Specify the file path and file name is too long, please specify again " + m_errorMsg,
-                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                     }
                     //modified by yunying shang 2017-10-31 for BMS 1260
                     //marked by yunying shang 2017-10-20 for BMS 1185
@@ -130,10 +130,10 @@ namespace VOP
                         if (result == true && (save.FileName == null || save.FileName.Length == 0))
                         {
                             result = false;
-                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                 Application.Current.MainWindow,
                                 (string)message,//"You Specify the file path and file name is too long, please specify again!",
-                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                         }
                     }//<<=============1185
                     //<<=======================1260
@@ -142,10 +142,10 @@ namespace VOP
             catch (Exception ex)
             {
                 result = false;
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                 Application.Current.MainWindow,
                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_save") + ex.Message,
-               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
             }
 
             if (result == true)

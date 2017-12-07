@@ -58,10 +58,10 @@ namespace VOP
                 if (!File.Exists(m_images.m_pathView))
                 {
                     VOP.Controls.MessageBoxEx.Show(
-                       VOP.Controls.MessageBoxExStyle.Simple,
+                       VOP.Controls.MessageBoxExStyle.Simple_Warning,
                        this,
                        (string)this.FindResource("ResStr_Image_file_not_found"),
-                       (string)this.FindResource("ResStr_Error")
+                       (string)this.FindResource("ResStr_Warning")
                        );
 
                     this.Close();
@@ -265,10 +265,10 @@ namespace VOP
                 catch
                 {
                     VOP.Controls.MessageBoxEx.Show(
-                            VOP.Controls.MessageBoxExStyle.Simple,
+                            VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             this,
                             (string)this.FindResource( "ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
-                            (string)this.FindResource( "ResStr_Error" )
+                            (string)this.FindResource( "ResStr_Warning" )
                             );
 
                 }
@@ -395,10 +395,10 @@ namespace VOP
                     if (false == worker.InvokeRotateScannedFiles(RotateScannedFiles, m_images, m_rotatedObj, m_rotatedAngle))
                     {
                         VOP.Controls.MessageBoxEx.Show(
-                                VOP.Controls.MessageBoxExStyle.Simple,
+                                VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                 this,
                                 (string)this.FindResource("ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_"),
-                                (string)this.FindResource("ResStr_Error")
+                                (string)this.FindResource("ResStr_Warning")
                                 );
 
                         m_rotatedAngle = 0; // Fixed #0059434.

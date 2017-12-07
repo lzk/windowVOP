@@ -281,7 +281,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_WiFi_connection_troubleshooting">Wi-Fi连接故障排除</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Return">返回</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt">提示</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit_the_Lenovo_Printer">是否退出小新打印？</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Member_Center">会员中心</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Account">账户名</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Change_Account_Information">修改账户信息</sys:String>
@@ -438,8 +437,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_the_machine_could_not_be_connected">This machine could not be connected!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Not_Find_Printer">Not find printer!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Select_Pictures_to_process">Please select one or more pictures to process!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Do_You_Want_to_Delete_All_Images">Do you want to delete all images before leaving this page?</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scanning is canceled on the machine!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Do_You_Want_to_Delete_All_Images">Do you want to leave this page, if you exit, the all images will be delete??</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scanning is canceled by user!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_and_Path_could_not_be_Empty">The AP Name and Path could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_could_not_be_Empty">The AP Name could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Path_could_not_be_Empty">The AP Path could not be empty!</sys:String>

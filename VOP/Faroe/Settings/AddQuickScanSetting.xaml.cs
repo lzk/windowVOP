@@ -162,10 +162,10 @@ namespace VOP
             {
                 string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
                 message = string.Format(message, "Name");
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    Application.Current.MainWindow,
                   message,//"The Name cannot be empty",
-                  (string)this.TryFindResource("ResStr_Error"));
+                  (string)this.TryFindResource("ResStr_Warning"));
                 return;
             }
             else
@@ -185,7 +185,8 @@ namespace VOP
 
                     if (isNameSame)
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, Application.Current.MainWindow, 
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                            Application.Current.MainWindow, 
                             (string)Application.Current.MainWindow.TryFindResource("ResStr_Quick_Scan_Exist"),//"Quick Scan item name already exists. change to another name", 
                             (string)this.FindResource("ResStr_Warning"));
                         tbName.Focus();

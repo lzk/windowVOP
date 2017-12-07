@@ -331,23 +331,29 @@ namespace VOP
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                  Application.Current.MainWindow,
                 (string)this.FindResource("ResStr_Setting_Fail"),
-                (string)this.TryFindResource("ResStr_Error"));
+                (string)this.TryFindResource("ResStr_Prompt"));
             }
             else
             {
                 if (ssid.Length <= 0 || ssid.Length > 32)
                 {
-                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_Msg_9"), (string)this.FindResource("ResStr_Warning"));
+                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple_Warning, Application.Current.MainWindow, 
+                        (string)this.FindResource("ResStr_Msg_9"), (string)this.FindResource("ResStr_Warning"));
                 }
                 else
                 {
                     if (encryption == (byte)EnumEncryptType.WEP)
                     {
-                        VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_Msg_2"), (string)this.FindResource("ResStr_Warning"));
+                        VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple_Warning, 
+                            Application.Current.MainWindow, (string)this.FindResource("ResStr_Msg_2"), 
+                            (string)this.FindResource("ResStr_Warning"));
                     }
                     else
                     {
-                        VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, (string)this.FindResource("ResStr_Msg_3"), (string)this.FindResource("ResStr_Warning"));
+                        VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple_Warning, 
+                            Application.Current.MainWindow, 
+                            (string)this.FindResource("ResStr_Msg_3"),
+                            (string)this.FindResource("ResStr_Warning"));
                     }
                 }
             }
@@ -745,7 +751,7 @@ namespace VOP
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                      Application.Current.MainWindow,
                     (string)this.FindResource("ResStr_Setting_Fail"),
-                    (string)this.TryFindResource("ResStr_Error"));
+                    (string)this.TryFindResource("ResStr_Prompt"));
         }
 
         public void PassStatus(bool online)

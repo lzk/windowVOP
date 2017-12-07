@@ -491,10 +491,10 @@ namespace VOP
                 catch
                 {
                     VOP.Controls.MessageBoxEx.Show(
-                            VOP.Controls.MessageBoxExStyle.Simple,
+                            VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             this,
                             (string)this.FindResource("ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_" ),
-                            (string)this.FindResource("ResStr_Error" )
+                            (string)this.FindResource("ResStr_Warning" )
                             );
 
                 }

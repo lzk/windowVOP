@@ -144,10 +144,10 @@ namespace VOP
 
             if (m_MainWin.CheckDeviceStatus() == -1)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    Application.Current.MainWindow,
                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Device_disconnected"),//"Device is diconnected, could not Apply setting!",
-                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 return false;
             }
 
@@ -182,7 +182,7 @@ namespace VOP
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                      System.Windows.Application.Current.MainWindow,
                     (string)this.FindResource("ResStr_Setting_Fail"),
-                    (string)this.TryFindResource("ResStr_Error"));
+                    (string)this.TryFindResource("ResStr_Prompt"));
             }
             return isApplySuccess;
         }

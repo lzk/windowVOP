@@ -32,6 +32,7 @@ namespace VOP.Controls
         Simple,
         Simple_NoIcon,
         Simple_Busy,
+        Simple_Warning,
         YesNo,
         YesNo_NoIcon
     }
@@ -82,6 +83,10 @@ namespace VOP.Controls
             else if (MessageBoxExStyle.Simple_Busy == style)
             {
                 msg = new MessageBoxEx_Simple_Busy(messageBoxText, caption);
+            }
+            else if (MessageBoxExStyle.Simple_Warning == style)
+            {
+                msg = new MessageBoxEx_Simple_Warning(messageBoxText, caption);
             }
             else if (MessageBoxExStyle.YesNo == style)
             {
