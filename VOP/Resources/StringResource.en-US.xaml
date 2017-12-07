@@ -442,7 +442,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_and_Path_could_not_be_Empty">The AP Name and Path could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_could_not_be_Empty">The AP Name could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Initial_Evernote_and_Get_Evernote_fail">Initial Evernote and get EverNote list fail!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Evernote_attachment_files_could_not_more_than_60">The ever note attachment files could not be more than 60!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Evernote_attachment_files_could_not_more_than_60">The ever note attachment files could not more than 60!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Images_files_Size_too_large">Total image files size are too large, could not upload to EverNote server!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Connect_to_Evernote_server_fail">Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Get_EverNote_List_error">Get Ever Note List Error!</sys:String>

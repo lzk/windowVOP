@@ -144,12 +144,13 @@ namespace VOP
 
         bool UpdateLoadFilesToEverNote()
         {
-            if (FileList.Count >= 60)
+            //modified by yunying shang 2017-12-07 for BMS 1623
+            if (FileList.Count > 60)
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
-           Application.Current.MainWindow,
-           (string)Application.Current.MainWindow.TryFindResource("ResStr_Evernote_attachment_files_could_not_more_than_60"),//"The ever note attachment files could not be more than 60!",
-          (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+               Application.Current.MainWindow,
+               (string)Application.Current.MainWindow.TryFindResource("ResStr_Evernote_attachment_files_could_not_more_than_60"),//"The ever note attachment files could not be more than 60!",
+              (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 return false;
             }
             else
@@ -159,17 +160,27 @@ namespace VOP
                 {
                     System.IO.FileInfo fileInfo = null;
                     fileInfo = new System.IO.FileInfo(filePath);
+
+                    
+                    if (fileInfo.Length > 100 * 1024 * 1024)
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                       Application.Current.MainWindow,
+                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Images_files_Size_too_large"),//"Total image files size are too large, could not upload to EverNote server!",
+                      (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                        return false;
+                    }
                     totalsize += fileInfo.Length;
                 }
                 if (totalsize > 100 * 1024 * 1024)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
-               Application.Current.MainWindow,
-               (string)Application.Current.MainWindow.TryFindResource("ResStr_Images_files_Size_too_large"),//"Total image files size are too large, could not upload to EverNote server!",
-              (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                   Application.Current.MainWindow,
+                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Images_files_Size_too_large"),//"Total image files size are too large, could not upload to EverNote server!",
+                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                     return false;
                 }
-            }
+            }//<<===========1623
 
             try
             {
