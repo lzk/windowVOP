@@ -458,7 +458,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Specify_File_Path_not_exist">Your Specify File Path is not exist, please specify again!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Folder_Name_exist">The folder Name already exists!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Connect_OneDrive_Fail">Connection OneDrive failed!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_File_exist_Do_You_overwrite">The {0} already exists，Do you want to overwrite?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_File_exist_Do_You_overwrite">The upload file already exists，Do you want to overwrite?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Update_File_fail">Upload {0} failed!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Not_Find_Outlook">Could not find the outlook, please check you computer!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_File_Path_and_Name_too_long">You Specify the file path and file name is too long, please specify again </sys:String>

@@ -616,7 +616,7 @@ namespace VOP
                 if (selectedPath == "")
                     OneDriveFlow.SavePath = "/";
                 else
-                    OneDriveFlow.SavePath = selectedPath;                
+                    OneDriveFlow.SavePath = selectedPath;
                 this.Close();
             }
             else
@@ -624,10 +624,11 @@ namespace VOP
                 if (FileList == null)
                     return;
                 string message = "";
+                string temp = "";
                 if (currentPath != "")
                 {
-                    string temp = "";
                     temp = currentPath.Remove(currentPath.LastIndexOf('/'), currentPath.Length - currentPath.LastIndexOf('/'));
+
                     if (temp != "")
                     {
                         await CheckUploadFolder(temp);
@@ -650,42 +651,46 @@ namespace VOP
                     }
                     else
                         return;
-                    
-                }                
+                }
                 else
                 {
                     await CheckUploadFolder();
                     if (UpperFolder == null)
-                        return;                    
-                    try
-                    {                        
-                        foreach (string filePath in FileList)
-                        {
-                            string fileName = System.IO.Path.GetFileName(filePath);
-                            UploadStaus.Text = "Uploading file " + fileName;
-                            if (CheckFileName(fileName))
-                            {
-                                message = (string)Application.Current.MainWindow.TryFindResource("ResStr_File_exist_Do_You_overwrite");
-                                message = string.Format(message,/*"The {0} already exists£¬Do you want to overwrite?",*/fileName);
-                                VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon, this,
-                                 message,(string)this.TryFindResource("ResStr_Prompt"));
-
-                                if (VOP.Controls.MessageBoxExResult.Yes == ret)
-                                {
-                                    await Upload(client, filePath);
-                                }
-                            }
-                            else
-                            {
-                                await Upload(client, filePath);
-                            }
-
-                        }                       
-                    }
-                    catch (Exception ex)
+                        return;
+                }
+                try
+                {
+                    string fileName = "";
+                    bool bExistFile = false;
+                    foreach (string checkfilePath in FileList)
                     {
-                        UploadStaus.Text = "Picture uploading error : " + ex.Message;
+                        fileName = System.IO.Path.GetFileName(checkfilePath);
+                        if (CheckFileName(fileName))
+                        {
+                            bExistFile = true;
+                        }
                     }
+                    if (bExistFile)
+                    {
+                        message = (string)Application.Current.MainWindow.TryFindResource("ResStr_File_exist_Do_You_overwrite");
+                        //message = string.Format(message,/*"The {0} already exists£¬Do you want to overwrite?",*/fileName);
+                        VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon, this,
+                         message, (string)this.TryFindResource("ResStr_Warning"));
+                        if (VOP.Controls.MessageBoxExResult.Yes != ret)
+                        {
+                            return;
+                        }
+                    }
+                    foreach (string filePath in FileList)
+                    {
+                        fileName = System.IO.Path.GetFileName(filePath);
+                        UploadStaus.Text = "Uploading file " + fileName;
+                        await Upload(client, filePath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    UploadStaus.Text = "Picture uploading error : " + ex.Message;
                 }
             }                   
         }
