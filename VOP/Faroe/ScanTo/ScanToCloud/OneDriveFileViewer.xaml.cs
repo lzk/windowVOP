@@ -635,17 +635,26 @@ namespace VOP
                     {
                         await CheckUploadFolder();
                     }
-                    if (!CheckUploadFolderName(currentFolderName))
+                    if (UpperFolder != null)
                     {
-                        message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Not_Exist");
-                        message = string.Format(message/*"The folder {0} does not exist."*/, currentFolderName);
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                            Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Error"));
-                        return;
+                        if (!CheckUploadFolderName(currentFolderName))
+                        {
+                            message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Not_Exist");
+                            message = string.Format(message/*"The folder {0} does not exist."*/, currentFolderName);
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Error"));
+                            return;
+                        }
                     }
+                    else
+                        return;
+                    
                 }                
                 else
                 {
+                    await CheckUploadFolder();
+                    if (UpperFolder == null)
+                        return;                    
                     try
                     {                        
                         foreach (string filePath in FileList)
