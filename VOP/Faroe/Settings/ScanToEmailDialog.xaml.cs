@@ -76,10 +76,10 @@ namespace VOP
             {
                 string message = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
                 message = string.Format(message, "Recipient");
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    Application.Current.MainWindow,
                   message,//"The Recipient cannot be empty",
-                  (string)this.TryFindResource("ResStr_Error"));
+                  (string)this.TryFindResource("ResStr_Warning"));
                 return;
             }
 
@@ -101,9 +101,9 @@ namespace VOP
             finded < 0 ||
                 finded1 >= 0)
             {
-                MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow, 
+                MessageBoxEx.Show(MessageBoxExStyle.Simple_Warning, Application.Current.MainWindow, 
                     (string)this.TryFindResource("ResStr_Email_Format_Error"), 
-                    (string)this.FindResource("ResStr_Error"));
+                    (string)this.FindResource("ResStr_Warning"));
                 tbRecipient.Focus();
                 return;
             }

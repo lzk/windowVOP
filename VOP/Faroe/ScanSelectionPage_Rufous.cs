@@ -89,10 +89,10 @@ namespace VOP
                    iRtn = m_MainWin.CheckDeviceStatus();
                     if ( iRtn <= 0)
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
-                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                             );
 
                         return;
@@ -100,10 +100,10 @@ namespace VOP
                     else if(iRtn == 1)
                     {
 
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
-                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                             );
 
                         return;
@@ -115,10 +115,10 @@ namespace VOP
                     iRtn = m_MainWin.CheckDeviceStatus();
                     if (iRtn <= 0)
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
-                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                             );
 
                         return;
@@ -126,10 +126,10 @@ namespace VOP
                     else if (iRtn == 1)
                     {
 
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
-                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                             );
                         return;
                     }
@@ -144,10 +144,10 @@ namespace VOP
             {
                 if (DeviceButton.Connected == false)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     Application.Current.MainWindow,
                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
-                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                     );
                 }
             }
@@ -247,18 +247,18 @@ namespace VOP
                 {
                     if (DeviceButton.Connected == false)
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
                             (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
-                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                             );
                     }
                     else
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
                             (string)"The scanning is canceled on the machine!",
-                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                             );
                     }
                 }//<<================1601
@@ -338,18 +338,18 @@ namespace VOP
             {
                 if (DeviceButton.Connected == false)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                         Application.Current.MainWindow,
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
-                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                         );
                 }
                 else
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                         Application.Current.MainWindow,
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Scanning_is_canceled_on_machine"),//"The scanning is canceled on the machine!",
-                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Waring")
                         );
                 }
             }            

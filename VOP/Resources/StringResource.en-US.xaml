@@ -27,7 +27,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_ID_Card_Mode">ID Card Mode</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scanning">Scanning</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Cancelling">Scan Cancelling</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanner_Busy">Scanner Busy</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanner_Busy">Device is Busy</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Toner_End">Toner End</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Toner_Near_End">Toner Near End</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Waiting_2nd_pages_when_print_manual_duplex_job">Waiting 2nd pages when print manual duplex job</sys:String>
@@ -44,7 +44,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_DMA_Error_SCxxx">DMA Error:&#x000D;&#x000A;Turn off the printer, and turn it on again.&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">Turn off the printer, and turn it on again.&#x000D;&#x000A;Contact customer support if this failure is repeated:&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_contact_customer_support__SCxxx">Please contact customer support: SC</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">Scanner not found home position;&#x000D;&#x000A;Turn off the printer, and turn it on again.&#x000D;&#x000A;Contact customer support if this failure is repeated:&#x000D;&#x000A;SC1001</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_anner_not_found_home_position_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">Device not found home position;&#x000D;&#x000A;Turn off the printer, and turn it on again.&#x000D;&#x000A;Contact customer support if this failure is repeated:&#x000D;&#x000A;SC1001</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Calibration_Error_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SC1001">Scan Calibration Error;&#x000D;&#x000A;Turn off the printer, and turn it on again.&#x000D;&#x000A;Contact customer support if this failure is repeated:&#x000D;&#x000A;SC1001</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Wireless_Dongle_Config_Fail_Turn_off_the_printer__and_turn_it_on_again_Contact_customer_support_if_this_failure_is_repeated_SCxxx">Wireless Dongle Config Fail;&#x000D;&#x000A;Turn off the printer, and turn it on again.&#x000D;&#x000A;Contact customer support if this failure is repeated:&#x000D;&#x000A;SC</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Picture_Print">Picture Print</sys:String>
@@ -215,7 +215,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_scanned_images_will_be_deleted_after_closing_the_VOP__Are_you_sure_to_close_the_VOP_">The scanned images will be deleted after the application is closed. Close application?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Operation_cannot_be_carried_out_due_to_insufficient_memory_or_hard_disk_space_Please_try_again_after_freeing_memory_or_hard_disk_space_">There is insufficient memory or disk space to complete the operation. Please free up some memory or disk space, then try again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_100__please_confirm_and_enter_again_">The valid range is 0 to 100, please check and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_">The scanned image has been changed. Save changes?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_image_has_been_changed__please_confirm_whether_save_it_or_not_">The scanned image has been changed, do you want to save the changes?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_">The entered IP address is incorrect, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_">Invalid Gateway address. Please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation">Invalid subnet mask. Please check and enter again.</sys:String>
@@ -224,7 +224,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__2_to_2__please_confirm_and_enter_again_">The valid range is from -2 to 2, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__3_to_3__please_confirm_and_enter_again_">The valid range is from -3 to 3, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_1__please_confirm_and_enter_again_">The valid range is 0 to 1, please check and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Please_boot_the_machine_after_more_than_30_minutes_to_protect_the_machine_">Please boot the machine after more than 30 minutes to protect the machine.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Please_boot_the_machine_after_more_than_30_minutes_to_protect_the_machine_">Please boot the device after more than 30 minutes to protect the device.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_new_password_can_not_be_empty_">The new password cannot be empty.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_passwords_you_entered__are_different__please_try_again_">The passwords you entered are different, please try again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Authentication_error__please_enter_the_password_again_">Authentication error, please enter the password again.</sys:String>
@@ -232,15 +232,15 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_service_station_information_hasn_t_updated_for_____months__please_update_online_">The service station information hasn't been updated for {0} months, please update online.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_1__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">The combination of IP address and subnet mask is invalid. All of the bits in the host address portion of the IP address are set to 1. Please enter a valid combination of IP address and subnet mask.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_combination_of_IP_address_and_subnet_mask_is_invalid__All_of_the_bits_in_the_host_address_portion_of_the_IP_address_are_set_to_0__Please_enter_a_valid_combination_of_IP_address_and_subnet_mask_">The combination of IP address and subnet mask is invalid. All of the bits in the host address portion of the IP address are set to 0. Please enter a valid combination of IP address and subnet mask.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_machine_is_busy__please_try_later_">The machine is busy, please try again later.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_machine_is_busy__please_try_later_">The device is busy, please try again later.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_fix_error_first_and_try_later_">Please fix error first and try later!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Setting_Successfully_">Configuration Completed! Please restart machine to apply settings.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Setting_Completed">Configuration Completed!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Setting_Successfully_">Configuration completed! Please restart device to apply settings.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Setting_Completed">Configuration completed!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Setting_Fail">Configure failed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Fail">Scan failed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Print_Fail">Print failed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Copy_Fail">Copy failed</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Msg_1">Configuration completed. Restart the machine to apply changes.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Msg_1">Configuration completed. Restart the device to apply changes.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_2">The password must be 5 or 13 ASCII characters or 10 or 26 hex characters, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_3">The password must be 8 to 63 ASCII characters or 64 hex characters, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Msg_4">Please enter your mobile number</sys:String>
@@ -282,7 +282,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_WiFi_connection_troubleshooting">Wi-Fi connection troubleshooting</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Return">Return</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt">Information</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit_the_Lenovo_Printer">Do you want to exit the Neo Printing?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Member_Center">Member Center</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Account">Account</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Change_Account_Information">Change Account Information</sys:String>
@@ -301,7 +300,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Verification_Code">Verification code</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Get_Verification_Code">Get verification code</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Password_Tip">The default password for this unit is "888888". For security of your equipment, please change this password.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Are_you_sure_to_delete_the_selected_picture">Delete selected image?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Are_you_sure_to_delete_the_selected_picture">Do you want to delete the selected image?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Connected">Connected</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_maximum_password_length_is_32_characters_Please_check_you_password_and_enter_again">The maximum password length is 32 characters. Please check you password and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Please_turn_off_the_printer_until_it_cools_to_room_temperature">Turn off the printer and let it cool to room temperature before turning it on again.</sys:String>
@@ -356,13 +355,12 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Fine">Fine</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_SuperFine">Super Fine</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_HighestQuality">Highest Quality</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_upload_dropbox_wait">Uploading picture to DropBox, please wait...</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_upload_onedrive_wait">Uploading picture to OneDrive, please wait...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_upload_wait">Uploading, please wait...</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Dropbox_File_Viewer">Dropbox File Viewer</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Upload">Upload</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Folder_Name">Folder Name :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Auth_Dropbox">Authenticate with Dropbox</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Saving_pic_PDF">Saving picture to PDF, please wait...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Saving_pic_PDF">Saving, please wait...</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Fail_save_pdf">Fail to save pdf file. </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_send_mail_fail">Send Email failed. </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_send_mail_ok">Send Email completed</sys:String>
@@ -404,10 +402,10 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_file_setting">File Settings :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_ftp_setting">FTP Settings :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_print_setting">Print Settings :</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_search_dev">Searching scanning device...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_search_dev">Searching, please wait...</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_open_p_fail">Open program failed, </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_conn_fail">Scanning connection failed</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_net_scanner_busy">Network scanner is busy</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_net_scanner_busy">Network device is busy</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_paper_jam">Paper jam</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_cover_open">Cover is opened</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_paper_not_ready">Paper is not ready</sys:String>
@@ -435,12 +433,12 @@
     <sys:String xml:space="preserve" x:Key="ResStr_LongPage_">Long Page</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Application_Support_Two_Pages">Scan To Application only supports opening two pages at most.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_You_do_not_have_permission">You do not have permission to save to the selected folder.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit">Do you want to exit the Faroe VOP?</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_the_machine_could_not_be_connected">This machine could not be connected!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit">Do you want to exit the VOP?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_the_machine_could_not_be_connected">This device could not be connected!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Not_Find_Printer">Not find printer!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Select_Pictures_to_process">Please select one or more pictures to process!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Do_You_Want_to_Delete_All_Images">Do you want to delete all images before leaving this page?</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scanning is canceled on the machine!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Do_You_Want_to_Delete_All_Images">Do you want to leave this page, if you exit, the all images will be delete?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scanning is canceled by user!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_and_Path_could_not_be_Empty">The AP Name and Path could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_could_not_be_Empty">The AP Name could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Initial_Evernote_and_Get_Evernote_fail">Initial Evernote and get EverNote list fail!</sys:String>
@@ -468,5 +466,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Server_Address_Target_Path_too_long">Your Specify the Server Address and Tartget Path are too long!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Not_Ready">Printer is not ready!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Quick_Scan_Exist">Quick Scan item name already exists. change to another name.</sys:String>
-
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Decoding">Decoding, please wait...</sys:String>
 </ResourceDictionary>

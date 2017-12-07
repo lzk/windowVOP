@@ -37,7 +37,7 @@
                     <RowDefinition Height="30" />
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Border Name="TitleBar"  Background="Transparent" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2">
+                <Border Name="TitleBar"  Background="Transparent" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3">
                     <TextBlock Name="TitleBarText" Text="OneDrive File Viewer" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 

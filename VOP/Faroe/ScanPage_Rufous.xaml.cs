@@ -180,7 +180,7 @@ namespace VOP
                 else
                 {        
                     //add by yunying shang 2017-12-05 for BMS 1688           
-                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                      Application.Current.MainWindow,
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Application_Support_Two_Pages"),
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
@@ -198,7 +198,7 @@ namespace VOP
                 }
                 else
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     Application.Current.MainWindow,
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Application_Support_Two_Pages"),
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
@@ -253,10 +253,10 @@ namespace VOP
         {
             if(MainWindow_Rufous.g_settingData.m_printerName == null)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                  Application.Current.MainWindow,
                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Not_Find_Printer"),
-                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
             }
             else
             {
@@ -286,10 +286,10 @@ namespace VOP
 
                 if(listPrinters.Count < 1)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                      Application.Current.MainWindow,
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Not_Find_Printer"),
-                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 }
                 else
                 { 
@@ -306,11 +306,11 @@ namespace VOP
         {
             if (!m_MainWin.scanDevicePage.IsOnLine())
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-            Application.Current.MainWindow,
-           (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
-           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
-            );
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                Application.Current.MainWindow,
+               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
+               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
+                );
 
                 return;
             }
@@ -332,11 +332,11 @@ namespace VOP
         {
             if (!m_MainWin.scanDevicePage.IsOnLine())
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-            Application.Current.MainWindow,
-           (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
-           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
-            );
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                Application.Current.MainWindow,
+               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
+               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
+                );
 
                 return;
             }

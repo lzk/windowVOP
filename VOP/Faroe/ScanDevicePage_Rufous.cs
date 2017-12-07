@@ -126,7 +126,7 @@ namespace VOP
                 //add by yunying shnag 2017-10-16 for BMS 1165
                 if (IsOnLine() == false)
                 {
-                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple, Application.Current.MainWindow,
+                    VOP.Controls.MessageBoxEx.Show(MessageBoxExStyle.Simple_Warning, Application.Current.MainWindow,
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_not_on_line"),
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 }//===============1165
@@ -323,10 +323,10 @@ namespace VOP
             {
                 if (!dll.TestIpConnected(item1.DeviceName))
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     Application.Current.MainWindow,
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_the_machine_could_not_be_connected"),
-                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
 
                     int i = 0;
                     foreach (DeviceListBoxItem item in DeviceList.Items)

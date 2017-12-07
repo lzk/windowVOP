@@ -103,10 +103,10 @@ namespace VOP
                 //add by yunying shang 2017-10-23 for BMS 1019
                 if (bFound == false || !IsOnLine())
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                 Application.Current.MainWindow,
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
-                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                                 );
                     return null;
                 }
@@ -114,10 +114,10 @@ namespace VOP
                 {
                     if (!dll.TestIpConnected(MainWindow_Rufous.g_settingData.m_DeviceName))
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                     Application.Current.MainWindow,
                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
-                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                                     );
                         return null;
                     }
@@ -132,10 +132,10 @@ namespace VOP
                 }
                 else
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                 Application.Current.MainWindow,
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
-                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                                 );
                     return null;
                 }
@@ -188,18 +188,18 @@ namespace VOP
             {
                 if (ScanResult == Scan_RET.RETSCAN_OPENFAIL)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                Application.Current.MainWindow,
                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
-                              (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                              (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                                );
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_OPENFAIL_NET)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                Application.Current.MainWindow,
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
-                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                                );
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_BUSY)
