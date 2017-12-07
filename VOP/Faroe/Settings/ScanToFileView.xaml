@@ -259,7 +259,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
 
                             <TextBlock 
-                                Text="File Path :" 
+                                Text="{StaticResource ResStr_Faroe_File_Path}" 
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="12"
@@ -286,7 +286,8 @@
                             FontSize="16"
                             Click="BrowseClick"
                             Style="{StaticResource CustomGreenButtonStyle}"
-                            >Browse...</Button>
+                                Content="{StaticResource ResStr_Faroe_Browse}"
+                            ></Button>
                         </StackPanel>
                     </StackPanel>
                    

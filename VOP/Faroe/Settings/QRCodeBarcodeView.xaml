@@ -312,7 +312,7 @@
             HorizontalAlignment="Right"
             Width="100"
         	Height="35" 
-        	Content="Settings..." 
+        	Content="{StaticResource ResStr_Setting}" 
         	FontSize="16"
        		Style="{StaticResource CustomSettingButtonStyle}"
         	Click="Button_Click" Grid.Row="1"
@@ -331,7 +331,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="60" />
             </Grid.RowDefinitions>
-            <GroupBox x:Name="QRCodeBarcodeGroup" Grid.Row="0" Header="QRCode/Barcode Decode" FontWeight="Bold" 
+            <GroupBox x:Name="QRCodeBarcodeGroup" Grid.Row="0" Header="{StaticResource ResStr_Faroe_QRBar_Code_Decode}" FontWeight="Bold" 
                       FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400"  Margin="5,5">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -344,7 +344,7 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.ColumnSpan="2">
                         <TextBlock 
-            				Text="Code Type :" 
+            				Text="{StaticResource ResStr_Faroe_Code_Type}" 
             				VerticalAlignment="Center"
                             Width="120"
                             FontWeight="Normal"
@@ -366,7 +366,7 @@
                     </StackPanel>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.ColumnSpan="2">
                         <TextBlock 
-            				Text="Output Result :" 
+            				Text="{StaticResource ResStr_Faroe_Output_Result}" 
             				VerticalAlignment="Center" FontWeight="Normal"
             				FontSize="12" HorizontalAlignment="Left" Width="120"
                                 />
@@ -385,7 +385,7 @@
                     </StackPanel>
                 </Grid>
             </GroupBox>
-            <GroupBox x:Name="separateGroupBox" Grid.Row="1"  Header="Document Separation" FontWeight="Bold" 
+            <GroupBox x:Name="separateGroupBox" Grid.Row="1"  Header="{StaticResource ResStr_Faroe_Document_Separation}" FontWeight="Bold" 
                       FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" Margin="5,1,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -395,7 +395,7 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,1,20,4">
                         <TextBlock 
-            				Text="Save File Type :" 
+            				Text="{StaticResource ResStr_Faroe_Save_File_Type}" 
             				VerticalAlignment="Center" FontWeight="Normal"
             				FontSize="12" HorizontalAlignment="Left"  Width="120"
                                 />
@@ -416,7 +416,7 @@
                     <StackPanel Orientation="Horizontal" Margin="20,5,20,0" Grid.Row="1">
 
                         <TextBlock 
-                    		Text="File Path :" 
+                    		Text="{StaticResource ResStr_Faroe_File_Path}" 
                     		VerticalAlignment="Center"
                     		FontSize="12" FontWeight="Normal" HorizontalAlignment="Left"  Width="120" Margin="0,11,0,18"
                                 />
@@ -440,7 +440,7 @@
                              Width="100" Height="35"
                              HorizontalAlignment="Right" VerticalAlignment="Center"
             			Style="{StaticResource CustomSettingButtonStyle}"
-            			Content="Browse..." 
+            			Content="{StaticResource ResStr_Faroe_Browse}" 
                             />
 
                 </Grid>
@@ -454,7 +454,7 @@
             		FontSize="18"
             		Click="OkClick"
             		Style="{StaticResource CustomSettingButtonStyle}"
-            		Content="Apply" 
+            		Content="{StaticResource ResStr_Apply}" 
                             />
         </Grid>
     </Grid>

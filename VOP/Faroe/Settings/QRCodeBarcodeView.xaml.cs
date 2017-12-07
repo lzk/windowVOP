@@ -101,8 +101,10 @@ namespace VOP
         private void OkClick(object sender, RoutedEventArgs e)
         {
             string message = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
+            string content = "";
             if (tbFilePath.Text.Trim() == "")
-            {                
+            {
+                content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Name1");
                 message = string.Format(message, "Name");
 
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
@@ -126,7 +128,10 @@ namespace VOP
 
             if (!IsValidFileName(tbFileName.Text.Trim()))
             {
-                message = string.Format(message, "File Name");
+                content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_File_Name1");
+
+                message = string.Format(message, content);
+                
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     System.Windows.Application.Current.MainWindow,
                    message,//"Invalid file name",
@@ -136,7 +141,10 @@ namespace VOP
 
             if (!IsValidPathName(tbFilePath.Text.Trim()))
             {
-                message = string.Format(message, "File Path");
+                content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Faroe_File_Path1");
+                
+                message = string.Format(message, content);
+
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     System.Windows.Application.Current.MainWindow,
                     message,//"Invalid path name",

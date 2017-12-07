@@ -60,10 +60,11 @@ namespace VOP
         private void OkClick(object sender, RoutedEventArgs e)
         {
             string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
-            
+            string content = "";
             if (tbServerName.Text == "")
             {
-                message = string.Format(message, "Server Address");
+                content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_server_addr1");
+                message = string.Format(message, content);
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    Application.Current.MainWindow,
                   message,//"The Server Address cannot be empty",
@@ -72,7 +73,8 @@ namespace VOP
             }
             else if (tbUserName.Text == "")
             {
-                message = string.Format(message, "User Name");
+                content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_server_username1");
+                message = string.Format(message, Content);
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    Application.Current.MainWindow,
                   message, //"The User Name cannot be empty",
@@ -81,7 +83,8 @@ namespace VOP
             }
             else if (pbPWD.Password == "")
             {
-                message = string.Format(message, "Password");
+                content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_password1");
+                message = string.Format(message, content);
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    Application.Current.MainWindow,
                   message,//"The Password cannot be empty",
@@ -90,7 +93,8 @@ namespace VOP
             }
             else if (tbTargetPath.Text == "")
             {
-                message = string.Format(message, "Target Path");
+                content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_targetPath1");
+                message = string.Format(message, content);
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    Application.Current.MainWindow,
                   message,//"The Target Path cannot be empty",
@@ -102,7 +106,8 @@ namespace VOP
 
             if (tbServerName.Text.Length < 7)
             {
-                message = string.Format(message, "Server Address", "Server Address");
+                content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_server_addr1");
+                message = string.Format(message, content);
 
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                   Application.Current.MainWindow,
@@ -114,7 +119,8 @@ namespace VOP
             string strTargetPath = tbTargetPath.Text.Substring(0, 1);
             if (strServerName.ToUpper() != "FTP://")
             {
-                message = string.Format(message, "Server Address", "Server Address");
+                content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_server_addr1");
+                message = string.Format(message, content);
 
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                   Application.Current.MainWindow,
@@ -124,7 +130,8 @@ namespace VOP
             }
             if (strTargetPath != "/")
             {
-                message = string.Format(message, "Target Path", "Tartget Path");
+                content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_targetPath1");
+                message = string.Format(message, content);
 
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                   Application.Current.MainWindow,
@@ -143,7 +150,8 @@ namespace VOP
                 }
                 if(i>=strTargetPath.Length && strTargetPath.Length >= 2)
                 {
-                    message = string.Format(message, "Target Path", "Target Path");
+                    content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_targetPath1");
+                    message = string.Format(message, content);
 
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                       Application.Current.MainWindow,

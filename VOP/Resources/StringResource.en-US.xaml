@@ -467,4 +467,47 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Not_Ready">Printer is not ready!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Quick_Scan_Exist">Quick Scan item name already exists. change to another name.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Decoding">Decoding, please wait...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_To_Application">To Application</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Browse">Browse...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_EverNote_Viewer">EverNote Viewer</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Note_Title">Note Title :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Note_Content">Note Content :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Default_Path">Default save path :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_OneDrive_Viewer">OneDrive File Viewer</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_To_FTP">To FTP</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Add_Quick_SCan_Setting">Add Quick Scan Setting</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Edit_Quick_SCan_Setting">Edit Quick Scan Setting</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Name">Name :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Type">Type :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Info">Information</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_QRBar_Code_Decode">QRCode/Barcode Decode</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Code_Type">Code Type :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Output_Result">Output Result :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Document_Separation">Document Separation</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Save_File_Type">Save File Type :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_File_Path">File Path :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_File_Path1">File Path</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Cloud_Type">Cloud Type :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Reset">Reset</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Email_Attachment_File_Type">Email Attachment File Type</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Reset_Access">Reset access token in cache :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Attachment_File_Type">Attachment File Type :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Recipient">Recipient :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Recipient1">Recipient</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Subject">Subject :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_File_Name">File Name :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_File_Name1">File Name</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_File_Path_And_Name">File Path and File Name</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Name1">Name</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_server_addr1">Server Address</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_username1">User Name</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_password1">Password</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_targetPath1">Target Path</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Printer_Name">Printer Name :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_WLAN">WLAN</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Select_All">Select All</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_To_Print">To Print</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_To_Email">To Email</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_To_File">To File</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_To_Cloud">To Cloud</sys:String>
 </ResourceDictionary>

@@ -199,16 +199,26 @@ namespace VOP
         private void OkClick(object sender, RoutedEventArgs e)
         {
             string message = (string)this.TryFindResource("ResStr_could_not_be_empty");
+            string content = "";
             //modified by yunying shang 2017-10-19 for BMS 1173
             if (tbFilePath.Text == "" || tbFileName.Text == "")
             {               
-
                 if (tbFilePath.Text == "" && tbFileName.Text == "")
-                    message = string.Format(message, "File Path and File Name");
+                {
+                    content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_File_Path_And_Name");
+                    message = string.Format(message, content);
+                }
                 else if (tbFilePath.Text == "")
+                {
+                    content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Faroe_File_Path1");
+
                     message = string.Format(message, "File Path");
+                }
                 else
+                {
+                    content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_File_Name1");
                     message = string.Format(message, "File Name");
+                }
 
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    Application.Current.MainWindow,
@@ -236,7 +246,8 @@ namespace VOP
             message = (string)this.TryFindResource("ResStr_Invalid_xxx");
             if (!bValidPath && !bValidName)
             {
-                message = string.Format(message, "File Path and File Name");
+                content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_File_Path_And_Name");
+                message = string.Format(message, content);
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     Application.Current.MainWindow,
                    message, //"Invalid File Path and File Name",
@@ -262,7 +273,10 @@ namespace VOP
 
                 if (!IsValidPathName(ref path))
                 {
-                    message = string.Format(message, "File Path");
+                    content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Faroe_File_Path1");
+
+                    message = string.Format(message, content);
+
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                       Application.Current.MainWindow,
                      message,//"Invalid File Path",
@@ -274,7 +288,8 @@ namespace VOP
                 {                                    
                     if (!IsValidFileName(tbFileName.Text))
                     {
-                        message = string.Format(message, "File Name");
+                        content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_File_Name1");
+                        message = string.Format(message, content);
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                           Application.Current.MainWindow,
                          message,//"Invalid File Name",

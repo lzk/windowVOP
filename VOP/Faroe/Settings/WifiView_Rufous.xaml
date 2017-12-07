@@ -49,10 +49,10 @@
                         <RowDefinition Height="6"></RowDefinition>
                         <RowDefinition Height="45"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>                   
+                    </Grid.RowDefinitions>
 
 
-                        <TextBlock Text="WLAN" Style="{StaticResource ColorChangeTextBlock}" FontSize="14" 
+                    <TextBlock Text="{StaticResource ResStr_WLAN}" Style="{StaticResource ColorChangeTextBlock}" FontSize="14" 
                                    FontWeight="Bold" Grid.Row="0"  VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
                         <CheckBox Name="chkWifi" Click="OnClickWifiCheckBox" IsChecked="True" 
                                   Grid.Row="0" HorizontalAlignment="Right"

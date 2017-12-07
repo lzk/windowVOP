@@ -117,8 +117,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="180"/>
                             <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="25*"/>
-                            <ColumnDefinition Width="282*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
                         <TextBlock 
@@ -131,7 +130,7 @@
                 Text="{StaticResource ResStr_Faroe_email_setting}" Margin="0,16,0,15"/>
 
                         <TextBlock Grid.Row="1" Grid.Column="0"
-                                Text="Attachment File Type :" 
+                                Text="{StaticResource ResStr_Attachment_File_Type}" 
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="12"
@@ -151,7 +150,7 @@
                             <ComboBoxItem >JPG</ComboBoxItem>
                         </ComboBox>
                         <TextBlock Grid.Row="2" Grid.Column="0"
-                                Text="Recipient :" 
+                                Text="{StaticResource ResStr_Recipient}" 
                                 VerticalAlignment="Center"
                                HorizontalAlignment="Left"
                                 FontWeight="Bold"
@@ -172,7 +171,7 @@
                                     MaxLength="255" Margin="0,15"
                                 />
                         <TextBlock Grid.Row="3" Grid.Column="0"
-                                Text="Subject :" 
+                                Text="{StaticResource ResStr_Subject}" 
                                 VerticalAlignment="Center" HorizontalAlignment="Left"
                                Margin="30,22,0,22"
                                 FontWeight="Bold"
@@ -198,8 +197,9 @@
                             Height="35"
                             FontSize="16"
                             Click="OkClick"
+                            Content="{StaticResource ResStr_OK}"
                             Style="{StaticResource CustomPopUpButtonStyle}"
-                            >OK</Button>
+                            ></Button>
                 </Grid>
             </Grid>
         </Grid>

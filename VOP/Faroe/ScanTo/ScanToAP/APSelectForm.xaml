@@ -43,7 +43,7 @@
                 </Grid.RowDefinitions>
                 
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3">
-                    <TextBlock Name="TitleBarText" Text="To Apps" FontSize="15" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Name="TitleBarText" Text="{StaticResource ResStr_Faroe_To_Application}" FontSize="15" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
                 <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" MinimizeOrCloseStyle="Close" IsCancel="True" PreviewKeyDown="btnClose_PreviewKeyDown"/>
                 <ListBox 
@@ -55,15 +55,16 @@
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
                         SelectionChanged="cboListBoxItem_SelectionChanged"
                         />
-                    <Button Grid.Row="2" Grid.Column="1"
+                <Button Grid.Row="2" Grid.Column="1"
                             HorizontalAlignment="Center" 
                             Margin="20,6" 
                             Width="150" 
                             Height="35"
                             FontSize="16"
                             Click="OkClick"
+                            Content="{StaticResource ResStr_OK}"
                             Style="{StaticResource CustomPopUpButtonStyle}"
-                            >OK</Button>   
+                            ></Button>   
 
             </Grid>
           
