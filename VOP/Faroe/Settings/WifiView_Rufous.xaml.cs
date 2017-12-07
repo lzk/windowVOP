@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VOP.Controls;
+using System.Text.RegularExpressions;
 
 namespace VOP
 {
@@ -438,13 +439,19 @@ namespace VOP
                             wifiitem.EncryptionText = (string)this.FindResource("ResStr_Connected");
                         }
                         wifiitem.ConnectedPropertyChanged += wifiitem_ConnectedPropertyChanged;
-
-                        wifilist.Children.Add(wifiitem);
+                        if(!CheckStringChinessReg(wifiitem.SSIDText))
+                            wifilist.Children.Add(wifiitem);
                     }
                 }
             }
         }
-
+        public bool CheckStringChinessReg(string text)
+        {
+            bool res = false;
+            if (Regex.IsMatch(text, @"[\u4e00-\u9fbb]+$"))
+                res = true;
+            return res;
+        }
         private void wifiitem_ConnectedPropertyChanged(object sender, RoutedEventArgs e)
         {
             try
