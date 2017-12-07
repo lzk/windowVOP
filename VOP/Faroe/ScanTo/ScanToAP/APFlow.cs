@@ -65,7 +65,7 @@ namespace VOP
                         int i = 0;
                         if (programType == "Paint")
                         {
-                            string processFilename = @"C:\Windows\System32\mspaint.exe";
+                            string processFilename = System.Environment.SystemDirectory+"\\mspaint.exe";
                             i = 0;
                             foreach (string f in FileList)
                             {
@@ -133,10 +133,12 @@ namespace VOP
                         else
                         {
                             i = 0;
+    
                             foreach (string f in FileList)
                             {
-                                Process.Start(f);
-
+                                //modified by yunying shang 2017-12-07 for BMS 1722
+                                Process.Start("rundll32.exe", String.Format("{0} {1}", "shimgvw.dll,ImageView_Fullscreen", f));
+                                //<<==============1722
                                 if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true)
                                 {
                                     if (i == 1)
