@@ -396,7 +396,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Scan_FTP">Scan To FTP</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Scan_Cloud">Scan To Cloud</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_app_setting">Application Settings :</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_app_type">Program Type :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_app_type">Programs :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_cloud_setting">Cloud Settings :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_email_setting">Email Settings :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_file_setting">File Settings :</sys:String>
