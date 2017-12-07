@@ -100,12 +100,13 @@ namespace VOP
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
-            string message = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
+            string str = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
             string content = "";
+            string message = "";
             if (tbFilePath.Text.Trim() == "")
             {
                 content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Name1");
-                message = string.Format(message, "Name");
+                message = string.Format(str, content);
 
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    System.Windows.Application.Current.MainWindow,
@@ -115,7 +116,8 @@ namespace VOP
             }
             else if (tbFileName.Text.Trim() == "")
             {
-                message = string.Format(message, "Output Result");
+                content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Output_Result");
+                message = string.Format(str, content);
 
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    System.Windows.Application.Current.MainWindow,
@@ -124,13 +126,13 @@ namespace VOP
                 return;
             }
 
-            message = (string)this.TryFindResource("ResStr_Invalid_xxx");
+            str = (string)this.TryFindResource("ResStr_Invalid_xxx");
 
             if (!IsValidFileName(tbFileName.Text.Trim()))
             {
                 content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_File_Name1");
 
-                message = string.Format(message, content);
+                message = string.Format(str, content);
                 
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     System.Windows.Application.Current.MainWindow,
@@ -143,7 +145,7 @@ namespace VOP
             {
                 content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Faroe_File_Path1");
                 
-                message = string.Format(message, content);
+                message = string.Format(str, content);
 
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     System.Windows.Application.Current.MainWindow,

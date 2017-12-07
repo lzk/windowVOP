@@ -160,9 +160,9 @@ namespace VOP
         {
             if (tbName.Text == "")
             {
-                string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
+                string str = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
                 string content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Name1");
-                message = string.Format(message, content);
+                string message = string.Format(str, content);
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    Application.Current.MainWindow,
                   message,//"The Name cannot be empty",
