@@ -89,10 +89,10 @@ namespace VOP
                    iRtn = m_MainWin.CheckDeviceStatus();
                     if ( iRtn <= 0)
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
-                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                             );
 
                         return;
@@ -100,10 +100,10 @@ namespace VOP
                     else if(iRtn == 1)
                     {
 
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
-                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                             );
 
                         return;
@@ -115,10 +115,10 @@ namespace VOP
                     iRtn = m_MainWin.CheckDeviceStatus();
                     if (iRtn <= 0)
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
-                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                             );
 
                         return;
@@ -126,10 +126,10 @@ namespace VOP
                     else if (iRtn == 1)
                     {
 
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
-                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                             );
                         return;
                     }
@@ -144,10 +144,10 @@ namespace VOP
             {
                 if (DeviceButton.Connected == false)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     Application.Current.MainWindow,
                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
-                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                     );
                 }
             }
@@ -247,18 +247,18 @@ namespace VOP
                 {
                     if (DeviceButton.Connected == false)
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
                             (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
-                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                             );
                     }
                     else
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
                             (string)"The scanning is canceled on the machine!",
-                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                             );
                     }
                 }//<<================1601
@@ -295,8 +295,8 @@ namespace VOP
             ImageButton2 btn = sender as ImageButton2;
 
             ScanTask task = new ScanTask();
-            //List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
-            List<ScanFiles> files = new List<ScanFiles>();
+            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
+            //List<ScanFiles> files = new List<ScanFiles>();
             m_MainWin._bScanning = false;
             if (files != null)
             //   return;
@@ -321,8 +321,8 @@ namespace VOP
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
-                    files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\1.JPG"));
-                    files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\2.JPG"));
+                    //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\1.JPG"));
+                    //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\2.JPG"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
@@ -338,18 +338,18 @@ namespace VOP
             {
                 if (DeviceButton.Connected == false)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                         Application.Current.MainWindow,
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
-                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                         );
                 }
                 else
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                         Application.Current.MainWindow,
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Scanning_is_canceled_on_machine"),//"The scanning is canceled on the machine!",
-                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Waring")
                         );
                 }
             }            

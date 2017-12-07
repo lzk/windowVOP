@@ -281,7 +281,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_WiFi_connection_troubleshooting">Wi-Fi连接故障排除</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Return">返回</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Prompt">提示</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Do_you_want_to_exit_the_Lenovo_Printer">是否退出小新打印？</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Member_Center">会员中心</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Account">账户名</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Change_Account_Information">修改账户信息</sys:String>
@@ -438,8 +437,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_the_machine_could_not_be_connected">This machine could not be connected!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Not_Find_Printer">Not find printer!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Select_Pictures_to_process">Please select one or more pictures to process!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Do_You_Want_to_Delete_All_Images">Do you want to delete all images before leaving this page?</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scanning is canceled on the machine!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Do_You_Want_to_Delete_All_Images">Do you want to leave this page, if you exit, the all images will be delete??</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scanning is canceled by user!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_and_Path_could_not_be_Empty">The AP Name and Path could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_could_not_be_Empty">The AP Name could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Path_could_not_be_Empty">The AP Path could not be empty!</sys:String>
@@ -452,7 +451,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Evernote_Title_could_not_be_all_space">The Ever Note Title characters could not be all space!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Upload_files_fail">Upload files fail, </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_could_not_be_empty">The {0} cannot be empty!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_specify_incorrect">The {0} format is incorrect, Please check your {1} and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_specify_incorrect">The {0} format is incorrect, Please check your {0} and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Device_disconnected">Device is diconnected, could not Apply setting!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_File_Path_and_name_too_long">Your Specify File Path + File Name length is too long or not valid, please specify again!!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Invalid_xxx">Invalid {0}!</sys:String>
@@ -466,6 +465,14 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Server_Address_Target_Path_too_long">Your Specify the Server Address and Tartget Path are too long!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Not_Ready">Printer is not ready!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Quick_Scan_Exist">Quick Scan item name already exists. change to another name.</sys:String>
-
-
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_To_Application">To Application</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Browse">Browse...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_EverNote_Viewer">EverNote Viewer</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Note_Title">Note Title :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Note_Content">Note Content :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Default_Path">Default save path :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_OneDrive_Viewer">OneDrive File Viewer</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_To_FTP">To FTP</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Add_Quick_SCan_Setting">Add Quick Scan Setting</sys:String>
+    
 </ResourceDictionary>

@@ -73,7 +73,7 @@
         <CheckBox   Name="SelectAllCheckBox"
                         Grid.Row="1"
                     Grid.Column="2" 
-                    Content="Select All"
+                    Content="{StaticResource ResStr_Select_All}"
                     Foreground="Black"
                     IsChecked="true" 
                     Height="25" 
@@ -136,7 +136,7 @@
 
             <local:ImageButton2 
                             ImagePath="../Images/ScanToPrint.png" 
-                            BottomText="To Print" 
+                            BottomText="{StaticResource ResStr_To_Print}" 
                             Width="90" Height="100"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -147,7 +147,7 @@
                 />
             <local:ImageButton2  
                             ImagePath="../Images/ScanToEmail.png" 
-                            BottomText="To Email" 
+                            BottomText="{StaticResource ResStr_To_Email}" 
                             Width="90" Height="100"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -159,7 +159,7 @@
 
             <local:ImageButton2  
                             ImagePath="../Images/ScanToFile.png" 
-                            BottomText="To File" 
+                            BottomText="{StaticResource ResStr_To_File}" 
                             Width="90" Height="100"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -170,7 +170,7 @@
 
              <local:ImageButton2 
                             ImagePath="../Images/ScanToFtp.png" 
-                            BottomText="To FTP" 
+                            BottomText="{StaticResource ResStr_Faroe_To_FTP}" 
                             Width="90" Height="100"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -182,7 +182,7 @@
 
              <local:ImageButton2 
                             ImagePath="../Images/ScanToProgram.png" 
-                            BottomText="To Application" 
+                            BottomText="{StaticResource ResStr_Faroe_To_Application}" 
                             Width="90" Height="100"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -194,7 +194,7 @@
 
              <local:ImageButton2
                             ImagePath="../Images/ScanToCloud.png" 
-                            BottomText="To Cloud" 
+                            BottomText="{StaticResource ResStr_To_Cloud}" 
                             Width="90" Height="100"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"

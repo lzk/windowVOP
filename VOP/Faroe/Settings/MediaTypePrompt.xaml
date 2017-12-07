@@ -177,7 +177,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Border Name="TitleBar"  Background="#FF67A1CF" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-                    <TextBlock Name="captionTextBlock" FontSize="14" Text="Information" Foreground="Black" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Name="captionTextBlock" FontSize="14" Text="{StaticResource ResStr_Faroe_Info}" Foreground="Black" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                 </Border>
                 <local:MinimizeCloseButton Grid.Column="2" Grid.Row="0" MinimizeOrCloseStyle="Close" IsCancel="True" Height="30" Width="30" VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnClose_Click" PreviewKeyDown="btnClose_PreviewKeyDown"/>
 
@@ -204,7 +204,8 @@
                             FontSize="14"
                             Click="OkClick"
                             Style="{StaticResource CustomPopUpButtonStyle}"
-                            >OK</Button>
+                            Content="{StaticResource ResStr_OK}"
+                            ></Button>
             </Grid>
         </Grid>
         </Viewbox>

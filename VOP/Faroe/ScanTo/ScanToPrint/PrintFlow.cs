@@ -187,10 +187,10 @@ namespace VOP
             }
             else if (printRes == PrintError.Print_Operation_Fail)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                            Application.Current.MainWindow,
                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Printer_Not_Ready"),//"Printer is not ready!",
-                          (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                          (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                           );
                 return false;
             }
@@ -201,10 +201,10 @@ namespace VOP
             }//<<=================1553
             else
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_print_fail") + m_errorMsg,
-                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                            );
                 return false;
             }

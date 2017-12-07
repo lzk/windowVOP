@@ -151,7 +151,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Title bar begin -->
-                <Border Name="TitleBar"  Background="Transparent" Grid.Row="0" Grid.ColumnSpan="2">
+                <Border Name="TitleBar"  Background="Transparent" Grid.Row="0" Grid.ColumnSpan="3">
                     <TextBlock Text="{StaticResource ResStr_Faroe_Scan_Print}" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
@@ -229,7 +229,7 @@
                             FontWeight="Bold"
                 VerticalAlignment="Center"
                             Margin="30,0,0,0"
-                Text="Printer Name : "/>
+                Text="{StaticResource ResStr_Printer_Name}"/>
                 <ComboBox 
                     Width="250"
                     Height="35"

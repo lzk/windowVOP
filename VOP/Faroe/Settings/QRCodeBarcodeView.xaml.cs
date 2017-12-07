@@ -101,24 +101,26 @@ namespace VOP
         private void OkClick(object sender, RoutedEventArgs e)
         {
             string message = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
+            string content = "";
             if (tbFilePath.Text.Trim() == "")
-            {                
+            {
+                content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Name1");
                 message = string.Format(message, "Name");
 
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    System.Windows.Application.Current.MainWindow,
                   message, //"The File Path cannot be empty.",
-                  (string)this.TryFindResource("ResStr_Error"));
+                  (string)this.TryFindResource("ResStr_Warning"));
                 return;
             }
             else if (tbFileName.Text.Trim() == "")
             {
                 message = string.Format(message, "Output Result");
 
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    System.Windows.Application.Current.MainWindow,
                   message,//"The Output Result cannot be empty.",
-                  (string)this.TryFindResource("ResStr_Error"));
+                  (string)this.TryFindResource("ResStr_Warning"));
                 return;
             }
 
@@ -126,21 +128,27 @@ namespace VOP
 
             if (!IsValidFileName(tbFileName.Text.Trim()))
             {
-                message = string.Format(message, "File Name");
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_File_Name1");
+
+                message = string.Format(message, content);
+                
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     System.Windows.Application.Current.MainWindow,
                    message,//"Invalid file name",
-                   (string)this.TryFindResource("ResStr_Error"));
+                   (string)this.TryFindResource("ResStr_Warning"));
                 return;
             }
 
             if (!IsValidPathName(tbFilePath.Text.Trim()))
             {
-                message = string.Format(message, "File Path");
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Faroe_File_Path1");
+                
+                message = string.Format(message, content);
+
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     System.Windows.Application.Current.MainWindow,
                     message,//"Invalid path name",
-                    (string)this.TryFindResource("ResStr_Error"));
+                    (string)this.TryFindResource("ResStr_Warning"));
                 return;
             }
 
@@ -174,10 +182,10 @@ namespace VOP
 
                     if (save.SelectedPath.Length + 50 >= 260)
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                              System.Windows.Application.Current.MainWindow,
                             message,//"The specified path is too long. Please specify again!",
-                            (string)this.TryFindResource("ResStr_Error"));
+                            (string)this.TryFindResource("ResStr_Warning"));
                     }
                     else
                     {
@@ -221,10 +229,10 @@ namespace VOP
                         }
                         else
                         {
-                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                  System.Windows.Application.Current.MainWindow,
                                 (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_You_do_not_have_permission"),//"The specified path has no write permissions. Please specify again!",
-                                (string)this.TryFindResource("ResStr_Error"));
+                                (string)this.TryFindResource("ResStr_Warning"));
                         }
                     }
                 }

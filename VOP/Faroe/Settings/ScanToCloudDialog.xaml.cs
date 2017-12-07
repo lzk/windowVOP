@@ -40,7 +40,7 @@ namespace VOP
                 tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
                 SavePathTbx.IsEnabled = true;
                 SavePathTbx.Visibility = System.Windows.Visibility.Visible;
-                tbDefaultPath.Text = "Default save path :";
+                tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Default_Path");
                 SavePathTbx.IsReadOnly = false;
                 SavePathTbx.Text = m_scanToCloudParams.DefaultPath;
                 SavePathTbx.IsReadOnly = true;
@@ -56,8 +56,8 @@ namespace VOP
                 tbNote.Visibility = System.Windows.Visibility.Visible;
                 tbNoteContent.IsEnabled = true;
                 tbNoteContent.Visibility = System.Windows.Visibility.Visible;
-                tbDefaultPath.Text = "Ever Note Title :";
-                tbNote.Text = "Note Content :";
+                tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Note_Title");
+                tbNote.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Note_Content");
                 tbNoteTitle.Text = m_scanToCloudParams.EverNoteTitle;
                 tbNoteContent.Text = m_scanToCloudParams.EverNoteContent;
                 SavePathTbx.IsEnabled = false;
@@ -78,7 +78,7 @@ namespace VOP
                 tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
                 SavePathTbx.IsEnabled = true;
                 SavePathTbx.Visibility = System.Windows.Visibility.Visible;
-                tbDefaultPath.Text = "Default save path :";
+                tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Default_Path"); ;
                 SavePathTbx.IsReadOnly = false;
                 SavePathTbx.Text = m_scanToCloudParams.DefaultOneDrivePath;
                 SavePathTbx.IsReadOnly = true;
@@ -95,10 +95,10 @@ namespace VOP
             {
                 if (m_MainWin.CheckDeviceStatus() < 2)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                         Application.Current.MainWindow,
                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
-                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                         );
 
                     return;
@@ -180,10 +180,10 @@ namespace VOP
             {
                 if (SavePathTbx.Text == "")
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     Application.Current.MainWindow,
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Default_Save_Path_could_not_be_empty"),//"The Default save path could not be empty!",
-                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                     SavePathTbx.Focus();
                     return;
                 }
@@ -206,10 +206,10 @@ namespace VOP
             {
                 if (tbNoteTitle.Text == "")
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     Application.Current.MainWindow,
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Evernote_Tile_could_not_be_empty"),//"The Ever Note Title could not be empty!",
-                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                     tbNoteTitle.Focus();
                     return;
                 }
@@ -222,10 +222,10 @@ namespace VOP
                 }
                 if (i >= tbNoteTitle.Text.Length)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     Application.Current.MainWindow,
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Evernote_Title_could_not_be_all_space"),//"The Ever Note Title characters could not be all space!",
-                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                     tbNoteTitle.Text = "";
                     tbNoteTitle.Focus();
                     return;
@@ -252,7 +252,7 @@ namespace VOP
                 tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
                 SavePathTbx.IsEnabled = true;
                 SavePathTbx.Visibility = System.Windows.Visibility.Visible;
-                tbDefaultPath.Text = "Default save path :";
+                tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Default_Path"); ;
                 SavePathTbx.IsReadOnly = false;
                 SavePathTbx.Text = m_scanToCloudParams.DefaultPath;                
                 SavePathTbx.IsReadOnly = true;
@@ -268,8 +268,8 @@ namespace VOP
                 tbNote.Visibility = System.Windows.Visibility.Visible;
                 tbNoteContent.IsEnabled = true;
                 tbNoteContent.Visibility = System.Windows.Visibility.Visible;
-                tbDefaultPath.Text = "Ever Note Title :";
-                tbNote.Text = "Note Content :";
+                tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Note_Title");
+                tbNote.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Note_Content");
                 tbNoteTitle.Text = m_scanToCloudParams.EverNoteTitle;
                 tbNoteContent.Text = m_scanToCloudParams.EverNoteContent;
                 SavePathTbx.IsEnabled = false;
@@ -288,7 +288,7 @@ namespace VOP
                 tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
                 SavePathTbx.IsEnabled = true;
                 SavePathTbx.Visibility = System.Windows.Visibility.Visible;
-                tbDefaultPath.Text = "Default save path :";
+                tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Default_Path"); ;
                 SavePathTbx.IsReadOnly = false;
                 SavePathTbx.Text = m_scanToCloudParams.DefaultOneDrivePath;
                 SavePathTbx.IsReadOnly = true;

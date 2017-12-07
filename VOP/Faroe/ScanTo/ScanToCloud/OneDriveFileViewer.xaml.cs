@@ -161,10 +161,10 @@ namespace VOP
                     folderName = folderName.TrimEnd();
                     if(CheckFolder(folderName))
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
                             (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Name_exist"),//"The folder Name already exists",
-                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                         return;
                     }
                     else
@@ -194,10 +194,10 @@ namespace VOP
                         {
                             string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
                             message = string.Format(message, "Folder");
-                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, 
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, 
                                 Application.Current.MainWindow,
                                 message,//"The folder cannot be empty", 
-                                (string)this.TryFindResource("ResStr_Error"));
+                                (string)this.TryFindResource("ResStr_Warning"));
                             return;
                         }
                     } 
@@ -207,10 +207,10 @@ namespace VOP
             {
                 string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Invalid_xxx");
                 message = string.Format(message, "Folder Name");
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, 
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, 
                     Application.Current.MainWindow,
                     message,//"Invalid folder name.", 
-                    (string)this.TryFindResource("ResStr_Error"));
+                    (string)this.TryFindResource("ResStr_Warning"));
                 return;
             }
         }
@@ -303,10 +303,10 @@ namespace VOP
             catch (Exception exception)
             {
                 //    PresentServiceException(exception);
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, 
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, 
                     Application.Current.MainWindow, 
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Connect_OneDrive_Fail"),//"Connection Onedirive failed!", 
-                    (string)this.TryFindResource("ResStr_Error"));
+                    (string)this.TryFindResource("ResStr_Warning"));
                 this.Close();
             }
         }
@@ -340,10 +340,10 @@ namespace VOP
             catch (Exception exception)
             {
                 //    PresentServiceException(exception);
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, 
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, 
                     Application.Current.MainWindow,
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Connect_OneDrive_Fail"),//"Connection Onedrive failed!", 
-                    (string)this.TryFindResource("ResStr_Error"));
+                    (string)this.TryFindResource("ResStr_Warning"));
                 return;
             }
 
@@ -408,10 +408,10 @@ namespace VOP
             catch (Exception exception)
             {
                 //    PresentServiceException(exception);
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     Application.Current.MainWindow,
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Connect_OneDrive_Fail"),//"Connection Onedrive failed!", 
-                    (string)this.TryFindResource("ResStr_Error"));
+                    (string)this.TryFindResource("ResStr_Warning"));
                 return;
             }
         }
@@ -580,10 +580,10 @@ namespace VOP
             catch (Exception exception)
             {
                 //    PresentServiceException(exception);
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, 
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, 
                     Application.Current.MainWindow,
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Connect_OneDrive_Fail"),//"Connection Onedrive failed!", 
-                    (string)this.TryFindResource("ResStr_Error"));
+                    (string)this.TryFindResource("ResStr_Warning"));
                 return;
             }
 
@@ -638,6 +638,7 @@ namespace VOP
                     }
                     if (UpperFolder != null)
                     {
+
                         if (!CheckUploadFolderName(currentFolderName))
                         {
                             message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Not_Exist");
@@ -730,8 +731,8 @@ namespace VOP
                         //                        PresentServiceException(exception);
                         message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Update_File_fail");
                         message = string.Format(message,/*"Upload {0} failed!",*/ Filename);
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple, 
-                            Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Error"));
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, 
+                            Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Warning"));
                     }
                 }
             }

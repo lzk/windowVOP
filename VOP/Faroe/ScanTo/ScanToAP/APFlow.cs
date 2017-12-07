@@ -153,10 +153,10 @@ namespace VOP
                     }
                     catch (Exception ex)
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                          Application.Current.MainWindow,
                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_open_p_fail") + ex.Message,
-                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                                         );
                         return false;
                     }
@@ -256,10 +256,10 @@ namespace VOP
                 }
                 catch (Exception ex)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                      Application.Current.MainWindow,
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_open_p_fail") + ex.Message,
-                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                                     );
                     return false;
                 }

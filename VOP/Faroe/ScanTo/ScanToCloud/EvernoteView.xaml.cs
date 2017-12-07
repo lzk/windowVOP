@@ -106,10 +106,10 @@ namespace VOP
 
             catch (Exception ex)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                 Application.Current.MainWindow,
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Get_EverNote_List_error"),//"Get Ever Note List Error!",
-                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
 
                 return false;
             }
@@ -122,10 +122,10 @@ namespace VOP
         {
             if (tbNoteTitle.Text == "")
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                 Application.Current.MainWindow,
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Evernote_Tile_could_not_be_empty"),//"The Ever Note Title could not be empty!",
-                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 tbNoteTitle.Focus();
                 return;
             }
@@ -138,10 +138,10 @@ namespace VOP
             }
             if (i >= tbNoteTitle.Text.Length)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                 Application.Current.MainWindow,
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Evernote_Title_could_not_be_all_space"),//"The Ever Note Title characters could not be all space!",
-                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 tbNoteTitle.Text = "";
                 tbNoteTitle.Focus();
                 return;
@@ -153,14 +153,15 @@ namespace VOP
             {
                 ENNote myResourceNote = new ENNote();
 
+                //modified by yunying shang 2017-12-07 for BMS 1623
                 //add by yunying shang 2017-11-30 for BMS 1623
 
-                if (FileList.Count >= 60)
+                if (FileList.Count > 60)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-               Application.Current.MainWindow,
-               (string)(string)Application.Current.MainWindow.TryFindResource("ResStr_Evernote_attachment_files_could_not_more_than_60"),
-              (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                   Application.Current.MainWindow,
+                   (string)(string)Application.Current.MainWindow.TryFindResource("ResStr_Evernote_attachment_files_could_not_more_than_60"),
+                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                     return;
                 }
                 else
@@ -170,17 +171,25 @@ namespace VOP
                     {
                         System.IO.FileInfo fileInfo = null;
                         fileInfo = new System.IO.FileInfo(filePath);
+                        if (totalsize > 100 * 1024 * 1024)
+                        {
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                           Application.Current.MainWindow,
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Images_files_Size_too_large"),//"Total image files size are too large, could not upload to EverNote server!",
+                          (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                            return;
+                        }
                         totalsize += fileInfo.Length;
                     }
                     if (totalsize > 100 * 1024 * 1024)
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
-                   Application.Current.MainWindow,
-                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Images_files_Size_too_large"),//"Total image files size are too large, could not upload to EverNote server!",
-                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                       Application.Current.MainWindow,
+                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Images_files_Size_too_large"),//"Total image files size are too large, could not upload to EverNote server!",
+                      (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                         return;
                     }
-                }
+                }//<<=================1623
                 foreach (string filePath in FileList)
                 {
                     string fileName = System.IO.Path.GetFileName(filePath);
@@ -201,11 +210,11 @@ namespace VOP
             }
             catch (Exception ex)
             {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                Application.Current.MainWindow,
                (string)Application.Current.MainWindow.TryFindResource("ResStr_Upload_files_fail")//"Upload files fail, "
                + ex.Message,
-              (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+              (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
             }
             
             //DialogResult = true;

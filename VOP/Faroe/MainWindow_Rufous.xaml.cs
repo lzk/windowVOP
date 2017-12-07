@@ -614,12 +614,12 @@ namespace VOP
                     {
                         _bScanning = false;
                         dll.ADFCancel();
-                       // VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
-                       // Application.Current.MainWindow,
-                       //(string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
-                       //(string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
-                       // );
-                        
+                        // VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                        // Application.Current.MainWindow,
+                        //(string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Disconnected"),
+                        //(string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
+                        // );
+
                     }//<<===============1372
                 }
                 if (bUseGrayIcon != bGrayIcon)
@@ -662,7 +662,7 @@ namespace VOP
                                                 VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
                                                 this,
                                                 (string)this.TryFindResource("ResStr_Do_you_want_to_exit"),
-                                                (string)this.TryFindResource("ResStr_Warning")
+                                                (string)this.TryFindResource("ResStr_Prompt")
                                                 )
                 )
             {

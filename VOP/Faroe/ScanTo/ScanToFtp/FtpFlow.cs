@@ -73,17 +73,17 @@ namespace VOP
 
                     if ((Uri.Length + FileList[0].Length) > 260)
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     Application.Current.MainWindow,
                      (string)Application.Current.MainWindow.TryFindResource("ResStr_Server_Address_Target_Path_too_long"),//"Your Specify the Server Address and Tartget Path are too long!",
-                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                     );
                         return false;
                     }
 
                     AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-                    if (worker.InvokeQuickScanMethod(UploadFiles, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ftp_wait")))
+                    if (worker.InvokeQuickScanMethod(UploadFiles, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_wait")))
                     {
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                                     Application.Current.MainWindow,
@@ -93,10 +93,10 @@ namespace VOP
                     }
                     else
                     {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                         Application.Current.MainWindow,
                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail") + m_errorMsg,
-                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                         return false;
                     }
 
@@ -114,26 +114,26 @@ namespace VOP
 
                 if ((Uri.Length + FileList[0].Length) > 260)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                 Application.Current.MainWindow,
                  (string)Application.Current.MainWindow.TryFindResource("ResStr_Server_Address_Target_Path_too_long"),//"Your Specify the Server Address and Tartget Path are too long!",
-                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                 );
                     return false;
                 }
 
                 AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-                if (worker.InvokeQuickScanMethod(UploadFiles, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ftp_wait")))
+                if (worker.InvokeQuickScanMethod(UploadFiles, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_wait")))
                 {
                    
                 }
                 else
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                     Application.Current.MainWindow,
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail") + m_errorMsg,
-                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                     return false;
                 }
 

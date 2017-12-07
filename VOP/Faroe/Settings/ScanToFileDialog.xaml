@@ -150,7 +150,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Title bar begin -->
-                <Border Name="TitleBar"  Background="Transparent" Grid.Row="0" Grid.ColumnSpan="2">
+                <Border Name="TitleBar"  Background="Transparent" Grid.Row="0" Grid.ColumnSpan="3">
                     <TextBlock Text="{StaticResource ResStr_Faroe_Scan_File}" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
@@ -219,7 +219,7 @@
 
 
                         <TextBlock Grid.Row="1" Grid.Column="0"
-                                Text="Save File Type :" 
+                                Text="{StaticResource ResStr_Faroe_Save_File_Type}" 
                                 VerticalAlignment="Center"
                                  HorizontalAlignment="Left"
                                 FontWeight="Bold"
@@ -243,7 +243,7 @@
                         </ComboBox>
 
                         <TextBlock Grid.Row="2" Grid.Column="0"
-                                Text="File Name :" 
+                                Text="{StaticResource ResStr_File_Name}" 
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 FontWeight="Bold"
@@ -265,7 +265,7 @@
                                 />
 
                         <TextBlock Grid.Row="3" Grid.Column="0"
-                                Text="File Path :" 
+                                Text="{StaticResource ResStr_Faroe_File_Path}" 
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Left"
                                 FontWeight="Bold"
@@ -293,18 +293,20 @@
                             FontSize="16"
                             Click="BrowseClick"
                             Style="{StaticResource CustomPopUpButtonStyle}"
-                            >Browse...</Button>
+                            Content="{StaticResource ResStr_Faroe_Browse}"
+                            ></Button>
 
                     </Grid>
-                
-                <Button Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="3"
+
+                    <Button Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="3"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
                             Width="150" 
                             Height="35"
                             FontSize="16"
                             Click="OkClick"
+                            Content="{StaticResource ResStr_OK}"
                             Style="{StaticResource CustomPopUpButtonStyle}"
-                            >OK</Button>
+                            ></Button>
                 </Grid>
             </Grid>
         </Grid>

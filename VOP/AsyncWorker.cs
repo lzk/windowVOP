@@ -210,7 +210,7 @@ namespace VOP
                 {
                     isNeededProgress = true;
 
-                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode("Decoding, please wait ...");
+                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode((string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Decoding"));
                     qr_pbw.Owner = this.owner;
                     qr_pbw.Loaded += pbw_Loaded;
                     qr_pbw.ShowDialog();
@@ -242,7 +242,7 @@ namespace VOP
                 {
                     isNeededProgress = true;
 
-                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode("Decoding, please wait ...");
+                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode((string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Decoding"));
                     qr_pbw.Owner = this.owner;
                     qr_pbw.Loaded += pbw_Loaded;
                     qr_pbw.ShowDialog();

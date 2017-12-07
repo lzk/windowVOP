@@ -126,10 +126,10 @@ namespace VOP
         {
             if (MainWindow_Rufous.g_settingData.m_printerName == null)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                  Application.Current.MainWindow,
                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Not_Find_Printer"),//"Not find printer!",
-                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Waring"));
                 return Scan_RET.RETSCAN_ADF_NOT_READY;
             }
             else
@@ -172,10 +172,10 @@ namespace VOP
 
                 if (listPrinters.Count < 1)
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                      Application.Current.MainWindow,
                                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Not_Find_Printer"),//"Not find printer!",
-                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 }
                 else
                 { 
@@ -275,10 +275,10 @@ namespace VOP
                 else
                 {
                     //if (flow.isCancel != true)
-                    //    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                    //    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     //                    Application.Current.MainWindow,
                     //                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
-                    //                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                    //                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                     return Scan_RET.RETSCAN_ERROR;
                 }
             }
@@ -300,10 +300,10 @@ namespace VOP
                 else
                 {
                     if (flow.isCancel != true)
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                         Application.Current.MainWindow,
                                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
-                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                     return Scan_RET.RETSCAN_ERROR;
                 }
             }
@@ -325,10 +325,10 @@ namespace VOP
                 else
                 {
                     if (flow.isCancel != true)
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                         Application.Current.MainWindow,
                                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
-                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
+                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                     return Scan_RET.RETSCAN_ERROR;
                 }
             }
