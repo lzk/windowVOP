@@ -75,7 +75,7 @@ namespace VOP
                     {
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                     Application.Current.MainWindow,
-                     (string)"Your Specify the Server Address and Tartget Path are too long!",
+                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Server_Address_Target_Path_too_long"),//"Your Specify the Server Address and Tartget Path are too long!",
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                     );
                         return false;
@@ -116,7 +116,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                 Application.Current.MainWindow,
-                 (string)"Your Specify the Server Address and Tartget Path are too long!",
+                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Server_Address_Target_Path_too_long"),//"Your Specify the Server Address and Tartget Path are too long!",
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                 );
                     return false;

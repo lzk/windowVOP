@@ -859,17 +859,24 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 						::WideCharToMultiByte(CP_ACP, 0, tempPath, -1, filePath, 256, NULL, NULL);
 
-						if (dup == 0)
+						if (duplex == SCAN_AB_SIDE)
 						{
-							side = 'A';
-						}
-						else if (dup == 1)
-						{
-							side = 'B';
-						}
+							if (dup == 0)
+							{
+								side = 'A';
+							}
+							else if (dup == 1)
+							{
+								side = 'B';
+							}
 
-//						sprintf(fileName, "%s_%c%d_%c%02d.%s", filePath, (ImgFile[dup].img.bit > 16) ? 'C' : 'G', ImgFile[dup].img.dpi.x, side, page[dup], &ImgFile[dup].img.format);
-						sprintf(fileName, "%s%03d%c.%s", filePath, page[dup],side,&ImgFile[dup].img.format);//#BMS1075
+							//						sprintf(fileName, "%s_%c%d_%c%02d.%s", filePath, (ImgFile[dup].img.bit > 16) ? 'C' : 'G', ImgFile[dup].img.dpi.x, side, page[dup], &ImgFile[dup].img.format);
+							sprintf(fileName, "%s%03d%c.%s", filePath, page[dup], side, &ImgFile[dup].img.format);//#BMS1075
+						}
+						else
+						{
+							sprintf(fileName, "%s%03d.%s", filePath, page[dup], &ImgFile[dup].img.format);//#BMS1075
+						}
 						ImgFile_Open(&ImgFile[dup], fileName);
 						lineCount = 0;
 

@@ -130,11 +130,12 @@ namespace VOP
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
+            string message = string.Empty;
+
             //modified by yunying shang 2017-10-19 for BMS 1173
             if (tbFilePath.Text == "" || tbFileName.Text == "")
             {
-                string message = string.Empty;
-
+               
                 if (tbFilePath.Text == "" && tbFileName.Text == "")
                     message = "The File Path and File Name cannot be empty!";
                 else if (tbFilePath.Text == "")

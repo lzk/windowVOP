@@ -159,7 +159,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
                    Application.Current.MainWindow,
-                   (string)"Device is diconnected, could not Apply setting!",
+                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Device_disconnected"), //"Device is diconnected, could not Apply setting!",
                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Error"));
                 return;
             }

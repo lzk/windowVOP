@@ -464,5 +464,9 @@
     <sys:String xml:space="preserve" x:Key="ResStr_File_exist_Do_You_overwrite">The {0} already exists，Do you want to overwrite?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Update_File_fail">Upload {0} failed!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Not_Find_Outlook">Could not find the outlook, please check you computer!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_File_Path_and_Name_too_long">You Specify the file path and file name is too long, please specify again </sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Server_Address_Target_Path_too_long">Your Specify the Server Address and Tartget Path are too long!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Printer_Not_Ready">Printer is not ready!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Quick_Scan_Exist">Quick Scan item name already exists. change to another name.</sys:String>
 
 </ResourceDictionary>
