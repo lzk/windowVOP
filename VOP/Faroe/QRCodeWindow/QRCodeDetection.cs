@@ -25,7 +25,7 @@ using ZXing.Client.Result;
 using ZXing.Common;
 using ZXing.Rendering;
 
-using Aspose.BarCodeRecognition;
+using Aspose.BarCode.BarCodeRecognition;
 
 using PdfEncoderClient;
 using System.Windows.Media.Imaging;
@@ -568,6 +568,42 @@ namespace VOP
                                         }
                                     }
                                 }
+                                if(resultArray_inOneImage.Count <=0 )//Use Aspose.Barcode
+                                {
+                                    Aspose.BarCode.License l1 = new Aspose.BarCode.License();
+                                    l1.SetLicense("VOP.Aspose.Total.lic");
+
+                                    BarCodeReader barCodeReader;
+                                    barCodeReader = new BarCodeReader(imageStreamSource, DecodeType.QR);
+                                    int index = 0;
+
+                                    while (barCodeReader.Read())
+                                    {
+                                        string resultText = barCodeReader.GetCodeText();
+
+                                        //if (ContentsExists(resultArray_inOneImage, results[i], lpRect[index]) == false)
+                                        {
+                                            BarCodeRegion region = barCodeReader.GetRegion();
+                                            DetectResult detectResult = new DetectResult(fileName, null);
+                                            detectResult.barcodeResult = resultText;
+                                            detectResult.barcodeEncodeType = barCodeReader.GetCodeType().ToString();
+                                            detectResult.barcodeResultType = "TEXT";
+                                            string subFileName = strSubFileName + "barcodeResult1" + index.ToString() + ".jpg";
+                                            System.Drawing.Point barcodePoint = CreateBarcodeResultImage(ref srcBitmap, subFileName, region);
+                                            detectResult.resultWidth = barcodePoint.X;
+                                            detectResult.resultHeight = barcodePoint.Y;
+                                            detectResult.srcWidth = srcBitmap.Width;
+                                            detectResult.srcHeight = srcBitmap.Height;
+                                            detectResult.resultFileName = subFileName;
+                                            index++;
+                                            resultArray.Add(detectResult);
+                                            resultArray_inOneImage.Add(detectResult);
+                                        }
+
+                                    }
+                                    barCodeReader.Close();
+                                }
+
                                 /*
                                                                 Result[] results1 = qrReader.decodeMultiple(bbitmap1, hints);
                                                                 if (results1 != null)
@@ -612,7 +648,7 @@ namespace VOP
                                                                 }
                                 */
                             }
-                            catch(Exception)
+                            catch (Exception)
                             {
 
                             }
@@ -695,12 +731,18 @@ namespace VOP
 
                                // if (resultArray_inOneImage_barcode.Count <= 0)
                                 {
+                                    Aspose.BarCode.License l1 = new Aspose.BarCode.License();
+                                    l1.SetLicense("VOP.Aspose.Total.lic");
+
                                     BarCodeReader barCodeReader;
-                                    barCodeReader = new BarCodeReader(imageStreamSource, BarCodeReadType.AllSupportedTypes & (~BarCodeReadType.QR));
+                                    barCodeReader = new BarCodeReader(imageStreamSource, DecodeType.AllSupportedTypes);
                                     int index = 0;
 
                                     while (barCodeReader.Read())
                                     {
+                                        if (barCodeReader.GetCodeType() == DecodeType.QR)
+                                            continue;
+
                                         string resultText = barCodeReader.GetCodeText();
                                         if (resultText.Length < MINBARCODELENDTH)
                                             continue;
@@ -710,7 +752,7 @@ namespace VOP
                                             BarCodeRegion region = barCodeReader.GetRegion();
                                             DetectResult detectResult = new DetectResult(fileName, null);
                                             detectResult.barcodeResult = resultText;
-                                            detectResult.barcodeEncodeType = barCodeReader.GetReadType().ToString();
+                                            detectResult.barcodeEncodeType = barCodeReader.GetCodeType().ToString();
                                             detectResult.barcodeResultType = "TEXT";
                                             string subFileName = strSubFileName + "barcodeResult1" + index.ToString() + ".jpg";
                                             System.Drawing.Point barcodePoint = CreateBarcodeResultImage(ref srcBitmap, subFileName, region);
@@ -831,11 +873,18 @@ namespace VOP
 
                 if (barcodeContent == null || barcodeContent.Length < MINBARCODELENDTH_SEP)
                 {
+                    Aspose.BarCode.License l1 = new Aspose.BarCode.License();
+                    l1.SetLicense("VOP.Aspose.Total.lic");
+
                     BarCodeReader barCodeReader;
-                    barCodeReader = new BarCodeReader(subBitmap, BarCodeReadType.AllSupportedTypes & (~BarCodeReadType.QR));
+                    barCodeReader = new BarCodeReader(subBitmap, DecodeType.AllSupportedTypes);
                     while (barCodeReader.Read())
                     {
+                        if (barCodeReader.GetCodeType() == DecodeType.QR)
+                            continue;
+
                         barcodeContent = barCodeReader.GetCodeText();
+
                         if (barcodeContent.Length >= MINBARCODELENDTH_SEP)
                             break;
                     }

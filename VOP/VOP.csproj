@@ -88,7 +88,7 @@
   <ItemGroup>
     <Reference Include="Aspose.BarCode, Version=6.8.0.0, Culture=neutral, PublicKeyToken=00725b1ceb58d0a9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\qrcodelib\Aspose.BarCode.dll</HintPath>
+      <HintPath>..\..\..\..\Aspose License\Aspose.BarCode_for.NET_17.12(DLLs_Only)\net4.5\Aspose.BarCode.dll</HintPath>
     </Reference>
     <Reference Include="CsQuery, Version=1.3.3.249, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -821,6 +821,7 @@
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="Aspose.Total.lic" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
