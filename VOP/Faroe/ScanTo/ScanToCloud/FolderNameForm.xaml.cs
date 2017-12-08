@@ -40,8 +40,9 @@ namespace VOP
         {
             if (tbFolderName.Text == "")
             {
-                string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
-                message = string.Format(message, "Folder");
+                string str = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
+                string content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder");
+                string message = string.Format(str, "Folder");
 
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    Application.Current.MainWindow,

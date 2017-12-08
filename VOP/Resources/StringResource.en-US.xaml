@@ -510,4 +510,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_To_Email">To Email</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_To_File">To File</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_To_Cloud">To Cloud</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Folder">Folder</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Folder_Name">Folder Name</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Output_Result">Output Result</sys:String>
 </ResourceDictionary>
