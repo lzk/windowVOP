@@ -212,17 +212,17 @@
                                     </Grid>
                                 </StackPanel>
 
-                                <StackPanel Grid.Row="5" Margin="10,10,10,0">
-                                    <Grid Height="30" >
+                                <StackPanel Grid.Row="4" Margin="10,10,10,5" Grid.RowSpan="2">
+                                    <Grid Height="40" >
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                             <ColumnDefinition Width="10"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <Button x:Name="btnCancel" Click="btn_Click"  Style="{StaticResource CustomSettingButtonStyle}"
-                                                Content="{StaticResource ResStr_Back}" HorizontalContentAlignment="Center"></Button>
+                                                Content="{StaticResource ResStr_Back}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Button>
                                         <Button x:Name="btnConnect" Click="btn_Click"  Grid.Column="2" Style="{StaticResource CustomSettingButtonStyle}" 
-                                                Content="{StaticResource ResStr_Connect}" HorizontalContentAlignment="Center"></Button>
+                                                Content="{StaticResource ResStr_Connect}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Button>
                                     </Grid>
                                 </StackPanel>
                             </Grid>
