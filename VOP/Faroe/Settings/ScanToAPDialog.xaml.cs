@@ -21,6 +21,7 @@ namespace VOP
     {
         public ScanToAPParam m_scanToAPParams = new ScanToAPParam();
         public ScanParam m_scanParams = new ScanParam();
+        private bool m_bFirst = true;
 
         public ScanToAPDialog()
         {
@@ -29,62 +30,78 @@ namespace VOP
         private void ScanToAPDialog_Loaded(object sender, RoutedEventArgs e)
         {
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
-
+            m_bFirst = true;
             if (m_scanToAPParams.ProgramType == "Paint")
             {
                 cbProgramType.SelectedIndex = 0;
+                tbAPPath.Visibility = Visibility.Hidden;
             }
             else if (m_scanToAPParams.ProgramType == "Photo Viewer")
             {
                 cbProgramType.SelectedIndex = 1;
+                tbAPPath.Visibility = Visibility.Hidden;
             }
             else
             {
                 cbProgramType.SelectedIndex = 2;
-            }
+                tbAPPath.Visibility = Visibility.Visible;
+                tbAPPath.Text = m_scanToAPParams.APPath;
+            }            
+
             tbSettings.Focus();
         }
         private void cbProgramType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //modified by yunying shang 2017-12-08 for BMS 1726
-            int index = 0;
-            if (m_scanToAPParams.ProgramType == "Paint")
-            {
-                index = 0;
-            }
-            else if (m_scanToAPParams.ProgramType == "Photo Viewer")
-            {
-                index = 1;
-            }
-            else
-            {
-                index = 2;
-            }
-
-            if (cbProgramType.SelectedIndex != index)
+            if (!m_bFirst)
             {
                 if (cbProgramType.SelectedIndex == 0)
                 {
                     m_scanToAPParams.ProgramType = "Paint";
+                    tbAPPath.Visibility = Visibility.Hidden;
                 }
                 else if (cbProgramType.SelectedIndex == 1)
                 {
                     m_scanToAPParams.ProgramType = "Photo Viewer";
+                    tbAPPath.Visibility = Visibility.Hidden;
                 }
-                else if (cbProgramType.SelectedIndex == 2)
-                {
-                    m_scanToAPParams.ProgramType = "OthersApplication";
+                //else if (cbProgramType.SelectedIndex == 2)
+                //{
+                
+                //    OthersAPSelectWin Others = new OthersAPSelectWin();
+                //    Others.Owner = Application.Current.MainWindow;
+                //    bool? result = Others.ShowDialog();
 
-                    OthersAPSelectWin Others = new OthersAPSelectWin();
-                    Others.Owner = Application.Current.MainWindow;
-                    bool? result = Others.ShowDialog();
-
-                    if (result == true)
-                    {
-                        m_scanToAPParams.APPath = Others.m_filePath;
-                    }
-                }
+                //    if (result == true)
+                //    {
+                //        m_scanToAPParams.ProgramType = "OthersApplication";
+                //        m_scanToAPParams.APPath = Others.m_filePath;
+                //        tbAPPath.Visibility = Visibility.Visible;
+                //        tbAPPath.Text = Others.m_filePath;
+                //    }
+                //    else
+                //    {
+                //        if (m_scanToAPParams.ProgramType == "Paint")
+                //        {
+                //            cbProgramType.SelectedIndex = 0;
+                //            tbAPPath.Visibility = Visibility.Hidden;
+                //        }
+                //        else if (m_scanToAPParams.ProgramType == "Photo Viewer")
+                //        {
+                //            cbProgramType.SelectedIndex = 1;
+                //            tbAPPath.Visibility = Visibility.Hidden;
+                //        }
+                //        else
+                //        {
+                //            cbProgramType.SelectedIndex = 2;
+                //            tbAPPath.Visibility = Visibility.Visible;
+                //            tbAPPath.Text = m_scanToAPParams.APPath;
+                //        }
+                //    }
+                //}
             }//<<===================
+
+            m_bFirst = false;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -139,5 +156,43 @@ namespace VOP
                 }
             }
         }
+        //add by yunying shang 2017-12-08 for BMS 1726
+        private void cbProgramType_DropDownClosed(object sender, EventArgs e)
+        {
+            if (cbProgramType.SelectedIndex == 2)
+            {
+
+                OthersAPSelectWin Others = new OthersAPSelectWin();
+                Others.Owner = Application.Current.MainWindow;
+                bool? result = Others.ShowDialog();
+
+                if (result == true)
+                {
+                    m_scanToAPParams.ProgramType = "OthersApplication";
+                    m_scanToAPParams.APPath = Others.m_filePath;
+                    tbAPPath.Visibility = Visibility.Visible;
+                    tbAPPath.Text = Others.m_filePath;
+                }
+                else
+                {
+                    if (m_scanToAPParams.ProgramType == "Paint")
+                    {
+                        cbProgramType.SelectedIndex = 0;
+                        tbAPPath.Visibility = Visibility.Hidden;
+                    }
+                    else if (m_scanToAPParams.ProgramType == "Photo Viewer")
+                    {
+                        cbProgramType.SelectedIndex = 1;
+                        tbAPPath.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        cbProgramType.SelectedIndex = 2;
+                        tbAPPath.Visibility = Visibility.Visible;
+                        tbAPPath.Text = m_scanToAPParams.APPath;
+                    }
+                }
+            }
+        }//<<==============1726
     }
 }
