@@ -158,7 +158,7 @@ namespace VOP
                         break;
                 }
                 if(i>=strTargetPath.Length && strTargetPath.Length >= 2
-                                        || strTargetPath.Contains('/')
+                                        || strTargetPath.Contains('\\')
                     || strTargetPath.Contains('?')
                     || strTargetPath.Contains('*'))
                 {
