@@ -288,7 +288,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="6"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>

@@ -93,7 +93,8 @@ namespace VOP
             //add by yunying shang 2017-12-01 for BMS 1638
             if (m_scanToCloudParams.SaveType != "EverNote")
             {
-                if (m_MainWin.CheckDeviceStatus() < 2)
+                //if (m_MainWin.CheckDeviceStatus() < 2)
+                if (!m_MainWin.scanDevicePage.IsOnLine())
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                         Application.Current.MainWindow,

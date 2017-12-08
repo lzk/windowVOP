@@ -46,18 +46,45 @@ namespace VOP
         }
         private void cbProgramType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cbProgramType.SelectedIndex == 0)
+            //modified by yunying shang 2017-12-08 for BMS 1726
+            int index = 0;
+            if (m_scanToAPParams.ProgramType == "Paint")
             {
-                m_scanToAPParams.ProgramType = "Paint";
+                index = 0;
             }
-            else if (cbProgramType.SelectedIndex == 1)
+            else if (m_scanToAPParams.ProgramType == "Photo Viewer")
             {
-                m_scanToAPParams.ProgramType = "Photo Viewer";
+                index = 1;
             }
-            else if (cbProgramType.SelectedIndex == 2)
+            else
             {
-                m_scanToAPParams.ProgramType = "OthersApplication";
+                index = 2;
             }
+
+            if (cbProgramType.SelectedIndex != index)
+            {
+                if (cbProgramType.SelectedIndex == 0)
+                {
+                    m_scanToAPParams.ProgramType = "Paint";
+                }
+                else if (cbProgramType.SelectedIndex == 1)
+                {
+                    m_scanToAPParams.ProgramType = "Photo Viewer";
+                }
+                else if (cbProgramType.SelectedIndex == 2)
+                {
+                    m_scanToAPParams.ProgramType = "OthersApplication";
+
+                    OthersAPSelectWin Others = new OthersAPSelectWin();
+                    Others.Owner = Application.Current.MainWindow;
+                    bool? result = Others.ShowDialog();
+
+                    if (result == true)
+                    {
+                        m_scanToAPParams.APPath = Others.m_filePath;
+                    }
+                }
+            }//<<===================
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

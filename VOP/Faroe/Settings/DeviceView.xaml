@@ -141,8 +141,9 @@
                 <ColumnDefinition Width="20"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            
             <TextBlock x:Name="label1" Text="{StaticResource ResStr_Power_Save_Time}"
-                   Grid.Column="0" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center"
+                   Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                     Grid.Row="0" FontSize="14" FontWeight="Bold"/>
 
             <Button x:Name="btnCalibration"

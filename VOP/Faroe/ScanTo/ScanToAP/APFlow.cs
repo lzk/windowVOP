@@ -204,15 +204,15 @@ namespace VOP
                     }
                     else if (programType == "OthersApplication")
                     {
-                        bool? result = null;
-                        OthersAPSelectWin Others = new OthersAPSelectWin();
-                        Others.Owner = ParentWin;
-                        result = Others.ShowDialog();
+                        //bool? result = null;
+                        //OthersAPSelectWin Others = new OthersAPSelectWin();
+                        //Others.Owner = ParentWin;
+                        //result = Others.ShowDialog();
 
-                        if (result == true)
+                        //if (result == true)
                         {
-                            programType = Others.m_programType;
-                            string path = Others.m_filePath;
+                            //programType = Others.m_programType;
+                            string path = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_APScanSettings.APPath;//Others.m_filePath;
                             i = 0;
                             foreach (string f in FileList)
                             {
@@ -241,7 +241,10 @@ namespace VOP
                         i = 0;
                         foreach (string f in FileList)
                         {
-                            Process.Start(f);
+                            //Process.Start(f);
+                            //modified by yunying shang 2017-12-07 for BMS 1722
+                            Process.Start("rundll32.exe", String.Format("{0} {1}", "shimgvw.dll,ImageView_Fullscreen", f));
+                            //<<==============1722
                             if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings.ADFMode == true)
                             {
                                 if (i == 1)
