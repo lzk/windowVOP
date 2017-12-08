@@ -88,11 +88,7 @@
   <ItemGroup>
     <Reference Include="Aspose.BarCode, Version=17.12.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-<<<<<<< HEAD
-      <HintPath>bin\x86\Release\Aspose.BarCode.dll</HintPath>
-=======
       <HintPath>bin\x86\Debug\Aspose.BarCode.dll</HintPath>
->>>>>>> 768426b1d21a710f77bbd5254928543a34f3b369
     </Reference>
     <Reference Include="CsQuery, Version=1.3.3.249, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
