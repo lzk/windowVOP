@@ -23,6 +23,8 @@ namespace VOP
 
         private string m_programType = "Paint";
 
+        private string m_APPath = "";
+
         public string ProgramType
         {
             get
@@ -33,22 +35,34 @@ namespace VOP
             {
                 this.m_programType = value;
             }
-        }        
+        }     
+        
+        public string APPath
+        {
+            get
+            {
+                return this.m_APPath;
+            }
+            set
+            {
+                this.m_APPath = value;
+            }
+        }   
 
         public ScanToAPParam()
         {
 
         }
 
-        public ScanToAPParam( string type)
+        public ScanToAPParam( string type, string path)
         {
             this.m_programType = type;
-           
+            this.m_APPath = path;
         }
 
         public object Clone()
         {
-            return new ScanToAPParam(this.m_programType);
+            return new ScanToAPParam(this.m_programType, this.m_APPath);
         }
 
     }

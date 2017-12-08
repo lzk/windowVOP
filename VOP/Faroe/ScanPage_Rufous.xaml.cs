@@ -546,9 +546,10 @@ namespace VOP
                 }//<<================1509
             }
 
+            //modified by yunying shang 2017-12-08 for BMS 1731
             //add by yunying shang 2017-10-19 for BMS 1182
             //if (image_wrappanel.Children.Count == GetSelectedItemCount())
-            if(scanFileList.Count == GetSelectedItemCount())
+            if(selectedFileList.Count == GetSelectedItemCount())
                 SelectAllCheckBox.IsChecked = true;
             else
                 SelectAllCheckBox.IsChecked = false;
