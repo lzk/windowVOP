@@ -170,6 +170,12 @@ namespace VOP
             }
             else
             {
+                //add by yunying shang 2017-12-08 for BMS 1613
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                 Application.Current.MainWindow,
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Switch_Evernote_Restart_VOP"),
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                //<<===========1613
                 m_scanToCloudParams.NeedReset = true;
             }        
         }

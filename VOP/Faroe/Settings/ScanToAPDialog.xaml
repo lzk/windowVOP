@@ -113,6 +113,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"></RowDefinition>
                             <RowDefinition Height="60"></RowDefinition>
+                            <RowDefinition Height="60"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -139,16 +140,31 @@
                                 Name="cbProgramType"
                                 VerticalAlignment="Center" HorizontalAlignment="Right" 
                                 VerticalContentAlignment="Center"
-                                Width="250" 
+                                Width="300" 
                                 Height="35" 
                                 FontSize="14"
+                                   DropDownClosed="cbProgramType_DropDownClosed"
                             SelectionChanged="cbProgramType_SelectionChanged"
                                 >
                             <ComboBoxItem >Paint</ComboBoxItem>
                             <ComboBoxItem >Windows Photo Viewer</ComboBoxItem>
                             <ComboBoxItem >Other Applications</ComboBoxItem>
                         </ComboBox>
-
+                        <TextBox Grid.Row="2" Grid.Column="2"
+                                Name="tbAPPath"
+                               Template="{StaticResource customTextBox}" 
+                                VerticalAlignment="Center" 
+                                HorizontalAlignment="Right"
+                                SnapsToDevicePixels ="True"
+                                Width="300" 
+                                Height="30" 
+                                MaxLength="260"
+                                Text=""
+                                VerticalContentAlignment="Center"
+                                FontSize="14" Grid.ColumnSpan="1" Margin="0,0"
+                                 IsReadOnly="True"
+                                 Visibility="Visible"
+                                />
                     </Grid>
                     <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                             HorizontalAlignment="Center" VerticalAlignment="Center"
