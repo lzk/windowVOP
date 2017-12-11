@@ -72,7 +72,7 @@
                     </Canvas>
                     
                     <Button x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="2" Height="35"
-                             Style="{StaticResource CustomSettingButtonStyle}"
+                             Style="{StaticResource CustomSettingButtonStyle}" Margin="0,0,5,0"
                                     Width="120" Content="{StaticResource ResStr_Manual_Wi_Fi}" 
                                     HorizontalContentAlignment="Center" HorizontalAlignment="Right"></Button>
                   
@@ -219,9 +219,9 @@
                                             <ColumnDefinition Width="10"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Button x:Name="btnCancel" Click="btn_Click"  Style="{StaticResource CustomSettingButtonStyle}"
+                                        <Button x:Name="btnCancel" Click="btn_Click"  Style="{StaticResource CustomSettingButtonStyle}" Margin="5,0,0,0"
                                                 Content="{StaticResource ResStr_Back}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Button>
-                                        <Button x:Name="btnConnect" Click="btn_Click"  Grid.Column="2" Style="{StaticResource CustomSettingButtonStyle}" 
+                                        <Button x:Name="btnConnect" Click="btn_Click"  Grid.Column="2" Style="{StaticResource CustomSettingButtonStyle}" Margin="0,0,5,0"
                                                 Content="{StaticResource ResStr_Connect}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Button>
                                     </Grid>
                                 </StackPanel>

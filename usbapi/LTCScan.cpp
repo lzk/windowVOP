@@ -831,6 +831,11 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				break;
 			}
 
+			if (start_cancel)
+			{
+				break;
+			}
+
 			if ((!(duplex & 1) || glDrv.sc_infodata.EndScan[0]) && (!(duplex & 2) || glDrv.sc_infodata.EndScan[1]))
 				break;
 		/*	if (_kbhit()) {
@@ -916,6 +921,13 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 							if (percent > 100)
 								percent = 100;
 							Sleep(100);
+						}
+						else
+						{
+							if (start_cancel)
+							{
+								break;
+							}
 						}
 					}
 					if ((TotalImgSize >= (int)glDrv.sc_infodata.ValidPageSize[dup]) && glDrv.sc_infodata.EndPage[dup])

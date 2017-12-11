@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace VOP
 {
@@ -87,6 +88,10 @@ namespace VOP
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             dll.ADFCancel();
+            //add by yunying shang 2017-12-11 for BMS 1740
+            Thread.Sleep(200);
+            this.Close();
+            //<<===================
         }
     }
 }
