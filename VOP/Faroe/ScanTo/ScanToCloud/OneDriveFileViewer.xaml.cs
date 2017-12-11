@@ -270,6 +270,8 @@ namespace VOP
                     UpFolderButton.IsEnabled = false;
                     selectedPath = "";
                 }
+                FileBrowser.SelectedIndex = 0;
+                FileBrowser.Focus();
             }
             catch (Exception) { }
            
