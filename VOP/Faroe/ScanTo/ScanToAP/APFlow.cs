@@ -164,13 +164,12 @@ namespace VOP
             else
             {
                 programType = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_APScanSettings.ProgramType;
-
                 try
                 {
                     int i = 0;
                     if (programType == "Paint")
                     {
-                        string processFilename = @"C:\Windows\System32\mspaint.exe";
+                        string processFilename = System.Environment.SystemDirectory+"\\mspaint.exe";
 
                         i = 0;
                         foreach (string f in FileList)

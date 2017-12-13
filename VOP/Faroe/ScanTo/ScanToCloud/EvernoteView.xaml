@@ -48,6 +48,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3">
@@ -55,8 +56,8 @@
                 </Border>
 
                 <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" MinimizeOrCloseStyle="Close" IsCancel="True" PreviewKeyDown="btnClose_PreviewKeyDown"/>
-
-                <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{StaticResource ResStr_EverNote_List}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,5"></TextBlock>
+                <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="250"/>
                         <ColumnDefinition Width="*"/>
@@ -74,17 +75,17 @@
                                         SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
                                         VerticalScrollBarVisibility="Auto"
                                         HorizontalScrollBarVisibility="Disabled">
-                                <ListBox Name="listNote" Height="270"  Margin="15,5" BorderThickness="0"/>
+                                <ListBox Name="listNote" Height="270"  Margin="5,5" BorderThickness="0"/>
                             </ScrollViewer>
                         </StackPanel>
                     </Border>
                     <Grid Grid.Row="1" Grid.ColumnSpan="2" 
                                 VerticalAlignment="Top">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="140" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="10"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50" />
@@ -98,11 +99,11 @@
                         <TextBox Grid.Row="0" Grid.Column="2"
                      Name="tbNoteTitle"
                      Template="{StaticResource customTextBox}" 
-                     Width="250"
+                     Width="300"
                      Height="30" 
                      SnapsToDevicePixels ="True"
                      VerticalAlignment="Center" 
-                     HorizontalAlignment="Right"
+                     HorizontalAlignment="Left"
                             MaxLength="32"
                             PreviewTextInput="OnPreviewTextInput"
                      />
@@ -115,10 +116,10 @@
                      Name="tbNoteContent"
                      Template="{StaticResource customTextBox}" 
                      SnapsToDevicePixels ="True"
-                     Width="250"
+                     Width="300"
                      Height="30" 
                      VerticalAlignment="Center" 
-                     HorizontalAlignment="Right"
+                     HorizontalAlignment="Left"
                             MaxLength="64"
                             PreviewTextInput="OnPreviewTextInput"
                      />
@@ -137,8 +138,8 @@
                     <Button 
                            Grid.Row="3"
                             Name="UploadButton"
-                            HorizontalAlignment="Center" 
-                            Margin="215,8" 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" 
                             Width="150" 
                             Height="35"
                             FontSize="16"

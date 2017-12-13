@@ -97,7 +97,7 @@ namespace VOP
 
                         return;
                     }
-                    else if(iRtn == 1)
+                    else if(iRtn == 1 && !m_MainWin.scanDevicePage.IsOnLine())//modified by yunying shang 2017-12-13 for BMS 1775
                     {
 
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
@@ -123,7 +123,7 @@ namespace VOP
 
                         return;
                     }
-                    else if (iRtn == 1)
+                    else if (iRtn == 1 && !m_MainWin.scanDevicePage.IsOnLine())//modified by yunying shang 2017-12-13 for BMS 1775
                     {
 
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,

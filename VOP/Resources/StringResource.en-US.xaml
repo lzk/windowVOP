@@ -515,4 +515,6 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Output_Result">Output Result</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Switch_Evernote_Restart_VOP">If you want to switch the user to log on EverNote, it is best to restart the VOP!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Find_Printer_Error">Could not find the printer, </sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_EverNote_List">Ever Note List: </sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Upload_success">Upload success!</sys:String>
 </ResourceDictionary>

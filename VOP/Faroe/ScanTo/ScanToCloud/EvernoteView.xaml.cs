@@ -203,10 +203,22 @@ namespace VOP
                 myResourceNote.Content = ENNoteContent.NoteContentWithString(content);
                 ENNoteRef myResourceRef = ENSession.SharedSession.UploadNote(myResourceNote, null);
 
-                if(GetNoteList(notelist))
-                { 
-                    InitNoteList();
-                }
+                //modified by yunying shang 2017-12-13 for BMS 1722
+                notelist.Add(title);
+                listNote.Items.Add(title);
+
+                //if(GetNoteList(notelist))
+                //{ 
+                //    InitNoteList();
+                //}
+
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                Application.Current.MainWindow,
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Upload_success"),
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt"));
+                tbNoteTitle.Text = "";
+                tbNoteContent.Text = "";
+                //<<===============1722
             }
             catch (Exception ex)
             {
@@ -215,6 +227,8 @@ namespace VOP
                (string)Application.Current.MainWindow.TryFindResource("ResStr_Upload_files_fail")//"Upload files fail, "
                + ex.Message,
               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+
+                tbNoteTitle.Focus();
             }
             
             //DialogResult = true;
