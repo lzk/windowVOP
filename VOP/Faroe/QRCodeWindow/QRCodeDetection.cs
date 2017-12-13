@@ -415,7 +415,7 @@ namespace VOP
         public Result[] FindSubQRCode(ref Bitmap srcBitmap, ZONE_RECT rect, bool bFullImage)
         {
             Result[] results = null;
-            int nCount = 5;
+            int nCount = 1;
 
             if (bFullImage == true)
                 nCount = 1;
@@ -443,7 +443,7 @@ namespace VOP
                         source = new BitmapLuminanceSource(subBitmap);
 
                     BinaryBitmap bbitmap1 = new BinaryBitmap(new GlobalHistogramBinarizer(source));
-                    //BinaryBitmap bbitmap2 = new BinaryBitmap(new HybridBinarizer(source));
+                    BinaryBitmap bbitmap2 = new BinaryBitmap(new HybridBinarizer(source));
 
                     IDictionary<DecodeHintType, object> hints = new Dictionary<DecodeHintType, object>();
                     hints.Add(DecodeHintType.TRY_HARDER, true);
@@ -455,12 +455,11 @@ namespace VOP
                         break;
                     }
 
-
-//                    results = qrReader.decodeMultiple(bbitmap2, hints);
-  //                  if (results != null)
-    //                {
-      //                  break;
-        //            }
+                    results = qrReader.decodeMultiple(bbitmap2, hints);
+                    if (results != null)
+                    {
+                        break;
+                    }
 
                 }
             }
@@ -538,7 +537,9 @@ namespace VOP
                                     nArraySize++; 
                                 }
 
-                                for(int index=0; index < nArraySize; index++)
+                                System.DateTime date1 = DateTime.Now;
+
+                                for (int index=0; index < nArraySize; index++)
                                 {
                                     bool bFullImage = false;
                                     if (index == nArraySize - 1)
@@ -567,6 +568,15 @@ namespace VOP
                                                 resultArray_inOneImage.Add(detectResult);
                                             }
                                         }
+                                    }
+
+                                    if (index == nArraySize - 1)
+                                        break;
+
+                                    System.TimeSpan diff = DateTime.Now - date1;
+                                    if (diff.Seconds>5)
+                                    {
+                                        index = nArraySize - 1;
                                     }
                                 }
                                 if(resultArray_inOneImage.Count <=0 )//Use Aspose.Barcode
