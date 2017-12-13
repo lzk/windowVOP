@@ -443,7 +443,7 @@ namespace VOP
                         source = new BitmapLuminanceSource(subBitmap);
 
                     BinaryBitmap bbitmap1 = new BinaryBitmap(new GlobalHistogramBinarizer(source));
-                    BinaryBitmap bbitmap2 = new BinaryBitmap(new HybridBinarizer(source));
+                    //BinaryBitmap bbitmap2 = new BinaryBitmap(new HybridBinarizer(source));
 
                     IDictionary<DecodeHintType, object> hints = new Dictionary<DecodeHintType, object>();
                     hints.Add(DecodeHintType.TRY_HARDER, true);
@@ -455,11 +455,12 @@ namespace VOP
                         break;
                     }
 
-                    results = qrReader.decodeMultiple(bbitmap2, hints);
-                    if (results != null)
-                    {
-                        break;
-                    }
+
+//                    results = qrReader.decodeMultiple(bbitmap2, hints);
+  //                  if (results != null)
+    //                {
+      //                  break;
+        //            }
 
                 }
             }
@@ -586,8 +587,11 @@ namespace VOP
                                             BarCodeRegion region = barCodeReader.GetRegion();
                                             DetectResult detectResult = new DetectResult(fileName, null);
                                             detectResult.barcodeResult = resultText;
-                                            detectResult.barcodeEncodeType = barCodeReader.GetCodeType().ToString();
-                                            detectResult.barcodeResultType = "TEXT";
+                                            detectResult.barcodeEncodeType = "QR_CODE";// barCodeReader.GetCodeType().ToString();
+                                            if(resultText.Contains("http"))
+                                                detectResult.barcodeResultType = "URI";
+                                            else
+                                                detectResult.barcodeResultType = "TEXT";
                                             string subFileName = strSubFileName + "barcodeResult1" + index.ToString() + ".jpg";
                                             System.Drawing.Point barcodePoint = CreateBarcodeResultImage(ref srcBitmap, subFileName, region);
                                             detectResult.resultWidth = barcodePoint.X;
@@ -1216,7 +1220,14 @@ namespace VOP
 
                             htmlWriter.WriteLine("<td>" + tempDetectResult.barcodeEncodeType + "</td>");
                             htmlWriter.WriteLine("<td>" + tempDetectResult.barcodeResultType + "</td>");
-                            htmlWriter.WriteLine("<td>" + tempDetectResult.barcodeResult + "</td>");
+                            if (tempDetectResult.barcodeResultType == "URI")
+                            {
+                                htmlWriter.WriteLine("<td>  <a href=" + tempDetectResult.barcodeResult.ToString() + ">" + tempDetectResult.barcodeResult.ToString() + "</a> </td>");
+                            }
+                            else
+                            {
+                                htmlWriter.WriteLine("<td>" + tempDetectResult.barcodeResult + "</td>");
+                            }
                         }
 
                         htmlWriter.WriteLine("</tr>");
