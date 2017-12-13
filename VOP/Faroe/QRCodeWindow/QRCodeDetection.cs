@@ -574,7 +574,7 @@ namespace VOP
                                         break;
 
                                     System.TimeSpan diff = DateTime.Now - date1;
-                                    if (diff.Seconds>5)
+                                    if (diff.Seconds>15)
                                     {
                                         index = nArraySize - 2;
                                     }
