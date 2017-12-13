@@ -198,7 +198,7 @@ namespace VOP
             ScanParam param = new ScanParam(
                 EnumScanResln._300x300,
                 EnumScanMediaType._Normal,
-                EnumPaperSizeScan._A4,
+                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.PaperSize,//EnumPaperSizeScan._A4,//Devid for bms#0001761
                 EnumColorType.color_24bit,
                 false,
                 MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.MultiFeed,
