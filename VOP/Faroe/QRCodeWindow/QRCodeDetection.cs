@@ -576,7 +576,7 @@ namespace VOP
                                     System.TimeSpan diff = DateTime.Now - date1;
                                     if (diff.Seconds>5)
                                     {
-                                        index = nArraySize - 1;
+                                        index = nArraySize - 2;
                                     }
                                 }
                                 if(resultArray_inOneImage.Count <=0 )//Use Aspose.Barcode
