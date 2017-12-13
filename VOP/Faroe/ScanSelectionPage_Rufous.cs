@@ -150,6 +150,15 @@ namespace VOP
                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                     );
                 }
+                //add by yunying shang 2017-12-11 for BMS 1744
+                else
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                        Application.Current.MainWindow,
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Scanning_is_canceled_on_machine"),//"The scanning is canceled on the machine!",
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Waring")
+                        );
+                }//<<================1744
             }
             m_MainWin._bScanning = false;
         }

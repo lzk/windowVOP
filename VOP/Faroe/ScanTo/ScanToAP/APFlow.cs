@@ -34,8 +34,8 @@ namespace VOP
         public List<string> FileList { get; set; }
         public Window ParentWin { get; set; }
 
-        string m_errorMsg = "";
-       
+        private StringBuilder OpenOutput = new StringBuilder(256);
+
         public bool Run()
         {
             if (FileList == null || FileList.Count == 0)
@@ -65,7 +65,7 @@ namespace VOP
                         int i = 0;
                         if (programType == "Paint")
                         {
-                            string processFilename = @"C:\Windows\System32\mspaint.exe";
+                            string processFilename = System.Environment.SystemDirectory + "\\mspaint.exe";
                             i = 0;
                             foreach (string f in FileList)
                             {
@@ -106,16 +106,12 @@ namespace VOP
                                 i = 0;
                                 foreach (string f in FileList)
                                 {
-                                    ProcessStartInfo info = new ProcessStartInfo();
-
-                                    info.FileName = path;
-                                    info.Arguments = String.Format("\"{0}\"", f);
-                                   // info.CreateNoWindow = false;
-                                    //info.WindowStyle = ProcessWindowStyle.Normal;
-                                    //info.UseShellExecute = false;
-
-                                    Process p = Process.Start(info);
-
+                                    
+                                    Process p = new Process();
+                                    p.StartInfo.FileName = path;
+                                    p.StartInfo.Arguments = string.Format("\"{0}\"", f);
+                                    p.Start();                                                                  
+                                  
                                     if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true)
                                     {
                                         if (i == 1)
@@ -129,14 +125,17 @@ namespace VOP
                                     i++;
                                 }
                             }
+
                         }
                         else
                         {
                             i = 0;
+
                             foreach (string f in FileList)
                             {
-                                Process.Start(f);
-
+                                //modified by yunying shang 2017-12-07 for BMS 1722
+                                Process.Start("rundll32.exe", String.Format("{0} {1}", "shimgvw.dll,ImageView_Fullscreen", f));
+                                //<<==============1722
                                 if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true)
                                 {
                                     if (i == 1)
@@ -148,7 +147,7 @@ namespace VOP
                                         break;
                                 }
                                 i++;
-                            }                             
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -202,15 +201,15 @@ namespace VOP
                     }
                     else if (programType == "OthersApplication")
                     {
-                        bool? result = null;
-                        OthersAPSelectWin Others = new OthersAPSelectWin();
-                        Others.Owner = ParentWin;
-                        result = Others.ShowDialog();
+                       // bool? result = null;
+                       // OthersAPSelectWin Others = new OthersAPSelectWin();
+                        //Others.Owner = ParentWin;
+                        //result = Others.ShowDialog();
 
-                        if (result == true)
+                        //if (result == true)
                         {
-                            programType = Others.m_programType;
-                            string path = Others.m_filePath;
+                           // programType = Others.m_programType;
+                            string path = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_APScanSettings.APPath;//Others.m_filePath;
                             i = 0;
                             foreach (string f in FileList)
                             {
@@ -239,7 +238,11 @@ namespace VOP
                         i = 0;
                         foreach (string f in FileList)
                         {
-                            Process.Start(f);
+                            //Process.Start(f);
+                            //modified by yunying shang 2017-12-07 for BMS 1722
+                            Process.Start("rundll32.exe", String.Format("{0} {1}", "shimgvw.dll,ImageView_Fullscreen", f));
+                            //<<==============1722
+
                             if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings.ADFMode == true)
                             {
                                 if (i == 1)
@@ -266,6 +269,17 @@ namespace VOP
             }
           
             return true;
+        }
+
+        private void OpenOutputDataHandler(object sendingProcess,
+          DataReceivedEventArgs outLine)
+        {
+            // Collect the net view command output.
+            if (!String.IsNullOrEmpty(outLine.Data))
+            {
+                // Add the text to the collected output.
+                OpenOutput.Append(Environment.NewLine + "  " + outLine.Data);
+            }
         }
 
     }

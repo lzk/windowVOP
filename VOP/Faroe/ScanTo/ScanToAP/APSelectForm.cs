@@ -37,8 +37,8 @@ namespace VOP
 
             //APListBox.Items.Add(CreateListItem("PhotoShop"));
             APListBox.Items.Add(CreateListItem("Paint"));
-            APListBox.Items.Add(CreateListItem("PhotoViewer"));
-            APListBox.Items.Add(CreateListItem("OthersApplication"));
+            APListBox.Items.Add(CreateListItem("Windows Photo Viewer"));
+            APListBox.Items.Add(CreateListItem("Other Applications"));
 
             APListBox.SelectedIndex = 0;
         }
@@ -57,7 +57,7 @@ namespace VOP
             {
                 bitmapImage.UriSource = new Uri("pack://application:,,, /Images/mspaint.png", UriKind.RelativeOrAbsolute);
             }
-            else if (apName == "PhotoViewer")
+            else if (apName == "Windows Photo Viewer")
             {
                 bitmapImage.UriSource = new Uri("pack://application:,,, /Images/WindowsPhotoViewer.png", UriKind.RelativeOrAbsolute);
             }
@@ -107,7 +107,19 @@ namespace VOP
             ListBoxItem item = APListBox.SelectedItem as ListBoxItem;
             string apName = item.Tag.ToString();
 
-            m_programType = apName;
+         if (apName == "Paint")
+            {
+                m_programType = apName;
+            }
+            else if (apName == "Windows Photo Viewer")
+            {
+                m_programType = "PhotoViewer";
+            }
+            else
+            {
+                m_programType = "OthersApplication";
+            }
+            
         }
      
         private void OkClick(object sender, RoutedEventArgs e)

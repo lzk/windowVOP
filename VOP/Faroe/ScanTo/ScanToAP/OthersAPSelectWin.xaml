@@ -113,7 +113,7 @@
                             FontSize="14"
                             Click="BrowseClick"
                             Style="{StaticResource CustomPopUpButtonStyle}"
-                            Content="Browse..."
+                            Content="{StaticResource ResStr_Faroe_Browse}"
                             ></Button>
 
                     <Button Grid.Row="3" Grid.Column="1"

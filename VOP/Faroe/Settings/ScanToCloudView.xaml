@@ -256,7 +256,7 @@
                 HorizontalAlignment="Left"
                 Height="30" 
                 Margin="-20,10,0,0"
-                Content="Browse..." 
+                Content="{StaticResource ResStr_Faroe_Browse}" 
                 Style="{StaticResource CustomGreenButtonStyle}"
                 Click="BrowseButton_Click"
                 />

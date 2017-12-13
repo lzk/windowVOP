@@ -51,7 +51,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="3">
-                    <TextBlock Name="TitleBarText" Text="EverNote Viewer" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Name="TitleBarText" Text="{StaticResource ResStr_Faroe_EverNote_Viewer}" FontSize="15" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
                 <local:MinimizeCloseButton Grid.Row="0" Grid.Column="2" MinimizeOrCloseStyle="Close" IsCancel="True" PreviewKeyDown="btnClose_PreviewKeyDown"/>
@@ -94,7 +94,7 @@
                 Name="tbNote"
                 FontSize="14"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
-                Text="Note Title:"/>
+                Text="{StaticResource ResStr_Faroe_Note_Title}"/>
                         <TextBox Grid.Row="0" Grid.Column="2"
                      Name="tbNoteTitle"
                      Template="{StaticResource customTextBox}" 
@@ -110,7 +110,7 @@
                 Name="tbContent"
                 FontSize="14"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
-                Text="Note Content:"/>
+                Text="{StaticResource ResStr_Faroe_Note_Content}"/>
                         <TextBox Grid.Row="1" Grid.Column="2"
                      Name="tbNoteContent"
                      Template="{StaticResource customTextBox}" 

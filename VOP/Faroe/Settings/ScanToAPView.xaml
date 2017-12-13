@@ -222,8 +222,8 @@
                             SelectionChanged="cbProgramType_SelectionChanged"
                                 >
                             <ComboBoxItem >Paint</ComboBoxItem>
-                            <ComboBoxItem >Photo Viewer</ComboBoxItem>
-                            <ComboBoxItem >Others Application</ComboBoxItem>
+                            <ComboBoxItem >Windows Photo Viewer</ComboBoxItem>
+                            <ComboBoxItem >Other Applications</ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
                 </Border>

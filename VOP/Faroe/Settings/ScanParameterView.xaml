@@ -84,7 +84,7 @@
                 FontSize="14"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="Cloud Type:" Height="18"/>
+                Text="{StaticResource ResStr_Cloud_Type}" Height="18"/>
         <ComboBox 
             Grid.Row="4" Grid.Column="2"
                                 Name="cbCloudType"
@@ -107,7 +107,7 @@
                 Height="34" 
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"
-                Content="Reset"
+                Content="{StaticResource ResStr_Reset}"
                 FontSize="16"
                 Style="{StaticResource CustomSettingButtonStyle}" 
                 Click="btnReset_Click" Margin="0,8"/>
@@ -122,7 +122,7 @@
         <TextBlock 
                 Grid.Row="8"
                 Grid.Column="1"
-                                Text="Email Attachment File Type :" 
+                                Text="{StaticResource ResStr_Email_Attachment_File_Type}" 
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
                                 FontSize="14" Margin="0,16" TextWrapping="Wrap" Height="18"

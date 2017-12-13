@@ -136,7 +136,7 @@
                 FontSize="14"
                             FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
-                Text="Cloud Type :" Margin="30,16,0,15"/>
+                Text="{StaticResource ResStr_Cloud_Type}" Margin="30,16,0,15"/>
                         <ComboBox 
                             Grid.Row="1"
                             Grid.Column="2"
@@ -160,7 +160,7 @@
                 FontSize="14"
                             FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
-                Text="Reset access token in cache :" Margin="30,16,0,15"/>
+                Text="{StaticResource ResStr_Reset_Access}" Margin="30,16,0,15"/>
 
                         <Button
                 Grid.Row="2"
@@ -168,7 +168,7 @@
                             Name="btnReset"
                 Width="100"
                 Height="35" 
-                Content="Reset" 
+                Content="{StaticResource ResStr_Reset}" 
                 HorizontalAlignment="Right"
                 FontSize="16"
                 Style="{StaticResource CustomPopUpButtonStyle}" 
@@ -183,7 +183,7 @@
                 FontSize="14"
                             FontWeight="Bold"
                 VerticalAlignment="Center"
-                Text="Default save path :" Margin="30,16,0,15"/>
+                Text="{StaticResource ResStr_Faroe_Default_Path}" Margin="30,16,0,15"/>
                         <TextBox 
                      Name="tbNoteTitle"
                      Template="{StaticResource customTextBox}" 
@@ -220,7 +220,7 @@
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Right"
                 Height="30" 
-                Content="Browse..." 
+                Content="{StaticResource ResStr_Faroe_Browse}" 
                             FontSize="16"
                 Style="{StaticResource CustomPopUpButtonStyle}"
                 Click="BrowseButton_Click" Grid.ColumnSpan="3"
@@ -233,7 +233,7 @@
                 FontSize="14"
                             FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
-                Text="Note Content :" Margin="30,16,0,15"/>
+                Text="{StaticResource ResStr_Faroe_Note_Content}" Margin="30,16,0,15"/>
                         <TextBox 
                      Name="tbNoteContent"
                      Template="{StaticResource customTextBox}" 

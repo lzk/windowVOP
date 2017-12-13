@@ -49,10 +49,10 @@
                         <RowDefinition Height="6"></RowDefinition>
                         <RowDefinition Height="45"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>                   
+                    </Grid.RowDefinitions>
 
 
-                        <TextBlock Text="WLAN" Style="{StaticResource ColorChangeTextBlock}" FontSize="14" 
+                    <TextBlock Text="{StaticResource ResStr_WLAN}" Style="{StaticResource ColorChangeTextBlock}" FontSize="14" 
                                    FontWeight="Bold" Grid.Row="0"  VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
                         <CheckBox Name="chkWifi" Click="OnClickWifiCheckBox" IsChecked="True" 
                                   Grid.Row="0" HorizontalAlignment="Right"
@@ -72,7 +72,7 @@
                     </Canvas>
                     
                     <Button x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="2" Height="35"
-                             Style="{StaticResource CustomSettingButtonStyle}"
+                             Style="{StaticResource CustomSettingButtonStyle}" Margin="0,0,5,0"
                                     Width="120" Content="{StaticResource ResStr_Manual_Wi_Fi}" 
                                     HorizontalContentAlignment="Center" HorizontalAlignment="Right"></Button>
                   
@@ -212,17 +212,17 @@
                                     </Grid>
                                 </StackPanel>
 
-                                <StackPanel Grid.Row="5" Margin="10,10,10,0">
-                                    <Grid Height="30" >
+                                <StackPanel Grid.Row="4" Margin="10,10,10,5" Grid.RowSpan="2">
+                                    <Grid Height="40" >
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                             <ColumnDefinition Width="10"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Button x:Name="btnCancel" Click="btn_Click"  Style="{StaticResource CustomSettingButtonStyle}"
-                                                Content="{StaticResource ResStr_Back}" HorizontalContentAlignment="Center"></Button>
-                                        <Button x:Name="btnConnect" Click="btn_Click"  Grid.Column="2" Style="{StaticResource CustomSettingButtonStyle}" 
-                                                Content="{StaticResource ResStr_Connect}" HorizontalContentAlignment="Center"></Button>
+                                        <Button x:Name="btnCancel" Click="btn_Click"  Style="{StaticResource CustomSettingButtonStyle}" Margin="5,0,0,0"
+                                                Content="{StaticResource ResStr_Back}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Button>
+                                        <Button x:Name="btnConnect" Click="btn_Click"  Grid.Column="2" Style="{StaticResource CustomSettingButtonStyle}" Margin="0,0,5,0"
+                                                Content="{StaticResource ResStr_Connect}" Height="35" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Button>
                                     </Grid>
                                 </StackPanel>
                             </Grid>

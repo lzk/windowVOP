@@ -310,7 +310,7 @@
 
                 <!-- Title bar begin -->
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0">
-                    <TextBlock Text="{StaticResource ResStr_Faroe_scan_setting1}" FontSize="15" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock Text="{StaticResource ResStr_Faroe_scan_setting1}" FontSize="15" FontWeight="Bold" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
                 <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" Click="ControlBtnClick" IsCancel="True" PreviewKeyDown="btnClose_PreviewKeyDown"/>

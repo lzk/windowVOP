@@ -396,7 +396,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Scan_FTP">Scan To FTP</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Scan_Cloud">Scan To Cloud</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_app_setting">Application Settings :</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_app_type">Program Type :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_app_type">Programs :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_cloud_setting">Cloud Settings :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_email_setting">Email Settings :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_file_setting">File Settings :</sys:String>
@@ -438,11 +438,11 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Not_Find_Printer">Not find printer!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Select_Pictures_to_process">Please select one or more pictures to process!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Do_You_Want_to_Delete_All_Images">Do you want to leave this page, if you exit, the all images will be delete?</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scanning is canceled by user!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scanning is canceled!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_and_Path_could_not_be_Empty">The AP Name and Path could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_could_not_be_Empty">The AP Name could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Initial_Evernote_and_Get_Evernote_fail">Initial Evernote and get EverNote list fail!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Evernote_attachment_files_could_not_more_than_60">The ever note attachment files could not be more than 60!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Evernote_attachment_files_could_not_more_than_60">The ever note attachment files could not more than 60!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Images_files_Size_too_large">Total image files size are too large, could not upload to EverNote server!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Connect_to_Evernote_server_fail">Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Get_EverNote_List_error">Get Ever Note List Error!</sys:String>
@@ -459,7 +459,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Folder_Name_exist">The folder Name already exists!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Connect_OneDrive_Fail">Connection OneDrive failed!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Folder_Not_Exist">The folder {0} does not exist.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_File_exist_Do_You_overwrite">The {0} already exists，Do you want to overwrite?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_File_exist_Do_You_overwrite">The upload file already exists，Do you want to overwrite?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Update_File_fail">Upload {0} failed!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Not_Find_Outlook">Could not find the outlook, please check you computer!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_File_Path_and_Name_too_long">You Specify the file path and file name is too long, please specify again </sys:String>
@@ -467,4 +467,52 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Not_Ready">Printer is not ready!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Quick_Scan_Exist">Quick Scan item name already exists. change to another name.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Decoding">Decoding, please wait...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_To_Application">To Application</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Browse">Browse...</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_EverNote_Viewer">EverNote Viewer</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Note_Title">Note Title :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Note_Content">Note Content :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Default_Path">Default save path :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_OneDrive_Viewer">OneDrive File Viewer</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_To_FTP">To FTP</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Add_Quick_SCan_Setting">Add Quick Scan Setting</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Edit_Quick_SCan_Setting">Edit Quick Scan Setting</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Name">Name :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Type">Type :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Info">Information</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_QRBar_Code_Decode">QRCode/Barcode Decode</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Code_Type">Code Type :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Output_Result">Output Result :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Document_Separation">Document Separation</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Save_File_Type">Save File Type :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_File_Path">File Path :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_File_Path1">File Path</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Cloud_Type">Cloud Type :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Reset">Reset</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Email_Attachment_File_Type">Email Attachment File Type</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Reset_Access">Reset access token in cache :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Attachment_File_Type">Attachment File Type :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Recipient">Recipient :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Recipient1">Recipient</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Subject">Subject :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_File_Name">File Name :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_File_Name1">File Name</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_File_Path_And_Name">File Path and File Name</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Name1">Name</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_server_addr1">Server Address</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_username1">User Name</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_password1">Password</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_targetPath1">Target Path</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Printer_Name">Printer Name :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_WLAN">WLAN</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Select_All">Select All</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_To_Print">To Print</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_To_Email">To Email</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_To_File">To File</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_To_Cloud">To Cloud</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Folder">Folder</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Folder_Name">Folder Name</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Output_Result">Output Result</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Switch_Evernote_Restart_VOP">If you want to switch the user to log on EverNote, it is best to restart the VOP!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Find_Printer_Error">Could not find the printer, </sys:String>
 </ResourceDictionary>

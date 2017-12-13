@@ -40,11 +40,11 @@ namespace VOP
             InitializeComponent();
             if (!isAdd)
             {
-                tbTitle.Text = "Edit Quick Scan Setting";
+                tbTitle.Text = (string)this.TryFindResource("ResStr_Faroe_Edit_Quick_SCan_Setting");
             }
             else
             {
-                tbTitle.Text = "Add Quick Scan Setting";
+                tbTitle.Text = (string)this.TryFindResource("ResStr_Faroe_Add_Quick_SCan_Setting");
             }
             key = MainWindow_Rufous.g_settingData.m_MatchList.Count() + 1;
         }
@@ -160,8 +160,9 @@ namespace VOP
         {
             if (tbName.Text == "")
             {
-                string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
-                message = string.Format(message, "Name");
+                string str = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
+                string content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Name1");
+                string message = string.Format(str, content);
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    Application.Current.MainWindow,
                   message,//"The Name cannot be empty",

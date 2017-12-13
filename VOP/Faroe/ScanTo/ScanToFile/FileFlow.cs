@@ -308,7 +308,25 @@ namespace VOP
             }
 
         }
-       
+
+        private bool PathExist(string path)
+        {
+            int find = path.LastIndexOf(':');
+            if (find > 0)
+            {
+                string str = path.Substring(0, find + 1);
+                if (System.IO.Directory.Exists(str))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         ScanFileSaveError SaveFileQuick()
         {
             if(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FileName == "" 
@@ -322,41 +340,44 @@ namespace VOP
             //System.Security.Principal.WindowsIdentity wid = System.Security.Principal.WindowsIdentity.GetCurrent();
             //System.Security.Principal.WindowsPrincipal printcipal = new System.Security.Principal.WindowsPrincipal(wid);
             //bool bIsAdmin = printcipal.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
-            //add by yunying shang 2017-11-20 for BMS 1176
-            bool bWrite = true;
-            try
-            {
-                //modified by yunying shang 2017-12-01 for BMS 1554
-                DirectorySecurity sec = Directory.GetAccessControl(filepath, AccessControlSections.Access);//AccessControlSections.All);               
-                AuthorizationRuleCollection rules = sec.GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));//NTAccount));
-                //<<==============1554
-                
-                foreach (FileSystemAccessRule rule in rules)
-                {
-                    //modified by yunying shang 2017-12-01 for BMS 1643
-                    AccessControlType accessType = rule.AccessControlType;
-                    if ((accessType != AccessControlType.Deny))
-                    //&& ((rule.FileSystemRights & FileSystemRights.WriteData) != 0))
-                    {
-                        bWrite = true;
-                    }
-                    else
-                    {
-                        bWrite = false;
-                        break;
-                    }//<<==========1643
-                }
-            }
-            catch (Exception ex)
-            {
-                Win32.OutputDebugString(ex.Message);
-                bWrite = true;
-            }
-            if (!bWrite)
-            {
-                return ScanFileSaveError.FileSave_NotAccess;
-            }//<<===============1176
 
+            if (true == Directory.Exists(filepath))
+            {
+                //add by yunying shang 2017-11-20 for BMS 1176
+                bool bWrite = true;
+                try
+                {
+                    //modified by yunying shang 2017-12-01 for BMS 1554
+                    DirectorySecurity sec = Directory.GetAccessControl(filepath, AccessControlSections.Access);//AccessControlSections.All);               
+                    AuthorizationRuleCollection rules = sec.GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));//NTAccount));
+                                                                                                                                             //<<==============1554
+
+                    foreach (FileSystemAccessRule rule in rules)
+                    {
+                        //modified by yunying shang 2017-12-01 for BMS 1643
+                        AccessControlType accessType = rule.AccessControlType;
+                        if ((accessType != AccessControlType.Deny))
+                        //&& ((rule.FileSystemRights & FileSystemRights.WriteData) != 0))
+                        {
+                            bWrite = true;
+                        }
+                        else
+                        {
+                            bWrite = false;
+                            break;
+                        }//<<==========1643
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Win32.OutputDebugString(ex.Message);
+                    bWrite = true;
+                }
+                if (!bWrite)
+                {
+                    return ScanFileSaveError.FileSave_NotAccess;
+                }//<<===============1176
+            }
             Thread thread = new Thread(() =>
             {
                 try
