@@ -92,7 +92,7 @@
                                     <RowDefinition Height="35"></RowDefinition>
                                     <RowDefinition Height="auto"></RowDefinition>
                                     <RowDefinition Height="auto"></RowDefinition>
-                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="45"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0" Grid.Column="0">
                                     <Grid.ColumnDefinitions>
@@ -188,32 +188,33 @@
                                     </ComboBox>
                                 </Grid>
 
-                                <StackPanel Grid.Row="4" Name="wepGrid" Visibility="Hidden">
-                                    <Grid Grid.Row="1" Height="50">
+                                <StackPanel Grid.Row="4" Name="wepGrid" Visibility="Hidden" Margin="0,5,0,0" >
+                                    <!--<Grid Grid.Row="1" Height="40">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"></RowDefinition>
                                             <RowDefinition Height="*"></RowDefinition>
-                                        </Grid.RowDefinitions>
+                                        </Grid.RowDefinitions>-->
 
-                                        <TextBlock Name="tkWEPKeyID" Text="WEP KeyID" VerticalAlignment="Center" Margin="3,0,3,0"  Style="{StaticResource ColorChangeTextBlock}"></TextBlock>
-                                        <Grid Grid.Row="1">
+                                        <!--<TextBlock Name="tkWEPKeyID" Text="WEP KeyID" VerticalAlignment="Center" Margin="3,0,3,0"  Style="{StaticResource ColorChangeTextBlock}"></TextBlock>-->
+                                    <Grid Grid.Row="0" Height="30">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="80"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
-
-                                            <RadioButton Name="wepKey0" GroupName="WepKeyRadio1" IsChecked="False" FontSize="10" Template="{StaticResource customRadioButton}" Content="Key1" VerticalAlignment="Center"></RadioButton>
-                                            <RadioButton Name="wepKey1" GroupName="WepKeyRadio1" IsChecked="False" FontSize="10" Grid.Column="1" Template="{StaticResource customRadioButton}" Content="Key2" VerticalAlignment="Center"></RadioButton>
-                                            <RadioButton Name="wepKey2" GroupName="WepKeyRadio1" IsChecked="False" FontSize="10" Grid.Column="2" Template="{StaticResource customRadioButton}" Content="Key3" VerticalAlignment="Center"></RadioButton>
-                                            <RadioButton Name="wepKey3" GroupName="WepKeyRadio1"  IsChecked="False" FontSize="10" Grid.Column="3" Template="{StaticResource customRadioButton}" Content="Key4" VerticalAlignment="Center"></RadioButton>
+                                        <TextBlock Name="tkWEPKeyID" Text="WEP KeyID" VerticalAlignment="Center" Grid.Column="0" Margin="3,0,3,0"  Style="{StaticResource ColorChangeTextBlock}"></TextBlock>
+                                        <RadioButton Name="wepKey0" GroupName="WepKeyRadio1" IsChecked="False" FontSize="10" Grid.Column="1" Template="{StaticResource customRadioButton}" Content="Key1" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton Name="wepKey1" GroupName="WepKeyRadio1" IsChecked="False" FontSize="10" Grid.Column="2" Template="{StaticResource customRadioButton}" Content="Key2" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton Name="wepKey2" GroupName="WepKeyRadio1" IsChecked="False" FontSize="10" Grid.Column="3" Template="{StaticResource customRadioButton}" Content="Key3" VerticalAlignment="Center"></RadioButton>
+                                            <RadioButton Name="wepKey3" GroupName="WepKeyRadio1"  IsChecked="False" FontSize="10" Grid.Column="43" Template="{StaticResource customRadioButton}" Content="Key4" VerticalAlignment="Center"></RadioButton>
                                         </Grid>
-                                    </Grid>
+                                    <!--</Grid>-->
                                 </StackPanel>
 
-                                <StackPanel Grid.Row="4" Margin="10,10,10,5" Grid.RowSpan="2">
-                                    <Grid Height="40" >
+                                <StackPanel Grid.Row="5" Margin="10,5,10,5" Grid.RowSpan="1">
+                                    <Grid Height="35" >
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                             <ColumnDefinition Width="10"></ColumnDefinition>

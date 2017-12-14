@@ -415,7 +415,9 @@ namespace VOP
                         MultiFeedOnButton.IsEnabled = false;
                         MultiFeedOffButton.IsEnabled = false;                        
 
-                        Window dlg = new MediaTypePrompt("Please switch to the card mode on the machine!", "Information");
+                        Window dlg = new MediaTypePrompt("Please switch to the Card mode on the machine!", 
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt"));
+                        dlg.Owner = Application.Current.MainWindow;
                         dlg.ShowDialog();
                     }
                     else
