@@ -600,7 +600,7 @@ namespace VOP
                         break;
                     }
                 }
-
+                //modified by yunying shang 2017-12-15 for BMS 1801
                 if ( -1 != index )
                 {
                     ImageItem tmp  = new ImageItem();
@@ -608,10 +608,20 @@ namespace VOP
 
                     if ( tmp.m_iSimgReady )
                     {
+                        int selIndex = 0;
                         //modified by yunying 2017-11-17 for BMS 
                         int imgIndex = scanFileList.IndexOf(img.m_images);
                         this.image_wrappanel.Children.RemoveAt( index );
-                        this.selectedFileList.RemoveAt(imgIndex);
+                        //this.selectedFileList.RemoveAt(imgIndex);                        
+                        for (int i = 0; i < selectedFileList.Count; i++)
+                        {
+                            if (selectedFileList[i]._files == img.m_images)
+                            {
+                                selectedFileList.RemoveAt(i);
+                                selIndex = i;
+                                break;
+                            }
+                        }//<<================1509
                         this.scanFileList.RemoveAt(imgIndex);
 
                         // Collect the rubbish files.
@@ -638,11 +648,11 @@ namespace VOP
                         newImage._files = tmp.m_images;
                         newImage.m_num = tmp.m_num;
 
-                        this.selectedFileList.Insert(imgIndex, newImage);
+                        this.selectedFileList.Insert(selIndex, newImage);
 
                         App.scanFileList.Add(newImage._files);//add by yunying shang 2017-12-05 for BMS 1694
                     }
-                }
+                }//<<============1801
             }
         }
 
