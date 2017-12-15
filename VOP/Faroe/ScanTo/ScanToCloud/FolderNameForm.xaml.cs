@@ -43,7 +43,7 @@ namespace VOP
             {
                 string str = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
                 string content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder");
-                string message = string.Format(str, "Folder name");
+                string message = string.Format(str, (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Name"));
 
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    Application.Current.MainWindow,
@@ -58,7 +58,7 @@ namespace VOP
                 if (!m.Success)
                 {
                     string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Invalid_xxx");
-                    message = string.Format(message, "Folder Name");
+                    message = string.Format(message, (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Name"));
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                         Application.Current.MainWindow,
                         message,//"Invalid folder name.", 

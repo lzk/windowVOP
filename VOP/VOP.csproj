@@ -1253,6 +1253,9 @@
   <ItemGroup>
     <Resource Include="Images\checkbox_ disable.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder_with_arrow_up_disable.png" />
+  </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>

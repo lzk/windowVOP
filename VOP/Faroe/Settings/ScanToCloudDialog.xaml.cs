@@ -265,6 +265,7 @@ namespace VOP
                 SavePathTbx.IsReadOnly = true;
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
+                AuthenticationHelper.SignOut();
             }
             else if (cbCloudType.SelectedIndex == 1)
             {
@@ -301,6 +302,7 @@ namespace VOP
                 SavePathTbx.IsReadOnly = true;
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
+                Properties.Settings.Default.Reset();
             }
         }
 
