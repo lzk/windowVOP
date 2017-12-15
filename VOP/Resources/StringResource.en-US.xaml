@@ -438,7 +438,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Not_Find_Printer">Not find printer!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Select_Pictures_to_process">Please select one or more pictures to process!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Do_You_Want_to_Delete_All_Images">Do you want to leave this page, if you exit, the all images will be delete?</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scanning is canceled!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scan job has been canceled. Please clear the ADF of any remianing paper originals before proceeding with any additional scans.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_and_Path_could_not_be_Empty">The AP Name and Path could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_could_not_be_Empty">The AP Name could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Initial_Evernote_and_Get_Evernote_fail">Initial Evernote and get EverNote list fail!</sys:String>
