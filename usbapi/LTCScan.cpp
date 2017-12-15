@@ -230,7 +230,6 @@ int GammaTransLTCtoGL(unsigned int *pbyRed, unsigned int *pbyGreen, unsigned int
 			GLGamma[i + 256 * 2] = (unsigned int)(*(pbyBlue + i * 256)) & 0xffff | ((unsigned int)(0xffff) << 16);
 		}
 
-
 	}
 	return 1;
 }
@@ -304,7 +303,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	ImgFile[0].img.dpi.y = ImgFile[1].img.dpi.y = resolution;
 
 
-	glDrv.sc_pardata.acquire = ((MultiFeed ? 1 : 0) * ACQ_ULTRA_SONIC) | ((AutoCrop ? 1 : 0) * ACQ_CROP_DESKEW) |  0 * ACQ_NO_GAMMA;
+	glDrv.sc_pardata.acquire = ((MultiFeed ? 1 : 0) * ACQ_ULTRA_SONIC) | ((AutoCrop ? 1 : 0) * ACQ_CROP_DESKEW) |  1 * ACQ_NO_GAMMA;
 
 	//glDrv.sc_job_create.mode = I1('D');
 	glDrv.sc_job_create.mode = 0;
@@ -495,7 +494,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		int i, numread;
 		unsigned int gGammaData[768];
 		U32 up, down;
-		double gamma = 1.3;
+		double gamma = 1.8;
 		unsigned int Red[65536];
 		unsigned int Green[65536];
 		unsigned int Blue[65536];
@@ -1177,7 +1176,7 @@ USBAPI_API int __stdcall CheckUsbScanByName(
 
 	if (hDev != INVALID_HANDLE_VALUE)
 	{
-
+		CloseHandle(hDev);
 	}
 	else
 	{
@@ -1273,9 +1272,27 @@ USBAPI_API BOOL __stdcall CheckConnectionByName(WCHAR* interfaceName)
 
 	if (g_connectMode_usb)
 	{
-		char _usbname[256] = { 0 };
-		::WideCharToMultiByte(CP_ACP, 0, interfaceName, -1, _usbname, 256, NULL, NULL);
-		return (BOOL)CheckUsbScan(_usbname);
+		HANDLE hDev = NULL;
+		int error = 0;
+		//char _usbname[256] = { 0 };
+		//::WideCharToMultiByte(CP_ACP, 0, interfaceName, -1, _usbname, 256, NULL, NULL);
+		hDev = CreateFile(interfaceName,
+			GENERIC_READ | GENERIC_WRITE,
+			FILE_SHARE_READ | FILE_SHARE_WRITE,
+			NULL,
+			OPEN_EXISTING,
+			FILE_FLAG_OVERLAPPED, NULL);
+
+		if (hDev != INVALID_HANDLE_VALUE)
+		{
+			return true;
+		}
+		else
+		{
+			error = GetLastError();
+			return false;
+		}
+		//return (BOOL)CheckUsbScan(_usbname);
 	}
 	else
 	{

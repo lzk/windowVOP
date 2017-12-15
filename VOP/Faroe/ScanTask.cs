@@ -26,6 +26,7 @@ namespace VOP
         public static uint WM_VOPSCAN_UPLOAD = Win32.RegisterWindowMessage("vop_scan_upload");
         public static uint WM_VOPSCAN_PAGECOMPLETE = Win32.RegisterWindowMessage("vop_scan_pagecomplete");
         public Scan_RET ScanResult = Scan_RET.RETSCAN_OK;
+        private const string USBSCANSTRING = "\\\\.\\usbscan";
 
         [DllImport("wininet.dll")]
         private static extern bool InternetGetConnectedState(out int connectionDescription, int reservedValue);
@@ -50,6 +51,26 @@ namespace VOP
             }
             return false;
         }
+
+        private string GetDeviceName(string devicename)
+        {
+            int index = devicename.LastIndexOf(' ');
+            if (index > 0)
+            {
+                string str = USBSCANSTRING;
+                str += devicename.Substring(index + 1);
+
+                return str;
+            }
+            else
+            {
+                return string.Empty;
+            }
+
+
+            return string.Empty;
+        }
+
         public List<ScanFiles> DoScan(string deviceName, ScanParam param)
         {
             //debug test
@@ -125,20 +146,28 @@ namespace VOP
             }
             else
             {
-                StringBuilder usbname = new StringBuilder(50);
-                if (dll.CheckUsbScan(usbname) == 1)
+                //modified by yunying shang 2017-12-15 for BMS 1796
+                if (dll.CheckConnectionByName(GetDeviceName(deviceName)))
                 {
 
                 }
                 else
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
-                                Application.Current.MainWindow,
-                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
-                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
-                                );
-                    return null;
-                }
+                    StringBuilder usbname = new StringBuilder(50);
+                    if (dll.CheckUsbScan(usbname) == 1)
+                    {
+                        dll.SetConnectionMode(GetDeviceName(usbname.ToString()), true);
+                    }
+                    else
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                                    Application.Current.MainWindow,
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
+                                    );
+                        return null;
+                    }
+                }//<<================1796
             }
             //<<=================================
 
@@ -190,7 +219,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                Application.Current.MainWindow,
-                              (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
+                              (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Not_Ready"),
                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                                );
                 }
@@ -198,7 +227,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                Application.Current.MainWindow,
-                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Not_Ready"),
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                                );
                 }

@@ -430,9 +430,23 @@ namespace VOP
                 }
                 else
                 {
-
-                    //SetDeviceButtonState(false);
-                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                    if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
+                    {
+                        StringBuilder usbname = new StringBuilder(50);
+                        if (dll.CheckUsbScan(usbname) == 1)
+                        {
+                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                        }
+                        else
+                        {
+                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                        }
+                    }
+                    else
+                    {
+                        //SetDeviceButtonState(false);
+                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                    }
                 }
 
                 for (int i = 0; i < 6; i++)

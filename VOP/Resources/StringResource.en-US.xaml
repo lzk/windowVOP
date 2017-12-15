@@ -517,4 +517,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Find_Printer_Error">Could not find the printer, </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_EverNote_List">Ever Note List: </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Upload_success">Upload success!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Device_Not_Ready">The Device is not ready!</sys:String>
 </ResourceDictionary>

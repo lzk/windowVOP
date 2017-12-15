@@ -244,7 +244,7 @@ namespace VOP
             string oldPictureFolder = App.PictureFolder;
             App.PictureFolder = App.cacheFolder;
 
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", param);
+            List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, param);
 
             m_MainWin._bScanning = false;
             App.PictureFolder = oldPictureFolder;
@@ -304,7 +304,7 @@ namespace VOP
             ImageButton2 btn = sender as ImageButton2;
 
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
+            List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_commonScanSettings);
             //List<ScanFiles> files = new List<ScanFiles>();
             m_MainWin._bScanning = false;
             if (files != null)
