@@ -47,6 +47,7 @@
                 <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="370*" />
+                        <RowDefinition Height="50" />
                         <RowDefinition Height="60" />
                     </Grid.RowDefinitions>
 
@@ -87,7 +88,7 @@
                                         SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
                                         VerticalScrollBarVisibility="Auto"
                                         HorizontalScrollBarVisibility="Disabled">
-                                <ListView Name="FileBrowser" Height="270" Margin="0, 0, 0, 0" />
+                                <ListView Name="FileBrowser" Height="250" Margin="0, 0, 0, 0" />
                             </ScrollViewer>
 
                         </StackPanel>
@@ -99,7 +100,7 @@
                                    HorizontalAlignment="Left"
                                    FontSize="12" 
                                    Foreground="CadetBlue"
-                                   Margin="10,10,0,0" 
+                                   Margin="10,0,0,0" 
                                    TextWrapping="Wrap"
                                    />
                     </StackPanel>
