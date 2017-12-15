@@ -379,6 +379,8 @@ namespace VOP
         RETSCAN_ADF_NOT_READY   = 15,
         RETSCAN_HOME_NOT_READY  = 16,
         RETSCAN_ULTRA_SONIC     = 17,
+        RETSCAN_ERROR_POWER1    = 18,
+        RETSCAN_ERROR_POWER2    = 19
     }
      
 }

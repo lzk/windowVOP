@@ -518,4 +518,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_EverNote_List">Ever Note List: </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Upload_success">Upload success!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Device_Not_Ready">The Device is not ready!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Power_Bank">The scan job could not be continued, because the bank power mode do not support Two Side and Auto Crop. If you select 'Yes', the scan job will be continue, but the ADF mode is changed to 'One Side' and Auto Crop wil lbe off. If you select 'No', the scan job will be canceled!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Power_Bus">The scan job could not be continued, because the bus power mode do not support Two Side and Auto Crop. If you select 'Yes', the scan job will be continue, but the ADF mode is changed to 'One Side' and Auto Crop wil lbe off. If you select 'No', the scan job will be canceled!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Power_Bus_Wifi">The scan job could not be continued, because the bus power mode do not support WIFI scanning.</sys:String>
 </ResourceDictionary>

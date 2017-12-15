@@ -172,7 +172,7 @@ namespace VOP
             //<<=================================
 
 
-
+next:
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -288,8 +288,47 @@ namespace VOP
                                );
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_CANCEL)
-                {        
-                    
+                {
+
+                }
+                else if (ScanResult == Scan_RET.RETSCAN_ERROR_POWER1)
+                {
+                    VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
+                               Application.Current.MainWindow,
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bank"),
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
+                               );
+                    if (VOP.Controls.MessageBoxExResult.Yes == ret)
+                    {
+                        param.ADFMode = false;
+                        param.AutoCrop = false;
+                        goto next;
+                    }
+                }
+                else if (ScanResult == Scan_RET.RETSCAN_ERROR_POWER2)
+                {
+                    if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
+                    {
+                        VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                    Application.Current.MainWindow,
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bus_Wifi"),
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                    );
+                    }
+                    else
+                    {
+                        VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
+                                   Application.Current.MainWindow,
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bank"),
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
+                                   );
+                        if (VOP.Controls.MessageBoxExResult.Yes == ret)
+                        {
+                            param.ADFMode = false;
+                            param.AutoCrop = false;
+                            goto next;
+                        }
+                    }
                 }
                 else
                 {

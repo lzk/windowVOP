@@ -55,6 +55,8 @@ enum Scan_RET
 	RETSCAN_ADF_NOT_READY = 15,
 	RETSCAN_HOME_NOT_READY = 16,
 	RETSCAN_ULTRA_SONIC = 17,
+	RETSCAN_ERROR_POWER1 = 18,
+	RETSCAN_ERROR_POWER2 = 19,
 };
 
 extern UINT WM_VOPSCAN_PROGRESS;
@@ -445,15 +447,16 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		MyOutputString(L"paperReady");*/
 
 		//BYTE power_mode = glDrv._GetPowerSupply();
-		//if (1 < power_mode)
+		//if (1 < power_mode )
 		//{
-		//	if (2 < power_mode && g_connectMode_usb == FALSE)
+		//	if (2 == power_mode && (ADFMode || AutoCrop))
 		//	{
-		//		return RETSCAN_ERROR;
+		//		return RETSCAN_ERROR_POWER1;
 		//	}
-		//	glDrv.sc_pardata.duplex = SCAN_A_SIDE;
-		//	glDrv.sc_pardata.acquire = ((MultiFeed ? 1 : 0) * ACQ_ULTRA_SONIC) | ((0) * ACQ_CROP_DESKEW) | 0 * ACQ_NO_GAMMA;
-
+		//	else if(ADFMode || AutoCrop || g_connectMode_usb == false)
+		//	{
+		//		return RETSCAN_ERROR_POWER2;
+		//	}
 		//}
 
 		result = glDrv._JobCreate();
@@ -1181,17 +1184,9 @@ USBAPI_API int __stdcall CheckUsbScanByName(
 	else
 	{
 		error = GetLastError();
-	}
-	
-
-	if (hDev == INVALID_HANDLE_VALUE)
-	{
 		return 0;
 	}
-
-	if (hDev != INVALID_HANDLE_VALUE) {
-		CloseHandle(hDev);
-	}
+	
 
 	CGLDrv glDrv;
 
