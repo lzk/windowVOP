@@ -7,6 +7,13 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Windows;
 using System.Xml;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 using Dropbox.Api;
 using Dropbox.Api.Files;
@@ -30,6 +37,7 @@ namespace VOP
         private const string ApiKey = "odlfrurcifss4yc";
         public List<string> FileList { get; set; }
         public Window ParentWin { get; set; }
+        public MainWindow_Rufous m_MainWin { get; set; }
         public static CloudFlowType FlowType = CloudFlowType.View; 
         public static string SavePath = "";
         
@@ -53,6 +61,8 @@ namespace VOP
         private ClientType clientType { get; set; }
         private DriveItem CurrentFolder { get; set; }
         private DriveItem SelectedItem { get; set; }
+
+        public bool isSigin = false;
 
 //        private OneDriveTile _selectedTile;
 
@@ -100,14 +110,6 @@ namespace VOP
           
             try
             {
-                //var config = new DropboxClientConfig("SimpleTestApp")
-                //{
-                //    HttpClient = httpClient,
-                //};
-
-                //var client = new DropboxClient(accessToken, config);
-                //m_client = client;
-
                 if (FlowType == CloudFlowType.Quick)
                 {
                     AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
@@ -115,7 +117,15 @@ namespace VOP
                 }
                 else
                 {
-                    RunUploadTask(client);
+                    if (RunSignIn() && isSigin)
+                        RunUploadTask(client);
+                    else
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                            ParentWin,
+                    (string)ParentWin.TryFindResource("ResStr_Connect_OneDrive_Fail"),//"Connection Onedirive failed!", 
+                    (string)ParentWin.TryFindResource("ResStr_Warning"));
+                    }
                 }
             
 
@@ -134,17 +144,31 @@ namespace VOP
 
             return true;
         }
+        private bool RunSignIn()
+        {
+            try
+            {
+                var task = Task.Run((Func<Task<bool>>)SignIn);
+                task.Wait();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         private void RunUploadTask(GraphServiceClient client)
         {
             try
             {
-                var viewr = new OneDriveFileViewer(client, FileList);
+                var viewr = new OneDriveFileViewer(client, FileList,CurrentFolder);
                 viewr.Owner = ParentWin;
                 viewr.ShowDialog();
             }
             catch (Exception e)
             {
-            }
+            }          
         }
        
         private string GetAccessToken()
@@ -189,6 +213,36 @@ namespace VOP
             return accessToken;
         }
 
+        private async Task<bool> SignIn()
+        {
+            if (null == this.client)
+            {
+                isSigin = false;
+                return false;
+            }
+            try
+            {
+                DriveItem folder;
+
+                var expandValue = this.clientType == ClientType.Consumer
+                    ? "thumbnails,children($expand=thumbnails)"
+                    : "thumbnails,children";
+
+                folder = await this.client.Drive.Root.Request().Expand(expandValue).GetAsync();
+
+                CurrentFolder = folder;
+                isSigin = true;
+                return true;
+ //               RunUploadTask(client,folder);
+            }
+            catch (Exception exception)
+            {
+                //    PresentServiceException(exception);
+                //MessageBox.Show("Connection OneDrive failed!");
+                isSigin = false;
+                return false;
+            }
+        }
         private bool RunUpload()
         {
             try
@@ -203,7 +257,7 @@ namespace VOP
                 return false;
             }
         }
-      
+       
         private async Task<bool> UploadFilesToDefaultPath()
         {   
             if (FileList == null)

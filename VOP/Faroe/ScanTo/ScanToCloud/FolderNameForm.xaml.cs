@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace VOP
 {
@@ -42,7 +43,7 @@ namespace VOP
             {
                 string str = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
                 string content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder");
-                string message = string.Format(str, "Folder");
+                string message = string.Format(str, (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Name"));
 
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                    Application.Current.MainWindow,
@@ -50,10 +51,28 @@ namespace VOP
                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 return;
             }
+            else
+            {
+                Regex regex = new Regex(@"^[^\/\:\*\?\""\<\>\|\,]+$");
+                Match m = regex.Match(tbFolderName.Text);
+                if (!m.Success)
+                {
+                    string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Invalid_xxx");
+                    message = string.Format(message, (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Name"));
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                        Application.Current.MainWindow,
+                        message,//"Invalid folder name.", 
+                        (string)this.TryFindResource("ResStr_Warning"));
+                    this.tbFolderName.Focus();
+                    return;
+                }
+            }          
+
             m_folderName = tbFolderName.Text;
             DialogResult = true;
             this.Close();
         }
+       
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)

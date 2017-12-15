@@ -937,7 +937,6 @@
   <ItemGroup>
     <Resource Include="Images\CheckBox_Close.png" />
     <Resource Include="Images\CheckBox_Disable.png" />
-    <Resource Include="Images\CheckBox_Disable1.png" />
     <Resource Include="Images\CheckBox_Open.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1250,6 +1249,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\warning_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\checkbox_ disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder_with_arrow_up_disable.png" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>

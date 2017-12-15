@@ -202,6 +202,7 @@ namespace VOP
             if (cbCloudType.SelectedIndex == 0)
             {
                 MainWindow_Rufous.g_settingData.m_couldSaveType = "DropBox";
+                AuthenticationHelper.SignOut();
             }
             else if (cbCloudType.SelectedIndex == 1)
             {
@@ -212,6 +213,7 @@ namespace VOP
             {
 
                 MainWindow_Rufous.g_settingData.m_couldSaveType = "OneDrive";
+                Properties.Settings.Default.Reset();
             }
         }
 

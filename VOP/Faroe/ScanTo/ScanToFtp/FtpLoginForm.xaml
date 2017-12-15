@@ -10,6 +10,7 @@
         AllowsTransparency="True"
         Background="Transparent" 
         ShowInTaskbar="False" 
+        Foreground="Black"
         BorderThickness="25,25,25,25"
         Loaded="Window_Loaded">
     <Window.Resources>

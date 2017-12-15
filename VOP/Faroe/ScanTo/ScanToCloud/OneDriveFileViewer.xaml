@@ -46,35 +46,38 @@
 
                 <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="370" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="370*" />
                         <RowDefinition Height="60" />
                     </Grid.RowDefinitions>
 
                     <Border Grid.Row="0" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal">
-                                <local:ImageButton2 
+                            <StackPanel Orientation="Horizontal" >
+                                <local:ImageButton3 
                                         x:Name="UpFolderButton"
                                         ImagePath="../../../Images/folder_with_arrow_up.png"
-                                        Width="70"
-                                        Height="80"
-                                        Margin="0,0,0,-20"
+                                        PressImagePath="../../../Images/folder_with_arrow_up.png"
+                                        DisableImagePath="../../../Images/folder_with_arrow_up_disable.png"
+                                        Width="50"
+                                        Height="70"
+                                        Margin="0,0,0,0"
                                         Foreground="White"
                                         PreviewMouseLeftButtonDown="UpFolderButtonClick"
                                         />
-                                <local:ImageButton2 
+                                <local:ImageButton3 
                                         x:Name="CreateFolderButton"
                                         ImagePath="../../../Images/folder_add.png"
-                                        Width="70"
-                                        Height="80"
-                                        Margin="20,0,0,-20"
+                                        PressImagePath="../../../Images/folder_add.png"
+                                        DisableImagePath="../../../Images/folder_add.png"
+                                        Width="50"
+                                        Height="70"
+                                        Margin="10,0,0,0"
                                         Foreground="White"
                                         PreviewMouseLeftButtonDown="CreateFolderButtonClick"
                                         />
                                 <TextBlock Name="PathText" 
                                            VerticalAlignment="Center" 
-                                           Width="400" 
+                                           Width="450" 
                                            Margin="10,0,0,0" 
                                            FontSize="18" 
                                            TextWrapping="Wrap"
@@ -84,7 +87,7 @@
                                         SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
                                         VerticalScrollBarVisibility="Auto"
                                         HorizontalScrollBarVisibility="Disabled">
-                                <ListView Name="FileBrowser" Height="280" Margin="10, 0, 10, 0" />
+                                <ListView Name="FileBrowser" Height="270" Margin="0, 0, 0, 0" />
                             </ScrollViewer>
 
                         </StackPanel>
