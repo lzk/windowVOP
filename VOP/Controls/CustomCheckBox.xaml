@@ -124,7 +124,7 @@
                     <Condition Property="IsEnabled" Value="false"></Condition>
                     <Condition Property="IsChecked" Value="true"></Condition>
                 </MultiTrigger.Conditions>
-                <Setter TargetName="img" Property="Source" Value="..\Images\CheckBox_Disable.png"></Setter>
+                <Setter TargetName="img" Property="Source" Value="..\Images\checkbox_ disable.png"></Setter>
             </MultiTrigger>
 
             <MultiTrigger>
@@ -132,7 +132,7 @@
                     <Condition Property="IsEnabled" Value="false"></Condition>
                     <Condition Property="IsChecked" Value="false"></Condition>
                 </MultiTrigger.Conditions>
-                <Setter TargetName="img" Property="Source" Value="..\Images\CheckBox_Disable1.png"></Setter>
+                <Setter TargetName="img" Property="Source" Value="..\Images\CheckBox_Disable.png"></Setter>
             </MultiTrigger>
             
             <Trigger  Property="IsFocused" Value="True">

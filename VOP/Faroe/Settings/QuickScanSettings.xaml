@@ -24,9 +24,18 @@
                 <ResourceDictionary Source="../../Controls/CustomRadioButtonEx.xaml"/>
                 <ResourceDictionary Source="../../Controls/SpinnerControl/SpinnerControlStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-          </ResourceDictionary>
+            <Style x:Key="ListBoxFocus">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle StrokeThickness="1" Stroke="Black" StrokeDashArray="1 2"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>        
     </UserControl.Resources>
-
+    
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="..\..\Images\SettingViewBackground.png" />
@@ -73,6 +82,8 @@
                 Grid.Row="1"  Grid.RowSpan="4"
                 Grid.Column="1"
                 ScrollViewer.CanContentScroll="True"
+                Background="White"
+                Foreground="Black"
                 ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
@@ -88,6 +99,9 @@
                                         </Trigger>
                                         <Trigger Property="IsMouseOver" Value="true">
                                             <Setter TargetName="Border" Property="Background" Value="#FFCCEBF5"/>
+                                        </Trigger>
+                                        <Trigger  Property="IsFocused" Value="true">
+                                            <Setter Property="FocusVisualStyle" Value="{StaticResource ListBoxFocus}"/>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>

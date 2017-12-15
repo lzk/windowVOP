@@ -11,8 +11,7 @@
         xmlns:mycontrol="clr-namespace:VOP"
         UseLayoutRounding="True"
         Name="mainWindow"
-        Closing="mainWindow_Closing"
-        >
+        Closing="mainWindow_Closing">
     <Window.Resources>
         <ResourceDictionary Source="../Controls/PanelButton.xaml"/>
     </Window.Resources>
@@ -43,10 +42,7 @@
             </Grid>
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
                         VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10">
-            <Image Source="../Images/VOPicon.png"
-                                        Width="32"
-                                        Height="32" 
-                                        />
+                <Image Source="../Images/VOPicon.png" Width="32" Height="32"/>
                 <Label FontSize="16" Foreground="Black" VerticalAlignment="Center" VerticalContentAlignment="Center">VOP</Label>
             </StackPanel>
             <Grid Grid.Row="2" Grid.Column="1" >

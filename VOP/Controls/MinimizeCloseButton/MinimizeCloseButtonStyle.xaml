@@ -11,8 +11,17 @@
 
     <SolidColorBrush x:Key="brushBorder"   Color="Transparent" Opacity="1"/>
     <SolidColorBrush x:Key="brushBorderOver"   Color="#FFEEBA70" Opacity="1"/>
+    
+    <Style x:Key="MinimizeFocus">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="-0.5" RadiusX="5" RadiusY="5" StrokeThickness="1" Stroke="Black" StrokeDashArray="1 3" StrokeDashCap="Square" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  
     <Style TargetType="{x:Type local:MinimizeCloseButton}" >
         <Setter Property="Background" Value="{StaticResource brushBackground}" />   
         <Setter Property="BorderBrush" Value="{StaticResource brushBorder}" />
@@ -52,7 +61,11 @@
                             <Setter TargetName="InnerBorder" Property="Background" Value="{StaticResource brushBackgroundOver}"/>
                             <Setter TargetName="InnerBorder" Property="BorderBrush" Value="{StaticResource brushBorderOver}"/>
                         </MultiTrigger>
-                       
+                      
+                        <Trigger  Property="IsFocused" Value="true">
+                            <Setter Property="FocusVisualStyle" Value="{StaticResource MinimizeFocus}"/>
+                        </Trigger>
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

@@ -50,14 +50,16 @@ namespace VOP
         private DriveItem UpperFolder { get; set; }
         private DriveItem SelectedItem { get; set; } 
 
-        public OneDriveFileViewer(GraphServiceClient client, List<string> fileList)
+        public OneDriveFileViewer(GraphServiceClient client, List<string> fileList,DriveItem folder)
         {
             InitializeComponent();
             this.graphClient = client;     
-            FileList = fileList;           
-        }        
+            FileList = fileList;
+            CurrentFolder = folder;
+            ProcessFolder(folder);
+        }
 
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        private  void Window_Loaded(object sender, RoutedEventArgs e)
         {
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
 
@@ -65,7 +67,7 @@ namespace VOP
             {
                 UploadButton.Content = "OK";
             }
-            await Start();
+ //           await Start();
             if (PathText.Text == "")
                 UpFolderButton.IsEnabled = false;
             else
@@ -194,7 +196,7 @@ namespace VOP
                         {
                             string str = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
                             string content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder");
-                            string message = string.Format(str, "Folder");
+                            string message = string.Format(str, "folder name");
                             VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, 
                                 Application.Current.MainWindow,
                                 message,//"The folder cannot be empty", 
@@ -306,11 +308,12 @@ namespace VOP
             catch (Exception exception)
             {
                 //    PresentServiceException(exception);
+                this.Close();
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, 
                     Application.Current.MainWindow, 
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Connect_OneDrive_Fail"),//"Connection Onedirive failed!", 
                     (string)this.TryFindResource("ResStr_Warning"));
-                this.Close();
+
             }
         }
         private async Task LoadFolderFromPath(string path = null)
@@ -388,7 +391,7 @@ namespace VOP
             try
             {
                 DriveItem folder;
-
+                UpperFolder = null;
                 var expandValue = this.clientType == ClientType.Consumer
                     ? "thumbnails,children($expand=thumbnails)"
                     : "thumbnails,children";
