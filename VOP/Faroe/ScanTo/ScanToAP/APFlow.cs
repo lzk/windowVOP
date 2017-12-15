@@ -108,9 +108,6 @@ namespace VOP
                                 {
                                     
                                     Process p = new Process();
-                                    // p.StartInfo.FileName = "rundll32.exe";
-                                    // p.StartInfo.Arguments = string.Format("{0} {1}", "shell32,OpenAs_RunDLL", f);
-                                    //p.StartInfo.UseShellExecute = false;
                                     p.StartInfo.FileName = path;
                                     p.StartInfo.Arguments = string.Format("\"{0}\"", f);
                                     p.Start();                                                                  
@@ -167,13 +164,12 @@ namespace VOP
             else
             {
                 programType = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_APScanSettings.ProgramType;
-
                 try
                 {
                     int i = 0;
                     if (programType == "Paint")
                     {
-                        string processFilename = @"C:\Windows\System32\mspaint.exe";
+                        string processFilename = System.Environment.SystemDirectory+"\\mspaint.exe";
 
                         i = 0;
                         foreach (string f in FileList)
@@ -204,14 +200,14 @@ namespace VOP
                     }
                     else if (programType == "OthersApplication")
                     {
-                        //bool? result = null;
-                        //OthersAPSelectWin Others = new OthersAPSelectWin();
+                       // bool? result = null;
+                       // OthersAPSelectWin Others = new OthersAPSelectWin();
                         //Others.Owner = ParentWin;
                         //result = Others.ShowDialog();
 
                         //if (result == true)
                         {
-                            //programType = Others.m_programType;
+                           // programType = Others.m_programType;
                             string path = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_APScanSettings.APPath;//Others.m_filePath;
                             i = 0;
                             foreach (string f in FileList)
@@ -245,6 +241,7 @@ namespace VOP
                             //modified by yunying shang 2017-12-07 for BMS 1722
                             Process.Start("rundll32.exe", String.Format("{0} {1}", "shimgvw.dll,ImageView_Fullscreen", f));
                             //<<==============1722
+
                             if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings.ADFMode == true)
                             {
                                 if (i == 1)

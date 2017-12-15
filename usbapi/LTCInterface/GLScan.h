@@ -45,6 +45,7 @@ public:
 	BYTE _StatusCheck_Scanning();
 	BYTE _InitializeScanner();
 	BYTE _CheckScanningMode();
+	BYTE _GetPowerSupply();
 
 	//Devid added for Calibration 2017/10/31  =====>
 	int _Scan_Shad_Calibration(CALIBRATION_SET_T *set);
@@ -82,9 +83,8 @@ public:
 	fw_version_get		FWV;
 	SC_SCAN_T			sc_reset;
 	SC_SCAN_STA_T		reset_status;
-
-	
-
+	SC_POWER_T			sc_power;
+	SC_POWER_INFO_T		sc_powerData;
 
 	int				JobID;	
 };

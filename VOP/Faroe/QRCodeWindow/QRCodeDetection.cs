@@ -415,7 +415,7 @@ namespace VOP
         public Result[] FindSubQRCode(ref Bitmap srcBitmap, ZONE_RECT rect, bool bFullImage)
         {
             Result[] results = null;
-            int nCount = 5;
+            int nCount = 1;
 
             if (bFullImage == true)
                 nCount = 1;
@@ -537,7 +537,9 @@ namespace VOP
                                     nArraySize++; 
                                 }
 
-                                for(int index=0; index < nArraySize; index++)
+                                System.DateTime date1 = DateTime.Now;
+
+                                for (int index=0; index < nArraySize; index++)
                                 {
                                     bool bFullImage = false;
                                     if (index == nArraySize - 1)
@@ -567,6 +569,15 @@ namespace VOP
                                             }
                                         }
                                     }
+
+                                    if (index == nArraySize - 1)
+                                        break;
+
+                                    System.TimeSpan diff = DateTime.Now - date1;
+                                    if (diff.Seconds>15)
+                                    {
+                                        index = nArraySize - 2;
+                                    }
                                 }
                                 if(resultArray_inOneImage.Count <=0 )//Use Aspose.Barcode
                                 {
@@ -586,8 +597,11 @@ namespace VOP
                                             BarCodeRegion region = barCodeReader.GetRegion();
                                             DetectResult detectResult = new DetectResult(fileName, null);
                                             detectResult.barcodeResult = resultText;
-                                            detectResult.barcodeEncodeType = barCodeReader.GetCodeType().ToString();
-                                            detectResult.barcodeResultType = "TEXT";
+                                            detectResult.barcodeEncodeType = "QR_CODE";// barCodeReader.GetCodeType().ToString();
+                                            if(resultText.Contains("http"))
+                                                detectResult.barcodeResultType = "URI";
+                                            else
+                                                detectResult.barcodeResultType = "TEXT";
                                             string subFileName = strSubFileName + "barcodeResult1" + index.ToString() + ".jpg";
                                             System.Drawing.Point barcodePoint = CreateBarcodeResultImage(ref srcBitmap, subFileName, region);
                                             detectResult.resultWidth = barcodePoint.X;
@@ -1216,7 +1230,14 @@ namespace VOP
 
                             htmlWriter.WriteLine("<td>" + tempDetectResult.barcodeEncodeType + "</td>");
                             htmlWriter.WriteLine("<td>" + tempDetectResult.barcodeResultType + "</td>");
-                            htmlWriter.WriteLine("<td>" + tempDetectResult.barcodeResult + "</td>");
+                            if (tempDetectResult.barcodeResultType == "URI")
+                            {
+                                htmlWriter.WriteLine("<td>  <a href=" + tempDetectResult.barcodeResult.ToString() + ">" + tempDetectResult.barcodeResult.ToString() + "</a> </td>");
+                            }
+                            else
+                            {
+                                htmlWriter.WriteLine("<td>" + tempDetectResult.barcodeResult + "</td>");
+                            }
                         }
 
                         htmlWriter.WriteLine("</tr>");

@@ -412,7 +412,14 @@ namespace VOP
                             }
                             else
                             {
-                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                                if (dll.TestIpConnected(MainWindow_Rufous.g_settingData.m_DeviceName))
+                                {
+                                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                                }
+                                else
+                                {
+                                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                                }
                             }
                         }
                     }

@@ -97,7 +97,7 @@ namespace VOP
 
                         return;
                     }
-                    else if(iRtn == 1)
+                    else if(iRtn == 1 && !m_MainWin.scanDevicePage.IsOnLine())//modified by yunying shang 2017-12-13 for BMS 1775
                     {
 
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
@@ -123,7 +123,7 @@ namespace VOP
 
                         return;
                     }
-                    else if (iRtn == 1)
+                    else if (iRtn == 1 && !m_MainWin.scanDevicePage.IsOnLine())//modified by yunying shang 2017-12-13 for BMS 1775
                     {
 
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
@@ -150,6 +150,15 @@ namespace VOP
                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                     );
                 }
+                //add by yunying shang 2017-12-11 for BMS 1744
+                else
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                        Application.Current.MainWindow,
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Scanning_is_canceled_on_machine"),//"The scanning is canceled on the machine!",
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Waring")
+                        );
+                }//<<================1744
             }
             m_MainWin._bScanning = false;
         }
@@ -189,7 +198,7 @@ namespace VOP
             ScanParam param = new ScanParam(
                 EnumScanResln._300x300,
                 EnumScanMediaType._Normal,
-                EnumPaperSizeScan._A4,
+                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.PaperSize,//EnumPaperSizeScan._A4,//Devid for bms#0001761
                 EnumColorType.color_24bit,
                 false,
                 MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.MultiFeed,

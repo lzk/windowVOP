@@ -751,7 +751,7 @@ namespace VOP
                 files.AddRange(new string[count]);
 
                 int j = 0;
-                for(int i=0; i<nCount;i++)
+                for(int i=0; i< selectedFileList.Count; i++)
                 {
                     ImageStatus img = selectedFileList[i];
 
