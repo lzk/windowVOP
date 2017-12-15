@@ -451,6 +451,17 @@ typedef struct fw_version_ack_STRUCT {
 	U8	reserved[4];
 } fw_version_ack;
 
+typedef struct SC_POWER_SUPPLY_STRUCT {
+	U32	code;
+	U8	reserved[4];
+} SC_POWER_T;
+
+typedef struct SC_POWER_INFO_STRUCT {
+	U32	code;
+	U8  ack;
+	U8	reserved[2];
+	U8  mode;
+} SC_POWER_INFO_T;
 
 typedef struct fw_version_get_STRUCT {
 	U32	version;

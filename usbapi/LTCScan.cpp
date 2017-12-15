@@ -445,13 +445,17 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		}
 		MyOutputString(L"paperReady");*/
 
-		//for ZM test
-		//if (!glDrv._info())
-		//{
-		//	int test = glDrv.sc_infodata.AdfSensor;
-		//	/*Sleep(100);
-		//	continue;*/
-		//}
+		BYTE power_mode = glDrv._GetPowerSupply();
+		if (1 < power_mode)
+		{
+			if (2 < power_mode && g_connectMode_usb == FALSE)
+			{
+				return RETSCAN_ERROR;
+			}
+			glDrv.sc_pardata.duplex = SCAN_A_SIDE;
+			glDrv.sc_pardata.acquire = ((MultiFeed ? 1 : 0) * ACQ_ULTRA_SONIC) | ((0) * ACQ_CROP_DESKEW) | 0 * ACQ_NO_GAMMA;
+
+		}
 
 		result = glDrv._JobCreate();
 		if (result != 0)

@@ -59,6 +59,9 @@ CGLDrv::CGLDrv()
 	GFWV.code				= I4('VERN');
 	sc_status.code			= I4('STAS');
 	sc_reset.code			= I4('RSET');
+
+	sc_power = { 0 };
+	sc_power.code			= I4('PWRM');
 }
 CGLDrv::~CGLDrv()
 {
@@ -1365,3 +1368,45 @@ int CGLDrv::_Scan_ME_Flash(void *buf, int length)
 	return nResult;
 }
 
+BYTE CGLDrv::_GetPowerSupply()
+{
+	int result;
+
+	memset(&sc_powerData, 0, sizeof(sc_powerData));
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_power, sizeof(sc_power));
+		if (!result)
+		{
+			result = 0;
+			goto exit_info;
+		}
+		//Sleep(3);
+		result = result && m_GLusb->CMDIO_BulkReadEx(0, &sc_powerData, sizeof(sc_powerData));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_power, sizeof(sc_power));
+		if (!result)
+		{
+			result = 0;
+			goto exit_info;
+		}
+		//Sleep(3);
+		result = result && m_GLnet->CMDIO_Read(&sc_powerData, sizeof(sc_powerData));
+	}
+
+	if (!result || sc_powerData.code != I3('STA') || sc_powerData.ack != 'A') {
+		MyOutputString(L"Get Power Supply Error");
+		result = 0;
+		goto exit_info;
+	}
+	else
+	{
+		result = sc_powerData.mode;
+	}
+
+exit_info:
+	return (BYTE)result;
+}
