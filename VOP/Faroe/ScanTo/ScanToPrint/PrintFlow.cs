@@ -11,6 +11,7 @@ using System.Security.Authentication;
 using System.Net;
 using VOP.Controls;
 using System.Windows.Interop;
+using System.Drawing.Printing;
 
 namespace VOP
 {
@@ -88,6 +89,7 @@ namespace VOP
 
             if(FlowType == PrintFlowType.View)
             {
+
                 int ret = dll.PrintInitDialog("VOP_Print", (new WindowInteropHelper(App.Current.MainWindow)).Handle);
                 PrintStatus status = (PrintStatus)ret;
                 if (status != PrintStatus.Printer_Initial_Fail &&
