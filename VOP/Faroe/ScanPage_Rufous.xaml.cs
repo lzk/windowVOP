@@ -251,7 +251,7 @@ namespace VOP
 
         private void ScanToPrintButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if(MainWindow_Rufous.g_settingData.m_printerName == null)
+            if (MainWindow_Rufous.g_settingData.m_printerName == null)
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                  Application.Current.MainWindow,
@@ -264,27 +264,38 @@ namespace VOP
 
                 List<string> files = new List<string>();
                 GetSelectedFile(files);
-
                 List<string> listPrinters = new List<string>();
-                PrinterSettings settings = new PrinterSettings();
                 string strDefaultPrinter = string.Empty;
-                PrintServer myPrintServer = new PrintServer(null);
-                PrintQueueCollection myPrintQueues = myPrintServer.GetPrintQueues();
-                foreach (PrintQueue pq in myPrintQueues)
-                {
-                    PrintDriver queuedrv = pq.QueueDriver;
-
-                    listPrinters.Add(pq.Name);
-
-                    settings.PrinterName = pq.Name;
-
-                    if (settings.IsDefaultPrinter)
+                try {
+                    
+                    PrinterSettings settings = new PrinterSettings();                    
+                    PrintServer myPrintServer = new PrintServer(null);
+                    PrintQueueCollection myPrintQueues = myPrintServer.GetPrintQueues();
+                    foreach (PrintQueue pq in myPrintQueues)
                     {
-                        strDefaultPrinter = pq.Name;
+                        PrintDriver queuedrv = pq.QueueDriver;
+
+                        listPrinters.Add(pq.Name);
+
+                        settings.PrinterName = pq.Name;
+
+                        if (settings.IsDefaultPrinter)
+                        {
+                            strDefaultPrinter = pq.Name;
+                        }
                     }
                 }
+                //add by yunying shang 2017-12-11 for BMS 1743
+                catch (Exception ex)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                     Application.Current.MainWindow,
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Find_Printer_Error") + ex.Message,
+                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
 
-                if(listPrinters.Count < 1)
+                    return;
+                }//<<==================1743
+                if (listPrinters.Count < 1)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                      Application.Current.MainWindow,
