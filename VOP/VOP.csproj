@@ -1186,9 +1186,6 @@
     <Resource Include="Images\popup_gnd_quick scan.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\popup_gnd_scan setting.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\popup_gnd_image preview1.png" />
   </ItemGroup>
   <ItemGroup>
@@ -1255,6 +1252,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\folder_with_arrow_up_disable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\popup_gnd_scan settings.png" />
   </ItemGroup>
   <PropertyGroup>
     <PostBuildEvent>

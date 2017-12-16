@@ -205,6 +205,9 @@ namespace VOP
                 MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.AutoCrop,
                 MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.Brightness,
                 MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.Contrast,
+                MainWindow_Rufous.g_settingData.m_commonScanSettings.AutoColorDetect,
+                MainWindow_Rufous.g_settingData.m_commonScanSettings.SkipBlankPage,
+                MainWindow_Rufous.g_settingData.m_commonScanSettings.Gamma,
                 false);
 
 

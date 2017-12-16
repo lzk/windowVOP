@@ -211,6 +211,28 @@ namespace VOP
 
             sldr_brightness.Value = m_scanParams.Brightness;
             sldr_contrast.Value = m_scanParams.Contrast;
+
+            sldr_gamma.Value = m_scanParams.Gamma * 10;
+
+            tbGamma.Text = Convert.ToString(m_scanParams.Gamma);
+
+            if (m_scanParams.AutoColorDetect == true)
+            {
+                btnAutoColorOn.IsChecked = true;
+            }
+            else
+            {
+                btnAutoColorOff.IsChecked = true;
+            }
+
+            if(m_scanParams.SkipBlankPage == true)
+            {
+                btnSkipBlankOn.IsChecked = true;
+            }
+            else
+            {
+                btnSkipBlankOff.IsChecked = true;
+            }
         }
 
         public void MyMouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
@@ -517,6 +539,14 @@ namespace VOP
                         CheckContrastValue();
                     }
                 }
+                else if (sldr.Name == "sldr_gamma")
+                {
+                    if ((double)val / 10 != m_scanParams.Gamma)
+                    {
+                        m_scanParams.Gamma = (double)val / 10;
+                        tbGamma.Text = Convert.ToString(m_scanParams.Gamma);
+                    }
+                }
             }
         }
 
@@ -777,6 +807,79 @@ namespace VOP
                 }
             }
         }
+
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            string strText = e.Text;
+ 
+            if (strText.Length > 0 && !Char.IsDigit(strText, 0))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void btnSkipBlank_Click(object sender, RoutedEventArgs e)
+        {
+            RadioButton rdbtn = sender as RadioButton;
+
+            if (null != rdbtn)
+            {
+                if (rdbtn.Name == "btnSkipBlankOn")
+                {
+                    m_scanParams.SkipBlankPage = true;
+                }
+                else if (rdbtn.Name == "btnSkipBlankOff")
+                {
+                    m_scanParams.SkipBlankPage = false;
+                }
+            }
+        }
+
+        private void btnAutoColor_Click(object sender, RoutedEventArgs e)
+        {
+            RadioButton rdbtn = sender as RadioButton;
+
+            if (null != rdbtn)
+            {
+                if (rdbtn.Name == "btnAutoColorOn")
+                {
+                    m_scanParams.AutoColorDetect = true;
+                }
+                else if (rdbtn.Name == "btnAutoColorOff")
+                {
+                    m_scanParams.AutoColorDetect = false;
+                }
+            }
+        }
+
+        //private bool IsAllNumeric(string strText)
+        //{
+        //    int i = 0;
+        //    for (i = 0; i < strText.Length; i++)
+        //    {
+        //        if (strText[i] < 0x30 && strText[i] > 0x39)
+        //            return false;
+        //    }
+
+        //    return true;
+        //}
+        //private void handler_text_changed(object sender, TextChangedEventArgs e)
+        //{
+        //    TextBox txtBox = sender as TextBox;
+        //    string strText = txtBox.Text;
+
+        //    if (strText.Length > 0)
+        //    {
+        //        if (!IsAllNumeric(strText))
+        //        {
+        //            txtBox.Text = Convert.ToString(m_scanParams.Gamma * 10);
+        //        }
+
+        //        m_scanParams.Gamma = Convert.ToDouble(txtBox.Text);
+        //        sldr_gamma.Value = m_scanParams.Gamma * 10;
+        //    }
+        //}
 
         private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {          

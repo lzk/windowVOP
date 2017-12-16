@@ -30,6 +30,9 @@ namespace VOP
         private bool m_MultiFeed = true;
         private bool m_AutoCrop = true;
         private bool m_onepage = false;
+        private bool m_autocolordetect = false;
+        private bool m_skipblankpage = false;
+        private double m_gamma = 1.8;
 
         public EnumScanResln ScanResolution
         {
@@ -151,12 +154,49 @@ namespace VOP
             }
         }
 
+        public bool AutoColorDetect
+        {
+            get
+            {
+                return this.m_autocolordetect;
+            }
+            set
+            {
+                this.m_autocolordetect = value;
+            }
+        }
+
+        public bool SkipBlankPage
+        {
+            get
+            {
+                return this.m_skipblankpage;
+            }
+            set
+            {
+                this.m_skipblankpage = value;
+            }
+        }
+
+        public double Gamma
+        {
+            get
+            {
+                return this.m_gamma;
+            }
+            set
+            {
+                this.m_gamma = value;
+            }
+        }
+
         public ScanParam()
         {
 
         }
 
-        public ScanParam(EnumScanResln res, EnumScanMediaType type, EnumPaperSizeScan paperSize, EnumColorType color, bool ADFMode, bool MultiFeed, bool AutoCrop, int b, int c, bool onepage = false)
+        public ScanParam(EnumScanResln res, EnumScanMediaType type, EnumPaperSizeScan paperSize, EnumColorType color, bool ADFMode, bool MultiFeed, 
+            bool AutoCrop, int b, int c, bool autocolor, bool skipblank, double gamma, bool onepage = false)
         {
             this.m_scanResln = res;
             this.m_paperSize = paperSize;
@@ -168,13 +208,19 @@ namespace VOP
             this.m_contrast = c;
             this.m_onepage = onepage;
             this.m_type = type;
+            this.m_gamma = gamma;
+            this.m_autocolordetect = autocolor;
+            this.m_skipblankpage = skipblank;
         }
 
         public object Clone()
         {
             return new ScanParam(this.m_scanResln, this.m_type, this.m_paperSize,
                                  this.m_color, this.m_ADFMode, this.m_MultiFeed, 
-                                 this.m_AutoCrop, this.m_brightness, this.m_contrast, this.m_onepage);
+                                 this.m_AutoCrop, this.m_brightness, this.m_contrast,
+                                 this.m_autocolordetect, this.m_skipblankpage, this.m_gamma,
+                                 this.m_onepage
+                                 );
         }
 
     }
