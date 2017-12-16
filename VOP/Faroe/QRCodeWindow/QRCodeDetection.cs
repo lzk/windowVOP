@@ -443,7 +443,7 @@ namespace VOP
                         source = new BitmapLuminanceSource(subBitmap);
 
                     BinaryBitmap bbitmap1 = new BinaryBitmap(new GlobalHistogramBinarizer(source));
-                    BinaryBitmap bbitmap2 = new BinaryBitmap(new HybridBinarizer(source));
+                    //BinaryBitmap bbitmap2 = new BinaryBitmap(new HybridBinarizer(source));
 
                     IDictionary<DecodeHintType, object> hints = new Dictionary<DecodeHintType, object>();
                     hints.Add(DecodeHintType.TRY_HARDER, true);
@@ -455,11 +455,11 @@ namespace VOP
                         break;
                     }
 
-                    results = qrReader.decodeMultiple(bbitmap2, hints);
-                    if (results != null)
-                    {
-                        break;
-                    }
+                    //results = qrReader.decodeMultiple(bbitmap2, hints);
+                    //if (results != null)
+                    //{
+                    //    break;
+                    //}
 
                 }
             }
@@ -574,7 +574,7 @@ namespace VOP
                                         break;
 
                                     System.TimeSpan diff = DateTime.Now - date1;
-                                    if (diff.Seconds>15)
+                                    if (diff.Seconds>30)
                                     {
                                         index = nArraySize - 2;
                                     }
