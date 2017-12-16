@@ -167,32 +167,32 @@ namespace VOP
         {
             ImageButton2 btn = sender as ImageButton2;
 
-#if DEBUG
-            if (true)
-            {
-                OpenFileDialog open1 = null;
-                bool? result1 = null;
-                open1 = new OpenFileDialog();
-                open1.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
-                open1.Multiselect = true;
+//#if DEBUG
+//            if (true)
+//            {
+//                OpenFileDialog open1 = null;
+//                bool? result1 = null;
+//                open1 = new OpenFileDialog();
+//                open1.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
+//                open1.Multiselect = true;
 
-                result1 = open1.ShowDialog();
-                if (result1 == true)
-                {
-                    QRCodeDetection qrcodeDetection = new QRCodeDetection(new List<string>(open1.FileNames));
-                    if (btn.Name == "ImageButton1")
-                    {
-                        qrcodeDetection.ExcuteDecode(m_MainWin);
-                    }
-                    else
-                    {
-                        qrcodeDetection.ExcuteSeparation(m_MainWin);
-                    }
+//                result1 = open1.ShowDialog();
+//                if (result1 == true)
+//                {
+//                    QRCodeDetection qrcodeDetection = new QRCodeDetection(new List<string>(open1.FileNames));
+//                    if (btn.Name == "ImageButton1")
+//                    {
+//                        qrcodeDetection.ExcuteDecode(m_MainWin);
+//                    }
+//                    else
+//                    {
+//                        qrcodeDetection.ExcuteSeparation(m_MainWin);
+//                    }
 
-                }
-                return;
-            }
-#endif
+//                }
+//                return;
+//            }
+//#endif
             m_MainWin._bScanning = true;
             ScanTask task = new ScanTask();
             ScanParam param = new ScanParam(
@@ -211,35 +211,35 @@ namespace VOP
                 false);
 
 
-#if (DEBUG)
-            OpenFileDialog open = null;
-            bool? result = null;
-            open = new OpenFileDialog();
-            open.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
-            open.Multiselect = true;
+//#if (DEBUG)
+//            OpenFileDialog open = null;
+//            bool? result = null;
+//            open = new OpenFileDialog();
+//            open.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
+//            open.Multiselect = true;
 
-            result = open.ShowDialog();
-            if (result == true)
-            {
-                QRCodeWindow win = new QRCodeWindow(new List<string>(open.FileNames));
+//            result = open.ShowDialog();
+//            if (result == true)
+//            {
+//                QRCodeWindow win = new QRCodeWindow(new List<string>(open.FileNames));
 
-                if (btn.Name == "ImageButton1")
-                {
-                    ImageCropper.designerItemWHRatio = 1.0;
-                    win.IsQRCode = true;
-                }
-                else
-                {
-                    ImageCropper.designerItemWHRatio = 2.0;
-                    win.IsQRCode = false;
-                }
+//                if (btn.Name == "ImageButton1")
+//                {
+//                    ImageCropper.designerItemWHRatio = 1.0;
+//                    win.IsQRCode = true;
+//                }
+//                else
+//                {
+//                    ImageCropper.designerItemWHRatio = 2.0;
+//                    win.IsQRCode = false;
+//                }
 
-                win.Owner = m_MainWin;
-                win.ShowDialog();
+//                win.Owner = m_MainWin;
+//                win.ShowDialog();
 
-            }
+//            }
 
-#elif (!DEBUG)
+//# elif (!DEBUG)
 
             if (btn.Name == "ImageButton2")
                 param = MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings;
@@ -297,7 +297,7 @@ namespace VOP
 
             }
             
-#endif
+//#endif
 
         }
 
@@ -343,8 +343,8 @@ namespace VOP
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00.JPG"));
 
                     m_MainWin.GotoPage("ScanPage", files);
-                }
-                ImageButton3.IsEnabled = false;
+                    ImageButton3.IsEnabled = false;//move by yunying shang 2017-12-16 for BMS 1812
+                }                
             }
             else if (task.ScanResult == Scan_RET.RETSCAN_CANCEL)
             {

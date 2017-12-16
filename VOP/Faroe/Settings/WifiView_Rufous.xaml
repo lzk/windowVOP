@@ -153,7 +153,8 @@
                                 
                                 <StackPanel Grid.Row="2">
                                     <Grid Height="30">
-                                        <CheckBox Name="chkDisplayPwd" Content="{StaticResource ResStr_Display_Password}" IsChecked="False" Template="{StaticResource customCheckBox}"  Checked="OnClickDisplayPWD" Unchecked="OnClickDisplayPWD"></CheckBox>
+                                        <CheckBox Name="chkDisplayPwd" Content="{StaticResource ResStr_Display_Password}" IsChecked="False" Template="{StaticResource customCheckBox}" 
+                                                  Foreground="Black" Checked="OnClickDisplayPWD" Unchecked="OnClickDisplayPWD"></CheckBox>
                                     </Grid>
                                 </StackPanel>
                                 
@@ -164,7 +165,7 @@
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="{StaticResource ResStr_Encryption}" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource ColorChangeTextBlock}"></TextBlock>
-                                    <ComboBox Name="cboEncrytion" Grid.Column="2" Background="White" Foreground="Black" VerticalAlignment="Center" Height="24" Style="{StaticResource CboCommomStyle1}" SelectionChanged="OncboEncrytionSelectionChanged">
+                                    <ComboBox Name="cboEncrytion" Grid.Column="2"  VerticalAlignment="Center" Height="24"  SelectionChanged="OncboEncrytionSelectionChanged">
                                         <ComboBoxItem IsSelected="false" Content="{StaticResource ResStr_No_Security}" >
                                             <ComboBoxItem.DataContext>
                                                 <mycontrol:EnumEncryptType>NoSecurity</mycontrol:EnumEncryptType>
