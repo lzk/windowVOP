@@ -211,7 +211,6 @@ namespace VOP
             }
             else if (cbCloudType.SelectedIndex == 2)
             {
-
                 MainWindow_Rufous.g_settingData.m_couldSaveType = "OneDrive";
                 Properties.Settings.Default.Reset();
             }

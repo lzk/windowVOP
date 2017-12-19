@@ -261,7 +261,6 @@
     </Compile>
     <Compile Include="Faroe\ScanTo\ScanToCloud\FileViewer.xaml.cs" />
     <Compile Include="Faroe\ScanTo\ScanToAP\APFlow.cs" />
-    <Compile Include="Faroe\ScanTo\ScanToCloud\googledocsflow.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\OneDriveFileViewer.xaml.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\OneDriveFlow.cs" />
     <Compile Include="Faroe\ScanTo\ScanToFile\FileFlow.cs" />

@@ -446,18 +446,18 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		}
 		MyOutputString(L"paperReady");*/
 
-		//BYTE power_mode = glDrv._GetPowerSupply();
-		//if (1 < power_mode )
-		//{
-		//	if (2 == power_mode && (ADFMode || AutoCrop))
-		//	{
-		//		return RETSCAN_ERROR_POWER1;
-		//	}
-		//	else if(ADFMode || AutoCrop || g_connectMode_usb == false)
-		//	{
-		//		return RETSCAN_ERROR_POWER2;
-		//	}
-		//}
+		BYTE power_mode = glDrv._GetPowerSupply();
+		if (1 < power_mode )
+		{
+			if (2 == power_mode && (ADFMode || AutoCrop))
+			{
+				return RETSCAN_ERROR_POWER1;
+			}
+			else if(ADFMode || AutoCrop || g_connectMode_usb == false)
+			{
+				return RETSCAN_ERROR_POWER2;
+			}
+		}
 
 		result = glDrv._JobCreate();
 		if (result != 0)
