@@ -459,7 +459,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Folder_Name_exist">The folder Name already exists!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Connect_OneDrive_Fail">Connection OneDrive failed!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Folder_Not_Exist">The folder {0} does not exist.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_File_exist_Do_You_overwrite">The upload file already exists，Do you want to overwrite?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_File_exist_Do_You_overwrite">The some upload file are already exists，Do you want to overwrite?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Update_File_fail">Upload {0} failed!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Not_Find_Outlook">Could not find the outlook, please check you computer!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_File_Path_and_Name_too_long">You Specify the file path and file name is too long, please specify again </sys:String>
@@ -524,4 +524,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Gamma">Gamma</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Skip_Blank_Page">Skip Blank Page</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Auto_Color_Detect">Auto Color Detection</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_File_Is_Exist_On_Goole_Drive">The file you picked already exists in your Google Drive. Do you wish to overwrite it?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Auth_Google">Authenticate with Google Drive</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_GoogleDrive_Viewer">Google Drive File Viewer</sys:String>
 </ResourceDictionary>

@@ -74,9 +74,13 @@ namespace VOP
                 cbCloudType.SelectedIndex = 1;
                 MainWindow_Rufous.g_settingData.m_bNeedReset = false;
             }
-            else
+            else if(MainWindow_Rufous.g_settingData.m_couldSaveType == "EverNote")
             {
                 cbCloudType.SelectedIndex = 2;
+            }
+            else
+            {
+                cbCloudType.SelectedIndex = 3;
             }
 
             if (MainWindow_Rufous.g_settingData.m_attachmentType== "PDF")
@@ -87,6 +91,7 @@ namespace VOP
             {
                 cbAttachType.SelectedIndex = 1;
             }
+
             tbSettings.Focus();
         }
 
@@ -214,6 +219,10 @@ namespace VOP
                 MainWindow_Rufous.g_settingData.m_couldSaveType = "OneDrive";
                 Properties.Settings.Default.Reset();
             }
+            else
+            {
+                MainWindow_Rufous.g_settingData.m_couldSaveType = "GoogleDrive";
+            }
         }
 
         private void cbAttachType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -246,6 +255,10 @@ namespace VOP
             else if (cbCloudType.SelectedIndex == 2)
             {
                 AuthenticationHelper.SignOut();
+            }
+            else
+            {
+
             }
         }
 

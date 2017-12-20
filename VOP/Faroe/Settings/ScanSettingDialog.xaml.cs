@@ -348,7 +348,8 @@ namespace VOP
 
                         InitScanResln();
 
-                        InitMediaType();
+                        if(m_lastPaperSize == EnumPaperSizeScan._LongPage)//add by yunying shang 2017-12-20 for BMS 1857
+                            InitMediaType();
 
                         if (m_scanParams.MultiFeed == true)
                         {
@@ -743,11 +744,12 @@ namespace VOP
                 cboItem.MinWidth = 145;
                 cboItem.Style = this.FindResource("customComboBoxItem") as Style;
                 cboScanSize.Items.Add(cboItem);
+
             }
 
-            foreach ( ComboBoxItem obj in cboScanSize.Items )
+            foreach (ComboBoxItem obj in cboScanSize.Items)
             {
-                if ( null != obj.DataContext 
+                if (null != obj.DataContext
                         && (EnumPaperSizeScan)obj.DataContext == m_scanParams.PaperSize)
                 {
                     obj.IsSelected = true;

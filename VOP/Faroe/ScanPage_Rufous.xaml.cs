@@ -380,6 +380,14 @@ namespace VOP
                 OneDriveFlow.FlowType = CloudFlowType.View;
                 flow.Run();
             }
+            else
+            {
+                Googledocsflow flow = new Googledocsflow();
+                //flow.ParentWin = m_MainWin;
+                flow.FileList = files;
+                OneDriveFlow.FlowType = CloudFlowType.View;
+                flow.Run();
+            }
         }
 
         private void ImageItemCloseIconClick(object sender, RoutedEventArgs e)
