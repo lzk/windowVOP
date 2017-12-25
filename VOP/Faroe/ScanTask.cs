@@ -263,7 +263,9 @@ next:
                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                                );
                 }
-                else if (ScanResult == Scan_RET.RETSCAN_ADF_NOT_READY)
+                else if (ScanResult == Scan_RET.RETSCAN_ADFCOVER_NOT_READY ||
+                    ScanResult == Scan_RET.RETSCAN_ADFDOC_NOT_READY ||
+                    ScanResult == Scan_RET.RETSCAN_ADFPATH_NOT_READY)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,

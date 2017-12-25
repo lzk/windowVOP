@@ -15,7 +15,7 @@ public:
 	BYTE _OpenUSBDevice();
 	BYTE _OpenUSBDevice(LPCTSTR lpModuleName);
 	BYTE _OpenDevice(LPCTSTR lpModuleName);
-	BYTE _JobCreate();
+	BYTE _JobCreate(char job, BOOL isUSB);
 	BYTE _JobEnd();
 	BYTE _parameters();
 	BYTE _StartScan();

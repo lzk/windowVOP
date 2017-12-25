@@ -381,7 +381,7 @@ namespace VOP
             _bExitUpdater = false;
             while (!_bExitUpdater)// && !_bScanning)
             {
-                if (dll.CheckConnectionByName(GetDeviceName("")))
+               if (dll.CheckConnectionByName(GetDeviceName("")))
                 {
                     //SetDeviceButtonState(true);
                     //modified by yunying shang 2017-10-19 for BMS 1172

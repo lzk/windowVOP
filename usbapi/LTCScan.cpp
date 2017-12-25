@@ -36,6 +36,14 @@ using namespace Gdiplus;
 #define _SCANMODE_8BIT_GRAYSCALE  8
 #define _SCANMODE_24BIT_COLOR     24
 
+
+#define START_STAGE					0x1
+#define SCANNING_STAGE				0x2
+#define PUSH_TRANSFER_STAGE		0x3
+
+#define JOB_FLB			'F'
+#define JOB_ADF			'A'
+
 enum Scan_RET
 {
 	RETSCAN_OK = 0,
@@ -52,11 +60,19 @@ enum Scan_RET
 	RETSCAN_COVER_OPEN = 12,
 	RETSCAN_PAPER_NOT_READY = 13,
 	RETSCAN_CREATE_JOB_FAIL = 14,
-	RETSCAN_ADF_NOT_READY = 15,
+	RETSCAN_ADFCOVER_NOT_READY = 15,
 	RETSCAN_HOME_NOT_READY = 16,
 	RETSCAN_ULTRA_SONIC = 17,
 	RETSCAN_ERROR_POWER1 = 18,
 	RETSCAN_ERROR_POWER2 = 19,
+	RETSCAN_JOB_MISSING = 20,
+	RETSCAN_JOB_GOGING = 21,
+	RETSCAN_TIME_OUT = 22,
+	RETSCAN_USB_TRANSFERERROR = 23,
+	RETSCAN_WIFI_TRANSFERERROR = 24,
+	RETSCAN_ADFPATH_NOT_READY = 25,
+	RETSCAN_ADFDOC_NOT_READY = 26,
+	RETSCAN_GETINFO_FAIL = 27,
 };
 
 extern UINT WM_VOPSCAN_PROGRESS;
@@ -75,6 +91,7 @@ BOOL g_connectMode_usb = FALSE;
 static Gdiplus::GdiplusStartupInput gdiplusStartupInput;
 static ULONG_PTR gdiplusToken;
 
+CGLNet g_GLnet;
 USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	const wchar_t* tempPath,
 	int BitsPerPixel,
@@ -234,6 +251,113 @@ int GammaTransLTCtoGL(unsigned int *pbyRed, unsigned int *pbyGreen, unsigned int
 
 	}
 	return 1;
+}
+
+Scan_RET ScannerStatusCheck(CGLDrv glDrv, char stage)
+{
+	Scan_RET result = RETSCAN_OK;
+
+	memset(&glDrv.sc_infodata, 0, sizeof(SC_INFO_T));
+	if (!glDrv._info())
+	{
+		//printf("INFO command error!!");
+		result = RETSCAN_OPENFAIL;
+	}
+	else
+	{
+		if (glDrv.sc_infodata.JobID)
+		{
+			if (stage == START_STAGE)
+			{
+				//printf("Last job not finish!!\n");
+				result = RETSCAN_JOB_GOGING;
+			}
+		}
+		else 
+		{
+			if (stage == SCANNING_STAGE)
+			{
+				//printf("Scan job missing!!\n");
+				result = RETSCAN_JOB_MISSING;
+			}
+		}
+
+
+		if (glDrv.sc_infodata.ErrorStatus.cover_open_err) 
+		{
+			if (stage != PUSH_TRANSFER_STAGE) 
+			{
+				//printf("COVER_OPEN_ERR\n");
+				result = RETSCAN_COVER_OPEN;
+			}
+		}
+		if (glDrv.sc_infodata.ErrorStatus.scan_jam_err)
+		{
+			//printf("SCAN_JAM_ERR\n");
+			result = RETSCAN_PAPER_JAM;
+		}
+		if (glDrv.sc_infodata.ErrorStatus.scan_canceled_err)
+		{
+			//printf("SCAN_CANCELED_ERR\n");
+			result = RETSCAN_CANCEL;
+		}
+		if (glDrv.sc_infodata.ErrorStatus.scan_timeout_err) 
+		{
+			//printf("SCAN_TIMEOUT_ERR\n");
+			result = RETSCAN_TIME_OUT;
+		}
+		if (glDrv.sc_infodata.ErrorStatus.multi_feed_err) 
+		{
+			//printf("MULTI_FEED_ERR\n");
+			result = RETSCAN_ULTRA_SONIC;
+		}
+		if (glDrv.sc_infodata.ErrorStatus.usb_transfer_err)
+		{
+			//printf("USB_TRANSFER_ERR\n");
+			result = RETSCAN_USB_TRANSFERERROR;
+		}
+		if (glDrv.sc_infodata.ErrorStatus.wifi_transfer_err) 
+		{
+			//printf("WiFi_TRANSFER_ERR\n");
+			result = RETSCAN_WIFI_TRANSFERERROR;
+		}
+		//if (glDrv.sc_infodata.ErrorStatus.usb_disk_transfer_err)
+		//{
+		//	printf("USBDISK_TRANSFER_ERR\n");
+		//	result = RETSCAN_DISK_TRANSFERERROR;
+		//}
+		//if (glDrv.sc_infodata.ErrorStatus.ftp_transfer_err) 
+		//{
+		//	//printf("FTP_TRANSFER_ERR\n");
+		//	result = FALSE;
+		//}
+		//if (glDrv.sc_infodata.ErrorStatus.smb_transfer_err)
+		//{
+		//	printf("SMB_TRANSFER_ERR\n");
+		//	result = FALSE;
+		//}
+
+		if (stage == START_STAGE) 
+		{
+			if (glDrv.sc_infodata.SensorStatus.adf_document_sensor)
+			{
+				//printf("ADF document not ready.\n");
+				result = RETSCAN_ADFDOC_NOT_READY;
+			}
+			if (glDrv.sc_infodata.SensorStatus.adf_paper_sensor)
+			{
+				//printf("ADF path not ready.\n");
+				result = RETSCAN_ADFPATH_NOT_READY;
+			}
+			if (glDrv.sc_infodata.SensorStatus.cover_sensor)
+			{
+				//printf("ADF cover not ready.\n");
+				result = RETSCAN_ADFCOVER_NOT_READY;
+			}
+		}
+	}
+
+	return result;
 }
 
 USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
@@ -426,7 +550,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	MyOutputString(L"ADF Enter");
 	if (glDrv._OpenDevice() == TRUE)
 	{
-		
+		Scan_RET scanRet = RETSCAN_OK;
+
 		if (!glDrv.NetScanReady())
 		{
 			if (imgBuffer)
@@ -434,6 +559,13 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			glDrv._CloseDevice();
 
 			return RETSCAN_BUSY;
+		}
+
+		scanRet = ScannerStatusCheck(glDrv, START_STAGE);
+
+		if (scanRet != RETSCAN_OK)
+		{
+			return scanRet;
 		}
 
 	/*	result = glDrv.paperReady();
@@ -459,35 +591,40 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			}
 		}
 
-		result = glDrv._JobCreate();
-		if (result != 0)
-		{
-			int errorcode = RETSCAN_CREATE_JOB_FAIL;
 
-			if (imgBuffer)
-				delete imgBuffer;
-			glDrv._CloseDevice();
+		if (!glDrv._JobCreate(JOB_ADF, g_connectMode_usb))
+			return RETSCAN_CREATE_JOB_FAIL;
 
-			switch (result) {
-			case ADF_NOT_READY_ERR:
-				errorcode = RETSCAN_ADF_NOT_READY;
-				break;
-			case DOC_NOT_READY_ERR:
-				errorcode = RETSCAN_PAPER_NOT_READY;
-				break;
-			case HOME_NOT_READY_ERR:
-				errorcode = RETSCAN_HOME_NOT_READY;
-				break;
-			case SCAN_JAM_ERR:
-				errorcode = RETSCAN_PAPER_JAM;
-				break;
-			case COVER_OPEN_ERR:
-				errorcode = RETSCAN_COVER_OPEN;
-				break;
-			}
 
-			return errorcode;
-		}
+		//result = glDrv._JobCreate();
+		//if (result != 0)
+		//{
+		//	int errorcode = RETSCAN_CREATE_JOB_FAIL;
+
+		//	if (imgBuffer)
+		//		delete imgBuffer;
+		//	glDrv._CloseDevice();
+
+		//	switch (result) {
+		//	case ADF_NOT_READY_ERR:
+		//		errorcode = RETSCAN_ADF_NOT_READY;
+		//		break;
+		//	case DOC_NOT_READY_ERR:
+		//		errorcode = RETSCAN_PAPER_NOT_READY;
+		//		break;
+		//	case HOME_NOT_READY_ERR:
+		//		errorcode = RETSCAN_HOME_NOT_READY;
+		//		break;
+		//	case SCAN_JAM_ERR:
+		//		errorcode = RETSCAN_PAPER_JAM;
+		//		break;
+		//	case COVER_OPEN_ERR:
+		//		errorcode = RETSCAN_COVER_OPEN;
+		//		break;
+		//	}
+
+		//	return errorcode;
+		//}
 		
 
 		MyOutputString(L"_JobCreate");
@@ -791,9 +928,10 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		duplex = glDrv.sc_pardata.duplex;
 		start_cancel = FALSE;
 		int lineCount = 0;
-		BOOL isCoverOpen = FALSE;
-		BOOL isPaperJam = FALSE;
-		BOOL isUltraSonic = FALSE;
+		//BOOL isCoverOpen = FALSE;
+		//BOOL isPaperJam = FALSE;
+		//BOOL isUltraSonic = FALSE;
+		BOOL isScanError = FALSE;
 		bool bFinished = false;
 		TCHAR debugBuf[256];
 
@@ -801,41 +939,99 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		{
 			if (!glDrv._info())
 			{
+				scanRet = RETSCAN_OPENFAIL;
+			}
+			else
+			{
+				if (glDrv.sc_infodata.JobID==0)
+				{				
+					scanRet = RETSCAN_JOB_MISSING;					
+				}
+
+				if (glDrv.sc_infodata.ErrorStatus.cover_open_err)
+				{							
+					scanRet = RETSCAN_COVER_OPEN;					
+				}
+
+				if (glDrv.sc_infodata.ErrorStatus.scan_jam_err)
+				{
+					scanRet = RETSCAN_PAPER_JAM;
+				}
+
+				if (glDrv.sc_infodata.ErrorStatus.scan_canceled_err)
+				{
+					scanRet = RETSCAN_CANCEL;
+				}
+
+				if (glDrv.sc_infodata.ErrorStatus.scan_timeout_err)
+				{
+					scanRet = RETSCAN_TIME_OUT;
+				}
+
+				if (glDrv.sc_infodata.ErrorStatus.multi_feed_err)
+				{
+					scanRet = RETSCAN_ULTRA_SONIC;
+				}
+
+				if (glDrv.sc_infodata.ErrorStatus.usb_transfer_err)
+				{
+					scanRet = RETSCAN_USB_TRANSFERERROR;
+				}
+
+				if (glDrv.sc_infodata.ErrorStatus.wifi_transfer_err)
+				{
+					scanRet = RETSCAN_WIFI_TRANSFERERROR;
+				}
+
+			}
+
+			if (scanRet == RETSCAN_GETINFO_FAIL)
+			{
+				continue;
+			}
+
+			if (scanRet != RETSCAN_OK)
+			{
+				isScanError = TRUE;
+				break;
+			}
+			//if (!glDrv._info())
+			//{
 				/*Sleep(100);
 				continue;*/
-			}
+			//}
 				
-			if (glDrv.sc_infodata.CoverOpen)
-			{
-				isCoverOpen = TRUE;
-				break;
-			}				
+			//if (glDrv.sc_infodata.CoverOpen)
+			//{
+			//	isCoverOpen = TRUE;
+			//	break;
+			//}				
 
-			if (glDrv.sc_infodata.PaperJam)
-			{
-				if (glDrv.sc_infodata.AdfSensor)
-				{
-					isPaperJam = FALSE;
-				}
-				else
-				{
-					/*There is "scan jam" let scan flow finish for save image*/
-					isPaperJam = TRUE;
-					break;
-				}
-			}
+			//if (glDrv.sc_infodata.PaperJam)
+			//{
+			//	if (glDrv.sc_infodata.AdfSensor)
+			//	{
+			//		isPaperJam = FALSE;
+			//	}
+			//	else
+			//	{
+			//		/*There is "scan jam" let scan flow finish for save image*/
+			//		isPaperJam = TRUE;
+			//		break;
+			//	}
+			//}
 
-			if (glDrv.sc_infodata.Cancel)
-			{
-				start_cancel = TRUE;				
-				break;
-			}
+			//if (glDrv.sc_infodata.Cancel)
+			//{
+			//	start_cancel = TRUE;				
+			//	break;
+			//}
 			
-			if (glDrv.sc_infodata.UltraSonic)
-			{
-				isUltraSonic = TRUE;
-				break;
-			}
+			//if (glDrv.sc_infodata.UltraSonic)
+			//{
+			//	isUltraSonic = TRUE;
+			//	break;
+			//}
 
 			if (start_cancel)
 			{
@@ -844,6 +1040,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 			if ((!(duplex & 1) || glDrv.sc_infodata.EndScan[0]) && (!(duplex & 2) || glDrv.sc_infodata.EndScan[1]))
 				break;
+
 		/*	if (_kbhit()) {
 				_getch();
 				_cancel(JobID);
@@ -1006,7 +1203,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		glDrv._CloseDevice();
 
 		//contrast, brightness
-		if (!start_cancel && !glDrv.sc_infodata.CoverOpen && !glDrv.sc_infodata.PaperJam && !glDrv.sc_infodata.UltraSonic)
+		if (!start_cancel && !glDrv.sc_infodata.ErrorStatus.cover_open_err && 
+			!glDrv.sc_infodata.ErrorStatus.scan_jam_err && !glDrv.sc_infodata.ErrorStatus.multi_feed_err)
 		{
 			if (brightness != 50 || contrast != 50)
 			{
@@ -1037,25 +1235,32 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			::SysFreeString(bstrArray[i]);
 		}
 
-		if (isCoverOpen)
-		{
-			if (imgBuffer)
-				delete imgBuffer;
-			return RETSCAN_COVER_OPEN;
-		}
-			
-		if (isPaperJam)
-		{ 
-			if (imgBuffer)
-				delete imgBuffer;
-			return RETSCAN_PAPER_JAM;
-		}
+		//if (isCoverOpen)
+		//{
+		//	if (imgBuffer)
+		//		delete imgBuffer;
+		//	return RETSCAN_COVER_OPEN;
+		//}
+		//	
+		//if (isPaperJam)
+		//{ 
+		//	if (imgBuffer)
+		//		delete imgBuffer;
+		//	return RETSCAN_PAPER_JAM;
+		//}
 
-		if (isUltraSonic)
+		//if (isUltraSonic)
+		//{
+		//	if (imgBuffer)
+		//		delete imgBuffer;
+		//	return RETSCAN_ULTRA_SONIC;
+		//}
+
+		if (isScanError)
 		{
 			if (imgBuffer)
 				delete imgBuffer;
-			return RETSCAN_ULTRA_SONIC;
+			return scanRet;
 		}
 
 	}
@@ -1250,6 +1455,105 @@ USBAPI_API int __stdcall CheckUsbScan(
 		return 0;		
 	}
 	return 1;
+}
+
+BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
+{
+	int nResult = TRUE;
+
+	//CGLNet m_GLnet;
+
+	if (g_GLnet.CMDIO_Connect(szIP, 23011))
+	{
+		TCHAR showIp[256] = { 0 };
+		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
+		//OutputDebugString(showIp);
+
+		U8 cmd[4] = { 'J','D','G','S' };
+		U8 status[8] = { 0 };
+
+		if (g_GLnet.CMDIO_Write(cmd, 4) == TRUE)
+		{
+			if (g_GLnet.CMDIO_Read(status, 8))
+			{
+				if (status[0] == 'J'
+					&& status[1] == 'D'
+					&& status[2] == 'A'
+					&& status[4] == 0x00)
+				{
+					*re_status = RETSCAN_OK;
+				}
+				else
+				{
+					*re_status = RETSCAN_BUSY;
+				}
+
+				nResult = TRUE;
+			}
+			else
+			{
+				nResult = FALSE;
+			}
+
+		}
+		else
+		{
+			nResult = FALSE;
+		}
+
+		g_GLnet.CMDIO_Close();
+	}
+	else
+	{
+		TCHAR showIp[256] = { 0 };
+		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
+		OutputDebugString(showIp);
+
+		nResult = FALSE;
+	}
+
+	return nResult;
+}
+
+USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP)
+{
+	Scan_RET re_status = RETSCAN_OK;
+
+	if (wcslen(szIP) == 0)
+		return false;
+
+	if (TestIpConnected1(szIP, &re_status) == TRUE)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+	int nResult = TRUE;
+	//CGLNet m_GLnet;
+
+	if (g_GLnet.CMDIO_Connect(szIP, 23011))
+	{
+		TCHAR showIp[256] = { 0 };
+		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
+		//OutputDebugString(showIp);
+
+		nResult = TRUE;
+		g_GLnet.CMDIO_Close();
+	}
+	else
+	{
+
+		TCHAR showIp[256] = { 0 };
+		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
+		OutputDebugString(showIp);
+
+		nResult = FALSE;
+	}
+
+	return nResult;
 }
 
 USBAPI_API void __stdcall SetConnectionMode(
@@ -1864,15 +2168,16 @@ int Scan_WriteFile(int dup, char*buf, int length)
 #define JOB_WAIT_TIMEOUT  5000
 int job_Wait(int job, int wait_motor_stop)
 {
-	U32 tick = GetTickCount();
-	while ((GetTickCount() - tick) < JOB_WAIT_TIMEOUT) {
-		if (!g_pointer_lDrv->_info())
-			break;
-		if (!(Info.JobState & job) && (!wait_motor_stop || !Info.MotorMove))
-			return TRUE;
-		Sleep(100);
-	}
-	return FALSE;
+	return true;
+	//U32 tick = GetTickCount();
+	//while ((GetTickCount() - tick) < JOB_WAIT_TIMEOUT) {
+	//	if (!g_pointer_lDrv->_info())
+	//		break;
+	//	if (!(Info.JobState & job) && (!wait_motor_stop || !Info.MotorMove))
+	//		return TRUE;
+	//	Sleep(100);
+	//}
+	//return FALSE;
 }
 
 int _scan_start()
@@ -2719,7 +3024,7 @@ USBAPI_API int __stdcall DoCalibration()
 
 		SCAN_DOC_SIZE = DOC_K_PRNU;
 
-		nResult = glDrv._JobCreate();
+		nResult = glDrv._JobCreate(START_STAGE, g_connectMode_usb);
 		if (nResult == 0)
 		{
 			K_BatchNum++;

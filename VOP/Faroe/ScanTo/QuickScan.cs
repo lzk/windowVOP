@@ -130,7 +130,7 @@ namespace VOP
                                  Application.Current.MainWindow,
                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Not_Find_Printer"),//"Not find printer!",
                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
-                return Scan_RET.RETSCAN_ADF_NOT_READY;
+                return Scan_RET.RETSCAN_ERROR;
             }
             else
             {

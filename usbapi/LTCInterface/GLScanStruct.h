@@ -273,19 +273,49 @@ typedef struct SC_INFO_DATA_STRUCT {
 	UINT16 ImageHeight[2];    // 4
 	UINT8  EndPage[2];      // 4
 	UINT8  EndScan[2];
-	UINT8  UltraSonic;      // 4
-	UINT8  PaperJam;
-	UINT8  CoverOpen;
-	UINT8  Cancel;
-	UINT8  key;        // 4
-	UINT8  MotorMove;
-	UINT8  AdfSensor;
-	UINT8  DocSensor;
-	UINT8  HomeSensor;      // 4
-	UINT8  JobOwner;
-	UINT8  reserve1[2];
-	UINT8  reserve2[4];    // 4
-	UINT32 JobState;      // 4
+	struct {
+		UINT32 cover_open_err : 1;
+		UINT32 scan_jam_err : 1;
+		UINT32 scan_canceled_err : 1;
+		UINT32 scan_timeout_err : 1;
+		UINT32 multi_feed_err : 1;
+		UINT32 usb_transfer_err : 1;
+		UINT32 wifi_transfer_err : 1;
+		UINT32 usb_disk_transfer_err : 1;
+		UINT32 ftp_transfer_err : 1;
+		UINT32 smb_transfer_err : 1;
+		UINT32 reserved : 22;
+	} ErrorStatus;
+
+	struct {
+		UINT32 adf_document_sensor : 1;
+		UINT32 fb_home_sensor : 1;
+		UINT32 adf_paper_sensor : 1;
+		UINT32 cover_sensor : 1;
+		UINT32 reserved : 28;
+	} SensorStatus;
+
+	struct {
+		UINT32 scanning : 1;
+		UINT32 sleep_mode : 1;
+		UINT32 reserved : 30;
+	} SystemStatus;
+
+	UINT8  JobID;
+	UINT8  reserved[7];
+	//UINT8  UltraSonic;      // 4
+	//UINT8  PaperJam;
+	//UINT8  CoverOpen;
+	//UINT8  Cancel;
+	//UINT8  key;        // 4
+	//UINT8  MotorMove;
+	//UINT8  AdfSensor;
+	//UINT8  DocSensor;
+	//UINT8  HomeSensor;      // 4
+	//UINT8  JobOwner;
+	//UINT8  reserve1[2];
+	//UINT8  reserve2[4];    // 4
+	//UINT32 JobState;      // 4
 } SC_INFO_DATA_T;
 
 /*sensor parameter*/

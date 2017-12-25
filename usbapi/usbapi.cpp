@@ -1344,118 +1344,19 @@ USBAPI_API void __stdcall ResetBonjourAddr()
 	::memset(addr, 0, 256);
 }
 
-enum Scan_RET
-{
-	RETSCAN_OK = 0,
-	RETSCAN_ERRORDLL = 1,
-	RETSCAN_OPENFAIL = 2,
-	RETSCAN_ERRORPARAMETER = 3,
-	RETSCAN_NO_ENOUGH_SPACE = 5,
-	RETSCAN_ERROR_PORT = 6,
-	RETSCAN_CANCEL = 7,
-	RETSCAN_BUSY = 8,
-	RETSCAN_ERROR = 9,
-	RETSCAN_OPENFAIL_NET = 10,
-};
-
-BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
-{
-	int nResult = TRUE;
-
-	CGLNet m_GLnet;
-
-	if (m_GLnet.CMDIO_Connect(szIP, 23011))
-	{
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
-		//OutputDebugString(showIp);
-
-		U8 cmd[4] = { 'J','D','G','S' };
-		U8 status[8] = { 0 };
-
-		if (m_GLnet.CMDIO_Write(cmd, 4) == TRUE)
-		{
-			if (m_GLnet.CMDIO_Read(status, 8))
-			{
-				if (   status[0] == 'J'
-					&& status[1] == 'D' 
-					&& status[2] == 'A'
-					&& status[4] == 0x00)
-				{
-					*re_status = RETSCAN_OK;
-				}
-				else
-				{
-					*re_status = RETSCAN_BUSY;
-				}
-
-				nResult = TRUE;
-			}
-			else
-			{
-				nResult = FALSE;
-			}
-
-		}
-		else
-		{
-			nResult = FALSE;
-		}
-
-		m_GLnet.CMDIO_Close();
-	}
-	else
-	{
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
-		OutputDebugString(showIp);
-
-		nResult = FALSE;
-	}
-
-	return nResult;
-}
-
-USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP)
-{
-	Scan_RET re_status = RETSCAN_OK;
-
-	if (wcslen(szIP) == 0)
-		return false;
-
-	if (TestIpConnected1(szIP, &re_status) == TRUE)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-
-	int nResult = TRUE;
-	CGLNet m_GLnet;
-	
-	if (m_GLnet.CMDIO_Connect(szIP, 23011))
-	{
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
-		//OutputDebugString(showIp);
-
-		nResult = TRUE;
-		m_GLnet.CMDIO_Close();
-	}
-	else
-	{
-		
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
-		OutputDebugString(showIp);
-
-		nResult = FALSE;
-	}
-
-	return nResult;
-}
+//enum Scan_RET
+//{
+//	RETSCAN_OK = 0,
+//	RETSCAN_ERRORDLL = 1,
+//	RETSCAN_OPENFAIL = 2,
+//	RETSCAN_ERRORPARAMETER = 3,
+//	RETSCAN_NO_ENOUGH_SPACE = 5,
+//	RETSCAN_ERROR_PORT = 6,
+//	RETSCAN_CANCEL = 7,
+//	RETSCAN_BUSY = 8,
+//	RETSCAN_ERROR = 9,
+//	RETSCAN_OPENFAIL_NET = 10,
+//};
 
 static void DNSSD_API addrinfo_reply(DNSServiceRef sdref, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *hostname, const struct sockaddr *address, uint32_t ttl, void *context)
 {

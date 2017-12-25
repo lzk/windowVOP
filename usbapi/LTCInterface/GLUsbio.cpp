@@ -33,7 +33,8 @@ int CGLUsb::CMDIO_OpenDevice()
 	TCHAR strPort[32] = { 0 };
 	int  iCnt;
 
-	for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++) {
+	for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++) 
+	{
 		_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
 		m_hDev = CreateFile(strPort,
 			GENERIC_READ | GENERIC_WRITE,
@@ -73,6 +74,63 @@ int CGLUsb::CMDIO_OpenDevice()
 	return (m_hDev == INVALID_HANDLE_VALUE) ? False : True;
 }
 
+int CGLUsb::CMDIO_OpenDevice(LPCTSTR lpModuleName)
+{
+	TCHAR strPort[32];
+	int  iCnt = 0;
+
+	_tcscpy(strPort, lpModuleName);
+
+	//for (iCnt=0;iCnt <= MAX_DEVICES; iCnt++) 
+	{
+		//if (m_GLUSBDev != INVALID_HANDLE_VALUE)
+		//{
+		//	m_hDev = m_GLUSBDev;
+		//}
+		//else
+		{
+			m_hDev = CreateFile(strPort,
+				GENERIC_READ | GENERIC_WRITE,
+				FILE_SHARE_READ | FILE_SHARE_WRITE,
+				NULL,
+				OPEN_EXISTING,
+				FILE_FLAG_OVERLAPPED, NULL);
+		}
+
+		if (m_hDev != INVALID_HANDLE_VALUE)
+		{
+
+#ifdef USB_VID
+			if (!CMDIO_GetDeviceFeatures()) {
+				CloseHandle(m_hDev);
+				//continue;
+				return False;
+			}
+
+			//#ifdef USB_VID
+			if (CMDIO_VID != USB_VID) {
+				CloseHandle(m_hDev);
+				//continue;
+				return False;
+			}
+#endif
+#ifdef USB_PID
+			if (CMDIO_PID != USB_PID) {
+				CloseHandle(m_hDev);
+				//continue;
+				return False;
+			}
+#endif
+			m_hIntrEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+			m_hDevice[0] = m_hDev;
+			OpenBulkPipes(m_hDevice, strPort);	// Jason 140408
+												//break;
+		}
+	}
+
+	return (m_hDev == INVALID_HANDLE_VALUE) ? False : True;
+}
+
 typedef enum { USB_10, USB_20, USB_30 } flgUSBType;
 int CGLUsb::CMDIO_GetDeviceFeatures()
 {
@@ -82,6 +140,7 @@ int CGLUsb::CMDIO_GetDeviceFeatures()
 
 	if (!CMDIO_GetConnectionType(&CMDIO_iConnectType))
 		return False;
+
 	CMDIO_BulkFiFoSize = ((CMDIO_iConnectType >= USB_20) ? 512 : 64);
 
 	bRet = AsyncDeviceIoCtrl(m_hDev,
@@ -123,56 +182,6 @@ int CGLUsb::CMDIO_GetConnectionType(BYTE *nType)
 		*nType = USB_20;
 
 	return True;
-}
-
-int CGLUsb::CMDIO_OpenDevice(LPCTSTR lpModuleName)
-{
-	TCHAR strPort[32];
-	int  iCnt=0;
-	_tcscpy(strPort,lpModuleName);
-	for (iCnt=0;iCnt <= MAX_DEVICES; iCnt++) 
-	{
-		if(m_GLUSBDev != INVALID_HANDLE_VALUE )
-		{
-			m_hDev = m_GLUSBDev;
-		}
-		else
-		{
-			m_hDev = CreateFile(strPort,
-				GENERIC_READ | GENERIC_WRITE,
-				FILE_SHARE_READ | FILE_SHARE_WRITE,
-				NULL,
-				OPEN_EXISTING,
-				FILE_FLAG_OVERLAPPED, NULL);
-		}
-		if (m_hDev != INVALID_HANDLE_VALUE) 
-		{
-
-#ifdef USB_VID
-			if (!CMDIO_GetDeviceFeatures()) {
-				CloseHandle(m_hDev);
-				continue;
-			}
-
-			//#ifdef USB_VID
-			if (CMDIO_VID != USB_VID) {
-				CloseHandle(m_hDev);
-				continue;
-			}
-#endif
-#ifdef USB_PID
-			if (CMDIO_PID != USB_PID) {
-				CloseHandle(m_hDev);
-				continue;
-			}
-#endif
-			m_hIntrEvent = CreateEvent(NULL,TRUE,FALSE,NULL);
-			m_hDevice[0] = m_hDev;
-			OpenBulkPipes(m_hDevice, strPort);	// Jason 140408
-		}
-	}
-	
-	return (m_hDev == INVALID_HANDLE_VALUE) ? False : True ;
 }
 
 int CGLUsb::OpenBulkPipes(HANDLE *hPipe, LPCTSTR lpModuleName)
@@ -469,9 +478,10 @@ CGLNet::~CGLNet()
 	m_lpfnNetworkWrite = NULL;
 	m_lpfnNetworkClose = NULL;
 
-	if (m_hmod)
+	if (m_hmod != NULL)
 	{
 		FreeLibrary(m_hmod);
+		m_hmod = NULL;
 	}
 
 }
