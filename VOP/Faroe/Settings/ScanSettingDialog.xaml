@@ -545,7 +545,7 @@
                                              Width="220" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
                         <StackPanel Orientation="Vertical">
                             <Slider HorizontalAlignment="Center" VerticalAlignment="Center" Minimum="0" Name="sldr_gamma" ValueChanged="sldr_value_change"
-                        Maximum="100" Value="18" Height="18" Width="154" Template="{StaticResource HorizontalSlider}" Margin="10,10"/>
+                        Maximum="50" Value="18" Height="18" Width="154" Template="{StaticResource HorizontalSlider}" Margin="10,10"/>
                             <TextBlock Name="tbGamma" Text="1.8"  FontSize="30" Foreground="#FF707070" HorizontalAlignment="Center"></TextBlock>
                             <!-- <TextBox Name="tbGamma" Template="{StaticResource customTextBox}" Width="50"  VerticalAlignment="Center" 
                                      HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="24"

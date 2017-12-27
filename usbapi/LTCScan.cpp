@@ -103,6 +103,9 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	BOOL ADFMode,
 	BOOL onepage,
 	UINT32 uMsg,
+	BOOL bColorDetect,
+	BOOL bSkipBlankPage,
+	double gammaValue,
 	SAFEARRAY** fileNames);
 
 USBAPI_API BOOL __stdcall CheckConnection();
@@ -373,6 +376,9 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	BOOL AutoCrop,
 	BOOL onepage,
 	UINT32 uMsg,
+	BOOL bColorDetect,
+	BOOL bSkipBlankPage,
+	double gammaValue,
 	SAFEARRAY** fileNames)
 {
 	
@@ -429,7 +435,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	ImgFile[0].img.dpi.y = ImgFile[1].img.dpi.y = resolution;
 
 
-	glDrv.sc_pardata.acquire = ((MultiFeed ? 1 : 0) * ACQ_ULTRA_SONIC) | ((AutoCrop ? 1 : 0) * ACQ_CROP_DESKEW) |  1 * ACQ_NO_GAMMA;
+	glDrv.sc_pardata.acquire = ((MultiFeed ? 1 : 0) * ACQ_ULTRA_SONIC) | ((AutoCrop ? 1 : 0) * ACQ_CROP_DESKEW)
+		|  1 * ACQ_NO_GAMMA|((bColorDetect?1:0)*ACQ_DETECT_COLOR)|((bSkipBlankPage?1:0)*ACQ_SKIP_BLANKPAGE);
 
 	//glDrv.sc_job_create.mode = I1('D');
 	glDrv.sc_job_create.mode = 0;
@@ -634,7 +641,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		int i, numread;
 		unsigned int gGammaData[768];
 		U32 up, down;
-		double gamma = 1.8;
+		double gamma = gammaValue;//1.8;
 		unsigned int Red[65536];
 		unsigned int Green[65536];
 		unsigned int Blue[65536];
@@ -644,7 +651,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 
 		//unsigned int *gGammaData;	
-		for (i = 0; i<65536; i++) {
+		for (i = 0; i<65536; i++)
+		{
 			/*Red[i] = (unsigned int)(65536 - i);
 			Green[i] = (unsigned int)(65536 - i);
 			Blue[i] = (unsigned int)(65536 - i);*/
@@ -663,21 +671,15 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				}
 			}
 
-			Red[65535 - i] = Temp;
-			Green[65535 - i] = Temp;
-			Blue[65535 - i] = Temp;
+			//Red[65535 - i] = Temp;
+			//Green[65535 - i] = Temp;
+			//Blue[65535 - i] = Temp;
+			Red[i] = Temp;
+			Green[i] = Temp;
+			Blue[i] = Temp;
 		}
 
 		GammaTransLTCtoGL(pbyRed, pbyGreen, pbyBlue, gGammaData);
-
-		result = glDrv._gamma(gGammaData);
-		if (!result)
-		{
-			if (imgBuffer)
-				delete imgBuffer;
-			glDrv._CloseDevice();
-			return RETSCAN_ERRORPARAMETER;
-		}
 
 		result = glDrv._parameters();
 		MyOutputString(L"_parameters");
@@ -688,7 +690,15 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			glDrv._CloseDevice();
 			return RETSCAN_ERRORPARAMETER;
 		}
-		
+
+		result = glDrv._gamma(gGammaData);
+		if (!result)
+		{
+			if (imgBuffer)
+				delete imgBuffer;
+			glDrv._CloseDevice();
+			return RETSCAN_ERRORPARAMETER;
+		}	
 
 	/*	unsigned int gGammaData[768];
 
