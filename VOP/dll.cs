@@ -507,6 +507,9 @@ namespace VOP
         [DllImport("usbapi.dll")]
         public static extern int CheckPrinterStatus(
         [MarshalAs(UnmanagedType.LPWStr)]String printername);
+
+        [DllImport("usbapi.dll")]
+        public static extern Byte GetPowerSupply();
     }
 
 }

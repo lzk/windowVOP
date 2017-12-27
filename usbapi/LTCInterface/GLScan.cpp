@@ -1403,6 +1403,9 @@ BYTE CGLDrv::_GetPowerSupply()
 {
 	int result;
 
+	sc_power = { 0 };
+	sc_power.code = I4('PWRM');
+
 	memset(&sc_powerData, 0, sizeof(sc_powerData));
 
 	if (g_connectMode_usb == TRUE)

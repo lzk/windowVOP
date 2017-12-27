@@ -378,7 +378,9 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_print_fail">Print failed. </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_print_ok">Print completed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting">Scan Settings :</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting1">Scan Settings</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting1">Scan Settings(AC Power)</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting2">Scan Settings(USB Bus Power)</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting3">Scan Settings(Power Bank)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_qr_setting">QRcode settings :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_quick">Quick</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Accurate">Accurate</sys:String>
@@ -414,7 +416,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_multifeed_error">Multi-feed error</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_fail">Scan failed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_not_on_line">The computer is not on line!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Bankbook">Bankbook</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Bankbook">Deposit Book</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Type_Normal">Normal</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Calibration">Calibration:</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_SleepMode">Sleep Mode:</sys:String>
@@ -518,9 +520,9 @@
     <sys:String xml:space="preserve" x:Key="ResStr_EverNote_List">Ever Note List: </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Upload_success">Upload success!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Device_Not_Ready">The Device is not ready!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Power_Bank">The scan job could not be continued, because the bank power mode do not support Two Side and Auto Crop. If you select 'Yes', the scan job will be continue, but the ADF mode is changed to 'One Side' and Auto Crop wil lbe off. If you select 'No', the scan job will be canceled!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Power_Bus">The scan job could not be continued, because the bus power mode do not support Two Side and Auto Crop. If you select 'Yes', the scan job will be continue, but the ADF mode is changed to 'One Side' and Auto Crop wil lbe off. If you select 'No', the scan job will be canceled!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Power_Bus_Wifi">The scan job could not be continued, because the bus power mode do not support WIFI scanning.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Power_Bank">The scan job could not be continued, because the Power Bank mode do not support the following settings.&#13;&#10; ADF Mode: Two Side&#13;&#10;Multi Feed: ON\&#13;&#10;Auto Crop: ON&#13;&#10;MediaType: Deposit Book or Card Media Type&#13;&#10;Scan Size: Long Page Mode&#13;&#10;If you select 'Yes', the scan job will be continue, but the following settings will be changed&#13;&#10;   ADF Mode: One Side&#13;&#10;   Auto Crop: Off&#13;&#10;  Media Type: Plain&#13;&#10;  Scan Size: Auto&#13;&#10;If you select 'No', the scan job will be canceled!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Power_Bus">The scan job could not be continued, because the USB Bus power mode do not support the following settings.&#13;&#10; ADF Mode: Two Side&#13;&#10;Multi Feed: ON\&#13;&#10;Auto Crop: ON&#13;&#10;MediaType: Deposit Book or Card Media Type&#13;&#10;Scan Size: Long Page Mode&#13;&#10;If you select 'Yes', the scan job will be continue, but the following settings will be changed&#13;&#10;   ADF Mode: One Side&#13;&#10;   Auto Crop: Off&#13;&#10;  Media Type: Plain&#13;&#10;  Scan Size: Auto&#13;&#10;If you select 'No', the scan job will be canceled!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Power_Bus_Wifi">The scan job could not be continued, because the USB Bus power mode do not support WIFI scanning.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Gamma">Gamma</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Skip_Blank_Page">Skip Blank Page</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Auto_Color_Detect">Auto Color Detection</sys:String>

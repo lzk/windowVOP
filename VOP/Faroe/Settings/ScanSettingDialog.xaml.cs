@@ -39,6 +39,7 @@ namespace VOP
         private EnumScanMediaType m_lastPaperType = EnumScanMediaType._Normal;
         private EnumPaperSizeScan m_lastPaperSize1 = EnumPaperSizeScan._Auto;
         private EnumScanResln m_lastRes = EnumScanResln._200x200;
+        private Byte m_powermode = 1;
 
         public ScanSettingDialog()
         {
@@ -54,6 +55,20 @@ namespace VOP
         public void handler_loaded( object sender, RoutedEventArgs e )
         {
             m_lastPaperType = m_scanParams.ScanMediaType;
+
+            byte power = dll.GetPowerSupply();
+
+            if (power != 0)
+            {
+                m_powermode = power;
+            }
+
+            if (m_powermode == 1)
+                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting1");
+            else if (m_powermode == 2)
+                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting2");
+            else if (m_powermode == 3)
+                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting3");
 
             InitControls();
             InitScanResln();
@@ -135,7 +150,8 @@ namespace VOP
             //        break;                   
             //}
 
-            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
+            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
+                m_powermode > 1)
             {
                 twoSideButton.IsChecked = false;
                 twoSideButton.IsEnabled = false;
@@ -158,7 +174,8 @@ namespace VOP
 
             if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
-                m_scanParams.ScanMediaType == EnumScanMediaType._Card)
+                m_scanParams.ScanMediaType == EnumScanMediaType._Card ||
+                m_powermode > 1)
             {
                 MultiFeedOnButton.IsChecked = false;
                 MultiFeedOnButton.IsEnabled = false;
@@ -177,7 +194,8 @@ namespace VOP
                 }
             }
 
-            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
+            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
+                m_powermode > 1)
             {
                 AutoCropOnButton.IsChecked = false;
                 AutoCropOnButton.IsEnabled = false;
@@ -746,12 +764,15 @@ namespace VOP
                 cboItem.Style = this.FindResource("customComboBoxItem") as Style;
                 cboScanSize.Items.Add(cboItem);
 
-                cboItem = new ComboBoxItem();
-                cboItem.Content = (string)this.TryFindResource("ResStr_LongPage_");
-                cboItem.DataContext = EnumPaperSizeScan._LongPage;
-                cboItem.MinWidth = 145;
-                cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-                cboScanSize.Items.Add(cboItem);
+                if (m_powermode <= 1)
+                {
+                    cboItem = new ComboBoxItem();
+                    cboItem.Content = (string)this.TryFindResource("ResStr_LongPage_");
+                    cboItem.DataContext = EnumPaperSizeScan._LongPage;
+                    cboItem.MinWidth = 145;
+                    cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+                    cboScanSize.Items.Add(cboItem);
+                }
 
             }
 
@@ -791,7 +812,8 @@ namespace VOP
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboMediaType.Items.Add(cboItem);
 
-            if (m_scanParams.PaperSize != EnumPaperSizeScan._LongPage)
+            if (m_scanParams.PaperSize != EnumPaperSizeScan._LongPage &&
+                m_powermode <= 1)
             {
                 cboItem = new ComboBoxItem();
                 cboItem.Content = (string)this.TryFindResource("ResStr_Bankbook");
