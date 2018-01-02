@@ -963,12 +963,14 @@ namespace VOP
         public PowerSaveTimeRecord GetPowerSaveTime(string printerName)
         {
             PowerSaveTimeRecord rec = new PowerSaveTimeRecord();
-            byte time = 0;
+            Int16 sleepTime = 0;
+            Int16 offTime = 0;
 
-            int result = dll.GetPowerSaveTime(printerName, ref time);
+            int result = dll.GetPowerSaveTime(printerName, ref sleepTime, ref offTime);
  
             rec.PrinterName = printerName;
-            rec.Time = time;
+            rec.SleepTime = sleepTime;
+            rec.OffTime = offTime;
     
             rec.CmdResult = (EnumCmdResult)result;
 
@@ -978,14 +980,16 @@ namespace VOP
         public PowerSaveTimeRecord SetPowerSaveTime(PowerSaveTimeRecord rec)
         {
             string printerName = "";
-            byte time = 0;
+            Int16 sleepTime = 0;
+            Int16 offTime = 0;
 
             if (rec != null)
             {
                 printerName = rec.PrinterName;
-                time = rec.Time;
+                sleepTime = rec.SleepTime;
+                offTime = rec.OffTime;
 
-                int result = dll.SetPowerSaveTime(printerName, time);
+                int result = dll.SetPowerSaveTime(printerName, sleepTime, offTime);
 
                 rec.CmdResult = (EnumCmdResult)result;
 
@@ -1233,42 +1237,42 @@ namespace VOP
 
     public class PowerSaveTimeRecord : BaseRecord
     {
-        private byte time;
-        private bool isPowerOff;
+        private Int16 sleepTime;
+        private Int16 offTime;
 
-        public byte Time
+        public Int16 SleepTime
         {
-            get { return this.time; }
+            get { return this.sleepTime; }
             set
             {
-                this.time = value;
-                OnPropertyChanged("Time");
+                this.sleepTime = value;
+                OnPropertyChanged("SleeepTime");
             }
         }
 
-        public bool IsPowerOff
+        public Int16 OffTime
         {
-            get { return isPowerOff; }
+            get { return this.offTime; }
             set
             {
-                isPowerOff = value;
-                OnPropertyChanged("IsPowerOff");
+                this.offTime = value;
+                OnPropertyChanged("OffTime");
             }
         }
 
         public PowerSaveTimeRecord()
         {
             printerName = "";
-            time = 1;
-            isPowerOff = true;
+            sleepTime = 0;
+            offTime = 0;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
-        public PowerSaveTimeRecord(string printerName, byte time, bool isPowerOff = true)
+        public PowerSaveTimeRecord(string printerName, Int16 sleepTime, Int16 offTime)
         {
             this.printerName = printerName;
-            this.time = time;
-            this.isPowerOff = isPowerOff;
+            this.sleepTime = sleepTime;
+            this.offTime = offTime;
             cmdResult = EnumCmdResult._CMD_invalid;
         }
     }

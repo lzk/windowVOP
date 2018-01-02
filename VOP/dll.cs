@@ -58,12 +58,12 @@ namespace VOP
         [DllImport("usbapi.dll")]
         public static extern int SetPowerSaveTime(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
-                byte time);
+                Int16 sleepTime, Int16 offTime);
 
         [DllImport("usbapi.dll")]
         public static extern int GetPowerSaveTime(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
-                ref byte time);
+                ref Int16 sleepTime, ref Int16 offTime);
 
         [DllImport("usbapi.dll")]
         public static extern int SetPowerOff(

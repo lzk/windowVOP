@@ -21,10 +21,13 @@ namespace VOP
     /// </summary>
     public partial class DeviceView : UserControl
     {
-        byte m_psavetime = 1;
+        Int16 m_psavetime = 0;
+        Int16 m_pofftime = 0;
         bool m_currentStatus = false;
-        private RepeatButton btnDecrease;
-        private RepeatButton btnIncrease;
+        private RepeatButton btnSleepDecrease;
+        private RepeatButton btnSleepIncrease;
+        private RepeatButton btnOffDecrease;
+        private RepeatButton btnOffIncrease;
 
         public DeviceView()
         {
@@ -33,7 +36,8 @@ namespace VOP
 
         public void init_config(bool _bDisplayProgressBar = true)
         {
-            m_psavetime = 1;
+            m_psavetime = 0;
+            m_pofftime = 0;
 
             PowerSaveTimeRecord m_rec = null;
             string strPrinterName = "";
@@ -50,19 +54,26 @@ namespace VOP
 
             if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
             {
-                //m_psavetime = m_rec.Time;
+                m_psavetime = m_rec.SleepTime;
+                m_pofftime = m_rec.OffTime;
             }
 
-            spinnerControl1.FormattedValue = String.Format("{0}", m_psavetime);
-
-            TextBox tb = spinnerControl1.Template.FindName("tbTextBox", spinnerControl1) as TextBox;
+            spinnerControlAutoSleep.FormattedValue = String.Format("{0}", m_psavetime);
+            TextBox tb = spinnerControlAutoSleep.Template.FindName("tbTextBox", spinnerControlAutoSleep) as TextBox;
             tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
+
+            spinnerControlAutoOff.FormattedValue = String.Format("{0}", m_pofftime);
+            tb = spinnerControlAutoOff.Template.FindName("tbTextBox", spinnerControlAutoOff) as TextBox;
+            tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
+            tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
+            tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
+            
             // UpdateApplyBtnStatus();
         }
 
-        private void SpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        private void AutoSleepSpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             VOP.Controls.SpinnerControl spinnerCtl = sender as VOP.Controls.SpinnerControl;
             TextBox tb = spinnerCtl.Template.FindName("tbTextBox", spinnerCtl) as TextBox;
@@ -73,12 +84,33 @@ namespace VOP
                 {
                     if (textValue > 30)
                         tb.Text = "30";
-                    else if (textValue < 1)
-                        tb.Text = "1";
+                    else if (textValue < 0)
+                        tb.Text = "0";
                 }
                 else
                 {
-                    tb.Text = "1";
+                    tb.Text = "0";
+                }
+            }
+        }
+
+        private void AutoOffSpinnerTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            VOP.Controls.SpinnerControl spinnerCtl = sender as VOP.Controls.SpinnerControl;
+            TextBox tb = spinnerCtl.Template.FindName("tbTextBox", spinnerCtl) as TextBox;
+            int textValue = 0;
+            if (!spinnerCtl.IsFocused)
+            {
+                if (int.TryParse(tb.Text, out textValue))
+                {
+                    if (textValue > 240)
+                        tb.Text = "240";
+                    else if (textValue < 0)
+                        tb.Text = "0";
+                }
+                else
+                {
+                    tb.Text = "0";
                 }
             }
         }
@@ -114,20 +146,21 @@ namespace VOP
 
         private void UpdateApplyBtnStatus()
         {
-            byte psavetime = m_psavetime;
+            Int16 psavetime = m_psavetime;
+            Int16 pofftime = m_pofftime;
 
             try
             {
-                psavetime = Convert.ToByte(spinnerControl1.Value);
+                psavetime = Convert.ToByte(spinnerControlAutoSleep.Value);
+                pofftime = Convert.ToByte(spinnerControlAutoOff.Value);
             }
             catch
             {
-                psavetime = m_psavetime;
             }
 
             if (null != btnApply)
             {
-                if (psavetime != m_psavetime)
+                if (psavetime != m_psavetime || pofftime != m_pofftime)
                 {
                     btnApply.IsEnabled = true;
                 }
@@ -151,21 +184,39 @@ namespace VOP
                 return false;
             }
 
-            byte psavetime = Convert.ToByte(spinnerControl1.Value);
-            if (psavetime < 1 || 30 < psavetime)
-                psavetime = 1;
+            byte psavetime = Convert.ToByte(spinnerControlAutoSleep.Value);
+            if (psavetime < 0)
+                psavetime = 0;
+            else if (30 < psavetime)
+                psavetime = 30;
+
+            m_psavetime = psavetime;
+            spinnerControlAutoSleep.FormattedValue = String.Format("{0}", m_psavetime);
+
+            byte pofftime = Convert.ToByte(spinnerControlAutoOff.Value);
+            if (pofftime < 0)
+                pofftime = 0;
+            else if(pofftime<=psavetime)
+            {
+                pofftime = (byte)((int)psavetime + 1);
+            }
+
+            if (240 < pofftime)
+                pofftime = 240;
+
+            m_pofftime = pofftime;
+            spinnerControlAutoOff.FormattedValue = String.Format("{0}", m_pofftime);
 
             string strPrinterName = "";
 
-            PowerSaveTimeRecord m_rec = new PowerSaveTimeRecord(strPrinterName, psavetime);
+            PowerSaveTimeRecord m_rec = new PowerSaveTimeRecord(strPrinterName, m_psavetime, m_pofftime);
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
-          //  if (worker.InvokeMethod<PowerSaveTimeRecord>(strPrinterName, ref m_rec, DllMethodType.SetPowerSaveTime, this))
+            if (worker.InvokeMethod<PowerSaveTimeRecord>(strPrinterName, ref m_rec, DllMethodType.SetPowerSaveTime, this))
             {
-//                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                 {
-  //                  m_psavetime = psavetime;
-    //                isApplySuccess = true;
+                    isApplySuccess = true;
                 }
 
             }
@@ -199,74 +250,11 @@ namespace VOP
             }
         }
 
-        private void handler_text_changed(object sender, TextChangedEventArgs e)
+        private void spinnerControl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> e)
         {
-            TextBox tb = sender as TextBox;
-
-            if (null != tb)
-            {
-                if ("tb_powersave" == tb.Name)
-                {
-                    int nVal = m_psavetime;
-                    try
-                    {
-                        if (tb.Text.Length > 0)
-                            nVal = Convert.ToInt32(tb.Text);
-                        else
-                            nVal = 1;
-                    }
-                    catch
-                    {
-                    }
-
-                    if (nVal <= 0)
-                        nVal = 1;
-
-                    if (nVal >= 30)
-                        nVal = 30;
-
-                    tb.Text = nVal.ToString();
-                    tb.CaretIndex = tb.Text.Length;
-                }
-
-                //UpdateApplyBtnStatus();
-            }
-        }
-
-        private void spinnerControl1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<decimal> e)
-        {
-            if (btnDecrease != null && btnIncrease != null)
-            {
-                CheckPowerSaveValue();
-            }
+            CheckPowerSaveValue();
 
             UpdateApplyBtnStatus();
-        }
-
-        private void spinnerControl1_ValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
-        {
-            VOP.Controls.SpinnerControl sc = sender as VOP.Controls.SpinnerControl;
-            //if (false == m_currentStatus)
-            {
-                if (sc.ValidationHasError == true)
-                {
-                    btnApply.IsEnabled = false;
-                   
-                    //add by yunying shang 2017-11-10 for BMS 1389
-                    btnIncrease.IsEnabled = false;
-              
-                    btnDecrease.IsEnabled = false;
-                    
-                }
-                else
-                { 
-                    btnApply.IsEnabled = true;
-                }
-            }
-           // else
-           // {
-           //     btnApply.IsEnabled = false;
-           // }
         }
 
         public void PassStatus(bool online)
@@ -300,18 +288,11 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            /*
-                        if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
-                        {
-                            dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, true);
-                        }
-                        else
-                        {
-                            dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, false);
-                        }
-            */
-            btnDecrease = spinnerControl1.Template.FindName("btnDecrease", spinnerControl1) as RepeatButton;
-            btnIncrease = spinnerControl1.Template.FindName("btnIncrease", spinnerControl1) as RepeatButton;
+            btnSleepDecrease = spinnerControlAutoSleep.Template.FindName("btnDecrease", spinnerControlAutoSleep) as RepeatButton;
+            btnSleepIncrease = spinnerControlAutoSleep.Template.FindName("btnIncrease", spinnerControlAutoSleep) as RepeatButton;
+
+            btnOffDecrease = spinnerControlAutoOff.Template.FindName("btnDecrease", spinnerControlAutoOff) as RepeatButton;
+            btnOffIncrease = spinnerControlAutoOff.Template.FindName("btnIncrease", spinnerControlAutoOff) as RepeatButton;
 
             CheckPowerSaveValue();
 
@@ -321,21 +302,38 @@ namespace VOP
 
         private void CheckPowerSaveValue() // BMS #1195
         {
-            if (spinnerControl1.Value == spinnerControl1.Minimum)
+            if (spinnerControlAutoSleep.Value <= spinnerControlAutoSleep.Minimum)
             {
-                btnDecrease.IsEnabled = false;
-                btnIncrease.IsEnabled = true;
+                btnSleepDecrease.IsEnabled = false;
+                btnSleepIncrease.IsEnabled = true;
             }
-            else if (spinnerControl1.Value == spinnerControl1.Maximum)
+            else if (spinnerControlAutoSleep.Value >= spinnerControlAutoSleep.Maximum)
             {
-                btnIncrease.IsEnabled = false;
-                btnDecrease.IsEnabled = true;
+                btnSleepIncrease.IsEnabled = false;
+                btnSleepDecrease.IsEnabled = true;
             }
             else
             {
-                btnIncrease.IsEnabled = true;
-                btnDecrease.IsEnabled = true;
+                btnSleepIncrease.IsEnabled = true;
+                btnSleepDecrease.IsEnabled = true;
             }
+
+            if (spinnerControlAutoOff.Value <= spinnerControlAutoOff.Minimum)
+            {
+                btnOffDecrease.IsEnabled = false;
+                btnOffIncrease.IsEnabled = true;
+            }
+            else if (spinnerControlAutoOff.Value >= spinnerControlAutoOff.Maximum)
+            {
+                btnOffIncrease.IsEnabled = false;
+                btnOffDecrease.IsEnabled = true;
+            }
+            else
+            {
+                btnOffIncrease.IsEnabled = true;
+                btnOffDecrease.IsEnabled = true;
+            }
+
         }
 
         private void btnApply_Click_1(object sender, RoutedEventArgs e)
