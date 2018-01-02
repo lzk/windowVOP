@@ -379,6 +379,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	BOOL bColorDetect,
 	BOOL bSkipBlankPage,
 	double gammaValue,
+	int type,
 	SAFEARRAY** fileNames)
 {
 	
@@ -588,11 +589,11 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		BYTE power_mode = glDrv._GetPowerSupply();
 		if (1 < power_mode )
 		{
-			if (2 == power_mode && (ADFMode || AutoCrop))
+			if (2 == power_mode && (ADFMode || AutoCrop || MultiFeed || height>14000 || type>0))
 			{
 				return RETSCAN_ERROR_POWER1;
 			}
-			else if(ADFMode || AutoCrop || g_connectMode_usb == false)
+			else if(ADFMode || AutoCrop || MultiFeed || height>14000||type >0||g_connectMode_usb == false)
 			{
 				return RETSCAN_ERROR_POWER2;
 			}

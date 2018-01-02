@@ -141,7 +141,7 @@ namespace VOP
             item.Content = stack;
             item.MouseDoubleClick += new MouseButtonEventHandler(ViewItemDoubleClick);
 
-            ViewItemInfo info = new ViewItemInfo(fileType, fileName);
+            ViewItemInfo info = new ViewItemInfo(fileType, fileName, "", "");
             item.Tag = info;
 
             return item;

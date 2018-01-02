@@ -51,7 +51,7 @@ namespace VOP
             // You should use a more secure way of storing the key here as
             // .NET applications can be disassembled using a reflection tool.
             const string STORAGE = "faore_vop";
-            const string KEY = "z},drdzf11x9;87";
+            const string KEY = "z},drdzf11x9;89";
             string scope = DriveService.Scopes.Drive.GetStringValue();
 
             // Check if there is a cached refresh token available.
@@ -79,105 +79,139 @@ namespace VOP
         /// This is the worker method that executes when the user clicks the GO button.
         /// It illustrates the workflow that would need to take place in an actual application.
         /// </summary>
-        public void AuthorizeAndUpload()
+        public bool AuthorizeAndUpload()
         {
-            // First, create a reference to the service you wish to use.
-            // For this app, it will be the Drive service. But it could be Tasks, Calendar, etc.
-            // The CreateAuthenticator method is passed to the service which will use that when it is time to authenticate
-            // the calls going to the service.
-            _service = new DriveService(CreateAuthenticator());
-
-            // Get a listing of the existing files...
-            List<File> fileList = Utilities.RetrieveAllFiles(_service);
-
-            if (fileList.Count > 0)
+            try
             {
+                // First, create a reference to the service you wish to use.
+                // For this app, it will be the Drive service. But it could be Tasks, Calendar, etc.
+                // The CreateAuthenticator method is passed to the service which will use that when it is time to authenticate
+                // the calls going to the service.
+                _service = new DriveService(CreateAuthenticator());
 
-                // Set a flag to keep track of whether the file already exists in the drive
-                List<File> fileExists = new List<File>();
-                bool fileExist = false;
+                // Get a listing of the existing files...
+                List<File> fileList = Utilities.RetrieveAllFiles(_service);
 
-                foreach (string filepath in FileList)
+                if (FlowType == CloudFlowType.Quick)
                 {
-                    foreach (File item in fileList)
+                    if (fileList.Count > 0)
                     {
-                        if (item.Title == System.IO.Path.GetFileName(filepath))
-                        {
-                            // File exists in the drive already!
-                            fileExists.Add(item);
-                            fileExist = true;
-                            break;
-                        }
-                    }
 
-                    if (!fileExist)
-                    {
-                        File fileItem = new File();
-                        fileItem.Id = "";
-                        fileExists.Add(fileItem);
-                    }                      
-                    
-                }
+                        // Set a flag to keep track of whether the file already exists in the drive
+                        List<File> fileExists = new List<File>();
+                        bool fileExist = false;
 
-                if(fileExist)
-                {
-                    string message = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_File_exist_Do_You_overwrite");
-                    VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
-                        System.Windows.Application.Current.MainWindow,
-                     message, 
-                     (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
-
-                    if (ret == VOP.Controls.MessageBoxExResult.Yes)
-                    {
-                        int i = 0;
                         foreach (string filepath in FileList)
                         {
-                            // Yes... overwrite the file
-                            File item = fileExists[i];
-                            if (item.Id != "")
+                            foreach (File item in fileList)
                             {
-                                Utilities.UpdateFile(_service, item.Id, item.Title, item.Description, item.MimeType, filepath, true);
+                                if (item.OriginalFilename == System.IO.Path.GetFileName(filepath))
+                                {
+                                    // File exists in the drive already!
+                                    fileExists.Add(item);
+                                    fileExist = true;
+                                    break;
+                                }
                             }
+
+                            if (!fileExist)
+                            {
+                                File fileItem = new File();
+                                fileItem.Id = "";
+                                fileExists.Add(fileItem);
+                            }
+
+                        }
+
+                        if (fileExist)
+                        {
+                            string message = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_File_exist_Do_You_overwrite");
+                            VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
+                                System.Windows.Application.Current.MainWindow,
+                             message,
+                             (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+
+                            if (ret == VOP.Controls.MessageBoxExResult.Yes)
+                            {
+                                int i = 0;
+                                foreach (string filepath in FileList)
+                                {
+                                    // Yes... overwrite the file
+                                    File item = fileExists[i];
+                                    if (item.Id != "")
+                                    {
+                                        Utilities.UpdateFile(_service, item.Id, item.Title, item.Description, item.MimeType, filepath, true);
+                                    }
+                                    else
+                                    {
+                                        Utilities.InsertFile(_service, System.IO.Path.GetFileName(filepath), "Scanning Image", "", "image/jpeg", filepath);
+                                    }
+                                    i++;
+                                }
+                            }
+
+                            else if (ret == VOP.Controls.MessageBoxExResult.No)
+                            {
+
+                                int i = 0;
+                                foreach (string filepath in FileList)
+                                {
+                                    // MessageBoxResult.No code here
+                                    File item = fileExists[i];
+                                    if (item.Id == "")
+                                    {
+                                        Utilities.InsertFile(_service, System.IO.Path.GetFileName(filepath), "Scanning Image", "", "image/jpeg", filepath);
+                                    }
+                                    i++;
+                                }
+                            }
+
                             else
                             {
-                                Utilities.InsertFile(_service, System.IO.Path.GetFileName(filepath), "Scanning Image", "", "image/jpeg", filepath);
+                                // MessageBoxResult.Cancel code here
+                                return false;
                             }
-                            i++;
+
                         }
-                    }
-
-                    else if (ret == VOP.Controls.MessageBoxExResult.No)
-                    {
-
-                        int i = 0;
-                        foreach (string filepath in FileList)
+                        // Check to see if the file existed. If not, it is a new file and must be uploaded.
+                        else
                         {
-                            // MessageBoxResult.No code here
-                            File item = fileExists[i];
-                            if (item.Id == "")
+                            foreach (string filepath in FileList)
                             {
                                 Utilities.InsertFile(_service, System.IO.Path.GetFileName(filepath), "Scanning Image", "", "image/jpeg", filepath);
                             }
-                            i++;
                         }
                     }
-
                     else
                     {
-                        // MessageBoxResult.Cancel code here
-                        return;
+                        foreach (string filepath in FileList)
+                        {
+                            Utilities.InsertFile(_service, System.IO.Path.GetFileName(filepath), "Scanning Image", "", "image/jpeg", filepath);
+                        }
                     }
-                                          
                 }
-                // Check to see if the file existed. If not, it is a new file and must be uploaded.
                 else
                 {
-                    foreach (string filepath in FileList)
-                    {
-                        Utilities.InsertFile(_service, System.IO.Path.GetFileName(filepath), "Scanning Image", "", "image/jpeg", filepath);
-                    }
+                    bool? result = null;
+                    GoogleDriveFileViewer viewer = new GoogleDriveFileViewer(fileList, FileList, MainWindow_Rufous.g_settingData.m_dropBoxDefaultPath, FlowType);
+                    viewer.Owner = System.Windows.Application.Current.MainWindow;
+                    viewer.Service = _service;
+                    result = viewer.ShowDialog();
+                    MainWindow_Rufous.g_settingData.m_bNeedReset = false;
                 }
             }
+            catch (Exception ex)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                System.Windows.Application.Current.MainWindow,
+                (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
+                   (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+
+                return false;
+
+            }
+
+            return true;
             //System.Windows.MessageBox.Show("Upload Complete");
         }
         public bool Run()
@@ -190,22 +224,16 @@ namespace VOP
                     return false;
             }
 
-            if (FlowType == CloudFlowType.Quick)
+            try
             {
-                try
-                {
-                    AuthorizeAndUpload();
-                }
-                catch (Exception ex)
-                {
-                    Win32.OutputDebugString(ex.Message);
-                }
+                AuthorizeAndUpload();
             }
-            else
+            catch (Exception ex)
             {
-
+                Win32.OutputDebugString(ex.Message);
+                return false;
             }
-
+         
             return true;
         }
     }

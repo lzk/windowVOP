@@ -229,6 +229,7 @@
     </Compile>
     <Compile Include="Controls\DeviceButton.cs" />
     <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple_Warning.xaml .cs" />
+    <Compile Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_YesNo_NoIcon1.cs" />
     <Compile Include="Controls\TextBlockUtils.cs" />
     <Compile Include="Controls\TextBoxEx.cs" />
     <Compile Include="Faroe\DeviceListBoxItem.cs" />
@@ -454,6 +455,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_Simple_Warning.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MessageBoxEx\MessageBoxExStyle\MessageBoxEx_YesNo_NoIcon1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

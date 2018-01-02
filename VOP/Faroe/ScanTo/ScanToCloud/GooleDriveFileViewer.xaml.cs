@@ -19,52 +19,80 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.IO;
-
-using System.Net.Http.Headers;
-using Microsoft.Graph;
-using Microsoft.Identity.Client;
+using DotNetOpenAuth.OAuth2;
+using Google.Apis.Authentication;
+using Google.Apis.Authentication.OAuth2;
+using Google.Apis.Authentication.OAuth2.DotNetOpenAuth;
+using Google.Apis.Drive.v2;
+using Google.Apis.Drive.v2.Data;
+using Google.Apis.Util;
+using Google.Apis.Helper;
 
 namespace VOP
 {
-   
+    public class FolderItem
+    {
+        public string name;
+        public string id;
+
+        public FolderItem()
+        {
+
+        }
+        public FolderItem(string folder, string parentid)
+        {
+            name = folder;
+            id = parentid;
+        }
+    }
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
     public partial class GoogleDriveFileViewer : Window
     {
-        public List<string> FileList { get; set; }
+        public List<File> FileList { get; set; }
+  
         private string currentPath = @"";
         private string selectedPath = @"";
         private string currentFolderName = @"";
-        private GraphServiceClient client = null;
-        public bool Result { get; private set; }
+        public  bool Result { get; private set; }
+        private CloudFlowType flowType { get; set; }
+        private string CurrentFolder = @"";
+        private string UpperFolder = @"";
+        private string rootid = @"";
+        private List<FolderItem> folderList = new List<FolderItem>();
+        private List<string> uploadFiles { get; set; }
+        private DriveService _service = null;
+        private string ParantID = "";
 
-        private bool IsRequesting = false;
-
-        private DriveItem _sourceItem;
-
-        private GraphServiceClient graphClient { get; set; }
-        private ClientType clientType { get; set; }
-
-        private DriveItem CurrentFolder { get; set; }
-        private DriveItem UpperFolder { get; set; }
-        private DriveItem SelectedItem { get; set; } 
-
-        public GoogleDriveFileViewer(GraphServiceClient client, List<string> fileList,DriveItem folder)
+        public GoogleDriveFileViewer(List<File> fileList, List<string> uploadList, string folder, CloudFlowType type)
         {
             InitializeComponent();
-            this.graphClient = client;     
             FileList = fileList;
             CurrentFolder = folder;
-            ProcessFolder(folder);
+            flowType = type;
+            uploadFiles = uploadList;
         }
 
-        private  void Window_Loaded(object sender, RoutedEventArgs e)
+        public DriveService Service
+        {
+            get
+            {
+                return _service;
+            }
+            set
+            {
+                if (value != null)
+                    _service = value;
+            }
+        }
+
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
 
-            if(Googledocsflow.FlowType == CloudFlowType.SimpleView)
+            if (flowType == CloudFlowType.SimpleView)
             {
                 UploadButton.Content = "OK";
             }
@@ -76,34 +104,138 @@ namespace VOP
 
             FileBrowser.SelectedIndex = 0;
             FileBrowser.Focus();
-        }  
-             
-        private async Task Start()
+
+            GetFolderList();
+            InitFileandFodlers();
+        }
+
+        private void GetFolderList()
         {
-            try
+            bool isHasFolder = false;
+            foreach (File file in FileList)
             {
-                await SignIn();
+                FolderItem item = new FolderItem();
+
+                if (rootid == "")
+                {
+                    if (file.Parents.Count > 0 && file.Parents.Count == 1)
+                    {
+                        if (file.Parents[0].IsRoot == true)
+                        {
+                            rootid = file.Parents[0].Id;
+                            item.name = "root";
+                            item.id = rootid;
+                            folderList.Add(item);
+                        }
+                    }
+                }
+                if (file.MimeType == "application/vnd.google-apps.folder")
+                {
+                    item.name = file.Title;
+                    item.id = file.Id;
+                    folderList.Add(item);
+                    isHasFolder = true;
+                }
+
             }
-            catch (ServiceException exception)
+            if (isHasFolder == false && rootid == "")
             {
-                PresentServiceException(exception);
-                this.graphClient = null;
+                if (FileList[0].Parents.Count > 0 && FileList[0].Parents.Count == 1)
+                {
+                    if (FileList[0].Parents[0].IsRoot == true)
+                    {
+                        rootid = FileList[0].Parents[0].Id;
+                    }
+                }
             }
         }
 
-        private ListViewItem CreateViewItem(string fileName, string fileType="Folder", int fileIndex=0, Stream imageStream=null)
+
+        private void InitFileandFodlers()
+        {
+            int index = 0;
+
+            FileBrowser.Items.Clear();
+            foreach (File file in FileList)
+            {            
+                if (file.Parents[0].IsRoot == true)
+                {
+                    ListViewItem viewItem = null;
+
+                    if (file.MimeType == "application/vnd.google-apps.folder")
+                    {
+                        viewItem = CreateViewItem(file.Title, "root", file.Id, "Folder", index);
+                    }
+                    FileBrowser.Items.Add(viewItem);
+                    index++;
+                }                
+            }
+
+            foreach (File file in FileList)
+            {             
+                if (file.Parents[0].IsRoot == true)
+                {
+                    ListViewItem viewItem = null;
+
+                    if (file.MimeType != "application/vnd.google-apps.folder")
+                    {
+                        viewItem = CreateViewItem(file.Title, "root", file.Id, "File", index);
+                    }
+                    FileBrowser.Items.Add(viewItem);
+                    index++;
+                }
+            }
+            FileBrowser.SelectedIndex = 0;
+
+            ParantID = rootid;
+        }
+
+        private void UpdateFileAndFolders(string parent, string parentid)
+        {
+            int index = 0;
+
+            FileBrowser.Items.Clear();
+            foreach (File file in FileList)
+            {                
+                if (file.MimeType == "application/vnd.google-apps.folder" &&
+                    file.Parents[0].Id == parentid)
+                {
+                    ListViewItem viewItem = null;
+
+                    viewItem = CreateViewItem(file.Title, parent, file.Id, "Folder", index);
+                    FileBrowser.Items.Add(viewItem);
+                    index++;
+                }                         
+            }
+
+            foreach (File file in FileList)
+            {
+                if (file.MimeType != "application/vnd.google-apps.folder" &&
+                    file.Parents[0].Id == parentid)
+                {
+                    ListViewItem viewItem = null;
+
+                    viewItem = CreateViewItem(file.Title, parent, file.Id, "File", index);
+                    FileBrowser.Items.Add(viewItem);
+                    index++;
+                }
+            }
+            FileBrowser.SelectedIndex = 0;
+        }
+
+        private ListViewItem CreateViewItem(string fileName, string parent, string parentid, string fileType = "Folder", int fileIndex = 0, System.IO.Stream imageStream = null)
         {
             System.Windows.Controls.Image img = new System.Windows.Controls.Image();
             BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
 
-            if(fileType == "Folder")
+            if (fileType == "Folder")
             {
                 bitmapImage.UriSource = new Uri("pack://application:,,, /Images/Folder-icon.png", UriKind.RelativeOrAbsolute);
             }
             else if (fileType == "File")
             {
-                if(imageStream == null)
+                if (imageStream == null)
                 {
                     bitmapImage.UriSource = new Uri("pack://application:,,, /Images/file.png", UriKind.RelativeOrAbsolute);
                 }
@@ -112,13 +244,12 @@ namespace VOP
                     bitmapImage.StreamSource = imageStream;
                 }
             }
-           
+
             bitmapImage.DecodePixelWidth = 100;
             bitmapImage.EndInit();
 
             img.Source = bitmapImage;
             img.Width = 80;
-
 
             TextBlock text = new TextBlock();
             text.Text = fileName;
@@ -138,18 +269,18 @@ namespace VOP
 
             ListViewItem item = new ListViewItem();
             SolidColorBrush bgbrush = new SolidColorBrush();
-            bgbrush.Color = fileIndex%2 == 0 ? Colors.AliceBlue : Colors.AliceBlue;
+            bgbrush.Color = fileIndex % 2 == 0 ? Colors.AliceBlue : Colors.AliceBlue;
             item.Background = bgbrush;
 
             item.Content = stack;
             item.MouseDoubleClick += new MouseButtonEventHandler(ViewItemDoubleClick);
 
-            ViewItemInfo info = new ViewItemInfo(fileType, fileName);
+            ViewItemInfo info = new ViewItemInfo(fileType, fileName, parent, parentid);
             item.Tag = info;
 
             return item;
         }
-               
+
         private async void CreateFolderButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             try
@@ -160,11 +291,12 @@ namespace VOP
 
                 result = frm.ShowDialog();
 
-                if(result == true)
+                if (result == true)
                 {
                     string folderName = frm.m_folderName.TrimStart();
                     folderName = folderName.TrimEnd();
-                    if(CheckFolder(folderName))
+
+                    if (CheckFolder(folderName, this.ParantID) == false)
                     {
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
@@ -174,77 +306,46 @@ namespace VOP
                     }
                     else
                     {
-                        if (folderName != "")
+                        string fullpath = currentPath + "\\" + folderName;
+                       
+                        if (UploadFolder(folderName, fullpath))
                         {
-                            var folderToCreate = new DriveItem { Name = folderName, Folder = new Folder() };
-                            var newFolder =
-                                await this.graphClient.Drive.Items[this.SelectedItem.Id].Children.Request()
-                                    .AddAsync(folderToCreate);
-
-                            if (newFolder != null)
-                            {
-                                if (PathText.Text != "")
-                                {
-                                    await LoadFolderFromPath(PathText.Text);
-                                    UpFolderButton.IsEnabled = true;
-                                }
-                                else
-                                {
-                                    await LoadFolderFromPath();
-                                    UpFolderButton.IsEnabled = false;
-                                }
-                            }
+                            UpdateFileAndFolders(currentPath, this.ParantID);
                         }
-                        else
-                        {
-                            string str = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
-                            string content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder");
-                            string message = string.Format(str, (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Name"));
-                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, 
-                                Application.Current.MainWindow,
-                                message,//"The folder cannot be empty", 
-                                (string)this.TryFindResource("ResStr_Warning"));
-                            return;
-                        }
-                    } 
+                        //else
+                        //{
+                        //    string str = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
+                        //    string content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder");
+                        //    string message = string.Format(str, (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Name"));
+                        //    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                        //        Application.Current.MainWindow,
+                        //        message,//"The folder cannot be empty", 
+                        //        (string)this.TryFindResource("ResStr_Warning"));
+                        //    return;
+                        //}
+                    }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Invalid_xxx");
                 message = string.Format(message, (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Name"));
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, 
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     Application.Current.MainWindow,
                     message,//"Invalid folder name.", 
                     (string)this.TryFindResource("ResStr_Warning"));
                 return;
             }
         }
-       
-        private async Task LoadFolderFromId(string id)
-        {
-            if (null == this.graphClient) return;
-            try
-            {
-                var expandString = this.clientType == ClientType.Consumer
-                    ? "thumbnails,children($expand=thumbnails)"
-                    : "thumbnails,children";
-
-                var folder =
-                    await this.graphClient.Drive.Items[id].Request().Expand(expandString).GetAsync();
-
-                ProcessFolder(folder);
-            }
-            catch (Exception exception)
-            {
-                PresentServiceException(exception);
-            }
-        }
+    
 
         private async void UpFolderButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             try
             {
+                ListViewItem item = FileBrowser.SelectedItem as ListViewItem;
+                ViewItemInfo info = item.Tag as ViewItemInfo;
+
                 if (currentPath != "")
                 {
                     string temp = "";
@@ -254,12 +355,12 @@ namespace VOP
                     currentPath = temp;
                     if (currentPath != "")
                     {
-                        await LoadFolderFromPath(temp);
+                        ParantID = info.parentid;
+                        UpdateFileAndFolders(info.parent, info.parentid);
                     }
                     else
                     {
-                        await LoadFolderFromPath();
-
+                        InitFileandFodlers();
                     }
                     PathText.Text = currentPath;
                     if (PathText.Text == "")
@@ -269,7 +370,7 @@ namespace VOP
                 }
                 else
                 {
-                    await LoadFolderFromPath();
+                   // await LoadFolderFromPath();
                     currentPath = "";
                     PathText.Text = "";
                     UpFolderButton.IsEnabled = false;
@@ -282,332 +383,47 @@ namespace VOP
            
         }
 
-        private async Task SignIn(string path = null)
+        private bool CheckFolder(string foldername, string parentid)
         {
-            if (null == this.graphClient) return;
-            try
+            foreach (FolderItem folder in folderList)
             {
-                DriveItem folder;
-
-                var expandValue = this.clientType == ClientType.Consumer
-                    ? "thumbnails,children($expand=thumbnails)"
-                    : "thumbnails,children";
-
-                if (path == null)
+                if (folder.name == foldername &&
+                    folder.id == parentid)
                 {
-                    folder = await this.graphClient.Drive.Root.Request().Expand(expandValue).GetAsync();
+                    return false;
                 }
-                else
-                {
-                    folder =
-                        await
-                            this.graphClient.Drive.Root.ItemWithPath("/" + path)
-                                .Request()
-                                .Expand(expandValue)
-                                .GetAsync();
-                }
-
-                ProcessFolder(folder);
             }
-            catch (Exception exception)
-            {
-                //    PresentServiceException(exception);
-                this.Close();
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, 
-                    Application.Current.MainWindow, 
-                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Connect_OneDrive_Fail"),//"Connection Onedirive failed!", 
-                    (string)this.TryFindResource("ResStr_Warning"));
-
-            }
+            return true;
         }
 
-        private async Task LoadFolderFromPath(string path = null)
+        private bool CheckUploadFolderName(string foldername, string parentid)
         {
-            if (null == this.graphClient) return;
-            try
+            
+            foreach (FolderItem folder in folderList)
             {
-                DriveItem folder;
-
-                var expandValue = this.clientType == ClientType.Consumer
-                    ? "thumbnails,children($expand=thumbnails)"
-                    : "thumbnails,children";
-
-                if (path == null)
+                if (folder.name == foldername &&
+                    folder.id == parentid)
                 {
-                    folder = await this.graphClient.Drive.Root.Request().Expand(expandValue).GetAsync();
+                    return true;
                 }
-                else
-                {
-                    folder =
-                        await
-                            this.graphClient.Drive.Root.ItemWithPath("/" + path)
-                                .Request()
-                                .Expand(expandValue)
-                                .GetAsync();
-                }
-
-                ProcessFolder(folder);
             }
-            catch (Exception exception)
-            {
-                //    PresentServiceException(exception);
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, 
-                    Application.Current.MainWindow,
-                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Connect_OneDrive_Fail"),//"Connection Onedrive failed!", 
-                    (string)this.TryFindResource("ResStr_Warning"));
-                return;
-            }
-
+            return true;
         }
 
-        private void ProcessFolder(DriveItem folder)
+        private bool CheckFileName(string filename, string parentid)
         {
-            if (folder != null)
+            foreach (File file in FileList)
             {
-                CurrentFolder = folder;
-
-                LoadProperties(folder);
-
-                if (folder.Folder != null && folder.Children != null && folder.Children.CurrentPage != null)
+                if (file.OriginalFilename == filename &&
+                    file.Parents[0].Id == parentid)
                 {
-                    LoadChildren(folder.Children.CurrentPage);
+                    return false;
                 }
             }
+            return true;
         }
 
-        private bool CheckFolder(string foldername)
-        {
-            LoadProperties(CurrentFolder);
-            if (CurrentFolder.Folder != null && CurrentFolder.Children != null && CurrentFolder.Children.CurrentPage != null)
-            {
-                foreach (var obj in CurrentFolder.Children.CurrentPage)
-                {
-                    if ((obj.File == null) && (obj.Folder != null))
-                    {
-                        if (obj.Name == foldername)
-                            return true;
-                    }                   
-                }
-            }
-            return false;
-        }
-
-        private async Task CheckUploadFolder(string path = null)
-        {
-            if (null == this.graphClient) return;
-            try
-            {
-                DriveItem folder;
-                UpperFolder = null;
-                var expandValue = this.clientType == ClientType.Consumer
-                    ? "thumbnails,children($expand=thumbnails)"
-                    : "thumbnails,children";
-
-                if (path == null)
-                {
-                    folder = await this.graphClient.Drive.Root.Request().Expand(expandValue).GetAsync();
-                }
-                else
-                {
-                    folder =
-                        await
-                            this.graphClient.Drive.Root.ItemWithPath("/" + path)
-                                .Request()
-                                .Expand(expandValue)
-                                .GetAsync();
-                }
-                UpperFolder = folder;
-            }
-            catch (Exception exception)
-            {
-                //    PresentServiceException(exception);
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
-                    Application.Current.MainWindow,
-                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Connect_OneDrive_Fail"),//"Connection Onedrive failed!", 
-                    (string)this.TryFindResource("ResStr_Warning"));
-                return;
-            }
-        }
-
-        private bool CheckUploadFolderName(string foldername)
-        {
-            if (UpperFolder.Folder != null && UpperFolder.Children != null && UpperFolder.Children.CurrentPage != null)
-            {
-                foreach (var obj in UpperFolder.Children.CurrentPage)
-                {
-                    if ((obj.File == null) && (obj.Folder != null))
-                    {
-                        if (obj.Name == foldername)
-                            return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        private bool CheckFileName(string filename)
-        {
-            LoadProperties(CurrentFolder);
-            if (CurrentFolder.Folder != null && CurrentFolder.Children != null && CurrentFolder.Children.CurrentPage != null)
-            {
-                foreach (var obj in CurrentFolder.Children.CurrentPage)
-                {
-                    if ((obj.File != null) && (obj.Folder == null))
-                    {
-                        if (obj.Name == filename)
-                            return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        private void LoadChildren(IList<DriveItem> items)
-        {
-            FileBrowser.Items.Clear();
-            int index = 0;
-            // Load the children
-            foreach (var obj in items)
-            {
-                ListViewItem viewItem = null;
-                if ((obj.File == null) && (obj.Folder != null))
-                {
-                    viewItem = CreateViewItem(obj.Name, "Folder", index);
-                    FileBrowser.Items.Add(viewItem);
-                    index++;
-                }
-                else if ((obj.File != null) && (obj.Folder == null))
-                {
-                    viewItem = CreateViewItem(obj.Name, "File", index);
-                    FileBrowser.Items.Add(viewItem);
-                    index++;
-                }
-//                LoadThumbnail();
-            }            
-        }       
-
-        private async void LoadThumbnail()
-        {
-            var thumbnail = await this.ThumbnailUrlAsync("medium");
-            if (null != thumbnail)
-            {
-                string thumbnailUri = thumbnail.Url;
-            }
-        }
-
-        /// <summary>
-        /// Retrieve a specific size thumbnail's metadata. If it isn't already 
-        /// available make a call to the service to retrieve it.
-        /// </summary>
-        /// <param name="size"></param>
-        /// <returns></returns>
-        public async Task<Microsoft.Graph.Thumbnail> ThumbnailUrlAsync(string size = "large")
-        {
-            bool loadedThumbnails = this._sourceItem != null && this._sourceItem.Thumbnails != null &&
-                                    this._sourceItem.Thumbnails.CurrentPage != null;
-            if (loadedThumbnails)
-            {
-                // See if we already have that thumbnail
-                Thumbnail thumbnail = null;
-                ThumbnailSet thumbnailSet = null;
-
-                switch (size.ToLower())
-                {
-                    case "small":
-                        thumbnailSet = this._sourceItem.Thumbnails.CurrentPage.FirstOrDefault(set => set.Small != null);
-                        thumbnail = thumbnailSet == null ? null : thumbnailSet.Small;
-                        break;
-                    case "medium":
-                        thumbnailSet = this._sourceItem.Thumbnails.CurrentPage.FirstOrDefault(set => set.Medium != null);
-                        thumbnail = thumbnailSet == null ? null : thumbnailSet.Medium;
-                        break;
-                    case "large":
-                        thumbnailSet = this._sourceItem.Thumbnails.CurrentPage.FirstOrDefault(set => set.Large != null);
-                        thumbnail = thumbnailSet == null ? null : thumbnailSet.Large;
-                        break;
-                    default:
-                        thumbnailSet = this._sourceItem.Thumbnails.CurrentPage.FirstOrDefault(set => set[size] != null);
-                        thumbnail = thumbnailSet == null ? null : thumbnailSet[size];
-                        break;
-                }
-
-                if (thumbnail != null)
-                {
-                    return thumbnail;
-                }
-
-            }
-
-            if (!loadedThumbnails)
-            {
-                try
-                {
-                    // Try to load the thumbnail from the service if we haven't loaded thumbnails.
-                    return await this.graphClient.Drive.Items[this._sourceItem.Id].Thumbnails["0"][size].Request().GetAsync();
-                }
-                catch (ServiceException)
-                {
-
-                    // Just swallow not found. We don't want an error popup and we just won't render a thumbnail
-                    return null;
-                }
-            }
-
-            return null;
-        }
-
-        private void LoadProperties(DriveItem item)
-        {
-            this.SelectedItem = item;
-            FileBrowser.SelectedItem = item;
-        }
-
-        private async Task ViewItem(string path = null)
-        {
-            if (null == this.graphClient) return;
-            try
-            {
-                DriveItem folder;
-
-                var expandValue = this.clientType == ClientType.Consumer
-                    ? "thumbnails,children($expand=thumbnails)"
-                    : "thumbnails,children";
-
-                if (path == null)
-                {
-                    folder = await this.graphClient.Drive.Root.Request().Expand(expandValue).GetAsync();
-                }
-                else
-                {
-                    folder =
-                        await
-                            this.graphClient.Drive.Root.ItemWithPath("/" + path)
-                                .Request()
-                                .Expand(expandValue)
-                                .GetAsync();
-                }
-
-                ProcessFolder(folder);
-                currentPath = path;
-                PathText.Text = currentPath;
-                if (PathText.Text == "")
-                    UpFolderButton.IsEnabled = false;
-                else
-                    UpFolderButton.IsEnabled = true;
-            }
-            catch (Exception exception)
-            {
-                //    PresentServiceException(exception);
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, 
-                    Application.Current.MainWindow,
-                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Connect_OneDrive_Fail"),//"Connection Onedrive failed!", 
-                    (string)this.TryFindResource("ResStr_Warning"));
-                return;
-            }
-
-        }
-
-        private async void ViewItemDoubleClick(object sender, RoutedEventArgs e)
+        private void ViewItemDoubleClick(object sender, RoutedEventArgs e)
         {
             ListViewItem item = sender as ListViewItem;
             ViewItemInfo info = item.Tag as ViewItemInfo;
@@ -616,49 +432,58 @@ namespace VOP
             {
                 if (info.fileType == "Folder")
                 {
-                    string temp = "";
                     currentFolderName = info.fileName;
-                    temp = currentPath + "/" + info.fileName;
-                    selectedPath = temp;
-                    await ViewItem(temp);                    
+                    selectedPath = currentPath + "/" + info.fileName;
+                    currentPath = selectedPath;
+                    PathText.Text = currentPath;
+                    if (PathText.Text == "")
+                        UpFolderButton.IsEnabled = false;
+                    else
+                        UpFolderButton.IsEnabled = true;
+
+                    ParantID = info.parentid;
+                    UpdateFileAndFolders(info.parent, info.parentid);
                 }
             }
-            catch (Exception) { }            
+            catch (Exception ex)
+            {
+                Win32.OutputDebugString(ex.Message);
+            }            
         }
        
 
         private async void UploadButton_Click(object sender, RoutedEventArgs e)
         {
-            if (OneDriveFlow.FlowType == CloudFlowType.SimpleView)
+            if (flowType == CloudFlowType.SimpleView)
             {
-                if (selectedPath == "")
-                    OneDriveFlow.SavePath = "/";
-                else
-                    OneDriveFlow.SavePath = selectedPath;
                 this.Close();
             }
             else
             {
-                if (FileList == null)
+                if (uploadFiles == null)
                     return;
+
                 string message = "";
                 string temp = "";
+                string parentid = rootid;
+
                 if (currentPath != "")
                 {
                     temp = currentPath.Remove(currentPath.LastIndexOf('/'), currentPath.Length - currentPath.LastIndexOf('/'));
 
                     if (temp != "")
                     {
-                        await CheckUploadFolder(temp);
+                        UpperFolder = temp;
                     }
                     else
                     {
-                        await CheckUploadFolder();
+                        UpperFolder = "";
                     }
+
                     if (UpperFolder != null)
                     {
-
-                        if (!CheckUploadFolderName(currentFolderName))
+                        
+                        if (!CheckUploadFolderName(UpperFolder, ParantID))
                         {
                             message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Not_Exist");
                             message = string.Format(message/*"The folder {0} does not exist."*/, currentFolderName);
@@ -672,7 +497,6 @@ namespace VOP
                 }
                 else
                 {
-                    await CheckUploadFolder();
                     if (UpperFolder == null)
                         return;
                 }
@@ -680,14 +504,16 @@ namespace VOP
                 {
                     string fileName = "";
                     bool bExistFile = false;
-                    foreach (string checkfilePath in FileList)
+
+
+                    foreach (string filepath in uploadFiles)
                     {
-                        fileName = System.IO.Path.GetFileName(checkfilePath);
-                        if (CheckFileName(fileName))
+                        if (false == CheckFileName(filepath, ParantID))
                         {
                             bExistFile = true;
                         }
                     }
+
                     if (bExistFile)
                     {
                         message = (string)Application.Current.MainWindow.TryFindResource("ResStr_File_exist_Do_You_overwrite");
@@ -699,16 +525,15 @@ namespace VOP
                             return;
                         }
                     }
-                    foreach (string filePath in FileList)
+                    foreach (string filePath in uploadFiles)
                     {
-                        fileName = System.IO.Path.GetFileName(filePath);
-                        UploadStaus.Text = "Uploading file " + fileName;
-                        await Upload(client, filePath);
+                        UploadStaus.Text = "Uploading file " + filePath;
+                        await Upload(filePath);
                     }
                 }
                 catch (Exception ex)
                 {
-                    UploadStaus.Text = "Picture uploading error : " + ex.Message;
+                    UploadStaus.Text = "Uploading File error : " + ex.Message;
                 }
             }                   
         }
@@ -722,58 +547,39 @@ namespace VOP
             }
         }
 
-        private async Task Upload(GraphServiceClient client, string filePath)
+        private async Task Upload(string filepath)
         {
-            var targetFolder = CurrentFolder;
-            string Filename = "";
-            string message = "";
-            using (var stream = GetFileStreamForUpload(targetFolder.Name, filePath, out Filename))
+            string filename = System.IO.Path.GetFileName(filepath);
+            try
             {
-                if (stream != null)
-                {
-                    try
-                    {
-                        var uploadedItem =
-                            await
-                                this.graphClient.Drive.Items[targetFolder.Id].ItemWithPath(Filename).Content.Request()
-                                    .PutAsync<DriveItem>(stream);
-                        UploadStaus.Text = "";
-                        if (currentPath != "")
-                        {
-                            await LoadFolderFromPath(currentPath);
-                        }
-                        else
-                        {
-                            await LoadFolderFromPath();
-                        }
-                    }
-                    catch (Exception exception)
-                    {
-                        //                        PresentServiceException(exception);
-                        message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Update_File_fail");
-                        message = string.Format(message,/*"Upload {0} failed!",*/ Filename);
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, 
-                            Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Warning"));
-                    }
-                }
+                Utilities.InsertFile(_service, filename, "Scanning Image", "", "image/jpeg", filepath);
             }
+            catch (Exception ex)
+            {
+                string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Update_File_fail");
+                message = string.Format(message, filename);
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                    Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Warning"));
+            }           
         }
 
-        private static void PresentServiceException(Exception exception)
+        private bool UploadFolder(string folder, string fullpath)
         {
-            string message = null;
-            var oneDriveException = exception as ServiceException;
-            if (oneDriveException == null)
+            try
             {
-                message = exception.Message;
+                File file = Utilities.InsertFile(_service, folder, "New Folder", this.ParantID, "application/vnd.google-apps.folder", fullpath);
             }
-            else
+            catch (Exception ex)
             {
-                message = string.Format("{0}{1}", Environment.NewLine, oneDriveException.ToString());
+                string message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Create_Folder_fail");
+                message = string.Format(message, folder);
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                    Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Warning"));
+                return false;
             }
-
-            MessageBox.Show(string.Format("OneDrive reported the following error: {0}", message));
+            return true;
         }
+
 
         private System.IO.Stream GetFileStreamForUpload(string targetFolderName, string filename, out string originalFilename)
         { 

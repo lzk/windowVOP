@@ -193,6 +193,7 @@ next:
                     param.AutoColorDetect,
                     param.SkipBlankPage,
                     param.Gamma,
+                    (int)param.ScanMediaType,
                     out fileNames);
 
 //            sw.Stop();
@@ -298,7 +299,7 @@ next:
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_ERROR_POWER1)
                 {
-                    VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
+                    VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon1,
                                Application.Current.MainWindow,
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bank"),
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
@@ -322,7 +323,7 @@ next:
                     }
                     else
                     {
-                        VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon,
+                        VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon1,
                                    Application.Current.MainWindow,
                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bank"),
                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")

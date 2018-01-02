@@ -54,7 +54,7 @@ namespace VOP
     public delegate bool SendVerifyCodeDelegate(string strPhoneNumber, ref JSONResultFormat1 rtValue);
     public delegate int ScanDelegate(string deviceName, string tempPath, int colorType, int resolution, int width, int height,
                                         int contrast, int brightness, bool ADFMode, bool MultiFeed, bool AutoCrop, bool onepage,
-                                        uint uMsg, bool bColorDetect, bool bSkipBlankPage, double gamma, out string[] fileNames);
+                                        uint uMsg, bool bColorDetect, bool bSkipBlankPage, double gamma, int type, out string[] fileNames);
     public delegate int PrintFileDelegate(string printerName, string fileName, bool needFitToPage, int duplexType, bool IsPortrait, int copies, int scalingValue);
     public delegate bool RotateScannedFilesDelegate(ScanFiles objSrc, ScanFiles objDst, int nAngle);
     public delegate int CopyDelegate(string printerName,
@@ -261,7 +261,7 @@ namespace VOP
         public int InvokeScanMethod(ScanDelegate method, string deviceName, string tempPath,
                                                                       int colorType, int resolution, int width, int height,
                                                                       int contrast, int brightness, bool ADFMode, bool MultiFeed, bool AutoCrop, bool onepage, 
-                                                                      uint uMsg, bool bColorDetect, bool bSkipBlankPage, double gamma, out string[] fileNames)
+                                                                      uint uMsg, bool bColorDetect, bool bSkipBlankPage, double gamma, int type, out string[] fileNames)
         {
 
             if (method != null)
@@ -271,7 +271,7 @@ namespace VOP
                 isNeededProgress = false;
                 asyncEvent.Reset();
                 IAsyncResult result = caller.BeginInvoke(deviceName, tempPath, colorType, resolution, width, height, contrast, brightness, 
-                                                           ADFMode, MultiFeed, AutoCrop, onepage, uMsg, bColorDetect, bSkipBlankPage, gamma, out fileNames,
+                                                           ADFMode, MultiFeed, AutoCrop, onepage, uMsg, bColorDetect, bSkipBlankPage, gamma, type, out fileNames,
                                                          new AsyncCallback(ScanCallbackMethod), null);
 
                 if (!result.AsyncWaitHandle.WaitOne(100, false))

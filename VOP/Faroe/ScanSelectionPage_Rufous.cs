@@ -30,14 +30,19 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            int result = 0;
+            if (Int32.TryParse(ScreenBtn.Content.ToString(), out result))
+            {
+                if (result > MainWindow_Rufous.g_settingData.m_MatchList.Count)
+                    ScreenTextNumber = MainWindow_Rufous.g_settingData.m_MatchList.Count;
+            }
             SetScreenText(ScreenTextNumber);
 
             MainWindow_Rufous.g_settingData.CutNum = ScreenTextNumber-1;
 
             //add by yunying shang 2017-11-01 for BMS 1204
-            int result = 0;
-            if (Int32.TryParse(ScreenBtn.Content.ToString(), out result))
-            {
+            if(result > 0)
+            { 
                 if (result <= MainWindow_Rufous.g_settingData.m_MatchList.Count 
                     && result >=1)
                 {
@@ -307,8 +312,8 @@ namespace VOP
             ImageButton2 btn = sender as ImageButton2;
 
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_commonScanSettings);
-            //List<ScanFiles> files = new List<ScanFiles>();
+            //List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_commonScanSettings);
+            List<ScanFiles> files = new List<ScanFiles>();
             m_MainWin._bScanning = false;
             if (files != null)
             //   return;
@@ -317,8 +322,8 @@ namespace VOP
                 {
                     //List<ScanFiles> files = new List<ScanFiles>();
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1 error.JPG"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848000A.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848000B.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848001A.jpg"));

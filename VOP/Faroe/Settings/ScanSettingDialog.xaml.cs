@@ -246,11 +246,22 @@ namespace VOP
             if(m_scanParams.SkipBlankPage == true)
             {
                 btnSkipBlankOn.IsChecked = true;
+                twoSideButton.IsEnabled = false;
+                oneSideButton.IsEnabled = false;
+                oneSideButton.IsChecked = true;
             }
             else
             {
                 btnSkipBlankOff.IsChecked = true;
+                twoSideButton.IsEnabled = true;
+                oneSideButton.IsEnabled = true;
+
+                if (m_scanParams.ADFMode == true)
+                    twoSideButton.IsChecked = true;
+                else
+                    oneSideButton.IsChecked = true;
             }
+
         }
 
         public void MyMouseButtonEventHandler(Object sender, MouseButtonEventArgs e)

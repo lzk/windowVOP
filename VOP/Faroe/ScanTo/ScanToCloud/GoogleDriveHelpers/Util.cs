@@ -82,59 +82,88 @@ namespace Google.Apis.Util
             return result;
         }
 
-    /// <summary>
-    /// Inserts a new file into the Google Drive.
-    /// </summary>
-    /// <param name="service">Drive API service instance.</param>
-    /// <param name="title">Title (name) of the file to insert, including the extension.</param>
-    /// <param name="description">Description of the file to insert.</param>
-    /// <param name="parentId">Parent folder's ID. (Empty string to put the file in the drive root)</param>
-    /// <param name="mimeType">MIME type of the file to insert.</param>
-    /// <param name="filename">Filename (including path) of the file to upload relative to the local machine.</param>
-    /// <returns>Inserted file metadata, null is returned if an API error occurred.</returns>
-    /// <remarks>The filename passed to this function should be the entire path and filename (with extension) for the source file on the
-    /// local machine. The API will put the file in the Google Drive using the "Title" property.</remarks>
-    public static Google.Apis.Drive.v2.Data.File InsertFile(DriveService service, String title, String description, String parentId, String mimeType, String filename)
-    {
-        // File's metadata.
-        Google.Apis.Drive.v2.Data.File body = new Google.Apis.Drive.v2.Data.File();
-        body.Title = title;
-        body.Description = description;
-        body.MimeType = mimeType;
-
-        // Set the parent folder.
-        if (!String.IsNullOrEmpty(parentId))
+        /// <summary>
+        /// Inserts a new file into the Google Drive.
+        /// </summary>
+        /// <param name="service">Drive API service instance.</param>
+        /// <param name="title">Title (name) of the file to insert, including the extension.</param>
+        /// <param name="description">Description of the file to insert.</param>
+        /// <param name="parentId">Parent folder's ID. (Empty string to put the file in the drive root)</param>
+        /// <param name="mimeType">MIME type of the file to insert.</param>
+        /// <param name="filename">Filename (including path) of the file to upload relative to the local machine.</param>
+        /// <returns>Inserted file metadata, null is returned if an API error occurred.</returns>
+        /// <remarks>The filename passed to this function should be the entire path and filename (with extension) for the source file on the
+        /// local machine. The API will put the file in the Google Drive using the "Title" property.</remarks>
+        public static Google.Apis.Drive.v2.Data.File InsertFile(DriveService service, String title, String description, String parentId, String mimeType, String filename)
         {
-            body.Parents = new List<ParentReference>() { new ParentReference() { Id = parentId } };
+            // File's metadata.
+            Google.Apis.Drive.v2.Data.File body = new Google.Apis.Drive.v2.Data.File();
+            body.Title = title;
+            body.Description = description;
+            body.MimeType = mimeType;
+
+            // Set the parent folder.
+            if (!String.IsNullOrEmpty(parentId))
+            {
+                body.Parents = new List<ParentReference>() { new ParentReference() { Id = parentId } };
+            }
+
+            if (mimeType != "application/vnd.google-apps.folder")
+            {
+                // Load the File's content and put it into a memory stream
+                byte[] byteArray = System.IO.File.ReadAllBytes(filename);
+                MemoryStream stream = new MemoryStream(byteArray);
+
+                try
+                {
+                    // When we add a file, we create an Insert request then call the Upload method on the request.
+                    // (If we were updating an existing file, we would use the Update function)
+                    FilesResource.InsertMediaUpload request = service.Files.Insert(body, stream, mimeType);
+                    request.Upload();
+
+                    // Set the file object to the response of the upload
+                    Google.Apis.Drive.v2.Data.File file = request.ResponseBody;
+
+                    // Uncomment the following line to print the File ID.
+                    // Console.WriteLine("File ID: " + file.Id);
+
+                    // return the file object so the caller has a reference to it.
+                    return file;
+                }
+                catch (Exception e)
+                {
+                    // May want to log this or do something with it other than just dumping to the console.
+                    Console.WriteLine("An error occurred: " + e.Message);
+                    return null;
+                }
+            }
+            else
+            {
+
+                try
+                {
+                    // When we add a file, we create an Insert request then call the Upload method on the request.
+                    // (If we were updating an existing file, we would use the Update function)
+                    FilesResource.InsertRequest request = service.Files.Insert(body);
+                    request.Fetch();
+
+                    // Set the file object to the response of the upload
+                    Google.Apis.Drive.v2.Data.File file = request.Body;
+
+                    // Uncomment the following line to print the File ID.
+                    // Console.WriteLine("File ID: " + file.Id);
+
+                    // return the file object so the caller has a reference to it.
+                    return file;
+                }
+                catch (Exception e)
+                {
+                    // May want to log this or do something with it other than just dumping to the console.
+                    Console.WriteLine("An error occurred: " + e.Message);
+                    return null;
+                }
+            }
         }
-
-        // Load the File's content and put it into a memory stream
-        byte[] byteArray = System.IO.File.ReadAllBytes(filename);
-        MemoryStream stream = new MemoryStream(byteArray);
-
-        try
-        {
-            // When we add a file, we create an Insert request then call the Upload method on the request.
-            // (If we were updating an existing file, we would use the Update function)
-            FilesResource.InsertMediaUpload request = service.Files.Insert(body, stream, mimeType);
-            request.Upload();
-
-            // Set the file object to the response of the upload
-            Google.Apis.Drive.v2.Data.File file = request.ResponseBody;
-
-            // Uncomment the following line to print the File ID.
-            // Console.WriteLine("File ID: " + file.Id);
-
-            // return the file object so the caller has a reference to it.
-            return file;
-        }
-        catch (Exception e)
-        {
-            // May want to log this or do something with it other than just dumping to the console.
-            Console.WriteLine("An error occurred: " + e.Message);
-            return null;
-        }
-    }
 
         /// <summary>
         /// Update an existing file's metadata and content.

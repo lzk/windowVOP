@@ -34,7 +34,8 @@ namespace VOP.Controls
         Simple_Busy,
         Simple_Warning,
         YesNo,
-        YesNo_NoIcon
+        YesNo_NoIcon,
+        YesNo_NoIcon1
     }
 
 
@@ -96,6 +97,10 @@ namespace VOP.Controls
             {
                 msg = new MessageBoxEx_YesNo_NoIcon(messageBoxText, caption);
             }
+            else if (MessageBoxExStyle.YesNo_NoIcon1 == style)
+            {
+                msg = new MessageBoxEx_YesNo_NoIcon1(messageBoxText, caption);
+            }
 
             if (null != owner)
             {
@@ -121,6 +126,14 @@ namespace VOP.Controls
             else if (MessageBoxExStyle.YesNo_NoIcon == style)
             {
                 MessageBoxEx_YesNo_NoIcon msg_YesNo = msg as MessageBoxEx_YesNo_NoIcon;
+                if (null != msg_YesNo)
+                {
+                    return msg_YesNo.messageBoxExResult;
+                }
+            }
+            else if (MessageBoxExStyle.YesNo_NoIcon1 == style)
+            {
+                MessageBoxEx_YesNo_NoIcon1 msg_YesNo = msg as MessageBoxEx_YesNo_NoIcon1;
                 if (null != msg_YesNo)
                 {
                     return msg_YesNo.messageBoxExResult;
