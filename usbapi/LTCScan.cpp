@@ -1695,6 +1695,165 @@ USBAPI_API BOOL __stdcall CheckConnection()
 
 }
 
+USBAPI_API int __stdcall SetPowerSaveTime(const wchar_t* szPrinter, WORD sleepTime, WORD offTime)
+{
+	int nResult = 4;
+
+	CGLDrv glDrv;
+	char interfaceName[32] = { 0 };
+	if (g_connectMode_usb == 1)
+	{
+		HANDLE hDev = NULL;
+		TCHAR strPort[32] = { 0 };
+		int  iCnt;
+		int error = 0;
+
+		for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++)
+		{
+			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
+
+			hDev = CreateFile(strPort,
+				GENERIC_READ | GENERIC_WRITE,
+				FILE_SHARE_READ | FILE_SHARE_WRITE,
+				NULL,
+				OPEN_EXISTING,
+				FILE_FLAG_OVERLAPPED, NULL);
+
+			if (hDev != INVALID_HANDLE_VALUE)
+			{
+				break;
+			}
+			else
+			{
+				error = GetLastError();
+			}
+		}
+
+		if (hDev == INVALID_HANDLE_VALUE)
+		{
+			return 31;
+		}
+
+		if (hDev != INVALID_HANDLE_VALUE)
+		{
+			CloseHandle(hDev);
+		}
+
+		if (glDrv._OpenUSBDevice(strPort) != FALSE)
+		{
+			nResult = glDrv._SetPowerSaveTime(sleepTime, offTime);
+			glDrv._CloseDevice();
+		}
+		else
+		{
+			nResult = 11;
+		}
+	}
+	else
+	{
+		Scan_RET re_status = RETSCAN_OK;
+
+		if (TestIpConnected1(g_ipAddress, &re_status) == TRUE)
+		{
+			if (re_status != RETSCAN_BUSY)
+			{
+				if (glDrv._OpenDevice() == TRUE)
+				{
+					nResult = glDrv._SetPowerSaveTime(sleepTime, offTime);
+					glDrv._CloseDevice();
+				}
+				else
+				{
+					nResult = 21;
+				}
+			}
+		}
+		else
+		{
+			nResult = 31;
+		}
+	}
+	return nResult;
+}
+
+USBAPI_API int __stdcall GetPowerSaveTime(const wchar_t* szPrinter, WORD* ptrSleepTime, WORD* ptrOffTime)
+{
+	int nResult = 4;
+
+	CGLDrv glDrv;
+	char interfaceName[32] = { 0 };
+	if (g_connectMode_usb == 1)
+	{
+		HANDLE hDev = NULL;
+		TCHAR strPort[32] = { 0 };
+		int  iCnt;
+		int error = 0;
+
+		for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++)
+		{
+			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
+
+			hDev = CreateFile(strPort,
+				GENERIC_READ | GENERIC_WRITE,
+				FILE_SHARE_READ | FILE_SHARE_WRITE,
+				NULL,
+				OPEN_EXISTING,
+				FILE_FLAG_OVERLAPPED, NULL);
+
+			if (hDev != INVALID_HANDLE_VALUE)
+			{
+				break;
+			}
+			else
+			{
+				error = GetLastError();
+			}
+		}
+
+		if (hDev == INVALID_HANDLE_VALUE)
+		{
+			return 31;
+		}
+
+		if (hDev != INVALID_HANDLE_VALUE)
+		{
+			CloseHandle(hDev);
+		}
+
+		if (glDrv._OpenUSBDevice(strPort) != FALSE)
+		{
+			nResult = glDrv._GetPowerSaveTime(ptrSleepTime, ptrOffTime);
+			glDrv._CloseDevice();
+		}
+		else
+		{
+			nResult = 11;
+		}
+	}
+	else
+	{
+		Scan_RET re_status = RETSCAN_OK;
+
+		if (TestIpConnected1(g_ipAddress, &re_status) == TRUE)
+		{
+			if (re_status != RETSCAN_BUSY)
+			{
+				if (glDrv._OpenDevice() == TRUE)
+				{
+					nResult = glDrv._GetPowerSaveTime(ptrSleepTime, ptrOffTime);
+					glDrv._CloseDevice();
+				}
+				else
+				{
+					nResult = 21;
+				}
+			}
+
+		}
+	}
+	return nResult;
+}
+
 //********************************************************************************************
 //Do Calibration //Devid added 2017/10/30
 #include "ImgFile\EdgeDetect.h"
@@ -2039,7 +2198,7 @@ int Scan_Param(void)
 {
 	int result;
 
-	result = g_pointer_lDrv->_parameters();
+	result = g_pointer_lDrv->_parametersCalibration();
 
 	return result;
 }
@@ -3103,7 +3262,7 @@ USBAPI_API int __stdcall DoCalibration()
 		SCAN_DOC_SIZE = DOC_K_PRNU;
 
 		nResult = glDrv._JobCreate(START_STAGE, g_connectMode_usb);
-		if (nResult == 0)
+		if (nResult == 1)
 		{
 			K_BatchNum++;
 			K_PageNum = 0;
