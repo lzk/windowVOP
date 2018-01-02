@@ -73,7 +73,7 @@ namespace VOP
             else if (MainWindow_Rufous.g_settingData.m_couldSaveType == "EverNote")
             {
                 cbCloudType.SelectedIndex = 1;
-                MainWindow_Rufous.g_settingData.m_bNeedReset = false;
+               // MainWindow_Rufous.g_settingData.m_bNeedReset = false;//yunying shang 2018-01-02 for BMS 1954
             }
             else if(MainWindow_Rufous.g_settingData.m_couldSaveType == "EverNote")
             {
@@ -215,7 +215,7 @@ namespace VOP
                 else if (cbCloudType.SelectedIndex == 1)
                 {
                     MainWindow_Rufous.g_settingData.m_couldSaveType = "EverNote";
-                    MainWindow_Rufous.g_settingData.m_bNeedReset = false;
+                    //MainWindow_Rufous.g_settingData.m_bNeedReset = false;//yunying shang 2018-01-02 for BMS 1954
                 }
                 else if (cbCloudType.SelectedIndex == 2)
                 {
