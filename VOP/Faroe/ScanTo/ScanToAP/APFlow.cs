@@ -104,8 +104,9 @@ namespace VOP
                                 programType = Others.m_programType;
                                 string path = Others.m_filePath;
                                 i = 0;
-                                
+
                                 //modified by yunying shang 2017-12-19 for BMS 1815
+                                Thread.Sleep(500);
                                 foreach (string f in FileList)
                                 {                                    
                                     try

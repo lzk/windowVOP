@@ -34,15 +34,17 @@ namespace VOP
     {
         public string name;
         public string id;
+        public string parentID;
 
         public FolderItem()
         {
 
         }
-        public FolderItem(string folder, string parentid)
+        public FolderItem(string folder, string parentid, string currentID)
         {
             name = folder;
-            id = parentid;
+            parentID = parentid;
+            id = currentID;
         }
     }
     /// <summary>
@@ -64,6 +66,7 @@ namespace VOP
         private List<string> uploadFiles { get; set; }
         private DriveService _service = null;
         private string ParantID = "";
+        private string Parent = "";
 
         public GoogleDriveFileViewer(List<File> fileList, List<string> uploadList, string folder, CloudFlowType type)
         {
@@ -125,6 +128,7 @@ namespace VOP
                             rootid = file.Parents[0].Id;
                             item.name = "root";
                             item.id = rootid;
+                            item.parentID = rootid;
                             folderList.Add(item);
                         }
                     }
@@ -132,6 +136,7 @@ namespace VOP
                 if (file.MimeType == "application/vnd.google-apps.folder")
                 {
                     item.name = file.Title;
+                    item.parentID = file.Parents[0].Id;
                     item.id = file.Id;
                     folderList.Add(item);
                     isHasFolder = true;
@@ -195,6 +200,8 @@ namespace VOP
             int index = 0;
 
             FileBrowser.Items.Clear();
+            
+
             foreach (File file in FileList)
             {                
                 if (file.MimeType == "application/vnd.google-apps.folder" &&
@@ -310,6 +317,8 @@ namespace VOP
                        
                         if (UploadFolder(folderName, fullpath))
                         {
+                            FileList = Utilities.RetrieveAllFiles(_service);
+                            GetFolderList();
                             UpdateFileAndFolders(currentPath, this.ParantID);
                         }
                         //else
@@ -343,9 +352,6 @@ namespace VOP
         {
             try
             {
-                ListViewItem item = FileBrowser.SelectedItem as ListViewItem;
-                ViewItemInfo info = item.Tag as ViewItemInfo;
-
                 if (currentPath != "")
                 {
                     string temp = "";
@@ -355,8 +361,8 @@ namespace VOP
                     currentPath = temp;
                     if (currentPath != "")
                     {
-                        ParantID = info.parentid;
-                        UpdateFileAndFolders(info.parent, info.parentid);
+                        ParantID = this.ParantID;
+                        UpdateFileAndFolders(Parent, ParantID);
                     }
                     else
                     {
@@ -388,7 +394,7 @@ namespace VOP
             foreach (FolderItem folder in folderList)
             {
                 if (folder.name == foldername &&
-                    folder.id == parentid)
+                    folder.parentID == parentid)
                 {
                     return false;
                 }
@@ -396,13 +402,13 @@ namespace VOP
             return true;
         }
 
-        private bool CheckUploadFolderName(string foldername, string parentid)
+        private bool CheckUploadFolderName(string foldername, string id)
         {
             
             foreach (FolderItem folder in folderList)
             {
                 if (folder.name == foldername &&
-                    folder.id == parentid)
+                    folder.id == id)
                 {
                     return true;
                 }
@@ -410,8 +416,9 @@ namespace VOP
             return true;
         }
 
-        private bool CheckFileName(string filename, string parentid)
+        private bool CheckFileName(string filepath, string parentid)
         {
+            string filename = System.IO.Path.GetFileName(filepath);
             foreach (File file in FileList)
             {
                 if (file.OriginalFilename == filename &&
@@ -442,6 +449,7 @@ namespace VOP
                         UpFolderButton.IsEnabled = true;
 
                     ParantID = info.parentid;
+                    Parent = info.fileName;
                     UpdateFileAndFolders(info.parent, info.parentid);
                 }
             }
@@ -450,12 +458,34 @@ namespace VOP
                 Win32.OutputDebugString(ex.Message);
             }            
         }
-       
 
         private async void UploadButton_Click(object sender, RoutedEventArgs e)
         {
             if (flowType == CloudFlowType.SimpleView)
             {
+                if (selectedPath == "")
+                {
+                    if (FileBrowser.SelectedIndex != -1)
+                    {
+                        ListViewItem item = FileBrowser.Items[FileBrowser.SelectedIndex] as ListViewItem;
+                        ViewItemInfo info = item.Tag as ViewItemInfo;
+                        selectedPath = currentPath + "/" + info.fileName;
+                        Googledocsflow.SavePath = selectedPath;
+                        Googledocsflow.FolderID = info.parentid;
+                    }
+                    else
+                    {
+                        Googledocsflow.SavePath = "/";
+                        Googledocsflow.FolderID = rootid;
+                    }
+                }
+                else
+                {
+                    Googledocsflow.SavePath = selectedPath;
+                    Googledocsflow.FolderID = this.ParantID;
+                }
+
+                
                 this.Close();
             }
             else
@@ -469,7 +499,7 @@ namespace VOP
 
                 if (currentPath != "")
                 {
-                    temp = currentPath.Remove(currentPath.LastIndexOf('/'), currentPath.Length - currentPath.LastIndexOf('/'));
+                    temp = currentPath.Substring(currentPath.LastIndexOf('/')+1);
 
                     if (temp != "")
                     {
@@ -478,11 +508,10 @@ namespace VOP
                     else
                     {
                         UpperFolder = "";
-                    }
+                    }                    
 
-                    if (UpperFolder != null)
-                    {
-                        
+                    if (UpperFolder != "")
+                    {                       
                         if (!CheckUploadFolderName(UpperFolder, ParantID))
                         {
                             message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Not_Exist");
@@ -530,6 +559,10 @@ namespace VOP
                         UploadStaus.Text = "Uploading file " + filePath;
                         await Upload(filePath);
                     }
+                    UploadStaus.Text = "" ;
+                    FileList = Utilities.RetrieveAllFiles(_service);
+                    GetFolderList();
+                    UpdateFileAndFolders(currentPath, this.ParantID);
                 }
                 catch (Exception ex)
                 {
@@ -552,7 +585,7 @@ namespace VOP
             string filename = System.IO.Path.GetFileName(filepath);
             try
             {
-                Utilities.InsertFile(_service, filename, "Scanning Image", "", "image/jpeg", filepath);
+                Utilities.InsertFile(_service, filename, "Scanning Image", this.ParantID, "image/jpeg", filepath);
             }
             catch (Exception ex)
             {
