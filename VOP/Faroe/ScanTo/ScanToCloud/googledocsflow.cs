@@ -20,8 +20,10 @@ namespace VOP
         public List<string> FileList { get; set; }
         public static CloudFlowType FlowType = CloudFlowType.View;
         public static string SavePath = "";
+        public static string FolderID = "";
         public string m_errorMsg = "";
         public bool isCancel = false;
+        private static bool isReset = false;
 
         //public static MainWindow mainWindow;
         /// <summary>
@@ -55,17 +57,22 @@ namespace VOP
             string scope = DriveService.Scopes.Drive.GetStringValue();
 
             // Check if there is a cached refresh token available.
-            IAuthorizationState state = AuthorizationMgr.GetCachedRefreshToken(STORAGE, KEY);
-            if (state != null)
+            IAuthorizationState state;
+
+            if (!isReset)
             {
-                try
+                state = AuthorizationMgr.GetCachedRefreshToken(STORAGE, KEY);
+                if (state != null)
                 {
-                    client.RefreshToken(state);
-                    return state; // Yes - we are done.
-                }
-                catch (DotNetOpenAuth.Messaging.ProtocolException ex)
-                {
-                    Win32.OutputDebugString("Using existing refresh token failed: " + ex.Message);
+                    try
+                    {
+                        client.RefreshToken(state);
+                        return state; // Yes - we are done.
+                    }
+                    catch (DotNetOpenAuth.Messaging.ProtocolException ex)
+                    {
+                        Win32.OutputDebugString("Using existing refresh token failed: " + ex.Message);
+                    }
                 }
             }
 
@@ -94,9 +101,10 @@ namespace VOP
 
                 if (FlowType == CloudFlowType.Quick)
                 {
+                    string folderID = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.GoogleDriveFolderID;
+                    isReset = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.NeedReset;
                     if (fileList.Count > 0)
                     {
-
                         // Set a flag to keep track of whether the file already exists in the drive
                         List<File> fileExists = new List<File>();
                         bool fileExist = false;
@@ -144,7 +152,7 @@ namespace VOP
                                     }
                                     else
                                     {
-                                        Utilities.InsertFile(_service, System.IO.Path.GetFileName(filepath), "Scanning Image", "", "image/jpeg", filepath);
+                                        Utilities.InsertFile(_service, System.IO.Path.GetFileName(filepath), "Scanning Image", folderID, "image/jpeg", filepath);
                                     }
                                     i++;
                                 }
@@ -160,7 +168,7 @@ namespace VOP
                                     File item = fileExists[i];
                                     if (item.Id == "")
                                     {
-                                        Utilities.InsertFile(_service, System.IO.Path.GetFileName(filepath), "Scanning Image", "", "image/jpeg", filepath);
+                                        Utilities.InsertFile(_service, System.IO.Path.GetFileName(filepath), "Scanning Image", folderID, "image/jpeg", filepath);
                                     }
                                     i++;
                                 }
@@ -178,7 +186,7 @@ namespace VOP
                         {
                             foreach (string filepath in FileList)
                             {
-                                Utilities.InsertFile(_service, System.IO.Path.GetFileName(filepath), "Scanning Image", "", "image/jpeg", filepath);
+                                Utilities.InsertFile(_service, System.IO.Path.GetFileName(filepath), "Scanning Image", folderID, "image/jpeg", filepath);
                             }
                         }
                     }
@@ -192,6 +200,7 @@ namespace VOP
                 }
                 else
                 {
+                    isReset = MainWindow_Rufous.g_settingData.m_bNeedReset;
                     bool? result = null;
                     GoogleDriveFileViewer viewer = new GoogleDriveFileViewer(fileList, FileList, MainWindow_Rufous.g_settingData.m_dropBoxDefaultPath, FlowType);
                     viewer.Owner = System.Windows.Application.Current.MainWindow;
@@ -223,7 +232,14 @@ namespace VOP
                 if (FlowType != CloudFlowType.SimpleView)
                     return false;
             }
-
+            if (FlowType == CloudFlowType.Quick)
+            {
+                isReset = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.NeedReset;
+            }
+            else
+            {
+                isReset = MainWindow_Rufous.g_settingData.m_bNeedReset;
+            }
             try
             {
                 AuthorizeAndUpload();

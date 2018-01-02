@@ -258,7 +258,7 @@ namespace VOP
             }
             else
             {
-
+                MainWindow_Rufous.g_settingData.m_bNeedReset = true;
             }
         }
 

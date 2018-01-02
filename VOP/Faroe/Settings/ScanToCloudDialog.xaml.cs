@@ -67,7 +67,7 @@ namespace VOP
 
                 m_scanToCloudParams.NeedReset = false;
             }
-            else
+            else if (m_scanToCloudParams.SaveType == "OneDrive")
             {
                 cbCloudType.SelectedIndex = 2;
                 tbNoteTitle.IsEnabled = false;
@@ -84,6 +84,25 @@ namespace VOP
                 SavePathTbx.IsReadOnly = true;
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                cbCloudType.SelectedIndex = 3;
+                tbNoteTitle.IsEnabled = false;
+                tbNoteTitle.Visibility = System.Windows.Visibility.Hidden;
+                tbNote.IsEnabled = false;
+                tbNote.Visibility = System.Windows.Visibility.Hidden;
+                tbNoteContent.IsEnabled = false;
+                tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
+                SavePathTbx.IsEnabled = true;
+                SavePathTbx.Visibility = System.Windows.Visibility.Visible;
+                tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Default_Path"); ;
+                SavePathTbx.IsReadOnly = false;
+                SavePathTbx.Text = m_scanToCloudParams.DefaultGoogleDrivePath;
+                SavePathTbx.IsReadOnly = true;
+                btnBrowse.IsEnabled = true;
+                btnBrowse.Visibility = System.Windows.Visibility.Visible;
+
             }
             tbSettings.Focus();
         }
@@ -133,6 +152,20 @@ namespace VOP
                 //reset
                 OneDriveFlow.FlowType = CloudFlowType.View;
             }
+            else
+            {
+                Googledocsflow flow = new Googledocsflow();
+                Googledocsflow.FlowType = CloudFlowType.SimpleView;
+                flow.Run();
+                SavePathTbx.IsReadOnly = false;
+                SavePathTbx.Text = Googledocsflow.SavePath;
+                SavePathTbx.IsReadOnly = true;
+                m_scanToCloudParams.DefaultGoogleDrivePath = Googledocsflow.SavePath;
+                m_scanToCloudParams.GoogleDriveFolderID = Googledocsflow.FolderID;
+
+                //reset
+                Googledocsflow.FlowType = CloudFlowType.View;
+            }
         }
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -168,7 +201,7 @@ namespace VOP
                 Properties.Settings.Default.Reset();
                 m_scanToCloudParams.DefaultPath = SavePathTbx.Text = "/";
             }
-            else
+            else if (m_scanToCloudParams.SaveType == "EverNote")
             {
                 //add by yunying shang 2017-12-08 for BMS 1613
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
@@ -177,13 +210,18 @@ namespace VOP
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 //<<===========1613
                 m_scanToCloudParams.NeedReset = true;
-            }        
+            }
+            else
+            {
+                m_scanToCloudParams.NeedReset = true;
+            }    
         }
 
         private void OkClick(object sender, RoutedEventArgs e)
         {
             if (cbCloudType.SelectedIndex == 0 ||
-                cbCloudType.SelectedIndex == 2)
+                cbCloudType.SelectedIndex == 2 ||
+                cbCloudType.SelectedIndex == 3)
             {
                 if (SavePathTbx.Text == "")
                 {
@@ -202,11 +240,17 @@ namespace VOP
                     m_scanToCloudParams.DefaultOneDrivePath = SavePathTbx.Text;//add by yunying shang 2017-11-22 for BMS 1483
 
                 }
-                else
+                else if(cbCloudType.SelectedIndex == 1)
                 {
                     m_scanToCloudParams.SaveType = "DropBox";
                     m_scanToCloudParams.DefaultPath = SavePathTbx.Text;//add by yunying shang 2017-11-08 for BMS 1326
 
+                }
+                else
+                {
+                    m_scanToCloudParams.SaveType = "GooleDrive";
+                    m_scanToCloudParams.DefaultGoogleDrivePath = SavePathTbx.Text;//add by yunying shang 2017-11-08 for BMS 1326
+                    
                 }
             }
             else if (cbCloudType.SelectedIndex == 1)
@@ -261,7 +305,7 @@ namespace VOP
                 SavePathTbx.Visibility = System.Windows.Visibility.Visible;
                 tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Default_Path"); ;
                 SavePathTbx.IsReadOnly = false;
-                SavePathTbx.Text = m_scanToCloudParams.DefaultPath;                
+                SavePathTbx.Text = m_scanToCloudParams.DefaultPath;
                 SavePathTbx.IsReadOnly = true;
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
@@ -303,6 +347,24 @@ namespace VOP
                 btnBrowse.IsEnabled = true;
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
                 Properties.Settings.Default.Reset();
+            }
+            else
+            {
+                m_scanToCloudParams.SaveType = "GooleDrive";
+                tbNoteTitle.IsEnabled = false;
+                tbNoteTitle.Visibility = System.Windows.Visibility.Hidden;
+                tbNote.IsEnabled = false;
+                tbNote.Visibility = System.Windows.Visibility.Hidden;
+                tbNoteContent.IsEnabled = false;
+                tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
+                SavePathTbx.IsEnabled = true;
+                SavePathTbx.Visibility = System.Windows.Visibility.Visible;
+                tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Default_Path"); ;
+                SavePathTbx.IsReadOnly = false;
+                SavePathTbx.Text = m_scanToCloudParams.DefaultGoogleDrivePath;
+                SavePathTbx.IsReadOnly = true;
+                btnBrowse.IsEnabled = true;
+                btnBrowse.Visibility = System.Windows.Visibility.Visible;
             }
         }
 
