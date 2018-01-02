@@ -71,7 +71,7 @@ namespace Google.Apis.Util
                 catch (Exception e)
                 {
                     // May want to log this or do something with it other than just dumping to the console.
-                    Console.WriteLine("An error occurred: " + e.Message);
+                    //Console.WriteLine("An error occurred: " + e.Message);
                     request.PageToken = null;
                 }
 

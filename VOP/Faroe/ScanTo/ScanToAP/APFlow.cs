@@ -106,7 +106,7 @@ namespace VOP
                                 i = 0;
 
                                 //modified by yunying shang 2017-12-19 for BMS 1815
-                                Thread.Sleep(500);
+                                
                                 foreach (string f in FileList)
                                 {                                    
                                     try
@@ -142,8 +142,13 @@ namespace VOP
 
                             foreach (string f in FileList)
                             {
+                                //modified by yunying shang 2018-01-02 for BMS 1815
                                 //modified by yunying shang 2017-12-07 for BMS 1722
-                                Process.Start("rundll32.exe", String.Format("{0} {1}", "shimgvw.dll,ImageView_Fullscreen", f));
+                                // Process.Start("rundll32.exe", String.Format("{0} {1}", "shimgvw.dll,ImageView_Fullscreen", f));
+                                Process p = new Process();
+                                p.StartInfo.FileName = "rundll32.exe";
+                                p.StartInfo.Arguments = String.Format("{0} {1}", "shimgvw.dll,ImageView_Fullscreen", f);
+                                p.Start();
                                 //<<==============1722
                                 if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true)
                                 {

@@ -515,8 +515,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_To_Cloud">To Cloud</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Folder">Folder</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Folder_Name">Folder Name</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Output_Result">Output Result</sys:String> 
-    <sys:String xml:space="preserve" x:Key="ResStr_Switch_Evernote_Restart_VOP">If you want to switch the user to log on EverNote, it is best to restart the VOP after press "OK" button!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Output_Result">Output Result</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Switch_Evernote_Restart_VOP">Please click the OK button to save changes and restart the VOP to log on EverNote manually!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Find_Printer_Error">Could not find the printer. </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_EverNote_List">Ever Note List: </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Upload_success">Upload success!</sys:String>

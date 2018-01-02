@@ -21,6 +21,7 @@ namespace VOP
     {
         public ScanToCloudParam m_scanToCloudParams = new ScanToCloudParam();
         public ScanParam m_scanParams = new ScanParam();
+        private int m_lastCloudType = -1;
         public ScanToCloudDialog()
         {
             InitializeComponent();
@@ -104,6 +105,7 @@ namespace VOP
                 btnBrowse.Visibility = System.Windows.Visibility.Visible;
 
             }
+            btnReset.IsEnabled = true;
             tbSettings.Focus();
         }
 
@@ -214,7 +216,8 @@ namespace VOP
             else
             {
                 m_scanToCloudParams.NeedReset = true;
-            }    
+            }
+            btnReset.IsEnabled = false;    
         }
 
         private void OkClick(object sender, RoutedEventArgs e)
@@ -292,79 +295,83 @@ namespace VOP
 
         private void cbCloudType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cbCloudType.SelectedIndex == 0)
+            if (cbCloudType.SelectedIndex != m_lastCloudType)
             {
-                m_scanToCloudParams.SaveType = "DropBox";
-                tbNoteTitle.IsEnabled = false;
-                tbNoteTitle.Visibility = System.Windows.Visibility.Hidden;
-                tbNote.IsEnabled = false;
-                tbNote.Visibility = System.Windows.Visibility.Hidden;
-                tbNoteContent.IsEnabled = false;
-                tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
-                SavePathTbx.IsEnabled = true;
-                SavePathTbx.Visibility = System.Windows.Visibility.Visible;
-                tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Default_Path"); ;
-                SavePathTbx.IsReadOnly = false;
-                SavePathTbx.Text = m_scanToCloudParams.DefaultPath;
-                SavePathTbx.IsReadOnly = true;
-                btnBrowse.IsEnabled = true;
-                btnBrowse.Visibility = System.Windows.Visibility.Visible;
-                AuthenticationHelper.SignOut();
-            }
-            else if (cbCloudType.SelectedIndex == 1)
-            {
-                m_scanToCloudParams.SaveType = "EverNote";
-                tbNoteTitle.IsEnabled = true;
-                tbNoteTitle.Visibility = System.Windows.Visibility.Visible;
-                tbNote.IsEnabled = true;
-                tbNote.Visibility = System.Windows.Visibility.Visible;
-                tbNoteContent.IsEnabled = true;
-                tbNoteContent.Visibility = System.Windows.Visibility.Visible;
-                tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Note_Title");
-                tbNote.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Note_Content");
-                tbNoteTitle.Text = m_scanToCloudParams.EverNoteTitle;
-                tbNoteContent.Text = m_scanToCloudParams.EverNoteContent;
-                SavePathTbx.IsEnabled = false;
-                SavePathTbx.Visibility = System.Windows.Visibility.Hidden;
-                btnBrowse.IsEnabled = false;
-                btnBrowse.Visibility = System.Windows.Visibility.Hidden;
-            }
-            else if (cbCloudType.SelectedIndex == 2)
-            {
-                m_scanToCloudParams.SaveType = "OneDrive";
-                tbNoteTitle.IsEnabled = false;
-                tbNoteTitle.Visibility = System.Windows.Visibility.Hidden;
-                tbNote.IsEnabled = false;
-                tbNote.Visibility = System.Windows.Visibility.Hidden;
-                tbNoteContent.IsEnabled = false;
-                tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
-                SavePathTbx.IsEnabled = true;
-                SavePathTbx.Visibility = System.Windows.Visibility.Visible;
-                tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Default_Path"); ;
-                SavePathTbx.IsReadOnly = false;
-                SavePathTbx.Text = m_scanToCloudParams.DefaultOneDrivePath;
-                SavePathTbx.IsReadOnly = true;
-                btnBrowse.IsEnabled = true;
-                btnBrowse.Visibility = System.Windows.Visibility.Visible;
-                Properties.Settings.Default.Reset();
-            }
-            else
-            {
-                m_scanToCloudParams.SaveType = "GooleDrive";
-                tbNoteTitle.IsEnabled = false;
-                tbNoteTitle.Visibility = System.Windows.Visibility.Hidden;
-                tbNote.IsEnabled = false;
-                tbNote.Visibility = System.Windows.Visibility.Hidden;
-                tbNoteContent.IsEnabled = false;
-                tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
-                SavePathTbx.IsEnabled = true;
-                SavePathTbx.Visibility = System.Windows.Visibility.Visible;
-                tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Default_Path"); ;
-                SavePathTbx.IsReadOnly = false;
-                SavePathTbx.Text = m_scanToCloudParams.DefaultGoogleDrivePath;
-                SavePathTbx.IsReadOnly = true;
-                btnBrowse.IsEnabled = true;
-                btnBrowse.Visibility = System.Windows.Visibility.Visible;
+                if (cbCloudType.SelectedIndex == 0)
+                {
+                    m_scanToCloudParams.SaveType = "DropBox";
+                    tbNoteTitle.IsEnabled = false;
+                    tbNoteTitle.Visibility = System.Windows.Visibility.Hidden;
+                    tbNote.IsEnabled = false;
+                    tbNote.Visibility = System.Windows.Visibility.Hidden;
+                    tbNoteContent.IsEnabled = false;
+                    tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
+                    SavePathTbx.IsEnabled = true;
+                    SavePathTbx.Visibility = System.Windows.Visibility.Visible;
+                    tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Default_Path"); ;
+                    SavePathTbx.IsReadOnly = false;
+                    SavePathTbx.Text = m_scanToCloudParams.DefaultPath;
+                    SavePathTbx.IsReadOnly = true;
+                    btnBrowse.IsEnabled = true;
+                    btnBrowse.Visibility = System.Windows.Visibility.Visible;
+                    AuthenticationHelper.SignOut();
+                }
+                else if (cbCloudType.SelectedIndex == 1)
+                {
+                    m_scanToCloudParams.SaveType = "EverNote";
+                    tbNoteTitle.IsEnabled = true;
+                    tbNoteTitle.Visibility = System.Windows.Visibility.Visible;
+                    tbNote.IsEnabled = true;
+                    tbNote.Visibility = System.Windows.Visibility.Visible;
+                    tbNoteContent.IsEnabled = true;
+                    tbNoteContent.Visibility = System.Windows.Visibility.Visible;
+                    tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Note_Title");
+                    tbNote.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Note_Content");
+                    tbNoteTitle.Text = m_scanToCloudParams.EverNoteTitle;
+                    tbNoteContent.Text = m_scanToCloudParams.EverNoteContent;
+                    SavePathTbx.IsEnabled = false;
+                    SavePathTbx.Visibility = System.Windows.Visibility.Hidden;
+                    btnBrowse.IsEnabled = false;
+                    btnBrowse.Visibility = System.Windows.Visibility.Hidden;
+                }
+                else if (cbCloudType.SelectedIndex == 2)
+                {
+                    m_scanToCloudParams.SaveType = "OneDrive";
+                    tbNoteTitle.IsEnabled = false;
+                    tbNoteTitle.Visibility = System.Windows.Visibility.Hidden;
+                    tbNote.IsEnabled = false;
+                    tbNote.Visibility = System.Windows.Visibility.Hidden;
+                    tbNoteContent.IsEnabled = false;
+                    tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
+                    SavePathTbx.IsEnabled = true;
+                    SavePathTbx.Visibility = System.Windows.Visibility.Visible;
+                    tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Default_Path"); ;
+                    SavePathTbx.IsReadOnly = false;
+                    SavePathTbx.Text = m_scanToCloudParams.DefaultOneDrivePath;
+                    SavePathTbx.IsReadOnly = true;
+                    btnBrowse.IsEnabled = true;
+                    btnBrowse.Visibility = System.Windows.Visibility.Visible;
+                    Properties.Settings.Default.Reset();
+                }
+                else
+                {
+                    m_scanToCloudParams.SaveType = "GooleDrive";
+                    tbNoteTitle.IsEnabled = false;
+                    tbNoteTitle.Visibility = System.Windows.Visibility.Hidden;
+                    tbNote.IsEnabled = false;
+                    tbNote.Visibility = System.Windows.Visibility.Hidden;
+                    tbNoteContent.IsEnabled = false;
+                    tbNoteContent.Visibility = System.Windows.Visibility.Hidden;
+                    SavePathTbx.IsEnabled = true;
+                    SavePathTbx.Visibility = System.Windows.Visibility.Visible;
+                    tbDefaultPath.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Default_Path"); ;
+                    SavePathTbx.IsReadOnly = false;
+                    SavePathTbx.Text = m_scanToCloudParams.DefaultGoogleDrivePath;
+                    SavePathTbx.IsReadOnly = true;
+                    btnBrowse.IsEnabled = true;
+                    btnBrowse.Visibility = System.Windows.Visibility.Visible;
+                }
+                m_lastCloudType = cbCloudType.SelectedIndex;
             }
         }
 
