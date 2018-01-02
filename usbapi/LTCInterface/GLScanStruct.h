@@ -203,6 +203,7 @@ typedef struct SC_PAR_DATA_STRUCT {
 #define ACQ_AUTO_LEVEL		(0x10 << 8)
 #define ACQ_DETECT_COLOR	(0x20 << 8)
 #define ACQ_DETECT_BW		(0x40 << 8)
+#define ACQ_SKIP_BLANKPAGE	(0x40 << 8)
 
 #define ACQ_MOTOR_OFF		(0x01 << 16)    // scan without moving motor
 #define ACQ_NO_PP_SENSOR	(0x02 << 16)    // ADF scan without Doc/ADF sensor detection, Flatbed scan without home sensor detection

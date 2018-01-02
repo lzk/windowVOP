@@ -184,7 +184,7 @@
                 </Grid.RowDefinitions>
                 <ScrollViewer Name="scrollPreview"  Grid.Row="0" Margin="3" Width="550" Background="#FFFFFFFF" VerticalScrollBarVisibility="Auto"
                               HorizontalScrollBarVisibility="Auto" Style="{StaticResource LeftScrollViewer}">
-                    <Image VerticalAlignment="Center" HorizontalAlignment="Center" Name="previewImg" />
+                    <Image VerticalAlignment="Center" HorizontalAlignment="Center" Name="previewImg" Margin="10,5" />
                 </ScrollViewer>
                 <StackPanel  Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Name="PreImageButton" 

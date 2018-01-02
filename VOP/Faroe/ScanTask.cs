@@ -190,6 +190,9 @@ next:
                     param.AutoCrop,
                     param.OnePage,
                     WM_VOPSCAN_UPLOAD,
+                    param.AutoColorDetect,
+                    param.SkipBlankPage,
+                    param.Gamma,
                     out fileNames);
 
 //            sw.Stop();

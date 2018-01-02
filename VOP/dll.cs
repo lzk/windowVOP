@@ -246,6 +246,9 @@ namespace VOP
                 bool AutoCrop,
                 bool onepage,
                 uint uMsg,
+                bool bAutoDetect,
+                bool bSkipBlankPage,
+                double gamma,
                 [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)]out string[] fileNames);
 
         [DllImport("usbapi.dll")]

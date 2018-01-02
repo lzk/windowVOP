@@ -544,8 +544,11 @@ namespace VOP
                 {
                     if ((double)val / 10 != m_scanParams.Gamma)
                     {
-                        m_scanParams.Gamma = (double)val / 10;
-                        tbGamma.Text = Convert.ToString(m_scanParams.Gamma);
+                        if (val != 0)
+                        {
+                            m_scanParams.Gamma = (double)val / 10;
+                            tbGamma.Text = Convert.ToString(m_scanParams.Gamma);
+                        }
                     }
                 }
             }
@@ -585,6 +588,11 @@ namespace VOP
                 m_scanParams.ScanMediaType = EnumScanMediaType._Normal;
                 m_scanParams.MultiFeed = false;
                 m_scanParams.AutoCrop = false;
+            }
+
+            if (m_scanParams.SkipBlankPage == true)
+            {
+                m_scanParams.ADFMode = false;
             }
             this.DialogResult = true;
             this.Close();
@@ -830,10 +838,19 @@ namespace VOP
                 if (rdbtn.Name == "btnSkipBlankOn")
                 {
                     m_scanParams.SkipBlankPage = true;
+                    twoSideButton.IsEnabled = false;
+                    oneSideButton.IsEnabled = false;
+                    oneSideButton.IsChecked = true;
                 }
                 else if (rdbtn.Name == "btnSkipBlankOff")
                 {
                     m_scanParams.SkipBlankPage = false;
+                    twoSideButton.IsEnabled = true;
+                    oneSideButton.IsEnabled = true;
+                    if (m_scanParams.ADFMode)
+                        twoSideButton.IsChecked = true;
+                    else
+                        oneSideButton.IsChecked = true;
                 }
             }
         }
