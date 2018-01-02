@@ -466,8 +466,8 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
         int docutype,
         UINT32 uMsg );
 
-USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, WORD* ptrSleepTime, WORD* ptrOffTime);
-USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, WORD time );
+//USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, WORD* ptrSleepTime, WORD* ptrOffTime);
+//USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, WORD time );
 USBAPI_API int __stdcall GetWiFiInfo(const wchar_t* szPrinter, UINT8* ptr_wifienable, char* ssid, char* pwd, UINT8* ptr_encryption, UINT8* ptr_wepKeyId);
 
 USBAPI_API int __stdcall GetIPInfo( 
@@ -3700,97 +3700,7 @@ USBAPI_API int __stdcall GetWiFiInfo(const wchar_t* szPrinter, UINT8* ptr_wifien
 	return nResult;
 }
 
-USBAPI_API int __stdcall SetPowerSaveTime(const wchar_t* szPrinter, WORD sleepTime, WORD offTime)
-{
-	int nResult = _ACK;
 
-	SC_PWRS_T command;
-	command.code = 'PWRS';
-	command.option = 0;
-
-	SC_SET_PWRS_DATA_T data;
-	data.autoSleepTime = sleepTime;
-	data.autoOffTime = offTime;
-
-	SC_PWRS_STA_T sta;
-
-	if (g_connectMode_usb != TRUE)
-	{
-		EnterCriticalSection(&g_csCriticalSection_connect);
-		HMODULE hmod = LoadLibrary(DLL_NAME_NET);
-
-		LPFN_NETWORK_CONNECT  lpfnNetworkConnect = NULL;
-		LPFN_NETWORK_READ     lpfnNetworkRead = NULL;
-		LPFN_NETWORK_WRITE    lpfnNetworkWrite = NULL;
-		LPFN_NETWORK_CLOSE    lpfnNetworkClose = NULL;
-
-		lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(hmod, "NetworkConnectNonBlock");
-		lpfnNetworkRead = (LPFN_NETWORK_READ)GetProcAddress(hmod, "NetworkRead");
-		lpfnNetworkWrite = (LPFN_NETWORK_WRITE)GetProcAddress(hmod, "NetworkWrite");
-		lpfnNetworkClose = (LPFN_NETWORK_CLOSE)GetProcAddress(hmod, "NetworkClose");
-
-		if (hmod && \
-			lpfnNetworkConnect && \
-			lpfnNetworkRead    && \
-			lpfnNetworkWrite   && \
-			lpfnNetworkClose)
-		{
-			int nCount = 0;
-			bool bWriteSuccess = false;
-
-			while (nCount++ < 2 && !bWriteSuccess)
-			{
-				char szAsciiIP[1024] = { 0 };
-				::WideCharToMultiByte(CP_ACP, 0, g_ipAddress, -1, szAsciiIP, 1024, NULL, NULL);
-
-				int m_iSocketID = lpfnNetworkConnect(szAsciiIP, 9100, 1000);
-				int result = lpfnNetworkWrite(m_iSocketID, &command, sizeof(command)) &&
-					lpfnNetworkWrite(m_iSocketID, &data, sizeof(data)) &&
-					lpfnNetworkRead(m_iSocketID, &sta, sizeof(sta));
-
-				if (!result || sta.ack == 'E')
-				{
-					nResult = _SW_INVALID_RETURN_VALUE;
-				}
-
-				lpfnNetworkClose(m_iSocketID);
-
-			}
-		}
-		else
-		{
-			nResult = _SW_NET_DLL_LOAD_FAIL;
-			OutputDebugStringToFileA("\r\n####VP:WriteDataViaNetwork(): Load dll fail.");
-		}
-
-		lpfnNetworkConnect = NULL;
-		lpfnNetworkRead = NULL;
-		lpfnNetworkWrite = NULL;
-		lpfnNetworkClose = NULL;
-
-		FreeLibrary(hmod);
-		LeaveCriticalSection(&g_csCriticalSection_connect);
-	}
-	else
-	{
-		CGLUsb glUsb;
-		if (glUsb.CMDIO_OpenDevice() == TRUE)
-		{
-			int result = glUsb.CMDIO_BulkWriteEx(0, &command, sizeof(command)) &&
-				glUsb.CMDIO_BulkWriteEx(0, &data, sizeof(data)) &&
-				glUsb.CMDIO_BulkReadEx(0, &sta, sizeof(sta));
-
-			if (!result || sta.ack == 'E')
-			{
-				nResult = _SW_INVALID_RETURN_VALUE;
-			}
-
-			glUsb.CMDIO_CloseDevice();
-		}
-	}
-
-	return nResult;
-}
 
 //USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, WORD time )
 //{
@@ -3847,95 +3757,6 @@ USBAPI_API int __stdcall SetPowerSaveTime(const wchar_t* szPrinter, WORD sleepTi
 //	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime() end");
 //    return nResult;
 //}
-
-USBAPI_API int __stdcall GetPowerSaveTime(const wchar_t* szPrinter, WORD* ptrSleepTime, WORD* ptrOffTime)
-{
-	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime() begin");
-
-	int nResult = _ACK;
-
-	SC_GET_PWRS_DATA_T data;
-	SC_PWRS_STA_T sta;
-	SC_PWRS_T command;
-	command.code = 'PWRS';
-	command.option = 0;
-	if (g_connectMode_usb != TRUE)
-	{
-		EnterCriticalSection(&g_csCriticalSection_connect);
-		HMODULE hmod = LoadLibrary(DLL_NAME_NET);
-
-		LPFN_NETWORK_CONNECT  lpfnNetworkConnect = NULL;
-		LPFN_NETWORK_READ     lpfnNetworkRead = NULL;
-		LPFN_NETWORK_WRITE    lpfnNetworkWrite = NULL;
-		LPFN_NETWORK_CLOSE    lpfnNetworkClose = NULL;
-
-		lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(hmod, "NetworkConnectNonBlock");
-		lpfnNetworkRead = (LPFN_NETWORK_READ)GetProcAddress(hmod, "NetworkRead");
-		lpfnNetworkWrite = (LPFN_NETWORK_WRITE)GetProcAddress(hmod, "NetworkWrite");
-		lpfnNetworkClose = (LPFN_NETWORK_CLOSE)GetProcAddress(hmod, "NetworkClose");
-
-		if (hmod && \
-			lpfnNetworkConnect && \
-			lpfnNetworkRead    && \
-			lpfnNetworkWrite   && \
-			lpfnNetworkClose)
-		{
-			int nCount = 0;
-			bool bWriteSuccess = false;
-
-			while (nCount++ < 2 && !bWriteSuccess)
-			{
-				char szAsciiIP[1024] = { 0 };
-				::WideCharToMultiByte(CP_ACP, 0, g_ipAddress, -1, szAsciiIP, 1024, NULL, NULL);
-
-				int m_iSocketID = lpfnNetworkConnect(szAsciiIP, 9100, 1000);
-				int result = lpfnNetworkWrite(m_iSocketID, &command, sizeof(command))&&
-					lpfnNetworkRead(m_iSocketID, &data, sizeof(data))&&
-					lpfnNetworkRead(m_iSocketID, &sta, sizeof(sta));
-
-				if (!result || sta.ack == 'E')
-				{
-					nResult = _SW_INVALID_RETURN_VALUE;
-				}
-
-				lpfnNetworkClose(m_iSocketID);
-
-			}
-		}
-		else
-		{
-			nResult = _SW_NET_DLL_LOAD_FAIL;
-			OutputDebugStringToFileA("\r\n####VP:WriteDataViaNetwork(): Load dll fail.");
-		}
-
-		lpfnNetworkConnect = NULL;
-		lpfnNetworkRead = NULL;
-		lpfnNetworkWrite = NULL;
-		lpfnNetworkClose = NULL;
-
-		FreeLibrary(hmod);
-		LeaveCriticalSection(&g_csCriticalSection_connect);
-	}
-	else
-	{
-		CGLUsb glUsb;
-		if (glUsb.CMDIO_OpenDevice() == TRUE)
-		{
-			int result = glUsb.CMDIO_BulkWriteEx(0, &command, sizeof(command)) &&
-				glUsb.CMDIO_BulkReadEx(0, &data, sizeof(data)) &&
-				glUsb.CMDIO_BulkReadEx(0, &sta, sizeof(sta));
-
-			if (!result || sta.ack == 'E')
-			{
-				nResult = _SW_INVALID_RETURN_VALUE;
-			}
-
-			glUsb.CMDIO_CloseDevice();
-		}
-	}
-
-	return nResult;
-}
 
 //USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, BYTE* ptrTime )
 //{

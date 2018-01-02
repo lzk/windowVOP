@@ -230,6 +230,44 @@ BYTE CGLDrv::_parameters()
 exit_par:
 	return (BYTE)result;
 }
+
+BYTE CGLDrv::_parametersCalibration()
+{
+	int result;
+	//sc_par.id = (unsigned char)JobID;
+
+	memset(&par_status, 0, sizeof(par_status));
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &sc_par, sizeof(sc_par)) &&
+			m_GLusb->CMDIO_BulkWriteEx(0, &sc_pardata, sizeof(sc_pardata)-4) &&
+			m_GLusb->CMDIO_BulkReadEx(0, &par_status, sizeof(par_status));
+
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&sc_par, sizeof(sc_par)) &&
+			m_GLnet->CMDIO_Write(&sc_pardata, sizeof(sc_pardata)-4) &&
+			m_GLnet->CMDIO_Read(&par_status, sizeof(par_status));
+	}
+
+	if (!result || par_status.ack == 'E')// || par_status.id != JobID) 
+	{
+		MyOutputString(L"Set parameter error", par_status.err);
+#if _GLDEBUG_
+		LTCPrintf("Set parameter error. err(%d), ID(%d)\n", par_status.err, par_status.id);
+#endif
+		result = 0;
+		goto exit_par;
+	}
+#if _GLDEBUG_
+	LTCPrintf("Set parameter OK.\n");
+#endif
+exit_par:
+	return (BYTE)result;
+}
+
 BYTE CGLDrv::_StartScan()
 {
 	int result;
@@ -1439,6 +1477,147 @@ BYTE CGLDrv::_GetPowerSupply()
 	else
 	{
 		result = sc_powerData.mode;
+	}
+
+exit_info:
+	return (BYTE)result;
+}
+
+BYTE CGLDrv::_GetPowerSaveTime(WORD* ptrSleepTime, WORD* ptrOffTime)
+{
+	int result;
+
+	SC_PWRS_T command;
+	memset(&command, 0, sizeof(command));
+	command.code = I4('PWRS');//I4('PWRS');
+	command.option = 0;
+
+	SC_GET_PWRS_DATA_T data;
+	SC_PWRS_STA_T sta;
+
+	memset(&data, 0, sizeof(data));
+	memset(&sta, 0, sizeof(sta));
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &command, sizeof(command));
+		if (!result)
+		{
+			result = 33;
+			goto exit_info;
+		}
+		//Sleep(3);
+		result = m_GLusb->CMDIO_BulkReadEx(0, &sta, sizeof(sta));
+		if (!result || sta.code != I3('STA') || sta.ack != 'A') {
+			MyOutputString(L"Get Power Saving Error");
+			result = 33;
+			goto exit_info;
+		}
+		else
+		{
+			result = m_GLusb->CMDIO_BulkReadEx(0, &data, sizeof(data));
+		}
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&command, sizeof(command));
+		if (!result)
+		{
+			result = 33;
+			goto exit_info;
+		}
+		//Sleep(3);
+		result = m_GLnet->CMDIO_Read(&sta, sizeof(sta));
+		if (!result || sta.code != I3('STA') || sta.ack != 'A') {
+			MyOutputString(L"Get Power Saving Error");
+			result = 33;
+			goto exit_info;
+		}
+		else
+		{
+			result = m_GLnet->CMDIO_Read(&data, sizeof(data));
+			if (!result)
+			{
+				result = 33;
+				goto exit_info;
+			}
+		}
+	}
+
+	result = sta.powermodecode;
+	*ptrSleepTime = data.autoSleepTime;
+	*ptrOffTime = data.autoOffTime;
+
+	if (data.disableAutoSleep != 0)
+		*ptrSleepTime = 0;
+
+	if (data.disableAutoOff != 0)
+		*ptrOffTime = 0;
+
+exit_info:
+	return (BYTE)result;
+}
+
+BYTE CGLDrv::_SetPowerSaveTime(WORD sleepTime, WORD offTime)
+{
+	int result = 0;
+
+	SC_PWRS_T command;
+	memset(&command, 0, sizeof(command));
+	command.code = I4('PWRS');
+	command.option = 1;
+
+	SC_SET_PWRS_DATA_T data;
+	memset(&data, 0, sizeof(data));
+	data.autoSleepTime = sleepTime;
+	data.autoOffTime = offTime;
+
+	SC_PWRS_STA_T sta;
+	memset(&sta, 0, sizeof(sta));
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &command, sizeof(command));
+		if (!result)
+		{
+			result = 0;
+			goto exit_info;
+		}
+		//Sleep(3);
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &data, sizeof(data));
+		if (!result)
+		{
+			result = 0;
+			goto exit_info;
+		}
+		result = m_GLusb->CMDIO_BulkReadEx(0, &sta, sizeof(sta));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&command, sizeof(command));
+		if (!result)
+		{
+			result = 0;
+			goto exit_info;
+		}
+		//Sleep(3);
+		result = m_GLnet->CMDIO_Write(&data, sizeof(data));
+		if (!result)
+		{
+			result = 0;
+			goto exit_info;
+		}
+		result = m_GLnet->CMDIO_Read(&sta, sizeof(sta));
+	}
+
+	if (!result || sta.code != I3('STA') || sta.ack != 'A') {
+		MyOutputString(L"Set Power Saving Error");
+		result = 32;
+		goto exit_info;
+	}
+	else
+	{
+		result = sta.powermodecode;
 	}
 
 exit_info:

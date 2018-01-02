@@ -45,11 +45,11 @@ namespace VOP
 
             if (_bDisplayProgressBar)
             {
-                //worker.InvokeMethod<PowerSaveTimeRecord>(strPrinterName, ref m_rec, DllMethodType.GetPowerSaveTime, this);
+                worker.InvokeMethod<PowerSaveTimeRecord>(strPrinterName, ref m_rec, DllMethodType.GetPowerSaveTime, this);
             }
             else
             {
-                //m_rec = worker.GetPowerSaveTime(strPrinterName);
+                m_rec = worker.GetPowerSaveTime(strPrinterName);
             }
 
             if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
@@ -69,7 +69,12 @@ namespace VOP
             tb.TextChanged += new TextChangedEventHandler(SpinnerTextBox_TextChanged);
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
-            
+
+            if (MainWindow_Rufous.g_settingData.m_DeviceName.Contains("USB"))
+                btnCalibration.IsEnabled = true;
+            else
+                btnCalibration.IsEnabled = false;
+
             // UpdateApplyBtnStatus();
         }
 
@@ -194,7 +199,7 @@ namespace VOP
             spinnerControlAutoSleep.FormattedValue = String.Format("{0}", m_psavetime);
 
             byte pofftime = Convert.ToByte(spinnerControlAutoOff.Value);
-            if (pofftime < 0)
+            if (pofftime <= 0)
                 pofftime = 0;
             else if(pofftime<=psavetime)
             {
@@ -227,6 +232,8 @@ namespace VOP
                      System.Windows.Application.Current.MainWindow,
                     (string)this.FindResource("ResStr_Setting_Successfully_"),
                     (string)this.TryFindResource("ResStr_Prompt"));
+
+                UpdateApplyBtnStatus();
             }
             else
             {
@@ -242,7 +249,7 @@ namespace VOP
         {
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
             CalibrationRecord m_rec = new CalibrationRecord();
-            //if (worker.InvokeMethod<CalibrationRecord>("", ref m_rec, DllMethodType.DoCalibration, this))
+            if (worker.InvokeMethod<CalibrationRecord>("", ref m_rec, DllMethodType.DoCalibration, this))
             {
                 if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                 {

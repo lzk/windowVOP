@@ -362,7 +362,7 @@ typedef struct SC_PWRS_STRUCT {
 } SC_PWRS_T;
 
 typedef struct SC_PWRS_STA_STRUCT {
-	U8	code;		//'STA'
+	U32	code;		//'STA'
 	U8  ack;		//¡¯A¡¯ means ¡®Acknowledge¡¯, then Byte 7 is power mode code, ¡¯E¡¯ means error
 	U8 reserve[2];
 	U8 powermodecode;

@@ -18,6 +18,7 @@ public:
 	BYTE _JobCreate(char job, BOOL isUSB);
 	BYTE _JobEnd();
 	BYTE _parameters();
+	BYTE _parametersCalibration();
 	BYTE _StartScan();
 	BYTE _ReadImage(int dup, int *ImgSize);
 	BYTE _ReadImageEX(int dup, int *ImgSize, BYTE* Buffer, int ReadSize);
@@ -46,6 +47,8 @@ public:
 	BYTE _InitializeScanner();
 	BYTE _CheckScanningMode();
 	BYTE _GetPowerSupply();
+	BYTE _GetPowerSaveTime(WORD* ptrSleepTime, WORD* ptrOffTime);
+	BYTE _SetPowerSaveTime(WORD sleepTime, WORD offTime);
 
 	//Devid added for Calibration 2017/10/31  =====>
 	int _Scan_Shad_Calibration(CALIBRATION_SET_T *set);
