@@ -353,6 +353,33 @@ typedef struct SC_IMG_STA_STRUCT {
 	//U8	length[2];
 	//U8	err;
 } SC_IMG_STA_T;
+
+typedef struct SC_PWRS_STRUCT {
+	U32	code;		//'PWRS'
+	U8 option;		//0-get, 1-set
+	U8 reserve[3];
+} SC_PWRS_T;
+
+typedef struct SC_PWRS_STA_STRUCT {
+	U8	code;		//'STA'
+	U8  ack;		//¡¯A¡¯ means ¡®Acknowledge¡¯, then Byte 7 is power mode code, ¡¯E¡¯ means error
+	U8 reserve[2];
+	U8 powermodecode;
+} SC_PWRS_STA_T;
+
+typedef struct SC_SET_PWRS_DATA_STRUCT {
+	U16 autoSleepTime;
+	U16 autoOffTime;
+	U8 reserve[4];
+} SC_SET_PWRS_DATA_T;
+
+typedef struct SC_GET_PWRS_DATA_STRUCT {
+	U16 autoSleepTime;
+	U16 autoOffTime;
+	U16 disableAutoSleep;
+	U16 disableAutoOff;
+} SC_GET_PWRS_DATA_T;
+
 #define LENGTH
 //-----------------------------
 typedef struct SC_CNL_STRUCT {

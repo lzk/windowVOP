@@ -167,32 +167,32 @@ namespace VOP
         {
             ImageButton2 btn = sender as ImageButton2;
 
-//#if DEBUG
-//            if (true)
-//            {
-//                OpenFileDialog open1 = null;
-//                bool? result1 = null;
-//                open1 = new OpenFileDialog();
-//                open1.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
-//                open1.Multiselect = true;
+#if DEBUG
+            if (true)
+            {
+                OpenFileDialog open1 = null;
+                bool? result1 = null;
+                open1 = new OpenFileDialog();
+                open1.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
+                open1.Multiselect = true;
 
-//                result1 = open1.ShowDialog();
-//                if (result1 == true)
-//                {
-//                    QRCodeDetection qrcodeDetection = new QRCodeDetection(new List<string>(open1.FileNames));
-//                    if (btn.Name == "ImageButton1")
-//                    {
-//                        qrcodeDetection.ExcuteDecode(m_MainWin);
-//                    }
-//                    else
-//                    {
-//                        qrcodeDetection.ExcuteSeparation(m_MainWin);
-//                    }
+                result1 = open1.ShowDialog();
+                if (result1 == true)
+                {
+                    QRCodeDetection qrcodeDetection = new QRCodeDetection(new List<string>(open1.FileNames));
+                    if (btn.Name == "ImageButton1")
+                    {
+                        qrcodeDetection.ExcuteDecode(m_MainWin);
+                    }
+                    else
+                    {
+                        qrcodeDetection.ExcuteSeparation(m_MainWin);
+                    }
 
-//                }
-//                return;
-//            }
-//#endif
+                }
+                return;
+            }
+#endif
             m_MainWin._bScanning = true;
             ScanTask task = new ScanTask();
             ScanParam param = new ScanParam(

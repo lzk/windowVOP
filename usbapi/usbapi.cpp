@@ -466,8 +466,8 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
         int docutype,
         UINT32 uMsg );
 
-USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, BYTE* ptrTime );
-USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, BYTE time );
+USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, WORD* ptrSleepTime, WORD* ptrOffTime);
+USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, WORD time );
 USBAPI_API int __stdcall GetWiFiInfo(const wchar_t* szPrinter, UINT8* ptr_wifienable, char* ssid, char* pwd, UINT8* ptr_encryption, UINT8* ptr_wepKeyId);
 
 USBAPI_API int __stdcall GetIPInfo( 
@@ -3700,131 +3700,312 @@ USBAPI_API int __stdcall GetWiFiInfo(const wchar_t* szPrinter, UINT8* ptr_wifien
 	return nResult;
 }
 
-USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, BYTE time )
+USBAPI_API int __stdcall SetPowerSaveTime(const wchar_t* szPrinter, WORD sleepTime, WORD offTime)
 {
-//    if ( NULL == szPrinter ) 
-  //      return _SW_INVALID_PARAMETER;
-	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime() begin");
+	int nResult = _ACK;
 
-    int nResult = _ACK;
-/*
-	wchar_t szIP[MAX_PATH] = { 0 };
-    int nPortType = CheckPort( szPrinter, szIP );
+	SC_PWRS_T command;
+	command.code = 'PWRS';
+	command.option = 0;
 
-    if ( PT_UNKNOWN == nPortType ) 
-    {
-        nResult = _SW_UNKNOWN_PORT;
-    }
-    else
-*/
-    {
-        char* buffer = new char[sizeof(COMM_HEADER)+1];
-        memset( buffer, INIT_VALUE, sizeof(COMM_HEADER)+1 );
-        COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>( buffer );
+	SC_SET_PWRS_DATA_T data;
+	data.autoSleepTime = sleepTime;
+	data.autoOffTime = offTime;
 
-        ppkg->magic = MAGIC_NUM ;
-        ppkg->id = _LS_PRNCMD;
-        ppkg->len = 3+1;
+	SC_PWRS_STA_T sta;
 
-        // For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
-        // it just stand for the sub id. The real data length is defined by the lib
-        ppkg->subid = 0x13;
-        ppkg->len2 = 1;
-        ppkg->subcmd = _PSAVE_TIME_SET;
-	
-        BYTE* ptrTime = reinterpret_cast<BYTE*>( buffer+sizeof(COMM_HEADER));
-        *ptrTime = time;
+	if (g_connectMode_usb != TRUE)
+	{
+		EnterCriticalSection(&g_csCriticalSection_connect);
+		HMODULE hmod = LoadLibrary(DLL_NAME_NET);
 
-		if (g_connectMode_usb != TRUE)//if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
-        {
-            nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER)+1, NULL, 0 );
-        }
-        else// if ( PT_USB == nPortType )
-        {
-            nResult = WriteDataViaUSB( szPrinter, buffer, sizeof(COMM_HEADER)+1, NULL, 0 );
-        }
+		LPFN_NETWORK_CONNECT  lpfnNetworkConnect = NULL;
+		LPFN_NETWORK_READ     lpfnNetworkRead = NULL;
+		LPFN_NETWORK_WRITE    lpfnNetworkWrite = NULL;
+		LPFN_NETWORK_CLOSE    lpfnNetworkClose = NULL;
 
-        if ( buffer )
-        {
-            delete[] buffer;
-            buffer = NULL;
-        }
-    }
+		lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(hmod, "NetworkConnectNonBlock");
+		lpfnNetworkRead = (LPFN_NETWORK_READ)GetProcAddress(hmod, "NetworkRead");
+		lpfnNetworkWrite = (LPFN_NETWORK_WRITE)GetProcAddress(hmod, "NetworkWrite");
+		lpfnNetworkClose = (LPFN_NETWORK_CLOSE)GetProcAddress(hmod, "NetworkClose");
 
-	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime(): nResult == 0x%x", nResult);
-	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime() end");
-    return nResult;
+		if (hmod && \
+			lpfnNetworkConnect && \
+			lpfnNetworkRead    && \
+			lpfnNetworkWrite   && \
+			lpfnNetworkClose)
+		{
+			int nCount = 0;
+			bool bWriteSuccess = false;
+
+			while (nCount++ < 2 && !bWriteSuccess)
+			{
+				char szAsciiIP[1024] = { 0 };
+				::WideCharToMultiByte(CP_ACP, 0, g_ipAddress, -1, szAsciiIP, 1024, NULL, NULL);
+
+				int m_iSocketID = lpfnNetworkConnect(szAsciiIP, 9100, 1000);
+				int result = lpfnNetworkWrite(m_iSocketID, &command, sizeof(command)) &&
+					lpfnNetworkWrite(m_iSocketID, &data, sizeof(data)) &&
+					lpfnNetworkRead(m_iSocketID, &sta, sizeof(sta));
+
+				if (!result || sta.ack == 'E')
+				{
+					nResult = _SW_INVALID_RETURN_VALUE;
+				}
+
+				lpfnNetworkClose(m_iSocketID);
+
+			}
+		}
+		else
+		{
+			nResult = _SW_NET_DLL_LOAD_FAIL;
+			OutputDebugStringToFileA("\r\n####VP:WriteDataViaNetwork(): Load dll fail.");
+		}
+
+		lpfnNetworkConnect = NULL;
+		lpfnNetworkRead = NULL;
+		lpfnNetworkWrite = NULL;
+		lpfnNetworkClose = NULL;
+
+		FreeLibrary(hmod);
+		LeaveCriticalSection(&g_csCriticalSection_connect);
+	}
+	else
+	{
+		CGLUsb glUsb;
+		if (glUsb.CMDIO_OpenDevice() == TRUE)
+		{
+			int result = glUsb.CMDIO_BulkWriteEx(0, &command, sizeof(command)) &&
+				glUsb.CMDIO_BulkWriteEx(0, &data, sizeof(data)) &&
+				glUsb.CMDIO_BulkReadEx(0, &sta, sizeof(sta));
+
+			if (!result || sta.ack == 'E')
+			{
+				nResult = _SW_INVALID_RETURN_VALUE;
+			}
+
+			glUsb.CMDIO_CloseDevice();
+		}
+	}
+
+	return nResult;
 }
 
-USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, BYTE* ptrTime )
-{
-//    if ( NULL == szPrinter )
-  //      return _SW_INVALID_PARAMETER;
+//USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, WORD time )
+//{
+////    if ( NULL == szPrinter ) 
+//  //      return _SW_INVALID_PARAMETER;
+//	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime() begin");
+//
+//    int nResult = _ACK;
+///*
+//	wchar_t szIP[MAX_PATH] = { 0 };
+//    int nPortType = CheckPort( szPrinter, szIP );
+//
+//    if ( PT_UNKNOWN == nPortType ) 
+//    {
+//        nResult = _SW_UNKNOWN_PORT;
+//    }
+//    else
+//*/
+//    {
+//        char* buffer = new char[sizeof(COMM_HEADER)+1];
+//        memset( buffer, INIT_VALUE, sizeof(COMM_HEADER)+1 );
+//        COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>( buffer );
+//
+//        ppkg->magic = MAGIC_NUM ;
+//        ppkg->id = _LS_PRNCMD;
+//        ppkg->len = 3+1;
+//
+//        // For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+//        // it just stand for the sub id. The real data length is defined by the lib
+//        ppkg->subid = 0x13;
+//        ppkg->len2 = 1;
+//        ppkg->subcmd = _PSAVE_TIME_SET;
+//	
+//        BYTE* ptrTime = reinterpret_cast<BYTE*>( buffer+sizeof(COMM_HEADER));
+//        *ptrTime = time;
+//
+//		if (g_connectMode_usb != TRUE)//if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
+//        {
+//            nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER)+1, NULL, 0 );
+//        }
+//        else// if ( PT_USB == nPortType )
+//        {
+//            nResult = WriteDataViaUSB( szPrinter, buffer, sizeof(COMM_HEADER)+1, NULL, 0 );
+//        }
+//
+//        if ( buffer )
+//        {
+//            delete[] buffer;
+//            buffer = NULL;
+//        }
+//    }
+//
+//	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime(): nResult == 0x%x", nResult);
+//	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime() end");
+//    return nResult;
+//}
 
+USBAPI_API int __stdcall GetPowerSaveTime(const wchar_t* szPrinter, WORD* ptrSleepTime, WORD* ptrOffTime)
+{
 	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime() begin");
 
-    int nResult = _ACK;
-/*
-	wchar_t szIP[MAX_PATH] = { 0 };
+	int nResult = _ACK;
 
-    int nPortType = CheckPort( szPrinter, szIP );
+	SC_GET_PWRS_DATA_T data;
+	SC_PWRS_STA_T sta;
+	SC_PWRS_T command;
+	command.code = 'PWRS';
+	command.option = 0;
+	if (g_connectMode_usb != TRUE)
+	{
+		EnterCriticalSection(&g_csCriticalSection_connect);
+		HMODULE hmod = LoadLibrary(DLL_NAME_NET);
 
-    if ( PT_UNKNOWN == nPortType ) 
-    {
-        nResult = _SW_UNKNOWN_PORT;
-    }
-    else
-*/
-    {
-        char* buffer = new char[sizeof(COMM_HEADER)+1];
-        memset( buffer, INIT_VALUE, sizeof(COMM_HEADER)+1 );
-        COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>( buffer );
+		LPFN_NETWORK_CONNECT  lpfnNetworkConnect = NULL;
+		LPFN_NETWORK_READ     lpfnNetworkRead = NULL;
+		LPFN_NETWORK_WRITE    lpfnNetworkWrite = NULL;
+		LPFN_NETWORK_CLOSE    lpfnNetworkClose = NULL;
 
-        ppkg->magic = MAGIC_NUM ;
-        ppkg->id = _LS_PRNCMD;
-        ppkg->len = 3;
+		lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(hmod, "NetworkConnectNonBlock");
+		lpfnNetworkRead = (LPFN_NETWORK_READ)GetProcAddress(hmod, "NetworkRead");
+		lpfnNetworkWrite = (LPFN_NETWORK_WRITE)GetProcAddress(hmod, "NetworkWrite");
+		lpfnNetworkClose = (LPFN_NETWORK_CLOSE)GetProcAddress(hmod, "NetworkClose");
 
-        // For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
-        // it just stand for the sub id. The real data length is defined by the lib
-        ppkg->subid = 0x13;
-        ppkg->len2 = 1;
-        ppkg->subcmd = _PSAVE_TIME_GET;   
+		if (hmod && \
+			lpfnNetworkConnect && \
+			lpfnNetworkRead    && \
+			lpfnNetworkWrite   && \
+			lpfnNetworkClose)
+		{
+			int nCount = 0;
+			bool bWriteSuccess = false;
 
-		if (g_connectMode_usb != TRUE)//if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
-        {
-            nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1 );
-        }
-        else// if ( PT_USB == nPortType )
-        {
-            nResult = WriteDataViaUSB( szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1 );
-        }
+			while (nCount++ < 2 && !bWriteSuccess)
+			{
+				char szAsciiIP[1024] = { 0 };
+				::WideCharToMultiByte(CP_ACP, 0, g_ipAddress, -1, szAsciiIP, 1024, NULL, NULL);
 
-        if ( _ACK == nResult )
-        {
-            BYTE* ptr = reinterpret_cast<BYTE*>( buffer+sizeof(COMM_HEADER));
+				int m_iSocketID = lpfnNetworkConnect(szAsciiIP, 9100, 1000);
+				int result = lpfnNetworkWrite(m_iSocketID, &command, sizeof(command))&&
+					lpfnNetworkRead(m_iSocketID, &data, sizeof(data))&&
+					lpfnNetworkRead(m_iSocketID, &sta, sizeof(sta));
 
-            if ( 1 <= *ptr && 30 >= *ptr )
-            {
-                *ptrTime =*ptr;
-                nResult = _ACK;
-            }
-            else
-            {
-                nResult = _SW_INVALID_RETURN_VALUE;
-            }
-        }
+				if (!result || sta.ack == 'E')
+				{
+					nResult = _SW_INVALID_RETURN_VALUE;
+				}
 
-        if ( buffer )
-        {
-            delete[] buffer;
-            buffer = NULL;
-        }
-    }
+				lpfnNetworkClose(m_iSocketID);
 
-	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime(): nResult == 0x%x", nResult);
-	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime() end");
-    return nResult;
+			}
+		}
+		else
+		{
+			nResult = _SW_NET_DLL_LOAD_FAIL;
+			OutputDebugStringToFileA("\r\n####VP:WriteDataViaNetwork(): Load dll fail.");
+		}
+
+		lpfnNetworkConnect = NULL;
+		lpfnNetworkRead = NULL;
+		lpfnNetworkWrite = NULL;
+		lpfnNetworkClose = NULL;
+
+		FreeLibrary(hmod);
+		LeaveCriticalSection(&g_csCriticalSection_connect);
+	}
+	else
+	{
+		CGLUsb glUsb;
+		if (glUsb.CMDIO_OpenDevice() == TRUE)
+		{
+			int result = glUsb.CMDIO_BulkWriteEx(0, &command, sizeof(command)) &&
+				glUsb.CMDIO_BulkReadEx(0, &data, sizeof(data)) &&
+				glUsb.CMDIO_BulkReadEx(0, &sta, sizeof(sta));
+
+			if (!result || sta.ack == 'E')
+			{
+				nResult = _SW_INVALID_RETURN_VALUE;
+			}
+
+			glUsb.CMDIO_CloseDevice();
+		}
+	}
+
+	return nResult;
 }
+
+//USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, BYTE* ptrTime )
+//{
+////    if ( NULL == szPrinter )
+//  //      return _SW_INVALID_PARAMETER;
+//
+//	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime() begin");
+//
+//    int nResult = _ACK;
+///*
+//	wchar_t szIP[MAX_PATH] = { 0 };
+//
+//    int nPortType = CheckPort( szPrinter, szIP );
+//
+//    if ( PT_UNKNOWN == nPortType ) 
+//    {
+//        nResult = _SW_UNKNOWN_PORT;
+//    }
+//    else
+//*/
+//    {
+//        char* buffer = new char[sizeof(COMM_HEADER)+1];
+//        memset( buffer, INIT_VALUE, sizeof(COMM_HEADER)+1 );
+//        COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>( buffer );
+//
+//        ppkg->magic = MAGIC_NUM ;
+//        ppkg->id = _LS_PRNCMD;
+//        ppkg->len = 3;
+//
+//        // For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+//        // it just stand for the sub id. The real data length is defined by the lib
+//        ppkg->subid = 0x13;
+//        ppkg->len2 = 1;
+//        ppkg->subcmd = _PSAVE_TIME_GET;   
+//
+//		if (g_connectMode_usb != TRUE)//if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
+//        {
+//            nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1 );
+//        }
+//        else// if ( PT_USB == nPortType )
+//        {
+//            nResult = WriteDataViaUSB( szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1 );
+//        }
+//
+//        if ( _ACK == nResult )
+//        {
+//            BYTE* ptr = reinterpret_cast<BYTE*>( buffer+sizeof(COMM_HEADER));
+//
+//            if ( 1 <= *ptr && 30 >= *ptr )
+//            {
+//                *ptrTime =*ptr;
+//                nResult = _ACK;
+//            }
+//            else
+//            {
+//                nResult = _SW_INVALID_RETURN_VALUE;
+//            }
+//        }
+//
+//        if ( buffer )
+//        {
+//            delete[] buffer;
+//            buffer = NULL;
+//        }
+//    }
+//
+//	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime(): nResult == 0x%x", nResult);
+//	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime() end");
+//    return nResult;
+//}
 
 USBAPI_API int __stdcall GetUserCenterInfo(const wchar_t* szPrinter, char* _2ndSerialNO, UINT32* _totalCounter, char* _serialNO4AIO)
 {

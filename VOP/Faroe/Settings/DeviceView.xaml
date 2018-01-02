@@ -78,8 +78,100 @@
                                          Path="FormattedValue" 
                                          UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
-                                                <local:PrintCopysValidationRule MinimumValue="1" MaximumValue="30" 
-										ErrorMessage="{StaticResource ResStr_The_valid_range_is_1_30__please_confirm_and_enter_again_}" />
+                                                <local:PrintCopysValidationRule MinimumValue="0" MaximumValue="30" 
+										ErrorMessage="{StaticResource ResStr_The_valid_range_is_0_30__please_confirm_and_enter_again_}" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+
+
+                                <RepeatButton Name="btnIncrease"
+                                      Grid.Row="0"
+                                      Grid.Column="2"
+                                      Width="30"
+                                      Height="30"
+                                      Style="{StaticResource CustomPlusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.IncreaseCommand}"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger SourceName="tbTextBox" Property="Validation.HasError"  Value="true">
+                                    <Setter Property="ValidationHasError" Value="True"></Setter>
+                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="False"></Setter>
+                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="False"></Setter>
+                                </Trigger>
+
+                                <Trigger SourceName="tbTextBox"  Property="Validation.HasError" Value="False">
+                                    <Setter Property="ValidationHasError" Value="False"></Setter>
+                                    <Setter TargetName="btnDecrease" Property="IsEnabled" Value="true"></Setter>
+                                    <Setter TargetName="btnIncrease" Property="IsEnabled" Value="true"></Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key ="SpinnerControl2"  TargetType="{x:Type local:SpinnerControl}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Focusable" Value="False"></Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:SpinnerControl}">
+                            <Grid Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <!--
+                                    we use the TemplatedParent binding to get a reference to the control
+                                    this template has been applied to, so we can access the property on it
+                                -->
+                                <RepeatButton Name="btnDecrease"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Width="30"
+                                      Height="30"
+                                      Style="{StaticResource CustomMinusButtonStyle}" 
+                                      Command="{x:Static local:SpinnerControl.DecreaseCommand}"/>
+
+                                <TextBox Name="tbTextBox"
+                                 Grid.Row="0"
+                                 Grid.Column="1"
+                                 Background="{Binding Path=Background, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                 BorderBrush="{StaticResource TextBoxBorderBrush}"
+                                 Foreground="#FF707070"
+                                 TextAlignment="Center"
+                                 IsReadOnly="False"
+                                 BorderThickness="0"
+                                 FontSize="30" 
+                                 Margin="0,0,0,2"
+                                 MaxLength="3"
+                                 Style="{StaticResource TextBoxErrorTemplateStyle}"
+                                 InputMethod.IsInputMethodEnabled="False"
+                                 VerticalAlignment="Center"
+                                 >
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Command="NotACommand" Gesture="Ctrl+V"/>
+                                    </TextBox.InputBindings>
+                                    <TextBox.ContextMenu>
+                                        <ContextMenu Visibility="Collapsed">
+                                        </ContextMenu>
+                                    </TextBox.ContextMenu>
+                                    <TextBox.Text>
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" 
+                                         Mode="TwoWay"
+                                         Path="FormattedValue" 
+                                         UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <local:PrintCopysValidationRule MinimumValue="0" MaximumValue="240" 
+										ErrorMessage="{StaticResource ResStr_The_valid_range_is_0_240__please_confirm_and_enter_again_}" />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
@@ -128,7 +220,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -141,10 +233,6 @@
                 <ColumnDefinition Width="20"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
-            <TextBlock x:Name="label1" Text="{StaticResource ResStr_Power_Save_Time}"
-                   Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
-                    Grid.Row="0" FontSize="14" FontWeight="Bold"/>
 
             <Button x:Name="btnCalibration"
                             Click="btnCalibration_Click" 
@@ -159,7 +247,7 @@
                             Width="100" 
                             Height="35"
                             Margin="0,0,10,0"></Button>
-            
+
             <Canvas Grid.Row="1" VerticalAlignment="Center">
                 <Path Stroke="LightGray" StrokeThickness="2">
                     <Path.Data>
@@ -167,11 +255,11 @@
                     </Path.Data>
                 </Path>
             </Canvas>
-            
+
             <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="80"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="127"></RowDefinition>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"></ColumnDefinition>
@@ -179,25 +267,43 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <local:SpinnerControl x:Name="spinnerControl1" Style="{StaticResource SpinnerControl1}"
+                <local:SpinnerControl x:Name="spinnerControlAutoSleep" Style="{StaticResource SpinnerControl1}"
         	Width="300" 
         	Background="Transparent"
         	Change="1"
         	DecimalPlaces="0"
         	Maximum="30"
-        	Minimum="1"  
+        	Minimum="0"  
         	IsPercentFormat="False"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
-        	ValueChanged="spinnerControl1_ValueChanged"     
-        	ValidationHasErrorChanged="spinnerControl1_ValidationHasErrorChanged"
-        	LostFocus="SpinnerTextBox_LostFocus"  
-                                  Height="45" Grid.Column="0" Grid.Row="0" FontWeight="Bold" Grid.ColumnSpan="3"
+        	ValueChanged="spinnerControl_ValueChanged"     
+        	LostFocus="AutoSleepSpinnerTextBox_LostFocus"  
+                                  Height="44" Grid.Column="0" Grid.Row="0" FontWeight="Bold" Grid.ColumnSpan="3" Margin="71,36,84,47"
                             />
 
-                <Label x:Name="label" Content="{StaticResource ResStr_1_30_Minute}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                <Label x:Name="labelAutoSleep" Content="(0-30 Minutes)" Grid.Row="0"
                    HorizontalContentAlignment="Center" HorizontalAlignment="Center" 
-                   Height="30" Margin="0,0,0,3"  VerticalAlignment="Bottom" Width="200" FontSize="14"/>
+                   Height="30" Margin="121,0,134,12"  VerticalAlignment="Bottom" Width="200" FontSize="14" Grid.ColumnSpan="3"/>
+                <local:SpinnerControl x:Name="spinnerControlAutoOff" Style="{StaticResource SpinnerControl2}"
+                	Width="300" 
+                	Background="Transparent"
+                	Change="1"
+                	DecimalPlaces="0"
+                	Maximum="240"
+                	Minimum="0"  
+                	IsPercentFormat="False"
+                	HorizontalAlignment="Center"
+                	VerticalAlignment="Center"
+                	ValueChanged="spinnerControl_ValueChanged"     
+                	LostFocus="AutoOffSpinnerTextBox_LostFocus"  
+                	Height="44" Grid.Column="0" Grid.Row="1" FontWeight="Bold" Grid.ColumnSpan="3" Margin="71,48,84,105"
+                            />
+                <Label x:Name="labelAutoOff" Content="(0-240 Minutes)" Grid.Row="1"
+                	HorizontalContentAlignment="Center" HorizontalAlignment="Center" 
+                	Height="30" Margin="121,0,134,70"  VerticalAlignment="Bottom" Width="200" FontSize="14" Grid.ColumnSpan="3"/>
+                <GroupBox x:Name="groupBox" Grid.ColumnSpan="3" Header="Auto Sleep Time" HorizontalAlignment="Left" Height="105" Margin="10,12,0,0" VerticalAlignment="Top" Width="435" FontWeight="Bold"/>
+                <GroupBox x:Name="groupBox_Copy" Grid.ColumnSpan="3" Header="Auto Off Time" HorizontalAlignment="Left" Height="105" Margin="10,23,0,0" VerticalAlignment="Top" Width="435" Grid.Row="1" FontWeight="Bold"/>
             </Grid>
             <!--<Button x:Name="btnApply" Content="{StaticResource ResStr_Apply}" Grid.Column="1" HorizontalAlignment="Center" Height="22" Margin="127,40,132,0" Grid.Row="5" VerticalAlignment="Top" Width="118" FontSize="13.333" Click="btnApply_Click_1"/>-->
             <Button x:Name="btnApply"

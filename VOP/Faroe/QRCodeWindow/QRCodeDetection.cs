@@ -526,8 +526,19 @@ namespace VOP
                             try
                             {
                                 ZONE_RECT[] lpRect = new ZONE_RECT[2000];
-                                int nArraySize = FindQRCodeZones(fileName, lpRect, lpRect.Length);
-//                                if(nArraySize == 0)
+
+                                int nArraySize = 0;
+
+                                try
+                                {
+                                    nArraySize = FindQRCodeZones(fileName, lpRect, lpRect.Length);
+                                }
+                                catch(Exception)
+                                {
+
+                                }
+
+                                //                                if(nArraySize == 0)
                                 {
                                     lpRect[nArraySize].x = 0;
                                     lpRect[nArraySize].y = 0;
@@ -662,8 +673,14 @@ namespace VOP
                                                                 }
                                 */
                             }
-                            catch (Exception)
+                            catch (Exception ex)
                             {
+                                //string theMessage = "Exception=" + ex.ToString();
+                                //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                                //                            Application.Current.MainWindow,
+                                //                            theMessage,
+                                //                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
+                                //                            );
 
                             }
                         }
