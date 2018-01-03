@@ -19,6 +19,9 @@
     <Filter Include="Source Files\LTC">
       <UniqueIdentifier>{f2163b8d-24d3-43f1-a757-26b3d1e42498}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Calibration">
+      <UniqueIdentifier>{ff488e53-f552-4c01-b34c-e8d3fdc341c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -90,6 +93,18 @@
     <ClInclude Include="ImgFile\EdgeDetect.h">
       <Filter>Header Files\LTC</Filter>
     </ClInclude>
+    <ClInclude Include="Calibration\model.h">
+      <Filter>Source Files\Calibration</Filter>
+    </ClInclude>
+    <ClInclude Include="Calibration\ScanCMD.h">
+      <Filter>Source Files\Calibration</Filter>
+    </ClInclude>
+    <ClInclude Include="Calibration\usbio.h">
+      <Filter>Source Files\Calibration</Filter>
+    </ClInclude>
+    <ClInclude Include="Calibration\EdgeDetect.h">
+      <Filter>Source Files\Calibration</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -143,8 +158,23 @@
     <ClCompile Include="Common\Breath.cpp">
       <Filter>Source Files\LTC</Filter>
     </ClCompile>
-    <ClCompile Include="ImgFile\EdgeDetect.cpp">
-      <Filter>Source Files\LTC</Filter>
+    <ClCompile Include="Calibration\calibration_flow.cpp">
+      <Filter>Source Files\Calibration</Filter>
+    </ClCompile>
+    <ClCompile Include="Calibration\calibration_scan.cpp">
+      <Filter>Source Files\Calibration</Filter>
+    </ClCompile>
+    <ClCompile Include="Calibration\EdgeDetect.cpp">
+      <Filter>Source Files\Calibration</Filter>
+    </ClCompile>
+    <ClCompile Include="Calibration\ScanCMD.cpp">
+      <Filter>Source Files\Calibration</Filter>
+    </ClCompile>
+    <ClCompile Include="Calibration\ScanFunction.cpp">
+      <Filter>Source Files\Calibration</Filter>
+    </ClCompile>
+    <ClCompile Include="Calibration\usbio.cpp">
+      <Filter>Source Files\Calibration</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
