@@ -62,6 +62,9 @@
 #define IMG_FB_LIFE_300_DOT_X		432
 #define IMG_FB_LIFE_300_DOT_Y		3512
 
+#define IMG_LG14_300_DOT_X		216*300/25.4
+#define IMG_LG14_300_DOT_Y		356*300/25.4
+
 //For calibration scan PRNU
 #define IMG_K_PRNU_300_DOT_X		2592
 #define IMG_K_PRUN_300_DOT_Y		48
@@ -83,6 +86,8 @@
 
 #define IMG_LT_300_ORG_X		19
 #define IMG_LT_300_ORG_Y		0
+
+#define IMG_LG14_300_ORG_X		(IMG_300_DOT_X - IMG_LG14_300_DOT_X)/2
 
 #define IMG_LL_300_ORG_X		0
 #define IMG_LL_300_ORG_Y		0

@@ -78,8 +78,8 @@
                                          Path="FormattedValue" 
                                          UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
-                                                <local:PrintCopysValidationRule MinimumValue="0" MaximumValue="30" 
-										ErrorMessage="{StaticResource ResStr_The_valid_range_is_0_30__please_confirm_and_enter_again_}" />
+                                                <local:PrintCopysValidationRule MinimumValue="0" MaximumValue="60" 
+										ErrorMessage="{StaticResource ResStr_The_valid_range_is_0_60__please_confirm_and_enter_again_}" />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
@@ -170,8 +170,8 @@
                                          Path="FormattedValue" 
                                          UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
-                                                <local:PrintCopysValidationRule MinimumValue="0" MaximumValue="240" 
-										ErrorMessage="{StaticResource ResStr_The_valid_range_is_0_240__please_confirm_and_enter_again_}" />
+                                                <local:PrintCopysValidationRule MinimumValue="0" MaximumValue="4" 
+										ErrorMessage="{StaticResource ResStr_The_valid_range_is_0_4__please_confirm_and_enter_again_}" />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
@@ -275,7 +275,7 @@
         	Background="Transparent"
         	Change="1"
         	DecimalPlaces="0"
-        	Maximum="30"
+        	Maximum="60"
         	Minimum="0" 
         	IsPercentFormat="False"
             HorizontalAlignment="Center"
@@ -285,15 +285,16 @@
             Height="44" Grid.Column="0" Grid.Row="0" FontWeight="Bold" Grid.ColumnSpan="3" 
                             />
 
-                <TextBlock x:Name="labelAutoSleep" Text="(0-30 Minutes)" Grid.Row="0" Foreground="Black"
+                <TextBlock x:Name="labelAutoSleep" Text="(0-60 Minutes)" Grid.Row="0" Foreground="Black"
                     HorizontalAlignment="Center" 
                    Height="30" Margin="0,0,0,10"  VerticalAlignment="Bottom" Width="100" FontSize="14" Grid.ColumnSpan="3"/>
+
                 <local:SpinnerControl x:Name="spinnerControlAutoOff" Style="{StaticResource SpinnerControl2}"
                 	Width="300" 
                 	Background="Transparent"
                 	Change="1"
                 	DecimalPlaces="0"
-                	Maximum="240"
+                	Maximum="4"
                 	Minimum="0"  
                 	IsPercentFormat="False"
                 	HorizontalAlignment="Center"
@@ -302,9 +303,10 @@
                 	LostFocus="AutoOffSpinnerTextBox_LostFocus"  
                 	Height="44" Grid.Column="0" Grid.Row="1" FontWeight="Bold" Grid.ColumnSpan="3"
                             />
-                <TextBlock x:Name="labelAutoOff" Text="(0-240 Minutes)" Grid.Row="1"
+                <TextBlock x:Name="labelAutoOff" Text="(0-4 Hours)" Grid.Row="1"
                 	HorizontalAlignment="Center" Foreground="Black"
                 	Height="30" Margin="0,0,0,10"  VerticalAlignment="Bottom" Width="100" FontSize="14" Grid.ColumnSpan="3"/>
+
 
                 <GroupBox x:Name="groupBox_Copy" Grid.ColumnSpan="3" Header="Auto Off Time" HorizontalAlignment="Left" Height="115" Margin="10,23,0,0" VerticalAlignment="Top" Width="435" Grid.Row="1" FontWeight="Bold"/>
             </Grid>

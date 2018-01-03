@@ -219,8 +219,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_">The entered IP address is incorrect, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_">Invalid Gateway address. Please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation">Invalid subnet mask. Please check and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_30__please_confirm_and_enter_again_">The valid range is 0 to 30, please check and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_240__please_confirm_and_enter_again_">The valid range is 0 to 240, please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_60__please_confirm_and_enter_again_">The valid range is 0 to 60, please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_4__please_confirm_and_enter_again_">The valid range is 0 to 4, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_">The valid range is from -6 to 6, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__2_to_2__please_confirm_and_enter_again_">The valid range is from -2 to 2, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__3_to_3__please_confirm_and_enter_again_">The valid range is from -3 to 3, please check and enter again.</sys:String>

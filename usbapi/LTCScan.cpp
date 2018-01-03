@@ -1924,67 +1924,19 @@ USBAPI_API int __stdcall GetPowerSaveTime(const wchar_t* szPrinter, WORD* ptrSle
 
 //********************************************************************************************
 //Do Calibration //Devid added 2017/10/30
-#include "ImgFile\EdgeDetect.h"
 
-SC_PAR_DATA_T k_scan_par;
+#include "Calibration/usbio.h"
+#include "Calibration/ScanCMD.h"
+
+extern void job_Set_Calibration_Par(unsigned char type, SC_PAR_T_ *_par);
+extern int job_Calibration(SC_PAR_T_ *_par);
+extern U32 read_from_ini(void);
+
+//extern SC_PAR_T_ sc_par;
+
 U8 SCAN_DOC_SIZE = DOC_SIZE_FULL;
-
-
-static IMG_FILE_T g_ImgFile[2] = { {(unsigned int)&k_scan_par.img,0 },{ (unsigned int)&k_scan_par.img,0 } };
-static int bFiling[2] = { 0, 0 };
-static SC_INFO_DATA_T Info;
-static U8 ScanBuf[0x80000];  // 512MB(?) //Park:512KB	//For 存放 A or B 面一次 bulk 傳來的區段影像
-static int ScanBufSize = sizeof(ScanBuf);
-static char ImgFileName[64];
-
-int K_BatchNum = 0;
-int K_PageNum = 0;
-int bSaveFile = 1;
-
-U16 *K_img[2];  // pointer to K_img_buf image buffer
-U8 K_img_buf[2][0x3200000];		//2 x 50 MB for prefeed/postfeed scan buf 
-U32 K_img_size[2];	//Currently K image data size
-U8 K_shad16_data[2][184 * 1024]; // 2 x 184KB  // 1200dpi one line (13" max)
-U8 K_shad_data[2][184 * 1024];
-#define K_LINES 48
-U32 K_lines;
-
-CALIBRATION_CAP_T K_Cap;
-CALIBRATION_SET_T K_Set;
-
-#define CALIBRATION_16BIT_DARK
-
-//-------- Calibration target define------------
-//--------AFE offset cal---------
-#define CAL_AFE_DARK		(6 * 0x100)	//color level	//20170220
-#define CAL_AFE_DARK_THD	(2 * 0x100)	//color level
-#define CAL_AFE_DARK_ABORT	60	//loop counts
-
-//--------LED exposure time cal---------
-#define CAL_EXP_WHITE		(175 * 0x100)	//color level
-#define CAL_EXP_THD			(5  * 0x100)	//color level
-#define CAL_EXP_ABORT		60	//loop counts
-#define CAL_EXP_MINUS_C		15	//Pixel count
-#define CAL_EXP_MINUS_G		5
-
-
-#define CAL_AFE_WHITE		(175 * 0x100)	//color level
-
-#define DARK_DROP			IMG_K_PRUN_300_DOT_Y/4		
-#define WHITE_DROP			IMG_K_PRUN_300_DOT_Y/4	
-
-#define CAL_SHADING_WHITE_A_R	(200 * 0x100)
-#define CAL_SHADING_WHITE_A_G	(209 * 0x100)
-#define CAL_SHADING_WHITE_A_B	(210 * 0x100)
-
-#define CAL_SHADING_WHITE_B_R	(200 * 0x100)
-#define CAL_SHADING_WHITE_B_G	(209 * 0x100)
-#define CAL_SHADING_WHITE_B_B	(210 * 0x100)
-
-U8 AFE_OFFSET_ABORT = 0;
-U8 EXP_ABORT = 0;
-
 char IniFile[256], Profile[64];
+
 
 SC_PAR_DATA_T sc_par = { SCAN_SOURCE, SCAN_ACQUIRE, SCAN_OPTION, SCAN_DUPLEX, SCAN_PAGE,
 { IMG_FORMAT, IMG_OPTION, IMG_BIT, IMG_MONO, { IMG_DPI_X, IMG_DPI_Y },{ IMG_ORG_X, IMG_ORG_Y }, IMG_WIDTH, IMG_HEIGHT },
@@ -3307,94 +3259,24 @@ int cal_save_me_flash(CALIBRATION_SET_T *set)
 	return TRUE;
 }
 
+
 USBAPI_API int __stdcall DoCalibration()
 {
 	int nResult = FALSE;
 
-	CGLDrv glDrv;
+	read_from_ini();
 
-	g_pointer_lDrv = &glDrv;
-
-	if (glDrv._OpenDevice() == TRUE)
-	{
-		int CalibrationMode[] = { 300,600 };
-		int CalibrationTimes = sizeof(CalibrationMode) / sizeof(int);
-
-		memset(&k_scan_par, 0, sizeof(SC_PAR_DATA_T));
-		k_scan_par.source = I3('ADF');
-		k_scan_par.duplex = 3;
-		k_scan_par.img.format = I3('RAW');
-		k_scan_par.img.bit = 48;
-		k_scan_par.img.mono = 0;
-
-		SCAN_DOC_SIZE = DOC_K_PRNU;
-
-		nResult = glDrv._JobCreate(START_STAGE, g_connectMode_usb);
-		if (nResult == 1)
-		{
-			K_BatchNum++;
-			K_PageNum = 0;
-
-			if (cal_prefeed(&K_Cap, &K_Set))
-			{
-				nResult = TRUE;
-
-				for (int i = 0; i < CalibrationTimes;i++)
-				{
-					k_scan_par.img.dpi.x = CalibrationMode[i];
-					k_scan_par.img.dpi.y = CalibrationMode[i];
-
-					if (!cal_set_def(&K_Cap, &K_Set))
-					{
-						nResult = TRUE;
-						break;
-					}
-
-					if (!cal_AFE_offset(&K_Cap, &K_Set))
-					{
-						nResult = TRUE;
-						break;
-					}
-
-					if (!cal_exposure_time(&K_Cap, &K_Set))
-					{
-						nResult = TRUE;
-						break;
-					}
-
-					if (!cal_AFE_gain(&K_Cap, &K_Set))
-					{
-						nResult = TRUE;
-						break;
-					}
-
-					if (!cal_exposure_time(&K_Cap, &K_Set))
-					{
-						nResult = TRUE;
-						break;
-					}
-
-					if (!cal_dark_shading(&K_Cap, &K_Set))
-					{
-						nResult = TRUE;
-						break;
-					}
-
-					if (!cal_white_shading(&K_Cap, &K_Set))
-					{
-						nResult = TRUE;
-						break;
-					}
-
-					cal_save_shd_flash(&K_Cap, &K_Set);
-				}
-			}
-
-			glDrv._JobEnd();
-		}
-
-		glDrv._CloseDevice();
+	if (!CMDIO_OpenDevice()) {
+		return nResult;
 	}
+
+	job_Set_Calibration_Par(1, &sc_par);
+
+	job_Calibration(&sc_par);
+
+	CMDIO_CloseDevice();
+
+	nResult = TRUE;
 
 	return nResult;
 }

@@ -55,8 +55,18 @@ namespace VOP
             if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
             {
                 m_psavetime = m_rec.SleepTime;
-                m_pofftime = m_rec.OffTime;
+                m_pofftime = (short)(m_rec.OffTime / 60);
             }
+
+            if (m_psavetime < 0)
+                m_psavetime = 0;
+            else if (m_psavetime > 60)
+                m_psavetime = 60;
+
+            if (m_pofftime < 0)
+                m_pofftime = 0;
+            else if (m_pofftime > 4)
+                m_pofftime = 4;
 
             spinnerControlAutoSleep.FormattedValue = String.Format("{0}", m_psavetime);
             TextBox tb = spinnerControlAutoSleep.Template.FindName("tbTextBox", spinnerControlAutoSleep) as TextBox;
@@ -87,8 +97,8 @@ namespace VOP
             {
                 if (int.TryParse(tb.Text, out textValue))
                 {
-                    if (textValue > 30)
-                        tb.Text = "30";
+                    if (textValue > 60)
+                        tb.Text = "60";
                     else if (textValue < 0)
                         tb.Text = "0";
                 }
@@ -108,8 +118,8 @@ namespace VOP
             {
                 if (int.TryParse(tb.Text, out textValue))
                 {
-                    if (textValue > 240)
-                        tb.Text = "240";
+                    if (textValue > 4)
+                        tb.Text = "4";
                     else if (textValue < 0)
                         tb.Text = "0";
                 }
@@ -192,13 +202,14 @@ namespace VOP
             byte psavetime = Convert.ToByte(spinnerControlAutoSleep.Value);
             if (psavetime < 0)
                 psavetime = 0;
-            else if (30 < psavetime)
-                psavetime = 30;
+            else if (60 < psavetime)
+                psavetime = 60;
 
             m_psavetime = psavetime;
             spinnerControlAutoSleep.FormattedValue = String.Format("{0}", m_psavetime);
 
             byte pofftime = Convert.ToByte(spinnerControlAutoOff.Value);
+            pofftime *= 60;
             if (pofftime <= 0)
                 pofftime = 0;
             else if(pofftime<=psavetime)
@@ -209,12 +220,12 @@ namespace VOP
             if (240 < pofftime)
                 pofftime = 240;
 
-            m_pofftime = pofftime;
+            m_pofftime = (short)(pofftime / 60);
             spinnerControlAutoOff.FormattedValue = String.Format("{0}", m_pofftime);
 
             string strPrinterName = "";
 
-            PowerSaveTimeRecord m_rec = new PowerSaveTimeRecord(strPrinterName, m_psavetime, m_pofftime);
+            PowerSaveTimeRecord m_rec = new PowerSaveTimeRecord(strPrinterName, m_psavetime, pofftime);
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
             if (worker.InvokeMethod<PowerSaveTimeRecord>(strPrinterName, ref m_rec, DllMethodType.SetPowerSaveTime, this))
