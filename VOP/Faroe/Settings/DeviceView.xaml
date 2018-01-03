@@ -287,7 +287,7 @@
 
                 <TextBlock x:Name="labelAutoSleep" Text="(0-60 Minutes)" Grid.Row="0" Foreground="Black"
                     HorizontalAlignment="Center" 
-                   Height="30" Margin="0,0,0,10"  VerticalAlignment="Bottom" Width="100" FontSize="14" Grid.ColumnSpan="3"/>
+                   Height="30" Margin="0,0,0,10"  VerticalAlignment="Bottom" Width="90" FontSize="14" Grid.ColumnSpan="3"/>
 
                 <local:SpinnerControl x:Name="spinnerControlAutoOff" Style="{StaticResource SpinnerControl2}"
                 	Width="300" 
@@ -305,10 +305,10 @@
                             />
                 <TextBlock x:Name="labelAutoOff" Text="(0-4 Hours)" Grid.Row="1"
                 	HorizontalAlignment="Center" Foreground="Black"
-                	Height="30" Margin="0,0,0,10"  VerticalAlignment="Bottom" Width="100" FontSize="14" Grid.ColumnSpan="3"/>
+                	Height="30" Margin="0,0,0,10"  VerticalAlignment="Bottom" Width="80" FontSize="14" Grid.ColumnSpan="3"/>
 
 
-                <GroupBox x:Name="groupBox_Copy" Grid.ColumnSpan="3" Header="Auto Off Time" HorizontalAlignment="Left" Height="115" Margin="10,23,0,0" VerticalAlignment="Top" Width="435" Grid.Row="1" FontWeight="Bold"/>
+                <GroupBox x:Name="groupBox_Copy" Grid.ColumnSpan="3" Header="Auto Off Time" HorizontalAlignment="Left" Height="115" Margin="10,10,0,0" VerticalAlignment="Top" Width="435" Grid.Row="1" FontWeight="Bold"/>
             </Grid>
             <!--<Button x:Name="btnApply" Content="{StaticResource ResStr_Apply}" Grid.Column="1" HorizontalAlignment="Center" Height="22" Margin="127,40,132,0" Grid.Row="5" VerticalAlignment="Top" Width="118" FontSize="13.333" Click="btnApply_Click_1"/>-->
             <Button x:Name="btnApply"
