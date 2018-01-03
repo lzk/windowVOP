@@ -504,6 +504,21 @@ namespace VOP
         [DllImport("usbapi.dll")]
         public static extern int CheckPrinterStatus(
         [MarshalAs(UnmanagedType.LPWStr)]String printername);
+
+        [DllImport("PushScanReg.dll")]
+        public static extern void DllRegisterServer();
+        [DllImport("PushScanReg.dll")]
+        public static extern void DllUnregisterServer();
+
+        [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll", EntryPoint = "FindWindowEx", SetLastError = true)]
+        public static extern IntPtr FindWindowEx(IntPtr hwndParent, uint hwndChildAfter, string lpszClass, string lpszWindow);        
+
+        [DllImport("user32.dll", EntryPoint = "SetForegroundWindow", SetLastError = true)]
+        public static extern void SetForegroundWindow(IntPtr hwnd);
+
     }
 
 }

@@ -25,6 +25,7 @@ using System.Xml.Linq;
 using VOP.Controls;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 
 namespace VOP
 {
@@ -65,7 +66,7 @@ namespace VOP
             thread_searchIP.Start();
 
             statusUpdater = new Thread(UpdateStatusCaller);
-            statusUpdater.Start();
+            statusUpdater.Start();            
             
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
         }
@@ -202,7 +203,12 @@ namespace VOP
 
             MainPageView.Child = scanSelectionPage;
             scanSelectionPage.m_MainWin = this;            
-            AddMessageHook();            
+            AddMessageHook();
+            if (App.gPushScan)
+            {
+                scanSelectionPage.PushScan();
+                App.gPushScan = false;
+            }
         }
 
         #region TrayMenu
@@ -481,7 +487,13 @@ namespace VOP
                 {
                     scanSelectionPage.ImageButton3.IsEnabled = true;
                     scanSelectionPage.ImageButton3.Focus();
-                }                            
+                }
+                if (App.gPushScan)
+                {
+                    scanSelectionPage.PushScan();
+                    App.gPushScan = false;
+                }
+                           
             }
             else if (pageName == "SettingsPage")
             {
@@ -586,8 +598,7 @@ namespace VOP
             m.HWnd = hwnd;
             m.Msg = msg;
             m.WParam = wParam;
-            m.LParam = lParam;
-
+            m.LParam = lParam;            
             if (handled)
                 return IntPtr.Zero;
 
@@ -647,7 +658,16 @@ namespace VOP
                 notifyIcon1.Dispose();
                 Environment.Exit(0);
             }
-
+            else if (msg == App.WM_COPYDATA)
+            {
+                App.gPushScan = true;
+                App.COPYDATASTRUCT cds = (App.COPYDATASTRUCT)Marshal.PtrToStructure(lParam, typeof(App.COPYDATASTRUCT)); 
+                string rece = cds.lpData; 
+                if (rece == "PushScan")
+                {
+                    GotoPage("ScanSelectionPage", null);
+                }
+            }
             return IntPtr.Zero;
         }
 

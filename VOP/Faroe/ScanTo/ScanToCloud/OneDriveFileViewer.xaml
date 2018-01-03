@@ -16,9 +16,10 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../../../Controls/CustomButton.xaml"/>
+                <ResourceDictionary Source="../../../Controls/CustomButton.xaml"/>                
             </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+            <local:TextBlockToolTipConverter x:Key="ToolTipVisibilityConverter"/>
+        </ResourceDictionary>        
     </Window.Resources>
 
     <Window.Effect>
@@ -81,8 +82,18 @@
                                            Width="450" 
                                            Margin="10,0,0,0" 
                                            FontSize="18" 
-                                           TextWrapping="Wrap"
-                                           Foreground="CadetBlue"/>
+                                           TextWrapping="NoWrap"
+                                           Foreground="CadetBlue"
+                                           TextTrimming="CharacterEllipsis" 
+                                           Text="{Binding FolderText}">  
+                                    <TextBlock.ToolTip>
+                                        <ToolTip Visibility="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget, Converter={StaticResource ToolTipVisibilityConverter}}">
+                                            <ToolTip.Content>
+                                                <TextBlock Name="ToolPathText" Text="{Binding FolderText}" TextWrapping="Wrap"/>
+                                            </ToolTip.Content>
+                                        </ToolTip>
+                                    </TextBlock.ToolTip>
+</TextBlock>
                             </StackPanel>
                             <ScrollViewer CanContentScroll="true"
                                         SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
@@ -101,8 +112,8 @@
                                    FontSize="12" 
                                    Foreground="CadetBlue"
                                    Margin="10,0,0,0" 
-                                   TextWrapping="Wrap"
-                                   />
+                                   TextWrapping="Wrap"/>
+
                     </StackPanel>
                     <Button 
                         Grid.Row="2"

@@ -236,7 +236,7 @@ namespace VOP
                     if(res != null)
                     {
                         currentPath = temp;
-                        PathText.Text = currentPath;
+                        PathText.Text = currentPath;                        
                     }
                   
                 }

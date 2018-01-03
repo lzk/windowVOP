@@ -228,6 +228,8 @@ namespace VOP
                     ? "thumbnails,children($expand=thumbnails)"
                     : "thumbnails,children";
 
+                 
+
                 folder = await this.client.Drive.Root.Request().Expand(expandValue).GetAsync();
 
                 CurrentFolder = folder;
@@ -239,6 +241,8 @@ namespace VOP
             {
                 //    PresentServiceException(exception);
                 //MessageBox.Show("Connection OneDrive failed!");
+
+                this.client.Drive.Root.Delta();
                 isSigin = false;
                 return false;
             }
