@@ -272,8 +272,17 @@ typedef struct SC_INFO_DATA_STRUCT {
 	UINT32 ValidPageSize[2];  // 8
 	UINT16 ImageWidth[2];    // 4
 	UINT16 ImageHeight[2];    // 4
-	UINT8  EndPage[2];      // 4
-	UINT8  EndScan[2];
+	//UINT8  EndPage[2];
+	//UINT8  EndScan[2];
+
+	struct {
+		UINT16 EndPage : 1;
+		UINT16 EndScan : 1;
+		UINT16 IsColor : 1;
+		UINT16 IsBlank : 1;
+		UINT16 reserved : 12;
+	} ImgStatus[2];
+
 	struct {
 		UINT32 cover_open_err : 1;
 		UINT32 scan_jam_err : 1;

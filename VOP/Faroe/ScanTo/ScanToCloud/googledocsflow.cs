@@ -99,6 +99,11 @@ namespace VOP
                 // Get a listing of the existing files...
                 List<File> fileList = Utilities.RetrieveAllFiles(_service);
 
+                if (fileList.Count == 0 &&
+                    FlowType == CloudFlowType.SimpleView)
+                {
+                    return false;
+                }
                 if (FlowType == CloudFlowType.Quick)
                 {
                     string folderID = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.GoogleDriveFolderID;

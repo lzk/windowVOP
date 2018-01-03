@@ -258,33 +258,41 @@
 
             <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="127"></RowDefinition>
-                    <RowDefinition/>
+                    <RowDefinition Height="130"></RowDefinition>
+                    <RowDefinition Height="130"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"></ColumnDefinition>
                     <ColumnDefinition Width="20"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-
+                <GroupBox x:Name="groupBox" Grid.Row="0" Grid.ColumnSpan="3" Header="Auto Sleep Time" HorizontalAlignment="Left" 
+                          Height="115" Margin="10,10,0,0" VerticalAlignment="Top" Width="435" FontWeight="Bold">                    
+                </GroupBox>
                 <local:SpinnerControl x:Name="spinnerControlAutoSleep" Style="{StaticResource SpinnerControl1}"
         	Width="300" 
         	Background="Transparent"
         	Change="1"
         	DecimalPlaces="0"
+<<<<<<< HEAD
         	Maximum="60"
         	Minimum="0"  
+=======
+        	Maximum="30"
+        	Minimum="0" 
+>>>>>>> f33e549cfe4a11e31aeaedf9c5efafc14ac9e14f
         	IsPercentFormat="False"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
         	ValueChanged="spinnerControl_ValueChanged"     
         	LostFocus="AutoSleepSpinnerTextBox_LostFocus"  
-                                  Height="44" Grid.Column="0" Grid.Row="0" FontWeight="Bold" Grid.ColumnSpan="3" Margin="71,36,84,47"
+            Height="44" Grid.Column="0" Grid.Row="0" FontWeight="Bold" Grid.ColumnSpan="3" 
                             />
 
                 <Label x:Name="labelAutoSleep" Content="(0-60 Minutes)" Grid.Row="0"
                    HorizontalContentAlignment="Center" HorizontalAlignment="Center" 
-                   Height="30" Margin="121,0,134,12"  VerticalAlignment="Bottom" Width="200" FontSize="14" Grid.ColumnSpan="3"/>
+                   Height="30" Margin="0,0,0,10"  VerticalAlignment="Bottom" Width="200" FontSize="14" Grid.ColumnSpan="3"/>
                 <local:SpinnerControl x:Name="spinnerControlAutoOff" Style="{StaticResource SpinnerControl2}"
                 	Width="300" 
                 	Background="Transparent"
@@ -297,12 +305,12 @@
                 	VerticalAlignment="Center"
                 	ValueChanged="spinnerControl_ValueChanged"     
                 	LostFocus="AutoOffSpinnerTextBox_LostFocus"  
-                	Height="44" Grid.Column="0" Grid.Row="1" FontWeight="Bold" Grid.ColumnSpan="3" Margin="71,48,84,105"
+                	Height="44" Grid.Column="0" Grid.Row="1" FontWeight="Bold" Grid.ColumnSpan="3"
                             />
                 <Label x:Name="labelAutoOff" Content="(0-4 Hours)" Grid.Row="1"
                 	HorizontalContentAlignment="Center" HorizontalAlignment="Center" 
-                	Height="30" Margin="121,0,134,70"  VerticalAlignment="Bottom" Width="200" FontSize="14" Grid.ColumnSpan="3"/>
-                <GroupBox x:Name="groupBox" Grid.ColumnSpan="3" Header="Auto Sleep Time" HorizontalAlignment="Left" Height="105" Margin="10,12,0,0" VerticalAlignment="Top" Width="435" FontWeight="Bold"/>
+                	Height="30" Margin="0,0,0,10"  VerticalAlignment="Bottom" Width="200" FontSize="14" Grid.ColumnSpan="3"/>
+
                 <GroupBox x:Name="groupBox_Copy" Grid.ColumnSpan="3" Header="Auto Off Time" HorizontalAlignment="Left" Height="105" Margin="10,23,0,0" VerticalAlignment="Top" Width="435" Grid.Row="1" FontWeight="Bold"/>
             </Grid>
             <!--<Button x:Name="btnApply" Content="{StaticResource ResStr_Apply}" Grid.Column="1" HorizontalAlignment="Center" Height="22" Margin="127,40,132,0" Grid.Row="5" VerticalAlignment="Top" Width="118" FontSize="13.333" Click="btnApply_Click_1"/>-->

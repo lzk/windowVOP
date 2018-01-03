@@ -34,7 +34,7 @@ namespace VOP
             if (Int32.TryParse(ScreenBtn.Content.ToString(), out result))
             {
                 if (result > MainWindow_Rufous.g_settingData.m_MatchList.Count)
-                    ScreenTextNumber = MainWindow_Rufous.g_settingData.m_MatchList.Count;
+                    ScreenTextNumber =  MainWindow_Rufous.g_settingData.m_MatchList.Count;
             }
             SetScreenText(ScreenTextNumber);
 
@@ -313,7 +313,7 @@ namespace VOP
 
             ScanTask task = new ScanTask();
             List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_commonScanSettings);
-           // List<ScanFiles> files = new List<ScanFiles>();
+            //List<ScanFiles> files = new List<ScanFiles>();
             m_MainWin._bScanning = false;
             if (files != null)
             //   return;

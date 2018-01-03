@@ -390,7 +390,7 @@ int CGLDrv::waitJobFinish(int wait_motor_stop)
 BYTE CGLDrv::_info()
 {
 	int result;
-	U8 cmd[8] = { 'I','N','F','O', sizeof(SC_INFO_T),0,0,0 };
+	//U8 cmd[8] = { 'I','N','F','O', sizeof(SC_INFO_T),0,0,0 };
 	//memcpy(&sc_info, cmd, 8);
 	//sc_info.id = (unsigned char)JobID;
 	
