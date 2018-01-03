@@ -19,8 +19,8 @@ namespace VOP
         [DllImport("user32")]
         public static extern bool PostMessage(IntPtr hwnd, uint msg, IntPtr wparam, IntPtr lparam);
 
-        [DllImport("user32")]
-        public static extern bool SendMessage(IntPtr hwnd, uint msg, IntPtr wparam, IntPtr lparam);
+        //[DllImport("user32")]
+        //public static extern bool SendMessage(IntPtr hwnd, uint msg, IntPtr wparam, IntPtr lparam);
 
         [DllImport("kernel32.dll", ExactSpelling = true)]
         public static extern IntPtr GlobalUnlock(IntPtr handle);
@@ -44,6 +44,12 @@ namespace VOP
 
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         public static extern bool DeleteObject(IntPtr hObject);
+
+        [DllImport("User32.dll", EntryPoint = "SendMessage")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, ref App.COPYDATASTRUCT lParam);
+        [DllImport("User32.dll", EntryPoint = "FindWindow")]
+        public static extern int FindWindow(string lpClassName, string lpWindowName);
+
 
     }
 

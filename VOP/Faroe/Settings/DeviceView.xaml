@@ -276,7 +276,11 @@
         	Change="1"
         	DecimalPlaces="0"
         	Maximum="60"
+<<<<<<< HEAD
+        	Minimum="0"  
+=======
         	Minimum="0" 
+>>>>>>> ea5fed7eefc931bcaa7df4636066a6e865f9135c
         	IsPercentFormat="False"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"

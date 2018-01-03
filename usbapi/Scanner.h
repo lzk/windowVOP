@@ -189,6 +189,7 @@ typedef int (WINAPI *LPFUNC_DevMon_Close)();
 typedef int (WINAPI *LPFUNC_DevMon_BroadcastMFP)(int *DevNum, char **DevName);
 typedef int (WINAPI *LPFUNC_DevMon_DetectNetMFP)(const char *DevNamIP);
 typedef int (WINAPI *LPFUNC_DevMon_LocateMFP)(const char* DevName);
+typedef int (WINAPI *LPFUNC_DevMon_PushScan)();
 
 
 
@@ -221,6 +222,7 @@ public:
 	int ReadData(BYTE *pBuffer, ULONG ulBufferSize,ULONG *pulBytesRead, LONG *plPercentComplete);
 
 	int GetADFStatus();
+	int PushScan();
    
 public:
 	// Reading parameter for current page (Flatbed or one time of ADF scan)

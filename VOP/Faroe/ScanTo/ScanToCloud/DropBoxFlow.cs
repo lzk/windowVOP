@@ -71,7 +71,7 @@ namespace VOP
                 // download/upload files.
                 Timeout = TimeSpan.FromMinutes(20)
             };
-        
+
             try
             {
                 var config = new DropboxClientConfig("SimpleTestApp")
@@ -91,7 +91,7 @@ namespace VOP
                 {
                     RunUploadTask(client);
                 }
-            
+
 
                 // Tests below are for Dropbox Business endpoints. To run these tests, make sure the ApiKey is for
                 // a Dropbox Business app and you have an admin account to log in.
