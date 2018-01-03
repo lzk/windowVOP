@@ -275,13 +275,8 @@
         	Background="Transparent"
         	Change="1"
         	DecimalPlaces="0"
-<<<<<<< HEAD
         	Maximum="60"
         	Minimum="0"  
-=======
-        	Maximum="30"
-        	Minimum="0" 
->>>>>>> f33e549cfe4a11e31aeaedf9c5efafc14ac9e14f
         	IsPercentFormat="False"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
