@@ -384,6 +384,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 {
 	
 	BSTR bstrArray[500] = { 0 };
+	BYTE emptyPages[500] = { 0 };
+	BOOL bEmptyPage = false;
 	CGLDrv glDrv;
 	g_pointer_lDrv = &glDrv;
 
@@ -415,6 +417,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 
 	IMG_FILE_T ImgFile[2];
+	IMAGE_T ImgTemp[2];
 
 	//modified by yunying shang 2017-10-25 for BMS 1234
 	ImgFile[0].img.width = ImgFile[1].img.width = nLinePixelNumOrig;
@@ -589,11 +592,12 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		BYTE power_mode = glDrv._GetPowerSupply();
 		if (1 < power_mode )
 		{
-			if (2 == power_mode && (ADFMode || AutoCrop || MultiFeed || height>14000 || type>0))
+			if (2 == power_mode && (ADFMode || AutoCrop || MultiFeed || height > 14000 || type > 0))
 			{
 				return RETSCAN_ERROR_POWER1;
 			}
-			else if(ADFMode || AutoCrop || MultiFeed || height>14000||type >0||g_connectMode_usb == false)
+			//modified by yunying shang 2017-01-03 for BMS 1924
+			if(power_mode == 3 && (ADFMode || AutoCrop || MultiFeed || height > 14000||type > 0||g_connectMode_usb == false))
 			{
 				return RETSCAN_ERROR_POWER2;
 			}
@@ -1049,7 +1053,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				break;
 			}
 
-			if ((!(duplex & 1) || glDrv.sc_infodata.EndScan[0]) && (!(duplex & 2) || glDrv.sc_infodata.EndScan[1]))
+			if ((!(duplex & 1) || glDrv.sc_infodata.ImgStatus[0].EndScan) && (!(duplex & 2) || glDrv.sc_infodata.ImgStatus[1].EndScan))
 				break;
 
 		/*	if (_kbhit()) {
@@ -1088,14 +1092,50 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 							{
 								side = 'B';
 							}
+							if (bColorDetect)
+							{
+								if(glDrv.sc_infodata.ImgStatus[dup].IsColor)
+									sprintf(fileName, "%s%03d%c_color.%s", filePath, page[dup], side, &ImgFile[dup].img.format);//#BMS1075
+								else
+									sprintf(fileName, "%s%03d%c_gray.%s", filePath, page[dup], side, &ImgFile[dup].img.format);
+								if (((ImgFile[dup].img).bit) >= 24)
+								{
+									if (glDrv.sc_infodata.ImgStatus[dup].IsColor == 0) 
+									{
+										((ImgFile[dup].img).bit) /= 3;
+									}
+								}
+							}
+							else 
+							{
 
-							//						sprintf(fileName, "%s_%c%d_%c%02d.%s", filePath, (ImgFile[dup].img.bit > 16) ? 'C' : 'G', ImgFile[dup].img.dpi.x, side, page[dup], &ImgFile[dup].img.format);
-							sprintf(fileName, "%s%03d%c.%s", filePath, page[dup], side, &ImgFile[dup].img.format);//#BMS1075
+								//sprintf(fileName, "%s_%c%d_%c%02d.%s", filePath, (ImgFile[dup].img.bit > 16) ? 'C' : 'G', ImgFile[dup].img.dpi.x, side, page[dup], &ImgFile[dup].img.format);
+								sprintf(fileName, "%s%03d%c.%s", filePath, page[dup], side, &ImgFile[dup].img.format);//#BMS1075
+							}
 						}
 						else
 						{
-							sprintf(fileName, "%s%03d.%s", filePath, page[dup], &ImgFile[dup].img.format);//#BMS1075
+							if (bColorDetect)
+							{
+								if (glDrv.sc_infodata.ImgStatus[dup].IsColor)
+									sprintf(fileName, "%s%03d_color.%s", filePath, page[dup], &ImgFile[dup].img.format);//#BMS1075
+								else
+									sprintf(fileName, "%s%03d_gray.%s", filePath, page[dup], &ImgFile[dup].img.format);
+								if (((ImgFile[dup].img).bit) >= 24)
+								{
+									if (glDrv.sc_infodata.ImgStatus[dup].IsColor == 0)
+									{
+										((ImgFile[dup].img).bit) /= 3;
+									}
+								}
+							}
+							else
+							{
+								sprintf(fileName, "%s%03d.%s", filePath, page[dup], &ImgFile[dup].img.format);//#BMS1075
+							}
 						}
+						
+						
 						ImgFile_Open(&ImgFile[dup], fileName);
 						lineCount = 0;
 
@@ -1103,7 +1143,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 						bstrArray[fileCount] = ::SysAllocString(fileNameOut);
 						MyOutputString(fileNameOut);
 						fileCount++;
-						page[dup]++;
+						page[dup]++;						
 					}
 
 					//modified by yunying sahng 2017-12-04 for BMS1035
@@ -1144,7 +1184,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 							}
 						}
 					}
-					if ((TotalImgSize >= (int)glDrv.sc_infodata.ValidPageSize[dup]) && glDrv.sc_infodata.EndPage[dup])
+					if ((TotalImgSize >= (int)glDrv.sc_infodata.ValidPageSize[dup]) && glDrv.sc_infodata.ImgStatus[dup].EndPage)
 					{
 						//add by yunying shang 2017-10-12 for BMS1082
 						MyOutputString(L"SCanning Complete!");
@@ -1160,6 +1200,15 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 						Sleep(50);
 						//////////////1082 yunying
 						MyOutputString(L"ImgFile Close ", glDrv.sc_infodata.ImageHeight[dup]);
+
+						if (glDrv.sc_infodata.ImgStatus[dup].IsBlank)
+						{
+							emptyPages[fileCount - 1] = 1;
+							bEmptyPage = true;
+						}
+						else
+							emptyPages[fileCount-1] = 0;
+
 						ImgFile_Close(&ImgFile[dup], glDrv.sc_infodata.ImageHeight[dup]);
 						bFiling[dup]--;
 						lineCount = 0;
@@ -1233,7 +1282,23 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				GdiplusShutdown(gdiplusToken);
 			}
 		}
-		
+
+		if (bEmptyPage)
+		{
+			int count = fileCount;
+			for (UINT i = 0; i < count; i++)
+			{
+				if (emptyPages[i])
+				{
+
+					for (UINT j = i; j < (count - 1);j++)
+					{
+						bstrArray[j] = bstrArray[j + 1];
+					}
+					fileCount--;
+				}
+			}
+		}
 		CreateSafeArrayFromBSTRArray
 			(
 			bstrArray,
@@ -1613,6 +1678,7 @@ USBAPI_API BOOL __stdcall CheckConnectionByName(WCHAR* interfaceName)
 
 USBAPI_API BYTE __stdcall GetPowerSupply()
 {
+	BYTE power = 0;
 	CGLDrv glDrv;
 	char interfaceName[32] = { 0 };
 	if (g_connectMode_usb == 1)
@@ -1655,7 +1721,8 @@ USBAPI_API BYTE __stdcall GetPowerSupply()
 
 		if (glDrv._OpenUSBDevice(strPort) != FALSE)
 		{
-			return glDrv._GetPowerSupply();
+			power = glDrv._GetPowerSupply();
+			glDrv._CloseDevice();
 		}	
 	}
 	else
@@ -1668,13 +1735,14 @@ USBAPI_API BYTE __stdcall GetPowerSupply()
 			{
 				if (glDrv._OpenDevice() == TRUE)
 				{
-					return glDrv._GetPowerSupply();
+					power= glDrv._GetPowerSupply();
+					glDrv._CloseDevice();
 				}
 			}
 
 		}
 	}
-	return 0;
+	return power;
 
 }
 
@@ -2430,8 +2498,8 @@ int _scan_info()
 		return -1;
 
 
-	if ((!(k_scan_par.duplex & 1) || Info.EndScan[0]) &&
-		(!(k_scan_par.duplex & 2) || Info.EndScan[1]))
+	if ((!(k_scan_par.duplex & 1) || Info.ImgStatus[0].EndScan) &&
+		(!(k_scan_par.duplex & 2) || Info.ImgStatus[1].EndScan))
 		return -1;
 
 	return 1;
@@ -2463,7 +2531,7 @@ int _scan_image(void)
 				PageStart++;
 			}
 			Scan_WriteFile(dup, (char*)ScanBuf, length);
-			if ((length >= (int)Info.ValidPageSize[dup]) && Info.EndPage[dup]) {
+			if ((length >= (int)Info.ValidPageSize[dup]) && Info.ImgStatus[dup].EndPage) {
 				//printf("File close ");
 				//printf("%c\n", dup? 'B': 'A');
 				Scan_CloseFile(dup, Info.ImageHeight[dup], 0);

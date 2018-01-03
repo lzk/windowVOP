@@ -243,7 +243,7 @@ namespace VOP
                     m_scanToCloudParams.DefaultOneDrivePath = SavePathTbx.Text;//add by yunying shang 2017-11-22 for BMS 1483
 
                 }
-                else if(cbCloudType.SelectedIndex == 1)
+                else if(cbCloudType.SelectedIndex == 0)
                 {
                     m_scanToCloudParams.SaveType = "DropBox";
                     m_scanToCloudParams.DefaultPath = SavePathTbx.Text;//add by yunying shang 2017-11-08 for BMS 1326

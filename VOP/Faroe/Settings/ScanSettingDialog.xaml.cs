@@ -55,6 +55,9 @@ namespace VOP
         public void handler_loaded( object sender, RoutedEventArgs e )
         {
             m_lastPaperType = m_scanParams.ScanMediaType;
+            m_lastPaperSize = m_scanParams.PaperSize;
+            m_lastPaperSize1 = m_scanParams.PaperSize;
+            m_lastRes = m_scanParams.ScanResolution;
 
             byte power = dll.GetPowerSupply();
 
@@ -65,9 +68,9 @@ namespace VOP
 
             if (m_powermode == 1)
                 tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting1");
-            else if (m_powermode == 2)
-                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting2");
             else if (m_powermode == 3)
+                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting2");
+            else if (m_powermode == 2)
                 tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting3");
 
             InitControls();
@@ -151,28 +154,6 @@ namespace VOP
             //}
 
             if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
-                m_powermode > 1)
-            {
-                twoSideButton.IsChecked = false;
-                twoSideButton.IsEnabled = false;
-                oneSideButton.IsEnabled = false;
-                oneSideButton.IsChecked = true;
-            }
-            else
-            {
-                if (m_scanParams.ADFMode == true)
-                {
-                    twoSideButton.IsChecked = true;
-                }
-                else
-                {
-                    oneSideButton.IsChecked = true;
-                }
-                twoSideButton.IsEnabled = true;
-                oneSideButton.IsEnabled = true;
-            }
-
-            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._Card ||
                 m_powermode > 1)
@@ -246,20 +227,33 @@ namespace VOP
             if(m_scanParams.SkipBlankPage == true)
             {
                 btnSkipBlankOn.IsChecked = true;
+            }
+            else
+            {
+                btnSkipBlankOff.IsChecked = true;
+            }
+
+            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
+               // m_scanParams.SkipBlankPage == true ||
+                m_powermode > 1)
+            {
+                twoSideButton.IsChecked = false;
                 twoSideButton.IsEnabled = false;
                 oneSideButton.IsEnabled = false;
                 oneSideButton.IsChecked = true;
             }
             else
             {
-                btnSkipBlankOff.IsChecked = true;
+                if (m_scanParams.ADFMode == true)
+                {
+                    twoSideButton.IsChecked = true;
+                }
+                else
+                {
+                    oneSideButton.IsChecked = true;
+                }
                 twoSideButton.IsEnabled = true;
                 oneSideButton.IsEnabled = true;
-
-                if (m_scanParams.ADFMode == true)
-                    twoSideButton.IsChecked = true;
-                else
-                    oneSideButton.IsChecked = true;
             }
 
         }
@@ -619,10 +613,10 @@ namespace VOP
                 m_scanParams.AutoCrop = false;
             }
 
-            if (m_scanParams.SkipBlankPage == true)
-            {
-                m_scanParams.ADFMode = false;
-            }
+            //if (m_scanParams.SkipBlankPage == true)
+            //{
+            //    m_scanParams.ADFMode = false;
+            //}
             this.DialogResult = true;
             this.Close();
         }
@@ -871,19 +865,19 @@ namespace VOP
                 if (rdbtn.Name == "btnSkipBlankOn")
                 {
                     m_scanParams.SkipBlankPage = true;
-                    twoSideButton.IsEnabled = false;
-                    oneSideButton.IsEnabled = false;
-                    oneSideButton.IsChecked = true;
+                   // twoSideButton.IsEnabled = false;
+                   // oneSideButton.IsEnabled = false;
+                   // oneSideButton.IsChecked = true;
                 }
                 else if (rdbtn.Name == "btnSkipBlankOff")
                 {
                     m_scanParams.SkipBlankPage = false;
-                    twoSideButton.IsEnabled = true;
-                    oneSideButton.IsEnabled = true;
-                    if (m_scanParams.ADFMode)
-                        twoSideButton.IsChecked = true;
-                    else
-                        oneSideButton.IsChecked = true;
+                   // twoSideButton.IsEnabled = true;
+                   // oneSideButton.IsEnabled = true;
+                   // if (m_scanParams.ADFMode)
+                    //    twoSideButton.IsChecked = true;
+                    //else
+                    //    oneSideButton.IsChecked = true;
                 }
             }
         }
@@ -934,7 +928,18 @@ namespace VOP
         //}
 
         private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
-        {          
+        {
+            //add by yunying shang 2018-01-03 for BMS 1966
+            if (true == spinCtlBrightness.ValidationHasError)
+            {
+                btnBrightnessDecrease.IsEnabled = false;
+                btnBrightnessIncrease.IsEnabled = false;
+            }
+            if (true == spinCtlConstrast.ValidationHasError)
+            {
+                btnConstrastDecrease.IsEnabled = false;
+                btnConstrastIncrease.IsEnabled = false;
+            }//<<===============1966
             btnOk.IsEnabled = ( false == spinCtlBrightness.ValidationHasError
                     && false == spinCtlConstrast.ValidationHasError );
         }
