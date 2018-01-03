@@ -18,8 +18,11 @@
 #include <tchar.h>
 #include "Scanner.h"
 #include <math.h>
+#include <sti.h>
 
 
+typedef HRESULT(WINAPI *LPSTICREATEINSTANCE)
+(HINSTANCE hinst, DWORD dwVer, interface IStillImageW **ppSti, LPUNKNOWN punkOuter);
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -825,6 +828,109 @@ BOOL CScanner::EdgesErase(LPBYTE pData)
 		memset(&pData[nRight*3], 0xFF, nLeft*3);
 		break;
 	}
+
+	return TRUE;
+}
+int CScanner::PushScan()
+{
+	IStillImage *pStillImage = NULL;
+
+	HMODULE sti_dll = LoadLibrary(L"sti.dll");
+
+	if (sti_dll == NULL)
+	{
+		//ShowErrorMsg(DEVMON_ERROR_WIA_NOT_INSTALL);
+
+		return FALSE;
+	}
+
+	LPSTICREATEINSTANCE lpStiCreateInstance = NULL;
+	lpStiCreateInstance = (LPSTICREATEINSTANCE)GetProcAddress(
+		GetModuleHandle(TEXT("sti.dll")),
+		"StiCreateInstance");
+	if (NULL == lpStiCreateInstance)
+	{
+		//ShowErrorMsg(DEVMON_ERROR_WIA_NOT_INSTALL);
+
+		FreeLibrary(sti_dll);
+		return FALSE;
+	}
+
+	// STI
+	// call STI to find out whether we were launched by STI
+
+
+	// Check if start to process push scan event
+	HRESULT hr = lpStiCreateInstance(GetModuleHandle(NULL), STI_VERSION, &pStillImage, NULL);
+	if (hr == S_OK)
+	{
+		WCHAR   szDeviceName[65];
+		WCHAR   szEventName[65];
+		DWORD   dwEventCode;
+
+		hr = pStillImage->GetSTILaunchInformation(szDeviceName, &dwEventCode, szEventName);
+		if (SUCCEEDED(hr))
+		{
+			OutputDebugString(L"DeviceName:");
+			OutputDebugString(szDeviceName);
+
+			BYTE data[12] = { 0 };
+			WCHAR wszDevicePath[MAX_PATH];
+
+			DWORD cbData = 0;
+			DWORD dwType = REG_BINARY;
+
+			memset(wszDevicePath, 0, sizeof(wszDevicePath));
+
+			cbData = sizeof(data);
+			pStillImage->GetDeviceValue(szDeviceName, L"EventData", &dwType, data, &cbData);
+
+			TCHAR szTemp[10];
+			//CString strText;
+			//OutputDebugString(_T("Scan Manager get a event. Event data:\n"));
+			//for (int i = 0; i < 12; i++)
+			//{
+			//	_stprintf_s(szTemp, 10, _T("%02x "), data[i]);
+			//	strText += szTemp;
+			//}
+			//OutputDebugString(strText);
+
+			cbData = sizeof(wszDevicePath);
+			pStillImage->GetDeviceValue(szDeviceName, L"DevicePath", &dwType, (LPBYTE)wszDevicePath, &cbData);
+
+
+			//EnumWiaDevList(szDeviceName);
+			//scanUtility.InitLLDPath();
+
+			pStillImage->Release();
+			pStillImage = NULL;
+
+			//OutputDebugString(L"DevicePath:");
+			//OutputDebugString(wszDevicePath);
+
+			//if (Scan(data, wszDevicePath))
+			//{
+
+			//	m_hScanEvent = CreateEventW(NULL, FALSE, FALSE, NULL);
+
+			//	WaitForSingleObject(m_hScanEvent, INFINITE);
+
+			//	CloseHandle(m_hScanEvent);
+			//	m_hScanEvent = NULL;
+			//	//				OpenImage();
+			//	OutputDebugString(L"Exit application");
+			//}
+
+			return FALSE;
+		}
+		else
+		{
+			pStillImage->Release();
+			pStillImage = NULL;
+		}
+	}
+
+	FreeLibrary(sti_dll);
 
 	return TRUE;
 }

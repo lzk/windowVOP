@@ -26,10 +26,18 @@ using Microsoft.Graph;
 using Microsoft.Identity.Client;
 namespace VOP
 {
-   
+
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
+    public class Path
+    {
+        public Path(string name)
+        {
+            this.FolderText = name;
+        }
+        public string FolderText { get; set; }
+    }
     public partial class OneDriveFileViewer : Window
     {
         public List<string> FileList { get; set; }
@@ -48,8 +56,8 @@ namespace VOP
 
         private DriveItem CurrentFolder { get; set; }
         private DriveItem UpperFolder { get; set; }
-        private DriveItem SelectedItem { get; set; } 
-
+        private DriveItem SelectedItem { get; set; }
+//        public string FolderText { get; set; }
         public OneDriveFileViewer(GraphServiceClient client, List<string> fileList,DriveItem folder)
         {
             InitializeComponent();
@@ -69,9 +77,15 @@ namespace VOP
             }
  //           await Start();
             if (PathText.Text == "")
+            {
+                PathText.Visibility = Visibility.Hidden;
                 UpFolderButton.IsEnabled = false;
+            }                
             else
+            {
+                PathText.Visibility = Visibility.Visible;
                 UpFolderButton.IsEnabled = true;
+            }                
             FileBrowser.SelectedIndex = 0;
             FileBrowser.Focus();
         }       
@@ -145,8 +159,7 @@ namespace VOP
             item.Tag = info;
 
             return item;
-        }
-               
+        }               
         private async void CreateFolderButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             try
@@ -216,8 +229,16 @@ namespace VOP
                     (string)this.TryFindResource("ResStr_Warning"));
                 return;
             }
+        }       
+        private void SetFolderName(string name)
+        {
+            Path foldername = new Path(name);            
+            if (name == "")
+                PathText.Visibility = Visibility.Hidden;
+            else
+                PathText.Visibility = Visibility.Visible;                
+            PathText.DataContext = foldername;
         }
-       
         private async Task LoadFolderFromId(string id)
         {
             if (null == this.graphClient) return;
@@ -237,7 +258,6 @@ namespace VOP
                 PresentServiceException(exception);
             }
         }
-
         private async void UpFolderButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             try
@@ -256,19 +276,25 @@ namespace VOP
                     else
                     {
                         await LoadFolderFromPath();
-
                     }
-                    PathText.Text = currentPath;
+//                    PathText.Text = currentPath;       
+                    SetFolderName(currentPath);
                     if (PathText.Text == "")
+                    {
                         UpFolderButton.IsEnabled = false;
+                    }                        
                     else
+                    {
                         UpFolderButton.IsEnabled = true;
+                    }
+                        
                 }
                 else
                 {
                     await LoadFolderFromPath();
                     currentPath = "";
-                    PathText.Text = "";
+                    PathText.Text = "";                   
+                    SetFolderName(currentPath);
                     UpFolderButton.IsEnabled = false;
                     selectedPath = "";
                 }
@@ -313,7 +339,6 @@ namespace VOP
                     Application.Current.MainWindow, 
                     (string)Application.Current.MainWindow.TryFindResource("ResStr_Connect_OneDrive_Fail"),//"Connection Onedirive failed!", 
                     (string)this.TryFindResource("ResStr_Warning"));
-
             }
         }
         private async Task LoadFolderFromPath(string path = null)
@@ -577,11 +602,17 @@ namespace VOP
 
                 ProcessFolder(folder);
                 currentPath = path;
-                PathText.Text = currentPath;
+//                PathText.Text = currentPath;                 
+                SetFolderName(currentPath);
                 if (PathText.Text == "")
+                {
                     UpFolderButton.IsEnabled = false;
+                }                    
                 else
+                {
                     UpFolderButton.IsEnabled = true;
+                }
+                    
             }
             catch (Exception exception)
             {

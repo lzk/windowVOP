@@ -10,7 +10,8 @@ using System.Globalization; // for Multi-Langulage UI
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.Xml;
-
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace VOP
 {
@@ -47,6 +48,17 @@ namespace VOP
         public static double gScalingRate = 1.0; // Scaling rate used to scale windows's according the screen resolution.
 
         private static Int32 gLanguage = 0x409;
+        public static bool gPushScan = false;
+        public const int WM_COPYDATA = 0x004A;
+
+        public struct COPYDATASTRUCT
+        {
+            public IntPtr dwData; 
+            public int cbData;    
+            [MarshalAs(UnmanagedType.LPStr)]
+            public string lpData; 
+        }
+
         public static Int32 LangId
         {
             get{ return gLanguage; }
@@ -161,36 +173,57 @@ namespace VOP
             crmFolder = strUsersPublic + "\\Faroe\\VOP_CRM";
             cfgFile = cfgFolder + "vopcfg.xml";
 
-            //string argLine = Environment.CommandLine;
+            string argLine = Environment.CommandLine;
+            if (argLine.Contains("/StiDevice"))
+            {
+                gPushScan = true;
+            }
+            else if (argLine.Contains("-INS"))
+            {
+                dll.DllRegisterServer();
+                Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
+                    return;
+            }
+            else if (argLine.Contains("-UNI"))
+            {
+                dll.DllUnregisterServer();
+                Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
+                return;
+            }
+            else
+            {
+                gPushScan = false;
+            }
+
             //string regStr = "";
 
-//if (SelfCloseRegistry.Open())
-//{
-//    regStr = SelfCloseRegistry.GetEXIT();
-//    SelfCloseRegistry.DeleteEXIT();
-//    SelfCloseRegistry.Close();
-//}
+            //if (SelfCloseRegistry.Open())
+            //{
+            //    regStr = SelfCloseRegistry.GetEXIT();
+            //    SelfCloseRegistry.DeleteEXIT();
+            //    SelfCloseRegistry.Close();
+            //}
 
-//if (argLine.Contains("EXIT") || regStr == "EXIT")
-//{
-//    Process p = null;
-//    if (App.CheckProcessExist("CRMUploader", ref p) == true)
-//    {
-//        if (p != null)
-//            p.Kill();
-//    }
+            //if (argLine.Contains("EXIT") || regStr == "EXIT")
+            //{
+            //    Process p = null;
+            //    if (App.CheckProcessExist("CRMUploader", ref p) == true)
+            //    {
+            //        if (p != null)
+            //            p.Kill();
+            //    }
 
-//    App.ResetVopCfg();
+            //    App.ResetVopCfg();
 
-//    Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
-//    return;
-//}
+            //    Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
+            //    return;
+            //}
 #if (!DEBUG)
-            if(mutex.WaitOne(TimeSpan.Zero, true)) 
+            if (mutex.WaitOne(TimeSpan.Zero, true))
 #else
-            if(true)
+            if (true)
 #endif
-            {
+                {
 
                 try
                 {
@@ -241,11 +274,32 @@ namespace VOP
                 }
 
 #if (!DEBUG)
-                mutex.ReleaseMutex();               
+                {
+                    mutex.ReleaseMutex();
+                }               
 #endif
             }
             else
             {
+                if (gPushScan)
+                {
+                    string sPushScan = "PushScan";
+                    Process[] procs = Process.GetProcesses();
+                    foreach (Process p in procs)
+                    {
+                        if (p.ProcessName.Equals("VOP"))
+                        {
+                            IntPtr hWnd = p.MainWindowHandle;
+                            byte[] sarr = System.Text.Encoding.Default.GetBytes(sPushScan);
+                            int len = sarr.Length;
+                            COPYDATASTRUCT cds2;
+                            cds2.dwData = (IntPtr)0;
+                            cds2.cbData = len + 1;
+                            cds2.lpData = sPushScan;
+                            Win32.SendMessage(hWnd, WM_COPYDATA, IntPtr.Zero, ref cds2);
+                        }
+                    }
+                }
                 Win32.PostMessage((IntPtr)0xffff, WM_VOP, IntPtr.Zero, IntPtr.Zero);
             }
 
@@ -309,6 +363,6 @@ namespace VOP
                 return false;
             }
                 
-        }
+        }      
     }
 }
