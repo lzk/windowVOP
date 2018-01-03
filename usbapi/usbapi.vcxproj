@@ -86,7 +86,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;USBAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -117,7 +117,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -159,6 +159,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bitmapScaling.h" />
+    <ClInclude Include="Calibration\EdgeDetect.h" />
+    <ClInclude Include="Calibration\model.h" />
+    <ClInclude Include="Calibration\ScanCMD.h" />
+    <ClInclude Include="Calibration\usbio.h" />
     <ClInclude Include="Common\afxres.h" />
     <ClInclude Include="Common\debug.h" />
     <ClInclude Include="Common\utility.h" />
@@ -182,6 +186,12 @@
     <ClInclude Include="usbapi.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Calibration\calibration_flow.cpp" />
+    <ClCompile Include="Calibration\calibration_scan.cpp" />
+    <ClCompile Include="Calibration\EdgeDetect.cpp" />
+    <ClCompile Include="Calibration\ScanCMD.cpp" />
+    <ClCompile Include="Calibration\ScanFunction.cpp" />
+    <ClCompile Include="Calibration\usbio.cpp" />
     <ClCompile Include="Common\Breath.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -192,7 +202,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="ImgFile\EdgeDetect.cpp" />
     <ClCompile Include="ImgFile\ImgFile.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>

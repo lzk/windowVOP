@@ -129,6 +129,9 @@ namespace VOP
                 tbNoteTitle.Focus();
                 return;
             }
+
+            
+
             //add by yunying shang 2017-11-30 for BMS 1621
             int i = 0;
             for (i = 0; i < tbNoteTitle.Text.Length; i++)
@@ -194,7 +197,9 @@ namespace VOP
                 {
                     string fileName = System.IO.Path.GetFileName(filePath);
                     byte[] myFile = StreamFile(filePath);
-                    
+
+                    UploadStaus.Text = "Uploading file " + fileName;
+
                     ENResource myResource = new ENResource(myFile, "image/jpg", fileName);//"application/pdf"                 
                     myResourceNote.Resources.Add(myResource);
                 }

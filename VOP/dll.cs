@@ -58,12 +58,12 @@ namespace VOP
         [DllImport("usbapi.dll")]
         public static extern int SetPowerSaveTime(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
-                byte time);
+                Int16 sleepTime, Int16 offTime);
 
         [DllImport("usbapi.dll")]
         public static extern int GetPowerSaveTime(
                 [MarshalAs(UnmanagedType.LPWStr)]String printername,
-                ref byte time);
+                ref Int16 sleepTime, ref Int16 offTime);
 
         [DllImport("usbapi.dll")]
         public static extern int SetPowerOff(
@@ -246,6 +246,10 @@ namespace VOP
                 bool AutoCrop,
                 bool onepage,
                 uint uMsg,
+                bool bAutoDetect,
+                bool bSkipBlankPage,
+                double gamma,
+                int type,
                 [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)]out string[] fileNames);
 
         [DllImport("usbapi.dll")]
@@ -519,6 +523,8 @@ namespace VOP
         [DllImport("user32.dll", EntryPoint = "SetForegroundWindow", SetLastError = true)]
         public static extern void SetForegroundWindow(IntPtr hwnd);
 
+        [DllImport("usbapi.dll")]
+        public static extern Byte GetPowerSupply();
     }
 
 }

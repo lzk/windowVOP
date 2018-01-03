@@ -74,3 +74,4 @@ EXPORTS
 	CheckPrinterStatus
 	CheckConnectionByName
 	CheckUsbScanByName
+	GetPowerSupply

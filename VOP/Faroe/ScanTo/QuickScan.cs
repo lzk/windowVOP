@@ -27,7 +27,7 @@ namespace VOP
         public Scan_RET ScanToAP()
         {
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
+            List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
             
             if (files == null)
                 return task.ScanResult;
@@ -54,7 +54,7 @@ namespace VOP
         public Scan_RET ScanToFile()
         {
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
+            List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
             //DebugAddScanFiles(ref files);
             if (files == null)
                 return task.ScanResult;
@@ -90,7 +90,7 @@ namespace VOP
         public Scan_RET ScanToEmail()
         {
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
+            List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
 
             if (files == null)
                 return task.ScanResult;
@@ -129,13 +129,13 @@ namespace VOP
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                  Application.Current.MainWindow,
                                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Not_Find_Printer"),//"Not find printer!",
-                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Waring"));
-                return Scan_RET.RETSCAN_ADF_NOT_READY;
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                return Scan_RET.RETSCAN_ERROR;
             }
             else
             {
                 ScanTask task = new ScanTask();
-                List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
+                List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
 
                 if (files == null)
                     return task.ScanResult;
@@ -214,7 +214,7 @@ namespace VOP
         public Scan_RET ScanToFtp()
         {
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
+            List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
 
             if (files == null)
                 return task.ScanResult;
@@ -249,7 +249,7 @@ namespace VOP
         public Scan_RET ScanToCloud()
         {
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
+            List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_ScanSettings);
             //DebugAddScanFiles(ref files);
             if (files == null)
                 return task.ScanResult;

@@ -90,7 +90,7 @@
                 	x:Name="ScreenBtn"
                 	Width="460"
                 	Style="{StaticResource ScreenButtonStyle}" 
-                	Content="9"                    
+                	Content="1"                    
                 	VerticalAlignment="Top"
                 	HorizontalAlignment="Center"
                 	PreviewMouseLeftButtonDown="ScreenButton_Click"

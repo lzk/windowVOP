@@ -6,7 +6,6 @@
 		check the EdgeDetect.h for detail.
 	
 ************************************************************************/
-#include <stdafx.h>
 
 #ifdef WIN32
 #pragma pack(1)

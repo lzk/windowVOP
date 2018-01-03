@@ -177,7 +177,7 @@ namespace VOP
 
             Update();
             m_rotatedAngle = -90;
-            FitTheWindow();
+            //FitTheWindow(); //marked by yunying shang 2017-12-26 for BMS 1902
             CenterImage();
 
             RoutedEventArgs argsEvent = new RoutedEventArgs();

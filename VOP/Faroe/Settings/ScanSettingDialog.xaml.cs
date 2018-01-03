@@ -39,6 +39,7 @@ namespace VOP
         private EnumScanMediaType m_lastPaperType = EnumScanMediaType._Normal;
         private EnumPaperSizeScan m_lastPaperSize1 = EnumPaperSizeScan._Auto;
         private EnumScanResln m_lastRes = EnumScanResln._200x200;
+        private Byte m_powermode = 1;
 
         public ScanSettingDialog()
         {
@@ -54,6 +55,23 @@ namespace VOP
         public void handler_loaded( object sender, RoutedEventArgs e )
         {
             m_lastPaperType = m_scanParams.ScanMediaType;
+            m_lastPaperSize = m_scanParams.PaperSize;
+            m_lastPaperSize1 = m_scanParams.PaperSize;
+            m_lastRes = m_scanParams.ScanResolution;
+
+            byte power = dll.GetPowerSupply();
+
+            if (power != 0)
+            {
+                m_powermode = power;
+            }
+
+            if (m_powermode == 1)
+                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting1");
+            else if (m_powermode == 3)
+                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting2");
+            else if (m_powermode == 2)
+                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting3");
 
             InitControls();
             InitScanResln();
@@ -135,30 +153,10 @@ namespace VOP
             //        break;                   
             //}
 
-            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
-            {
-                twoSideButton.IsChecked = false;
-                twoSideButton.IsEnabled = false;
-                oneSideButton.IsEnabled = false;
-                oneSideButton.IsChecked = true;
-            }
-            else
-            {
-                if (m_scanParams.ADFMode == true)
-                {
-                    twoSideButton.IsChecked = true;
-                }
-                else
-                {
-                    oneSideButton.IsChecked = true;
-                }
-                twoSideButton.IsEnabled = true;
-                oneSideButton.IsEnabled = true;
-            }
-
             if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
-                m_scanParams.ScanMediaType == EnumScanMediaType._Card)
+                m_scanParams.ScanMediaType == EnumScanMediaType._Card ||
+                m_powermode > 1)
             {
                 MultiFeedOnButton.IsChecked = false;
                 MultiFeedOnButton.IsEnabled = false;
@@ -177,7 +175,8 @@ namespace VOP
                 }
             }
 
-            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
+            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
+                m_powermode > 1)
             {
                 AutoCropOnButton.IsChecked = false;
                 AutoCropOnButton.IsEnabled = false;
@@ -211,6 +210,52 @@ namespace VOP
 
             sldr_brightness.Value = m_scanParams.Brightness;
             sldr_contrast.Value = m_scanParams.Contrast;
+
+            sldr_gamma.Value = m_scanParams.Gamma * 10;
+
+            tbGamma.Text = Convert.ToString(m_scanParams.Gamma);
+
+            if (m_scanParams.AutoColorDetect == true)
+            {
+                btnAutoColorOn.IsChecked = true;
+            }
+            else
+            {
+                btnAutoColorOff.IsChecked = true;
+            }
+
+            if(m_scanParams.SkipBlankPage == true)
+            {
+                btnSkipBlankOn.IsChecked = true;
+            }
+            else
+            {
+                btnSkipBlankOff.IsChecked = true;
+            }
+
+            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
+               // m_scanParams.SkipBlankPage == true ||
+                m_powermode > 1)
+            {
+                twoSideButton.IsChecked = false;
+                twoSideButton.IsEnabled = false;
+                oneSideButton.IsEnabled = false;
+                oneSideButton.IsChecked = true;
+            }
+            else
+            {
+                if (m_scanParams.ADFMode == true)
+                {
+                    twoSideButton.IsChecked = true;
+                }
+                else
+                {
+                    oneSideButton.IsChecked = true;
+                }
+                twoSideButton.IsEnabled = true;
+                oneSideButton.IsEnabled = true;
+            }
+
         }
 
         public void MyMouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
@@ -326,7 +371,8 @@ namespace VOP
 
                         InitScanResln();
 
-                        InitMediaType();
+                        if(m_lastPaperSize == EnumPaperSizeScan._LongPage)//add by yunying shang 2017-12-20 for BMS 1857
+                            InitMediaType();
 
                         if (m_scanParams.MultiFeed == true)
                         {
@@ -517,6 +563,17 @@ namespace VOP
                         CheckContrastValue();
                     }
                 }
+                else if (sldr.Name == "sldr_gamma")
+                {
+                    if ((double)val / 10 != m_scanParams.Gamma)
+                    {
+                        if (val != 0)
+                        {
+                            m_scanParams.Gamma = (double)val / 10;
+                            tbGamma.Text = Convert.ToString(m_scanParams.Gamma);
+                        }
+                    }
+                }
             }
         }
 
@@ -555,6 +612,11 @@ namespace VOP
                 m_scanParams.MultiFeed = false;
                 m_scanParams.AutoCrop = false;
             }
+
+            //if (m_scanParams.SkipBlankPage == true)
+            //{
+            //    m_scanParams.ADFMode = false;
+            //}
             this.DialogResult = true;
             this.Close();
         }
@@ -707,17 +769,21 @@ namespace VOP
                 cboItem.Style = this.FindResource("customComboBoxItem") as Style;
                 cboScanSize.Items.Add(cboItem);
 
-                cboItem = new ComboBoxItem();
-                cboItem.Content = (string)this.TryFindResource("ResStr_LongPage_");
-                cboItem.DataContext = EnumPaperSizeScan._LongPage;
-                cboItem.MinWidth = 145;
-                cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-                cboScanSize.Items.Add(cboItem);
+                if (m_powermode <= 1)
+                {
+                    cboItem = new ComboBoxItem();
+                    cboItem.Content = (string)this.TryFindResource("ResStr_LongPage_");
+                    cboItem.DataContext = EnumPaperSizeScan._LongPage;
+                    cboItem.MinWidth = 145;
+                    cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+                    cboScanSize.Items.Add(cboItem);
+                }
+
             }
 
-            foreach ( ComboBoxItem obj in cboScanSize.Items )
+            foreach (ComboBoxItem obj in cboScanSize.Items)
             {
-                if ( null != obj.DataContext 
+                if (null != obj.DataContext
                         && (EnumPaperSizeScan)obj.DataContext == m_scanParams.PaperSize)
                 {
                     obj.IsSelected = true;
@@ -751,7 +817,8 @@ namespace VOP
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboMediaType.Items.Add(cboItem);
 
-            if (m_scanParams.PaperSize != EnumPaperSizeScan._LongPage)
+            if (m_scanParams.PaperSize != EnumPaperSizeScan._LongPage &&
+                m_powermode <= 1)
             {
                 cboItem = new ComboBoxItem();
                 cboItem.Content = (string)this.TryFindResource("ResStr_Bankbook");
@@ -778,8 +845,101 @@ namespace VOP
             }
         }
 
+        private void OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            string strText = e.Text;
+ 
+            if (strText.Length > 0 && !Char.IsDigit(strText, 0))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void btnSkipBlank_Click(object sender, RoutedEventArgs e)
+        {
+            RadioButton rdbtn = sender as RadioButton;
+
+            if (null != rdbtn)
+            {
+                if (rdbtn.Name == "btnSkipBlankOn")
+                {
+                    m_scanParams.SkipBlankPage = true;
+                   // twoSideButton.IsEnabled = false;
+                   // oneSideButton.IsEnabled = false;
+                   // oneSideButton.IsChecked = true;
+                }
+                else if (rdbtn.Name == "btnSkipBlankOff")
+                {
+                    m_scanParams.SkipBlankPage = false;
+                   // twoSideButton.IsEnabled = true;
+                   // oneSideButton.IsEnabled = true;
+                   // if (m_scanParams.ADFMode)
+                    //    twoSideButton.IsChecked = true;
+                    //else
+                    //    oneSideButton.IsChecked = true;
+                }
+            }
+        }
+
+        private void btnAutoColor_Click(object sender, RoutedEventArgs e)
+        {
+            RadioButton rdbtn = sender as RadioButton;
+
+            if (null != rdbtn)
+            {
+                if (rdbtn.Name == "btnAutoColorOn")
+                {
+                    m_scanParams.AutoColorDetect = true;
+                }
+                else if (rdbtn.Name == "btnAutoColorOff")
+                {
+                    m_scanParams.AutoColorDetect = false;
+                }
+            }
+        }
+
+        //private bool IsAllNumeric(string strText)
+        //{
+        //    int i = 0;
+        //    for (i = 0; i < strText.Length; i++)
+        //    {
+        //        if (strText[i] < 0x30 && strText[i] > 0x39)
+        //            return false;
+        //    }
+
+        //    return true;
+        //}
+        //private void handler_text_changed(object sender, TextChangedEventArgs e)
+        //{
+        //    TextBox txtBox = sender as TextBox;
+        //    string strText = txtBox.Text;
+
+        //    if (strText.Length > 0)
+        //    {
+        //        if (!IsAllNumeric(strText))
+        //        {
+        //            txtBox.Text = Convert.ToString(m_scanParams.Gamma * 10);
+        //        }
+
+        //        m_scanParams.Gamma = Convert.ToDouble(txtBox.Text);
+        //        sldr_gamma.Value = m_scanParams.Gamma * 10;
+        //    }
+        //}
+
         private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
-        {          
+        {
+            //add by yunying shang 2018-01-03 for BMS 1966
+            if (true == spinCtlBrightness.ValidationHasError)
+            {
+                btnBrightnessDecrease.IsEnabled = false;
+                btnBrightnessIncrease.IsEnabled = false;
+            }
+            if (true == spinCtlConstrast.ValidationHasError)
+            {
+                btnConstrastDecrease.IsEnabled = false;
+                btnConstrastIncrease.IsEnabled = false;
+            }//<<===============1966
             btnOk.IsEnabled = ( false == spinCtlBrightness.ValidationHasError
                     && false == spinCtlConstrast.ValidationHasError );
         }

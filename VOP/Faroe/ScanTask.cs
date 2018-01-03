@@ -26,6 +26,7 @@ namespace VOP
         public static uint WM_VOPSCAN_UPLOAD = Win32.RegisterWindowMessage("vop_scan_upload");
         public static uint WM_VOPSCAN_PAGECOMPLETE = Win32.RegisterWindowMessage("vop_scan_pagecomplete");
         public Scan_RET ScanResult = Scan_RET.RETSCAN_OK;
+        private const string USBSCANSTRING = "\\\\.\\usbscan";
 
         [DllImport("wininet.dll")]
         private static extern bool InternetGetConnectedState(out int connectionDescription, int reservedValue);
@@ -50,6 +51,26 @@ namespace VOP
             }
             return false;
         }
+
+        private string GetDeviceName(string devicename)
+        {
+            int index = devicename.LastIndexOf(' ');
+            if (index > 0)
+            {
+                string str = USBSCANSTRING;
+                str += devicename.Substring(index + 1);
+
+                return str;
+            }
+            else
+            {
+                return string.Empty;
+            }
+
+
+            return string.Empty;
+        }
+
         public List<ScanFiles> DoScan(string deviceName, ScanParam param)
         {
             //debug test
@@ -125,25 +146,33 @@ namespace VOP
             }
             else
             {
-                StringBuilder usbname = new StringBuilder(50);
-                if (dll.CheckUsbScan(usbname) == 1)
+                //modified by yunying shang 2017-12-15 for BMS 1796
+                if (dll.CheckConnectionByName(GetDeviceName(deviceName)))
                 {
 
                 }
                 else
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
-                                Application.Current.MainWindow,
-                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
-                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
-                                );
-                    return null;
-                }
+                    StringBuilder usbname = new StringBuilder(50);
+                    if (dll.CheckUsbScan(usbname) == 1)
+                    {
+                        dll.SetConnectionMode(GetDeviceName(usbname.ToString()), true);
+                    }
+                    else
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                                    Application.Current.MainWindow,
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
+                                    );
+                        return null;
+                    }
+                }//<<================1796
             }
             //<<=================================
 
 
-
+next:
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -161,6 +190,10 @@ namespace VOP
                     param.AutoCrop,
                     param.OnePage,
                     WM_VOPSCAN_UPLOAD,
+                    param.AutoColorDetect,
+                    param.SkipBlankPage,
+                    param.Gamma,
+                    (int)param.ScanMediaType,
                     out fileNames);
 
 //            sw.Stop();
@@ -190,7 +223,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                Application.Current.MainWindow,
-                              (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
+                              (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Not_Ready"),
                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                                );
                 }
@@ -198,7 +231,7 @@ namespace VOP
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                Application.Current.MainWindow,
-                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_conn_fail"),
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Not_Ready"),
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                                );
                 }
@@ -234,7 +267,9 @@ namespace VOP
                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
                                );
                 }
-                else if (ScanResult == Scan_RET.RETSCAN_ADF_NOT_READY)
+                else if (ScanResult == Scan_RET.RETSCAN_ADFCOVER_NOT_READY ||
+                    ScanResult == Scan_RET.RETSCAN_ADFDOC_NOT_READY ||
+                    ScanResult == Scan_RET.RETSCAN_ADFPATH_NOT_READY)
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                Application.Current.MainWindow,
@@ -259,8 +294,47 @@ namespace VOP
                                );
                 }
                 else if (ScanResult == Scan_RET.RETSCAN_CANCEL)
-                {        
-                    
+                {
+
+                }
+                else if (ScanResult == Scan_RET.RETSCAN_ERROR_POWER1)
+                {
+                    VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon1,
+                               Application.Current.MainWindow,
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bank"),
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
+                               );
+                    if (VOP.Controls.MessageBoxExResult.Yes == ret)
+                    {
+                        param.ADFMode = false;
+                        param.AutoCrop = false;
+                        goto next;
+                    }
+                }
+                else if (ScanResult == Scan_RET.RETSCAN_ERROR_POWER2)
+                {
+                    if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
+                    {
+                        VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                    Application.Current.MainWindow,
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bus_Wifi"),
+                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                    );
+                    }
+                    else
+                    {
+                        VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon1,
+                                   Application.Current.MainWindow,
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bank"),
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
+                                   );
+                        if (VOP.Controls.MessageBoxExResult.Yes == ret)
+                        {
+                            param.ADFMode = false;
+                            param.AutoCrop = false;
+                            goto next;
+                        }
+                    }
                 }
                 else
                 {

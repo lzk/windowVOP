@@ -9,6 +9,14 @@
 
 U8	buf[0x100000];
 
+//Job type define
+#define JOB_PULL_SCAN			0x01
+#define JOB_PULL_SCAN_BUTTON	0x02
+#define JOB_WIFI_SCAN			0x03
+#define JOB_PUSH_STORAGE		0x04
+#define JOB_PUSH_FTP			0x05
+#define JOB_PUSH_SMB			0x06
+
 CGLDrv::CGLDrv()
 {
 	m_GLusb					= new CGLUsb;
@@ -66,10 +74,13 @@ CGLDrv::CGLDrv()
 CGLDrv::~CGLDrv()
 {
 	/*if (m_GLusb != NULL)
-		delete m_GLusb;*/
+		delete m_GLusb;
 
 	if (m_GLnet != NULL)
+	{
 		delete(m_GLnet);
+		m_GLnet = NULL;
+	}*/
 }
 
 BYTE CGLDrv::_OpenUSBDevice()
@@ -83,6 +94,8 @@ BYTE CGLDrv::_OpenUSBDevice(LPCTSTR lpModuleName)
 	return (BYTE)(m_GLusb->CMDIO_OpenDevice(lpModuleName));
 	
 }
+
+
 
 BYTE CGLDrv::_OpenDevice()
 {
@@ -109,13 +122,19 @@ BYTE CGLDrv::_OpenDevice(LPCTSTR lpModuleName)
 
 }
 
-BYTE CGLDrv::_JobCreate()
+BYTE CGLDrv::_JobCreate(char job, BOOL isUSB)
 {
 	int result;
-	U8 cmd[8] = { 'J','O','B',0,'C',0,0,0 };
+	U8 cmd[8] = { 'J','O','B',0,job,0,0,0 };
 	U8 status[8];
 
+	if (isUSB)
+		cmd[7] = JOB_PULL_SCAN;
+	else
+		cmd[7] = JOB_WIFI_SCAN;
+
 	memset(&job_status, 0, sizeof(job_status));
+	memcpy(&sc_job_create, cmd, 8);
 
 	if (g_connectMode_usb == TRUE)
 	{
@@ -140,12 +159,12 @@ BYTE CGLDrv::_JobCreate()
 
 	JobID = job_status.id;
 
-	return 0;
+	return 1;
 }
 BYTE CGLDrv::_JobEnd()
 {
 	int result;
-	sc_job_end.id = (unsigned char)JobID;
+	//sc_job_end.id = (unsigned char)JobID;
 
 	memset(&job_status, 0, sizeof(job_status));
 
@@ -160,7 +179,8 @@ BYTE CGLDrv::_JobEnd()
 			m_GLnet->CMDIO_Read(&job_status, sizeof(job_status));
 	}
 
-	if(!result || job_status.ack == 'E' || job_status.id != JobID) {
+	if(!result || job_status.ack == 'E')// || job_status.id != JobID)
+	{
 		MyOutputString(L"Job end error", job_status.err);
 #if _GLDEBUG_
 		LTCPrintf("Job end error. err(%d), ID(%d)\n", job_status.err, job_status.id);
@@ -177,7 +197,7 @@ exit_JobEnd:
 BYTE CGLDrv::_parameters()
 {
 	int result;
-	sc_par.id = (unsigned char)JobID;
+	//sc_par.id = (unsigned char)JobID;
 	
 	memset(&par_status, 0, sizeof(par_status));
 
@@ -195,7 +215,8 @@ BYTE CGLDrv::_parameters()
 			m_GLnet->CMDIO_Read(&par_status, sizeof(par_status));
 	}
 
-	if(!result || par_status.ack == 'E' || par_status.id != JobID) {
+	if(!result || par_status.ack == 'E')// || par_status.id != JobID) 
+	{
 		MyOutputString(L"Set parameter error", par_status.err);
 #if _GLDEBUG_
 		LTCPrintf("Set parameter error. err(%d), ID(%d)\n", par_status.err, par_status.id);
@@ -209,10 +230,13 @@ BYTE CGLDrv::_parameters()
 exit_par:
 	return (BYTE)result;
 }
+
+
 BYTE CGLDrv::_StartScan()
 {
 	int result;
-	sc_scan.id = (unsigned char)JobID;
+
+	//sc_scan.id = (unsigned char)JobID;
 	
 	memset(&scan_status, 0, sizeof(scan_status));
 
@@ -228,7 +252,8 @@ BYTE CGLDrv::_StartScan()
 			m_GLnet->CMDIO_Read(&scan_status, sizeof(scan_status));
 	}
 
-	if(!result || scan_status.ack == 'E' || scan_status.id != JobID) {
+	if(!result || scan_status.ack == 'E')// || scan_status.id != JobID)
+	{
 		MyOutputString(L"Start scan error", scan_status.err);
 #if _GLDEBUG_
 		LTCPrintf("Start scan error. err(%d), ID(%d)\n", scan_status.err, scan_status.id);
@@ -275,7 +300,7 @@ BYTE CGLDrv::_ReadImage(int dup, int *ImgSize) //not work
 BYTE CGLDrv::_stop()
 {
 	int result;
-	sc_stop.id = (unsigned char)JobID;
+	//sc_stop.id = (unsigned char)JobID;
 
 	memset(&stop_status, 0, sizeof(stop_status));
 
@@ -291,7 +316,8 @@ BYTE CGLDrv::_stop()
 			m_GLnet->CMDIO_Read(&stop_status, sizeof(stop_status));
 	}
 
-	if(!result || stop_status.ack == 'E' || stop_status.id != JobID) {
+	if(!result || stop_status.ack == 'E')// || stop_status.id != JobID) 
+	{
 		MyOutputString(L"Stop scan error", stop_status.err);
 #if _GLDEBUG_
 		LTCPrintf("Stop scan error. err(%d), ID(%d)\n", stop_status.err, stop_status.id);
@@ -311,10 +337,10 @@ int CGLDrv::paperReady()
 	int ready = TRUE;
 	if (sc_pardata.source == I3('ADF') && !(sc_pardata.acquire & (ACQ_NO_PP_SENSOR + ACQ_MOTOR_OFF + ACQ_PSEUDO_SENSOR))) {
 		if (!_info() || 
-			!sc_infodata.DocSensor || 
-			sc_infodata.CoverOpen  ||
-			sc_infodata.PaperJam   ||
-			sc_infodata.Cancel      )
+			!sc_infodata.SensorStatus.adf_document_sensor || 
+			sc_infodata.ErrorStatus.cover_open_err  ||
+			sc_infodata.ErrorStatus.scan_jam_err   ||
+			sc_infodata.ErrorStatus.scan_canceled_err      )
 		{
 			ready = FALSE;
 		}
@@ -349,21 +375,24 @@ BOOL CGLDrv::NetScanReady()
 #define JOB_WAIT_TIMEOUT  5000
 int CGLDrv::waitJobFinish(int wait_motor_stop)
 {
-	U32 tick = GetTickCount();
-	while ((GetTickCount() - tick) < JOB_WAIT_TIMEOUT) {
-		if (!_info())
-			break;
-		if (!(sc_infodata.JobState & 1) && (!wait_motor_stop || !sc_infodata.MotorMove))
-			return TRUE;
-		Sleep(100);
-	}
-	return FALSE;
+	return TRUE;
+	//U32 tick = GetTickCount();
+	//while ((GetTickCount() - tick) < JOB_WAIT_TIMEOUT) {
+	//	if (!_info())
+	//		break;
+	//	if (!(sc_infodata.JobState & 1) && (!wait_motor_stop || !sc_infodata.MotorMove))
+	//		return TRUE;
+	//	Sleep(100);
+	//}
+	//return FALSE;
 }
 
 BYTE CGLDrv::_info()
 {
 	int result;
-	sc_info.id = (unsigned char)JobID;
+	//U8 cmd[8] = { 'I','N','F','O', sizeof(SC_INFO_T),0,0,0 };
+	//memcpy(&sc_info, cmd, 8);
+	//sc_info.id = (unsigned char)JobID;
 	
 	memset(&sc_infodata, 0, sizeof(sc_infodata));
 
@@ -377,7 +406,6 @@ BYTE CGLDrv::_info()
 		}
 		//Sleep(3);
 		result = result && m_GLusb->CMDIO_BulkReadEx(0, &sc_infodata, sizeof(sc_infodata));
-
 	}
 	else
 	{
@@ -413,7 +441,8 @@ BYTE CGLDrv::_info()
 		result = 0;
 		goto exit_info;
 	}*/
-	if(!result || sc_infodata.code != I4('IDAT') || sc_infodata.Cancel) {
+	if(!result || sc_infodata.code != I4('IDAT') || sc_infodata.ErrorStatus.scan_canceled_err)
+	{
 		MyOutputString(L"Scan info error");
 #if _GLDEBUG_
 		if(sc_infodata.Error)
@@ -440,7 +469,7 @@ BYTE CGLDrv::_cancel()
 	LTCPrintf("\n\tCancel Scan...");
 #endif
 
-	sc_cancel.id = (unsigned char)JobID;
+	//sc_cancel.id = (unsigned char)JobID;
 
 	memset(&cancel_status, 0, sizeof(cancel_status));
 
@@ -456,7 +485,8 @@ BYTE CGLDrv::_cancel()
 	}
 
 
-	if(!result || cancel_status.ack == 'E' || cancel_status.id != JobID) {
+	if(!result || cancel_status.ack == 'E')// || cancel_status.id != JobID) 
+	{
 		MyOutputString(L"Scan cancel error", cancel_status.err);
 #if _GLDEBUG_
 		LTCPrintf("Fail\n");
@@ -650,7 +680,8 @@ BYTE CGLDrv::_matrix(float *Matrix)
 	int result;
 	int i;
 	float ColorMatrix[9];
-	sc_matrix.id = (unsigned char)JobID;
+
+	//sc_matrix.id = (unsigned char)JobID;
 	sc_matrix.length = sizeof(ColorMatrix);
 	for(i=0;i<9;i++)
 		ColorMatrix[i]= *(Matrix+i);
@@ -669,7 +700,8 @@ BYTE CGLDrv::_matrix(float *Matrix)
 			m_GLnet->CMDIO_Read(&sc_matrix_status, sizeof(SC_PAR_STA_T));
 	}
 
-	if(!result || sc_matrix_status.ack == 'E' || sc_matrix_status.id != JobID) {
+	if(!result || sc_matrix_status.ack == 'E')// || sc_matrix_status.id != JobID) 
+	{
 #if _GLDEBUG_
 		LTCPrintf("Load matrix table error. err(%d), ID(%d)\n", sc_matrix_status.err, sc_matrix_status.id);
 #endif
@@ -731,7 +763,7 @@ BYTE CGLDrv::_gamma(unsigned int *gammatbl)
 	SC_PAR_STA_T	sc_gamma_status = {0};
 	int result;
 
-	sc_gamma.id = (unsigned char)JobID;
+	//sc_gamma.id = (unsigned char)JobID;
 	sc_gamma.length = sizeof(int)*768;
 
 	
@@ -748,7 +780,8 @@ BYTE CGLDrv::_gamma(unsigned int *gammatbl)
 			m_GLnet->CMDIO_Read(&sc_gamma_status, sizeof(SC_PAR_STA_T));
 	}
 
-	if(!result || sc_gamma_status.ack == 'E' || sc_gamma_status.id != JobID) {
+	if(!result || sc_gamma_status.ack == 'E')// || sc_gamma_status.id != JobID) 
+	{
 #if _GLDEBUG_
 		LTCPrintf("Load gamma table error. err(%d), ID(%d)\n", sc_gamma_status.err, sc_gamma_status.id);
 #endif
@@ -1235,142 +1268,12 @@ exit_StatusCheck:
 	return result;
 }
 
-//**************************************************************
-//Devid added for Calibration 2017/10/31
-
-int CGLDrv::_Scan_Shad_Calibration(CALIBRATION_SET_T *set)
-{
-	int nResult = FALSE;
-
-	U8 code = 0x8 << 4;
-	U8 cmd[8] = { 'S','H','A','D', 0,0,0,code + JobID };
-	U8 status[8];
-	M32(&cmd[4]) += (sizeof(CALIBRATION_SET_T) & 0x00ffffff);
-	if (g_connectMode_usb == TRUE)
-	{
-		nResult = m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
-			m_GLusb->CMDIO_BulkWriteEx(0, set, sizeof(CALIBRATION_SET_T)) &&
-			m_GLusb->CMDIO_BulkReadEx(0, status, sizeof(status)) &&
-			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
-	}
-	else
-	{
-		nResult = m_GLnet->CMDIO_Write(cmd, sizeof(cmd)) &&
-			m_GLnet->CMDIO_Write(set, sizeof(CALIBRATION_SET_T)) &&
-			m_GLnet->CMDIO_Read(status, sizeof(status)) &&
-			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
-	}
-
-	return nResult;
-}
-
-int CGLDrv::_Scan_Shad_Shading(int side, int channel, void *buf, int length)
-{
-	int nResult = FALSE;
-	U8 code = ((side << 2) + channel) << 4;
-	U8 cmd[8] = { 'S','H','A','D', 0,0,0,code + JobID };
-	U8 status[8];
-	M32(&cmd[4]) += (length & 0x00ffffff);
-
-	if (g_connectMode_usb == TRUE)
-	{
-		nResult = m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
-			m_GLusb->CMDIO_BulkWriteEx(0, buf, length) &&
-			m_GLusb->CMDIO_BulkReadEx(0, status, sizeof(status)) &&
-			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
-	}
-	else
-	{
-		nResult = m_GLnet->CMDIO_Write(cmd, sizeof(cmd)) &&
-			m_GLnet->CMDIO_Write(buf, length) &&
-			m_GLnet->CMDIO_Read(status, sizeof(status)) &&
-			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
-	}
-
-	return nResult;
-}
-
-int CGLDrv::_Scan_Cap_Calibration(CALIBRATION_CAP_T *cap)
-{
-	int nResult = FALSE;
-
-	U8 cmd[8] = { 'C','A','P',0, 0,0,0x08,JobID };
-	M16(&cmd[4]) = sizeof(CALIBRATION_CAP_T);
-
-	if (g_connectMode_usb == TRUE)
-	{
-		nResult = m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
-			m_GLusb->CMDIO_BulkWriteEx(0, cap, sizeof(CALIBRATION_CAP_T)) &&
-			(cap->id == I4('CDAT'));
-	}
-	else
-	{
-		nResult = m_GLnet->CMDIO_Write(cmd, sizeof(cmd)) &&
-			m_GLnet->CMDIO_Write(cap, sizeof(CALIBRATION_CAP_T)) &&
-			(cap->id == I4('CDAT'));
-	}
-
-	return nResult;
-}
-
-int CGLDrv::_Scan_Shad_Flash(void *buf, int length)
-{
-	int nResult = FALSE;
-
-	U8 code = 0xf << 4;
-	U8 cmd[8] = { 'S','H','A','D', 0,0,0,code + JobID };
-	U8 status[8];
-	M32(&cmd[4]) += (length & 0x00ffffff);
-	cmd[7] = 0xf0 + (JobID & 0x0f);
-
-	if (g_connectMode_usb == TRUE)
-	{
-		nResult = m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
-			m_GLusb->CMDIO_BulkWriteEx(0, buf, length) &&
-			m_GLusb->CMDIO_BulkReadEx(0, status, sizeof(status)) &&
-			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
-	}
-	else
-	{
-		nResult = m_GLnet->CMDIO_Write(cmd, sizeof(cmd)) &&
-			m_GLnet->CMDIO_Write(buf, length) &&
-			m_GLnet->CMDIO_Read(status, sizeof(status)) &&
-			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
-	}
-
-	return nResult;
-}
-
-int CGLDrv::_Scan_ME_Flash(void *buf, int length)
-{
-	int nResult = FALSE;
-
-	U8 code = 0x9 << 4;
-	U8 cmd[8] = { 'S','H','A','D', 0,0,0,code + JobID };
-	U8 status[8];
-	M32(&cmd[4]) += (length & 0x00ffffff);
-
-	if (g_connectMode_usb == TRUE)
-	{
-		nResult = m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
-			m_GLusb->CMDIO_BulkWriteEx(0, buf, length) &&
-			m_GLusb->CMDIO_BulkReadEx(0, status, sizeof(status)) &&
-			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
-	}
-	else
-	{
-		nResult = m_GLnet->CMDIO_Write(cmd, sizeof(cmd)) &&
-			m_GLnet->CMDIO_Write(buf, length) &&
-			m_GLnet->CMDIO_Read(status, sizeof(status)) &&
-			(M32(&status[0]) == I3('STA')) && (M8(&status[4]) == 'A');
-	}
-
-	return nResult;
-}
-
 BYTE CGLDrv::_GetPowerSupply()
 {
 	int result;
+
+	sc_power = { 0 };
+	sc_power.code = I4('PWRM');
 
 	memset(&sc_powerData, 0, sizeof(sc_powerData));
 
@@ -1405,6 +1308,147 @@ BYTE CGLDrv::_GetPowerSupply()
 	else
 	{
 		result = sc_powerData.mode;
+	}
+
+exit_info:
+	return (BYTE)result;
+}
+
+BYTE CGLDrv::_GetPowerSaveTime(WORD* ptrSleepTime, WORD* ptrOffTime)
+{
+	int result;
+
+	SC_PWRS_T command;
+	memset(&command, 0, sizeof(command));
+	command.code = I4('PWRS');//I4('PWRS');
+	command.option = 0;
+
+	SC_GET_PWRS_DATA_T data;
+	SC_PWRS_STA_T sta;
+
+	memset(&data, 0, sizeof(data));
+	memset(&sta, 0, sizeof(sta));
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &command, sizeof(command));
+		if (!result)
+		{
+			result = 33;
+			goto exit_info;
+		}
+		//Sleep(3);
+		result = m_GLusb->CMDIO_BulkReadEx(0, &sta, sizeof(sta));
+		if (!result || sta.code != I3('STA') || sta.ack != 'A') {
+			MyOutputString(L"Get Power Saving Error");
+			result = 33;
+			goto exit_info;
+		}
+		else
+		{
+			result = m_GLusb->CMDIO_BulkReadEx(0, &data, sizeof(data));
+		}
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&command, sizeof(command));
+		if (!result)
+		{
+			result = 33;
+			goto exit_info;
+		}
+		//Sleep(3);
+		result = m_GLnet->CMDIO_Read(&sta, sizeof(sta));
+		if (!result || sta.code != I3('STA') || sta.ack != 'A') {
+			MyOutputString(L"Get Power Saving Error");
+			result = 33;
+			goto exit_info;
+		}
+		else
+		{
+			result = m_GLnet->CMDIO_Read(&data, sizeof(data));
+			if (!result)
+			{
+				result = 33;
+				goto exit_info;
+			}
+		}
+	}
+
+	result = sta.powermodecode;
+	*ptrSleepTime = data.autoSleepTime;
+	*ptrOffTime = data.autoOffTime;
+
+	if (data.disableAutoSleep != 0)
+		*ptrSleepTime = 0;
+
+	if (data.disableAutoOff != 0)
+		*ptrOffTime = 0;
+
+exit_info:
+	return (BYTE)result;
+}
+
+BYTE CGLDrv::_SetPowerSaveTime(WORD sleepTime, WORD offTime)
+{
+	int result = 0;
+
+	SC_PWRS_T command;
+	memset(&command, 0, sizeof(command));
+	command.code = I4('PWRS');
+	command.option = 1;
+
+	SC_SET_PWRS_DATA_T data;
+	memset(&data, 0, sizeof(data));
+	data.autoSleepTime = sleepTime;
+	data.autoOffTime = offTime;
+
+	SC_PWRS_STA_T sta;
+	memset(&sta, 0, sizeof(sta));
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &command, sizeof(command));
+		if (!result)
+		{
+			result = 0;
+			goto exit_info;
+		}
+		//Sleep(3);
+		result = m_GLusb->CMDIO_BulkWriteEx(0, &data, sizeof(data));
+		if (!result)
+		{
+			result = 0;
+			goto exit_info;
+		}
+		result = m_GLusb->CMDIO_BulkReadEx(0, &sta, sizeof(sta));
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(&command, sizeof(command));
+		if (!result)
+		{
+			result = 0;
+			goto exit_info;
+		}
+		//Sleep(3);
+		result = m_GLnet->CMDIO_Write(&data, sizeof(data));
+		if (!result)
+		{
+			result = 0;
+			goto exit_info;
+		}
+		result = m_GLnet->CMDIO_Read(&sta, sizeof(sta));
+	}
+
+	if (!result || sta.code != I3('STA') || sta.ack != 'A') {
+		MyOutputString(L"Set Power Saving Error");
+		result = 32;
+		goto exit_info;
+	}
+	else
+	{
+		result = sta.powermodecode;
 	}
 
 exit_info:

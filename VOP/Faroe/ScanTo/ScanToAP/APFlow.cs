@@ -104,28 +104,37 @@ namespace VOP
                                 programType = Others.m_programType;
                                 string path = Others.m_filePath;
                                 i = 0;
+
+                                //modified by yunying shang 2017-12-19 for BMS 1815
+                                
                                 foreach (string f in FileList)
-                                {
-                                    
-                                    Process p = new Process();
-                                    p.StartInfo.FileName = path;
-                                    p.StartInfo.Arguments = string.Format("\"{0}\"", f);
-                                    p.Start();                                                                  
-                                  
-                                    if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true)
+                                {                                    
+                                    try
                                     {
-                                        if (i == 1)
-                                            break;
+                                        Process p = new Process();
+                                        p.StartInfo.FileName = path;
+                                        p.StartInfo.Arguments = string.Format("\"{0}\"", f);
+                                        p.Start();
+
+                                        if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true)
+                                        {
+                                            if (i == 1)
+                                                break;
+                                        }
+                                        else
+                                        {
+                                            if (i == 0)
+                                                break;
+                                        }
                                     }
-                                    else
+                                    catch (Exception ex)
                                     {
-                                        if (i == 0)
-                                            break;
+                                        Win32.OutputDebugString(ex.Message);
                                     }
                                     i++;
-                                }
+                                    Thread.Sleep(500);                                  
+                                }//<<===============1815
                             }
-
                         }
                         else
                         {
@@ -133,8 +142,13 @@ namespace VOP
 
                             foreach (string f in FileList)
                             {
+                                //modified by yunying shang 2018-01-02 for BMS 1815
                                 //modified by yunying shang 2017-12-07 for BMS 1722
-                                Process.Start("rundll32.exe", String.Format("{0} {1}", "shimgvw.dll,ImageView_Fullscreen", f));
+                                // Process.Start("rundll32.exe", String.Format("{0} {1}", "shimgvw.dll,ImageView_Fullscreen", f));
+                                Process p = new Process();
+                                p.StartInfo.FileName = "rundll32.exe";
+                                p.StartInfo.Arguments = String.Format("{0} {1}", "shimgvw.dll,ImageView_Fullscreen", f);
+                                p.Start();
                                 //<<==============1722
                                 if (MainWindow_Rufous.g_settingData.m_commonScanSettings.ADFMode == true)
                                 {

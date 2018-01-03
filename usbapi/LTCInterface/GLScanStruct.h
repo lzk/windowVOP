@@ -203,6 +203,7 @@ typedef struct SC_PAR_DATA_STRUCT {
 #define ACQ_AUTO_LEVEL		(0x10 << 8)
 #define ACQ_DETECT_COLOR	(0x20 << 8)
 #define ACQ_DETECT_BW		(0x40 << 8)
+#define ACQ_SKIP_BLANKPAGE	(0x40 << 8)
 
 #define ACQ_MOTOR_OFF		(0x01 << 16)    // scan without moving motor
 #define ACQ_NO_PP_SENSOR	(0x02 << 16)    // ADF scan without Doc/ADF sensor detection, Flatbed scan without home sensor detection
@@ -271,21 +272,60 @@ typedef struct SC_INFO_DATA_STRUCT {
 	UINT32 ValidPageSize[2];  // 8
 	UINT16 ImageWidth[2];    // 4
 	UINT16 ImageHeight[2];    // 4
-	UINT8  EndPage[2];      // 4
-	UINT8  EndScan[2];
-	UINT8  UltraSonic;      // 4
-	UINT8  PaperJam;
-	UINT8  CoverOpen;
-	UINT8  Cancel;
-	UINT8  key;        // 4
-	UINT8  MotorMove;
-	UINT8  AdfSensor;
-	UINT8  DocSensor;
-	UINT8  HomeSensor;      // 4
-	UINT8  JobOwner;
-	UINT8  reserve1[2];
-	UINT8  reserve2[4];    // 4
-	UINT32 JobState;      // 4
+	//UINT8  EndPage[2];
+	//UINT8  EndScan[2];
+
+	struct {
+		UINT16 EndPage : 1;
+		UINT16 EndScan : 1;
+		UINT16 IsColor : 1;
+		UINT16 IsBlank : 1;
+		UINT16 reserved : 12;
+	} ImgStatus[2];
+
+	struct {
+		UINT32 cover_open_err : 1;
+		UINT32 scan_jam_err : 1;
+		UINT32 scan_canceled_err : 1;
+		UINT32 scan_timeout_err : 1;
+		UINT32 multi_feed_err : 1;
+		UINT32 usb_transfer_err : 1;
+		UINT32 wifi_transfer_err : 1;
+		UINT32 usb_disk_transfer_err : 1;
+		UINT32 ftp_transfer_err : 1;
+		UINT32 smb_transfer_err : 1;
+		UINT32 reserved : 22;
+	} ErrorStatus;
+
+	struct {
+		UINT32 adf_document_sensor : 1;
+		UINT32 fb_home_sensor : 1;
+		UINT32 adf_paper_sensor : 1;
+		UINT32 cover_sensor : 1;
+		UINT32 reserved : 28;
+	} SensorStatus;
+
+	struct {
+		UINT32 scanning : 1;
+		UINT32 sleep_mode : 1;
+		UINT32 reserved : 30;
+	} SystemStatus;
+
+	UINT8  JobID;
+	UINT8  reserved[7];
+	//UINT8  UltraSonic;      // 4
+	//UINT8  PaperJam;
+	//UINT8  CoverOpen;
+	//UINT8  Cancel;
+	//UINT8  key;        // 4
+	//UINT8  MotorMove;
+	//UINT8  AdfSensor;
+	//UINT8  DocSensor;
+	//UINT8  HomeSensor;      // 4
+	//UINT8  JobOwner;
+	//UINT8  reserve1[2];
+	//UINT8  reserve2[4];    // 4
+	//UINT32 JobState;      // 4
 } SC_INFO_DATA_T;
 
 /*sensor parameter*/
@@ -323,6 +363,33 @@ typedef struct SC_IMG_STA_STRUCT {
 	//U8	length[2];
 	//U8	err;
 } SC_IMG_STA_T;
+
+typedef struct SC_PWRS_STRUCT {
+	U32	code;		//'PWRS'
+	U8 option;		//0-get, 1-set
+	U8 reserve[3];
+} SC_PWRS_T;
+
+typedef struct SC_PWRS_STA_STRUCT {
+	U32	code;		//'STA'
+	U8  ack;		//¡¯A¡¯ means ¡®Acknowledge¡¯, then Byte 7 is power mode code, ¡¯E¡¯ means error
+	U8 reserve[2];
+	U8 powermodecode;
+} SC_PWRS_STA_T;
+
+typedef struct SC_SET_PWRS_DATA_STRUCT {
+	U16 autoSleepTime;
+	U16 autoOffTime;
+	U8 reserve[4];
+} SC_SET_PWRS_DATA_T;
+
+typedef struct SC_GET_PWRS_DATA_STRUCT {
+	U16 autoSleepTime;
+	U16 autoOffTime;
+	U16 disableAutoSleep;
+	U16 disableAutoOff;
+} SC_GET_PWRS_DATA_T;
+
 #define LENGTH
 //-----------------------------
 typedef struct SC_CNL_STRUCT {
@@ -470,80 +537,3 @@ typedef struct fw_version_get_STRUCT {
 	U8	reserved[2];
 } fw_version_get;
 
-/****Calibration****/ //Devid added 2017/10/30
-typedef struct CCD_CAP_STRUCT {
-	U32  type;
-	U16  dpi, dot;
-	U32  lperiod, exp_max, exp_def, exp_min;
-	U8   mono, line_diff, line_stag, mirror;
-} CCD_CAP_T; // 28 Byte
-
-typedef struct AFE_CAP_STRUCT {
-	S16 offset_max, offset_def, offset_min;
-	U16 gain_max, gain_def, gain_min;
-} AFE_CAP_T; // 16 Byte
-
-typedef struct ME_CAP_STRUCT {
-	U16 prefeed, postfeed;
-} ME_CAP_T; // 8 Byte
-
-typedef struct CALIBRATION_CAP_STRUCT {
-	U32 id;             // I4('CDAT')
-	CCD_CAP_T ccd[2];   // 28x2
-	AFE_CAP_T afe[2];   // 12x2
-	ME_CAP_T me;		  // 8
-} CALIBRATION_CAP_T; // 92 Byte
-
-typedef struct CCD_SET_STRUCT {
-	U32 lperiod;
-	U32 exp[3];
-} CCD_SET_T;  // 16B
-
-typedef struct AFE_SET_STRUCT {
-	S16 offset[6];
-	U16 gain[6];
-} AFE_SET_T;  // 24B
-
-typedef struct SHD_SET_STRUCT {
-	U8  mono, gain_base;  // mono: same as the image.h definition; 0:'RGB', 1:'R', 2:'G', 3:'B', 4:'IR', 7:'NTSC', 8:'MONO'
-	U8  dark_shift, dark_digit;
-} SHD_SET_T;  // 4B
-
-typedef struct ME_SET_STRUCT {
-	U16 prefeed, postfeed;
-} ME_SET_T; // 4 Byte
-
-typedef struct CALIBRATION_SET_STRUCT {
-	CCD_SET_T ccd[2];
-	AFE_SET_T afe[2];
-	SHD_SET_T shd[2];
-	ME_SET_T me;
-} CALIBRATION_SET_T;  // 92B
-
-typedef struct FLASH_ME_STRUCT {
-	U16 prefeed, postfeed;
-} FLASH_ME_T; // 4B
-
-typedef struct FLASH_SHD_STRUCT {
-	U8  source;     // Adf, Flb, Pos, Neg..
-	U8  duplex;     // duplex = 1 or 3
-	U8  bit;        // bit=16 or 48
-	U8  bank_num;   // 1 or 3 or 6
-	U32 bank_size;
-	U16 dot;
-	U16 dpi;
-	U32 exp[2][3];
-	S16 offset[2][6];
-	U16 gain[2][6];
-	U16 sector_idx;
-	U16 sector_num;  // 4KB/sector
-} FLASH_SHD_T; // 88B
-
-typedef struct ACQUIRE_STRUCT {
-	U32 source;  // 'ADF'/'FLB'/'POS'/'NEG', 'FW'/'PAR'/'HW', 'HOST', 'WIFI', 'ETH'
-	U32 action;
-	U16 option;  // 0
-	U8  duplex;  // 1:'A', 2:'B', 3:'D'
-	U8  page;    // 0 for infinity pages 
-	IMAGE_T img;
-} ACQUIRE_T;

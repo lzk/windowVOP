@@ -466,8 +466,8 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
         int docutype,
         UINT32 uMsg );
 
-USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, BYTE* ptrTime );
-USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, BYTE time );
+//USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, WORD* ptrSleepTime, WORD* ptrOffTime);
+//USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, WORD time );
 USBAPI_API int __stdcall GetWiFiInfo(const wchar_t* szPrinter, UINT8* ptr_wifienable, char* ssid, char* pwd, UINT8* ptr_encryption, UINT8* ptr_wepKeyId);
 
 USBAPI_API int __stdcall GetIPInfo( 
@@ -1344,118 +1344,19 @@ USBAPI_API void __stdcall ResetBonjourAddr()
 	::memset(addr, 0, 256);
 }
 
-enum Scan_RET
-{
-	RETSCAN_OK = 0,
-	RETSCAN_ERRORDLL = 1,
-	RETSCAN_OPENFAIL = 2,
-	RETSCAN_ERRORPARAMETER = 3,
-	RETSCAN_NO_ENOUGH_SPACE = 5,
-	RETSCAN_ERROR_PORT = 6,
-	RETSCAN_CANCEL = 7,
-	RETSCAN_BUSY = 8,
-	RETSCAN_ERROR = 9,
-	RETSCAN_OPENFAIL_NET = 10,
-};
-
-BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
-{
-	int nResult = TRUE;
-
-	CGLNet m_GLnet;
-
-	if (m_GLnet.CMDIO_Connect(szIP, 23011))
-	{
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
-		//OutputDebugString(showIp);
-
-		U8 cmd[4] = { 'J','D','G','S' };
-		U8 status[8] = { 0 };
-
-		if (m_GLnet.CMDIO_Write(cmd, 4) == TRUE)
-		{
-			if (m_GLnet.CMDIO_Read(status, 8))
-			{
-				if (   status[0] == 'J'
-					&& status[1] == 'D' 
-					&& status[2] == 'A'
-					&& status[4] == 0x00)
-				{
-					*re_status = RETSCAN_OK;
-				}
-				else
-				{
-					*re_status = RETSCAN_BUSY;
-				}
-
-				nResult = TRUE;
-			}
-			else
-			{
-				nResult = FALSE;
-			}
-
-		}
-		else
-		{
-			nResult = FALSE;
-		}
-
-		m_GLnet.CMDIO_Close();
-	}
-	else
-	{
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
-		OutputDebugString(showIp);
-
-		nResult = FALSE;
-	}
-
-	return nResult;
-}
-
-USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP)
-{
-	Scan_RET re_status = RETSCAN_OK;
-
-	if (wcslen(szIP) == 0)
-		return false;
-
-	if (TestIpConnected1(szIP, &re_status) == TRUE)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-
-	int nResult = TRUE;
-	CGLNet m_GLnet;
-	
-	if (m_GLnet.CMDIO_Connect(szIP, 23011))
-	{
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
-		//OutputDebugString(showIp);
-
-		nResult = TRUE;
-		m_GLnet.CMDIO_Close();
-	}
-	else
-	{
-		
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
-		OutputDebugString(showIp);
-
-		nResult = FALSE;
-	}
-
-	return nResult;
-}
+//enum Scan_RET
+//{
+//	RETSCAN_OK = 0,
+//	RETSCAN_ERRORDLL = 1,
+//	RETSCAN_OPENFAIL = 2,
+//	RETSCAN_ERRORPARAMETER = 3,
+//	RETSCAN_NO_ENOUGH_SPACE = 5,
+//	RETSCAN_ERROR_PORT = 6,
+//	RETSCAN_CANCEL = 7,
+//	RETSCAN_BUSY = 8,
+//	RETSCAN_ERROR = 9,
+//	RETSCAN_OPENFAIL_NET = 10,
+//};
 
 static void DNSSD_API addrinfo_reply(DNSServiceRef sdref, DNSServiceFlags flags, uint32_t interfaceIndex, DNSServiceErrorType errorCode, const char *hostname, const struct sockaddr *address, uint32_t ttl, void *context)
 {
@@ -3799,131 +3700,133 @@ USBAPI_API int __stdcall GetWiFiInfo(const wchar_t* szPrinter, UINT8* ptr_wifien
 	return nResult;
 }
 
-USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, BYTE time )
-{
-//    if ( NULL == szPrinter ) 
-  //      return _SW_INVALID_PARAMETER;
-	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime() begin");
 
-    int nResult = _ACK;
-/*
-	wchar_t szIP[MAX_PATH] = { 0 };
-    int nPortType = CheckPort( szPrinter, szIP );
 
-    if ( PT_UNKNOWN == nPortType ) 
-    {
-        nResult = _SW_UNKNOWN_PORT;
-    }
-    else
-*/
-    {
-        char* buffer = new char[sizeof(COMM_HEADER)+1];
-        memset( buffer, INIT_VALUE, sizeof(COMM_HEADER)+1 );
-        COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>( buffer );
+//USBAPI_API int __stdcall SetPowerSaveTime( const wchar_t* szPrinter, WORD time )
+//{
+////    if ( NULL == szPrinter ) 
+//  //      return _SW_INVALID_PARAMETER;
+//	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime() begin");
+//
+//    int nResult = _ACK;
+///*
+//	wchar_t szIP[MAX_PATH] = { 0 };
+//    int nPortType = CheckPort( szPrinter, szIP );
+//
+//    if ( PT_UNKNOWN == nPortType ) 
+//    {
+//        nResult = _SW_UNKNOWN_PORT;
+//    }
+//    else
+//*/
+//    {
+//        char* buffer = new char[sizeof(COMM_HEADER)+1];
+//        memset( buffer, INIT_VALUE, sizeof(COMM_HEADER)+1 );
+//        COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>( buffer );
+//
+//        ppkg->magic = MAGIC_NUM ;
+//        ppkg->id = _LS_PRNCMD;
+//        ppkg->len = 3+1;
+//
+//        // For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+//        // it just stand for the sub id. The real data length is defined by the lib
+//        ppkg->subid = 0x13;
+//        ppkg->len2 = 1;
+//        ppkg->subcmd = _PSAVE_TIME_SET;
+//	
+//        BYTE* ptrTime = reinterpret_cast<BYTE*>( buffer+sizeof(COMM_HEADER));
+//        *ptrTime = time;
+//
+//		if (g_connectMode_usb != TRUE)//if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
+//        {
+//            nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER)+1, NULL, 0 );
+//        }
+//        else// if ( PT_USB == nPortType )
+//        {
+//            nResult = WriteDataViaUSB( szPrinter, buffer, sizeof(COMM_HEADER)+1, NULL, 0 );
+//        }
+//
+//        if ( buffer )
+//        {
+//            delete[] buffer;
+//            buffer = NULL;
+//        }
+//    }
+//
+//	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime(): nResult == 0x%x", nResult);
+//	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime() end");
+//    return nResult;
+//}
 
-        ppkg->magic = MAGIC_NUM ;
-        ppkg->id = _LS_PRNCMD;
-        ppkg->len = 3+1;
-
-        // For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
-        // it just stand for the sub id. The real data length is defined by the lib
-        ppkg->subid = 0x13;
-        ppkg->len2 = 1;
-        ppkg->subcmd = _PSAVE_TIME_SET;
-	
-        BYTE* ptrTime = reinterpret_cast<BYTE*>( buffer+sizeof(COMM_HEADER));
-        *ptrTime = time;
-
-		if (g_connectMode_usb != TRUE)//if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
-        {
-            nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER)+1, NULL, 0 );
-        }
-        else// if ( PT_USB == nPortType )
-        {
-            nResult = WriteDataViaUSB( szPrinter, buffer, sizeof(COMM_HEADER)+1, NULL, 0 );
-        }
-
-        if ( buffer )
-        {
-            delete[] buffer;
-            buffer = NULL;
-        }
-    }
-
-	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime(): nResult == 0x%x", nResult);
-	OutputDebugStringToFileA("\r\n####VP:SetPowerSaveTime() end");
-    return nResult;
-}
-
-USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, BYTE* ptrTime )
-{
-//    if ( NULL == szPrinter )
-  //      return _SW_INVALID_PARAMETER;
-
-	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime() begin");
-
-    int nResult = _ACK;
-/*
-	wchar_t szIP[MAX_PATH] = { 0 };
-
-    int nPortType = CheckPort( szPrinter, szIP );
-
-    if ( PT_UNKNOWN == nPortType ) 
-    {
-        nResult = _SW_UNKNOWN_PORT;
-    }
-    else
-*/
-    {
-        char* buffer = new char[sizeof(COMM_HEADER)+1];
-        memset( buffer, INIT_VALUE, sizeof(COMM_HEADER)+1 );
-        COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>( buffer );
-
-        ppkg->magic = MAGIC_NUM ;
-        ppkg->id = _LS_PRNCMD;
-        ppkg->len = 3;
-
-        // For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
-        // it just stand for the sub id. The real data length is defined by the lib
-        ppkg->subid = 0x13;
-        ppkg->len2 = 1;
-        ppkg->subcmd = _PSAVE_TIME_GET;   
-
-		if (g_connectMode_usb != TRUE)//if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
-        {
-            nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1 );
-        }
-        else// if ( PT_USB == nPortType )
-        {
-            nResult = WriteDataViaUSB( szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1 );
-        }
-
-        if ( _ACK == nResult )
-        {
-            BYTE* ptr = reinterpret_cast<BYTE*>( buffer+sizeof(COMM_HEADER));
-
-            if ( 1 <= *ptr && 30 >= *ptr )
-            {
-                *ptrTime =*ptr;
-                nResult = _ACK;
-            }
-            else
-            {
-                nResult = _SW_INVALID_RETURN_VALUE;
-            }
-        }
-
-        if ( buffer )
-        {
-            delete[] buffer;
-            buffer = NULL;
-        }
-    }
-
-	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime(): nResult == 0x%x", nResult);
-	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime() end");
-    return nResult;
-}
+//USBAPI_API int __stdcall GetPowerSaveTime( const wchar_t* szPrinter, BYTE* ptrTime )
+//{
+////    if ( NULL == szPrinter )
+//  //      return _SW_INVALID_PARAMETER;
+//
+//	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime() begin");
+//
+//    int nResult = _ACK;
+///*
+//	wchar_t szIP[MAX_PATH] = { 0 };
+//
+//    int nPortType = CheckPort( szPrinter, szIP );
+//
+//    if ( PT_UNKNOWN == nPortType ) 
+//    {
+//        nResult = _SW_UNKNOWN_PORT;
+//    }
+//    else
+//*/
+//    {
+//        char* buffer = new char[sizeof(COMM_HEADER)+1];
+//        memset( buffer, INIT_VALUE, sizeof(COMM_HEADER)+1 );
+//        COMM_HEADER* ppkg = reinterpret_cast<COMM_HEADER*>( buffer );
+//
+//        ppkg->magic = MAGIC_NUM ;
+//        ppkg->id = _LS_PRNCMD;
+//        ppkg->len = 3;
+//
+//        // For the simple data setting, e.g. copy/scan/prn/wifi/net, SubID is always 0x13, len is always 0x01,
+//        // it just stand for the sub id. The real data length is defined by the lib
+//        ppkg->subid = 0x13;
+//        ppkg->len2 = 1;
+//        ppkg->subcmd = _PSAVE_TIME_GET;   
+//
+//		if (g_connectMode_usb != TRUE)//if ( PT_TCPIP == nPortType || PT_WSD == nPortType )
+//        {
+//            nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1 );
+//        }
+//        else// if ( PT_USB == nPortType )
+//        {
+//            nResult = WriteDataViaUSB( szPrinter, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+1 );
+//        }
+//
+//        if ( _ACK == nResult )
+//        {
+//            BYTE* ptr = reinterpret_cast<BYTE*>( buffer+sizeof(COMM_HEADER));
+//
+//            if ( 1 <= *ptr && 30 >= *ptr )
+//            {
+//                *ptrTime =*ptr;
+//                nResult = _ACK;
+//            }
+//            else
+//            {
+//                nResult = _SW_INVALID_RETURN_VALUE;
+//            }
+//        }
+//
+//        if ( buffer )
+//        {
+//            delete[] buffer;
+//            buffer = NULL;
+//        }
+//    }
+//
+//	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime(): nResult == 0x%x", nResult);
+//	OutputDebugStringToFileA("\r\n####VP:GetPowerSaveTime() end");
+//    return nResult;
+//}
 
 USBAPI_API int __stdcall GetUserCenterInfo(const wchar_t* szPrinter, char* _2ndSerialNO, UINT32* _totalCounter, char* _serialNO4AIO)
 {

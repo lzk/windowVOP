@@ -34,7 +34,7 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            FillDeviceList(false);
+            FillDeviceList(true);//modified by yunying shang 2017-12-27 for BMS 1905
 
             if (MainWindow_Rufous.g_settingData.m_DeviceName == "")
             {

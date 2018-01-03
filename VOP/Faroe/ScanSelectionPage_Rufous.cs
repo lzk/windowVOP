@@ -30,14 +30,19 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            int result = 0;
+            if (Int32.TryParse(ScreenBtn.Content.ToString(), out result))
+            {
+                if (result > MainWindow_Rufous.g_settingData.m_MatchList.Count)
+                    ScreenTextNumber =  MainWindow_Rufous.g_settingData.m_MatchList.Count;
+            }
             SetScreenText(ScreenTextNumber);
 
             MainWindow_Rufous.g_settingData.CutNum = ScreenTextNumber-1;
 
             //add by yunying shang 2017-11-01 for BMS 1204
-            int result = 0;
-            if (Int32.TryParse(ScreenBtn.Content.ToString(), out result))
-            {
+            if(result > 0)
+            { 
                 if (result <= MainWindow_Rufous.g_settingData.m_MatchList.Count 
                     && result >=1)
                 {
@@ -156,7 +161,7 @@ namespace VOP
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                         Application.Current.MainWindow,
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Scanning_is_canceled_on_machine"),//"The scanning is canceled on the machine!",
-                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Waring")
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                         );
                 }//<<================1744
             }
@@ -205,38 +210,41 @@ namespace VOP
                 MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.AutoCrop,
                 MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.Brightness,
                 MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.Contrast,
+                MainWindow_Rufous.g_settingData.m_commonScanSettings.AutoColorDetect,
+                MainWindow_Rufous.g_settingData.m_commonScanSettings.SkipBlankPage,
+                MainWindow_Rufous.g_settingData.m_commonScanSettings.Gamma,
                 false);
 
 
-#if (DEBUG)
-            OpenFileDialog open = null;
-            bool? result = null;
-            open = new OpenFileDialog();
-            open.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
-            open.Multiselect = true;
+//#if (DEBUG)
+//            OpenFileDialog open = null;
+//            bool? result = null;
+//            open = new OpenFileDialog();
+//            open.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
+//            open.Multiselect = true;
 
-            result = open.ShowDialog();
-            if (result == true)
-            {
-                QRCodeWindow win = new QRCodeWindow(new List<string>(open.FileNames));
+//            result = open.ShowDialog();
+//            if (result == true)
+//            {
+//                QRCodeWindow win = new QRCodeWindow(new List<string>(open.FileNames));
 
-                if (btn.Name == "ImageButton1")
-                {
-                    ImageCropper.designerItemWHRatio = 1.0;
-                    win.IsQRCode = true;
-                }
-                else
-                {
-                    ImageCropper.designerItemWHRatio = 2.0;
-                    win.IsQRCode = false;
-                }
+//                if (btn.Name == "ImageButton1")
+//                {
+//                    ImageCropper.designerItemWHRatio = 1.0;
+//                    win.IsQRCode = true;
+//                }
+//                else
+//                {
+//                    ImageCropper.designerItemWHRatio = 2.0;
+//                    win.IsQRCode = false;
+//                }
 
-                win.Owner = m_MainWin;
-                win.ShowDialog();
+//                win.Owner = m_MainWin;
+//                win.ShowDialog();
 
-            }
+//            }
 
-#elif (!DEBUG)
+//# elif (!DEBUG)
 
             if (btn.Name == "ImageButton2")
                 param = MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings;
@@ -244,7 +252,7 @@ namespace VOP
             string oldPictureFolder = App.PictureFolder;
             App.PictureFolder = App.cacheFolder;
 
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", param);
+            List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, param);
 
             m_MainWin._bScanning = false;
             App.PictureFolder = oldPictureFolder;
@@ -294,7 +302,7 @@ namespace VOP
 
             }
             
-#endif
+//#endif
 
         }
         public void PushScan()
@@ -310,7 +318,7 @@ namespace VOP
             ImageButton2 btn = sender as ImageButton2;
 
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan("Lenovo M7208W (副本 1)", MainWindow_Rufous.g_settingData.m_commonScanSettings);
+            List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_commonScanSettings);
             //List<ScanFiles> files = new List<ScanFiles>();
             m_MainWin._bScanning = false;
             if (files != null)
@@ -346,8 +354,8 @@ namespace VOP
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00.JPG"));
 
                     m_MainWin.GotoPage("ScanPage", files);
-                }
-                ImageButton3.IsEnabled = false;
+                    ImageButton3.IsEnabled = false;//move by yunying shang 2017-12-16 for BMS 1812
+                }                
             }
             else if (task.ScanResult == Scan_RET.RETSCAN_CANCEL)
             {
@@ -364,7 +372,7 @@ namespace VOP
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                         Application.Current.MainWindow,
                         (string)Application.Current.MainWindow.TryFindResource("ResStr_Scanning_is_canceled_on_machine"),//"The scanning is canceled on the machine!",
-                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Waring")
+                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
                         );
                 }
             }            

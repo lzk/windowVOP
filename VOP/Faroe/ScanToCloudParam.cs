@@ -101,6 +101,33 @@ namespace VOP
                 this.m_bNeedReset = value;
             }
         }
+
+        private string m_googledriveDefaultPath = "/";
+        private string m_folderID = "";
+        public string DefaultGoogleDrivePath
+        {
+            get
+            {
+                return this.m_googledriveDefaultPath;
+            }
+            set
+            {
+                this.m_googledriveDefaultPath = value;
+            }
+        }
+
+        public string GoogleDriveFolderID
+        {
+            get
+            {
+                return this.m_folderID;
+            }
+            set
+            {
+                this.m_folderID = value;
+            }
+        }
+
         public ScanToCloudParam()
         {
 

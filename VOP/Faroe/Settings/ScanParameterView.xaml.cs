@@ -17,6 +17,7 @@ namespace VOP
     public partial class ScanParameterView : UserControl
     {
         public MainWindow_Rufous m_MainWin { get; set; }
+        private int m_lastCloudType = -1;
         public static string[] ScanToItems =
         {
             "Scan To Print",
@@ -72,11 +73,15 @@ namespace VOP
             else if (MainWindow_Rufous.g_settingData.m_couldSaveType == "EverNote")
             {
                 cbCloudType.SelectedIndex = 1;
-                MainWindow_Rufous.g_settingData.m_bNeedReset = false;
+               // MainWindow_Rufous.g_settingData.m_bNeedReset = false;//yunying shang 2018-01-02 for BMS 1954
+            }
+            else if(MainWindow_Rufous.g_settingData.m_couldSaveType == "EverNote")
+            {
+                cbCloudType.SelectedIndex = 2;
             }
             else
             {
-                cbCloudType.SelectedIndex = 2;
+                cbCloudType.SelectedIndex = 3;
             }
 
             if (MainWindow_Rufous.g_settingData.m_attachmentType== "PDF")
@@ -87,6 +92,7 @@ namespace VOP
             {
                 cbAttachType.SelectedIndex = 1;
             }
+            btnReset.IsEnabled = true;
             tbSettings.Focus();
         }
 
@@ -199,21 +205,29 @@ namespace VOP
 
         private void cbCloudType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cbCloudType.SelectedIndex == 0)
+            if (cbCloudType.SelectedIndex != m_lastCloudType)
             {
-                MainWindow_Rufous.g_settingData.m_couldSaveType = "DropBox";
-                AuthenticationHelper.SignOut();
-            }
-            else if (cbCloudType.SelectedIndex == 1)
-            {
-                MainWindow_Rufous.g_settingData.m_couldSaveType = "EverNote";
-                MainWindow_Rufous.g_settingData.m_bNeedReset = false;
-            }
-            else if (cbCloudType.SelectedIndex == 2)
-            {
-
-                MainWindow_Rufous.g_settingData.m_couldSaveType = "OneDrive";
-                Properties.Settings.Default.Reset();
+                if (cbCloudType.SelectedIndex == 0)
+                {
+                    MainWindow_Rufous.g_settingData.m_couldSaveType = "DropBox";
+                    AuthenticationHelper.SignOut();
+                }
+                else if (cbCloudType.SelectedIndex == 1)
+                {
+                    MainWindow_Rufous.g_settingData.m_couldSaveType = "EverNote";
+                    //MainWindow_Rufous.g_settingData.m_bNeedReset = false;//yunying shang 2018-01-02 for BMS 1954
+                }
+                else if (cbCloudType.SelectedIndex == 2)
+                {
+                    MainWindow_Rufous.g_settingData.m_couldSaveType = "OneDrive";
+                    Properties.Settings.Default.Reset();
+                }
+                else
+                {
+                    MainWindow_Rufous.g_settingData.m_couldSaveType = "GoogleDrive";
+                }
+                m_lastCloudType = cbAttachType.SelectedIndex;
+                btnReset.IsEnabled = true;
             }
         }
 
@@ -248,6 +262,11 @@ namespace VOP
             {
                 AuthenticationHelper.SignOut();
             }
+            else
+            {
+                MainWindow_Rufous.g_settingData.m_bNeedReset = true;
+            }
+            btnReset.IsEnabled = false;
         }
 
         //public void QRDecodeMode_click(object sender, RoutedEventArgs e)
@@ -290,7 +309,6 @@ namespace VOP
         //        }
         //    }
         //}
-
 
     }
 }

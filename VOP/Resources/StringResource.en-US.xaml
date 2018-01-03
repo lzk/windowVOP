@@ -219,7 +219,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_">The entered IP address is incorrect, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_">Invalid Gateway address. Please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation">Invalid subnet mask. Please check and enter again.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_30__please_confirm_and_enter_again_">The valid range is 1 to 30, please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_60__please_confirm_and_enter_again_">The valid range is 0 to 60, please check and enter again.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_4__please_confirm_and_enter_again_">The valid range is 0 to 4, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_">The valid range is from -6 to 6, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__2_to_2__please_confirm_and_enter_again_">The valid range is from -2 to 2, please check and enter again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__3_to_3__please_confirm_and_enter_again_">The valid range is from -3 to 3, please check and enter again.</sys:String>
@@ -378,7 +379,9 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_print_fail">Print failed. </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_print_ok">Print completed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting">Scan Settings :</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting1">Scan Settings</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting1">Scan Settings(AC Power)</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting2">Scan Settings(USB Bus Power)</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting3">Scan Settings(Power Bank)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_qr_setting">QRcode settings :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_quick">Quick</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Accurate">Accurate</sys:String>
@@ -414,7 +417,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_multifeed_error">Multi-feed error</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_fail">Scan failed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_not_on_line">The computer is not on line!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Bankbook">Bankbook</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Bankbook">Deposit Book</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Type_Normal">Normal</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Calibration">Calibration:</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_SleepMode">Sleep Mode:</sys:String>
@@ -438,7 +441,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Not_Find_Printer">Not find printer!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Select_Pictures_to_process">Please select one or more pictures to process!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Do_You_Want_to_Delete_All_Images">Do you want to leave this page, if you exit, the all images will be delete?</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scanning is canceled!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scan job has been canceled. Please clear the ADF of any remianing paper originals before proceeding with any additional scans.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_and_Path_could_not_be_Empty">The AP Name and Path could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_could_not_be_Empty">The AP Name could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Initial_Evernote_and_Get_Evernote_fail">Initial Evernote and get EverNote list fail!</sys:String>
@@ -459,7 +462,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Folder_Name_exist">The folder Name already exists!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Connect_OneDrive_Fail">Connection OneDrive failed!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Folder_Not_Exist">The folder {0} does not exist.</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_File_exist_Do_You_overwrite">The upload file already exists，Do you want to overwrite?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_File_exist_Do_You_overwrite">The some upload file are already exists，Do you want to overwrite?</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Update_File_fail">Upload {0} failed!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Not_Find_Outlook">Could not find the outlook, please check you computer!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_File_Path_and_Name_too_long">You Specify the file path and file name is too long, please specify again </sys:String>
@@ -513,8 +516,19 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Folder">Folder</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Folder_Name">Folder Name</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Output_Result">Output Result</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Switch_Evernote_Restart_VOP">If you want to switch the user to log on EverNote, it is best to restart the VOP!</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Find_Printer_Error">Could not find the printer, </sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Switch_Evernote_Restart_VOP">Please click the OK button to save changes and restart the VOP to log on EverNote manually!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Find_Printer_Error">Could not find the printer. </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_EverNote_List">Ever Note List: </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Upload_success">Upload success!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Device_Not_Ready">The Device is not ready!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Power_Bank">The scan job could not be continued, because the Power Bank mode do not support the following settings.&#13;&#10;&#09;ADF Mode: &#09;Two Side&#13;&#10;&#09;Multi Feed: &#09;On&#13;&#10;&#09;Auto Crop: &#09;On&#13;&#10;&#09;MediaType: &#09;Deposit Book or Card&#13;&#10;&#09;Scan Size: &#09;Long Page Mode&#13;&#10;If you select 'Yes', the scan job will be continue, but the following settings will be changed.&#13;&#10;If you select 'No', the scan job will be canceled!&#13;&#10;&#09;ADF Mode: &#09;One Side&#13;&#10;&#09;Auto Crop: &#09;Off&#13;&#10;&#09;Media Type: &#09;Plain&#13;&#10;&#09;Scan Size: &#09;Auto</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Power_Bus">The scan job could not be continued, because the USB Bus power mode do not support the following settings.&#13;&#10;&#09;ADF Mode: &#09;Two Side&#13;&#10;&#09;Multi Feed: &#09;On&#13;&#10;&#09;Auto Crop: &#09;On&#13;&#10;&#09;MediaType: &#09;Deposit Book or Card&#13;&#10;&#09;Scan Size: &#09;Long Page Mode&#13;&#10;If you select 'Yes', the scan job will be continue, but the following settings will be changed&#13;&#10;If you select 'No', the scan job will be canceled!&#13;&#10;&#09;ADF Mode: &#09;One Side&#13;&#10;&#09;Auto Crop: &#09;Off&#13;&#10;&#09;Media Type: &#09;Plain&#13;&#10;&#09;Scan Size: &#09;Auto</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Power_Bus_Wifi">The scan job could not be continued, because the USB Bus power mode do not support WIFI scanning.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Gamma">Gamma</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Skip_Blank_Page">Skip Blank Page</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Auto_Color_Detect">Auto Color Detection</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_File_Is_Exist_On_Goole_Drive">The file you picked already exists in your Google Drive. Do you wish to overwrite it?</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Auth_Google">Authenticate with Google Drive</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_GoogleDrive_Viewer">Google Drive File Viewer</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Create_Folder_fail">Create Folder: {0} fail!</sys:String>
 </ResourceDictionary>

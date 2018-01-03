@@ -15,7 +15,7 @@ public:
 	BYTE _OpenUSBDevice();
 	BYTE _OpenUSBDevice(LPCTSTR lpModuleName);
 	BYTE _OpenDevice(LPCTSTR lpModuleName);
-	BYTE _JobCreate();
+	BYTE _JobCreate(char job, BOOL isUSB);
 	BYTE _JobEnd();
 	BYTE _parameters();
 	BYTE _StartScan();
@@ -46,14 +46,8 @@ public:
 	BYTE _InitializeScanner();
 	BYTE _CheckScanningMode();
 	BYTE _GetPowerSupply();
-
-	//Devid added for Calibration 2017/10/31  =====>
-	int _Scan_Shad_Calibration(CALIBRATION_SET_T *set);
-	int _Scan_Shad_Shading(int side, int channel, void *buf, int length);
-	int _Scan_Cap_Calibration(CALIBRATION_CAP_T *cap);
-	int _Scan_Shad_Flash(void *buf, int length);
-	int _Scan_ME_Flash(void *buf, int length);
-//<================Devid added for Calibration 2017/10/31
+	BYTE _GetPowerSaveTime(WORD* ptrSleepTime, WORD* ptrOffTime);
+	BYTE _SetPowerSaveTime(WORD sleepTime, WORD offTime);
 
 	//====
 	SC_JOB_T			sc_job_create;

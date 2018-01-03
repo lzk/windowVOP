@@ -152,6 +152,7 @@
                             <ComboBoxItem >DropBox</ComboBoxItem>
                             <ComboBoxItem >EverNote</ComboBoxItem>
                             <ComboBoxItem >OneDrive</ComboBoxItem>
+                            <ComboBoxItem >GoogleDrive</ComboBoxItem>
                         </ComboBox>
                         <TextBlock 
                 Grid.Row="2"

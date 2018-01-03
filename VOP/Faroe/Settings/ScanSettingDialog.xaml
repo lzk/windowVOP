@@ -6,7 +6,7 @@
 	x:Name="Window"
 	Title="ScanSetting"
     Width="585" 
-	Height="593"
+	Height="703"
     AllowsTransparency="true"
     WindowStartupLocation="CenterOwner"
     ResizeMode="NoResize"
@@ -296,28 +296,34 @@
                     <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <Grid x:Name="LayoutRoot" Width="537" Height="545" >
+            <Grid x:Name="LayoutRoot" Width="537" Height="655" >
                 <Grid.Background>
-                    <ImageBrush ImageSource="../../Images/popup_gnd_quick scan.png" Stretch="None"></ImageBrush>
+                    <ImageBrush ImageSource="../../Images/popup_gnd_scan settings.png" Stretch="None"></ImageBrush>
                 </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="100" />
-                    <RowDefinition Height="240" />
-                    <RowDefinition Height="100" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="385" />
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="60" />
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="30" />
+                </Grid.ColumnDefinitions>
                 <!-- Title bar begin -->
-                <Border Name="TitleBar"  Background="Transparent" Grid.Row="0">
-                    <TextBlock Text="{StaticResource ResStr_Faroe_scan_setting1}" FontSize="15" FontWeight="Bold" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Border Name="TitleBar"  Background="Transparent" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
+                    <TextBlock x:Name="tbTitle" Text="{StaticResource ResStr_Faroe_scan_setting1}" FontSize="15" FontWeight="Bold" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
-                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" MinimizeOrCloseStyle="Close" Click="ControlBtnClick" IsCancel="True" PreviewKeyDown="btnClose_PreviewKeyDown"/>
+                <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" Grid.Column="3" MinimizeOrCloseStyle="Close" Click="ControlBtnClick" IsCancel="True" PreviewKeyDown="btnClose_PreviewKeyDown"/>
                 <!-- Title bar end -->
                
-                <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Faroe_ADF}" HorizontalAlignment="Left"
-                                         VerticalAlignment="Center" Width="220" Height="75" Margin="30,0,0,0" >
+                <local:GroupBoxDecorator Grid.Row="1" Grid.Column="1" Header="{StaticResource ResStr_Faroe_ADF}" HorizontalAlignment="Center"
+                                         VerticalAlignment="Center" Width="220" Height="75" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="20" />
@@ -343,7 +349,8 @@
                     </Grid>
                 </local:GroupBoxDecorator>
 
-                <local:GroupBoxDecorator Grid.Row="1" Margin="0,0,30,0" Header="{StaticResource ResStr_Color_Mode}" Height="80" Width="220" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <local:GroupBoxDecorator Grid.Row="1" Grid.Column="2" Header="{StaticResource ResStr_Color_Mode}" Height="75" Width="220" 
+                                         HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid Margin="0,0,0,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30" />
@@ -367,10 +374,6 @@
                             ToolTip="{StaticResource ResStr_Color}"
                             Width="60"
                             Height="38">
-                            <!--<RadioButton.BorderBrush>
-                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
-                            </RadioButton.BorderBrush>
-                            <Image Stretch="None" Source="../../Images/Color.png" />-->
                         </RadioButton>
 
                         <RadioButton GroupName="colorMode"  
@@ -383,33 +386,82 @@
                             ToolTip="{StaticResource ResStr_Grayscale}"
                             Width="60"
                             Height="38">
-                            <!--<RadioButton.BorderBrush>
-                                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlDarkDarkColorKey}}"/>
-                            </RadioButton.BorderBrush>
-                            <Image Stretch="None" Source="../../Images/Grayscale.png" />-->
                         </RadioButton>
                     </Grid>
                 </local:GroupBoxDecorator>
 
-                <Grid Grid.Row="2" >
-                    <local:GroupBoxDecorator Margin="30,0,0,0" Header="{StaticResource ResStr_DPI}" Height="65" 
-                                             Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="90" />
+                        <RowDefinition Height="90" />
+                        <RowDefinition Height="90" />
+                        <RowDefinition Height="110" />
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <local:GroupBoxDecorator Grid.Row="0" Header="{StaticResource ResStr_DPI}" Height="80" 
+                                             Width="220" HorizontalAlignment="Center" VerticalAlignment="Top" >
                         <ComboBox Name="cboScanResln" SelectionChanged="combo_sel_change"
                             Style="{StaticResource customComboBox}"
                             Background="White"
-                            Width="145" Height="24"
-                            VerticalAlignment="Center" Margin="38,4,37,9">
+                            Width="145" Height="24" HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
                         </ComboBox>
-                    </local:GroupBoxDecorator>                  
+                    </local:GroupBoxDecorator>
+                    
+                    <local:GroupBoxDecorator  Grid.Row="1" Header="{StaticResource ResStr_Type}" Height="80" 
+                                              Width="220" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        <ComboBox Name="cboMediaType" SelectionChanged="comboType_sel_change"
+                            Style="{StaticResource customComboBox}"
+                            Background="White"
+                            Width="145" Height="24"
+                            VerticalAlignment="Center" HorizontalAlignment="Center"   >
+                        </ComboBox>
+                    </local:GroupBoxDecorator>
 
+                    <local:GroupBoxDecorator Grid.Row="2" Header="{StaticResource ResStr_Scan_Size}" Height="80" 
+                                             HorizontalAlignment="Center" VerticalAlignment="Center" Width="220" >
+                        <ComboBox Name="cboScanSize" SelectionChanged="cbo_selchg_scansize"
+                    Style="{StaticResource customComboBox}"
+                    Background="White"
+                    Width="145" Height="25"
+                    VerticalAlignment="Center" HorizontalAlignment="Center">
+                        </ComboBox>
+                    </local:GroupBoxDecorator>
+                    <local:GroupBoxDecorator Grid.Row="3" Header="{StaticResource ResStr_Gamma}" Height="100" 
+                                             Width="220" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
+                        <StackPanel Orientation="Vertical">
+                            <Slider HorizontalAlignment="Center" VerticalAlignment="Center" Minimum="0" Name="sldr_gamma" ValueChanged="sldr_value_change"
+                        Maximum="50" Value="18" Height="15" Width="154" Template="{StaticResource HorizontalSlider}" Margin="5,5,5,0"/>
+                            <TextBlock Name="tbGamma" Text="1.8"  FontSize="30" Foreground="#FF707070" HorizontalAlignment="Center"></TextBlock>
+                            <!-- <TextBox Name="tbGamma" Template="{StaticResource customTextBox}" Width="50"  VerticalAlignment="Center" 
+                                     HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="24"
+                                     MaxLength="3" TextChanged="handler_text_changed"
+                                     Text="1.8"
+                                      PreviewKeyDown="OnPreviewKeyDown" >                            
+                            </TextBox>-->
+                        </StackPanel>
+
+                    </local:GroupBoxDecorator>
+
+
+                </Grid>
+                
+                <Grid Grid.Row="2" Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="114" />
+                        <RowDefinition Height="114" />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="81" />
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
                     <!-- Right side -->
-                    <local:GroupBoxDecorator Margin="0,0,30,0" Header="{StaticResource ResStr_Contrast}" Height="115" HorizontalAlignment="Right" VerticalAlignment="Top" Width="220" >
+                    <local:GroupBoxDecorator Grid.Row="0" Header="{StaticResource ResStr_Contrast}" Height="110" 
+                                             HorizontalAlignment="Center" VerticalAlignment="Top" Width="220" >
                         <StackPanel>
                             <Image Stretch="None" VerticalAlignment="Top"
                         Margin="0,5" Source="../../Images/Constrast.png" />
                             <Slider HorizontalAlignment="Center"  Minimum="0" Name="sldr_contrast" ValueChanged="sldr_value_change"
-                        Maximum="100" Value="50" Height="18" Width="154" Template="{StaticResource HorizontalSlider}"/>
-
+                        Maximum="100" Value="50" Height="15" Width="154" Template="{StaticResource HorizontalSlider}"/>
                             <local:SpinnerControl x:Name="spinCtlConstrast" Style="{StaticResource SpinnerControl1}"
                         Width="210" 
                         Background="Transparent"
@@ -425,29 +477,9 @@
 
                         </StackPanel>
                     </local:GroupBoxDecorator>
-                    <local:GroupBoxDecorator  Margin="30,78,0,82" Header="{StaticResource ResStr_Type}" Height="75" 
-                                              Width="220" HorizontalAlignment="Left" VerticalAlignment="Center" >
-                        <ComboBox Name="cboMediaType" SelectionChanged="comboType_sel_change"
-                            Style="{StaticResource customComboBox}"
-                            Background="White"
-                            Width="145" Height="24"
-                            VerticalAlignment="Center" Margin="38,4,37,9"
-                            >
-                        </ComboBox>
-                    </local:GroupBoxDecorator>
 
-                    <local:GroupBoxDecorator Margin="30,0,0,0" Header="{StaticResource ResStr_Scan_Size}" Height="70" 
-                                             HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="220" >
-                        <ComboBox Name="cboScanSize" SelectionChanged="cbo_selchg_scansize"
-                    Style="{StaticResource customComboBox}"
-                    Background="White"
-                    Width="145" Height="25"
-                    VerticalAlignment="Center"
-                    >
-                        </ComboBox>
-                    </local:GroupBoxDecorator>
-                    <local:GroupBoxDecorator Margin="0,0,30,0" Header="{StaticResource ResStr_Brightness}" Height="115" 
-                                             Width="220" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+                    <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Brightness}" Height="110" 
+                                             Width="220" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
                         <StackPanel>
                             <Image Stretch="None" VerticalAlignment="Top"
                         Margin="0,5" Source="../../Images/Brightness.png" />
@@ -469,11 +501,66 @@
 
                         </StackPanel>
                     </local:GroupBoxDecorator>
+                    <local:GroupBoxDecorator Grid.Row="2"  Header="{StaticResource ResStr_Skip_Blank_Page}" 
+                                             HorizontalAlignment="Center" VerticalAlignment="Center" Width="220" Height="75">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="20" />
+                            </Grid.ColumnDefinitions>
+
+                            <RadioButton GroupName="SkipBlankPage" IsChecked="true"
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                Name="btnSkipBlankOn" Click="btnSkipBlank_Click"
+                                Template="{StaticResource customRadioButton}"
+                                Content="{StaticResource ResStr_On}" VerticalAlignment="Center" >
+                            </RadioButton>
+
+                            <RadioButton GroupName="SkipBlankPage" IsChecked="false"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                Name="btnSkipBlankOff" Click="btnSkipBlank_Click"
+                                Template="{StaticResource customRadioButton}"
+                                Content="{StaticResource ResStr_Off}" VerticalAlignment="Center" >
+                            </RadioButton>
+                        </Grid>
+                    </local:GroupBoxDecorator>
+                    <local:GroupBoxDecorator Grid.Row="3" Header="{StaticResource ResStr_Auto_Color_Detect}" 
+                                             HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="220" Height="75">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="20" />
+                            </Grid.ColumnDefinitions>
+
+                            <RadioButton GroupName="AutoColorDetect" IsChecked="true"
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                Name="btnAutoColorOn" Click="btnAutoColor_Click"
+                                Template="{StaticResource customRadioButton}"
+                                Content="{StaticResource ResStr_On}" VerticalAlignment="Center" >
+                            </RadioButton>
+
+                            <RadioButton GroupName="AutoColorDetect" IsChecked="false"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                Name="btnAutoColorOff" Click="btnAutoColor_Click"
+                                Template="{StaticResource customRadioButton}"
+                                Content="{StaticResource ResStr_Off}" VerticalAlignment="Center" >
+                            </RadioButton>
+                        </Grid>
+                    </local:GroupBoxDecorator>
+
                 </Grid>
 
-                <Grid Grid.Row="3">
-                    <local:GroupBoxDecorator Header="{StaticResource ResStr_Faroe_multifeed}" HorizontalAlignment="Left"
-                                             VerticalAlignment="Center" Width="220" Height="75" Margin="30,0,0,0">
+
+                    <local:GroupBoxDecorator Grid.Row="3" Grid.Column="1" Header="{StaticResource ResStr_Faroe_multifeed}" 
+                                             HorizontalAlignment="Center" VerticalAlignment="Center" Width="220" Height="75">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="20" />
@@ -501,39 +588,37 @@
                         </Grid>
 
                     </local:GroupBoxDecorator>
+                <local:GroupBoxDecorator Grid.Row="3"  Grid.Column="2" Header="{StaticResource ResStr_Faroe_autocrop}" 
+                         HorizontalAlignment="Center"  VerticalAlignment="Center" Width="220" Height="75" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="20" />
+                        </Grid.ColumnDefinitions>
 
-                    <local:GroupBoxDecorator Header="{StaticResource ResStr_Faroe_autocrop}" 
-                         HorizontalAlignment="Right"  VerticalAlignment="Center" Width="220" Height="75" Margin="0,0,30,0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20" />
-                                <ColumnDefinition Width="90" />
-                                <ColumnDefinition Width="90" />
-                                <ColumnDefinition Width="20" />
-                            </Grid.ColumnDefinitions>
-
-                            <RadioButton GroupName="AutoCrop" IsChecked="true"
+                        <RadioButton GroupName="AutoCrop" IsChecked="true"
                                 Grid.Column="1"
                                 HorizontalAlignment="Center"
                                 Name="AutoCropOnButton" Click="AutoCrop_click"
                                 Template="{StaticResource customRadioButton}"
                                 Content="{StaticResource ResStr_On}" VerticalAlignment="Center" >
-                            </RadioButton>
+                        </RadioButton>
 
-                            <RadioButton GroupName="AutoCrop" IsChecked="false"
+                        <RadioButton GroupName="AutoCrop" IsChecked="false"
                                 Grid.Column="2"
                                 HorizontalAlignment="Center"
                                 Name="AutoCropOffButton" Click="AutoCrop_click"
                                 Template="{StaticResource customRadioButton}"
                                 Content="{StaticResource ResStr_Off}" VerticalAlignment="Center" >
-                            </RadioButton>
+                        </RadioButton>
 
-                        </Grid>
+                    </Grid>
 
-                    </local:GroupBoxDecorator>
-                </Grid>
+                </local:GroupBoxDecorator>
 
-                <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button HorizontalContentAlignment="Center" IsDefault="False" x:Name="btnDefault" Click="btnDefault_Click"
                 Content="{StaticResource ResStr_Default}" Style="{StaticResource CustomPopUpButtonStyle}"
                 Height="35" Width="150" Margin="0,0,20,0" />

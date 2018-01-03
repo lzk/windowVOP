@@ -218,7 +218,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_The_entered_IP_address__is_wrong__please_confirm_and_enter_again_">IP地址输入有误，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_entered_Gateway_is_wrong__please_confirm_and_enter_again_">网关输入有误，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_subnet_mask_input_error__please_input_again_after_confirmation">子网掩码输入有误，请确认后再次输入。</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_1_30__please_confirm_and_enter_again_">有效值输入范围为1到30，请确认后再次输入。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_30__please_confirm_and_enter_again_">有效值输入范围为0到30，请确认后再次输入。</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_0_240__please_confirm_and_enter_again_">有效值输入范围为0到240，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__6_to_6__please_confirm_and_enter_again_">有效值输入范围为-6到6，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__2_to_2__please_confirm_and_enter_again_">有效值输入范围为-2到2，请确认后再次输入。</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_The_valid_range_is_from__3_to_3__please_confirm_and_enter_again_">有效值输入范围为-3到3，请确认后再次输入。</sys:String>
