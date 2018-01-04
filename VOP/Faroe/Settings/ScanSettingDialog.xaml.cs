@@ -39,7 +39,7 @@ namespace VOP
         private EnumScanMediaType m_lastPaperType = EnumScanMediaType._Normal;
         private EnumPaperSizeScan m_lastPaperSize1 = EnumPaperSizeScan._Auto;
         private EnumScanResln m_lastRes = EnumScanResln._200x200;
-        private Byte m_powermode = 1;
+        private static Byte m_powermode = 0;
 
         public ScanSettingDialog()
         {
@@ -72,6 +72,8 @@ namespace VOP
                 tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting2");
             else if (m_powermode == 2)
                 tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting3");
+            else
+                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting4");
 
             InitControls();
             InitScanResln();

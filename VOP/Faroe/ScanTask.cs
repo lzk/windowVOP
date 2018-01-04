@@ -217,6 +217,8 @@ next:
             sw.Stop();
             ScanResult = (Scan_RET)nResult;
 
+            string error = string.Format("ScanResult is {0}", ScanResult);
+            Win32.OutputDebugString(error);
             if (ScanResult != Scan_RET.RETSCAN_OK)
             {
                 if (ScanResult == Scan_RET.RETSCAN_OPENFAIL)

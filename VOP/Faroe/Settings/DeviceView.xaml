@@ -276,11 +276,7 @@
         	Change="1"
         	DecimalPlaces="0"
         	Maximum="60"
-<<<<<<< HEAD
         	Minimum="0"  
-=======
-        	Minimum="0" 
->>>>>>> ea5fed7eefc931bcaa7df4636066a6e865f9135c
         	IsPercentFormat="False"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
@@ -291,7 +287,7 @@
 
                 <TextBlock x:Name="labelAutoSleep" Text="(0-60 Minutes)" Grid.Row="0" Foreground="Black"
                     HorizontalAlignment="Center" 
-                   Height="30" Margin="0,0,0,10"  VerticalAlignment="Bottom" Width="90" FontSize="14" Grid.ColumnSpan="3"/>
+                   Height="30" Margin="0,0,0,10"  VerticalAlignment="Bottom" Width="100" FontSize="14" Grid.ColumnSpan="3"/>
 
                 <local:SpinnerControl x:Name="spinnerControlAutoOff" Style="{StaticResource SpinnerControl2}"
                 	Width="300" 

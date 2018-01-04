@@ -382,6 +382,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting1">Scan Settings(AC Power)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting2">Scan Settings(USB Bus Power)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting3">Scan Settings(Power Bank)</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting4">Scan Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_qr_setting">QRcode settings :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_quick">Quick</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Accurate">Accurate</sys:String>
@@ -531,4 +532,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Auth_Google">Authenticate with Google Drive</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_GoogleDrive_Viewer">Google Drive File Viewer</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Create_Folder_fail">Create Folder: {0} fail!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Switch_Evernote_Restart_VOP1">Please restart the VOP to log on EverNote manually!</sys:String>
 </ResourceDictionary>

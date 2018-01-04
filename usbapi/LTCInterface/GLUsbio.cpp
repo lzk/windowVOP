@@ -445,6 +445,7 @@ int CGLUsb::CMDIO_CloseDevice()
 	CloseHandle(m_hIntrEvent);
 	for(i=1; i < 5; i++)
 		CloseHandle(m_hDevice[i]);
+	MyOutputString(L"CloseDevice OK");
 	return True;
 }
 int CGLUsb::_SetIOHandle(HANDLE dwDevice, WORD wType)

@@ -592,17 +592,22 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		BYTE power_mode = glDrv._GetPowerSupply();
 		if (1 < power_mode )
 		{
+			MyOutputString(L"Power Mode", power_mode);
+			MyOutputString(L"ADFMode", ADFMode);
+			MyOutputString(L"AutoCrop", AutoCrop);
+			MyOutputString(L"MultiFeed", MultiFeed);
+			MyOutputString(L"height", height);
+			MyOutputString(L"type", type);
 			if (2 == power_mode && (ADFMode || AutoCrop || MultiFeed || height > 14000 || type > 0))
 			{
 				return RETSCAN_ERROR_POWER1;
 			}
 			//modified by yunying shang 2017-01-03 for BMS 1924
-			if(power_mode == 3 && (ADFMode || AutoCrop || MultiFeed || height > 14000||type > 0||g_connectMode_usb == false))
+			if(power_mode == 3 && (ADFMode || AutoCrop || MultiFeed || height > 14000 || type > 0 || g_connectMode_usb == false))
 			{
 				return RETSCAN_ERROR_POWER2;
 			}
 		}
-
 
 		if (!glDrv._JobCreate(JOB_ADF, g_connectMode_usb))
 			return RETSCAN_CREATE_JOB_FAIL;
@@ -1473,6 +1478,7 @@ USBAPI_API int __stdcall CheckUsbScanByName(
 
 	if (glDrv._OpenUSBDevice(interfaceName) == FALSE)
 	{
+		glDrv._CloseDevice();
 		return 0;
 	}
 	return 1;
@@ -1490,7 +1496,8 @@ USBAPI_API int __stdcall CheckUsbScan(
 
 	//EnterCriticalSection(&g_csCriticalSection_UsbTest);
 
-	for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++) {
+	for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++) 
+	{
 		_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
 		_stprintf_s(strPortAlt, L"%s%d", L"USB Device ", iCnt);
 		hDev = CreateFile(strPort,
@@ -1526,8 +1533,9 @@ USBAPI_API int __stdcall CheckUsbScan(
 
 	//g_connectMode_usb = TRUE;//add by yunying shang 2017-11-10 for BMS 1381
 
-	if (glDrv._OpenUSBDevice() == FALSE)//#bms1005
+	if (glDrv._OpenUSBDevice(strPort) == FALSE)//#bms1005
 	{
+		glDrv._CloseDevice();
 		return 0;		
 	}
 	return 1;
@@ -1733,7 +1741,7 @@ USBAPI_API BYTE __stdcall GetPowerSupply()
 		{
 			if (re_status != RETSCAN_BUSY)
 			{
-				if (glDrv._OpenDevice() == TRUE)
+				if (glDrv._OpenDevice(g_ipAddress) == TRUE)
 				{
 					power= glDrv._GetPowerSupply();
 					glDrv._CloseDevice();
