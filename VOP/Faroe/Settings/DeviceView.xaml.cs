@@ -275,6 +275,22 @@ namespace VOP
             UpdateApplyBtnStatus();
         }
 
+        private void OnValidationHasErrorChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            //add by yunying shang 2018-01-04 for BMS 1982
+            if (true == spinnerControlAutoSleep.ValidationHasError)
+            {
+                btnSleepDecrease.IsEnabled = false;
+                btnSleepIncrease.IsEnabled = false;
+            }
+            if (true == spinnerControlAutoOff.ValidationHasError)
+            {
+                btnOffDecrease.IsEnabled = false;
+                btnOffIncrease.IsEnabled = false;
+            }//<<===============1982
+
+        }
+
         public void PassStatus(bool online)
         {
             m_currentStatus = online;

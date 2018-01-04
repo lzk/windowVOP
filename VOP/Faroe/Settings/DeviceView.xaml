@@ -281,7 +281,8 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
         	ValueChanged="spinnerControl_ValueChanged"     
-        	LostFocus="AutoSleepSpinnerTextBox_LostFocus"  
+        	LostFocus="AutoSleepSpinnerTextBox_LostFocus" 
+                                      ValidationHasErrorChanged="OnValidationHasErrorChanged"
             Height="44" Grid.Column="0" Grid.Row="0" FontWeight="Bold" Grid.ColumnSpan="3" 
                             />
 
@@ -301,6 +302,7 @@
                 	VerticalAlignment="Center"
                 	ValueChanged="spinnerControl_ValueChanged"     
                 	LostFocus="AutoOffSpinnerTextBox_LostFocus"  
+                                      ValidationHasErrorChanged="OnValidationHasErrorChanged"
                 	Height="44" Grid.Column="0" Grid.Row="1" FontWeight="Bold" Grid.ColumnSpan="3"
                             />
                 <TextBlock x:Name="labelAutoOff" Text="(0-4 Hours)" Grid.Row="1"
