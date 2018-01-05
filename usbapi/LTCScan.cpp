@@ -1743,7 +1743,14 @@ USBAPI_API BYTE __stdcall GetPowerSupply()
 			{
 				if (glDrv._OpenDevice(g_ipAddress) == TRUE)
 				{
-					power= glDrv._GetPowerSupply();
+					if (!glDrv.NetScanReady())
+					{
+
+					}
+					else
+					{
+						power = glDrv._GetPowerSupply();
+					}
 					glDrv._CloseDevice();
 				}
 			}

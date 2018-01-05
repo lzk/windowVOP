@@ -344,6 +344,30 @@ namespace VOP
                     return Scan_RET.RETSCAN_ERROR;
                 }
             }
+            else if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.SaveType == "GoogleDrive")
+            {
+                Googledocsflow flow = new Googledocsflow();
+                Googledocsflow.FlowType = CloudFlowType.Quick;
+                flow.FileList = fileLs;
+
+                if (flow.Run())
+                {
+                    ScanPreview_Rufous win = new ScanPreview_Rufous();
+                    win.Owner = Application.Current.MainWindow;
+                    win.ImagePaths = fileLs;
+                    win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_ok");
+                    win.ShowDialog();
+                }
+                else
+                {
+                    if (flow.isCancel != true)
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                                        Application.Current.MainWindow,
+                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
+                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                    return Scan_RET.RETSCAN_ERROR;
+                }
+            }
             return Scan_RET.RETSCAN_OK;
         }
     }

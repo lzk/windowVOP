@@ -54,31 +54,38 @@ namespace VOP
             // .NET applications can be disassembled using a reflection tool.
             const string STORAGE = "faore_vop";
             const string KEY = "z},drdzf11x9;89";
-            string scope = DriveService.Scopes.Drive.GetStringValue();
-
-            // Check if there is a cached refresh token available.
-            IAuthorizationState state;
-
-            if (!isReset)
+            IAuthorizationState state = null;
+            try
             {
-                state = AuthorizationMgr.GetCachedRefreshToken(STORAGE, KEY);
-                if (state != null)
+                string scope = DriveService.Scopes.Drive.GetStringValue();
+
+                // Check if there is a cached refresh token available.                
+
+                if (!isReset)
                 {
-                    try
+                    state = AuthorizationMgr.GetCachedRefreshToken(STORAGE, KEY);
+                    if (state != null)
                     {
-                        client.RefreshToken(state);
-                        return state; // Yes - we are done.
-                    }
-                    catch (DotNetOpenAuth.Messaging.ProtocolException ex)
-                    {
-                        Win32.OutputDebugString("Using existing refresh token failed: " + ex.Message);
+                        try
+                        {
+                            client.RefreshToken(state);
+                            return state; // Yes - we are done.
+                        }
+                        catch (DotNetOpenAuth.Messaging.ProtocolException ex)
+                        {
+                            Win32.OutputDebugString("Using existing refresh token failed: " + ex.Message);
+                        }
                     }
                 }
-            }
 
-            // If we get here, there is no stored token. Retrieve the authorization from the user.
-            state = AuthorizationMgr.RequestNativeAuthorization(client, scope);
-            AuthorizationMgr.SetCachedRefreshToken(STORAGE, KEY, state);
+                // If we get here, there is no stored token. Retrieve the authorization from the user.
+                state = AuthorizationMgr.RequestNativeAuthorization(client, scope);
+                AuthorizationMgr.SetCachedRefreshToken(STORAGE, KEY, state);
+            }
+            catch(Exception ex)
+            {
+                Win32.OutputDebugString(ex.Message);
+            }
             return state;
         }
 

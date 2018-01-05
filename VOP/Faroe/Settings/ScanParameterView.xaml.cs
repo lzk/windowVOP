@@ -248,6 +248,8 @@ namespace VOP
             if (cbCloudType.SelectedIndex == 0)
             {
                 Properties.Settings.Default.Reset();
+                AuthenticationHelper.SignOut();
+                MainWindow_Rufous.g_settingData.m_bNeedReset = true;
             }
             else if (cbCloudType.SelectedIndex == 1)
             {

@@ -184,7 +184,7 @@ namespace VOP
                 try
                 {
                       
-                    var login = new LoginForm(ApiKey);
+                    var login = new LoginForm(ApiKey, false);
                     login.Owner = ParentWin;
                     login.ShowDialog();
 

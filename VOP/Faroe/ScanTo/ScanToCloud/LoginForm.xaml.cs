@@ -28,11 +28,13 @@ namespace VOP
 
         private string oauth2State;
         private string appKey;
+        private bool bReset = false;
 
-        public LoginForm(string appKey)
+        public LoginForm(string appKey, bool bReset)
         {
             InitializeComponent();
             this.appKey = appKey;
+            this.bReset = bReset;
         }
 
         public string AccessToken { get; private set; }
@@ -60,7 +62,7 @@ namespace VOP
         private void Start(string appKey)
         {
             this.oauth2State = Guid.NewGuid().ToString("N");
-            var authorizeUri = DropboxOAuth2Helper.GetAuthorizeUri(OAuthResponseType.Token, appKey, new Uri(RedirectUri), state: oauth2State);
+            var authorizeUri = DropboxOAuth2Helper.GetAuthorizeUri(OAuthResponseType.Token, appKey, new Uri(RedirectUri), state: oauth2State, forceReapprove:this.bReset, disableSignup: false);
             this.Browser.Navigate(authorizeUri);
         }
 
