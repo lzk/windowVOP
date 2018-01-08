@@ -299,7 +299,7 @@ next:
                 {
 
                 }
-                else if (ScanResult == Scan_RET.RETSCAN_ERROR_POWER2)
+                else if (ScanResult == Scan_RET.RETSCAN_ERROR_POWER1)
                 {
                     VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon1,
                                Application.Current.MainWindow,
@@ -318,7 +318,7 @@ next:
                         goto next;
                     }
                 }
-                else if (ScanResult == Scan_RET.RETSCAN_ERROR_POWER1)
+                else if (ScanResult == Scan_RET.RETSCAN_ERROR_POWER2)
                 {
                     if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
                     {
@@ -332,7 +332,7 @@ next:
                     {
                         VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon1,
                                    Application.Current.MainWindow,
-                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bank"),
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bus"),
                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
                                    );
                         if (VOP.Controls.MessageBoxExResult.Yes == ret)
