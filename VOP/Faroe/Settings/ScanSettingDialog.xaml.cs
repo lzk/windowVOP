@@ -602,17 +602,24 @@ namespace VOP
         {
             //add by yunying shang 2017-12-01 for BMS 1642
             if (m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
-                m_scanParams.ScanMediaType == EnumScanMediaType._Card)
+                m_scanParams.ScanMediaType == EnumScanMediaType._Card ||
+                m_powermode > 1)
             {
                 m_scanParams.MultiFeed = false;
             }//<<=================1642
 
-            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
+            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
+                m_powermode > 1)
             {
                 m_scanParams.ADFMode = false;
                 m_scanParams.ScanMediaType = EnumScanMediaType._Normal;
                 m_scanParams.MultiFeed = false;
                 m_scanParams.AutoCrop = false;
+            }
+
+            if (m_powermode > 1 && m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
+            {
+                m_scanParams.PaperSize = EnumPaperSizeScan._Auto;
             }
 
             //if (m_scanParams.SkipBlankPage == true)

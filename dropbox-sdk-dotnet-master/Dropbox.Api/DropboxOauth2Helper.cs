@@ -270,7 +270,7 @@ namespace Dropbox.Api
         /// <returns>The uri of a web page which must be displayed to the user in order to authorize the app.</returns>
         public static Uri GetAuthorizeUri(string clientId, bool disableSignup = false)
         {
-            return GetAuthorizeUri(OAuthResponseType.Code, clientId, false, (Uri)null, disableSignup: disableSignup);
+            return GetAuthorizeUri(OAuthResponseType.Code, clientId, (Uri)null, disableSignup: disableSignup);
         }
 
         /// <summary>

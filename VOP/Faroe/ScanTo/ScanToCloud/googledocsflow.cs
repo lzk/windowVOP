@@ -85,6 +85,10 @@ namespace VOP
             catch(Exception ex)
             {
                 Win32.OutputDebugString(ex.Message);
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                System.Windows.Application.Current.MainWindow,
+                (string)"Connect to google drive fail" + ex.Message,
+                   (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
             }
             return state;
         }

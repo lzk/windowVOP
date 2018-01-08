@@ -299,7 +299,7 @@ next:
                 {
 
                 }
-                else if (ScanResult == Scan_RET.RETSCAN_ERROR_POWER1)
+                else if (ScanResult == Scan_RET.RETSCAN_ERROR_POWER2)
                 {
                     VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon1,
                                Application.Current.MainWindow,
@@ -310,10 +310,15 @@ next:
                     {
                         param.ADFMode = false;
                         param.AutoCrop = false;
+                        param.MultiFeed = false;
+                        if (param.PaperSize == EnumPaperSizeScan._LongPage)
+                            param.PaperSize = EnumPaperSizeScan._Auto;
+                        if (param.ScanMediaType > 0)
+                            param.ScanMediaType = 0;
                         goto next;
                     }
                 }
-                else if (ScanResult == Scan_RET.RETSCAN_ERROR_POWER2)
+                else if (ScanResult == Scan_RET.RETSCAN_ERROR_POWER1)
                 {
                     if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
                     {
@@ -334,6 +339,11 @@ next:
                         {
                             param.ADFMode = false;
                             param.AutoCrop = false;
+                            param.MultiFeed = false;
+                            if (param.PaperSize == EnumPaperSizeScan._LongPage)
+                                param.PaperSize = EnumPaperSizeScan._Auto;
+                            if (param.ScanMediaType > 0)
+                                param.ScanMediaType = 0;
                             goto next;
                         }
                     }

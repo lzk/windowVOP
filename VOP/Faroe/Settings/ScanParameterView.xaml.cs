@@ -84,6 +84,8 @@ namespace VOP
                 cbCloudType.SelectedIndex = 3;
             }
 
+            m_lastCloudType = cbCloudType.SelectedIndex;
+
             if (MainWindow_Rufous.g_settingData.m_attachmentType== "PDF")
             {
                 cbAttachType.SelectedIndex = 0;
