@@ -50,6 +50,7 @@ namespace VOP
         /// <returns></returns>
         private static IAuthorizationState GetAuthorization(NativeApplicationClient client)
         {
+            Win32.OutputDebugString("GetAuthorization===Enter");
             // You should use a more secure way of storing the key here as
             // .NET applications can be disassembled using a reflection tool.
             const string STORAGE = "faore_vop";
@@ -90,6 +91,8 @@ namespace VOP
                 (string)"Connect to google drive fail" + ex.Message,
                    (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
             }
+
+            Win32.OutputDebugString("GetAuthorization===Leave");
             return state;
         }
 
@@ -99,24 +102,30 @@ namespace VOP
         /// </summary>
         public bool AuthorizeAndUpload()
         {
+            Win32.OutputDebugString("AuthorizeAndUpload===>Enter");
             try
             {
                 // First, create a reference to the service you wish to use.
                 // For this app, it will be the Drive service. But it could be Tasks, Calendar, etc.
                 // The CreateAuthenticator method is passed to the service which will use that when it is time to authenticate
                 // the calls going to the service.
+                Win32.OutputDebugString("CreateAuthenticator");
                 _service = new DriveService(CreateAuthenticator());
 
+                Win32.OutputDebugString("Get a listing of the existing files...");
                 // Get a listing of the existing files...
                 List<File> fileList = Utilities.RetrieveAllFiles(_service);
 
                 if (fileList.Count == 0 &&
                     FlowType == CloudFlowType.SimpleView)
                 {
+                    Win32.OutputDebugString("file count is 0 and simpleview, return");
                     return false;
                 }
                 if (FlowType == CloudFlowType.Quick)
                 {
+                    Win32.OutputDebugString("Quck Scan: to google drive");
+
                     string folderID = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.GoogleDriveFolderID;
                     isReset = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.NeedReset;
                     if (fileList.Count > 0)
@@ -216,6 +225,7 @@ namespace VOP
                 }
                 else
                 {
+                    Win32.OutputDebugString("scan to google drive");
                     isReset = MainWindow_Rufous.g_settingData.m_bNeedReset;
                     bool? result = null;
                     GoogleDriveFileViewer viewer = new GoogleDriveFileViewer(fileList, FileList, MainWindow_Rufous.g_settingData.m_dropBoxDefaultPath, FlowType);
@@ -235,7 +245,7 @@ namespace VOP
                 return false;
 
             }
-
+            Win32.OutputDebugString("AuthorizeAndUpload===>Leave");
             return true;
             //System.Windows.MessageBox.Show("Upload Complete");
         }
@@ -248,6 +258,7 @@ namespace VOP
                 if (FlowType != CloudFlowType.SimpleView)
                     return false;
             }
+            Win32.OutputDebugString("Scan to Google Drive RUn()");
             if (FlowType == CloudFlowType.Quick)
             {
                 isReset = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.NeedReset;

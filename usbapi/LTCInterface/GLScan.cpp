@@ -362,14 +362,15 @@ BOOL CGLDrv::NetScanReady()
 		return TRUE;
 	}
 
-	if (status == 1)
-	{
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+	//if (status == 1)
+	//{
+	//	return TRUE;
+	//}
+	//else
+	//{
+	//	return FALSE;
+	//}
+	return TRUE;
 }
 
 #define JOB_WAIT_TIMEOUT  5000

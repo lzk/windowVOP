@@ -308,9 +308,11 @@ next:
                                );
                     if (VOP.Controls.MessageBoxExResult.Yes == ret)
                     {
-                        param.ADFMode = false;
+                        //modified by yunying shang 2018-01-09 for BMS 2021
+                        //param.ADFMode = false;
                         param.AutoCrop = false;
-                        param.MultiFeed = false;
+                       // param.MultiFeed = false;
+                       //<<==================2021
                         if (param.PaperSize == EnumPaperSizeScan._LongPage)
                             param.PaperSize = EnumPaperSizeScan._Auto;
                         if (param.ScanMediaType > 0)

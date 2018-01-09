@@ -341,6 +341,7 @@ namespace VOP
 
         private void ScanToCloudButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            Win32.OutputDebugString("ScanToCloudButtonClick===Enter");
             if (!m_MainWin.scanDevicePage.IsOnLine())
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
@@ -356,6 +357,8 @@ namespace VOP
             List<string> files = new List<string>();
             GetSelectedFile(files);
 
+            string str = string.Format("current save type is {0}", MainWindow_Rufous.g_settingData.m_couldSaveType);
+            Win32.OutputDebugString(str);
             if (MainWindow_Rufous.g_settingData.m_couldSaveType == "DropBox")
             {
                 DropBoxFlow flow = new DropBoxFlow();
@@ -382,12 +385,14 @@ namespace VOP
             }
             else
             {
+                Win32.OutputDebugString("Scan to Goole Drive");
                 Googledocsflow flow = new Googledocsflow();
                 //flow.ParentWin = m_MainWin;
                 flow.FileList = files;
                 OneDriveFlow.FlowType = CloudFlowType.View;
                 flow.Run();
             }
+            Win32.OutputDebugString("ScanToCloudButtonClick===Enter");
         }
 
         private void ImageItemCloseIconClick(object sender, RoutedEventArgs e)

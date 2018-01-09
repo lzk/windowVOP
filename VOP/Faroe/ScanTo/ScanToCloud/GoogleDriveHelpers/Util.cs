@@ -52,6 +52,7 @@ namespace Google.Apis.Util
         /// one of the async versions.</remarks>
         public static List<Google.Apis.Drive.v2.Data.File> RetrieveAllFiles(DriveService service)
         {
+            Win32.OutputDebugString("RetrieveAllFiles===Enter");
             // Google's "File" class collides with System.IO.File so the Google class needs to be
             // fully qualified. Here we are getting a list of the files in the user's drive.
             List<Google.Apis.Drive.v2.Data.File> result = new List<Google.Apis.Drive.v2.Data.File>();
@@ -87,6 +88,7 @@ namespace Google.Apis.Util
                 Win32.OutputDebugString(ex.Message);
             }
             // Return the resulting list
+            Win32.OutputDebugString("RetrieveAllFiles===Leave");
             return result;
         }
 

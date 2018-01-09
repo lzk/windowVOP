@@ -264,7 +264,7 @@ Scan_RET ScannerStatusCheck(CGLDrv glDrv, char stage)
 	if (!glDrv._info())
 	{
 		//printf("INFO command error!!");
-		result = RETSCAN_OPENFAIL;
+		result = RETSCAN_GETINFO_FAIL;
 	}
 	else
 	{
@@ -598,7 +598,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			MyOutputString(L"MultiFeed", MultiFeed);
 			MyOutputString(L"height", height);
 			MyOutputString(L"type", type);
-			if (2 == power_mode && (ADFMode || AutoCrop || MultiFeed || height > 14000 || type > 0))
+			//modified by yunying shang 2018-01-09 for BMS 2021
+			if (2 == power_mode && (  AutoCrop  || height > 14000 || type > 0)) //|| MultiFeed || ADFMode ||
 			{
 				return RETSCAN_ERROR_POWER1;
 			}
@@ -959,7 +960,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		{
 			if (!glDrv._info())
 			{
-				scanRet = RETSCAN_OPENFAIL;
+				scanRet = RETSCAN_GETINFO_FAIL;
 			}
 			else
 			{
