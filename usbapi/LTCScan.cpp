@@ -1565,14 +1565,14 @@ USBAPI_API int __stdcall CheckUsbScan(
 BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
 {
 	int nResult = TRUE;
-
+	TCHAR showIp[256] = { 0 };
 	//CGLNet m_GLnet;
 
 	if (g_GLnet.CMDIO_Connect(szIP, 23011))
 	{
 		TCHAR showIp[256] = { 0 };
 		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
-		//OutputDebugString(showIp);
+		OutputDebugString(showIp);
 
 		U8 cmd[4] = { 'J','D','G','S' };
 		U8 status[8] = { 0 };
@@ -1598,12 +1598,16 @@ BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
 			}
 			else
 			{
+				wsprintf(showIp, L"\nTestIpConnected() read command Fail, %s", szIP);
+				OutputDebugString(showIp);
 				nResult = FALSE;
 			}
 
 		}
 		else
 		{
+			wsprintf(showIp, L"\nTestIpConnected() Write command Fail, %s", szIP);
+			OutputDebugString(showIp);
 			nResult = FALSE;
 		}
 
@@ -1611,7 +1615,7 @@ BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
 	}
 	else
 	{
-		TCHAR showIp[256] = { 0 };
+		
 		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
 		OutputDebugString(showIp);
 
@@ -1674,7 +1678,8 @@ USBAPI_API void __stdcall SetConnectionMode(
 
 USBAPI_API BOOL __stdcall CheckConnectionByName(WCHAR* interfaceName)
 {
-
+	MyOutputString(L"CheckConnectionByName===>Enter");
+	MyOutputString(interfaceName);
 	if (g_connectMode_usb)
 	{
 		HANDLE hDev = NULL;

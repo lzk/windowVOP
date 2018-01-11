@@ -64,7 +64,7 @@ namespace VOP
                 }
             }//<<=======================
 
-            m_MainWin.CheckDeviceStatus();
+            //m_MainWin.CheckDeviceStatus();
         }
 
         private void ScreenButton_Click(object sender, RoutedEventArgs e)

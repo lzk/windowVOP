@@ -350,23 +350,24 @@ namespace VOP
             }
             else//<<===============1019
             {
-                NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-                bool bFound = false;
-                foreach (NetworkInterface adapter in fNetworkInterfaces)
-                {
-                    if (adapter.Description.Contains("802") ||
-                        adapter.Description.Contains("Wi-Fi") ||
-                        adapter.Description.Contains("Wireless"))
-                    {
-                        bFound = true;
-                    }
-                }
+                //marked by yunying shang 2019-01-11 for BMS1230
+                //NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+                //bool bFound = false;
+                //foreach (NetworkInterface adapter in fNetworkInterfaces)
+                //{
+                //    if (adapter.Description.Contains("802") ||
+                //        adapter.Description.Contains("Wi-Fi") ||
+                //        adapter.Description.Contains("Wireless"))
+                //    {
+                //        bFound = true;
+                //    }
+                //}
 
-                if (bFound == false)
-                {
-                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                }
-                else
+                //if (bFound == false)
+                //{
+                //    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                //}
+                //else<<==============1230
                 {
                    // Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                     if (bResult > 0)
@@ -390,6 +391,7 @@ namespace VOP
                 bool bConnect = false;
                if (dll.CheckConnectionByName(GetDeviceName("")))
                 {
+                    Win32.OutputDebugString("Connection success!");
                     //SetDeviceButtonState(true);
                     //modified by yunying shang 2017-10-19 for BMS 1172
                     if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
@@ -397,27 +399,30 @@ namespace VOP
                         //add by yunying shang 2017-10-23 for BMS 1019
                         if (!scanDevicePage.IsOnLine())
                         {
+                            Win32.OutputDebugString("not on line!");
                             Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
                         }
                         else//<<===============1019
                         {
-                            NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-                            bool bFound = false;
-                            foreach (NetworkInterface adapter in fNetworkInterfaces)
-                            {
-                                if (adapter.Description.Contains("802") ||
-                                    adapter.Description.Contains("Wi-Fi") ||
-                                    adapter.Description.Contains("Wireless"))
-                                {
-                                    bFound = true;
-                                }
-                            }
+                            //marked by yunying shang 1320
+                            //NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+                            //bool bFound = false;
+                            //foreach (NetworkInterface adapter in fNetworkInterfaces)
+                            //{
+                            //    if (adapter.Description.Contains("802") ||
+                            //        adapter.Description.Contains("Wi-Fi") ||
+                            //        adapter.Description.Contains("Wireless"))
+                            //    {
+                            //        bFound = true;
+                            //    }
+                            //}
 
-                            if (bFound == false)
-                            {
-                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                            }
-                            else
+                            //if (bFound == false)
+                            //{
+                            //    Win32.OutputDebugString("not find the wifi network!");
+                            //    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                            //}
+                            //else//<<===============1320
                             {
                                 if (dll.TestIpConnected(MainWindow_Rufous.g_settingData.m_DeviceName))
                                 {

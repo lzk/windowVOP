@@ -96,9 +96,11 @@ namespace VOP
 
         public bool UpdateImageFiles()
         {
-            //this.image_wrappanel.Children.Clear();
-            string str = string.Format("Total memory is {0} KBs.", GC.GetTotalMemory(false) / 1024);
-            Win32.OutputDebugString(str);
+            this.image_wrappanel.Children.Clear();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            //string str = string.Format("Total memory is {0} KBs.", GC.GetTotalMemory(false) / 1024);
+            //Win32.OutputDebugString(str);
 
             List<ImageStatus> list = new List<ImageStatus>();
 
@@ -131,8 +133,8 @@ namespace VOP
                 }
             }
             UpdateImageOrder();
-            str = string.Format("Total memory is {0} KBs.", GC.GetTotalMemory(false) / 1024);
-            Win32.OutputDebugString(str);
+            //str = string.Format("Total memory is {0} KBs.", GC.GetTotalMemory(false) / 1024);
+            //Win32.OutputDebugString(str);
             return true;
         }
 
