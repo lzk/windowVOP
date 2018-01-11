@@ -66,7 +66,7 @@ int CGLUsb::CMDIO_OpenDevice()
 			m_hIntrEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
 			m_hDevice[0] = m_hDev;
 			OpenBulkPipes(m_hDevice, strPort);	// Jason 140408
-			MyOutputString(L"OpenDevice OK");
+			//MyOutputString(L"OpenDevice OK");
 			break;
 		}
 	}
@@ -445,7 +445,6 @@ int CGLUsb::CMDIO_CloseDevice()
 	CloseHandle(m_hIntrEvent);
 	for(i=1; i < 5; i++)
 		CloseHandle(m_hDevice[i]);
-	MyOutputString(L"CloseDevice OK");
 	return True;
 }
 int CGLUsb::_SetIOHandle(HANDLE dwDevice, WORD wType)

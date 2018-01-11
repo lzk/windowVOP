@@ -46,6 +46,9 @@ public:
 	BYTE _InitializeScanner();
 	BYTE _CheckScanningMode();
 	BYTE _GetPowerSupply();
+	BYTE _GetButtonPressed();
+	BYTE _LOCK(LPCTSTR szIP);
+	BYTE _UNLOCK(LPCTSTR szIP);
 	BYTE _GetPowerSaveTime(WORD* ptrSleepTime, WORD* ptrOffTime);
 	BYTE _SetPowerSaveTime(WORD sleepTime, WORD offTime);
 

@@ -525,6 +525,9 @@ namespace VOP
 
         [DllImport("usbapi.dll")]
         public static extern Byte GetPowerSupply();
+
+        [DllImport("usbapi.dll")]
+        public static extern Byte GetButtonPressed();
     }
 
 }

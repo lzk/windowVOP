@@ -533,4 +533,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_GoogleDrive_Viewer">Google Drive File Viewer</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Create_Folder_fail">Create Folder: {0} fail!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Switch_Evernote_Restart_VOP1">Please restart the VOP to log on EverNote manually!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Fail_not_enough">There is insufficient memory or disk space to complete the operation.Please free up some memory or disk space, then try again. </sys:String>
 </ResourceDictionary>

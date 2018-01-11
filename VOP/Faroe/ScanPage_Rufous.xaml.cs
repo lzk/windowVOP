@@ -96,27 +96,43 @@ namespace VOP
 
         public bool UpdateImageFiles()
         {
-            this.image_wrappanel.Children.Clear();
+            //this.image_wrappanel.Children.Clear();
+            string str = string.Format("Total memory is {0} KBs.", GC.GetTotalMemory(false) / 1024);
+            Win32.OutputDebugString(str);
 
             List<ImageStatus> list = new List<ImageStatus>();
 
             for(int i= 0; i<8 &&(m_selectedPage * 8 + i)<selectedFileList.Count ; i++)
             {
                 list.Add(selectedFileList[m_selectedPage * 8 + i]);
-            }           
+            }
 
-            for(int i=0; i<list.Count;i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 ImageItem newImage = new ImageItem();
                 newImage.m_images = list[i]._files;
                 newImage.ImageSingleClick += ImageItemSingleClick;
                 newImage.ImageDoubleClick += ImageItemDoubleClick;
-                newImage.CloseIconClick += ImageItemCloseIconClick;   
-                newImage.m_num = list[i].m_num;              
+                newImage.CloseIconClick += ImageItemCloseIconClick;
+                newImage.m_num = list[i].m_num;
                 newImage.Margin = new Thickness(10);
-                this.image_wrappanel.Children.Insert(i, newImage);
+
+                if (this.image_wrappanel.Children.Count <= i)
+                {
+                    this.image_wrappanel.Children.Insert(i, newImage);
+                }
+                else
+                {
+                    ImageItem item = this.image_wrappanel.Children[i] as ImageItem;
+                    ImageSource img = item.imgBody.Source;
+                    item.imgBody = null;
+                    
+                    item.m_images = list[i]._files;
+                }
             }
             UpdateImageOrder();
+            str = string.Format("Total memory is {0} KBs.", GC.GetTotalMemory(false) / 1024);
+            Win32.OutputDebugString(str);
             return true;
         }
 

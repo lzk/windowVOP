@@ -42,6 +42,36 @@ namespace VOP
         private ManualResetEvent asyncEvent = new ManualResetEvent(false);
         private bool isNeededProgress = false;
 
+        public static long GetHardDiskSpace(string str_HardDiskName)
+        {
+            string str = str_HardDiskName;
+            int index = str.LastIndexOf(':');
+            str = str.Substring(0, index);
+
+            long totalSize = 0;
+
+            str_HardDiskName = str + ":\\";
+
+            System.IO.DriveInfo[] drives = System.IO.DriveInfo.GetDrives();
+
+            foreach (System.IO.DriveInfo drive in drives)
+
+            {
+
+                if (drive.Name == str_HardDiskName)
+
+                {
+
+                    totalSize = drive.TotalFreeSpace / (1024 * 1024);
+
+                }
+
+            }
+
+            return totalSize;
+
+        }
+
         public bool Run()
         {
             if (FileList == null || FileList.Count == 0)
@@ -83,6 +113,13 @@ namespace VOP
                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 return false;
             }//<<=================1176
+            else if (result == ScanFileSaveError.FileSave_OutOfMemory)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                Application.Current.MainWindow,
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_not_enough"),
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+            }
             else
             {
 
@@ -150,156 +187,177 @@ namespace VOP
 
             if (result == true)
             {
-                Thread thread = new Thread(() =>
+                long totalsize = 0;
+                foreach (string filePath in FileList)
                 {
-                    try
+                    System.IO.FileInfo fileInfo = null;
+                    fileInfo = new System.IO.FileInfo(filePath);
+
+                    totalsize += fileInfo.Length;
+                }
+                totalsize = totalsize / (1024 * 1024);
+                long size = GetHardDiskSpace(save.FileName);
+                if( totalsize > size || totalsize * 5 > size)
+                {
+                    return ScanFileSaveError.FileSave_OutOfMemory;
+                }
+                else
+                {
+
+                    Thread thread = new Thread(() =>
                     {
+                        try
+                        {
+
                         //modified by yunying shang 2017-10-16
                         if (3 == save.FilterIndex)
-                        {
-                            int i = 1;                  
-                            foreach (string path in FileList)
                             {
-                                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                                Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
-                                JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
-                                BitmapSource origSource = decoder.Frames[0];
-
-                                if (null != origSource)
-                                    encoder.Frames.Add(BitmapFrame.Create(origSource));
-
-                                string filename = save.FileName;
-                                if (FileList.Count > 1)
-                                {
-                                    filename = System.IO.Path.GetDirectoryName(save.FileName) +"\\" +
-                                    System.IO.Path.GetFileNameWithoutExtension(save.FileName) + "_" + Convert.ToString(i) + ".jpg";
-                                }
-                                FileStream fs = File.Open(filename, FileMode.Create);
-                                encoder.Save(fs);
-                                fs.Close();
-                                i++;
-                            }
-                            
-                        }//<<=================================
-                        else if (1 == save.FilterIndex)
-                        {
-                            TiffBitmapEncoder encoder = new TiffBitmapEncoder();
-
-                            foreach (string path in FileList)
-                            {
-                                Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
-                                JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
-                                BitmapSource origSource = decoder.Frames[0];
-
-                                BitmapMetadata bitmapMetadata = new BitmapMetadata("tiff");
-                                bitmapMetadata.ApplicationName = "Virtual Operation Panel";
-
-                                if (null != origSource)
-                                    encoder.Frames.Add(BitmapFrame.Create(origSource, null, bitmapMetadata, null));
-                            }
-
-                            FileStream fs = File.Open(save.FileName, FileMode.Create);
-                            encoder.Save(fs);
-                            fs.Close();
-                        }
-                        //add by yunying shang 2017-10-16
-                        else if (4 == save.FilterIndex)
-                        {
-                            int i = 1;
-                            foreach (string path in FileList)
-                            {
-                                using (Bitmap source = new Bitmap(path))
-                                {
-                                    using (Bitmap bmp = new Bitmap(source.Width, source.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb))
-                                    {
-                                        Graphics.FromImage(bmp).DrawImage(source, new Rectangle(0, 0, bmp.Width, bmp.Height));
-
-                                        string filename = save.FileName;
-                                        if (FileList.Count > 1)
-                                        {
-                                            filename = System.IO.Path.GetDirectoryName(save.FileName) + "\\" +
-                                            System.IO.Path.GetFileNameWithoutExtension(save.FileName) + "_"+ Convert.ToString(i) + ".bmp";
-                                        }
-
-                                        bmp.Save(filename, System.Drawing.Imaging.ImageFormat.Bmp);
-                                    }
-                                    i++;
-                                }
-                            }
-                        }//==========================
-                        else if (2 == save.FilterIndex)
-                        {
-                            using (PdfHelper help = new PdfHelper())
-                            {
-                                help.Open(save.FileName);
-
-                                //dll.OutputDebugStringToFile_("Open PDF File");
-
+                                int i = 1;
                                 foreach (string path in FileList)
                                 {
-                                   // dll.OutputDebugStringToFile_("Current JPG file name ");
-                                   // dll.OutputDebugStringToFile_(path);
+                                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
                                     Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
                                     JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
                                     BitmapSource origSource = decoder.Frames[0];
 
                                     if (null != origSource)
+                                        encoder.Frames.Add(BitmapFrame.Create(origSource));
+
+                                    string filename = save.FileName;
+                                    if (FileList.Count > 1)
                                     {
-                                        help.AddImage(origSource, 0);
-                                       // dll.OutputDebugStringToFile_("Add Image to PDF File");
+                                        filename = System.IO.Path.GetDirectoryName(save.FileName) + "\\" +
+                                        System.IO.Path.GetFileNameWithoutExtension(save.FileName) + "_" + Convert.ToString(i) + ".jpg";
                                     }
-                                    else
-                                    {
-                                       // dll.OutputDebugStringToFile_("Image source is null");
-                                    }
+                                    FileStream fs = File.Open(filename, FileMode.Create);
+                                    encoder.Save(fs);
+                                    fs.Close();
+                                    i++;
                                 }
 
-                                help.Close();
+                            }//<<=================================
+                        else if (1 == save.FilterIndex)
+                            {
+                                TiffBitmapEncoder encoder = new TiffBitmapEncoder();
+
+                                foreach (string path in FileList)
+                                {
+                                    Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
+                                    JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
+                                    BitmapSource origSource = decoder.Frames[0];
+
+                                    BitmapMetadata bitmapMetadata = new BitmapMetadata("tiff");
+                                    bitmapMetadata.ApplicationName = "Virtual Operation Panel";
+
+                                    if (null != origSource)
+                                        encoder.Frames.Add(BitmapFrame.Create(origSource, null, bitmapMetadata, null));
+                                }
+
+
+
+                                FileStream fs = File.Open(save.FileName, FileMode.Create);
+                                encoder.Save(fs);
+                                fs.Close();
+                            }
+                        //add by yunying shang 2017-10-16
+                        else if (4 == save.FilterIndex)
+                            {
+                                int i = 1;
+                                foreach (string path in FileList)
+                                {
+                                    using (Bitmap source = new Bitmap(path))
+                                    {
+                                        using (Bitmap bmp = new Bitmap(source.Width, source.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb))
+                                        {
+                                            Graphics.FromImage(bmp).DrawImage(source, new Rectangle(0, 0, bmp.Width, bmp.Height));
+
+                                            string filename = save.FileName;
+                                            if (FileList.Count > 1)
+                                            {
+                                                filename = System.IO.Path.GetDirectoryName(save.FileName) + "\\" +
+                                                System.IO.Path.GetFileNameWithoutExtension(save.FileName) + "_" + Convert.ToString(i) + ".bmp";
+                                            }
+
+                                            bmp.Save(filename, System.Drawing.Imaging.ImageFormat.Bmp);
+                                        }
+                                        i++;
+                                    }
+                                }
+                            }//==========================
+                        else if (2 == save.FilterIndex)
+                            {
+                                using (PdfHelper help = new PdfHelper())
+                                {
+                                    help.Open(save.FileName);
+
+                                //dll.OutputDebugStringToFile_("Open PDF File");
+
+                                foreach (string path in FileList)
+                                    {
+                                    // dll.OutputDebugStringToFile_("Current JPG file name ");
+                                    // dll.OutputDebugStringToFile_(path);
+                                    Uri myUri = new Uri(path, UriKind.RelativeOrAbsolute);
+                                        JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.None, BitmapCacheOption.None);
+                                        BitmapSource origSource = decoder.Frames[0];
+
+                                        if (null != origSource)
+                                        {
+                                            help.AddImage(origSource, 0);
+                                        // dll.OutputDebugStringToFile_("Add Image to PDF File");
+                                    }
+                                        else
+                                        {
+                                        // dll.OutputDebugStringToFile_("Image source is null");
+                                    }
+                                    }
+
+                                    help.Close();
                                 //dll.OutputDebugStringToFile_("Close PDF File");
                             }
+                            }
                         }
-                    }
-                    catch (Win32Exception ex)
+                        catch (Win32Exception ex)
+                        {
+                            m_errorMsg = ex.Message;
+                            fileSaveStatus = ScanFileSaveError.FileSave_Error;
+                        }
+                        catch (COMException ex)
+                        {
+                            m_errorMsg = ex.Message;
+                            fileSaveStatus = ScanFileSaveError.FileSave_Error;
+                        }
+                        catch (Exception ex)
+                        {
+                            m_errorMsg = ex.Message;
+                            fileSaveStatus = ScanFileSaveError.FileSave_Error;
+                        }
+
+                        QRCodeCallbackMethod(null);
+                    });
+
+                    thread.SetApartmentState(ApartmentState.STA);
+                    thread.IsBackground = false;
+                    thread.Start();
+
+                    if (!thread.Join(100))
                     {
-                        m_errorMsg = ex.Message;
-                        fileSaveStatus = ScanFileSaveError.FileSave_Error;
+                        isNeededProgress = true;
+
+                        qr_pbw = new MessageBoxEx_Simple_Busy_QRCode((string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Saving_pic_file"));
+                        qr_pbw.Owner = ParentWin;
+                        qr_pbw.Loaded += pbw_Loaded;
+                        qr_pbw.ShowDialog();
                     }
-                    catch (COMException ex)
+
+                    thread.Join();
+
+                    if (fileSaveStatus == ScanFileSaveError.FileSave_Error)
                     {
-                        m_errorMsg = ex.Message;
-                        fileSaveStatus = ScanFileSaveError.FileSave_Error;
-                    }
-                    catch(Exception ex)
-                    {
-                        m_errorMsg = ex.Message;
-                        fileSaveStatus = ScanFileSaveError.FileSave_Error;
+                        return ScanFileSaveError.FileSave_Error;
                     }
 
-                    QRCodeCallbackMethod(null);
-                });
-
-                thread.SetApartmentState(ApartmentState.STA);
-                thread.IsBackground = false;
-                thread.Start();
-
-                if (!thread.Join(100))
-                {
-                    isNeededProgress = true;
-
-                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode((string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Saving_pic_file"));
-                    qr_pbw.Owner = ParentWin;
-                    qr_pbw.Loaded += pbw_Loaded;
-                    qr_pbw.ShowDialog();
+                    return ScanFileSaveError.FileSave_OK;
                 }
-
-                thread.Join();
-
-                if (fileSaveStatus == ScanFileSaveError.FileSave_Error)
-                {
-                    return ScanFileSaveError.FileSave_Error;
-                }
-
-                return ScanFileSaveError.FileSave_OK;
                
             }
             else
@@ -377,7 +435,24 @@ namespace VOP
                 {
                     return ScanFileSaveError.FileSave_NotAccess;
                 }//<<===============1176
+
             }
+
+            long totalsize = 0;
+            foreach (string filePath in FileList)
+            {
+                System.IO.FileInfo fileInfo = null;
+                fileInfo = new System.IO.FileInfo(filePath);
+
+                totalsize += fileInfo.Length;
+            }
+
+            long size = GetHardDiskSpace(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath);
+            if (totalsize > size)
+            {
+                return ScanFileSaveError.FileSave_OutOfMemory;
+            }
+
             Thread thread = new Thread(() =>
             {
                 try

@@ -46,7 +46,7 @@ namespace VOP
         public static uint WM_VOP = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_vop");
         public static uint closeMsg = Win32.RegisterWindowMessage("vop_process_selfclose");
         public static double gScalingRate = 1.0; // Scaling rate used to scale windows's according the screen resolution.
-
+        public static uint WM_BUTTON_PRESSED = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_button");
         private static Int32 gLanguage = 0x409;
         public static bool gPushScan = false;
         public const int WM_COPYDATA = 0x004A;

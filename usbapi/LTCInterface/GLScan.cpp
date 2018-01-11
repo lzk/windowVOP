@@ -105,7 +105,16 @@ BYTE CGLDrv::_OpenDevice()
 	}
 	else
 	{
-		return (BYTE)(m_GLnet->CMDIO_Connect(g_ipAddress));
+		//return (BYTE)(m_GLnet->CMDIO_Connect(g_ipAddress));
+
+		if (_LOCK(g_ipAddress) == 1)
+		{
+			return (BYTE)(m_GLnet->CMDIO_Connect(g_ipAddress));
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 }
 
@@ -117,7 +126,16 @@ BYTE CGLDrv::_OpenDevice(LPCTSTR lpModuleName)
 	}
 	else
 	{
-		return (BYTE)(m_GLnet->CMDIO_Connect(lpModuleName));
+		//return (BYTE)(m_GLnet->CMDIO_Connect(lpModuleName));
+
+		if (_LOCK(lpModuleName) == 1)
+		{
+			return (BYTE)(m_GLnet->CMDIO_Connect(lpModuleName));
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 
 }
@@ -362,14 +380,14 @@ BOOL CGLDrv::NetScanReady()
 		return TRUE;
 	}
 
-	//if (status == 1)
-	//{
-	//	return TRUE;
-	//}
-	//else
-	//{
-	//	return FALSE;
-	//}
+	if (status == 1)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
 	return TRUE;
 }
 
@@ -509,7 +527,12 @@ BYTE CGLDrv::_CloseDevice()
 	}
 	else
 	{
-		return (BYTE)(m_GLnet->CMDIO_Close());
+		//return (BYTE)(m_GLnet->CMDIO_Close());
+
+		if ((BYTE)(m_GLnet->CMDIO_Close()))
+		{
+			return _UNLOCK(g_ipAddress);
+		}
 	}
 	
 }
@@ -1315,6 +1338,53 @@ exit_info:
 	return (BYTE)result;
 }
 
+BYTE CGLDrv::_GetButtonPressed()
+{
+	int result = 0;
+	char cmd[8] = { 'D', 'N', 'S', 'T', 5, 0, 0, 0 };
+	char buf[8];
+
+	memset(buf, 0, 8);
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, cmd, 8);
+		if (!result)
+		{
+			result = 0;
+			goto exit_info;
+		}
+		//Sleep(3);
+		result = result && m_GLusb->CMDIO_BulkReadEx(0, buf, 8);
+	}
+	else
+	{
+		//result = m_GLnet->CMDIO_Write(cmd, 8);
+		//if (!result)
+		//{
+		//	result = 0;
+		//	goto exit_info;
+		//}
+		////Sleep(3);
+		//result = result && m_GLnet->CMDIO_Read(buf, 8);
+		return 0;
+	}
+
+	if (!result || !buf[0] ) 
+	{
+		MyOutputString(L"Get Button PressedError");
+		result = 0;
+		goto exit_info;
+	}
+	else
+	{
+		result = 1;
+	}
+
+exit_info:
+	return (BYTE)result;
+}
+
 BYTE CGLDrv::_GetPowerSaveTime(WORD* ptrSleepTime, WORD* ptrOffTime)
 {
 	int result;
@@ -1454,4 +1524,71 @@ BYTE CGLDrv::_SetPowerSaveTime(WORD sleepTime, WORD offTime)
 
 exit_info:
 	return (BYTE)result;
+}
+
+BYTE CGLDrv::_LOCK(LPCTSTR szIP)
+{
+	BYTE nResult = 0;
+
+	if (m_GLnet->CMDIO_Connect(szIP, 23011))
+	{
+		U8 cmd[8] = { 'L','O','C','K', 0, 0, 0, 0 };
+		U8 ack[8] = { 0 };
+
+		if (m_GLnet->CMDIO_Write(cmd, 8) == TRUE)
+		{
+			if (m_GLnet->CMDIO_Read(ack, 8))
+			{
+				if (ack[0] == 'S' &&
+					ack[1] == 'T' &&
+					ack[2] == 'A' &&
+					ack[4] == 'A')
+					nResult = 1;
+			}
+		}
+		m_GLnet->CMDIO_Close();
+	}
+	else
+	{
+		TCHAR showIp[256] = { 0 };
+		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
+		OutputDebugString(showIp);
+
+		nResult = FALSE;
+	}
+
+	return nResult;
+}
+BYTE CGLDrv::_UNLOCK(LPCTSTR szIP)
+{
+	BYTE nResult = 0;
+
+	if (m_GLnet->CMDIO_Connect(szIP, 23011))
+	{
+		U8 cmd[8] = { 'U','L','C','K', 0, 0, 0, 0 };
+		U8 ack[8] = { 0 };
+
+		if (m_GLnet->CMDIO_Write(cmd, 8) == TRUE)
+		{
+			if (m_GLnet->CMDIO_Read(ack, 8))
+			{
+
+				if (ack[0] == 'S' &&
+					ack[1] == 'T' &&
+					ack[2] == 'A')
+					nResult = 1;
+			}
+		}
+		m_GLnet->CMDIO_Close();
+	}
+	else
+	{
+		TCHAR showIp[256] = { 0 };
+		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
+		OutputDebugString(showIp);
+
+		nResult = FALSE;
+	}
+
+	return nResult;
 }

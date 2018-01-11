@@ -58,15 +58,18 @@ namespace VOP
             IAuthorizationState state = null;
             try
             {
+                Win32.OutputDebugString("GetStringValue");
                 string scope = DriveService.Scopes.Drive.GetStringValue();
 
                 // Check if there is a cached refresh token available.                
 
                 if (!isReset)
                 {
+                    Win32.OutputDebugString("GetCachedRefreshToken");
                     state = AuthorizationMgr.GetCachedRefreshToken(STORAGE, KEY);
                     if (state != null)
                     {
+                        Win32.OutputDebugString("state not null");
                         try
                         {
                             client.RefreshToken(state);
@@ -78,10 +81,12 @@ namespace VOP
                         }
                     }
                 }
-
+                Win32.OutputDebugString("RequestNativeAuthorization");
                 // If we get here, there is no stored token. Retrieve the authorization from the user.
                 state = AuthorizationMgr.RequestNativeAuthorization(client, scope);
+                Win32.OutputDebugString("Save key to file!");
                 AuthorizationMgr.SetCachedRefreshToken(STORAGE, KEY, state);
+                Win32.OutputDebugString("save success!");
             }
             catch(Exception ex)
             {

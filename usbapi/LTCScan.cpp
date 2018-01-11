@@ -576,6 +576,10 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 		if (scanRet != RETSCAN_OK)
 		{
+			if (imgBuffer)
+				delete imgBuffer;
+
+			glDrv._CloseDevice();
 			return scanRet;
 		}
 
@@ -601,17 +605,31 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			//modified by yunying shang 2018-01-09 for BMS 2021
 			if (2 == power_mode && (  AutoCrop  || height > 14000 || type > 0)) //|| MultiFeed || ADFMode ||
 			{
+				if (imgBuffer)
+					delete imgBuffer;
+
+				glDrv._CloseDevice();
 				return RETSCAN_ERROR_POWER1;
 			}
 			//modified by yunying shang 2017-01-03 for BMS 1924
 			if(power_mode == 3 && (ADFMode || AutoCrop || MultiFeed || height > 14000 || type > 0 || g_connectMode_usb == false))
 			{
+				if (imgBuffer)
+					delete imgBuffer;
+
+				glDrv._CloseDevice();
 				return RETSCAN_ERROR_POWER2;
 			}
 		}
 
 		if (!glDrv._JobCreate(JOB_ADF, g_connectMode_usb))
+		{
+			if (imgBuffer)
+				delete imgBuffer;
+
+			glDrv._CloseDevice();
 			return RETSCAN_CREATE_JOB_FAIL;
+		}
 
 
 		//result = glDrv._JobCreate();
@@ -1277,6 +1295,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				Gdiplus::Status status;
 				if ((status = Gdiplus::GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL)) != Gdiplus::Ok)
 				{
+					if (imgBuffer)
+						delete imgBuffer;
 					return RETSCAN_ERROR;
 				}
 
@@ -1564,6 +1584,7 @@ BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
 				if (status[0] == 'J'
 					&& status[1] == 'D'
 					&& status[2] == 'A'
+					&& status[3] == 'T'
 					&& status[4] == 0x00)
 				{
 					*re_status = RETSCAN_OK;
@@ -1759,6 +1780,83 @@ USBAPI_API BYTE __stdcall GetPowerSupply()
 		}
 	}
 	return power;
+
+}
+
+USBAPI_API BYTE __stdcall GetButtonPressed()
+{
+	BYTE pressed = 0;
+	CGLDrv glDrv;
+	char interfaceName[32] = { 0 };
+	if (g_connectMode_usb == 1)
+	{
+		HANDLE hDev = NULL;
+		TCHAR strPort[32] = { 0 };
+		int  iCnt;
+		int error = 0;
+
+		for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++)
+		{
+			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
+
+			hDev = CreateFile(strPort,
+				GENERIC_READ | GENERIC_WRITE,
+				FILE_SHARE_READ | FILE_SHARE_WRITE,
+				NULL,
+				OPEN_EXISTING,
+				FILE_FLAG_OVERLAPPED, NULL);
+
+			if (hDev != INVALID_HANDLE_VALUE)
+			{
+				break;
+			}
+			else
+			{
+				error = GetLastError();
+			}
+		}
+
+		if (hDev == INVALID_HANDLE_VALUE)
+		{
+			return 0;
+		}
+
+		if (hDev != INVALID_HANDLE_VALUE)
+		{
+			CloseHandle(hDev);
+		}
+
+		if (glDrv._OpenUSBDevice(strPort) != FALSE)
+		{
+			pressed = glDrv._GetButtonPressed();
+			glDrv._CloseDevice();
+		}
+	}
+	//else
+	//{
+	//	Scan_RET re_status = RETSCAN_OK;
+
+	//	if (TestIpConnected1(g_ipAddress, &re_status) == TRUE)
+	//	{
+	//		if (re_status != RETSCAN_BUSY)
+	//		{
+	//			if (glDrv._OpenDevice(g_ipAddress) == TRUE)
+	//			{
+	//				if (!glDrv.NetScanReady())
+	//				{
+
+	//				}
+	//				else
+	//				{
+	//					pressed = glDrv._GetButtonPressed();
+	//				}
+	//				glDrv._CloseDevice();
+	//			}
+	//		}
+
+	//	}
+	//}
+	return pressed;
 
 }
 
@@ -1959,7 +2057,8 @@ USBAPI_API int __stdcall DoCalibration()
 
 	read_from_ini();
 
-	if (!CMDIO_OpenDevice()) {
+	if (!CMDIO_OpenDevice()) 
+	{
 		return nResult;
 	}
 

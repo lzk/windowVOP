@@ -172,32 +172,32 @@ namespace VOP
         {
             ImageButton2 btn = sender as ImageButton2;
 
-#if DEBUG
-            if (true)
-            {
-                OpenFileDialog open1 = null;
-                bool? result1 = null;
-                open1 = new OpenFileDialog();
-                open1.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
-                open1.Multiselect = true;
+//#if DEBUG
+//            if (true)
+//            {
+//                OpenFileDialog open1 = null;
+//                bool? result1 = null;
+//                open1 = new OpenFileDialog();
+//                open1.Filter = "All Images|*.jpeg;*.jpg;*.bmp;*.png;*.tif|JPEG|*.jpeg;*.jpg|BMP|*.bmp|PNG|*.png|TIFF|*.tif";
+//                open1.Multiselect = true;
 
-                result1 = open1.ShowDialog();
-                if (result1 == true)
-                {
-                    QRCodeDetection qrcodeDetection = new QRCodeDetection(new List<string>(open1.FileNames));
-                    if (btn.Name == "ImageButton1")
-                    {
-                        qrcodeDetection.ExcuteDecode(m_MainWin);
-                    }
-                    else
-                    {
-                        qrcodeDetection.ExcuteSeparation(m_MainWin);
-                    }
+//                result1 = open1.ShowDialog();
+//                if (result1 == true)
+//                {
+//                    QRCodeDetection qrcodeDetection = new QRCodeDetection(new List<string>(open1.FileNames));
+//                    if (btn.Name == "ImageButton1")
+//                    {
+//                        qrcodeDetection.ExcuteDecode(m_MainWin);
+//                    }
+//                    else
+//                    {
+//                        qrcodeDetection.ExcuteSeparation(m_MainWin);
+//                    }
 
-                }
-                return;
-            }
-#endif
+//                }
+//                return;
+//            }
+//#endif
             m_MainWin._bScanning = true;
             ScanTask task = new ScanTask();
             ScanParam param = new ScanParam(
@@ -312,10 +312,10 @@ namespace VOP
             App.gPushScan = false;
         }
 
-        private void ScanToButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        public void ScanToButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             m_MainWin._bScanning = true;
-            ImageButton2 btn = sender as ImageButton2;
+           // ImageButton2 btn = sender as ImageButton2;
 
             ScanTask task = new ScanTask();
             List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_commonScanSettings);
@@ -327,7 +327,16 @@ namespace VOP
                 if (task.ScanResult == Scan_RET.RETSCAN_OK)
                 {
                     //List<ScanFiles> files = new List<ScanFiles>();
-                    //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1 error.JPG"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\1.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\2.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\3.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\4.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\5.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\6.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\7.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\8.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\9.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\10.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848000A.jpg"));
@@ -340,14 +349,13 @@ namespace VOP
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\a5_2.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000C.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000D.jpg"));
+                    //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1 error.JPG"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\1.JPG"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\debug\qrcode fail.JPG"));
                     //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\1.JPG"));
                     //files.Add(new ScanFiles(@"I:\work\CODE\Faroe VOP\Install\Faroe_WinVOP_v1007_170905\Faroe_WinVOP_v1007_170905\2.JPG"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592995421_C200_A00.JPG"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0592601031_C300_A00.JPG"));
                     //files.Add(new ScanFiles(@"G:\work\Rufous\pic\0529016859_C300_A00_180.JPG"));

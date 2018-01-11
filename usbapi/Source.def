@@ -75,3 +75,4 @@ EXPORTS
 	CheckConnectionByName
 	CheckUsbScanByName
 	GetPowerSupply
+	GetButtonPressed
