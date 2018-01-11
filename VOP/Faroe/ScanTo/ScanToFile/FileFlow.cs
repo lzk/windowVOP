@@ -42,6 +42,7 @@ namespace VOP
         private ManualResetEvent asyncEvent = new ManualResetEvent(false);
         private bool isNeededProgress = false;
 
+        //add by yunying shang 2018-01-11 for BMS 2040
         public static long GetHardDiskSpace(string str_HardDiskName)
         {
             string str = str_HardDiskName;
@@ -70,7 +71,7 @@ namespace VOP
 
             return totalSize;
 
-        }
+        }//<<========================2040
 
         public bool Run()
         {
@@ -187,6 +188,7 @@ namespace VOP
 
             if (result == true)
             {
+                //add by yunying shang 2018-01-11 for BMS 2040
                 long totalsize = 0;
                 foreach (string filePath in FileList)
                 {
@@ -201,7 +203,7 @@ namespace VOP
                 {
                     return ScanFileSaveError.FileSave_OutOfMemory;
                 }
-                else
+                else//<<==================2040
                 {
 
                     Thread thread = new Thread(() =>
