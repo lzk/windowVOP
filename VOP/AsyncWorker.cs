@@ -284,7 +284,7 @@ namespace VOP
                     scanPbw.ShowDialog();
                 }
 
-                if (result.AsyncWaitHandle.WaitOne(100, false))
+                if (result.AsyncWaitHandle.WaitOne(200, false))
                 {
                     return caller.EndInvoke(out fileNames, result);
                 }

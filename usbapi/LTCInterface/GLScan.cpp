@@ -1372,7 +1372,7 @@ BYTE CGLDrv::_GetButtonPressed()
 
 	if (!result || !buf[0] ) 
 	{
-		MyOutputString(L"Get Button PressedError");
+		//MyOutputString(L"Get Button PressedError");
 		result = 0;
 		goto exit_info;
 	}

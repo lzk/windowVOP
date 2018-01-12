@@ -120,6 +120,7 @@ namespace VOP
                 Application.Current.MainWindow,
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_not_enough"),
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                return false;
             }
             else
             {

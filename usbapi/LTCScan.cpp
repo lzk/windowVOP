@@ -571,7 +571,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 			return RETSCAN_BUSY;
 		}
-
+		MyOutputString(L"Check Net Busy");
+		
 		scanRet = ScannerStatusCheck(glDrv, START_STAGE);
 
 		if (scanRet != RETSCAN_OK)
@@ -582,7 +583,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			glDrv._CloseDevice();
 			return scanRet;
 		}
-
+		MyOutputString(L"Check Device Status");
 	/*	result = glDrv.paperReady();
 		if (!result) {
 
@@ -592,7 +593,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			return RETSCAN_PAPER_NOT_READY;
 		}
 		MyOutputString(L"paperReady");*/
-
+		
 		BYTE power_mode = glDrv._GetPowerSupply();
 		if (1 < power_mode )
 		{
@@ -621,6 +622,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				return RETSCAN_ERROR_POWER2;
 			}
 		}
+		MyOutputString(L"Check Power Mode");
 
 		if (!glDrv._JobCreate(JOB_ADF, g_connectMode_usb))
 		{
@@ -728,7 +730,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			glDrv._CloseDevice();
 			return RETSCAN_ERRORPARAMETER;
 		}	
-
+		MyOutputString(L"Set Gamma");
 	/*	unsigned int gGammaData[768];
 
 		for (int i = 0; i < 256; i++) {
@@ -1159,7 +1161,6 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 							}
 						}
 						
-						
 						ImgFile_Open(&ImgFile[dup], fileName);
 						lineCount = 0;
 
@@ -1208,6 +1209,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 							}
 						}
 					}
+
 					if ((TotalImgSize >= (int)glDrv.sc_infodata.ValidPageSize[dup]) && glDrv.sc_infodata.ImgStatus[dup].EndPage)
 					{
 						//add by yunying shang 2017-10-12 for BMS1082
@@ -1379,7 +1381,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 	if (imgBuffer)
 		delete imgBuffer;
-
+	MyOutputString(L"SCan Finished!");
 	return RETSCAN_OK;
 
 }
@@ -1678,8 +1680,8 @@ USBAPI_API void __stdcall SetConnectionMode(
 
 USBAPI_API BOOL __stdcall CheckConnectionByName(WCHAR* interfaceName)
 {
-	MyOutputString(L"CheckConnectionByName===>Enter");
-	MyOutputString(interfaceName);
+	//MyOutputString(L"CheckConnectionByName===>Enter");
+	//MyOutputString(interfaceName);
 	if (g_connectMode_usb)
 	{
 		HANDLE hDev = NULL;

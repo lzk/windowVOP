@@ -464,13 +464,14 @@ namespace VOP
                     }
                 }
 
-                if (bConnect && MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
-                {
-                    if (dll.GetButtonPressed() == 1)
-                    {
-                        Win32.PostMessage((IntPtr)0xffff, App.WM_BUTTON_PRESSED, IntPtr.Zero, IntPtr.Zero);
-                    }
-                }
+               //marked by yunying shang, this button command could not be used on SW
+                //if (bConnect && MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
+                //{
+                //    if (dll.GetButtonPressed() == 1)
+                //    {
+                //        Win32.PostMessage((IntPtr)0xffff, App.WM_BUTTON_PRESSED, IntPtr.Zero, IntPtr.Zero);
+                //    }
+                //}
                 for (int i = 0; i < 6; i++)
                 {
                     if (_bExitUpdater)
