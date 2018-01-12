@@ -449,9 +449,9 @@ namespace VOP
 
                 totalsize += fileInfo.Length;
             }
-
+            totalsize = totalsize / (1024 * 1024);
             long size = GetHardDiskSpace(MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_FileScanSettings.FilePath);
-            if (totalsize > size)
+            if (totalsize > size || totalsize * 5 > size)
             {
                 return ScanFileSaveError.FileSave_OutOfMemory;
             }

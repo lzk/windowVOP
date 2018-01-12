@@ -107,14 +107,23 @@ BYTE CGLDrv::_OpenDevice()
 	{
 		//return (BYTE)(m_GLnet->CMDIO_Connect(g_ipAddress));
 
-		if (_LOCK(g_ipAddress) == 1)
+		int count = 3;
+		while (count-- > 0)
 		{
-			return (BYTE)(m_GLnet->CMDIO_Connect(g_ipAddress));
+			if (_LOCK(g_ipAddress) == 1)
+			{
+				if (m_GLnet->CMDIO_Connect(g_ipAddress) > 0)
+				{
+					return TRUE;
+				}
+				else
+				{
+					_UNLOCK(g_ipAddress);
+				}
+			}
 		}
-		else
-		{
-			return FALSE;
-		}
+
+		return 0xFF;
 	}
 }
 

@@ -559,7 +559,8 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	}
 	
 	MyOutputString(L"ADF Enter");
-	if (glDrv._OpenDevice() == TRUE)
+	BYTE openRet = FALSE;
+	if ((openRet = glDrv._OpenDevice()) == TRUE)
 	{
 		Scan_RET scanRet = RETSCAN_OK;
 
@@ -1366,7 +1367,6 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				delete imgBuffer;
 			return scanRet;
 		}
-
 	}
 	else
 	{
@@ -1376,7 +1376,12 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		if(g_connectMode_usb == TRUE)
 			return RETSCAN_OPENFAIL;
 		else
-			return RETSCAN_OPENFAIL_NET;
+		{
+			if (openRet == 0xFF)
+				return RETSCAN_BUSY;
+			else
+				return RETSCAN_OPENFAIL_NET;
+		}
 	}
 
 	if (imgBuffer)
