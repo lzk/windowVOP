@@ -45,6 +45,7 @@ namespace VOP
                     return false;
             }
 
+
             if (FlowType == CloudFlowType.View)
             {
                 bReset = MainWindow_Rufous.g_settingData.m_bNeedReset;
