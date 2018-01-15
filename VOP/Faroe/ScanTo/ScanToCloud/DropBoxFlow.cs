@@ -44,7 +44,7 @@ namespace VOP
                     return false;
             }
                 
-            DropboxCertHelper.InitializeCertPinning();
+//            DropboxCertHelper.InitializeCertPinning();
 
             var accessToken = this.GetAccessToken();
             if (string.IsNullOrEmpty(accessToken))
