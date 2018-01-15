@@ -130,6 +130,9 @@ namespace VOP
         GetIpv6Info             = 16,
         SetIpv6Info             = 17,
         DoCalibration           = 18,
+        GetPowerSupply          = 19,
+        GetScanCount            = 20,
+        ClearScanCount          = 21,
     }
 
     /// <summary>

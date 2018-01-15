@@ -1601,3 +1601,61 @@ BYTE CGLDrv::_UNLOCK(LPCTSTR szIP)
 
 	return nResult;
 }
+
+int CGLDrv::NVRAM_read(unsigned char addr, unsigned int len, unsigned char *data)
+{
+	int result;
+	U8 cmd[8] = { 'R','E','E','P' , 0,0,0,0 };
+	U8 status[8];
+
+	cmd[4] = addr;
+	cmd[5] = len;
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
+			m_GLusb->CMDIO_BulkReadEx(0, status, sizeof(status)) &&
+			(M32(&status[0]) == I3('STA')) && (status[4] == 'A');
+
+		if (result)
+			result = m_GLusb->CMDIO_BulkReadEx(0, data, len);
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(cmd, sizeof(cmd)) &&
+			m_GLnet->CMDIO_Read(status, sizeof(status)) &&
+			(M32(&status[0]) == I3('STA')) && (status[4] == 'A');
+
+		if (result)
+			result = m_GLnet->CMDIO_Read(data, len);
+	}
+
+	return result;
+}
+
+int CGLDrv::NVRAM_write(unsigned char addr, unsigned int len, unsigned char *data)
+{
+	int result;
+	U8 cmd[8] = { 'W','E','E','P' , 0,0,0,0 };
+	U8 status[8];
+
+	cmd[4] = addr;
+	cmd[5] = len;
+
+	if (g_connectMode_usb == TRUE)
+	{
+		result = m_GLusb->CMDIO_BulkWriteEx(0, cmd, sizeof(cmd)) &&
+			m_GLusb->CMDIO_BulkWriteEx(0, data, len) &&
+			m_GLusb->CMDIO_BulkReadEx(0, status, sizeof(status)) &&
+			(M32(&status[0]) == I3('STA')) && (status[4] == 'A');
+	}
+	else
+	{
+		result = m_GLnet->CMDIO_Write(cmd, sizeof(cmd)) &&
+			m_GLnet->CMDIO_Write(data, len) &&
+			m_GLnet->CMDIO_Read(status, sizeof(status)) &&
+			(M32(&status[0]) == I3('STA')) && (status[4] == 'A');
+	}
+	return result;
+
+}

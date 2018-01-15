@@ -59,11 +59,21 @@ namespace VOP
             m_lastPaperSize1 = m_scanParams.PaperSize;
             m_lastRes = m_scanParams.ScanResolution;
 
-            byte power = dll.GetPowerSupply();
+            //byte power = dll.GetPowerSupply();
 
-            if (power != 0)
+            //if (power != 0)
+            //{
+            //    m_powermode = power;
+            //}
+            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+            PowerModeRecord m_rec = new PowerModeRecord();
+            if (worker.InvokeMethod<PowerModeRecord>("", ref m_rec, DllMethodType.GetPowerSupply, this))
             {
-                m_powermode = power;
+                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+                {
+                    if(m_rec.Mode != 0)
+                        m_powermode = m_rec.Mode;
+                }
             }
 
             if (m_powermode == 1)

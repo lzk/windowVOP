@@ -440,7 +440,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 
 	glDrv.sc_pardata.acquire = ((MultiFeed ? 1 : 0) * ACQ_ULTRA_SONIC) | ((AutoCrop ? 1 : 0) * ACQ_CROP_DESKEW)
-		|  1 * ACQ_NO_GAMMA|((bColorDetect?1:0)*ACQ_DETECT_COLOR)|((bSkipBlankPage?1:0)*ACQ_SKIP_BLANKPAGE);
+		|  0 * ACQ_NO_GAMMA|((bColorDetect?1:0)*ACQ_DETECT_COLOR)|((bSkipBlankPage?1:0)*ACQ_SKIP_BLANKPAGE);
 
 	//glDrv.sc_job_create.mode = I1('D');
 	glDrv.sc_job_create.mode = 0;
@@ -1794,6 +1794,203 @@ USBAPI_API BYTE __stdcall GetPowerSupply()
 	return power;
 
 }
+
+USBAPI_API int __stdcall GetScanCount(byte mode, int* count)
+{
+	BYTE data[4] = { 0 };
+	CGLDrv glDrv;
+	int result = FALSE;
+	int addr = 0x48;
+	switch (mode)
+	{
+	case 0:
+		addr = 0x48;
+		break;
+	case 1:
+		addr = 0x4c;
+		break;
+	case 2:
+		addr = 0x00;
+		break;
+	default:
+		addr = 0x48;
+		break;
+	}
+	if (g_connectMode_usb == 1)
+	{
+		HANDLE hDev = NULL;
+		TCHAR strPort[32] = { 0 };
+		int  iCnt;
+		int error = 0;
+
+		for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++)
+		{
+			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
+
+			hDev = CreateFile(strPort,
+				GENERIC_READ | GENERIC_WRITE,
+				FILE_SHARE_READ | FILE_SHARE_WRITE,
+				NULL,
+				OPEN_EXISTING,
+				FILE_FLAG_OVERLAPPED, NULL);
+
+			if (hDev != INVALID_HANDLE_VALUE)
+			{
+				break;
+			}
+			else
+			{
+				error = GetLastError();
+			}
+		}
+
+		if (hDev == INVALID_HANDLE_VALUE)
+		{
+			return 0;
+		}
+
+		if (hDev != INVALID_HANDLE_VALUE)
+		{
+			CloseHandle(hDev);
+		}
+
+		if (glDrv._OpenUSBDevice(strPort) != FALSE)
+		{
+			if (glDrv.NVRAM_read(addr, 4, data))
+			{
+				*count = *((DWORD*)data);
+				result = true;
+			}
+			glDrv._CloseDevice();
+		}
+	}
+	else
+	{
+		Scan_RET re_status = RETSCAN_OK;
+
+		if (TestIpConnected1(g_ipAddress, &re_status) == TRUE)
+		{
+			if (re_status != RETSCAN_BUSY)
+			{
+				if (glDrv._OpenDevice(g_ipAddress) == TRUE)
+				{
+					if (!glDrv.NetScanReady())
+					{
+
+					}
+					else
+					{
+						if (glDrv.NVRAM_read(addr, 4, data))
+						{
+							*count = (((DWORD)data[3] << 24 & 0xFF000000) + ((DWORD)data[2] << 16 & 0x00FF0000)
+								+ ((DWORD)data[1] << 8 & 0x0000FF00) + (DWORD)data[0] & 0xff);
+							result = TRUE;
+						}
+					}
+					glDrv._CloseDevice();
+				}
+			}
+
+		}
+	}
+	return result;
+}
+
+USBAPI_API int __stdcall ClearScanCount(byte mode)
+{
+	BYTE data[4] = { 0 };
+	CGLDrv glDrv;
+	int result = FALSE;
+	int addr = 0x48;
+	switch (mode)
+	{
+	case 0:
+		addr = 0x48;
+		break;
+	case 1:
+		addr = 0x4c;
+		break;
+	default:
+		addr = 0x48;
+		break;
+	}
+	if (g_connectMode_usb == 1)
+	{
+		HANDLE hDev = NULL;
+		TCHAR strPort[32] = { 0 };
+		int  iCnt;
+		int error = 0;
+
+		for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++)
+		{
+			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
+
+			hDev = CreateFile(strPort,
+				GENERIC_READ | GENERIC_WRITE,
+				FILE_SHARE_READ | FILE_SHARE_WRITE,
+				NULL,
+				OPEN_EXISTING,
+				FILE_FLAG_OVERLAPPED, NULL);
+
+			if (hDev != INVALID_HANDLE_VALUE)
+			{
+				break;
+			}
+			else
+			{
+				error = GetLastError();
+			}
+		}
+
+		if (hDev == INVALID_HANDLE_VALUE)
+		{
+			return 0;
+		}
+
+		if (hDev != INVALID_HANDLE_VALUE)
+		{
+			CloseHandle(hDev);
+		}
+
+		if (glDrv._OpenUSBDevice(strPort) != FALSE)
+		{
+			if (glDrv.NVRAM_write(addr, 4, data))
+			{
+				result = TRUE;
+			}
+			glDrv._CloseDevice();
+		}
+	}
+	else
+	{
+		Scan_RET re_status = RETSCAN_OK;
+
+		if (TestIpConnected1(g_ipAddress, &re_status) == TRUE)
+		{
+			if (re_status != RETSCAN_BUSY)
+			{
+				if (glDrv._OpenDevice(g_ipAddress) == TRUE)
+				{
+					if (!glDrv.NetScanReady())
+					{
+
+					}
+					else
+					{
+						if (glDrv.NVRAM_write(addr, 4, data))
+						{
+							result = TRUE;
+						}
+					}
+					glDrv._CloseDevice();
+				}
+			}
+
+		}
+	}
+	return result;
+}
+
 
 USBAPI_API BYTE __stdcall GetButtonPressed()
 {

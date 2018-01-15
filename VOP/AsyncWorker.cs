@@ -68,9 +68,9 @@ namespace VOP
                                     ushort scale,
                                     byte mediaType);
 
-    
-   
-    
+
+
+
     class AsyncWorker
     {
         private Window owner = null;
@@ -106,14 +106,14 @@ namespace VOP
                 {
                     pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
                     new Action(
-                    delegate()
+                    delegate ()
                     {
                         pbw.Close();
                     }
                     ));
                 }
-            } 
-           
+            }
+
         }
 
         void QuickScanCallbackMethod(IAsyncResult ar)
@@ -147,7 +147,7 @@ namespace VOP
                 {
                     pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
                     new Action(
-                    delegate()
+                    delegate ()
                     {
                         pbw.Close();
                     }
@@ -167,13 +167,13 @@ namespace VOP
                 {
                     scanPbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
                      new Action(
-                     delegate()
+                     delegate ()
                      {
                          scanPbw.Close();
                      }
                      ));
                 }
-            } 
+            }
         }
 
         void QRCodeCallbackMethod(IAsyncResult ar)
@@ -186,7 +186,7 @@ namespace VOP
                 {
                     qr_pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
                      new Action(
-                     delegate()
+                     delegate ()
                      {
                          qr_pbw.Close();
                      }
@@ -260,7 +260,7 @@ namespace VOP
 
         public int InvokeScanMethod(ScanDelegate method, string deviceName, string tempPath,
                                                                       int colorType, int resolution, int width, int height,
-                                                                      int contrast, int brightness, bool ADFMode, bool MultiFeed, bool AutoCrop, bool onepage, 
+                                                                      int contrast, int brightness, bool ADFMode, bool MultiFeed, bool AutoCrop, bool onepage,
                                                                       uint uMsg, bool bColorDetect, bool bSkipBlankPage, double gamma, int type, out string[] fileNames)
         {
 
@@ -270,7 +270,7 @@ namespace VOP
 
                 isNeededProgress = false;
                 asyncEvent.Reset();
-                IAsyncResult result = caller.BeginInvoke(deviceName, tempPath, colorType, resolution, width, height, contrast, brightness, 
+                IAsyncResult result = caller.BeginInvoke(deviceName, tempPath, colorType, resolution, width, height, contrast, brightness,
                                                            ADFMode, MultiFeed, AutoCrop, onepage, uMsg, bColorDetect, bSkipBlankPage, gamma, type, out fileNames,
                                                          new AsyncCallback(ScanCallbackMethod), null);
 
@@ -390,7 +390,7 @@ namespace VOP
                     pbw = new ProgressBarWindow(7);
                     pbw.Owner = this.owner;
                     pbw.Loaded += pbw_Loaded;
-                   
+
                     pbw.ShowDialog();
                     //dll.OutputDebugStringToFile_("CopyPage end ShowDialog()\r\n");
 
@@ -550,31 +550,36 @@ namespace VOP
                 case DllMethodType.SetFusingResetCmd:
                 case DllMethodType.SetIpv6Info:
                 case DllMethodType.DoCalibration:
-                    //string strDrvName = "";
-                    //if (false == common.GetPrinterDrvName(printerName, ref strDrvName))
-                    //{
-                    //    FrameworkElement _this = frameworkElement as FrameworkElement;
-                    //    if (null != _this)
-                    //    {
-                    //        MessageBoxEx_Simple messageBox =
-                    //            new MessageBoxEx_Simple((string)_this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)_this.FindResource("ResStr_Error"));
-                    //        messageBox.Owner = App.Current.MainWindow;
-                    //        messageBox.ShowDialog();
-                    //    }
-                    //    return false;
-                    //}
+                //string strDrvName = "";
+                //if (false == common.GetPrinterDrvName(printerName, ref strDrvName))
+                //{
+                //    FrameworkElement _this = frameworkElement as FrameworkElement;
+                //    if (null != _this)
+                //    {
+                //        MessageBoxEx_Simple messageBox =
+                //            new MessageBoxEx_Simple((string)_this.TryFindResource("ResStr_can_not_be_carried_out_due_to_software_has_error__please_try__again_after_reinstall_the_Driver_and_Virtual_Operation_Panel_"), (string)_this.FindResource("ResStr_Error"));
+                //        messageBox.Owner = App.Current.MainWindow;
+                //        messageBox.ShowDialog();
+                //    }
+                //    return false;
+                //}
 
-                    //if (!((MainWindow_Rufous)App.Current.MainWindow).PasswordCorrect(this.owner))
-                    //{
-                    //    PasswordWindow pw = new PasswordWindow();
-                    //    pw.Owner = App.Current.MainWindow;
-                    //    Nullable<bool> dialogResult = pw.ShowDialog();
+                //if (!((MainWindow_Rufous)App.Current.MainWindow).PasswordCorrect(this.owner))
+                //{
+                //    PasswordWindow pw = new PasswordWindow();
+                //    pw.Owner = App.Current.MainWindow;
+                //    Nullable<bool> dialogResult = pw.ShowDialog();
 
-                    //    if (dialogResult != true)
-                    //    {
-                    //        return false;
-                    //    }
-                    //}
+                //    if (dialogResult != true)
+                //    {
+                //        return false;
+                //    }
+                //}
+                case DllMethodType.GetPowerSupply:
+                    break;
+                case DllMethodType.GetScanCount:
+                    break;
+                case DllMethodType.ClearScanCount:
                     break;
             }
 
@@ -632,6 +637,15 @@ namespace VOP
                         break;
                     case DllMethodType.DoCalibration:
                         record = (T)(dynamic)DoCalibration((dynamic)record);
+                        break;
+                    case DllMethodType.GetPowerSupply:
+                        record = (T)(dynamic)GetPowerSupply();
+                        break;
+                    case DllMethodType.GetScanCount:
+                        record = (T)(dynamic)GetScanCount();
+                        break;
+                    case DllMethodType.ClearScanCount:
+                        record = (T)(dynamic)ClearScanCount((ScanCountRecord)(dynamic)record);
                         break;
                     default: break;
                 }
@@ -967,11 +981,11 @@ namespace VOP
             Int16 offTime = 0;
 
             int result = dll.GetPowerSaveTime(printerName, ref sleepTime, ref offTime);
- 
+
             rec.PrinterName = printerName;
             rec.SleepTime = sleepTime;
             rec.OffTime = offTime;
-    
+
             rec.CmdResult = (EnumCmdResult)result;
 
             return rec;
@@ -1187,6 +1201,89 @@ namespace VOP
         }
 
 
+        public PowerModeRecord GetPowerSupply()
+        {
+            PowerModeRecord rec = new PowerModeRecord();
+
+            Byte result = dll.GetPowerSupply();
+
+            if (result != 0)
+            {
+                rec.Mode = result;
+                rec.CmdResult = EnumCmdResult._ACK;
+            }
+            else
+            {
+                rec.CmdResult = EnumCmdResult._CMD_invalid;
+            }
+
+            return rec;
+        }
+
+
+        public ScanCountRecord GetScanCount()
+        {
+            ScanCountRecord rec = new ScanCountRecord();
+
+            int count = 0;
+            int result = dll.GetScanCount(0, ref count);
+
+            rec.CmdResult = EnumCmdResult._ACK;
+
+            if (result != 0)
+            {       
+                rec.RollerCount = count;
+                                      
+                rec.CmdResult = EnumCmdResult._ACK;
+            }
+            else
+            {
+                rec.CmdResult = EnumCmdResult._CMD_invalid;
+            }
+
+            result = dll.GetScanCount(1, ref count);
+
+            if (result != 0)
+            {
+                rec.ACMCount = count;
+            }
+            else
+            {
+                rec.CmdResult = EnumCmdResult._CMD_invalid;
+            }
+
+            result = dll.GetScanCount(2, ref count);
+
+            if (result != 0)
+            {
+                rec.SCanCount = count;
+            }
+            else
+            {
+                rec.CmdResult = EnumCmdResult._CMD_invalid;
+            }
+
+            return rec;
+        }
+
+        public ScanCountRecord ClearScanCount(ScanCountRecord rec)
+        {
+            ScanCountRecord rec1 = new ScanCountRecord();
+
+            int count = 0;
+            int result = dll.ClearScanCount(rec.Mode);
+
+            if (result != 0)
+            {
+                rec1.CmdResult = EnumCmdResult._ACK;
+            }
+            else
+            {
+                rec1.CmdResult = EnumCmdResult._CMD_invalid;
+            }
+
+            return rec;
+        }
     }
 
     public class BaseRecord : INotifyPropertyChanged
@@ -1542,7 +1639,7 @@ namespace VOP
         private sbyte lowHumidityMode;
         private sbyte platecontrolmode;
         private sbyte primarycoolingmode;
- 
+
         private EnumCmdResult cmdResult;
 
 
@@ -1878,7 +1975,7 @@ namespace VOP
 
     }
 
- 	public class IPV6InfoRecord : BaseRecord
+    public class IPV6InfoRecord : BaseRecord
     {
         private byte byDHCPv6;
         private byte byUseManualAddress;    //0 Disabled,1 Enabled
@@ -2064,9 +2161,9 @@ namespace VOP
 
     public class UserCenterInfoRecord : BaseRecord
     {
-        private uint    _totalCounter;
-        private string  _2ndSerialNO;
-        private string  _serialNO4AIO;
+        private uint _totalCounter;
+        private string _2ndSerialNO;
+        private string _serialNO4AIO;
 
         public uint TotalCounter
         {
@@ -2104,7 +2201,7 @@ namespace VOP
             _totalCounter = 0;
             _2ndSerialNO = "";
             _serialNO4AIO = "";
-       
+
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
@@ -2118,5 +2215,69 @@ namespace VOP
             cmdResult = EnumCmdResult._CMD_invalid;
         }
 
+    }
+
+
+    public class PowerModeRecord : BaseRecord
+    {
+        private Byte _mode;
+
+        public Byte Mode
+        {
+            get { return _mode; }
+            set
+            {
+                if (value != _mode)
+                    _mode = value;
+            }
+        }
+    }
+
+    public class ScanCountRecord : BaseRecord
+    {
+        private int _rollerCount;
+        private int _ACMCount;
+        private int _scanCount;
+        private Byte _mode;
+
+        public int RollerCount
+        {
+            get { return _rollerCount; }
+            set
+            {
+                if (value != _rollerCount)
+                    _rollerCount = value;
+            }
+        }
+
+        public int ACMCount
+        {
+            get { return _ACMCount; }
+            set
+            {
+                if (value != _ACMCount)
+                    _ACMCount = value;
+            }
+        }
+
+        public int SCanCount
+        {
+            get { return _scanCount; }
+            set
+            {
+                if (value != _scanCount)
+                    _scanCount = value;
+            }
+        }
+
+        public Byte Mode
+        {
+            get { return _mode; }
+            set
+            {
+                if (value != _mode)
+                    _mode = value;
+            }
+        }
     }
 }

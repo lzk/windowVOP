@@ -85,6 +85,24 @@ namespace VOP
             else
                 btnCalibration.IsEnabled = false;
 
+            ScanCountRecord rec = new ScanCountRecord();
+
+            if (_bDisplayProgressBar)
+            {
+                worker.InvokeMethod<ScanCountRecord>(strPrinterName, ref rec, DllMethodType.GetScanCount, this);
+            }
+            else
+            {
+                rec = worker.GetScanCount();
+            }
+
+            if (null != rec && rec.CmdResult == EnumCmdResult._ACK)
+            {
+                tbRollerCount.Text = Convert.ToString(rec.RollerCount);
+                tbACMCount.Text = Convert.ToString(rec.ACMCount);
+                tbSCanCount.Text = Convert.ToString(rec.SCanCount);
+            }
+
             // UpdateApplyBtnStatus();
         }
 
@@ -375,5 +393,37 @@ namespace VOP
             apply();
         }
 
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+
+            if (btn.Name == "btnClear1")
+            {
+                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+                ScanCountRecord rec = new ScanCountRecord();
+                rec.Mode = 0;
+                if (worker.InvokeMethod<ScanCountRecord>("", ref rec, DllMethodType.ClearScanCount, this))
+                {
+                    if (null != rec && rec.CmdResult == EnumCmdResult._ACK)
+                    {
+                        tbRollerCount.Text = "0";
+                    }
+                }
+            }
+            else
+            {
+                AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+                ScanCountRecord rec = new ScanCountRecord();
+                rec.Mode = 1;
+                if (worker.InvokeMethod<ScanCountRecord>("", ref rec, DllMethodType.ClearScanCount, this))
+                {
+                    if (null != rec && rec.CmdResult == EnumCmdResult._ACK)
+                    {
+                        tbACMCount.Text = "0";
+                    }
+                }
+            }
+            
+        }
     }
 }

@@ -258,20 +258,24 @@
 
             <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="135"></RowDefinition>
-                    <RowDefinition Height="135"></RowDefinition>
+                    <RowDefinition Height="120"></RowDefinition>
+                    <RowDefinition Height="160"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"></ColumnDefinition>
-                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <GroupBox x:Name="groupBox" Grid.Row="0" Grid.ColumnSpan="3" Header="Auto Sleep Time" HorizontalAlignment="Left" 
-                          Height="115" Margin="10,10,0,0" VerticalAlignment="Top" Width="435" FontWeight="Bold">                    
-                </GroupBox>
-                <local:SpinnerControl x:Name="spinnerControlAutoSleep" Style="{StaticResource SpinnerControl1}"
-        	Width="300" 
+                <GroupBox x:Name="groupBox" Grid.Row="0" Grid.Column="0" Header="Auto Sleep Time" HorizontalAlignment="Center" 
+                          Height="100" VerticalAlignment="Center" Width="210" FontWeight="Bold">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="35"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <local:SpinnerControl x:Name="spinnerControlAutoSleep" Style="{StaticResource SpinnerControl1}"
+        	Width="160" 
         	Background="Transparent"
         	Change="1"
         	DecimalPlaces="0"
@@ -283,15 +287,24 @@
         	ValueChanged="spinnerControl_ValueChanged"     
         	LostFocus="AutoSleepSpinnerTextBox_LostFocus" 
                                       ValidationHasErrorChanged="OnValidationHasErrorChanged"
-            Height="44" Grid.Column="0" Grid.Row="0" FontWeight="Bold" Grid.ColumnSpan="3" 
+            Height="50" Grid.Column="0" Grid.Row="1" FontWeight="Bold"  
                             />
-
-                <TextBlock x:Name="labelAutoSleep" Text="(0-60 Minutes)" Grid.Row="0" Foreground="Black"
+                        <TextBlock x:Name="labelAutoSleep" Text="(0-60 Minutes)" Grid.Row="2" Foreground="Black"
                     HorizontalAlignment="Center" 
-                   Height="30" Margin="0,0,0,10"  VerticalAlignment="Bottom" Width="100" FontSize="14" Grid.ColumnSpan="3"/>
-
-                <local:SpinnerControl x:Name="spinnerControlAutoOff" Style="{StaticResource SpinnerControl2}"
-                	Width="300" 
+                   Height="30" Margin="0,0,0,0"  VerticalAlignment="Bottom" Width="100" FontSize="14"/>
+                    </Grid>
+                </GroupBox>
+                <GroupBox x:Name="groupBox_Copy" Grid.Column="1" Header="Auto Off Time" HorizontalAlignment="Center" Height="100"
+                          VerticalAlignment="Center" Width="210" Grid.Row="0" FontWeight="Bold">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="35"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        
+                        <local:SpinnerControl x:Name="spinnerControlAutoOff" Style="{StaticResource SpinnerControl2}"
+                	Width="160" 
                 	Background="Transparent"
                 	Change="1"
                 	DecimalPlaces="0"
@@ -303,14 +316,73 @@
                 	ValueChanged="spinnerControl_ValueChanged"     
                 	LostFocus="AutoOffSpinnerTextBox_LostFocus"  
                                       ValidationHasErrorChanged="OnValidationHasErrorChanged"
-                	Height="44" Grid.Column="0" Grid.Row="1" FontWeight="Bold" Grid.ColumnSpan="3"
+                	Height="44" Grid.Column="0" Grid.Row="1" FontWeight="Bold"
                             />
-                <TextBlock x:Name="labelAutoOff" Text="(0-4 Hours)" Grid.Row="1"
+                        <TextBlock x:Name="labelAutoOff" Text="(0-4 Hours)" Grid.Row="2"
                 	HorizontalAlignment="Center" Foreground="Black"
-                	Height="30" Margin="0,0,0,10"  VerticalAlignment="Bottom" Width="80" FontSize="14" Grid.ColumnSpan="3"/>
-
-
-                <GroupBox x:Name="groupBox_Copy" Grid.ColumnSpan="3" Header="Auto Off Time" HorizontalAlignment="Left" Height="115" Margin="10,10,0,0" VerticalAlignment="Top" Width="435" Grid.Row="1" FontWeight="Bold"/>
+                	Height="30" Margin="0,0,0,0"  VerticalAlignment="Bottom" Width="80" FontSize="14"/>
+                    </Grid>
+                </GroupBox>
+                <GroupBox x:Name="gbLifeCount" Grid.ColumnSpan="2" Header="Life Count" HorizontalAlignment="Left"
+                          Height="150" Margin="10,0,0,10" 
+                          VerticalAlignment="Top" Width="435" Grid.Row="1" FontWeight="Bold">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"></ColumnDefinition>
+                            <ColumnDefinition Width="80"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="tbRoller" Text="{StaticResource ResStr_Roller_Count}" Grid.Row="0" Grid.Column="0"
+                	HorizontalAlignment="Left" Foreground="Black"
+                	Margin="5,0,0,0"  VerticalAlignment="Center" FontSize="12"/>
+                        <TextBlock x:Name="tbRollerCount" Text="0" Grid.Row="0" Grid.Column="1"
+                	HorizontalAlignment="Center" Foreground="Black" FontWeight="Normal"
+                	Margin="0,0,0,0"  VerticalAlignment="Center" FontSize="14"/>
+                        <Button x:Name="btnClear1"
+                            Click="btnClear_Click" 
+                            Content="{StaticResource ResStr_Clear}" 
+                            Style="{StaticResource CustomSettingButtonStyle}"
+                            FontSize="12" FontWeight="Normal" 
+                            Grid.Row="0" 
+                            Grid.Column="2" 
+                            HorizontalAlignment="Left" 
+                            HorizontalContentAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            Width="80" 
+                            Height="25"
+                            Margin="10,0,0,0"></Button>
+                        <TextBlock x:Name="tbACM" Text="{StaticResource ResStr_ACM_Count}" Grid.Row="1" Grid.Column="0"
+                	HorizontalAlignment="Left" Foreground="Black"
+                	 Margin="5,0,0,0"  VerticalAlignment="Center" FontSize="12"/>
+                        <TextBlock x:Name="tbACMCount" Text="0" Grid.Row="1" Grid.Column="1"
+                	HorizontalAlignment="Center" Foreground="Black" FontWeight="Normal"
+                	Margin="0,0,0,0"  VerticalAlignment="Center" FontSize="14"/>
+                        <Button x:Name="btnClear2"
+                            Click="btnClear_Click" 
+                            Content="{StaticResource ResStr_Clear}" 
+                            Style="{StaticResource CustomSettingButtonStyle}"
+                            FontSize="12" FontWeight="Normal" 
+                            Grid.Row="1" 
+                            Grid.Column="2" 
+                            HorizontalAlignment="Left" 
+                            HorizontalContentAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            Width="80" 
+                            Height="25"
+                            Margin="10,0,0,0"></Button>
+                        <TextBlock x:Name="tbScan" Text="{StaticResource ResStr_Scan_Count}" Grid.Row="2" Grid.Column="0"
+                	HorizontalAlignment="Left" Foreground="Black"
+                	Margin="5,0,0,0"  VerticalAlignment="Center" FontSize="12"/>
+                        <TextBlock x:Name="tbSCanCount" Text="0" Grid.Row="2" Grid.Column="1"
+                	HorizontalAlignment="Center" Foreground="Black" FontWeight="Normal"
+                	Margin="0,0,0,0"  VerticalAlignment="Center" FontSize="14"/>
+                    </Grid>
+                </GroupBox>
             </Grid>
             <!--<Button x:Name="btnApply" Content="{StaticResource ResStr_Apply}" Grid.Column="1" HorizontalAlignment="Center" Height="22" Margin="127,40,132,0" Grid.Row="5" VerticalAlignment="Top" Width="118" FontSize="13.333" Click="btnApply_Click_1"/>-->
             <Button x:Name="btnApply"

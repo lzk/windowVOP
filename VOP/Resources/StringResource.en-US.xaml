@@ -534,4 +534,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Create_Folder_fail">Create Folder: {0} fail!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Switch_Evernote_Restart_VOP1">Please restart the VOP to log on EverNote manually!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Fail_not_enough">There is insufficient memory or disk space to complete the operation.Please free up some memory or disk space, then try again. </sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Clear">Clear</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Roller_Count">Restart Roller Count :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ACM_Count">ACM Count :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scan_Count">Scan Count :</sys:String>
 </ResourceDictionary>
