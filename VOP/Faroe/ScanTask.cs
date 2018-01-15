@@ -217,6 +217,8 @@ next:
             sw.Stop();
             ScanResult = (Scan_RET)nResult;
 
+            string error = string.Format("ScanResult is {0}", ScanResult);
+            Win32.OutputDebugString(error);
             if (ScanResult != Scan_RET.RETSCAN_OK)
             {
                 if (ScanResult == Scan_RET.RETSCAN_OPENFAIL)
@@ -306,8 +308,15 @@ next:
                                );
                     if (VOP.Controls.MessageBoxExResult.Yes == ret)
                     {
-                        param.ADFMode = false;
+                        //modified by yunying shang 2018-01-09 for BMS 2021
+                        //param.ADFMode = false;
                         param.AutoCrop = false;
+                       // param.MultiFeed = false;
+                       //<<==================2021
+                        if (param.PaperSize == EnumPaperSizeScan._LongPage)
+                            param.PaperSize = EnumPaperSizeScan._Auto;
+                        if (param.ScanMediaType > 0)
+                            param.ScanMediaType = 0;
                         goto next;
                     }
                 }
@@ -325,13 +334,18 @@ next:
                     {
                         VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon1,
                                    Application.Current.MainWindow,
-                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bank"),
+                                   (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bus"),
                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
                                    );
                         if (VOP.Controls.MessageBoxExResult.Yes == ret)
                         {
                             param.ADFMode = false;
                             param.AutoCrop = false;
+                            param.MultiFeed = false;
+                            if (param.PaperSize == EnumPaperSizeScan._LongPage)
+                                param.PaperSize = EnumPaperSizeScan._Auto;
+                            if (param.ScanMediaType > 0)
+                                param.ScanMediaType = 0;
                             goto next;
                         }
                     }

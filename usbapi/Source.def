@@ -75,3 +75,6 @@ EXPORTS
 	CheckConnectionByName
 	CheckUsbScanByName
 	GetPowerSupply
+	GetButtonPressed
+	ClearScanCount
+	GetScanCount

@@ -202,6 +202,7 @@ namespace VOP
             {
                 Properties.Settings.Default.Reset();
                 m_scanToCloudParams.DefaultPath = SavePathTbx.Text = "/";
+                m_scanToCloudParams.NeedReset = true;
             }
             else if (m_scanToCloudParams.SaveType == "EverNote")
             {
@@ -251,7 +252,7 @@ namespace VOP
                 }
                 else
                 {
-                    m_scanToCloudParams.SaveType = "GooleDrive";
+                    m_scanToCloudParams.SaveType = "GoogleDrive";
                     m_scanToCloudParams.DefaultGoogleDrivePath = SavePathTbx.Text;//add by yunying shang 2017-11-08 for BMS 1326
                     
                 }
@@ -355,7 +356,7 @@ namespace VOP
                 }
                 else
                 {
-                    m_scanToCloudParams.SaveType = "GooleDrive";
+                    m_scanToCloudParams.SaveType = "GoogleDrive";
                     tbNoteTitle.IsEnabled = false;
                     tbNoteTitle.Visibility = System.Windows.Visibility.Hidden;
                     tbNote.IsEnabled = false;

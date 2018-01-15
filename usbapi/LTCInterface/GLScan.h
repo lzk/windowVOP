@@ -46,6 +46,11 @@ public:
 	BYTE _InitializeScanner();
 	BYTE _CheckScanningMode();
 	BYTE _GetPowerSupply();
+	BYTE _GetButtonPressed();
+	BYTE _LOCK(LPCTSTR szIP);
+	BYTE _UNLOCK(LPCTSTR szIP);
+	int  NVRAM_read(unsigned char addr, unsigned int len, unsigned char *data);
+	int NVRAM_write(unsigned char addr, unsigned int len, unsigned char *data);
 	BYTE _GetPowerSaveTime(WORD* ptrSleepTime, WORD* ptrOffTime);
 	BYTE _SetPowerSaveTime(WORD sleepTime, WORD offTime);
 

@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace VOP
 {
-    public partial class ImageItem : UserControl
+    public partial class ImageItem : UserControl//, IDisposable
     {
         public bool m_iSimgReady = false; // false if image has not loaded.
 
@@ -16,6 +16,27 @@ namespace VOP
         {
             InitializeComponent();
         }
+
+        ////销毁类时，会调用析构函数
+        //~ImageItem()
+        //{
+        //    Dispose(false);
+        //}
+
+        //public void Dispose()
+        //{
+        //    Dispose(true);
+        //}
+
+        //protected virtual void Dispose(bool disposing)
+        //{
+        //    if (!disposing)
+        //    {
+        //        return;
+        //    }
+        //    GC.Collect();
+        //    GC.SuppressFinalize(this);
+        //}
 
         private ScanFiles _files;
         public ScanFiles m_images
@@ -140,94 +161,121 @@ namespace VOP
             {
                 //modified by yunying shang 2017-10-24 for BMS 1193
                 //Uri myUri = new Uri(m_images.m_pathThumb, UriKind.RelativeOrAbsolute);
-                using (BinaryReader reader = new BinaryReader(File.Open(m_images.m_pathThumb, FileMode.Open,
-                    FileAccess.ReadWrite, FileShare.ReadWrite)))
-                {
-                    FileInfo fi = new FileInfo(m_images.m_pathThumb);
+                //using (FileStream fs = new FileStream(m_images.m_pathThumb, FileMode.Open))
+                //{
+                //    using (BinaryReader reader = new BinaryReader(fs))//File.Open(m_images.m_pathThumb, FileMode.Open,                                                                //FileAccess.ReadWrite, FileShare.ReadWrite)))
+                //    {
+                //        FileInfo fi = new FileInfo(m_images.m_pathThumb);
 
-                    byte[] bytes = reader.ReadBytes((int)fi.Length);
-                    reader.Close();
-                    reader.Dispose();
+                //        byte[] bytes = reader.ReadBytes((int)fi.Length);
 
-                    using (System.IO.MemoryStream ms = new System.IO.MemoryStream(bytes))
-                    {
-                        //JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
-                        JpegBitmapDecoder decoder = new JpegBitmapDecoder(ms,
-                                    BitmapCreateOptions.PreservePixelFormat,
-                                    BitmapCacheOption.OnLoad);
+                //        using (System.IO.MemoryStream ms = new System.IO.MemoryStream(bytes))
+                //        {
 
-                        BitmapSource bi3 = decoder.Frames[0];
+                //            //JpegBitmapDecoder decoder = new JpegBitmapDecoder(myUri, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.None);
+                //            JpegBitmapDecoder decoder = new JpegBitmapDecoder(ms,
+                //                    BitmapCreateOptions.PreservePixelFormat,
+                //                    BitmapCacheOption.OnLoad);
 
-                        // Begin: Fix 61368
-                        if (m_images.m_colorMode == EnumColorType.black_white)
-                        {
-                            bi3 = BitmapFrame.Create(new TransformedBitmap(bi3, new ScaleTransform(0.1, 0.1)));
+                //            BitmapSource bi3 = decoder.Frames[0];
 
-                            // https://msdn.microsoft.com/en-us/library/system.windows.media.imaging.formatconvertedbitmap(v=vs.100).aspx
+                //            //bi3.Freeze();
 
-                            FormatConvertedBitmap bmpSrc = new FormatConvertedBitmap();
-                            bmpSrc.BeginInit();
-                            bmpSrc.Source = bi3;
-                            bmpSrc.DestinationFormat = PixelFormats.Gray2;
-                            bmpSrc.EndInit();
+                //            // Begin: Fix 61368
+                //            if (m_images.m_colorMode == EnumColorType.black_white)
+                //            {
+                //                bi3 = BitmapFrame.Create(new TransformedBitmap(bi3, new ScaleTransform(0.1, 0.1)));
 
-                            imgBody.Source = bmpSrc;
-                        }
-                        else
-                        {
-                            //scale down image
-                            ScaleTransform scaleTransform = new ScaleTransform();
+                //                // https://msdn.microsoft.com/en-us/library/system.windows.media.imaging.formatconvertedbitmap(v=vs.100).aspx
 
-                            if (bi3.PixelWidth < 2000)
-                            {
-                                scaleTransform.ScaleX = 1.0;
-                                scaleTransform.ScaleY = 1.0;
-                            }
-                            else if (bi3.PixelWidth >= 2000 && bi3.PixelWidth < 3000)
-                            {
-                                scaleTransform.ScaleX = 1.0 / 2.0;
-                                scaleTransform.ScaleY = 1.0 / 2.0;
-                            }
-                            else if (bi3.PixelWidth >= 3000 && bi3.PixelWidth < 4000)
-                            {
-                                scaleTransform.ScaleX = 1.0 / 3.0;
-                                scaleTransform.ScaleY = 1.0 / 3.0;
+                //                FormatConvertedBitmap bmpSrc = new FormatConvertedBitmap();
+                //                bmpSrc.BeginInit();
+                //                bmpSrc.Source = bi3;
+                //                bmpSrc.DestinationFormat = PixelFormats.Gray2;
+                //                bmpSrc.EndInit();
 
-                            }
-                            else if (bi3.PixelWidth >= 4000 && bi3.PixelWidth < 5000)
-                            {
-                                scaleTransform.ScaleX = 1.0 / 4.0;
-                                scaleTransform.ScaleY = 1.0 / 4.0;
-                            }
-                            else if (bi3.PixelWidth >= 5000)
-                            {
-                                scaleTransform.ScaleX = 1.0 / 6.0;
-                                scaleTransform.ScaleY = 1.0 / 6.0;
-                            }
+                //                imgBody.Source = bmpSrc;
+                //            }
+                //            else
+                //            {
+                //                //scale down image
+                //                ScaleTransform scaleTransform = new ScaleTransform();
+
+                //                if (bi3.PixelWidth < 2000)
+                //                {
+                //                    scaleTransform.ScaleX = 1.0;
+                //                    scaleTransform.ScaleY = 1.0;
+                //                }
+                //                else if (bi3.PixelWidth >= 2000 && bi3.PixelWidth < 3000)
+                //                {
+                //                    scaleTransform.ScaleX = 1.0 / 2.0;
+                //                    scaleTransform.ScaleY = 1.0 / 2.0;
+                //                }
+                //                else if (bi3.PixelWidth >= 3000 && bi3.PixelWidth < 4000)
+                //                {
+                //                    scaleTransform.ScaleX = 1.0 / 3.0;
+                //                    scaleTransform.ScaleY = 1.0 / 3.0;
+
+                //                }
+                //                else if (bi3.PixelWidth >= 4000 && bi3.PixelWidth < 5000)
+                //                {
+                //                    scaleTransform.ScaleX = 1.0 / 4.0;
+                //                    scaleTransform.ScaleY = 1.0 / 4.0;
+                //                }
+                //                else if (bi3.PixelWidth >= 5000)
+                //                {
+                //                    scaleTransform.ScaleX = 1.0 / 6.0;
+                //                    scaleTransform.ScaleY = 1.0 / 6.0;
+                //                }
 
 
-                            TransformedBitmap tb = new TransformedBitmap();
-                            tb.BeginInit();
-                            tb.Source = bi3;
-                            tb.Transform = scaleTransform;
-                            tb.EndInit();
+                //                TransformedBitmap tb = new TransformedBitmap();
+                //                tb.BeginInit();
+                //                tb.Source = bi3;
+                //                tb.Transform = scaleTransform;
+                //                tb.EndInit();
+                //                imgBody.Source = tb;
 
-                            imgBody.Source = tb;
-                            GC.Collect();
-                        }
-                        // End: Fix 61368
+                //                GC.Collect();
+                //            }
+                //            // End: Fix 61368
 
-                        this.Background = Brushes.White;
-                        this.Width = 105;
-                        this.Height = 140;
+                //            this.Background = Brushes.White;
+                //            this.Width = 105;
+                //            this.Height = 140;
 
-                        ms.Close();
-                        ms.Dispose();
-                    }
-                }//<<==================1193
+                //            ms.Close();
+                //            ms.Dispose();
+                //        }
+                    
+                //        reader.Close();
+                //        reader.Dispose();
+
+                //    }//<<==================1193
+                //    fs.Close();
+                //    fs.Dispose();
+                //}
+
+                BitmapImage myBitmapImage = new BitmapImage();
+                myBitmapImage.BeginInit();
+                myBitmapImage.UriSource = new Uri(m_images.m_pathThumb, UriKind.RelativeOrAbsolute);
+                myBitmapImage.DecodePixelWidth = 200;
+                myBitmapImage.EndInit();
+
+                imgBody.Source = myBitmapImage;
+
+                this.Background = Brushes.White;
+                this.Width = 105;
+                this.Height = 140;
             }
-            catch
+            catch (Exception ex)
             {
+                Win32.OutputDebugString(ex.Message);
+            }
+            finally
+            {
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
 
             m_iSimgReady = ( null != imgBody.Source );

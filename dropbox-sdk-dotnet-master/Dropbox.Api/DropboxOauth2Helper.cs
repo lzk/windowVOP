@@ -178,7 +178,7 @@ namespace Dropbox.Api
         {
             var uri = string.IsNullOrEmpty(redirectUri) ? null : new Uri(redirectUri);
 
-            return GetAuthorizeUri(oauthResponseType, clientId, uri, state, forceReapprove, disableSignup);
+            return GetAuthorizeUri(oauthResponseType, clientId,  uri, state, forceReapprove, disableSignup);
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace Dropbox.Api
         /// Dropbox account via the authorization page. Instead, the authorization page will show a link to the Dropbox
         /// iOS app in the App Store. This is only intended for use when necessary for compliance with App Store policies.</param>
         /// <returns>The uri of a web page which must be displayed to the user in order to authorize the app.</returns>
-        public static Uri GetAuthorizeUri(OAuthResponseType oauthResponseType, string clientId, Uri redirectUri = null, string state = null, bool forceReapprove = false, bool disableSignup = false)
+        public static Uri GetAuthorizeUri(OAuthResponseType oauthResponseType, string clientId, Uri redirectUri = null, string state = null, bool forceReapprove=false, bool disableSignup = false)
         {
             if (string.IsNullOrWhiteSpace(clientId))
             {

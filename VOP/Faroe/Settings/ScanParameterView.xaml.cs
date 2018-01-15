@@ -75,7 +75,7 @@ namespace VOP
                 cbCloudType.SelectedIndex = 1;
                // MainWindow_Rufous.g_settingData.m_bNeedReset = false;//yunying shang 2018-01-02 for BMS 1954
             }
-            else if(MainWindow_Rufous.g_settingData.m_couldSaveType == "EverNote")
+            else if(MainWindow_Rufous.g_settingData.m_couldSaveType == "OneDrive")
             {
                 cbCloudType.SelectedIndex = 2;
             }
@@ -83,6 +83,8 @@ namespace VOP
             {
                 cbCloudType.SelectedIndex = 3;
             }
+
+            m_lastCloudType = cbCloudType.SelectedIndex;
 
             if (MainWindow_Rufous.g_settingData.m_attachmentType== "PDF")
             {
@@ -248,12 +250,14 @@ namespace VOP
             if (cbCloudType.SelectedIndex == 0)
             {
                 Properties.Settings.Default.Reset();
+                AuthenticationHelper.SignOut();
+                MainWindow_Rufous.g_settingData.m_bNeedReset = true;
             }
             else if (cbCloudType.SelectedIndex == 1)
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                  Application.Current.MainWindow,
-                (string)Application.Current.MainWindow.TryFindResource("ResStr_Switch_Evernote_Restart_VOP"),
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Switch_Evernote_Restart_VOP1"),
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
 
                 MainWindow_Rufous.g_settingData.m_bNeedReset = true;

@@ -39,7 +39,7 @@ namespace VOP
         private EnumScanMediaType m_lastPaperType = EnumScanMediaType._Normal;
         private EnumPaperSizeScan m_lastPaperSize1 = EnumPaperSizeScan._Auto;
         private EnumScanResln m_lastRes = EnumScanResln._200x200;
-        private Byte m_powermode = 1;
+        private static Byte m_powermode = 0;
 
         public ScanSettingDialog()
         {
@@ -59,11 +59,21 @@ namespace VOP
             m_lastPaperSize1 = m_scanParams.PaperSize;
             m_lastRes = m_scanParams.ScanResolution;
 
-            byte power = dll.GetPowerSupply();
+            //byte power = dll.GetPowerSupply();
 
-            if (power != 0)
+            //if (power != 0)
+            //{
+            //    m_powermode = power;
+            //}
+            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+            PowerModeRecord m_rec = new PowerModeRecord();
+            if (worker.InvokeMethod<PowerModeRecord>("", ref m_rec, DllMethodType.GetPowerSupply, this))
             {
-                m_powermode = power;
+                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+                {
+                    if(m_rec.Mode != 0)
+                        m_powermode = m_rec.Mode;
+                }
             }
 
             if (m_powermode == 1)
@@ -72,6 +82,8 @@ namespace VOP
                 tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting2");
             else if (m_powermode == 2)
                 tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting3");
+            else
+                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting4");
 
             InitControls();
             InitScanResln();
@@ -156,7 +168,7 @@ namespace VOP
             if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._Card ||
-                m_powermode > 1)
+                m_powermode == 3)
             {
                 MultiFeedOnButton.IsChecked = false;
                 MultiFeedOnButton.IsEnabled = false;
@@ -215,27 +227,48 @@ namespace VOP
 
             tbGamma.Text = Convert.ToString(m_scanParams.Gamma);
 
-            if (m_scanParams.AutoColorDetect == true)
+            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
             {
-                btnAutoColorOn.IsChecked = true;
-            }
-            else
-            {
+                btnAutoColorOff.IsEnabled = false;
+                btnAutoColorOn.IsEnabled = false;
                 btnAutoColorOff.IsChecked = true;
             }
-
-            if(m_scanParams.SkipBlankPage == true)
+            else
+            { 
+                if (m_scanParams.AutoColorDetect == true)
+                {
+                    btnAutoColorOn.IsChecked = true;
+                }
+                else
+                {
+                    btnAutoColorOff.IsChecked = true;
+                }
+                btnAutoColorOff.IsEnabled = true;
+                btnAutoColorOn.IsEnabled = true;
+            }
+            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
             {
-                btnSkipBlankOn.IsChecked = true;
+                btnSkipBlankOff.IsEnabled = false;
+                btnSkipBlankOn.IsEnabled = false;
+                btnSkipBlankOff.IsChecked = true;
             }
             else
             {
-                btnSkipBlankOff.IsChecked = true;
+                if (m_scanParams.SkipBlankPage == true)
+                {
+                    btnSkipBlankOn.IsChecked = true;
+                }
+                else
+                {
+                    btnSkipBlankOff.IsChecked = true;
+                }
+                btnSkipBlankOn.IsEnabled = true;
+                btnSkipBlankOff.IsEnabled = true;
             }
 
-            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
+            if (//m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
                // m_scanParams.SkipBlankPage == true ||
-                m_powermode > 1)
+                m_powermode == 3)
             {
                 twoSideButton.IsChecked = false;
                 twoSideButton.IsEnabled = false;
@@ -361,9 +394,17 @@ namespace VOP
                         AutoCropOffButton.IsChecked = true;
                         AutoCropOnButton.IsEnabled = false;
 
-                        oneSideButton.IsChecked = true;
-                        oneSideButton.IsEnabled = false;
-                        twoSideButton.IsEnabled = false;
+                        btnSkipBlankOff.IsEnabled = false;
+                        btnSkipBlankOn.IsEnabled = false;
+                        btnSkipBlankOff.IsChecked = true;
+
+                        btnAutoColorOff.IsChecked = true;
+                        btnAutoColorOff.IsEnabled = false;
+                        btnAutoColorOn.IsEnabled = false;
+
+                        //oneSideButton.IsChecked = true;
+                        //oneSideButton.IsEnabled = false;
+                        //twoSideButton.IsEnabled = false;
                     }
                     else
                     {
@@ -371,8 +412,11 @@ namespace VOP
 
                         InitScanResln();
 
-                        if(m_lastPaperSize == EnumPaperSizeScan._LongPage)//add by yunying shang 2017-12-20 for BMS 1857
+                        //modified by yunying shang 2018-01-10 for BMS 2033
+                        //add by yunying shang 2017-12-20 for BMS 1857
+                        if (m_lastPaperSize1 == EnumPaperSizeScan._LongPage)
                             InitMediaType();
+                        //<<==============2033
 
                         if (m_scanParams.MultiFeed == true)
                         {
@@ -402,19 +446,43 @@ namespace VOP
                         AutoCropOnButton.IsEnabled = true;
                         AutoCropOffButton.IsEnabled = true;
 
-                        if (m_scanParams.ADFMode == true)
+                        if (m_scanParams.AutoColorDetect == true)
                         {
-                            oneSideButton.IsChecked = false;
-                            twoSideButton.IsChecked = true;
+                            btnAutoColorOn.IsChecked = true;
                         }
                         else
                         {
-                            oneSideButton.IsChecked = true;
-                            twoSideButton.IsChecked = false;
+                            btnAutoColorOff.IsChecked = true;
                         }
 
-                        oneSideButton.IsEnabled = true;
-                        twoSideButton.IsEnabled = true;
+                        btnAutoColorOff.IsEnabled = true;
+                        btnAutoColorOn.IsEnabled = true;
+
+                        if (m_scanParams.SkipBlankPage == true)
+                        {
+                            btnSkipBlankOn.IsChecked = true;
+                        }
+                        else
+                        {
+                            btnSkipBlankOff.IsChecked = true;
+                        }
+
+                        btnSkipBlankOn.IsEnabled = true;
+                        btnSkipBlankOff.IsEnabled = true;
+
+                        //if (m_scanParams.ADFMode == true)
+                        //{
+                        //    oneSideButton.IsChecked = false;
+                        //    twoSideButton.IsChecked = true;
+                        //}
+                        //else
+                        //{
+                        //    oneSideButton.IsChecked = true;
+                        //    twoSideButton.IsChecked = false;
+                        //}
+
+                        //oneSideButton.IsEnabled = true;
+                        //twoSideButton.IsEnabled = true;
                     }
 
                     m_lastPaperSize1 = size;
@@ -606,11 +674,28 @@ namespace VOP
             }//<<=================1642
 
             if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
-            {
-                m_scanParams.ADFMode = false;
+            {               
+               // m_scanParams.ADFMode = false;
                 m_scanParams.ScanMediaType = EnumScanMediaType._Normal;
                 m_scanParams.MultiFeed = false;
                 m_scanParams.AutoCrop = false;
+                m_scanParams.AutoColorDetect = false;
+                m_scanParams.SkipBlankPage = false;
+            }
+
+            if (m_powermode > 1)
+            {
+                if (m_powermode == 3)
+                {
+                    m_scanParams.ADFMode = false;
+                    m_scanParams.MultiFeed = false;
+                }
+                m_scanParams.ScanMediaType = EnumScanMediaType._Normal;
+                m_scanParams.AutoCrop = false;
+                if (m_powermode > 1 && m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
+                {
+                    m_scanParams.PaperSize = EnumPaperSizeScan._Auto;
+                }
             }
 
             //if (m_scanParams.SkipBlankPage == true)

@@ -31,6 +31,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Google.Apis.Drive.v2;
 using Google.Apis.Drive.v2.Data;
+using VOP;
 
 namespace Google.Apis.Util
 {
@@ -51,34 +52,43 @@ namespace Google.Apis.Util
         /// one of the async versions.</remarks>
         public static List<Google.Apis.Drive.v2.Data.File> RetrieveAllFiles(DriveService service)
         {
+            Win32.OutputDebugString("RetrieveAllFiles===Enter");
             // Google's "File" class collides with System.IO.File so the Google class needs to be
             // fully qualified. Here we are getting a list of the files in the user's drive.
             List<Google.Apis.Drive.v2.Data.File> result = new List<Google.Apis.Drive.v2.Data.File>();
-            FilesResource.ListRequest request = service.Files.List();   // NOTE: This is the synchronous version of the call!
-
-            do
+            try
             {
-                try
+                FilesResource.ListRequest request = service.Files.List();   // NOTE: This is the synchronous version of the call!
+
+                do
                 {
-                    // Fetch the files specified in our Files.List request. (This will actually go get the file listing)
-                    FileList files = request.Fetch();
+                    try
+                    {
+                        // Fetch the files specified in our Files.List request. (This will actually go get the file listing)
+                        FileList files = request.Fetch();
 
-                    // Add the results to the result object and advance the page token. 
-                    // The page token allows the results to be streamed back to us.
-                    result.AddRange(files.Items);
-                    request.PageToken = files.NextPageToken;
-                }
-                catch (Exception e)
-                {
-                    // May want to log this or do something with it other than just dumping to the console.
-                    //Console.WriteLine("An error occurred: " + e.Message);
-                    request.PageToken = null;
-                }
+                        // Add the results to the result object and advance the page token. 
+                        // The page token allows the results to be streamed back to us.
+                        result.AddRange(files.Items);
+                        request.PageToken = files.NextPageToken;
+                    }
+                    catch (Exception e)
+                    {
+                        // May want to log this or do something with it other than just dumping to the console.
+                        //Console.WriteLine("An error occurred: " + e.Message);
+                        request.PageToken = null;
+                        Win32.OutputDebugString(e.Message);
+                    }
 
-                // Keep doing this until the next page token is null. (Meaning there are no more pages to send)
-            } while (!String.IsNullOrEmpty(request.PageToken));
-
+                    // Keep doing this until the next page token is null. (Meaning there are no more pages to send)
+                } while (!String.IsNullOrEmpty(request.PageToken));
+            }
+            catch (Exception ex)
+            {
+                Win32.OutputDebugString(ex.Message);
+            }
             // Return the resulting list
+            Win32.OutputDebugString("RetrieveAllFiles===Leave");
             return result;
         }
 

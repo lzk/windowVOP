@@ -25,6 +25,7 @@ using System.Security.Cryptography;
 using System.Text;
 using DotNetOpenAuth.OAuth2;
 using Google.Apis.Authentication.OAuth2.DotNetOpenAuth;
+using VOP;
 
 namespace Google.Apis.Helper
 {
@@ -71,15 +72,20 @@ namespace Google.Apis.Helper
         public static IAuthorizationState RequestNativeAuthorization(NativeApplicationClient client,
                                                                      params string[] scopes)
         {
+            Win32.OutputDebugString("RequestNativeAuthorization===>Enter");
             IAuthorizationState state = new AuthorizationState(scopes);
+            Win32.OutputDebugString("Get authcode!");
             string authCode = RequestNativeAuthorization(client, state);
 
             if (string.IsNullOrEmpty(authCode))
             {
                 throw new AuthenticationException("The authentication request was cancelled by the user.");
             }
-
-            return client.ProcessUserAuthorization(authCode, state);
+            IAuthorizationState state1 = null;
+            state1 = client.ProcessUserAuthorization(authCode, state);
+            Win32.OutputDebugString("RequestNativeAuthorization===>Leave");
+            return state1;
+            //return client.ProcessUserAuthorization(authCode, state);
         }
 
         /// <summary>
@@ -92,21 +98,33 @@ namespace Google.Apis.Helper
                                                                string key)
         {
             string file = storageName + ".auth";
-            byte[] contents = AppData.ReadFile(file);
-
-            if (contents == null)
+            try
             {
-                return null; // No cached token available.
+                Win32.OutputDebugString("read from file " + file);
+                byte[] contents = AppData.ReadFile(file);
+
+                if (contents == null)
+                {
+                    return null; // No cached token available.
+                }
+                Win32.OutputDebugString("decode data!");
+                byte[] salt = Encoding.Unicode.GetBytes(Assembly.GetEntryAssembly().FullName + key);
+                byte[] decrypted = ProtectedData.Unprotect(contents, salt, DataProtectionScope.CurrentUser);
+                string[] content = Encoding.Unicode.GetString(decrypted).Split(new[] { "\r\n" }, StringSplitOptions.None);
+
+                // Create the authorization state.
+                Win32.OutputDebugString("create new state!");
+                string[] scopes = content[0].Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string refreshToken = content[1];
+
+                return new AuthorizationState(scopes) { RefreshToken = refreshToken };
+            }
+            catch (Exception ex)
+            {
+                Win32.OutputDebugString("GetCachedRefreshToken fail " + ex.Message);
             }
 
-            byte[] salt = Encoding.Unicode.GetBytes(Assembly.GetEntryAssembly().FullName + key);
-            byte[] decrypted = ProtectedData.Unprotect(contents, salt, DataProtectionScope.CurrentUser);
-            string[] content = Encoding.Unicode.GetString(decrypted).Split(new[] { "\r\n" }, StringSplitOptions.None);
-
-            // Create the authorization state.
-            string[] scopes = content[0].Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            string refreshToken = content[1];
-            return new AuthorizationState(scopes) { RefreshToken = refreshToken };
+            return null;
         }
 
     /// <summary>

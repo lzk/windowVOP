@@ -55,7 +55,7 @@ namespace VOP
         private DropboxClient client = null;
         public bool Result { get; private set; }
         private bool IsRequesting = false;
-
+        ListFolderResult folderList = null;
 
         public FileViewer(DropboxClient client, List<string> fileList)
         {
@@ -155,6 +155,21 @@ namespace VOP
             var full = await client.Users.GetCurrentAccountAsync();
         }
 
+        //add by yunying shang 2018-01-05 for BMS 1997
+        private bool CheckFolder(string foldername)
+        {
+            
+            if (folderList != null && folderList.Entries.Count > 0)
+            {
+                foreach (var item in folderList.Entries.Where(i => i.IsFolder))
+                {
+                    if (item.Name == foldername)
+                        return true;
+                }
+            }
+            return false;
+        }
+
         private async void CreateFolderButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             try
@@ -167,16 +182,41 @@ namespace VOP
 
                 if(result == true)
                 {
-                    string folderName = frm.m_folderName;
+                    //modified by yunying shang 2018-01-05 for BMS 1997 1996
+                    string folderName = frm.m_folderName.TrimStart();
+                    folderName = folderName.TrimEnd();
 
-                    if(folderName != "")
+                    if (folderName != "")
                     {
-                        string folderPath = currentPath + "/" + folderName;
+                        await GetFolderAndFiles(client, currentPath);
 
-                        await CreateFolder(client, folderPath);
-                        await ListFolder(client, currentPath);
+                        if (CheckFolder(folderName))
+                        {
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                                Application.Current.MainWindow,
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Name_exist"),//"The folder Name already exists",
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                            return;
+                        }
+                        else
+                        {
+                            string folderPath = currentPath + "/" + folderName;
+                            await CreateFolder(client, folderPath);
+                            await ListFolder(client, currentPath);
+                        }
                     }
-                 
+                    else
+                    {
+                        string str = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
+                        string content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder");
+                        string message = string.Format(str, (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Name"));
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                            Application.Current.MainWindow,
+                            message,//"The folder cannot be empty", 
+                            (string)this.TryFindResource("ResStr_Warning"));
+                        return;
+                    
+                    }//<<=================1997 1996
                 }
 
             }
@@ -249,6 +289,28 @@ namespace VOP
             
         }
 
+        private async Task GetFolderAndFiles(DropboxClient client, string path)
+        {
+            if (IsRequesting)
+            {
+                DropboxClientConfig.CancelTokenSrc.Cancel();
+                DropboxClientConfig.CancelTokenSrc = new CancellationTokenSource();
+            }
+            IsRequesting = true;
+
+            var list = await client.Files.ListFolderAsync(path);
+
+            if (folderList == null)
+            {
+                folderList = new ListFolderResult();
+            }
+            folderList = list;
+
+            IsRequesting = false;
+
+            
+        }
+
         private async Task<ListFolderResult> ListFolder(DropboxClient client, string path)
         {
             if (IsRequesting)
@@ -260,10 +322,12 @@ namespace VOP
             IsRequesting = true;
             int index = 0;
             //await GetCurrentAccount(client);
-
             try
             {
                 var list = await client.Files.ListFolderAsync(path);
+
+                folderList = new ListFolderResult();
+                folderList = list;
 
                 FileBrowser.Items.Clear();
                 // show folders then files
@@ -276,7 +340,6 @@ namespace VOP
 
                 foreach (var item in list.Entries.Where(i => i.IsFile))
                 {
-
                     var file = item.AsFile;
                     string filePath = path + "/" + file.Name;
                     Stream x = null;
@@ -341,8 +404,63 @@ namespace VOP
                 if (FileList == null)
                     return;
 
+                string message = "";
+                string temp = "";
+                if (currentPath != "")
+                {
+                    temp = currentPath.Substring(currentPath.LastIndexOf('/') + 1);
+
+                    if (temp != "")
+                    {
+                        await GetFolderAndFiles(client, "");
+
+                        if (!CheckFolder(temp))
+                        {
+                            message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Not_Exist");
+                            message = string.Format(message/*"The folder {0} does not exist."*/, temp);
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Error"));
+                            return;
+                        }
+
+                    }
+                    else
+                        return;
+                }
+        
                 try
                 {
+                    //add by yunying shang 2018-01-05 for BMS 1999
+                    bool bFileExist = false;
+                    foreach (string filePath in FileList)
+                    {
+                        foreach (var item in folderList.Entries.Where(i => i.IsFile))
+                        {
+                            var file = item.AsFile;
+                            string filename = System.IO.Path.GetFileName(filePath);
+
+                            if (file.Name == filename)
+                            {
+                                bFileExist = true;
+                                break;
+                            }
+                        }
+
+                        if (bFileExist == true)
+                            break;
+                    }
+
+                    if (bFileExist)
+                    {
+                        message = (string)Application.Current.MainWindow.TryFindResource("ResStr_File_exist_Do_You_overwrite");
+                        VOP.Controls.MessageBoxExResult ret = VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.YesNo_NoIcon, this,
+                         message, (string)this.TryFindResource("ResStr_Warning"));
+                        if (VOP.Controls.MessageBoxExResult.Yes != ret)
+                        {
+                            return;
+                        }
+                    }//<<==================1999
+
                     foreach (string filePath in FileList)
                     {
                         string fileName = System.IO.Path.GetFileName(filePath);
