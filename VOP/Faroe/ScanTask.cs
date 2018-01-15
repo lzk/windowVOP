@@ -31,6 +31,36 @@ namespace VOP
         [DllImport("wininet.dll")]
         private static extern bool InternetGetConnectedState(out int connectionDescription, int reservedValue);
 
+        public static long GetHardDiskSpace(string str_HardDiskName)
+        {
+            string str = str_HardDiskName;
+            int index = str.LastIndexOf(':');
+            str = str.Substring(0, index);
+
+            long totalSize = 0;
+
+            str_HardDiskName = str + ":\\";
+
+            System.IO.DriveInfo[] drives = System.IO.DriveInfo.GetDrives();
+
+            foreach (System.IO.DriveInfo drive in drives)
+
+            {
+
+                if (drive.Name == str_HardDiskName)
+
+                {
+
+                    totalSize = drive.TotalFreeSpace / (1024 * 1024);
+
+                }
+
+            }
+
+            return totalSize;
+
+        }//<<========================2040
+
         public static bool IsOnLine()
         {
             try
@@ -170,7 +200,18 @@ namespace VOP
                 }//<<================1796
             }
             //<<=================================
-
+            //string system = Environment.GetEnvironmentVariable("systemdrive");
+            //add by yunying shang 2018-01-15 for BMS 2060
+            long size = GetHardDiskSpace(tempPath);
+            if ( size <= 300)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                            Application.Current.MainWindow,
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Fail_not_enough"),
+                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
+                            );
+                return null;
+            }
 
 next:
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
