@@ -111,9 +111,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\x86\Debug\EvernoteOAuthNet.dll</HintPath>
     </Reference>
-    <Reference Include="EvernoteSDK, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x86\Debug\EvernoteSDK.dll</HintPath>
+    <Reference Include="EvernoteSDK">
+      <HintPath>..\..\..\Faroe_WinVOP_v1019_171226\Faroe_WinVOP_v1019_171226\EvernoteSDK.dll</HintPath>
     </Reference>
     <Reference Include="Google.Apis">
       <HintPath>..\Google API\Google.Apis.dll</HintPath>
