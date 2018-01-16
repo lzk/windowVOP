@@ -280,7 +280,7 @@
         	Change="1"
         	DecimalPlaces="0"
         	Maximum="60"
-        	Minimum="0"  
+        	Minimum="1"  
         	IsPercentFormat="False"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
