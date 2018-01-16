@@ -247,7 +247,7 @@ namespace VOP
                 //            ms.Close();
                 //            ms.Dispose();
                 //        }
-                    
+
                 //        reader.Close();
                 //        reader.Dispose();
 
@@ -255,14 +255,35 @@ namespace VOP
                 //    fs.Close();
                 //    fs.Dispose();
                 //}
+                FileStream fs = new FileStream(m_images.m_pathThumb, FileMode.Open);
+                
+                BinaryReader reader = new BinaryReader(fs);                                                                //FileAccess.ReadWrite, FileShare.ReadWrite)))
+                    
+                FileInfo fi = new FileInfo(m_images.m_pathThumb);
 
+                byte[] bytes = reader.ReadBytes((int)fi.Length);
+
+                fs.Close();
+                fs.Dispose();
+                reader.Close();
+                reader.Dispose();
+
+                System.IO.MemoryStream ms = new System.IO.MemoryStream(bytes);
+                
                 BitmapImage myBitmapImage = new BitmapImage();
                 myBitmapImage.BeginInit();
-                myBitmapImage.UriSource = new Uri(m_images.m_pathThumb, UriKind.RelativeOrAbsolute);
+                //myBitmapImage.UriSource = new Uri(m_images.m_pathThumb, UriKind.RelativeOrAbsolute);
+                myBitmapImage.StreamSource = ms;
                 myBitmapImage.DecodePixelWidth = 200;
                 myBitmapImage.EndInit();
 
                 imgBody.Source = myBitmapImage;
+
+                // ms.Close();
+                // ms.Dispose();
+                
+                    
+                
 
                 this.Background = Brushes.White;
                 this.Width = 105;

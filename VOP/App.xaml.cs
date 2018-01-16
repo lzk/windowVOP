@@ -235,17 +235,19 @@ namespace VOP
               
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
-
+                Win32.OutputDebugString("Delete files");
                 foreach( ScanFiles obj in App.scanFileList )
                 {
                     try
-                    {                        
+                    {
+                        Win32.OutputDebugString(obj.m_pathOrig);                    
                         File.Delete(obj.m_pathOrig);
                         //File.Delete(obj.m_pathView);
                         //File.Delete(obj.m_pathThumb);
                     }
-                    catch
+                    catch(Exception ex)
                     {
+                        Win32.OutputDebugString(ex.Message);
                     }
                 }
 
@@ -257,8 +259,9 @@ namespace VOP
                         //File.Delete(obj.m_pathView);
                         //File.Delete(obj.m_pathThumb);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        Win32.OutputDebugString(ex.Message);
                     }
                 }
 
