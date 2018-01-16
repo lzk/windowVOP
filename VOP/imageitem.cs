@@ -255,6 +255,7 @@ namespace VOP
                 //    fs.Close();
                 //    fs.Dispose();
                 //}
+                //modified by yunying shang 2018-01-16 for BMS 2073 and 2026
                 FileStream fs = new FileStream(m_images.m_pathThumb, FileMode.Open);
                 
                 BinaryReader reader = new BinaryReader(fs);                                                                //FileAccess.ReadWrite, FileShare.ReadWrite)))
@@ -267,27 +268,43 @@ namespace VOP
                 fs.Dispose();
                 reader.Close();
                 reader.Dispose();
-
-                System.IO.MemoryStream ms = new System.IO.MemoryStream(bytes);
+                                
+                Stream stream = new MemoryStream(bytes);        
+                stream.Read(bytes, 0, bytes.Length); 
+                stream.Seek(0, SeekOrigin.Begin);
                 
-                BitmapImage myBitmapImage = new BitmapImage();
-                myBitmapImage.BeginInit();
-                //myBitmapImage.UriSource = new Uri(m_images.m_pathThumb, UriKind.RelativeOrAbsolute);
-                myBitmapImage.StreamSource = ms;
-                myBitmapImage.DecodePixelWidth = 200;
-                myBitmapImage.EndInit();
+                MemoryStream mstream = null;
+                try
+                {
+                    mstream = new MemoryStream(bytes);
 
-                imgBody.Source = myBitmapImage;
+                    BitmapImage myBitmapImage = new BitmapImage();
+                    myBitmapImage.BeginInit();
+                    //myBitmapImage.UriSource = new Uri(m_images.m_pathThumb, UriKind.RelativeOrAbsolute);
+                    myBitmapImage.StreamSource = mstream;
+                    myBitmapImage.DecodePixelWidth = 200;
+                    myBitmapImage.EndInit();
 
-                // ms.Close();
-                // ms.Dispose();
-                
-                    
-                
+                    imgBody.Source = myBitmapImage;
 
-                this.Background = Brushes.White;
-                this.Width = 105;
-                this.Height = 140;
+
+                    this.Background = Brushes.White;
+                    this.Width = 105;
+                    this.Height = 140;
+                }
+                catch (ArgumentNullException ex)
+                {
+                                  
+                }
+                catch (ArgumentException ex)
+                {
+                                  
+                }
+                finally
+                {
+                    stream.Close();
+                }//<<====================2073 and 2026
+
             }
             catch (Exception ex)
             {
