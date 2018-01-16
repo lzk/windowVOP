@@ -96,8 +96,11 @@
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\Google API\DotNetOpenAuth.dll</HintPath>
     </Reference>
-    <Reference Include="Dropbox.Api">
-      <HintPath>..\dropbox-sdk-dotnet-master\Dropbox.Api\bin\Debug\net45\Dropbox.Api.dll</HintPath>
+
+    <Reference Include="Dropbox.Api, Version=0.1.6579.27099, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x86\Debug\Dropbox.Api.dll</HintPath>
+
     </Reference>
     <Reference Include="en-html2enml, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
