@@ -78,8 +78,8 @@
                                          Path="FormattedValue" 
                                          UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
-                                                <local:PrintCopysValidationRule MinimumValue="0" MaximumValue="60" 
-										ErrorMessage="{StaticResource ResStr_The_valid_range_is_0_60__please_confirm_and_enter_again_}" />
+                                                <local:PrintCopysValidationRule MinimumValue="1" MaximumValue="60" 
+										ErrorMessage="{StaticResource ResStr_The_valid_range_is_1_60__please_confirm_and_enter_again_}" />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
@@ -289,9 +289,9 @@
                                       ValidationHasErrorChanged="OnValidationHasErrorChanged"
             Height="50" Grid.Column="0" Grid.Row="1" FontWeight="Bold"  
                             />
-                        <TextBlock x:Name="labelAutoSleep" Text="(0-60 Minutes)" Grid.Row="2" Foreground="Black"
-                    HorizontalAlignment="Center" 
-                   Height="30" Margin="0,0,0,0"  VerticalAlignment="Bottom" Width="100" FontSize="14"/>
+                        <TextBlock x:Name="labelAutoSleep" Text="{StaticResource ResStr_1_60_Minute}" Grid.Row="2" Foreground="Black"
+                    HorizontalAlignment="Center" TextAlignment="Center"
+                   Height="30" Margin="32,0,33,0"  VerticalAlignment="Bottom" Width="133" FontSize="14"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox x:Name="groupBox_Copy" Grid.Column="1" Header="Auto Off Time" HorizontalAlignment="Center" Height="100"
@@ -302,7 +302,7 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="35"></RowDefinition>
                         </Grid.RowDefinitions>
-                        
+
                         <local:SpinnerControl x:Name="spinnerControlAutoOff" Style="{StaticResource SpinnerControl2}"
                 	Width="160" 
                 	Background="Transparent"
@@ -318,9 +318,9 @@
                                       ValidationHasErrorChanged="OnValidationHasErrorChanged"
                 	Height="44" Grid.Column="0" Grid.Row="1" FontWeight="Bold"
                             />
-                        <TextBlock x:Name="labelAutoOff" Text="(0-4 Hours)" Grid.Row="2"
-                	HorizontalAlignment="Center" Foreground="Black"
-                	Height="30" Margin="0,0,0,0"  VerticalAlignment="Bottom" Width="80" FontSize="14"/>
+                        <TextBlock x:Name="labelAutoOff" Text="{StaticResource ResStr_0_4_Hour}" Grid.Row="2"
+                	HorizontalAlignment="Center" Foreground="Black" TextAlignment="Center"
+                	Height="30" Margin="50,0,48,0"  VerticalAlignment="Bottom" Width="100" FontSize="14"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox x:Name="gbLifeCount" Grid.ColumnSpan="2" Header="Life Count" HorizontalAlignment="Left"

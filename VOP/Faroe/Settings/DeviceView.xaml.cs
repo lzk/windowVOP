@@ -37,7 +37,7 @@ namespace VOP
 
         public void init_config(bool _bDisplayProgressBar = true)
         {
-            m_psavetime = 0;
+            m_psavetime = 1;
             m_pofftime = 0;
 
             PowerSaveTimeRecord m_rec = null;
@@ -59,8 +59,8 @@ namespace VOP
                 m_pofftime = (short)(m_rec.OffTime / 60);
             }
 
-            if (m_psavetime < 0)
-                m_psavetime = 0;
+            if (m_psavetime < 1)
+                m_psavetime = 1;
             else if (m_psavetime > 60)
                 m_psavetime = 60;
 
@@ -118,8 +118,8 @@ namespace VOP
                 {
                     if (textValue > 60)
                         tb.Text = "60";
-                    else if (textValue < 0)
-                        tb.Text = "0";
+                    else if (textValue < 1)
+                        tb.Text = "1";
                 }
                 else
                 {
@@ -219,8 +219,8 @@ namespace VOP
             }
 
             byte psavetime = Convert.ToByte(spinnerControlAutoSleep.Value);
-            if (psavetime < 0)
-                psavetime = 0;
+            if (psavetime < 1)
+                psavetime = 1;
             else if (60 < psavetime)
                 psavetime = 60;
 
@@ -229,8 +229,8 @@ namespace VOP
 
             byte pofftime = Convert.ToByte(spinnerControlAutoOff.Value);
             pofftime *= 60;
-            if (pofftime <= 0)
-                pofftime = 0;
+            if (pofftime < 1)
+                pofftime = 1;
             else if(pofftime<=psavetime)
             {
                 pofftime = (byte)((int)psavetime + 1);
