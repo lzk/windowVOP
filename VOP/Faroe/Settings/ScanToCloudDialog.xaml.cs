@@ -158,12 +158,14 @@ namespace VOP
             {
                 Googledocsflow flow = new Googledocsflow();
                 Googledocsflow.FlowType = CloudFlowType.SimpleView;
-                flow.Run();
-                SavePathTbx.IsReadOnly = false;
-                SavePathTbx.Text = Googledocsflow.SavePath;
-                SavePathTbx.IsReadOnly = true;
-                m_scanToCloudParams.DefaultGoogleDrivePath = Googledocsflow.SavePath;
-                m_scanToCloudParams.GoogleDriveFolderID = Googledocsflow.FolderID;
+                if (flow.Run())
+                {
+                    SavePathTbx.IsReadOnly = false;
+                    SavePathTbx.Text = Googledocsflow.SavePath;
+                    SavePathTbx.IsReadOnly = true;
+                    m_scanToCloudParams.DefaultGoogleDrivePath = Googledocsflow.SavePath;
+                    m_scanToCloudParams.GoogleDriveFolderID = Googledocsflow.FolderID;
+                }
 
                 //reset
                 Googledocsflow.FlowType = CloudFlowType.View;

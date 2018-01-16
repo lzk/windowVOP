@@ -56,7 +56,10 @@ namespace Google.Apis.Helper
                 {
                     return flow.RetrieveAuthorization(client, authState);
                 }
-                catch (NotSupportedException) { /* Flow unsupported on this environment */ }
+                catch (NotSupportedException ex)
+                { /* Flow unsupported on this environment */
+                    Win32.OutputDebugString(ex.Message);
+                }
             }
 
             throw new NotSupportedException("Found no supported native authorization flow.");

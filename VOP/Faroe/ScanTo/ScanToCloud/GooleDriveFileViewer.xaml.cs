@@ -190,7 +190,11 @@ namespace VOP
                     index++;
                 }
             }
-            FileBrowser.SelectedIndex = 0;
+
+            if (flowType != CloudFlowType.SimpleView)
+                FileBrowser.SelectedIndex = 0;
+            else
+                FileBrowser.SelectedIndex = -1;
 
             ParantID = rootid;
         }
@@ -469,15 +473,23 @@ namespace VOP
                     {
                         ListViewItem item = FileBrowser.Items[FileBrowser.SelectedIndex] as ListViewItem;
                         ViewItemInfo info = item.Tag as ViewItemInfo;
-                        selectedPath = currentPath + "/" + info.fileName;
-                        Googledocsflow.SavePath = selectedPath;
-                        Googledocsflow.FolderID = info.parentid;
+                        if (info.fileType != "File")
+                        {
+                            selectedPath = currentPath + "/" + info.fileName;
+                            Googledocsflow.SavePath = selectedPath;
+                            Googledocsflow.FolderID = info.parentid;
+                        }
+                        //else
+                        //{
+                        //    Googledocsflow.SavePath = "/";
+                        //    Googledocsflow.FolderID = rootid;
+                        //}
                     }
-                    else
-                    {
-                        Googledocsflow.SavePath = "/";
-                        Googledocsflow.FolderID = rootid;
-                    }
+                    //else
+                    //{
+                    //    Googledocsflow.SavePath = "/";
+                    //    Googledocsflow.FolderID = rootid;
+                    //}
                 }
                 else
                 {
@@ -485,7 +497,12 @@ namespace VOP
                     Googledocsflow.FolderID = this.ParantID;
                 }
 
-                
+                if (Googledocsflow.SavePath == "")
+                {
+                    Googledocsflow.SavePath = "/";
+                    Googledocsflow.FolderID = "";
+                }
+
                 this.Close();
             }
             else

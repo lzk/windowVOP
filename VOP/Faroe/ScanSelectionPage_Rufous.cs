@@ -318,8 +318,8 @@ namespace VOP
            // ImageButton2 btn = sender as ImageButton2;
 
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_commonScanSettings);
-            //List<ScanFiles> files = new List<ScanFiles>();
+            //List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_commonScanSettings);
+            List<ScanFiles> files = new List<ScanFiles>();
             m_MainWin._bScanning = false;
             if (files != null)
             //   return;
@@ -327,16 +327,16 @@ namespace VOP
                 if (task.ScanResult == Scan_RET.RETSCAN_OK)
                 {
                     //List<ScanFiles> files = new List<ScanFiles>();
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\1.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\2.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\3.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\4.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\5.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\6.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\7.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\8.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\9.jpg"));
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\10.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\1.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\2.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\3.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\4.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\5.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\6.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\7.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\8.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\9.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\10.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000A.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171109111223000B.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\img20171122163848000A.jpg"));

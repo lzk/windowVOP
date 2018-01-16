@@ -20,6 +20,8 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using DotNetOpenAuth.OAuth2;
+using System.Threading;
+using VOP;
 
 namespace Google.Apis.Helper
 {
@@ -30,6 +32,7 @@ namespace Google.Apis.Helper
     public class LoopbackServerAuthorizationFlow : INativeAuthorizationFlow
     {
         private const string LoopbackCallback = "http://localhost:{0}/{1}/authorize/";
+        private static string _code = null;
 
         /// <summary>
         /// Returns a random, unused port.
@@ -56,19 +59,22 @@ namespace Google.Apis.Helper
         /// <returns>The authorization code, or null if the process was cancelled.</returns>
         private string HandleRequest(HttpListenerContext context)
         {
+            Win32.OutputDebugString("HandleRequest===>Enter");
             try
             {
                 // Check whether we got a successful response:
                 string code = context.Request.QueryString["code"];
                 if (!string.IsNullOrEmpty(code))
                 {
+                    Win32.OutputDebugString("HandleRequest===LEave, code");
                     return code;
                 }
-                
+
                 // Check whether we got an error response:
                 string error = context.Request.QueryString["error"];
                 if (!string.IsNullOrEmpty(error))
                 {
+                    Win32.OutputDebugString("HandleRequest===LEave, error");
                     return null; // Request cancelled by user.
                 }
 
@@ -76,49 +82,119 @@ namespace Google.Apis.Helper
                 throw new NotSupportedException(
                     "Received an unknown response: " + Environment.NewLine + context.Request.RawUrl);
             }
+            catch (Exception ex)
+            {
+                Win32.OutputDebugString(ex.Message);
+            }
             finally
             {
                 // Write a response.
-                //using (var writer = new StreamWriter(context.Response.OutputStream))
-                //{
-                //    string response = VOP.Properties.Resources.LoopbackServerHtmlResponse.Replace("{APP}", Google.Apis.Util.Utilities.ApplicationName);
-                //    writer.WriteLine(response);
-                //    writer.Flush();
-                //}
+                using (var writer = new StreamWriter(context.Response.OutputStream))
+                {
+                    string response = "VOP OAuth Authentication";
+                    writer.WriteLine(response);
+                    writer.Flush();
+                }
                 context.Response.OutputStream.Close();
                 context.Response.Close();
             }
+            Win32.OutputDebugString("HandleRequest===LEave");
+            return null;
         }
 
+        private static void ListenerCallback(IAsyncResult result)
+        {
+            HttpListener listener = (HttpListener)result.AsyncState;
+            HttpListenerContext context = null;
+            try
+            {
+                // Call EndGetContext to complete the asynchronous operation.
+                context = listener.EndGetContext(result);
+
+                try
+                {
+                    // Check whether we got a successful response:
+                    string code = context.Request.QueryString["code"];
+                    if (!string.IsNullOrEmpty(code))
+                    {
+                        _code = code;
+                    }
+
+                    // Check whether we got an error response:
+                    string error = context.Request.QueryString["error"];
+                    if (!string.IsNullOrEmpty(error))
+                    {
+                        // Request cancelled by user.
+                    }
+
+                    // The response is unknown to us. Choose a different authentication flow.
+                    throw new NotSupportedException(
+                        "Received an unknown response: " + Environment.NewLine + context.Request.RawUrl);
+                }
+                catch (Exception ex)
+                {
+                    Win32.OutputDebugString(ex.Message);
+                }
+                finally
+                {
+                    // Write a response.
+                    using (var writer = new StreamWriter(context.Response.OutputStream))
+                    {
+                        string response = "VOP OAuth Authentication";
+                        writer.WriteLine(response);
+                        writer.Flush();
+                    }
+                    context.Response.OutputStream.Close();
+                    context.Response.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Win32.OutputDebugString(ex.Message);
+            }
+        }
         public string RetrieveAuthorization(UserAgentClient client, IAuthorizationState authorizationState)
         {
+            Win32.OutputDebugString("RetrieveAuthorization===Enter");
             if (!HttpListener.IsSupported)
             {
+                Win32.OutputDebugString("HttpListener is not supported by this platform.");
                 throw new NotSupportedException("HttpListener is not supported by this platform.");
             }
 
             // Create a HttpListener for the specified url.
             string url = string.Format(LoopbackCallback, GetRandomUnusedPort(), Google.Apis.Util.Utilities.ApplicationName);
             authorizationState.Callback = new Uri(url);
+            
             var webserver = new HttpListener();
             webserver.Prefixes.Add(url);
-
+            
             // Retrieve the authorization url.
             Uri authUrl = client.RequestUserAuthorization(authorizationState);
-
+            
             try
             {
                 // Start the webserver.
                 webserver.Start();
 
+                Win32.OutputDebugString(authUrl.ToString());
                 // Open the browser.
                 Process.Start(authUrl.ToString());
 
                 // Wait for the incoming connection, then handle the request.
-                return HandleRequest(webserver.GetContext());
+
+                IAsyncResult result = webserver.BeginGetContext(new AsyncCallback(ListenerCallback), webserver);
+
+                result.AsyncWaitHandle.WaitOne(10000);                
+
+                return _code;
+
+                //return HandleRequest(webserver.GetContext());
             }
             catch (HttpListenerException ex)
             {
+                Win32.OutputDebugString("The HttpListener threw an exception.");
+                Win32.OutputDebugString(ex.Message);
                 throw new NotSupportedException("The HttpListener threw an exception.", ex);
             }
             finally
@@ -126,6 +202,7 @@ namespace Google.Apis.Helper
                 // Stop the server after handling the one request.
                 webserver.Stop();
             }
+            Win32.OutputDebugString("RetrieveAuthorization===Leave");
         }
     }
 }

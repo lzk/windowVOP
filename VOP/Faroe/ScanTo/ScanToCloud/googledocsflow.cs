@@ -58,46 +58,46 @@ namespace VOP
             IAuthorizationState state = null;
             try
             {
-                Win32.OutputDebugString("GetStringValue");
+                //Win32.OutputDebugString("GetStringValue");
                 string scope = DriveService.Scopes.Drive.GetStringValue();
 
                 // Check if there is a cached refresh token available.                
 
-                if (!isReset)
-                {
-                    Win32.OutputDebugString("GetCachedRefreshToken");
-                    state = AuthorizationMgr.GetCachedRefreshToken(STORAGE, KEY);
-                    if (state != null)
-                    {
-                        Win32.OutputDebugString("state not null");
-                        try
-                        {
-                            client.RefreshToken(state);
-                            return state; // Yes - we are done.
-                        }
-                        catch (DotNetOpenAuth.Messaging.ProtocolException ex)
-                        {
-                            Win32.OutputDebugString("Using existing refresh token failed: " + ex.Message);
-                        }
-                    }
-                }
-                Win32.OutputDebugString("RequestNativeAuthorization");
+                //if (!isReset)
+                //{
+                //    Win32.OutputDebugString("GetCachedRefreshToken");
+                //    state = AuthorizationMgr.GetCachedRefreshToken(STORAGE, KEY);
+                //    if (state != null)
+                //    {
+                //        Win32.OutputDebugString("state not null");
+                //        try
+                //        {
+                //            client.RefreshToken(state);
+                //            return state; // Yes - we are done.
+                //        }
+                //        catch (DotNetOpenAuth.Messaging.ProtocolException ex)
+                //        {
+                //            Win32.OutputDebugString("Using existing refresh token failed: " + ex.Message);
+                //        }
+                //    }
+                //}
+               // Win32.OutputDebugString("RequestNativeAuthorization");
                 // If we get here, there is no stored token. Retrieve the authorization from the user.
                 state = AuthorizationMgr.RequestNativeAuthorization(client, scope);
-                Win32.OutputDebugString("Save key to file!");
+               // Win32.OutputDebugString("Save key to file!");
                 AuthorizationMgr.SetCachedRefreshToken(STORAGE, KEY, state);
-                Win32.OutputDebugString("save success!");
+               // Win32.OutputDebugString("save success!");
             }
             catch(Exception ex)
             {
                 Win32.OutputDebugString(ex.Message);
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                 System.Windows.Application.Current.MainWindow,
-                (string)"Connect to google drive fail" + ex.Message,
+                (string)"Connect to google drive fail! " + ex.Message,
                    (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
             }
 
-            Win32.OutputDebugString("GetAuthorization===Leave");
+            //Win32.OutputDebugString("GetAuthorization===Leave");
             return state;
         }
 
@@ -127,6 +127,7 @@ namespace VOP
                     Win32.OutputDebugString("file count is 0 and simpleview, return");
                     return false;
                 }
+
                 if (FlowType == CloudFlowType.Quick)
                 {
                     Win32.OutputDebugString("Quck Scan: to google drive");
@@ -230,7 +231,14 @@ namespace VOP
                 }
                 else
                 {
-                    Win32.OutputDebugString("scan to google drive");
+                    if (FlowType == CloudFlowType.SimpleView)
+                    {
+                        Win32.OutputDebugString("SimpleView: Open the google drive file viewer!");
+                    }
+                    else
+                    {
+                        Win32.OutputDebugString("scan to google drive");
+                    }
                     isReset = MainWindow_Rufous.g_settingData.m_bNeedReset;
                     bool? result = null;
                     GoogleDriveFileViewer viewer = new GoogleDriveFileViewer(fileList, FileList, MainWindow_Rufous.g_settingData.m_dropBoxDefaultPath, FlowType);
@@ -242,6 +250,7 @@ namespace VOP
             }
             catch (Exception ex)
             {
+                Win32.OutputDebugString("Upload Fail " + ex.Message);
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                 System.Windows.Application.Current.MainWindow,
                 (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail"),
