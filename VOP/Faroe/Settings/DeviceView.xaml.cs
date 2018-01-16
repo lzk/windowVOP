@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Controls.Primitives;
+using System.Diagnostics;
 
 namespace VOP
 {
@@ -277,12 +278,136 @@ namespace VOP
         private void btnCalibration_Click(object sender, RoutedEventArgs e)
         {
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-            CalibrationRecord m_rec = new CalibrationRecord();
-            if (worker.InvokeMethod<CalibrationRecord>("", ref m_rec, DllMethodType.DoCalibration, this))
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            int nResult = worker.InvokeCalibrationMethod(dll.DoCalibration);
+
+            sw.Stop();
+
+            Scan_RET scanResult = (Scan_RET)nResult;
+
+            if (scanResult == Scan_RET.RETSCAN_OK)
             {
-                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                     System.Windows.Application.Current.MainWindow,
+                    (string)this.FindResource("ResStr_DoCalibration_Completed"),
+                    (string)this.TryFindResource("ResStr_Prompt"));
+            }
+            else if (scanResult == Scan_RET.RETSCAN_OPENFAIL)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                            Application.Current.MainWindow,
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Not_Ready"),
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
+                            );
+            }
+            else if (scanResult == Scan_RET.RETSCAN_OPENFAIL_NET)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                            Application.Current.MainWindow,
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Device_Not_Ready"),
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
+                            );
+            }
+            else if (scanResult == Scan_RET.RETSCAN_BUSY)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                            Application.Current.MainWindow,
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_net_scanner_busy"),
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
+            }
+            else if (scanResult == Scan_RET.RETSCAN_PAPER_JAM)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                            Application.Current.MainWindow,
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_paper_jam"),
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
+            }
+            else if (scanResult == Scan_RET.RETSCAN_COVER_OPEN)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                            Application.Current.MainWindow,
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_cover_open"),
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
+            }
+            else if (scanResult == Scan_RET.RETSCAN_PAPER_NOT_READY)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                            Application.Current.MainWindow,
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_paper_not_ready"),
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
+            }
+            else if (scanResult == Scan_RET.RETSCAN_ADFCOVER_NOT_READY ||
+                scanResult == Scan_RET.RETSCAN_ADFDOC_NOT_READY ||
+                scanResult == Scan_RET.RETSCAN_ADFPATH_NOT_READY)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                            Application.Current.MainWindow,
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_adf_not_ready"),
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
+            }
+            else if (scanResult == Scan_RET.RETSCAN_HOME_NOT_READY)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                            Application.Current.MainWindow,
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_home_not_ready"),
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
+            }
+            else if (scanResult == Scan_RET.RETSCAN_ULTRA_SONIC)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                            Application.Current.MainWindow,
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_multifeed_error"),
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
+            }
+            else if (scanResult == Scan_RET.RETSCAN_CANCEL)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                        System.Windows.Application.Current.MainWindow,
+                    (string)this.FindResource("ResStr_DoCalibration_Failed"),
+                    (string)this.TryFindResource("ResStr_Prompt"));
+            }
+            else if (scanResult == Scan_RET.RETSCAN_ERROR_POWER1)
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                            Application.Current.MainWindow,
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bank"),
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
+                            );
+            }
+            else if (scanResult == Scan_RET.RETSCAN_ERROR_POWER2)
+            {
+                if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
                 {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                                Application.Current.MainWindow,
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bus_Wifi"),
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                );
                 }
+                else
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                                Application.Current.MainWindow,
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Power_Bank"),
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Prompt")
+                                );
+                }
+            }
+            else
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_NoIcon,
+                            Application.Current.MainWindow,
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_fail"),
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                            );
             }
         }
 

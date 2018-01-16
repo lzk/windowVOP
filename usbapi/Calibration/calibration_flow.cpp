@@ -2291,22 +2291,6 @@ Sleep(1000);
 
 
 K_OK:
-if(k_scan_par.source == I3('ADF')) {
-#ifdef K_ADF_ROLLER
-
-#else
-	#if 0
-	  // 0. Eject Paper
-	  if(!job_EjectPaper(k_scan_par.source, 0))
-		goto NG;
-
-	  // 0. Pickup Home
-	  if(!job_ResetHome(k_scan_par.source, 0))
-		goto NG;
-	#endif
-#endif
-}
-
   bCalibration = TRUE;
   printf("Calibration success.");
 
@@ -2318,7 +2302,23 @@ if(k_scan_par.source == I3('ADF')) {
 #endif
   
   Scan_JobEnd();
-	
+
+  if (k_scan_par.source == I3('ADF')) {
+#ifdef K_ADF_ROLLER
+
+#else
+#if 1
+	  // 0. Eject Paper
+	  //	  if(!job_EjectPaper(k_scan_par.source, 0))
+	  //		goto NG;
+
+	  // 0. Pickup Home
+	  if (!job_ResetHome(k_scan_par.source, 0))
+		  goto NG;
+#endif
+#endif
+  }
+
   return TRUE;
 NG:
   bCalibration = FALSE;

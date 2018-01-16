@@ -176,6 +176,9 @@
     <ClCompile Include="Calibration\usbio.cpp">
       <Filter>Source Files\Calibration</Filter>
     </ClCompile>
+    <ClCompile Include="Calibration\MotorMove.cpp">
+      <Filter>Source Files\Calibration</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source.def">

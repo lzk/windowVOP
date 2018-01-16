@@ -258,6 +258,55 @@ namespace VOP
             return 0;
         }
 
+        void CalibrationCallbackMethod(IAsyncResult ar)
+        {
+            if (isNeededProgress)
+            {
+                asyncEvent.WaitOne();
+
+                if (qr_pbw != null)
+                {
+                    qr_pbw.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Normal,
+                     new Action(
+                     delegate ()
+                     {
+                         qr_pbw.Close();
+                     }
+                     ));
+                }
+            }
+        }
+        public int InvokeCalibrationMethod(CalibrationDelegate method)
+        {
+
+            if (method != null)
+            {
+                CalibrationDelegate caller = method;
+
+                isNeededProgress = false;
+                asyncEvent.Reset();
+
+                IAsyncResult result = caller.BeginInvoke(new AsyncCallback(CalibrationCallbackMethod), null);
+
+                if (!result.AsyncWaitHandle.WaitOne(100, false))
+                {
+                    isNeededProgress = true;
+
+                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode((string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Calibrationing"));
+                    qr_pbw.Owner = this.owner;
+                    qr_pbw.Loaded += pbw_Loaded;
+                    qr_pbw.ShowDialog();
+                }
+
+                if (result.AsyncWaitHandle.WaitOne(100, false))
+                {
+                    return caller.EndInvoke(result);
+                }
+            }
+
+            return 0;
+        }
+
         public int InvokeScanMethod(ScanDelegate method, string deviceName, string tempPath,
                                                                       int colorType, int resolution, int width, int height,
                                                                       int contrast, int brightness, bool ADFMode, bool MultiFeed, bool AutoCrop, bool onepage,

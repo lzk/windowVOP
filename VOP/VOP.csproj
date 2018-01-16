@@ -86,9 +86,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aspose.BarCode, Version=17.12.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x86\Debug\Aspose.BarCode.dll</HintPath>
+    <Reference Include="Aspose.BarCode">
+      <HintPath>..\qrcodelib\Aspose.BarCode.dll</HintPath>
     </Reference>
     <Reference Include="CsQuery, Version=1.3.3.249, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -96,10 +95,6 @@
     </Reference>
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\Google API\DotNetOpenAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="Dropbox.Api, Version=0.1.6184.29605, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\dropbox-sdk-dotnet-master\Dropbox.Api\bin\Debug\net45\Dropbox.Api.dll</HintPath>
     </Reference>
     <Reference Include="en-html2enml, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

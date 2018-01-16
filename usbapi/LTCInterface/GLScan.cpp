@@ -1459,10 +1459,10 @@ BYTE CGLDrv::_GetPowerSaveTime(WORD* ptrSleepTime, WORD* ptrOffTime)
 	*ptrSleepTime = data.autoSleepTime;
 	*ptrOffTime = data.autoOffTime;
 
-	if (data.disableAutoSleep != 0)
+	if ((data.disableAutoSleep & 0xff) != 0)
 		*ptrSleepTime = 0;
 
-	if (data.disableAutoOff != 0)
+	if ((data.disableAutoOff & 0xff) != 0)
 		*ptrOffTime = 0;
 
 exit_info:

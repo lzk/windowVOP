@@ -2260,24 +2260,39 @@ extern SC_PAR_T_ sc_par;
 U8 SCAN_DOC_SIZE = DOC_SIZE_FULL;
 char IniFile[256], Profile[64];
 
+extern Scan_RET ScannerStatusCheck_(char stage);
+
 USBAPI_API int __stdcall DoCalibration()
 {
-	int nResult = FALSE;
+	Scan_RET nResult = RETSCAN_OK;
 
 	read_from_ini();
 
-	if (!CMDIO_OpenDevice()) 
-	{
-		return nResult;
+	if (!CMDIO_OpenDevice()) {
+		return RETSCAN_OPENFAIL;
 	}
 
 	job_Set_Calibration_Par(1, &sc_par);
 
-	job_Calibration(&sc_par);
+	nResult = ScannerStatusCheck_(START_STAGE);
+
+	if (nResult == RETSCAN_OK)
+	{
+		int nCalibration = FALSE;
+		nCalibration = job_Calibration(&sc_par);
+
+		if (nCalibration == TRUE)
+		{
+			nResult = RETSCAN_OK;
+		}
+		else
+		{
+			nResult = ScannerStatusCheck_(SCANNING_STAGE);
+			//	nResult = RETSCAN_CANCEL;
+		}
+	}
 
 	CMDIO_CloseDevice();
-
-	nResult = TRUE;
 
 	return nResult;
 }

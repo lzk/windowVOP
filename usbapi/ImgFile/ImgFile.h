@@ -75,7 +75,7 @@
 
 //For K prefeed 
 #define IMG_K_PREFEED_300_DOT_X		IMG_K_PRNU_300_DOT_X
-#define IMG_K_PREFEED_300_DOT_Y		4*300
+#define IMG_K_PREFEED_300_DOT_Y		300//4*300
 
 //image size org dots
 #define IMG_300_ORG_X		0

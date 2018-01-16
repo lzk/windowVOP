@@ -577,88 +577,120 @@ int waitJobFinish(int job, int wait_motor_stop)
 //    return 1;
 //}
 
+enum Scan_RET
+{
+	RETSCAN_OK = 0,
+	RETSCAN_ERRORDLL = 1,
+	RETSCAN_OPENFAIL = 2,
+	RETSCAN_ERRORPARAMETER = 3,
+	RETSCAN_NO_ENOUGH_SPACE = 5,
+	RETSCAN_ERROR_PORT = 6,
+	RETSCAN_CANCEL = 7,
+	RETSCAN_BUSY = 8,
+	RETSCAN_ERROR = 9,
+	RETSCAN_OPENFAIL_NET = 10,
+	RETSCAN_PAPER_JAM = 11,
+	RETSCAN_COVER_OPEN = 12,
+	RETSCAN_PAPER_NOT_READY = 13,
+	RETSCAN_CREATE_JOB_FAIL = 14,
+	RETSCAN_ADFCOVER_NOT_READY = 15,
+	RETSCAN_HOME_NOT_READY = 16,
+	RETSCAN_ULTRA_SONIC = 17,
+	RETSCAN_ERROR_POWER1 = 18,
+	RETSCAN_ERROR_POWER2 = 19,
+	RETSCAN_JOB_MISSING = 20,
+	RETSCAN_JOB_GOGING = 21,
+	RETSCAN_TIME_OUT = 22,
+	RETSCAN_USB_TRANSFERERROR = 23,
+	RETSCAN_WIFI_TRANSFERERROR = 24,
+	RETSCAN_ADFPATH_NOT_READY = 25,
+	RETSCAN_ADFDOC_NOT_READY = 26,
+	RETSCAN_GETINFO_FAIL = 27,
+};
+
 #define START_STAGE					0x1
 #define SCANNING_STAGE				0x2
 #define PUSH_TRANSFER_STAGE		0x3
 
-int ScannerStatusCheck(char stage)
+Scan_RET ScannerStatusCheck_(char stage)
 {
-	int result = TRUE;
-	if(!_info(&sc_info)) {
+	Scan_RET result = RETSCAN_OK;
+
+	if (!_info(&sc_info)) {
 		printf("INFO command error!!");
-		result = FALSE;
+		result = RETSCAN_OPENFAIL;
 	}
 	else {
-		if(sc_info.JobID || sc_info.SystemStatus.scanning) {
-			if(stage == START_STAGE) {
+		if (sc_info.JobID || sc_info.SystemStatus.scanning) {
+			if (stage == START_STAGE) {
 				printf("Last job not finish!!\n");
-				result = FALSE;
+				result = RETSCAN_JOB_GOGING;
 			}
 		}
 		else {
-			if(stage == SCANNING_STAGE) {
+			if (stage == SCANNING_STAGE) {
 				printf("Scan job missing!!\n");
-				result = FALSE;
+				result = RETSCAN_JOB_MISSING;
 			}
 		}
 
-			
-		if(sc_info.ErrorStatus.cover_open_err) {
-			if(stage != PUSH_TRANSFER_STAGE) {
+
+		if (sc_info.ErrorStatus.cover_open_err) {
+			if (stage != PUSH_TRANSFER_STAGE) {
 				printf("COVER_OPEN_ERR\n");
-				result = FALSE;
+				result = RETSCAN_COVER_OPEN;
 			}
 		}
-		if(sc_info.ErrorStatus.scan_jam_err) {
+		if (sc_info.ErrorStatus.scan_jam_err) {
 			printf("SCAN_JAM_ERR\n");
-			result = FALSE;
+			result = RETSCAN_PAPER_JAM;
 		}
-		if(sc_info.ErrorStatus.scan_canceled_err) {
+		if (sc_info.ErrorStatus.scan_canceled_err) {
 			printf("SCAN_CANCELED_ERR\n");
-			result = FALSE;
+			result = RETSCAN_CANCEL;
 		}
-		if(sc_info.ErrorStatus.scan_timeout_err) {
+		if (sc_info.ErrorStatus.scan_timeout_err) {
 			printf("SCAN_TIMEOUT_ERR\n");
-			result = FALSE;
+			result = RETSCAN_TIME_OUT;
 		}
-		if(sc_info.ErrorStatus.multi_feed_err) {
+		if (sc_info.ErrorStatus.multi_feed_err) {
 			printf("MULTI_FEED_ERR\n");
-			result = FALSE;
+			result = RETSCAN_ULTRA_SONIC;
 		}
-		if(sc_info.ErrorStatus.usb_transfer_err) {
+		if (sc_info.ErrorStatus.usb_transfer_err) {
 			printf("USB_TRANSFER_ERR\n");
-			result = FALSE;
+			result = RETSCAN_USB_TRANSFERERROR;
 		}
-		if(sc_info.ErrorStatus.wifi_transfer_err) {
+		if (sc_info.ErrorStatus.wifi_transfer_err) {
 			printf("WiFi_TRANSFER_ERR\n");
-			result = FALSE;
+			result = RETSCAN_WIFI_TRANSFERERROR;
 		}
-		if(sc_info.ErrorStatus.usb_disk_transfer_err) {
-			printf("USBDISK_TRANSFER_ERR\n");
-			result = FALSE;
-		}
-		if(sc_info.ErrorStatus.ftp_transfer_err) {
-			printf("FTP_TRANSFER_ERR\n");
-			result = FALSE;
-		}
-		if(sc_info.ErrorStatus.smb_transfer_err) {
-			printf("SMB_TRANSFER_ERR\n");
-			result = FALSE;
-		}
+		//if(sc_info.ErrorStatus.usb_disk_transfer_err) {
+		//	printf("USBDISK_TRANSFER_ERR\n");
+		//	result = FALSE;
+		//}
+		//if(sc_info.ErrorStatus.ftp_transfer_err) {
+		//	printf("FTP_TRANSFER_ERR\n");
+		//	result = FALSE;
+		//}
+		//if(sc_info.ErrorStatus.smb_transfer_err) {
+		//	printf("SMB_TRANSFER_ERR\n");
+		//	result = FALSE;
+		//}
 
-		
-		if(stage == START_STAGE) {
-			if(sc_info.SensorStatus.adf_document_sensor) {
+
+		if (stage == START_STAGE) {
+			if (sc_info.SensorStatus.adf_document_sensor) {
 				printf("ADF document not ready.\n");
-				result = FALSE;
+				result = RETSCAN_ADFDOC_NOT_READY;
 			}
-			if(sc_info.SensorStatus.adf_paper_sensor) {
+			if (sc_info.SensorStatus.adf_paper_sensor) {
 				printf("ADF path not ready.\n");
-				result = FALSE;
+				result = RETSCAN_ADFPATH_NOT_READY;
 			}
-			if(sc_info.SensorStatus.cover_sensor) {
+			if (sc_info.SensorStatus.cover_sensor) {
 				printf("ADF cover not ready.\n");
-				result = FALSE;
+				result = RETSCAN_ADFCOVER_NOT_READY;
 			}
 		}
 	}
@@ -671,176 +703,5 @@ TCHAR   ValBuf[16];
 extern int _gamma();
 
 //-------------------------------------------------
-int SCAN_FLOW(void)
-{
-  int result=1;
-  int duplex, dup;
-  IMAGE_T *img = &sc_par.img;
-  FILE *fp;
-  char ImgFileName[64];
-  int bFiling[2] = {0, 0};
-  int length, cancel, lineSize;
-  unsigned int PageNum[2]={0,0};
-  
-
-  Load_ScanParameter(&sc_par);
-
-  if(!ScannerStatusCheck(START_STAGE)) {
-    system("PAUSE");
-    return FALSE;
-  }
-  
-  /*if( (sc_par.acquire & ACQ_MOTOR_OFF) ||
-	(sc_par.acquire & ACQ_NO_PP_SENSOR) ||
-	(sc_par.acquire & ACQ_TEST_PATTERN) ) {
-	 
-  }
-  else*/ {
-	  if(sc_par.source == I3('ADF')) {
-		  if(!_JobCreate(JOB_ADF))
-			return FALSE;
-	  }
-	  else {
-		  if(!_JobCreate(JOB_FLB))
-			return FALSE;
-	  }
-  }
-
-	if(!_parameters(&sc_par)) {
-		result = FALSE;
-		goto JobEnd;
-	}
-
-	if(sc_par.acquire & ACQ_GAMMA) {
-		if(!_gamma()) {
-			result = FALSE;
-			goto JobEnd;
-		}
-	}
-
-	if(_StartScan()) {
-		time = GetTickCount();
-
-    duplex = sc_par.duplex;
-    cancel = FALSE;
-    lineSize = (img->format != I3('JPG'))? ((img->bit*img->width+7)/8): 0;
-    while(!cancel) {
-
-      //_info(&sc_info);
-		if(!ScannerStatusCheck(SCANNING_STAGE)) {
-			break;
-		}
-
-#if 0
-      if(_kbhit()) {
-        _getch();
-		_cancel();
-		_JobEnd();
-		printf("SCAN_CANCELED_ERR\n");
-        return TRUE;
-      }
-#endif
-
-      if((!(duplex & 1) || sc_info.ImgStatus[0].EndScan) && (!(duplex & 2) || sc_info.ImgStatus[1].EndScan))
-        break;
-
-	  //if(!error_check(&sc_info)) {
-		  //cancel = TRUE;
-		//  break;
-	  //}
-
-#if 1 //define 0 for bypass image receive
-      for (dup = 0; dup < 2; dup++) {
-		if((duplex & (1<<dup)) && sc_info.ValidPageSize[dup]) {
-          length = min(sizeof(scanBuf), sc_info.ValidPageSize[dup]);
-          if(lineSize)
-            length -= (length % lineSize);
-          if(_imgRead(dup, scanBuf, &length)) {
-            if(!bFiling[dup]) {
-              bFiling[dup]++;
-			  PageNum[dup]++;
-
-			  sprintf(ImgFileName, "Batch%d_%s_%s_%dx%d_%d_%c.%s", BatchNum, ((U8)sc_par.source == 'A' ? "ADF":"FB"), sc_info.ImgStatus[dup].IsBlank ? "Blank" : (sc_info.ImgStatus[dup].IsColor ? "Color":"Gray"), img->dpi.x, img->dpi.y, PageNum[dup]/*sc_info.PageNum[dup]+1*/, 'A'+dup, img->format==I3('JPG')? "JPG":"TIF");
-				  
-				if(sc_par.acquire & ACQ_DETECT_COLOR) {
-					if(sc_par.img.bit >= 24) {
-						if(sc_info.ImgStatus[dup].IsColor == 0) {
-							ImgFile[dup].img.bit = sc_par.img.bit/3;
-						}
-						else {
-							ImgFile[dup].img.bit = sc_par.img.bit;
-						}
-					}
-				}
-              ImgFile_Open(&ImgFile[dup], ImgFileName);
-			  printf("\n%s\n", ImgFileName);
-            }
-			ImgFile_Write(&ImgFile[dup], scanBuf, length);
-			printf("%c", dup? 'B': 'A');
-			
-            if((length >= (int)sc_info.ValidPageSize[dup]) && sc_info.ImgStatus[dup].EndPage) {
-			  //printf("\nSide %c CLOSED\n",  dup? 'B': 'A');
-				/*if(sc_par.acquire & ACQ_DETECT_COLOR) {
-					if(sc_par.img.bit >= 24) {
-						if(sc_info.ImgStatus[dup].IsColor == 0) {
-							ImgFile[dup].img->bit = sc_par.img.bit/3;
-						}
-						else {
-							ImgFile[dup].img->bit = sc_par.img.bit;
-						}
-					}
-				}*/
-				ImgFile_Close(&ImgFile[dup], sc_info.ImageHeight[dup]);
-              bFiling[dup]--;
-			  printf("\n");
-            }
-			else if(cancel && bFiling[dup]) {
-			  //printf("\nSide %c cancel CLOSED\n",  dup? 'B': 'A');
-				/*if(sc_par.acquire & ACQ_DETECT_COLOR) {
-					if(sc_par.img.bit >= 24) {
-						if(sc_info.ImgStatus[dup].IsColor == 0) {
-							ImgFile[dup].img->bit = sc_par.img.bit/3;
-						}
-						else {
-							ImgFile[dup].img->bit = sc_par.img.bit;
-						}
-					}
-				}*/
-				ImgFile_Close(&ImgFile[dup], sc_info.ImageHeight[dup]);
-			  bFiling[dup] = 0;
-			}
-          }
-        }
-		/*
-        if(cancel && bFiling[dup]) {
-		  printf("\nSide %c cancel CLOSED\n",  dup? 'B': 'A');
-          ImgFile_Close(&ImgFile[dup], sc_info.ImageHeight[dup]);
-          bFiling[dup] = 0;
-        }
-		*/
-	  }//for
-#endif
-    }//while
-    //time = GetTickCount() - time;
-
-
-	
-	//if(sc_info.Cancel || sc_info.CoverOpen || sc_info.PaperJam || sc_info.UltraSonic) {
-		//_cancel();
-	//}
-	//else {
-		_stop();
-	//}
-    //waitJobFinish(1, 0);
-	time = GetTickCount() - time;
-
-  }
-
-JobEnd:
-  
-  _JobEnd();
-
-  return result;
-}
 
 

@@ -189,6 +189,7 @@
     <ClCompile Include="Calibration\calibration_flow.cpp" />
     <ClCompile Include="Calibration\calibration_scan.cpp" />
     <ClCompile Include="Calibration\EdgeDetect.cpp" />
+    <ClCompile Include="Calibration\MotorMove.cpp" />
     <ClCompile Include="Calibration\ScanCMD.cpp" />
     <ClCompile Include="Calibration\ScanFunction.cpp" />
     <ClCompile Include="Calibration\usbio.cpp" />
