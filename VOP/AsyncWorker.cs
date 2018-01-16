@@ -48,6 +48,7 @@ namespace VOP
     }
     public delegate QRCodeResult[] QRCodeDelegate(Bitmap bitmap);
     public delegate int QRCodeDetectDelegate();
+    public delegate int CalibrationDelegate();
     public delegate int DoWorkDelegate();
     public delegate bool QuickScanDelegate();
     public delegate bool CheckVerifyCodeDelegate(string strPhoneNumber, string strVerifyCode, ref JSONResultFormat1 rtValue);
