@@ -27,7 +27,6 @@ namespace VOP
         public bool isCancel = false;
         private static bool isReset = false;
         private List<File> fileListFromGoogle = null;
-        private static bool bFinish = false;
 
         //public static MainWindow mainWindow;
         /// <summary>
@@ -126,8 +125,6 @@ namespace VOP
             Win32.OutputDebugString("CreateAuthenticator");
             try
             {
-                bFinish = false;
-
                 _service = new DriveService(CreateAuthenticator());
             
                 Win32.OutputDebugString("Get a listing of the existing files...");
@@ -325,25 +322,6 @@ namespace VOP
             {
                 isReset = MainWindow_Rufous.g_settingData.m_bNeedReset;
             }
-
-            //AsyncWorker worker = new AsyncWorker(System.Windows.Application.Current.MainWindow);
-            //if (worker.InvokeGoogleMethod(Authorize, (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_wait")))
-            //{
-            //    try
-            //    {
-            //        return UploadFiles();
-
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Win32.OutputDebugString(ex.Message);
-            //        return false;
-            //    }
-            //}
-            //else
-            //{
-            //    return false;
-            //} 
    
             if (Authorize())
             {
