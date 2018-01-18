@@ -98,9 +98,8 @@ namespace VOP
 
         void CallbackMethod(IAsyncResult ar)
         {
-
             if (isNeededProgress)
-            {
+            {               
                 asyncEvent.WaitOne();
 
                 if (pbw != null)
@@ -109,17 +108,16 @@ namespace VOP
                     new Action(
                     delegate ()
                     {
+                        
                         pbw.Close();
                     }
                     ));
                 }
             }
-
         }
 
         void QuickScanCallbackMethod(IAsyncResult ar)
         {
-
             if (isNeededProgress)
             {
                 asyncEvent.WaitOne();
@@ -486,6 +484,35 @@ namespace VOP
 
             }
 
+            return true;
+        }
+
+        public bool InvokeGoogleMethod(QuickScanDelegate method, string msgBoxText)
+        {
+            if (method != null)
+            {
+                QuickScanDelegate caller = method;
+
+                isNeededProgress = false;
+                asyncEvent.Reset();
+
+                IAsyncResult result = caller.BeginInvoke(new AsyncCallback(QuickScanCallbackMethod), null);
+
+                if (!result.AsyncWaitHandle.WaitOne(100, false))
+                {
+                    isNeededProgress = true;
+
+                    qr_pbw = new MessageBoxEx_Simple_Busy_QRCode(msgBoxText);
+                    qr_pbw.Owner = this.owner;
+                    qr_pbw.Loaded += pbw_Loaded;
+                    qr_pbw.ShowDialog();
+                }
+
+                if (result.AsyncWaitHandle.WaitOne(100, false))
+                {
+                    return caller.EndInvoke(result);
+                }
+            }
             return true;
         }
 

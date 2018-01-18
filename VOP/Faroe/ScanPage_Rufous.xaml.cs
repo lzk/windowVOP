@@ -405,9 +405,9 @@ namespace VOP
             {
                 Win32.OutputDebugString("Scan to Goole Drive");
                 Googledocsflow flow = new Googledocsflow();
-                //flow.ParentWin = m_MainWin;
                 flow.FileList = files;
-                OneDriveFlow.FlowType = CloudFlowType.View;
+                Googledocsflow.ParentWin = m_MainWin;
+                Googledocsflow.FlowType = CloudFlowType.View;
                 flow.Run();
             }
             Win32.OutputDebugString("ScanToCloudButtonClick===Enter");

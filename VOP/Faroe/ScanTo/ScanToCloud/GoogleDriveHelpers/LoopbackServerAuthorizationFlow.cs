@@ -110,11 +110,13 @@ namespace Google.Apis.Helper
             {
                 // Call EndGetContext to complete the asynchronous operation.
                 context = listener.EndGetContext(result);
-
                 try
                 {
+                    _code = null;
+                    Win32.OutputDebugString("RawUrl:" + context.Request.RawUrl);
                     // Check whether we got a successful response:
                     string code = context.Request.QueryString["code"];
+
                     if (!string.IsNullOrEmpty(code))
                     {
                         _code = code;
@@ -133,7 +135,7 @@ namespace Google.Apis.Helper
                 }
                 catch (Exception ex)
                 {
-                    Win32.OutputDebugString(ex.Message);
+                    Win32.OutputDebugString("callback error "+ex.Message);
                 }
                 finally
                 {
@@ -150,7 +152,7 @@ namespace Google.Apis.Helper
             }
             catch (Exception ex)
             {
-                Win32.OutputDebugString(ex.Message);
+                Win32.OutputDebugString("EndContext error " + ex.Message);
             }
         }
         public string RetrieveAuthorization(UserAgentClient client, IAuthorizationState authorizationState)
@@ -165,31 +167,43 @@ namespace Google.Apis.Helper
             // Create a HttpListener for the specified url.
             string url = string.Format(LoopbackCallback, GetRandomUnusedPort(), Google.Apis.Util.Utilities.ApplicationName);
             authorizationState.Callback = new Uri(url);
-            
-            var webserver = new HttpListener();
-            webserver.Prefixes.Add(url);
-            
+
+            Win32.OutputDebugString("CallBack URl" + url);
+
             // Retrieve the authorization url.
             Uri authUrl = client.RequestUserAuthorization(authorizationState);
-            
+
+            var webserver = new HttpListener();
+            webserver.Prefixes.Add(url);
             try
             {
                 // Start the webserver.
                 webserver.Start();
 
-                Win32.OutputDebugString(authUrl.ToString());
+                Win32.OutputDebugString("Authorizate URL: " + authUrl.ToString());
+
                 // Open the browser.
                 Process.Start(authUrl.ToString());
 
                 // Wait for the incoming connection, then handle the request.
+                return HandleRequest(webserver.GetContext());
 
-                IAsyncResult result = webserver.BeginGetContext(new AsyncCallback(ListenerCallback), webserver);
+                //Win32.OutputDebugString(DateTime.Now.ToString());
 
-                result.AsyncWaitHandle.WaitOne(10000);                
+                //IAsyncResult result = webserver.BeginGetContext(new AsyncCallback(ListenerCallback), webserver);
 
-                return _code;
+                //if (result.AsyncWaitHandle.WaitOne(60000, false))
+                //{
+                //    Win32.OutputDebugString("Code: " + _code);
+                //    return _code;
+                //}
+                //else
+                //{
+                //    Win32.OutputDebugString(DateTime.Now.ToString());
+                //    Win32.OutputDebugString("RetrieveAuthorization===Leave, TimeOut");
+                //}
+                //return null;
 
-                //return HandleRequest(webserver.GetContext());
             }
             catch (HttpListenerException ex)
             {
@@ -202,6 +216,7 @@ namespace Google.Apis.Helper
                 // Stop the server after handling the one request.
                 webserver.Stop();
             }
+            return null;
             Win32.OutputDebugString("RetrieveAuthorization===Leave");
         }
     }

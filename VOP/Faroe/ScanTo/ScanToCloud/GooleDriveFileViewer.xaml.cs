@@ -143,7 +143,7 @@ namespace VOP
                 }
 
             }
-            if (isHasFolder == false && rootid == "")
+            if (isHasFolder == false && rootid == "" && FileList.Count > 0)
             {
                 if (FileList[0].Parents.Count > 0 && FileList[0].Parents.Count == 1)
                 {
@@ -191,7 +191,7 @@ namespace VOP
                 }
             }
 
-            if (flowType != CloudFlowType.SimpleView)
+            if (flowType != CloudFlowType.SimpleView && FileBrowser.Items.Count > 0)
                 FileBrowser.SelectedIndex = 0;
             else
                 FileBrowser.SelectedIndex = -1;

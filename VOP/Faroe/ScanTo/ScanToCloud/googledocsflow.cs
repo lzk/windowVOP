@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Windows;
 using DotNetOpenAuth.OAuth2;
 using Google.Apis.Authentication;
 using Google.Apis.Authentication.OAuth2;
@@ -19,11 +20,14 @@ namespace VOP
     {
         public List<string> FileList { get; set; }
         public static CloudFlowType FlowType = CloudFlowType.View;
+        public static Window ParentWin { get; set; }
         public static string SavePath = "";
         public static string FolderID = "";
         public string m_errorMsg = "";
         public bool isCancel = false;
         private static bool isReset = false;
+        private List<File> fileListFromGoogle = null;
+        private static bool bFinish = false;
 
         //public static MainWindow mainWindow;
         /// <summary>
@@ -62,31 +66,35 @@ namespace VOP
                 string scope = DriveService.Scopes.Drive.GetStringValue();
 
                 // Check if there is a cached refresh token available.                
+                if (!isReset)
+                {
+                    Win32.OutputDebugString("GetCachedRefreshToken");
+                    state = AuthorizationMgr.GetCachedRefreshToken(STORAGE, KEY);
+                    if (state != null)
+                    {
+                        Win32.OutputDebugString("state not null");
+                        try
+                        {
+                            client.RefreshToken(state);
+                            return state; // Yes - we are done.
+                        }
+                        catch (DotNetOpenAuth.Messaging.ProtocolException ex)
+                        {
+                            Win32.OutputDebugString("Using existing refresh token failed: " + ex.Message);
+                        }
+                    }
+                }
+                else
+                {
+                    AuthorizationMgr.DeleteToken(STORAGE);
+                }
+                Win32.OutputDebugString("RequestNativeAuthorization");
 
-                //if (!isReset)
-                //{
-                //    Win32.OutputDebugString("GetCachedRefreshToken");
-                //    state = AuthorizationMgr.GetCachedRefreshToken(STORAGE, KEY);
-                //    if (state != null)
-                //    {
-                //        Win32.OutputDebugString("state not null");
-                //        try
-                //        {
-                //            client.RefreshToken(state);
-                //            return state; // Yes - we are done.
-                //        }
-                //        catch (DotNetOpenAuth.Messaging.ProtocolException ex)
-                //        {
-                //            Win32.OutputDebugString("Using existing refresh token failed: " + ex.Message);
-                //        }
-                //    }
-                //}
-               // Win32.OutputDebugString("RequestNativeAuthorization");
                 // If we get here, there is no stored token. Retrieve the authorization from the user.
-                state = AuthorizationMgr.RequestNativeAuthorization(client, scope);
-               // Win32.OutputDebugString("Save key to file!");
+                state = AuthorizationMgr.RequestNativeAuthorization(client, ParentWin, scope);
+                Win32.OutputDebugString("Save key to file!");
                 AuthorizationMgr.SetCachedRefreshToken(STORAGE, KEY, state);
-               // Win32.OutputDebugString("save success!");
+                Win32.OutputDebugString("save success!");
             }
             catch(Exception ex)
             {
@@ -95,6 +103,8 @@ namespace VOP
                 System.Windows.Application.Current.MainWindow,
                 (string)"Connect to google drive fail! " + ex.Message,
                    (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+
+                throw new Exception("Cancel the Authorization");
             }
 
             //Win32.OutputDebugString("GetAuthorization===Leave");
@@ -102,39 +112,71 @@ namespace VOP
         }
 
         /// <summary>
-        /// This is the worker method that executes when the user clicks the GO button.
+        /// This functions to get the Authorize from google drive server
         /// It illustrates the workflow that would need to take place in an actual application.
         /// </summary>
-        public bool AuthorizeAndUpload()
+        public bool Authorize()
         {
             Win32.OutputDebugString("AuthorizeAndUpload===>Enter");
+
+            // First, create a reference to the service you wish to use.
+            // For this app, it will be the Drive service. But it could be Tasks, Calendar, etc.
+            // The CreateAuthenticator method is passed to the service which will use that when it is time to authenticate
+            // the calls going to the service.
+            Win32.OutputDebugString("CreateAuthenticator");
             try
             {
-                // First, create a reference to the service you wish to use.
-                // For this app, it will be the Drive service. But it could be Tasks, Calendar, etc.
-                // The CreateAuthenticator method is passed to the service which will use that when it is time to authenticate
-                // the calls going to the service.
-                Win32.OutputDebugString("CreateAuthenticator");
-                _service = new DriveService(CreateAuthenticator());
+                bFinish = false;
 
+                _service = new DriveService(CreateAuthenticator());
+            
                 Win32.OutputDebugString("Get a listing of the existing files...");
                 // Get a listing of the existing files...
-                List<File> fileList = Utilities.RetrieveAllFiles(_service);
+                fileListFromGoogle = Utilities.RetrieveAllFiles(_service);
 
-                if (fileList.Count == 0 &&
+                if (fileListFromGoogle == null)
+                {
+                    return false;
+                }
+
+                if (fileListFromGoogle !=null &&
+                    fileListFromGoogle.Count == 0 &&
                     FlowType == CloudFlowType.SimpleView)
                 {
                     Win32.OutputDebugString("file count is 0 and simpleview, return");
                     return false;
                 }
 
+            }
+            catch (Exception ex)
+            {
+                Win32.OutputDebugString("Upload Fail " + ex.Message);
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                System.Windows.Application.Current.MainWindow,
+                (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Connect_to_Google_server_fail"),
+               //"Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!",
+               (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                return false;
+            }
+
+            
+            return true;
+        }
+        /// <summary>
+        /// This function to upload the scanning image files to google drive
+        /// It illustrates the workflow that would need to take place in an actual application.
+        /// </summary>
+        public bool UploadFiles()
+        { 
+            try
+            { 
                 if (FlowType == CloudFlowType.Quick)
                 {
                     Win32.OutputDebugString("Quck Scan: to google drive");
 
                     string folderID = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.GoogleDriveFolderID;
                     isReset = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.NeedReset;
-                    if (fileList.Count > 0)
+                    if (fileListFromGoogle != null && fileListFromGoogle.Count > 0)
                     {
                         // Set a flag to keep track of whether the file already exists in the drive
                         List<File> fileExists = new List<File>();
@@ -142,7 +184,7 @@ namespace VOP
 
                         foreach (string filepath in FileList)
                         {
-                            foreach (File item in fileList)
+                            foreach (File item in fileListFromGoogle)
                             {
                                 if (item.OriginalFilename == System.IO.Path.GetFileName(filepath))
                                 {
@@ -237,11 +279,12 @@ namespace VOP
                     }
                     else
                     {
+                        
                         Win32.OutputDebugString("scan to google drive");
                     }
                     isReset = MainWindow_Rufous.g_settingData.m_bNeedReset;
                     bool? result = null;
-                    GoogleDriveFileViewer viewer = new GoogleDriveFileViewer(fileList, FileList, MainWindow_Rufous.g_settingData.m_dropBoxDefaultPath, FlowType);
+                    GoogleDriveFileViewer viewer = new GoogleDriveFileViewer(fileListFromGoogle, FileList, MainWindow_Rufous.g_settingData.m_dropBoxDefaultPath, FlowType);
                     viewer.Owner = System.Windows.Application.Current.MainWindow;
                     viewer.Service = _service;
                     result = viewer.ShowDialog();
@@ -272,7 +315,8 @@ namespace VOP
                 if (FlowType != CloudFlowType.SimpleView)
                     return false;
             }
-            Win32.OutputDebugString("Scan to Google Drive RUn()");
+            Win32.OutputDebugString("Scan to Google Drive Run()");
+
             if (FlowType == CloudFlowType.Quick)
             {
                 isReset = MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.NeedReset;
@@ -281,17 +325,41 @@ namespace VOP
             {
                 isReset = MainWindow_Rufous.g_settingData.m_bNeedReset;
             }
-            try
+
+            //AsyncWorker worker = new AsyncWorker(System.Windows.Application.Current.MainWindow);
+            //if (worker.InvokeGoogleMethod(Authorize, (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_wait")))
+            //{
+            //    try
+            //    {
+            //        return UploadFiles();
+
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Win32.OutputDebugString(ex.Message);
+            //        return false;
+            //    }
+            //}
+            //else
+            //{
+            //    return false;
+            //} 
+   
+            if (Authorize())
             {
-                AuthorizeAndUpload();
+                try
+                {
+                    return UploadFiles();
+
+                }
+                catch (Exception ex)
+                {
+                    Win32.OutputDebugString(ex.Message);
+                    return false;
+                }
             }
-            catch (Exception ex)
-            {
-                Win32.OutputDebugString(ex.Message);
-                return false;
-            }
-         
-            return true;
+            return false;
+    
         }
     }
 }

@@ -72,13 +72,38 @@ namespace Google.Apis.Helper
         /// <param name="scopes">The requested set of scopes.</param>
         /// <returns>The authorized state.</returns>
         /// <exception cref="AuthenticationException">Thrown if the request was cancelled by the user.</exception>
-        public static IAuthorizationState RequestNativeAuthorization(NativeApplicationClient client,
+        public static IAuthorizationState RequestNativeAuthorization(NativeApplicationClient client, System.Windows.Window win,
                                                                      params string[] scopes)
         {
+            const string RedirectUri = "http://localhost:5000/";
             Win32.OutputDebugString("RequestNativeAuthorization===>Enter");
             IAuthorizationState state = new AuthorizationState(scopes);
-            Win32.OutputDebugString("Get authcode!");
-            string authCode = RequestNativeAuthorization(client, state);
+
+            //string authCode = RequestNativeAuthorization(client, state);
+            state.Callback = new Uri(RedirectUri);
+            Uri authUrl = client.RequestUserAuthorization(state);
+            
+            string authCode = "";
+            try
+            {
+
+                var login = new GoogleLoginForm(authUrl.ToString());
+                login.Owner = win;
+                login.ShowDialog();
+
+                if (login.Result)
+                {
+                    authCode = login.AuthCode;
+                }
+                else
+                {
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Win32.OutputDebugString("get auto code error " + ex.Message);
+            }
 
             if (string.IsNullOrEmpty(authCode))
             {
@@ -88,7 +113,6 @@ namespace Google.Apis.Helper
             state1 = client.ProcessUserAuthorization(authCode, state);
             Win32.OutputDebugString("RequestNativeAuthorization===>Leave");
             return state1;
-            //return client.ProcessUserAuthorization(authCode, state);
         }
 
         /// <summary>
@@ -130,26 +154,47 @@ namespace Google.Apis.Helper
             return null;
         }
 
-    /// <summary>
-    /// Saves a refresh token to the specified storage name, 
-    /// and encrypts it using the specified key.
-    /// </summary>
-    public static void SetCachedRefreshToken(string storageName,
+        /// <summary>
+        /// Delete the save token
+        /// </summary>
+        /// <param name="storageName">The file name (without extension) used for storage.</param>
+        /// <param name="key">The key to decrypt the data with.</param>
+        /// <returns>The authorization state containing a Refresh Token, or null if unavailable</returns>
+        public static void DeleteToken(string storageName)
+        {
+            Win32.OutputDebugString("DeleteToken===Enter");
+            string file = storageName + ".auth";
+            try
+            {
+                AppData.DeleteFile(file);
+ 
+            }
+            catch (Exception ex)
+            {
+                Win32.OutputDebugString("DeleteToken fail " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Saves a refresh token to the specified storage name, 
+        /// and encrypts it using the specified key.
+        /// </summary>
+        public static void SetCachedRefreshToken(string storageName,
                                                 string key,
                                                 IAuthorizationState state)
-    {
-        // Create the file content.
-        string scopes = state.Scope.Aggregate("", (left, append) => left + " " + append);
-        string content = scopes + "\r\n" + state.RefreshToken;
+        {
+            // Create the file content.
+            string scopes = state.Scope.Aggregate("", (left, append) => left + " " + append);
+            string content = scopes + "\r\n" + state.RefreshToken;
 
-        // Encrypt it.
-        byte[] salt = Encoding.Unicode.GetBytes(Assembly.GetEntryAssembly().FullName + key);
-        byte[] encrypted = ProtectedData.Protect(
-            Encoding.Unicode.GetBytes(content), salt, DataProtectionScope.CurrentUser);
+            // Encrypt it.
+            byte[] salt = Encoding.Unicode.GetBytes(Assembly.GetEntryAssembly().FullName + key);
+            byte[] encrypted = ProtectedData.Protect(
+                Encoding.Unicode.GetBytes(content), salt, DataProtectionScope.CurrentUser);
 
-        // Save the data to the auth file.
-        string file = storageName + ".auth";
-        AppData.WriteFile(file, encrypted);
-    }
+            // Save the data to the auth file.
+            string file = storageName + ".auth";
+            AppData.WriteFile(file, encrypted);
+        }
     }
 }

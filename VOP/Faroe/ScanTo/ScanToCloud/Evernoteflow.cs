@@ -9,7 +9,7 @@ using System.Windows;
 using System.Xml;
 using System.Threading;
 using EvernoteSDK;
-
+using System.Runtime.InteropServices;
 
 namespace VOP
 {
@@ -28,8 +28,11 @@ namespace VOP
         private bool bReset = false;
         
         private bool connectSuccess = false;
-        //private Thread thread_Connect = null;
-        //private ManualResetEvent m_connectEvent = new ManualResetEvent(false);
+
+        private const int INTERNET_OPTION_END_BROWSER_SESSION = 42;
+        [DllImport("wininet.dll", SetLastError = true)]
+        private static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int lpdwBufferLength);
+
 
         public bool Run()
         {        
@@ -215,10 +218,11 @@ namespace VOP
 
         public void ScanToEverNote(bool bReset)
         {
-            //m_connectEvent.Reset();
             try
             {
                 connectSuccess = ENSession.SharedSession.AuthenticateToEvernote(bReset);
+
+                InternetSetOption(IntPtr.Zero, INTERNET_OPTION_END_BROWSER_SESSION, IntPtr.Zero, 0);
             }
 
             catch (Exception ex)
@@ -231,7 +235,6 @@ namespace VOP
                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
             }
 
-            //m_connectEvent.Set();
         }
 
         // Support routine for displaying a note thumbnail.

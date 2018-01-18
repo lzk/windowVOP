@@ -539,4 +539,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Roller_Count">Restart Roller Count :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ACM_Count">ACM Count :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Count">Scan Count :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Connect_to_Google_server_fail">Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!</sys:String>
 </ResourceDictionary>

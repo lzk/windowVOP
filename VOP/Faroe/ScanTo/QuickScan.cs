@@ -347,6 +347,7 @@ namespace VOP
             else if (MainWindow_Rufous.g_settingData.m_MatchList[MainWindow_Rufous.g_settingData.CutNum].m_CloudScanSettings.SaveType == "GoogleDrive")
             {
                 Googledocsflow flow = new Googledocsflow();
+                Googledocsflow.ParentWin = Application.Current.MainWindow;
                 Googledocsflow.FlowType = CloudFlowType.Quick;
                 flow.FileList = fileLs;
 
