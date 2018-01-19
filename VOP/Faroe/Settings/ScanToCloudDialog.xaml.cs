@@ -158,12 +158,14 @@ namespace VOP
             {
                 Googledocsflow flow = new Googledocsflow();
                 Googledocsflow.FlowType = CloudFlowType.SimpleView;
-                flow.Run();
-                SavePathTbx.IsReadOnly = false;
-                SavePathTbx.Text = Googledocsflow.SavePath;
-                SavePathTbx.IsReadOnly = true;
-                m_scanToCloudParams.DefaultGoogleDrivePath = Googledocsflow.SavePath;
-                m_scanToCloudParams.GoogleDriveFolderID = Googledocsflow.FolderID;
+                if (flow.Run())
+                {
+                    SavePathTbx.IsReadOnly = false;
+                    SavePathTbx.Text = Googledocsflow.SavePath;
+                    SavePathTbx.IsReadOnly = true;
+                    m_scanToCloudParams.DefaultGoogleDrivePath = Googledocsflow.SavePath;
+                    m_scanToCloudParams.GoogleDriveFolderID = Googledocsflow.FolderID;
+                }
 
                 //reset
                 Googledocsflow.FlowType = CloudFlowType.View;
@@ -197,6 +199,7 @@ namespace VOP
             {
                 AuthenticationHelper.SignOut();
                 m_scanToCloudParams.DefaultPath = SavePathTbx.Text = "/";
+                m_scanToCloudParams.NeedReset = true;
             }
             else if (m_scanToCloudParams.SaveType == "DropBox")
             {
@@ -207,10 +210,10 @@ namespace VOP
             else if (m_scanToCloudParams.SaveType == "EverNote")
             {
                 //add by yunying shang 2017-12-08 for BMS 1613
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
-                 Application.Current.MainWindow,
-                (string)Application.Current.MainWindow.TryFindResource("ResStr_Switch_Evernote_Restart_VOP"),
-                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                // Application.Current.MainWindow,
+                //(string)Application.Current.MainWindow.TryFindResource("ResStr_Switch_Evernote_Restart_VOP"),
+                //(string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
                 //<<===========1613
                 m_scanToCloudParams.NeedReset = true;
             }

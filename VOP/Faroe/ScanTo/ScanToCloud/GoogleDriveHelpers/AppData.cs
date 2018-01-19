@@ -78,5 +78,17 @@ namespace Google.Apis.Helper
             string path = GetFilePath(file);
             File.WriteAllBytes(path, contents);
         }
+
+        /// <summary>
+        /// delete the specified file. Will create directories and files as necessary.
+        /// </summary>
+        public static void DeleteFile(string file)
+        {
+            string path = GetFilePath(file);
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+        }
     }
 }

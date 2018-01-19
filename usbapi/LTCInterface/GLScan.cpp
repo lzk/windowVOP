@@ -1559,9 +1559,9 @@ BYTE CGLDrv::_LOCK(LPCTSTR szIP)
 	}
 	else
 	{
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
-		OutputDebugString(showIp);
+		//TCHAR showIp[256] = { 0 };
+		//wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
+		//OutputDebugString(showIp);
 
 		nResult = FALSE;
 	}

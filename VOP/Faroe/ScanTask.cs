@@ -140,19 +140,22 @@ namespace VOP
             //add by yunying shang 2017-10-18 for BMS 1019
             if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
             {
-                NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-                bool bFound = false;
-                foreach (NetworkInterface adapter in fNetworkInterfaces)
-                {
-                    if (adapter.Description.Contains("802") ||
-                        adapter.Description.Contains("Wi-Fi") ||
-                        adapter.Description.Contains("Wireless"))
-                    {
-                        bFound = true;
-                    }
-                }
-                //add by yunying shang 2017-10-23 for BMS 1019
-                if (bFound == false || !IsOnLine())
+                //marked by yunying shang 2018-01-16 for BMS 1320
+                //NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+                //bool bFound = false;
+                //foreach (NetworkInterface adapter in fNetworkInterfaces)
+                //{
+                //    if (adapter.Description.Contains("802") ||
+                //        adapter.Description.Contains("Wi-Fi") ||
+                //        adapter.Description.Contains("Wireless"))
+                //    {
+                //        bFound = true;
+                //    }
+                //}
+                ////add by yunying shang 2017-10-23 for BMS 1019
+                //if (bFound == false || !IsOnLine())
+                //<<===================1320
+                if(!IsOnLine())
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                                 Application.Current.MainWindow,

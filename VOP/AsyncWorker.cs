@@ -98,9 +98,8 @@ namespace VOP
 
         void CallbackMethod(IAsyncResult ar)
         {
-
             if (isNeededProgress)
-            {
+            {               
                 asyncEvent.WaitOne();
 
                 if (pbw != null)
@@ -109,17 +108,16 @@ namespace VOP
                     new Action(
                     delegate ()
                     {
+                        
                         pbw.Close();
                     }
                     ));
                 }
             }
-
         }
 
         void QuickScanCallbackMethod(IAsyncResult ar)
         {
-
             if (isNeededProgress)
             {
                 asyncEvent.WaitOne();

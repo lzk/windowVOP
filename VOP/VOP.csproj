@@ -96,11 +96,9 @@
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\Google API\DotNetOpenAuth.dll</HintPath>
     </Reference>
-
     <Reference Include="Dropbox.Api, Version=0.1.6579.27099, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\x86\Debug\Dropbox.Api.dll</HintPath>
-
     </Reference>
     <Reference Include="en-html2enml, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -179,6 +177,7 @@
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -292,6 +291,7 @@
     <Compile Include="Faroe\ScanTo\ScanToCloud\GoogleDriveHelpers\INativeAuthorizationFlow.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\GoogleDriveHelpers\LoopbackServerAuthorizationFlow.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\GoogleDriveHelpers\Util.cs" />
+    <Compile Include="Faroe\ScanTo\ScanToCloud\googleLoginForm.xaml.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\GooleDriveFileViewer.xaml.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\OneDriveFileViewer.xaml.cs" />
     <Compile Include="Faroe\ScanTo\ScanToCloud\OneDriveFlow.cs" />
@@ -548,6 +548,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Faroe\ScanTo\ScanToCloud\GoogleDriveFileViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\ScanTo\ScanToCloud\googleLoginForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1008,9 +1012,6 @@
   <ItemGroup>
     <Resource Include="Images\Color.png" />
     <Resource Include="Images\Grayscale.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Unvalid.tif" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Checked_Agreement.tif" />

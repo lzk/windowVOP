@@ -18,35 +18,30 @@ using System.Windows.Shapes;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
+
 namespace VOP
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class LoginForm : Window
+    public partial class GoogleLoginForm : Window
     {
         private const string RedirectUri = "http://localhost:5000/";
 
-        private string oauth2State;
-        private string appKey;
-        private bool bReset = false;
+        private string authorizeUri = "";
 
         private const int INTERNET_OPTION_END_BROWSER_SESSION = 42;
         [DllImport("wininet.dll", SetLastError = true)]
         private static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int lpdwBufferLength);
 
-
-
-        public LoginForm(string appKey, bool bReset)
+        public GoogleLoginForm(string url)
         {
             InitializeComponent();
-            this.appKey = appKey;
-            this.bReset = bReset;
+
+            authorizeUri = url;
         }
 
-        public string AccessToken { get; private set; }
-
-        public string UserId { get; private set; }
+        public string AuthCode { get; private set; }
 
         public bool Result { get; private set; }
 
@@ -54,8 +49,7 @@ namespace VOP
         {
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(title_MouseLeftButtonDown);
 
-           // Dispatcher.BeginInvoke(new Action<string>(this.Start), appKey);
-            Start(appKey);
+            Start();
           
         }
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -66,17 +60,14 @@ namespace VOP
                 e.Handled = true;
             }
         }
-        private void Start(string appKey)
+        private void Start()
         {
-            this.oauth2State = Guid.NewGuid().ToString("N");
-            var authorizeUri = DropboxOAuth2Helper.GetAuthorizeUri(OAuthResponseType.Token, appKey, new Uri(RedirectUri), state: oauth2State, forceReapprove:this.bReset, disableSignup: false);
+           
             this.Browser.Navigate(authorizeUri);
         }
 
         private void BrowserNavigating(object sender, NavigatingCancelEventArgs e)
         {
-            //HideScriptErrors(this.Browser, true);
-
             if (!e.Uri.ToString().StartsWith(RedirectUri, StringComparison.OrdinalIgnoreCase))
             {
                 // we need to ignore all navigation that isn't to the redirect uri.
@@ -85,18 +76,16 @@ namespace VOP
 
             try
             {
-
-                OAuth2Response result = DropboxOAuth2Helper.ParseTokenFragment(e.Uri);
-                if (result.State != this.oauth2State)
+                string Uri = e.Uri.ToString();
+                if (Uri.Contains("code="))
                 {
-                    return;
+                    string code = Uri.Substring(Uri.LastIndexOf('=')+1);
+
+                    this.AuthCode = code;
+                    this.Result = true;
+
+                    InternetSetOption(IntPtr.Zero, INTERNET_OPTION_END_BROWSER_SESSION, IntPtr.Zero, 0);
                 }
-
-                this.AccessToken = result.AccessToken;
-                this.Uid = result.Uid;
-                this.Result = true;
-                InternetSetOption(IntPtr.Zero, INTERNET_OPTION_END_BROWSER_SESSION, IntPtr.Zero, 0);
-
             }
             catch (ArgumentException)
             {
@@ -121,8 +110,7 @@ namespace VOP
 
         void Browser_Navigated(object sender, NavigationEventArgs e)
         {
-
-           // HideScriptErrors(this.Browser, true);
+            // HideScriptErrors(this.Browser, true);
 
         }
 

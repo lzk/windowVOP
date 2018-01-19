@@ -78,6 +78,7 @@ namespace Google.Apis.Util
                         //Console.WriteLine("An error occurred: " + e.Message);
                         request.PageToken = null;
                         Win32.OutputDebugString(e.Message);
+                        return null;
                     }
 
                     // Keep doing this until the next page token is null. (Meaning there are no more pages to send)

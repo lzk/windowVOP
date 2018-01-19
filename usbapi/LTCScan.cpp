@@ -1573,60 +1573,67 @@ BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
 {
 	int nResult = TRUE;
 	TCHAR showIp[256] = { 0 };
+	int count = 3;
 	//CGLNet m_GLnet;
 
-	if (g_GLnet.CMDIO_Connect(szIP, 23011))
+	while (count-- > 0)
 	{
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
-		OutputDebugString(showIp);
-
-		U8 cmd[4] = { 'J','D','G','S' };
-		U8 status[8] = { 0 };
-
-		if (g_GLnet.CMDIO_Write(cmd, 4) == TRUE)
+		if (g_GLnet.CMDIO_Connect(szIP, 23011))
 		{
-			if (g_GLnet.CMDIO_Read(status, 8))
+			TCHAR showIp[256] = { 0 };
+			wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
+			OutputDebugString(showIp);
+
+			U8 cmd[4] = { 'J','D','G','S' };
+			U8 status[8] = { 0 };
+
+			if (g_GLnet.CMDIO_Write(cmd, 4) == TRUE)
 			{
-				if (status[0] == 'J'
-					&& status[1] == 'D'
-					&& status[2] == 'A'
-					&& status[3] == 'T'
-					&& status[4] == 0x00)
+				if (g_GLnet.CMDIO_Read(status, 8))
 				{
-					*re_status = RETSCAN_OK;
+					if (status[0] == 'J'
+						&& status[1] == 'D'
+						&& status[2] == 'A'
+						&& status[3] == 'T'
+						&& status[4] == 0x00)
+					{
+						*re_status = RETSCAN_OK;
+					}
+					else
+					{
+						*re_status = RETSCAN_BUSY;
+					}
+
+					nResult = TRUE;
+
+					g_GLnet.CMDIO_Close();
+					break;
 				}
 				else
 				{
-					*re_status = RETSCAN_BUSY;
+					wsprintf(showIp, L"\nTestIpConnected() read command Fail, %s", szIP);
+					OutputDebugString(showIp);
+					nResult = FALSE;
 				}
 
-				nResult = TRUE;
 			}
 			else
 			{
-				wsprintf(showIp, L"\nTestIpConnected() read command Fail, %s", szIP);
+				wsprintf(showIp, L"\nTestIpConnected() Write command Fail, %s", szIP);
 				OutputDebugString(showIp);
 				nResult = FALSE;
 			}
 
+			g_GLnet.CMDIO_Close();
 		}
 		else
 		{
-			wsprintf(showIp, L"\nTestIpConnected() Write command Fail, %s", szIP);
+
+			wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
 			OutputDebugString(showIp);
+
 			nResult = FALSE;
 		}
-
-		g_GLnet.CMDIO_Close();
-	}
-	else
-	{
-		
-		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
-		OutputDebugString(showIp);
-
-		nResult = FALSE;
 	}
 
 	return nResult;

@@ -255,10 +255,10 @@ namespace VOP
             }
             else if (cbCloudType.SelectedIndex == 1)
             {
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
-                 Application.Current.MainWindow,
-                (string)Application.Current.MainWindow.TryFindResource("ResStr_Switch_Evernote_Restart_VOP1"),
-                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                //VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                // Application.Current.MainWindow,
+                //(string)Application.Current.MainWindow.TryFindResource("ResStr_Switch_Evernote_Restart_VOP1"),
+                //(string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
 
                 MainWindow_Rufous.g_settingData.m_bNeedReset = true;
             }
