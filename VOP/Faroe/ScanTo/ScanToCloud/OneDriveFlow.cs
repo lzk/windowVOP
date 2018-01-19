@@ -19,7 +19,7 @@ using Dropbox.Api;
 using Dropbox.Api.Files;
 using Dropbox.Api.Team;
 using System.Threading;
-
+using System.Runtime.InteropServices;
 using System.Net.Http.Headers;
 using Microsoft.Graph;
 using Microsoft.Identity.Client;
@@ -64,17 +64,21 @@ namespace VOP
 
         public bool isSigin = false;
 
-//        private OneDriveTile _selectedTile;
+        private const int INTERNET_OPTION_END_BROWSER_SESSION = 42;
+        [DllImport("wininet.dll", SetLastError = true)]
+        private static extern bool InternetSetOption(IntPtr hInternet, int dwOption, IntPtr lpBuffer, int lpdwBufferLength);
+
+        //        private OneDriveTile _selectedTile;
 
         // Get an access token for the given context and resourceId. An attempt is first made to 
         // acquire the token silently. If that fails, then we try to acquire the token by prompting the user.
-     
+
 
 
         /// <summary>
         /// Signs the user out of the service.
         /// </summary>
-               
+
         private static void PresentServiceException(Exception exception)
         {
             string message = null;
@@ -106,8 +110,8 @@ namespace VOP
             catch (ServiceException exception)
             {
                 PresentServiceException(exception);
-            }    
-          
+            }
+
             try
             {
                 if (FlowType == CloudFlowType.Quick)
@@ -126,8 +130,10 @@ namespace VOP
                     (string)ParentWin.TryFindResource("ResStr_Connect_OneDrive_Fail"),//"Connection Onedirive failed!", 
                     (string)ParentWin.TryFindResource("ResStr_Warning"));
                     }
+
+
                 }
-            
+
 
                 // Tests below are for Dropbox Business endpoints. To run these tests, make sure the ApiKey is for
                 // a Dropbox Business app and you have an admin account to log in.
@@ -139,7 +145,12 @@ namespace VOP
             }
             catch (HttpException)
             {
-             
+
+            }
+
+            finally
+            {
+                InternetSetOption(IntPtr.Zero, INTERNET_OPTION_END_BROWSER_SESSION, IntPtr.Zero, 0);
             }
 
             return true;
@@ -253,6 +264,8 @@ namespace VOP
             {
                 var task = Task.Run((Func<Task<bool>>)UploadFilesToDefaultPath);
                 task.Wait();
+
+                InternetSetOption(IntPtr.Zero, INTERNET_OPTION_END_BROWSER_SESSION, IntPtr.Zero, 0);
 
                 return true;
             }
