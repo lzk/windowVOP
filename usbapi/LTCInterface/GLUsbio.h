@@ -72,6 +72,8 @@ public:
 	int CMDIO_BulkReadEx(int pipe, void *buffer, unsigned int dwLen);
 	int CMDIO_BulkReadEx(int pipe, void *buffer, unsigned int dwLen,  DWORD *dwByteCount);
 
+	int CMDIO_InterruptIoCtl(unsigned char *Buf, unsigned int dwLen);
+
 	int _SetIOHandle(HANDLE dwDevice, WORD wType);
 
 	int CMDIO_GetDeviceFeatures();

@@ -534,6 +534,9 @@ namespace VOP
 
         [DllImport("usbapi.dll")]
         public static extern int ClearScanCount(Byte mode);
+
+        [DllImport("usbapi.dll")]
+        public static extern int GetScanButton();
     }
 
 }

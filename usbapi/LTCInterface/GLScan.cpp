@@ -1659,3 +1659,17 @@ int CGLDrv::NVRAM_write(unsigned char addr, unsigned int len, unsigned char *dat
 	return result;
 
 }
+//add by yunying shang 2018-01-19 for Push Scan
+int CGLDrv::_GetScanButton(unsigned char* buf, DWORD dwLen)
+{
+	int bRet = FALSE;
+	int count = 0;
+	while (!bRet && count < 3)
+	{
+		bRet = m_GLusb->CMDIO_InterruptIoCtl(buf, dwLen);
+		Sleep(20);
+		count++;
+	}
+
+	return bRet;
+}

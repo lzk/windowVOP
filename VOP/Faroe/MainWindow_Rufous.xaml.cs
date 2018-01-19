@@ -42,8 +42,10 @@ namespace VOP
 
         private Thread thread_searchIP = null;
         private Thread statusUpdater = null;
+        private Thread scanButtonCheck = null;
         private ManualResetEvent m_updaterAndUIEvent = new ManualResetEvent(true);
         private bool _bExitUpdater = false;
+        private bool _bExitCheckButton = false;
 
         public static byte m_byWifiInitStatus = 0;
         public string m_strPassword = "";
@@ -66,7 +68,12 @@ namespace VOP
             thread_searchIP.Start();
 
             statusUpdater = new Thread(UpdateStatusCaller);
-            statusUpdater.Start();            
+            statusUpdater.Start();
+
+            //add by yunying shang 2018-01-19 for Push Scan
+            scanButtonCheck = new Thread(CheckScanButton);
+            scanButtonCheck.Start();
+            //<<=================       
             
             this.SourceInitialized += new EventHandler(win_SourceInitialized);  
         }
@@ -483,6 +490,27 @@ namespace VOP
             m_updaterAndUIEvent.Set();
         }
 
+        //add by yunying shang 2018-01-19 for Push Scan
+        public void CheckScanButton()
+        {
+            _bExitCheckButton = false;
+            while (!_bExitCheckButton)
+            {
+                if(dll.GetScanButton()>0)
+                {
+                    Win32.PostMessage((IntPtr)0xffff, App.WM_BUTTON_PRESSED, IntPtr.Zero, IntPtr.Zero);
+                }
+
+                for (int i = 0; i < 6; i++)
+                {
+                    if (_bExitCheckButton)
+                        break;
+                    System.Threading.Thread.Sleep(500);
+                }
+            }
+
+        }
+
         public void SetDeviceButtonState(bool isConnected)
         {
             if (scanSelectionPage.DeviceButton != null)
@@ -701,7 +729,21 @@ namespace VOP
             }
             else if (msg == App.WM_BUTTON_PRESSED)
             {
-                scanSelectionPage.ScanToButtonClick(null, null);
+                //modified by yunying shang 2018-01-19 for Push Scan
+                if (MainPageView.Child == scanPage)
+                {
+                    scanPage.Button_Click(null, null);
+
+                    if (MainPageView.Child == scanSelectionPage)
+                        scanSelectionPage.ScanToButtonClick(null, null);
+                    
+                }
+                else
+                {
+                    GotoPage("ScanSelectionPage", null);
+                    scanSelectionPage.ScanToButtonClick(null, null);
+                }
+                
             }
             return IntPtr.Zero;
         }
@@ -756,6 +798,7 @@ namespace VOP
             }
 
             _bExitUpdater = true;
+            _bExitCheckButton = true;
             m_updaterAndUIEvent.WaitOne();            
             notifyIcon1.Visible = false;
             SettingData.Serialize(g_settingData, App.cfgFile);       

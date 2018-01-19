@@ -454,6 +454,39 @@ int CGLUsb::_SetIOHandle(HANDLE dwDevice, WORD wType)
 	return TRUE;
 }
 
+int CGLUsb::CMDIO_InterruptIoCtl(unsigned char *Buf, unsigned int dwLen)
+{
+	OVERLAPPED  IntOverlapped;
+	BOOL        fRet;
+	DWORD     m_dwIntRead; //, m_dwIntWait;
+
+	ZeroMemory(&IntOverlapped, sizeof(OVERLAPPED));
+	ResetEvent(m_hIntrEvent);
+	IntOverlapped.hEvent = m_hIntrEvent;
+	fRet = DeviceIoControl(m_hDev,
+		(DWORD)IOCTL_WAIT_ON_DEVICE_EVENT,
+		NULL,
+		0,
+		Buf,
+		dwLen,
+		&m_dwIntRead,
+		&IntOverlapped);
+	if (!fRet) 
+	{
+		if (GetLastError() == ERROR_IO_PENDING)
+		{
+			if (WaitForSingleObject(m_hIntrEvent, 50) == WAIT_OBJECT_0)
+				fRet = TRUE;
+			else 
+			{
+				CancelIo(m_hDev);  //about 50ms
+				*Buf = 0;
+			}
+		}
+	}
+	return fRet;
+}
+
 CGLNet::CGLNet()
 {
 	m_hmod = LoadLibrary(DLL_NAME_NET);
@@ -568,3 +601,4 @@ int CGLNet::CMDIO_Close()
 
 	return False;
 }
+
