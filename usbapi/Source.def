@@ -78,3 +78,4 @@ EXPORTS
 	GetButtonPressed
 	ClearScanCount
 	GetScanCount
+	GetScanButton

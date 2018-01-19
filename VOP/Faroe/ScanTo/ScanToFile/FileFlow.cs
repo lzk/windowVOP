@@ -204,8 +204,15 @@ namespace VOP
                 {
                     return ScanFileSaveError.FileSave_OutOfMemory;
                 }
-                else//<<==================2040
+
+                if (size < 300)
                 {
+                    return ScanFileSaveError.FileSave_OutOfMemory;
+                }
+
+                //<<==================2040
+                {
+
 
                     Thread thread = new Thread(() =>
                     {
@@ -456,6 +463,10 @@ namespace VOP
                 return ScanFileSaveError.FileSave_OutOfMemory;
             }
 
+            if (size < 300)
+            {
+                return ScanFileSaveError.FileSave_OutOfMemory;
+            }
             Thread thread = new Thread(() =>
             {
                 try

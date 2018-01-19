@@ -49,6 +49,7 @@ public:
 	BYTE _GetButtonPressed();
 	BYTE _LOCK(LPCTSTR szIP);
 	BYTE _UNLOCK(LPCTSTR szIP);
+	int _GetScanButton(unsigned char* buf, DWORD dwLen);
 	int  NVRAM_read(unsigned char addr, unsigned int len, unsigned char *data);
 	int NVRAM_write(unsigned char addr, unsigned int len, unsigned char *data);
 	BYTE _GetPowerSaveTime(WORD* ptrSleepTime, WORD* ptrOffTime);

@@ -55,7 +55,10 @@ namespace VOP
 
                 if(scanFileList != null)
                 {
-                    selectedFileList = new List<ImageStatus>();
+                    if (selectedFileList == null)
+                        selectedFileList = new List<ImageStatus>();
+                    else
+                        selectedFileList.Clear();
 
                     //foreach (ScanFiles files in scanFileList)
                     for(int i= scanFileList.Count-1; i>=0; i--)
@@ -1013,9 +1016,8 @@ namespace VOP
             return -1;
         }
 
-        private void Button_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
+        public void Button_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
-
             if(image_wrappanel.Children.Count > 0)
             {
                 if (VOP.Controls.MessageBoxExResult.Yes ==
