@@ -1802,27 +1802,28 @@ USBAPI_API BYTE __stdcall GetPowerSupply()
 
 }
 
-USBAPI_API int __stdcall GetScanCount(byte mode, int* count)
+USBAPI_API int __stdcall GetScanCount(//byte mode, 
+	int* count1, int* count2, int* count3)
 {
 	BYTE data[4] = { 0 };
 	CGLDrv glDrv;
 	int result = FALSE;
 	int addr = 0x48;
-	switch (mode)
-	{
-	case 0:
-		addr = 0x48;
-		break;
-	case 1:
-		addr = 0x4c;
-		break;
-	case 2:
-		addr = 0x00;
-		break;
-	default:
-		addr = 0x48;
-		break;
-	}
+	//switch (mode)
+	//{
+	//case 0:
+	//	addr = 0x48;
+	//	break;
+	//case 1:
+	//	addr = 0x4c;
+	//	break;
+	//case 2:
+	//	addr = 0x00;
+	//	break;
+	//default:
+	//	addr = 0x48;
+	//	break;
+	//}
 	if (g_connectMode_usb == 1)
 	{
 		HANDLE hDev = NULL;
@@ -1863,9 +1864,27 @@ USBAPI_API int __stdcall GetScanCount(byte mode, int* count)
 
 		if (glDrv._OpenUSBDevice(strPort) != FALSE)
 		{
-			if (glDrv.NVRAM_read(addr, 4, data))
+			//if (glDrv.NVRAM_read(addr, 4, data))
+			//{
+			//	*count = *((DWORD*)data);
+			//	result = true;
+			//}
+
+			if (glDrv.NVRAM_read(0x48, 4, data))
 			{
-				*count = *((DWORD*)data);
+				*count1 = *((DWORD*)data);
+				result = true;
+			}
+
+			if (glDrv.NVRAM_read(0x4c, 4, data))
+			{
+				*count2 = *((DWORD*)data);
+				result = true;
+			}
+
+			if (glDrv.NVRAM_read(0x00, 4, data))
+			{
+				*count3 = *((DWORD*)data);
 				result = true;
 			}
 			glDrv._CloseDevice();
@@ -1887,10 +1906,31 @@ USBAPI_API int __stdcall GetScanCount(byte mode, int* count)
 					}
 					else
 					{
-						if (glDrv.NVRAM_read(addr, 4, data))
+						//if (glDrv.NVRAM_read(addr, 4, data))
+						//{
+						//	*count = (((DWORD)data[3] << 24 & 0xFF000000) + ((DWORD)data[2] << 16 & 0x00FF0000)
+						//		+ ((DWORD)data[1] << 8 & 0x0000FF00) + ((DWORD)data[0] & 0xff));
+						//	result = TRUE;
+						//}
+
+						if (glDrv.NVRAM_read(0x48, 4, data))
 						{
-							*count = (((DWORD)data[3] << 24 & 0xFF000000) + ((DWORD)data[2] << 16 & 0x00FF0000)
-								+ ((DWORD)data[1] << 8 & 0x0000FF00) + (DWORD)data[0] & 0xff);
+							*count1 = (((DWORD)data[3] << 24 & 0xFF000000) + ((DWORD)data[2] << 16 & 0x00FF0000)
+								+ ((DWORD)data[1] << 8 & 0x0000FF00) + ((DWORD)data[0] & 0xff));
+							result = TRUE;
+						}
+
+						if (glDrv.NVRAM_read(0x4c, 4, data))
+						{
+							*count2 = (((DWORD)data[3] << 24 & 0xFF000000) + ((DWORD)data[2] << 16 & 0x00FF0000)
+								+ ((DWORD)data[1] << 8 & 0x0000FF00) + ((DWORD)data[0] & 0xff));
+							result = TRUE;
+						}
+
+						if (glDrv.NVRAM_read(0x00, 4, data))
+						{
+							*count3 = (((DWORD)data[3] << 24 & 0xFF000000) + ((DWORD)data[2] << 16 & 0x00FF0000)
+								+ ((DWORD)data[1] << 8 & 0x0000FF00) + ((DWORD)data[0] & 0xff));
 							result = TRUE;
 						}
 					}

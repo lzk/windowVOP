@@ -530,7 +530,8 @@ namespace VOP
         public static extern Byte GetButtonPressed();
 
         [DllImport("usbapi.dll")]
-        public static extern int GetScanCount(Byte mode, ref int count);
+        public static extern int GetScanCount(//Byte mode, 
+            ref int count1, ref int count2, ref int count3);
 
         [DllImport("usbapi.dll")]
         public static extern int ClearScanCount(Byte mode);

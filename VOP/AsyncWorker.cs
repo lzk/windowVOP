@@ -1273,44 +1273,55 @@ namespace VOP
         {
             ScanCountRecord rec = new ScanCountRecord();
 
-            int count = 0;
-            int result = dll.GetScanCount(0, ref count);
+            int count = 0, count2 = 0, count3 = 0;
+            //int result = dll.GetScanCount(0, ref count);
 
-            rec.CmdResult = EnumCmdResult._ACK;
+            //rec.CmdResult = EnumCmdResult._ACK;
 
+            //if (result != 0)
+            //{       
+            //    rec.RollerCount = count;
+
+            //    rec.CmdResult = EnumCmdResult._ACK;
+            //}
+            //else
+            //{
+            //    rec.CmdResult = EnumCmdResult._CMD_invalid;
+            //}
+
+            //result = dll.GetScanCount(1, ref count);
+
+            //if (result != 0)
+            //{
+            //    rec.ACMCount = count;
+            //}
+            //else
+            //{
+            //    rec.CmdResult = EnumCmdResult._CMD_invalid;
+            //}
+
+            //result = dll.GetScanCount(2, ref count);
+
+            //if (result != 0)
+            //{
+            //    rec.SCanCount = count;
+            //}
+            //else
+            //{
+            //    rec.CmdResult = EnumCmdResult._CMD_invalid;
+            //}
+
+            int result = dll.GetScanCount(ref count, ref count2, ref count3);
             if (result != 0)
-            {       
+            {
                 rec.RollerCount = count;
-                                      
-                rec.CmdResult = EnumCmdResult._ACK;
+                rec.ACMCount = count2;
+                rec.SCanCount = count3;
             }
             else
             {
                 rec.CmdResult = EnumCmdResult._CMD_invalid;
             }
-
-            result = dll.GetScanCount(1, ref count);
-
-            if (result != 0)
-            {
-                rec.ACMCount = count;
-            }
-            else
-            {
-                rec.CmdResult = EnumCmdResult._CMD_invalid;
-            }
-
-            result = dll.GetScanCount(2, ref count);
-
-            if (result != 0)
-            {
-                rec.SCanCount = count;
-            }
-            else
-            {
-                rec.CmdResult = EnumCmdResult._CMD_invalid;
-            }
-
             return rec;
         }
 
