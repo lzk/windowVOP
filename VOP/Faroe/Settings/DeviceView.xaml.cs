@@ -229,8 +229,8 @@ namespace VOP
 
             byte pofftime = Convert.ToByte(spinnerControlAutoOff.Value);
             pofftime *= 60;
-            if (pofftime < 1)
-                pofftime = 1;
+            if (pofftime <= 0)
+                pofftime = 0;
             else if(pofftime<=psavetime)
             {
                 pofftime = (byte)((int)psavetime + 1);
