@@ -259,7 +259,8 @@
             <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="120"></RowDefinition>
-                    <RowDefinition Height="160"></RowDefinition>
+                    <RowDefinition Height="140"></RowDefinition>
+                    <RowDefinition Height="6"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -324,7 +325,7 @@
                     </Grid>
                 </GroupBox>
                 <GroupBox x:Name="gbLifeCount" Grid.ColumnSpan="2" Header="Life Count" HorizontalAlignment="Left"
-                          Height="150" Margin="10,0,0,10" 
+                          Height="130" Margin="10,0,0,10" 
                           VerticalAlignment="Top" Width="435" Grid.Row="1" FontWeight="Bold">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -383,6 +384,51 @@
                 	Margin="0,0,0,0"  VerticalAlignment="Center" FontSize="14"/>
                     </Grid>
                 </GroupBox>
+                <Canvas Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Center" Height="0" Margin="0,3">
+                    <Path Stroke="LightGray" StrokeThickness="2">
+                        <Path.Data>
+                            <LineGeometry StartPoint="0,4" EndPoint="455,2"></LineGeometry>
+                        </Path.Data>
+                    </Path>
+                </Canvas>
+                <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Width="435" Margin="10,0,10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"></ColumnDefinition>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,0,0,0"
+                FontSize="14"
+                FontWeight="Bold"
+                VerticalAlignment="Center"
+                Text="{StaticResource ResStr_Push_Scan_Type}" Height="18"/>
+                <ComboBox 
+                Grid.Row="0" Grid.Column="1"
+                                Name="cbScanType"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center" 
+                                VerticalContentAlignment="Center"
+                                Width="150" 
+                                Height="30"                                 
+                                FontSize="14"
+                            SelectionChanged="cbScanType_SelectionChanged" Margin="5,8">
+                        <ComboBoxItem >Scan To PC</ComboBoxItem>
+                        <ComboBoxItem >Scan to USB Disk</ComboBoxItem>
+                    </ComboBox>
+                    <Button x:Name="btnSetting"
+                            Click="btnSetting_Click" 
+                            Content="{StaticResource ResStr_Setting}" 
+                            Style="{StaticResource CustomSettingButtonStyle}"
+                            FontSize="14"  
+                            Grid.Row="0" 
+                            Grid.Column="2" 
+                            HorizontalAlignment="Left" 
+                            HorizontalContentAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            Width="100" 
+                            Height="30"                           
+                            Margin="10,0,10,0"></Button>
+                </Grid>
             </Grid>
             <!--<Button x:Name="btnApply" Content="{StaticResource ResStr_Apply}" Grid.Column="1" HorizontalAlignment="Center" Height="22" Margin="127,40,132,0" Grid.Row="5" VerticalAlignment="Top" Width="118" FontSize="13.333" Click="btnApply_Click_1"/>-->
             <Button x:Name="btnApply"

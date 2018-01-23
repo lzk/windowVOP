@@ -629,6 +629,10 @@ namespace VOP
                     break;
                 case DllMethodType.ClearScanCount:
                     break;
+                case DllMethodType.GetScanType:
+                    break;
+                case DllMethodType.SetScanType:
+                    break;
             }
 
             Thread thread = new Thread(() =>
@@ -694,6 +698,12 @@ namespace VOP
                         break;
                     case DllMethodType.ClearScanCount:
                         record = (T)(dynamic)ClearScanCount((ScanCountRecord)(dynamic)record);
+                        break;
+                    case DllMethodType.GetScanType:
+                        record = (T)(dynamic)GetScanType();
+                        break;
+                    case DllMethodType.SetScanType:
+                        record = (T)(dynamic)SetSCanType((ScanTypeRecord)(dynamic)record);
                         break;
                     default: break;
                 }
@@ -1331,6 +1341,40 @@ namespace VOP
 
             int count = 0;
             int result = dll.ClearScanCount(rec.Mode);
+
+            if (result != 0)
+            {
+                rec1.CmdResult = EnumCmdResult._ACK;
+            }
+            else
+            {
+                rec1.CmdResult = EnumCmdResult._CMD_invalid;
+            }
+
+            return rec;
+        }
+        public ScanTypeRecord GetScanType()
+        {
+            ScanTypeRecord rec = new ScanTypeRecord();
+            int mode = 0;
+
+            int result = dll.GetScanType(ref mode);
+            if (result != 0)
+            {
+                rec.Mode = mode;
+            }
+            else
+            {
+                rec.CmdResult = EnumCmdResult._CMD_invalid;
+            }
+            return rec;
+        }
+
+        public ScanTypeRecord SetSCanType(ScanTypeRecord rec)
+        {
+            ScanTypeRecord rec1 = new ScanTypeRecord();
+
+            int result = dll.SetScanType(rec.Mode);
 
             if (result != 0)
             {
@@ -2330,6 +2374,21 @@ namespace VOP
         }
 
         public Byte Mode
+        {
+            get { return _mode; }
+            set
+            {
+                if (value != _mode)
+                    _mode = value;
+            }
+        }
+    }
+
+    public class ScanTypeRecord : BaseRecord
+    {
+        private int _mode;
+
+        public int Mode
         {
             get { return _mode; }
             set

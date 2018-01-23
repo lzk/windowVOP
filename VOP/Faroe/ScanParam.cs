@@ -225,4 +225,94 @@ namespace VOP
 
     }
 
+    [Serializable()]
+    public class ScanParamShort : ICloneable
+    {
+        private EnumScanResln m_scanResln = EnumScanResln._200x200;
+        private EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._Auto;
+        private EnumColorType m_color = EnumColorType.color_24bit;
+        private EnumFileFormat m_fileFormat = EnumFileFormat.JPEG;
+        private bool m_ADFMode = true;
+
+        public EnumScanResln ScanResolution
+        {
+            get
+            {
+                return this.m_scanResln;
+            }
+            set
+            {
+                this.m_scanResln = value;
+            }
+        }
+
+        public EnumPaperSizeScan PaperSize
+        {
+            get
+            {
+                return this.m_paperSize;
+            }
+            set
+            {
+                this.m_paperSize = value;
+            }
+        }
+
+        public EnumColorType ColorType
+        {
+            get
+            {
+                return this.m_color;
+            }
+            set
+            {
+                this.m_color = value;
+            }
+        }
+        public bool ADFMode
+        {
+            get
+            {
+                return this.m_ADFMode;
+            }
+            set
+            {
+                this.m_ADFMode = value;
+            }
+        }
+
+        public EnumFileFormat FileFormat
+        {
+            get
+            {
+                return this.m_fileFormat;
+            }
+            set
+            {
+                this.m_fileFormat = value;
+            }
+        }
+
+        public ScanParamShort()
+        {
+
+        }
+
+        public ScanParamShort(EnumScanResln res, EnumPaperSizeScan paperSize, EnumColorType color, EnumFileFormat format, bool ADFMode)
+        {
+            this.m_scanResln = res;
+            this.m_paperSize = paperSize;
+            this.m_color = color;
+            this.m_ADFMode = ADFMode;
+            this.m_fileFormat = format;
+        }
+
+        public object Clone()
+        {
+            return new ScanParamShort(this.m_scanResln,  this.m_paperSize,
+                                 this.m_color, this.m_fileFormat, this.m_ADFMode);
+        }
+
+    }
+
 }

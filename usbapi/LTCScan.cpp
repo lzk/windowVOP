@@ -2404,7 +2404,7 @@ USBAPI_API int __stdcall GetScanButton()
 			int iRet = glDrv._GetScanButton(Key, 64);
 			if (iRet)
 			{
-				if (Key[0] == 0x10)
+				//if (Key[0] == 0x10)
 				{
 					glDrv._CloseDevice();
 					return TRUE;
@@ -2415,9 +2415,72 @@ USBAPI_API int __stdcall GetScanButton()
 	}
 	return FALSE;
 }
+USBAPI_API int __stdcall GetScanType(int* mode)
+{
+	BYTE data[1] = { 0 };
+	CGLDrv glDrv;
+	int result = FALSE;
+	int addr = 0x48;
+	int type = 0;
+	if (g_connectMode_usb == 1)
+	{
+		HANDLE hDev = NULL;
+		TCHAR strPort[32] = { 0 };
+		int  iCnt;
+		int error = 0;
 
+		for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++)
+		{
+			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
+
+			hDev = CreateFile(strPort,
+				GENERIC_READ | GENERIC_WRITE,
+				FILE_SHARE_READ | FILE_SHARE_WRITE,
+				NULL,
+				OPEN_EXISTING,
+				FILE_FLAG_OVERLAPPED, NULL);
+
+			if (hDev != INVALID_HANDLE_VALUE)
+			{
+				break;
+			}
+			else
+			{
+				error = GetLastError();
+			}
+		}
+
+		if (hDev == INVALID_HANDLE_VALUE)
+		{
+			return 0;
+		}
+
+		if (hDev != INVALID_HANDLE_VALUE)
+		{
+			CloseHandle(hDev);
+		}
+
+		if (glDrv._OpenUSBDevice(strPort) != FALSE)
+		{
+			if (glDrv.NVRAM_read(0xc3, 1, data))
+			{
+				type = data[0];
+				if (type == 3)
+					*mode = 0;
+				else
+					*mode = 1;
+
+				result = true;
+			}
+
+			glDrv._CloseDevice();
+		}
+	}
+
+	return result;
+}
 //add by yunying shang 2018-01-19 for Push Scan
-USBAPI_API int __stdcall OpenScanToPC()
+USBAPI_API int __stdcall SetScanType(int mode)
 {
 	U8  Key[64];
 	CGLDrv glDrv;
@@ -2463,6 +2526,10 @@ USBAPI_API int __stdcall OpenScanToPC()
 		if (glDrv._OpenUSBDevice(strPort) != FALSE)
 		{
 			BYTE data[1] = { 3 };
+			if (mode == 0)
+				data[0] = 3;
+			else
+				data[0] = 2;
 			int iRet = glDrv.NVRAM_write(0xc3, 1, data);
 			if (iRet)
 			{	

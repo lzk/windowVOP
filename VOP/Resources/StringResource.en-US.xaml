@@ -380,6 +380,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_print_fail">Print failed. </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_print_ok">Print completed</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting">Scan Settings :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_pushscan_setting">Push Scan Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting1">Scan Settings(AC Power)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting2">Scan Settings(USB Bus Power)</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_setting3">Scan Settings(Power Bank)</sys:String>
@@ -392,6 +393,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_2side">Two Side</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_1side">One Side</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_multifeed">Multi Feed Detection</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_fileformat">File Format</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_autocrop">Auto Crop&amp;Deskew</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Common">Common</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Scan_Print">Scan To Print</sys:String>
@@ -542,4 +544,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_ACM_Count">ACM Count :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Count">Scan Count :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Connect_to_Google_server_fail">Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Push_Scan_Type">Push Scan Type :</sys:String>
 </ResourceDictionary>

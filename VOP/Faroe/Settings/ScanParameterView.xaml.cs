@@ -228,7 +228,7 @@ namespace VOP
                 {
                     MainWindow_Rufous.g_settingData.m_couldSaveType = "GoogleDrive";
                 }
-                m_lastCloudType = cbAttachType.SelectedIndex;
+                m_lastCloudType = cbCloudType.SelectedIndex;
                 btnReset.IsEnabled = true;
             }
         }

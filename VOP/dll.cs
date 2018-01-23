@@ -540,7 +540,10 @@ namespace VOP
         public static extern int GetScanButton();
 
         [DllImport("usbapi.dll")]
-        public static extern int OpenScanToPC();
+        public static extern int SetScanType(int mode);
+
+        [DllImport("usbapi.dll")]
+        public static extern int GetScanType(ref int mode);
     }
 
 }

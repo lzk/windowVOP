@@ -79,4 +79,5 @@ EXPORTS
 	ClearScanCount
 	GetScanCount
 	GetScanButton
-	OpenScanToPC
+	GetScanType
+	SetScanType

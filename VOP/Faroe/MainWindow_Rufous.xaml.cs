@@ -494,25 +494,28 @@ namespace VOP
         public void CheckScanButton()
         {
             _bExitCheckButton = false;
+            int mode = -1;
 
-            if (dll.OpenScanToPC() > 0)
+            while (!_bExitCheckButton)
             {
-
-                while (!_bExitCheckButton)
+                if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
                 {
-                    if (dll.GetScanButton() > 0)
+                    if (dll.GetScanType(ref mode) > 0 && mode == 0)
                     {
-                        Win32.PostMessage((IntPtr)0xffff, App.WM_BUTTON_PRESSED, IntPtr.Zero, IntPtr.Zero);
-                    }
-
-                    for (int i = 0; i < 2; i++)
-                    {
-                        if (_bExitCheckButton)
-                            break;
-                        System.Threading.Thread.Sleep(500);
+                        if (dll.GetScanButton() > 0)
+                        {
+                            Win32.PostMessage((IntPtr)0xffff, App.WM_BUTTON_PRESSED, IntPtr.Zero, IntPtr.Zero);
+                        }
                     }
                 }
-            }
+
+                for (int i = 0; i < 6; i++)
+                {
+                    if (_bExitCheckButton)
+                        break;
+                    System.Threading.Thread.Sleep(500);
+                }
+            }        
 
         }
 
@@ -740,13 +743,20 @@ namespace VOP
                     scanPage.Button_Click(null, null);
 
                     if (MainPageView.Child == scanSelectionPage)
+                    {
                         scanSelectionPage.ScanToButtonClick(null, null);
+                    }
                     
                 }
                 else
                 {
                     GotoPage("ScanSelectionPage", null);
+                    ScanParam paramBak = new ScanParam();
+                    paramBak = (ScanParam)MainWindow_Rufous.g_settingData.m_commonScanSettings.Clone();
+                    MainWindow_Rufous.g_settingData.m_commonScanSettings = (ScanParam)MainWindow_Rufous.g_settingData.m_pushScanSettingsofPC.Clone();
+
                     scanSelectionPage.ScanToButtonClick(null, null);
+                    MainWindow_Rufous.g_settingData.m_commonScanSettings = (ScanParam)paramBak.Clone();
                 }
                 
             }
