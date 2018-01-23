@@ -79,3 +79,4 @@ EXPORTS
 	ClearScanCount
 	GetScanCount
 	GetScanButton
+	OpenScanToPC

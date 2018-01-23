@@ -494,18 +494,23 @@ namespace VOP
         public void CheckScanButton()
         {
             _bExitCheckButton = false;
-            while (!_bExitCheckButton)
-            {
-                if(dll.GetScanButton()>0)
-                {
-                    Win32.PostMessage((IntPtr)0xffff, App.WM_BUTTON_PRESSED, IntPtr.Zero, IntPtr.Zero);
-                }
 
-                for (int i = 0; i < 6; i++)
+            if (dll.OpenScanToPC() > 0)
+            {
+
+                while (!_bExitCheckButton)
                 {
-                    if (_bExitCheckButton)
-                        break;
-                    System.Threading.Thread.Sleep(500);
+                    if (dll.GetScanButton() > 0)
+                    {
+                        Win32.PostMessage((IntPtr)0xffff, App.WM_BUTTON_PRESSED, IntPtr.Zero, IntPtr.Zero);
+                    }
+
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (_bExitCheckButton)
+                            break;
+                        System.Threading.Thread.Sleep(500);
+                    }
                 }
             }
 

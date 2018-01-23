@@ -1667,6 +1667,8 @@ int CGLDrv::_GetScanButton(unsigned char* buf, DWORD dwLen)
 	while (!bRet && count < 3)
 	{
 		bRet = m_GLusb->CMDIO_InterruptIoCtl(buf, dwLen);
+		if (bRet)
+			break;
 		Sleep(20);
 		count++;
 	}

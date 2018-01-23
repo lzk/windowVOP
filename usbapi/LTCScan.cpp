@@ -440,7 +440,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 
 	glDrv.sc_pardata.acquire = ((MultiFeed ? 1 : 0) * ACQ_ULTRA_SONIC) | ((AutoCrop ? 1 : 0) * ACQ_CROP_DESKEW)
-		|  0 * ACQ_NO_GAMMA|((bColorDetect?1:0)*ACQ_DETECT_COLOR)|((bSkipBlankPage?1:0)*ACQ_SKIP_BLANKPAGE);
+		|  1 * ACQ_NO_GAMMA|((bColorDetect?1:0)*ACQ_DETECT_COLOR)|((bSkipBlankPage?1:0)*ACQ_SKIP_BLANKPAGE);
 
 	//glDrv.sc_job_create.mode = I1('D');
 	glDrv.sc_job_create.mode = 0;
@@ -1638,7 +1638,70 @@ BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
 
 	return nResult;
 }
+BOOL TestIpConnected2(wchar_t* szIP, Scan_RET *re_status)
+{
+	int nResult = TRUE;
+	TCHAR showIp[256] = { 0 };
 
+	if (g_GLnet.CMDIO_Connect(szIP, 23011))
+	{
+		TCHAR showIp[256] = { 0 };
+		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
+		OutputDebugString(showIp);
+
+		U8 cmd[4] = { 'J','D','G','S' };
+		U8 status[8] = { 0 };
+
+		if (g_GLnet.CMDIO_Write(cmd, 4) == TRUE)
+		{
+			if (g_GLnet.CMDIO_Read(status, 8))
+			{
+				if (status[0] == 'J'
+					&& status[1] == 'D'
+					&& status[2] == 'A'
+					&& status[3] == 'T'
+					&& status[4] == 0x00)
+				{
+					*re_status = RETSCAN_OK;
+				}
+				else
+				{
+					*re_status = RETSCAN_BUSY;
+				}
+
+				nResult = TRUE;
+
+				g_GLnet.CMDIO_Close();
+			}
+			else
+			{
+				wsprintf(showIp, L"\nTestIpConnected() read command Fail, %s", szIP);
+				OutputDebugString(showIp);
+				nResult = FALSE;
+			}
+
+		}
+		else
+		{
+			wsprintf(showIp, L"\nTestIpConnected() Write command Fail, %s", szIP);
+			OutputDebugString(showIp);
+			nResult = FALSE;
+		}
+
+		g_GLnet.CMDIO_Close();
+	}
+	else
+	{
+
+		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
+		OutputDebugString(showIp);
+
+		nResult = FALSE;
+	}
+
+
+	return nResult;
+}
 USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP)
 {
 	Scan_RET re_status = RETSCAN_OK;
@@ -1778,7 +1841,7 @@ USBAPI_API BYTE __stdcall GetPowerSupply()
 	{
 		Scan_RET re_status = RETSCAN_OK;
 
-		if (TestIpConnected1(g_ipAddress, &re_status) == TRUE)
+		if (TestIpConnected2(g_ipAddress, &re_status) == TRUE)
 		{
 			if (re_status != RETSCAN_BUSY)
 			{
@@ -1894,7 +1957,7 @@ USBAPI_API int __stdcall GetScanCount(//byte mode,
 	{
 		Scan_RET re_status = RETSCAN_OK;
 
-		if (TestIpConnected1(g_ipAddress, &re_status) == TRUE)
+		if (TestIpConnected2(g_ipAddress, &re_status) == TRUE)
 		{
 			if (re_status != RETSCAN_BUSY)
 			{
@@ -2012,7 +2075,7 @@ USBAPI_API int __stdcall ClearScanCount(byte mode)
 	{
 		Scan_RET re_status = RETSCAN_OK;
 
-		if (TestIpConnected1(g_ipAddress, &re_status) == TRUE)
+		if (TestIpConnected2(g_ipAddress, &re_status) == TRUE)
 		{
 			if (re_status != RETSCAN_BUSY)
 			{
@@ -2191,7 +2254,7 @@ USBAPI_API int __stdcall SetPowerSaveTime(const wchar_t* szPrinter, WORD sleepTi
 	{
 		Scan_RET re_status = RETSCAN_OK;
 
-		if (TestIpConnected1(g_ipAddress, &re_status) == TRUE)
+		if (TestIpConnected2(g_ipAddress, &re_status) == TRUE)
 		{
 			if (re_status != RETSCAN_BUSY)
 			{
@@ -2272,7 +2335,7 @@ USBAPI_API int __stdcall GetPowerSaveTime(const wchar_t* szPrinter, WORD* ptrSle
 	{
 		Scan_RET re_status = RETSCAN_OK;
 
-		if (TestIpConnected1(g_ipAddress, &re_status) == TRUE)
+		if (TestIpConnected2(g_ipAddress, &re_status) == TRUE)
 		{
 			if (re_status != RETSCAN_BUSY)
 			{
@@ -2341,16 +2404,74 @@ USBAPI_API int __stdcall GetScanButton()
 			int iRet = glDrv._GetScanButton(Key, 64);
 			if (iRet)
 			{
-				if (Key[0] == 0)
+				if (Key[0] == 0x10)
 				{
+					glDrv._CloseDevice();
 					return TRUE;
 				}
 			}
 			glDrv._CloseDevice();
 		}
 	}
+	return FALSE;
+}
 
+//add by yunying shang 2018-01-19 for Push Scan
+USBAPI_API int __stdcall OpenScanToPC()
+{
+	U8  Key[64];
+	CGLDrv glDrv;
+	char interfaceName[32] = { 0 };
+	if (g_connectMode_usb == 1)
+	{
+		HANDLE hDev = NULL;
+		TCHAR strPort[32] = { 0 };
+		int  iCnt;
+		int error = 0;
 
+		for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++)
+		{
+			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
+
+			hDev = CreateFile(strPort,
+				GENERIC_READ | GENERIC_WRITE,
+				FILE_SHARE_READ | FILE_SHARE_WRITE,
+				NULL,
+				OPEN_EXISTING,
+				FILE_FLAG_OVERLAPPED, NULL);
+
+			if (hDev != INVALID_HANDLE_VALUE)
+			{
+				break;
+			}
+			else
+			{
+				error = GetLastError();
+			}
+		}
+
+		if (hDev == INVALID_HANDLE_VALUE)
+		{
+			return 0;
+		}
+
+		if (hDev != INVALID_HANDLE_VALUE)
+		{
+			CloseHandle(hDev);
+		}
+
+		if (glDrv._OpenUSBDevice(strPort) != FALSE)
+		{
+			BYTE data[1] = { 3 };
+			int iRet = glDrv.NVRAM_write(0xc3, 1, data);
+			if (iRet)
+			{	
+				glDrv._CloseDevice();
+				return TRUE;				
+			}
+			glDrv._CloseDevice();
+		}
+	}
 	return FALSE;
 }
 //********************************************************************************************
