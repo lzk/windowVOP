@@ -2157,7 +2157,14 @@ USBAPI_API int __stdcall SetPowerSaveTime(const wchar_t* szPrinter, WORD sleepTi
 			{
 				if (glDrv._OpenDevice() == TRUE)
 				{
-					nResult = glDrv._SetPowerSaveTime(sleepTime, offTime);
+					if (!glDrv.NetScanReady())
+					{
+						nResult = 21;
+					}
+					else
+					{
+						nResult = glDrv._SetPowerSaveTime(sleepTime, offTime);
+					}
 					glDrv._CloseDevice();
 				}
 				else
@@ -2236,9 +2243,16 @@ USBAPI_API int __stdcall GetPowerSaveTime(const wchar_t* szPrinter, WORD* ptrSle
 		{
 			if (re_status != RETSCAN_BUSY)
 			{
-				if (glDrv._OpenDevice() == TRUE)
+				if (glDrv._OpenDevice(g_ipAddress) == TRUE)
 				{
-					nResult = glDrv._GetPowerSaveTime(ptrSleepTime, ptrOffTime);
+					if (!glDrv.NetScanReady())
+					{
+						nResult = 21;
+					}
+					else
+					{
+						nResult = glDrv._GetPowerSaveTime(ptrSleepTime, ptrOffTime);
+					}
 					glDrv._CloseDevice();
 				}
 				else
