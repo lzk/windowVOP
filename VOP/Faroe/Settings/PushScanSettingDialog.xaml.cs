@@ -43,6 +43,87 @@ namespace VOP
             m_lastPaperSize1 = m_scanParams.PaperSize;
             m_lastRes = m_scanParams.ScanResolution;
 
+            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+            ScanParametersRecord m_rec = new ScanParametersRecord(0, 0, 0, 0, 0);
+            if (worker.InvokeMethod<ScanParametersRecord>("", ref m_rec, DllMethodType.GetScanParameters, this))
+            {
+                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+                {
+                    switch (m_rec.Size)
+                    {
+                        case 0:
+                            m_scanParams.PaperSize = EnumPaperSizeScan._Auto;
+                            break;
+                        case 1:
+                            m_scanParams.PaperSize = EnumPaperSizeScan._A4;
+                            break;
+
+                        case 2:
+                            m_scanParams.PaperSize = EnumPaperSizeScan._Letter;
+                            break;
+
+                        case 3:
+                            m_scanParams.PaperSize = EnumPaperSizeScan._Legal;
+                            break;
+
+                        case 4:
+                            m_scanParams.PaperSize = EnumPaperSizeScan._B5;
+                            break;
+
+                        case 5:
+                            m_scanParams.PaperSize = EnumPaperSizeScan._A5;
+                            break;
+
+                        case 6:
+                            m_scanParams.PaperSize = EnumPaperSizeScan._A6;
+                            break;
+
+                        default:
+                            m_scanParams.PaperSize = EnumPaperSizeScan._Auto;
+                            break;
+
+                    }
+
+                    if (m_rec.Duplex == 0)
+                        m_scanParams.ADFMode = true;
+                    else
+                        m_scanParams.ADFMode = false;
+
+                    switch (m_rec.Resolution)
+                    {
+                        case 0:
+                            m_scanParams.ScanResolution = EnumScanResln._200x200;
+                            break;
+
+                        case 1:
+                            m_scanParams.ScanResolution = EnumScanResln._100x100;
+                            break;
+
+                        case 2:
+                            m_scanParams.ScanResolution = EnumScanResln._300x300;
+                            break;
+
+                        case 3:
+                            m_scanParams.ScanResolution = EnumScanResln._600x600;
+                            break;
+
+                        default:
+                            m_scanParams.ScanResolution = EnumScanResln._200x200;
+                            break;
+                    }
+
+                    if (m_rec.ColorMode == 0)
+                        m_scanParams.ColorType = EnumColorType.color_24bit;
+                    else
+                        m_scanParams.ColorType = EnumColorType.grayscale_8bit;
+
+                    if (m_rec.FileFormat == 0)
+                        m_scanParams.FileFormat = EnumFileFormat.JPEG;
+                    else
+                        m_scanParams.FileFormat = EnumFileFormat.PDF;
+                }
+            }
+
             InitControls();
             InitScanResln();
             InitScanSize();
@@ -98,6 +179,15 @@ namespace VOP
                 case EnumColorType.black_white:
                   //  BlackAndWhite.IsChecked = true;
                     break;     
+            }
+
+            if (m_scanParams.ADFMode == true)
+            {
+                twoSideButton.IsChecked = true;
+            }
+            else
+            {
+                oneSideButton.IsChecked = true;
             }
 
             if (m_mode == 0)

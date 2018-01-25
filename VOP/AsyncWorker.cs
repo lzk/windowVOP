@@ -633,6 +633,10 @@ namespace VOP
                     break;
                 case DllMethodType.SetScanType:
                     break;
+                case DllMethodType.GetScanParameters:
+                    break;
+                case DllMethodType.SetScanParameters:
+                    break;
             }
 
             Thread thread = new Thread(() =>
@@ -704,6 +708,12 @@ namespace VOP
                         break;
                     case DllMethodType.SetScanType:
                         record = (T)(dynamic)SetSCanType((ScanTypeRecord)(dynamic)record);
+                        break;
+                    case DllMethodType.GetScanParameters:
+                        record = (T)(dynamic)GetScanParameters();
+                        break;
+                    case DllMethodType.SetScanParameters:
+                        record = (T)(dynamic)SetSCanParameters((ScanParametersRecord)(dynamic)record);
                         break;
                     default: break;
                 }
@@ -1383,6 +1393,49 @@ namespace VOP
             else
             {
                 rec1.CmdResult = EnumCmdResult._CMD_invalid;
+            }
+
+            return rec;
+        }
+
+        public ScanParametersRecord GetScanParameters()
+        {
+            ScanParametersRecord rec = new ScanParametersRecord(0, 0, 0, 0, 0);
+            Byte size=0, duplex=0, color=0, res=0, format=0;
+
+            int result = dll.GetScanParameters(ref size, ref duplex, ref res, ref color, ref format);
+            if (result != 0)
+            {
+                if(size >=0 && size <= 6)
+                    rec.Size = size;
+                if(duplex >=0 && duplex <= 1)
+                    rec.Duplex = duplex;
+                if(color >=0 && color <= 1)
+                    rec.ColorMode = color;
+                if(res >=0 && res <= 3)
+                    rec.Resolution = res;
+                if(format >=0 && format <= 1)
+                    rec.FileFormat = format;
+                rec.CmdResult = EnumCmdResult._ACK;
+            }
+            else
+            {
+                rec.CmdResult = EnumCmdResult._CMD_invalid;
+            }
+            return rec;
+        }
+
+        public ScanParametersRecord SetSCanParameters(ScanParametersRecord rec)
+        {
+            int result = dll.SetScanParameters(rec.Size, rec.Duplex, rec.Resolution, rec.ColorMode, rec.FileFormat);
+
+            if (result != 0)
+            {
+                rec.CmdResult = EnumCmdResult._ACK;
+            }
+            else
+            {
+                rec.CmdResult = EnumCmdResult._CMD_invalid;
             }
 
             return rec;
@@ -2396,6 +2449,76 @@ namespace VOP
                 if (value != _mode)
                     _mode = value;
             }
+        }
+    }
+
+    public class ScanParametersRecord : BaseRecord
+    {
+        private Byte _size;
+        private Byte _duplex;
+        private Byte _resolution;
+        private Byte _color;
+        private Byte _format;
+
+        public Byte Size
+        {
+            get { return _size; }
+            set
+            {
+                if (value != _size)
+                    _size = value;
+            }
+        }
+
+        public Byte Duplex
+        {
+            get { return _duplex; }
+            set
+            {
+                if (value != _duplex)
+                    _duplex = value;
+            }
+        }
+
+        public Byte Resolution
+        {
+            get { return _resolution; }
+            set
+            {
+                if (value != _resolution)
+                    _resolution = value;
+            }
+        }
+
+        public Byte ColorMode
+        {
+            get { return _color; }
+            set
+            {
+                if (value != _color)
+                    _color = value;
+            }
+        }
+
+        public Byte FileFormat
+        {
+            get { return _format; }
+            set
+            {
+                if (value != _format)
+                    _format = value;
+            }
+        }
+
+        public ScanParametersRecord(Byte size, Byte duplex, Byte res, Byte color, Byte format)
+        {
+            this._size = size;
+            this._duplex = duplex;
+            this._resolution = res;
+            this._color = color;
+            this._format = format;
+
+            cmdResult = EnumCmdResult._CMD_invalid;
         }
     }
 }

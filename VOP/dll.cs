@@ -544,6 +544,12 @@ namespace VOP
 
         [DllImport("usbapi.dll")]
         public static extern int GetScanType(ref int mode);
+
+        [DllImport("usbapi.dll")]
+        public static extern int SetScanParameters(Byte size, Byte duplex, Byte res, Byte color, Byte format);
+
+        [DllImport("usbapi.dll")]
+        public static extern int GetScanParameters(ref Byte size, ref Byte duplex, ref Byte res, ref Byte color, ref Byte format);
     }
 
 }

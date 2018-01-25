@@ -2494,7 +2494,6 @@ USBAPI_API int __stdcall GetScanType(int* mode)
 //add by yunying shang 2018-01-19 for Push Scan
 USBAPI_API int __stdcall SetScanType(int mode)
 {
-	U8  Key[64];
 	CGLDrv glDrv;
 	char interfaceName[32] = { 0 };
 	if (g_connectMode_usb == 1)
@@ -2547,6 +2546,131 @@ USBAPI_API int __stdcall SetScanType(int mode)
 			{	
 				glDrv._CloseDevice();
 				return TRUE;				
+			}
+			glDrv._CloseDevice();
+		}
+	}
+	return FALSE;
+}
+USBAPI_API int __stdcall GetScanParameters(BYTE* size, BYTE* duplex, BYTE* res, BYTE* color, BYTE* format)
+{
+	BYTE data[5] = { 0 };
+	CGLDrv glDrv;
+	int result = FALSE;
+	int addr = 0x48;
+	int type = 0;
+	if (g_connectMode_usb == 1)
+	{
+		HANDLE hDev = NULL;
+		TCHAR strPort[32] = { 0 };
+		int  iCnt;
+		int error = 0;
+
+		for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++)
+		{
+			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
+
+			hDev = CreateFile(strPort,
+				GENERIC_READ | GENERIC_WRITE,
+				FILE_SHARE_READ | FILE_SHARE_WRITE,
+				NULL,
+				OPEN_EXISTING,
+				FILE_FLAG_OVERLAPPED, NULL);
+
+			if (hDev != INVALID_HANDLE_VALUE)
+			{
+				break;
+			}
+			else
+			{
+				error = GetLastError();
+			}
+		}
+
+		if (hDev == INVALID_HANDLE_VALUE)
+		{
+			return 0;
+		}
+
+		if (hDev != INVALID_HANDLE_VALUE)
+		{
+			CloseHandle(hDev);
+		}
+
+		if (glDrv._OpenUSBDevice(strPort) != FALSE)
+		{
+			if (glDrv.NVRAM_read(0xc4, 5, data))
+			{
+				*format = data[0];
+				*color = data[1];
+				*res = data[2];
+				*duplex = data[3];
+				*size = data[4];
+				result = true;
+			}
+
+			glDrv._CloseDevice();
+		}
+	}
+
+	return result;
+}
+//add by yunying shang 2018-01-19 for Push Scan
+USBAPI_API int __stdcall SetScanParameters(BYTE size, BYTE duplex, BYTE res, BYTE color, BYTE format)
+{
+	CGLDrv glDrv;
+	char interfaceName[32] = { 0 };
+	if (g_connectMode_usb == 1)
+	{
+		HANDLE hDev = NULL;
+		TCHAR strPort[32] = { 0 };
+		int  iCnt;
+		int error = 0;
+
+		for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++)
+		{
+			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
+
+			hDev = CreateFile(strPort,
+				GENERIC_READ | GENERIC_WRITE,
+				FILE_SHARE_READ | FILE_SHARE_WRITE,
+				NULL,
+				OPEN_EXISTING,
+				FILE_FLAG_OVERLAPPED, NULL);
+
+			if (hDev != INVALID_HANDLE_VALUE)
+			{
+				break;
+			}
+			else
+			{
+				error = GetLastError();
+			}
+		}
+
+		if (hDev == INVALID_HANDLE_VALUE)
+		{
+			return 0;
+		}
+
+		if (hDev != INVALID_HANDLE_VALUE)
+		{
+			CloseHandle(hDev);
+		}
+
+		if (glDrv._OpenUSBDevice(strPort) != FALSE)
+		{
+			BYTE data[5] = { 0 };
+			data[0] = format;
+			data[1] = color;
+			data[2] = res;
+			data[3] = duplex;
+			data[4] = size;
+			int iRet = glDrv.NVRAM_write(0xc4, 5, data);
+			if (iRet)
+			{
+				glDrv._CloseDevice();
+				return TRUE;
 			}
 			glDrv._CloseDevice();
 		}

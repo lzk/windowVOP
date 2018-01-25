@@ -81,3 +81,5 @@ EXPORTS
 	GetScanButton
 	GetScanType
 	SetScanType
+	SetScanParameters
+	GetScanParameters

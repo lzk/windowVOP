@@ -135,6 +135,8 @@ namespace VOP
         ClearScanCount          = 21,
         GetScanType             = 22,
         SetScanType             = 23,
+        GetScanParameters       = 24,
+        SetScanParameters       = 25,
     }
 
     /// <summary>
