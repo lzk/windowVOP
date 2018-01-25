@@ -82,7 +82,7 @@ namespace VOP
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
 
-            if (MainWindow_Rufous.g_settingData.m_DeviceName.Contains("USB"))
+            if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)//.m_DeviceName.Contains("USB"))
                 btnCalibration.IsEnabled = true;
             else
                 btnCalibration.IsEnabled = false;
@@ -617,7 +617,7 @@ namespace VOP
                 ScanSettingDialog settingWin = new ScanSettingDialog();
                 settingWin.Owner = m_MainWin;
 
-                settingWin.m_scanParams = (ScanParam)MainWindow_Rufous.g_settingData.m_commonScanSettings.Clone();
+                settingWin.m_scanParams = (ScanParam)MainWindow_Rufous.g_settingData.m_pushScanSettingsofPC.Clone();
 
                 if (settingWin.ShowDialog() == true)
                 {

@@ -398,7 +398,7 @@ namespace VOP
                 bool bConnect = false;
                if (dll.CheckConnectionByName(GetDeviceName("")))
                 {
-                    Win32.OutputDebugString("Connection success!");
+                   // Win32.OutputDebugString("Connection success!");
                     //SetDeviceButtonState(true);
                     //modified by yunying shang 2017-10-19 for BMS 1172
                     if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
@@ -406,7 +406,7 @@ namespace VOP
                         //add by yunying shang 2017-10-23 for BMS 1019
                         if (!scanDevicePage.IsOnLine())
                         {
-                            Win32.OutputDebugString("not on line!");
+                            //Win32.OutputDebugString("not on line!");
                             Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
                         }
                         else//<<===============1019
@@ -495,18 +495,21 @@ namespace VOP
         {
             _bExitCheckButton = false;
             int mode = -1;
+            if (dll.GetScanType(ref mode) > 0 && mode == 0)
+            {
+                MainWindow_Rufous.g_settingData.m_ScanType = mode;
+            }
 
             while (!_bExitCheckButton)
             {
                 if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
                 {
-                    if (dll.GetScanType(ref mode) > 0 && mode == 0)
+                    if (MainWindow_Rufous.g_settingData.m_ScanType == 0 &&
+                     dll.GetScanButton() > 0)
                     {
-                        if (dll.GetScanButton() > 0)
-                        {
-                            Win32.PostMessage((IntPtr)0xffff, App.WM_BUTTON_PRESSED, IntPtr.Zero, IntPtr.Zero);
-                        }
+                        Win32.PostMessage((IntPtr)0xffff, App.WM_BUTTON_PRESSED, IntPtr.Zero, IntPtr.Zero);
                     }
+
                 }
 
                 for (int i = 0; i < 6; i++)

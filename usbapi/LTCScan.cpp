@@ -342,16 +342,24 @@ Scan_RET ScannerStatusCheck(CGLDrv glDrv, char stage)
 
 		if (stage == START_STAGE) 
 		{
+			//ADD BY YUNYING SHANG 2018-01-23 for BMS 
+			if (glDrv.sc_infodata.SystemStatus.scanning)
+			{
+				result = RETSCAN_BUSY;
+			}
+
 			if (glDrv.sc_infodata.SensorStatus.adf_document_sensor)
 			{
 				//printf("ADF document not ready.\n");
 				result = RETSCAN_ADFDOC_NOT_READY;
 			}
+
 			if (glDrv.sc_infodata.SensorStatus.adf_paper_sensor)
 			{
 				//printf("ADF path not ready.\n");
 				result = RETSCAN_ADFPATH_NOT_READY;
 			}
+
 			if (glDrv.sc_infodata.SensorStatus.cover_sensor)
 			{
 				//printf("ADF cover not ready.\n");
@@ -1003,6 +1011,10 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				if (glDrv.sc_infodata.ErrorStatus.scan_canceled_err)
 				{
 					scanRet = RETSCAN_CANCEL;
+					//add by yunying shang 2018-01-25 for BMS 2117
+					start_cancel = true;
+					break;
+					//<<=============2117
 				}
 
 				if (glDrv.sc_infodata.ErrorStatus.scan_timeout_err)
@@ -1372,7 +1384,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	{
 		if (imgBuffer)
 			delete imgBuffer;
-
+		MyOutputString(L"Open Device Fail!");
 		if(g_connectMode_usb == TRUE)
 			return RETSCAN_OPENFAIL;
 		else
@@ -2529,7 +2541,7 @@ USBAPI_API int __stdcall SetScanType(int mode)
 			if (mode == 0)
 				data[0] = 3;
 			else
-				data[0] = 2;
+				data[0] = 2;//0
 			int iRet = glDrv.NVRAM_write(0xc3, 1, data);
 			if (iRet)
 			{	
@@ -2564,7 +2576,9 @@ USBAPI_API int __stdcall DoCalibration()
 
 	read_from_ini();
 
-	if (!CMDIO_OpenDevice()) {
+	if (!CMDIO_OpenDevice()) 
+	{
+		MyOutputString(L"Get Info Fail!");
 		return RETSCAN_OPENFAIL;
 	}
 

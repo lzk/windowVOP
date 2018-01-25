@@ -412,7 +412,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_search_dev">Searching, please wait...</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_open_p_fail">Open program failed, </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_scan_conn_fail">Scanning connection failed</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_net_scanner_busy">Network device is busy</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Faroe_net_scanner_busy">The Device is currently in use. Confirm that the device is available and try again.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_paper_jam">Paper jam</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_cover_open">Cover is opened</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_paper_not_ready">Paper is not ready</sys:String>
