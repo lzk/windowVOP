@@ -29,6 +29,7 @@ namespace VOP
         private RepeatButton btnSleepIncrease;
         private RepeatButton btnOffDecrease;
         private RepeatButton btnOffIncrease;
+        private int m_lastScanType = -1;
 
         public DeviceView()
         {
@@ -81,7 +82,7 @@ namespace VOP
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
 
-            if (MainWindow_Rufous.g_settingData.m_DeviceName.Contains("USB"))
+            if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)//.m_DeviceName.Contains("USB"))
                 btnCalibration.IsEnabled = true;
             else
                 btnCalibration.IsEnabled = false;
@@ -103,6 +104,28 @@ namespace VOP
                 tbACMCount.Text = Convert.ToString(rec.ACMCount);
                 tbSCanCount.Text = Convert.ToString(rec.SCanCount);
             }
+
+
+            ScanTypeRecord scanRec = new ScanTypeRecord();
+
+            if (_bDisplayProgressBar)
+            {
+                worker.InvokeMethod<ScanTypeRecord>(strPrinterName, ref scanRec, DllMethodType.GetScanType, this);
+            }
+            else
+            {
+                scanRec = worker.GetScanType();
+            }
+
+            if (null != scanRec && scanRec.CmdResult == EnumCmdResult._ACK)
+            {
+                MainWindow_Rufous.g_settingData.m_ScanType = scanRec.Mode;
+            }
+
+            if (MainWindow_Rufous.g_settingData.m_ScanType == 0)
+                cbScanType.SelectedIndex = 0;
+            else
+                cbScanType.SelectedIndex = 1;
 
             // UpdateApplyBtnStatus();
         }
@@ -248,6 +271,19 @@ namespace VOP
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
 
             if (worker.InvokeMethod<PowerSaveTimeRecord>(strPrinterName, ref m_rec, DllMethodType.SetPowerSaveTime, this))
+            {
+                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+                {
+                    isApplySuccess = true;
+                }
+
+            }
+
+            ScanTypeRecord scanRec = new ScanTypeRecord();
+
+            scanRec.Mode = MainWindow_Rufous.g_settingData.m_ScanType;
+
+            if (worker.InvokeMethod<ScanTypeRecord>(strPrinterName, ref scanRec, DllMethodType.SetScanType, this))
             {
                 if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                 {
@@ -549,6 +585,58 @@ namespace VOP
                 }
             }
             
+        }
+
+        private void cbScanType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbScanType.SelectedIndex != m_lastScanType)
+            {
+                if (cbScanType.SelectedIndex == 0)
+                {
+                    MainWindow_Rufous.g_settingData.m_ScanType = 0;
+                    btnSetting.IsEnabled = true;
+                    btnSetting.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    MainWindow_Rufous.g_settingData.m_ScanType = 1;
+                    btnSetting.IsEnabled = false;
+                    btnSetting.Visibility = Visibility.Hidden;
+                }
+
+                m_lastScanType = cbScanType.SelectedIndex;
+
+                btnApply.IsEnabled = true;
+            }
+        }
+
+        private void btnSetting_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainWindow_Rufous.g_settingData.m_ScanType == 0)
+            {
+                ScanSettingDialog settingWin = new ScanSettingDialog();
+                settingWin.Owner = m_MainWin;
+
+                settingWin.m_scanParams = (ScanParam)MainWindow_Rufous.g_settingData.m_pushScanSettingsofPC.Clone();
+
+                if (settingWin.ShowDialog() == true)
+                {
+                    MainWindow_Rufous.g_settingData.m_pushScanSettingsofPC = (ScanParam)settingWin.m_scanParams.Clone();
+
+                }
+            }
+            else
+            {
+                PushScanSettingDialog settingWin = new PushScanSettingDialog(1);
+                settingWin.Owner = m_MainWin;
+
+                settingWin.m_scanParams = (ScanParamShort)MainWindow_Rufous.g_settingData.m_pushScanSettings.Clone();
+
+                if (settingWin.ShowDialog() == true)
+                {
+                    MainWindow_Rufous.g_settingData.m_pushScanSettings = (ScanParamShort)settingWin.m_scanParams.Clone();
+                }
+            }
         }
     }
 }

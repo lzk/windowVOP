@@ -629,6 +629,10 @@ namespace VOP
                     break;
                 case DllMethodType.ClearScanCount:
                     break;
+                case DllMethodType.GetScanType:
+                    break;
+                case DllMethodType.SetScanType:
+                    break;
             }
 
             Thread thread = new Thread(() =>
@@ -694,6 +698,12 @@ namespace VOP
                         break;
                     case DllMethodType.ClearScanCount:
                         record = (T)(dynamic)ClearScanCount((ScanCountRecord)(dynamic)record);
+                        break;
+                    case DllMethodType.GetScanType:
+                        record = (T)(dynamic)GetScanType();
+                        break;
+                    case DllMethodType.SetScanType:
+                        record = (T)(dynamic)SetSCanType((ScanTypeRecord)(dynamic)record);
                         break;
                     default: break;
                 }
@@ -1273,44 +1283,55 @@ namespace VOP
         {
             ScanCountRecord rec = new ScanCountRecord();
 
-            int count = 0;
-            int result = dll.GetScanCount(0, ref count);
+            int count = 0, count2 = 0, count3 = 0;
+            //int result = dll.GetScanCount(0, ref count);
 
-            rec.CmdResult = EnumCmdResult._ACK;
+            //rec.CmdResult = EnumCmdResult._ACK;
 
+            //if (result != 0)
+            //{       
+            //    rec.RollerCount = count;
+
+            //    rec.CmdResult = EnumCmdResult._ACK;
+            //}
+            //else
+            //{
+            //    rec.CmdResult = EnumCmdResult._CMD_invalid;
+            //}
+
+            //result = dll.GetScanCount(1, ref count);
+
+            //if (result != 0)
+            //{
+            //    rec.ACMCount = count;
+            //}
+            //else
+            //{
+            //    rec.CmdResult = EnumCmdResult._CMD_invalid;
+            //}
+
+            //result = dll.GetScanCount(2, ref count);
+
+            //if (result != 0)
+            //{
+            //    rec.SCanCount = count;
+            //}
+            //else
+            //{
+            //    rec.CmdResult = EnumCmdResult._CMD_invalid;
+            //}
+
+            int result = dll.GetScanCount(ref count, ref count2, ref count3);
             if (result != 0)
-            {       
+            {
                 rec.RollerCount = count;
-                                      
-                rec.CmdResult = EnumCmdResult._ACK;
+                rec.ACMCount = count2;
+                rec.SCanCount = count3;
             }
             else
             {
                 rec.CmdResult = EnumCmdResult._CMD_invalid;
             }
-
-            result = dll.GetScanCount(1, ref count);
-
-            if (result != 0)
-            {
-                rec.ACMCount = count;
-            }
-            else
-            {
-                rec.CmdResult = EnumCmdResult._CMD_invalid;
-            }
-
-            result = dll.GetScanCount(2, ref count);
-
-            if (result != 0)
-            {
-                rec.SCanCount = count;
-            }
-            else
-            {
-                rec.CmdResult = EnumCmdResult._CMD_invalid;
-            }
-
             return rec;
         }
 
@@ -1320,6 +1341,40 @@ namespace VOP
 
             int count = 0;
             int result = dll.ClearScanCount(rec.Mode);
+
+            if (result != 0)
+            {
+                rec1.CmdResult = EnumCmdResult._ACK;
+            }
+            else
+            {
+                rec1.CmdResult = EnumCmdResult._CMD_invalid;
+            }
+
+            return rec;
+        }
+        public ScanTypeRecord GetScanType()
+        {
+            ScanTypeRecord rec = new ScanTypeRecord();
+            int mode = 0;
+
+            int result = dll.GetScanType(ref mode);
+            if (result != 0)
+            {
+                rec.Mode = mode;
+            }
+            else
+            {
+                rec.CmdResult = EnumCmdResult._CMD_invalid;
+            }
+            return rec;
+        }
+
+        public ScanTypeRecord SetSCanType(ScanTypeRecord rec)
+        {
+            ScanTypeRecord rec1 = new ScanTypeRecord();
+
+            int result = dll.SetScanType(rec.Mode);
 
             if (result != 0)
             {
@@ -2319,6 +2374,21 @@ namespace VOP
         }
 
         public Byte Mode
+        {
+            get { return _mode; }
+            set
+            {
+                if (value != _mode)
+                    _mode = value;
+            }
+        }
+    }
+
+    public class ScanTypeRecord : BaseRecord
+    {
+        private int _mode;
+
+        public int Mode
         {
             get { return _mode; }
             set

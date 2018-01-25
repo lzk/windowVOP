@@ -469,7 +469,8 @@ BYTE CGLDrv::_info()
 		result = 0;
 		goto exit_info;
 	}*/
-	if(!result || sc_infodata.code != I4('IDAT') || sc_infodata.ErrorStatus.scan_canceled_err)
+	if(!result || sc_infodata.code != I4('IDAT'))// || sc_infodata.ErrorStatus.scan_canceled_err)
+		//marked by yunying shang 2018-01-25 for BMS 2117
 	{
 		MyOutputString(L"Scan info error");
 #if _GLDEBUG_
@@ -1667,6 +1668,8 @@ int CGLDrv::_GetScanButton(unsigned char* buf, DWORD dwLen)
 	while (!bRet && count < 3)
 	{
 		bRet = m_GLusb->CMDIO_InterruptIoCtl(buf, dwLen);
+		if (bRet)
+			break;
 		Sleep(20);
 		count++;
 	}

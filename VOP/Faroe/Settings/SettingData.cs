@@ -108,7 +108,6 @@ namespace VOP
         public string m_DeviceName = "";
         public bool m_isUsbConnect = false;
 
-
         //QRCode/Barcode
         public int m_decodeType = 0;
         public string m_decodeResultFile = "QRcodeBarcodeResult.html";
@@ -117,7 +116,9 @@ namespace VOP
 
         //Device
         public bool m_bAutoSleep = true;
-
+        public int m_ScanType = 0;
+        public ScanParamShort m_pushScanSettings = new ScanParamShort();
+        public ScanParam m_pushScanSettingsofPC = new ScanParam();
         public SettingData()
         {
          

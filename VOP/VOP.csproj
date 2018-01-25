@@ -317,6 +317,7 @@
       <DependentUpon>DeviceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Faroe\Settings\MediaTypePrompt.xaml.cs" />
+    <Compile Include="Faroe\Settings\PushScanSettingDialog.xaml.cs" />
     <Compile Include="Faroe\Settings\QRCodeBarcodeView.xaml.cs" />
     <Compile Include="Faroe\Settings\QuickScanSettings.xaml.cs">
       <DependentUpon>QuickScanSettings.xaml</DependentUpon>
@@ -595,6 +596,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Faroe\Settings\MediaTypePrompt.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Faroe\Settings\PushScanSettingDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

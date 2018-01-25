@@ -79,3 +79,5 @@ EXPORTS
 	ClearScanCount
 	GetScanCount
 	GetScanButton
+	GetScanType
+	SetScanType

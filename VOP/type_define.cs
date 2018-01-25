@@ -133,6 +133,8 @@ namespace VOP
         GetPowerSupply          = 19,
         GetScanCount            = 20,
         ClearScanCount          = 21,
+        GetScanType             = 22,
+        SetScanType             = 23,
     }
 
     /// <summary>
@@ -313,6 +315,12 @@ namespace VOP
         PT_TCPIP   = 1,
         PT_USB     = 2,
         PT_WSD     = 3,
+    }
+
+    public enum EnumFileFormat : byte
+    {
+        JPEG    = 0,
+        PDF     = 1,
     }
 
 

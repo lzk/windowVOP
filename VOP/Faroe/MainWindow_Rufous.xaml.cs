@@ -398,7 +398,7 @@ namespace VOP
                 bool bConnect = false;
                if (dll.CheckConnectionByName(GetDeviceName("")))
                 {
-                    Win32.OutputDebugString("Connection success!");
+                   // Win32.OutputDebugString("Connection success!");
                     //SetDeviceButtonState(true);
                     //modified by yunying shang 2017-10-19 for BMS 1172
                     if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
@@ -406,7 +406,7 @@ namespace VOP
                         //add by yunying shang 2017-10-23 for BMS 1019
                         if (!scanDevicePage.IsOnLine())
                         {
-                            Win32.OutputDebugString("not on line!");
+                            //Win32.OutputDebugString("not on line!");
                             Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
                         }
                         else//<<===============1019
@@ -494,11 +494,22 @@ namespace VOP
         public void CheckScanButton()
         {
             _bExitCheckButton = false;
+            int mode = -1;
+            if (dll.GetScanType(ref mode) > 0 && mode == 0)
+            {
+                MainWindow_Rufous.g_settingData.m_ScanType = mode;
+            }
+
             while (!_bExitCheckButton)
             {
-                if(dll.GetScanButton()>0)
+                if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
                 {
-                    Win32.PostMessage((IntPtr)0xffff, App.WM_BUTTON_PRESSED, IntPtr.Zero, IntPtr.Zero);
+                    if (MainWindow_Rufous.g_settingData.m_ScanType == 0 &&
+                     dll.GetScanButton() > 0)
+                    {
+                        Win32.PostMessage((IntPtr)0xffff, App.WM_BUTTON_PRESSED, IntPtr.Zero, IntPtr.Zero);
+                    }
+
                 }
 
                 for (int i = 0; i < 6; i++)
@@ -507,7 +518,7 @@ namespace VOP
                         break;
                     System.Threading.Thread.Sleep(500);
                 }
-            }
+            }        
 
         }
 
@@ -735,13 +746,20 @@ namespace VOP
                     scanPage.Button_Click(null, null);
 
                     if (MainPageView.Child == scanSelectionPage)
+                    {
                         scanSelectionPage.ScanToButtonClick(null, null);
+                    }
                     
                 }
                 else
                 {
                     GotoPage("ScanSelectionPage", null);
+                    ScanParam paramBak = new ScanParam();
+                    paramBak = (ScanParam)MainWindow_Rufous.g_settingData.m_commonScanSettings.Clone();
+                    MainWindow_Rufous.g_settingData.m_commonScanSettings = (ScanParam)MainWindow_Rufous.g_settingData.m_pushScanSettingsofPC.Clone();
+
                     scanSelectionPage.ScanToButtonClick(null, null);
+                    MainWindow_Rufous.g_settingData.m_commonScanSettings = (ScanParam)paramBak.Clone();
                 }
                 
             }
