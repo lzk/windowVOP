@@ -152,7 +152,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Brightness">Brightness</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Printer_Wi_Fi">Wi-Fi</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Soft_AP">Soft AP</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Device">Device Setting</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Device">Device Settings</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_TCP_IP">TCP/IP</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Power_Save">Power Save</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_User_Config">More Settings</sys:String>
@@ -498,7 +498,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_File_Path1">File Path</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Cloud_Type">Cloud Type :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Reset">Reset</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Email_Attachment_File_Type">Email Attachment File Type</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Email_Attachment_File_Type">Email Attachment File Type :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Reset_Access">Reset access token in cache :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Attachment_File_Type">Attachment File Type :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Recipient">Recipient :</sys:String>
@@ -541,6 +541,9 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_Fail_not_enough">There is insufficient memory or disk space to complete the operation.Please free up some memory or disk space, then try again. </sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Clear">Clear</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Roller_Count">Retard Roller Count :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Life_Count">Life Count</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Sleep_Time">Sleep Time</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_AutoOff_Time">Auto-Off Time</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ACM_Count">ACM Count :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Count">Scan Count :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Connect_to_Google_server_fail">Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!</sys:String>

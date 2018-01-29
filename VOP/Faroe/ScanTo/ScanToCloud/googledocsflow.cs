@@ -164,7 +164,8 @@ namespace VOP
         /// It illustrates the workflow that would need to take place in an actual application.
         /// </summary>
         public bool UploadFiles()
-        { 
+        {
+            Win32.OutputDebugString("UploadFiles===Enter");
             try
             { 
                 if (FlowType == CloudFlowType.Quick)
@@ -299,7 +300,7 @@ namespace VOP
                 return false;
 
             }
-            Win32.OutputDebugString("AuthorizeAndUpload===>Leave");
+            Win32.OutputDebugString("UploadFiles===>Leave");
             return true;
             //System.Windows.MessageBox.Show("Upload Complete");
         }

@@ -279,6 +279,7 @@ namespace VOP
 
             }
 
+
             ScanTypeRecord scanRec = new ScanTypeRecord();
 
             scanRec.Mode = MainWindow_Rufous.g_settingData.m_ScanType;
@@ -292,95 +293,98 @@ namespace VOP
                 else
                 {
                     isApplySuccess = false;
-                }                
-
-            }
-
-            Byte size=0, duplex=0, res=0, color=0, format=0;
-            ScanParamShort scanParam = (ScanParamShort)MainWindow_Rufous.g_settingData.m_pushScanSettings.Clone();
-            switch (scanParam.PaperSize)
-            {
-                case EnumPaperSizeScan._Auto:
-                    size = 0;
-                    break;
-                case EnumPaperSizeScan._A4:
-                    size= 1;
-                    break;
-
-                case EnumPaperSizeScan._Letter:
-                    size = 2;
-                    break;
-
-                case EnumPaperSizeScan._Legal:
-                    size = 3;
-                    break;
-
-                case EnumPaperSizeScan._B5:
-                    size= 4;
-                    break;
-
-                case EnumPaperSizeScan._A5:
-                    size = 5;
-                    break;
-
-                case EnumPaperSizeScan._A6:
-                    size = 6;
-                    break;
-
-                default:
-                    size = 0;
-                    break;
-
-            }
-
-            if (scanParam.ADFMode == true)
-                duplex = 0;
-            else
-                duplex = 1;
-
-            switch (scanParam.ScanResolution)
-            {
-                case EnumScanResln._200x200:
-                    res = 0;
-                    break;
-
-                case EnumScanResln._100x100:
-                    res = 1;
-                    break;
-
-                case EnumScanResln._300x300:
-                    res = 2;
-                    break;
-
-                case EnumScanResln._600x600:
-                    res = 3;
-                    break;
-
-                default:
-                    res = 0;
-                    break;
-            }
-
-            if (scanParam.ColorType == EnumColorType.color_24bit)
-                color = 0;
-            else
-                color = 1;
-
-            if (scanParam.FileFormat == EnumFileFormat.JPEG)
-                format = 0;
-            else
-                format = 1;
-
-            ScanParametersRecord paraRec = new ScanParametersRecord(size, duplex, res, color, format);
-            if (worker.InvokeMethod<ScanParametersRecord>("", ref paraRec, DllMethodType.SetScanParameters, this))
-            {
-                if (null != paraRec && paraRec.CmdResult == EnumCmdResult._ACK)
-                {
-                    isApplySuccess = true;
                 }
-                else
+
+            }
+
+           // if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
+            {
+                Byte size = 0, duplex = 0, res = 0, color = 0, format = 0;
+                ScanParamShort scanParam = (ScanParamShort)MainWindow_Rufous.g_settingData.m_pushScanSettings.Clone();
+                switch (scanParam.PaperSize)
                 {
-                    isApplySuccess = false;
+                    case EnumPaperSizeScan._Auto:
+                        size = 0;
+                        break;
+                    case EnumPaperSizeScan._A4:
+                        size = 1;
+                        break;
+
+                    case EnumPaperSizeScan._Letter:
+                        size = 2;
+                        break;
+
+                    case EnumPaperSizeScan._Legal:
+                        size = 3;
+                        break;
+
+                    case EnumPaperSizeScan._B5:
+                        size = 4;
+                        break;
+
+                    case EnumPaperSizeScan._A5:
+                        size = 5;
+                        break;
+
+                    case EnumPaperSizeScan._A6:
+                        size = 6;
+                        break;
+
+                    default:
+                        size = 0;
+                        break;
+
+                }
+
+                if (scanParam.ADFMode == true)
+                    duplex = 0;
+                else
+                    duplex = 1;
+
+                switch (scanParam.ScanResolution)
+                {
+                    case EnumScanResln._200x200:
+                        res = 0;
+                        break;
+
+                    case EnumScanResln._100x100:
+                        res = 1;
+                        break;
+
+                    case EnumScanResln._300x300:
+                        res = 2;
+                        break;
+
+                    case EnumScanResln._600x600:
+                        res = 3;
+                        break;
+
+                    default:
+                        res = 0;
+                        break;
+                }
+
+                if (scanParam.ColorType == EnumColorType.color_24bit)
+                    color = 0;
+                else
+                    color = 1;
+
+                if (scanParam.FileFormat == EnumFileFormat.JPEG)
+                    format = 0;
+                else
+                    format = 1;
+
+                ScanParametersRecord paraRec = new ScanParametersRecord(size, duplex, res, color, format);
+                if (worker.InvokeMethod<ScanParametersRecord>("", ref paraRec, DllMethodType.SetScanParameters, this))
+                {
+                    if (null != paraRec && paraRec.CmdResult == EnumCmdResult._ACK)
+                    {
+                        isApplySuccess = true;
+                    }
+                    else
+                    {
+                        isApplySuccess = false;
+                    }
                 }
             }
 

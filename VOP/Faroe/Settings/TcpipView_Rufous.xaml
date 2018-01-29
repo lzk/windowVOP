@@ -180,19 +180,20 @@
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"></ColumnDefinition>
-                    <ColumnDefinition Width="20"></ColumnDefinition>
+                    <ColumnDefinition Width="40"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="40"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{StaticResource ResStr_IP_Address}" Grid.Row="1" Grid.Column="0"
+                <TextBlock Text="{StaticResource ResStr_IP_Address}" Grid.Row="1" Grid.Column="1"
                            VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
                 <TextBox Grid.Row="1" Grid.Column="2" 
                 TextChanged="handler_text_changed" 
                 x:Name="tb_ip" 
                 PreviewTextInput="OnTextBoxPreviewTextInput" 
                 Template="{StaticResource customTextBox}" 
-                Height="30" Width="250"
-                VerticalAlignment="Center" HorizontalAlignment="Left"
+                Height="30" 
+                VerticalAlignment="Center" 
                 SnapsToDevicePixels ="True"
                 MaxLength="15" 
                 Style="{StaticResource IPErrorTemplateStyle}"
@@ -216,7 +217,7 @@
                     </TextBox.Text>
                 </TextBox>
 
-                <TextBlock Text="{StaticResource ResStr_Submask}" Grid.Row="2"  Grid.Column="0"
+                <TextBlock Text="{StaticResource ResStr_Submask}" Grid.Row="2"  Grid.Column="1"
                            VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
                 <TextBox Grid.Row="2" Grid.Column="2"
                 TextChanged="handler_text_changed" 
@@ -224,8 +225,8 @@
                 PreviewTextInput="OnTextBoxPreviewTextInput" 
                 Template="{StaticResource customTextBox}" 
                 SnapsToDevicePixels ="True"
-                Height="30" Width="250"
-                VerticalAlignment="Center" HorizontalAlignment="Left"
+                Height="30" 
+                VerticalAlignment="Center"
                 MaxLength="15" 
                 Style="{StaticResource SubmaskErrorTemplateStyle}"
                 InputMethod.IsInputMethodEnabled="False" 
@@ -248,7 +249,7 @@
                     </TextBox.Text>
                 </TextBox>
 
-                <TextBlock Text="{StaticResource ResStr_Gateway}" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="{StaticResource ResStr_Gateway}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
                 <TextBox 
                 TextChanged="handler_text_changed" 
                 Name="tb_gate" 
@@ -257,8 +258,8 @@
                 SnapsToDevicePixels ="True"
                 Grid.Row="3" 
                 Grid.Column="2" 
-                Height="30" Width="250"
-                VerticalAlignment="Center" HorizontalAlignment="Left"
+                Height="30"
+                VerticalAlignment="Center"
                 MaxLength="15" 
                 Style="{StaticResource GatewayErrorTemplateStyle}"
                 InputMethod.IsInputMethodEnabled="False" 

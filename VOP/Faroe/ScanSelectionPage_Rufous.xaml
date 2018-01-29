@@ -66,8 +66,8 @@
                 </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="0*"/>
+                    <RowDefinition Height="284"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Grid.RowSpan="2"  Orientation="Horizontal" VerticalAlignment="Top" 
                     HorizontalAlignment="Stretch" Height="40">
@@ -95,7 +95,7 @@
                 	HorizontalAlignment="Center"
                 	PreviewMouseLeftButtonDown="ScreenButton_Click"
             />
-                <Grid Grid.Row="3">
+               <Grid Grid.Row="2">
                     <Grid.Background>
                         <ImageBrush ImageSource="../Images/quick scan_shadow_below.png"/>
                     </Grid.Background>
