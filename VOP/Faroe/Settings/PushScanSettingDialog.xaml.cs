@@ -91,12 +91,12 @@ namespace VOP
 
                     switch (m_rec.Resolution)
                     {
-                        case 0:
+                        case 1:
                             m_scanParams.ScanResolution = EnumScanResln._200x200;
                             break;
 
-                        case 1:
-                            m_scanParams.ScanResolution = EnumScanResln._100x100;
+                        case 0:
+                            m_scanParams.ScanResolution = EnumScanResln._150x150;
                             break;
 
                         case 2:

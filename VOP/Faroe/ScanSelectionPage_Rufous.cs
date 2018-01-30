@@ -308,8 +308,14 @@ namespace VOP
         public void PushScan()
         {
             MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+
+            ScanParam paramBak = new ScanParam();
+            paramBak = (ScanParam)MainWindow_Rufous.g_settingData.m_commonScanSettings.Clone();
+            MainWindow_Rufous.g_settingData.m_commonScanSettings = (ScanParam)MainWindow_Rufous.g_settingData.m_pushScanSettingsofPC.Clone();
+
             ScanToButtonClick(null, null);
             App.gPushScan = false;
+            MainWindow_Rufous.g_settingData.m_commonScanSettings = (ScanParam)paramBak.Clone();
         }
 
         public void ScanToButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)

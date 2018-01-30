@@ -45,6 +45,7 @@ namespace VOP
         public static uint WM_CHECK_MERCHANT_INFO_Expired = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_merchant");
         public static uint WM_VOP = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_vop");
         public static uint closeMsg = Win32.RegisterWindowMessage("vop_process_selfclose");
+        public static uint WM_VOP_MINIMIZE = Win32.RegisterWindowMessage("vop_start_minimize");
         public static double gScalingRate = 1.0; // Scaling rate used to scale windows's according the screen resolution.
         public static uint WM_BUTTON_PRESSED = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_button");
         private static Int32 gLanguage = 0x409;
@@ -182,7 +183,7 @@ namespace VOP
             {
                 dll.DllRegisterServer();
                 Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
-                    return;
+                return;
             }
             else if (argLine.Contains("-UNI"))
             {
@@ -223,7 +224,7 @@ namespace VOP
 #else
             if (true)
 #endif
-                {
+            {
 
                 try
                 {
@@ -232,29 +233,29 @@ namespace VOP
                     app.Run();
                 }
                 catch (Exception) { }
-              
+
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
                 Win32.OutputDebugString("Delete files");
-                foreach( ScanFiles obj in App.scanFileList )
+                foreach (ScanFiles obj in App.scanFileList)
                 {
                     try
                     {
-                        Win32.OutputDebugString(obj.m_pathOrig);                    
+                        Win32.OutputDebugString(obj.m_pathOrig);
                         File.Delete(obj.m_pathOrig);
                         //File.Delete(obj.m_pathView);
                         //File.Delete(obj.m_pathThumb);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Win32.OutputDebugString(ex.Message);
                     }
                 }
 
-                foreach( ScanFiles obj in App.rubbishFiles )
+                foreach (ScanFiles obj in App.rubbishFiles)
                 {
                     try
-                    {                        
+                    {
                         File.Delete(obj.m_pathOrig);
                         //File.Delete(obj.m_pathView);
                         //File.Delete(obj.m_pathThumb);

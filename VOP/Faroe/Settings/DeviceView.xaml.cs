@@ -297,7 +297,7 @@ namespace VOP
 
             }
 
-           // if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
+            if (MainWindow_Rufous.g_settingData.m_ScanType == 1)
             {
                 Byte size = 0, duplex = 0, res = 0, color = 0, format = 0;
                 ScanParamShort scanParam = (ScanParamShort)MainWindow_Rufous.g_settingData.m_pushScanSettings.Clone();
@@ -344,11 +344,11 @@ namespace VOP
                 switch (scanParam.ScanResolution)
                 {
                     case EnumScanResln._200x200:
-                        res = 0;
+                        res = 1;
                         break;
 
-                    case EnumScanResln._100x100:
-                        res = 1;
+                    case EnumScanResln._150x150:
+                        res = 0;
                         break;
 
                     case EnumScanResln._300x300:
