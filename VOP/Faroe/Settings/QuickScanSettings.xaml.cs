@@ -398,7 +398,7 @@ namespace VOP
                     }
                     break;
                 case 5:
-                    ScanToCloudDialog scanToCloudWin = new ScanToCloudDialog();
+                    ScanToCloudDialog scanToCloudWin = new ScanToCloudDialog(MatchListBox.SelectedIndex);
                     scanToCloudWin.Owner = m_MainWin;
 
                     scanToCloudWin.m_scanParams = (ScanParam)MainWindow_Rufous.g_settingData.m_MatchList[MatchListBox.SelectedIndex].m_ScanSettings.Clone();

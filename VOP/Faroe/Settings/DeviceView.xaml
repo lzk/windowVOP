@@ -414,6 +414,8 @@
                             SelectionChanged="cbScanType_SelectionChanged" Margin="5,8">
                         <ComboBoxItem >Scan To PC</ComboBoxItem>
                         <ComboBoxItem >Scan to USB Disk</ComboBoxItem>
+                        <ComboBoxItem >Scan to SMB</ComboBoxItem>
+                        <ComboBoxItem >Scan to FTP</ComboBoxItem>
                     </ComboBox>
                     <Button x:Name="btnSetting"
                             Click="btnSetting_Click" 

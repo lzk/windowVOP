@@ -54,6 +54,7 @@ namespace VOP
                         case 0:
                             m_scanParams.PaperSize = EnumPaperSizeScan._Auto;
                             break;
+
                         case 1:
                             m_scanParams.PaperSize = EnumPaperSizeScan._A4;
                             break;

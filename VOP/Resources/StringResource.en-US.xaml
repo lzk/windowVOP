@@ -445,7 +445,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Not_Find_Printer">Not find printer!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Select_Pictures_to_process">Please select one or more pictures to process!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Do_You_Want_to_Delete_All_Images">Do you want to leave this page, if you exit, the all images will be delete?</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scan job has been canceled. Please clear the ADF of any remianing paper originals before proceeding with any additional scans.</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Scanning_is_canceled_on_machine">The scan job has been canceled. Please clear the ADF of any remaining paper originals before proceeding with any additional scans.</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_and_Path_could_not_be_Empty">The AP Name and Path could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_AP_Name_could_not_be_Empty">The AP Name could not be empty!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Initial_Evernote_and_Get_Evernote_fail">Initial Evernote and get EverNote list fail!</sys:String>
@@ -546,6 +546,8 @@
     <sys:String xml:space="preserve" x:Key="ResStr_AutoOff_Time">Auto-Off Time</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ACM_Count">ACM Count :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scan_Count">Scan Count :</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Connect_to_Google_server_fail">Connect to EverNote server fail, please confirm you computer setting and your specify user name and password!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Connect_to_Google_server_fail">Connect to Google Drive server fail, please confirm you computer setting and your specify user name and password!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Push_Scan_Type">Push Scan Type :</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Google_Folder_Deleted">The Default Path you selected has been deleted!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_ScanType_Setting">This Push Scan Type Parameters must be used 'EWS' to setting!</sys:String>
 </ResourceDictionary>

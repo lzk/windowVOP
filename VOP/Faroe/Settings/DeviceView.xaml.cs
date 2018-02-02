@@ -122,11 +122,11 @@ namespace VOP
                 MainWindow_Rufous.g_settingData.m_ScanType = scanRec.Mode;
             }
 
-            if (MainWindow_Rufous.g_settingData.m_ScanType == 0)
-                cbScanType.SelectedIndex = 0;
-            else
-                cbScanType.SelectedIndex = 1;
-
+            //if (MainWindow_Rufous.g_settingData.m_ScanType == 0)
+            //    cbScanType.SelectedIndex = 0;
+            //else
+            //   cbScanType.SelectedIndex = 1;
+            cbScanType.SelectedIndex = MainWindow_Rufous.g_settingData.m_ScanType;
             // UpdateApplyBtnStatus();
         }
 
@@ -304,8 +304,10 @@ namespace VOP
                 switch (scanParam.PaperSize)
                 {
                     case EnumPaperSizeScan._Auto:
+                    case EnumPaperSizeScan._Auto1:
                         size = 0;
                         break;
+
                     case EnumPaperSizeScan._A4:
                         size = 1;
                         break;
@@ -386,6 +388,15 @@ namespace VOP
                         isApplySuccess = false;
                     }
                 }
+            }
+
+            if (MainWindow_Rufous.g_settingData.m_ScanType > 1)
+            {
+
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, Application.Current.MainWindow,
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_ScanType_Setting"),
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+
             }
 
             if (isApplySuccess)
@@ -693,11 +704,19 @@ namespace VOP
                     //btnSetting.IsEnabled = true;
                     //btnSetting.Visibility = Visibility.Visible;
                 }
-                else
+                else if (cbScanType.SelectedIndex == 1)
                 {
                     MainWindow_Rufous.g_settingData.m_ScanType = 1;
-                   // btnSetting.IsEnabled = false;
+                    // btnSetting.IsEnabled = false;
                     //btnSetting.Visibility = Visibility.Hidden;
+                }
+                else if (cbScanType.SelectedIndex == 2)
+                {
+                    MainWindow_Rufous.g_settingData.m_ScanType = 2;
+                }
+                else
+                {
+                    MainWindow_Rufous.g_settingData.m_ScanType = 3;
                 }
 
                 m_lastScanType = cbScanType.SelectedIndex;
@@ -721,7 +740,7 @@ namespace VOP
 
                 }
             }
-            else
+            else if (MainWindow_Rufous.g_settingData.m_ScanType == 1)
             {
                 PushScanSettingDialog settingWin = new PushScanSettingDialog(1);
                 settingWin.Owner = m_MainWin;
@@ -732,6 +751,12 @@ namespace VOP
                 {
                     MainWindow_Rufous.g_settingData.m_pushScanSettings = (ScanParamShort)settingWin.m_scanParams.Clone();
                 }
+            }
+            else
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, Application.Current.MainWindow,
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_ScanType_Setting"),
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
             }
         }
     }

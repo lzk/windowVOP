@@ -1646,6 +1646,7 @@ BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
 
 			nResult = FALSE;
 		}
+		Sleep(20);
 	}
 
 	return nResult;
@@ -2494,7 +2495,21 @@ USBAPI_API int __stdcall GetScanType(int* mode)
 				if (type == 3)
 					*mode = 0;
 				else
-					*mode = 1;
+				{
+					switch (type)
+					{
+					case 2:
+						*mode = 1;
+						break;
+					case 0:
+						*mode = 3;
+						break;
+					case 1:
+						*mode = 2;
+						break;
+					}
+					//*mode = type+1;
+				}
 
 				result = TRUE;
 			}
@@ -2521,11 +2536,19 @@ USBAPI_API int __stdcall GetScanType(int* mode)
 					{
 						if (glDrv.NVRAM_read(0xc3, 1, data))
 						{
-							type = data[0];
-							if (type == 3)
-								*mode = 0;
-							else
+							switch (type)
+							{
+							case 2:
 								*mode = 1;
+								break;
+							case 0:
+								*mode = 3;
+								break;
+							case 1:
+								*mode = 2;
+								break;
+							}
+							//*mode = type+1;
 
 							result = TRUE;
 						}
@@ -2588,7 +2611,22 @@ USBAPI_API int __stdcall SetScanType(int mode)
 			if (mode == 0)
 				data[0] = 3;
 			else
-				data[0] = 2;//0
+			{
+				switch (mode)
+				{
+				case 1:
+					data[0] = 2;
+					break;
+				case 2:
+					data[0] = 1;
+					break;
+				case 3:
+					data[0] = 0;
+					break;
+				}
+				//data[0] = mode - 1;//0
+			}
+
 			int iRet = glDrv.NVRAM_write(0xc3, 1, data);
 			if (iRet)
 			{	
@@ -2620,7 +2658,21 @@ USBAPI_API int __stdcall SetScanType(int mode)
 						if (mode == 0)
 							data[0] = 3;
 						else
-							data[0] = 2;//0
+						{
+							switch (mode)
+							{
+							case 1:
+								data[0] = 2;
+								break;
+							case 2:
+								data[0] = 1;
+								break;
+							case 3:
+								data[0] = 0;
+								break;
+							}
+							//data[0] = mode - 1;//0
+						}
 						int iRet = glDrv.NVRAM_write(0xc3, 1, data);
 						if (iRet)
 						{

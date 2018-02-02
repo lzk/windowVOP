@@ -431,6 +431,7 @@
                     		Margin="20,3,20,12" 
                     		Text=""
                             FontWeight="Normal"
+                            IsTabStop="False"
                     		VerticalContentAlignment="Center" TextChanged="tbFilePath_TextChanged"
                                 />
                     </StackPanel>

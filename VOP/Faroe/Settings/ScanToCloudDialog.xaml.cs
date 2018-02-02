@@ -22,9 +22,12 @@ namespace VOP
         public ScanToCloudParam m_scanToCloudParams = new ScanToCloudParam();
         public ScanParam m_scanParams = new ScanParam();
         private int m_lastCloudType = -1;
-        public ScanToCloudDialog()
+        private int m_index = 5;
+
+        public ScanToCloudDialog(int index)
         {
             InitializeComponent();
+            m_index = index;
         }
         private void ScanToCloudDialog_Loaded(object sender, RoutedEventArgs e)
         {
@@ -158,6 +161,7 @@ namespace VOP
             {
                 Googledocsflow flow = new Googledocsflow();
                 Googledocsflow.FlowType = CloudFlowType.SimpleView;
+                Googledocsflow.cutNum = m_index;
                 if (flow.Run())
                 {
                     SavePathTbx.IsReadOnly = false;

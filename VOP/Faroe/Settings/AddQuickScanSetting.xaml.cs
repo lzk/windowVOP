@@ -139,7 +139,7 @@ namespace VOP
                     }
                     break;
                 case 5:
-                    ScanToCloudDialog scanToCloudWin = new ScanToCloudDialog();
+                    ScanToCloudDialog scanToCloudWin = new ScanToCloudDialog(5);
                     scanToCloudWin.Owner = m_MainWin;
 
                     scanToCloudWin.m_scanParams = (ScanParam)m_scanParams.Clone();

@@ -87,5 +87,6 @@ public:
 	SC_POWER_INFO_T		sc_powerData;
 
 	int				JobID;	
+	BOOL			bLocked;
 };
 #endif

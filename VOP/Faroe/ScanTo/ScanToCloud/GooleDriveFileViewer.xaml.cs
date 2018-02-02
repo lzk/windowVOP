@@ -132,6 +132,7 @@ namespace VOP
                 return;
             }
 
+            folderList.Clear();
             foreach (File file in FileList)
             {
                 FolderItem item = new FolderItem();
@@ -383,6 +384,19 @@ namespace VOP
                         if (UploadFolder(folderName, fullpath))
                         {
                             FileList = Utilities.RetrieveAllFiles(_service);
+                            List<File> templist = new List<File>();
+                            foreach (File item in FileList)
+                            {
+                                templist.Add(item);
+                            }
+
+                            foreach (File item in templist)
+                            {
+                                if (item.ExplicitlyTrashed == true)
+                                {
+                                    FileList.Remove(item);
+                                }
+                            }
                             GetFolderList();
                             UpdateFileAndFolders(currentPath, this.ParantID);
                         }
@@ -478,7 +492,7 @@ namespace VOP
                     return true;
                 }
             }
-            return true;
+            return false;
         }
 
         private bool CheckFileName(string filepath, string parentid)
@@ -530,27 +544,22 @@ namespace VOP
             {
                 if (selectedPath == "")
                 {
-                    if (FileBrowser.SelectedIndex != -1)
-                    {
-                        ListViewItem item = FileBrowser.Items[FileBrowser.SelectedIndex] as ListViewItem;
-                        ViewItemInfo info = item.Tag as ViewItemInfo;
-                        if (info.fileType != "File")
-                        {
-                            selectedPath = currentPath + "/" + info.fileName;
-                            Googledocsflow.SavePath = selectedPath;
-                            Googledocsflow.FolderID = info.parentid;
-                        }
-                        //else
-                        //{
-                        //    Googledocsflow.SavePath = "/";
-                        //    Googledocsflow.FolderID = rootid;
-                        //}
-                    }
-                    //else
+                    //if (FileBrowser.SelectedIndex != -1)
                     //{
-                    //    Googledocsflow.SavePath = "/";
-                    //    Googledocsflow.FolderID = rootid;
+                    //    ListViewItem item = FileBrowser.Items[FileBrowser.SelectedIndex] as ListViewItem;
+                    //    ViewItemInfo info = item.Tag as ViewItemInfo;
+                    //    if (info.fileType != "File")
+                    //    {
+                    //        selectedPath = currentPath + "/" + info.fileName;
+                    //        Googledocsflow.SavePath = selectedPath;
+                    //        Googledocsflow.FolderID = info.parentid;
+                    //    }
                     //}
+                    //else
+                    {
+                        Googledocsflow.SavePath = "/";
+                        Googledocsflow.FolderID = rootid;
+                    }
                 }
                 else
                 {
@@ -589,13 +598,29 @@ namespace VOP
                     }                    
 
                     if (UpperFolder != "")
-                    {                       
+                    {
+                        FileList = Utilities.RetrieveAllFiles(_service);
+                        List<File> templist = new List<File>();
+                        foreach (File item in FileList)
+                        {
+                            templist.Add(item);
+                        }
+
+                        foreach (File item in templist)
+                        {
+                            if (item.ExplicitlyTrashed == true)
+                            {
+                                FileList.Remove(item);
+                            }
+                        }
+                        GetFolderList();
                         if (!CheckUploadFolderName(UpperFolder, ParantID))
                         {
                             message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Not_Exist");
                             message = string.Format(message/*"The folder {0} does not exist."*/, currentFolderName);
                             VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Error"));
+                            UpFolderButtonClick(null, null);
                             return;
                         }
                     }
@@ -639,6 +664,19 @@ namespace VOP
                     }
                     UploadStaus.Text = "" ;
                     FileList = Utilities.RetrieveAllFiles(_service);
+                    List<File> templist = new List<File>();
+                    foreach (File item in FileList)
+                    {
+                        templist.Add(item);
+                    }
+
+                    foreach (File item in templist)
+                    {
+                        if (item.ExplicitlyTrashed == true)
+                        {
+                            FileList.Remove(item);
+                        }
+                    }
                     GetFolderList();
                     UpdateFileAndFolders(currentPath, this.ParantID);
                 }

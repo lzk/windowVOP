@@ -88,6 +88,8 @@ namespace Google.Apis.Util
             {
                 Win32.OutputDebugString(ex.Message);
             }
+
+
             // Return the resulting list
             Win32.OutputDebugString("RetrieveAllFiles===Leave");
             return result;

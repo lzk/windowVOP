@@ -23,6 +23,7 @@ namespace VOP
         public static Window ParentWin { get; set; }
         public static string SavePath = "";
         public static string FolderID = "";
+        public static int cutNum = 5;
         public string m_errorMsg = "";
         public bool isCancel = false;
         private static bool isReset = false;
@@ -134,6 +135,36 @@ namespace VOP
                 if (fileListFromGoogle == null)
                 {
                     return false;
+                }
+                else
+                {
+                    List<File> templist = new List<File>();
+                    foreach (File item in fileListFromGoogle)
+                    {
+                        templist.Add(item);
+                    }
+                    
+                    foreach (File item in templist)
+                    {
+                        if (item.ExplicitlyTrashed == true)
+                        {
+                            fileListFromGoogle.Remove(item);
+                            if (FlowType == CloudFlowType.Quick)
+                            {
+                                string path = MainWindow_Rufous.g_settingData.m_MatchList[cutNum].m_CloudScanSettings.DefaultGoogleDrivePath;
+                                if (path == item.Title)
+                                {
+                                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                                   System.Windows.Application.Current.MainWindow,
+                                   (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Google_Folder_Deleted"),
+                                  (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+
+
+                                    return false;
+                                }
+                            }
+                        }
+                    }
                 }
 
                 if (fileListFromGoogle !=null &&
@@ -271,22 +302,35 @@ namespace VOP
                 }
                 else
                 {
+                    string path = "";
                     if (FlowType == CloudFlowType.SimpleView)
                     {
                         Win32.OutputDebugString("SimpleView: Open the google drive file viewer!");
+                        path = MainWindow_Rufous.g_settingData.m_MatchList[cutNum].m_CloudScanSettings.DefaultGoogleDrivePath;
                     }
                     else
                     {
                         
                         Win32.OutputDebugString("scan to google drive");
+                        path = MainWindow_Rufous.g_settingData.m_dropBoxDefaultPath;
                     }
                     isReset = MainWindow_Rufous.g_settingData.m_bNeedReset;
                     bool? result = null;
-                    GoogleDriveFileViewer viewer = new GoogleDriveFileViewer(fileListFromGoogle, FileList, MainWindow_Rufous.g_settingData.m_dropBoxDefaultPath, FlowType);
+                    GoogleDriveFileViewer viewer = new GoogleDriveFileViewer(fileListFromGoogle, FileList, path, FlowType);
                     viewer.Owner = System.Windows.Application.Current.MainWindow;
                     viewer.Service = _service;
                     result = viewer.ShowDialog();
-                    MainWindow_Rufous.g_settingData.m_bNeedReset = false;
+                    if (FlowType == CloudFlowType.SimpleView)
+                    {
+                        if (result == true)
+                        {
+                            MainWindow_Rufous.g_settingData.m_MatchList[cutNum].m_CloudScanSettings.DefaultGoogleDrivePath = Googledocsflow.SavePath;
+                        }
+                    }
+                    else
+                    {
+                        MainWindow_Rufous.g_settingData.m_bNeedReset = false;
+                    }
                 }
             }
             catch (Exception ex)

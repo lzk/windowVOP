@@ -418,19 +418,30 @@ namespace VOP
                             InitMediaType();
                         //<<==============2033
 
-                        if (m_scanParams.MultiFeed == true)
-                        {
-                            MultiFeedOnButton.IsChecked = true;
-                            MultiFeedOffButton.IsChecked = false;
-                        }
-                        else
+                        if (m_scanParams.PaperSize == EnumPaperSizeScan._A6||
+                            m_scanParams.PaperSize == EnumPaperSizeScan._Auto1)
                         {
                             MultiFeedOnButton.IsChecked = false;
                             MultiFeedOffButton.IsChecked = true;
+                            MultiFeedOnButton.IsEnabled = false;
+                            MultiFeedOffButton.IsEnabled = false;
                         }
+                        else
+                        {
+                            if (m_scanParams.MultiFeed == true)
+                            {
+                                MultiFeedOnButton.IsChecked = true;
+                                MultiFeedOffButton.IsChecked = false;
+                            }
+                            else
+                            {
+                                MultiFeedOnButton.IsChecked = false;
+                                MultiFeedOffButton.IsChecked = true;
+                            }
 
-                        MultiFeedOnButton.IsEnabled = true;
-                        MultiFeedOffButton.IsEnabled = true;
+                            MultiFeedOnButton.IsEnabled = true;
+                            MultiFeedOffButton.IsEnabled = true;
+                        }
 
                         if (m_scanParams.AutoCrop == true)
                         {
@@ -804,6 +815,13 @@ namespace VOP
             cboItem = new ComboBoxItem();
             cboItem.Content = "Auto";
             cboItem.DataContext = EnumPaperSizeScan._Auto;
+            cboItem.MinWidth = 145;
+            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            cboScanSize.Items.Add(cboItem);
+
+            cboItem = new ComboBoxItem();
+            cboItem.Content = "Auto(No Multi-Feed)";
+            cboItem.DataContext = EnumPaperSizeScan._Auto1;
             cboItem.MinWidth = 145;
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboScanSize.Items.Add(cboItem);

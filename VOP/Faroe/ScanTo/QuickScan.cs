@@ -112,6 +112,20 @@ namespace VOP
 
             if (flow.Run())
             {
+                //add by yunying shang 2018-02-02 for BMS 2219
+                int iRtn = m_MainWin.CheckDeviceStatus();
+                if (iRtn == 1 && !m_MainWin.scanDevicePage.IsOnLine())
+                {
+
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                        Application.Current.MainWindow,
+                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Network_fail"),
+                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
+                        );
+
+                    return Scan_RET.RETSCAN_ERRORPARAMETER;
+                }//<<===================2219
+
                 ScanPreview_Rufous win = new ScanPreview_Rufous();
                 win.Owner = Application.Current.MainWindow;
                 win.ImagePaths = fileLs;
@@ -349,6 +363,7 @@ namespace VOP
                 Googledocsflow flow = new Googledocsflow();
                 Googledocsflow.ParentWin = Application.Current.MainWindow;
                 Googledocsflow.FlowType = CloudFlowType.Quick;
+                Googledocsflow.cutNum = MainWindow_Rufous.g_settingData.CutNum;
                 flow.FileList = fileLs;
 
                 if (flow.Run())
@@ -370,6 +385,31 @@ namespace VOP
                 }
             }
             return Scan_RET.RETSCAN_OK;
+        }
+
+        ///<summary>
+        /// Pointer to the MainWindow, in order to use global data more
+        /// conveniently 
+        ///</summary>
+        private MainWindow_Rufous _MainWin = null;
+        public MainWindow_Rufous m_MainWin
+        {
+            set
+            {
+                _MainWin = value;
+            }
+
+            get
+            {
+                if (null == _MainWin)
+                {
+                    return (MainWindow_Rufous)App.Current.MainWindow;
+                }
+                else
+                {
+                    return _MainWin;
+                }
+            }
         }
     }
 }

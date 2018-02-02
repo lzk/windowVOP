@@ -90,6 +90,7 @@ namespace VOP
                 case 3:
                     bRtn = qs.ScanToEmail();
                     break;
+
                 case 4:
                    iRtn = m_MainWin.CheckDeviceStatus();
                     if ( iRtn <= 0)
@@ -324,8 +325,8 @@ namespace VOP
            // ImageButton2 btn = sender as ImageButton2;
 
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_commonScanSettings);
-            //List<ScanFiles> files = new List<ScanFiles>();
+            //List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_commonScanSettings);
+            List<ScanFiles> files = new List<ScanFiles>();
             m_MainWin._bScanning = false;
             if (files != null)
             //   return;
@@ -333,7 +334,13 @@ namespace VOP
                 if (task.ScanResult == Scan_RET.RETSCAN_OK)
                 {
                     //List<ScanFiles> files = new List<ScanFiles>();
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\1.jpg"));
+                    //for (int i = 0; i < 60; i++)
+                    //{
+                    //    string path = string.Format(@"C:\Users\Administrator\Desktop\111\{0}.jpg", i+1);
+                    //    ScanFiles file = new ScanFiles(path);
+                    //    files.Add(file);
+                    //}
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\1.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\2.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\3.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\4.jpg"));
