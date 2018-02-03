@@ -728,6 +728,7 @@ namespace VOP
             }
             else if (msg == App.WM_VOP)
             {
+                //Win32.OutputDebugString("Receive popup Message!");
                 PopupWindow();
             }
             else if (msg == App.closeMsg)
@@ -777,6 +778,7 @@ namespace VOP
 
         private void PopupWindow()
         {
+            //Win32.OutputDebugString("PopupWindow!");
             this.Visibility = Visibility.Visible;
             this.Activate();
             this.Topmost = true;  // important

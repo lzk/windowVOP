@@ -188,7 +188,8 @@ namespace VOP
             }
 
             if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
-                m_powermode > 1)
+                m_powermode > 1 ||
+                m_scanParams.SkipBlankPage == true)
             {
                 AutoCropOnButton.IsChecked = false;
                 AutoCropOnButton.IsEnabled = false;
@@ -205,19 +206,32 @@ namespace VOP
                 {
                     AutoCropOffButton.IsChecked = true;
                 }
+                AutoCropOnButton.IsEnabled = true;
+                AutoCropOffButton.IsEnabled = true;
             }
 
-            switch (m_scanParams.ColorType)
+            if (m_scanParams.AutoColorDetect == false)
             {
-                case EnumColorType.color_24bit:
-                    Color.IsChecked = true;
-                    break;
-                case EnumColorType.grayscale_8bit:
-                    Grayscale.IsChecked = true;
-                    break;
-                case EnumColorType.black_white:
-                  //  BlackAndWhite.IsChecked = true;
-                    break;     
+                switch (m_scanParams.ColorType)
+                {
+                    case EnumColorType.color_24bit:
+                        Color.IsChecked = true;
+                        break;
+                    case EnumColorType.grayscale_8bit:
+                        Grayscale.IsChecked = true;
+                        break;
+                    case EnumColorType.black_white:
+                        //  BlackAndWhite.IsChecked = true;
+                        break;
+                }
+                Color.IsEnabled = true;
+                Grayscale.IsEnabled = true;
+            }
+            else
+            {
+                Grayscale.IsChecked = true;
+                Color.IsEnabled = false;
+                Grayscale.IsEnabled = false;
             }
 
             sldr_brightness.Value = m_scanParams.Brightness;
@@ -227,7 +241,8 @@ namespace VOP
 
             tbGamma.Text = Convert.ToString(m_scanParams.Gamma);
 
-            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
+            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
+                m_scanParams.ColorType == EnumColorType.grayscale_8bit)
             {
                 btnAutoColorOff.IsEnabled = false;
                 btnAutoColorOn.IsEnabled = false;
@@ -580,10 +595,31 @@ namespace VOP
                 if (rdbtn.Name == "Color")
                 {
                     m_scanParams.ColorType = EnumColorType.color_24bit;
+
+                    if (btnAutoColorOff != null && btnAutoColorOn != null)
+                    {
+                        if (m_scanParams.AutoColorDetect)
+                        {
+                            btnAutoColorOn.IsChecked = true;
+                        }
+                        else
+                        {
+                            btnAutoColorOff.IsChecked = true;
+                        }
+                        btnAutoColorOn.IsEnabled = true;
+                        btnAutoColorOff.IsEnabled = true;
+                    }
                 }
                 else if (rdbtn.Name == "Grayscale")
                 {
                     m_scanParams.ColorType = EnumColorType.grayscale_8bit;
+
+                    if (btnAutoColorOff != null && btnAutoColorOn != null)
+                    {
+                        btnAutoColorOff.IsChecked = true;
+                        btnAutoColorOff.IsEnabled = false;
+                        btnAutoColorOn.IsEnabled = false;
+                    }
                 }
                 else if (rdbtn.Name == "BlackAndWhite")
                 {
@@ -646,10 +682,14 @@ namespace VOP
                 {
                     if ((double)val / 10 != m_scanParams.Gamma)
                     {
-                        if (val != 0)
+                        if (val > 0)
                         {
                             m_scanParams.Gamma = (double)val / 10;
                             tbGamma.Text = Convert.ToString(m_scanParams.Gamma);
+                        }
+                        else
+                        {
+                            tbGamma.Text = "0.1";
                         }
                     }
                 }
@@ -994,10 +1034,28 @@ namespace VOP
                 if (rdbtn.Name == "btnAutoColorOn")
                 {
                     m_scanParams.AutoColorDetect = true;
+
+                    if (Grayscale != null && Color != null)
+                    {
+                        Color.IsChecked = true;
+                        Grayscale.IsEnabled = false;
+                        Color.IsEnabled = false;
+                    }
+
                 }
                 else if (rdbtn.Name == "btnAutoColorOff")
                 {
                     m_scanParams.AutoColorDetect = false;
+                    if (Grayscale != null && Color != null)
+                    {
+                        if (m_scanParams.ColorType == EnumColorType.color_24bit)
+                            Color.IsChecked = true;
+                        else
+                            Grayscale.IsChecked = true;
+                        Grayscale.IsEnabled = true;
+                        Color.IsEnabled = true;
+                    }
+
                 }
             }
         }
