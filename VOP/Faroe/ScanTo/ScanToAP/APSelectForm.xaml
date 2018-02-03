@@ -62,6 +62,7 @@
                             Height="35"
                             FontSize="16"
                             Click="OkClick"
+                           IsDefault="True"
                             Content="{StaticResource ResStr_OK}"
                             Style="{StaticResource CustomPopUpButtonStyle}"
                             ></Button>   
