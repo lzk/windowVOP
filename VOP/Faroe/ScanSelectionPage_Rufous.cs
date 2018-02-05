@@ -325,8 +325,8 @@ namespace VOP
            // ImageButton2 btn = sender as ImageButton2;
 
             ScanTask task = new ScanTask();
-            List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_commonScanSettings);
-            //List<ScanFiles> files = new List<ScanFiles>();
+            //List<ScanFiles> files = task.DoScan(MainWindow_Rufous.g_settingData.m_DeviceName, MainWindow_Rufous.g_settingData.m_commonScanSettings);
+            List<ScanFiles> files = new List<ScanFiles>();
             m_MainWin._bScanning = false;
             if (files != null)
             //   return;
@@ -340,7 +340,7 @@ namespace VOP
                     //    ScanFiles file = new ScanFiles(path);
                     //    files.Add(file);
                     //}
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\1.jpg"));
+                    files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\1.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\2.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\3.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\4.jpg"));

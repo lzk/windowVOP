@@ -234,7 +234,6 @@ namespace VOP
                     app.Run();
                 }
                 catch (Exception) { }
-
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
                 Win32.OutputDebugString("Delete files");

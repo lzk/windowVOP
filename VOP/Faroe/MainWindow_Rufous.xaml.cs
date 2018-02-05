@@ -810,7 +810,6 @@ namespace VOP
         private void MainWindowExitPoint()
         {
             scanPage.image_wrappanel.Children.Clear();
-            
             if (null != scanPage.scanningThread
                     && true == scanPage.scanningThread.IsAlive)
             {
@@ -821,16 +820,17 @@ namespace VOP
                     System.Threading.Thread.Sleep(100);
                 }
             }
-            if (thread_searchIP != null && thread_searchIP.IsAlive == true)
-            {
-                thread_searchIP.Join();
-            }
-
+            //marked by yunying shang 2018-02-05 for BMS　2241
+            //if (thread_searchIP != null && thread_searchIP.IsAlive == true)
+            //{
+            //    thread_searchIP.Join();
+            //}
+            //<<===================2241
             _bExitUpdater = true;
             _bExitCheckButton = true;
-            m_updaterAndUIEvent.WaitOne();            
+            m_updaterAndUIEvent.WaitOne();
             notifyIcon1.Visible = false;
-            SettingData.Serialize(g_settingData, App.cfgFile);       
+            SettingData.Serialize(g_settingData, App.cfgFile);
         }
   
         private void ControlBtnClick(object sender, RoutedEventArgs e)

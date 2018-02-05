@@ -168,6 +168,7 @@ namespace VOP
             if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._Card ||
+                m_scanParams.PaperSize == EnumPaperSizeScan._A6 || //add by yunying shang 2018-02-05 for BMS 2253
                 m_powermode == 3)
             {
                 MultiFeedOnButton.IsChecked = false;
