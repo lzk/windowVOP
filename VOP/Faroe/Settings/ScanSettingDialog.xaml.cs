@@ -188,7 +188,9 @@ namespace VOP
                 }
             }
 
-            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
+            if (//m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
+                (m_scanParams.PaperSize != EnumPaperSizeScan._Auto &&
+                m_scanParams.PaperSize != EnumPaperSizeScan._Auto1)||
                 m_powermode > 1 ||
                 m_scanParams.SkipBlankPage == true)
             {
@@ -370,10 +372,12 @@ namespace VOP
                 if (rdbtn.Name == "AutoCropOnButton")
                 {
                     m_scanParams.AutoCrop = true;
+                    InitScanSize();
                 }
                 else if (rdbtn.Name == "AutoCropOffButton")
                 {
                     m_scanParams.AutoCrop = false;
+                    InitScanSize();
                 }
             }
         }
@@ -434,7 +438,7 @@ namespace VOP
                             InitMediaType();
                         //<<==============2033
 
-                        if (m_scanParams.PaperSize == EnumPaperSizeScan._A6||
+                        if (m_scanParams.PaperSize == EnumPaperSizeScan._A6 ||
                             m_scanParams.PaperSize == EnumPaperSizeScan._Auto1)
                         {
                             MultiFeedOnButton.IsChecked = false;
@@ -444,6 +448,30 @@ namespace VOP
                         }
                         else
                         {
+                            if (m_scanParams.PaperSize != EnumPaperSizeScan._Auto &&
+                            m_scanParams.PaperSize != EnumPaperSizeScan._Auto1)
+                            {
+                                AutoCropOffButton.IsChecked = true;
+                                AutoCropOffButton.IsEnabled = false;
+                                AutoCropOnButton.IsEnabled = false;
+                            }
+                            else
+                            {
+                                if (m_scanParams.AutoCrop == true)
+                                {
+                                    AutoCropOnButton.IsChecked = true;
+                                    AutoCropOffButton.IsChecked = false;
+                                }
+                                else
+                                {
+                                    AutoCropOnButton.IsChecked = false;
+                                    AutoCropOffButton.IsChecked = true;
+                                }
+
+                                AutoCropOnButton.IsEnabled = true;
+                                AutoCropOffButton.IsEnabled = true;
+                            }
+
                             if (m_scanParams.MultiFeed == true)
                             {
                                 MultiFeedOnButton.IsChecked = true;
@@ -457,59 +485,45 @@ namespace VOP
 
                             MultiFeedOnButton.IsEnabled = true;
                             MultiFeedOffButton.IsEnabled = true;
+
+                            if (m_scanParams.AutoColorDetect == true)
+                            {
+                                btnAutoColorOn.IsChecked = true;
+                            }
+                            else
+                            {
+                                btnAutoColorOff.IsChecked = true;
+                            }
+
+                            btnAutoColorOff.IsEnabled = true;
+                            btnAutoColorOn.IsEnabled = true;
+
+                            if (m_scanParams.SkipBlankPage == true)
+                            {
+                                btnSkipBlankOn.IsChecked = true;
+                            }
+                            else
+                            {
+                                btnSkipBlankOff.IsChecked = true;
+                            }
+
+                            btnSkipBlankOn.IsEnabled = true;
+                            btnSkipBlankOff.IsEnabled = true;
+
+                            //if (m_scanParams.ADFMode == true)
+                            //{
+                            //    oneSideButton.IsChecked = false;
+                            //    twoSideButton.IsChecked = true;
+                            //}
+                            //else
+                            //{
+                            //    oneSideButton.IsChecked = true;
+                            //    twoSideButton.IsChecked = false;
+                            //}
+
+                            //oneSideButton.IsEnabled = true;
+                            //twoSideButton.IsEnabled = true;
                         }
-
-                        if (m_scanParams.AutoCrop == true)
-                        {
-                            AutoCropOnButton.IsChecked = true;
-                            AutoCropOffButton.IsChecked = false;
-                        }
-                        else
-                        {
-                            AutoCropOnButton.IsChecked = false;
-                            AutoCropOffButton.IsChecked = true;
-                        }
-
-                        AutoCropOnButton.IsEnabled = true;
-                        AutoCropOffButton.IsEnabled = true;
-
-                        if (m_scanParams.AutoColorDetect == true)
-                        {
-                            btnAutoColorOn.IsChecked = true;
-                        }
-                        else
-                        {
-                            btnAutoColorOff.IsChecked = true;
-                        }
-
-                        btnAutoColorOff.IsEnabled = true;
-                        btnAutoColorOn.IsEnabled = true;
-
-                        if (m_scanParams.SkipBlankPage == true)
-                        {
-                            btnSkipBlankOn.IsChecked = true;
-                        }
-                        else
-                        {
-                            btnSkipBlankOff.IsChecked = true;
-                        }
-
-                        btnSkipBlankOn.IsEnabled = true;
-                        btnSkipBlankOff.IsEnabled = true;
-
-                        //if (m_scanParams.ADFMode == true)
-                        //{
-                        //    oneSideButton.IsChecked = false;
-                        //    twoSideButton.IsChecked = true;
-                        //}
-                        //else
-                        //{
-                        //    oneSideButton.IsChecked = true;
-                        //    twoSideButton.IsChecked = false;
-                        //}
-
-                        //oneSideButton.IsEnabled = true;
-                        //twoSideButton.IsEnabled = true;
                     }
 
                     m_lastPaperSize1 = size;
@@ -868,7 +882,8 @@ namespace VOP
             cboScanSize.Items.Add(cboItem);
 
             if (m_scanParams.ScanMediaType != EnumScanMediaType._BankBook &&
-            m_scanParams.ScanMediaType != EnumScanMediaType._Card)
+            m_scanParams.ScanMediaType != EnumScanMediaType._Card &&
+            m_scanParams.AutoCrop == false)
             {
                 cboItem = new ComboBoxItem();
                 cboItem.Content = (string)this.TryFindResource("ResStr_A4_210_297mm_");

@@ -88,7 +88,8 @@
                                         SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
                                         VerticalScrollBarVisibility="Auto"
                                         HorizontalScrollBarVisibility="Disabled">
-                                <ListView Name="FileBrowser" Height="250" Margin="0, 0, 0, 0" />
+                                <ListView Name="FileBrowser" Height="250" Margin="0, 0, 0, 0" SelectionChanged="FileSelectChanged">
+                                </ListView>
                             </ScrollViewer>
 
                         </StackPanel>
