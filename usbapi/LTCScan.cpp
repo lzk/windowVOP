@@ -1593,8 +1593,8 @@ BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
 		if (g_GLnet.CMDIO_Connect(szIP, 23011))
 		{
 			TCHAR showIp[256] = { 0 };
-			wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
-			OutputDebugString(showIp);
+			//wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
+			//OutputDebugString(showIp);
 
 			U8 cmd[4] = { 'J','D','G','S' };
 			U8 status[8] = { 0 };
@@ -1659,8 +1659,8 @@ BOOL TestIpConnected2(wchar_t* szIP, Scan_RET *re_status)
 	if (g_GLnet.CMDIO_Connect(szIP, 23011))
 	{
 		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
-		OutputDebugString(showIp);
+		//wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
+		//OutputDebugString(showIp);
 
 		U8 cmd[4] = { 'J','D','G','S' };
 		U8 status[8] = { 0 };

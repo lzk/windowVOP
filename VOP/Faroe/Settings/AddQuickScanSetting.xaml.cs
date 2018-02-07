@@ -158,7 +158,8 @@ namespace VOP
         }
         private void OkClick(object sender, RoutedEventArgs e)
         {
-            if (tbName.Text == "")
+           
+            if (tbTitle.Text == "")
             {
                 string str = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
                 string content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Name1");
@@ -174,29 +175,45 @@ namespace VOP
                // if(!IsEdit)
                 {
                     bool isNameSame = false;
-                    string name = tbName.Text.TrimEnd();//add by yunying shang 2017-11-14 for BMS 1408
-                    
-                    for (int i = 0; i < MainWindow_Rufous.g_settingData.m_MatchList.Count(); i++)
+                    string name = tbName.Text.Trim();
+                    if (name != "")
                     {
-                        //modified by yunying shang 2017-11-07 for BMS 1301
-                        if (key != MainWindow_Rufous.g_settingData.m_MatchList[i].Key &&
-                            name == MainWindow_Rufous.g_settingData.m_MatchList[i].ItemName)
-                            isNameSame = true;
-                    }
+                        //add by yunying shang 2017-11-14 for BMS 1408                   
+                        for (int i = 0; i < MainWindow_Rufous.g_settingData.m_MatchList.Count(); i++)
+                        {
+                            //modified by yunying shang 2017-11-07 for BMS 1301
+                            if (key != MainWindow_Rufous.g_settingData.m_MatchList[i].Key &&
+                                name == MainWindow_Rufous.g_settingData.m_MatchList[i].ItemName)
+                                isNameSame = true;
+                        }
 
-                    if (isNameSame)
-                    {
-                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
-                            Application.Current.MainWindow, 
-                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Quick_Scan_Exist"),//"Quick Scan item name already exists. change to another name", 
-                            (string)this.FindResource("ResStr_Warning"));
-                        tbName.Focus();
-                        return;
+                        if (isNameSame)
+                        {
+                            VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                                Application.Current.MainWindow,
+                                (string)Application.Current.MainWindow.TryFindResource("ResStr_Quick_Scan_Exist"),//"Quick Scan item name already exists. change to another name", 
+                                (string)this.FindResource("ResStr_Warning"));
+                            tbName.Focus();
+                            return;
+                        }
+                        else
+                        {
+                            strItemName = name;
+                            value = cbType.SelectedIndex;
+                        }
                     }
                     else
                     {
-                        strItemName = name;
-                        value = cbType.SelectedIndex;
+                        string str = (string)Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_all_space");
+                        string content = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Name1");
+                        string message = string.Format(str, content);
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                           Application.Current.MainWindow,
+                          message,//"The Name cannot be empty",
+                          (string)this.TryFindResource("ResStr_Warning"));
+                        tbName.Text = "";
+                        tbName.Focus();
+                        return;
                     }
                 }
                // else

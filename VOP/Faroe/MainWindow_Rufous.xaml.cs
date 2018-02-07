@@ -78,11 +78,6 @@ namespace VOP
             
             this.SourceInitialized += new EventHandler(win_SourceInitialized);
 
-            string argLine = Environment.CommandLine;
-            if (argLine.Contains("/hide"))
-            {
-                this.Hide();
-            }
         }
 
         //add by yunying shang 2017-12-06 for BMS 1533
@@ -223,6 +218,17 @@ namespace VOP
                 scanSelectionPage.PushScan();
                 App.gPushScan = false;
             }
+
+            //modified by yunying shang 2018-02-07 for installer
+            string argLine = Environment.CommandLine;
+            if (argLine.Contains("/hide"))
+            {
+                this.Hide();
+            }
+            else if (argLine.Contains("/EXIT"))
+            {
+                this.Close();
+            }//<<=====================
         }
 
         #region TrayMenu
@@ -728,11 +734,12 @@ namespace VOP
             }
             else if (msg == App.WM_VOP)
             {
-                //Win32.OutputDebugString("Receive popup Message!");
+                Win32.OutputDebugString("Receive popup Message!");
                 PopupWindow();
             }
             else if (msg == App.closeMsg)
             {
+                Win32.OutputDebugString("Receive Close window");
                 notifyIcon1.Dispose();
                 Environment.Exit(0);
             }
@@ -778,7 +785,7 @@ namespace VOP
 
         private void PopupWindow()
         {
-            //Win32.OutputDebugString("PopupWindow!");
+            Win32.OutputDebugString("PopupWindow!");
             this.Visibility = Visibility.Visible;
             this.Activate();
             this.Topmost = true;  // important

@@ -31,7 +31,6 @@ namespace VOP.Controls
 
         private void window_Loaded(object sender, RoutedEventArgs e)
         {
-
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(Title_MouseButtonEventHandler);
         }
 
@@ -39,6 +38,7 @@ namespace VOP.Controls
         {
             this.DragMove();
         }
+
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -47,6 +47,7 @@ namespace VOP.Controls
                 e.Handled = true;
             }
         }
+
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

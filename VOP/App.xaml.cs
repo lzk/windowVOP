@@ -175,6 +175,7 @@ namespace VOP
             cfgFile = cfgFolder + "vopcfg.xml";
 
             string argLine = Environment.CommandLine;
+            Win32.OutputDebugString("argment is" + argLine);
             if (argLine.Contains("/StiDevice"))
             {
                 gPushScan = true;
@@ -319,7 +320,11 @@ namespace VOP
                         {
                             Win32.OutputDebugString("Find VOP!");
                             IntPtr hWnd = p.MainWindowHandle;
-                            Win32.PostMessage((IntPtr)0xffff, WM_VOP, IntPtr.Zero, IntPtr.Zero);
+
+                            if (argLine.Contains("/EXIT"))
+                                Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
+                            else                                
+                                Win32.PostMessage((IntPtr)0xffff, WM_VOP, IntPtr.Zero, IntPtr.Zero);
                             break;
                         }
                     }
