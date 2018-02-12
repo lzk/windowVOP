@@ -410,7 +410,7 @@ namespace VOP
             {
                 bool bConnect = false;
                if (dll.CheckConnectionByName(GetDeviceName("")))
-                {
+               {
                    // Win32.OutputDebugString("Connection success!");
                     //SetDeviceButtonState(true);
                     //modified by yunying shang 2017-10-19 for BMS 1172
@@ -444,15 +444,15 @@ namespace VOP
                             //}
                             //else//<<===============1320
                             {
-                                if (dll.TestIpConnected(MainWindow_Rufous.g_settingData.m_DeviceName))
+                               // if (dll.TestIpConnected(MainWindow_Rufous.g_settingData.m_DeviceName))
                                 {
                                     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                                     bConnect = true;
                                 }
-                                else
-                                {
-                                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                                }
+                                //else
+                               // {
+                               //     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                               // }
                             }
                         }
                     }

@@ -245,7 +245,7 @@
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 
                             Width="100" 
-                            Height="35"
+                            Height="34"
                             Margin="0,0,10,0"></Button>
 
             <Canvas Grid.Row="1" VerticalAlignment="Center">
@@ -268,7 +268,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <GroupBox x:Name="groupBox" Grid.Row="0" Grid.Column="0" Header="{StaticResource ResStr_Sleep_Time}" HorizontalAlignment="Center" 
-                          Height="100" VerticalAlignment="Center" Width="210" FontWeight="Bold">
+                          Height="100" VerticalAlignment="Center" Width="210" FontWeight="Bold" FontSize="12">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="10"></RowDefinition>
@@ -292,11 +292,11 @@
                             />
                         <TextBlock x:Name="labelAutoSleep" Text="{StaticResource ResStr_1_60_Minute}" Grid.Row="2" Foreground="Black"
                     HorizontalAlignment="Center" TextAlignment="Center"
-                   Height="30" Margin="32,0,33,0"  VerticalAlignment="Bottom" Width="133" FontSize="12"/>
+                   Height="30" Margin="32,0,33,0"  VerticalAlignment="Bottom" Width="133"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox x:Name="groupBox_Copy" Grid.Column="1" Header="{StaticResource ResStr_AutoOff_Time}" HorizontalAlignment="Center" Height="100"
-                          VerticalAlignment="Center" Width="210" Grid.Row="0" FontWeight="Bold">
+                          VerticalAlignment="Center" Width="210" Grid.Row="0" FontWeight="Bold" FontSize="12">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="10"></RowDefinition>
@@ -321,7 +321,7 @@
                             />
                         <TextBlock x:Name="labelAutoOff" Text="{StaticResource ResStr_0_4_Hour}" Grid.Row="2"
                 	HorizontalAlignment="Center" Foreground="Black" TextAlignment="Center"
-                	Height="30" Margin="50,0,48,0"  VerticalAlignment="Bottom" Width="100" FontSize="12"/>
+                	Height="30" Margin="50,0,48,0"  VerticalAlignment="Bottom" Width="100"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox x:Name="gbLifeCount" Grid.ColumnSpan="2" Header="{StaticResource ResStr_Life_Count}" HorizontalAlignment="Left"
@@ -334,12 +334,12 @@
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="130"></ColumnDefinition>
+                            <ColumnDefinition Width="140"></ColumnDefinition>
                             <ColumnDefinition Width="80"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <TextBlock x:Name="tbRoller" Text="{StaticResource ResStr_Roller_Count}" Grid.Row="0" Grid.Column="0"
-                	HorizontalAlignment="Left" Foreground="Black"
+                	HorizontalAlignment="Left" Foreground="Black" FontWeight="Normal"
                 	Margin="5,0,0,0"  VerticalAlignment="Center" FontSize="12"/>
                         <TextBlock x:Name="tbRollerCount" Text="0" Grid.Row="0" Grid.Column="1"
                 	HorizontalAlignment="Center" Foreground="Black" FontWeight="Normal"
@@ -351,14 +351,14 @@
                             FontSize="12" FontWeight="Normal" 
                             Grid.Row="0" 
                             Grid.Column="2" 
-                            HorizontalAlignment="Left" 
+                            HorizontalAlignment="Right" 
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 
                             Width="80" 
                             Height="25"
                             Margin="10,0,0,0"></Button>
                         <TextBlock x:Name="tbACM" Text="{StaticResource ResStr_ACM_Count}" Grid.Row="1" Grid.Column="0"
-                	HorizontalAlignment="Left" Foreground="Black"
+                	HorizontalAlignment="Left" Foreground="Black" FontWeight="Normal"
                 	 Margin="5,0,0,0"  VerticalAlignment="Center" FontSize="12"/>
                         <TextBlock x:Name="tbACMCount" Text="0" Grid.Row="1" Grid.Column="1"
                 	HorizontalAlignment="Center" Foreground="Black" FontWeight="Normal"
@@ -370,14 +370,14 @@
                             FontSize="12" FontWeight="Normal" 
                             Grid.Row="1" 
                             Grid.Column="2" 
-                            HorizontalAlignment="Left" 
+                            HorizontalAlignment="Right" 
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 
                             Width="80" 
                             Height="25"
                             Margin="10,0,0,0"></Button>
                         <TextBlock x:Name="tbScan" Text="{StaticResource ResStr_Scan_Count}" Grid.Row="2" Grid.Column="0"
-                	HorizontalAlignment="Left" Foreground="Black"
+                	HorizontalAlignment="Left" Foreground="Black" FontWeight="Normal"
                 	Margin="5,0,0,0"  VerticalAlignment="Center" FontSize="12"/>
                         <TextBlock x:Name="tbSCanCount" Text="0" Grid.Row="2" Grid.Column="1"
                 	HorizontalAlignment="Center" Foreground="Black" FontWeight="Normal"
@@ -398,7 +398,7 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,0,0,0"
-                FontSize="14"
+                FontSize="12"
                 FontWeight="Bold"
                 VerticalAlignment="Center"
                 Text="{StaticResource ResStr_Push_Scan_Type}" Height="18"/>
@@ -424,12 +424,12 @@
                             FontSize="14"  
                             Grid.Row="0" 
                             Grid.Column="2" 
-                            HorizontalAlignment="Left" 
+                            HorizontalAlignment="Right" 
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 
                             Width="100" 
-                            Height="30"                           
-                            Margin="10,0,10,0"></Button>
+                            Height="34"                           
+                            Margin="10,0,0,0"></Button>
                 </Grid>
             </Grid>
             <!--<Button x:Name="btnApply" Content="{StaticResource ResStr_Apply}" Grid.Column="1" HorizontalAlignment="Center" Height="22" Margin="127,40,132,0" Grid.Row="5" VerticalAlignment="Top" Width="118" FontSize="13.333" Click="btnApply_Click_1"/>-->
@@ -437,7 +437,7 @@
                             Click="btnApply_Click_1" 
                             Content="{StaticResource ResStr_Apply}" 
                             Style="{StaticResource CustomSettingButtonStyle}"
-                            FontSize="18"        
+                            FontSize="14"        
                             Grid.Row="3" 
                             Grid.Column="0" 
                             Grid.ColumnSpan="3"

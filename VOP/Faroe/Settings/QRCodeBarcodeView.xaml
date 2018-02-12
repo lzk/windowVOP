@@ -311,9 +311,9 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
             Width="100"
-        	Height="35" 
+        	Height="34" 
         	Content="{StaticResource ResStr_Setting}" 
-        	FontSize="16"
+        	FontSize="14"
        		Style="{StaticResource CustomSettingButtonStyle}"
         	Click="Button_Click" Grid.Row="1"
                 />
@@ -436,9 +436,9 @@
                                 />
                     </StackPanel>
                     <Button  Grid.Row="2"
-            			FontSize="16" FontWeight="Normal"
+            			FontSize="12" FontWeight="Normal"
             			Click="BrowseClick"
-                             Width="100" Height="35"
+                             Width="100" Height="34"
                              HorizontalAlignment="Right" VerticalAlignment="Center"
             			Style="{StaticResource CustomSettingButtonStyle}"
             			Content="{StaticResource ResStr_Faroe_Browse}" 
@@ -452,7 +452,7 @@
                     HorizontalContentAlignment="Center" 
             		Width="150" 
             		Height="35"
-            		FontSize="18"
+            		FontSize="14"
             		Click="OkClick"
             		Style="{StaticResource CustomSettingButtonStyle}"
             		Content="{StaticResource ResStr_Apply}" 

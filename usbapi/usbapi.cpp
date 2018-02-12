@@ -1705,11 +1705,13 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
 
     LPFN_NETWORK_CONNECT  lpfnNetworkConnect   = NULL;
     LPFN_NETWORK_READ     lpfnNetworkRead      = NULL;
+	LPFN_NETWORK_READ_TIMEOUT     lpfnNetworkReadTimeout = NULL;
     LPFN_NETWORK_WRITE    lpfnNetworkWrite     = NULL;
     LPFN_NETWORK_CLOSE    lpfnNetworkClose     = NULL;
 
     lpfnNetworkConnect = ( LPFN_NETWORK_CONNECT    ) GetProcAddress( hmod , "NetworkConnectNonBlock" );
     lpfnNetworkRead    = ( LPFN_NETWORK_READ       ) GetProcAddress( hmod , "NetworkRead"            );
+	lpfnNetworkReadTimeout = (LPFN_NETWORK_READ_TIMEOUT)GetProcAddress(hmod, "NetworkReadWithTimeout");
     lpfnNetworkWrite   = ( LPFN_NETWORK_WRITE      ) GetProcAddress( hmod , "NetworkWrite"           );
     lpfnNetworkClose   = ( LPFN_NETWORK_CLOSE      ) GetProcAddress( hmod , "NetworkClose"           );
 
@@ -1771,7 +1773,7 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
 			else
 			{
 				COMM_HEADER cmdHeader = {0};
-				Sleep(5000);//add by yunying shang 2019-10-11 for BMS 1104
+				Sleep(5000);//add by yunying shang 2017-10-11 for BMS 1104
 				int size = lpfnNetworkRead(m_iSocketID, &cmdHeader, sizeof(COMM_HEADER));
 				if (sizeof(COMM_HEADER) == size
 					&& cmdHeader.magic == MAGIC_NUM)
@@ -1796,8 +1798,8 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
     else
     {
         nResult = _SW_NET_DLL_LOAD_FAIL;
-		OutputDebugStringToFileA("\r\n####VP:WriteDataViaNetwork(): Load dll fail.");
-	}
+				OutputDebugStringToFileA("\r\n####VP:WriteDataViaNetwork(): Load dll fail.");
+	  }
 
     lpfnNetworkConnect = NULL;
     lpfnNetworkRead    = NULL;
@@ -1805,7 +1807,7 @@ static int WriteDataViaNetwork( const wchar_t* szIP, char* ptrInput, int cbInput
     lpfnNetworkClose   = NULL;
 
     FreeLibrary( hmod );
-	LeaveCriticalSection(&g_csCriticalSection_connect);
+	  LeaveCriticalSection(&g_csCriticalSection_connect);
 
     return nResult;
 }
@@ -1825,9 +1827,6 @@ static int WriteDataViaUSB( const wchar_t* szPrinter, char* ptrInput, int cbInpu
 
    // if ( GetPrinterPortName( plocprintername, pszPort, MAX_PATH ) )
     {
-
-	
-
 		int nCount = 0;
 		bool bWriteSuccess = false;
 		while (nCount++ < 5 && !bWriteSuccess)
@@ -3115,7 +3114,7 @@ USBAPI_API int __stdcall GetApList( const wchar_t* szPrinter,
 	
 		if (g_connectMode_usb != TRUE)
         {
-            nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+340 );
+            nResult = WriteDataViaNetwork(g_ipAddress, buffer, sizeof(COMM_HEADER), buffer, sizeof(COMM_HEADER)+340);
         }
         else
         {

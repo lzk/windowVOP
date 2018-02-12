@@ -6,7 +6,7 @@
 	x:Name="Window"
 	Title="ScanSetting"
     Width="585" 
-	Height="703"
+	Height="708"
     AllowsTransparency="true"
     WindowStartupLocation="CenterOwner"
     ResizeMode="NoResize"
@@ -296,14 +296,14 @@
                     <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <Grid x:Name="LayoutRoot" Width="537" Height="655" >
+            <Grid x:Name="LayoutRoot" Width="537" Height="660" >
                 <Grid.Background>
                     <ImageBrush ImageSource="../../Images/popup_gnd_scan settings.png" Stretch="None"></ImageBrush>
                 </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="90" />
-                    <RowDefinition Height="385" />
+                    <RowDefinition Height="390" />
                     <RowDefinition Height="90" />
                     <RowDefinition Height="60" />
                     <RowDefinition/>
@@ -395,11 +395,11 @@
                         <RowDefinition Height="90" />
                         <RowDefinition Height="90" />
                         <RowDefinition Height="90" />
-                        <RowDefinition Height="110" />
+                        <RowDefinition Height="120" />
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <local:GroupBoxDecorator Grid.Row="0" Header="{StaticResource ResStr_DPI}" Height="80" 
-                                             Width="220" HorizontalAlignment="Center" VerticalAlignment="Top" >
+                    <local:GroupBoxDecorator Grid.Row="0" Header="{StaticResource ResStr_DPI}" Height="75" 
+                                             Width="220" HorizontalAlignment="Center" VerticalAlignment="Center" >
                         <ComboBox Name="cboScanResln" SelectionChanged="combo_sel_change"
                             Style="{StaticResource customComboBox}"
                             Background="White"
@@ -408,7 +408,7 @@
                         </ComboBox>
                     </local:GroupBoxDecorator>
                     
-                    <local:GroupBoxDecorator  Grid.Row="1" Header="{StaticResource ResStr_Type}" Height="80" 
+                    <local:GroupBoxDecorator  Grid.Row="1" Header="{StaticResource ResStr_Type}" Height="75" 
                                               Width="220" HorizontalAlignment="Center" VerticalAlignment="Center" >
                         <ComboBox Name="cboMediaType" SelectionChanged="comboType_sel_change"
                             Style="{StaticResource customComboBox}"
@@ -418,7 +418,7 @@
                         </ComboBox>
                     </local:GroupBoxDecorator>
 
-                    <local:GroupBoxDecorator Grid.Row="2" Header="{StaticResource ResStr_Scan_Size}" Height="80" 
+                    <local:GroupBoxDecorator Grid.Row="2" Header="{StaticResource ResStr_Scan_Size}" Height="75" 
                                              HorizontalAlignment="Center" VerticalAlignment="Center" Width="220" >
                         <ComboBox Name="cboScanSize" SelectionChanged="cbo_selchg_scansize"
                     Style="{StaticResource customComboBox}"
@@ -427,7 +427,7 @@
                     VerticalAlignment="Center" HorizontalAlignment="Center">
                         </ComboBox>
                     </local:GroupBoxDecorator>
-                    <local:GroupBoxDecorator Grid.Row="3" Header="{StaticResource ResStr_Gamma}" Height="100" 
+                    <local:GroupBoxDecorator Grid.Row="3" Header="{StaticResource ResStr_Gamma}" Height="110" 
                                              Width="220" HorizontalAlignment="Center" VerticalAlignment="Bottom" >
                         <StackPanel Orientation="Vertical">
                             <Slider HorizontalAlignment="Center" VerticalAlignment="Center" Minimum="0" Name="sldr_gamma" ValueChanged="sldr_value_change"

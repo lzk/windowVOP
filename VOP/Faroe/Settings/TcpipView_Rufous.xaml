@@ -289,7 +289,7 @@
             <Button x:Name="btnApply"
                             Click="btnApply_Click" 
                             Content="{StaticResource ResStr_Apply}" 
-                            FontSize="18"  
+                            FontSize="14"  
                             Style="{StaticResource CustomSettingButtonStyle}"
                             Grid.Row="3" 
                             Grid.Column="0" 

@@ -1646,7 +1646,7 @@ BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
 
 			nResult = FALSE;
 		}
-		Sleep(20);
+		Sleep(100);
 	}
 
 	return nResult;
@@ -1684,7 +1684,7 @@ BOOL TestIpConnected2(wchar_t* szIP, Scan_RET *re_status)
 
 				nResult = TRUE;
 
-				g_GLnet.CMDIO_Close();
+				//g_GLnet.CMDIO_Close();
 			}
 			else
 			{
@@ -1711,8 +1711,6 @@ BOOL TestIpConnected2(wchar_t* szIP, Scan_RET *re_status)
 
 		nResult = FALSE;
 	}
-
-
 	return nResult;
 }
 USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP)
@@ -1731,29 +1729,29 @@ USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP)
 		return false;
 	}
 
-	int nResult = TRUE;
-	//CGLNet m_GLnet;
+	//int nResult = TRUE;
+	////CGLNet m_GLnet;
 
-	if (g_GLnet.CMDIO_Connect(szIP, 23011))
-	{
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
-		//OutputDebugString(showIp);
+	//if (g_GLnet.CMDIO_Connect(szIP, 23011))
+	//{
+	//	TCHAR showIp[256] = { 0 };
+	//	wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
+	//	//OutputDebugString(showIp);
 
-		nResult = TRUE;
-		g_GLnet.CMDIO_Close();
-	}
-	else
-	{
+	//	nResult = TRUE;
+	//	g_GLnet.CMDIO_Close();
+	//}
+	//else
+	//{
 
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
-		OutputDebugString(showIp);
+	//	TCHAR showIp[256] = { 0 };
+	//	wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
+	//	OutputDebugString(showIp);
 
-		nResult = FALSE;
-	}
+	//	nResult = FALSE;
+	//}
 
-	return nResult;
+	//return nResult;
 }
 
 USBAPI_API void __stdcall SetConnectionMode(

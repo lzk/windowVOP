@@ -496,6 +496,7 @@ CGLNet::CGLNet()
 		m_lpfnNetworkConnectBlock = (LPFN_NETWORK_CONNECT_BLOCK)GetProcAddress(m_hmod, "NetworkConnect");
 		m_lpfnNetworkConnect = (LPFN_NETWORK_CONNECT)GetProcAddress(m_hmod, "NetworkConnectNonBlock");
 		m_lpfnNetworkRead = (LPFN_NETWORK_READ)GetProcAddress(m_hmod, "NetworkRead");
+		m_lpfnNetworkReadTimeout = (LPFN_NETWORK_READ_TIMEOUT)GetProcAddress(m_hmod, "NetworkReadWithTimeout");
 		m_lpfnNetworkWrite = (LPFN_NETWORK_WRITE)GetProcAddress(m_hmod, "NetworkWrite");
 		m_lpfnNetworkClose = (LPFN_NETWORK_CLOSE)GetProcAddress(m_hmod, "NetworkClose");
 	}
@@ -508,6 +509,7 @@ CGLNet::~CGLNet()
 	m_lpfnNetworkConnectBlock = NULL;
 	m_lpfnNetworkConnect = NULL;
 	m_lpfnNetworkRead = NULL;
+	m_lpfnNetworkReadTimeout = NULL;
 	m_lpfnNetworkWrite = NULL;
 	m_lpfnNetworkClose = NULL;
 

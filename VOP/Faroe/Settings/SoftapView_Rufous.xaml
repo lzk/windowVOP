@@ -98,7 +98,7 @@
 
             </Grid>
             <Button x:Name="btnApply" Click="btnApply_Click" 
-                            Content="{StaticResource ResStr_Apply}" FontSize="18"  
+                            Content="{StaticResource ResStr_Apply}" FontSize="14"  
                             Grid.Row="3" Grid.Column="0" 
                             Grid.ColumnSpan="2" 
                             Style="{StaticResource CustomSettingButtonStyle}"

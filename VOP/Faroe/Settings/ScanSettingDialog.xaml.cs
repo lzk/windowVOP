@@ -65,25 +65,6 @@ namespace VOP
             //{
             //    m_powermode = power;
             //}
-            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
-            PowerModeRecord m_rec = new PowerModeRecord();
-            if (worker.InvokeMethod<PowerModeRecord>("", ref m_rec, DllMethodType.GetPowerSupply, this))
-            {
-                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
-                {
-                    if(m_rec.Mode != 0)
-                        m_powermode = m_rec.Mode;
-                }
-            }
-
-            if (m_powermode == 1)
-                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting1");
-            else if (m_powermode == 3)
-                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting2");
-            else if (m_powermode == 2)
-                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting3");
-            else
-                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting4");
 
             InitControls();
             InitScanResln();
@@ -107,6 +88,26 @@ namespace VOP
             tb1.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb1.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
             twoSideButton.Focus();
+
+            AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
+            PowerModeRecord m_rec = new PowerModeRecord();
+            if (worker.InvokeMethod<PowerModeRecord>("", ref m_rec, DllMethodType.GetPowerSupply, this))
+            {
+                if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
+                {
+                    if (m_rec.Mode != 0)
+                        m_powermode = m_rec.Mode;
+                }
+            }
+
+            if (m_powermode == 1)
+                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting1");
+            else if (m_powermode == 3)
+                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting2");
+            else if (m_powermode == 2)
+                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting3");
+            else
+                tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting4");
 
         }
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -232,7 +233,7 @@ namespace VOP
             }
             else
             {
-                Grayscale.IsChecked = true;
+                Color.IsChecked = true;
                 Color.IsEnabled = false;
                 Grayscale.IsEnabled = false;
             }
@@ -245,7 +246,7 @@ namespace VOP
             tbGamma.Text = Convert.ToString(m_scanParams.Gamma);
 
             if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
-                m_scanParams.ColorType == EnumColorType.grayscale_8bit)
+                m_scanParams.ColorType != EnumColorType.color_24bit)
             {
                 btnAutoColorOff.IsEnabled = false;
                 btnAutoColorOn.IsEnabled = false;
@@ -563,7 +564,9 @@ namespace VOP
                     if (m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
                         m_scanParams.ScanMediaType == EnumScanMediaType._Card)
                     {
-                        m_scanParams.PaperSize = EnumPaperSizeScan._Auto;
+                        if(m_scanParams.PaperSize != EnumPaperSizeScan._Auto &&
+                            m_scanParams.PaperSize != EnumPaperSizeScan._Auto1)
+                            m_scanParams.PaperSize = EnumPaperSizeScan._Auto;
 
                         InitScanSize();
                         MultiFeedOffButton.IsChecked = true;
@@ -734,7 +737,8 @@ namespace VOP
         {
             //add by yunying shang 2017-12-01 for BMS 1642
             if (m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
-                m_scanParams.ScanMediaType == EnumScanMediaType._Card)
+                m_scanParams.ScanMediaType == EnumScanMediaType._Card ||
+                m_scanParams.PaperSize == EnumPaperSizeScan._A6)
             {
                 m_scanParams.MultiFeed = false;
             }//<<=================1642
@@ -758,10 +762,38 @@ namespace VOP
                 }
                 m_scanParams.ScanMediaType = EnumScanMediaType._Normal;
                 m_scanParams.AutoCrop = false;
+
                 if (m_powermode > 1 && m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
                 {
-                    m_scanParams.PaperSize = EnumPaperSizeScan._Auto;
+                    if(m_scanParams.MultiFeed == true)
+                        m_scanParams.PaperSize = EnumPaperSizeScan._Auto1;
+                    else
+                        m_scanParams.PaperSize = EnumPaperSizeScan._Auto;
                 }
+            }
+
+            if (m_scanParams.AutoColorDetect == true)
+            {
+                m_scanParams.ColorType = EnumColorType.color_24bit;
+            }
+
+            if (m_scanParams.ColorType == EnumColorType.grayscale_8bit)
+            {
+                m_scanParams.AutoColorDetect = false;
+            }
+
+            if (m_scanParams.AutoCrop == true)
+            {
+                if (m_scanParams.MultiFeed == true)
+                    m_scanParams.PaperSize = EnumPaperSizeScan._Auto1;
+                else
+                    m_scanParams.PaperSize = EnumPaperSizeScan._Auto;
+            }
+
+            if (m_scanParams.PaperSize != EnumPaperSizeScan._Auto &&
+                m_scanParams.PaperSize != EnumPaperSizeScan._Auto1)
+            {
+                m_scanParams.AutoCrop = false;
             }
 
             //if (m_scanParams.SkipBlankPage == true)
@@ -1050,7 +1082,7 @@ namespace VOP
                 if (rdbtn.Name == "btnAutoColorOn")
                 {
                     m_scanParams.AutoColorDetect = true;
-
+                    
                     if (Grayscale != null && Color != null)
                     {
                         Color.IsChecked = true;

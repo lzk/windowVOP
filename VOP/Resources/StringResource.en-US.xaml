@@ -126,7 +126,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Document_Size">Document Size</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Output_Size">Output Paper Size</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_B5">B5</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_DPI">DPI</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_DPI">Resolution</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Type">Media Type</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_N_in_1_Copy">N in 1 Copy</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Scanning_Mode">Type of Document</sys:String>

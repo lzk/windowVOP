@@ -49,7 +49,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"></ColumnDefinition>
-            <ColumnDefinition Width="200"></ColumnDefinition>
+            <ColumnDefinition Width="210"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -68,9 +68,9 @@
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Right"
                 Content="{StaticResource ResStr_Setting}"
-                FontSize="16"
+                FontSize="14"
                 Style="{StaticResource CustomSettingButtonStyle}" 
-                Click="Button_Click" Margin="0,4.954,0,8"                
+                Click="Button_Click" Margin="0,0,0,0"                
                 />
         <Canvas Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" Height="0" Margin="0,3">
             <Path Stroke="LightGray" StrokeThickness="2">
@@ -109,7 +109,7 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"
                 Content="{StaticResource ResStr_Reset}"
-                FontSize="16"
+                FontSize="14"
                 Style="{StaticResource CustomSettingButtonStyle}" 
                 Click="btnReset_Click" Margin="0,8"/>
         <Canvas Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Center" Height="0" Margin="0,3">
