@@ -170,6 +170,7 @@ namespace VOP
                 m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._Card ||
                 m_scanParams.PaperSize == EnumPaperSizeScan._A6 || //add by yunying shang 2018-02-05 for BMS 2253
+                m_scanParams.PaperSize == EnumPaperSizeScan._Auto1 || 
                 m_powermode == 3)
             {
                 MultiFeedOnButton.IsChecked = false;
@@ -738,7 +739,8 @@ namespace VOP
             //add by yunying shang 2017-12-01 for BMS 1642
             if (m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._Card ||
-                m_scanParams.PaperSize == EnumPaperSizeScan._A6)
+                m_scanParams.PaperSize == EnumPaperSizeScan._A6 ||
+                m_scanParams.PaperSize == EnumPaperSizeScan._Auto1)
             {
                 m_scanParams.MultiFeed = false;
             }//<<=================1642
@@ -765,7 +767,7 @@ namespace VOP
 
                 if (m_powermode > 1 && m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
                 {
-                    if(m_scanParams.MultiFeed == true)
+                    if(m_scanParams.MultiFeed == false)
                         m_scanParams.PaperSize = EnumPaperSizeScan._Auto1;
                     else
                         m_scanParams.PaperSize = EnumPaperSizeScan._Auto;
@@ -784,7 +786,7 @@ namespace VOP
 
             if (m_scanParams.AutoCrop == true)
             {
-                if (m_scanParams.MultiFeed == true)
+                if (m_scanParams.MultiFeed == false)
                     m_scanParams.PaperSize = EnumPaperSizeScan._Auto1;
                 else
                     m_scanParams.PaperSize = EnumPaperSizeScan._Auto;

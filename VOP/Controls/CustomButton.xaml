@@ -157,21 +157,29 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Grid ClipToBounds="True">
+                    <Border x:Name="back" Opacity="0.8" CornerRadius="5">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0.499, 0" EndPoint="0.501, 1">
+                                <GradientStop Color="#D0D0D0" Offset="0"></GradientStop>
+                                <GradientStop Color="#FAFAFA" Offset="0.3"></GradientStop>
+                                <GradientStop Color="#E8E8E8" Offset="0.8"></GradientStop>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Grid ClipToBounds="True">
 
-                        <Rectangle x:Name="glassCube" 
+                            <Rectangle x:Name="glassCube" 
                         HorizontalAlignment="Stretch" 
                         VerticalAlignment="Stretch" 
                         StrokeThickness="1"           
                         RadiusX="5" RadiusY="5" Opacity="0.8"
                         Fill="Transparent">
-                            <Rectangle.Stroke>
-                                <SolidColorBrush x:Name="MyAnimatedBrush" Color="LightGray"/>
-                            </Rectangle.Stroke>
-                        </Rectangle>
+                                <Rectangle.Stroke>
+                                    <SolidColorBrush x:Name="MyAnimatedBrush" Color="LightGray"/>
+                                </Rectangle.Stroke>
+                            </Rectangle>
 
-                        <!-- Present Content (text) of the button. -->
-                        <TextBlock x:Name="myContentPresenter"
+                            <!-- Present Content (text) of the button. -->
+                            <TextBlock x:Name="myContentPresenter"
                                            Text="{TemplateBinding  Content}"  
                                            Margin="{TemplateBinding   Padding}"
                                            HorizontalAlignment="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource TemplatedParent}}"
@@ -180,7 +188,8 @@
                                            FontSize="{TemplateBinding FontSize}"
                                    />
 
-                    </Grid>
+                        </Grid>
+                    </Border>
                     <ControlTemplate.Triggers>
                         <Trigger  Property="IsFocused" Value="True">
                             <Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>
@@ -315,6 +324,7 @@
     </Style>
 
     <Style x:Key="CustomPopUpButtonStyle" TargetType="Button">
+        <Setter Property="Foreground" Value="Black"/>
         <Setter Property="Effect">
             <Setter.Value>
                 <DropShadowEffect BlurRadius="0" ShadowDepth="0" Color="#FFE1E7ED" Opacity="0.8"/>
@@ -329,8 +339,15 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
+                    <Border x:Name="back" Opacity="0.8" CornerRadius="5">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0.499, 0" EndPoint="0.501, 1">
+                                <GradientStop Color="#D4D4D4" Offset="0"></GradientStop>
+                                <GradientStop Color="#F0F0F0" Offset="0.4"></GradientStop>
+                                <GradientStop Color="#E8E8E8" Offset="0.8"></GradientStop>
+                            </LinearGradientBrush>
+                        </Border.Background>
                     <Grid ClipToBounds="True">
-
                         <Rectangle x:Name="glassCube" 
                         HorizontalAlignment="Stretch" 
                         VerticalAlignment="Stretch" 
@@ -353,6 +370,7 @@
                                    />
 
                     </Grid>
+                    </Border>
                     <ControlTemplate.Triggers>
                         <Trigger  Property="IsFocused" Value="True">
                             <!--<Setter Property="FocusVisualStyle" Value="{StaticResource ImageButtonFocus}"/>-->

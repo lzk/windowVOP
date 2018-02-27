@@ -310,7 +310,7 @@
         	Grid.Column="1"
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
-            Width="100"
+            Width="200"
         	Height="34" 
         	Content="{StaticResource ResStr_Setting}" 
         	FontSize="14"
@@ -320,7 +320,7 @@
         <Canvas Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Margin="0,3">
             <Path Stroke="LightGray" StrokeThickness="2">
                 <Path.Data>
-                    <LineGeometry StartPoint="0,4" EndPoint="450,2"></LineGeometry>
+                    <LineGeometry StartPoint="0,4" EndPoint="455,2"></LineGeometry>
                 </Path.Data>
             </Path>
         </Canvas>
@@ -332,11 +332,11 @@
                 <RowDefinition Height="60" />
             </Grid.RowDefinitions>
             <GroupBox x:Name="QRCodeBarcodeGroup" Grid.Row="0" Header="{StaticResource ResStr_Faroe_QRBar_Code_Decode}" FontWeight="Bold" 
-                      FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400"  Margin="5,5">
+                      FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="430"  Margin="5,5">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120*"/>
-                        <ColumnDefinition Width="313*"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="45"/>
@@ -386,7 +386,7 @@
                 </Grid>
             </GroupBox>
             <GroupBox x:Name="separateGroupBox" Grid.Row="1"  Header="{StaticResource ResStr_Faroe_Document_Separation}" FontWeight="Bold" 
-                      FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" Margin="5,1,0,0">
+                      FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="430" Margin="5,1,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>

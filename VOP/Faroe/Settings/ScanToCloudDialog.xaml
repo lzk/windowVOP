@@ -88,7 +88,7 @@
                 Grid.Row="0"
                 Grid.Column="2"
                 HorizontalAlignment="Right"
-                Width="100"
+                Width="250"
                 Height="35" 
                 Content="{StaticResource ResStr_Setting}" 
                 FontSize="16"
@@ -116,9 +116,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150"/>
                             <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="230*"/>
-                            <ColumnDefinition Width="24*"/>
-                            <ColumnDefinition Width="53*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
                         <TextBlock 
@@ -167,7 +165,7 @@
                 Grid.Row="2"
                 Grid.Column="2"
                             Name="btnReset"
-                Width="100"
+                Width="150"
                 Height="35" 
                 Content="{StaticResource ResStr_Reset}" 
                 HorizontalAlignment="Right"

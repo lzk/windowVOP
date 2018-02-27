@@ -244,9 +244,9 @@
                             HorizontalAlignment="Right" 
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 
-                            Width="100" 
+                            Width="200" 
                             Height="34"
-                            Margin="0,0,10,0"></Button>
+                            Margin="0,0,0,0"></Button>
 
             <Canvas Grid.Row="1" VerticalAlignment="Center">
                 <Path Stroke="LightGray" StrokeThickness="2">
@@ -291,7 +291,7 @@
             Height="50" Grid.Column="0" Grid.Row="1" FontWeight="Bold"  
                             />
                         <TextBlock x:Name="labelAutoSleep" Text="{StaticResource ResStr_1_60_Minute}" Grid.Row="2" Foreground="Black"
-                    HorizontalAlignment="Center" TextAlignment="Center"
+                    HorizontalAlignment="Center" TextAlignment="Center" FontWeight="Normal"
                    Height="30" Margin="32,0,33,0"  VerticalAlignment="Bottom" Width="133"/>
                     </Grid>
                 </GroupBox>
@@ -320,7 +320,7 @@
                 	Height="44" Grid.Column="0" Grid.Row="1" FontWeight="Bold"
                             />
                         <TextBlock x:Name="labelAutoOff" Text="{StaticResource ResStr_0_4_Hour}" Grid.Row="2"
-                	HorizontalAlignment="Center" Foreground="Black" TextAlignment="Center"
+                	HorizontalAlignment="Center" Foreground="Black" TextAlignment="Center" FontWeight="Normal"
                 	Height="30" Margin="50,0,48,0"  VerticalAlignment="Bottom" Width="100"/>
                     </Grid>
                 </GroupBox>
@@ -353,10 +353,10 @@
                             Grid.Column="2" 
                             HorizontalAlignment="Right" 
                             HorizontalContentAlignment="Center" 
-                            VerticalAlignment="Center" 
-                            Width="80" 
-                            Height="25"
-                            Margin="10,0,0,0"></Button>
+                            VerticalAlignment="Bottom" 
+                            Width="100" 
+                            Height="24"
+                            Margin="0,0,0,6"></Button>
                         <TextBlock x:Name="tbACM" Text="{StaticResource ResStr_ACM_Count}" Grid.Row="1" Grid.Column="0"
                 	HorizontalAlignment="Left" Foreground="Black" FontWeight="Normal"
                 	 Margin="5,0,0,0"  VerticalAlignment="Center" FontSize="12"/>
@@ -373,7 +373,7 @@
                             HorizontalAlignment="Right" 
                             HorizontalContentAlignment="Center" 
                             VerticalAlignment="Center" 
-                            Width="80" 
+                            Width="100" 
                             Height="25"
                             Margin="10,0,0,0"></Button>
                         <TextBlock x:Name="tbScan" Text="{StaticResource ResStr_Scan_Count}" Grid.Row="2" Grid.Column="0"
@@ -393,7 +393,7 @@
                 </Canvas>
                 <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Width="435" Margin="10,0,10,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"></ColumnDefinition>
+                        <ColumnDefinition Width="135"></ColumnDefinition>
                         <ColumnDefinition Width="160"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -402,7 +402,7 @@
                 FontWeight="Bold"
                 VerticalAlignment="Center"
                 Text="{StaticResource ResStr_Push_Scan_Type}" Height="18"/>
-                <ComboBox 
+                    <ComboBox 
                 Grid.Row="0" Grid.Column="1"
                                 Name="cbScanType"
                                 HorizontalAlignment="Left"
