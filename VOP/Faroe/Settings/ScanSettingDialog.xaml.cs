@@ -190,29 +190,41 @@ namespace VOP
                 }
             }
 
-            if (//m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
-                (m_scanParams.PaperSize != EnumPaperSizeScan._Auto &&
-                m_scanParams.PaperSize != EnumPaperSizeScan._Auto1)||
-                m_powermode > 1 ||
-                m_scanParams.SkipBlankPage == true)
+            if (m_scanParams.SkipBlankPage == true)
             {
-                AutoCropOnButton.IsChecked = false;
                 AutoCropOnButton.IsEnabled = false;
                 AutoCropOffButton.IsEnabled = false;
-                AutoCropOffButton.IsChecked = true;
+
+                AutoCropOnButton.IsChecked = true;
+                AutoCropOffButton.IsChecked = false;
             }
             else
             {
-                if (m_scanParams.AutoCrop == true)
+
+                if (//m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
+                    (m_scanParams.PaperSize != EnumPaperSizeScan._Auto &&
+                    m_scanParams.PaperSize != EnumPaperSizeScan._Auto1) ||
+                    m_powermode > 1)
                 {
-                    AutoCropOnButton.IsChecked = true;
+                    AutoCropOnButton.IsEnabled = false;
+                    AutoCropOffButton.IsEnabled = false;
+
+                    AutoCropOnButton.IsChecked = false;
+                    AutoCropOffButton.IsChecked = true;
                 }
                 else
                 {
-                    AutoCropOffButton.IsChecked = true;
+                    if (m_scanParams.AutoCrop == true)
+                    {
+                        AutoCropOnButton.IsChecked = true;
+                    }
+                    else
+                    {
+                        AutoCropOffButton.IsChecked = true;
+                    }
+                    AutoCropOnButton.IsEnabled = true;
+                    AutoCropOffButton.IsEnabled = true;
                 }
-                AutoCropOnButton.IsEnabled = true;
-                AutoCropOffButton.IsEnabled = true;
             }
 
             if (m_scanParams.AutoColorDetect == false)
@@ -266,7 +278,10 @@ namespace VOP
                 btnAutoColorOff.IsEnabled = true;
                 btnAutoColorOn.IsEnabled = true;
             }
-            if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
+
+            if (//m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
+                m_scanParams.PaperSize != EnumPaperSizeScan._Auto &&
+                m_scanParams.PaperSize != EnumPaperSizeScan._Auto1)
             {
                 btnSkipBlankOff.IsEnabled = false;
                 btnSkipBlankOn.IsEnabled = false;
@@ -285,6 +300,7 @@ namespace VOP
                 btnSkipBlankOn.IsEnabled = true;
                 btnSkipBlankOff.IsEnabled = true;
             }
+
 
             if (//m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
                // m_scanParams.SkipBlankPage == true ||
@@ -357,10 +373,12 @@ namespace VOP
                 if (rdbtn.Name == "MultiFeedOnButton")
                 {
                     m_scanParams.MultiFeed = true;
+                    InitScanSize();
                 }
                 else if (rdbtn.Name == "MultiFeedOffButton")
                 {
                     m_scanParams.MultiFeed = false;
+                    InitScanSize();
                 }
             }
         }
@@ -736,6 +754,11 @@ namespace VOP
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
+            if (m_scanParams.SkipBlankPage == true)
+            {
+                m_scanParams.AutoCrop = true;
+            }
+
             //add by yunying shang 2017-12-01 for BMS 1642
             if (m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._Card ||
@@ -798,10 +821,6 @@ namespace VOP
                 m_scanParams.AutoCrop = false;
             }
 
-            //if (m_scanParams.SkipBlankPage == true)
-            //{
-            //    m_scanParams.ADFMode = false;
-            //}
             this.DialogResult = true;
             this.Close();
         }
@@ -1058,19 +1077,23 @@ namespace VOP
                 if (rdbtn.Name == "btnSkipBlankOn")
                 {
                     m_scanParams.SkipBlankPage = true;
-                   // twoSideButton.IsEnabled = false;
-                   // oneSideButton.IsEnabled = false;
-                   // oneSideButton.IsChecked = true;
+                    AutoCropOnButton.IsChecked = true;
+                    AutoCropOnButton.IsEnabled = false;
+                    AutoCropOffButton.IsEnabled = false;
+                    InitScanSize();
                 }
                 else if (rdbtn.Name == "btnSkipBlankOff")
                 {
                     m_scanParams.SkipBlankPage = false;
-                   // twoSideButton.IsEnabled = true;
-                   // oneSideButton.IsEnabled = true;
-                   // if (m_scanParams.ADFMode)
-                    //    twoSideButton.IsChecked = true;
-                    //else
-                    //    oneSideButton.IsChecked = true;
+                    if (m_scanParams.AutoCrop == true)
+                        AutoCropOnButton.IsChecked = true;
+                    else
+                        AutoCropOffButton.IsChecked = true;
+
+                    AutoCropOnButton.IsChecked = true;
+                    AutoCropOnButton.IsEnabled = true;
+                    AutoCropOffButton.IsEnabled = true;
+                    InitScanSize();
                 }
             }
         }
