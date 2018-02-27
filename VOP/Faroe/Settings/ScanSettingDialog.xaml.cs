@@ -58,14 +58,7 @@ namespace VOP
             m_lastPaperSize = m_scanParams.PaperSize;
             m_lastPaperSize1 = m_scanParams.PaperSize;
             m_lastRes = m_scanParams.ScanResolution;
-
-            //byte power = dll.GetPowerSupply();
-
-            //if (power != 0)
-            //{
-            //    m_powermode = power;
-            //}
-
+ 
             InitControls();
             InitScanResln();
             InitScanSize();
@@ -89,6 +82,7 @@ namespace VOP
             tb1.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
             twoSideButton.Focus();
 
+            byte power = 0;
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
             PowerModeRecord m_rec = new PowerModeRecord();
             if (worker.InvokeMethod<PowerModeRecord>("", ref m_rec, DllMethodType.GetPowerSupply, this))
@@ -96,19 +90,28 @@ namespace VOP
                 if (null != m_rec && m_rec.CmdResult == EnumCmdResult._ACK)
                 {
                     if (m_rec.Mode != 0)
-                        m_powermode = m_rec.Mode;
+                        power = m_rec.Mode;
                 }
             }
 
-            if (m_powermode == 1)
+            if (power == 1)
                 tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting1");
-            else if (m_powermode == 3)
+            else if (power == 3)
                 tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting2");
-            else if (m_powermode == 2)
+            else if (power == 2)
                 tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting3");
             else
                 tbTitle.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_scan_setting4");
 
+            //add by yunying shang 2018-02-27 for BMS 2432
+            if (m_powermode != power)
+            {
+                m_powermode = power;            
+                           
+                InitControls();
+                InitScanSize();
+                InitMediaType();
+            }
         }
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -746,6 +749,11 @@ namespace VOP
 
             m_scanParams = new ScanParam();
 
+            //add by yunying shang 2018-02-27 for BMS 2432
+            if (m_powermode > 1)
+            {
+                m_scanParams.AutoCrop = false;
+            }//<<================
             InitControls();
             InitScanResln();
             InitScanSize();

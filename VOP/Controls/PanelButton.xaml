@@ -289,13 +289,13 @@
                                     <RowDefinition Height="20"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="100" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Row="0" Grid.Column="0"
                                             x:Name="adfInfoText"
-                                            Text="ADF : "
+                                            Text="ADF Mode: "
                                             FontSize="12"
                                             Foreground="Black"    
                                             HorizontalAlignment="Left" 
@@ -311,7 +311,7 @@
                                                 />                            
                                 <TextBlock  Grid.Row="1" Grid.Column="0"
                                             x:Name="dpiInfoText"
-                                            Text="DPI : "
+                                            Text="Resolution : "
                                             FontSize="12"
                                             Foreground="Black"    
                                             HorizontalAlignment="Left" 
@@ -329,7 +329,7 @@
                                                 />
                                 <TextBlock Grid.Row="2" Grid.Column="0"
                                             x:Name="colorInfoText"
-                                            Text="Mode : "
+                                            Text="Color Mode : "
                                             FontSize="12"
                                             Foreground="Black"    
                                             HorizontalAlignment="Left" 

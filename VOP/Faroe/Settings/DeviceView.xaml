@@ -393,9 +393,9 @@
                 </Canvas>
                 <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Width="435" Margin="10,0,10,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="135"></ColumnDefinition>
-                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition Width="125"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="125"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,0,0,0"
                 FontSize="12"
@@ -405,7 +405,7 @@
                     <ComboBox 
                 Grid.Row="0" Grid.Column="1"
                                 Name="cbScanType"
-                                HorizontalAlignment="Left"
+                                HorizontalAlignment="Center"
                                 VerticalAlignment="Center" 
                                 VerticalContentAlignment="Center"
                                 Width="150" 
