@@ -228,6 +228,10 @@ namespace VOP
 #endif
             {
 
+                if (argLine.Contains("/EXIT"))
+                {
+                    return;
+                }
                 try
                 {
                     VOP.App app = new VOP.App();

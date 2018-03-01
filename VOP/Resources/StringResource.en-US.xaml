@@ -159,7 +159,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Modify_Password">Modify Password</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_About">About</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_IP_Type">IP Type :</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_DHCP">DHCP</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_DHCP">DHCP/Auto IP</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Static">Static</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_IP_Address">IP Address</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Gateway">Gateway</sys:String>

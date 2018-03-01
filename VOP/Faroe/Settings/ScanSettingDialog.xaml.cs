@@ -468,6 +468,30 @@ namespace VOP
                             MultiFeedOffButton.IsChecked = true;
                             MultiFeedOnButton.IsEnabled = false;
                             MultiFeedOffButton.IsEnabled = false;
+
+                            //add by yunying shang 2018-02-28 for BMS 2451
+                            if (m_scanParams.PaperSize != EnumPaperSizeScan._Auto1)
+                            {
+                                AutoCropOffButton.IsChecked = true;
+                                AutoCropOffButton.IsEnabled = false;
+                                AutoCropOnButton.IsEnabled = false;
+                            }
+                            else
+                            {
+                                if (m_scanParams.AutoCrop == true)
+                                {
+                                    AutoCropOnButton.IsChecked = true;
+                                    AutoCropOffButton.IsChecked = false;
+                                }
+                                else
+                                {
+                                    AutoCropOnButton.IsChecked = false;
+                                    AutoCropOffButton.IsChecked = true;
+                                }
+
+                                AutoCropOnButton.IsEnabled = true;
+                                AutoCropOffButton.IsEnabled = true;
+                            }//<<============
                         }
                         else
                         {

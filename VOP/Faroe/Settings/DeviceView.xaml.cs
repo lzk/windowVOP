@@ -241,6 +241,15 @@ namespace VOP
                 return false;
             }
 
+            if (MainWindow_Rufous.g_settingData.m_ScanType > 1)
+            {
+
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, Application.Current.MainWindow,
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_ScanType_Setting"),
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+
+            }
+            
             byte psavetime = Convert.ToByte(spinnerControlAutoSleep.Value);
             if (psavetime < 1)
                 psavetime = 1;
@@ -279,7 +288,6 @@ namespace VOP
 
             }
 
-
             ScanTypeRecord scanRec = new ScanTypeRecord();
 
             scanRec.Mode = MainWindow_Rufous.g_settingData.m_ScanType;
@@ -294,7 +302,6 @@ namespace VOP
                 {
                     isApplySuccess = false;
                 }
-
             }
 
             if (MainWindow_Rufous.g_settingData.m_ScanType == 1)
@@ -390,14 +397,6 @@ namespace VOP
                 }
             }
 
-            if (MainWindow_Rufous.g_settingData.m_ScanType > 1)
-            {
-
-                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, Application.Current.MainWindow,
-                (string)Application.Current.MainWindow.TryFindResource("ResStr_ScanType_Setting"),
-                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
-
-            }
 
             if (isApplySuccess)
             {
@@ -701,22 +700,26 @@ namespace VOP
                 if (cbScanType.SelectedIndex == 0)
                 {
                     MainWindow_Rufous.g_settingData.m_ScanType = 0;
-                    //btnSetting.IsEnabled = true;
-                    //btnSetting.Visibility = Visibility.Visible;
+                    btnSetting.IsEnabled = true;
+                    btnSetting.Visibility = Visibility.Visible;
                 }
                 else if (cbScanType.SelectedIndex == 1)
                 {
                     MainWindow_Rufous.g_settingData.m_ScanType = 1;
-                    // btnSetting.IsEnabled = false;
-                    //btnSetting.Visibility = Visibility.Hidden;
+                    btnSetting.IsEnabled = true;
+                    btnSetting.Visibility = Visibility.Visible;
                 }
                 else if (cbScanType.SelectedIndex == 2)
                 {
                     MainWindow_Rufous.g_settingData.m_ScanType = 2;
+                    btnSetting.IsEnabled = false;
+                    btnSetting.Visibility = Visibility.Hidden;
                 }
                 else
                 {
                     MainWindow_Rufous.g_settingData.m_ScanType = 3;
+                    btnSetting.IsEnabled = false;
+                    btnSetting.Visibility = Visibility.Hidden;
                 }
 
                 m_lastScanType = cbScanType.SelectedIndex;
