@@ -100,6 +100,7 @@ public:
 typedef int(*LPFN_NETWORK_CONNECT) (char *server, int port, int timeout);
 typedef int(*LPFN_NETWORK_CONNECT_BLOCK) (char *server, int port);
 typedef int(*LPFN_NETWORK_READ) (int sd, void* buff, DWORD len);
+typedef int(*LPFN_NETWORK_READ_TIMEOUT) (int sd, void* buff, DWORD len, int timeout);
 typedef int(*LPFN_NETWORK_WRITE) (int sd, void* buff, DWORD len);
 typedef void(*LPFN_NETWORK_CLOSE) (int sd);
 
@@ -118,6 +119,7 @@ public:
 	LPFN_NETWORK_CONNECT_BLOCK  m_lpfnNetworkConnectBlock;
 	LPFN_NETWORK_CONNECT  m_lpfnNetworkConnect;
 	LPFN_NETWORK_READ     m_lpfnNetworkRead;
+	LPFN_NETWORK_READ_TIMEOUT m_lpfnNetworkReadTimeout;
 	LPFN_NETWORK_WRITE    m_lpfnNetworkWrite;
 	LPFN_NETWORK_CLOSE    m_lpfnNetworkClose;
 };

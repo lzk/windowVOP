@@ -45,6 +45,7 @@ namespace VOP
         public static uint WM_CHECK_MERCHANT_INFO_Expired = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_merchant");
         public static uint WM_VOP = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_vop");
         public static uint closeMsg = Win32.RegisterWindowMessage("vop_process_selfclose");
+        public static uint WM_VOP_MINIMIZE = Win32.RegisterWindowMessage("vop_start_minimize");
         public static double gScalingRate = 1.0; // Scaling rate used to scale windows's according the screen resolution.
         public static uint WM_BUTTON_PRESSED = Win32.RegisterWindowMessage("4d8526fa07abfc03085ef2899b5b4d2ecaa3d711_button");
         private static Int32 gLanguage = 0x409;
@@ -174,15 +175,17 @@ namespace VOP
             cfgFile = cfgFolder + "vopcfg.xml";
 
             string argLine = Environment.CommandLine;
+            Win32.OutputDebugString("argment is" + argLine);
             if (argLine.Contains("/StiDevice"))
             {
                 gPushScan = true;
+                Win32.OutputDebugString("/StiDevice");
             }
             else if (argLine.Contains("-INS"))
             {
                 dll.DllRegisterServer();
                 Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
-                    return;
+                return;
             }
             else if (argLine.Contains("-UNI"))
             {
@@ -223,8 +226,12 @@ namespace VOP
 #else
             if (true)
 #endif
-                {
+            {
 
+                if (argLine.Contains("/EXIT"))
+                {
+                    return;
+                }
                 try
                 {
                     VOP.App app = new VOP.App();
@@ -232,29 +239,28 @@ namespace VOP
                     app.Run();
                 }
                 catch (Exception) { }
-              
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
                 Win32.OutputDebugString("Delete files");
-                foreach( ScanFiles obj in App.scanFileList )
+                foreach (ScanFiles obj in App.scanFileList)
                 {
                     try
                     {
-                        Win32.OutputDebugString(obj.m_pathOrig);                    
+                        Win32.OutputDebugString(obj.m_pathOrig);
                         File.Delete(obj.m_pathOrig);
                         //File.Delete(obj.m_pathView);
                         //File.Delete(obj.m_pathThumb);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Win32.OutputDebugString(ex.Message);
                     }
                 }
 
-                foreach( ScanFiles obj in App.rubbishFiles )
+                foreach (ScanFiles obj in App.rubbishFiles)
                 {
                     try
-                    {                        
+                    {
                         File.Delete(obj.m_pathOrig);
                         //File.Delete(obj.m_pathView);
                         //File.Delete(obj.m_pathThumb);
@@ -284,7 +290,10 @@ namespace VOP
             }
             else
             {
-                if (gPushScan)
+                Win32.OutputDebugString("Other VOP Run");
+                string str = string.Format("gPushScan is {0}", gPushScan);
+                Win32.OutputDebugString(str);
+                if (gPushScan == true)
                 {
                     string sPushScan = "PushScan";
                     Process[] procs = Process.GetProcesses();
@@ -300,10 +309,30 @@ namespace VOP
                             cds2.cbData = len + 1;
                             cds2.lpData = sPushScan;
                             Win32.SendMessage(hWnd, WM_COPYDATA, IntPtr.Zero, ref cds2);
+                            break;
                         }
                     }
+                    Win32.PostMessage((IntPtr)0xffff, WM_VOP, IntPtr.Zero, IntPtr.Zero);
                 }
-                Win32.PostMessage((IntPtr)0xffff, WM_VOP, IntPtr.Zero, IntPtr.Zero);
+                //add by yunying shang 2018-02-03 for BMS 2240
+                else 
+                {
+                    Process[] procs = Process.GetProcesses();
+                    foreach (Process p in procs)
+                    {
+                        if (p.ProcessName.Equals("VOP"))
+                        {
+                            Win32.OutputDebugString("Find VOP!");
+                            IntPtr hWnd = p.MainWindowHandle;
+
+                            if (argLine.Contains("/EXIT"))
+                                Win32.PostMessage((IntPtr)0xffff, closeMsg, IntPtr.Zero, IntPtr.Zero);
+                            else                                
+                                Win32.PostMessage((IntPtr)0xffff, WM_VOP, IntPtr.Zero, IntPtr.Zero);
+                            break;
+                        }
+                    }
+                }//<<===========2240
             }
 
         }

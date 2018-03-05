@@ -221,7 +221,7 @@
 
                                 <TextBlock Grid.Row="2" Grid.Column="1" FontSize="14" FontWeight="Bold"  
                                            VerticalAlignment="Center" Text="{StaticResource ResStr_Faroe_scan_setting}"/>
-                                <Button Grid.Row="2" Grid.Column="2" Width="100" Height="35"  Content="{StaticResource ResStr_Setting}" 
+                                <Button Grid.Row="2" Grid.Column="2" Width="250" Height="35"  Content="{StaticResource ResStr_Setting}" 
                                         FontSize="16" Style="{StaticResource CustomPopUpButtonStyle}"  
                                         HorizontalAlignment="Right"
                                         Click="Button_Click"  />

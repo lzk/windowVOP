@@ -152,7 +152,8 @@ namespace VOP
 
         private void LeftButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
-            m_selectedPage--;
+            if(m_selectedPage > 0)
+                m_selectedPage--;
             if (m_selectedPage == 0)
             {
                 LeftBtn.IsEnabled = false;
@@ -171,7 +172,9 @@ namespace VOP
 
         private void RightButton_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)//RoutedEventArgs e)
         {
-            m_selectedPage++;
+            if(m_selectedPage < (m_pageCount-1))
+                m_selectedPage++;
+
             if (m_selectedPage >= (m_pageCount-1))
             {
                 RightBtn.IsEnabled = false;

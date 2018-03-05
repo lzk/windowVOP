@@ -426,13 +426,20 @@ namespace VOP
                     }
                     else
                     {
-                        if (nVal0 == 127)
+                        if (nVal0 == 192 && nVal1 == 168 && nVal2 == 186)
                         {
                             isSuccess = false;
                         }
                         else
                         {
-                            isSuccess = true;
+                            if (nVal0 == 127)
+                            {
+                                isSuccess = false;
+                            }
+                            else
+                            {
+                                isSuccess = true;
+                            }
                         }
                     }
                 }

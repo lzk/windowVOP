@@ -53,11 +53,11 @@ namespace VOP
     public partial class GoogleDriveFileViewer : Window
     {
         public List<File> FileList { get; set; }
-  
+
         private string currentPath = @"";
         private string selectedPath = @"";
         private string currentFolderName = @"";
-        public  bool Result { get; private set; }
+        public bool Result { get; private set; }
         private CloudFlowType flowType { get; set; }
         private string CurrentFolder = @"";
         private string UpperFolder = @"";
@@ -71,6 +71,9 @@ namespace VOP
         public GoogleDriveFileViewer(List<File> fileList, List<string> uploadList, string folder, CloudFlowType type)
         {
             InitializeComponent();
+
+            Win32.OutputDebugString("GoogleDriveFileViewer===>Initial");
+
             FileList = fileList;
             CurrentFolder = folder;
             flowType = type;
@@ -105,16 +108,38 @@ namespace VOP
             else
                 UpFolderButton.IsEnabled = true;
 
-            FileBrowser.SelectedIndex = 0;
-            FileBrowser.Focus();
+
+            Win32.OutputDebugString("Google viewer Windows Load");
 
             GetFolderList();
             InitFileandFodlers();
+
+            if (FileBrowser.Items.Count > 0)
+            {
+                int i = 0;
+                foreach (ListViewItem item in FileBrowser.Items)
+                {
+                    ViewItemInfo info = item.Tag as ViewItemInfo;
+                    if (info.fileName == CurrentFolder && info.fileType == "Folder")
+                        FileBrowser.SelectedIndex = i;
+                    i++;
+                }
+                FileBrowser.Focus();
+            }
         }
 
         private void GetFolderList()
         {
+            Win32.OutputDebugString("GetFolderList===>Enter");
             bool isHasFolder = false;
+
+            if (FileList == null)
+            {
+                Win32.OutputDebugString("GetFolderList===>Leave");
+                return;
+            }
+
+            folderList.Clear();
             foreach (File file in FileList)
             {
                 FolderItem item = new FolderItem();
@@ -143,7 +168,7 @@ namespace VOP
                 }
 
             }
-            if (isHasFolder == false && rootid == "" && FileList.Count > 0)
+            if (FileList != null && isHasFolder == false && rootid == "" && FileList.Count > 0)
             {
                 if (FileList[0].Parents.Count > 0 && FileList[0].Parents.Count == 1)
                 {
@@ -153,41 +178,58 @@ namespace VOP
                     }
                 }
             }
+            Win32.OutputDebugString("GetFolderList===>Leave");
         }
 
 
         private void InitFileandFodlers()
         {
             int index = 0;
-
-            FileBrowser.Items.Clear();
-            foreach (File file in FileList)
-            {            
-                if (file.Parents[0].IsRoot == true)
-                {
-                    ListViewItem viewItem = null;
-
-                    if (file.MimeType == "application/vnd.google-apps.folder")
-                    {
-                        viewItem = CreateViewItem(file.Title, "root", file.Id, "Folder", index);
-                    }
-                    FileBrowser.Items.Add(viewItem);
-                    index++;
-                }                
+            Win32.OutputDebugString("InitFileandFodlers===>Enter");
+            if (FileList == null)
+            {
+                FileList = new List<File>();
             }
 
-            foreach (File file in FileList)
-            {             
-                if (file.Parents[0].IsRoot == true)
-                {
-                    ListViewItem viewItem = null;
+            if (FileList.Count > 0)
+                FileBrowser.Items.Clear();
 
+            string str = string.Format("get the file count is {0}", FileList.Count);
+            Win32.OutputDebugString(str);
+
+            Win32.OutputDebugString("Add the folders");
+            foreach (File file in FileList)
+            {
+                if (file != null && file.Parents.Count > 0 && file.Parents[0].IsRoot == true)
+                {
+                    if (file.MimeType == "application/vnd.google-apps.folder")
+                    {
+                        ListViewItem viewItem = null;
+                        viewItem = CreateViewItem(file.Title, "root", file.Id, "Folder", index);
+                        if (viewItem != null)
+                        {
+                            FileBrowser.Items.Add(viewItem);
+                            index++;
+                        }
+                    }
+                }
+            }
+
+            Win32.OutputDebugString("Add the Files");
+            foreach (File file in FileList)
+            {
+                if (file != null && file.Parents.Count > 0 && file.Parents[0].IsRoot == true)
+                {
                     if (file.MimeType != "application/vnd.google-apps.folder")
                     {
+                        ListViewItem viewItem = null;
                         viewItem = CreateViewItem(file.Title, "root", file.Id, "File", index);
+                        if (viewItem != null)
+                        {
+                            FileBrowser.Items.Add(viewItem);
+                            index++;
+                        }
                     }
-                    FileBrowser.Items.Add(viewItem);
-                    index++;
                 }
             }
 
@@ -197,26 +239,39 @@ namespace VOP
                 FileBrowser.SelectedIndex = -1;
 
             ParantID = rootid;
+            Win32.OutputDebugString("InitFileandFodlers===>Leave");
         }
 
         private void UpdateFileAndFolders(string parent, string parentid)
         {
+            Win32.OutputDebugString("UpdateFileAndFolders===>Enter");
+            if (FileList == null)
+            {
+                FileList = new List<File>();
+            }
+
             int index = 0;
 
-            FileBrowser.Items.Clear();
-            
+            if (FileList.Count > 0)
+                FileBrowser.Items.Clear();
+
+            string str = string.Format("get the file count is {0}", FileList.Count);
+            Win32.OutputDebugString(str);
 
             foreach (File file in FileList)
-            {                
+            {
                 if (file.MimeType == "application/vnd.google-apps.folder" &&
                     file.Parents[0].Id == parentid)
                 {
                     ListViewItem viewItem = null;
 
                     viewItem = CreateViewItem(file.Title, parent, file.Id, "Folder", index);
-                    FileBrowser.Items.Add(viewItem);
-                    index++;
-                }                         
+                    if (viewItem != null)
+                    {
+                        FileBrowser.Items.Add(viewItem);
+                        index++;
+                    }
+                }
             }
 
             foreach (File file in FileList)
@@ -227,68 +282,82 @@ namespace VOP
                     ListViewItem viewItem = null;
 
                     viewItem = CreateViewItem(file.Title, parent, file.Id, "File", index);
-                    FileBrowser.Items.Add(viewItem);
-                    index++;
+                    if (viewItem != null)
+                    {
+                        FileBrowser.Items.Add(viewItem);
+                        index++;
+                    }
                 }
             }
             FileBrowser.SelectedIndex = 0;
+            Win32.OutputDebugString("UpdateFileAndFolders===>leave");
         }
 
         private ListViewItem CreateViewItem(string fileName, string parent, string parentid, string fileType = "Folder", int fileIndex = 0, System.IO.Stream imageStream = null)
         {
-            System.Windows.Controls.Image img = new System.Windows.Controls.Image();
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-
-            if (fileType == "Folder")
+            Win32.OutputDebugString("CreateViewItem===>Enter");
+            ListViewItem item = null;
+            try
             {
-                bitmapImage.UriSource = new Uri("pack://application:,,, /Images/Folder-icon.png", UriKind.RelativeOrAbsolute);
+                System.Windows.Controls.Image img = new System.Windows.Controls.Image();
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+
+                if (fileType == "Folder")
+                {
+                    bitmapImage.UriSource = new Uri("pack://application:,,, /Images/Folder-icon.png", UriKind.RelativeOrAbsolute);
+                }
+                else if (fileType == "File")
+                {
+                    if (imageStream == null)
+                    {
+                        bitmapImage.UriSource = new Uri("pack://application:,,, /Images/file.png", UriKind.RelativeOrAbsolute);
+                    }
+                    else
+                    {
+                        bitmapImage.StreamSource = imageStream;
+                    }
+                }
+
+                bitmapImage.DecodePixelWidth = 100;
+                bitmapImage.EndInit();
+
+                img.Source = bitmapImage;
+                img.Width = 80;
+
+                TextBlock text = new TextBlock();
+                text.Text = fileName;
+                text.Margin = new Thickness(10, 0, 0, 0);
+                text.VerticalAlignment = VerticalAlignment.Center;
+                text.FontSize = 16;
+
+                SolidColorBrush txtbrush = new SolidColorBrush();
+                txtbrush.Color = Colors.Black;// DodgerBlue;
+                text.Foreground = txtbrush;
+
+                StackPanel stack = new StackPanel();
+                stack.Orientation = Orientation.Horizontal;
+
+                stack.Children.Add(img);
+                stack.Children.Add(text);
+
+                item = new ListViewItem();
+                SolidColorBrush bgbrush = new SolidColorBrush();
+                bgbrush.Color = fileIndex % 2 == 0 ? Colors.AliceBlue : Colors.AliceBlue;
+                item.Background = bgbrush;
+
+                item.Content = stack;
+                item.MouseDoubleClick += new MouseButtonEventHandler(ViewItemDoubleClick);
+
+                ViewItemInfo info = new ViewItemInfo(fileType, fileName, parent, parentid);
+                item.Tag = info;
             }
-            else if (fileType == "File")
+            catch (Exception ex)
             {
-                if (imageStream == null)
-                {
-                    bitmapImage.UriSource = new Uri("pack://application:,,, /Images/file.png", UriKind.RelativeOrAbsolute);
-                }
-                else
-                {
-                    bitmapImage.StreamSource = imageStream;
-                }
+                Win32.OutputDebugString(ex.Message);
+                return null;
             }
-
-            bitmapImage.DecodePixelWidth = 100;
-            bitmapImage.EndInit();
-
-            img.Source = bitmapImage;
-            img.Width = 80;
-
-            TextBlock text = new TextBlock();
-            text.Text = fileName;
-            text.Margin = new Thickness(10, 0, 0, 0);
-            text.VerticalAlignment = VerticalAlignment.Center;
-            text.FontSize = 16;
-
-            SolidColorBrush txtbrush = new SolidColorBrush();
-            txtbrush.Color = Colors.Black;// DodgerBlue;
-            text.Foreground = txtbrush;
-
-            StackPanel stack = new StackPanel();
-            stack.Orientation = Orientation.Horizontal;
-
-            stack.Children.Add(img);
-            stack.Children.Add(text);
-
-            ListViewItem item = new ListViewItem();
-            SolidColorBrush bgbrush = new SolidColorBrush();
-            bgbrush.Color = fileIndex % 2 == 0 ? Colors.AliceBlue : Colors.AliceBlue;
-            item.Background = bgbrush;
-
-            item.Content = stack;
-            item.MouseDoubleClick += new MouseButtonEventHandler(ViewItemDoubleClick);
-
-            ViewItemInfo info = new ViewItemInfo(fileType, fileName, parent, parentid);
-            item.Tag = info;
-
+            Win32.OutputDebugString("CreateViewItem===>Leave");
             return item;
         }
 
@@ -318,10 +387,23 @@ namespace VOP
                     else
                     {
                         string fullpath = currentPath + "\\" + folderName;
-                       
+
                         if (UploadFolder(folderName, fullpath))
                         {
                             FileList = Utilities.RetrieveAllFiles(_service);
+                            List<File> templist = new List<File>();
+                            foreach (File item in FileList)
+                            {
+                                templist.Add(item);
+                            }
+
+                            foreach (File item in templist)
+                            {
+                                if (item.ExplicitlyTrashed == true)
+                                {
+                                    FileList.Remove(item);
+                                }
+                            }
                             GetFolderList();
                             UpdateFileAndFolders(currentPath, this.ParantID);
                         }
@@ -350,7 +432,7 @@ namespace VOP
                 return;
             }
         }
-    
+
 
         private async void UpFolderButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -360,7 +442,7 @@ namespace VOP
                 {
                     string temp = "";
                     temp = currentPath.Remove(currentPath.LastIndexOf('/'), currentPath.Length - currentPath.LastIndexOf('/'));
-                    currentFolderName = temp.Substring(temp.LastIndexOf('/')+1);
+                    currentFolderName = temp.Substring(temp.LastIndexOf('/') + 1);
                     selectedPath = temp;
                     currentPath = temp;
                     if (currentPath != "")
@@ -380,7 +462,7 @@ namespace VOP
                 }
                 else
                 {
-                   // await LoadFolderFromPath();
+                    // await LoadFolderFromPath();
                     currentPath = "";
                     PathText.Text = "";
                     UpFolderButton.IsEnabled = false;
@@ -390,7 +472,7 @@ namespace VOP
                 FileBrowser.Focus();
             }
             catch (Exception) { }
-           
+
         }
 
         private bool CheckFolder(string foldername, string parentid)
@@ -408,7 +490,7 @@ namespace VOP
 
         private bool CheckUploadFolderName(string foldername, string id)
         {
-            
+
             foreach (FolderItem folder in folderList)
             {
                 if (folder.name == foldername &&
@@ -417,7 +499,7 @@ namespace VOP
                     return true;
                 }
             }
-            return true;
+            return false;
         }
 
         private bool CheckFileName(string filepath, string parentid)
@@ -460,7 +542,7 @@ namespace VOP
             catch (Exception ex)
             {
                 Win32.OutputDebugString(ex.Message);
-            }            
+            }
         }
 
         private async void UploadButton_Click(object sender, RoutedEventArgs e)
@@ -469,27 +551,22 @@ namespace VOP
             {
                 if (selectedPath == "")
                 {
-                    if (FileBrowser.SelectedIndex != -1)
-                    {
-                        ListViewItem item = FileBrowser.Items[FileBrowser.SelectedIndex] as ListViewItem;
-                        ViewItemInfo info = item.Tag as ViewItemInfo;
-                        if (info.fileType != "File")
-                        {
-                            selectedPath = currentPath + "/" + info.fileName;
-                            Googledocsflow.SavePath = selectedPath;
-                            Googledocsflow.FolderID = info.parentid;
-                        }
-                        //else
-                        //{
-                        //    Googledocsflow.SavePath = "/";
-                        //    Googledocsflow.FolderID = rootid;
-                        //}
-                    }
-                    //else
+                    //if (FileBrowser.SelectedIndex != -1)
                     //{
-                    //    Googledocsflow.SavePath = "/";
-                    //    Googledocsflow.FolderID = rootid;
+                    //    ListViewItem item = FileBrowser.Items[FileBrowser.SelectedIndex] as ListViewItem;
+                    //    ViewItemInfo info = item.Tag as ViewItemInfo;
+                    //    if (info.fileType != "File")
+                    //    {
+                    //        selectedPath = currentPath + "/" + info.fileName;
+                    //        Googledocsflow.SavePath = selectedPath;
+                    //        Googledocsflow.FolderID = info.parentid;
+                    //    }
                     //}
+                    //else
+                    {
+                        Googledocsflow.SavePath = "/";
+                        Googledocsflow.FolderID = rootid;
+                    }
                 }
                 else
                 {
@@ -516,7 +593,7 @@ namespace VOP
 
                 if (currentPath != "")
                 {
-                    temp = currentPath.Substring(currentPath.LastIndexOf('/')+1);
+                    temp = currentPath.Substring(currentPath.LastIndexOf('/') + 1);
 
                     if (temp != "")
                     {
@@ -525,16 +602,32 @@ namespace VOP
                     else
                     {
                         UpperFolder = "";
-                    }                    
+                    }
 
                     if (UpperFolder != "")
-                    {                       
+                    {
+                        FileList = Utilities.RetrieveAllFiles(_service);
+                        List<File> templist = new List<File>();
+                        foreach (File item in FileList)
+                        {
+                            templist.Add(item);
+                        }
+
+                        foreach (File item in templist)
+                        {
+                            if (item.ExplicitlyTrashed == true)
+                            {
+                                FileList.Remove(item);
+                            }
+                        }
+                        GetFolderList();
                         if (!CheckUploadFolderName(UpperFolder, ParantID))
                         {
                             message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Not_Exist");
                             message = string.Format(message/*"The folder {0} does not exist."*/, currentFolderName);
                             VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                                 Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Error"));
+                            UpFolderButtonClick(null, null);
                             return;
                         }
                     }
@@ -576,8 +669,21 @@ namespace VOP
                         UploadStaus.Text = "Uploading file " + filePath;
                         await Upload(filePath);
                     }
-                    UploadStaus.Text = "" ;
+                    UploadStaus.Text = "";
                     FileList = Utilities.RetrieveAllFiles(_service);
+                    List<File> templist = new List<File>();
+                    foreach (File item in FileList)
+                    {
+                        templist.Add(item);
+                    }
+
+                    foreach (File item in templist)
+                    {
+                        if (item.ExplicitlyTrashed == true)
+                        {
+                            FileList.Remove(item);
+                        }
+                    }
                     GetFolderList();
                     UpdateFileAndFolders(currentPath, this.ParantID);
                 }
@@ -585,7 +691,7 @@ namespace VOP
                 {
                     UploadStaus.Text = "Uploading File error : " + ex.Message;
                 }
-            }                   
+            }
         }
 
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -610,7 +716,7 @@ namespace VOP
                 message = string.Format(message, filename);
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                     Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Warning"));
-            }           
+            }
         }
 
         private bool UploadFolder(string folder, string fullpath)
@@ -632,7 +738,7 @@ namespace VOP
 
 
         private System.IO.Stream GetFileStreamForUpload(string targetFolderName, string filename, out string originalFilename)
-        { 
+        {
             try
             {
                 originalFilename = System.IO.Path.GetFileName(filename);
@@ -644,11 +750,27 @@ namespace VOP
                 originalFilename = null;
                 return null;
             }
-        }       
+        }
 
         private void title_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void FileSelectChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (FileBrowser.SelectedIndex != -1)
+            {
+                ListViewItem item = FileBrowser.Items[FileBrowser.SelectedIndex] as ListViewItem;
+                if (item != null)
+                {
+                    ViewItemInfo info = item.Tag as ViewItemInfo;
+                    if (info.fileType == "Folder")
+                        selectedPath = info.fileName;
+                    else
+                        selectedPath = "";
+                }
+            }
         }
     }
 }

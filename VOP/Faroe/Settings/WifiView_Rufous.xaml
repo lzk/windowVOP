@@ -29,9 +29,15 @@
         <Grid>
             <Grid.Background>
                 <ImageBrush ImageSource="../../Images\SettingViewBackground.png" />
-            </Grid.Background>            
-        </Grid>
-        <ScrollViewer Grid.Column="1" Name="scrollview" CanContentScroll="true"
+            </Grid.Background>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <ScrollViewer Grid.Column="1" Grid.Row="1" Name="scrollview" CanContentScroll="true"
         SelectiveScrollingGrid.SelectiveScrollingOrientation="Both" 
         VerticalScrollBarVisibility="Auto"
         HorizontalScrollBarVisibility="Disabled"
@@ -39,39 +45,35 @@
         VerticalAlignment="Top"
         Background="White"
         Style="{StaticResource LeftScrollViewer}"
-        Margin="20,20,10,10"
-                     
+        Margin="20,0,10,0"                    
         >
-            <StackPanel Name="wifiPanel" Margin="0,1,0,1" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <StackPanel Name="wifiPanel" Width="440" Margin="0,1,0,1" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="6"></RowDefinition>
-                        <RowDefinition Height="45"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-
-
-                    <TextBlock Text="{StaticResource ResStr_WLAN}" Style="{StaticResource ColorChangeTextBlock}" FontSize="14" 
-                                   FontWeight="Bold" Grid.Row="0"  VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="6"></RowDefinition>
+                            <RowDefinition Height="45"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{StaticResource ResStr_WLAN}" Style="{StaticResource ColorChangeTextBlock}" FontSize="14" 
+                                   FontWeight="Bold" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"></TextBlock>
                         <CheckBox Name="chkWifi" Click="OnClickWifiCheckBox" IsChecked="True" 
-                                  Grid.Row="0" HorizontalAlignment="Right"
+                                  Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"
                                   Template="{StaticResource switchBox}" 
-                                  Height="25" 
+                                  Height="22" 
                                   Width="45" 
                                   Checked="OnchkWifiChecked" 
                                   Margin="0,0,5,0"
                                   Unchecked="OnchkWifiUnchecked"></CheckBox>
-                    
-                    <Canvas Grid.Row="1" VerticalAlignment="Center">
-                        <Path Stroke="LightGray" StrokeThickness="2">
-                            <Path.Data>
-                                <LineGeometry StartPoint="0,4" EndPoint="450,2"></LineGeometry>
-                            </Path.Data>
-                        </Path>
-                    </Canvas>
-                    
-                    <Button x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="2" Height="35"
+
+                        <Canvas Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+                            <Path Stroke="LightGray" StrokeThickness="2">
+                                <Path.Data>
+                                    <LineGeometry StartPoint="0,4" EndPoint="450,2"></LineGeometry>
+                                </Path.Data>
+                            </Path>
+                        </Canvas>
+                        <Button x:Name="btnConnectOthAp" Click="btn_Click" Grid.Row="2" Height="35"
                              Style="{StaticResource CustomSettingButtonStyle}" Margin="0,0,5,0"
                                     Width="120" Content="{StaticResource ResStr_Manual_Wi_Fi}" 
                                     HorizontalContentAlignment="Center" HorizontalAlignment="Right"></Button>
@@ -239,7 +241,7 @@
                                     <RowDefinition Height="*"></RowDefinition>
                                     <RowDefinition Height="2"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Column="0" Text="{StaticResource ResStr_WLAN_Network}" Style="{StaticResource ColorChangeTextBlock}" FontSize="16"></TextBlock>
+                                <TextBlock Grid.Column="0" Text="{StaticResource ResStr_WLAN_Network}" Style="{StaticResource ColorChangeTextBlock}" FontSize="14"></TextBlock>
                                 <mycontrol:RefreshButton 
                                         Grid.Column="1" 
                                         VerticalAlignment="Bottom"
@@ -262,5 +264,6 @@
                 </Grid>
             </StackPanel>
         </ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>

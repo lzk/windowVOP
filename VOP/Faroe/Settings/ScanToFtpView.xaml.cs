@@ -100,7 +100,7 @@ namespace VOP
             {
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
                   Application.Current.MainWindow,
-                 "The Tartget Path format is incorrect, Please check your Target Path and enter again.",
+                 "The Target Path format is incorrect, Please check your Target Path and enter again.",
                  "Error");
                 return;
             }

@@ -180,7 +180,7 @@
                     <Button Name="tbSettings"
                 Grid.Row="0"
                 Grid.Column="3"
-                Width="100"
+                Width="250"
                 Height="35" 
                         HorizontalAlignment="Right"
                 Content="{StaticResource ResStr_Setting}" 

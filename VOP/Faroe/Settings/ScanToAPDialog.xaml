@@ -92,7 +92,7 @@
                        Name="tbSettings"
                 Grid.Row="0"
                 Grid.Column="2"
-                Width="100"
+                Width="300"
                 Height="35" 
                 HorizontalAlignment="Right"
                 Content="{StaticResource ResStr_Setting}" 

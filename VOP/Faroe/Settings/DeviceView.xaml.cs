@@ -122,11 +122,11 @@ namespace VOP
                 MainWindow_Rufous.g_settingData.m_ScanType = scanRec.Mode;
             }
 
-            if (MainWindow_Rufous.g_settingData.m_ScanType == 0)
-                cbScanType.SelectedIndex = 0;
-            else
-                cbScanType.SelectedIndex = 1;
-
+            //if (MainWindow_Rufous.g_settingData.m_ScanType == 0)
+            //    cbScanType.SelectedIndex = 0;
+            //else
+            //   cbScanType.SelectedIndex = 1;
+            cbScanType.SelectedIndex = MainWindow_Rufous.g_settingData.m_ScanType;
             // UpdateApplyBtnStatus();
         }
 
@@ -241,6 +241,15 @@ namespace VOP
                 return false;
             }
 
+            if (MainWindow_Rufous.g_settingData.m_ScanType > 1)
+            {
+
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, Application.Current.MainWindow,
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_ScanType_Setting"),
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+
+            }
+            
             byte psavetime = Convert.ToByte(spinnerControlAutoSleep.Value);
             if (psavetime < 1)
                 psavetime = 1;
@@ -292,97 +301,102 @@ namespace VOP
                 else
                 {
                     isApplySuccess = false;
-                }                
-
-            }
-
-            Byte size=0, duplex=0, res=0, color=0, format=0;
-            ScanParamShort scanParam = (ScanParamShort)MainWindow_Rufous.g_settingData.m_pushScanSettings.Clone();
-            switch (scanParam.PaperSize)
-            {
-                case EnumPaperSizeScan._Auto:
-                    size = 0;
-                    break;
-                case EnumPaperSizeScan._A4:
-                    size= 1;
-                    break;
-
-                case EnumPaperSizeScan._Letter:
-                    size = 2;
-                    break;
-
-                case EnumPaperSizeScan._Legal:
-                    size = 3;
-                    break;
-
-                case EnumPaperSizeScan._B5:
-                    size= 4;
-                    break;
-
-                case EnumPaperSizeScan._A5:
-                    size = 5;
-                    break;
-
-                case EnumPaperSizeScan._A6:
-                    size = 6;
-                    break;
-
-                default:
-                    size = 0;
-                    break;
-
-            }
-
-            if (scanParam.ADFMode == true)
-                duplex = 0;
-            else
-                duplex = 1;
-
-            switch (scanParam.ScanResolution)
-            {
-                case EnumScanResln._200x200:
-                    res = 0;
-                    break;
-
-                case EnumScanResln._100x100:
-                    res = 1;
-                    break;
-
-                case EnumScanResln._300x300:
-                    res = 2;
-                    break;
-
-                case EnumScanResln._600x600:
-                    res = 3;
-                    break;
-
-                default:
-                    res = 0;
-                    break;
-            }
-
-            if (scanParam.ColorType == EnumColorType.color_24bit)
-                color = 0;
-            else
-                color = 1;
-
-            if (scanParam.FileFormat == EnumFileFormat.JPEG)
-                format = 0;
-            else
-                format = 1;
-
-            ScanParametersRecord paraRec = new ScanParametersRecord(size, duplex, res, color, format);
-            if (worker.InvokeMethod<ScanParametersRecord>("", ref paraRec, DllMethodType.SetScanParameters, this))
-            {
-                if (null != paraRec && paraRec.CmdResult == EnumCmdResult._ACK)
-                {
-                    isApplySuccess = true;
                 }
+            }
+
+            if (MainWindow_Rufous.g_settingData.m_ScanType == 1)
+            {
+                Byte size = 0, duplex = 0, res = 0, color = 0, format = 0;
+                ScanParamShort scanParam = (ScanParamShort)MainWindow_Rufous.g_settingData.m_pushScanSettings.Clone();
+                switch (scanParam.PaperSize)
+                {
+                    case EnumPaperSizeScan._Auto:
+                    case EnumPaperSizeScan._Auto1:
+                        size = 0;
+                        break;
+
+                    case EnumPaperSizeScan._A4:
+                        size = 1;
+                        break;
+
+                    case EnumPaperSizeScan._Letter:
+                        size = 2;
+                        break;
+
+                    case EnumPaperSizeScan._Legal:
+                        size = 3;
+                        break;
+
+                    case EnumPaperSizeScan._B5:
+                        size = 4;
+                        break;
+
+                    case EnumPaperSizeScan._A5:
+                        size = 5;
+                        break;
+
+                    case EnumPaperSizeScan._A6:
+                        size = 6;
+                        break;
+
+                    default:
+                        size = 0;
+                        break;
+
+                }
+
+                if (scanParam.ADFMode == true)
+                    duplex = 0;
                 else
+                    duplex = 1;
+
+                switch (scanParam.ScanResolution)
                 {
-                    isApplySuccess = false;
+                    case EnumScanResln._200x200:
+                        res = 1;
+                        break;
+
+                    case EnumScanResln._150x150:
+                        res = 0;
+                        break;
+
+                    case EnumScanResln._300x300:
+                        res = 2;
+                        break;
+
+                    case EnumScanResln._600x600:
+                        res = 3;
+                        break;
+
+                    default:
+                        res = 0;
+                        break;
+                }
+
+                if (scanParam.ColorType == EnumColorType.color_24bit)
+                    color = 0;
+                else
+                    color = 1;
+
+                if (scanParam.FileFormat == EnumFileFormat.JPEG)
+                    format = 0;
+                else
+                    format = 1;
+
+                ScanParametersRecord paraRec = new ScanParametersRecord(size, duplex, res, color, format);
+                if (worker.InvokeMethod<ScanParametersRecord>("", ref paraRec, DllMethodType.SetScanParameters, this))
+                {
+                    if (null != paraRec && paraRec.CmdResult == EnumCmdResult._ACK)
+                    {
+                        isApplySuccess = true;
+                    }
+                    else
+                    {
+                        isApplySuccess = false;
+                    }
                 }
             }
+
 
             if (isApplySuccess)
             {
@@ -686,14 +700,26 @@ namespace VOP
                 if (cbScanType.SelectedIndex == 0)
                 {
                     MainWindow_Rufous.g_settingData.m_ScanType = 0;
-                    //btnSetting.IsEnabled = true;
-                    //btnSetting.Visibility = Visibility.Visible;
+                    btnSetting.IsEnabled = true;
+                    btnSetting.Visibility = Visibility.Visible;
+                }
+                else if (cbScanType.SelectedIndex == 1)
+                {
+                    MainWindow_Rufous.g_settingData.m_ScanType = 1;
+                    btnSetting.IsEnabled = true;
+                    btnSetting.Visibility = Visibility.Visible;
+                }
+                else if (cbScanType.SelectedIndex == 2)
+                {
+                    MainWindow_Rufous.g_settingData.m_ScanType = 2;
+                    btnSetting.IsEnabled = false;
+                    btnSetting.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    MainWindow_Rufous.g_settingData.m_ScanType = 1;
-                   // btnSetting.IsEnabled = false;
-                    //btnSetting.Visibility = Visibility.Hidden;
+                    MainWindow_Rufous.g_settingData.m_ScanType = 3;
+                    btnSetting.IsEnabled = false;
+                    btnSetting.Visibility = Visibility.Hidden;
                 }
 
                 m_lastScanType = cbScanType.SelectedIndex;
@@ -717,7 +743,7 @@ namespace VOP
 
                 }
             }
-            else
+            else if (MainWindow_Rufous.g_settingData.m_ScanType == 1)
             {
                 PushScanSettingDialog settingWin = new PushScanSettingDialog(1);
                 settingWin.Owner = m_MainWin;
@@ -728,6 +754,12 @@ namespace VOP
                 {
                     MainWindow_Rufous.g_settingData.m_pushScanSettings = (ScanParamShort)settingWin.m_scanParams.Clone();
                 }
+            }
+            else
+            {
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, Application.Current.MainWindow,
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_ScanType_Setting"),
+                (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
             }
         }
     }

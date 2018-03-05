@@ -1593,8 +1593,8 @@ BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
 		if (g_GLnet.CMDIO_Connect(szIP, 23011))
 		{
 			TCHAR showIp[256] = { 0 };
-			wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
-			OutputDebugString(showIp);
+			//wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
+			//OutputDebugString(showIp);
 
 			U8 cmd[4] = { 'J','D','G','S' };
 			U8 status[8] = { 0 };
@@ -1646,6 +1646,7 @@ BOOL TestIpConnected1(wchar_t* szIP, Scan_RET *re_status)
 
 			nResult = FALSE;
 		}
+		Sleep(100);
 	}
 
 	return nResult;
@@ -1658,8 +1659,8 @@ BOOL TestIpConnected2(wchar_t* szIP, Scan_RET *re_status)
 	if (g_GLnet.CMDIO_Connect(szIP, 23011))
 	{
 		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
-		OutputDebugString(showIp);
+		//wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
+		//OutputDebugString(showIp);
 
 		U8 cmd[4] = { 'J','D','G','S' };
 		U8 status[8] = { 0 };
@@ -1683,7 +1684,7 @@ BOOL TestIpConnected2(wchar_t* szIP, Scan_RET *re_status)
 
 				nResult = TRUE;
 
-				g_GLnet.CMDIO_Close();
+				//g_GLnet.CMDIO_Close();
 			}
 			else
 			{
@@ -1710,8 +1711,6 @@ BOOL TestIpConnected2(wchar_t* szIP, Scan_RET *re_status)
 
 		nResult = FALSE;
 	}
-
-
 	return nResult;
 }
 USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP)
@@ -1730,38 +1729,42 @@ USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP)
 		return false;
 	}
 
-	int nResult = TRUE;
-	//CGLNet m_GLnet;
+	//int nResult = TRUE;
+	////CGLNet m_GLnet;
 
-	if (g_GLnet.CMDIO_Connect(szIP, 23011))
-	{
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
-		//OutputDebugString(showIp);
+	//if (g_GLnet.CMDIO_Connect(szIP, 23011))
+	//{
+	//	TCHAR showIp[256] = { 0 };
+	//	wsprintf(showIp, L"\nTestIpConnected() success %s", szIP);
+	//	//OutputDebugString(showIp);
 
-		nResult = TRUE;
-		g_GLnet.CMDIO_Close();
-	}
-	else
-	{
+	//	nResult = TRUE;
+	//	g_GLnet.CMDIO_Close();
+	//}
+	//else
+	//{
 
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
-		OutputDebugString(showIp);
+	//	TCHAR showIp[256] = { 0 };
+	//	wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
+	//	OutputDebugString(showIp);
 
-		nResult = FALSE;
-	}
+	//	nResult = FALSE;
+	//}
 
-	return nResult;
+	//return nResult;
 }
 
 USBAPI_API void __stdcall SetConnectionMode(
 	const wchar_t* deviceName, BOOL isUsb)
 {
-	if(isUsb)
+	if (isUsb)
+	{
 		_tcscpy_s(g_deviceName, 256, deviceName);
+	}
 	else
+	{
 		_tcscpy_s(g_ipAddress, 256, deviceName);
+	}
 	g_connectMode_usb = isUsb;
 }
 
@@ -2494,12 +2497,68 @@ USBAPI_API int __stdcall GetScanType(int* mode)
 				if (type == 3)
 					*mode = 0;
 				else
-					*mode = 1;
+				{
+					switch (type)
+					{
+					case 2:
+						*mode = 1;
+						break;
+					case 0:
+						*mode = 3;
+						break;
+					case 1:
+						*mode = 2;
+						break;
+					}
+					//*mode = type+1;
+				}
 
-				result = true;
+				result = TRUE;
 			}
 
 			glDrv._CloseDevice();
+		}
+	}
+	else
+	{
+
+		Scan_RET re_status = RETSCAN_OK;
+
+		if (TestIpConnected2(g_ipAddress, &re_status) == TRUE)
+		{
+			if (re_status != RETSCAN_BUSY)
+			{
+				if (glDrv._OpenDevice(g_ipAddress) == TRUE)
+				{
+					if (!glDrv.NetScanReady())
+					{
+						result = FALSE;
+					}
+					else
+					{
+						if (glDrv.NVRAM_read(0xc3, 1, data))
+						{
+							switch (type)
+							{
+							case 2:
+								*mode = 1;
+								break;
+							case 0:
+								*mode = 3;
+								break;
+							case 1:
+								*mode = 2;
+								break;
+							}
+							//*mode = type+1;
+
+							result = TRUE;
+						}
+					}
+					glDrv._CloseDevice();
+				}
+			}
+
 		}
 	}
 
@@ -2554,7 +2613,22 @@ USBAPI_API int __stdcall SetScanType(int mode)
 			if (mode == 0)
 				data[0] = 3;
 			else
-				data[0] = 2;//0
+			{
+				switch (mode)
+				{
+				case 1:
+					data[0] = 2;
+					break;
+				case 2:
+					data[0] = 1;
+					break;
+				case 3:
+					data[0] = 0;
+					break;
+				}
+				//data[0] = mode - 1;//0
+			}
+
 			int iRet = glDrv.NVRAM_write(0xc3, 1, data);
 			if (iRet)
 			{	
@@ -2562,6 +2636,57 @@ USBAPI_API int __stdcall SetScanType(int mode)
 				return TRUE;				
 			}
 			glDrv._CloseDevice();
+		}
+	}
+	else
+	{
+
+		Scan_RET re_status = RETSCAN_OK;
+
+		if (TestIpConnected2(g_ipAddress, &re_status) == TRUE)
+		{
+			if (re_status != RETSCAN_BUSY)
+			{
+				if (glDrv._OpenDevice(g_ipAddress) == TRUE)
+				{
+					if (!glDrv.NetScanReady())
+					{
+						glDrv._CloseDevice();
+						return FALSE;
+					}
+					else
+					{
+						BYTE data[1] = { 3 };
+						if (mode == 0)
+							data[0] = 3;
+						else
+						{
+							switch (mode)
+							{
+							case 1:
+								data[0] = 2;
+								break;
+							case 2:
+								data[0] = 1;
+								break;
+							case 3:
+								data[0] = 0;
+								break;
+							}
+							//data[0] = mode - 1;//0
+						}
+						int iRet = glDrv.NVRAM_write(0xc3, 1, data);
+						if (iRet)
+						{
+							glDrv._CloseDevice();
+							return TRUE;
+						}
+					}
+					glDrv._CloseDevice();
+					return FALSE;
+				}
+			}
+
 		}
 	}
 	return FALSE;
@@ -2620,13 +2745,45 @@ USBAPI_API int __stdcall GetScanParameters(BYTE* size, BYTE* duplex, BYTE* res, 
 				*res = data[2];
 				*duplex = data[3];
 				*size = data[4];
-				result = true;
+				result = TRUE;
 			}
 
 			glDrv._CloseDevice();
 		}
 	}
+	else
+	{
 
+		Scan_RET re_status = RETSCAN_OK;
+
+		if (TestIpConnected2(g_ipAddress, &re_status) == TRUE)
+		{
+			if (re_status != RETSCAN_BUSY)
+			{
+				if (glDrv._OpenDevice(g_ipAddress) == TRUE)
+				{
+					if (!glDrv.NetScanReady())
+					{
+						result = FALSE;
+					}
+					else
+					{
+						if (glDrv.NVRAM_read(0xc4, 5, data))
+						{
+							*format = data[0];
+							*color = data[1];
+							*res = data[2];
+							*duplex = data[3];
+							*size = data[4];
+							result = TRUE;
+						}
+					}
+					glDrv._CloseDevice();
+				}
+			}
+
+		}
+	}
 	return result;
 }
 //add by yunying shang 2018-01-19 for Push Scan
@@ -2687,6 +2844,44 @@ USBAPI_API int __stdcall SetScanParameters(BYTE size, BYTE duplex, BYTE res, BYT
 				return TRUE;
 			}
 			glDrv._CloseDevice();
+		}
+	}
+	else
+	{
+
+		Scan_RET re_status = RETSCAN_OK;
+
+		if (TestIpConnected2(g_ipAddress, &re_status) == TRUE)
+		{
+			if (re_status != RETSCAN_BUSY)
+			{
+				if (glDrv._OpenDevice(g_ipAddress) == TRUE)
+				{
+					if (!glDrv.NetScanReady())
+					{
+						glDrv._CloseDevice();
+						return FALSE;
+					}
+					else
+					{
+						BYTE data[5] = { 0 };
+						data[0] = format;
+						data[1] = color;
+						data[2] = res;
+						data[3] = duplex;
+						data[4] = size;
+						int iRet = glDrv.NVRAM_write(0xc4, 5, data);
+						if (iRet)
+						{
+							glDrv._CloseDevice();
+							return TRUE;
+						}
+					}
+					glDrv._CloseDevice();
+					return FALSE;
+				}
+			}
+
 		}
 	}
 	return FALSE;

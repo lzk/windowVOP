@@ -51,5 +51,9 @@ namespace VOP.Controls
         {
             this.Close();
         }
+        private void CancelClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

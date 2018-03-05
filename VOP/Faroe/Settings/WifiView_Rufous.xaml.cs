@@ -71,6 +71,7 @@ namespace VOP
                 gdWifi.Visibility = Visibility.Visible;
                 gdWifi.IsEnabled = true;
                 rowAuto.Height = GridLength.Auto;
+                
                 cbo_ssid_refresh();
             }
             else

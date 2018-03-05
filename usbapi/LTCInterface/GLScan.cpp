@@ -70,6 +70,8 @@ CGLDrv::CGLDrv()
 
 	sc_power = { 0 };
 	sc_power.code			= I4('PWRM');
+
+	bLocked = FALSE;
 }
 CGLDrv::~CGLDrv()
 {
@@ -81,6 +83,7 @@ CGLDrv::~CGLDrv()
 		delete(m_GLnet);
 		m_GLnet = NULL;
 	}*/
+	bLocked = FALSE;
 }
 
 BYTE CGLDrv::_OpenUSBDevice()
@@ -139,6 +142,7 @@ BYTE CGLDrv::_OpenDevice(LPCTSTR lpModuleName)
 
 		if (_LOCK(lpModuleName) == 1)
 		{
+			
 			return (BYTE)(m_GLnet->CMDIO_Connect(lpModuleName));
 		}
 		else
@@ -537,11 +541,16 @@ BYTE CGLDrv::_CloseDevice()
 	}
 	else
 	{
-		//return (BYTE)(m_GLnet->CMDIO_Close());
-
-		if ((BYTE)(m_GLnet->CMDIO_Close()))
+		if (!bLocked)
 		{
-			return _UNLOCK(g_ipAddress);
+			return (BYTE)(m_GLnet->CMDIO_Close());
+		}
+		else
+		{
+			if ((BYTE)(m_GLnet->CMDIO_Close()))
+			{
+				return _UNLOCK(g_ipAddress);
+			}
 		}
 	}
 	
@@ -1554,6 +1563,8 @@ BYTE CGLDrv::_LOCK(LPCTSTR szIP)
 					ack[2] == 'A' &&
 					ack[4] == 'A')
 					nResult = 1;
+
+				bLocked = TRUE;
 			}
 		}
 		m_GLnet->CMDIO_Close();
@@ -1582,7 +1593,6 @@ BYTE CGLDrv::_UNLOCK(LPCTSTR szIP)
 		{
 			if (m_GLnet->CMDIO_Read(ack, 8))
 			{
-
 				if (ack[0] == 'S' &&
 					ack[1] == 'T' &&
 					ack[2] == 'A')

@@ -949,6 +949,8 @@ namespace VOP
             byte connected8 = 0;
             byte connected9 = 0;
 
+            Thread.Sleep(5000);
+
             int result = dll.GetApList(printerName,
                                         ssid0, ref encryption0, ref connected0,
                                         ssid1, ref encryption1, ref connected1,

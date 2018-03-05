@@ -90,6 +90,7 @@ namespace VOP
                 case 3:
                     bRtn = qs.ScanToEmail();
                     break;
+
                 case 4:
                    iRtn = m_MainWin.CheckDeviceStatus();
                     if ( iRtn <= 0)
@@ -309,8 +310,14 @@ namespace VOP
         public void PushScan()
         {
             MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+
+            ScanParam paramBak = new ScanParam();
+            paramBak = (ScanParam)MainWindow_Rufous.g_settingData.m_commonScanSettings.Clone();
+            MainWindow_Rufous.g_settingData.m_commonScanSettings = (ScanParam)MainWindow_Rufous.g_settingData.m_pushScanSettingsofPC.Clone();
+
             ScanToButtonClick(null, null);
             App.gPushScan = false;
+            MainWindow_Rufous.g_settingData.m_commonScanSettings = (ScanParam)paramBak.Clone();
         }
 
         public void ScanToButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -328,6 +335,12 @@ namespace VOP
                 if (task.ScanResult == Scan_RET.RETSCAN_OK)
                 {
                     //List<ScanFiles> files = new List<ScanFiles>();
+                    //for (int i = 0; i < 60; i++)
+                    //{
+                    //    string path = string.Format(@"C:\Users\Administrator\Desktop\111\{0}.jpg", i+1);
+                    //    ScanFiles file = new ScanFiles(path);
+                    //    files.Add(file);
+                    //}
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\1.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\2.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\3.jpg"));

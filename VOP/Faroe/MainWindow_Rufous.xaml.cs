@@ -64,6 +64,7 @@ namespace VOP
             InitTrayMenu();
             g_settingData.InitSettingData();
 
+
             thread_searchIP = new Thread(InitIPList);
             thread_searchIP.Start();
 
@@ -75,7 +76,8 @@ namespace VOP
             scanButtonCheck.Start();
             //<<=================       
             
-            this.SourceInitialized += new EventHandler(win_SourceInitialized);  
+            this.SourceInitialized += new EventHandler(win_SourceInitialized);
+
         }
 
         //add by yunying shang 2017-12-06 for BMS 1533
@@ -84,16 +86,28 @@ namespace VOP
             if (devicename == string.Empty)
             {
                 if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
-                    return MainWindow_Rufous.g_settingData.m_DeviceName;
+                {
+                    if (!MainWindow_Rufous.g_settingData.m_DeviceName.Contains("USB"))
+                        return MainWindow_Rufous.g_settingData.m_DeviceName;
+                    else
+                        return string.Empty;
+                }
                 else
                 {
-                    int index = MainWindow_Rufous.g_settingData.m_DeviceName.LastIndexOf(' ');
-                    if (index > 0)
+                    if (MainWindow_Rufous.g_settingData.m_DeviceName.Contains("USB"))
                     {
-                        string str = USBSCANSTRING;
-                        str += MainWindow_Rufous.g_settingData.m_DeviceName.Substring(index+1);
+                        int index = MainWindow_Rufous.g_settingData.m_DeviceName.LastIndexOf(' ');
+                        if (index > 0)
+                        {
+                            string str = USBSCANSTRING;
+                            str += MainWindow_Rufous.g_settingData.m_DeviceName.Substring(index + 1);
 
-                        return str;
+                            return str;
+                        }
+                        else
+                        {
+                            return string.Empty;
+                        }
                     }
                     else
                     {
@@ -103,13 +117,20 @@ namespace VOP
             }
             else
             {
-                int index = devicename.LastIndexOf(' ');
-                if (index > 0)
+                if (devicename.ToUpper().Contains("USB"))
                 {
-                    string str = USBSCANSTRING;
-                    str += devicename.Substring(index+1);
+                    int index = devicename.LastIndexOf(' ');
+                    if (index > 0)
+                    {
+                        string str = USBSCANSTRING;
+                        str += devicename.Substring(index + 1);
 
-                    return str;
+                        return str;
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
                 }
                 else
                 {
@@ -137,7 +158,6 @@ namespace VOP
             {
                 if (MainWindow_Rufous.g_settingData.m_DeviceName != "")
                 {
-
                     if (MainWindow_Rufous.g_settingData.m_DeviceName.Contains("USB"))
                     {
                         if (iRtn == 1 || iRtn == 3)
@@ -175,7 +195,7 @@ namespace VOP
                             }
                             else
                             {
-                                dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, false);
+                                dll.SetConnectionMode(GetDeviceName(""), false);
                             }
                         }
                         else
@@ -216,6 +236,17 @@ namespace VOP
                 scanSelectionPage.PushScan();
                 App.gPushScan = false;
             }
+
+            //modified by yunying shang 2018-02-07 for installer
+            string argLine = Environment.CommandLine;
+            if (argLine.Contains("/hide"))
+            {
+                this.Hide();
+            }
+            else if (argLine.Contains("/EXIT"))
+            {
+                this.Close();
+            }//<<=====================
         }
 
         #region TrayMenu
@@ -395,83 +426,103 @@ namespace VOP
             _bExitUpdater = false;
             while (!_bExitUpdater)// && !_bScanning)
             {
-                bool bConnect = false;
-               if (dll.CheckConnectionByName(GetDeviceName("")))
+                bool bConnect = false; 
+                //modified by yunying shang 2018-03-01 for BMS 2463
+                string devicename = GetDeviceName("");
+                if (devicename != string.Empty)
                 {
-                   // Win32.OutputDebugString("Connection success!");
-                    //SetDeviceButtonState(true);
-                    //modified by yunying shang 2017-10-19 for BMS 1172
-                    if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
+                    if (dll.CheckConnectionByName(devicename))
                     {
-                        //add by yunying shang 2017-10-23 for BMS 1019
-                        if (!scanDevicePage.IsOnLine())
+                        // Win32.OutputDebugString("Connection success!");
+                        //SetDeviceButtonState(true);
+                        //modified by yunying shang 2017-10-19 for BMS 1172
+                        if (MainWindow_Rufous.g_settingData.m_isUsbConnect == false)
                         {
-                            //Win32.OutputDebugString("not on line!");
-                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                        }
-                        else//<<===============1019
-                        {
-                            //marked by yunying shang 1320
-                            //NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-                            //bool bFound = false;
-                            //foreach (NetworkInterface adapter in fNetworkInterfaces)
-                            //{
-                            //    if (adapter.Description.Contains("802") ||
-                            //        adapter.Description.Contains("Wi-Fi") ||
-                            //        adapter.Description.Contains("Wireless"))
-                            //    {
-                            //        bFound = true;
-                            //    }
-                            //}
-
-                            //if (bFound == false)
-                            //{
-                            //    Win32.OutputDebugString("not find the wifi network!");
-                            //    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                            //}
-                            //else//<<===============1320
+                            //add by yunying shang 2017-10-23 for BMS 1019
+                            if (!scanDevicePage.IsOnLine())
                             {
-                                if (dll.TestIpConnected(MainWindow_Rufous.g_settingData.m_DeviceName))
+                                //Win32.OutputDebugString("not on line!");
+                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                            }
+                            else//<<===============1019
+                            {
+                                //marked by yunying shang 1320
+                                //NetworkInterface[] fNetworkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
+                                //bool bFound = false;
+                                //foreach (NetworkInterface adapter in fNetworkInterfaces)
+                                //{
+                                //    if (adapter.Description.Contains("802") ||
+                                //        adapter.Description.Contains("Wi-Fi") ||
+                                //        adapter.Description.Contains("Wireless"))
+                                //    {
+                                //        bFound = true;
+                                //    }
+                                //}
+
+                                //if (bFound == false)
+                                //{
+                                //    Win32.OutputDebugString("not find the wifi network!");
+                                //    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                                //}
+                                //else//<<===============1320
                                 {
-                                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
-                                    bConnect = true;
-                                }
-                                else
-                                {
-                                    Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                                    // if (dll.TestIpConnected(MainWindow_Rufous.g_settingData.m_DeviceName))
+                                    {
+                                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                                        bConnect = true;
+                                    }
+                                    //else
+                                    // {
+                                    //     Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                                    // }
                                 }
                             }
                         }
-                    }
-                    else
-                    {
-                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
-                        bConnect = true;
-                    }//<<=================1172
-                }
-                else
-                {
-                    if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
-                    {
-                        StringBuilder usbname = new StringBuilder(50);
-                        if (dll.CheckUsbScan(usbname) == 1)
+                        else
                         {
                             Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                             bConnect = true;
-                        }
-                        else
-                        {
-                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
-                        }
+                        }//<<=================1172
                     }
                     else
                     {
-                        //SetDeviceButtonState(false);
-                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                        if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
+                        {
+                            StringBuilder usbname = new StringBuilder(50);
+                            if (dll.CheckUsbScan(usbname) == 1)
+                            {
+                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                                bConnect = true;
+                            }
+                            else
+                            {
+                                Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                            }
+                        }
+                        else
+                        {
+                            //SetDeviceButtonState(false);                      
+                            Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                        }
                     }
                 }
+                else
+                {
+                    StringBuilder usbname = new StringBuilder(50);
+                    if (dll.CheckUsbScan(usbname) == 1)
+                    {
+                        MainWindow_Rufous.g_settingData.m_isUsbConnect = true;
+                        dll.SetConnectionMode(GetDeviceName(""), true);
+                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
+                        bConnect = true;
+                    }
+                    else
+                    {
+                        Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)0, IntPtr.Zero);
+                    }
+                }//<<===============2463
 
-               //marked by yunying shang, this button command could not be used on SW
+                //marked by yunying shang, this button command could not be used on SW
                 //if (bConnect && MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
                 //{
                 //    if (dll.GetButtonPressed() == 1)
@@ -721,10 +772,12 @@ namespace VOP
             }
             else if (msg == App.WM_VOP)
             {
+                Win32.OutputDebugString("Receive popup Message!");
                 PopupWindow();
             }
             else if (msg == App.closeMsg)
             {
+                Win32.OutputDebugString("Receive Close window");
                 notifyIcon1.Dispose();
                 Environment.Exit(0);
             }
@@ -747,27 +800,30 @@ namespace VOP
 
                     if (MainPageView.Child == scanSelectionPage)
                     {
-                        scanSelectionPage.ScanToButtonClick(null, null);
+                        //scanSelectionPage.ScanToButtonClick(null, null);
+                        scanSelectionPage.PushScan();
                     }
-                    
+
                 }
                 else
                 {
                     GotoPage("ScanSelectionPage", null);
-                    ScanParam paramBak = new ScanParam();
-                    paramBak = (ScanParam)MainWindow_Rufous.g_settingData.m_commonScanSettings.Clone();
-                    MainWindow_Rufous.g_settingData.m_commonScanSettings = (ScanParam)MainWindow_Rufous.g_settingData.m_pushScanSettingsofPC.Clone();
+                    scanSelectionPage.PushScan();
+                    //ScanParam paramBak = new ScanParam();
+                    //paramBak = (ScanParam)MainWindow_Rufous.g_settingData.m_commonScanSettings.Clone();
+                    //MainWindow_Rufous.g_settingData.m_commonScanSettings = (ScanParam)MainWindow_Rufous.g_settingData.m_pushScanSettingsofPC.Clone();
 
-                    scanSelectionPage.ScanToButtonClick(null, null);
-                    MainWindow_Rufous.g_settingData.m_commonScanSettings = (ScanParam)paramBak.Clone();
+                    //scanSelectionPage.ScanToButtonClick(null, null);
+                    //MainWindow_Rufous.g_settingData.m_commonScanSettings = (ScanParam)paramBak.Clone();
                 }
-                
+
             }
             return IntPtr.Zero;
         }
 
         private void PopupWindow()
         {
+            Win32.OutputDebugString("PopupWindow!");
             this.Visibility = Visibility.Visible;
             this.Activate();
             this.Topmost = true;  // important
@@ -799,7 +855,6 @@ namespace VOP
         private void MainWindowExitPoint()
         {
             scanPage.image_wrappanel.Children.Clear();
-            
             if (null != scanPage.scanningThread
                     && true == scanPage.scanningThread.IsAlive)
             {
@@ -810,16 +865,17 @@ namespace VOP
                     System.Threading.Thread.Sleep(100);
                 }
             }
-            if (thread_searchIP != null && thread_searchIP.IsAlive == true)
-            {
-                thread_searchIP.Join();
-            }
-
+            //marked by yunying shang 2018-02-05 for BMS　2241
+            //if (thread_searchIP != null && thread_searchIP.IsAlive == true)
+            //{
+            //    thread_searchIP.Join();
+            //}
+            //<<===================2241
             _bExitUpdater = true;
             _bExitCheckButton = true;
-            m_updaterAndUIEvent.WaitOne();            
+            m_updaterAndUIEvent.WaitOne();
             notifyIcon1.Visible = false;
-            SettingData.Serialize(g_settingData, App.cfgFile);       
+            SettingData.Serialize(g_settingData, App.cfgFile);
         }
   
         private void ControlBtnClick(object sender, RoutedEventArgs e)

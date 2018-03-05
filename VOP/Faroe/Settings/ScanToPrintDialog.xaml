@@ -184,7 +184,7 @@
                 Grid.Row="0"
                 Grid.Column="2"
                         HorizontalAlignment="Right"
-                Width="100"
+                Width="250"
                 Height="35" 
                 Content="{StaticResource ResStr_Setting}" 
                 FontSize="16"
