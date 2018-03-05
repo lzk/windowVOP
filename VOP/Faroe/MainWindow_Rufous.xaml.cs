@@ -195,7 +195,7 @@ namespace VOP
                             }
                             else
                             {
-                                dll.SetConnectionMode(MainWindow_Rufous.g_settingData.m_DeviceName, false);
+                                dll.SetConnectionMode(GetDeviceName(""), false);
                             }
                         }
                         else

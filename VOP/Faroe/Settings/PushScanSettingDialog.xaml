@@ -225,7 +225,7 @@
                 </Grid.ColumnDefinitions>
                 <!-- Title bar begin -->
                 <Border Name="TitleBar"  Background="Transparent" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
-                    <TextBlock x:Name="tbTitle" Text="{StaticResource ResStr_Faroe_pushscan_setting}" FontSize="15" FontWeight="Bold" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock x:Name="tbTitle" Text="{StaticResource ResStr_Faroe_scan_setting4}" FontSize="15" FontWeight="Bold" Foreground="#FF000000" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
 
                 <local:MinimizeCloseButton Width="30" HorizontalAlignment="Right"  Grid.Row="0" Grid.Column="3" MinimizeOrCloseStyle="Close" Click="ControlBtnClick" IsCancel="True" PreviewKeyDown="btnClose_PreviewKeyDown"/>

@@ -206,8 +206,8 @@ namespace VOP
 
                 if (//m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
                     (m_scanParams.PaperSize != EnumPaperSizeScan._Auto &&
-                    m_scanParams.PaperSize != EnumPaperSizeScan._Auto1) ||
-                    m_powermode > 1)
+                    m_scanParams.PaperSize != EnumPaperSizeScan._Auto1))
+                   // ||m_powermode > 1)
                 {
                     AutoCropOnButton.IsEnabled = false;
                     AutoCropOffButton.IsEnabled = false;
@@ -395,11 +395,20 @@ namespace VOP
                 if (rdbtn.Name == "AutoCropOnButton")
                 {
                     m_scanParams.AutoCrop = true;
+                    if (m_scanParams.SkipBlankPage == true)
+                        btnSkipBlankOn.IsChecked = true;
+                    else
+                        btnSkipBlankOff.IsChecked = true;
+                    btnSkipBlankOff.IsEnabled = true;
+                    btnSkipBlankOn.IsEnabled = true;
                     InitScanSize();
                 }
                 else if (rdbtn.Name == "AutoCropOffButton")
                 {
                     m_scanParams.AutoCrop = false;
+                    btnSkipBlankOff.IsChecked = false;
+                    btnSkipBlankOff.IsEnabled = false;
+                    btnSkipBlankOn.IsEnabled = false;
                     InitScanSize();
                 }
             }
@@ -545,31 +554,28 @@ namespace VOP
                             btnAutoColorOff.IsEnabled = true;
                             btnAutoColorOn.IsEnabled = true;
 
-                            if (m_scanParams.SkipBlankPage == true)
+                            if (btnAutoColorOff.IsChecked == false)
                             {
-                                btnSkipBlankOn.IsChecked = true;
+                                if (m_scanParams.SkipBlankPage == true)
+                                {
+                                    btnSkipBlankOn.IsChecked = true;
+                                }
+                                else
+                                {
+                                    btnSkipBlankOff.IsChecked = true;
+                                }
+
+                                btnSkipBlankOn.IsEnabled = true;
+                                btnSkipBlankOff.IsEnabled = true;
                             }
                             else
                             {
-                                btnSkipBlankOff.IsChecked = true;
+                                
+                                btnSkipBlankOff.IsChecked = true;                              
+
+                                btnSkipBlankOn.IsEnabled = true;
+                                btnSkipBlankOff.IsEnabled = true;
                             }
-
-                            btnSkipBlankOn.IsEnabled = true;
-                            btnSkipBlankOff.IsEnabled = true;
-
-                            //if (m_scanParams.ADFMode == true)
-                            //{
-                            //    oneSideButton.IsChecked = false;
-                            //    twoSideButton.IsChecked = true;
-                            //}
-                            //else
-                            //{
-                            //    oneSideButton.IsChecked = true;
-                            //    twoSideButton.IsChecked = false;
-                            //}
-
-                            //oneSideButton.IsEnabled = true;
-                            //twoSideButton.IsEnabled = true;
                         }
                     }
 
@@ -662,16 +668,21 @@ namespace VOP
 
                     if (btnAutoColorOff != null && btnAutoColorOn != null)
                     {
-                        if (m_scanParams.AutoColorDetect)
+                        //add by yunying shang 2018-03-05 for BMS 2510
+                        if (m_scanParams.PaperSize != EnumPaperSizeScan._LongPage)
+                            //<<========2510
                         {
-                            btnAutoColorOn.IsChecked = true;
+                            if (m_scanParams.AutoColorDetect)
+                            {
+                                btnAutoColorOn.IsChecked = true;
+                            }
+                            else
+                            {
+                                btnAutoColorOff.IsChecked = true;
+                            }
+                            btnAutoColorOn.IsEnabled = true;
+                            btnAutoColorOff.IsEnabled = true;
                         }
-                        else
-                        {
-                            btnAutoColorOff.IsChecked = true;
-                        }
-                        btnAutoColorOn.IsEnabled = true;
-                        btnAutoColorOff.IsEnabled = true;
                     }
                 }
                 else if (rdbtn.Name == "Grayscale")
@@ -773,11 +784,6 @@ namespace VOP
 
             m_scanParams = new ScanParam();
 
-            //add by yunying shang 2018-02-27 for BMS 2432
-            if (m_powermode > 1)
-            {
-                m_scanParams.AutoCrop = false;
-            }//<<================
             InitControls();
             InitScanResln();
             InitScanSize();
@@ -818,7 +824,7 @@ namespace VOP
                     m_scanParams.MultiFeed = false;
                 }
                 m_scanParams.ScanMediaType = EnumScanMediaType._Normal;
-                m_scanParams.AutoCrop = false;
+                //m_scanParams.AutoCrop = false;
 
                 if (m_powermode > 1 && m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
                 {
@@ -967,8 +973,8 @@ namespace VOP
             cboScanSize.Items.Add(cboItem);
 
             if (m_scanParams.ScanMediaType != EnumScanMediaType._BankBook &&
-            m_scanParams.ScanMediaType != EnumScanMediaType._Card &&
-            m_scanParams.AutoCrop == false)
+                m_scanParams.ScanMediaType != EnumScanMediaType._Card &&
+                btnAutoColorOn.IsChecked == false)//(m_scanParams.AutoCrop == false))// || m_powermode > 1))
             {
                 cboItem = new ComboBoxItem();
                 cboItem.Content = (string)this.TryFindResource("ResStr_A4_210_297mm_");

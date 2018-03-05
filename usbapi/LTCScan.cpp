@@ -1757,10 +1757,14 @@ USBAPI_API BOOL __stdcall TestIpConnected(wchar_t* szIP)
 USBAPI_API void __stdcall SetConnectionMode(
 	const wchar_t* deviceName, BOOL isUsb)
 {
-	if(isUsb)
+	if (isUsb)
+	{
 		_tcscpy_s(g_deviceName, 256, deviceName);
+	}
 	else
+	{
 		_tcscpy_s(g_ipAddress, 256, deviceName);
+	}
 	g_connectMode_usb = isUsb;
 }
 

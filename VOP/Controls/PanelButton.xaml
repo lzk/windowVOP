@@ -295,7 +295,7 @@
 
                             <TextBlock Grid.Row="0" Grid.Column="0"
                                             x:Name="adfInfoText"
-                                            Text="ADF Mode: "
+                                            Text="ADF Mode : "
                                             FontSize="12"
                                             Foreground="Black"    
                                             HorizontalAlignment="Left" 
