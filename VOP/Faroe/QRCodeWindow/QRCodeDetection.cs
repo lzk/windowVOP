@@ -476,8 +476,7 @@ namespace VOP
 
         public int Detect()
         {
-
-        int nResult = 0;
+            int nResult = 0;
             ArrayList resultArray = new ArrayList();
             string strPath = null;
             string strSubFileName = null;

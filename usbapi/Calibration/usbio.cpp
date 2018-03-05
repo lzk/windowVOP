@@ -26,8 +26,8 @@
 //#define CTRL_WRITE_RETRY  3
 //---------------------------
 // remove the following mark if need to check VID/PID
-#define USB_VID 0x04CA
-#define USB_PID 0x6010
+#define USB_VID 0x05e3
+#define USB_PID 0x0118
 //---------------------------
 
 HANDLE m_hDev, m_hIntrEvent;
