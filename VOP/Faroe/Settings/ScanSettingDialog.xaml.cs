@@ -554,6 +554,7 @@ namespace VOP
                             btnAutoColorOff.IsEnabled = true;
                             btnAutoColorOn.IsEnabled = true;
 
+                            //modified by yunying shang 2018-03-05 for BMS 2491
                             if (btnAutoColorOff.IsChecked == false)
                             {
                                 if (m_scanParams.SkipBlankPage == true)
@@ -573,9 +574,9 @@ namespace VOP
                                 
                                 btnSkipBlankOff.IsChecked = true;                              
 
-                                btnSkipBlankOn.IsEnabled = true;
-                                btnSkipBlankOff.IsEnabled = true;
-                            }
+                                btnSkipBlankOn.IsEnabled = false;
+                                btnSkipBlankOff.IsEnabled = false;
+                            }//<<================2491
                         }
                     }
 

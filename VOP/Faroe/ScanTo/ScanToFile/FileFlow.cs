@@ -56,17 +56,12 @@ namespace VOP
             System.IO.DriveInfo[] drives = System.IO.DriveInfo.GetDrives();
 
             foreach (System.IO.DriveInfo drive in drives)
-
             {
 
-                if (drive.Name == str_HardDiskName)
-
+                if (drive.Name == str_HardDiskName.ToUpper())//modified by yunying 2018-03-05 for BMS 2490
                 {
-
                     totalSize = drive.TotalFreeSpace / (1024 * 1024);
-
                 }
-
             }
 
             return totalSize;
