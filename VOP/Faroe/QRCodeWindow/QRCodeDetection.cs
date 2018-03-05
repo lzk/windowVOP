@@ -151,6 +151,8 @@ namespace VOP
     class QRCodeDetection
     {
         List<string> imagePath = null;
+        bool m_bCancel = false;
+
         public QRCodeDetection(List<string> path)
         {
             imagePath = path;
@@ -161,8 +163,13 @@ namespace VOP
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
+            m_bCancel = false;
+
             AsyncWorker worker = new AsyncWorker(parent);
-            worker.InvokeQRCodeDetectMethod(Detect);
+            int result = worker.InvokeQRCodeDetectMethod(Detect);
+
+            if (result == 2) //Cancel
+                m_bCancel = true;
 
             sw.Stop();
 
@@ -174,8 +181,13 @@ namespace VOP
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
+            m_bCancel = false;
+
             AsyncWorker worker = new AsyncWorker(parent);
-            worker.InvokeQRCodeDetectMethod(Separation);
+            int result = worker.InvokeQRCodeDetectMethod(Separation);
+
+            if (result == 2) //Cancel
+                m_bCancel = true;
 
             sw.Stop();
 
@@ -191,6 +203,9 @@ namespace VOP
 
             foreach (string fileName in imagePath)
             {
+                if (m_bCancel == true)
+                    break;
+
                 if (File.Exists(fileName))
                 {
                     try
@@ -263,7 +278,8 @@ namespace VOP
                 }
             }
 
-            SaveSeparatedFiles(SeparateArray);
+            if (m_bCancel == false)
+                SaveSeparatedFiles(SeparateArray);
 
             GC.Collect();
 
@@ -483,7 +499,10 @@ namespace VOP
 
             foreach (string fileName in imagePath)
             {
-                if(File.Exists(fileName))
+                if (m_bCancel == true)
+                    break;
+
+                if (File.Exists(fileName))
                 {
                     try
                     {
@@ -551,6 +570,9 @@ namespace VOP
 
                                 for (int index=0; index < nArraySize; index++)
                                 {
+                                    if (m_bCancel == true)
+                                        break;
+
                                     bool bFullImage = false;
                                     if (index == nArraySize - 1)
                                         bFullImage = true;
@@ -561,6 +583,9 @@ namespace VOP
                                         int nCount = results.Count();
                                         for (int i = 0; i < nCount; i++)
                                         {
+                                            if (m_bCancel == true)
+                                                break;
+
                                             if (ContentsExists(resultArray_inOneImage, results[i], lpRect[index]) == false)
                                             {
                                                 DetectResult detectResult = new DetectResult(fileName, results[i]);
@@ -824,7 +849,8 @@ namespace VOP
                 }
             }
 
-            WriteToHTML(strPath, resultArray);
+            if (m_bCancel == false)
+                WriteToHTML(strPath, resultArray);
 /*
             foreach (DetectResult detectResult in resultArray)
             {
