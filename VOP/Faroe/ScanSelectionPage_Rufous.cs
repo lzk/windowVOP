@@ -298,6 +298,7 @@ namespace VOP
                 QRCodeDetection qrcodeDetection = new QRCodeDetection(list);
                 if (btn.Name == "ImageButton1")
                 {
+                    //for(int i=0; i<100; i++)
                     qrcodeDetection.ExcuteDecode(m_MainWin);
                 }
                 else

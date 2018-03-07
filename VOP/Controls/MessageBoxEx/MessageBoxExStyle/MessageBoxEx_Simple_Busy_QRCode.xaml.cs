@@ -18,6 +18,9 @@ namespace VOP.Controls
     /// </summary>
     public partial class MessageBoxEx_Simple_Busy_QRCode : Window
     {
+        public MessageBoxExResult messageBoxExResult = MessageBoxExResult.None;
+        public bool m_bShowCancel = false;
+
         public MessageBoxEx_Simple_Busy_QRCode(string messageBoxText = "", string caption = "")
         {
             InitializeComponent();
@@ -31,6 +34,15 @@ namespace VOP.Controls
 
         private void window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (m_bShowCancel == true)
+            {
+                btnCancel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnCancel.Visibility = Visibility.Hidden;
+            }
+
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(Title_MouseButtonEventHandler);
         }
 
@@ -55,6 +67,7 @@ namespace VOP.Controls
 
         private void CancelClick(object sender, RoutedEventArgs e)
         {
+            messageBoxExResult = MessageBoxExResult.Cancel;
             this.Close();
         }
     }

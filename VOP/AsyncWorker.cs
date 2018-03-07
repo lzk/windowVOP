@@ -243,6 +243,7 @@ namespace VOP
                     isNeededProgress = true;
 
                     qr_pbw = new MessageBoxEx_Simple_Busy_QRCode((string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Decoding"));
+                    qr_pbw.m_bShowCancel = true;
                     qr_pbw.Owner = this.owner;
                     qr_pbw.Loaded += pbw_Loaded;
                     qr_pbw.ShowDialog();
@@ -251,6 +252,11 @@ namespace VOP
                 if (result.AsyncWaitHandle.WaitOne(100, true))
                 {
                     return 0;
+                }
+
+                if(qr_pbw.messageBoxExResult == MessageBoxExResult.Cancel)
+                {
+                    return 2;
                 }
             }
 
