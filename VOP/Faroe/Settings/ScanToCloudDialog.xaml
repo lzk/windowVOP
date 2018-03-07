@@ -152,14 +152,14 @@
                             <ComboBoxItem >OneDrive</ComboBoxItem>
                             <ComboBoxItem >GoogleDrive</ComboBoxItem>
                         </ComboBox>
-                        <TextBlock 
+                        <!--<TextBlock 
                 Grid.Row="2"
                 Grid.Column="0" Grid.ColumnSpan="3"
                 Name="tbReset"
                 FontSize="14"
                             FontWeight="Bold"
                 VerticalAlignment="Center" HorizontalAlignment="Left"
-                Text="{StaticResource ResStr_Reset_Access}" Margin="30,16,0,15"/>
+                Text="{StaticResource ResStr_Reset_Access}" Margin="30,16,0,15"/>-->
 
                         <Button
                 Grid.Row="2"

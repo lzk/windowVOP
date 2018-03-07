@@ -21,6 +21,7 @@ namespace VOP
     public partial class QRCodeBarcodeView : System.Windows.Controls.UserControl
     {
         //String oldPath = @"";
+        private int m_lastCodeType = -1;
 
         public QRCodeBarcodeView()
         {
@@ -30,6 +31,7 @@ namespace VOP
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            m_lastCodeType = MainWindow_Rufous.g_settingData.m_decodeType;
             cbCodeType.SelectedIndex = MainWindow_Rufous.g_settingData.m_decodeType;
 
             tbFileName.MaxLength = 50;
@@ -96,6 +98,58 @@ namespace VOP
             }
 
             return true;
+        }
+
+        private void cbCodeType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbCodeType.SelectedIndex != m_lastCodeType)
+            {
+
+                MainWindow_Rufous.g_settingData.m_decodeType = cbCodeType.SelectedIndex;
+                
+                m_lastCodeType = cbCodeType.SelectedIndex;
+            }
+        }
+
+        private void cbFileType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {           
+           MainWindow_Rufous.g_settingData.m_separateFileType = cbFileType.SelectedIndex;    
+        }
+
+        private void tbFileName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string str = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_could_not_be_empty");
+            string content = "";
+            string message = "";
+
+            if (tbFileName.Text.Trim() == "")
+            {
+                content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_Output_Result");
+                message = string.Format(str, content);
+
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                   System.Windows.Application.Current.MainWindow,
+                  message,//"The Output Result cannot be empty.",
+                  (string)this.TryFindResource("ResStr_Warning"));
+                return;
+            }
+
+            str = (string)this.TryFindResource("ResStr_Invalid_xxx");
+
+            if (!IsValidFileName(tbFileName.Text.Trim()))
+            {
+                content = (string)System.Windows.Application.Current.MainWindow.TryFindResource("ResStr_File_Name1");
+
+                message = string.Format(str, content);
+
+                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                    System.Windows.Application.Current.MainWindow,
+                   message,//"Invalid file name",
+                   (string)this.TryFindResource("ResStr_Warning"));
+                return;
+            }
+
+            MainWindow_Rufous.g_settingData.m_decodeResultFile = tbFileName.Text.Trim();
         }
 
         private void OkClick(object sender, RoutedEventArgs e)
@@ -227,6 +281,7 @@ namespace VOP
                             // oldPath = save.SelectedPath;
                             tbFilePath.Text = save.SelectedPath;
 
+                            MainWindow_Rufous.g_settingData.m_separateFilePath = tbFilePath.Text.Trim();
                             break;
                         }
                         else

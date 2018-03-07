@@ -343,6 +343,7 @@
             				VerticalAlignment="Center" 
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Left"
+                            SelectionChanged ="cbCodeType_SelectionChanged"
             				Width="200" 
             				Height="30" 
             				Margin="20,0,20,0" 
@@ -368,6 +369,7 @@
             				Margin="20,1,20,1" 
             				Text=""
                             FontWeight="Normal"
+                            LostFocus="tbFileName_LostFocus"
             				VerticalContentAlignment="Center" 
                                 />
                 </StackPanel>
@@ -417,6 +419,7 @@
             				Height="30" 
             				Margin="20,0" 
             				FontSize="12" FontWeight="Normal" 
+                            SelectionChanged ="cbFileType_SelectionChanged"
                                 >
                         <ComboBoxItem Content="PDF" />
                         <ComboBoxItem Content="TIFF" />

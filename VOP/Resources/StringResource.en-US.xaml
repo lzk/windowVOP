@@ -498,7 +498,7 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_File_Path">File Path :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Faroe_File_Path1">File Path</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Cloud_Type">Cloud Type :</sys:String>
-    <sys:String xml:space="preserve" x:Key="ResStr_Reset">Reset</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Reset">Switch Login User</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Email_Attachment_File_Type">Email Attachment File Type :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Reset_Access">Reset access token in cache :</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_Attachment_File_Type">Attachment File Type :</sys:String>
