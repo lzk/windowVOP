@@ -435,15 +435,15 @@ namespace VOP
             {
                 case 0:
                 case 180:
-                    scaling1 = ( this.scrollPreview.ActualWidth  -10 ) / previewImg.Source.Width;
-                    scaling2 = ( this.scrollPreview.ActualHeight -10 ) / previewImg.Source.Height;
+                    scaling1 = ( this.scrollPreview.ActualWidth  -50 ) / previewImg.Source.Width;
+                    scaling2 = ( this.scrollPreview.ActualHeight -50 ) / previewImg.Source.Height;
                     scaling0 = (scaling1 < scaling2) ? scaling1 : scaling2;                  
                     break;
                 case 90:
                 case 270:
                 case -90:
-                    scaling1 = ( this.scrollPreview.ActualWidth  -10 ) / previewImg.Source.Height;
-                    scaling2 = ( this.scrollPreview.ActualHeight -10 ) / previewImg.Source.Width;
+                    scaling1 = ( this.scrollPreview.ActualWidth  -50 ) / previewImg.Source.Height;
+                    scaling2 = ( this.scrollPreview.ActualHeight -50) / previewImg.Source.Width;
                     scaling0 = (scaling1 < scaling2) ? scaling1 : scaling2;                
                     break;            
             }

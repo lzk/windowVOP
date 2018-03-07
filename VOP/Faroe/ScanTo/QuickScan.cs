@@ -218,6 +218,10 @@ namespace VOP
                         win.messageBlock.Text = (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_print_ok");
                         win.ShowDialog();
                     }
+                    else
+                    {
+                        return Scan_RET.RETSCAN_ERROR;
+                    }
                 }
 
 

@@ -288,8 +288,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="10"></RowDefinition>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="6"></RowDefinition>
+            <RowDefinition Height="180"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
@@ -298,59 +297,48 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="20"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock
-        	Grid.Column="1"
-        	FontSize="14"
-        	FontWeight="Bold"
-        	VerticalAlignment="Center"
-        	Text="{StaticResource ResStr_Faroe_scan_setting}" 
-            HorizontalAlignment="Left" Grid.Row="1"/>
-        <Button
-            Name="tbSettings"
-        	Grid.Column="1"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Right"
-            Width="200"
-        	Height="34" 
-        	Content="{StaticResource ResStr_Setting}" 
-        	FontSize="14"
-       		Style="{StaticResource CustomSettingButtonStyle}"
-        	Click="Button_Click" Grid.Row="1"
-                />
-        <Canvas Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Margin="0,3">
-            <Path Stroke="LightGray" StrokeThickness="2">
-                <Path.Data>
-                    <LineGeometry StartPoint="0,4" EndPoint="455,2"></LineGeometry>
-                </Path.Data>
-            </Path>
-        </Canvas>
-        <Grid Grid.Row="3" Grid.Column="1" Margin="0,10,0,0">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="130" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="60" />
-            </Grid.RowDefinitions>
-            <GroupBox x:Name="QRCodeBarcodeGroup" Grid.Row="0" Header="{StaticResource ResStr_Faroe_QRBar_Code_Decode}" FontWeight="Bold" 
-                      FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="430"  Margin="5,5">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="45"/>
-                        <RowDefinition Height="45"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.ColumnSpan="2">
-                        <TextBlock 
+        <GroupBox x:Name="QRCodeBarcodeGroup" Grid.Row="1" Grid.Column="1" Header="{StaticResource ResStr_Faroe_QRBar_Code_Decode}" FontWeight="Bold" 
+                      FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="440"  Margin="5,5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.ColumnSpan="2">
+                    <TextBlock
+        	FontSize="12"
+        	FontWeight="Normal"
+        	VerticalAlignment="Center"
+                        Width="120"
+        	Text="{StaticResource ResStr_Faroe_scan_setting}" 
+            HorizontalAlignment="Left"/>
+                    <Button
+            Name="tbSettings"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+                        Margin="20,0,20,0" 
+            Width="200"
+        	Height="30"
+        	Content="{StaticResource ResStr_Setting}" 
+        	FontSize="12" FontWeight="Normal"
+       		Style="{StaticResource CustomSettingButtonStyle}"
+        	Click="Settings_Click"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.ColumnSpan="2">
+                    <TextBlock 
             				Text="{StaticResource ResStr_Faroe_Code_Type}" 
             				VerticalAlignment="Center"
                             Width="120"
                             FontWeight="Normal"
             				FontSize="12"  HorizontalAlignment="Left" 
                                 />
-                        <ComboBox 
+                    <ComboBox 
             				x:Name="cbCodeType"
             				VerticalAlignment="Center" 
                             VerticalContentAlignment="Center"
@@ -359,47 +347,68 @@
             				Height="30" 
             				Margin="20,0,20,0" 
             				FontSize="12" FontWeight="Normal">
-                            <ComboBoxItem Content="QR Code" />
-                            <ComboBoxItem Content="Bar Code" />
-                            <ComboBoxItem Content="All" />
-                        </ComboBox>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.ColumnSpan="2">
-                        <TextBlock 
+                        <ComboBoxItem Content="QR Code" />
+                        <ComboBoxItem Content="Bar Code" />
+                        <ComboBoxItem Content="All" />
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.ColumnSpan="2">
+                    <TextBlock 
             				Text="{StaticResource ResStr_Faroe_Output_Result}" 
             				VerticalAlignment="Center" FontWeight="Normal"
             				FontSize="12" HorizontalAlignment="Left" Width="120"
                                 />
-                        <TextBox 
+                    <TextBox 
             				x:Name="tbFileName"
             				Template="{StaticResource customTextBox}" 
             				VerticalAlignment="Center" HorizontalAlignment="Left"
                             SnapsToDevicePixels ="True"
             				Width="200" 
             				Height="30" 
-            				Margin="20,0, 20, 0" 
+            				Margin="20,1,20,1" 
             				Text=""
                             FontWeight="Normal"
             				VerticalContentAlignment="Center" 
                                 />
-                    </StackPanel>
-                </Grid>
-            </GroupBox>
-            <GroupBox x:Name="separateGroupBox" Grid.Row="1"  Header="{StaticResource ResStr_Faroe_Document_Separation}" FontWeight="Bold" 
-                      FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="430" Margin="5,1,0,0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="55"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20,1,20,4">
-                        <TextBlock 
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="separateGroupBox" Grid.Row="2" Grid.Column="1" Header="{StaticResource ResStr_Faroe_Document_Separation}" FontWeight="Bold" 
+                      FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="440" Margin="5,5,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="55"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.ColumnSpan="2">
+                    <TextBlock
+        	FontSize="12"
+        	FontWeight="Normal"
+        	VerticalAlignment="Center"
+                        Width="120"
+        	Text="{StaticResource ResStr_Faroe_scan_setting}" 
+            HorizontalAlignment="Left"/>
+                    <Button
+            Name="tbDocSettings"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+                        Margin="20,0,20,0" 
+            Width="200"
+        	Height="30"
+        	Content="{StaticResource ResStr_Setting}" 
+        	FontSize="12" FontWeight="Normal"
+       		Style="{StaticResource CustomSettingButtonStyle}"
+        	Click="Button_Click"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20,1,20,4">
+                    <TextBlock 
             				Text="{StaticResource ResStr_Faroe_Save_File_Type}" 
             				VerticalAlignment="Center" FontWeight="Normal"
             				FontSize="12" HorizontalAlignment="Left"  Width="120"
                                 />
-                        <ComboBox 
+                    <ComboBox 
             				x:Name="cbFileType"
             				VerticalAlignment="Center" 
             				VerticalContentAlignment="Center"
@@ -409,18 +418,17 @@
             				Margin="20,0" 
             				FontSize="12" FontWeight="Normal" 
                                 >
-                            <ComboBoxItem Content="PDF" />
-                            <ComboBoxItem Content="TIFF" />
-                        </ComboBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="20,5,20,0" Grid.Row="1">
-
-                        <TextBlock 
+                        <ComboBoxItem Content="PDF" />
+                        <ComboBoxItem Content="TIFF" />
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="20,5,20,0" Grid.Row="2">
+                    <TextBlock 
                     		Text="{StaticResource ResStr_Faroe_File_Path}" 
                     		VerticalAlignment="Center"
                     		FontSize="12" FontWeight="Normal" HorizontalAlignment="Left"  Width="120" Margin="0,11,0,18"
                                 />
-                        <TextBox 
+                    <TextBox 
                     		x:Name="tbFilePath"
                     		Template="{StaticResource customTextBox}" 
                     		VerticalAlignment="Center" 
@@ -434,29 +442,17 @@
                             IsTabStop="False"
                     		VerticalContentAlignment="Center" TextChanged="tbFilePath_TextChanged"
                                 />
-                    </StackPanel>
-                    <Button  Grid.Row="2"
+                </StackPanel>
+                <Button  Grid.Row="3"
             			FontSize="12" FontWeight="Normal"
             			Click="BrowseClick"
-                             Width="100" Height="34"
+                             Width="100" Height="30"
                              HorizontalAlignment="Right" VerticalAlignment="Center"
             			Style="{StaticResource CustomSettingButtonStyle}"
             			Content="{StaticResource ResStr_Faroe_Browse}" 
                             />
 
-                </Grid>
-            </GroupBox>
-            <!--<Button Grid.Row="2"
-            		HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    HorizontalContentAlignment="Center" 
-            		Width="150" 
-            		Height="35"
-            		FontSize="14"
-            		Click="OkClick"
-            		Style="{StaticResource CustomSettingButtonStyle}"
-            		Content="{StaticResource ResStr_Apply}" 
-                            />-->
-        </Grid>
+            </Grid>
+        </GroupBox>
     </Grid>
 </UserControl>

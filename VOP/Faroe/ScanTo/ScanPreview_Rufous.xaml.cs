@@ -649,22 +649,23 @@ namespace VOP
             double scaling2 = 1.0;
             double scaling0 = 1.0;
 
+            //modified by yunying shang 2018-03-06 for BMS 2534
             switch(m_rotatedAngle)
             {
                 case 0:
                 case 180:
-                    scaling1 = ( this.scrollPreview.ActualWidth  -10 ) / previewImg.Source.Width;
-                    scaling2 = ( this.scrollPreview.ActualHeight -10 ) / previewImg.Source.Height;
+                    scaling1 = ( this.scrollPreview.ActualWidth  -50 ) / previewImg.Source.Width;
+                    scaling2 = ( this.scrollPreview.ActualHeight -50 ) / previewImg.Source.Height;
                     scaling0 = (scaling1 < scaling2) ? scaling1 : scaling2;                  
                     break;
                 case 90:
                 case 270:
                 case -90:
-                    scaling1 = ( this.scrollPreview.ActualWidth  -10 ) / previewImg.Source.Height;
-                    scaling2 = ( this.scrollPreview.ActualHeight -10 ) / previewImg.Source.Width;
+                    scaling1 = ( this.scrollPreview.ActualWidth  -50 ) / previewImg.Source.Height;
+                    scaling2 = ( this.scrollPreview.ActualHeight -50 ) / previewImg.Source.Width;
                     scaling0 = (scaling1 < scaling2) ? scaling1 : scaling2;                
                     break;            
-            }
+            }//<<================2534
 
             previewImg.Width  = previewImg.Source.Width * scaling0;
             previewImg.Height = previewImg.Source.Height * scaling0;

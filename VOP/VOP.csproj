@@ -313,6 +313,7 @@
     <Compile Include="Faroe\Settings\AddQuickScanSetting.xaml.cs">
       <DependentUpon>AddQuickScanSetting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Faroe\Settings\DecodeScanSettingDialog.xaml.cs" />
     <Compile Include="Faroe\Settings\DeviceView.xaml.cs">
       <DependentUpon>DeviceView.xaml</DependentUpon>
     </Compile>
@@ -590,6 +591,10 @@
     <Page Include="Faroe\Settings\AddQuickScanSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Faroe\Settings\DecodeScanSettingDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Faroe\Settings\DeviceView.xaml">
       <SubType>Designer</SubType>

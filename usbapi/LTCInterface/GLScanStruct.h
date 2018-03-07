@@ -294,7 +294,8 @@ typedef struct SC_INFO_DATA_STRUCT {
 		UINT32 usb_disk_transfer_err : 1;
 		UINT32 ftp_transfer_err : 1;
 		UINT32 smb_transfer_err : 1;
-		UINT32 reserved : 22;
+		UINT32 memory_full_err : 1;
+		UINT32 reserved : 21;
 	} ErrorStatus;
 
 	struct {

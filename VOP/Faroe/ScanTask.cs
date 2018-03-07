@@ -355,8 +355,8 @@ next:
                         //modified by yunying shang 2018-01-09 for BMS 2021
                         //param.ADFMode = false;
                         param.AutoCrop = false;
-                       // param.MultiFeed = false;
-                       //<<==================2021
+                        // param.MultiFeed = false;
+                        //<<==================2021
                         if (param.PaperSize == EnumPaperSizeScan._LongPage)
                             param.PaperSize = EnumPaperSizeScan._Auto;
                         if (param.ScanMediaType > 0)
@@ -394,6 +394,15 @@ next:
                         }
                     }
                 }
+                //add by yunying shang 2018-03-05 for BMS 2512
+                else if (ScanResult == Scan_RET.RETSCAN_MEMORY_FULL)
+                {
+                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,
+                                Application.Current.MainWindow,
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_memory_full"),
+                               (string)Application.Current.MainWindow.TryFindResource("ResStr_Error")
+                                );
+                }//<<===========2512
                 else
                 {
                     VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple,

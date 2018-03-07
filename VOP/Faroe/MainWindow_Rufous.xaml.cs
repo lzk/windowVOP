@@ -50,6 +50,7 @@ namespace VOP
         public static byte m_byWifiInitStatus = 0;
         public string m_strPassword = "";
         public bool _bScanning = false;
+        public bool _bCancelPrint = false;
 
         private bool bGrayIcon = false; // True if the tray icon was set to gray.
         private const string USBSCANSTRING = "\\\\.\\usbscan";
@@ -75,6 +76,7 @@ namespace VOP
             scanButtonCheck = new Thread(CheckScanButton);
             scanButtonCheck.Start();
             //<<=================       
+
             
             this.SourceInitialized += new EventHandler(win_SourceInitialized);
 
@@ -144,6 +146,9 @@ namespace VOP
         public void LoadedMainWindow(object sender, RoutedEventArgs e)
         {
             g_settingData = SettingData.Deserialize(App.cfgFile);
+
+            //TitleBar.MouseLeftButtonDown += MyMouseButtonEventHandler;
+            TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(MyMouseButtonEventHandler);
 
             int iRtn = CheckDeviceStatus();
 
@@ -627,6 +632,7 @@ namespace VOP
                 scanDevicePage.m_MainWin = this;
             }
         }
+
         private void btnMinimize_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -637,6 +643,7 @@ namespace VOP
                 btnMinimize.Focusable = false;
             }            
         }
+
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -645,8 +652,14 @@ namespace VOP
                 e.Handled = true;
             }
         }
+
         public void MyMouseButtonEventHandler(Object sender, MouseButtonEventArgs e)
         {
+            if (_bCancelPrint)
+            {
+                _bCancelPrint = false;
+                return;
+            }
             this.DragMove();
         }
 
