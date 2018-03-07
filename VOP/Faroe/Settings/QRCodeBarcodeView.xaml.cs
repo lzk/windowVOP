@@ -288,11 +288,11 @@ namespace VOP
             ScanSettingDialog settingWin = new ScanSettingDialog();
             settingWin.Owner = m_MainWin;
 
-            settingWin.m_scanParams = (ScanParam)MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.Clone();
+            settingWin.m_scanParams = (ScanParam)MainWindow_Rufous.g_settingData.m_separationScanSettings.Clone();
 
             if (settingWin.ShowDialog() == true)
             {
-                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings = (ScanParam)settingWin.m_scanParams;
+                MainWindow_Rufous.g_settingData.m_separationScanSettings = (ScanParam)settingWin.m_scanParams;
             }
         }
 
@@ -301,17 +301,11 @@ namespace VOP
             DecodeScanSettingDialog settingWin = new DecodeScanSettingDialog();
             settingWin.Owner = m_MainWin;
 
-            ScanParam param = (ScanParam)MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.Clone();
 
-            settingWin.m_scanParams.PaperSize = param.PaperSize;
-            settingWin.m_scanParams.ScanMediaType = param.ScanMediaType;
-            settingWin.m_scanParams.MultiFeed = param.MultiFeed;
+            settingWin.m_scanParams = (ScanParamDecode)MainWindow_Rufous.g_settingData.m_decodeScanSettings.Clone();
             if (settingWin.ShowDialog() == true)
             {
-                param.MultiFeed = settingWin.m_scanParams.MultiFeed;
-                param.PaperSize = settingWin.m_scanParams.PaperSize;
-                param.ScanMediaType = settingWin.m_scanParams.ScanMediaType;
-                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings = (ScanParam)param;
+                MainWindow_Rufous.g_settingData.m_decodeScanSettings = (ScanParamDecode)settingWin.m_scanParams;
             }
         }
     }

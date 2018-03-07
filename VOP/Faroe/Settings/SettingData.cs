@@ -63,7 +63,8 @@ namespace VOP
         public string m_QRcode_decode_hardest_level = "Standard";
 
         //QRCode/Barcode decode and separation
-        public ScanParam m_qrcodebarcodeScanSettings = new ScanParam();
+        public ScanParam m_separationScanSettings = new ScanParam();
+        public ScanParamDecode m_decodeScanSettings = new ScanParamDecode();
 
         //Cloud
         public ScanParam m_cloudScanSettings = new ScanParam();

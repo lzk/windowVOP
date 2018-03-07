@@ -208,16 +208,17 @@ namespace VOP
             ScanParam param = new ScanParam(
                 EnumScanResln._300x300,
                 EnumScanMediaType._Normal,
-                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.PaperSize,//EnumPaperSizeScan._A4,//Devid for bms#0001761
+                //MainWindow_Rufous.g_settingData.m_separationScanSettings.PaperSize,//
+                EnumPaperSizeScan._Auto,//Devid for bms#0001761
                 EnumColorType.color_24bit,
                 false,
-                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.MultiFeed,
-                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.AutoCrop,
-                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.Brightness,
-                MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings.Contrast,
-                MainWindow_Rufous.g_settingData.m_commonScanSettings.AutoColorDetect,
-                MainWindow_Rufous.g_settingData.m_commonScanSettings.SkipBlankPage,
-                MainWindow_Rufous.g_settingData.m_commonScanSettings.Gamma,
+                MainWindow_Rufous.g_settingData.m_separationScanSettings.MultiFeed,
+                false,//MainWindow_Rufous.g_settingData.m_separationScanSettings.AutoCrop,
+                0,//MainWindow_Rufous.g_settingData.m_separationScanSettings.Brightness,
+                0,//MainWindow_Rufous.g_settingData.m_separationScanSettings.Contrast,
+                false,//MainWindow_Rufous.g_settingData.m_commonScanSettings.AutoColorDetect,
+                false,//MainWindow_Rufous.g_settingData.m_commonScanSettings.SkipBlankPage,
+                1.8,//MainWindow_Rufous.g_settingData.m_commonScanSettings.Gamma,
                 false);
 
 
@@ -252,7 +253,14 @@ namespace VOP
 //# elif (!DEBUG)
 
             if (btn.Name == "ImageButton2")
-                param = MainWindow_Rufous.g_settingData.m_qrcodebarcodeScanSettings;
+                param = MainWindow_Rufous.g_settingData.m_separationScanSettings;
+
+            if (btn.Name == "ImageButton1")
+            {
+                param.PaperSize = MainWindow_Rufous.g_settingData.m_decodeScanSettings.PaperSize;
+                param.MultiFeed = MainWindow_Rufous.g_settingData.m_decodeScanSettings.MultiFeed;
+                param.ScanMediaType = MainWindow_Rufous.g_settingData.m_decodeScanSettings.ScanMediaType;
+            }
 
             string oldPictureFolder = App.PictureFolder;
             App.PictureFolder = App.cacheFolder;
