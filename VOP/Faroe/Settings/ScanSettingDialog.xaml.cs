@@ -972,8 +972,8 @@ namespace VOP
             cboScanSize.Items.Add(cboItem);
 
             if (m_scanParams.ScanMediaType != EnumScanMediaType._BankBook &&
-                m_scanParams.ScanMediaType != EnumScanMediaType._Card &&
-                btnAutoColorOn.IsChecked == false)//(m_scanParams.AutoCrop == false))// || m_powermode > 1))
+                m_scanParams.ScanMediaType != EnumScanMediaType._Card)
+               // && AutoCropOnButton.IsChecked == false)//(m_scanParams.AutoCrop == false))// || m_powermode > 1))
             {
                 cboItem = new ComboBoxItem();
                 cboItem.Content = (string)this.TryFindResource("ResStr_A4_210_297mm_");
