@@ -137,6 +137,13 @@ int Load_ScanParameter(SC_PAR_T_ *par)
 			img->height = IMG_A4_300_DOT_Y *img->dpi.y/300;
 			break;
 
+		case DOC_SIZE_A6:
+			img->width = IMG_A6_300_DOT_X * img->dpi.x / 300;
+			img->org.x = IMG_A6_300_ORG_X * img->dpi.x / 300;
+
+			img->height = IMG_A6_300_DOT_Y *img->dpi.y / 300;
+			break;
+
 		case DOC_SIZE_LT:
 			img->width = IMG_LT_300_DOT_X * img->dpi.x/300;
 			img->org.x = IMG_LT_300_ORG_X * img->dpi.x/300;
@@ -144,7 +151,7 @@ int Load_ScanParameter(SC_PAR_T_ *par)
 			img->height = IMG_LT_300_DOT_Y *img->dpi.y/300;
 			break;
 
-                case DOC_SIZE_LG14:
+        case DOC_SIZE_LG14:
 			img->width = IMG_LG14_300_DOT_X * img->dpi.x/300;
 			img->org.x = IMG_LG14_300_ORG_X * img->dpi.x/300;
 
@@ -156,6 +163,13 @@ int Load_ScanParameter(SC_PAR_T_ *par)
 			img->org.x = IMG_LL_300_ORG_X * img->dpi.x/300;
 
 			img->height = IMG_LL_300_DOT_Y *img->dpi.y/300;
+			break;
+
+		case DOC_CHART_A01:
+			img->width = IMG_CHART_A01_300_DOT_X * img->dpi.x/300;
+			img->org.x = IMG_CHART_A01_300_ORG_X * img->dpi.x/300;
+
+			img->height = IMG_CHART_A01_300_DOT_Y *img->dpi.y/300;
 			break;
 
 		case DOC_FB_LIFE:

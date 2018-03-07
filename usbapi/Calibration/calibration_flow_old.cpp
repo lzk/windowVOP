@@ -1,3 +1,4 @@
+
 #include <windows.h>
 #include <stdio.h>
 #include <conio.h>
@@ -7,13 +8,12 @@
 #include "EdgeDetect.h"
 #include <time.h>
 
-
 #define Show_Time_Cost
 #define Save_LED_AFE_Profile
 #define Save_Shading_Profile
 #define Save_IMG_CHK_Profile
 
-
+#define DARK_DATA_ORGANIZE_NEW
 #define LED_SHUTTER_FAST_CAL
 
 #ifdef Taiga
@@ -27,6 +27,11 @@
 #endif
 
 
+//#define HT82V38
+//#define WM8234
+#ifdef Faroe
+#define CALIBRATION_ALL
+#endif
 extern SC_PAR_T_ k_scan_par;
 extern U8 SCAN_DOC_SIZE;
 extern int bSaveFile;
@@ -43,11 +48,13 @@ U8 K_img_buf[2][0x3200000];		//2 x 50 MB for prefeed/postfeed scan buf
 U32 K_img_size[2];	//Currently K image data size
 U8 K_shad16_data[2][184*1024]; // 2 x 184KB  // 1200dpi one line (13" max)
 U8 K_shad_data[2][184*1024];
-
+#define K_LINES 48
+U32 K_lines;
 
 CALIBRATION_CAP_T_ K_Cap;
 CALIBRATION_SET_T_ K_Set;
 
+#define CALIBRATION_16BIT_DARK
 
 //-------- Calibration target define------------
 //--------AFE offset cal---------
@@ -62,16 +69,42 @@ CALIBRATION_SET_T_ K_Set;
 #define CAL_EXP_MINUS_C		15	//Pixel count
 #define CAL_EXP_MINUS_G		5
 
-//-------AFE gain cal--------
+
 #define CAL_AFE_WHITE		(175 * 0x100)	//color level
 
-//-----------------------------
+
+#ifdef WM8234
+#define AFE_MINUS			0.3	// V/V
+#endif
+
+#ifdef HT82V38
+//Special, not linear
+#endif
+
+
 #define DARK_DROP			IMG_K_PRUN_300_DOT_Y/4		
 #define WHITE_DROP			IMG_K_PRUN_300_DOT_Y/4	
 
-//-------Shading white target---------
-U16 SHD_WHITE_TARGET[2][3]; //For A/B side white shading target R/G/B
+#if K_ADF_ROLLER
 
+#define CAL_SHADING_WHITE_A_R	(233 * 0x100)
+#define CAL_SHADING_WHITE_A_G	(242 * 0x100)
+#define CAL_SHADING_WHITE_A_B	(243 * 0x100)  //20161122
+
+#define CAL_SHADING_WHITE_B_R	(233 * 0x100)
+#define CAL_SHADING_WHITE_B_G	(242 * 0x100)
+#define CAL_SHADING_WHITE_B_B	(243 * 0x100)
+
+#else
+/*
+#define CAL_SHADING_WHITE_A_R	(200 * 0x100)
+#define CAL_SHADING_WHITE_A_G	(209 * 0x100)
+#define CAL_SHADING_WHITE_A_B	(210 * 0x100)
+
+#define CAL_SHADING_WHITE_B_R	(200 * 0x100)
+#define CAL_SHADING_WHITE_B_G	(209 * 0x100)
+#define CAL_SHADING_WHITE_B_B	(210 * 0x100)
+*/
 #define SHD_WHITE_TARGET_A_R_TYPE1	(233 * 1.078 * 0x100)
 #define SHD_WHITE_TARGET_A_G_TYPE1	(230 * 1.078 * 0x100)
 #define SHD_WHITE_TARGET_A_B_TYPE1	(223 * 1.12 * 0x100)
@@ -87,29 +120,11 @@ U16 SHD_WHITE_TARGET[2][3]; //For A/B side white shading target R/G/B
 #define SHD_WHITE_TARGET_B_R_TYPE2	(200 * 0x100)
 #define SHD_WHITE_TARGET_B_G_TYPE2	(209 * 0x100)
 #define SHD_WHITE_TARGET_B_B_TYPE2	(210 * 0x100)
-//------------------------------------
 
-//-------Shading dark target---------
-U16 SHD_DARK_TARGET[2][3]; //For A/B side dark shading target R/G/B
+#endif
 
-#define SHD_DARK_TARGET_A_R_TYPE1	(7 * 0x100)
-#define SHD_DARK_TARGET_A_G_TYPE1	(7 * 0x100)
-#define SHD_DARK_TARGET_A_B_TYPE1	(7 * 0x100)
-
-#define SHD_DARK_TARGET_B_R_TYPE1	(7 * 0x100)
-#define SHD_DARK_TARGET_B_G_TYPE1	(7 * 0x100)
-#define SHD_DARK_TARGET_B_B_TYPE1	(7 * 0x100)
-
-#define SHD_DARK_TARGET_A_R_TYPE2	(7 * 0x100)
-#define SHD_DARK_TARGET_A_G_TYPE2	(7 * 0x100)
-#define SHD_DARK_TARGET_A_B_TYPE2	(7 * 0x100)
-
-#define SHD_DARK_TARGET_B_R_TYPE2	(7 * 0x100)
-#define SHD_DARK_TARGET_B_G_TYPE2	(7 * 0x100)
-#define SHD_DARK_TARGET_B_B_TYPE2	(7 * 0x100)
-
-
-#define GL3466_SHD_GAIN_BASE	0x2000
+//--------------------
+U16 SHD_WHITE_TARGET[2][3]; //For A/B side white shading target R/G/B
 
 
 //-------------------
@@ -199,37 +214,50 @@ void Save_Shading(SC_PAR_T_ *par, U16 *img_buf, U32 *shd_buf, U32 gain, U8 dup)
 		printf("can't open file shading csv!!\n");
 	else{
 		if(par->acquire & ACQ_LAMP_OFF) {
-
+#ifdef DARK_DATA_ORGANIZE_NEW
 			/*Offset*/
 			fprintf(fcsv, "dg, offset_r, offset_g, offset_b\n");
 			for(i=0;i<dot_x;i++) {
 				if(par->img.mono == IMG_COLOR) {
 					//Color
 					fprintf(fcsv, "%d, %d, %d, %d\n",
-							img_buf[i], (shd_buf[i])&0xffff, (shd_buf[i+dot_x])&0xffff, (shd_buf[i+dot_x*2])&0xffff
+							img_buf[i], shd_buf[i]-gain, shd_buf[i+dot_x]-gain, shd_buf[i+dot_x*2]-gain
 						);
 				}
 				else {
 					//Mono
-					fprintf(fcsv, "%d, %d\n", img_buf[i], (shd_buf[i])&0xffff);
+					fprintf(fcsv, "%d, %d\n", img_buf[i], shd_buf[i]-gain);
 				}
 			}
-
-		}
-		else {
-			/*Gain*/
-			fprintf(fcsv, "wr, wg, wb, gainr, gaing, gainb, gain16r, gain16g, gain16b\n");
+#else
+			/*Offset*/
+			fprintf(fcsv, "dr, dg, db, offset_r, offset_g, offset_b\n");
 			for(i=0;i<dot_x;i++) {
 				if(par->img.mono == IMG_COLOR) {
 					//Color
-					fprintf(fcsv, "%d, %d, %d, %f, %f, %f, %f, %f, %f\n",
+					fprintf(fcsv, "%d, %d, %d, %d, %d, %d\n",
+							img_buf[i*3], img_buf[i*3+1], img_buf[i*3+2],
+							shd_buf[i]-gain, shd_buf[i+dot_x]-gain, shd_buf[i+dot_x*2]-gain
+						);
+				}
+				else {
+					//Mono
+					fprintf(fcsv, "%d, %d\n", img_buf[i], shd_buf[i]-gain);
+				}
+			}
+#endif
+		}
+		else {
+			/*Gain*/
+			fprintf(fcsv, "wr, wg, wb, gainr, gaing, gainb\n");
+			for(i=0;i<dot_x;i++) {
+				if(par->img.mono == IMG_COLOR) {
+					//Color
+					fprintf(fcsv, "%d, %d, %d, %f, %f, %f\n",
 							img_buf[i*3], img_buf[i*3+1], img_buf[i*3+2],
 							((float)(shd_buf[i] >> 16)/((float)gain)), 
 							((float)(shd_buf[i+dot_x] >> 16)/(float)gain), 
-							((float)(shd_buf[i+dot_x*2] >> 16)/(float)gain),
-							((float)(shd_buf[i] >> 16)), 
-							((float)(shd_buf[i+dot_x] >> 16)), 
-							((float)(shd_buf[i+dot_x*2] >> 16))
+							((float)(shd_buf[i+dot_x*2] >> 16)/(float)gain)
 						);
 				}
 				else {
@@ -261,6 +289,7 @@ void Save_img(SC_PAR_T_ *par, U16 *img_buf, U8 dup)
 	else{
 		if(par->acquire & ACQ_LAMP_OFF) {
 			/*Offset*/
+#ifdef DARK_DATA_ORGANIZE_NEW
 			fprintf(fcsv, "dg\n");
 			for(i=0;i<dot_x;i++) {
 				if(par->img.mono == IMG_COLOR) {
@@ -272,6 +301,21 @@ void Save_img(SC_PAR_T_ *par, U16 *img_buf, U8 dup)
 					fprintf(fcsv, "%d\n", img_buf[i]);
 				}
 			}
+#else
+			fprintf(fcsv, "dr, dg, db\n");
+			for(i=0;i<dot_x;i++) {
+				if(par->img.mono == IMG_COLOR) {
+					//Color
+					fprintf(fcsv, "%d, %d, %d\n",
+							img_buf[i*3], img_buf[i*3+1], img_buf[i*3+2]
+						);
+				}
+				else {
+					//Mono
+					fprintf(fcsv, "%d\n", img_buf[i]);
+				}
+			}
+#endif
 		}
 		else {
 			/*Gain*/
@@ -336,15 +380,8 @@ int cal_img_buf_store(int dup, void *img, int size)
 	K_img_size[dup] += size;
   }
   else {  // reset memory pointer
-	if(dup == 0) { //Park@ temp use for white shading need white A/B and dark A/B total 4 image in the same time
-		K_img[0] = (U16*)K_img_buf[0];
-		K_img[1] = (U16*)K_img_buf[1];
-	}
-	else {
-		K_img[0] = (U16*)&K_img_buf[0][0x1900000];
-		K_img[1] = (U16*)&K_img_buf[1][0x1900000];
-	}
-
+    K_img[0] = (U16*)K_img_buf[0];
+    K_img[1] = (U16*)K_img_buf[1];
 	K_img_size[0] = 0;
 	K_img_size[1] = 0;
   }
@@ -547,7 +584,6 @@ int cal_set_def(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
 }
 
 extern int Scan_Set_Calibration(CALIBRATION_CAP_T_ *cap);
-
 int cal_set_def_shading_only(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
 {
   int i;
@@ -564,8 +600,8 @@ int cal_set_def_shading_only(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
     return FALSE;
   if(!Scan_Cap_Calibration(cap))
     return FALSE; 
-  if (!Scan_Set_Calibration((CALIBRATION_CAP_T_ *)set))
-	  return FALSE;
+  if(!Scan_Set_Calibration((CALIBRATION_CAP_T_ *)set))
+    return FALSE;  
 
 
   //memset(set, 0, sizeof(CALIBRATION_SET_T_));
@@ -639,7 +675,11 @@ AFE_OFFSET_CHK:
     offset = set->afe[i].offset;
     gain = set->afe[i].gain;
 
+#ifdef DARK_DATA_ORGANIZE_NEW
 	_cal_min_iterate(buf, dot * color_loop, k_scan_par.img.height, (color_loop==3) ? one_channel_cal : 0);
+#else
+	_cal_average_iterate(buf, dot * color_loop, k_scan_par.img.height);
+#endif
 
 		//Image profile
 #ifdef Save_IMG_CHK_Profile
@@ -649,11 +689,14 @@ AFE_OFFSET_CHK:
     if(seg > 1) {
 	  TMP_NOT_OK = 0;
       for(j = 0; j < seg; j++) {
+#ifdef DARK_DATA_ORGANIZE_NEW
 		  if(one_channel_cal)
 			SEG_AFE_DARK = _cal_find_min(&buf[seg_dot*j], 1, seg_dot);
 		  else
 		    SEG_AFE_DARK = _cal_find_min(&buf[seg_dot*color_loop*j], 1, seg_dot*color_loop);
-
+#else
+		  SEG_AFE_DARK = _cal_find_min(&buf[seg_dot*color_loop*j], 1, seg_dot*color_loop);
+#endif
 		  if((SEG_AFE_DARK < (CAL_AFE_DARK - CAL_AFE_DARK_THD)) 
 			  || (SEG_AFE_DARK > (CAL_AFE_DARK + CAL_AFE_DARK_THD))) {
 			TMP_NOT_OK = 1;
@@ -708,6 +751,115 @@ void _cal_check_exposure_time(U32 *exp, int color, int max, int min)
   }
 }
 
+#if 0	//Origin
+
+int cal_exposure_time(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
+{
+  int i, j, k;
+  int color_loop = (k_scan_par.img.mono == 4) ? 1:3;
+  U32 *exp, dot;
+  U16 white[3], *buf;
+  U16 white_min[2]={0, 0};
+
+  U8 SIDE_K[2]={0, 0};
+  U8 CYCLE_COUNT[2]={0, 0};
+  U8 TMP_NOT_OK=0;
+
+  SIDE_K[0] = k_scan_par.duplex & SCAN_A_SIDE;
+
+  SIDE_K[1] = (k_scan_par.duplex & SCAN_B_SIDE) >> 1;
+
+  user_param(ACQ_CALIBRATION|ACQ_MOTOR_OFF|ACQ_NO_PP_SENSOR|ACQ_NO_MIRROR|ACQ_NO_SHADING);  //Park test
+
+EXP_CHK:
+
+	  if(!Scan_Param())
+	  return FALSE;
+	  //Sleep(200);
+	  cal_img_buf_store(0, 0, 0);
+	  if(!Scan_Shad_Calibration(set) || !job_Scan()/* || !job_Wait(JOB_SCAN, 1)*/)
+		return FALSE;
+
+
+	  for (i = 0; i < 2; i++) {
+		if(SIDE_K[i] == 0)
+			continue;
+
+		buf = (U16*)K_img_buf[i];
+		dot = cap->ccd[i].dot;
+		exp = set->ccd[i].exp;
+
+		//_cal_average_iterate(buf, dot * color_loop, k_scan_par.img.height);
+		_cal_ave_sort_iterate(buf, dot * color_loop, k_scan_par.img.height);
+
+		for(j = 0; j < color_loop; j++) {
+		  white[j] = _cal_find_max(&buf[j], color_loop, dot);
+		  //white[j] = _cal_find_max(&buf[j], color_loop, dot*k_scan_par.img.height);
+		  //white[j] = _cal_average_data(&buf[j], color_loop, dot);
+		  //printf("white[%d] = %d\n", j, white[j]/256);
+		}
+
+		if(CYCLE_COUNT[i] == 0) {
+			white_min[i] = _cal_find_min(white, 1, color_loop);
+
+			white_min[i] = (white_min[i] > CAL_EXP_WHITE) ? CAL_EXP_WHITE:white_min[i];
+		}
+
+		TMP_NOT_OK = 0;
+		for(j = 0; j < color_loop; j++) {
+
+			if(white[j] < (white_min[i] - CAL_EXP_THD)) {
+				TMP_NOT_OK = 1;
+				//exp[j] = exp[j] * white_min / white[j];
+				if(k_scan_par.img.mono)
+					exp[j] += CAL_EXP_MINUS_G; //park test
+					//exp[j] += (CAL_EXP_MINUS*5);
+				else
+					exp[j] += CAL_EXP_MINUS_C;
+			}
+			else if(white[j] > (white_min[i] + CAL_EXP_THD)) {
+				TMP_NOT_OK = 1;
+				if(k_scan_par.img.mono)
+					exp[j] -= CAL_EXP_MINUS_G; //park test
+					//exp[j] -= (CAL_EXP_MINUS*5);
+				else
+					exp[j] -= CAL_EXP_MINUS_C;
+			}
+		}
+
+		if(!TMP_NOT_OK) {
+			SIDE_K[i] = 0;
+		}
+		else {
+			CYCLE_COUNT[i]++;
+		}
+
+		for(;j < 3; j++)
+			  exp[j] = exp[0];
+
+
+		_cal_check_exposure_time(exp, j, cap->ccd[i].exp_max, cap->ccd[i].exp_min);
+
+	  }
+
+ 
+
+  if( !(SIDE_K[0]|SIDE_K[1]) || (CYCLE_COUNT[0] == (CAL_EXP_ABORT+1)) || (CYCLE_COUNT[1] == (CAL_EXP_ABORT+1))) {
+	if((CYCLE_COUNT[0] == (CAL_EXP_ABORT+1)) || CYCLE_COUNT[1] == (CAL_EXP_ABORT+1)) {
+	  EXP_ABORT = 1;
+	}
+	goto EXP_OK;
+  }
+  else {
+	goto EXP_CHK;
+  }
+
+EXP_OK:
+
+  return TRUE;
+}
+
+#else	//New 20170222
 
 int cal_exposure_time(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
 {
@@ -917,6 +1069,7 @@ EXP_OK:
   return TRUE;
 }
 
+#endif
 
 int cal_exposure_balance(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
 {
@@ -1035,7 +1188,6 @@ void _cal_check_gain(U16 *gain, int channel, int max, int min)
   }
 }
 
-
 int cal_prefeed(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
 {
 	U8 i = 0;
@@ -1085,7 +1237,7 @@ int cal_prefeed(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
 	height = K_img_size[0]/(k_scan_par.img.mono == IMG_COLOR ? 3 : 1)/k_scan_par.img.width;
 
 	//EdgeDetectColor8(buf, IMG_K_PREFEED_300_DOT_X, IMG_K_PREFEED_300_DOT_Y, &leadingEdge, &leftEdge, &rightEdge, isSideB);
-	EdgeDetect8((unsigned char *)buf, width, height, &leadingEdge, &leftEdge, &rightEdge, (k_scan_par.img.mono == IMG_COLOR) ? 3 : 1, isSideB);
+	EdgeDetect8((unsigned char *)buf, width, height, &leadingEdge, &leftEdge, &rightEdge, (k_scan_par.img.mono == IMG_COLOR) ? 3:1, isSideB);
 
 
 	set->me.prefeed = 100*leadingEdge/k_scan_par.img.dpi.y;
@@ -1155,7 +1307,7 @@ int cal_postfeed(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
 	//printf("K_img_size[0]/3/IMG_K_PREFEED_300_DOT_X = %d\n", K_img_size[0]/3/IMG_K_PREFEED_300_DOT_X);
 
 	//EdgeDetectColor8Trailing(buf, IMG_K_PREFEED_300_DOT_X, K_img_size[0]/3/IMG_K_PREFEED_300_DOT_X, &trailingEdge, isSideB);
-	EdgeDetect8Trailing((unsigned char *)buf, IMG_K_PREFEED_300_DOT_X, K_img_size[0] / 3 / IMG_K_PREFEED_300_DOT_X, &trailingEdge, (k_scan_par.img.mono == IMG_COLOR) ? 3 : 1, isSideB);
+	EdgeDetect8Trailing((unsigned char *)buf, IMG_K_PREFEED_300_DOT_X, K_img_size[0]/3/IMG_K_PREFEED_300_DOT_X, &trailingEdge, (k_scan_par.img.mono == IMG_COLOR) ? 3:1, isSideB);
 
 	//printf("trailingEdge = %d\n", trailingEdge);
 
@@ -1244,11 +1396,11 @@ int cal_AFE_gain(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
   return TRUE;
 }
 
-void _cal_construct_dark16(U16 *data, U32 *shad, int next_data, int next_shad, int num, U32 gain_base, U16 dark_target)
+void _cal_construct_dark16(U16 *data, U32 *shad, int next_data, int next_shad, int num, U32 gain)
 {
   U16 *last_data = data + next_data*num;
   while(data < last_data) {
-	*shad += (*data - dark_target)*gain_base/(*shad >> 16);
+    *shad = gain + *data;
     data += next_data;
     shad += next_shad;
   }
@@ -1310,7 +1462,7 @@ void _cal_do_shift_dark(U32 *src, U16 *dst, int num, int dark_digit, int dark_sh
 }
 
 
-#if 0
+
 int cal_dark_shading(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
 {
   int i, j;
@@ -1331,6 +1483,7 @@ int cal_dark_shading(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
   }
   else {
 	  user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_LAMP_OFF|ACQ_MOTOR_OFF|ACQ_NO_MIRROR|ACQ_NO_SHADING);
+	  //user_param(ACQ_CALIBRATION|ACQ_LAMP_OFF|ACQ_NO_MIRROR|ACQ_NO_SHADING);
   }
   if(!Scan_Param())
     return FALSE;
@@ -1349,21 +1502,38 @@ int cal_dark_shading(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
     set->shd[i].gain_base = 8;  // default digital gain base
     gain = (0x10000 / set->shd[i].gain_base) << 16;
 
+#ifdef DARK_DATA_ORGANIZE_NEW
 	//_cal_min_iterate(buf, dot*color_loop, k_scan_par.img.height, one_channel_cal);
 	_cal_average_iterate2(buf, dot*color_loop, k_scan_par.img.height, one_channel_cal);
+#else
+    _cal_average_iterate(buf, dot*color_loop, k_scan_par.img.height); 
+#endif
 
 #if 1	//Dark min protect check
-
+	#ifdef DARK_DATA_ORGANIZE_NEW
 	//if(SIDE_K[i] == 1) {
 	if(_cal_find_min(buf, 1, (one_channel_cal == 0) ? (dot * color_loop) : dot ) == 0) {
 				printf("Dark shading fail: Image dark min = 0!!!\n");
 			//return FALSE;
 			}
 	//}
-#endif
+	#else
+	//if(SIDE_K[i] == 1) {
+		if(_cal_find_min(buf, 1, dot * color_loop) == 0) {
+			printf("Dark shading fail: Image dark min = 0!!!\n");
+			//return FALSE;
+		}
+	//}
+	#endif
+
+		#endif
 
 	for(j = 0; j < color_loop; j++) {
+#ifdef DARK_DATA_ORGANIZE_NEW
 		_cal_construct_dark16(buf, &dark_buf[j*dot], 1, 1, dot, gain);
+#else
+		_cal_construct_dark16(&buf[j], &dark_buf[j*dot], color_loop, 1, dot, gain);
+#endif
 	}
 
 	//Save shading profile
@@ -1406,117 +1576,78 @@ int cal_dark_shading(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
 
   return TRUE;
 }
-#else
-int cal_dark_shading(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
+
+
+int cal_dark_shading_only(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
 {
   int i, j;
   int color_loop = (k_scan_par.img.mono == 4) ? 1:3;
   U32 dot;
-  U16 *buf, *shad_data;
-  U32 gain, gain_base, *dark_buf, dark_shift, dark_digit;
+  U16 *buf, *shad_data/*, dark_min, dark_max*/;
+  U32 gain, *dark_buf, dark_shift, dark_digit;
   U8 SIDE_K[2]={0, 0};
-  U16 one_channel_cal = 2; //0:Color, 1:R, 2:G, 3:B
-  U16 dark_target[2][3];
 
 
   SIDE_K[0] = k_scan_par.duplex & SCAN_A_SIDE;
 
   SIDE_K[1] = (k_scan_par.duplex & SCAN_B_SIDE) >> 1;
 
-  if(k_scan_par.source == I3('ADF')) {
-
-	  user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_LAMP_OFF|ACQ_MOTOR_OFF|ACQ_NO_MIRROR);
+  if(k_scan_par.source == I3('ADF')) { //Park test
+	  user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_LAMP_OFF|ACQ_MOTOR_OFF|ACQ_NO_MIRROR|ACQ_NO_SHADING);
   }
   else {
-	  
+	user_param(ACQ_CALIBRATION|ACQ_LAMP_OFF|ACQ_NO_MIRROR|ACQ_NO_SHADING);
   }
   if(!Scan_Param())
     return FALSE;
-
   cal_img_buf_store(0, 0, 0);
 
-  if(!Scan_Shad_Calibration(set))
-   return FALSE;
-
-  for(i = 0; i < 2; i++) {
-    if(SIDE_K[i] == 0)
-      continue;
-    dark_digit = 16;//set->shd[i].dark_digit;
-    dot = cap->ccd[i].dot * ((dark_digit==16)?2:1);
-    shad_data = (U16*)K_shad_data[i];
-    if(k_scan_par.img.mono) {
-		Scan_Shad_Shading(i, 1, shad_data, dot*2);
-    }
-    else {
-      for(j = 0; j < 3; j++)
-        Scan_Shad_Shading(i, j+1, &shad_data[j*dot], dot*2);
-    }
-  }
-
-  if(!job_Scan())
-	  return FALSE;
-
-  dark_target[0][0] = SHD_DARK_TARGET[0][0];
-  dark_target[0][1] = SHD_DARK_TARGET[0][1];
-  dark_target[0][2] = SHD_DARK_TARGET[0][2];
-
-  dark_target[1][0] = SHD_DARK_TARGET[1][0];
-  dark_target[1][1] = SHD_DARK_TARGET[1][1];
-  dark_target[1][2] = SHD_DARK_TARGET[1][2];
- 
+  if(!job_Scan()/* || !job_Wait(JOB_SCAN, 1)*/)
+    return FALSE;
 
   for (i = 0; i < 2; i++) {
     if(SIDE_K[i] == 0)
 	  continue;
-
     buf = (U16*)K_img_buf[i];
     dot = cap->ccd[i].dot;
     dark_buf = (U32*)K_shad16_data[i];
     set->shd[i].gain_base = 8;  // default digital gain base
-	gain_base = GL3466_SHD_GAIN_BASE;
-
-	//_cal_min_iterate(buf, dot*color_loop, k_scan_par.img.height, one_channel_cal);
-	_cal_average_iterate2(buf, dot*color_loop, k_scan_par.img.height, one_channel_cal);
-
-#if 1	//Dark min protect check
-
-	//if(SIDE_K[i] == 1) {
-		if(_cal_find_min(buf, 1, (one_channel_cal == 0) ? (dot * color_loop) : dot ) == 0) {
-			printf("Dark shading fail: Image dark min = 0!!!\n");
-			//return FALSE;
-		}
-	//}
-#endif
+    gain = (0x10000 / set->shd[i].gain_base) << 16;
+    _cal_average_iterate(buf, dot*color_loop, k_scan_par.img.height);      
 
 	for(j = 0; j < color_loop; j++) {
-		_cal_construct_dark16(buf, &dark_buf[j*dot], 1, 1, dot, gain_base, dark_target[i][j]);
-	}
+	  
+      #if 1	//Dark min protect check
 
-	//Save shading profile
-	#ifdef Save_Shading_Profile
-		Save_Shading(&k_scan_par, buf, dark_buf, 0, i);
+	    //if(SIDE_K[i] == 1) {
+		  if(_cal_find_min(&buf[j], color_loop, dot) == 0) {
+		    printf("Dark shading fail: Image dark min = 0!!!\n");
+			return FALSE;
+		  }
+	    //}
+
 	#endif
+
+      _cal_construct_dark16(&buf[j], &dark_buf[j*dot], color_loop, 1, dot, gain);
+	}
 
     dark_shift = set->shd[i].dark_shift = 0;
     dark_digit = set->shd[i].dark_digit = 16;
     _cal_do_shift_dark(dark_buf, (U16*)K_shad_data[i], dot*color_loop, dark_digit, dark_shift);
   }
   
-
-  if(bSaveFile) {
-	//#if 1  //Scan for final image check(debug)
+#if 1  //Scan for final image check(debug)
     Scan_Param();
     cal_img_buf_store(0, 0, 0);
-    if(!Scan_Shad_Calibration(set))
-      return FALSE;
 
     for(i = 0; i < 2; i++) {
-		  if(SIDE_K[i] == 0)
-            continue;
+	  if(SIDE_K[i] == 0)
+	    continue;
       dark_digit = set->shd[i].dark_digit;
       dot = cap->ccd[i].dot * ((dark_digit==16)?2:1);
       shad_data = (U16*)K_shad_data[i];
 	  if(k_scan_par.img.mono)
+        //Scan_Shad_Shading(i, set->shd[i].mono, shad_data, dot*2);  // GL orginal
 		Scan_Shad_Shading(i, 1, shad_data, dot*2);  //Park test 
       else {
         for(j = 0; j < 3; j++)
@@ -1524,84 +1655,30 @@ int cal_dark_shading(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
       }
     }
 
-    if(!job_Scan())
+    if(!job_Scan()/* || !job_Wait(JOB_SCAN, 1)*/)
       return FALSE;
-	//#endif
-	}
-
-  //Final white/dark shading result image check
-    if(bSaveFile) {
-//#if 1  //Scan for final image check(debug)
-
-  if(k_scan_par.source == I3('ADF')) {
-	  
-#ifdef K_ADF_ROLLER
-	  user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_NO_MIRROR|ACQ_NO_SHADING);
-#else
-	  user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_NO_MIRROR|ACQ_NO_SHADING);
 #endif
-  }
-  else {
-	user_param(ACQ_CALIBRATION|ACQ_NO_MIRROR|ACQ_NO_SHADING);
-  }
-
-  if(!Scan_Param())  //Park test
-    return FALSE;
-
-  cal_img_buf_store(0, 0, 0);
-  if(!Scan_Shad_Calibration(set))
-    return FALSE;
-
-  for(i = 0; i < 2; i++) {
-    if(SIDE_K[i] == 0)
-      continue;
-    dark_digit = 16; //set->shd[i].dark_digit;
-    dot = cap->ccd[i].dot * ((dark_digit==16)?2:1);
-    shad_data = (U16*)K_shad_data[i];
-	if(k_scan_par.img.mono) {
-		Scan_Shad_Shading(i, 1, shad_data, dot*2);  //Park test 
-    }
-    else {
-      for(j = 0; j < 3; j++)
-        Scan_Shad_Shading(i, j+1, &shad_data[j*dot], dot*2);
-    }
-  }
-
-  if(!job_Scan()/* || !job_Wait(JOB_SCAN, 1)*/)
-    return FALSE;
-  
-  //#endif
-  }
-  
 
   return TRUE;
 }
-#endif
 
 
-
-__inline void _cal_construct_white16(U16 *data, U16 *data2, U32 *shad, int next_data, int next_shad, int num, U32 gain_base, U16 white_target, U16 dark_target)
+__inline void _cal_construct_white16(U16 *data, U32 *shad, int next_data, int next_shad, int num, U32 gain_base, U16 white_target)
 {
-  U32 white_gain, white, dark;
+  U32 white_gain, white;
   U16 *last_data = data + next_data*num;
-
   while(data < last_data) {
     white = *data;
-	dark = *data2;
-
-	if(white > dark) {
-		white_gain = (white_target - dark_target) * gain_base / (white - dark);
-		if(white_gain >= 0xffff)
-			white_gain = 0xffff;
-	}
-	else {
-		white_gain = 1 * gain_base;
-	}
-
-	*shad = 0;
+    if(white > 0) {
+      white_gain = white_target * gain_base / white;
+      if(white_gain > 0xffff)
+        white_gain = 0xffff;
+    }
+    else {
+      white_gain = 0xffff;
+    }
     *shad = (*shad & 0xffff) + (white_gain << 16);
     data += next_data;
-	data2 += next_data;
     shad += next_shad;
   }
 }
@@ -1632,7 +1709,7 @@ U32 _cal_set_white_gain(SHD_SET_T *set, U32 white_min)
   return gain_base;
 }
 
-#if 0
+
 int cal_white_shading(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
 {
   int i, j;
@@ -1684,54 +1761,21 @@ int cal_white_shading(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
         Scan_Shad_Shading(i, j+1, &shad_data[j*dot], dot*2);
     }
   }
-
-  if(bSaveFile) {
-//#if 1  //Scan for final image check(debug)
-
-  if(k_scan_par.source == I3('ADF')) { //Park test
-	  
-#ifdef K_ADF_ROLLER
-	  user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_NO_MIRROR|ACQ_NO_SHADING);
-#else
-	  user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_NO_MIRROR|ACQ_NO_SHADING);
-#endif
+  
+  if(!job_Scan()/* || !job_Wait(JOB_SCAN, 1)*/)
+    return FALSE;
+/*
+  if(k_scan_par.source == I3('ADF')) {
+	white_target[0] = CAL_SHADING_WHITE_B_R;
+	white_target[1] = CAL_SHADING_WHITE_B_G;
+	white_target[2] = CAL_SHADING_WHITE_B_B;
   }
   else {
-	user_param(ACQ_CALIBRATION|ACQ_NO_MIRROR|ACQ_NO_SHADING);
+	white_target[0] = CAL_SHADING_WHITE_A_R;
+	white_target[1] = CAL_SHADING_WHITE_A_G;
+	white_target[2] = CAL_SHADING_WHITE_A_B;
   }
-
-  if(!Scan_Param())  //Park test
-    return FALSE;
-
-  cal_img_buf_store(0, 0, 0);
-  if(!Scan_Shad_Calibration(set))
-    return FALSE;
-
-  for(i = 0; i < 2; i++) {
-    if(SIDE_K[i] == 0)
-      continue;
-    dark_digit = 16; //set->shd[i].dark_digit;
-    dot = cap->ccd[i].dot * ((dark_digit==16)?2:1);
-    shad_data = (U16*)K_shad_data[i];
-	if(k_scan_par.img.mono) {
-      //Scan_Shad_Shading(i, set->shd[i].mono, shad_data, dot*2);  // GL orginal
-		Scan_Shad_Shading(i, 1, shad_data, dot*2);  //Park test 
-    }
-    else {
-      for(j = 0; j < 3; j++)
-        Scan_Shad_Shading(i, j+1, &shad_data[j*dot], dot*2);
-    }
-  }
-
-  if(!job_Scan()/* || !job_Wait(JOB_SCAN, 1)*/)
-    return FALSE;
-  
- //#endif
- }
-  
-  if(!job_Scan()/* || !job_Wait(JOB_SCAN, 1)*/)
-    return FALSE;
-
+*/
 
   white_target[0][0] = SHD_WHITE_TARGET[0][0];
   white_target[0][1] = SHD_WHITE_TARGET[0][1];
@@ -1772,123 +1816,7 @@ int cal_white_shading(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
   }
 #endif
 
-  return TRUE;
-}
-#else
-int cal_white_shading(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
-{
-  int i, j;
-  int color_loop = (k_scan_par.img.mono == 4) ? 1:3;
-  U16 *buf, *buf2, *shad_data, white_min;
-  U32 dot, *white_buf, gain_base, dark_digit;
-  U16 white_target[2][3], dark_target[2][3];
-  U8 SIDE_K[2]={0, 0};
-
-
-  SIDE_K[0] = k_scan_par.duplex & SCAN_A_SIDE;
-
-  SIDE_K[1] = (k_scan_par.duplex & SCAN_B_SIDE) >> 1;
-
-
-//========================== Dark scan ==============================
-  if(k_scan_par.source == I3('ADF')) {
-	  //user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_NO_MIRROR|ACQ_NO_SHADING);
-	  user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_LAMP_OFF|ACQ_MOTOR_OFF|ACQ_NO_MIRROR|ACQ_NO_SHADING);
-  }
-  else {
-	user_param(ACQ_CALIBRATION|ACQ_NO_MIRROR|ACQ_NO_SHADING);
-  }
-  
-	if(!Scan_Param())
-    return FALSE;
-
-  cal_img_buf_store(1, 0, 0);
-
-
-  if(!Scan_Shad_Calibration(set))
-    return FALSE;
-
-
-  if(!job_Scan())
-    return FALSE;
-
-
-  //========================== White scan ==============================
-  if(k_scan_par.source == I3('ADF')) {
-	  //user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_NO_MIRROR);
-	  user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_NO_MIRROR|ACQ_NO_SHADING);
-  }
-  else {
-	user_param(ACQ_CALIBRATION|ACQ_NO_MIRROR|ACQ_NO_SHADING);
-  }
-  
-	if(!Scan_Param())
-    return FALSE;
-
-  cal_img_buf_store(0, 0, 0);
-
-
-  if(!Scan_Shad_Calibration(set))
-    return FALSE;
-
-
-  if(!job_Scan())
-    return FALSE;
-
-
-  white_target[0][0] = SHD_WHITE_TARGET[0][0];
-  white_target[0][1] = SHD_WHITE_TARGET[0][1];
-  white_target[0][2] = SHD_WHITE_TARGET[0][2];
-
-  white_target[1][0] = SHD_WHITE_TARGET[1][0];
-  white_target[1][1] = SHD_WHITE_TARGET[1][1];
-  white_target[1][2] = SHD_WHITE_TARGET[1][2];
-
-  dark_target[0][0] = SHD_DARK_TARGET[0][0];
-  dark_target[0][1] = SHD_DARK_TARGET[0][1];
-  dark_target[0][2] = SHD_DARK_TARGET[0][2];
-
-  dark_target[1][0] = SHD_DARK_TARGET[1][0];
-  dark_target[1][1] = SHD_DARK_TARGET[1][1];
-  dark_target[1][2] = SHD_DARK_TARGET[1][2];
-
-
-  for (i = 0; i < 2; i++) {
-    if(SIDE_K[i] == 0)
-      continue;
-
-    buf = (U16*)K_img_buf[i];  //white image buf
-	buf2 = (U16*)&K_img_buf[i][0x1900000];  //Dark image buf
-    dot = cap->ccd[i].dot;
-    white_buf = (U32*)K_shad16_data[i];
-
-    _cal_ave_sort_iterate(buf, dot*color_loop, k_scan_par.img.height);
-	_cal_ave_sort_iterate(buf2, dot*color_loop, k_scan_par.img.height);
-
-    white_min = _cal_find_min(buf, 1, dot*color_loop);
-    gain_base = GL3466_SHD_GAIN_BASE;//_cal_set_white_gain(&set->shd[i], white_min);
-
-
-    
-	for(j = 0; j < color_loop; j++) {
-      _cal_construct_white16(&buf[j], &buf2[j], &white_buf[j*dot], color_loop, 1, dot, gain_base, white_target[i][j], dark_target[i][j]);
-	}
-
-	//Save shading profile
-	#ifdef Save_Shading_Profile
-		Save_Shading(&k_scan_par, buf, white_buf, gain_base, i);
-	#endif
-
-    _cal_do_shift_dark(white_buf, (U16*)K_shad_data[i], dot*color_loop, 16, 0);
-  }
-
-#ifdef K_ADF_ROLLER
-  if(k_scan_par.source == I3('ADF')) {
-	job_RollerToINIT(0); //Park test
-  }
-#endif
-
-  if(bSaveFile) {
+if(bSaveFile) {
 //#if 1  //Scan for final image check(debug)
 
   if(k_scan_par.source == I3('ADF')) { //Park test
@@ -1917,6 +1845,7 @@ int cal_white_shading(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
     dot = cap->ccd[i].dot * ((dark_digit==16)?2:1);
     shad_data = (U16*)K_shad_data[i];
 	if(k_scan_par.img.mono) {
+      //Scan_Shad_Shading(i, set->shd[i].mono, shad_data, dot*2);  // GL orginal
 		Scan_Shad_Shading(i, 1, shad_data, dot*2);  //Park test 
     }
     else {
@@ -1928,14 +1857,145 @@ int cal_white_shading(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
   if(!job_Scan()/* || !job_Wait(JOB_SCAN, 1)*/)
     return FALSE;
   
-  //#endif
-  }
-  
+//#endif
+}
 
   return TRUE;
 }
 
+
+int cal_white_shading_only(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
+{
+  int i, j;
+  int color_loop = (k_scan_par.img.mono == 4) ? 1:3;
+  U16 *buf, *shad_data, white_min;
+  U32 dot, *white_buf, gain_base, dark_digit;
+  U16 white_target[2][3];
+  U8 SIDE_K[2]={0, 0};
+
+
+  SIDE_K[0] = k_scan_par.duplex & SCAN_A_SIDE;
+
+  SIDE_K[1] = (k_scan_par.duplex & SCAN_B_SIDE) >> 1;
+
+  if(k_scan_par.source == I3('ADF')) { //Park test
+#ifdef K_ADF_ROLLER
+	  user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_NO_MIRROR);
+#else
+	  user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_NO_MIRROR);
 #endif
+  }
+  else {
+	user_param(ACQ_CALIBRATION|ACQ_NO_MIRROR);
+  }
+  
+	if(!Scan_Param()) //Park test
+    return FALSE;
+
+  cal_img_buf_store(0, 0, 0);
+
+
+  for(i = 0; i < 2; i++) {
+    if(SIDE_K[i] == 0)
+	  continue;
+    dark_digit = set->shd[i].dark_digit;
+    dot = cap->ccd[i].dot * ((dark_digit==16)?2:1);
+    shad_data = (U16*)K_shad_data[i];
+    if(k_scan_par.img.mono) {
+      //Scan_Shad_Shading(i, set->shd[i].mono, shad_data, dot*2);  // GL orginal
+		Scan_Shad_Shading(i, 1, shad_data, dot*2);  //Park test 
+    }
+    else {
+      for(j = 0; j < 3; j++)
+        Scan_Shad_Shading(i, j+1, &shad_data[j*dot], dot*2);
+    }
+  }
+  
+  if(!job_Scan()/* || !job_Wait(JOB_SCAN, 1)*/)
+    return FALSE;
+/*
+  if(k_scan_par.source == I3('ADF')) {
+	white_target[0] = CAL_SHADING_WHITE_B_R;
+	white_target[1] = CAL_SHADING_WHITE_B_G;
+	white_target[2] = CAL_SHADING_WHITE_B_B;
+  }
+  else {
+	white_target[0] = CAL_SHADING_WHITE_A_R;
+	white_target[1] = CAL_SHADING_WHITE_A_G;
+	white_target[2] = CAL_SHADING_WHITE_A_B;
+  }
+*/
+
+  white_target[0][0] = SHD_WHITE_TARGET[0][0];
+  white_target[0][1] = SHD_WHITE_TARGET[0][1];
+  white_target[0][2] = SHD_WHITE_TARGET[0][2];
+
+  white_target[1][0] = SHD_WHITE_TARGET[1][0];
+  white_target[1][1] = SHD_WHITE_TARGET[1][1];
+  white_target[1][2] = SHD_WHITE_TARGET[1][2];
+
+  for (i = 0; i < 2; i++) {
+    buf = (U16*)K_img_buf[i];
+    dot = cap->ccd[i].dot;
+    white_buf = (U32*)K_shad16_data[i];
+
+    _cal_ave_sort_iterate(buf, dot*color_loop, k_scan_par.img.height);
+    white_min = _cal_find_min(buf, 1, dot*color_loop);
+    gain_base = _cal_set_white_gain(&set->shd[i], white_min);
+    
+	for(j = 0; j < color_loop; j++) {
+      _cal_construct_white16(&buf[j], &white_buf[j*dot], color_loop, 1, dot, gain_base, white_target[i][j]);
+	}
+    _cal_do_shift_dark(white_buf, (U16*)K_shad_data[i], dot*color_loop, 16, 0);
+  }
+
+#ifdef K_ADF_ROLLER
+  if(k_scan_par.source == I3('ADF')) {
+	job_RollerToINIT(0); //Park test
+  }
+#endif
+
+#if 1  //Scan for final image check(debug)
+
+  if(k_scan_par.source == I3('ADF')) { //Park test
+	  
+#ifdef K_ADF_ROLLER
+	  user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_NO_MIRROR);
+#else
+	  user_param(ACQ_CALIBRATION|ACQ_NO_PP_SENSOR|ACQ_NO_MIRROR);
+#endif
+  }
+  else {
+	user_param(ACQ_CALIBRATION|ACQ_NO_MIRROR);
+  }
+
+  if(!Scan_Param())  //Park test
+    return FALSE;
+
+  cal_img_buf_store(0, 0, 0);
+
+  for(i = 0; i < 2; i++) {
+    if(SIDE_K[i] == 0)
+	  continue;
+    dark_digit = 16; //set->shd[i].dark_digit;
+    dot = cap->ccd[i].dot * ((dark_digit==16)?2:1);
+    shad_data = (U16*)K_shad_data[i];
+	if(k_scan_par.img.mono) {
+      //Scan_Shad_Shading(i, set->shd[i].mono, shad_data, dot*2);  // GL orginal
+		Scan_Shad_Shading(i, 1, shad_data, dot*2);  //Park test 
+    }
+    else {
+      for(j = 0; j < 3; j++)
+        Scan_Shad_Shading(i, j+1, &shad_data[j*dot], dot*2);
+    }
+  }
+
+  if(!job_Scan()/* || !job_Wait(JOB_SCAN, 1)*/)
+    return FALSE;
+  
+#endif
+  return TRUE;
+}
 
 
 int save_shd_flash(CALIBRATION_CAP_T_ *cap, CALIBRATION_SET_T_ *set)
@@ -2001,12 +2061,10 @@ extern int Scan_JobEnd();
 int job_Calibration(SC_PAR_T_ *_par)
 {
   int i;
-
+#ifdef CALIBRATION_ALL
   int CalibrationMode[] = {300,600};
-  //int CalibrationMode[] = {300};
-  //int CalibrationMode[] = {600};
   int CalibrationTimes= sizeof(CalibrationMode) / sizeof(int);
-
+#endif
 #ifdef Show_Time_Cost
   //SYSTEMTIME st0, st1, lt, ct;
   unsigned long st0, st1, lt, ct;
@@ -2022,7 +2080,10 @@ int job_Calibration(SC_PAR_T_ *_par)
   k_scan_par.img.format = I3('RAW');
   k_scan_par.img.bit = (_par->img.bit >= 24)? 48: 16;
   k_scan_par.img.mono = (_par->img.mono == 4) ? 4 : 0;
-
+#ifndef CALIBRATION_ALL
+  k_scan_par.img.dpi.x = (_par->img.dpi.x >= 400) ? 600 : 300;
+  k_scan_par.img.dpi.y = (_par->img.dpi.x >= 400) ? 600 : 300;
+#endif
   SCAN_DOC_SIZE = DOC_K_PRNU;
 
   if(!Scan_JobCreate(JOB_ADF))
@@ -2055,7 +2116,7 @@ int job_Calibration(SC_PAR_T_ *_par)
 	}
 #endif
 
-
+#ifdef CALIBRATION_ALL
 for(i=0 ; i<CalibrationTimes;i++)
 {
 	k_scan_par.img.dpi.x = CalibrationMode[i];
@@ -2067,7 +2128,7 @@ for(i=0 ; i<CalibrationTimes;i++)
 		st1 = clock();
 	#endif
 
-
+#endif
 if(bCalibrationMode) {
 	#ifdef K_ADF_ROLLER
 	  if(k_scan_par.source == I3('ADF')){
@@ -2137,24 +2198,6 @@ if(bCalibrationMode) {
 		printf("LED balance time cost %.3f s\n", (double)(lt - ct)/1000);
 	#endif
 
-    //white shading
-    if(!cal_white_shading(&K_Cap, &K_Set))
-      goto NG;
-
-    #ifdef Show_Time_Cost
-		ct = lt;
-		//GetSystemTime(&lt);
-		//printf("White shading time cost %.3f s\n", (double)time_spend(&ct, &lt)/10000000);
-		lt = clock();
-		printf("White shading time cost %.3f s\n", (double)(lt - ct)/1000);
-	#endif
-
-#ifdef K_ADF_ROLLER
-	  if(k_scan_par.source == I3('ADF')){
-		 job_RollerToINIT(0);
-	  }
-#endif
-
     //dark shading
     if(!cal_dark_shading(&K_Cap, &K_Set))
       goto NG;
@@ -2167,10 +2210,41 @@ if(bCalibrationMode) {
 		printf("Dark shading time cost %.3f s\n", (double)(lt - ct)/1000);
 	#endif
 
-    
+#ifdef K_ADF_ROLLER
+	  if(k_scan_par.source == I3('ADF')){
+		 job_RollerToINIT(0);
+	  }
+#endif
+    //white shading
+    if(!cal_white_shading(&K_Cap, &K_Set))
+      goto NG;
+
+    #ifdef Show_Time_Cost
+		ct = lt;
+		//GetSystemTime(&lt);
+		//printf("White shading time cost %.3f s\n", (double)time_spend(&ct, &lt)/10000000);
+		lt = clock();
+		printf("White shading time cost %.3f s\n", (double)(lt - ct)/1000);
+	#endif
 }
 else {
+	//Get AFE / Calibration capability
+    if(!cal_set_def_shading_only(&K_Cap, &K_Set))
+      goto NG;
 
+	//Shading calibration only
+    //dark shading
+    if(!cal_dark_shading_only(&K_Cap, &K_Set))
+      goto NG;
+
+#ifdef K_ADF_ROLLER
+	  if(k_scan_par.source == I3('ADF')){
+		 job_RollerToINIT(0);
+	  }
+#endif
+    //white shading
+    if(!cal_white_shading_only(&K_Cap, &K_Set))
+      goto NG;
 } 
 
 	//save to flash
@@ -2185,11 +2259,12 @@ else {
 		printf("Current mode time cost %.3f s\n\n", (double)(lt - st1)/1000);
 	#endif
 
-
+#ifdef CALIBRATION_ALL
 		
 }//end for(i=0 ; i<CalibrationTimes;i++)
 Sleep(1000);
 
+#endif
 
 #ifdef K_ADF_ROLLER
 
@@ -2228,22 +2303,22 @@ K_OK:
   
   Scan_JobEnd();
 
-if(k_scan_par.source == I3('ADF')) {
+  if (k_scan_par.source == I3('ADF')) {
 #ifdef K_ADF_ROLLER
 
 #else
-	#if 1
+#if 1
 	  // 0. Eject Paper
-//	  if(!job_EjectPaper(k_scan_par.source, 0))
-//		goto NG;
+	  //	  if(!job_EjectPaper(k_scan_par.source, 0))
+	  //		goto NG;
 
 	  // 0. Pickup Home
-	  if(!job_ResetHome(k_scan_par.source, 0))
-		goto NG;
-	#endif
+	  if (!job_ResetHome(k_scan_par.source, 0))
+		  goto NG;
 #endif
-}
-	
+#endif
+  }
+
   return TRUE;
 NG:
   bCalibration = FALSE;
@@ -2264,16 +2339,6 @@ void job_Set_Calibration_Par(unsigned char type, SC_PAR_T_ *_par)
 			SHD_WHITE_TARGET[1][1] = SHD_WHITE_TARGET_B_G_TYPE1;
 			SHD_WHITE_TARGET[1][2] = SHD_WHITE_TARGET_B_B_TYPE1;
 
-
-
-			SHD_DARK_TARGET[0][0] = SHD_DARK_TARGET_A_R_TYPE1;
-			SHD_DARK_TARGET[0][1] = SHD_DARK_TARGET_A_G_TYPE1;
-			SHD_DARK_TARGET[0][2] = SHD_DARK_TARGET_A_B_TYPE1;
-
-			SHD_DARK_TARGET[1][0] = SHD_DARK_TARGET_B_R_TYPE1;
-			SHD_DARK_TARGET[1][1] = SHD_DARK_TARGET_B_G_TYPE1;
-			SHD_DARK_TARGET[1][2] = SHD_DARK_TARGET_B_B_TYPE1;
-
 			break;
 
 		case 2:
@@ -2285,14 +2350,6 @@ void job_Set_Calibration_Par(unsigned char type, SC_PAR_T_ *_par)
 			SHD_WHITE_TARGET[1][0] = SHD_WHITE_TARGET_B_R_TYPE2;
 			SHD_WHITE_TARGET[1][1] = SHD_WHITE_TARGET_B_G_TYPE2;
 			SHD_WHITE_TARGET[1][2] = SHD_WHITE_TARGET_B_B_TYPE2;
-
-			SHD_DARK_TARGET[0][0] = SHD_DARK_TARGET_A_R_TYPE2;
-			SHD_DARK_TARGET[0][1] = SHD_DARK_TARGET_A_G_TYPE2;
-			SHD_DARK_TARGET[0][2] = SHD_DARK_TARGET_A_B_TYPE2;
-
-			SHD_DARK_TARGET[1][0] = SHD_DARK_TARGET_B_R_TYPE2;
-			SHD_DARK_TARGET[1][1] = SHD_DARK_TARGET_B_G_TYPE2;
-			SHD_DARK_TARGET[1][2] = SHD_DARK_TARGET_B_B_TYPE2;
 			break;
 	}
 }

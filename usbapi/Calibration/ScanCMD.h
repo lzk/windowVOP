@@ -18,7 +18,7 @@
 
 // default scan parameters
 #define SCAN_SOURCE   SCAN_ADF   //'FLB', 'ADF'
-#define SCAN_ACQUIRE  ACQ_MULTI_FEED//(ACQ_PICK_SS|ACQ_MULTI_FEED)//ACQ_NO_SHADING
+#define SCAN_ACQUIRE  0//ACQ_MULTI_FEED|ACQ_GAMMA//(ACQ_PICK_SS|ACQ_MULTI_FEED)//ACQ_NO_SHADING
 #define SCAN_OPTION   0
 #define SCAN_DUPLEX   SCAN_AB_SIDE   // 1: A_side, 2: B_side, 3: AB_sides
 #define SCAN_PAGE     0   // 0: adf sensor detect
@@ -182,6 +182,7 @@ typedef struct SC_GAMMA_STRUCT {
 
 #define ACQ_LIFE_TEST		(0x01 << 24)  //Park life test
 #define ACQ_PICK_SS			(0x02 << 24)  //Park pick ss test
+#define ACQ_NO_AFE_LED		(0x04 << 24)  //Default AFE LED data scan
 
 
 //--------------------------------

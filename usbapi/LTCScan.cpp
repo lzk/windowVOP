@@ -2917,7 +2917,14 @@ USBAPI_API int __stdcall DoCalibration()
 
 	job_Set_Calibration_Par(1, &sc_par);
 
-	nResult = ScannerStatusCheck_(START_STAGE);
+	if (sc_par.acquire & ACQ_NO_PP_SENSOR) {
+
+	}
+	else {
+		nResult = ScannerStatusCheck_(START_STAGE);
+	}
+
+//	nResult = ScannerStatusCheck_(START_STAGE);
 
 	if (nResult == RETSCAN_OK)
 	{
@@ -2930,8 +2937,13 @@ USBAPI_API int __stdcall DoCalibration()
 		}
 		else
 		{
-			nResult = ScannerStatusCheck_(SCANNING_STAGE);
-			//	nResult = RETSCAN_CANCEL;
+			if (sc_par.acquire & ACQ_NO_PP_SENSOR) {
+
+			}
+			else {
+				nResult = ScannerStatusCheck_(SCANNING_STAGE);
+				//	nResult = RETSCAN_CANCEL;
+			}
 		}
 	}
 

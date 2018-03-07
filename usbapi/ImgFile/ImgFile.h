@@ -2,7 +2,8 @@
 #define _ImgFile_h_
 
 #include <stdio.h>
-#include "utype.h"
+#include "uType.h"
+
 
 
 // image format ------------
@@ -40,30 +41,53 @@
 #define DOC_SIZE_LT			2
 #define DOC_SIZE_LG14		3
 #define DOC_SIZE_LL			4
+#define DOC_SIZE_A6			5
+
+#define DOC_CHART_A01		95
 
 #define DOC_K_PREFEED		96
 #define DOC_K_PRNU			97
 #define DOC_S_PRNU			98
 #define DOC_FB_LIFE			99
 
-// image size dots
+//Full image size dots
 #define IMG_300_DOT_X		2592
-#define IMG_300_DOT_Y		3600
+#define IMG_300_DOT_Y		15*300
+
 
 #define IMG_A4_300_DOT_X	2480
 #define IMG_A4_300_DOT_Y	3512
+#define IMG_A4_300_ORG_X		(IMG_300_DOT_X - IMG_A4_300_DOT_X)/2
 
-#define IMG_LT_300_DOT_X	2536//2552
+
+#define IMG_A6_300_DOT_X	1240
+#define IMG_A6_300_DOT_Y	1748
+#define IMG_A6_300_ORG_X		(IMG_300_DOT_X - IMG_A6_300_DOT_X)/2
+
+
+#define IMG_LT_300_DOT_X	2552
 #define IMG_LT_300_DOT_Y	3296
+#define IMG_LT_300_ORG_X		(IMG_300_DOT_X - IMG_LT_300_DOT_X)/2
 
-#define IMG_LL_300_DOT_X	2592//2552
-#define IMG_LL_300_DOT_Y	32400//10800
+
+#define IMG_LG14_300_DOT_X		216*300/25.4
+#define IMG_LG14_300_DOT_Y		356*300/25.4
+#define IMG_LG14_300_ORG_X		(IMG_300_DOT_X - IMG_LG14_300_DOT_X)/2
+
+
+#define IMG_LL_300_DOT_X	2592
+#define IMG_LL_300_DOT_Y	118*300
+#define IMG_LL_300_ORG_X		0
+
+
+//ADF chart A01
+#define IMG_CHART_A01_300_DOT_X		2536
+#define IMG_CHART_A01_300_DOT_Y		3294
+#define IMG_CHART_A01_300_ORG_X		(IMG_300_DOT_X - IMG_CHART_A01_300_DOT_X)/2
 
 #define IMG_FB_LIFE_300_DOT_X		432
 #define IMG_FB_LIFE_300_DOT_Y		3512
 
-#define IMG_LG14_300_DOT_X		216*300/25.4
-#define IMG_LG14_300_DOT_Y		356*300/25.4
 
 //For calibration scan PRNU
 #define IMG_K_PRNU_300_DOT_X		2592
@@ -77,20 +101,10 @@
 #define IMG_K_PREFEED_300_DOT_X		IMG_K_PRNU_300_DOT_X
 #define IMG_K_PREFEED_300_DOT_Y		300//4*300
 
+
 //image size org dots
 #define IMG_300_ORG_X		0
 #define IMG_300_ORG_Y		0
-
-#define IMG_A4_300_ORG_X		46
-#define IMG_A4_300_ORG_Y		0
-
-#define IMG_LT_300_ORG_X		19
-#define IMG_LT_300_ORG_Y		0
-
-#define IMG_LG14_300_ORG_X		(IMG_300_DOT_X - IMG_LG14_300_DOT_X)/2
-
-#define IMG_LL_300_ORG_X		0
-#define IMG_LL_300_ORG_Y		0
 
 typedef struct IMAGE_STRUCT {
 	U32 format;	// 'RAW', 'JPG', 'TIF', 'BMP', 'PDF', 'PNG'
