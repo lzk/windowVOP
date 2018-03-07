@@ -73,6 +73,7 @@ enum Scan_RET
 	RETSCAN_ADFPATH_NOT_READY = 25,
 	RETSCAN_ADFDOC_NOT_READY = 26,
 	RETSCAN_GETINFO_FAIL = 27,
+	RETSCAN_MEMORY_FULL = 28,
 };
 
 extern UINT WM_VOPSCAN_PROGRESS;
@@ -323,6 +324,10 @@ Scan_RET ScannerStatusCheck(CGLDrv glDrv, char stage)
 		{
 			//printf("WiFi_TRANSFER_ERR\n");
 			result = RETSCAN_WIFI_TRANSFERERROR;
+		}
+		if (glDrv.sc_infodata.ErrorStatus.memory_full_err)
+		{
+			result = RETSCAN_MEMORY_FULL;
 		}
 		//if (glDrv.sc_infodata.ErrorStatus.usb_disk_transfer_err)
 		//{
@@ -1037,6 +1042,12 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 					scanRet = RETSCAN_WIFI_TRANSFERERROR;
 				}
 
+				//add by yunying shang 2018-03-05 for BMS 2512
+				if (glDrv.sc_infodata.ErrorStatus.memory_full_err)
+				{
+					scanRet = RETSCAN_MEMORY_FULL;
+				}//<<========2512
+
 			}
 
 			if (scanRet == RETSCAN_GETINFO_FAIL)
@@ -1518,7 +1529,7 @@ USBAPI_API int __stdcall CheckUsbScanByName(
 
 	if (glDrv._OpenUSBDevice(interfaceName) == FALSE)
 	{
-		glDrv._CloseDevice();
+		//glDrv._CloseDevice();
 		return 0;
 	}
 	return 1;
@@ -1575,7 +1586,7 @@ USBAPI_API int __stdcall CheckUsbScan(
 
 	if (glDrv._OpenUSBDevice(strPort) == FALSE)//#bms1005
 	{
-		glDrv._CloseDevice();
+		//glDrv._CloseDevice();
 		return 0;		
 	}
 	return 1;

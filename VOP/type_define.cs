@@ -403,6 +403,7 @@ namespace VOP
         RETSCAN_ADFPATH_NOT_READY   = 25,
         RETSCAN_ADFDOC_NOT_READY    = 26,
         RETSCAN_GETINFO_FAIL        = 27,
+        RETSCAN_MEMORY_FULL         = 28,
     }
      
 }

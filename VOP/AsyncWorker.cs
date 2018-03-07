@@ -499,7 +499,7 @@ namespace VOP
 
                 IAsyncResult result = caller.BeginInvoke(new AsyncCallback(QuickScanCallbackMethod), null);
 
-                if (!result.AsyncWaitHandle.WaitOne(100, false))
+                if (!result.AsyncWaitHandle.WaitOne(50, false))//modified by yunying shang 2018-03-06 for BMS 2536
                 {
                     isNeededProgress = true;
 

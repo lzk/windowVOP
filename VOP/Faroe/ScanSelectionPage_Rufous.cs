@@ -80,6 +80,10 @@ namespace VOP
             {
                 case 0:
                     bRtn = qs.ScanToPrint();
+                    if (bRtn == Scan_RET.RETSCAN_ERROR)
+                    {
+                        m_MainWin._bCancelPrint = true;
+                    }
                     break;
                 case 1:
                     bRtn = qs.ScanToFile();

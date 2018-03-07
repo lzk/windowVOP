@@ -173,8 +173,8 @@ namespace VOP
                 m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._Card ||
                 m_scanParams.PaperSize == EnumPaperSizeScan._A6 || //add by yunying shang 2018-02-05 for BMS 2253
-                m_scanParams.PaperSize == EnumPaperSizeScan._Auto1 || 
-                m_powermode == 3)
+                m_scanParams.PaperSize == EnumPaperSizeScan._Auto1)
+                //|| m_powermode == 3)
             {
                 MultiFeedOnButton.IsChecked = false;
                 MultiFeedOnButton.IsEnabled = false;
@@ -454,9 +454,6 @@ namespace VOP
                         btnAutoColorOff.IsEnabled = false;
                         btnAutoColorOn.IsEnabled = false;
 
-                        //oneSideButton.IsChecked = true;
-                        //oneSideButton.IsEnabled = false;
-                        //twoSideButton.IsEnabled = false;
                     }
                     else
                     {
@@ -553,32 +550,33 @@ namespace VOP
 
                             btnAutoColorOff.IsEnabled = true;
                             btnAutoColorOn.IsEnabled = true;
-
-                            //modified by yunying shang 2018-03-05 for BMS 2491
-                            if (btnAutoColorOff.IsChecked == false)
-                            {
-                                if (m_scanParams.SkipBlankPage == true)
-                                {
-                                    btnSkipBlankOn.IsChecked = true;
-                                }
-                                else
-                                {
-                                    btnSkipBlankOff.IsChecked = true;
-                                }
-
-                                btnSkipBlankOn.IsEnabled = true;
-                                btnSkipBlankOff.IsEnabled = true;
-                            }
-                            else
-                            {
-                                
-                                btnSkipBlankOff.IsChecked = true;                              
-
-                                btnSkipBlankOn.IsEnabled = false;
-                                btnSkipBlankOff.IsEnabled = false;
-                            }//<<================2491
                         }
                     }
+
+                    //modified by yunying shang 2018-03-05 for BMS 2491
+                    if (AutoCropOffButton.IsChecked == false ||
+                        AutoCropOnButton.IsChecked == true)
+                    {
+                        if (m_scanParams.SkipBlankPage == true)
+                        {
+                            btnSkipBlankOn.IsChecked = true;
+                        }
+                        else
+                        {
+                            btnSkipBlankOff.IsChecked = true;
+                        }
+
+                        btnSkipBlankOn.IsEnabled = true;
+                        btnSkipBlankOff.IsEnabled = true;
+                    }
+                    else
+                    {
+
+                        btnSkipBlankOff.IsChecked = true;
+
+                        btnSkipBlankOn.IsEnabled = false;
+                        btnSkipBlankOff.IsEnabled = false;
+                    }//<<================2491
 
                     m_lastPaperSize1 = size;
                 }
@@ -822,7 +820,7 @@ namespace VOP
                 if (m_powermode == 3)
                 {
                     m_scanParams.ADFMode = false;
-                    m_scanParams.MultiFeed = false;
+                   // m_scanParams.MultiFeed = false;
                 }
                 m_scanParams.ScanMediaType = EnumScanMediaType._Normal;
                 //m_scanParams.AutoCrop = false;

@@ -314,5 +314,70 @@ namespace VOP
         }
 
     }
+    [Serializable()]
+    public class ScanParamDecode : ICloneable
+    {
+        private EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._Auto;
+        private EnumScanMediaType m_mediaType = EnumScanMediaType._Normal;
+        private bool m_MultiFeed = true;
+
+        public EnumPaperSizeScan PaperSize
+        {
+            get
+            {
+                return this.m_paperSize;
+            }
+            set
+            {
+                this.m_paperSize = value;
+            }
+        }
+
+        public EnumScanMediaType ScanMediaType
+        {
+            get
+            {
+                return this.m_mediaType;
+            }
+            set
+            {
+                this.m_mediaType = value;
+            }
+        }
+
+
+        public bool MultiFeed
+        {
+            get
+            {
+                return this.m_MultiFeed;
+            }
+            set
+            {
+                this.m_MultiFeed = value;
+            }
+        }
+
+  
+
+        public ScanParamDecode()
+        {
+
+        }
+
+        public ScanParamDecode(EnumPaperSizeScan paperSize, EnumScanMediaType type, bool multifeed)
+        {
+            this.m_paperSize = paperSize;
+            this.m_mediaType = type;
+            this.m_MultiFeed = multifeed;
+        }
+
+        public object Clone()
+        {
+            return new ScanParamDecode(this.m_paperSize,
+                                 this.m_mediaType, this.m_MultiFeed);
+        }
+
+    }
 
 }
