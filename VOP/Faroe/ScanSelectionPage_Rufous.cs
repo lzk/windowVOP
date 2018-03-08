@@ -170,6 +170,11 @@ namespace VOP
                         );
                 }//<<================1744
             }
+            //add by yunying shang 2018-03-08 for BMS 2597
+            else
+            {
+                SetScreenText(ScreenTextNumber);
+            }//<<==============2597
             m_MainWin._bScanning = false;
         }
 

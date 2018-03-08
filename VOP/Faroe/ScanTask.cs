@@ -240,7 +240,7 @@ next:
                     (int)param.ScanMediaType,
                     out fileNames);
 
-//            sw.Stop();
+//          sw.Stop();
             Trace.WriteLine(string.Format("Elapsed={0}", sw.Elapsed));
 
             //Win32.OutputDebugString("Scanning Finished!");

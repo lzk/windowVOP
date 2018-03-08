@@ -108,7 +108,7 @@ namespace VOP
                     new Action(
                     delegate ()
                     {
-                        
+                        Win32.OutputDebugString("Close Windows");
                         pbw.Close();
                     }
                     ));
@@ -338,13 +338,13 @@ namespace VOP
                     scanPbw.ShowDialog();
                 }
 
-                if (result.AsyncWaitHandle.WaitOne(200, false))
+                if (result.AsyncWaitHandle.WaitOne(500, false))//modified by yunying shang 2018-03-08for BMS
                 {
+                    //Win32.OutputDebugString("Wait finished, get result");
                     return caller.EndInvoke(out fileNames, result);
                 }
 
             }
-
             fileNames = null;
             return 1;
         }

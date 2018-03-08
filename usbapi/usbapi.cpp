@@ -4215,6 +4215,7 @@ USBAPI_API int __stdcall ScanEx( const wchar_t* sz_printer,
     static const int RETSCAN_BUSY            = 8;
     static const int RETSCAN_ERROR           = 9;
 
+	OutputDebugStringA("ScanEx");
     if ( false == 3*DoseHasEnoughSpace( szOrig, width, height ) )
     {
         return RETSCAN_NO_ENOUGH_SPACE;

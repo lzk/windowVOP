@@ -1100,6 +1100,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 			if (start_cancel)
 			{
+				scanRet = RETSCAN_CANCEL;
 				break;
 			}
 
