@@ -158,7 +158,8 @@ namespace VOP
                 m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._Card ||
                 m_scanParams.PaperSize == EnumPaperSizeScan._A6 || 
-                m_scanParams.PaperSize == EnumPaperSizeScan._Auto1)
+                m_scanParams.PaperSize == EnumPaperSizeScan._Auto1||
+                m_powermode == 3)
             {
                 MultiFeedOnButton.IsChecked = false;
                 MultiFeedOnButton.IsEnabled = false;

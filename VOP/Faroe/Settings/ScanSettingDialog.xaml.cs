@@ -173,8 +173,8 @@ namespace VOP
                 m_scanParams.ScanMediaType == EnumScanMediaType._BankBook ||
                 m_scanParams.ScanMediaType == EnumScanMediaType._Card ||
                 m_scanParams.PaperSize == EnumPaperSizeScan._A6 || //add by yunying shang 2018-02-05 for BMS 2253
-                m_scanParams.PaperSize == EnumPaperSizeScan._Auto1)
-                //|| m_powermode == 3)
+                m_scanParams.PaperSize == EnumPaperSizeScan._Auto1
+                || m_powermode == 3)
             {
                 MultiFeedOnButton.IsChecked = false;
                 MultiFeedOnButton.IsEnabled = false;
@@ -191,6 +191,8 @@ namespace VOP
                 {
                     MultiFeedOffButton.IsChecked = true;
                 }
+                MultiFeedOnButton.IsEnabled = true;
+                MultiFeedOffButton.IsEnabled = true;
             }
 
             if (m_scanParams.SkipBlankPage == true)
@@ -468,7 +470,8 @@ namespace VOP
                         //<<==============2033
 
                         if (m_scanParams.PaperSize == EnumPaperSizeScan._A6 ||
-                            m_scanParams.PaperSize == EnumPaperSizeScan._Auto1)
+                            m_scanParams.PaperSize == EnumPaperSizeScan._Auto1 ||
+                            m_powermode == 3)
                         {
                             MultiFeedOnButton.IsChecked = false;
                             MultiFeedOffButton.IsChecked = true;
@@ -476,7 +479,8 @@ namespace VOP
                             MultiFeedOffButton.IsEnabled = false;
 
                             //add by yunying shang 2018-02-28 for BMS 2451
-                            if (m_scanParams.PaperSize != EnumPaperSizeScan._Auto1)
+                            if (m_scanParams.PaperSize != EnumPaperSizeScan._Auto1 &&
+                                m_scanParams.PaperSize != EnumPaperSizeScan._Auto)
                             {
                                 AutoCropOffButton.IsChecked = true;
                                 AutoCropOffButton.IsEnabled = false;
@@ -539,18 +543,18 @@ namespace VOP
                             MultiFeedOnButton.IsEnabled = true;
                             MultiFeedOffButton.IsEnabled = true;
 
-                            if (m_scanParams.AutoColorDetect == true)
-                            {
-                                btnAutoColorOn.IsChecked = true;
-                            }
-                            else
-                            {
-                                btnAutoColorOff.IsChecked = true;
-                            }
-
-                            btnAutoColorOff.IsEnabled = true;
-                            btnAutoColorOn.IsEnabled = true;
                         }
+                        if (m_scanParams.AutoColorDetect == true)
+                        {
+                            btnAutoColorOn.IsChecked = true;
+                        }
+                        else
+                        {
+                            btnAutoColorOff.IsChecked = true;
+                        }
+
+                        btnAutoColorOff.IsEnabled = true;
+                        btnAutoColorOn.IsEnabled = true;
                     }
 
                     //modified by yunying shang 2018-03-05 for BMS 2491
@@ -634,19 +638,22 @@ namespace VOP
                         m_scanParams.PaperSize = m_lastPaperSize;
                         InitScanSize();
 
-                        if (m_scanParams.MultiFeed == true)
+                        if (m_powermode < 3)
                         {
-                            MultiFeedOnButton.IsChecked = true;
-                            MultiFeedOffButton.IsChecked = false;
-                        }
-                        else
-                        {
-                            MultiFeedOnButton.IsChecked = false;
-                            MultiFeedOffButton.IsChecked = true;
-                        }
+                            if (m_scanParams.MultiFeed == true)
+                            {
+                                MultiFeedOnButton.IsChecked = true;
+                                MultiFeedOffButton.IsChecked = false;
+                            }
+                            else
+                            {
+                                MultiFeedOnButton.IsChecked = false;
+                                MultiFeedOffButton.IsChecked = true;
+                            }
 
-                        MultiFeedOnButton.IsEnabled = true;
-                        MultiFeedOffButton.IsEnabled = true;
+                            MultiFeedOnButton.IsEnabled = true;
+                            MultiFeedOffButton.IsEnabled = true;
+                        }
                     }
 
                     m_lastPaperType = type;
