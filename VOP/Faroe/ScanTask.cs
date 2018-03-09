@@ -354,7 +354,7 @@ next:
                     {
                         //modified by yunying shang 2018-01-09 for BMS 2021
                         //param.ADFMode = false;
-                        param.AutoCrop = false;
+                        //param.AutoCrop = false;
                         // param.MultiFeed = false;
                         //<<==================2021
                         if (param.PaperSize == EnumPaperSizeScan._LongPage)
@@ -386,6 +386,8 @@ next:
                             param.ADFMode = false;
                             param.AutoCrop = false;
                             param.MultiFeed = false;
+                            param.AutoColorDetect = false;
+                            param.SkipBlankPage = false;
                             if (param.PaperSize == EnumPaperSizeScan._LongPage)
                                 param.PaperSize = EnumPaperSizeScan._Auto;
                             if (param.ScanMediaType > 0)

@@ -66,7 +66,9 @@ namespace VOP
         private List<string> uploadFiles { get; set; }
         private DriveService _service = null;
         private string ParantID = "";
+        private string currentID = "";
         private string Parent = "";
+ 
 
         public GoogleDriveFileViewer(List<File> fileList, List<string> uploadList, string folder, CloudFlowType type)
         {
@@ -121,7 +123,10 @@ namespace VOP
                 {
                     ViewItemInfo info = item.Tag as ViewItemInfo;
                     if (info.fileName == CurrentFolder && info.fileType == "Folder")
+                    {
                         FileBrowser.SelectedIndex = i;
+                        ParantID = info.parentid;
+                    }
                     i++;
                 }
                 FileBrowser.Focus();
@@ -165,6 +170,11 @@ namespace VOP
                     item.id = file.Id;
                     folderList.Add(item);
                     isHasFolder = true;
+
+                    if (CurrentFolder == item.name)
+                    {
+                        ParantID = item.parentID;
+                    }
                 }
 
             }
@@ -177,6 +187,10 @@ namespace VOP
                         rootid = FileList[0].Parents[0].Id;
                     }
                 }
+            }
+            if (CurrentFolder == "")
+            {
+                ParantID = rootid;
             }
             Win32.OutputDebugString("GetFolderList===>Leave");
         }
@@ -205,7 +219,7 @@ namespace VOP
                     if (file.MimeType == "application/vnd.google-apps.folder")
                     {
                         ListViewItem viewItem = null;
-                        viewItem = CreateViewItem(file.Title, "root", file.Id, "Folder", index);
+                        viewItem = CreateViewItem(file.Title, "root", ParantID, file.Id, "Folder", index);
                         if (viewItem != null)
                         {
                             FileBrowser.Items.Add(viewItem);
@@ -223,7 +237,7 @@ namespace VOP
                     if (file.MimeType != "application/vnd.google-apps.folder")
                     {
                         ListViewItem viewItem = null;
-                        viewItem = CreateViewItem(file.Title, "root", file.Id, "File", index);
+                        viewItem = CreateViewItem(file.Title, "root", ParantID, file.Id, "File", index);
                         if (viewItem != null)
                         {
                             FileBrowser.Items.Add(viewItem);
@@ -239,6 +253,7 @@ namespace VOP
                 FileBrowser.SelectedIndex = -1;
 
             ParantID = rootid;
+            currentID = rootid;
             Win32.OutputDebugString("InitFileandFodlers===>Leave");
         }
 
@@ -265,7 +280,7 @@ namespace VOP
                 {
                     ListViewItem viewItem = null;
 
-                    viewItem = CreateViewItem(file.Title, parent, file.Id, "Folder", index);
+                    viewItem = CreateViewItem(file.Title, parent, ParantID, file.Id, "Folder", index);
                     if (viewItem != null)
                     {
                         FileBrowser.Items.Add(viewItem);
@@ -281,7 +296,7 @@ namespace VOP
                 {
                     ListViewItem viewItem = null;
 
-                    viewItem = CreateViewItem(file.Title, parent, file.Id, "File", index);
+                    viewItem = CreateViewItem(file.Title, parent, ParantID, file.Id, "File", index);
                     if (viewItem != null)
                     {
                         FileBrowser.Items.Add(viewItem);
@@ -293,7 +308,7 @@ namespace VOP
             Win32.OutputDebugString("UpdateFileAndFolders===>leave");
         }
 
-        private ListViewItem CreateViewItem(string fileName, string parent, string parentid, string fileType = "Folder", int fileIndex = 0, System.IO.Stream imageStream = null)
+        private ListViewItem CreateViewItem(string fileName, string parent, string parentid, string id, string fileType = "Folder", int fileIndex = 0, System.IO.Stream imageStream = null)
         {
             Win32.OutputDebugString("CreateViewItem===>Enter");
             ListViewItem item = null;
@@ -349,7 +364,7 @@ namespace VOP
                 item.Content = stack;
                 item.MouseDoubleClick += new MouseButtonEventHandler(ViewItemDoubleClick);
 
-                ViewItemInfo info = new ViewItemInfo(fileType, fileName, parent, parentid);
+                ViewItemInfo info = new ViewItemInfo(fileType, fileName, parent, parentid, id);
                 item.Tag = info;
             }
             catch (Exception ex)
@@ -376,7 +391,7 @@ namespace VOP
                     string folderName = frm.m_folderName.TrimStart();
                     folderName = folderName.TrimEnd();
 
-                    if (CheckFolder(folderName, this.ParantID) == false)
+                    if (CheckFolder(folderName, this.currentID) == false)
                     {
                         VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
                             Application.Current.MainWindow,
@@ -404,8 +419,9 @@ namespace VOP
                                     FileList.Remove(item);
                                 }
                             }
+                            CurrentFolder = folderName;
                             GetFolderList();
-                            UpdateFileAndFolders(currentPath, this.ParantID);
+                            UpdateFileAndFolders(CurrentFolder, this.currentID);
                         }
                         //else
                         //{
@@ -436,8 +452,11 @@ namespace VOP
 
         private async void UpFolderButtonClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            UploadStaus.Text = "";
+
             try
             {
+
                 if (currentPath != "")
                 {
                     string temp = "";
@@ -447,13 +466,24 @@ namespace VOP
                     currentPath = temp;
                     if (currentPath != "")
                     {
-                        ParantID = this.ParantID;
-                        UpdateFileAndFolders(Parent, ParantID);
+                        currentID = ParantID;
+                        CurrentFolder = currentFolderName;
+
+                        foreach (FolderItem folder in folderList)
+                        {
+                            if (currentID == folder.id)
+                            {
+                                ParantID = folder.parentID;
+                                break;
+                            }
+                        }
+                        UpdateFileAndFolders(Parent, currentID);
                     }
                     else
                     {
                         InitFileandFodlers();
                     }
+
                     PathText.Text = currentPath;
                     if (PathText.Text == "")
                         UpFolderButton.IsEnabled = false;
@@ -521,11 +551,14 @@ namespace VOP
             ListViewItem item = sender as ListViewItem;
             ViewItemInfo info = item.Tag as ViewItemInfo;
 
+            UploadStaus.Text = "";
+
             try
             {
                 if (info.fileType == "Folder")
                 {
                     currentFolderName = info.fileName;
+                    CurrentFolder = info.fileName;
                     selectedPath = currentPath + "/" + info.fileName;
                     currentPath = selectedPath;
                     PathText.Text = currentPath;
@@ -534,9 +567,10 @@ namespace VOP
                     else
                         UpFolderButton.IsEnabled = true;
 
-                    ParantID = info.parentid;
+                    ParantID = currentID;
                     Parent = info.fileName;
-                    UpdateFileAndFolders(info.parent, info.parentid);
+                    currentID = info.id;
+                    UpdateFileAndFolders(info.parent, info.id);
                 }
             }
             catch (Exception ex)
@@ -571,7 +605,7 @@ namespace VOP
                 else
                 {
                     Googledocsflow.SavePath = selectedPath;
-                    Googledocsflow.FolderID = this.ParantID;
+                    Googledocsflow.FolderID = this.currentID;
                 }
 
                 if (Googledocsflow.SavePath == "")
@@ -589,7 +623,8 @@ namespace VOP
 
                 string message = "";
                 string temp = "";
-                string parentid = rootid;
+
+                UploadStaus.Text = "";
 
                 if (currentPath != "")
                 {
@@ -621,7 +656,7 @@ namespace VOP
                             }
                         }
                         GetFolderList();
-                        if (!CheckUploadFolderName(UpperFolder, ParantID))
+                        if (!CheckUploadFolderName(UpperFolder, currentID))
                         {
                             message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Folder_Not_Exist");
                             message = string.Format(message/*"The folder {0} does not exist."*/, currentFolderName);
@@ -643,15 +678,35 @@ namespace VOP
                 {
                     string fileName = "";
                     bool bExistFile = false;
+                    List<File> existfiles = new List<File>();
 
+                    
 
                     foreach (string filepath in uploadFiles)
                     {
-                        if (false == CheckFileName(filepath, ParantID))
-                        {
-                            bExistFile = true;
+                        string filename = System.IO.Path.GetFileName(filepath);
+
+                        foreach (File file in FileList)
+                        {                           
+                            if (file.OriginalFilename == filename &&
+                                file.Parents[0].Id == currentID)
+                            {
+                                bExistFile = true;
+                                existfiles.Add(file);
+                                break;
+                            }
                         }
+
+                        if (!bExistFile)
+                        {
+
+                            File fileItem = new File();
+                            fileItem.Id = "";
+                            existfiles.Add(fileItem);
+                        }                  
                     }
+
+                    UploadStaus.Text = "Uploading file " + uploadFiles[0] + "...";
 
                     if (bExistFile)
                     {
@@ -663,13 +718,47 @@ namespace VOP
                         {
                             return;
                         }
+
+                        int i = 0;
+                        foreach (string filepath in uploadFiles)
+                        {
+                            UploadStaus.Text = "Uploading file " + filepath;
+                            // Yes... overwrite the file
+                            File item = existfiles[i];
+                            try
+                            {
+                                if (item.Id != "")
+                                {
+                                    Utilities.UpdateFile(_service, item.Id, item.Title, item.Description, item.MimeType, filepath, true);
+                                }
+                                else
+                                {
+                                    Utilities.InsertFile(_service, System.IO.Path.GetFileName(filepath), "Scanning Image", this.currentID, "image/jpeg", filepath);
+                                }
+                            }
+
+                            catch (Exception ex)
+                            {
+                                message = (string)Application.Current.MainWindow.TryFindResource("ResStr_Update_File_fail");
+                                message = string.Format(message, filepath);
+                                VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                                    Application.Current.MainWindow, message, (string)this.TryFindResource("ResStr_Warning"));
+                            }
+                            i++;
+                        }
                     }
-                    foreach (string filePath in uploadFiles)
+                    else
                     {
-                        UploadStaus.Text = "Uploading file " + filePath;
-                        await Upload(filePath);
+                        foreach (string filePath in uploadFiles)
+                        {
+                           // UploadStaus.Text = "Uploading file " + filePath;
+
+                            await Upload(filePath);
+ 
+                        }
                     }
-                    UploadStaus.Text = "";
+
+                    
                     FileList = Utilities.RetrieveAllFiles(_service);
                     List<File> templist = new List<File>();
                     foreach (File item in FileList)
@@ -685,7 +774,8 @@ namespace VOP
                         }
                     }
                     GetFolderList();
-                    UpdateFileAndFolders(currentPath, this.ParantID);
+                    UpdateFileAndFolders(currentPath, this.currentID);
+                    UploadStaus.Text = "Upload files success!";
                 }
                 catch (Exception ex)
                 {
@@ -708,7 +798,7 @@ namespace VOP
             string filename = System.IO.Path.GetFileName(filepath);
             try
             {
-                Utilities.InsertFile(_service, filename, "Scanning Image", this.ParantID, "image/jpeg", filepath);
+                Utilities.InsertFile(_service, filename, "Scanning Image", this.currentID, "image/jpeg", filepath);
             }
             catch (Exception ex)
             {
@@ -723,7 +813,7 @@ namespace VOP
         {
             try
             {
-                File file = Utilities.InsertFile(_service, folder, "New Folder", this.ParantID, "application/vnd.google-apps.folder", fullpath);
+                File file = Utilities.InsertFile(_service, folder, "New Folder", this.currentID, "application/vnd.google-apps.folder", fullpath);
             }
             catch (Exception ex)
             {

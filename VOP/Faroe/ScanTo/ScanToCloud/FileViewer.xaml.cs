@@ -30,17 +30,19 @@ namespace VOP
         public string fileName = "";
         public string parent = "";
         public string parentid = "";
+        public string id = "";
 
         public ViewItemInfo()
         {
 
         }
-        public ViewItemInfo(string type, string name, string folder, string id)
+        public ViewItemInfo(string type, string name, string folder, string parentID, string currentid)
         {
             fileType = type;
             fileName = name;
             parent = folder;
-            parentid = id;
+            parentid = parentID;
+            id = currentid;
         }
 
     }
@@ -144,7 +146,7 @@ namespace VOP
             item.Content = stack;
             item.MouseDoubleClick += new MouseButtonEventHandler(ViewItemDoubleClick);
 
-            ViewItemInfo info = new ViewItemInfo(fileType, fileName, "", "");
+            ViewItemInfo info = new ViewItemInfo(fileType, fileName, "", "", "");
             item.Tag = info;
 
             return item;

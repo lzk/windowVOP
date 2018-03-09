@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VOP.Controls"
         mc:Ignorable="d"
         Title="MessageBoxEx_Simple" 
-        Height="418" 
+        Height="498" 
         Width="618"
         AllowsTransparency="true"
         WindowStartupLocation="CenterOwner"
@@ -169,10 +169,10 @@
                     <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <Grid x:Name="LayoutRoot" Width="570" Height="370" Background="#FFEFF8FF" >
+            <Grid x:Name="LayoutRoot" Width="570" Height="450" Background="#FFEFF8FF" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="285" />
+                    <RowDefinition Height="365" />
                     <RowDefinition Height="5" />
                     <RowDefinition Height="30" />
                     <RowDefinition Height="20" />

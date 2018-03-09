@@ -351,7 +351,14 @@ namespace VOP
                         qr_pbw = new MessageBoxEx_Simple_Busy_QRCode((string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_Saving_pic_file"));
                         qr_pbw.Owner = ParentWin;
                         qr_pbw.Loaded += pbw_Loaded;
-                        qr_pbw.ShowDialog();
+                        bool? rtn = qr_pbw.ShowDialog();
+
+                        //modified by yunying shang 2018-03-09 for BMS 2607
+                        if (rtn != true)
+                        {
+                            fileSaveStatus = ScanFileSaveError.FileSave_Cancel;
+                            return ScanFileSaveError.FileSave_Cancel;
+                        }//<<================2607
                     }
 
                     thread.Join();

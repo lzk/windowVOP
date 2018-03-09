@@ -34,14 +34,14 @@ namespace VOP.Controls
 
         private void window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (m_bShowCancel == true)
-            {
-                btnCancel.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                btnCancel.Visibility = Visibility.Hidden;
-            }
+            //if (m_bShowCancel == true)
+            //{
+            //    btnCancel.Visibility = Visibility.Visible;
+            //}
+            //else
+            //{
+            //    btnCancel.Visibility = Visibility.Hidden;
+            //}
 
             TitleBar.MouseLeftButtonDown += new MouseButtonEventHandler(Title_MouseButtonEventHandler);
         }
@@ -63,6 +63,7 @@ namespace VOP.Controls
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            messageBoxExResult = MessageBoxExResult.Cancel;
         }
 
         private void CancelClick(object sender, RoutedEventArgs e)

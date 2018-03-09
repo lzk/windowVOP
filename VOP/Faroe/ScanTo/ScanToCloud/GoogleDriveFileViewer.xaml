@@ -46,9 +46,9 @@
 
                 <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="370*" />
-                        <RowDefinition Height="50" />
+                        <RowDefinition Height="360" />
                         <RowDefinition Height="60" />
+                        <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
 
                     <Border Grid.Row="0" Grid.ColumnSpan="2">
@@ -94,9 +94,9 @@
 
                         </StackPanel>
                     </Border>
-                    <StackPanel Orientation="Horizontal"  Grid.Row="1" Grid.ColumnSpan="2" >
+                    <StackPanel Orientation="Horizontal"  Grid.Row="1" Grid.Column="1" Height="55">
                         <TextBlock Name="UploadStaus" 
-                                   Width="600"
+                                   Width="600"                                   
                                    VerticalAlignment="Top" 
                                    HorizontalAlignment="Left"
                                    FontSize="12" 
@@ -109,6 +109,7 @@
                         Grid.Row="2"
                             Name="UploadButton"
                             HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
                             Width="150" 
                             Height="35"
                             FontSize="16"
@@ -116,8 +117,6 @@
                             Click="UploadButton_Click"
                             Content="{StaticResource ResStr_Faroe_Upload}" Grid.ColumnSpan="2"
                             ></Button>
-
-
                 </Grid>
 
 

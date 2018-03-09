@@ -195,7 +195,8 @@ namespace VOP
                 MultiFeedOffButton.IsEnabled = true;
             }
 
-            if (m_scanParams.SkipBlankPage == true)
+            if (m_scanParams.SkipBlankPage == true || 
+                m_powermode == 3)
             {
                 AutoCropOnButton.IsEnabled = false;
                 AutoCropOffButton.IsEnabled = false;
@@ -264,7 +265,8 @@ namespace VOP
             tbGamma.Text = Convert.ToString(m_scanParams.Gamma);
 
             if (m_scanParams.PaperSize == EnumPaperSizeScan._LongPage ||
-                m_scanParams.ColorType != EnumColorType.color_24bit)
+                m_scanParams.ColorType != EnumColorType.color_24bit ||
+                m_powermode == 3)
             {
                 btnAutoColorOff.IsEnabled = false;
                 btnAutoColorOn.IsEnabled = false;
@@ -284,7 +286,7 @@ namespace VOP
                 btnAutoColorOn.IsEnabled = true;
             }
 
-            if (//m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
+            if (m_powermode == 3 || 
                 m_scanParams.PaperSize != EnumPaperSizeScan._Auto &&
                 m_scanParams.PaperSize != EnumPaperSizeScan._Auto1)
             {
@@ -478,56 +480,9 @@ namespace VOP
                             MultiFeedOnButton.IsEnabled = false;
                             MultiFeedOffButton.IsEnabled = false;
 
-                            //add by yunying shang 2018-02-28 for BMS 2451
-                            if (m_scanParams.PaperSize != EnumPaperSizeScan._Auto1 &&
-                                m_scanParams.PaperSize != EnumPaperSizeScan._Auto)
-                            {
-                                AutoCropOffButton.IsChecked = true;
-                                AutoCropOffButton.IsEnabled = false;
-                                AutoCropOnButton.IsEnabled = false;
-                            }
-                            else
-                            {
-                                if (m_scanParams.AutoCrop == true)
-                                {
-                                    AutoCropOnButton.IsChecked = true;
-                                    AutoCropOffButton.IsChecked = false;
-                                }
-                                else
-                                {
-                                    AutoCropOnButton.IsChecked = false;
-                                    AutoCropOffButton.IsChecked = true;
-                                }
-
-                                AutoCropOnButton.IsEnabled = true;
-                                AutoCropOffButton.IsEnabled = true;
-                            }//<<============
                         }
                         else
                         {
-                            if (m_scanParams.PaperSize != EnumPaperSizeScan._Auto &&
-                            m_scanParams.PaperSize != EnumPaperSizeScan._Auto1)
-                            {
-                                AutoCropOffButton.IsChecked = true;
-                                AutoCropOffButton.IsEnabled = false;
-                                AutoCropOnButton.IsEnabled = false;
-                            }
-                            else
-                            {
-                                if (m_scanParams.AutoCrop == true)
-                                {
-                                    AutoCropOnButton.IsChecked = true;
-                                    AutoCropOffButton.IsChecked = false;
-                                }
-                                else
-                                {
-                                    AutoCropOnButton.IsChecked = false;
-                                    AutoCropOffButton.IsChecked = true;
-                                }
-
-                                AutoCropOnButton.IsEnabled = true;
-                                AutoCropOffButton.IsEnabled = true;
-                            }
 
                             if (m_scanParams.MultiFeed == true)
                             {
@@ -544,6 +499,38 @@ namespace VOP
                             MultiFeedOffButton.IsEnabled = true;
 
                         }
+                    }
+
+
+                    //add by yunying shang 2018-02-28 for BMS 2451
+                    if (m_powermode == 3 ||
+                        m_scanParams.PaperSize != EnumPaperSizeScan._Auto1 &&
+                        m_scanParams.PaperSize != EnumPaperSizeScan._Auto)
+                    {
+                        AutoCropOffButton.IsChecked = true;
+                        AutoCropOffButton.IsEnabled = false;
+                        AutoCropOnButton.IsEnabled = false;
+                    }
+                    else
+                    {
+                        if (m_scanParams.AutoCrop == true)
+                        {
+                            AutoCropOnButton.IsChecked = true;
+                            AutoCropOffButton.IsChecked = false;
+                        }
+                        else
+                        {
+                            AutoCropOnButton.IsChecked = false;
+                            AutoCropOffButton.IsChecked = true;
+                        }
+
+                        AutoCropOnButton.IsEnabled = true;
+                        AutoCropOffButton.IsEnabled = true;
+                    }//<<============
+
+
+                    if (m_powermode != 3)
+                    {
                         if (m_scanParams.AutoColorDetect == true)
                         {
                             btnAutoColorOn.IsChecked = true;
@@ -555,32 +542,32 @@ namespace VOP
 
                         btnAutoColorOff.IsEnabled = true;
                         btnAutoColorOn.IsEnabled = true;
-                    }
 
-                    //modified by yunying shang 2018-03-05 for BMS 2491
-                    if (AutoCropOffButton.IsChecked == false ||
-                        AutoCropOnButton.IsChecked == true)
-                    {
-                        if (m_scanParams.SkipBlankPage == true)
+                        //modified by yunying shang 2018-03-05 for BMS 2491
+                        if (AutoCropOffButton.IsChecked == false ||
+                            AutoCropOnButton.IsChecked == true)
                         {
-                            btnSkipBlankOn.IsChecked = true;
+                            if (m_scanParams.SkipBlankPage == true)
+                            {
+                                btnSkipBlankOn.IsChecked = true;
+                            }
+                            else
+                            {
+                                btnSkipBlankOff.IsChecked = true;
+                            }
+
+                            btnSkipBlankOn.IsEnabled = true;
+                            btnSkipBlankOff.IsEnabled = true;
                         }
                         else
                         {
+
                             btnSkipBlankOff.IsChecked = true;
-                        }
 
-                        btnSkipBlankOn.IsEnabled = true;
-                        btnSkipBlankOff.IsEnabled = true;
+                            btnSkipBlankOn.IsEnabled = false;
+                            btnSkipBlankOff.IsEnabled = false;
+                        }//<<================2491
                     }
-                    else
-                    {
-
-                        btnSkipBlankOff.IsChecked = true;
-
-                        btnSkipBlankOn.IsEnabled = false;
-                        btnSkipBlankOff.IsEnabled = false;
-                    }//<<================2491
 
                     m_lastPaperSize1 = size;
                 }
@@ -672,7 +659,7 @@ namespace VOP
                 {
                     m_scanParams.ColorType = EnumColorType.color_24bit;
 
-                    if (btnAutoColorOff != null && btnAutoColorOn != null)
+                    if (btnAutoColorOff != null && btnAutoColorOn != null && m_powermode!=3)
                     {
                         //add by yunying shang 2018-03-05 for BMS 2510
                         if (m_scanParams.PaperSize != EnumPaperSizeScan._LongPage)
@@ -827,10 +814,12 @@ namespace VOP
                 if (m_powermode == 3)
                 {
                     m_scanParams.ADFMode = false;
-                   // m_scanParams.MultiFeed = false;
+                    m_scanParams.MultiFeed = false;
+                    m_scanParams.AutoCrop = false;
+                    m_scanParams.SkipBlankPage = false;
+                    m_scanParams.AutoColorDetect = false;
                 }
-                m_scanParams.ScanMediaType = EnumScanMediaType._Normal;
-                //m_scanParams.AutoCrop = false;
+                m_scanParams.ScanMediaType = EnumScanMediaType._Normal;                
 
                 if (m_powermode > 1 && m_scanParams.PaperSize == EnumPaperSizeScan._LongPage)
                 {

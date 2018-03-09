@@ -219,8 +219,8 @@ namespace VOP
                 false,
                 MainWindow_Rufous.g_settingData.m_separationScanSettings.MultiFeed,
                 false,//MainWindow_Rufous.g_settingData.m_separationScanSettings.AutoCrop,
-                0,//MainWindow_Rufous.g_settingData.m_separationScanSettings.Brightness,
-                0,//MainWindow_Rufous.g_settingData.m_separationScanSettings.Contrast,
+                50,//MainWindow_Rufous.g_settingData.m_separationScanSettings.Brightness,
+                50,//MainWindow_Rufous.g_settingData.m_separationScanSettings.Contrast,
                 false,//MainWindow_Rufous.g_settingData.m_commonScanSettings.AutoColorDetect,
                 false,//MainWindow_Rufous.g_settingData.m_commonScanSettings.SkipBlankPage,
                 1.8,//MainWindow_Rufous.g_settingData.m_commonScanSettings.Gamma,
@@ -358,7 +358,7 @@ namespace VOP
                     //    ScanFiles file = new ScanFiles(path);
                     //    files.Add(file);
                     //}
-                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\1.jpg"));
+                   // files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\1.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\2.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\3.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\4.jpg"));

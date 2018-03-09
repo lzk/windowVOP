@@ -232,9 +232,7 @@ namespace VOP
                     SelectAllCheckBox.IsChecked = false;
                 }
             }
-
-            
-
+        
             APFlow flow = new APFlow();
             flow.ParentWin = m_MainWin;
             flow.FileList = files;
@@ -254,7 +252,7 @@ namespace VOP
             flow.ParentWin = m_MainWin;
             flow.FileList = files;
             FileFlow.FlowType = FileFlowType.View;
-            flow.Run();
+            flow.Run();      
 
         }
 
