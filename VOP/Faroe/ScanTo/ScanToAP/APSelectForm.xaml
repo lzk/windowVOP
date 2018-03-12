@@ -54,6 +54,7 @@
                         ScrollViewer.CanContentScroll="True"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
                         SelectionChanged="cboListBoxItem_SelectionChanged"
+                        MouseDoubleClick="cboListBoxItem_MouseDoubleClick"
                         />
                 <Button Grid.Row="2" Grid.Column="1"
                             HorizontalAlignment="Center" 

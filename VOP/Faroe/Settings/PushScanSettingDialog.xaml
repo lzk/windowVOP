@@ -353,7 +353,35 @@
                         </Grid>
 
                     </local:GroupBoxDecorator>
-                
+                <local:GroupBoxDecorator Grid.Row="3" Grid.Column="2" Header="{StaticResource ResStr_Faroe_multifeed}" 
+                                             HorizontalAlignment="Center" VerticalAlignment="Center" Width="220" Height="80">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="20" />
+                        </Grid.ColumnDefinitions>
+
+                        <RadioButton GroupName="MultiFeed" IsChecked="true"
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                Name="MultiFeedOnButton" Click="MultiFeed_click"
+                                Template="{StaticResource customRadioButton}"
+                                Content="{StaticResource ResStr_On}" VerticalAlignment="Center" >
+                        </RadioButton>
+
+                        <RadioButton GroupName="MultiFeed" IsChecked="false"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                Name="MultiFeedOffButton" Click="MultiFeed_click"
+                                Template="{StaticResource customRadioButton}"
+                                Content="{StaticResource ResStr_Off}" VerticalAlignment="Center" >
+                        </RadioButton>
+
+                    </Grid>
+
+                </local:GroupBoxDecorator>
                 <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button HorizontalContentAlignment="Center" IsDefault="False" x:Name="btnDefault" Click="btnDefault_Click"
                 Content="{StaticResource ResStr_Default}" Style="{StaticResource CustomPopUpButtonStyle}"

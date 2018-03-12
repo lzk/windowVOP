@@ -232,6 +232,7 @@ namespace VOP
         private EnumPaperSizeScan m_paperSize = EnumPaperSizeScan._Auto;
         private EnumColorType m_color = EnumColorType.color_24bit;
         private EnumFileFormat m_fileFormat = EnumFileFormat.JPEG;
+        private bool m_multiFeed = true;
         private bool m_ADFMode = true;
 
         public EnumScanResln ScanResolution
@@ -293,24 +294,37 @@ namespace VOP
             }
         }
 
+        public bool MultiFeed
+        {
+            get
+            {
+                return this.m_multiFeed;
+            }
+            set
+            {
+                this.m_multiFeed = value;
+            }
+        }
+
         public ScanParamShort()
         {
 
         }
 
-        public ScanParamShort(EnumScanResln res, EnumPaperSizeScan paperSize, EnumColorType color, EnumFileFormat format, bool ADFMode)
+        public ScanParamShort(EnumScanResln res, EnumPaperSizeScan paperSize, EnumColorType color, EnumFileFormat format, bool ADFMode, bool multifeed)
         {
             this.m_scanResln = res;
             this.m_paperSize = paperSize;
             this.m_color = color;
             this.m_ADFMode = ADFMode;
             this.m_fileFormat = format;
+            this.m_multiFeed = multifeed;
         }
 
         public object Clone()
         {
             return new ScanParamShort(this.m_scanResln,  this.m_paperSize,
-                                 this.m_color, this.m_fileFormat, this.m_ADFMode);
+                                 this.m_color, this.m_fileFormat, this.m_ADFMode, this.m_multiFeed);
         }
 
     }

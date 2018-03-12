@@ -107,7 +107,7 @@ namespace VOP
             ListBoxItem item = APListBox.SelectedItem as ListBoxItem;
             string apName = item.Tag.ToString();
 
-         if (apName == "Paint")
+            if (apName == "Paint")
             {
                 m_programType = apName;
             }
@@ -121,12 +121,37 @@ namespace VOP
             }
             
         }
-     
+
+        //add by yunying shang 2018-03-12 for BMS¡¡£²£¶£´£µ
+        private void cboListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ListBoxItem item = APListBox.SelectedItem as ListBoxItem;
+            string apName = item.Tag.ToString();
+
+            if (apName == "Paint")
+            {
+                m_programType = apName;
+            }
+            else if (apName == "Windows Photo Viewer")
+            {
+                m_programType = "PhotoViewer";
+            }
+            else
+            {
+                m_programType = "OthersApplication";
+            }
+
+            DialogResult = true;
+            this.Close();
+
+        }//<<==============2645
+
         private void OkClick(object sender, RoutedEventArgs e)
         {         
             DialogResult = true;
             this.Close();
         }
+
         private void btnClose_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)

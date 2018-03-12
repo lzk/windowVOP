@@ -627,7 +627,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				return RETSCAN_ERROR_POWER1;
 			}
 			//modified by yunying shang 2017-01-03 for BMS 1924
-			if(power_mode == 3 && (ADFMode || /*AutoCrop || MultiFeed||*/  height > 14000 || type > 0 || g_connectMode_usb == false))
+			if(power_mode == 3 && (ADFMode || AutoCrop || MultiFeed || bColorDetect || bSkipBlankPage||  height > 14000 || type > 0 || g_connectMode_usb == false))
 			{
 				if (imgBuffer)
 					delete imgBuffer;
@@ -1831,20 +1831,24 @@ USBAPI_API BYTE __stdcall GetPowerSupply()
 		{
 			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
 
-			hDev = CreateFile(strPort,
-				GENERIC_READ | GENERIC_WRITE,
-				FILE_SHARE_READ | FILE_SHARE_WRITE,
-				NULL,
-				OPEN_EXISTING,
-				FILE_FLAG_OVERLAPPED, NULL);
+			//modified by yunying shang 2018-03-09 for BMS 
+			if (wcscmp(strPort, g_deviceName) == 0)
+			{
+				hDev = CreateFile(strPort,
+					GENERIC_READ | GENERIC_WRITE,
+					FILE_SHARE_READ | FILE_SHARE_WRITE,
+					NULL,
+					OPEN_EXISTING,
+					FILE_FLAG_OVERLAPPED, NULL);
 
-			if (hDev != INVALID_HANDLE_VALUE)
-			{
-				break;
-			}
-			else
-			{
-				error = GetLastError();
+				if (hDev != INVALID_HANDLE_VALUE)
+				{
+					break;
+				}
+				else
+				{
+					error = GetLastError();
+				}
 			}
 		}
 
@@ -2510,19 +2514,19 @@ USBAPI_API int __stdcall GetScanType(int* mode)
 					*mode = 0;
 				else
 				{
-					switch (type)
-					{
-					case 2:
-						*mode = 1;
-						break;
-					case 0:
-						*mode = 3;
-						break;
-					case 1:
-						*mode = 2;
-						break;
-					}
-					//*mode = type+1;
+					//switch (type)
+					//{
+					//case 2:
+					//	*mode = 1;
+					//	break;
+					//case 0:
+					//	*mode = 3;
+					//	break;
+					//case 1:
+					//	*mode = 2;
+					//	break;
+					//}
+					*mode = type+1;
 				}
 
 				result = TRUE;
@@ -2550,19 +2554,25 @@ USBAPI_API int __stdcall GetScanType(int* mode)
 					{
 						if (glDrv.NVRAM_read(0xc3, 1, data))
 						{
-							switch (type)
+							type = data[0];
+							if (type == 3)
+								*mode = 0;
+							else
 							{
-							case 2:
-								*mode = 1;
-								break;
-							case 0:
-								*mode = 3;
-								break;
-							case 1:
-								*mode = 2;
-								break;
+								//switch (type)
+								//{
+								//case 2:
+								//	*mode = 1;
+								//	break;
+								//case 0:
+								//	*mode = 3;
+								//	break;
+								//case 1:
+								//	*mode = 2;
+								//	break;
+								//}
+								*mode = type + 1;
 							}
-							//*mode = type+1;
 
 							result = TRUE;
 						}
@@ -2626,19 +2636,19 @@ USBAPI_API int __stdcall SetScanType(int mode)
 				data[0] = 3;
 			else
 			{
-				switch (mode)
-				{
-				case 1:
-					data[0] = 2;
-					break;
-				case 2:
-					data[0] = 1;
-					break;
-				case 3:
-					data[0] = 0;
-					break;
-				}
-				//data[0] = mode - 1;//0
+				//switch (mode)
+				//{
+				//case 1:
+				//	data[0] = 2;
+				//	break;
+				//case 2:
+				//	data[0] = 1;
+				//	break;
+				//case 3:
+				//	data[0] = 0;
+				//	break;
+				//}
+				data[0] = mode - 1;
 			}
 
 			int iRet = glDrv.NVRAM_write(0xc3, 1, data);
@@ -2673,19 +2683,19 @@ USBAPI_API int __stdcall SetScanType(int mode)
 							data[0] = 3;
 						else
 						{
-							switch (mode)
-							{
-							case 1:
-								data[0] = 2;
-								break;
-							case 2:
-								data[0] = 1;
-								break;
-							case 3:
-								data[0] = 0;
-								break;
-							}
-							//data[0] = mode - 1;//0
+							//switch (mode)
+							//{
+							//case 1:
+							//	data[0] = 2;
+							//	break;
+							//case 2:
+							//	data[0] = 1;
+							//	break;
+							//case 3:
+							//	data[0] = 0;
+							//	break;
+							//}
+							data[0] = mode - 1;
 						}
 						int iRet = glDrv.NVRAM_write(0xc3, 1, data);
 						if (iRet)

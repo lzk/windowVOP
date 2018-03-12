@@ -358,7 +358,7 @@ namespace VOP
                     //    ScanFiles file = new ScanFiles(path);
                     //    files.Add(file);
                     //}
-                   // files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\1.jpg"));
+                    //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\3m.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\2.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\3.jpg"));
                     //files.Add(new ScanFiles(@"C:\Users\Administrator\Desktop\111\4.jpg"));

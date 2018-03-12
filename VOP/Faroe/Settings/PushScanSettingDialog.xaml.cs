@@ -43,6 +43,10 @@ namespace VOP
             m_lastPaperSize1 = m_scanParams.PaperSize;
             m_lastRes = m_scanParams.ScanResolution;
 
+            InitScanResln();
+            InitScanSize();
+            InitFontSize();
+
             AsyncWorker worker = new AsyncWorker(Application.Current.MainWindow);
             ScanParametersRecord m_rec = new ScanParametersRecord(0, 0, 0, 0, 0);
             if (worker.InvokeMethod<ScanParametersRecord>("", ref m_rec, DllMethodType.GetScanParameters, this))
@@ -126,9 +130,6 @@ namespace VOP
             }
 
             InitControls();
-            InitScanResln();
-            InitScanSize();
-            InitFontSize();
 
             twoSideButton.Focus();
 
@@ -205,6 +206,22 @@ namespace VOP
                     PDFOnButton.IsChecked = true;
 
                 PDFOnButton.IsEnabled = true;
+            }
+
+            if (m_scanParams.PaperSize == EnumPaperSizeScan._A6)
+            {
+                MultiFeedOnButton.IsEnabled = false;
+                MultiFeedOffButton.IsEnabled = false;
+                MultiFeedOffButton.IsChecked = true;
+            }
+            else
+            {
+                if (m_scanParams.MultiFeed == true)
+                    MultiFeedOnButton.IsChecked = true;
+                else
+                    MultiFeedOffButton.IsChecked = true;
+                MultiFeedOffButton.IsEnabled = true;
+                MultiFeedOnButton.IsEnabled = true;
             }
         }
 
@@ -457,12 +474,12 @@ namespace VOP
             cboItem.Style = this.FindResource("customComboBoxItem") as Style;
             cboScanSize.Items.Add(cboItem);
      
-            cboItem = new ComboBoxItem();
-            cboItem.Content = (string)this.TryFindResource("ResStr_LongPage_");
-            cboItem.DataContext = EnumPaperSizeScan._LongPage;
-            cboItem.MinWidth = 145;
-            cboItem.Style = this.FindResource("customComboBoxItem") as Style;
-            cboScanSize.Items.Add(cboItem);                     
+            //cboItem = new ComboBoxItem();
+            //cboItem.Content = (string)this.TryFindResource("ResStr_LongPage_");
+            //cboItem.DataContext = EnumPaperSizeScan._LongPage;
+            //cboItem.MinWidth = 145;
+            //cboItem.Style = this.FindResource("customComboBoxItem") as Style;
+            //cboScanSize.Items.Add(cboItem);                     
 
             foreach (ComboBoxItem obj in cboScanSize.Items)
             {
@@ -498,6 +515,24 @@ namespace VOP
             }
         }
 
+        public void MultiFeed_click(object sender, RoutedEventArgs e)
+        {
+            RadioButton rdbtn = sender as RadioButton;
+
+            if (null != rdbtn)
+            {
+                if (rdbtn.Name == "MultiFeedOnButton")
+                {
+                    m_scanParams.MultiFeed = true;
+                    InitScanSize();
+                }
+                else if (rdbtn.Name == "MultiFeedOffButton")
+                {
+                    m_scanParams.MultiFeed = false;
+                    InitScanSize();
+                }
+            }
+        }
 
         private MainWindow_Rufous _MainWin = null;
 
