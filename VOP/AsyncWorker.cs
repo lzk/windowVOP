@@ -340,13 +340,14 @@ namespace VOP
 
                 if (result.AsyncWaitHandle.WaitOne(500, false))//modified by yunying shang 2018-03-08for BMS
                 {
-                    //Win32.OutputDebugString("Wait finished, get result");
+                    Win32.OutputDebugString("Wait finished, get result");
                     return caller.EndInvoke(out fileNames, result);
                 }
-
+                Win32.OutputDebugString("not finished, directly return!");
             }
+            
             fileNames = null;
-            return 1;
+            return (int)Scan_RET.RETSCAN_DIRECTLY;
         }
 
 

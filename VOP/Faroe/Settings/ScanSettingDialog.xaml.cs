@@ -384,19 +384,31 @@ namespace VOP
         {
             RadioButton rdbtn = sender as RadioButton;
 
+            //modified by yunying shang 2018-03-12 for BMS 2653
             if (null != rdbtn)
             {
                 if (rdbtn.Name == "MultiFeedOnButton")
                 {
                     m_scanParams.MultiFeed = true;
-                    InitScanSize();
+                    // InitScanSize();
+
+                    ComboBoxItem item = cboScanSize.SelectedItem as ComboBoxItem;
+
+                    EnumPaperSizeScan paperSize = (EnumPaperSizeScan)item.DataContext;
+                    if (paperSize == EnumPaperSizeScan._Auto1)
+                        cboScanSize.SelectedIndex = 0;
                 }
                 else if (rdbtn.Name == "MultiFeedOffButton")
                 {
                     m_scanParams.MultiFeed = false;
-                    InitScanSize();
+                    // InitScanSize();
+                    ComboBoxItem item = cboScanSize.SelectedItem as ComboBoxItem;
+
+                    EnumPaperSizeScan paperSize = (EnumPaperSizeScan)item.DataContext;
+                    if (paperSize == EnumPaperSizeScan._Auto)
+                        cboScanSize.SelectedIndex = 1;
                 }
-            }
+            }//<<=============2653
         }
 
         public void AutoCrop_click(object sender, RoutedEventArgs e)

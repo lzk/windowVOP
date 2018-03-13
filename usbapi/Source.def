@@ -83,3 +83,4 @@ EXPORTS
 	SetScanType
 	SetScanParameters
 	GetScanParameters
+	GetJobStatus

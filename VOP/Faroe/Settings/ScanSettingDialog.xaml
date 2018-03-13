@@ -383,7 +383,7 @@
                         <ComboBox Name="cboScanSize" SelectionChanged="cbo_selchg_scansize"
                     Style="{StaticResource customComboBox}"
                     Background="White"
-                    Width="145" Height="25"
+                    Width="155" Height="25"
                     VerticalAlignment="Center" HorizontalAlignment="Center">
                         </ComboBox>
                     </local:GroupBoxDecorator>

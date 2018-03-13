@@ -107,7 +107,7 @@ namespace VOP
             //ScanWaitWindow_Rufous scanPbw = new ScanWaitWindow_Rufous();
             //scanPbw.Owner = Application.Current.MainWindow;
             //scanPbw.ShowDialog();
-
+            Win32.OutputDebugString("DoScan===Enter");
             if (param == null)
                 return null;
 
@@ -240,7 +240,6 @@ next:
                     (int)param.ScanMediaType,
                     out fileNames);
 
-//          sw.Stop();
             Trace.WriteLine(string.Format("Elapsed={0}", sw.Elapsed));
 
             //Win32.OutputDebugString("Scanning Finished!");
@@ -259,10 +258,22 @@ next:
                 }
             }
             sw.Stop();
+
             ScanResult = (Scan_RET)nResult;
+
 
             string error = string.Format("ScanResult is {0}", ScanResult);
             Win32.OutputDebugString(error);
+
+            if (ScanResult == Scan_RET.RETSCAN_DIRECTLY)
+            {
+                while (dll.GetJobStatus() == 1)
+                {
+                    //Win32.OutputDebugString("Scanning job is canceling!");
+                    ScanResult = Scan_RET.RETSCAN_CANCEL;
+                    Thread.Sleep(20);
+                }
+            }
             if (ScanResult != Scan_RET.RETSCAN_OK)
             {
                 if (ScanResult == Scan_RET.RETSCAN_OPENFAIL)

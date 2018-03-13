@@ -74,6 +74,7 @@ enum Scan_RET
 	RETSCAN_ADFDOC_NOT_READY = 26,
 	RETSCAN_GETINFO_FAIL = 27,
 	RETSCAN_MEMORY_FULL = 28,
+	RETSCAN_DIRECTLY = 29,
 };
 
 extern UINT WM_VOPSCAN_PROGRESS;
@@ -138,7 +139,7 @@ CGLDrv *g_pointer_lDrv = NULL;
 int start_cancel = 0;
 USBAPI_API int __stdcall ADFCancel()
 {
-	start_cancel = 1;
+	start_cancel = TRUE;
 
 	//if (g_pointer_lDrv != NULL)
 	//{
@@ -147,6 +148,12 @@ USBAPI_API int __stdcall ADFCancel()
 
 	return 1;
 }
+
+//add by yunying shang 2018-03-13 for BMS 2673
+USBAPI_API int __stdcall GetJobStatus()
+{
+	return start_cancel;
+}//<<============2673
 
 int GetEncoderClsid(const WCHAR* format, CLSID* pClsid)
 {
@@ -414,6 +421,14 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 
 	nColPixelNumOrig = height*resolution / 1000;
 
+	//add by yunying shang 2018-03-13 for BMS 2673
+	if (start_cancel == TRUE)
+	{
+		MyOutputString(L"Job is canceled1");
+		start_cancel = FALSE;
+		return RETSCAN_CANCEL;
+	}
+		
 	if (g_connectMode_usb == TRUE)
 	{
 		lineNumber = 1500;
@@ -557,6 +572,16 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	int page[2] = { 0 };
 	int fileCount = 0;
 	
+	//add by yunying shang 2018-03-13 for BMS 2673
+	if (start_cancel == TRUE)
+	{
+		MyOutputString(L"Job is canceled11");
+
+		start_cancel = FALSE;
+
+		return RETSCAN_CANCEL;
+	}
+
 	Scan_RET re_status = RETSCAN_OK;
 	if (g_connectMode_usb != TRUE)
 	{
@@ -572,7 +597,9 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 	}
 	
 	MyOutputString(L"ADF Enter");
+
 	BYTE openRet = FALSE;
+
 	if ((openRet = glDrv._OpenDevice()) == TRUE)
 	{
 		Scan_RET scanRet = RETSCAN_OK;
@@ -637,6 +664,20 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			}
 		}
 		MyOutputString(L"Check Power Mode");
+
+		//add by yunying shang 2018-03-13 for BMS 2673
+		if (start_cancel == TRUE)
+		{
+			MyOutputString(L"Job is canceled2");
+			if (imgBuffer)
+				delete imgBuffer;
+
+			glDrv._CloseDevice();
+
+			start_cancel = FALSE;
+
+			return RETSCAN_CANCEL;
+		}
 
 		if (!glDrv._JobCreate(JOB_ADF, g_connectMode_usb))
 		{
@@ -782,6 +823,23 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			}
 		}*/
 		::SendNotifyMessage(HWND_BROADCAST, WM_VOPSCAN_PROGRESS/*uMsg*/, 0, 0);
+
+		//add by yunying shang 2018-03-13 for BMS 2673
+		if (start_cancel == TRUE)
+		{
+			MyOutputString(L"Job is canceled3");
+			if (imgBuffer)
+				delete imgBuffer;
+
+			glDrv._JobEnd();
+
+			glDrv._CloseDevice();
+
+			start_cancel = FALSE;
+
+			return RETSCAN_CANCEL;
+		}
+
 		result = glDrv._StartScan();
 		MyOutputString(L"_StartScan");
 		if (!result)
@@ -1298,7 +1356,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			{
 				::SysFreeString(bstrArray[i]);
 			}
-
+			start_cancel = FALSE;
 			return RETSCAN_CANCEL;
 		}
 
