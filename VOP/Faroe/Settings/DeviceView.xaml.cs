@@ -82,7 +82,19 @@ namespace VOP
             tb.PreviewTextInput += new TextCompositionEventHandler(SpinnerTextBox_PreviewTextInput);
             tb.PreviewKeyDown += new KeyEventHandler(OnPreviewKeyDown);
 
-            if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)//.m_DeviceName.Contains("USB"))
+            //add by yunying shang 2018-03-13 for BMS2685
+            byte power = 0;
+            PowerModeRecord power_rec = new PowerModeRecord();
+            if (worker.InvokeMethod<PowerModeRecord>("", ref power_rec, DllMethodType.GetPowerSupply, this))
+            {
+                if (null != power_rec && power_rec.CmdResult == EnumCmdResult._ACK)
+                {
+                    if (power_rec.Mode != 0)
+                        power = power_rec.Mode;
+                }
+            }
+
+            if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true && power == 1)//.m_DeviceName.Contains("USB"))
                 btnCalibration.IsEnabled = true;
             else
                 btnCalibration.IsEnabled = false;

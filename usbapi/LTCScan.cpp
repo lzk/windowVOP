@@ -1889,7 +1889,7 @@ USBAPI_API BYTE __stdcall GetPowerSupply()
 		{
 			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
 
-			//modified by yunying shang 2018-03-09 for BMS 
+			//modified by yunying shang 2018-03-09 for BMS 2619
 			if (wcscmp(strPort, g_deviceName) == 0)
 			{
 				hDev = CreateFile(strPort,
@@ -1987,20 +1987,24 @@ USBAPI_API int __stdcall GetScanCount(//byte mode,
 		{
 			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
 
-			hDev = CreateFile(strPort,
-				GENERIC_READ | GENERIC_WRITE,
-				FILE_SHARE_READ | FILE_SHARE_WRITE,
-				NULL,
-				OPEN_EXISTING,
-				FILE_FLAG_OVERLAPPED, NULL);
+			//modified by yunying shang 2018-03-09 for BMS 2619
+			if (wcscmp(strPort, g_deviceName) == 0)
+			{
+				hDev = CreateFile(strPort,
+					GENERIC_READ | GENERIC_WRITE,
+					FILE_SHARE_READ | FILE_SHARE_WRITE,
+					NULL,
+					OPEN_EXISTING,
+					FILE_FLAG_OVERLAPPED, NULL);
 
-			if (hDev != INVALID_HANDLE_VALUE)
-			{
-				break;
-			}
-			else
-			{
-				error = GetLastError();
+				if (hDev != INVALID_HANDLE_VALUE)
+				{
+					break;
+				}
+				else
+				{
+					error = GetLastError();
+				}
 			}
 		}
 
@@ -2124,20 +2128,24 @@ USBAPI_API int __stdcall ClearScanCount(byte mode)
 		{
 			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
 
-			hDev = CreateFile(strPort,
-				GENERIC_READ | GENERIC_WRITE,
-				FILE_SHARE_READ | FILE_SHARE_WRITE,
-				NULL,
-				OPEN_EXISTING,
-				FILE_FLAG_OVERLAPPED, NULL);
+			//modified by yunying shang 2018-03-09 for BMS 2619
+			if (wcscmp(strPort, g_deviceName) == 0)
+			{
+				hDev = CreateFile(strPort,
+					GENERIC_READ | GENERIC_WRITE,
+					FILE_SHARE_READ | FILE_SHARE_WRITE,
+					NULL,
+					OPEN_EXISTING,
+					FILE_FLAG_OVERLAPPED, NULL);
 
-			if (hDev != INVALID_HANDLE_VALUE)
-			{
-				break;
-			}
-			else
-			{
-				error = GetLastError();
+				if (hDev != INVALID_HANDLE_VALUE)
+				{
+					break;
+				}
+				else
+				{
+					error = GetLastError();
+				}
 			}
 		}
 
@@ -2302,20 +2310,24 @@ USBAPI_API int __stdcall SetPowerSaveTime(const wchar_t* szPrinter, WORD sleepTi
 		{
 			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
 
-			hDev = CreateFile(strPort,
-				GENERIC_READ | GENERIC_WRITE,
-				FILE_SHARE_READ | FILE_SHARE_WRITE,
-				NULL,
-				OPEN_EXISTING,
-				FILE_FLAG_OVERLAPPED, NULL);
+			//modified by yunying shang 2018-03-09 for BMS 
+			if (wcscmp(strPort, g_deviceName) == 0)
+			{
+				hDev = CreateFile(strPort,
+					GENERIC_READ | GENERIC_WRITE,
+					FILE_SHARE_READ | FILE_SHARE_WRITE,
+					NULL,
+					OPEN_EXISTING,
+					FILE_FLAG_OVERLAPPED, NULL);
 
-			if (hDev != INVALID_HANDLE_VALUE)
-			{
-				break;
-			}
-			else
-			{
-				error = GetLastError();
+				if (hDev != INVALID_HANDLE_VALUE)
+				{
+					break;
+				}
+				else
+				{
+					error = GetLastError();
+				}
 			}
 		}
 
@@ -2390,20 +2402,24 @@ USBAPI_API int __stdcall GetPowerSaveTime(const wchar_t* szPrinter, WORD* ptrSle
 		{
 			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
 
-			hDev = CreateFile(strPort,
-				GENERIC_READ | GENERIC_WRITE,
-				FILE_SHARE_READ | FILE_SHARE_WRITE,
-				NULL,
-				OPEN_EXISTING,
-				FILE_FLAG_OVERLAPPED, NULL);
+			//modified by yunying shang 2018-03-09 for BMS 
+			if (wcscmp(strPort, g_deviceName) == 0)
+			{
+				hDev = CreateFile(strPort,
+					GENERIC_READ | GENERIC_WRITE,
+					FILE_SHARE_READ | FILE_SHARE_WRITE,
+					NULL,
+					OPEN_EXISTING,
+					FILE_FLAG_OVERLAPPED, NULL);
 
-			if (hDev != INVALID_HANDLE_VALUE)
-			{
-				break;
-			}
-			else
-			{
-				error = GetLastError();
+				if (hDev != INVALID_HANDLE_VALUE)
+				{
+					break;
+				}
+				else
+				{
+					error = GetLastError();
+				}
 			}
 		}
 
@@ -2536,20 +2552,24 @@ USBAPI_API int __stdcall GetScanType(int* mode)
 		{
 			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
 
-			hDev = CreateFile(strPort,
-				GENERIC_READ | GENERIC_WRITE,
-				FILE_SHARE_READ | FILE_SHARE_WRITE,
-				NULL,
-				OPEN_EXISTING,
-				FILE_FLAG_OVERLAPPED, NULL);
+			//modified by yunying shang 2018-03-09 for BMS 
+			if (wcscmp(strPort, g_deviceName) == 0)
+			{
+				hDev = CreateFile(strPort,
+					GENERIC_READ | GENERIC_WRITE,
+					FILE_SHARE_READ | FILE_SHARE_WRITE,
+					NULL,
+					OPEN_EXISTING,
+					FILE_FLAG_OVERLAPPED, NULL);
 
-			if (hDev != INVALID_HANDLE_VALUE)
-			{
-				break;
-			}
-			else
-			{
-				error = GetLastError();
+				if (hDev != INVALID_HANDLE_VALUE)
+				{
+					break;
+				}
+				else
+				{
+					error = GetLastError();
+				}
 			}
 		}
 
@@ -2660,20 +2680,24 @@ USBAPI_API int __stdcall SetScanType(int mode)
 		{
 			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
 
-			hDev = CreateFile(strPort,
-				GENERIC_READ | GENERIC_WRITE,
-				FILE_SHARE_READ | FILE_SHARE_WRITE,
-				NULL,
-				OPEN_EXISTING,
-				FILE_FLAG_OVERLAPPED, NULL);
+			//modified by yunying shang 2018-03-09 for BMS 
+			if (wcscmp(strPort, g_deviceName) == 0)
+			{
+				hDev = CreateFile(strPort,
+					GENERIC_READ | GENERIC_WRITE,
+					FILE_SHARE_READ | FILE_SHARE_WRITE,
+					NULL,
+					OPEN_EXISTING,
+					FILE_FLAG_OVERLAPPED, NULL);
 
-			if (hDev != INVALID_HANDLE_VALUE)
-			{
-				break;
-			}
-			else
-			{
-				error = GetLastError();
+				if (hDev != INVALID_HANDLE_VALUE)
+				{
+					break;
+				}
+				else
+				{
+					error = GetLastError();
+				}
 			}
 		}
 
@@ -2788,21 +2812,24 @@ USBAPI_API int __stdcall GetScanParameters(BYTE* size, BYTE* duplex, BYTE* res, 
 		for (iCnt = 0; iCnt <= MAX_DEVICES; iCnt++)
 		{
 			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
-
-			hDev = CreateFile(strPort,
-				GENERIC_READ | GENERIC_WRITE,
-				FILE_SHARE_READ | FILE_SHARE_WRITE,
-				NULL,
-				OPEN_EXISTING,
-				FILE_FLAG_OVERLAPPED, NULL);
-
-			if (hDev != INVALID_HANDLE_VALUE)
+			//modified by yunying shang 2018-03-09 for BMS 
+			if (wcscmp(strPort, g_deviceName) == 0)
 			{
-				break;
-			}
-			else
-			{
-				error = GetLastError();
+				hDev = CreateFile(strPort,
+					GENERIC_READ | GENERIC_WRITE,
+					FILE_SHARE_READ | FILE_SHARE_WRITE,
+					NULL,
+					OPEN_EXISTING,
+					FILE_FLAG_OVERLAPPED, NULL);
+
+				if (hDev != INVALID_HANDLE_VALUE)
+				{
+					break;
+				}
+				else
+				{
+					error = GetLastError();
+				}
 			}
 		}
 
@@ -2882,20 +2909,24 @@ USBAPI_API int __stdcall SetScanParameters(BYTE size, BYTE duplex, BYTE res, BYT
 		{
 			_stprintf_s(strPort, L"%s%d", USBSCANSTRING, iCnt);
 
-			hDev = CreateFile(strPort,
-				GENERIC_READ | GENERIC_WRITE,
-				FILE_SHARE_READ | FILE_SHARE_WRITE,
-				NULL,
-				OPEN_EXISTING,
-				FILE_FLAG_OVERLAPPED, NULL);
+			//modified by yunying shang 2018-03-09 for BMS 
+			if (wcscmp(strPort, g_deviceName) == 0)
+			{
+				hDev = CreateFile(strPort,
+					GENERIC_READ | GENERIC_WRITE,
+					FILE_SHARE_READ | FILE_SHARE_WRITE,
+					NULL,
+					OPEN_EXISTING,
+					FILE_FLAG_OVERLAPPED, NULL);
 
-			if (hDev != INVALID_HANDLE_VALUE)
-			{
-				break;
-			}
-			else
-			{
-				error = GetLastError();
+				if (hDev != INVALID_HANDLE_VALUE)
+				{
+					break;
+				}
+				else
+				{
+					error = GetLastError();
+				}
 			}
 		}
 
