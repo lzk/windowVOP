@@ -6,7 +6,7 @@
 	x:Name="Window"
 	Title="ScanSetting"
     Width="585" 
-	Height="708"
+	Height="678"
     AllowsTransparency="true"
     WindowStartupLocation="CenterOwner"
     ResizeMode="NoResize"
@@ -153,7 +153,7 @@
                             <Condition Property="IsChecked" Value="true"></Condition>
                             <Condition Property="IsEnabled" Value="false"></Condition>
                         </MultiTrigger.Conditions>
-                        
+
                         <Setter TargetName="imgCheck" Property="Visibility" Value="Hidden"/>
                         <Setter TargetName="imgUncheck" Property="Visibility" Value="Hidden"/>
                         <Setter TargetName="imgCheckDisable" Property="Visibility" Value="Visible"/>
@@ -296,13 +296,13 @@
                     <DropShadowEffect BlurRadius="24" Color="#FF858484" Direction="90" ShadowDepth="3"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <Grid x:Name="LayoutRoot" Width="537" Height="660" >
+            <Grid x:Name="LayoutRoot" Width="537" Height="630" >
                 <Grid.Background>
                     <ImageBrush ImageSource="../../Images/popup_gnd_scan settings.png" Stretch="None"></ImageBrush>
                 </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="570" />
+                    <RowDefinition Height="540" />
                     <RowDefinition Height="60" />
                     <RowDefinition/>
                 </Grid.RowDefinitions>
@@ -328,11 +328,9 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <local:GroupBoxDecorator Grid.Row="0" Header="{StaticResource ResStr_Faroe_ADF}" HorizontalAlignment="Center"
-                                         VerticalAlignment="Top" Width="220" Height="75" >
+                    <local:GroupBoxDecorator Grid.Row="0" Header="{StaticResource ResStr_Faroe_ADF}" HorizontalAlignment="Center" Width="220" Margin="9,0,9,15" >
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="20" />
@@ -346,14 +344,14 @@
                     HorizontalAlignment="Center"
                     Name="twoSideButton" Click="ADFMode_click"
                     Template="{StaticResource customRadioButton}"
-                    Content="{StaticResource ResStr_Faroe_2side}" VerticalAlignment="Center" ></RadioButton>
+                    Content="{StaticResource ResStr_Faroe_2side}" VerticalAlignment="Center" Margin="8,5" ></RadioButton>
 
                             <RadioButton GroupName="ADFMode" IsChecked="false"
                     Grid.Column="2"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     Name="oneSideButton" Click="ADFMode_click"
                     Template="{StaticResource customRadioButton}"
-                    Content="{StaticResource ResStr_Faroe_1side}" VerticalAlignment="Center" ></RadioButton>
+                    Content="{StaticResource ResStr_Faroe_1side}" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,5" ></RadioButton>
 
                         </Grid>
                     </local:GroupBoxDecorator>
@@ -367,7 +365,7 @@
                             VerticalAlignment="Center">
                         </ComboBox>
                     </local:GroupBoxDecorator>
-                    
+
                     <local:GroupBoxDecorator  Grid.Row="2" Header="{StaticResource ResStr_Type}" Height="75" 
                                               Width="220" HorizontalAlignment="Center" VerticalAlignment="Top" >
                         <ComboBox Name="cboMediaType" SelectionChanged="comboType_sel_change"
@@ -442,49 +440,20 @@
                         </Grid>
                     </local:GroupBoxDecorator>
 
-                    <local:GroupBoxDecorator Grid.Row="6" Header="{StaticResource ResStr_Faroe_multifeed}" 
-                                             HorizontalAlignment="Center" VerticalAlignment="Top" Width="220" Height="75">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20" />
-                                <ColumnDefinition Width="90" />
-                                <ColumnDefinition Width="90" />
-                                <ColumnDefinition Width="20" />
-                            </Grid.ColumnDefinitions>
-
-                            <RadioButton GroupName="MultiFeed" IsChecked="true"
-                                Grid.Column="1"
-                                HorizontalAlignment="Center"
-                                Name="MultiFeedOnButton" Click="MultiFeed_click"
-                                Template="{StaticResource customRadioButton}"
-                                Content="{StaticResource ResStr_On}" VerticalAlignment="Center" >
-                            </RadioButton>
-
-                            <RadioButton GroupName="MultiFeed" IsChecked="false"
-                                Grid.Column="2"
-                                HorizontalAlignment="Center"
-                                Name="MultiFeedOffButton" Click="MultiFeed_click"
-                                Template="{StaticResource customRadioButton}"
-                                Content="{StaticResource ResStr_Off}" VerticalAlignment="Center" >
-                            </RadioButton>
-
-                        </Grid>
-
-                    </local:GroupBoxDecorator>
                 </Grid>
-                
+
                 <Grid Grid.Row="1" Grid.Column="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="90" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
                         <RowDefinition Height="82" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="90" />
                     </Grid.RowDefinitions>
                     <!-- Right side -->
                     <local:GroupBoxDecorator Grid.Row="0" Header="{StaticResource ResStr_Color_Mode}" Height="75" Width="220" 
                                          HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Grid Margin="0,0,0,5">
+                        <Grid Margin="0,0,0,2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="30" />
                                 <ColumnDefinition Width="65" />
@@ -522,7 +491,7 @@
                             </RadioButton>
                         </Grid>
                     </local:GroupBoxDecorator>
-                    <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Contrast}" Height="120" 
+                    <local:GroupBoxDecorator Grid.Row="1" Header="{StaticResource ResStr_Contrast}" Height="116" 
                                              HorizontalAlignment="Center" VerticalAlignment="Top" Width="220" >
                         <StackPanel>
                             <Image Stretch="None" VerticalAlignment="Top"
@@ -545,7 +514,7 @@
                         </StackPanel>
                     </local:GroupBoxDecorator>
 
-                    <local:GroupBoxDecorator Grid.Row="2" Header="{StaticResource ResStr_Brightness}" Height="120" 
+                    <local:GroupBoxDecorator Grid.Row="2" Header="{StaticResource ResStr_Brightness}" Height="116" 
                                              Width="220" HorizontalAlignment="Center" VerticalAlignment="Top" >
                         <StackPanel>
                             <Image Stretch="None" VerticalAlignment="Top"
@@ -569,7 +538,7 @@
                         </StackPanel>
                     </local:GroupBoxDecorator>
 
-                    <local:GroupBoxDecorator Grid.Row="3" Header="{StaticResource ResStr_Gamma}" Height="120" 
+                    <local:GroupBoxDecorator Grid.Row="3" Header="{StaticResource ResStr_Gamma}" Height="116" 
                                              Width="220" HorizontalAlignment="Center" VerticalAlignment="Top" >
                         <StackPanel Orientation="Vertical">
                             <Slider HorizontalAlignment="Center" VerticalAlignment="Center" Minimum="0" Name="sldr_gamma" ValueChanged="sldr_value_change"
@@ -584,8 +553,36 @@
                         </StackPanel>
 
                     </local:GroupBoxDecorator>
+                    <local:GroupBoxDecorator Grid.Row="4" Header="{StaticResource ResStr_Faroe_multifeed}" 
+                                             HorizontalAlignment="Center" VerticalAlignment="Top" Width="220" Height="75">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="20" />
+                            </Grid.ColumnDefinitions>
 
-                    <local:GroupBoxDecorator Grid.Row="4" Header="{StaticResource ResStr_Faroe_autocrop}" 
+                            <RadioButton GroupName="MultiFeed" IsChecked="true"
+                                Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                Name="MultiFeedOnButton" Click="MultiFeed_click"
+                                Template="{StaticResource customRadioButton}"
+                                Content="{StaticResource ResStr_On}" VerticalAlignment="Center" >
+                            </RadioButton>
+
+                            <RadioButton GroupName="MultiFeed" IsChecked="false"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                Name="MultiFeedOffButton" Click="MultiFeed_click"
+                                Template="{StaticResource customRadioButton}"
+                                Content="{StaticResource ResStr_Off}" VerticalAlignment="Center" >
+                            </RadioButton>
+
+                        </Grid>
+
+                    </local:GroupBoxDecorator>
+                    <!--<local:GroupBoxDecorator Grid.Row="4" Header="{StaticResource ResStr_Faroe_autocrop}" 
                          HorizontalAlignment="Center"  VerticalAlignment="Top" Width="220" Height="75" >
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -613,7 +610,7 @@
 
                         </Grid>
 
-                    </local:GroupBoxDecorator>
+                    </local:GroupBoxDecorator>-->
 
                 </Grid>
 

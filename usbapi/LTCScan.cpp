@@ -215,9 +215,11 @@ void BrightnessAndContrast(const wchar_t *filename, int Brightness, int Contrast
 	Gdiplus::ImageAttributes imageAttributes;
 	imageAttributes.ClearColorMatrix();
 	imageAttributes.SetColorMatrix(&ptsArray, Gdiplus::ColorMatrixFlagsDefault, Gdiplus::ColorAdjustTypeBitmap);
-
+	
 	RectF r(0, 0, pImg->GetWidth(), pImg->GetHeight());
 	Graphics *g = Graphics::FromImage(pImg);
+	int bits = pImg->GetPixelFormat();
+
 	g->DrawImage(pImg, r, 0, 0, pImg->GetWidth(), pImg->GetHeight(), Gdiplus::UnitPixel, &imageAttributes);
 
 	CLSID pngClsid;
@@ -233,7 +235,7 @@ void BrightnessAndContrast(const wchar_t *filename, int Brightness, int Contrast
 
 	TCHAR new_name[4096] = { 0 };
 	wsprintf(new_name, _T("%s%s%s"), file_without_extension.c_str(), L"_bc", file_extension.c_str());
-
+	
 	pImg->Save(new_name, &pngClsid);
 
 	if (pImg)
@@ -1372,8 +1374,11 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 		glDrv._CloseDevice();
 
 		//contrast, brightness
-		if (!start_cancel && !glDrv.sc_infodata.ErrorStatus.cover_open_err && 
-			!glDrv.sc_infodata.ErrorStatus.scan_jam_err && !glDrv.sc_infodata.ErrorStatus.multi_feed_err)
+		if (!start_cancel 
+			&& !glDrv.sc_infodata.ErrorStatus.cover_open_err 
+			&& !glDrv.sc_infodata.ErrorStatus.scan_jam_err 
+			&& !glDrv.sc_infodata.ErrorStatus.multi_feed_err 
+			&& !glDrv.sc_infodata.ErrorStatus.memory_full_err)
 		{
 			if (brightness != 50 || contrast != 50)
 			{

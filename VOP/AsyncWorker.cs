@@ -481,7 +481,11 @@ namespace VOP
                     qr_pbw = new MessageBoxEx_Simple_Busy_QRCode(msgBoxText);
                     qr_pbw.Owner = this.owner;
                     qr_pbw.Loaded += pbw_Loaded;
-                    qr_pbw.ShowDialog();
+                    bool? rtn = qr_pbw.ShowDialog();
+                    if (rtn != true)
+                    {
+                        return false;
+                    }
                 }
 
                 if (result.AsyncWaitHandle.WaitOne(100, true))
