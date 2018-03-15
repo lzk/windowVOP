@@ -38,6 +38,9 @@ namespace VOP
 
         public void init_config(bool _bDisplayProgressBar = true)
         {
+            if (_MainWin.settingPageIndex != 6)
+                return;
+
             m_psavetime = 1;
             m_pofftime = 0;
 
@@ -595,28 +598,6 @@ namespace VOP
            // btnApply.IsEnabled = online;
         }
 
-        private MainWindow_Rufous _MainWin = null;
-
-        public MainWindow_Rufous m_MainWin
-        {
-            set
-            {
-                _MainWin = value;
-            }
-
-            get
-            {
-                if (null == _MainWin)
-                {
-                    return (MainWindow_Rufous)App.Current.MainWindow;
-                }
-                else
-                {
-                    return _MainWin;
-                }
-            }
-        }
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             btnSleepDecrease = spinnerControlAutoSleep.Template.FindName("btnDecrease", spinnerControlAutoSleep) as RepeatButton;
@@ -772,6 +753,28 @@ namespace VOP
                 VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning, Application.Current.MainWindow,
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_ScanType_Setting"),
                 (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+            }
+        }
+
+        private MainWindow_Rufous _MainWin = null;
+
+        public MainWindow_Rufous m_MainWin
+        {
+            set
+            {
+                _MainWin = value;
+            }
+
+            get
+            {
+                if (null == _MainWin)
+                {
+                    return (MainWindow_Rufous)App.Current.MainWindow;
+                }
+                else
+                {
+                    return _MainWin;
+                }
             }
         }
     }

@@ -214,42 +214,49 @@ namespace VOP
 
             if (settingType == SettingType.ScanParameter)
             {
+                m_MainWin.settingPageIndex = 2;
                 SetActiveButton(SettingType.ScanParameter);
                 scanParameterView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = scanParameterView;
             }
             if (settingType == SettingType.QuickScanSettings)
             {
+                m_MainWin.settingPageIndex = 0;
                 SetActiveButton(SettingType.QuickScanSettings);
                 quickScanSettings.m_MainWin = this.m_MainWin;
                 this.settingView.Child = quickScanSettings;
             }
             if (settingType == SettingType.QRCodeSettings)
             {
+                m_MainWin.settingPageIndex = 1;
                 SetActiveButton(SettingType.QRCodeSettings);
                 qrcodebarcodeView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = qrcodebarcodeView;
             }
             else if (settingType == SettingType.Wireless)
             {
+                m_MainWin.settingPageIndex = 3;
                 SetActiveButton(SettingType.Wireless);
                 wifiView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = wifiView;
             }
             else if (settingType == SettingType.TCPIP)
             {
+                m_MainWin.settingPageIndex = 4;
                 SetActiveButton(SettingType.TCPIP);
                 tcpipView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = tcpipView;
             }
             else if (settingType == SettingType.SoftAP)
             {
+                m_MainWin.settingPageIndex = 5;
                 SetActiveButton(SettingType.SoftAP);
                 softAPView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = softAPView;
             }
             else if (settingType == SettingType.Device)
             {
+                m_MainWin.settingPageIndex = 6;
                 SetActiveButton(SettingType.Device);
                 deviceView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = deviceView;
@@ -261,18 +268,21 @@ namespace VOP
 
             if ("btnScanParameter" == srcButton.Name)
             {
+                m_MainWin.settingPageIndex = 2;
                 SetActiveButton(SettingType.ScanParameter);
                 scanParameterView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = scanParameterView;
             }
             if ("btnQuickScanSettings" == srcButton.Name)
             {
+                m_MainWin.settingPageIndex = 0;
                 SetActiveButton(SettingType.QuickScanSettings);
                 quickScanSettings.m_MainWin = this.m_MainWin;
                 this.settingView.Child = quickScanSettings;
             }
             if ("btnQRCodeSettings" == srcButton.Name)
             {
+                m_MainWin.settingPageIndex = 1;
                 SetActiveButton(SettingType.QRCodeSettings);
                 qrcodebarcodeView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = qrcodebarcodeView;
@@ -315,24 +325,28 @@ namespace VOP
             //}
             else if ("btnwifi" == srcButton.Name)
             {
+                m_MainWin.settingPageIndex = 3;
                 SetActiveButton(SettingType.Wireless);
                 wifiView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = wifiView;
             }
             else if ("btnTCPIP" == srcButton.Name)
             {
+                m_MainWin.settingPageIndex = 4;
                 SetActiveButton(SettingType.TCPIP);
                 tcpipView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = tcpipView;
             }
             else if ("btnSoftAP" == srcButton.Name)
             {
+                m_MainWin.settingPageIndex = 5;
                 SetActiveButton(SettingType.SoftAP);
                 softAPView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = softAPView;
             }
             else if ("btnDevice" == srcButton.Name)
             {
+                m_MainWin.settingPageIndex = 6;
                 SetActiveButton(SettingType.Device);
                 deviceView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = deviceView;
@@ -356,7 +370,7 @@ namespace VOP
             setting_tab_btn.Children.Add(btnSoftAP);
             setting_tab_btn.Children.Add(btnDevice);
 
-            ClickSettingButton(SettingType.Device);
+           // ClickSettingButton(SettingType.Device);
             ClickSettingButton(SettingType.QuickScanSettings);
         }
 
@@ -371,18 +385,21 @@ namespace VOP
 
             if ("btnScanParameter" == srcButton.Name)
             {
+                m_MainWin.settingPageIndex = 2;
                 SetActiveButton(SettingType.ScanParameter);
                 scanParameterView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = scanParameterView;
             }
             if ("btnQuickScanSettings" == srcButton.Name)
             {
+                m_MainWin.settingPageIndex = 0;
                 SetActiveButton(SettingType.QuickScanSettings);
                 quickScanSettings.m_MainWin = this.m_MainWin;
                 this.settingView.Child =quickScanSettings ;
             }
             if ("btnQRCodeSettings" == srcButton.Name)
             {
+                m_MainWin.settingPageIndex = 1;
                 SetActiveButton(SettingType.QRCodeSettings);
                 qrcodebarcodeView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = qrcodebarcodeView;
@@ -425,24 +442,28 @@ namespace VOP
             //}
             else if ("btnwifi" == srcButton.Name)
             {
+                m_MainWin.settingPageIndex = 3;
                 SetActiveButton(SettingType.Wireless);
                 wifiView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = wifiView;
             }
             else if ("btnTCPIP" == srcButton.Name)
             {
+                m_MainWin.settingPageIndex = 4;
                 SetActiveButton(SettingType.TCPIP);
                 tcpipView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = tcpipView;
             }
             else if ("btnSoftAP" == srcButton.Name)
             {
+                m_MainWin.settingPageIndex = 5;
                 SetActiveButton(SettingType.SoftAP);
                 softAPView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = softAPView;
             }
             else if ("btnDevice" == srcButton.Name)
             {
+                m_MainWin.settingPageIndex = 6;
                 SetActiveButton(SettingType.Device);
                 deviceView.m_MainWin = this.m_MainWin;
                 this.settingView.Child = deviceView;

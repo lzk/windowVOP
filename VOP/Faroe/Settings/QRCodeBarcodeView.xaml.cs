@@ -300,28 +300,6 @@ namespace VOP
             }
         }
 
-        private MainWindow_Rufous _MainWin = null;
-
-        public MainWindow_Rufous m_MainWin
-        {
-            set
-            {
-                _MainWin = value;
-            }
-
-            get
-            {
-                if (null == _MainWin)
-                {
-                    return (MainWindow_Rufous)App.Current.MainWindow;
-                }
-                else
-                {
-                    return _MainWin;
-                }
-            }
-        }
-
         private void tbFilePath_TextChanged(object sender, TextChangedEventArgs e)
         {
 /*
@@ -361,6 +339,28 @@ namespace VOP
             if (settingWin.ShowDialog() == true)
             {
                 MainWindow_Rufous.g_settingData.m_decodeScanSettings = (ScanParamDecode)settingWin.m_scanParams;
+            }
+        }
+
+        private MainWindow_Rufous _MainWin = null;
+
+        public MainWindow_Rufous m_MainWin
+        {
+            set
+            {
+                _MainWin = value;
+            }
+
+            get
+            {
+                if (null == _MainWin)
+                {
+                    return (MainWindow_Rufous)App.Current.MainWindow;
+                }
+                else
+                {
+                    return _MainWin;
+                }
             }
         }
     }

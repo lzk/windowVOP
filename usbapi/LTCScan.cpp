@@ -1422,7 +1422,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			int count = fileCount;
 			for (UINT i = 0; i < count; i++)
 			{
-				if (emptyPages[i] == 1)
+				if (emptyPages[i])// == 1)
 				{
 
 					for (UINT j = i; j < (count - 1);j++)

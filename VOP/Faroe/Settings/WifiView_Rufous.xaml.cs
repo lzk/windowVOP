@@ -33,6 +33,9 @@ namespace VOP
 
         private void OnLoadWifiView(object sender, RoutedEventArgs e)
         {
+            if (_MainWin.settingPageIndex != 3)
+                return;
+
             btnConnectOthAp.Visibility = Visibility.Hidden;
             btnConnectOthAp.IsEnabled = false;
             manualConnect.Visibility = Visibility.Hidden;

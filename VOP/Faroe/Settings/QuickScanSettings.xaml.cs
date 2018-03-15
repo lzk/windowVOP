@@ -437,8 +437,6 @@ namespace VOP
                     return _MainWin;
                 }
             }
-        }
-
-       
+        }  
     }
 }

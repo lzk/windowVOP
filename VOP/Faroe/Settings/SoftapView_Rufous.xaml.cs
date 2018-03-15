@@ -37,7 +37,8 @@ namespace VOP
         private void OnLoadedSoftapView(object sender, RoutedEventArgs e)
         {
             //UpdateApplyBtnStatus();
-
+            if (_MainWin.settingPageIndex != 5)
+                return;
             init_config();
         }
 

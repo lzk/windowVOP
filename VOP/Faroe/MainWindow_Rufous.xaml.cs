@@ -51,6 +51,7 @@ namespace VOP
         public string m_strPassword = "";
         public bool _bScanning = false;
         public bool _bCancelPrint = false;
+        public int settingPageIndex = 0;
 
         private bool bGrayIcon = false; // True if the tray icon was set to gray.
         private const string USBSCANSTRING = "\\\\.\\usbscan";
@@ -494,8 +495,11 @@ namespace VOP
                         if (MainWindow_Rufous.g_settingData.m_isUsbConnect == true)
                         {
                             StringBuilder usbname = new StringBuilder(50);
+
                             if (dll.CheckUsbScan(usbname) == 1)
                             {
+                                MainWindow_Rufous.g_settingData.m_DeviceName = usbname.ToString();
+                                dll.SetConnectionMode(GetDeviceName(usbname.ToString()), true);
                                 Win32.PostMessage((IntPtr)0xffff, App.WM_STATUS_UPDATE, (IntPtr)1, IntPtr.Zero);
                                 bConnect = true;
                             }

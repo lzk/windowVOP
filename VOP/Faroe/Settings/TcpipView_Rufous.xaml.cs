@@ -181,6 +181,9 @@ namespace VOP
 
         private void OnLoadedTcpipView(object sender, RoutedEventArgs e)
         {
+            if (_MainWin.settingPageIndex != 4)
+                return;
+
             init_config();
         }
 
