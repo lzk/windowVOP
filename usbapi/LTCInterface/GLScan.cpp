@@ -1548,66 +1548,79 @@ exit_info:
 BYTE CGLDrv::_LOCK(LPCTSTR szIP)
 {
 	BYTE nResult = 0;
+	int count = 3;
 
-	if (m_GLnet->CMDIO_Connect(szIP, 23011))
+	while (count-- > 0)
 	{
-		U8 cmd[8] = { 'L','O','C','K', 0, 0, 0, 0 };
-		U8 ack[8] = { 0 };
-
-		if (m_GLnet->CMDIO_Write(cmd, 8) == TRUE)
+		if (m_GLnet->CMDIO_Connect(szIP, 23011))
 		{
-			if (m_GLnet->CMDIO_Read(ack, 8))
+			U8 cmd[8] = { 'L','O','C','K', 0, 0, 0, 0 };
+			U8 ack[8] = { 0 };
+
+			if (m_GLnet->CMDIO_Write(cmd, 8) == TRUE)
 			{
-				if (ack[0] == 'S' &&
-					ack[1] == 'T' &&
-					ack[2] == 'A' &&
-					ack[4] == 'A')
-					nResult = 1;
-
-				bLocked = TRUE;
+				if (m_GLnet->CMDIO_Read(ack, 8))
+				{
+					if (ack[0] == 'S' &&
+						ack[1] == 'T' &&
+						ack[2] == 'A' &&
+						ack[4] == 'A')
+						nResult = 1;
+					m_GLnet->CMDIO_Close();
+					bLocked = TRUE;
+					break;
+				}
 			}
+			m_GLnet->CMDIO_Close();		
 		}
-		m_GLnet->CMDIO_Close();
-	}
-	else
-	{
-		//TCHAR showIp[256] = { 0 };
-		//wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
-		//OutputDebugString(showIp);
-
-		nResult = FALSE;
+		else
+		{
+			//TCHAR showIp[256] = { 0 };
+			//wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
+			//OutputDebugString(showIp);
+			nResult = FALSE;
+		}
 	}
 
 	return nResult;
 }
+
+//modified by yunying shang 2018-03-14 for BMS 2700
 BYTE CGLDrv::_UNLOCK(LPCTSTR szIP)
 {
 	BYTE nResult = 0;
+	int count = 3;
 
-	if (m_GLnet->CMDIO_Connect(szIP, 23011))
+	while (count-- > 0)
 	{
-		U8 cmd[8] = { 'U','L','C','K', 0, 0, 0, 0 };
-		U8 ack[8] = { 0 };
-
-		if (m_GLnet->CMDIO_Write(cmd, 8) == TRUE)
+		if (m_GLnet->CMDIO_Connect(szIP, 23011))
 		{
-			if (m_GLnet->CMDIO_Read(ack, 8))
-			{
-				if (ack[0] == 'S' &&
-					ack[1] == 'T' &&
-					ack[2] == 'A')
-					nResult = 1;
-			}
-		}
-		m_GLnet->CMDIO_Close();
-	}
-	else
-	{
-		TCHAR showIp[256] = { 0 };
-		wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
-		OutputDebugString(showIp);
+			U8 cmd[8] = { 'U','L','C','K', 0, 0, 0, 0 };
+			U8 ack[8] = { 0 };
 
-		nResult = FALSE;
+			if (m_GLnet->CMDIO_Write(cmd, 8) == TRUE)
+			{
+				if (m_GLnet->CMDIO_Read(ack, 8))
+				{
+					if (ack[0] == 'S' &&
+						ack[1] == 'T' &&
+						ack[2] == 'A')
+						nResult = 1;
+					m_GLnet->CMDIO_Close();
+					bLocked = FALSE;
+					break;
+				}
+			}
+			m_GLnet->CMDIO_Close();
+		}
+		else
+		{
+			TCHAR showIp[256] = { 0 };
+			wsprintf(showIp, L"\nTestIpConnected() Fail %s", szIP);
+			OutputDebugString(showIp);
+
+			nResult = FALSE;
+		}
 	}
 
 	return nResult;

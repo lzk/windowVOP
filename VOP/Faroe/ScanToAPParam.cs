@@ -21,7 +21,7 @@ namespace VOP
     public class ScanToAPParam : ICloneable
     {        
 
-        private string m_programType = "Paint";
+        private string m_programType = "Photo Viewer";
 
         private string m_APPath = "";
 

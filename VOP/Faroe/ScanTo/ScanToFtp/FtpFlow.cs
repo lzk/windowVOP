@@ -37,6 +37,8 @@ namespace VOP
                 return false;
             }
 
+            m_errorMsg = "";
+
             if (FlowType == FtpFlowType.View)
             {
                 bool? result = null;
@@ -126,14 +128,18 @@ namespace VOP
 
                 if (worker.InvokeQuickScanMethod(UploadFiles, (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_wait")))
                 {
-                   
+                    return true;
                 }
                 else
                 {
-                    VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
-                                    Application.Current.MainWindow,
-                                    (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail") + m_errorMsg,
-                                       (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                    //modified by yunying shang 2018-03-15 for BMS 2720
+                    if (m_errorMsg != "")
+                    {
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                                        Application.Current.MainWindow,
+                                        (string)Application.Current.MainWindow.TryFindResource("ResStr_Faroe_upload_fail") + m_errorMsg,
+                                           (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning"));
+                    }
                     return false;
                 }
 

@@ -185,7 +185,6 @@ int GetEncoderClsid(const WCHAR* format, CLSID* pClsid)
 	free(pImageCodecInfo);
 	return -1;  // Failure
 }
-
 void BrightnessAndContrast(const wchar_t *filename, int Brightness, int Contrast)
 {
 	HRESULT hr;
@@ -236,7 +235,15 @@ void BrightnessAndContrast(const wchar_t *filename, int Brightness, int Contrast
 	TCHAR new_name[4096] = { 0 };
 	wsprintf(new_name, _T("%s%s%s"), file_without_extension.c_str(), L"_bc", file_extension.c_str());
 	
-	pImg->Save(new_name, &pngClsid);
+	int depth = 8;
+	EncoderParameters encoderParameters;
+	encoderParameters.Count = 1;
+	encoderParameters.Parameter[0].Guid = EncoderColorDepth;
+	encoderParameters.Parameter[0].Type = EncoderParameterValueTypeLong;
+	encoderParameters.Parameter[0].NumberOfValues = 5;
+	encoderParameters.Parameter[0].Value = &depth;
+
+	pImg->Save(new_name, &pngClsid, &encoderParameters);
 
 	if (pImg)
 		delete pImg;
@@ -1205,10 +1212,15 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 							}
 							if (bColorDetect)
 							{
-								if(glDrv.sc_infodata.ImgStatus[dup].IsColor)
+								if (glDrv.sc_infodata.ImgStatus[dup].IsColor)
+								{
 									sprintf(fileName, "%s%03d%c_color.%s", filePath, page[dup], side, &ImgFile[dup].img.format);//#BMS1075
+								}
 								else
+								{
 									sprintf(fileName, "%s%03d%c_gray.%s", filePath, page[dup], side, &ImgFile[dup].img.format);
+								}
+								
 								if (((ImgFile[dup].img).bit) >= 24)
 								{
 									if (glDrv.sc_infodata.ImgStatus[dup].IsColor == 0) 
@@ -1229,9 +1241,13 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 							if (bColorDetect)
 							{
 								if (glDrv.sc_infodata.ImgStatus[dup].IsColor)
+								{
 									sprintf(fileName, "%s%03d_color.%s", filePath, page[dup], &ImgFile[dup].img.format);//#BMS1075
+								}
 								else
+								{
 									sprintf(fileName, "%s%03d_gray.%s", filePath, page[dup], &ImgFile[dup].img.format);
+								}
 								if (((ImgFile[dup].img).bit) >= 24)
 								{
 									if (glDrv.sc_infodata.ImgStatus[dup].IsColor == 0)
@@ -1318,7 +1334,9 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 							bEmptyPage = true;
 						}
 						else
-							emptyPages[fileCount-1] = 0;
+						{
+							emptyPages[fileCount - 1] = 0;
+						}
 
 						ImgFile_Close(&ImgFile[dup], glDrv.sc_infodata.ImageHeight[dup]);
 						bFiling[dup]--;
@@ -1404,7 +1422,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			int count = fileCount;
 			for (UINT i = 0; i < count; i++)
 			{
-				if (emptyPages[i])
+				if (emptyPages[i] == 1)
 				{
 
 					for (UINT j = i; j < (count - 1);j++)

@@ -103,7 +103,7 @@ namespace VOP
 
         //Application
         public ScanParam m_apScanSettings = new ScanParam();
-        public string m_programType = "Paint";
+        public string m_programType = "Photo Viewer";
 
 
         public string m_DeviceName = "";

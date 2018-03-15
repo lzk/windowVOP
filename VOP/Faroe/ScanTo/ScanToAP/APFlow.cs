@@ -183,6 +183,13 @@ namespace VOP
                     int i = 0;
                     if (programType == "Paint")
                     {
+                        //add by yunying shang 2018-03-15 for BMS 2724
+                        VOP.Controls.MessageBoxEx.Show(VOP.Controls.MessageBoxExStyle.Simple_Warning,
+                            Application.Current.MainWindow,
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Paint_Support_Two_Pages"),
+                            (string)Application.Current.MainWindow.TryFindResource("ResStr_Warning")
+                            );
+
                         string processFilename = System.Environment.SystemDirectory+"\\mspaint.exe";
 
                         i = 0;

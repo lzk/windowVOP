@@ -535,7 +535,7 @@ namespace VOP
                 //        Win32.PostMessage((IntPtr)0xffff, App.WM_BUTTON_PRESSED, IntPtr.Zero, IntPtr.Zero);
                 //    }
                 //}
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 10; i++)
                 {
                     if (_bExitUpdater)
                         break;

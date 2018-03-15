@@ -552,4 +552,5 @@
     <sys:String xml:space="preserve" x:Key="ResStr_Google_Folder_Deleted">The Default Path you selected has been deleted!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_ScanType_Setting">This Push Scan Type Parameters must be used 'EWS' to setting!</sys:String>
     <sys:String xml:space="preserve" x:Key="ResStr_could_not_be_all_space">The {0} cannot be all space!</sys:String>
+    <sys:String xml:space="preserve" x:Key="ResStr_Paint_Support_Two_Pages">The Application Paint only supports opening two pages at most on the same time.</sys:String>
 </ResourceDictionary>

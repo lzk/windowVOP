@@ -24,7 +24,7 @@ namespace VOP
     /// </summary>
     public partial class APSelectForm : Window
     {
-        public string m_programType = "Paint";
+        public string m_programType = "Photo Viewer";
 
         public APSelectForm()
         {
@@ -40,7 +40,7 @@ namespace VOP
             APListBox.Items.Add(CreateListItem("Windows Photo Viewer"));
             APListBox.Items.Add(CreateListItem("Other Applications"));
 
-            APListBox.SelectedIndex = 0;
+            APListBox.SelectedIndex = 1;
         }
 
         private ListBoxItem CreateListItem(string apName)
