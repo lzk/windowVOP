@@ -454,11 +454,16 @@ namespace VOP
             }
             //add by yunying shang 2017-10-19 for BMS 1178
             //if (image_wrappanel.Children.Count == GetSelectedItemCount())
-            if(selectedFileList.Count == GetSelectedItemCount())
+            if(selectedFileList.Count == GetSelectedItemCount() && image_wrappanel.Children.Count > 0)
                 SelectAllCheckBox.IsChecked = true;
             else
                 SelectAllCheckBox.IsChecked = false;
             //<<===================1178
+
+            if (image_wrappanel.Children.Count <= 0)
+                SelectAllCheckBox.IsEnabled = false;
+            else
+                SelectAllCheckBox.IsEnabled = true;
         }
 
         private void ImageItemSingleClick(object sender, RoutedEventArgs e)
@@ -721,6 +726,7 @@ namespace VOP
         {
             InitFontSize();
 
+            SelectAllCheckBox.IsEnabled = true;
             SelectAllCheckBox.IsChecked = true;
             SelectAll(true);
 
