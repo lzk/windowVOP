@@ -654,7 +654,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 			MyOutputString(L"height", height);
 			MyOutputString(L"type", type);
 			//modified by yunying shang 2018-01-09 for BMS 2021
-			if (2 == power_mode && ( /* AutoCrop  ||*/ height > 14000 || type > 0)) //|| MultiFeed || ADFMode ||
+			if (2 == power_mode && ( /* AutoCrop  ||*/ height > 15000 || type > 0)) //|| MultiFeed || ADFMode ||
 			{
 				if (imgBuffer)
 					delete imgBuffer;
@@ -663,7 +663,7 @@ USBAPI_API int __stdcall ADFScan(const wchar_t* sz_printer,
 				return RETSCAN_ERROR_POWER1;
 			}
 			//modified by yunying shang 2017-01-03 for BMS 1924
-			if(power_mode == 3 && (ADFMode || AutoCrop || MultiFeed || bColorDetect || bSkipBlankPage||  height > 14000 || type > 0 || g_connectMode_usb == false))
+			if(power_mode == 3 && (ADFMode || AutoCrop || MultiFeed || bColorDetect || bSkipBlankPage||  height > 15000 || type > 0 || g_connectMode_usb == false))
 			{
 				if (imgBuffer)
 					delete imgBuffer;

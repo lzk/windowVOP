@@ -521,7 +521,7 @@ namespace VOP
                             //}
 
                             //AutoCropOnButton.IsEnabled = true;
-                            //AutoCropOffButton.IsEnabled = true;
+                            //AutoCropOffButton.IsEnabled = true;                            
                             m_scanParams.AutoCrop = true;
                         }//<<============
 
